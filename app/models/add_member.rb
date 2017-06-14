@@ -22,7 +22,6 @@ class AddMember < Task
       self.roles = [Profile::Roles.member(organization.environment.id).id]
     end
     target.affiliate(requestor, self.roles.select{|r| !r.to_i.zero? }.map{|i| Role.find(i)})
-    person.follow(organization, Circle.find_or_create_by(:person => person, :name =>_('memberships'), :profile_type => 'Community'))
   end
 
   def title
