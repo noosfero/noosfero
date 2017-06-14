@@ -9,10 +9,9 @@ module Api
             resource :preview do
               get do
                 block_type = params[:block_type]
-                return forbidden! unless block_type.constantize <= Block
+                return forbidden! unless Object.const_defined?(block_type) && block_type.constantize <= Block
                 profile = environment.profiles.find_by(id: params[:profile_id])
-                box = Box.new(:owner => profile)
-                block = block_type.constantize.new(:box => box)
+                block = block_type.constantize.new(:box => Box.new(:owner => profile))
                 present_partial block, :with => Entities::Block, display_api_content: true
               end
             end
