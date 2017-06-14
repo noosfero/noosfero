@@ -8,13 +8,11 @@ module Api
           resource :blocks do
             resource :preview do
               get do
-                profile = environment.profiles.find_by(id: params[:profile_id])
                 block_type = params[:block_type]
-                box = Box.new
-                box.owner = profile
-                block_class = block_type.constantize
-                block = block_class.new
-                block.box = box
+                return forbidden! unless block_type.constantize <= Block
+                profile = environment.profiles.find_by(id: params[:profile_id])
+                box = Box.new(:owner => profile)
+                block = block_type.constantize.new(:box => box)
                 present_partial block, :with => Entities::Block, display_api_content: true
               end
             end
