@@ -45,7 +45,7 @@
                 {
                   'data-poster'      => f.image_preview(:big),
                   'data-download'    => f.public_filename,
-                  'data-webversions' => CGI::escapeHTML(f.web_versions!.to_json),
+                  'data-webversions' => CGI::escapeHTML(f.web_versions!.to_json).html_safe,
                   :style => "background-image:url(#{f.image_preview(:big)})"
                 }) %>
           <ul>
