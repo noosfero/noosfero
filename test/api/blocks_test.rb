@@ -182,8 +182,15 @@ class BlocksTest < ActiveSupport::TestCase
     assert_equal 0, block.images.size
   end
 
-  should 'return forbidden when block type is not derived from Block' do
+  should 'return forbidden when block type is not a constant declared' do
     params[:block_type] = 'FakeBlock'
+    get "/api/v1/profiles/#{person.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  should 'return forbidden when block type is a constant declared but is not derived from Block' do
+    params[:block_type] = 'Article'
     get "/api/v1/profiles/#{person.id}/blocks/preview?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal json["message"], "403 Forbidden"
