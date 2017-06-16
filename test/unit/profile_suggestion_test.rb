@@ -59,8 +59,12 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
 
     suggestions = ProfileSuggestion.calculate_suggestions(p1)
 
-    assert_includes suggestions, p5
-    assert_includes suggestions, p6
+    assert_not_includes suggestions, p2
+    assert_not_includes suggestions, p3
+    assert_not_includes suggestions, p4
+
+    assert_includes     suggestions, p5
+    assert_includes     suggestions, p6
   end
 
   should 'calculate people with common_communities' do
@@ -84,10 +88,13 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     c3.add_member(p4)
     c4.add_member(p5)
 
+    p1.add_friend(p2)
+    p2.add_friend(p1)
+
     suggestions = ProfileSuggestion.calculate_suggestions(p1)
 
-    assert_includes suggestions, p2
-    assert_includes suggestions, p4
+    assert_not_includes suggestions, p2
+    assert_includes     suggestions, p4
   end
 
   should 'calculate people with common_tags' do
@@ -127,10 +134,13 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     a52.tag_list = ['onivorism', 'facism']
     a52.save!
 
+    p1.add_friend(p2)
+    p2.add_friend(p1)
+
     suggestions = ProfileSuggestion.calculate_suggestions(p1)
 
-    assert_includes suggestions, p2
-    assert_includes suggestions, p3
+    assert_not_includes suggestions, p2
+    assert_includes     suggestions, p3
   end
 
   should 'calculate communities with common_friends' do
@@ -155,10 +165,12 @@ class ProfileSuggestionTest < ActiveSupport::TestCase
     c3.add_member(p2)
     c4.add_member(p3)
 
+    c1.add_member(p1)
+
     suggestions = ProfileSuggestion.calculate_suggestions(p1)
 
-    assert_includes suggestions, c1
-    assert_includes suggestions, c2
+    assert_not_includes suggestions, c1
+    assert_includes     suggestions, c2
   end
 
   should 'calculate communities with common_tags' do
