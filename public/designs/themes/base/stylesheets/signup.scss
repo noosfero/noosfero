@@ -75,11 +75,14 @@
   background: #fff;
 }
 
+#signup-form select {
+  width: 100%;
+}
+
 #signup-form textarea {
-  background: #fff;
   height: 100px;
   padding-right: 3px;
-  width: 365px;
+  width: 96%;
 }
 
 #signup-form input[type=file] {
@@ -96,6 +99,11 @@
   height: 20px;
   width: 20px;
   margin: 0px 5px 0px 3px;
+}
+
+#signup-form input[type=number] {
+  padding-right: 0;
+  width: 96%;
 }
 
 #signup-form .fieldgroup {
@@ -249,3 +257,15 @@
   content: '';
 }
 
+#signup-form div.custom-field.checkbox {
+  text-align: left;
+  padding: 10px 0;
+
+  label {
+    font-size: 20px;
+  }
+}
+
+#signup-form-profile {
+  margin-bottom: 10px;
+}
