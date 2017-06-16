@@ -6,7 +6,7 @@
 <% editing_profile ||= false %>
 <% fields.each do |field| %>
   <% rendered = render(:partial => "custom_fields/#{field.format}", :locals => {:field => field, :profile => profile, :name => "profile_data[custom_values[#{field.name}[value]]]"})%>
-  <div class="<%= 'field-with-privacy-selector' if editing_profile %>">
+  <div class="custom-field <%= field.format %> <%= 'field-with-privacy-selector' if editing_profile %>">
 
   <% if field.required%>
     <%= required rendered%>
