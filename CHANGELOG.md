@@ -1,3 +1,17 @@
+# 1.8.2
+  * Bumping version 1.8.2 (Rodrigo Souto) [1806c84]
+  * social-statistics: add pt translation (Rodrigo Souto) [f62529b]
+  * Makes default application layout and helpers more friendly to responsive themes (Aurélio A. Heckert) [227eda0]
+  * Merge branch 'custom_fields_signup' into 'master' (Rodrigo Souto) [04c9efe]
+  * Merge branch 'video-data-webversions' into 'master' (Rodrigo Souto) [83f4132]
+  * Merge branch 'fix_profile_suggestions' into 'master' (Rodrigo Souto) [45fd518]
+  * Merge branch 'fix-network-tab-comments' into 'master' (Rodrigo Souto) [49ce77d]
+  * Merge branch 'fix-captcha-modal-bug' into 'master' (Rodrigo Souto) [02d061d]
+  * Merge branch 'fix-notifications-crash' into 'master' (Rodrigo Souto) [fa8fa5c]
+  * Merge branch 'custom_routes_fixes' into 'master' (Rodrigo Souto) [d2f2e18]
+  * Merge branch 'custom_routes_css' into 'master' (Rodrigo Souto) [a098b0d]
+  * removing symbolic link plugin (Leandro Nunes dos Santos) [d6c22d9]
+
 # 1.8.1
   * Bumping version 1.8.1 (Rodrigo Souto) [1c40929]
   * debian-package: create rails binaries (Rodrigo Souto) [253ab2c]
