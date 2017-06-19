@@ -1,10 +1,6 @@
 module Api
   module Entities
 
-    Entity.format_with :timestamp do |date|
-      date.strftime('%Y/%m/%d %H:%M:%S') if date
-    end
-
     PERMISSIONS = {
       :admin => 0,
       :self  => 10,
@@ -118,8 +114,8 @@ module Api
 
     class Profile < Entity
       expose :identifier, :name, :id
-      expose :created_at, :format_with => :timestamp
-      expose :updated_at, :format_with => :timestamp
+      expose :created_at
+      expose :updated_at
 
       expose :additional_data do |profile, options|
         hash = {}
@@ -197,7 +193,7 @@ module Api
 
     class CommentBase < Entity
       expose :body, :title, :id
-      expose :created_at, :format_with => :timestamp
+      expose :created_at
       expose :author, :using => Profile
       expose :reply_of, :using => CommentBase
       expose :permissions do |comment, options|
@@ -214,8 +210,8 @@ module Api
       expose :id
       expose :body
       expose :abstract, documentation: {type: 'String', desc: 'Teaser of the body'}
-      expose :created_at, :format_with => :timestamp
-      expose :updated_at, :format_with => :timestamp
+      expose :created_at
+      expose :updated_at
       expose :title, :documentation => {:type => "String", :desc => "Title of the article"}
       expose :created_by, :as => :author, :using => Profile, :documentation => {type: 'Profile', desc: 'The profile author that create the article'}
       expose :profile, :using => Profile, :documentation => {type: 'Profile', desc: 'The profile associated with the article'}
