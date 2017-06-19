@@ -1962,7 +1962,6 @@ class ProfileTest < ActiveSupport::TestCase
     profile = fast_create(Organization)
     roles = %w(profile_foo profile_bar).map{ |r| create(Role, :name => r, :key => r, :environment_id => env.id, :permissions => ["some"]) }
     roles << create(Role, name: 'test', key: 'something_else', environment_id: env.id, profile_id: profile.id)
-    byebug
     assert_equal roles[0..2], Profile::Roles.organization_member_and_custom_roles(env.id, profile.id)
   end
 
