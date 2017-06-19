@@ -2409,4 +2409,33 @@ class ProfileTest < ActiveSupport::TestCase
     profile.environment.add_admin(person)
     assert_includes profile.available_blocks(person), RawHTMLBlock
   end
+
+  should 'follow the profile when adding a member' do
+    profile = fast_create(Community)
+    person = create_user.person
+
+    assert_difference 'profile.followers.count' do
+      profile.add_member(person)
+    end
+  end
+
+  should 'follow the profile when adding an admin' do
+    profile = fast_create(Community)
+    person = create_user.person
+
+    assert_difference 'profile.followers.count' do
+      profile.add_admin(person)
+    end
+  end
+
+  should 'unfollow the profile once there are no role assignments left' do
+    profile = fast_create(Community)
+    person = create_user.person
+    profile.add_member(person)
+    profile.add_admin(person)
+
+    Person.any_instance.expects(:unfollow).once
+    profile.remove_admin(person)
+    profile.remove_member(person)
+  end
 end
