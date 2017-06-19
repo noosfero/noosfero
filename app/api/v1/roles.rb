@@ -13,7 +13,7 @@ module Api
             get do
               profile = environment.profiles.find(params[:profile_id])
               return forbidden! unless profile.kind_of?(Organization)
-              roles = Profile::Roles.organization_roles(profile.environment.id, profile.id)
+              roles = Profile::Roles.organization_member_and_custom_roles(profile.environment.id, profile.id)
               person_roles = []
               if params[:person_id].present?
                 person = environment.people.find(params[:person_id])
