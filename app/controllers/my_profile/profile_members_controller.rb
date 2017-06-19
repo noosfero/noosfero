@@ -3,7 +3,7 @@ class ProfileMembersController < MyProfileController
 
   def index
     @filters = params[:filters] || {:roles => []}
-    all_roles = Profile::Roles.organization_member_roles(environment.id) | Profile::Roles.organization_custom_roles(environment.id, profile.id)
+    all_roles = Profile::Roles.organization_member_and_custom_roles(environment.id, profile.id)
     @filters[:roles] = all_roles unless @filters[:roles].present?
     @data = {}
     field = 'name'

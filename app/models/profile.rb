@@ -64,6 +64,10 @@ class Profile < ApplicationRecord
     def self.organization_roles(env_id, profile_id)
       all_roles(env_id).where("profile_id = ?  or key like 'profile_%'", profile_id)
     end
+    def self.organization_member_and_custom_roles(env_id, profile_id) 
+      self.organization_member_roles(env_id) | self.organization_custom_roles(env_id, profile_id)
+    end
+
     def self.all_roles(env_id)
       Role.where(environment_id: env_id)
     end
