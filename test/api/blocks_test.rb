@@ -182,4 +182,45 @@ class BlocksTest < ActiveSupport::TestCase
     assert_equal 0, block.images.size
   end
 
+  should 'return forbidden when block type is not a constant declared' do
+    params[:block_type] = 'FakeBlock'
+    get "/api/v1/profiles/#{person.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  should 'return forbidden when block type is a constant declared but is not derived from Block' do
+    params[:block_type] = 'Article'
+    get "/api/v1/profiles/#{person.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  should 'be able to get preview of CommunitiesBlock' do
+    community = fast_create(Community, :environment_id => environment.id)
+    community.add_admin(person)
+    params[:block_type] = 'CommunitiesBlock'
+    get "/api/v1/profiles/#{person.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["api_content"]['communities'].map{ |community| community['id'] }, community.id
+  end
+
+  should 'be able to get preview of RawHTMLBlock' do
+    params[:block_type] = 'RawHTMLBlock'
+    get "/api/v1/profiles/#{person.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json["api_content"]['html']
+  end
+
+  should 'be able to get preview of RecentDocumentsBlock' do
+    article1 = fast_create(Article, :profile_id => user.person.id, :name => "Article 1")
+    article2 = fast_create(Article, :profile_id => user.person.id, :name => "Article 2")
+    params[:block_type] = 'RecentDocumentsBlock'
+    get "/api/v1/profiles/#{user.person.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 2, json["api_content"]["articles"].size
+    assert_includes json["api_content"]['articles'].map{ |article| article['id'] }, article1.id
+    assert_includes json["api_content"]['articles'].map{ |article| article['id'] }, article2.id
+  end
+
 end
