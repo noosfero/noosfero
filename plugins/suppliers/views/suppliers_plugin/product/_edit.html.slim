@@ -71,7 +71,7 @@
 
   .links
     = link_to t('views.product._edit.product_registry'),
-      {controller: :manage_products, action: :show, id: product.id},
+      {controller: 'products_plugin/page', action: :show, id: product.id},
       target: '_blank', class: 'action-button registry'
 
 javascript:
