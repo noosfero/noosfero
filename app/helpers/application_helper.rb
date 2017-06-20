@@ -370,19 +370,23 @@ module ApplicationHelper
     end
   end
 
+  def theme_simple_search_menu_search
+    s = _('Search...')
+    "<form action=\"#{url_for(:controller => 'search', :action => 'index')}\" id=\"simple-search\" class=\"focus-out\""+
+    ' help="'+_('This is a search box. Click, write your query, and press enter to find')+'"'+
+    ' title="'+_('Click, write and press enter to find')+'">'+
+    '<input name="query" value="'+s+'"'+
+    ' onfocus="if(this.value==\''+s+'\'){this.value=\'\'} this.form.className=\'focus-in\'"'+
+    ' onblur="if(/^\s*$/.test(this.value)){this.value=\''+s+'\'} this.form.className=\'focus-out\'">'+
+    '</form>'
+  end
+
   def theme_opt_menu_search
     opt = theme_option( :menu_search )
     if    opt == 'none'
       ""
     elsif opt == 'simple_search'
-      s = _('Search...')
-      "<form action=\"#{url_for(:controller => 'search', :action => 'index')}\" id=\"simple-search\" class=\"focus-out\""+
-      ' help="'+_('This is a search box. Click, write your query, and press enter to find')+'"'+
-      ' title="'+_('Click, write and press enter to find')+'">'+
-      '<input name="query" value="'+s+'"'+
-      ' onfocus="if(this.value==\''+s+'\'){this.value=\'\'} this.form.className=\'focus-in\'"'+
-      ' onblur="if(/^\s*$/.test(this.value)){this.value=\''+s+'\'} this.form.className=\'focus-out\'">'+
-      '</form>'
+      theme_simple_search_menu_search
     else
       modal_link_to '<span class="icon-menu-search"></span>'+ _('Search'), {
                        :controller => 'search',
@@ -757,28 +761,39 @@ module ApplicationHelper
     "<span class='ui-icon ui-icon-arrow-1-e' style='float:left;'></span>".html_safe
   end
 
-  def display_category_menu(block, categories, root = true)
+
+  def sort_categories(categories)
     categories = categories.sort{|x,y| x.name <=> y.name}
+    return categories
+  end
+
+  def display_category_item(block, categories, root = true)
+    categories.map do |category|
+      category_path = { :controller => 'search', :action => 'category_index', :category_path => category.explode_path }
+      if category.display_in_menu?
+        content_tag(:li) do
+          if !category.is_leaf_displayable_in_menu?
+            content_tag(:a, collapsed_item_icon, :href => "#", :id => "block_#{block.id}_category_#{category.id}", :class => "category-link-expand " + (root ? "category-root" : "category-no-root"), :onclick => "expandCategory(#{block.id}, #{category.id}); return false", :style => "display: none")
+          else
+            leaf_item_icon
+          end +
+          link_to(content_tag(:span, category.name, :class => "category-name"), category_path, :class => ("category-leaf" if category.is_leaf_displayable_in_menu?)) +
+          content_tag(:div, :id => "block_#{block.id}_category_content_#{category.id}", :class => 'child-category') do
+            display_category_menu(block, category.children, false)
+          end
+        end
+      else
+        ""
+      end
+    end.join.html_safe
+  end
+
+
+  def display_category_menu(block, categories, root = true)
+    categories = sort_categories(categories)
     return "" if categories.blank?
     content_tag(:ul) do
-      categories.map do |category|
-        category_path = { :controller => 'search', :action => 'category_index', :category_path => category.explode_path }
-        if category.display_in_menu?
-          content_tag(:li) do
-            if !category.is_leaf_displayable_in_menu?
-              content_tag(:a, collapsed_item_icon, :href => "#", :id => "block_#{block.id}_category_#{category.id}", :class => "category-link-expand " + (root ? "category-root" : "category-no-root"), :onclick => "expandCategory(#{block.id}, #{category.id}); return false", :style => "display: none")
-            else
-              leaf_item_icon
-            end +
-            link_to(content_tag(:span, category.name, :class => "category-name"), category_path, :class => ("category-leaf" if category.is_leaf_displayable_in_menu?)) +
-            content_tag(:div, :id => "block_#{block.id}_category_content_#{category.id}", :class => 'child-category') do
-              display_category_menu(block, category.children, false)
-            end
-          end
-        else
-          ""
-        end
-      end.join.html_safe
+        display_category_item(block,categories)
     end +
     content_tag(:p) +
     (root ? javascript_tag("
@@ -1000,15 +1015,21 @@ module ApplicationHelper
     content_tag(:div, _('Source: %s').html_safe % source_url.html_safe, :id => 'article-source') unless source_url.nil?
   end
 
+
+  def task_target_url(task, values, params = {})
+    values.merge!({:target => link_to(task.target.name, task.target.url)})
+    target_detail = _("in %s").html_safe % values[:target]
+    target_detail = '' if task.target.identifier == params[:profile]
+    values.merge!({:target_detail => target_detail})
+    return values
+  end
+
   def task_information(task, params = {})
     values = {}
     values.merge!(task.information[:variables]) if task.information[:variables]
     values.merge!({:requestor => link_to(task.requestor.name, task.requestor.url)}) if task.requestor
     if (task.target && task.target.respond_to?(:url))
-      values.merge!({:target => link_to(task.target.name, task.target.url)})
-      target_detail = _("in %s").html_safe % values[:target]
-      target_detail = '' if task.target.identifier == params[:profile]
-      values.merge!({:target_detail => target_detail}) 
+      values =  task_target_url(task, values, params)
     end
     values.merge!({:subject => content_tag('span', task.subject, :class=>'task_target')}) if task.subject
     values.merge!({:linked_subject => link_to(content_tag('span', task.linked_subject[:text], :class => 'task_target'), task.linked_subject[:url])}) if task.linked_subject
@@ -1040,7 +1061,10 @@ module ApplicationHelper
     klass = 'report-abuse-action'
     already_reported_message = _('You already reported this profile.')
     report_profile_message = _('Report this profile for abusive behaviour')
+    report_depending_component(profile, type, content, url, text, klass, already_reported_message, report_profile_message)
+  end
 
+  def report_depending_component(profile, type, content, url, text, klass, already_reported_message, report_profile_message)
     if type == :button
       if user.already_reported?(profile)
         button(:alert, text, url, :class => klass+' disabled', :disabled => true, :title => already_reported_message)
@@ -1113,14 +1137,19 @@ module ApplicationHelper
     core_condition || plugin_condition
   end
 
+  def define_template_radio_buttons(templates, field_name)
+    radios = templates.map do |template|
+      content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, environment.is_default_template?(template)))
+    end.join("\n").html_safe
+    return radios
+  end
+
   def template_options(kind, field_name)
     templates = environment.send(kind).templates
     return '' if templates.count == 0
     return hidden_field_tag("#{field_name}[template_id]", templates.first.id) if templates.count == 1
 
-    radios = templates.map do |template|
-      content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, environment.is_default_template?(template)))
-    end.join("\n").html_safe
+    radios = define_template_radio_buttons(templates, field_name)
 
     content_tag('div', content_tag('label', _('Profile organization'), :for => 'template-options', :class => 'formlabel') +
       content_tag('p', _('Your profile will be created according to the selected template. Click on the options to view them.'), :style => 'margin: 5px 15px;padding: 0px 10px;') +
