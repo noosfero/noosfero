@@ -1,0 +1,32 @@
+<h1><%= _('Manage %s Themes') % environment.name %></h1>
+
+<% if @error %>
+<p class="error"><%= @error %></p>
+<% end %>
+
+<ul id="enabled-themes">
+<h2><%= _("Enabled Themes") %></h2>
+   <% @enabled_themes.each do |theme_id, config| %>
+    <li class="<%= config[:visible] ? 'theme-enabled' : 'theme-disabled'%>">
+      <%= config[:name] %>
+      <br>
+      <% if config[:visible] %>
+        <%= link_to _('Hides'), { controller: 'theme_manager_plugin_admin', action:'hide', id:theme_id}, {class:'button with-text bt-hide'} %>
+      <%else%>
+        <%= link_to _('Show'), { controller: 'theme_manager_plugin_admin', action:'show', id:theme_id}, {class:'button with-text bt-show'}  %>
+      <%end%>
+      <%= link_to _('Disable'), { controller: 'theme_manager_plugin_admin', action:'disable', id:theme_id }, {class:'button with-text bt-disable'} %>
+    </li>
+  <% end %>
+</ul>
+
+<ul id="disabled-themes">
+<h2><%= _("Disabled Themes")%></h2>
+<% @disabled_themes.each do |theme_name| %>
+    <li><%= link_to _('To enable %s') % theme_name, controller: 'theme_manager_plugin_admin', action:'enable', id:theme_name %></li>
+<% end %>
+</ul>
+
+<h2><%= _('Send a new theme') %></h2>
+<%= form_tag({controller: 'theme_manager_plugin_admin', action: 'add_theme'}, method:'post', multipart:true) do file_field_tag('theme-package') + submit_tag('Enviar')
+end %>
