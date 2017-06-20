@@ -1,14 +1,11 @@
 module PushNotificationPlugin::Observers
+
+  include ObserversHelper
+
   module ApproveArticleObserver
     def approve_article_after_create_callback(approve_article)
-      requestor = approve_article.requestor
-      target = approve_article.target
-
-      if target.person?
-        users = [target.user]
-      elsif target.organization?
-        users = target.admins.map{|person| person.user}
-      end
+      target, requestor = get_target_and_requestor approve_article
+      users = get_users_info target
 
       send_to_users("approve_article",
                     users,
