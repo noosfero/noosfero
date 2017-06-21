@@ -40,9 +40,7 @@ class PgSearchPlugin < Noosfero::Plugin
       scope = query_scope.where(:id => scope.map(&:id)).reorder("")
     end
 
-    facets_params = facets.present? ? facets_options(asset, scope, facets) : {}
-
-    {:results => scope.paginate(paginate_options), :facets => facets_params, :periods => periods}
+    {:results => scope.paginate(paginate_options), :facets => facets_options(asset, scope, facets), :periods => periods}
   end
 
   private
