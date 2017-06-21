@@ -359,7 +359,7 @@ class MembersBlockViewTest < ActionView::TestCase
     assert_equivalent [person1.identifier, person2.identifier], json["people"].map {|p| p[:identifier]}
   end
 
-  should 'limit friends list in api content' do
+  should 'limit members list in api content' do
     owner = fast_create(Community)
     5.times do
       member = fast_create(Person)
@@ -389,4 +389,29 @@ class MembersBlockViewTest < ActionView::TestCase
     assert_equal 1, block.profile_list.size
   end
 
+  should 'return members randomically in api content' do
+    owner = fast_create(Community)
+    10.times do
+      member = fast_create(Person)
+      owner.add_member(member)
+    end
+    block = MembersBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json_response_1 = block.api_content
+    json_response_2 = block.api_content
+    json_response_3 = block.api_content
+    assert !(json_response_1 == json_response_2 && json_response_2 == json_response_3)
+  end
+
+  should 'return members in order of name in api content' do
+    owner = fast_create(Community)
+    10.times do |n|
+      friend = fast_create(Person, :name => "Person #{n}")
+      owner.add_member(friend)
+    end
+    block = MembersBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json_response = block.api_content
+    assert (json_response['people'][0][:name] < json_response['people'][1][:name]) && (json_response['people'][1][:name] < json_response['people'][2][:name])
+  end
 end

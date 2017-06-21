@@ -13,7 +13,7 @@ class FriendsBlock < PeopleBlockBase
   end
 
   def profiles
-    owner.friends.no_templates
+    owner.friends.no_templates.order('RANDOM()')
   end
 
   def suggestions

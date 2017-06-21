@@ -13,6 +13,6 @@ class PeopleBlock < PeopleBlockBase
   end
 
   def profiles
-    owner.people.no_templates
+    owner.people.no_templates.order('RANDOM()')
   end
 end

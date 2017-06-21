@@ -48,7 +48,7 @@ class PeopleBlockBase < Block
 
   def api_content(params = {})
     content = {}
-    content['people'] = Api::Entities::Person.represent(profiles.limit(self.limit)).as_json
+    content['people'] = Api::Entities::Person.represent(profiles.limit(self.limit).sort{|x,y| x.name <=> y.name}).as_json
     content['#'] = profiles.size
     content
   end
