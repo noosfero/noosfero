@@ -208,7 +208,7 @@ class PgSearchPlugin < Noosfero::Plugin
       occurrence.value = argument
     when 'relation'
       klass_name = facet_slug.classify
-      occurrence.target = klass_name.constantize.find(argument)
+      occurrence.target = klass_name.constantize.where(id: argument).first
     else
       return
     end
