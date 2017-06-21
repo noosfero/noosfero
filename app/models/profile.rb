@@ -557,6 +557,8 @@ class Profile < ApplicationRecord
   alias_method_chain :template, :default
 
   def apply_template(template, options = {:copy_articles => true})
+    raise "#{template.identifier} is not a template" if !template.is_template
+
     self.template = template
     copy_blocks_from(template)
     copy_articles_from(template) if options[:copy_articles]
