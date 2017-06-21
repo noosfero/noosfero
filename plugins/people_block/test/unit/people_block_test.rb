@@ -215,4 +215,28 @@ class PeopleBlockViewTest < ActionView::TestCase
     assert_equal 2, block.profile_list.count
   end
 
+  should 'return people randomically in api content' do
+    owner = fast_create(Environment)
+    5.times do
+      fast_create(Person, :environment_id => owner.id)
+    end
+    block = PeopleBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json_response_1 = block.api_content
+    json_response_2 = block.api_content
+    json_response_3 = block.api_content
+    assert !(json_response_1 == json_response_2 && json_response_2 == json_response_3)
+  end
+
+  should 'return people in order of name in api content' do
+    owner = fast_create(Environment)
+    10.times do
+      fast_create(Person, :environment_id => owner.id)
+    end
+    block = PeopleBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json_response = block.api_content
+    assert (json_response['people'][0][:name] < json_response['people'][1][:name]) && (json_response['people'][1][:name] < json_response['people'][2][:name])
+  end
+
 end

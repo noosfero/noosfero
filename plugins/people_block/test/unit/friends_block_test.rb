@@ -227,4 +227,31 @@ class FriendsBlockViewTest < ActionView::TestCase
     assert_equal 3, json["people"].size
     assert_equal 5, json["#"]
   end
+
+  should 'return friends randomically in api content' do
+    owner = fast_create(Person)
+    10.times do |n|
+      friend = fast_create(Person, :name => "Person #{n}")
+      owner.add_friend(friend)
+    end
+    block = FriendsBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json_response_1 = block.api_content
+    json_response_2 = block.api_content
+    json_response_3 = block.api_content
+    assert !(json_response_1 == json_response_2 && json_response_2 == json_response_3)
+  end
+
+  should 'return friends in order of name in api content' do
+    owner = fast_create(Person)
+    10.times do |n|
+      friend = fast_create(Person, :name => "Person #{n}")
+      owner.add_friend(friend)
+    end
+    block = FriendsBlock.new(limit: 3)
+    block.expects(:owner).returns(owner.reload).at_least_once
+    json_response = block.api_content
+    assert (json_response['people'][0][:name] < json_response['people'][1][:name]) && (json_response['people'][1][:name] < json_response['people'][2][:name])
+  end
+
 end

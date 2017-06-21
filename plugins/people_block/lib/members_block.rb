@@ -17,7 +17,10 @@ class MembersBlock < PeopleBlockBase
   end
 
   def profiles
-    role ? owner.members.with_role(role.id) : owner.members.no_templates
+    profiles = role ? owner.members.with_role(role.id) : owner.members.no_templates
+    seed = rand(profiles.count)
+    random_profiles = profiles.offset((seed - self.limit) < 0 ? 0 : (seed - self.limit))
+    random_profiles
   end
 
   def role
