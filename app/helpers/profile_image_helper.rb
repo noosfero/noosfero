@@ -66,7 +66,7 @@ module ProfileImageHelper
   def links_for_balloon(profile)
     if environment.enabled?(:show_balloon_with_profile_links_when_clicked)
       if profile.kind_of?(Person)
-        [
+        return [
           {_('Wall') => {:href => url_for(profile.public_profile_url)}},
           {_('Friends') => {:href => url_for(:controller => :profile, :action => :friends, :profile => profile.identifier)}},
           {_('Communities') => {:href => url_for(:controller => :profile, :action => :communities, :profile => profile.identifier)}},
@@ -74,7 +74,7 @@ module ProfileImageHelper
           {_('Add') => {:href => url_for(profile.add_url), :class => 'add-friend', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Community)
-        [
+        return [
           {_('Wall') => {:href => url_for(profile.public_profile_url)}},
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
@@ -83,15 +83,14 @@ module ProfileImageHelper
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Enterprise)
-        [
+        return [
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
         ]
-      else
-        []
       end
     end
+    []
   end
 
   include StyleHelper
