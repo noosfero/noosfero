@@ -16,12 +16,16 @@ class TemplatesController < AdminController
     end
   end
 
+  def create_template(template)
+    create_organization_template(template)
+    session[:notice] = _('New template created')
+    redirect_to :action => 'index'
+  end
+
   def create_community_template
     if request.post?
       begin
-        create_organization_template(Community)
-        session[:notice] = _('New template created')
-        redirect_to :action => 'index'
+          create_template(Community)
       rescue
         @error = _('Name has already been taken')
       end
@@ -31,9 +35,7 @@ class TemplatesController < AdminController
   def create_enterprise_template
     if request.post?
       begin
-        create_organization_template(Enterprise)
-        session[:notice] = _('New template created')
-        redirect_to :action => 'index'
+        create_template(Enterprise)
       rescue
         @error = _('Name has already been taken')
       end
@@ -108,4 +110,3 @@ class TemplatesController < AdminController
   end
 
 end
-
