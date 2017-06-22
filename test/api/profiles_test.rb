@@ -414,6 +414,17 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal some_person.id, json['id']
   end
 
+  ['icon', 'thumb', 'big', 'portrait', 'minor'].each do | size |
+    should "get profile image #{size} from identifier" do
+      image = Image.create(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+      image_data = image.data
+      mock_all_profile_image(size, image, image_data)
+      api_image_data = get_profile_image_from_api(size, 'profile_identifier')
+
+      assert_equal image_data, api_image_data
+    end
+  end
+
   should "return profile theme when it is defined" do
     some_person = fast_create(Person, theme: 'person-theme')
     get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"

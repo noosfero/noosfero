@@ -22,7 +22,6 @@ class Image < ApplicationRecord
                                   :icon     => '20x20!' },
                  :max_size => 5.megabytes, # remember to update validate message below
                  processor: 'Rmagick'
-
   validates_attachment :size => N_("{fn} of uploaded file was larger than the maximum size of 5.0 MB").fix_i18n
 
   extend DelayedAttachmentFu::ClassMethods
@@ -32,6 +31,10 @@ class Image < ApplicationRecord
 
   def current_data
     File.file?(full_filename) ? File.read(full_filename) : nil
+  end
+
+  def data(size = nil)
+    File.file?(full_filename(size)) ? File.read(full_filename(size)) : nil
   end
 
 end
