@@ -20,12 +20,6 @@ def edit_visibility
   end
  end
 
-  def search_article_privacy_exceptions
-    arg = params[:q].downcase
-    result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
-    render :text => prepare_to_token_input(result).to_json
-  end
-
   protected
 
   def protect_if

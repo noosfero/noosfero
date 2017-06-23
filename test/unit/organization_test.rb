@@ -32,6 +32,22 @@ class OrganizationTest < ActiveSupport::TestCase
     end
   end
 
+  should 'set links correctly' do
+    org = Organization.new
+    links = org.set_links
+    assert_not_nil links
+  end
+
+  should 'have the same behaviour' do
+    org = Organization.new
+    blocks = org.default_set_of_blocks
+
+    links = blocks[1][1].settings[:links]
+    links_by_set_links = org.set_links
+
+    assert_equal links, links_by_set_links
+  end
+
   should 'reference region' do
     org = Organization.new
     assert_raise ActiveRecord::AssociationTypeMismatch do

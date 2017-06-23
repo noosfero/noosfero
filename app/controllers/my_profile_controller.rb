@@ -13,13 +13,19 @@ class MyProfileController < ApplicationController
   #
   # The above controller will reject every request to it unless the current
   # profile (as indicated by the first URL component) is of class Person (or of
-  # a subclass of Person) 
+  # a subclass of Person)
   def self.requires_profile_class(some_class)
     before_filter do |controller|
       unless controller.send(:profile).kind_of?(some_class)
         controller.send(:render_access_denied, _("This action is not available for \"%s\".") % controller.send(:profile).name)
       end
     end
+  end
+
+  def search_article_privacy_exceptions
+    arg = params[:q].downcase
+    result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
+    render :text => prepare_to_token_input(result).to_json
   end
 
 end
