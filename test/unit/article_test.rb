@@ -1687,7 +1687,7 @@ class ArticleTest < ActiveSupport::TestCase
     )
     img = {}
     img.expects(:present?).returns true
-    img.expects(:public_filename).returns 'pic.jpg'
+    img.expects(:public_filename).with(:uploaded).returns 'pic.jpg'
     a.expects(:image).at_least_once.returns img
     assert_equal 'pic.jpg', a.first_image
   end
