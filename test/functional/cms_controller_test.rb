@@ -1498,19 +1498,6 @@ class CmsControllerTest < ActionController::TestCase
     assert_select '#task_email', 0
   end
 
-  should 'display captcha when suggest an article for not logged in users' do
-    logout
-    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
-
-    assert_select '#dynamic_recaptcha'
-  end
-
-  should 'not display captcha when suggest an article for logged in users' do
-    get :suggest_an_article, :profile => profile.identifier, :back_to => 'action_view'
-
-    assert_select '#dynamic_recaptcha', 0
-  end
-
   should 'render TinyMce Editor on suggestion of article if editor is TinyMCE' do
     logout
     profile.editor = Article::Editor::TINY_MCE
@@ -1656,7 +1643,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => AccessLevels::LEVELS[:self],
+                                      :topic_creation => AccessLevels.levels[:self],
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',
@@ -1671,7 +1658,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => AccessLevels::LEVELS[:related],
+                                      :topic_creation => AccessLevels.levels[:related],
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',
@@ -1686,7 +1673,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => AccessLevels::LEVELS[:users],
+                                      :topic_creation => AccessLevels.levels[:users],
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',

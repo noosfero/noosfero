@@ -14,7 +14,6 @@ Feature: comment
       | article              | author  | title | body         |
       | article with comment | booking | hi    | how are you? |
       | article with comment | booking | hello | i am fine    |
-    And feature "captcha_for_logged_users" is disabled on environment
     And I am logged in as "booking"
 
   # This test requires some way to overcome the captcha with unauthenticated

@@ -49,7 +49,7 @@
 
   <%= content_tag('h4', _('Wall access')) %>
   <%= content_tag( 'small', _('Who will be able to see your wall?')) %>
-  <%= slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, @profile.wall_access_levels, @profile.wall_access) %>
+  <%= access_slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, @profile.wall_access, @profile.wall_access_levels) %>
 
   <% if environment.enabled?('allow_change_of_redirection_after_login') %>
     <%= render 'redirection_after_login', f: f %>

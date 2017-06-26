@@ -274,7 +274,7 @@ class Profile < ApplicationRecord
     where('circles.id = ?', circle.id)
   }
 
-  settings_items :wall_access, :type => :integer, :default => AccessLevels::LEVELS[:users]
+  settings_items :wall_access, :type => :integer, :default => AccessLevels.levels[:users]
   settings_items :allow_followers, :type => :boolean, :default => true
   alias_method :allow_followers?, :allow_followers
 
@@ -389,7 +389,7 @@ class Profile < ApplicationRecord
   end
 
   def wall_access_levels
-    AccessLevels.options(1)
+    AccessLevels.range_options(1, 3)
   end
 
   def interests

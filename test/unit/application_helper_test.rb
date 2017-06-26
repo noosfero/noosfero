@@ -983,6 +983,22 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_match /in.*#{profile.name}/, task_information(task, {:profile => another_profile.identifier})
   end
 
+  should "include recaptcha tags if environment requires captcha" do
+    user = mock
+    environment = mock
+    environment.stubs(:require_captcha?).returns(true)
+    self.expects(:recaptcha_tags)
+    captcha_tags(:some_action, user, environment)
+  end
+
+  should "not include recaptcha tags if environment does not require captcha" do
+    user = mock
+    environment = mock
+    environment.expects(:require_captcha?).returns(false)
+    self.expects(:recaptcha_tags).never
+    captcha_tags(:some_action, user, environment)
+  end
+
   protected
   include NoosferoTestHelper
 

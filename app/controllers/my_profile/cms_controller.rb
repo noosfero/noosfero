@@ -5,6 +5,7 @@ class CmsController < MyProfileController
   include ArticleHelper
   include CategoriesHelper
   include SearchTags
+  include Captcha
 
   def self.protect_if(*args)
     before_filter(*args) do |c|
@@ -350,7 +351,7 @@ class CmsController < MyProfileController
       @task.user_agent = request.user_agent
       @task.referrer = request.referrer
       @task.requestor = current_person if logged_in?
-      if (logged_in? || verify_recaptcha(:model => @task, :message => _('Please type the words correctly'))) && @task.save
+      if verify_captcha(:suggest_article, @task, user, environment, profile) && @task.save
         session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to
       end

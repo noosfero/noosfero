@@ -4,6 +4,8 @@ class CommentController < ApplicationController
 
   before_filter :can_update?, :only => [:edit, :update]
 
+  include Captcha
+
   def create
     begin
       @page = profile.articles.find(params[:id])
@@ -47,7 +49,7 @@ class CommentController < ApplicationController
       return
     end
 
-    if !@comment.valid? || (not pass_without_comment_captcha? and not verify_recaptcha(:model => @comment, :message => _('Please type the words correctly')))
+    if !@comment.valid? || !verify_captcha(:create_comment, @comment, user, environment, profile)
       respond_to do |format|
         format.js do
           render :json => {
@@ -137,7 +139,7 @@ class CommentController < ApplicationController
          }
        end
      end
-   end
+    end
   end
 
   def check_actions
@@ -149,11 +151,6 @@ class CommentController < ApplicationController
   end
 
   protected
-
-  def pass_without_comment_captcha?
-    logged_in? && !environment.enabled?('captcha_for_logged_users')
-  end
-  helper_method :pass_without_comment_captcha?
 
   def can_update?
     begin

@@ -38,6 +38,8 @@ four:
    - manage_environment_organizations
    - manage_environment_templates
    - manage_environment_licenses
+   - manage_environment_kinds
+   - manage_environment_captcha
    - manage_email_templates
 profile_admin:
   id: 5

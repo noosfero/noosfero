@@ -22,10 +22,10 @@ class ActivityNotificationsTest < ActiveSupport::TestCase
 
     notification = @follower.tracked_notifications.last
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:users])
+    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
     refute ActivityPresenter.for(notification).hidden_for?(@follower.user)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:related])
+    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:related])
     assert ActivityPresenter.for(notification).hidden_for?(@follower.user)
   end
 
@@ -40,10 +40,10 @@ class ActivityNotificationsTest < ActiveSupport::TestCase
 
     notification = @follower.tracked_notifications.last
 
-    Community.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:users])
+    Community.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
     refute ActivityPresenter.for(notification).hidden_for?(@follower.user)
 
-    Community.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:related])
+    Community.any_instance.stubs(:wall_access).returns(AccessLevels::levels[:related])
     assert ActivityPresenter.for(notification).hidden_for?(@follower.user)
   end
 

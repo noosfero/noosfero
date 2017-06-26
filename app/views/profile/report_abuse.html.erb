@@ -4,9 +4,7 @@
   <%= hidden_field_tag(:content_type, params[:content_type]) %>
   <%= hidden_field_tag(:content_id, params[:content_id]) %>
 
-  <% unless user.is_admin? %>
-    <p><%= recaptcha_tags :ajax => true, :display => {:theme => 'clean'} %> </p>
-  <% end %>
+  <%= captcha_tags(:report_abuse, user, environment, profile) %>
 
   <%= submit_button(:send, _('Report profile'), :style => 'float: left; cursor: pointer;', :id => 'report-abuse-submit-button', :onclick => "jQuery('#form-submit-loading').show()") %>
   <%= button(:cancel, _('Cancel'), {}, :style => 'float: left; padding-top: 0px; padding-bottom: 0px;', :onclick => 'noosfero.modal.close(); return false;')%>

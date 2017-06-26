@@ -411,7 +411,10 @@ ActiveRecord::Schema.define(version: 20170706154855) do
     t.string   "http_feed_proxy"
     t.string   "https_feed_proxy"
     t.boolean  "disable_feed_ssl",             default: false
+    t.jsonb    "metadata",                     default: {}
   end
+
+  add_index "environments", ["metadata"], name: "index_environments_on_metadata", using: :gin
 
   create_table "external_feeds", force: :cascade do |t|
     t.string   "feed_title"

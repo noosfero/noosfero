@@ -15,6 +15,8 @@ class ProfileController < PublicController
   helper ActionTrackerHelper
   helper CustomFieldsHelper
 
+  include Captcha
+
   protect 'send_mail_to_members', :profile, :only => [:send_mail]
 
   ACTIVITIES_PER_PAGE = 15
@@ -401,7 +403,7 @@ class ProfileController < PublicController
   end
 
   def register_report
-    unless user.is_admin? || verify_recaptcha
+    unless verify_captcha(:report_abuse, nil, user, environment, profile)
       render :text => {
         :ok => false,
         :error => {

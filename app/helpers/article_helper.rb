@@ -94,7 +94,7 @@ module ArticleHelper
 
     content_tag('h4', _('Topic creation')) +
     content_tag( 'small', _('Who will be able to create new topics on this forum?')) +
-    slider_field_tag('topic-creation', 'article[topic_creation]', article.profile, article.topic_creation_access, article.topic_creation)
+    access_slider_field_tag('topic-creation', 'article[topic_creation]', article.profile, article.topic_creation, article.topic_creation_access)
   end
 
   def privacity_exceptions(article, tokenized_children)
