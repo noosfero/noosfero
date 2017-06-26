@@ -228,6 +228,18 @@ class ActiveSupport::TestCase
     profile.save!
   end
 
+  def mock_all_profile_image(size, image, image_data)
+    Profile.any_instance.stubs(:image).returns(image)
+    Image.any_instance.stubs(:data).with(size).returns(image_data)
+  end
+
+  def get_profile_image_from_api (size, profile_identifier)
+    profile = fast_create(Person, identifier: profile_identifier)
+    params[:key] = :identifier
+    get "/api/v1/profiles/#{profile_identifier}/#{size}?#{params.to_query}"
+    data = last_response.body
+  end
+
   def create_base64_image
     image_path = File.absolute_path(Rails.root + 'public/images/noosfero-network.png')
     image_name = File.basename(image_path)
