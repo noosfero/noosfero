@@ -28,4 +28,14 @@ class CustomRoutesTest < ActionDispatch::IntegrationTest
     assert_template "not_found"
   end
 
+  should 'not break when reloading routes with invalid records' do
+    fast_create(CustomRoutesPlugin::Route, source_url: '/source',
+                target_url: '/target', environment_id: Environment.default.id,
+                metadata: {})
+
+    assert_nothing_raised do
+      CustomRoutesPlugin::CustomRoutes.reload
+    end
+  end
+
 end

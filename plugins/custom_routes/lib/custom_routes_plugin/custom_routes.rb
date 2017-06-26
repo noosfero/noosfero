@@ -4,8 +4,12 @@ class CustomRoutesPlugin::CustomRoutes
 
     Noosfero::Application.routes.draw do
       CustomRoutesPlugin::Route.where(enabled: true).each do |route|
-        # TODO: also set query params? Maybe using a controller before_action
-        get route.source_url, route.metadata.symbolize_keys
+        begin
+          # TODO: also set query params? Maybe using a controller before_action
+          get route.source_url, route.metadata.symbolize_keys
+        rescue
+          # ignore possible invalid routes, so the startup doesn't break
+        end
       end
     end
   end
