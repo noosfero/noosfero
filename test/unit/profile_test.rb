@@ -1235,6 +1235,18 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal false, p.public_profile
   end
 
+  should 'not apply a template that is not a template' do
+    not_a_template = fast_create(Profile, :is_template => false)
+    not_a_template.layout_template = 'leftbar'
+    not_a_template.save!
+
+    p = fast_create(Profile)
+    assert_raise RuntimeError do
+      p.apply_template(not_a_template)
+    end
+    assert_equal 'default', p.layout_template
+  end
+
   should 'destroy tasks requested to it when destroyed' do
     p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
 
