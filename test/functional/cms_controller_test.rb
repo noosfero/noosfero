@@ -2057,6 +2057,12 @@ class CmsControllerTest < ActionController::TestCase
     assert_equivalent [author1.id, author2.id], article.versions.map(&:last_changed_by_id)
   end
 
+  should 'display CMS links for media panel images' do
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    get :published_media_items, profile: profile.identifier
+    assert_tag 'img', attributes: { src: file.full_path }
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.
