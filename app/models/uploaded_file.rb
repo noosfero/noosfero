@@ -7,6 +7,8 @@ require 'sdbm' unless RUBY_ENGINE == 'jruby'
 
 class UploadedFile < Article
 
+  include UploadSanitizer
+
   attr_accessible :uploaded_data, :title
 
   include Noosfero::Plugin::HotSpot
@@ -40,8 +42,6 @@ class UploadedFile < Article
   def title= value
     self.name = value
   end
-
-  sanitize_filename
 
   before_create do |uploaded_file|
     uploaded_file.is_image = true if uploaded_file.image?
@@ -196,14 +196,6 @@ class UploadedFile < Article
 
   def notifiable?
     !image?
-  end
-
-  protected
-
-  def sanitize_filename filename
-    # let accents and other utf8
-    # overwrite vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu.rb
-    filename
   end
 
 end

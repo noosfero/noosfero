@@ -1,7 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
 
   extend PostgresqlAttachmentFu::ClassMethods
-  include UploadSanitizer
 
   self.abstract_class       = true
   self.store_full_sti_class = true

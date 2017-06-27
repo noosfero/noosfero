@@ -1,5 +1,7 @@
 class Image < ApplicationRecord
 
+  include UploadSanitizer
+
   attr_accessible :uploaded_data, :label, :remove_image
   attr_accessor :remove_image
 
@@ -8,8 +10,6 @@ class Image < ApplicationRecord
   def self.max_size
     Image.attachment_options[:max_size]
   end
-
-  sanitize_filename
 
   has_attachment :content_type => :image,
                  :storage => :file_system,
@@ -35,14 +35,6 @@ class Image < ApplicationRecord
 
   def data(size = nil)
     File.file?(full_filename(size)) ? File.read(full_filename(size)) : nil
-  end
-
-  protected
-
-  def sanitize_filename filename
-    # let accents and other utf8
-    # overwrite vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu.rb
-    filename
   end
 
 end

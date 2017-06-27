@@ -1,12 +1,14 @@
 module UploadSanitizer
-  def self.included(base)
-    base.extend(ClassMethods)
-  end
+  extend ActiveSupport::Concern
 
-  module ClassMethods
-    def sanitize_filename
-      before_create { |file| file.filename = Environment.verify_filename(file.filename) }
+  included do
+    before_create { |file| file.filename = Environment.verify_filename(file.filename) }
+
+    def sanitize_filename filename
+      # let accents and other utf8, but remotes the extension
+      # overwrite vendor/plugins/attachment_fu/lib/technoweenie/attachment_fu.rb
+      filename
     end
   end
-end
 
+end
