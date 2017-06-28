@@ -96,7 +96,7 @@ jQuery(function($) {
     var html_selector = $item.attr('data-item');
     var name = $item.attr('title');
     var img = $item.find(html_selector).find('img').attr('src');
-    noosfero.modal.html(zoom_dialog_html(img), {
+    noosfero.modal.html(zoom_dialog_html($item.attr('title'), img), {
       scrolling: false,
     });
     return false;
@@ -212,7 +212,7 @@ jQuery(function($) {
   $("#article_published_true").click(show_hide_privacy_options);
   $(".custom_privacy_option").click(show_hide_token_input);
 
-  //Workaround to pointer-events:none CSS3  
+  //Workaround to pointer-events:none CSS3
   $('a.disabled').click(function(e){
     e.preventDefault();
     return false;
