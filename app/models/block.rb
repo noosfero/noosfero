@@ -103,7 +103,7 @@ class Block < ApplicationRecord
   end
 
   def display_to_user?(user)
-    display_user == 'all' || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged') || (user && display_user == 'followers' && owner.in_social_circle?(user))
+    display_user == 'all' || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged') || (user && !self.owner.kind_of?(Environment) && display_user == 'followers' && owner.in_social_circle?(user) && self.owner.kind_of?(Profile))
   end
 
   def display_always(context)

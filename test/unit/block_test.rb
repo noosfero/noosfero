@@ -355,6 +355,17 @@ class BlockTest < ActiveSupport::TestCase
     refute block.display_to_user?(person_friend)
   end
 
+  should 'do not display block to friend if the owner of the block is an enviroment' do
+    person = create_user('person_one').person
+    person_friend = create_user('person_friend').person
+    person.add_friend(person_friend)
+    box = fast_create(Box, :owner_id => Environment.default, :owner_type => 'Environment')
+    block = create(Block, :box_id => box.id)
+    block.display_user = 'followers'
+    block.save!
+    refute block.display_to_user?(person_friend)
+  end
+
   should 'get limit as a number when limit is string' do
     block = RecentDocumentsBlock.new
     block.settings[:limit] = '5'
