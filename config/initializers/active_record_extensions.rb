@@ -1,5 +1,3 @@
-require 'upload_sanitizer'
-
 module ActiveRecordExtension
 
   module ClassMethods
