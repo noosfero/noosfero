@@ -1,5 +1,10 @@
 module ProductsPlugin::ProductsHelper
 
+  def url_for options
+    options[:controller] = "/#{options[:controller]}" if options.is_a? Hash and options[:controller] and not options[:controller].to_s.starts_with? '/'
+    super options
+  end
+
   protected
 
   def product_path(product)
@@ -315,5 +320,6 @@ module ProductsPlugin::ProductsHelper
 
     _("%{currency} %{production_cost} of %{currency} %{product_price}").html_safe % {currency: currency, production_cost: content_tag('span', production_cost, class: 'production_cost'), product_price: content_tag('span', product_price, class: 'product_price')}
   end
+
 
 end
