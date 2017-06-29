@@ -27,7 +27,6 @@ class SuppliersPlugin::ProductController < MyProfileController
   end
 
   def add
-
   end
 
   def edit
@@ -50,7 +49,7 @@ class SuppliersPlugin::ProductController < MyProfileController
   end
 
   def destroy
-    @product = SuppliersPlugin::DistributedProduct.find params[:id]
+    @product = Product.find params[:id]
     @product.destroy
     flash[:notice] = t('controllers.myprofile.product_controller.product_removed_succe')
   end
@@ -84,7 +83,7 @@ class SuppliersPlugin::ProductController < MyProfileController
     @scope = SuppliersPlugin::BaseProduct.search_scope @scope, params
     @products_count = @scope.supplied_for_count.count
     @scope = @scope.supplied.select('products.*, MIN(from_products_products.name) as from_products_name').order('from_products_name ASC')
-    @products = @scope.paginate per_page: 20, page: page
+    @products = (@scope | profile.products).paginate per_page: 20, page: page
 
     @product_categories = Product.product_categories_of @products
     @new_product = SuppliersPlugin::DistributedProduct.new
