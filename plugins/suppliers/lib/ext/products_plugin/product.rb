@@ -3,6 +3,9 @@ require_dependency 'products_plugin/product'
 # FIXME: The lines bellow should be on the core
 class ProductsPlugin::Product
 
+  attr_accessible :default_margin_percentage, :margin_percentage, :default_unit, :unit_detail,
+    :supplier_product_attributes
+
   extend CurrencyFields::ClassMethods
   has_currency :price
   has_currency :discount
