@@ -142,8 +142,10 @@ _enable(){
       ln -s "$source" "$target"
       plugins_public_dir="$NOOSFERO_DIR/public/plugins"
       plugins_features_dir="$NOOSFERO_DIR/features/plugins"
+      plugins_routes_dir="$NOOSFERO_DIR/config/routes/plugins"
       test -d "$target/public" && ln -s "$target/public" "$plugins_public_dir/$plugin"
       test -d "$NOOSFERO_DIR/features" && test -d "$target/features" && ln -s "$target/features" "$plugins_features_dir/$plugin"
+      test -f "$target/config/routes.rb" && ln -s "$target/config/routes.rb" "$plugins_routes_dir/$plugin.rb"
       _say "$plugin enabled"
       run "$source/after_enable.rb"
       needs_migrate=true
@@ -165,6 +167,7 @@ _disable(){
   target="$enabled_plugins_dir/$plugin"
   plugins_public_dir="$NOOSFERO_DIR/public/plugins"
   plugins_features_dir="$NOOSFERO_DIR/features/plugins"
+  plugins_routes_dir="$NOOSFERO_DIR/config/routes/plugins"
 
   if [ -h "$base_plugins_dir/$plugin" ]; then
     _say "$plugin is a base plugin and cannot be disabled"
@@ -175,6 +178,7 @@ _disable(){
     rm "$target"
     test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
     test -h "$plugins_features_dir/$plugin" && rm "$plugins_features_dir/$plugin"
+    test -h "$plugins_routes_dir/$plugin.rb" && rm "$plugins_routes_dir/$plugin.rb"
     _say "$plugin disabled"
     run "$source/after_disable.rb"
   else

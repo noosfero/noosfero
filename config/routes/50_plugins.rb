@@ -1,6 +1,6 @@
 paths              = {}
 profile_format     = /#{Noosfero.identifier_format}/i
-plugins_root       = if Rails.env.test? then 'plugins' else '{baseplugins,config/plugins}' end
+plugins_root       = "{baseplugins,config/plugins#{Rails.env.test? ? ',test/plugins' : ''}}"
 prefixes_by_folder = {
   public:    'plugin',
   profile:   'profile/:profile/plugin',
