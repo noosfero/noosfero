@@ -40,7 +40,7 @@ module PgSearchPlugin::SearchHelper
       end_date = nil
     end
     result = content_tag('h2', _(attribute.to_s.humanize))
-    result += content_tag('div', date_range_field("periods[#{attribute}][start_date]", "periods[#{attribute}][end_date]", start_date, end_date, {}, {:from_id => "datepicker-from-#{attribute}", :to_id =>  "datepicker-to-#{attribute}"}))
+    result += content_tag('div', date_range_field("periods[#{attribute}][start_date]", "periods[#{attribute}][end_date]", start_date, end_date, {}, {:from_id => "datepicker-from-#{attribute.to_s.to_slug}", :to_id =>  "datepicker-to-#{attribute.to_s.to_slug}"}))
     result += hidden_field_tag("periods[#{attribute}][is_metadata]", is_metadata)
     content_tag('div', result, :class => 'period', :id => "#{attribute.to_s.to_slug}-period")
   end

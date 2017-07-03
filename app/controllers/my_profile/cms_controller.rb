@@ -89,6 +89,8 @@ class CmsController < MyProfileController
         @article.image.label = params[:article][:image_builder][:label]
         @article.image.save!
       end
+      params_metadata = params[:article].try(:delete, :metadata) || {}
+      @article.metadata = @article.metadata.merge(params_metadata)
       @article.last_changed_by = user
       if @article.update(params[:article])
         if !continue
@@ -193,7 +195,7 @@ class CmsController < MyProfileController
 
   def upload_files
     @uploaded_files = []
-    @article = @parent = check_parent(params[:parent_id])
+    @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
     record_coming
     if request.post? && params[:uploaded_files]

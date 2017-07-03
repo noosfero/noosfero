@@ -1,0 +1,73 @@
+#article-custom-fields-wrapper {
+  margin-bottom: 30px;
+
+  #article-custom-fields-opts {
+    display: none;
+
+    input.custom-field-error {
+      box-shadow: 0px 0px 4px red;
+    }
+  }
+
+  #show-opts-link, #hide-opts-link {
+    color: #333;
+  }
+
+  #article-custom-fields {
+    margin-bottom: 15px;
+
+    .no-boxes & {
+      width: 70%;
+    }
+
+    .article-custom-field-wrapper {
+      display: flex;
+      min-height: 25px;
+      padding: 5px;
+
+      .custom-field-input {
+        display: inline-flex;
+        flex: 1;
+
+        .custom-field-label {
+          display: inline-flex;
+          align-items: center;
+          flex: 0.7;
+          overflow: hidden;
+
+          span {
+            text-overflow: ellipsis;
+            overflow: hidden;
+          }
+        }
+
+        .custom-field-content {
+          flex: 2;
+
+          input[type='text'] {
+            width: 70%;
+          }
+        }
+      }
+
+      .custom-field-visibility {
+        display: inline-flex;
+        margin-right: 10px;
+        align-items: center;
+      }
+
+      .custom-field-opts {
+        display: inline-flex;
+        align-items: center;
+      }
+
+      &:hover {
+        background-color: #f3f3f3;
+      }
+    }
+  }
+
+  #article-custom-field-templates {
+    display: none;
+  }
+}

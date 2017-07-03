@@ -2099,6 +2099,24 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal files.map(&:id), assigns(:files).map(&:id)
   end
 
+  should 'not overwrite metadata when updating custom fields' do
+    a = @profile.articles.build(:name => 'my article')
+    a.metadata = {
+      'mydata' => 'data',
+      :custom_fields => { :field1 => { value: 1 } }
+    }
+    a.save!
+
+    post :edit, :profile => @profile.identifier, :id => a.id, :article => {
+      :body => 'new content for this article',
+      :metadata => { :custom_fields => { :field1 => { value: 5 } } }
+    }
+
+    a.reload
+    assert_equal 'data', a.metadata['mydata']
+    assert_equal '5', a.metadata['custom_fields']['field1']['value']
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

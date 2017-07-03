@@ -24,6 +24,8 @@
   <%= render :partial => 'article_toolbar' %>
 </div>
 
+<%= render :partial => 'article_field_values', locals: { fields: @page.metadata['custom_fields'] || [] } %>
+
 <% if NOOSFERO_CONF['addthis_enabled'] and @page.public? %>
   <%= render :partial => 'addthis' %>
 <% end %>

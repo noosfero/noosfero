@@ -1,0 +1,7 @@
+<%= render :layout => 'cms/custom_fields/article_custom_field_template', locals: { field: field } do %>
+  <div class='custom-field-content'>
+    <%= hidden_field_tag "article[metadata][custom_fields][#{field[:name].to_slug}][value]", '0' %>
+    <%= check_box_tag("article[metadata][custom_fields][#{field[:name].to_slug}][value]", '1', field[:value] == "1" , id: "#{field[:name].to_slug}_custom_field_boolean") %>
+    <label for="<%= field[:name].to_slug %>_custom_field_boolean"><%= field[:name].humanize %></label>
+  </div>
+<% end %>

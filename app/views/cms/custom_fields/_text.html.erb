@@ -1,0 +1,9 @@
+<%= render :layout => 'cms/custom_fields/article_custom_field_template', locals: { field: field } do %>
+  <div class='custom-field-label'>
+    <span><%= field[:name].humanize %></span>
+  </div>
+  <div class='custom-field-content'>
+    <%= text_field_tag("article[metadata][custom_fields][#{field[:name].to_slug}][value]",
+                       field[:value], placeholder: _('Value')) %>
+  </div>
+<% end %>

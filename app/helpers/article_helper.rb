@@ -210,4 +210,9 @@ module ArticleHelper
     filter_html(content, article)
   end
 
+  # Receives a list of type names. The names should be previously translated
+  def custom_fields_for_article(types)
+    types.map { |type| [type.camelize, type.downcase] }
+  end
+
 end
