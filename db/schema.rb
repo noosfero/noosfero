@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614092141) do
+ActiveRecord::Schema.define(version: 20170706154855) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -304,8 +304,10 @@ ActiveRecord::Schema.define(version: 20170614092141) do
     t.string   "user_agent"
     t.string   "referrer"
     t.text     "settings"
+    t.jsonb    "metadata",    default: {}
   end
 
+  add_index "comments", ["metadata"], name: "index_comments_on_metadata", using: :gin
   add_index "comments", ["source_id", "spam"], name: "index_comments_on_source_id_and_spam", using: :btree
 
   create_table "contact_lists", force: :cascade do |t|

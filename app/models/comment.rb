@@ -38,6 +38,9 @@ class Comment < ApplicationRecord
 
   validate :article_archived?
 
+  store_accessor :metadata
+  include MetadataScopes
+
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings
 
