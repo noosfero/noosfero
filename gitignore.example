@@ -21,6 +21,7 @@ config/plugins
 config/unicorn.rb
 config/local.rb
 config/initializers/local.rb
+config/routes/plugins
 
 tags
 vendor/rails
