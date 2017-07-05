@@ -17,11 +17,18 @@ class AddMember < Task
     remove_from_suggestion_list(task)
   end
 
+  include Noosfero::Plugin::HotSpot
+
+   def environment
+     organization.try(:environment)
+   end
+
   def perform
     if !self.roles or (self.roles.uniq.compact.length == 1 and self.roles.uniq.compact.first.to_i.zero?)
       self.roles = [Profile::Roles.member(organization.environment.id).id]
     end
     target.affiliate(requestor, self.roles.select{|r| !r.to_i.zero? }.map{|i| Role.find(i)})
+    plugins.dispatch(:member_added, organization, person)
   end
 
   def title

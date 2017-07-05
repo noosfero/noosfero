@@ -660,6 +660,16 @@ class Noosfero::Plugin
     []
   end
 
+  # -> Inform plugins of an added member to an organization
+  def member_added(organization, person)
+    nil
+  end
+
+  # -> Inform plugins of a removed member to an organization
+  def member_removed(organization, person)
+    nil
+  end
+
   # -> Adds additional blocks to profiles and environments.
   # Your plugin must implements a class method called 'extra_blocks'
   # that returns a hash with the following syntax.
