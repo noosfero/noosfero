@@ -3,6 +3,7 @@ require_relative 'plugin/hot_spot'
 require_relative 'plugin/manager'
 require_relative 'plugin/parent_methods'
 require_relative 'plugin/settings'
+require_relative 'plugin/metadata'
 
 class Noosfero::Plugin
 

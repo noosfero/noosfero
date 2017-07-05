@@ -10,9 +10,9 @@ module VotePluginHelper
     proc do
       settings = Noosfero::Plugin::Settings.new(environment, VotePlugin)
 
-      if settings.get_setting("enable_vote_#{type}").include?(vote)
+      if settings.send("enable_vote_#{type}").include?(vote)
 
-        voters = !load_voters ? nil : target.votes.where(:vote => vote).includes(:voter).limit(settings.get_setting('voters_limit')).map(&:voter)
+        voters = !load_voters ? nil : target.votes.where(:vote => vote).includes(:voter).limit(settings.voters_limit).map(&:voter)
         active = user ? (like ? user.voted_for?(target) : user.voted_against?(target)) : false
         count = like ? target.votes_for : target.votes_against
 

@@ -22,10 +22,10 @@ class CommentParagraphPluginAdminControllerTest < ActionController::TestCase
   end
 
   should 'update comment paragraph plugin settings' do
-    assert_not_equal 'auto', plugin_settings.get_setting(:activation_mode)
+    assert_not_equal 'auto', plugin_settings.activation_mode
     post :index, :settings => { :activation_mode => 'auto' }
     environment.reload
-    assert_equal 'auto', plugin_settings.get_setting(:activation_mode)
+    assert_equal 'auto', plugin_settings.activation_mode
   end
 
   should 'get article types previously selected' do

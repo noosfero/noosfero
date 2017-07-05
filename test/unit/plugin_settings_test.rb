@@ -14,7 +14,7 @@ class PluginSettingsTest < ActiveSupport::TestCase
     @plugin = SolarSystemPlugin
   end
 
-  attr_accessor :environment, :profile, :plugin, :settings
+  attr_accessor :environment, :profile, :plugin
 
   should 'store setttings on any model that offers settings' do
     base = environment
