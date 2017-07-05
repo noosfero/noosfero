@@ -1,0 +1,14 @@
+From sample@example.org  Thu Jun 29 17:28:36 2017
+Return-Path: <sample@example.org>
+X-Original-To: noosfero@localhost
+Delivered-To: noosfero@localhost
+Received: by a89e8fa41d2d (Postfix, from userid 0)
+	id 0A60339EC; Thu, 29 Jun 2017 17:28:13 +0000 (UTC)
+To: noosfero@localhost
+Subject: Cuidado com essa mensagem!
+From: Sample User <sample@example.org>
+In-Reply-To: <06cd4d14-ad34-47e5-a774-d359816de348@localhost>
+Message-Id: <20170629172836.0A60339EC@a89e8fa41d2d>
+Date: Thu, 29 Jun 2017 17:28:13 +0000 (UTC)
+
+Hello world?

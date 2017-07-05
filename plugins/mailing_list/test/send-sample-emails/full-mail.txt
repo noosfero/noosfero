@@ -1,0 +1,25 @@
+Vamos ver agora o que acontece se eu mandar um e-mail de resposta para a lista.
+
+Esse e-mail nunca chegará no ambiente de devel.
+
+Será??
+
+Sim ou não?
+
+
+On 06-06-2017 11:00, ze wrote:
+> Vamos ver os espacos
+> ====================
+>
+> Como sera que os espaços ficaram agora?
+>
+> -- 
+>
+> This message was sent automatically by Noosfero from the Mailing
+> List Plugin.
+>
+
+-- 
+Rodrigo Souto - rodrigo@colivre.coop.br
+Colivre - Cooperativa de Tecnologias Livreswww.Colivre.coop.br
+Tel: 71-3011-2199 / 3331-2299

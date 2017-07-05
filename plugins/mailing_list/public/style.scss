@@ -1,0 +1,41 @@
+.connection {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+}
+
+.connection.up {
+  background-image: url(images/pidgin-icons/available.png);
+}
+
+.connection.down {
+  background-image: url(images/pidgin-icons/offline.png);
+}
+
+.controller-profile_editor a.control-panel-mailing-list-icon {background-image: url("/plugins/mailing_list/images/control-panel/icon.png")}
+.controller-profile_editor .msie6 a.control-panel-mailing-list-icon {background-image: url("/plugins/mailing_list/images/control-panel/icon.gif")}
+
+.icon-subscribe {
+  background-image: url(../../Tango/16x16/actions/mail-reply-all.png);
+}
+
+.icon-unsubscribe {
+  background-image: url(../../Tango/16x16/actions/system-log-out.png);
+}
+
+div.unsubscribe-all-bar {
+  display: flex;
+  margin-top: 20px;
+  justify-content: flex-end;
+  align-items: flex-end;
+
+  span.unsubscribe-all-label {
+    margin-right: 10px;
+    font-style: italic;
+  }
+
+  span.unsubscribe-all-btn {
+    margin-right: 36px;
+  }
+}

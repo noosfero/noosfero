@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mail -s "Cuidado com essa mensagem!" -a "From: Ze <root@localhost.localdomain>" noosfero@localhost < mail-content.txt

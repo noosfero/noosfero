@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Make sure there is an article with this uuid: 06cd4d14-ad34-47e5-a774-d359816de348
+mail -s "Cuidado com essa mensagem!" -a "From: Ze <root@localhost.localdomain>" -a "In-Reply-To: <06cd4d14-ad34-47e5-a774-d359816de348@localhost>" noosfero@localhost < mail-content.txt

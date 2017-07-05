@@ -1,0 +1,4 @@
+<h1> <%= _('Mailing list options') %> </h1>
+
+<%= render :partial => 'mailing_list_plugin_myprofile/subscriptions_table', :locals => {relation_label: _('Groups')} %>
+<%= render :partial => 'settings_form', :locals => {enabled_label: _('Recieve e-mails?')} %>

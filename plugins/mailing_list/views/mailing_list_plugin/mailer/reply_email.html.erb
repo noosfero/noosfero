@@ -1,0 +1,18 @@
+<%
+if @content.kind_of?(Comment) && @content.title.present?
+  header = content_tag('h4', @content.title)
+else
+  header = nil
+end
+
+separator = content_tag('p', '-- ')
+footer =
+  content_tag('p',
+    content_tag('small',
+      _('This message was sent automatically by %s from the Mailing List Plugin.') % @content.environment.name + ' ' +
+      _('You can create a reply comment on %s just by replying this e-mail.') % @content.environment.name + ' ' +
+      _('Write your reply above the quoted original message to ensure a proper comment creation!')
+    )
+  )
+%>
+<%= Premailer.new([header, @body, separator, footer].compact.join("\n"), with_html_string: true).to_inline_css.html_safe %>

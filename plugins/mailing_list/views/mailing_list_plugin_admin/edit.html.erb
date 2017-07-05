@@ -1,0 +1,17 @@
+<h1><%= _('Edit Mailing List Settings') %></h1>
+
+<%= form_for :settings do |f| %>
+  <%= labelled_form_field(_('API url'), f.text_field(:api_url, :size => 50)) %>
+
+  <%= labelled_form_field(_('Web interface url'), f.text_field(:web_interface_url, :size => 50)) %>
+
+  <%= field_set_tag(_('Administrator')) do %>
+    <%= labelled_form_field(_('E-mail'), f.text_field(:administrator_email)) %>
+    <%= labelled_form_field(_('Password'), f.password_field(:administrator_password)) %>
+  <% end %>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back'), controller: 'mailing_list_plugin_admin', action: 'index') %>
+    <%= submit_button(:save, _('Save')) %>
+  <% end %>
+<% end %>

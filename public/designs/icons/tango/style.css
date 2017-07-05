@@ -102,6 +102,8 @@
 .icon-chat         { background-image: url(Tango/16x16/apps/internet-group-chat.png); background-repeat: no-repeat }
 .icon-big-chat     { background-image: url(mod/64x64/apps/internet-group-chat.png); background-repeat: no-repeat }
 .icon-reply        { background-image: url(Tango/16x16/actions/mail-reply-sender.png) }
+.icon-forward      { background-image: url(Tango/16x16/actions/mail-forward.png) }
+.icon-junk         { background-image: url(Tango/16x16/actions/mail-mark-junk.png) }
 .icon-newforum     { background-image: url(Tango/16x16/apps/internet-group-chat.png) }
 .icon-forum        { background-image: url(Tango/16x16/apps/system-users.png) }
 .icon-gallery      { background-image: url(Tango/16x16/mimetypes/image-x-generic.png) }

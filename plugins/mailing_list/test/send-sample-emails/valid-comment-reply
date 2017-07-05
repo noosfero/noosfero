@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Make sure there is a comment with this uuid: e5b8c0fa-a645-45a2-8c83-ccd017582fad
+mail -s "Cuidado com essa mensagem!" -a "From: Ze <root@localhost.localdomain>" -a "In-Reply-To: <e5b8c0fa-a645-45a2-8c83-ccd017582fad@localhost>" noosfero@localhost < mail-content.txt

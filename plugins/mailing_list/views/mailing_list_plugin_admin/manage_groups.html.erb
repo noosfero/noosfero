@@ -1,0 +1,21 @@
+<h1><%= _('Manage %s') % @kind %></h1>
+
+<% if @environment_settings.send("deploying_#{@kind}") %>
+  <p><%= _('We are creating mailing lists for every %s on the network. This process may take several minutes, so you may come back later to manage the lists.') % @kind.to_s.singularize %></p>
+<% end %>
+
+<% form_classes = @environment_settings.send("deploying_#{@kind}") ? 'fetching loading' : '' %>
+<%= form_tag( { :action => 'index' }, :method => 'get', :class => form_classes ) do %>
+  <div><%= render :partial => 'groups_list' %></div>
+<% end %>
+
+<%= button_bar do %>
+  <%= button(:back, _('Back'), action: 'index') %>
+  <% if @environment_settings.send("deploying_#{@kind}") %>
+    <%= button(:subscribe, _('Deploying...'), {action: 'deploy_all'}, :class => 'fetching' ) %>
+  <% else %>
+    <%= button(:subscribe, _('Deploy all'), {action: 'deploy_all', :kind => @kind}, data: {confirm: _('This will create a mailing list for every %s on this network. It might take several minutes. This action isn\'t reversible. Are you sure you want to deploy the mailing list on ALL %s?') % [@kind.to_s.singularize, @kind]}) %>
+  <% end %>
+  <%= button(:add, _('Activate all'), {action: 'activate_all', :kind => @kind}, data: {confirm: _('Are you sure you want to activate the e-mail sending for mailing list on ALL %s?') % @kind}) %>
+  <%= button(:cancel, _('Deactivate all'), {action: 'deactivate_all', :kind => @kind}, data: {confirm: _('Are you sure you want to deactivate the e-mail sending for mailing list on ALL %s?') % @kind}) %>
+<% end %>

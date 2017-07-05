@@ -1,0 +1,10 @@
+<div class='unsubscribe-all-bar'>
+  <span class='unsubscribe-all-label'>
+    <%= _('Unsubscribe from all lists: ') %>
+  </span>
+  <span class='unsubscribe-all-btn'>
+    <%= button_without_text 'unsubscribe', _('Unsubscribe from all'),
+                            { :action => 'unsubscribe_all' },
+                            data: { confirm: _("Do you really want to unsubscribe from all lists?") } %>
+  </span>
+</div>
