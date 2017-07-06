@@ -10,6 +10,7 @@ class ProfileController < PublicController
   before_filter :allow_comment?, :only => [:leave_comment_on_activity]
   before_filter :load_tags, only: [:index, :about]
 
+  include ProfileHelper
   helper TagsHelper
   helper ActionTrackerHelper
   helper CustomFieldsHelper
@@ -317,17 +318,7 @@ class ProfileController < PublicController
     comments_per_page = 5
     no_more_pages = comments_count <= comment_page * comments_per_page
 
-    render :update do |page|
-      page.insert_html :bottom, "profile-#{params[:tab_action]}-activities-comments-#{params[:activity]}",
-        :partial => 'comment', :collection => activity.comments.flatten.paginate(:per_page => comments_per_page, :page => comment_page)
-
-      if no_more_pages
-        page.remove "profile-#{params[:tab_action]}-activities-comments-more-#{params[:activity]}"
-      else
-        page.replace_html "profile-#{params[:tab_action]}-activities-comments-more-#{params[:activity]}",
-          :partial => 'more_comments', :locals => {activity: activity, comment_page: comment_page, tab_action: params[:tab_action]}
-      end
-    end
+    update_feed(comments_count, comment_page, comments_per_page, no_more_pages, activity)
   end
 
   def more_replies

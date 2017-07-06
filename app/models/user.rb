@@ -207,13 +207,12 @@ class User < ApplicationRecord
   end
 
   def create_moderate_task
-    @task = ModerateUserRegistration.new
-    @task.user_id = self.id
-    @task.name = self.name
-    @task.email = self.email
-    @task.target = self.environment
-    @task.requestor = self.person
-    @task.save
+    @task = ModerateUserRegistration.create(
+              user_id: self.id,
+              name: self.name,
+              email: self.email,
+              target: self.environment,
+              requestor: self.person)
   end
 
   def activated?

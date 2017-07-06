@@ -543,19 +543,11 @@ class Environment < ApplicationRecord
   end
 
   def required_person_fields
-    required_fields = []
-    active_person_fields.each do |field|
-      required_fields << field if custom_person_fields[field]['required'] == 'true'
-    end
-    required_fields
+    build_fields "active_person_fields", "custom_person_fields", 'required'
   end
 
   def signup_person_fields
-    signup_fields = []
-    active_person_fields.each do |field|
-      signup_fields << field if custom_person_fields[field]['signup'] == 'true'
-    end
-    signup_fields
+    build_fields "active_person_fields", "custom_person_fields", 'signup'
   end
 
   def invitation_mail_template(profile)
@@ -599,24 +591,24 @@ class Environment < ApplicationRecord
     false
   end
 
+  def build_fields active_fields, custom_fields, local
+    fields = []
+    send(active_fields).each do |field|
+      fields << field if send(custom_fields)[field][local] == 'true'
+    end
+    fields
+  end
+
   def active_enterprise_fields
      (custom_enterprise_fields.delete_if { |key, value| !custom_enterprise_field(key, 'active')}).keys || []
   end
 
   def required_enterprise_fields
-    required_fields = []
-    active_enterprise_fields.each do |field|
-      required_fields << field if custom_enterprise_fields[field]['required'] == 'true'
-    end
-    required_fields
+    build_fields "active_enterprise_fields", "custom_enterprise_fields", 'required'
   end
 
   def signup_enterprise_fields
-    signup_fields = []
-    active_enterprise_fields.each do |field|
-      signup_fields << field if custom_enterprise_fields[field]['signup'] == 'true'
-    end
-    signup_fields
+    build_fields "active_enterprise_fields", "custom_enterprise_fields", 'signup'
   end
 
   def all_custom_community_fields
@@ -657,19 +649,11 @@ class Environment < ApplicationRecord
   end
 
   def required_community_fields
-    required_fields = []
-    active_community_fields.each do |field|
-      required_fields << field if custom_community_fields[field]['required'] == 'true'
-    end
-    required_fields
+    build_fields "active_community_fields", "custom_community_fields", 'required'
   end
 
   def signup_community_fields
-    signup_fields = []
-    active_community_fields.each do |field|
-      signup_fields << field if custom_community_fields[field]['signup'] == 'true'
-    end
-    signup_fields
+    build_fields "active_community_fields", "custom_community_fields", 'signup'
   end
 
   serialize :signup_welcome_text, Hash
