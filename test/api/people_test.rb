@@ -219,6 +219,28 @@ class PeopleTest < ActiveSupport::TestCase
     assert_not_includes friends, invisible_friend.id
   end
 
+  should 'list person friends ordered' do
+    login_api
+    p2 = fast_create(Person, :name => 'Person 2')
+    p4 = fast_create(Person, :name => 'Person 1')
+    p1 = fast_create(Person, :name => 'Person 4')
+    p3 = fast_create(Person, :name => 'Person 3')
+    person.add_friend(p1)
+    person.add_friend(p2)
+    person.add_friend(p3)
+    person.add_friend(p4)
+    get "/api/v1/people/#{person.id}/friends?#{params.to_query}&order=name ASC"
+    expected_response = [p4.id, p2.id, p3.id, p1.id]
+    assert_equal json_response_ids, expected_response
+  end
+
+  should 'list person friends ordered for person without friends' do
+    login_api
+    get "/api/v1/people/#{person.id}/friends?#{params.to_query}&order=name ASC"
+    expected_response = []
+    assert_equal json_response_ids, expected_response
+  end
+
   should 'create a person' do
     login_api
     login = 'some'
