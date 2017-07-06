@@ -229,14 +229,16 @@ class PeopleTest < ActiveSupport::TestCase
     person.add_friend(p2)
     person.add_friend(p3)
     person.add_friend(p4)
-    get "/api/v1/people/#{person.id}/friends?#{params.to_query}&order=name ASC"
+    params[:order] = 'name ASC'
+    get "/api/v1/people/#{person.id}/friends?#{params.to_query}"
     expected_response = [p4.id, p2.id, p3.id, p1.id]
     assert_equal json_response_ids, expected_response
   end
 
   should 'list person friends ordered for person without friends' do
     login_api
-    get "/api/v1/people/#{person.id}/friends?#{params.to_query}&order=name ASC"
+    params[:order] = 'name ASC'
+    get "/api/v1/people/#{person.id}/friends?#{params.to_query}"
     expected_response = []
     assert_equal json_response_ids, expected_response
   end
