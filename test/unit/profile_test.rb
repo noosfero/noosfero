@@ -1039,6 +1039,18 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 'leftbar', p.layout_template
   end
 
+  should 'copy picture template when applying template' do
+    template = fast_create(Profile, :is_template => true)
+    template.image = Image.new
+    template.save!
+
+    p = create(Profile)
+
+    p.apply_template(template)
+
+    assert_equal template.image, p.image
+  end
+
   should 'copy blocks when applying template' do
     template = fast_create(Profile, :is_template => true)
     template.boxes.destroy_all
