@@ -194,6 +194,7 @@ class CmsController < MyProfileController
   end
 
   def upload_files
+    upload_single_file?
     @uploaded_files = []
     @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
@@ -525,4 +526,11 @@ class CmsController < MyProfileController
     end
   end
 
+  def upload_single_file?
+    if profile.allow_single_file?
+      @article = UploadedFile.new if @article.nil?
+      @type = "UploadedFile"
+      redirect_to :action => 'new', type: "UploadedFile",  back_to: params[:back_to], parent_id: params[:parent_id]
+    end
+  end
 end

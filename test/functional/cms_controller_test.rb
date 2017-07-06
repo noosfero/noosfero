@@ -2117,6 +2117,25 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal '5', a.metadata['custom_fields']['field1']['value']
   end
 
+  should 'execute upload_file method with single upload file option not exist in profile' do
+    get :upload_files, profile: profile.identifier
+    assert_template 'upload_files'
+  end
+
+  should 'execute upload_file method with single upload file option is false in profile' do
+    profile.metadata['allow_single_file'] = "0"
+    profile.save!
+    get :upload_files, profile: profile.identifier
+    assert_template 'upload_files'
+  end
+
+  should 'redirect to new article method in upload file if single upload file option is true in profile' do
+    profile.metadata['allow_single_file'] = "1"
+    profile.save!
+    get :upload_files, profile: profile.identifier
+    assert_redirected_to :action => 'new', :type => "UploadedFile"
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

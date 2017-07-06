@@ -1,1 +1,2 @@
-<p><%= file_field_tag('uploaded_files[]', :size => size) %></p>
+<% name = name ? name : 'uploaded_files[]'%>
+<p><%= file_field_tag(name, :size => size) %></p>
