@@ -12,7 +12,8 @@ class CmsController < MyProfileController
       if yield(c, user, profile)
         true
       else
-        render_access_denied(c)
+        access_denied = _("You do not have access to ")
+        render_access_denied("#{access_denied}#{c.request.path_info}")
         false
       end
     end
