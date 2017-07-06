@@ -173,6 +173,20 @@ module ProfileHelper
     ''
   end
 
+  def update_feed (comments_count, comment_page, comments_per_page, no_more_pages, activity)
+    render :update do |page|
+      page.insert_html :bottom, "profile-#{params[:tab_action]}-activities-comments-#{params[:activity]}",
+        :partial => 'comment', :collection => activity.comments.flatten.paginate(:per_page => comments_per_page, :page => comment_page)
+
+      if no_more_pages
+        page.remove "profile-#{params[:tab_action]}-activities-comments-more-#{params[:activity]}"
+      else
+        page.replace_html "profile-#{params[:tab_action]}-activities-comments-more-#{params[:activity]}",
+                  :partial => 'more_comments', :locals => {activity: activity, comment_page: comment_page, tab_action: params[:tab_action]}
+      end
+    end
+  end
+
   def method_missing(method, *args, &block)
     if method.to_s =~ /^treat_(.+)$/
       args[0]
