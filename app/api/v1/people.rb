@@ -147,25 +147,25 @@ module Api
       end
 
       resource :profiles do
-        segment '/:profile_id' do
+        segment '/:id' do
           resource :members do
             paginate max_per_page: MAX_PER_PAGE
             get do
-              profile = environment.profiles.find_by id: params[:profile_id]
+              profile = environment.profiles.find_by id: params[:id]
               members = select_filtered_collection_of(profile, 'members', params)
               present_partial members, :with => Entities::Person, :current_person => current_person
             end
 
             post do
               authenticate!
-              profile = environment.profiles.find_by id: params[:profile_id]
+              profile = environment.profiles.find_by id: params[:id]
               profile.add_member(current_person) rescue forbidden!
               {pending: !current_person.is_member_of?(profile)}
             end
 
             delete do
               authenticate!
-              profile = environment.profiles.find_by id: params[:profile_id]
+              profile = environment.profiles.find_by id: params[:id]
               profile.remove_member(current_person)
               present_partial current_person, :with => Entities::Person, :current_person => current_person
             end
