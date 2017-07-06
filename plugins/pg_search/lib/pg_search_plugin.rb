@@ -40,9 +40,7 @@ class PgSearchPlugin < Noosfero::Plugin
       scope = query_scope.where(:id => scope.map(&:id)).reorder("")
     end
 
-    facets_params = facets.present? ? facets_options(asset, scope, facets) : {}
-
-    {:results => scope.paginate(paginate_options), :facets => facets_params, :periods => periods}
+    {:results => scope.paginate(paginate_options), :facets => facets_options(asset, scope, facets), :periods => periods}
   end
 
   private
@@ -208,7 +206,7 @@ class PgSearchPlugin < Noosfero::Plugin
       occurrence.value = argument
     when 'relation'
       klass_name = facet_slug.classify
-      occurrence.target = klass_name.constantize.find(argument)
+      occurrence.target = klass_name.constantize.where(id: argument).first
     else
       return
     end
