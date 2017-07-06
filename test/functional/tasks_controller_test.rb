@@ -313,7 +313,7 @@ class TasksControllerTest < ActionController::TestCase
     assert_match /Validation.failed/, @response.body
 
     task.reload
-    assert_equal Task::Status::ACTIVE, task.status
+    assert_equal Task::Status::FINISHED, task.status
   end
 
   should 'render TinyMce Editor when approving suggested article task' do

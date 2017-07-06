@@ -42,6 +42,13 @@ class CreateEnterprise < Task
   validate :validator_correct_region
   validate :not_used_identifier
 
+  after_create do |task|
+    if requestor.user.person.is_admin?
+      finish
+    end
+  end
+
+
   def validator_correct_region
     if self.region && self.target
       unless self.region.validators.include?(self.target) || self.target_type == "Environment"
@@ -142,7 +149,6 @@ class CreateEnterprise < Task
     DATA_FIELDS.reject{|field| field == "reject_explanation"}.each do |field|
       enterprise.send("#{field}=", self.send(field))
     end
-
     enterprise.environment = environment
 
     enterprise.user = self.requestor.user
