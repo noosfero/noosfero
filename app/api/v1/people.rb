@@ -101,6 +101,28 @@ module Api
           present(friend, :with => Entities::Person, :current_person => current_person)
         end
 
+        desc "Return the status of frendship request"
+        get ':id/friendship' do
+          person = environment.people.visible.find_by(id: params[:id])
+          friend = environment.people.visible.find_by(id: params[:friend_id])
+          friend ||= environment.people.visible.find_by(identifier: params[:identifier])
+
+          return not_found! if friend.blank?
+
+          output = {:success => true}
+          if person.already_request_friendship?(friend)
+            output[:message] = _('You already request a friendship solicitation to %s.') % person.name
+            output[:code] = Api::Status::Friendship::WAITING_FOR_APPROVAL
+          elsif person.is_a_friend?(friend)
+            output[:message] = _("You already a %s's friend") % person.name
+            output[:code] = Api::Status::Friendship::FRIEND
+          else
+            output[:message] = _("You are not a %s's friend and you did not made a friendship request.")
+            output[:code] = Api::Status::Friendship::NOT_FRIEND
+          end
+          present output, :with => Entities::Response
+        end
+
         desc "Add a new friend"
         post ':id/friends' do
           authenticate!
