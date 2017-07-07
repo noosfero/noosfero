@@ -17,9 +17,15 @@ module Api
     DEPRECATED = 299
     module Membership
       INVITATION_SENT_TO_BE_PROCESSED = 298
-      NOT_MEMBER = 0
-      WAITING_FOR_APPROVAL = 1
-      MEMBER = 2
+      NOT_MEMBER = 297
+      WAITING_FOR_APPROVAL = 296
+      MEMBER = 295
+    end
+
+    module Friendship
+      NOT_FRIEND = 294
+      WAITING_FOR_APPROVAL = 293
+      FRIEND = 292
     end
 
   end

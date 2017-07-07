@@ -6,12 +6,12 @@ module Api
       MAX_PER_PAGE = 50
 
       resource :profiles do
-        segment "/:profile_id" do
+        segment "/:id" do
           resource :roles do
 
             paginate max_per_page: MAX_PER_PAGE
             get do
-              profile = environment.profiles.find(params[:profile_id])
+              profile = environment.profiles.find(params[:id])
               return forbidden! unless profile.kind_of?(Organization)
               roles = Profile::Roles.organization_member_and_custom_roles(profile.environment.id, profile.id)
               person_roles = []
@@ -24,7 +24,7 @@ module Api
 
             resource :assign do
               post do
-                profile = environment.profiles.find(params[:profile_id])
+                profile = environment.profiles.find(params[:id])
                 return forbidden! unless profile.kind_of?(Organization)
 
                 person = environment.people.find(params[:person_id])

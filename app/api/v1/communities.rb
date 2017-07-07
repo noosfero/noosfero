@@ -76,11 +76,11 @@ module Api
           present msg, :with => Entities::Response
         end
 
-        segment '/:profile_id' do
+        segment '/:id' do
 
           resource :membership do
             get do
-              organization = environment.profiles.find_by id: params[:profile_id]
+              organization = environment.profiles.find_by id: params[:id]
               person = environment.profiles.find_by identifier: params[:identifier]
               output = {:success => true}
 
