@@ -20,13 +20,21 @@ class SectionBlockPlugin::SectionBlockTest < ActiveSupport::TestCase
     refute @block.name.blank?
   end
 
-  should 'have a default font color' do
+  should 'have a default font color after save' do
     @block.save!
     refute @block.font_color.blank?
   end
 
-  should 'have a default background color' do
+  should 'have a default font color on creation' do
+    refute @block.font_color.blank?
+  end
+
+  should 'have a default background color after save' do
     @block.save!
+    refute @block.background_color.blank?
+  end
+
+  should 'have a default background color on creation' do
     refute @block.background_color.blank?
   end
 
@@ -52,7 +60,7 @@ class SectionBlockPlugin::SectionBlockTest < ActiveSupport::TestCase
     assert_match 'background-color: ', @block.css_inline_style
   end
 
-  should 'normalize colors on save block' do
+  should 'remove # from colors on save block' do
     @block.font_color = '#FFFFFF'
     @block.background_color = "#000000"
     @block.save!
