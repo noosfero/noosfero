@@ -35,14 +35,8 @@ class SectionBlockPlugin::SectionBlockTest < ActiveSupport::TestCase
   end
 
   should 'have a default background color on creation' do
-    refute @block.background_color.blank?
-  end
 
-  should 'raise exception while trying to save empty name' do
-    @block.name = ''
-    assert_raise ActiveRecord::RecordInvalid do
-      @block.save!
-    end
+    refute @block.background_color.blank?
   end
 
   should 'not be cacheable' do

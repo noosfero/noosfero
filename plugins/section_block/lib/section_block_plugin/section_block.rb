@@ -7,8 +7,12 @@ class SectionBlockPlugin::SectionBlock < Block
   settings_items :background_color, :type => :string
   settings_items :font_color, :type => :string
 
-  before_create :set_default_values
   before_save :set_default_values
+
+  def initialize(*params)
+    super(params)
+    self.set_default_values
+  end
 
   def set_default_values
     self.background_color ||= 'E6E6E6'
