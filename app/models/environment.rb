@@ -1098,6 +1098,26 @@ class Environment < ApplicationRecord
     !reserved_identifiers.include?(identifier) && !profiles.exists?
   end
 
+  BLACKLIST_DURATION = 3 # hours
+
+  def on_signup_blacklist?(ip_address)
+    metadata['signup_blacklist'].present? && metadata['signup_blacklist'].include?(ip_address)
+  end
+
+  def add_to_signup_blacklist(ip_address)
+    metadata['signup_blacklist'] = [] if metadata['signup_blacklist'].nil?
+    unless metadata['signup_blacklist'].include?(ip_address)
+    self.metadata['signup_blacklist'] << ip_address
+    self.save!
+    Delayed::Job.enqueue(RemoveIpFromBlacklistJob.new(environment.id, ip_address), {:run_at => BLACKLIST_DURATION.hours.from_now})
+    end
+  end
+
+  def remove_from_signup_blacklist(ip_address)
+    self.metadata['signup_blacklist'].delete(ip_address)
+    self.save!
+  end
+
   private
 
   def default_language_available
