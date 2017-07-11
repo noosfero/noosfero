@@ -36,7 +36,7 @@ class ProfileImageHelperTest < ActionView::TestCase
     env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(false)
     stubs(:environment).returns(env)
     profile = Profile.new
-    assert_nil links_for_balloon(profile)
+    assert_empty links_for_balloon(profile)
   end
 
   should 'return ordered list of links to balloon to Person' do
