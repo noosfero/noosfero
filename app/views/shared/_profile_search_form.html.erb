@@ -1,9 +1,10 @@
 <% search_label = _("Find in %s's content") % profile.short_name %>
-<%= form_tag( { :controller => 'profile_search', :profile => profile.identifier}, :method => 'get', :class => 'search_form' ) do %>
+<%= form_tag( { :controller => 'profile_search', :profile => profile.identifier}, :method => 'data-remote', :class => 'search_form' ) do %>
   <div class="search-field">
     <span class="formfield">
       <%= search_input_with_suggestions 'q', :articles, @q, :title => search_label, :placeholder => search_label %>
     </span>
+    <%= hidden_field_tag :block, block.id if defined? block %>
     <%= submit_button(:search, _('Search')) %>
     <div>
       <%= labelled_radio_button profile.short_name, 'where', 'profile', true, :title => _("Find in %s's content") % profile.short_name %>

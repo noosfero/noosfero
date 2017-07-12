@@ -21,16 +21,17 @@
   });
 
   // Form Ajax submission
-  $('form.search_form').submit(function () {
-    $.ajax({
-      url: this.action,
-      data: $(this).serialize(),
-      beforeSend: function(){$('#search-content, #facets').addClass('fetching')},
-      complete: function() {$('#search-content, #facets').removeClass('fetching')},
-      dataType: 'script'
-    })
-    return false;
-  });
+      $('form.search_form').on('submit', function () {
+        $.ajax({
+          url: this.action,
+          data: $(this).serialize(),
+          beforeSend: function(){$('#search-content, #facets').addClass('fetching')},
+          complete: function() {$('#search-content, #facets').removeClass('fetching')},
+          dataType: 'script',
+          method: 'post'
+        })
+        return false;
+      });
 
   // Assets links
   $('#assets-menu a').click(function(e){

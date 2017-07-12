@@ -4,4 +4,8 @@ class ProfileSearchBlock < Block
     _('Display a form to search the profile')
   end
 
+  def cacheable?
+    false
+  end
+
 end

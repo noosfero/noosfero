@@ -1,0 +1,14 @@
+<% if environment.plugin_enabled? PgSearchPlugin %>
+  <% class_eval { include PgSearchPlugin::SearchHelper } %>
+  <%= labelled_check_box(_('Enable advanced search'), 'block[advanced_search]', true, @block.advanced_search) %>
+  <h2>Campos de Busca Customizados</h2>
+  <div class="search-fields-options">
+    <% (default_search_fields | custom_field_names(Article, @block.owner.articles)).each do |search_field| %>
+      <div>
+        <%= labelled_check_box("#{_(search_field.first)}" + (search_field.second ? " (#{_(search_field.second)})" : ""),
+                               "block[search_fields][]", search_field_identifier(*search_field),
+                               @block.search_fields.include?(search_field_identifier(*search_field))) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

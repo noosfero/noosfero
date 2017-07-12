@@ -18,7 +18,7 @@ class Article < ApplicationRecord
                   :highlighted, :notify_comments, :display_hits, :slug,
                   :external_feed_builder, :display_versions, :external_link,
                   :image_builder, :show_to_followers, :archived,
-                  :author, :display_preview, :published_at, :person_followers, :editor
+                  :author, :display_preview, :published_at, :person_followers, :editor, :metadata
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image

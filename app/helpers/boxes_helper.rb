@@ -90,9 +90,14 @@ module BoxesHelper
 
   def render_block block, prefix = nil, klass = block.class
     template_name = klass.name.demodulize.underscore.sub '_block', ''
+    method_name = "#{template_name}_block_extra_content"
     begin
-      render template: "blocks/#{prefix}#{template_name}", locals: { block: block }
-    rescue ActionView::MissingTemplate
+      block_content = render template: "blocks/#{prefix}#{template_name}", locals: { block: block }
+      extra_content = @plugins.dispatch(method_name.to_sym, block, params).map do |p|
+        p.kind_of?(Proc) ? self.instance_exec(&p) : p
+      end
+      safe_join [block_content, safe_join(extra_content)]
+    rescue ActionView::MissingTemplate => e
       return if klass.superclass === Block
       render_block block, prefix, klass.superclass
     end

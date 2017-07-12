@@ -2,7 +2,7 @@
 
 <div class='search-form'>
   <%= form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => @category.try(:path), :tag => @tag },
-                 :method => 'get', :class => 'search_form' ) do %>
+                 :method => 'data-remote', :class => 'search_form' ) do %>
 
     <%= render :partial => 'search_form', :locals => { :hint => _("Type words about the %s you're looking for").html_safe % asset_to_human(@asset) } %>
     <%= render :partial => 'total_results' %>

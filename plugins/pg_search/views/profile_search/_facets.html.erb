@@ -1,0 +1,16 @@
+<div id='facets-toggle' class='toggle-hidden'>
+  <div id='toggle-filters'>
+    <span class='toggle-label'><%= _('Advanced Search') %></span>
+    <span class='toggle-icon'>^</span>
+  </div>
+
+  <div id='facets-wrapper'>
+    <% if defined?(load_facets) && load_facets %>
+      <%= render partial: 'search/facets',
+                 locals: { search_block_facets: search_block_facets,
+                           search_block_periods: search_block_periods } %>
+    <% else %>
+      <div id='facets'></div>
+    <% end %>
+  </div>
+</div>
