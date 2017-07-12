@@ -4,7 +4,11 @@
   _paq.push(['trackPageView']);
   _paq.push(['enableLinkTracking']);
   (function() {
-    var u=(("https:" == document.location.protocol) ? "https" : "http") + "://<%= escape_javascript locals[:piwik_url] %>";
+     var u = "<%= escape_javascript locals[:piwik_url] %>";
+     if(!u.match(/^https?/)){
+       var protocol = ("https:" == document.location.protocol ? "https" : "http");
+       u = protocol + '://' + u;
+     }
     _paq.push(['setTrackerUrl', u+'piwik.php']);
     _paq.push(['setSiteId', <%= escape_javascript locals[:site_id] %>]);
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.type='text/javascript';
