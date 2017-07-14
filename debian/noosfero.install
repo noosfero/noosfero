@@ -9,6 +9,7 @@ config/environments               usr/share/noosfero/config
 config/initializers               usr/share/noosfero/config
 config/locales                    usr/share/noosfero/config
 config/routes.rb                  usr/share/noosfero/config
+config/routes                     usr/share/noosfero/config
 config/schedule.rb                usr/share/noosfero/config
 config/dotenv.rb                  usr/share/noosfero/config
 .env                              usr/share/noosfero/
