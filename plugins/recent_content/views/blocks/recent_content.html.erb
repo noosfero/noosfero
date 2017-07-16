@@ -37,7 +37,7 @@
       </div>
     <% end %>
     <% if profile %>
-      <%= link_to _('View All'), :profile => profile.identifier, :controller => 'content_viewer', :action => 'view_page', :page => block.root.path %>
+      <%= link_to _('View All'), {:profile => profile.identifier, :controller => 'content_viewer', :action => 'view_page', :page => block.root.path}, {:class => 'see-all'} %>
     <% end %>
   </div>
 <% else %>
