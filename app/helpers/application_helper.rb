@@ -293,7 +293,7 @@ module ApplicationHelper
 
   def theme_favicon
     return '/designs/themes/' + current_theme + '/favicon.ico' if profile.nil? || profile.theme.nil?
-    if File.exists?(Rails.root.join('public', theme_path, 'favicon.ico'))
+    if File.exists?(File.join(Rails.root, 'public', theme_path, 'favicon.ico'))
       '/designs/themes/' + profile.theme + '/favicon.ico'
     else
       favicon = profile.articles.find_by path: 'favicon.ico'
