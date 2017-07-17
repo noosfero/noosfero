@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mail -s "Cuidado com essa mensagem!" -a "From: Unknown User <unknown@localhost>" noosfero@localhost < mail-content.txt

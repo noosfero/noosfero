@@ -1,0 +1,34 @@
+<table>
+  <colgroup>
+    <col width="60%">
+    <col width="20%">
+    <col width="20%">
+  </colgroup>
+  <tr>
+    <th><%= _('Name') %></th>
+    <th><%= _('Deployed?') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% @collection.each do |group| %>
+    <% list_exist = @subscribed.include?(@client.treat_identifier(group.identifier)) %>
+    <% @profile_settings = Noosfero::Plugin::Settings.new group, MailingListPlugin %>
+    <tr title="<%= group.name %>">
+      <td><%= link_to group.short_name(48), {:controller => 'mailing_list_plugin_myprofile_organization', :action => 'edit', :profile => group.identifier}, :title => _('Review mailing list settings') %> </td>
+      <td style='text-align: center'>
+        <%= list_exist ? _('Yes') : _('No') %>
+      </td>
+      <td style='text-align: center'>
+        <div class="members-buttons-cell">
+          <% if list_exist %>
+            <%= button_without_text 'forward', _('Activate email sending'), {:action => 'activate', :id => group.id} if !@profile_settings.enabled %>
+            <%= button_without_text 'junk', _('Deactivate email sending'), {:action => 'deactivate', :id => group.id} if @profile_settings.enabled %>
+          <% else %>
+            <%= button_without_text 'subscribe', _('Deploy mailing list'), {:action => 'deploy', :id => group.id} %>
+          <% end %>
+       </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<%= pagination_links @collection, {:param_name => 'npage', :page_links => true} %>

@@ -3,6 +3,7 @@ require_relative 'plugin/hot_spot'
 require_relative 'plugin/manager'
 require_relative 'plugin/parent_methods'
 require_relative 'plugin/settings'
+require_relative 'plugin/metadata'
 
 class Noosfero::Plugin
 
@@ -658,6 +659,16 @@ class Noosfero::Plugin
   # returns = [item1, item2]
   def user_menu_items(user)
     []
+  end
+
+  # -> Inform plugins of an added member to an organization
+  def member_added(organization, person)
+    nil
+  end
+
+  # -> Inform plugins of a removed member to an organization
+  def member_removed(organization, person)
+    nil
   end
 
   # -> Adds additional blocks to profiles and environments.

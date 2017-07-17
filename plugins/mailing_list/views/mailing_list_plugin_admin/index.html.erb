@@ -1,0 +1,30 @@
+<h1><%= _('Mailing List Settings') %></h1>
+
+<table class='mailing-server-settings'>
+  <tr class='api-url'>
+    <td><strong><%= _('API Url') %></strong></td>
+    <td><%= link_to(@environment_settings.api_url, @environment_settings.api_url, :target => '_blank') if @environment_settings.api_url %></td>
+  </tr>
+  <tr class='web-interface-url'>
+    <td><strong><%= _('Web Interface') %></strong></td>
+    <td><%= link_to(@environment_settings.web_interface_url, @environment_settings.web_interface_url, :target => '_blank') if @environment_settings.web_interface_url %></td>
+  </tr>
+  <tr class='admin-email'>
+    <td><strong><%= _('Administrator') %></strong></td>
+    <td><%= @environment_settings.administrator_email %></td>
+  </tr>
+  <tr class='connection-status'>
+    <td><strong><%= _('Connection') %></strong></td>
+    <% klass = @connection ? 'connection up' : 'connection down' %>
+    <td><%= content_tag('span', '', class: klass) %></td>
+  </tr>
+</table>
+
+<%= button_bar do %>
+  <%= button(:back, _('Back'), controller: 'plugins', action: 'index') %>
+  <%= button(:edit, _('Edit'), action: 'edit') %>
+  <%= button('menu-community', _('Manage communities'), { action: 'manage_communities' },
+             { class: @connection ? '' : 'disabled' }) %>
+  <%= button('menu-enterprise', _('Manage enterprises'), { action: 'manage_enterprises' },
+             { class: @connection ? '' : 'disabled' }) %>
+<% end %>

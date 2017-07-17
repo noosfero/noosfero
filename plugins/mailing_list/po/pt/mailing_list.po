@@ -1,0 +1,475 @@
+# Portuguese translations for  package.
+# Copyright (C) 2017 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"POT-Creation-Date: 2017-07-05 16:52+0000\n"
+"PO-Revision-Date: 2017-07-05 16:09+0000\n"
+"Last-Translator: Rodrigo Souto <rodrigo@colivre.coop.br>\n"
+"Language-Team: Portuguese\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"\n"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:31
+msgid "The settings were saved successfully"
+msgstr "As configurações foram salvas com sucesso"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:34
+msgid "There were some problems saving the settings"
+msgstr "Houveram alguns problemas salvando as configurações"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:39
+msgid "Could not connect to the Sympa API"
+msgstr "Não foi possível conectar com a API do Sympa"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:49
+msgid "The mailing list is now sending emails!"
+msgstr "Essa lista de discussão está enviando emails agora!"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:51
+msgid "The mailing list could not be activated"
+msgstr "A lista de discussão não pôde ser ativada"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:65
+msgid "All %s mailing lists are activated"
+msgstr "Todas as listas de discussão de %s estão ativadas"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:74
+msgid "The mailing list is not sending any emails now"
+msgstr "A lista de discussão não está enviando emails agora"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:76
+msgid "The mailing list could not be deactivated"
+msgstr "A lista de discussão não pôde se desativada"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:90
+msgid "All %s mailing lists are deactivated"
+msgstr "Todas as listas de discussão de %s estão desativadas"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:99
+#: ../controllers/mailing_list_plugin_myprofile_organization_controller.rb:62
+msgid "The mailing list is now deployed!"
+msgstr "A lista de discussão está implantada agora!"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:101
+#: ../controllers/mailing_list_plugin_myprofile_organization_controller.rb:64
+msgid "The mailing list could not be deployed"
+msgstr "A lista de discussão no pôde ser implantada"
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:113
+msgid "The mailing lists are being deployed. This may take several minutes."
+msgstr "As listas de discussão estão sendo implantadas. Isso pode levar alguns"
+"minutos."
+
+#: ../controllers/mailing_list_plugin_admin_controller.rb:145
+#: ../controllers/mailing_list_plugin_myprofile_controller.rb:17
+msgid "The mailing list external server is offline."
+msgstr "O servidor externo de lista de discussão está offline."
+
+#: ../controllers/mailing_list_plugin_myprofile_organization_controller.rb:28
+msgid "%s was subscribed on this mailing list"
+msgstr "%s foi inscrita(o) nessa lista de discussão"
+
+#: ../controllers/mailing_list_plugin_myprofile_organization_controller.rb:32
+msgid "%s request to be subscribed on this mailing list was accepted"
+msgstr "A requisição de %s para ser inscrita(o) nessa lista de discussão foi"
+"aceita"
+
+#: ../controllers/mailing_list_plugin_myprofile_organization_controller.rb:37
+msgid "%s was asked to join this mailing list"
+msgstr "%s foi convidada(o) a participar dessa lista de discussão"
+
+#: ../controllers/mailing_list_plugin_myprofile_organization_controller.rb:39
+msgid "%s was already asked to join this mailing list"
+msgstr "%s já foi convidada(o) a participar dessa lista de discussão"
+
+#: ../controllers/mailing_list_plugin_myprofile_organization_controller.rb:51
+msgid "%s was unsubscribed from this mailing list"
+msgstr "%s foi desinscrita(o) dessa lista de discussão"
+
+#: ../controllers/mailing_list_plugin_myprofile_organization_controller.rb:53
+msgid "%s could not be unsubscribed from this mailing list"
+msgstr "%s não pôde ser desinscrita(o) dessa lista de discussão"
+
+#: ../controllers/mailing_list_plugin_myprofile_person_controller.rb:14
+msgid "You just subscribed to %s's mailing list"
+msgstr "Você acabou de se inscrever na lista de discussão de %s"
+
+#: ../controllers/mailing_list_plugin_myprofile_person_controller.rb:18
+msgid "The request from %s's to subscribe you to it's mailing list was accepted"
+msgstr "A requisição de %s para te inscrever em sua lista de discussão foi"
+"aceita"
+
+#: ../controllers/mailing_list_plugin_myprofile_person_controller.rb:23
+msgid "%s was asked to accept your subscription to the mailing list"
+msgstr "%s foi requisitada(o) a aceitar a sua inscrição na lista de discussão"
+
+#: ../controllers/mailing_list_plugin_myprofile_person_controller.rb:25
+msgid "%s was already asked to accept your subscription to the mailing list"
+msgstr "%s já foi requisitada(o) a aceitar a sua inscrição na lista de discussão"
+
+#: ../controllers/mailing_list_plugin_myprofile_person_controller.rb:37
+msgid "You were unsubscribed from %s's mailing list"
+msgstr "Você foi desinscrita(o) da lista de discussão de %s"
+
+#: ../controllers/mailing_list_plugin_myprofile_person_controller.rb:39
+msgid "You could not be unsubscribed from %s's mailing list"
+msgstr "Você não pôde se desinscrita(o) da lista de discussão de %s"
+
+#: ../controllers/mailing_list_plugin_myprofile_person_controller.rb:47
+msgid "The operation was scheduled, you will be unsubscribed from all lists shortly"
+msgstr "A operação foi programada. Você será desinscrita(o) de todas as listas"
+"em breve"
+
+#: ../lib/mailing_list_plugin.rb:4 ../lib/mailing_list_plugin.rb:19
+#: ../lib/mailing_list_plugin.rb:23
+msgid "Mailing List"
+msgstr "Lista de Discussão"
+
+#: ../lib/mailing_list_plugin.rb:8
+msgid "Integrates Noosfero groups with sympa mailing lists through foruns and blogs."
+msgstr "Integra grupos do Noosfero com listas de discussão do Sympa através de"
+"fóruns e blogs."
+
+#: ../lib/mailing_list_plugin/accept_subscription.rb:18
+#: ../lib/mailing_list_plugin/subscribe_member.rb:16
+msgid "Mailing list subscription"
+msgstr "Inscrição na lista de discussão"
+
+#: ../lib/mailing_list_plugin/accept_subscription.rb:22
+msgid "Member asking to join the group mailing list."
+msgstr "Membro pedindo para participar da lista de discussão do grupo."
+
+#: ../lib/mailing_list_plugin/accept_subscription.rb:30
+msgid "%{linked_subject} wants to subscribe to the mailing list."
+msgstr "%{linked_subject} quer se inscrever na lista de discussão."
+
+#: ../lib/mailing_list_plugin/accept_subscription.rb:38
+msgid "%{person} wants to subscribe to %{group}'s mailing list."
+msgstr "%{person} quer se inscrever na lista de discussão de %{group}."
+
+#: ../lib/mailing_list_plugin/client.rb:51
+#: ../test/unit/mailing_list_plugin/client_test.rb:112
+#: ../test/unit/mailing_list_plugin/client_test.rb:126
+#: ../test/unit/mailing_list_plugin/client_test.rb:191
+msgid "Mailing list of %s"
+msgstr "Lista de discussão de %s"
+
+#: ../lib/mailing_list_plugin/client.rb:76
+#: ../test/unit/mailing_list_plugin/client_test.rb:195
+#: ../views/mailing_list_plugin_admin/edit.html.erb:8
+#: ../views/mailing_list_plugin_admin/index.html.erb:13
+msgid "Administrator"
+msgstr "Administrador"
+
+#: ../lib/mailing_list_plugin/mailer.rb:34
+msgid "Re:"
+msgstr "Re:"
+
+#: ../lib/mailing_list_plugin/subscribe_member.rb:20
+msgid "Group asking member to join the mailing list."
+msgstr "Group pedindo que um membro participe da lista de discussão."
+
+#: ../lib/mailing_list_plugin/subscribe_member.rb:28
+msgid "%{requestor} wants to subscribe you to %{linked_subject} mailing list."
+msgstr "%{requestor} quer inscrever você na lista de discussão de %{linked_subject}."
+
+#: ../lib/mailing_list_plugin/subscribe_member.rb:36
+msgid "%{requestor} wants to subscribe you on %{group}'s mailing list."
+msgstr "%{requestor} quer inscrever você na lista de discussão de %{group}."
+
+#: ../views/mailing_list_plugin/mailer/reply_email.html.erb:12
+msgid "This message was sent automatically by %s from the Mailing List Plugin."
+msgstr "Essa mensagem foi enviada automaticamente por %s através do Plugin de"
+"Lista de Discussão."
+
+#: ../views/mailing_list_plugin/mailer/reply_email.html.erb:13
+msgid "You can create a reply comment on %s just by replying this e-mail."
+msgstr "Você pode criar um comentário de reposta em %s apenas respondendo esse"
+"e-mail."
+
+#: ../views/mailing_list_plugin/mailer/reply_email.html.erb:14
+msgid ""
+"Write your reply above the quoted original message to ensure a proper comment "
+"creation!"
+msgstr ""
+"Escreva a sua resposta acima da mensagem original citada para garantir que seu "
+"comentário seja criado corretamente."
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:8
+msgid "Name"
+msgstr "Nome"
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:9
+msgid "Deployed?"
+msgstr "Implantado?"
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:10
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:10
+msgid "Actions"
+msgstr "Ações"
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:16
+msgid "Review mailing list settings"
+msgstr "Revisar configurações da lista de discussão"
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:18
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:25
+msgid "No"
+msgstr "Não"
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:18
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:25
+msgid "Yes"
+msgstr "Sim"
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:23
+msgid "Activate email sending"
+msgstr "Ativa envio de email"
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:24
+msgid "Deactivate email sending"
+msgstr "Desativar envio de email"
+
+#: ../views/mailing_list_plugin_admin/_groups_list.html.erb:26
+msgid "Deploy mailing list"
+msgstr "Impantar lista de discussão"
+
+#: ../views/mailing_list_plugin_admin/edit.html.erb:1
+msgid "Edit Mailing List Settings"
+msgstr "Editar Configurações da Lista de Discussão"
+
+#: ../views/mailing_list_plugin_admin/edit.html.erb:4
+msgid "API url"
+msgstr "Url da API"
+
+#: ../views/mailing_list_plugin_admin/edit.html.erb:6
+msgid "Web interface url"
+msgstr "Url da interface web"
+
+#: ../views/mailing_list_plugin_admin/edit.html.erb:9
+msgid "E-mail"
+msgstr "E-mail"
+
+#: ../views/mailing_list_plugin_admin/edit.html.erb:10
+msgid "Password"
+msgstr "Senha"
+
+#: ../views/mailing_list_plugin_admin/edit.html.erb:14
+#: ../views/mailing_list_plugin_admin/index.html.erb:24
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:13
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:13
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:13
+#: ../views/mailing_list_plugin_myprofile_organization/_settings_form.html.erb:6
+#: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:18
+msgid "Back"
+msgstr "Voltar"
+
+#: ../views/mailing_list_plugin_admin/edit.html.erb:15
+#: ../views/mailing_list_plugin_myprofile_organization/_settings_form.html.erb:7
+msgid "Save"
+msgstr "Salvar"
+
+#: ../views/mailing_list_plugin_admin/index.html.erb:1
+msgid "Mailing List Settings"
+msgstr "Configurações da Lista de Discussão"
+
+#: ../views/mailing_list_plugin_admin/index.html.erb:5
+msgid "API Url"
+msgstr "Url da API"
+
+#: ../views/mailing_list_plugin_admin/index.html.erb:9
+msgid "Web Interface"
+msgstr "Interface Web"
+
+#: ../views/mailing_list_plugin_admin/index.html.erb:17
+msgid "Connection"
+msgstr "Conexão"
+
+#: ../views/mailing_list_plugin_admin/index.html.erb:25
+msgid "Edit"
+msgstr "Editar"
+
+#: ../views/mailing_list_plugin_admin/index.html.erb:26
+msgid "Manage communities"
+msgstr "Gerenciar comunidades"
+
+#: ../views/mailing_list_plugin_admin/index.html.erb:28
+msgid "Manage enterprises"
+msgstr "Gerenciar empreendimentos"
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:1
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:1
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:1
+msgid "Manage %s"
+msgstr "Gerenciar %s"
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:4
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:4
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:4
+msgid ""
+"We are creating mailing lists for every %s on the network. This process may ta"
+"ke several minutes, so you may come back later to manage the lists."
+msgstr ""
+"Estamos criando listas de discussão para cada %s na rede. Esse processo pode"
+"levar alguns minutos, então você pode voltar aqui mais tarde para gerenciar as"
+"listas."
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:15
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:15
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:15
+msgid "Deploying..."
+msgstr "Implantando..."
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:17
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:17
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:17
+msgid ""
+"This will create a mailing list for every %s on this network. It might take se"
+"veral minutes. This action isn't reversible. Are you sure you want to deploy t"
+"he mailing list on ALL %s?"
+msgstr ""
+"Isso irá criar uma lista de discussão para cada %s nessa rede. Isso pode levar"
+"alguns minutos. Essa ação não é reversível. Tem certeza que você quer"
+"implantar a lista de discussão em TODOS os grupos?"
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:17
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:17
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:17
+msgid "Deploy all"
+msgstr "Implantar todos"
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
+msgid "Activate all"
+msgstr "Ativar todos"
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
+msgid ""
+"Are you sure you want to activate the e-mail sending for mailing list on ALL %"
+"s?"
+msgstr ""
+"Tem certeza que você quer ativar o envio de e-mail para a lista de discussão"
+"de TODOS os grupos?"
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:20
+msgid "Deactivate all"
+msgstr "Desativar todos"
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:20
+msgid ""
+"Are you sure you want to deactivate the e-mail sending for mailing list on ALL"
+" %s?"
+msgstr ""
+"Tem certeza que você quer desativar o envio de e-mail para a lista de "
+"discussão de TODOS os grupos?"
+
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:9
+msgid "Subscribed?"
+msgstr "Inscrito?"
+
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:24
+msgid "View profile"
+msgstr "Ver perfil"
+
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:26
+msgid "Subscription waiting approval"
+msgstr "Inscrição esperando aprovação"
+
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:27
+msgid "Subscribe"
+msgstr "Inscrever"
+
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:28
+msgid "Unsubscribe"
+msgstr "Desinscrever"
+
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:28
+msgid "Do you really want to unsubscribe?"
+msgstr "Você realmente quer se desinscrever?"
+
+#:
+#: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
+msgid "Type in a search term for blogs or forums"
+msgstr "Escreva um termo de busca para blogs ou fóruns"
+
+#:
+#: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
+msgid "Define which blogs or forums should send e-mails to the mailing list"
+msgstr "Defina quais blogs ou fóruns devem enviar e-mails para a lista de"
+"discussão"
+
+#: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:1
+#: ../views/mailing_list_plugin_myprofile_person/edit.html.erb:1
+msgid "Mailing list options"
+msgstr "Opções da lista de discussão"
+
+#: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:4
+msgid "Send e-mails?"
+msgstr "Enviar e-mails?"
+
+#: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:5
+msgid "Members"
+msgstr "Membros"
+
+#: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:8
+msgid ""
+"This feature will allow you to integrate forums from this group\n"
+"           into a mailing list. After you deploy this feature, a new mailing\n"
+"           list will be autmatically created and every member of this group\n"
+"           will be subscribed to this mailing list. After the feature is\n"
+"           deployed, you will be allowed to select which foruns should be\n"
+"           integrated with your mailing list and then every topic created on\n"
+"           these selected forums will autmatically send e-mails to the mailing"
+"\n"
+"           list. The same will happen to comments on the topics and replies to"
+"\n"
+"           comments."
+msgstr ""
+"Essa funcionalidade irá permitir que você integre os fóruns e blogs desse"
+"grupo com uma lista de discussão. Depois de implantar essa funcionalidade, "
+"uma nova lista de discussão será criada automaticamente e todos os membros"
+"desse grupo serão inscritos nessa lista de discussão. Após de a funcionalidade"
+"ser implantada, você poderá selecionar quais fóruns ou blogs devem ser"
+"integrados com a sua lista de discussão and então todos os tópicos e"
+"postagens criados nesses fóruns e blogs selecionados serão enviados"
+"por e-mail para a lista de discussão. O mesmo irá acontecer com comentários"
+"nos conteúdos e respostas aos comentários."
+
+#: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:19
+msgid "Deploy"
+msgstr "Implantar"
+
+#: ../views/mailing_list_plugin_myprofile_person/_settings_form.html.erb:3
+msgid "Unsubscribe from all lists: "
+msgstr "Desinscrever-se de todas as listas: "
+
+#: ../views/mailing_list_plugin_myprofile_person/_settings_form.html.erb:6
+msgid "Unsubscribe from all"
+msgstr "Desinscrever-se de todas"
+
+#: ../views/mailing_list_plugin_myprofile_person/_settings_form.html.erb:8
+msgid "Do you really want to unsubscribe from all lists?"
+msgstr "Você realmente quer se desinscrever de todas as listas?"
+
+#: ../views/mailing_list_plugin_myprofile_person/edit.html.erb:3
+msgid "Groups"
+msgstr "Grupos"
+
+#: ../views/mailing_list_plugin_myprofile_person/edit.html.erb:4
+msgid "Recieve e-mails?"
+msgstr "Receber e-mails?"

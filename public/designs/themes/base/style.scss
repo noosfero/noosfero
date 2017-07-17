@@ -1058,6 +1058,7 @@ hr.pre-posts, hr.sep-posts {
 #content a.button.disabled:hover {
   background-color: #CCC;
   border-color: #CCC;
+  pointer-events: none;
 }
 
 #addThis {

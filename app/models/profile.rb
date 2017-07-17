@@ -841,6 +841,7 @@ private :generate_url, :url_options
       else
         self.affiliate(person, Profile::Roles.admin(environment.id), attributes) if members.count == 0
         self.affiliate(person, Profile::Roles.member(environment.id), attributes)
+        plugins.dispatch(:member_added, self, person)
       end
       person.tasks.pending.of("InviteMember").select { |t| t.data[:community_id] == self.id }.each { |invite| invite.cancel }
       remove_from_suggestion_list person
@@ -851,6 +852,7 @@ private :generate_url, :url_options
 
   def remove_member(person)
     self.disaffiliate(person, Profile::Roles.all_roles(environment.id))
+    plugins.dispatch(:member_removed, self, person)
   end
 
   # adds a person as administrator os this profile

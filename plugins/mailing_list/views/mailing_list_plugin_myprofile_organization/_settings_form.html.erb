@@ -1,0 +1,9 @@
+<%= form_for :profile_settings do |f| %>
+  <%= labelled_form_field(enabled_label, f.check_box(:enabled)) %>
+  <%= render :partial => 'watched_contents' %>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back'), profile.admin_url) %>
+    <%= submit_button(:save, _('Save')) %>
+  <% end %>
+<% end %>

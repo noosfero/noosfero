@@ -1,0 +1,27 @@
+From sample@example.org  Thu Jun 29 17:28:36 2017
+Return-Path: <sample@example.org>
+X-Original-To: noosfero@localhost
+Delivered-To: noosfero@localhost
+Received: by a89e8fa41d2d (Postfix, from userid 0)
+	id 0A60339EC; Thu, 29 Jun 2017 17:28:13 +0000 (UTC)
+To: noosfero@localhost
+Subject: Cuidado com essa mensagem!
+Content-Type: multipart/alternative; boundary="----=_Part_1646830153_442624977.1498663127008"
+From: Sample User <sample@example.org>
+In-Reply-To: <06cd4d14-ad34-47e5-a774-d359816de348@localhost>
+Message-Id: <20170629172836.0A60339EC@a89e8fa41d2d>
+Date: Thu, 29 Jun 2017 17:28:13 +0000 (UTC)
+
+------=_Part_1646830153_442624977.1498663127008
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+Hello world?
+
+------=_Part_1646830153_442624977.1498663127008
+Content-Type: text/html; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<p>Hello world?<p/>
+
+------=_Part_1646830153_442624977.1498663127008

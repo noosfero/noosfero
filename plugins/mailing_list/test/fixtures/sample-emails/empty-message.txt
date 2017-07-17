@@ -1,0 +1,11 @@
+From root@a89e8fa41d2d  Thu Jun 29 17:29:53 2017
+Return-Path: <root@a89e8fa41d2d>
+X-Original-To: noosfero@localhost
+Delivered-To: noosfero@localhost
+Received: by a89e8fa41d2d (Postfix, from userid 0)
+	id 1E84F39EC; Thu, 29 Jun 2017 17:29:53 +0000 (UTC)
+To: noosfero@localhost
+Subject: Cuidado com essa mensagem!
+From: Ze <root@localhost.localdomain>
+Message-Id: <20170629172953.1E84F39EC@a89e8fa41d2d>
+Date: Thu, 29 Jun 2017 17:29:53 +0000 (UTC)

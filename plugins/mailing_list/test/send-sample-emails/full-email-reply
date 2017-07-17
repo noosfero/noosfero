@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# Make sure there is an article with this uuid: c0133598-d369-4c30-8e4d-66bdbdcbab3e
+mail -s "=?UTF-8?Q?Re:_Outra_publica=c3=a7=c3=a3o?=" -a "From: Ze <ze@localhost.localdomain>" -a "Message-ID: <dec60a2e-6dc5-567d-87ff-e0288733137d@localhost.localdomain>" -a "In-Reply-To: <c0133598-d369-4c30-8e4d-66bdbdcbab3e@localhost>" noosfero@localhost < full-mail.txt

@@ -6,7 +6,7 @@ class VotePluginProfileController < ProfileController
     model = params[:model].to_sym
     vote = params[:vote].to_i
     settings = Noosfero::Plugin::Settings.new(environment, VotePlugin)
-    model_settings = settings.get_setting("enable_vote_#{model}")
+    model_settings = settings.send("enable_vote_#{model}")
 
     unless model_settings && model_settings.include?(vote)
       render_access_denied

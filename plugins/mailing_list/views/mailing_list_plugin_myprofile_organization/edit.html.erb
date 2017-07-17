@@ -1,0 +1,21 @@
+<h1> <%= _('Mailing list options') %> </h1>
+
+<% if @client.group_list_exist?(profile) %>
+  <%= render :partial => 'settings_form', :locals => {enabled_label: _('Send e-mails?')} %>
+  <%= render :partial => 'mailing_list_plugin_myprofile/subscriptions_table', :locals => {relation_label: _('Members')} %>
+<% else %>
+  <%# Review this text and also the way it is displayed %>
+  <p><%= _('This feature will allow you to integrate forums from this group
+           into a mailing list. After you deploy this feature, a new mailing
+           list will be autmatically created and every member of this group
+           will be subscribed to this mailing list. After the feature is
+           deployed, you will be allowed to select which foruns should be
+           integrated with your mailing list and then every topic created on
+           these selected forums will autmatically send e-mails to the mailing
+           list. The same will happen to comments on the topics and replies to
+           comments.') %></p>
+  <%= button_bar do %>
+    <%= button(:back, _('Back'), profile.admin_url) %>
+    <%= button('menu-mail', _('Deploy'), action: 'deploy') %>
+  <% end %>
+<% end %>

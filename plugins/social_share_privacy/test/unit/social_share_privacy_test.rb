@@ -22,7 +22,7 @@ class SocialSharePrivacyPluginTest < ActionView::TestCase
 
   should 'have default value for networks setting' do
     @settings = Noosfero::Plugin::Settings.new(Environment.default, SocialSharePrivacyPlugin)
-    assert_equal [], @settings.get_setting(:networks)
+    assert_equal [], @settings.networks
   end
 
   should 'return html code for social share privacy buttons' do
