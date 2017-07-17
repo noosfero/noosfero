@@ -83,14 +83,6 @@ class ContactControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'select', :attributes => {:name => 'state'}
   end
 
-  should 'show name, email and captcha if not logged' do
-    logout
-    get :new, :profile => profile.identifier
-    assert_tag :tag => 'input', :attributes => {:name => 'contact[name]'}
-    assert_tag :tag => 'input', :attributes => {:name => 'contact[email]'}
-    assert_tag :attributes => {id: 'dynamic_recaptcha'}
-  end
-
   should 'identify sender' do
     post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all', :state => '', :city => ''}
     assert_equal Person['contact_test_user'], assigns(:contact).sender

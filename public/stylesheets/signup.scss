@@ -161,3 +161,7 @@
   color: #005000;
   font-weight: normal;
 }
+
+#signup-form .g-recaptcha div:first-child {
+  width: auto !important;
+}

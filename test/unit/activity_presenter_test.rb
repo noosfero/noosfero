@@ -6,7 +6,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     @target = mock
     @owner = mock
 
-    @target.stubs(:wall_access).returns(AccessLevels::LEVELS[:users])
+    @target.stubs(:wall_access).returns(AccessLevels.levels[:users])
   end
 
   should 'be available for ActionTracker::Record' do
@@ -109,7 +109,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     target = create_user.person
     presenter = ActivityPresenter.new(target)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:related])
+    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:related])
     assert presenter.hidden_for?(@user)
   end
 
@@ -117,7 +117,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     target = create_user.person
     presenter = ActivityPresenter.new(target)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:users])
+    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
     refute presenter.hidden_for?(@user)
   end
 
@@ -126,7 +126,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     article = fast_create(Article, profile_id: profile.id)
     presenter = ActivityPresenter.new(article)
 
-    Community.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:related])
+    Community.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:related])
     assert presenter.hidden_for?(@user)
   end
 
@@ -135,7 +135,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     article = fast_create(Article, profile_id: profile.id)
     presenter = ActivityPresenter.new(article)
 
-    Community.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:users])
+    Community.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
     refute presenter.hidden_for?(@user)
   end
 
@@ -144,7 +144,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     scrap = fast_create(Scrap, receiver_id: receiver.id)
     presenter = ActivityPresenter.new(scrap)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:related])
+    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:related])
     assert presenter.hidden_for?(@user)
   end
 
@@ -153,7 +153,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     scrap = fast_create(Scrap, receiver_id: receiver.id)
     presenter = ActivityPresenter.new(scrap)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels::LEVELS[:users])
+    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
     refute presenter.hidden_for?(@user)
   end
 
@@ -162,7 +162,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     presenter = ActivityPresenter.new(target)
 
     presenter.expects(:owner).at_least(1).returns(@owner)
-    @owner.expects(:wall_access).returns(AccessLevels::LEVELS[:users])
+    @owner.expects(:wall_access).returns(AccessLevels.levels[:users])
     AccessLevels.expects(:can_access?).returns(false)
     presenter.hidden_for?(@user)
   end

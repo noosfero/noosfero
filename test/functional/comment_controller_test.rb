@@ -199,55 +199,6 @@ class CommentControllerTest < ActionController::TestCase
     assert_match /post_comment_box opened/, @response.body
   end
 
-  should 'invalid captcha display the comment form open' do
-    article = profile.articles.build(:name => 'test')
-    article.save!
-    login_as('testinguser')
-    @controller.stubs(:verify_recaptcha).returns(false)
-
-    environment.enable('captcha_for_logged_users')
-    environment.save!
-
-    xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
-    assert_match /post_comment_box opened/, @response.body
-  end
-
-  should 'ask for captcha if environment defines even with logged user' do
-    article = profile.articles.build(:name => 'test')
-    article.save!
-    login_as('testinguser')
-    @controller.stubs(:verify_recaptcha).returns(false)
-
-    assert_difference 'Comment.count', 1 do
-      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
-    end
-
-    environment.enable('captcha_for_logged_users')
-    environment.save!
-
-    assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
-    end
-    assert_not_nil assigns(:comment)
-  end
-
-  should 'ask for captcha if user not logged' do
-    article = profile.articles.build(:name => 'test')
-    article.save!
-
-    @controller.stubs(:verify_recaptcha).returns(false)
-    logout
-    assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
-    end
-
-    @controller.stubs(:verify_recaptcha).returns(true)
-    login_as profile.identifier
-    assert_difference 'Comment.count', 1 do
-      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
-    end
-  end
-
   should 'create ApproveComment task when adding a comment in a moderated article' do
     login_as @profile.identifier
     community = Community.create!(:name => 'testcomm')

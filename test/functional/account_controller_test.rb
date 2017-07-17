@@ -236,12 +236,11 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'not respond to forgotten password change if captcha verification fails' do
     create_user('test')
-    @controller.stubs(:verify_recaptcha).returns(false)
+    @controller.stubs(:verify_captcha).returns(false)
     post :forgot_password, :value => 'test'
     change = assigns(:change_password)
-    assert change.errors.has_key?(:base)
+    assert change.invalid?
     assert_response :success
-    assert_tag :tag => 'div', :attributes => { :id => 'errorExplanation', :class => 'errorExplanation' }
   end
 
   should 'respond to forgotten password change request with email' do
@@ -928,15 +927,16 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'include honeypot in the signup form' do
     get :signup
-    assert_tag :tag => /input|textarea/, :attributes => {:id => 'honeypot'}
+    assert_tag :tag => /input|textarea/, :attributes => {:id => 'a_comment_body'}
   end
 
   should 'not sign in if the honeypot field is filled' do
     Person.any_instance.stubs(:required_fields).returns(['organization'])
     assert_no_difference 'User.count' do
-      post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }, :honeypot => 'something'
+      post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }, :a_comment_body => 'something'
     end
     assert @response.body.blank?
+    assert_response 200
   end
 
   should "Search for state" do
@@ -969,6 +969,30 @@ class AccountControllerTest < ActionController::TestCase
     environment.save!
     new_user
     assert_redirected_to :controller => 'home', :action => 'welcome'
+  end
+
+  should 'put ip in black list after 3 spam check failures' do
+    environment = Environment.default
+    environment.min_signup_delay = 1
+    environment.save!
+    ip_address = '0.0.0.0'
+    Environment.any_instance.expects(:add_to_signup_blacklist).with(ip_address)
+
+    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
+    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
+    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
+    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
+  end
+
+  should 'return empty page on registration if ip on temporary signup blacklist' do
+    environment = Environment.default
+    ip_address = '0.0.0.0'
+    environment.add_to_signup_blacklist(ip_address)
+
+    post :signup
+
+    assert @response.body.blank?
+    assert_response 200
   end
 
   protected

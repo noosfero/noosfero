@@ -1,51 +1,6 @@
 <% edition_mode = (defined? edition_mode) ? edition_mode : false %>
 <div class="<%= edition_mode ? '' : 'page-comment-form' %>">
 
-<% focus_on = logged_in? ? 'title' : 'name' %>
-
-
-<% if !edition_mode && !pass_without_comment_captcha? %>
-  <div id="recaptcha-container" style="display: none">
-    <h3><%= _('Please type the two words below') %></h3>
-    <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true, :ssl => true) %>
-    <div class="button-bar">
-      <%= button_to_function :add, _('Confirm'), j("return false"), :id => "confirm-captcha" %>
-      <%= button_to_function :cancel, _('Cancel'), j("noosfero.modal.close()") %>
-    </div>
-  </div>
-
-  <script type="text/javascript">
-    jQuery(document).bind('cbox_cleanup', function() {
-      jQuery('#recaptcha-container').hide();
-    });
-  </script>
-<% end %>
-
-<script type="text/javascript">
-function check_captcha(button, confirm_action) {
-  <% if edition_mode %>
-  return true;
-  <% elsif pass_without_comment_captcha? %>
-  button.form.confirm.value = 'true';
-  button.disabled = true;
-  return true;
-  <% else %>
-  jQuery('#recaptcha-container').show();
-  noosfero.modal.inline('#recaptcha-container', {maxWidth :'600px', maxHeight : '300px' });
-  jQuery('#confirm-captcha').unbind('click');
-  jQuery('#confirm-captcha').bind('click', function() {
-    noosfero.modal.close();
-    button.form.recaptcha_response_field.value = jQuery('#recaptcha_response_field').val();
-    button.form.recaptcha_challenge_field.value = jQuery('#recaptcha_challenge_field').val();
-    button.form.confirm.value = 'true';
-    button.disabled = false;
-    confirm_action(button);
-  });
-  return false;
-  <% end %>
-}
-</script>
-
 <% @comment ||= Comment.new %>
 
 <% if @comment.errors.any? %>
@@ -69,13 +24,12 @@ function check_captcha(button, confirm_action) {
 
   <% end %>
 
-  <% if !edition_mode && !pass_without_comment_captcha? %>
-    <%= hidden_field_tag(:recaptcha_response_field, nil, :id => nil) %>
-    <%= hidden_field_tag(:recaptcha_challenge_field, nil, :id => nil) %>
-  <% end %>
-
   <%= labelled_form_field(_('Title'), f.text_field(:title)) %>
   <%= required labelled_form_field(_('Enter your comment'), f.text_area(:body, :rows => 5)) %>
+
+  <% if !edition_mode %>
+    <%= captcha_tags(:create_comment, user, environment, profile) %>
+  <% end %>
 
   <% if logged_in? %>
     <%= labelled_form_field check_box(:comment, :follow_article, {}, true, false) + _('Follow this article'), '' %>
@@ -88,7 +42,7 @@ function check_captcha(button, confirm_action) {
   <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
 
   <%= button_bar do %>
-    <%= submit_button('add', _('Post comment'), :onclick => "if(check_captcha(this)) { save_comment(this) } else { check_captcha(this, save_comment)};return false;") %>
+    <%= submit_button('add', _('Post comment'), :onclick => "save_comment(this); return false;") %>
     <% if !edition_mode %>
       <%= button :cancel, _('Cancel'), '', :id => 'cancel-comment' %>
     <% else %>

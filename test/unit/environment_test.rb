@@ -1820,4 +1820,82 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_includes environment.available_blocks(person), CustomBlock1
   end
 
+  should 'get captcha default level' do
+    environment = Environment.default
+    action = 'some-action'
+    assert environment.metadata['captcha'].blank?
+    assert_equal environment.default_captcha_requirement, environment.get_captcha_level(action) end
+
+  should 'get captcha level' do
+    environment = Environment.default
+    action = 'some-action'
+
+    environment.metadata['captcha'] = {action => 4}
+    environment.save!
+
+    assert_equal 4, environment.get_captcha_level(action)
+  end
+
+  should 'get require captcha if on restriction levels' do
+    environment = Environment.default
+    user = mock
+    action = 'some-action'
+
+    RestrictionLevels.expects(:is_restricted?).returns(true)
+
+    assert environment.require_captcha?(action, user)
+  end
+
+  should 'not get require captcha if not on restriction levels' do
+    environment = Environment.default
+    user = mock
+    action = 'some-action'
+
+    RestrictionLevels.expects(:is_restricted?).returns(false)
+
+    refute environment.require_captcha?(action, user)
+  end
+
+  should 'check whether ip is in the signup_blacklist' do
+    ip = '0.0.0.0'
+    other_ip = '1.1.1.1'
+    environment = Environment.default
+    environment.metadata['signup_blacklist'] = [ip]
+    environment.save!
+    assert environment.on_signup_blacklist?(ip)
+
+    environment.metadata['signup_blacklist'] = [other_ip]
+    environment.save!
+    refute environment.on_signup_blacklist?(ip)
+  end
+
+  should 'add ip to signup blacklist' do
+    ip = '0.0.0.0'
+    environment = Environment.default
+    environment.add_to_signup_blacklist(ip)
+    assert environment.on_signup_blacklist?(ip)
+  end
+
+  should 'remove ip from signup blacklist' do
+    ip = '0.0.0.0'
+    environment = Environment.default
+    environment.metadata['signup_blacklist'] = [ip]
+    environment.save!
+    environment.remove_from_signup_blacklist(ip)
+
+    refute environment.on_signup_blacklist?(ip)
+  end
+
+  should 'remove from signup blacklist after removal job is performed' do
+    ip = '0.0.0.0'
+    environment = Environment.default
+    environment.add_to_signup_blacklist(ip)
+    assert environment.on_signup_blacklist?(ip)
+
+    job = Delayed::Job.where("handler LIKE '%RemoveIpFromBlacklist%'").last
+    job.invoke_job
+    environment.reload
+    refute environment.on_signup_blacklist?(ip)
+  end
+
 end

@@ -28,6 +28,7 @@
 *= require modal.js
 *= require loading-overlay.js
 *= require pagination.js
+*= require slider.js
 *
 * views speficics
 *= require add-and-join.js

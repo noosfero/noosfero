@@ -33,6 +33,8 @@ gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
 gem 'diffy',                    '~> 3.0'
 gem 'slim'
 gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
+gem 'recaptcha', require: 'recaptcha/rails'
+gem 'honeypot-captcha'
 
 
 # API dependencies

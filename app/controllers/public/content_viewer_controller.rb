@@ -116,11 +116,6 @@ class ContentViewerController < ApplicationController
     false
   end
 
-  def pass_without_comment_captcha?
-    logged_in? && !environment.enabled?('captcha_for_logged_users')
-  end
-  helper_method :pass_without_comment_captcha?
-
   def allow_access_to_page(path)
     if @page.nil? # page not found, give error
       render_not_found(path)

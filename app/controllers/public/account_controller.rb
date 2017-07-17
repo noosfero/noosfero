@@ -4,9 +4,12 @@ class AccountController < ApplicationController
 
   before_filter :login_required, :require_login_for_environment, :only => [:activation_question, :accept_terms, :activate_enterprise, :change_password]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]
-  before_filter :protect_from_bots, :only => :signup
+  before_filter :protect_from_spam, :only => :signup
+  before_filter :block_blacklisted_user, :only => :signup
 
   protect_from_forgery except: [:login]
+
+  include Captcha
 
   helper CustomFieldsHelper
   # say something nice, you goof!  something sweet.
@@ -96,8 +99,6 @@ class AccountController < ApplicationController
 
     store_location(request.referer) unless params[:return_to] or session[:return_to]
 
-    # Tranforming to boolean
-    @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
       @user = User.build(params[:user], params[:profile_data], environment)
@@ -109,15 +110,13 @@ class AccountController < ApplicationController
       @kinds = environment.kinds.where(:type => 'Person')
 
       if request.post?
-        if may_be_a_bot
-          set_signup_start_time_for_now
-          @block_bot = true
-          session[:may_be_a_bot] = true
-        else
-          if session[:may_be_a_bot]
-            return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
-            session[:may_be_a_bot] = false
+        if bot_by_signup_time || !verify_captcha(:signup, @user, nil, environment)
+          session[:bot_failures] = (session[:bot_failures] || 0) + 1
+          if session[:bot_failures] > 3
+            environment.add_to_signup_blacklist(request.remote_ip)
           end
+          sleep 5 * session[:bot_failures] # Putting possible bot to sleep
+        else
           @user.community_to_join = session[:join]
           @user.signup!
           owner_role = Role.find_by(name: 'owner')
@@ -192,10 +191,7 @@ class AccountController < ApplicationController
 
     if request.post?
       begin
-        unless verify_recaptcha
-          @change_password.errors.add(:base, _('Please type the captcha text correctly'))
-          return false
-        end
+        return false unless verify_captcha(:forgot_password, @change_password, nil, environment)
 
         requestors = fetch_requestors(params[:value])
         raise ActiveRecord::RecordNotFound if requestors.blank? || params[:value].blank?
@@ -380,12 +376,9 @@ class AccountController < ApplicationController
     Rails.cache.delete params[:signup_time_key] if params[:signup_time_key]
   end
 
-  def may_be_a_bot
+  def bot_by_signup_time
     # No minimum signup delay, no bot test.
     return false if environment.min_signup_delay == 0
-
-    # answering captcha, may be human!
-    return false if params[:recaptcha_response_field]
 
     # never set signup_time, hi wget!
     signup_start_time = get_signup_start_time
@@ -507,6 +500,12 @@ class AccountController < ApplicationController
     unless profile_to_join.blank?
      environment.profiles.find_by(identifier: profile_to_join).add_member(user.person)
      session.delete(:join)
+    end
+  end
+
+  def block_blacklisted_user
+    if environment.on_signup_blacklist?(request.remote_ip)
+      return head :ok, content_type: "text/html"
     end
   end
 end

@@ -1,0 +1,17 @@
+<h1><%= _('Manage Captcha') %></h1>
+
+<%= _('Define who is obliged to answer the captcha verification for each action.') %>
+
+<%= form_tag do %>
+  <% Environment::CAPTCHA.each do |action, settings| %>
+    <div class='captcha-sliders'>
+      <%= content_tag('h4', settings[:label]) %>
+      <%= restriction_slider_field_tag(action, "captcha[#{action}]", nil, environment.get_captcha_level(action), settings[:options]) %>
+    </div>
+  <% end %>
+
+  <%= button_bar do %>
+    <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+    <%= submit_button(:save, _('Save')) %>
+  <% end %>
+<% end %>

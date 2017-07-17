@@ -6,8 +6,19 @@
   background: #73D216;
 }
 
+.slider-min-range .ui-slider-range {
+  background: #EF2929;
+}
+
 .slider label {
   left: 20px;
   position: absolute;
   width: 200px;
+}
+
+.captcha-sliders {
+  position: relative;
+  float: left;
+  width: 50%;
+  margin-bottom: 20px;
 }

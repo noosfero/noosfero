@@ -291,18 +291,34 @@ module FormsHelper
     return result
   end
 
-  def slider_field_tag(id, field_name, profile, access_levels, value=AccessLevels::LEVEL[:self], html_options={})
-    html_options.merge!({:class=> "slider"})
+  def access_slider_field_tag(id, field_name, profile, value=AccessLevels.levels[:self], levels=AccessLevels.options, html_options={})
+    keys = AccessLevels.levels
+    labels = AccessLevels.labels(profile)
+    range = 'max'
+
+    slider_field_tag(id, field_name, value, keys, labels, levels, range, html_options={})
+  end
+
+  def restriction_slider_field_tag(id, field_name, profile, value=RestrictionLevels.levels[:self], levels=RestrictionLevels.options, html_options={})
+    keys = RestrictionLevels.levels
+    labels = RestrictionLevels.labels(profile)
+    range = 'min'
+
+    slider_field_tag(id, field_name, value, keys, labels, levels, range, html_options={})
+  end
+
+  def slider_field_tag(id, field_name, value, keys, labels, levels, range, html_options={})
+    html_options.merge!({:class=> "slider slider-#{range}-range"})
     html_options.merge!({data: {
-      keys: AccessLevels::LEVELS.to_json.gsub('"', "'"),
-      labels: AccessLevels.labels(profile).to_json.gsub('"', "'"),
-      options: access_levels.to_json.gsub('"', "'"),
+      keys: keys.to_json.gsub('"', "'"),
+      labels: labels.to_json.gsub('"', "'"),
+      options: levels.to_json.gsub('"', "'"),
+      range: range,
       input: id}
     })
 
     content_tag('div', '', html_options) +
-    hidden_field_tag(field_name, value, :id => id) +
-    javascript_include_tag("#{Noosfero.root}/assets/slider.js")
+    hidden_field_tag(field_name, value, :id => id)
   end
 
 protected

@@ -62,7 +62,7 @@ class MenuBlock < Block
   end
 
   def access_level
-    owner.person? ? AccessLevels::LEVELS[:users] : AccessLevels::LEVELS[:visitors]
+    owner.person? ? AccessLevels.levels[:users] : AccessLevels.levels[:visitors]
   end
 
   def display_about?(user)
