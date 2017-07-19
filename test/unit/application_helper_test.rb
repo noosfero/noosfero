@@ -499,7 +499,7 @@ class ApplicationHelperTest < ActionView::TestCase
   should 'use favicon from profile theme if the profile has theme' do
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
-    File.expects(:exists?).with(Rails.root.join('public', '/designs/themes/profile-theme', 'favicon.ico')).returns(true)
+    File.expects(:exists?).with(File.join(Rails.root, 'public', '/designs/themes/profile-theme', 'favicon.ico')).returns(true)
     assert_equal '/designs/themes/profile-theme/favicon.ico', theme_favicon
   end
 
@@ -507,7 +507,7 @@ class ApplicationHelperTest < ActionView::TestCase
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/favicon.ico', 'image/x-ico'), :profile => profile)
-    File.expects(:exists?).with(Rails.root.join('public', theme_path, 'favicon.ico')).returns(false)
+    File.expects(:exists?).with(File.join(Rails.root, 'public', theme_path, 'favicon.ico')).returns(false)
 
     assert_match /favicon.ico/, theme_favicon
   end
@@ -515,7 +515,7 @@ class ApplicationHelperTest < ActionView::TestCase
   should 'use favicon from environment if the profile theme and profile articles do not have' do
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
-    File.expects(:exists?).with(Rails.root.join('public', theme_path, 'favicon.ico')).returns(false)
+    File.expects(:exists?).with(File.join(Rails.root, 'public', theme_path, 'favicon.ico')).returns(false)
     assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
   end
 
