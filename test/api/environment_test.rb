@@ -249,4 +249,15 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_includes environment.available_blocks(person), CommunitiesBlock
   end
 
+  should 'get detailed error message from environment' do
+    login_api
+    environment = Environment.default
+    environment.add_admin(person)
+
+    params[:environment] = {name: ''}
+    post "/api/v1/environments/#{environment.id}?#{params.to_query}"
+    assert_equal last_response.status, 422
+    assert_equal last_response.body, '{"errors":{"name":[{"error":"blank","full_message":"Name can\'t be blank"}]}}'
+  end
+
 end

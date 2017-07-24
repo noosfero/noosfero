@@ -29,9 +29,13 @@ module Api
             authenticate!
             environment = Environment.find_by(id: params[:id])
             return forbidden! unless is_admin?(environment)
-            environment.update_attributes!(params[:environment])
-            status Api::Status::DEPRECATED if path == 'environment'
-            present_partial environment, with: Entities::Environment, is_admin: is_admin?(environment), current_person: current_person
+            begin
+              environment.update_attributes!(params[:environment])
+              status Api::Status::DEPRECATED if path == 'environment'
+              present_partial environment, with: Entities::Environment, is_admin: is_admin?(environment), current_person: current_person
+            rescue ActiveRecord::RecordInvalid
+              render_model_errors!(environment.errors)
+            end
           end
   
         end
