@@ -35,14 +35,24 @@ module CodeNumbering
       self.code_scope.maximum(self.code_numbering_field) || 0
     end
 
+    def code_max
+      max = nil
+           
+      if self.code_numbering_options[:start]
+        max = self.code_numbering_options[:start].to_i - 1
+      end
+
+      max
+    end
+
     def create_code_numbering
-      max = self.code_numbering_options[:start].to_i - 1 if self.code_numbering_options[:start]
+      max = code_max
       max = self.code_maximum
       self.send "#{self.code_numbering_field}=", max+1
     end
 
     def reset_scope_code_numbering
-      max = self.code_numbering_options[:start].to_i - 1 if self.code_numbering_options[:start]
+      max = code_max
       max ||= 1
 
       self.code_scope.order(:created_at).each do |record|
