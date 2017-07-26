@@ -159,4 +159,14 @@ class SearchTest < ActiveSupport::TestCase
     get "/api/v1/search/article"
     assert_equal Api::Status::DEPRECATED, last_response.status
   end
+
+  should 'list articles by tag' do
+    fast_create(Article, :profile_id => person.id)
+    article = fast_create(TextArticle, :profile_id => person.id)
+    article.tag_list.add('test')
+    article.save!
+    get "/api/v1/search/article?tag=test"
+    json = JSON.parse(last_response.body)
+    assert_equal article.id, json.first['id']
+  end
 end

@@ -21,7 +21,7 @@ module Api
             query = params[:query] || ""
             order = "more_recent"
 
-            options = {:filter => order, :template_id => params[:template_id]}
+            options = {filter: order, template_id: params[:template_id], tag: params[:tag]}
 
             search_result = find_by_contents(asset, context, scope, query, {:page => 1}, options)
 
