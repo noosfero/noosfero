@@ -41,6 +41,11 @@ class Article < ApplicationRecord
 
   N_('article')
 
+  def self.inherited(subclass)
+    subclass.prepend StringTemplate
+    super
+  end
+
   def initialize(*params)
     super
     if params.present? && params.first.present?

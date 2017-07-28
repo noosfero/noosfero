@@ -1,5 +1,7 @@
 class AdminPanelController < AdminController
 
+  include SanitizeHelper
+
   protect 'view_environment_admin_panel', :environment
 
   def boxes_holder
@@ -70,5 +72,8 @@ class AdminPanelController < AdminController
         redirect_to :action => 'index'
       end
     end
+  end
+
+  def string_templates
   end
 end

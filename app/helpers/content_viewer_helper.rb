@@ -36,7 +36,7 @@ module ContentViewerHelper
       title << content_tag(:div,
         content_tag(:span, '', :class => 'ui-icon ui-icon-locked') +
         content_tag(:span, _("This is a private content"), :class => 'alert-message'),
-        :class => 'not-published'
+        :class => 'not-published alert-text'
       ) unless article.published?
     end
     title

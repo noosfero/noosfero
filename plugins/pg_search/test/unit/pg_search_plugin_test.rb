@@ -211,7 +211,8 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     a6 = fast_create(TextArticle, :created_at => 4.days.ago, :published_at => 1.days.ago)
 
     scope = Article.where(:id => [a1.id, a2.id, a3.id, a4.id, a5.id, a6.id])
-    periods = {:created_at => {'start_date' => 10.days.ago.to_s, 'end_date' => 5.days.ago.to_s}, :published_at => {'start_date' => 4.days.ago.to_s, 'end_date' => 1.day.ago.to_s}}
+    periods = {created_at: {'start_date' => 10.days.ago.to_s, 'end_date' => 5.days.ago.to_s},
+               published_at: {'start_date' => 4.days.ago.to_s, 'end_date' => 1.day.ago.to_s}}
 
     assert_equivalent [a3, a4], plugin.send(:filter_by_periods, scope, periods)
   end

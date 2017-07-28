@@ -1,5 +1,7 @@
 module BoxesHelper
 
+  include SanitizeHelper
+
   def insert_boxes(content)
     if controller.send(:boxes_editor?) && controller.send(:uses_design_blocks?)
       content + display_boxes_editor(controller.boxes_holder)
@@ -96,7 +98,9 @@ module BoxesHelper
       extra_content = @plugins.dispatch(method_name.to_sym, block, params).map do |p|
         p.kind_of?(Proc) ? self.instance_exec(&p) : p
       end
-      safe_join [block_content, safe_join(extra_content)]
+
+      block_content = safe_join [block_content, safe_join(extra_content)]
+      parse_string_params(block, block_content).html_safe
     rescue ActionView::MissingTemplate => e
       return if klass.superclass === Block
       render_block block, prefix, klass.superclass

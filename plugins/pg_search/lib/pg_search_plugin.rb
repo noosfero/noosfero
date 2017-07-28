@@ -87,9 +87,10 @@ class PgSearchPlugin < Noosfero::Plugin
   def filter_by_periods(scope, periods)
     periods.each do |attribute, period|
       next if period.blank?
-      if period['is_metadata'] != "false"
+      if !period['is_metadata'].blank? && period['is_metadata'] == "true"
         scope = scope.pg_search_plugin_by_metadata_period(attribute, period['start_date'], period['end_date'])
       else
+        period['end_date'] += " 23:59:59" unless period['end_date'].blank?
         scope = scope.send(attribute, period['start_date'], period['end_date'])
       end
     end

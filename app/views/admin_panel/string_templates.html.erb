@@ -1,0 +1,43 @@
+<h1><%= _('Macros') %></h1>
+
+<p>
+  <%= _('The following macros can be used to access the attributes of '\
+        'the enclosing context. For blocks, macros are available in any '\
+        'attribute. For articles, macros are supported in the lead and '\
+        'body.') %>
+</p>
+
+<p>
+  <%= _('To use one of these macros, just prepend a "!" symbol to the '\
+        'macro key, in any of the supported contexts. For example, you can '\
+        'use !profile-name on the title of a block, and it will be replaced '\
+        'by the name of the profile.') %>
+</p>
+
+<p class='alert-text'>
+  <%= _('Note that macros are only supported in the contexts below') %>
+</p>
+
+
+<% [Article, Block].each do |klass| %>
+  <h2><%= _('Macros for %s') % _(klass.name.downcase.pluralize) %></h2>
+
+  <table class='macros'>
+    <tr>
+      <th><%= _('Macro key') %></th>
+      <th><%= _('Return Value') %></th>
+    </tr>
+
+    <% string_params_for(klass).to_a.each do |key, macro| %>
+      <tr>
+        <td class='macro-key'>
+          <%= key %>
+        </td>
+        <td class='macro-value'>
+          <%= macro[:description] % _(klass.name.downcase) %>
+        </td>
+      </tr>
+    <% end %>
+
+  </table>
+<% end %>
