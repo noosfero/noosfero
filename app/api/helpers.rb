@@ -22,10 +22,15 @@ module Api
       plugins
     end
 
+    def session
+      Session.find_by(session_id: cookies[:_noosfero_session])
+    end
+
     def current_user
       private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
       @current_user ||= User.find_by private_token: private_token
       @current_user ||= plugins.dispatch("api_custom_login", request).first
+      @current_user = session.user if @current_user.blank? && session.present?
       @current_user
     end
 

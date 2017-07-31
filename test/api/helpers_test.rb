@@ -275,6 +275,14 @@ class Api::HelpersTest < ActiveSupport::TestCase
     assert_equal expected, hash.first[:errors][:identifier]
   end
 
+  should 'get the current user from rails session' do
+    user = create_user
+    session = create(Session, session_id: 'some_id', data: { 'user' => user.id })
+    stubs(:request)
+    stubs(:cookies).returns({_noosfero_session: session.session_id})
+    assert_equal user, current_user
+  end
+
   protected
 
   def error!(info, status)

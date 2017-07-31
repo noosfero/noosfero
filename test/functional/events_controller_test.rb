@@ -47,7 +47,7 @@ class EventsControllerTest < ActionController::TestCase
   end
 
   should "show events for current month only" do
-    profile.events << Event.create(:name => 'Maria Birthday', :start_date => DateTime.now.at_end_of_month - 1)
+    profile.events << Event.create(:name => 'Maria Birthday', :start_date => DateTime.now.in_time_zone.at_end_of_month - 1)
     profile.events << Event.create(:name => 'Joao Birthday', :start_date => DateTime.now + 31)
 
     get :events, :profile => profile.identifier

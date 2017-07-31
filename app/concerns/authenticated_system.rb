@@ -9,6 +9,7 @@ module AuthenticatedSystem
         around_filter :user_set_current
         before_filter :override_user
         before_filter :login_from_cookie
+        before_filter :login_from_private_token
       end
 
       # Inclusion hook to make #current_user and #logged_in?
@@ -156,6 +157,12 @@ module AuthenticatedSystem
       return if cookies[:auth_token].blank? or logged_in?
       user = User.where(remember_token: cookies[:auth_token]).first
       self.current_user = user if user and user.remember_token?
+    end
+
+    def login_from_private_token
+      return if cookies['_noosfero_api_session'].blank? or logged_in?
+      user = User.where(private_token: cookies['_noosfero_api_session']).first
+      self.current_user = user if user
     end
 
   private
