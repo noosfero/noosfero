@@ -27,7 +27,7 @@ class PeopleBlockBase < Block
 
   def profile_list
     result = nil
-    visible_profiles = profiles.visible.includes([:image,:domains,:preferred_domain,:environment])
+    visible_profiles = profiles.visible.activated.includes([:image,:domains,:preferred_domain,:environment])
     if !prioritize_profiles_with_image
       result = visible_profiles.limit(limit).order('profiles.updated_at DESC').sort_by{ rand }
     elsif profiles.visible.with_image.count >= limit
