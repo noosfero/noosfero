@@ -7,6 +7,10 @@ class ClassifyMembersPlugin < Noosfero::Plugin
     _("Allows the association of communities with types of user profiles to classify and highlight them within the environment.")
   end
 
+  def self.pretty_name
+    self.plugin_name
+  end
+
   def html_tag_classes
     plugin = self
     lambda do
