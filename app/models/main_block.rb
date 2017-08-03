@@ -14,6 +14,10 @@ class MainBlock < Block
     true
   end
 
+  def self.pretty_name
+    _('Main Content')
+  end
+
   def cacheable?
     false
   end
