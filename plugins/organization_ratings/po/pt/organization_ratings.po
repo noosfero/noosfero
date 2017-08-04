@@ -50,8 +50,8 @@ msgid ""
 "<a href=%{requestor_url}>%{requestor}</a> wants to leave a report about this "
 "%{target_class}"
 msgstr ""
-"<a href=%{requestor_url}>%{requestor}</a> deseja deixar um relato sobre essa(e) "
-"%{target_class}"
+"<a href=%{requestor_url}>%{requestor}</a> deseja deixar um relato sobre "
+"essa(e) %{target_class}"
 
 #: ../lib/create_organization_rating_comment.rb:72
 msgid "%{requestor} wants to leave a report about this \"%{target}\""
@@ -66,7 +66,8 @@ msgid ""
 msgstr ""
 "Usuário \"%{user}\" acabou de fazer um novo relato em %{target_class}\n"
 "      \"%{target_name}\".\n"
-"      Você deve aprova-lo ou rejeita-lo através da seção \"Validações Pendentes\"\n"
+"      Você deve aprova-lo ou rejeita-lo através da seção \"Validações "
+"Pendentes\"\n"
 "      em seu painel de controle.\n"
 
 #: ../lib/create_organization_rating_comment.rb:87
@@ -81,8 +82,8 @@ msgstr ""
 "Seu relato em %{target_class} \"%{target}\" foi\n"
 "      enviado. O administrador irá recebê-lo e aprovar ou\n"
 "      rejeitar o seu pedido de acordo com seus critérios e métodos.\n"
-"      Você será notificado em breve assim que o administrador do ambiente"
-"uma posição\n"
+"      Você será notificado em breve assim que o administrador do ambienteuma "
+"posição\n"
 "      sobre o seu pedido."
 
 #: ../lib/create_organization_rating_comment.rb:96

@@ -47,7 +47,7 @@ msgid_plural "{#} friends"
 msgstr[0] "{#} amigo"
 msgstr[1] "{#} amigos"
 
-#: ../lib/members_block.rb:33
+#: ../lib/members_block.rb:36
 msgid "Show join leave button"
 msgstr ""
 

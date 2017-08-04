@@ -45,7 +45,7 @@ msgstr "integrantes"
 msgid "{#} %s"
 msgstr "{#} %s"
 
-#: ../lib/members_block.rb:33
+#: ../lib/members_block.rb:36
 msgid "Show join leave button"
 msgstr "Mostrar botão entrar/sair"
 

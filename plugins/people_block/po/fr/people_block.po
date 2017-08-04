@@ -39,7 +39,7 @@ msgstr "membres"
 msgid "{#} %s"
 msgstr "{#} %s"
 
-#: ../lib/members_block.rb:33
+#: ../lib/members_block.rb:36
 msgid "Show join leave button"
 msgstr "Afficher le bouton quitter"
 
