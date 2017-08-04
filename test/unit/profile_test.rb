@@ -2339,7 +2339,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes profiles, p4
   end
 
-  ['post_content', 'edit_profile', 'destroy_profile'].each do |permission|
+  ['post_content', 'edit_profile', 'destroy_profile', 'edit_profile_design'].each do |permission|
     should "return true in #{permission} when user has this permission" do
       profile = fast_create(Profile)
       person = fast_create(Person)

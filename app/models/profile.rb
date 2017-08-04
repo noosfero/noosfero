@@ -1241,6 +1241,10 @@ private :generate_url, :url_options
     person.kind_of?(Profile) && person.has_permission?('destroy_profile', self)
   end
 
+  def allow_edit_design?(person = nil )
+    person.kind_of?(Profile) && person.has_permission?('edit_profile_design', self)
+  end
+
   def in_circle?(circle, follower)
     ProfileFollower.with_follower(follower).with_circle(circle).with_profile(self).present?
   end
