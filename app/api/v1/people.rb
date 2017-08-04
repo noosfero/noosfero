@@ -47,7 +47,7 @@ module Api
         get ':id' do
           person = environment.people.visible.find_by(id: params[:id])
           return not_found! if person.blank?
-          present_partial person, :with => Entities::Person, :current_person => current_person
+          present_partial person, :with => Entities::Person, :current_person => current_person, :params => params
         end
 
         desc "Update person information"

@@ -147,6 +147,11 @@ module Api
       expose :theme do |profile, options|
         profile.theme || profile.environment.theme
       end
+      expose :boxes, :using => Box, :if => lambda {|profile, options| Entities.expose_optional_field?(:boxes, options)}
+#       box.blocks.select {|block| block.visible_to_user?(options[:current_person]) || block.allow_edit?(options[:current_person]) }
+#        expose attribute, :as => name, :if => lambda{|person,options| Entities.can_display_profile_field?(person, options, {:field =>  attribute})}
+#      expose :members, :if => lambda {|community, options| Entities.expose_optional_field?(:members, options)}
+#      end
     end
 
     class UserBasic < Entity

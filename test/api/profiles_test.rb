@@ -25,6 +25,16 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_equal some_person.id, json['id']
   end
 
+  should 'display boxes if proper optional field parameter is passed' do
+    login_api
+    some_person = fast_create(Person)
+
+    get "/api/v1/profiles/#{some_person.id}?#{params.merge({:optional_fields => [:boxes]}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal some_person.id, json['id']
+    assert_not_nil json['boxes']
+  end
+
   should 'not get inexistent profile' do
     login_api
     get "/api/v1/profiles/invalid_id?#{params.to_query}"
