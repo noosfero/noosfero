@@ -142,7 +142,7 @@ module Api
       expose :layout_template
       expose :permissions do |profile, options|
         Entities.permissions_for_entity(profile, options[:current_person],
-        :allow_post_content?, :allow_edit?, :allow_destroy?)
+        :allow_post_content?, :allow_edit?, :allow_destroy?, :allow_edit_design?)
       end
       expose :theme do |profile, options|
         profile.theme || profile.environment.theme

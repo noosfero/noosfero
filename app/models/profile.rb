@@ -1230,15 +1230,19 @@ private :generate_url, :url_options
   end
 
   def allow_post_content?(person = nil)
-    person.kind_of?(Profile) && person.has_permission?('post_content', self)
+    person.kind_of?(Person) && person.has_permission?('post_content', self)
   end
 
   def allow_edit?(person = nil)
-    person.kind_of?(Profile) && person.has_permission?('edit_profile', self)
+    person.kind_of?(Person) && person.has_permission?('edit_profile', self)
   end
 
   def allow_destroy?(person = nil)
-    person.kind_of?(Profile) && person.has_permission?('destroy_profile', self)
+    person.kind_of?(Person) && person.has_permission?('destroy_profile', self)
+  end
+
+  def allow_edit_design?(person = nil )
+    person.kind_of?(Person) && person.has_permission?('edit_profile_design', self)
   end
 
   def in_circle?(circle, follower)
