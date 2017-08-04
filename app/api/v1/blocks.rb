@@ -11,6 +11,7 @@ module Api
                 block_type = params[:block_type]
                 return forbidden! unless Object.const_defined?(block_type) && block_type.constantize <= Block
                 profile = environment.profiles.find_by(id: params[:id])
+                return forbidden! unless profile.allow_edit_design?(current_person)
                 block = block_type.constantize.new(:box => Box.new(:owner => profile))
                 present_partial block, :with => Entities::Block, display_api_content: true
               end

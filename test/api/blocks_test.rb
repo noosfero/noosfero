@@ -196,6 +196,49 @@ class BlocksTest < ActiveSupport::TestCase
     assert_equal json["message"], "403 Forbidden"
   end
 
+  should 'unlogged user not be able to get preview of a profile Block' do
+    logout_api
+    community = fast_create(Community, :environment_id => environment.id)
+    params[:block_type] = 'RawHTMLBlock'
+    get "/api/v1/profiles/#{community.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json["api_content"]
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  should 'only user with permission see the preview of a profile Block' do
+    community = fast_create(Community, :environment_id => environment.id)
+    params[:block_type] = 'RawHTMLBlock'
+    get "/api/v1/profiles/#{community.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json["api_content"]
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  should 'only user with edit_design permission see the preview of a profile Block' do
+    community = fast_create(Community, :environment_id => environment.id)
+    community.add_member(person)
+    give_permission(person, 'edit_profile_design', profile)
+    params[:block_type] = 'RawHTMLBlock'
+    get "/api/v1/profiles/#{community.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_nil json["api_content"]
+  end
+
+  should 'user with permissions different from edit_design should not see the preview of a profile Block' do
+    community = fast_create(Community, :environment_id => environment.id)
+    login_api
+
+    ['destroy_profile', 'edit_profile', 'post_content'].map do |permission|
+      give_permission(person, permission, community)
+    end
+    params[:block_type] = 'RawHTMLBlock'
+    get "/api/v1/profiles/#{community.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json["api_content"]
+    assert_equal json["message"], "403 Forbidden"
+  end
+
   should 'be able to get preview of CommunitiesBlock' do
     community = fast_create(Community, :environment_id => environment.id)
     community.add_admin(person)
@@ -204,6 +247,7 @@ class BlocksTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_includes json["api_content"]['communities'].map{ |community| community['id'] }, community.id
   end
+
 
   should 'be able to get preview of RawHTMLBlock' do
     params[:block_type] = 'RawHTMLBlock'
