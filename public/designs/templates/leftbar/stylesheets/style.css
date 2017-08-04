@@ -18,31 +18,8 @@
   float: none;
 }
 
-#profile-activity ul,
-#profile-network ul,
-#profile-wall ul {
-  width: 620px;
-}
-
-.profile-activity-lead {
-  width: 534px;
-}
-
-#profile-wall textarea {
-  width: 534px;
-}
-
-#profile-wall #leave_scrap textarea {
-  width: 640px;
-}
-
-#profile-wall li textarea {
-  width: 548px;
-}
-
 .profile-activity-article-forum .profile-activity-lead {
   background: url(../../../../images/forum-activity-bg-onecol.png);
-  width: 489px;
 }
 
 li.profile-activity-item.upload_image .upimg {

@@ -6,6 +6,12 @@
     <!--<meta http-equiv="refresh" content="1"/>-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
+    <%=
+      theme_option(:meta_tags).map do |name, content|
+        tag 'meta', name: name, content: content
+      end.join("\n").html_safe if theme_option(:meta_tags)
+    %>
+
     <% unless defined? MetadataPlugin and environment.enabled_plugins.include? 'MetadataPlugin' %>
       <meta name="description" content="<%= @environment.name %>" />
     <% end %>
@@ -14,6 +20,13 @@
     <meta property="noosfero:root" content="<%= Noosfero.root %>"/>
 
     <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
+    <%=
+      theme_option(:big_webapp_icons).map do |size, path|
+        tag('link', rel: 'apple-touch-icon', sizes: "#{size}x#{size}", href: path) +"\n"+
+        tag('link', rel: 'icon', type: 'image/png', sizes: "#{size}x#{size}", href: path)
+      end.join("\n").html_safe if theme_option(:big_webapp_icons)
+    %>
+
     <%= noosfero_javascript %>
     <%= noosfero_stylesheets %>
 

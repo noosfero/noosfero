@@ -5,6 +5,7 @@
 }
 
 .profile-activities li {
+  max-width: 100%;
   display: block;
   padding: 3px 0px;
   margin-bottom: 3px;
@@ -20,8 +21,7 @@
 }
 
 .profile-activity-lead {
-  width: 370px;
-  display: inline-block;
+  display: inline;
   text-align: left;
   margin: 5px 0;
 }
@@ -145,12 +145,11 @@ li.profile-activity-item.upload_image .show-all .more {
 }
 
 li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg,
-li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
+li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg img {
   /* Only ".activity-gallery-images-count-1" has a "img" inside */
   float: none;
   display: inline-block;
-  width: auto;
-  max-width: 100%;
+  width: 100%;
   height: auto;
   max-height: 300px;
 }
@@ -592,14 +591,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   word-wrap: break-word;
 }
 
-#profile-wall textarea {
-  width: 375px;
-}
-
-#profile-wall li textarea {
-  width: 388px;
-}
-
 #profile-wall .profile-wall-scrap-replies textarea,
 #profile-network textarea, #profile-wall textarea,
 #profile-wall li .profile-wall-reply-form textarea {
@@ -618,51 +609,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   width: 80%;
   left: 19%;
 }
-/* Profile activity IE fixes */
 
-.msie7 table.profile {
-  width: 100%;
-}
-.msie7 #profile-activity li, .msie7 #profile-network li, .msie7 #profile-wall li {
-  list-style: none;
-  z-index: 1;
-}
-.msie7 #profile-activity .profile-activity-description, .msie7 #profile-network .profile-network-description, .msie7 #profile-wall .profile-wall-description {
-  z-index: 2;
-}
-.msie7 #leave_scrap {
-  overflow: hidden;
-}
-.msie7 #profile-activity hr, .msie7 #profile-network hr, .msie7 #profile-wall hr {
-  visibility: hidden;
-}
-.msie #profile-activity .profile-activity-description, .msie #profile-network .profile-network-description {
-  border: 1px solid #ccc;
-}
-.msie7 #profile-activity ul, .msie7 #profile-network ul, .msie7 #profile-wall ul {
-  padding-left: 0;
-  margin-left: 0;
-}
-.msie7 .profile-wall-image, .msie7 .leave_scrap_to_self .profile-network-image, .msie7 .leave_scrap .profile-network-image, .msie7 .leave_scrap_to_self .profile-activity-image, .msie7 .leave_scrap .profile-activity-image {
-  z-index: 3;
-  left: 2px;
-}
-.msie7 #profile-activity .profile-activity-send-message, .msie7 #profile-network .profile-network-send-message, .msie7 #profile-wall .profile-wall-send-message {
-  line-height: 24px;
-}
-.msie7 #profile-wall a.button.with-text.icon-cancel {
-  display: inline-block;
-  line-height: 17px;
-}
-.msie7 .ui-tabs .ui-tabs-nav li {
-  top: 1px;
-  margin: 0;
-  margin-right: 4px;
-}
-.msie7 .profile-wall-scrap-replies {
-  float: none;
-  margin-top: 10px;
-}
 .article-translations-menu {
   bottom: 17px;
 }

@@ -4,11 +4,17 @@
   <p><%= block.title %></p>
 <% end %>
 
-<div class="profile-big-image">
+<div class="profile-big-image <%= theme_option(:profile_list_bg_imgs) ? 'bg-pic' : 'img-pic' %>">
   <div class="profile-big-image-inner1">
-    <span class="profile-big-image-inner2">
-      <%= link_to profile_image(block.owner, :big) +"\n", profile.url %>
-    </span>
+    <div class="profile-big-image-inner2">
+      <%=
+        if theme_option(:profile_list_bg_imgs)
+          link_to '', profile.url, style: "background-image: url(#{profile_pic profile})"
+        else
+          link_to profile_image(block.owner, :big) +"\n", profile.url
+        end
+      %>
+    </div>
   </div>
 </div>
 

@@ -23,6 +23,26 @@ module ProfileImageHelper
     sex
   end
 
+  def profile_pic( profile )
+    if profile.image
+      filename = profile.image.public_filename
+    else
+      pic = if profile.organization?
+        if profile.kind_of?(Community)
+          '/images/icons-app/community-big.png'
+        else
+          '/images/icons-app/enterprise-big.png'
+        end
+      else
+        gravatar_profile_image_url(
+          profile.email,
+          :size => 200,
+          :d => gravatar_default
+        )
+      end
+    end
+  end
+
   def profile_icon( profile, size=:portrait, return_mimetype=false )
     filename, mimetype = '', 'image/png'
     if profile.image
@@ -130,19 +150,29 @@ module ProfileImageHelper
       extra_info_tag = content_tag( 'span', extra_info, :class => 'extra_info' )
     end
 
-    links = links_for_balloon(profile)
-    vcard_classes = kindify_class(profile, 'vcard')
-    content_tag('div', content_tag(tag,
-                                   (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
-                                   popover_menu(_('Profile links'),profile.short_name,links,{:class => trigger_class, :url => url}) : "").html_safe +
-    link_to(
-      content_tag( 'span', profile_image( profile, size ), :class => img_class ) +
-      content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
-      extra_info_tag + profile_sex_icon( profile ),
-      profile.url,
-      :class => 'profile_link url',
-      :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
-      :title => profile.name ).html_safe,
-      :class => vcard_classes), :class => 'common-profile-list-block')
+    links = links_for_balloon(profile) << {home: {href: url_for(profile.url)}}
+    content_tag('div',
+      content_tag(tag,
+        (
+          environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
+          popover_menu(
+            _('Profile links'), profile.short_name, links, class: trigger_class, url: url
+          ) : ""
+        ).html_safe +
+        link_to(
+          content_tag('span', profile_image(profile, size), class: img_class) +
+          content_tag('span', h(name), class: (profile.class == Person ? 'fn' : 'org')) +
+          extra_info_tag + profile_sex_icon(profile),
+          profile.url,
+          class: 'profile_link url',
+          style: (
+            theme_option(:profile_list_bg_imgs) ?
+            "background-image: url(#{profile_icon(profile, size)})" : ''
+          ),
+          title: profile.name ).html_safe,
+        class: 'vcard'
+      ),
+      class: "common-profile-list-block #{profile.image ? 'has-pic' : 'no-pic'}"
+    )
   end
 end

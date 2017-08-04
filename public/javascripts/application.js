@@ -46,6 +46,13 @@ _.templateSettings = {
   interpolate: /\{\{(.+?)\}\}/g,
 };
 
+function isTouchDevice() {
+  return navigator.maxTouchPoints > 1 || navigator.msMaxTouchPoints > 1;
+}
+
+if (isTouchDevice()) document.documentElement.className += ' isTouch';
+else document.documentElement.className += ' isntTouch';
+
 // scope for noosfero stuff
 noosfero = {
 };
@@ -340,7 +347,7 @@ function ieZIndexBugFix(trigger) {
   }
 }
 
-function toggleSubmenu(trigger, title, link_list) {
+function toggleSubmenu(trigger, title, link_hash) {
   ieZIndexBugFix(trigger);
   trigger.onclick = function() {
     ieZIndexBugFix(trigger);
@@ -368,22 +375,42 @@ function toggleSubmenu(trigger, title, link_list) {
   var content = jQuery('<div></div>').attr('class', 'menu-submenu-content');
   var list = jQuery('<ul></ul>').attr('class', 'menu-submenu-list');
   var footer = jQuery('<div></div>').attr('class', 'menu-submenu-footer');
-  content.append('<h4>' + title + '</h4>');
-  jQuery.each(link_list, function(index, link_hash) {
-    for (label in link_hash) {
-      if(link_hash[label]!=null) {
-        if(label=='link' && jQuery.type(link_hash[label])=="string") {
-          list.append('<li>' + link_hash[label] + '</li>');
+  var titleEl = $('<h4></h4>').appendTo(content);
+  if (title) {
+    if (link_hash.home) {
+      $('<a></a>').attr(link_hash.home).text(title).appendTo(titleEl);
+    } else {
+      titleEl.text(title);
+    }
+  }
+
+  jQuery(link_hash).each(function(index, element){
+    for(var label in element){
+      if (label == 'home') continue;
+      if(element[label]!=null) {
+        if(jQuery.type(element[label])=="string") {
+          list.append('<li>' + element[label] + '</li>');
         } else {
-          options = "";
-          jQuery.each(link_hash[label], function(option, value){
-            options += option +'="'+ value + '" ';
-          })
-          list.append('<li><a '+ options +'>' + label + '</a></li>');
+          var item = $('<li></li>').appendTo(list);
+          $('<a></a>').attr(element[label]).text(label).appendTo(item);
         }
       }
     }
   });
+
+  //for (label in link_hash) {
+    //console.log(label);
+    //console.log(link_hash[label].href);
+    //if (label == 'home') continue;
+    //if(link_hash[label]!=null) {
+      //if(jQuery.type(link_hash[label])=="string") {
+        //list.append('<li>' + link_hash[label] + '</li>');
+      //} else {
+        //var item = $('<li></li>').appendTo(list);
+        //$('<a></a>').attr(link_hash[label]).text(label).appendTo(item);
+      //}
+    //}
+  //}
   content.append(list);
   submenu.append(header).append(content).append(footer);
   jQuery(trigger).before(submenu);
