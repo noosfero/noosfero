@@ -147,6 +147,8 @@ module Api
       expose :theme do |profile, options|
         profile.theme || profile.environment.theme
       end
+      expose :boxes, :using => Box, :if => lambda {|profile, options| Entities.expose_optional_field?(:boxes, options)}
+
     end
 
     class UserBasic < Entity

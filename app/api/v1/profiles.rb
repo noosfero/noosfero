@@ -22,7 +22,7 @@ module Api
               Enterprise => Entities::Enterprise
             }[profile.class] || Entities::Profile
 
-            present profile, :with => type_map, :current_person => current_person
+            present profile, :with => type_map, :current_person => current_person, :params => params
           else
             not_found!
           end
