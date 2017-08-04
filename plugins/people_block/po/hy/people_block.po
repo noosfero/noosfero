@@ -54,7 +54,7 @@ msgstr "Բոլոր մարդիկ"
 msgid "{#} People"
 msgstr "Մարդիկ"
 
-#: ../lib/members_block.rb:33
+#: ../lib/members_block.rb:36
 msgid "Show join leave button"
 msgstr ""
 

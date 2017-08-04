@@ -27,6 +27,10 @@ msgstr ""
 msgid "A plugin that add a block to display breadcrumbs."
 msgstr "Um plugin que adiciona um bloco que mostra caminhos de pão."
 
+#: ../lib/breadcrumbs_plugin.rb:12
+msgid "Breadcrumbs"
+msgstr "Caminho de Pão"
+
 #: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:10
 msgid ""
 "<p>Display a breadcrumb of the current content navigation.</p><p>You could "

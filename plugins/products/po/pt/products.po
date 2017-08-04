@@ -105,17 +105,17 @@ msgstr "Atividade economica"
 msgid "Distance:"
 msgstr "Distância:"
 
-#: ../lib/products_plugin/products_helper.rb:17
+#: ../lib/products_plugin/products_helper.rb:22
 #: ../models/products_plugin/product.rb:142
 msgid "Uncategorized product"
 msgstr "Produto não categorizado"
 
-#: ../lib/products_plugin/products_helper.rb:22
-#: ../lib/products_plugin/products_helper.rb:30
+#: ../lib/products_plugin/products_helper.rb:27
+#: ../lib/products_plugin/products_helper.rb:35
 msgid "No product"
 msgstr "Sem produto"
 
-#: ../lib/products_plugin/products_helper.rb:184
+#: ../lib/products_plugin/products_helper.rb:189
 #: ../views/products_plugin/page/_add_input.html.erb:20
 #: ../views/products_plugin/page/_edit_input.html.erb:37
 #: ../views/products_plugin/page/_manage_product_details.html.erb:26
@@ -123,88 +123,88 @@ msgstr "Sem produto"
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: ../lib/products_plugin/products_helper.rb:192
+#: ../lib/products_plugin/products_helper.rb:197
 #: ../views/products_plugin/page/_display_category.html.erb:3
 msgid "Change category"
 msgstr "Alterar categoria"
 
-#: ../lib/products_plugin/products_helper.rb:200
+#: ../lib/products_plugin/products_helper.rb:205
 msgid "Price: "
 msgstr "Preço: "
 
-#: ../lib/products_plugin/products_helper.rb:209
+#: ../lib/products_plugin/products_helper.rb:214
 msgid "Product not available!"
 msgstr "Produto não disponível!"
 
-#: ../lib/products_plugin/products_helper.rb:219
+#: ../lib/products_plugin/products_helper.rb:224
 msgid "List price: "
 msgstr "De: "
 
-#: ../lib/products_plugin/products_helper.rb:220
+#: ../lib/products_plugin/products_helper.rb:225
 msgid "On sale: "
 msgstr "Por: "
 
-#: ../lib/products_plugin/products_helper.rb:231
+#: ../lib/products_plugin/products_helper.rb:236
 msgid "certified by %s"
 msgstr "certificado por %s"
 
-#: ../lib/products_plugin/products_helper.rb:233
+#: ../lib/products_plugin/products_helper.rb:238
 msgid "(Self declared)"
 msgstr "(Auto declarado)"
 
-#: ../lib/products_plugin/products_helper.rb:241
-#: ../lib/products_plugin/products_helper.rb:305
+#: ../lib/products_plugin/products_helper.rb:246
+#: ../lib/products_plugin/products_helper.rb:310
 msgid "Select..."
 msgstr "Selecione..."
 
-#: ../lib/products_plugin/products_helper.rb:244
+#: ../lib/products_plugin/products_helper.rb:249
 msgid "Self declared"
 msgstr "Auto declarado"
 
-#: ../lib/products_plugin/products_helper.rb:266
+#: ../lib/products_plugin/products_helper.rb:271
 msgid "Delete qualifier"
 msgstr "Remover qualificador"
 
-#: ../lib/products_plugin/products_helper.rb:270
+#: ../lib/products_plugin/products_helper.rb:275
 msgid "Select the unit"
 msgstr "Selecione a unidade"
 
-#: ../lib/products_plugin/products_helper.rb:275
+#: ../lib/products_plugin/products_helper.rb:280
 msgid "Product from solidarity economy"
 msgstr "Produto da economia solidária"
 
-#: ../lib/products_plugin/products_helper.rb:282
+#: ../lib/products_plugin/products_helper.rb:287
 #: ../views/products_plugin/search/products_plugin/_full_product.html.erb:26
 msgid "by"
 msgstr "por"
 
-#: ../lib/products_plugin/products_helper.rb:288
+#: ../lib/products_plugin/products_helper.rb:293
 msgid "Amount used in this product or service"
 msgstr "Quantidade utilizada neste produto ou serviço"
 
-#: ../lib/products_plugin/products_helper.rb:290
+#: ../lib/products_plugin/products_helper.rb:295
 msgid "Amount used by %s of this product or service"
 msgstr "Quantidade utilizada por %s deste produto ou serviço"
 
-#: ../lib/products_plugin/products_helper.rb:297
+#: ../lib/products_plugin/products_helper.rb:302
 msgid "1 %{singular_unit}"
 msgid_plural "%{num} %{plural_unit}"
 msgstr[0] "1 %{singular_unit}"
 msgstr[1] "%{num} %{plural_unit}"
 
-#: ../lib/products_plugin/products_helper.rb:302
+#: ../lib/products_plugin/products_helper.rb:307
 msgid "Insert the name of the new cost:"
 msgstr "Insira o nome do novo custo:"
 
-#: ../lib/products_plugin/products_helper.rb:303
+#: ../lib/products_plugin/products_helper.rb:308
 msgid "Something went wrong. Please, try again"
 msgstr "Algo deu errado. Por favor, tente novamente"
 
-#: ../lib/products_plugin/products_helper.rb:306
+#: ../lib/products_plugin/products_helper.rb:311
 msgid "Other cost"
 msgstr "Outro custo"
 
-#: ../lib/products_plugin/products_helper.rb:316
+#: ../lib/products_plugin/products_helper.rb:321
 msgid "%{currency} %{production_cost} of %{currency} %{product_price}"
 msgstr "%{currency} %{production_cost} de %{currency} %{product_price}"
 

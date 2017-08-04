@@ -86,6 +86,7 @@ Jefferson Fernandes <jeffs.fernandes@gmail.com>
 Joenio Costa <joenio@colivre.coop.br>
 Joenio Costa <joenio@joenio.me>
 Josafá Souza Jr <josafa.souza@serpro.gov.br>
+Josafá Souza Jr <josafa.souza@serpro.gov.br>
 Josafá Souza Jr <josafassj@gmail.com>
 Jose Pedro <1jpsneto@gmail.com>
 Josef Spillner <josef.spillner@tu-dresden.de>
@@ -98,6 +99,7 @@ Karine Valença <valenca.karine@gmail.com>
 Keilla Menezes <keilla@colivre.coop.br>
 Larissa Reis <larissa@colivre.coop.br>
 Leandro Alves <leandrosustenido@gmail.com>
+Leandro Nunes <leandronunes@gmail.com>
 Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>
 Leandro Veloso <leandrovelosorodrigues@gmail.com>
 Leonardo Soares <leors75@gmail.com>
@@ -131,6 +133,7 @@ Murilo Duarte <muriloduartegoncalves@hotmail.com>
 Nanda Lopes <nanda.listas+psl@gmail.com>
 Nathania Saphira <nathaniasaphira@gmail.com>
 Naíla Alves <naila@colivre.coop.br>
+Nicacio Arruda <nicacionetobsb@gmail.com>
 Niemand Jedermann <predatorix@web.de>
 Olivier Meinguet <olivier.meinguet@claroline.net>
 Omar Junior <omarroinuj@gmail.com>
@@ -169,6 +172,7 @@ Tuux <tuxa@galaxie.eu.org>
 Valessio Brito <contato@valessiobrito.com.br>
 Valet 322 <petymakar@gmail.com>
 Victor Costa <vfcosta@gmail.com>
+Victor Fernandes <victor.hmfd@gmail.com>
 Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>
 Victor Navarro <victor.matias.navarro@gmail.com>
 Vinicius Borges <vbda123@gmail.com>
@@ -176,8 +180,11 @@ Vinicius Brand <viniciuscb@gmail.com>
 Vitor Barbosa <vitornga15@gmail.com>
 Wilton Rodrigues <braynwilton@gmail.com>
 Yann Lugrin <yann.lugrin@liquid-concept.ch>
+antoniocoj <_antonio_@hotmail.com>
+lioh <fl.araujo95@gmail.com>
 matheuslacerda <matheusmirandalacerda@gmail.com>
 mendesiasmin <mendesiasmin96@gmail.com>
+tiagorc <tiagobrasil2005@yahoo.com.br>
 Ábner Silva de Oliveira <abner.oliveira@serpro.gov.br>
 Álvaro Fernando <alvarofernandoms@gmail.com>
 Вадим Кардашьян <iosphone77@gmail.com>

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-05 19:28+0000\n"
-"PO-Revision-Date: 2017-01-05 19:28+0000\n"
+"POT-Creation-Date: 2017-08-04 15:18+0000\n"
+"PO-Revision-Date: 2017-08-04 15:18+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -20,6 +20,10 @@ msgstr ""
 
 #: ../lib/breadcrumbs_plugin.rb:8
 msgid "A plugin that add a block to display breadcrumbs."
+msgstr ""
+
+#: ../lib/breadcrumbs_plugin.rb:12
+msgid "Breadcrumbs"
 msgstr ""
 
 #: ../lib/breadcrumbs_plugin/content_breadcrumbs_block.rb:10
