@@ -19,12 +19,21 @@
       group = related
       ongoing_subscription = MailingListPlugin::AcceptSubscription.ongoing_subscription?(person, group)
     end %>
-    <% subscribed = @client.person_subscribed_on_group_list?(person, group) %>
+    <% deployed = @client.group_list_exist?(group) %>
+    <% subscribed = deployed ? @client.person_subscribed_on_group_list?(person, group) : false %>
+    <% subscribe_html_options = {:class => ongoing_subscription || !deployed ? 'fetching' : ''} %>
+    <% if !deployed %>
+      <% td_title = _('List is not deployed yet.') %>
+    <% elsif ongoing_subscription %>
+      <% td_title = _('Subscription waiting approval') %>
+    <% else %>
+      <% td_title = '' %>
+    <% end %>
     <tr>
       <td><%= link_to_profile related.short_name(48), related.identifier, :title => _('View profile') %> </td>
       <td style="text-align: center"><%= subscribed ? _('Yes') : _('No') %></td>
-      <%= content_tag('td', :title => ongoing_subscription ? _('Subscription waiting approval') : '') do %>
-        <%= button_without_text 'subscribe', _('Subscribe'), {:action => 'subscribe', :id => related.id}, :class => ongoing_subscription ? 'fetching' : '' unless subscribed %>
+      <%= content_tag('td', :title => td_title) do %>
+        <%= button_without_text 'subscribe', _('Subscribe'), {:action => 'subscribe', :id => related.id}, subscribe_html_options unless subscribed %>
         <%= button_without_text 'unsubscribe', _('Unsubscribe'), {:action => 'unsubscribe', :id => related.id}, data: {confirm: _("Do you really want to unsubscribe?")} if subscribed %>
       <% end %>
     </tr>

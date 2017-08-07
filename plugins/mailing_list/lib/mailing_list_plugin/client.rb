@@ -14,7 +14,11 @@ class MailingListPlugin::Client
   end
 
   def review(group)
-    subscribers = client.review(treat_identifier(group.identifier))
+    begin
+      subscribers = client.review(treat_identifier(group.identifier))
+    rescue SOAP::FaultError
+      subscribers = []
+    end
     subscribers == ['no_subscribers'] ? [] : subscribers
   end
 
@@ -64,11 +68,11 @@ class MailingListPlugin::Client
   end
 
   def subscribe_person_on_group_list(person, group)
-    add(person.email, treat_identifier(group.identifier), person.name) unless person_subscribed_on_group_list?(person, group)
+    add(person.email, treat_identifier(group.identifier), person.name) unless !group_list_exist?(group) || person_subscribed_on_group_list?(person, group)
   end
 
   def unsubscribe_person_from_group_list(person, group)
-    del(person.email, treat_identifier(group.identifier)) if person_subscribed_on_group_list?(person, group)
+    del(person.email, treat_identifier(group.identifier)) if group_list_exist?(group) && person_subscribed_on_group_list?(person, group)
   end
 
   def deploy_list_for_group(group)
