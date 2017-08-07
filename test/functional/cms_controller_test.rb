@@ -2050,6 +2050,22 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag 'img', attributes: { src: file.full_path }
   end
 
+  should 'display a progress bar if profile has an upload quota' do
+    @profile.metadata['quota'] = 100.0
+    @profile.save
+
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :attributes => { :class => 'quota-status' }
+  end
+
+  should 'not display a progress bar if profile does not have an upload quota' do
+    @profile.metadata['quota'] = ''
+    @profile.save
+
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'div', :attributes => { :class => 'quota-status' }
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

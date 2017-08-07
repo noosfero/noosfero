@@ -110,6 +110,8 @@ class Profile < ApplicationRecord
 
   include Noosfero::Plugin::HotSpot
 
+  include HasUploadQuota
+
   scope :memberships_of, -> person {
     distinct.select('profiles.*').
     joins(:role_assignments).
@@ -1256,5 +1258,27 @@ private :generate_url, :url_options
     # block exclusive for environment admin
     blocks << RawHTMLBlock if person.present? && person.is_admin?(self.environment)
     blocks + plugins.dispatch(:extra_blocks, type: self.class)
+  end
+
+  def self.default_quota
+    # In megabytes
+    nil
+  end
+
+  def used_quota
+    files.sum('size')
+  end
+
+  private
+
+  def super_upload_quota
+    if kinds.present?
+      # Returns 'unlimited' if one of the kinds has an unlimited quota.
+      # Otherwise, returns the biggest quota
+      quotas = kinds.map(&:upload_quota)
+      (nil.in? quotas) ? nil : quotas.max
+    else
+      environment.quota_for(self.class)
+    end
   end
 end

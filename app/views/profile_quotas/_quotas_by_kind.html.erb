@@ -1,0 +1,37 @@
+<table class='kind-list'>
+  <tr>
+    <th></th>
+    <th><%= _('Profile kind') %></th>
+    <th><%= _('Quota') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% @kinds.each do |klass, kinds| %>
+      <tr class='master-row' data-class='<%= klass.to_s.underscore %>'>
+        <td>
+          <% if kinds.present? %>
+            <%= button_without_text(:add, _('Show/hide types'), '#',
+                                    class: 'toggle-types') %>
+          <% end %>
+        </td>
+        <td><%= _(klass.to_s) %></td>
+        <td>
+          <%= number_to_human_size environment.quota_for(klass).try(:megabytes) %>
+        </td>
+        <td class='actions'>
+          <%= button_without_text :edit, _('Edit Quota'),
+                                  { action: :edit_class, type: klass.to_s } %>
+        </td>
+      </tr>
+      <% kinds.each do |kind| %>
+        <tr class='nested-row for-<%= klass.to_s.underscore %>'>
+          <td></td>
+          <td><%= kind.name %></td>
+          <td><%= number_to_human_size kind.upload_quota.try(:megabytes) %></td>
+          <td class='actions'>
+            <%= button_without_text :edit, _('Edit Quota'),
+                                    { action: :edit_kind, id: kind.id } %>
+          </td>
+        </tr>
+      <% end %>
+  <% end %>
+</table>

@@ -1,0 +1,5 @@
+<h1><%= _('Quota for %s profiles') % _(@klass.to_s) %></h1>
+
+<%= render partial: 'quota_form',
+           locals: { obj: :environment, type: @klass.to_s,
+                     value: environment.quota_for(@klass) } %>

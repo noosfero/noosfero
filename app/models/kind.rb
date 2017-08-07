@@ -1,6 +1,11 @@
 class Kind < ActiveRecord::Base
   self.inheritance_column = 'etype'
 
+  store_accessor :metadata
+  include MetadataScopes
+
+  include HasUploadQuota
+
   belongs_to :environment
   has_and_belongs_to_many :profiles
 
@@ -28,5 +33,11 @@ class Kind < ActiveRecord::Base
 
   def style_class
     "#{name.to_slug}-#{type.to_slug}-kind"
+  end
+
+  private
+
+  def super_upload_quota
+    environment.quota_for(type.constantize)
   end
 end

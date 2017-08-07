@@ -89,6 +89,7 @@ class UploadedFile < Article
     processor: 'Rmagick'
 
   validates_attachment :size => N_("{fn} of uploaded file was larger than the maximum size of %{size}").sub('%{size}', self.max_size.to_humanreadable).fix_i18n
+  validate :profile_quota_usage
 
   extend DelayedAttachmentFu::ClassMethods
   delay_attachment_fu_thumbnails
@@ -196,6 +197,16 @@ class UploadedFile < Article
 
   def notifiable?
     !image?
+  end
+
+  private
+
+  def profile_quota_usage
+    return if profile.nil?
+    if profile.upload_quota.present? &&
+       ((size + profile.used_quota) > profile.upload_quota.megabytes)
+      errors.add(:size, _('Your upload quota has exceeded'))
+    end
   end
 
 end

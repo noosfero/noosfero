@@ -1,0 +1,12 @@
+<%= javascript_include_tag 'profile_quotas' %>
+
+<h1><%= _('Upload quotas') %></h1>
+
+
+<% tabs = [] %>
+<% tabs << { :title => _('Quotas by profile kind'), :id => 'quota-by-kind',
+             :content => (render :partial => 'quotas_by_kind') } %>
+<% tabs << { :title => _('Quotas by profile'), :id => 'quota-by-profile',
+             :content => (render :partial => 'quotas_by_profile', locals: { profiles: @profiles }) } %>
+
+<%= render_tabs(tabs) %>

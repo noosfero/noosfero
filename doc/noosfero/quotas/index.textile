@@ -1,0 +1,7 @@
+h1. Upload Quotas
+
+p. Upload quotas are a feature that enables the environment administrator to control the amount of data that profiles can consume by uploading files to the server.
+
+!=/images/doc/quotas/upload-quota-en.png(Upload quotas)!
+
+p. If a profile exceeds its upload quota, it will not be able to upload more files to the system. The files already uploaded will remain available. The profile will only be able to upload new files if its quota is increased, or if old files are deleted in order to free some of the used space.

@@ -160,10 +160,15 @@ table.cms-articles .icon:hover {
   border: 1px solid #d3d7cf;
 }
 
+.controller-cms {
+  .article-mime, .last-update {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .controller-cms .article-mime {
   max-width: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
 
@@ -175,6 +180,7 @@ table.cms-articles .icon:hover {
 
 .controller-cms .article-controls {
   white-space: nowrap;
+  padding: 0 5px;
 }
 .controller-cms .categorie_box .button {
   float: left;
@@ -197,4 +203,20 @@ table.cms-articles .icon:hover {
 
 .controller-cms .button-bar .icon-delete {
   float: right;
+}
+
+.quota-status {
+  display: flex;
+  margin: 20px 0;
+  align-items: center;
+
+  .progressbar {
+    flex: 1;
+    height: 10px;
+    margin-left: 5px;
+
+    .ui-corner-right {
+      background: #f44336;
+    }
+  }
 }
