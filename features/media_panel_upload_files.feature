@@ -37,13 +37,13 @@ Feature: uploads items on media panel
   @selenium
   Scenario: show error when upload fails
     When I follow "Show/Hide"
-      And I attach the file "public/images/rails.png" to "file"
-      # uploads the same file twice to induce error (unique name validation)
-      And I attach the file "public/images/rails.png" to "file"
+    And I attach the file "public/images/rails.png" to "file"
+    # uploads the same file twice to induce error (unique name validation)
+    And I attach the file "public/images/rails.png" to "file"
     Then I should see "rails.png" within "#file-1"
-      And I should see "100%" within "#file-1"
-      But I should see "Validation failed: Slug The title (article name) is already being used by another article, please use another title." within "#file-2"
-      And The page should contain "div.error-message"
+    And I should see "100%" within "#file-1"
+    But I should see "Validation failed: Slug The title (article name) is already being used by another article, please use another title." within "#file-2"
+    And The page should contain "div.error-message"
 
   @selenium
   Scenario: select destination folder
@@ -53,10 +53,10 @@ Feature: uploads items on media panel
       And I attach the file "public/503.jpg" to "file"
       And I go to joaosilva's cms
     Then I should not see "rails.png"
-      But I should see "503.jpg"
+      But I should see "503"
     When I follow "Gallery"
-    Then I should see "rails.png"
-      But I should not see "503.jpg"
+    Then I should see "rails"
+      But I should not see "503"
 
   @selenium
   Scenario: create new folder with parent
@@ -112,11 +112,11 @@ Feature: uploads items on media panel
       And I attach the file "public/images/rails.png" to "file"
       And I attach the file "public/503.jpg" to "file"
       And I follow "Hide all uploads"
-    Then I should not see "503.jpg"
-      And I should not see "rails.png"
+    Then I should not see "503"
+      And I should not see "rails"
     When I follow "Show all uploads"
-    Then I should see "503.jpg"
-      And I should see "rails.png"
+    Then I should see "503"
+      And I should see "rails"
 
   @selenium
   Scenario: update recent media after file upload
@@ -126,18 +126,18 @@ Feature: uploads items on media panel
     When I go to /myprofile/joaosilva/cms/new?type=TextArticle
       And I follow "Show/Hide"
       And I select "Recent media" from "parent_id" within "#published-media"
-    Then I should see div with title "other-pic.jpg" within ".items"
+    Then I should see div with title "other-pic" within ".items"
     When I select "joaosilva" from "parent_id" within "#media-upload-form"
       And I attach the file "public/503.jpg" to "file"
-    Then I should see div with title "503.jpg" within ".items"
-      And I should see div with title "other-pic.jpg" within ".items"
+    Then I should see div with title "503" within ".items"
+      And I should see div with title "other-pic" within ".items"
     When I select "joaosilva/Gallery" from "parent_id" within "#media-upload-form"
       And I attach the file "public/images/rails.png" to "file"
       And I attach the file "public/robots.txt" to "file"
-    Then I should see div with title "rails.png" within ".items"
-      And I should see div with title "503.jpg" within ".items"
-      And I should see div with title "other-pic.jpg" within ".items"
-      And I should see "robots.txt" link
+    Then I should see div with title "rails" within ".items"
+      And I should see div with title "503" within ".items"
+      And I should see div with title "other-pic" within ".items"
+      And I should see "robots" link
 
   @selenium
   Scenario: select folder to show items
@@ -151,11 +151,11 @@ Feature: uploads items on media panel
     When I go to /myprofile/joaosilva/cms/new?type=TextArticle
       And I follow "Show/Hide"
       And I select "joaosilva/Gallery" from "parent_id" within "#published-media"
-    Then I should see div with title "other-pic.jpg" within ".items"
+    Then I should see div with title "other-pic" within ".items"
       And I should not see div with title "rails.png" within ".items"
     When I select "joaosilva/other-gallery" from "parent_id" within "#published-media"
-    Then I should see div with title "rails.png" within ".items"
-      And I should not see div with title "other-pic.jpg" within ".items"
+    Then I should see div with title "rails" within ".items"
+    And I should not see div with title "other-pic" within ".items"
 
   @selenium
   Scenario: update selected folder content when upload file to same folder
@@ -170,14 +170,14 @@ Feature: uploads items on media panel
       And I select "joaosilva/Gallery" from "parent_id" within "#published-media"
       And I select "joaosilva/Gallery" from "parent_id" within "#media-upload-form"
       And I attach the file "public/503.jpg" to "file"
-    Then I should see div with title "other-pic.jpg" within ".items"
-      And I should see div with title "503.jpg" within ".items"
+    Then I should see div with title "other-pic" within ".items"
+      And I should see div with title "503" within ".items"
 
     When I select "joaosilva/other-gallery" from "parent_id" within "#media-upload-form"
       And I attach the file "public/robots.txt" to "file"
-    Then I should see div with title "other-pic.jpg" within ".items"
-      And I should see div with title "503.jpg" within ".items"
-      And I should not see "robots.txt" within ".items"
+    Then I should see div with title "other-pic" within ".items"
+      And I should see div with title "503" within ".items"
+      And I should not see "robots" within ".items"
 
   @selenium
   Scenario: filter media with search
@@ -191,13 +191,13 @@ Feature: uploads items on media panel
       And I follow "Show/Hide"
       And I select "Recent media" from "parent_id" within "#published-media"
       And I fill in "Search" with "rails" within "#published-media"
-    Then I should see div with title "rails.png" within ".items"
+    Then I should see div with title "rails" within ".items"
     When I select "joaosilva/Gallery" from "parent_id" within "#published-media"
       And I fill in "Search" with "rails" within "#published-media"
     Then I should not see div with title "rails.png" within ".items"
     When I select "joaosilva/other-gallery" from "parent_id" within "#published-media"
       And I fill in "Search" with "rails" within "#published-media"
-    Then I should see div with title "rails.png" within ".items"
+    Then I should see div with title "rails" within ".items"
 
   @selenium
   Scenario: separete images from non-images
@@ -207,11 +207,11 @@ Feature: uploads items on media panel
     When I attach the file "public/robots.txt" to "file"
       And I attach the file "public/images/rails.png" to "file"
     Then I should see "Files"
-      And I should see "robots.txt" within ".generics"
-      But I should not see "rails.png" within ".generics"
+      And I should see "robots" within ".generics"
+      But I should not see "rails" within ".generics"
       And I should see "Images"
-      And I should see div with title "rails.png" within ".images"
-      But I should not see div with title "robots.txt" within ".images"
+      And I should see div with title "rails" within ".images"
+      But I should not see div with title "robots" within ".images"
 
   @selenium
   Scenario: view all media button if there are too many uploads
@@ -232,4 +232,4 @@ Feature: uploads items on media panel
       And I should not see "View all"
       And I attach the file "public/503.jpg" to "file"
     Then I should see "View all" link
-      And I should see div with title "503.jpg" within ".images"
+      And I should see div with title "503" within ".images"

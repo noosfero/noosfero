@@ -3,6 +3,18 @@ module DelayedAttachmentFu
   module ClassMethods
     def delay_attachment_fu_thumbnails
       include DelayedAttachmentFu::InstanceMethods
+
+      before_validation :remove_ext_from_name, on: :create
+
+      before_create do |file|
+        (origfname, fname, ext) = file.split_filename
+        # ensure there is a fname
+        fname = fname || file.filename
+        fname, thumb_suffix = fname.split(/(_big|_icon|_minor|_portrait|_thumb)$/) if file.kind_of?(Image) || file.is_image?
+        thumb_suffix ||= ''
+        # makes filename secure for FS manipulation and URLs
+        file.filename = fname.to_slug + thumb_suffix + ext.to_s.to_slug
+      end
       after_create do |file|
         if file.thumbnailable?
           Delayed::Job.enqueue CreateThumbnailsJob.new(file.class.name, file.id)
@@ -53,6 +65,16 @@ module DelayedAttachmentFu
       end
     end
 
+    def remove_ext_from_name
+      if self.kind_of?(UploadedFile) && self.name == self.filename
+        (origfname, fname, ext) = self.split_filename
+        self.name = fname
+      end
+    end
 
+    # Returns (original_filename, name, extension)
+    def split_filename
+      self.filename.match(/^(.*)(\.[^.]*)$/).to_a
+    end
   end
 end

@@ -394,7 +394,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
       }
 
     gallery = Gallery.find_by(:profile => profile, :name => "Query Gallery")
-    assert_equal gallery.images.first.name, "rails.png"
+    assert_equal gallery.images.first.name, "rails"
   end
 
   should 'remove upload form image from form and gallery on update' do

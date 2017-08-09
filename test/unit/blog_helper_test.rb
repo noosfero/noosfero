@@ -106,7 +106,7 @@ class BlogHelperTest < ActionView::TestCase
     display_filename = file.public_filename(:display)
 
     result = display_post(file)
-    assert_match /rails.png/, result
+    assert_match /rails/, result
     assert_tag_in_string result, :tag => 'img', :attributes => { :src => /#{display_filename}/ }
   end
 
