@@ -8,6 +8,14 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
   attr_reader :profile
 
+  should 'validate uniqueness of slug' do
+    file1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    file2 = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+
+    refute file2.valid?
+    assert file2.errors[:slug].present?
+  end
+
   should 'return a default icon for uploaded files' do
     assert_equal 'upload-file', UploadedFile.icon_name
   end
@@ -319,7 +327,7 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'not allow script files to be uploaded without append .txt in the end' do
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('files/hello_world.php', 'application/x-php'), :profile => @profile)
-    assert_equal 'hello_world.php.txt', file.filename
+    assert_equal 'hello-world.php.txt', file.filename
   end
 
   should 'use gallery as target for action tracker' do
@@ -385,7 +393,7 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'keep special characters on filenames' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/Relação com Espaço.txt', 'image/png'), :profile => profile)
-    assert_equal file.name, 'Relação com Espaço.txt'
+    assert_equal file.name, 'Relação com Espaço'
   end
 
   should 'create an uploaded file if the profile quota is not exceeded' do

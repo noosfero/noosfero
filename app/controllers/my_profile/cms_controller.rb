@@ -373,6 +373,9 @@ class CmsController < MyProfileController
       begin
         @file = UploadedFile.create!(:uploaded_data => params[:file], :profile => profile, :parent => parent) unless params[:file] == ''
         @file = FilePresenter.for(@file)
+        respond_to do |format|
+          format.js
+        end
       rescue Exception => exception
         render :text => exception.to_s, :status => :bad_request
       end

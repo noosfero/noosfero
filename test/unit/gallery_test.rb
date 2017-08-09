@@ -107,7 +107,7 @@ class GalleryTest < ActiveSupport::TestCase
     a = create(ApproveArticle, :article => i, :target => c, :requestor => p, :article_parent => gallery)
     a.finish
 
-    assert_includes gallery.images(true), c.articles.find_by(name: 'rails.png')
+    assert_includes gallery.images(true), c.articles.find_by(name: 'rails')
   end
 
   should 'not let pass javascript in the body' do

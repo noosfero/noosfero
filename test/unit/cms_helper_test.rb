@@ -44,7 +44,7 @@ class CmsHelperTest < ActionView::TestCase
     icon = icon_for_article(file)
     expects(:image_tag).with(icon).returns('icon')
 
-    expects(:link_to).with('rails.png', file.url).returns('link')
+    expects(:link_to).with('rails', file.url).returns('link')
     result = link_to_article(file)
   end
 

@@ -82,11 +82,11 @@ Feature: search contents
       | owner | filename |
       | joaosilva | rails.png |
       | joaosilva | shoes.png |
-    When I search contents for "rails.png"
+    When I search contents for "rails"
     Then I should see "rails.png" within ".search-uploaded-file-item"
-    And I should not see "shoes.png"
-    When I follow "rails.png"
-    Then I should be on article "rails.png"
+    And I should not see "shoes"
+    When I follow "rails"
+    Then I should be on article "rails"
 
   Scenario: show event search results without end date
     Given the following communities

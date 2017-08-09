@@ -53,7 +53,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     html = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/500.html', 'text/html'), :profile => profile
     html.save!
 
-    get :view_page, :profile => 'someone', :page => [ '500.html' ], :view => true
+    get :view_page, :profile => 'someone', :page => [ '500' ], :view => true
 
     assert_response :success
     assert_select "a[href=#{html.full_path}]"
@@ -64,7 +64,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     image = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile
     image.save!
 
-    get :view_page, :profile => 'someone', :page => [ 'rails.png' ]
+    get :view_page, :profile => 'someone', :page => [ 'rails' ]
 
     assert_response :redirect
     assert_redirected_to image.public_filename
@@ -75,7 +75,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     image = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile
     image.save!
 
-    get :view_page, :profile => 'someone', :page => [ 'rails.png' ], :view => true
+    get :view_page, :profile => 'someone', :page => [ 'rails' ], :view => true
 
     assert_response :success
     assert_template 'view_page'
