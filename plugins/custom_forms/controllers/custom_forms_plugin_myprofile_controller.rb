@@ -17,10 +17,14 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
   def create
     params[:form][:profile_id] = profile.id
+    uploaded_data = params[:form].delete(:image)
     @form = CustomFormsPlugin::Form.new(params[:form])
-
+    @form.build_article(
+      :uploaded_data => uploaded_data,
+      :profile => profile,
+      :parent => nil,
+    )
     normalize_positions(@form)
-
     respond_to do |format|
       if @form.save
         flash[:notice] = _("Custom form %s was successfully created.") % @form.name

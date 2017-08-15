@@ -264,4 +264,18 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
     assert_tag :td, :content => person.name
   end
+
+  should 'create a form with a uploaded image' do
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    form = CustomFormsPlugin::Form.find_by(name: 'Form with image')
+    assert_not_nil form.image
+  end
 end
