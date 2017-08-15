@@ -57,6 +57,9 @@
   <%= button(:add, _('Add a new select field'), '#', :onclick => "customFormsPlugin.addFields(this, 'fields', #{html_for_field(f, :fields, CustomFormsPlugin::SelectField).to_json}); return false")%>
 </div>
 
+<h2>Upload a image to the Query</h2>
+<p><%= file_field_tag('uploaded_files[]') %></p>
+
 <%= button_bar do %>
   <%= submit_button :save, c_('Save'), :cancel => {:action => 'index'}%>
 <% end %>
