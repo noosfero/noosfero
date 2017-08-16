@@ -70,7 +70,7 @@ class Article < ApplicationRecord
     _('Content')
   end
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.notifiable? }
+  track_actions :create_article, :after_create, :keep_params => [:name, :title, :url, :lead, :first_image], :if => Proc.new { |a| a.notifiable? }
 
   before_create do |article|
     if article.author
@@ -868,7 +868,7 @@ class Article < ApplicationRecord
 
   def create_activity
     if notifiable? && !image?
-      save_action_for_verb 'create_article', [:name, :url, :lead, :first_image], Proc.new{}, :author
+      save_action_for_verb 'create_article', [:name, :title, :url, :lead, :first_image], Proc.new{}, :author
     end
   end
 

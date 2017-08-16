@@ -187,7 +187,7 @@ class CmsController < MyProfileController
     if article.nil?
       session[:notice] = _('Homepage reseted.')
     else
-      session[:notice] = _('"%s" configured as homepage.') % article.name
+      session[:notice] = _('"%s" configured as homepage.') % article.title
     end
 
     redirect_to (request.referer || profile.url)
@@ -234,7 +234,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     if request.post?
       @article.destroy
-      session[:notice] = _("\"%s\" was removed." % @article.name)
+      session[:notice] = _("\"%s\" was removed." % @article.title)
       referer = Rails.application.routes.recognize_path URI.parse(request.referer).path rescue nil
       if referer and referer[:controller] == 'cms' and referer[:action] != 'edit'
         redirect_to referer
@@ -272,7 +272,7 @@ class CmsController < MyProfileController
       begin
         task.finish
       rescue Exception => ex
-         @failed[ex.message] ? @failed[ex.message] << @article.name : @failed[ex.message] = [@article.name]
+         @failed[ex.message] ? @failed[ex.message] << @article.title : @failed[ex.message] = [@article.title]
          task.cancel
       end
       if @failed.blank?

@@ -19,4 +19,8 @@ class DisabledEnterpriseMessageBlock < Block
   def cacheable?
     false
   end
+
+  def self.pretty_name
+      _('Disabled enterprise')
+  end
 end

@@ -22,7 +22,7 @@ class ApproveComment < Task
   end
 
   def article_name
-    article ? article.name : _("Article removed.")
+    article ? article.title : _("Article removed.")
   end
 
   def perform
@@ -78,7 +78,7 @@ class ApproveComment < Task
 
   def target_notification_description
     if article
-      _('%{requestor} wants to comment the article: %{article}.') % {:requestor => requestor_name, :article => article.name}
+      _('%{requestor} wants to comment the article: %{article}.') % {:requestor => requestor_name, :article => article_name}
     else
       _('%{requestor} wanted to comment the article but it was removed.') % {:requestor => requestor_name}
     end

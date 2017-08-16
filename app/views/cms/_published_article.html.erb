@@ -1,4 +1,4 @@
 <%= f.text_field 'name', :size => '64', :maxlength => 150 %>
 <%= render :partial => 'general_fields' %>
 
-<p><%= _('This is a republication of "%s", by %s.') % [link_to(h(@article.reference_article.name), @article.reference_article.url), @article.reference_article.profile.name] %></p>
+<p><%= _('This is a republication of "%s", by %s.') % [link_to(h(@article.reference_article.title), @article.reference_article.url), @article.reference_article.profile.name] %></p>

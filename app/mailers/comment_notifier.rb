@@ -6,7 +6,7 @@ class CommentNotifier < ApplicationMailer
     @recipient = profile.nickname || profile.name
     @sender = comment.author_name
     @sender_link = comment.author_link
-    @article_title = comment.article.name
+    @article_title = comment.article.title
     @comment_url = comment.url
     @comment_title = comment.title
     @comment_body = comment.body
@@ -26,7 +26,7 @@ class CommentNotifier < ApplicationMailer
     @recipient = profile.nickname || profile.name
     @sender = comment.author_name
     @sender_link = comment.author_link
-    @article_title = comment.article.name
+    @article_title = comment.article.title
     @comment_url = comment.url
     @unsubscribe_url = comment.article.view_url.merge({:unfollow => true})
     @comment_title = comment.title

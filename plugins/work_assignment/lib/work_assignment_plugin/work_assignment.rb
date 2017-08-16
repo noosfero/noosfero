@@ -54,4 +54,8 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   def submissions
     children.map(&:children).flatten.compact
   end
+
+  def accept_uploads?
+    false
+  end
 end

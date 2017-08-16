@@ -18,4 +18,8 @@ class MyNetworkBlock < Block
     false
   end
 
+  def self.pretty_name
+      _('My network')
+  end
+
 end

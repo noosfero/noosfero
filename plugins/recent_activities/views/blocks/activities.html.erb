@@ -30,7 +30,7 @@
 
           <% if activity.label === 'events' %>
           <%= image_tag(activity.params['first_image']) %>
-          <p class="lead"><b><%= activity.params['name'] %></b><br /><%= strip_tags(activity.params['lead']) %></p>
+          <p class="lead"><b><%= activity.params['title'] || activity.params['name'] %></b><br /><%= strip_tags(activity.params['lead']) %></p>
           <br style="clear: both;" />
           <% else %>
           <p><%= describe(activity).html_safe %></p>

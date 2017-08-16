@@ -22,11 +22,6 @@
 
 <h5><%= (_('Uploading files to %s') % content_tag('code', @target)).html_safe%></h5>
 
-<%= form_for('uploaded_file', :url => { :action => 'upload_files' }, :html => {:multipart => true}) do |f| %>
-
-  <%= safe_join(@plugins.dispatch(:upload_files_extra_fields, params[:parent_id]).collect { |content| instance_exec(&content) }, "") %>
-
-  <%= render :partial => 'upload_file_form', :locals => { :size => '45'} %>
-
-<% end %> 
-
+<%= render :partial => 'upload_file_form',
+           :locals => { :size => '45', back_to: @back_to, parent: @parent,
+                        :num_of_files => 3 } %>

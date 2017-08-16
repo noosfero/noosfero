@@ -165,7 +165,7 @@ class UploadedFile < Article
     else
       proc do
         content_tag('div',
-                    link_to(article.name, article.url),
+                    link_to(article.title, article.url),
                     :class => article.css_class_name) +
         content_tag('div', article.abstract, :class => 'uploaded-file-description')
       end
