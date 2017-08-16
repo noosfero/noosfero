@@ -1,5 +1,6 @@
 <h1><%= _('Edit form') %></h1>
 
 <%= form_for @form, :as => :form, :url => { :action => 'update', :id => params[:id] } do |f| %>
+  <%= f.hidden_field :kind, value: @kind %>
   <%= render :partial => 'form', :locals => {:f => f} %>
 <% end %>

@@ -3,12 +3,19 @@ require 'csv'
 class CustomFormsPluginMyprofileController < MyProfileController
   protect 'post_content', :profile
 
+  before_filter :remove_empty_alternatives, :only => [:create, :update]
+
   def index
-    @forms = CustomFormsPlugin::Form.from_profile(profile)
+    @forms = {}
+    all_forms = CustomFormsPlugin::Form.from_profile(profile)
+    CustomFormsPlugin::Form::KINDS.each do |kind|
+      @forms[kind.to_sym] = all_forms.by_kind(kind)
+    end
   end
 
   def new
     @form = CustomFormsPlugin::Form.new
+    @kind = params[:kind]
 
     respond_to do |format|
       format.html
@@ -25,16 +32,18 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
     respond_to do |format|
       if form_with_image
-        flash[:notice] = _("Custom form %s was successfully created.") % @form.name
+        session[:notice] = _("%s was successfully created") % @form.name
         format.html { redirect_to(:action=>'index') }
       else
-        format.html { render :action => 'new' }
+        @kind = @form.kind
+        format.html { render :action => 'new'}
       end
     end
   end
 
   def edit
     @form = CustomFormsPlugin::Form.find(params[:id])
+    @kind = @form.kind
   end
 
   def update
@@ -44,11 +53,12 @@ class CustomFormsPluginMyprofileController < MyProfileController
     normalize_positions(@form)
 
     respond_to do |format|
-      if @form.save
-        flash[:notice] = _("Custom form %s was successfully updated.") % @form.name
+      if @form.save!
+        session[:notice] = _("%s was successfully updated") % @form.name
         format.html { redirect_to(:action=>'index') }
       else
-        session['notice'] = _('Form could not be updated')
+        session['notice'] = _('The %s could not be updated') % _(params[:form][:kind])
+        @kind = @form.kind
         format.html { render :action => 'edit' }
       end
     end
@@ -58,9 +68,9 @@ class CustomFormsPluginMyprofileController < MyProfileController
     @form = CustomFormsPlugin::Form.find(params[:id])
     begin
       @form.destroy
-      session[:notice] = _('Form removed')
+      session[:notice] = _('The %s was removed') % _(@form.kind)
     rescue
-      session[:notice] = _('Form could not be removed')
+      session[:notice] = _('The %s could not be removed') % _(@form.kind)
     end
     redirect_to :action => 'index'
   end
@@ -139,4 +149,13 @@ class CustomFormsPluginMyprofileController < MyProfileController
     @form.errors.messages.merge!(form_gallery.errors.messages)
     form_with_image
   end
+
+  def remove_empty_alternatives
+    if params[:form]['fields_attributes'].present?
+      params[:form]['fields_attributes'].each do |key, value|
+        value['alternatives_attributes'].delete_if {|id, e| e['label'].blank? } if value['alternatives_attributes'].present?
+      end
+    end
+  end
+
 end

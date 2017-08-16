@@ -1,0 +1,64 @@
+<% field = @form.fields.first || CustomFormsPlugin::SelectField.new  %>
+
+<%= f.fields_for :fields, [field] do |builder| %>
+  <%= builder.hidden_field(:type) %>
+
+  <table class='actions'>
+    <tr>
+      <th class='poll-question'>
+        <%= content_tag('span', content_tag('label', _('Question'), class: 'formlabel'), class: 'required-field') %>
+      </th>
+      <th class='poll-select-type'><%= _('Type') %></th>
+    </tr>
+    <tr>
+      <td class='poll-question'>
+        <%= builder.text_field(:name, placeholder: _('Type in your question')) %>
+      </td>
+      <td class='poll-select-type'>
+        <%= builder.select(:show_as, options_for_select([[_('Multiple choice'), 'radio'], [_('Checkboxes'), 'check_box']], selected: field.show_as)) %>
+      </td>
+    </tr>
+  </table>
+
+  <table id="poll-options" class='actions'>
+    <thead>
+      <tr>
+        <th class="poll-type"><%= _('Type') %></th>
+        <th class="poll-option"><%= _('Option') %></th>
+        <th class="poll-remove"><%= _('Remove') %></th>
+      </tr>
+    </thead>
+    <tbody class='field-list'>
+      <%= builder.fields_for :alternatives do |alternative| %>
+        <tr>
+          <td class="poll-type">
+            <input class='poll-option-icon' type='radio' disabled='disabled' />
+          </td>
+          <td class="poll-option">
+            <%= alternative.text_field(:label, placeholder: _('Add option'), class: 'poll-option-input', 'data-default-placeholder' => _('Option')) %>
+            <%= alternative.hidden_field(:position) %>
+          </td>
+          <td class="poll-remove">
+            <%= button_without_text :remove, _('Remove field'), '#', class: 'remove-poll-option' %>
+            <%= alternative.hidden_field :_destroy, :class => 'destroy-field' %>
+          </td>
+        </tr>
+      <% end %>
+      <tr class='add-poll-option'>
+        <td class="poll-type">
+          <input class='poll-option-icon' type='radio' disabled='disabled' />
+        </td>
+        <td class="poll-option">
+          <%= text_field_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.count}][label]", '', placeholder: _('Add option'), class: 'poll-option-input', 'data-default-placeholder' => _('Option')) %>
+          <%= hidden_field_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.count}][position]", field.alternatives.count, class: 'poll-option-position') %>
+        </td>
+        <td class="poll-remove">
+          <%= button_without_text :remove, _('Remove field'), '#', class: 'remove-poll-option' %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+<% end %>
+
+<%= javascript_include_tag 'plugins/custom_forms/field' %>
+<%= javascript_include_tag 'plugins/custom_forms/poll' %>

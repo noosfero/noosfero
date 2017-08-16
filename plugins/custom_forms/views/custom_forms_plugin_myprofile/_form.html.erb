@@ -3,7 +3,7 @@
 <%= error_messages_for :form %>
 <%= required labelled_form_field _('Name'), f.text_field(:name) %>
 <%= labelled_form_field _('Image'), f.file_field(:image)%>
-<%= labelled_form_field(_('What is the time limit for this form to be filled?'), (
+<%= labelled_form_field(_('What is the time limit for this %s to be filled?') % _(@kind), (
   date_range_field('form[begining]', 'form[ending]', @form.begining, @form.ending,
                    { :time => true, :change_month => true, :change_year => true,
                      :date_format => 'yy-mm-dd', :time_format => 'hh:mm' },
@@ -25,41 +25,7 @@
 <% end %>
 <%= labelled_form_field c_('Description'), f.text_area(:description, :style => 'width: 100%', :class => current_editor('simple')) %>
 
-<h2><%= c_('Fields') %></h2>
-
-<ul class='default-field-list'>
-  <li>
-    <fieldset class="field-box">
-      <legend>
-        <%= _('This field will be added automatically to your form') %>
-      </legend>
-      <%= required f.label :name, c_('Name:') %>
-      <%= _('Name') %>
-    </fieldset>
-  </li>
-  <li>
-    <fieldset class="field-box">
-      <legend>
-        <%= _('This field will be added automatically to your form') %>
-      </legend>
-      <%= required f.label :name, c_('Name:') %>
-      <%= _('Email') %>
-    </fieldset>
-  </li>
-</ul>
-
-<ul class='field-list'>
-  <%= f.fields_for :fields do |builder| %>
-    <li>
-      <%= render partial_for_class(builder.object.class), :f => builder %>
-    </li>
-  <% end %>
-</ul>
-
-<div class="addition-buttons">
-  <%= button(:add, _('Add a new text field'), '#', :onclick => "customFormsPlugin.addFields(this, 'fields', #{html_for_field(f, :fields, CustomFormsPlugin::TextField).to_json}); return false")%>
-  <%= button(:add, _('Add a new select field'), '#', :onclick => "customFormsPlugin.addFields(this, 'fields', #{html_for_field(f, :fields, CustomFormsPlugin::SelectField).to_json}); return false")%>
-</div>
+<%= render partial: @kind, locals: {f: f} %>
 
 <%= button_bar do %>
   <%= submit_button :save, c_('Save'), :cancel => {:action => 'index'}%>

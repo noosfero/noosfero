@@ -17,19 +17,32 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     another_profile = fast_create(Profile)
     f1 = CustomFormsPlugin::Form.create!(:profile => profile,
                                          :name => 'Free Software',
+                                         :kind => 'survey',
                                          :identifier => 'free')
     f2 = CustomFormsPlugin::Form.create!(:profile => profile,
+                                         :kind => 'survey',
                                          :name => 'Open Source',
                                          :identifier => 'open')
     f3 = CustomFormsPlugin::Form.create!(:profile => another_profile,
                                          :name => 'Open Source',
+                                         :kind => 'survey',
                                          :identifier => 'open')
+    p1 = CustomFormsPlugin::Form.create!(:profile => profile,
+                                         :name => 'Copyleft',
+                                         :kind => 'poll',
+                                         :identifier => 'copy')
+    p2 = CustomFormsPlugin::Form.create!(:profile => another_profile,
+                                         :name => 'Copyleft',
+                                         :kind => 'poll',
+                                         :identifier => 'copy')
 
     get :index, :profile => profile.identifier
 
-    assert_includes assigns(:forms), f1
-    assert_includes assigns(:forms), f2
-    assert_not_includes assigns(:forms), f3
+    assert_includes assigns(:forms)[:survey], f1
+    assert_includes assigns(:forms)[:survey], f2
+    assert_not_includes assigns(:forms)[:survey], f3
+    assert_includes assigns(:forms)[:poll], p1
+    assert_not_includes assigns(:forms)[:poll], p2
   end
 
   should 'destroy form' do
@@ -162,6 +175,48 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal 2, form.fields.count
     assert form.fields.first.name == "1"
     assert form.fields.last.name == "0"
+  end
+
+  should 'remove empty alternatives' do
+    format = '%Y-%m-%d %H:%M'
+    begining = Time.now.strftime(format)
+    ending = (Time.now + 1.day).strftime(format)
+    assert_difference 'CustomFormsPlugin::Form.count', 1 do
+      post :create, :profile => profile.identifier,
+        :form => {
+          :name => 'My Form',
+          :access => 'logged',
+          :begining => begining,
+          :ending => ending,
+          :description => 'Cool form',
+          :identifier => 'cool-form',
+          :fields_attributes => {
+            1 => {
+              :name => 'Name',
+              :default_value => 'Jack',
+              :type => 'CustomFormsPlugin::TextField'
+            },
+            2 => {
+              :name => 'Color',
+              :show_as => 'radio',
+              :type => 'CustomFormsPlugin::SelectField',
+              :alternatives_attributes => {
+                1 => {:label => 'Red'},
+                2 => {:label => 'Blue'},
+                3 => {:label => ''}
+              }
+            }
+          }
+        }
+    end
+
+    form = CustomFormsPlugin::Form.find_by(name: 'My Form')
+    field = form.fields[1]
+
+    assert_equal 'Color', field.name
+    assert_equal field.alternatives.map(&:label).sort, ['Red', 'Blue'].sort
+    assert_equal field.show_as, 'radio'
+    assert field.kind_of?(CustomFormsPlugin::SelectField)
   end
 
   should 'edit a form' do
