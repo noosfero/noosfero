@@ -10,7 +10,7 @@ class SectionBlockPlugin::SectionBlock < Block
   before_save :set_default_values
 
   def initialize(*params)
-    super(params)
+    super
     self.set_default_values
   end
 
