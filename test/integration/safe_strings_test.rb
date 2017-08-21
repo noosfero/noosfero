@@ -21,7 +21,9 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape people names on members block' do
-    person = fast_create Person
+    user = create User
+    person = user.person
+    user.activate
     community = fast_create Community
     community.add_member(person)
     community.boxes << Box.new
