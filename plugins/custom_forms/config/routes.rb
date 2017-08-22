@@ -1,0 +1,1 @@
+CustomFormsPlugin.load_custom_routes

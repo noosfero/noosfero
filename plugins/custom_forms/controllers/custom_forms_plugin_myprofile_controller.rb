@@ -116,5 +116,4 @@ class CustomFormsPluginMyprofileController < MyProfileController
       end
     end
   end
-
 end

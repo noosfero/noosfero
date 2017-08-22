@@ -2,19 +2,24 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   belongs_to :profile
 
-  has_many :fields, -> { order 'position' }, class_name: 'CustomFormsPlugin::Field', dependent: :destroy
+  has_many :fields, -> { order 'position' },
+    class_name: 'CustomFormsPlugin::Field', dependent: :destroy
   accepts_nested_attributes_for :fields, :allow_destroy => true
 
-  has_many :submissions, :class_name => 'CustomFormsPlugin::Submission', :dependent => :destroy
+  has_many :submissions,
+    :class_name => 'CustomFormsPlugin::Submission', :dependent => :destroy
 
   serialize :access
 
   validates_presence_of :profile, :name
   validates_uniqueness_of :slug, :scope => :profile_id
-  validate :period_range, :if => Proc.new { |f| f.begining.present? && f.ending.present? }
+  validate :period_range,
+    :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
 
-  attr_accessible :name, :profile, :for_admission, :access, :begining, :ending, :description, :fields_attributes, :profile_id, :on_membership
+  attr_accessible :name, :profile, :for_admission, :access, :begining,
+    :ending, :description, :fields_attributes, :profile_id,
+    :on_membership, :identifier
 
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?

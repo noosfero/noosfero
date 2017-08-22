@@ -8,6 +8,9 @@
                      :date_format => 'yy-mm-dd', :time_format => 'hh:mm' },
                      { :size => 14 })
 )) %>
+
+
+<%= labelled_form_field _('Query Identifier'), f.text_field(:identifier)%>
 <%= labelled_form_field _('Access'), f.select(:access, access_options(profile))%>
 <% if profile.organization? %>
   <p>
