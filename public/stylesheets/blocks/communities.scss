@@ -4,9 +4,31 @@
   padding-left: 0px;
   max-width: none;
 }
-#content .communities-block .vcard .profile_link {
+#content .communities-block .vcard {
+  display: inline-block;
+  width: 76px;
+  @media only screen and (max-width: 960px) { width: 70px; }
+  vertical-align: top;
   text-align: center;
-  padding-bottom: 0px;
+  padding: 4px;
+  .profile_link {
+    display: inline-block;
+    font-size: 1em;
+    text-align: center;
+    padding-bottom: 0px;
+    text-decoration: none;
+
+    span.profile-image {
+      display: block;
+      margin: auto;
+    }
+
+    span.org {
+      display: block;
+      margin: auto;
+      width: 100%;
+    }
+  }
 }
 
 #content .communities-block .block-footer-content .profiles-suggestions a.accept-suggestion,
@@ -17,6 +39,7 @@
   height: 75px;
   padding-bottom: 0px;
 }
+
 .msie7 #content .communities-block .vcard {
   width: 58px;
 }

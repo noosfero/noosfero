@@ -36,7 +36,7 @@ class User < ApplicationRecord
       when :login
         return [_('Username'), _('Email')].join(' / ')
       when :email
-        return _('e-Mail')
+        return _('E-mail')
       else _(self.human_attribute_name_without_customization(attrib))
     end
   end

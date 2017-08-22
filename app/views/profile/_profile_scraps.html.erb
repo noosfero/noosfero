@@ -3,30 +3,28 @@
     <%= link_to(profile_image(scrap.sender, :minor), scrap.sender.url) %>
   </div>
   <div class='profile-activity-description'>
-    <p class='profile-activity-sender'><%= link_to scrap.sender.name, scrap.sender.url %></p>
+    <p class='profile-activity-sender'>
+      <%= link_to scrap.sender.name, scrap.sender.url, class: 'profile-name' %>
+      <%= time_ago scrap %>
+    </p>
     <p class='profile-activity-text'><%= txt2html scrap.content %></p>
-    <p class='profile-activity-time'><%= time_ago_in_words(scrap.created_at) %></p>
-    <div class='profile-wall-actions'>
     <% if logged_in? && current_person.follows?(scrap.sender) %>
       <span class='profile-activity-send-reply'>
-        <%= link_to_function s_('profile|Comment'), "hide_and_show(['#profile-wall-message-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);jQuery('#reply_content_#{scrap.id}').val('');jQuery('#reply_content_#{scrap.id}').focus();return false", :class => "profile-send-reply" %>
+        <%= link_to_function s_("profile|#{font_awesome(:reply, 'Comment')}").html_safe, "hide_and_show(['#profile-wall-message-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);jQuery('#reply_content_#{scrap.id}').val('');jQuery('#reply_content_#{scrap.id}').focus();return false", :class => "profile-send-reply" %>
       </span>
     <% end %>
-    <%= link_to_function(_('Remove'), 'remove_item_wall(this, \'%s\', \'%s\', \'%s\'); return false ;' % [".profile-activity-item", url_for(:profile => params[:profile], :action => :remove_scrap, :scrap_id => scrap.id, :view => params[:view]), _('Are you sure you want to remove this scrap and all its replies?')]) if logged_in? && user.can_control_scrap?(scrap) %>
-    </div>
+    <% if scrap.replies.count > 0 %>
+      <span id="profile-wall-activities-comments-more-<%= activity.id %>" class="profile-wall-activities-comments">
+        <span class='view-all-comments'>
+          <span class="bullet-separator">•</span>
+          <%= link_to(font_awesome(:comments, n_('View comment', "View %s comments".html_safe, scrap.replies.count) % scrap.replies.count), :profile => profile.identifier, :controller => 'profile', :action => 'more_replies', :activity => activity, :comment_page => (1)) %>
+        </span>
+      </span>
+    <% end %>
+    <ul id="profile-wall-activities-comments-<%= activity.id %>" class="profile-wall-activities-comments scrap-replies"></ul>
+    <%= render :partial => 'profile_scrap_reply_form', :locals => { :scrap => scrap } if allow_comment? %>
   </div>
-
-
-  <ul id="profile-wall-activities-comments-<%= activity.id %>" class="profile-wall-activities-comments scrap-replies" style="width: auto;" >
-  </ul>
-
-  <% if scrap.replies.count > 0 %>
-    <div id="profile-wall-activities-comments-more-<%= activity.id %>" class="profile-wall-activities-comments">
-      <div class='view-all-comments icon-chat'>
-        <%= link_to(n_('View comment', "View all %s comments".html_safe, scrap.replies.count) % scrap.replies.count, :profile => profile.identifier, :controller => 'profile', :action => 'more_replies', :activity => activity, :comment_page => (1)) %>
-      </div>
-    </div>
-  <% end %>
-  <%= render :partial => 'profile_scrap_reply_form', :locals => { :scrap => scrap } if allow_comment? %>
-  <hr />
+  <div class='profile-wall-actions'>
+    <%= link_to_function(font_awesome(:remove), 'remove_item_wall(this, \'%s\', \'%s\', \'%s\'); return false ;' % [".profile-activity-item", url_for(:profile => params[:profile], :action => :remove_scrap, :scrap_id => scrap.id, :view => params[:view]), _('Are you sure you want to remove this scrap and all its replies?')]) if logged_in? && user.can_control_scrap?(scrap) %>
+  </div>
 </li>

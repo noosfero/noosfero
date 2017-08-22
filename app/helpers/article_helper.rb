@@ -168,27 +168,19 @@ module ArticleHelper
   end
 
   def follow_button_text(article)
-    if article.event?
-      _('Attend')
-    else
-      _('Follow')
-    end
+    font_awesome(:plus, article.event? ? _('Attend') : _('Follow'))
   end
 
   def unfollow_button_text(article)
-    if article.event?
-      _('Unattend')
-    else
-      _('Unfollow')
-    end
+    font_awesome(:minus, article.event? ? _('Unattend') : _('Unfollow'))
   end
 
   def following_button(page, user)
     if !user.blank? and user != page.author
       if page.is_followed_by? user
-        button :cancel, unfollow_button_text(page), {controller: :profile, profile: page.profile.identifier, action: :unfollow_article, article_id: page.id}
+        link_to unfollow_button_text(page), { controller: :profile, profile: page.profile.identifier, action: :unfollow_article, article_id: page.id }
       else
-        button :add, follow_button_text(page), {controller: :profile, profile: page.profile.identifier, action: :follow_article, article_id: page.id}
+        link_to follow_button_text(page), { controller: :profile, profile: page.profile.identifier, action: :follow_article, article_id: page.id }
       end
     end
   end
@@ -213,6 +205,75 @@ module ArticleHelper
   # Receives a list of type names. The names should be previously translated
   def custom_fields_for_article(types)
     types.map { |type| [type.camelize, type.downcase] }
+  end
+
+  def article_actions
+    actions = [following_button(@page, user)]
+
+    if @page.allow_edit?(user) && !remove_content_button(:edit, @page)
+      content = font_awesome(:edit, label_for_edit_article(@page))
+      url = profile.admin_url.merge({ controller: 'cms', action: 'edit', id: @page.id })
+      actions << link_to(content, url)
+    end
+
+    if @page != profile.home_page && !@page.has_posts? && @page.allow_delete?(user) && !remove_content_button(:delete, @page)
+      content = font_awesome('trash-o', _('Delete'))
+      url = profile.admin_url.merge({ controller: 'cms', action: 'destroy', id: @page.id})
+      options = { method: :post, 'data-confirm' => delete_article_message(@page) }
+      actions << link_to(content, url, options)
+    end
+
+    if @page.allow_spread?(user) && !remove_content_button(:spread, @page)
+      content = font_awesome(:spread, _('Spread'))
+      url = profile.admin_url.merge({ controller: 'cms', action: 'publish', id: @page.id })
+      actions << link_to(content, url, { modal: true} ) if url
+    end
+
+    if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user)))
+      if @page.translatable? && !@page.native_translation.language.blank? && !remove_content_button(:locale, @page)
+        content = font_awesome(:language, _('Add translation'))
+        parent_id = (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent))
+        url = profile.admin_url.merge(controller: 'cms', action: 'new', parent_id: parent_id, type: @page.type, article: { translation_of_id: @page.native_translation.id })
+        actions << link_to(content, url_for(url).html_safe)
+      end
+
+      if !@page.archived?
+        actions << modal_link_to(font_awesome(:file, label_for_new_article(@page)), profile.admin_url.merge(controller: 'cms', action: 'new', parent_id: (@page.folder? ? @page : @page.parent))) unless remove_content_button(:new, @page)
+      end
+
+      content = font_awesome(:clone, label_for_clone_article(@page))
+      url = profile.admin_url.merge({ controller: 'cms', action: 'new', id: @page.id, clone: true, parent_id: (@page.folder? ? @page : @page.parent), type: @page.class})
+      actions << link_to(content, url)
+    end
+
+    if @page.accept_uploads? && @page.allow_create?(user)
+      actions << link_to(font_awesome(:upload, _('Upload files')), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) unless remove_content_button(:upload, @page)
+    end
+
+    if !@page.allow_create?(user) && profile.organization? && (@page.blog? || @page.parent && @page.parent.blog?) && !remove_content_button(:suggest, @page)
+      content = font_awesome(:lightbulb, _('Suggest an article'))
+      url = profile.admin_url.merge({ controller: 'cms', action: 'suggest_an_article' })
+      options = { id: 'suggest-article-link' }
+      actions << link_to(content, url, options)
+    end
+
+    if @page.display_versions?
+      actions << link_to(font_awesome(:clock, _('All versions')), { controller: 'content_viewer', profile: profile.identifier, action: 'article_versions' }, id: 'article-versions-link')
+    end
+
+    plugins_toolbar_actions_for_article(@page).each do |plugin_button|
+      actions << link_to(plugin_button[:title], plugin_button[:url], plugin_button[:html_options])
+    end
+
+    actions << fullscreen_buttons("#article") << report_abuse(profile, :link, @page)
+  end
+
+  def article_icon article
+    if article.is_a? Folder
+      image_tag "/designs/icons/tango/Tango/32x32/places/folder.png"
+    elsif article.is_a? TextArticle
+      image_tag "/designs/icons/tango/Tango/32x32/mimetypes/x-office-document.png"
+    end
   end
 
 end

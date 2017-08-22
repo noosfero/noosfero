@@ -19,8 +19,8 @@
 	display: block;
 	float: left;
 	overflow: hidden;
-	margin: 2px 2px 0;
-	padding: 2px 3px;
+	margin-right: 5px;
+	padding: 2px 4px;
 	white-space: nowrap;
 	overflow: hidden;
 	-o-text-overflow: ellipsis;
@@ -40,11 +40,17 @@
 }
 .inputosaurus-container li.inputosaurus-selected { background-color: #bdd6eb; }
 .inputosaurus-container li a {
+    display: inline-block;
+    vertical-align: middle;
 	font-size: 16px;
 	color: #5b9bcd;
 	padding: 1px;
 	text-decoration: none;
 	outline: none;
+}
+.inputosaurus-container li span {
+    display: inline-block;
+    vertical-align: middle;
 }
 .inputosaurus-container .inputosaurus-input {
 	border: none;
@@ -52,7 +58,7 @@
 }
 .inputosaurus-container .inputosaurus-input input {
 	border: none;
-	height: 23px;
+	height: 25px;
 	font-size: 14px;
 	line-height: 20px;
 	color: #555;

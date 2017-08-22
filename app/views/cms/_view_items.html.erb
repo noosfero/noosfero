@@ -1,29 +1,51 @@
-<% @articles.each do |article| article = FilePresenter.for article %>
-  <tr title="<%= article.title%>" >
+<% @articles.partition { |article| article.is_a? Folder }.flatten.each do |article| article = FilePresenter.for article %>
+  <tr title="<%= article.title%>" class="<%= article.is_a?(Folder) ? "folder" : article.type.downcase %>">
     <td class="article-name">
+      <%= article_icon(article) %>
       <%= link_to_article(article) %>
     </td>
-    <% short_description =  article.respond_to?(:short_description) ?
-          article.short_description :
-          article.class.short_description %>
-    <td class="article-mime" title=<%= short_description.to_json %>>
-      <%= short_description %>
+    <td>
+      <%= content_tag :span, font_awesome(:home) if profile.home_page == article %>
     </td>
-  <td class="last-update">
-    <%= time_ago_in_words article.updated_at %>
-  </td>
-    <td class="article-controls">
-      <%= expirable_button article, :edit, _('Edit'), {:action => 'edit', :id => article.id} if !remove_content_button(:edit, article) %>
-      <%= button_without_text :eyes, _('Public view'), article.view_url %>
-      <%= display_spread_button(article) unless remove_content_button(:spread, article) %>
-      <% if user.can_change_homepage? && !remove_content_button(:home, article) %>
-        <% if profile.home_page != article %>
-          <%= expirable_button article, :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
-        <% else %>
-          <%= button_without_text(:'home-not', _('Reset homepage'),  { :action => 'set_home_page', :id => nil }, :method => :post) %>
+    <td class="last-modified">
+      <%= time_ago_in_words(article.updated_at) %>
+    </td>
+    <td>
+      <%= article.size ? number_to_human_size(article.size, precision: 2) : '<span style="font-weight: 700;">-</span>'.html_safe %>
+    </td>
+    <td>
+      <%= link_to font_awesome(:ellipsis), '#!', class: 'menu-toggle' %>
+      <ul class="noosfero-dropdown-menu">
+        <% if !remove_content_button(:edit, article) %>
+          <li>
+            <%= link_to font_awesome(:edit, _('Edit')), { action: 'edit', id: article.id } %>
+          </li>
         <% end %>
-      <% end %>
-      <%= display_delete_button(article) if !remove_content_button(:delete, article) %>
+
+        <% if user.can_change_homepage? && !remove_content_button(:home, article) && !article.is_a?(FilePresenter) %>
+          <li>
+            <% if profile.home_page != article %>
+              <%= link_to font_awesome(:home, _('Use as homepage')), { action: 'set_home_page', id: article.id }, method: :post %>
+            <% else %>
+              <%= link_to font_awesome(:undo, _('Reset homepage')),  { action: 'set_home_page', id: nil }, method: :post %>
+            <% end %>
+          </li>
+        <% end %>
+        <li>
+          <%= link_to font_awesome(:globe, _('Public view')), article.view_url %>
+        </li>
+        <% unless remove_content_button(:spread, article) %>
+          <li>
+            <%= link_to font_awesome(:spread, _('Spread')), { action: 'publish', id: article.id}, { modal: true } %>
+          </li>
+        <% end %>
+
+        <% if !remove_content_button(:delete, article) %>
+          <li>
+            <%= link_to font_awesome('trash-o', _('Delete')), { action: 'destroy', id: article.id }, method: :post, 'data-confirm' => delete_article_message(article) %>
+          </li>
+        <% end %>
+      </ul>
     </td>
   </tr>
 <% end %>

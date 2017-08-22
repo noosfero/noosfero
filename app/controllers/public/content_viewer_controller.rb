@@ -64,7 +64,7 @@ class ContentViewerController < ApplicationController
     process_comments(params)
 
     if request.xhr? and params[:comment_order]
-      return render :partial => 'comment/comments_with_pagination'
+      return render partial: 'comment/comment', collection: @comments
     end
 
     if params[:slideshow]
@@ -87,6 +87,20 @@ class ContentViewerController < ApplicationController
 
     render_access_denied unless @page.display_versions?
     @versions = @page.versions.paginate(:per_page => per_page, :page => params[:npage])
+  end
+
+  def view_more_comments
+    @page = Article.find_by_id params[:id]
+    process_comments(params)
+    render :update do |page|
+      page.insert_html :bottom, "article-comments-list",
+                       partial: 'comment/comment', collection: @comments, as: :comment
+
+      page.remove "view-more-comments"
+
+      page.insert_html :after, "article-comments-list",
+                       partial: 'comment/view_more_comments' if @curr_page < @total_pages
+    end
   end
 
   protected
@@ -270,11 +284,13 @@ class ContentViewerController < ApplicationController
     @comments = @page.comments.without_spam
     @comments = @plugins.filter(:unavailable_comments, @comments)
     @comments_count = @comments.count
-    @comment_order = params[:comment_order].nil? ? 'oldest' : params[:comment_order]
+    @comment_order = params[:comment_order].nil? ? 'newest' : params[:comment_order]
     @comments = @comments.without_reply
     if @comment_order == 'newest'
       @comments = @comments.reverse
     end
+    @curr_page = (params[:comment_page] || 1).to_i
+    @total_pages = @comments.size / per_page + (@comments.size % per_page != 0 ? 1 : 0)
     @comments = @comments.paginate(:per_page => per_page, :page => params[:comment_page] )
   end
 

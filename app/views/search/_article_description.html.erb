@@ -1,7 +1,7 @@
 <% article = article_description %>
 
-<tr class="search-article-description">
-  <td class="search-field-label"><%= _("Description") %></td>
+<div class="search-article-description">
+  <span class="search-field-label"><%= _("Description") %>:</span>
 
   <% content = article.abstract.present? ? article.abstract : article.to_html %>
 
@@ -10,8 +10,8 @@
     <% description.gsub!(/\s{2,}/, ' ') %>
     <% description = excerpt description, description.first(3), radius: 200 %>
 
-    <td class="search-article-body"><%= description %></td>
+    <span class="search-article-body"><%= description %></span>
   <% else %>
-    <td class="search-field-none"><%= _('None') %></td>
+    <span class="search-field-none"><%= _('None') %></span>
   <% end %>
-</tr>
+</div>

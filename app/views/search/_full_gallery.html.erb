@@ -1,17 +1,15 @@
 <li class="search-gallery article-item">
-  <div>
-    <%= link_to gallery.title, gallery.view_url, :class => 'search-result-title' %>
-  </div>
-
   <div class="search-content-first-column">
-    <%= render :partial => 'image', :object => gallery %>
+    <%= render partial: 'image', object: gallery %>
   </div>
 
-  <table class="noborder search-content-second-column">
-    <%= render :partial => 'article_common', :object => gallery %>
-  </table>
-  <%= render :partial => 'article_last_change', :object => gallery %>
+  <div class="noborder search-content-second-column">
+    <h2>
+      <%= link_to gallery.title, gallery.view_url, class: 'search-result-title' %>
+    </h2>
+    <%= render partial: 'article_last_change', object: gallery %>
 
-  <div style="clear: both"></div>
+    <%= render partial: 'article_common', object: gallery %>
+  </div>
 </li>
 

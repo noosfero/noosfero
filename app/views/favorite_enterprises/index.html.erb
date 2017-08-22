@@ -1,31 +1,31 @@
 <div id="manage_favorite_enterprises">
 
-<h1><%= _("%s's favorite enterprises") % profile.name %></h1>
+  <h1><%= _("%s's favorite enterprises") % profile.name %></h1>
 
-<ul class="profile-list">
-<% @favorite_enterprises.each do |enterprise| %>
-  <li>
-    <%= link_to_profile profile_image(enterprise) + '<br/>'.html_safe + enterprise.name,
-                        enterprise.identifier, :class => 'profile-link' %>
-    <%# profile_image_link enterprise, :portrait, 'div' %>
-    <div class="controll">
-      <%= button_without_text(:delete, _('remove'), { :action => 'remove', :id => enterprise.id },:title => _('remove')) %>
-    </div><!-- end class="controll" -->
-  </li>
-<% end %>
-</ul>
+  <%= button_bar do %>
+    <%= button(:back, _('Go back'), :controller => 'profile_editor') %>
+  <% end %>
 
-<% if @favorite_enterprises.empty? %>
-<p>
-<em>
-  <%= _('You have no favorite enterprises yet.') %>
-</em>
-</p>
-<% end %>
+  <% if @favorite_enterprises.empty? %>
+    <p>
+      <em>
+        <%= _('You have no favorite enterprises yet.') %>
+      </em>
+    </p>
+  <% else %>
 
-<%= button_bar do %>
-  <%= button(:back, _('Go back'), :controller => 'profile_editor') %>
-<% end %>
+    <ul class="profile-list">
+      <% @favorite_enterprises.each do |enterprise| %>
+        <li>
+          <%= link_to_profile profile_image(enterprise).html_safe + enterprise.name,
+                              enterprise.identifier, :class => 'profile-link' %>
+          <div class="controll">
+            <%= link_to(font_awesome(:remove), { action: 'remove', id: enterprise.id }, title: _('remove'), class: 'remove-favorite-enterprise') %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
 
-</div><!-- end id="manage_friends" -->
-
+    <%= pagination_links @favorite_enterprises, :param_name => 'npage' %>
+  <% end %>
+</div>

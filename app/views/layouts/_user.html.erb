@@ -3,11 +3,10 @@
   <% if user.present? %>
     <% user = user.person %>
     <span class='logged-in'>
-      <%= usermenu_logged_in %>
     </span>
   <% else %>
     <span class='not-logged-in'>
-      <%= usermenu_notlogged_in %>
+      <%= modal_link_to_login %>
       <% @plugins.dispatch(:alternative_authentication_link).collect do |content|%>
          <%= instance_exec(&content) %> 
       <%end%>
@@ -17,13 +16,12 @@
       </div>
 
       <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
-        <%= usermenu_signup %>
+        <%= link_to_signup %>
       <% end %>
     </span>
   <% end %>
   <form action="/search/articles" id="top-search" class="search_form clean" method="get">
     <input name="query" size="15" title="<%=_('Search...')%>" onfocus="this.form.className='focused';" onblur="this.form.className=''" />
     <div><%=_('Press <strong>Enter</strong> to send the search query.').html_safe%></div>
-    <%= javascript_tag 'jQuery("#user form input").hint();' %>
   </form>
 </div><!-- end id="user" -->

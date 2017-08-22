@@ -1,4 +1,7 @@
 module FormsHelper
+
+  include ButtonsHelper
+
   def labelled_radio_button( human_name, name, value, checked = false, options = {} )
     options[:id] ||= 'radio-' + FormsHelper.next_id_number
     radio_button_tag( name, value, checked, options ) +
@@ -26,19 +29,20 @@ module FormsHelper
   end
 
   def submit_button(type, label, html_options = {})
-    bt_cancel = html_options[:cancel] ? button(:cancel, _('Cancel'), html_options[:cancel]) : ''
+    bt_cancel = html_options[:cancel] ? button("ban" , _('Cancel'), html_options[:cancel], class: 'btn-red') : ''
 
     html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
 
-    the_class = "button with-text icon-#{type}"
+    css_class = "button with-text icon-#{type} hidden-submit"
     if html_options.has_key?(:class)
-      the_class << ' ' << html_options[:class]
+      css_class << ' ' << html_options[:class]
     end
 
     html_options.delete(:cancel)
-    bt_submit = submit_tag(label, html_options.merge(:class => the_class))
+    hidden_submit = submit_tag(label, html_options.merge(class: css_class))
+    bt_submit = button_to_function(type, label, "submit_form(this)", class: "button with-text")
 
-    bt_submit + bt_cancel
+    hidden_submit + bt_submit + bt_cancel
   end
 
   def text_field_with_local_autocomplete(name, choices, html_options = {})

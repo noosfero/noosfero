@@ -40,7 +40,7 @@
     <em><%= _('No pending tasks for %s') % profile.name %></em>
   </p>
 <% else %>
-  <%= form_tag tasks_url(:action => 'close') do%>
+  <%= form_tag tasks_url(action: 'close'), remote: true do%>
     <%= button_bar(:class => 'task-actions') do %>
       <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
       <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
@@ -58,7 +58,7 @@
 
       <div class="task_boxes">
         <% @tasks.each do |task| %>
-          <%= render :partial => partial_for_class(task.class, nil, nil), :locals => {:task => task} %>
+          <%= render partial: partial_for_class(task.class, nil, nil), locals: { task: task } %>
         <% end %>
       </div>
 

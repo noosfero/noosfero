@@ -6,10 +6,6 @@
   overflow: hidden;
 }
 
-.controller-profile .button-bar {
-  padding-top: 40px;
-  clear: both;
-}
 .controller-profile #pagination-profiles .pagination span {
   display: inline;
 }
@@ -47,4 +43,43 @@
 
 #circles-checkboxes .circle:last-child {
   margin-bottom: 10px;
+}
+
+.profile {
+  padding: 0px 10px;
+  @media only screen and (max-width: 540px) { padding: 0px; }
+}
+
+.ui-tabs, .ui-tabs-nav {
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  li.tab {
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    display: inline-block;
+    float: none !important;
+    margin: -1px !important;
+    position: default !important;
+    a {
+      border: none !important;
+      border-radius: 0 !important;
+      display: inline-block;
+      float: none !important;
+      outline: none !important;
+      padding: 0.8em 1.5em !important;
+      @media only screen and (max-width: 960px) { padding: 0.5em 0.8em !important; }
+    }
+    &.ui-state-default {
+      a { color: #bbb !important; }
+    }
+    &.ui-state-active {
+      a { color: #555 !important; }
+      border: 1px solid #ddd !important;
+      border-top: 2px solid #f0ad4e !important;
+      border-bottom: 1px solid #fff !important;
+    }
+  }
 }

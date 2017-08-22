@@ -81,7 +81,6 @@
   clear: both;
 }
 .profile-info-options {
-  padding-top: 20px;
   text-align: right;
   padding-right: 20px;
 }
@@ -98,6 +97,9 @@
   list-style-image: none;
   margin: 0px 0px 5px 0px;
   padding: 2px;
+}
+li.profile-circles {
+  display: none;
 }
 #circles-container {
   background-color: #eee;

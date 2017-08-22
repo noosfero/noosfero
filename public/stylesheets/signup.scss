@@ -125,10 +125,6 @@
   padding: 0;
 }
 
-#signup-form #signup-login-field {
-  max-width: 190px;
-}
-
 #thanks-for-signing {
   text-align: left;
 }
@@ -164,4 +160,18 @@
 
 #signup-form .g-recaptcha div:first-child {
   width: auto !important;
+}
+
+.about-noosfero {
+  display: inline-block;
+  text-align: center;
+  vertical-align: top;
+  width: 550px;
+  float: right;
+  margin-right: 40px;
+  @media only screen and (max-width: 1260px) { display: none; }
+  h2 {
+    font-size: 28px;
+    line-height: 36px;
+  }
 }

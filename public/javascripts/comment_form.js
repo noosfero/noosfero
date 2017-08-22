@@ -1,3 +1,10 @@
+$('#new_comment textarea').live('keypress', function(e) {
+    if(e.which == 13 && !e.shiftKey) {
+        save_comment($(this));
+        return false;
+    }
+});
+
 jQuery('.display-comment-form').unbind();
 jQuery('.display-comment-form').click(function(){
   var $button = jQuery(this);
@@ -29,13 +36,11 @@ function toggleBox(div){
 
 function save_comment(button) {
   var $ = jQuery;
-  open_loading(DEFAULT_LOADING_MESSAGE);
   var $button = $(button);
   var form = $button.parents("form");
   var post_comment_box = $button.parents('.post_comment_box');
   var comment_div = $button.parents('.comments');
   var page_comment_form = $button.parents('.page-comment-form');
-  $button.addClass('comment-button-loading');
   $.post(form.attr("action"), form.serialize(), function(data) {
 
     if(data.render_target == null) {
@@ -56,8 +61,13 @@ function save_comment(button) {
       noosfero.modal.close();
       increment_comment_count(comment_div);
     } else {
+      let comment_order = $("#form_order select#comment_order option:selected").val();
       //New comment of article
-      comment_div.find('.article-comments-list').append(data.html);
+      if(comment_order.toLowerCase() == 'oldest') {
+          comment_div.find('.article-comments-list').append(data.html);
+      } else {
+          comment_div.find('.article-comments-list').prepend(data.html);
+      }
 
       form.find("input[type='text']").add('textarea').each(function() {
         this.value = '';

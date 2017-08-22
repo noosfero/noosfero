@@ -28,8 +28,11 @@
  * block store styles
  ************************************************/
 #block-store #block-store-filter {
-  float: right;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
+  width: 50%;
+  @media only screen and (max-width: 540px) {
+    width: 80%;
+  }
 }
 #block-store #block-types {
   clear: both;

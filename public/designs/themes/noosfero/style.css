@@ -1,9 +1,7 @@
 @import url(../base/style.css);
 
-#site-title img {
-  left:-22px;
-  position:absolute;
-  top:-30px;
+.text-editor-sidebar {
+  display: none;
 }
 
 #title-bar {
@@ -53,4 +51,101 @@
   padding: 10px;
   width: 475px;
   line-height: 15px;
+}
+
+#uploaded_files {
+  display: none;
+}
+
+form#file_upload_form .formfieldline label {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+form#file_upload_form .formfieldline .formfield {
+  display: inline-block;
+}
+
+form#file_upload_form .formfieldline .formfield select {
+  width: 60%;
+}
+
+form#file_upload_form .button-bar a.icon-add {
+  margin-right: 6px;
+}
+
+table.uploaded_files_table tr {
+  border-top: 1px solid #ddd;
+  height: 6em;
+}
+
+table.uploaded_files_table tr td:first-child {
+  width: 70%;
+}
+
+table.uploaded_files_table tr:hover td {
+  background-color: inherit;
+}
+
+table.uploaded_files_table tr:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.hidden-submit {
+  display: none !important;
+}
+
+i {
+  font-size: 1.1em !important;
+  margin-right: 4px;
+}
+
+body textarea {
+  border: 1px solid rgb(169, 169, 169);
+  font-size: 13px;
+}
+
+body select {
+  display: block;
+  padding: 6px 70px 6px 12px;
+  max-width: 100%;
+  height: 100%;
+  border: 1px solid #e3e3e3;
+  border-radius: 3px;
+  background: url(/images/selectbox-down-arrow.png) right center no-repeat;
+  background-color: #fff;
+  color: #444444;
+  font-size: 1.1em;
+  line-height: 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+@media only screen and (max-width: 960px) {
+  body select {
+    padding: 6px 40px 6px 12px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  body select {
+    padding: 6px 25px 6px 12px;
+  }
+}
+
+body select option {
+  padding: 0 4px;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+select:disabled::-ms-expand {
+  background: #f60;
+}
+
+a.remove-file {
+  font-size: 1.4em;
+  cursor: pointer;
 }

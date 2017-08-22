@@ -151,28 +151,25 @@ module ProfileImageHelper
     end
 
     links = links_for_balloon(profile) << {home: {href: url_for(profile.url)}}
-    content_tag('div',
-      content_tag(tag,
-        (
-          environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
-          popover_menu(
-            _('Profile links'), profile.short_name, links, class: trigger_class, url: url
-          ) : ""
-        ).html_safe +
-        link_to(
-          content_tag('span', profile_image(profile, size), class: img_class) +
-          content_tag('span', h(name), class: (profile.class == Person ? 'fn' : 'org')) +
-          extra_info_tag + profile_sex_icon(profile),
-          profile.url,
-          class: 'profile_link url',
-          style: (
-            theme_option(:profile_list_bg_imgs) ?
-            "background-image: url(#{profile_icon(profile, size)})" : ''
-          ),
-          title: profile.name ).html_safe,
-        class: 'vcard'
-      ),
-      class: "common-profile-list-block #{profile.image ? 'has-pic' : 'no-pic'}"
+    content_tag(tag,
+      (
+        environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
+        popover_menu(
+          _('Profile links'), profile.short_name, links, class: trigger_class, url: url
+        ) : ""
+      ).html_safe +
+      link_to(
+        content_tag('span', profile_image(profile, size), class: img_class) +
+        content_tag('span', h(name), class: (profile.class == Person ? 'fn' : 'org')) +
+        extra_info_tag + profile_sex_icon(profile),
+        profile.url,
+        class: 'profile_link url',
+        style: (
+          theme_option(:profile_list_bg_imgs) ?
+          "background-image: url(#{profile_icon(profile, size)})" : ''
+        ),
+        title: profile.name ).html_safe,
+      class: "vcard common-profile-list-block #{profile.image ? 'has-pic' : 'no-pic'}"
     )
   end
 end
