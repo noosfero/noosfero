@@ -9,8 +9,8 @@
     <li class='link-list-target'><%= _('Target') %></li>
   </ul>
   <ul id="dropable-link-list">
-    <% for link in @block.links do %>
-      <%= render :partial => 'link_list_item', :locals => {:link => link} %>
+    <% @block.links.each do |link| %>
+      <%= render partial: 'link_list_item', locals: { link: link } %>
     <% end %>
   </ul>
   <input type="hidden" id="page_url" value="<%=url_for(:action=>'search_autocomplete')%>" />

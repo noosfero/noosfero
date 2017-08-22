@@ -4,11 +4,11 @@ module MembershipsHelper
     url = options[:logged] ? profile.join_url : profile.join_not_logged_url
 
     if show_confirmation_modal? profile
-      modal_button :add, _('Join this community'), url, class: 'join-community'
+      modal_link_to font_awesome(:plus, _('Join this community')), url, class: 'join-community'
     elsif !options[:logged]
-      modal_button :add, _('Join this community'), url, class: 'join-community'
+      modal_link_to font_awesome(:plus, _('Join this community')), url, class: 'join-community'
     else
-      button :add, _('Join this community'), url, class: 'join-community'
+      link_to font_awesome(:plus, _('Join this community')), url, class: 'join-community'
     end
   end
 

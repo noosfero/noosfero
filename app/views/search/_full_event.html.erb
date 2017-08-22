@@ -1,29 +1,27 @@
 <li class="search-event-item article-item">
-  <div>
-    <%= link_to(event.title, event.url, :class => "search-result-title") %>
-  </div>
-
   <div class="search-content-first-column">
-    <%= render :partial => 'image', :object => event %>
+    <%= render partial: 'image', object: event %>
   </div>
 
-  <table class="noborder search-content-second-column">
+  <div class="noborder search-content-second-column">
+    <h2>
+      <%= link_to(event.title, event.url, :class => "search-result-title") %>
+    </h2>
+    <%= render partial: 'article_last_change', object: event %>
+
     <% if event.start_date %>
-      <tr class="search-article-event-date">
-        <td class="search-field-label"><%= _('Start date') %></td>
-        <td class="article-item-date"><%= event.start_date %></td>
-      </tr>
+      <div class="search-article-event-date">
+        <span class="search-field-label"><%= _('Start date') %>: </span>
+        <span class="article-item-date"><%= show_date event.start_date %></span>
+      </div>
     <% end %>
     <% if event.end_date %>
-      <tr class="search-article-event-date">
-        <td class="search-field-label"><%= _('End date') %></td>
-        <td class="article-item-date"><%= event.end_date %></td>
-      </tr>
+      <div class="search-article-event-date">
+        <span class="search-field-label"><%= _('End date') %>: </span>
+        <span class="article-item-date"><%= show_date event.end_date %></span>
+      </div>
     <% end %>
 
-    <%= render :partial => 'article_common', :object => event %>
-  </table>
-  <%= render :partial => 'article_last_change', :object => event %>
-
-  <div style="clear: both"></div>
+    <%= render partial: 'article_common', object: event %>
+  </div>
 </li>

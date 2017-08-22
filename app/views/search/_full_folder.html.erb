@@ -1,28 +1,26 @@
 <li class="search-folder-item article-item">
-  <div>
-    <%= link_to folder.title, folder.view_url, :class => 'search-result-title' %>
-  </div>
-
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => folder %>
   </div>
 
-  <table class="noborder search-content-second-column">
-    <tr class="search-folder-items">
-      <td class="search-field-label"><%= _("Last items") %></td>
+  <div class="noborder search-content-second-column">
+    <h2>
+      <%= link_to folder.title, folder.view_url, :class => 'search-result-title' %>
+    </h2>
+    <%= render partial: 'article_last_change', object: folder %>
 
+    <%= render partial: 'article_common', object: folder %>
+
+    <div class="search-folder-items">
       <% r = folder.children.last(3) %>
-      <td class="<%= "search-field-none" if r.empty? %>">
+      <% unless r.empty? %>
+        <span class="search-field-label"><%= _("Last items") %></span>
         <% r.each do |a| %>
-          <%= link_to a.title, a.view_url, :class => 'search-folder-sample-item '+icon_for_article(a) %>
+          <span class="folder-item">
+            <%= link_to a.title, a.view_url, class: 'search-folder-sample-item '+ icon_for_article(a) %>
+          </span>
         <% end %>
-        <%= _('None') if r.empty? %>
-      </td>
-    </tr>
-
-    <%= render :partial => 'article_common', :object => folder %>
-  </table>
-  <%= render :partial => 'article_last_change', :object => folder %>
-
-  <div style="clear:both"></div>
+      <% end %>
+    </div>
+  </div>
 </li>

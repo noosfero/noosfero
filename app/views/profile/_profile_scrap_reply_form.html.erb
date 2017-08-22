@@ -2,16 +2,15 @@
   <div id='profile-wall-reply-form-<%= scrap.id%>' style='display:none'>
     <p class='profile-wall-reply'>
       <%= form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap'}, :update => "profile_activities", :html => { :class => 'profile-wall-reply-form', 'data-update' => 'profile_activities'} do %>
+        <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
         <%= expandable_text_area :scrap,
                                  :content,
                                  "reply_content_#{scrap.id}",
-                                 :cols => 50,
-                                 :rows => 1,
-                                 :class => 'submit-with-keypress',
-                                 :title => _('Leave your comment'),
-                                 :onfocus => ("if(this.value==this.title){this.value='';this.style.color='#000'};this.style.backgroundImage='url(" + profile_icon(current_person, :icon, false) + ")'" if logged_in?),
-                                 :onblur => ("if(this.value==''){this.value=this.title;this.style.color='#ccc'};this.style.backgroundImage='none'" if logged_in?),
-                                 :value => _('Leave your comment') %>
+                                 cols: 50,
+                                 rows: 1,
+                                 class: 'submit-with-keypress',
+                                 title: _('Leave your comment'),
+                                 placeholder: _("Leave your comment") %>
         <%= hidden_field_tag 'scrap[scrap_id]', scrap.id %>
         <%= hidden_field_tag 'receiver_id', scrap.sender.id %>
       <% end %>

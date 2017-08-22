@@ -46,7 +46,7 @@ class FriendsController < MyProfileController
 
   class << self
     def per_page
-      12
+      10
     end
   end
   def per_page

@@ -2,27 +2,16 @@
   text-align: center;
 
   .profile-big-image.img-pic {
-    position: relative;
-    display: table;
-    width: 156px;
-    height: 156px;
+    width: 90%;
     margin: auto;
 
-    .profile-big-image-inner1 {
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle;
-      .profile-big-image-inner2 {
-        position: relative;
-        left: 0px;
-        display: block;
-        a {
-          img {
-            border: 1px solid #888;
-            padding: 2px;
-            background: transparent;
-          }
-        }
+    a {
+      img {
+        border: 1px solid #888;
+        padding: 2px;
+        background: transparent;
+        width: 100%;
+        max-width: 156px;
       }
     }
   }

@@ -3,16 +3,15 @@
     <%= render "blocks/profile_info_actions/join_leave_community" %>
   </li>
   <% if logged_in? %>
+    <%= render :partial => 'blocks/profile_info_actions/common' %>
     <% if profile.enable_contact? %>
       <li>
-        <%= button(:'menu-mail', _('Send an e-mail'),
+        <%= link_to(font_awesome(:email, _('Send an e-mail')),
                    { :profile => profile.identifier,
                      :controller => 'contact',
                      :action => 'new' },
                    { :title => _('Send an e-mail to the administrators')}) %>
       </li>
     <% end %>
-
-    <%= render :partial => 'blocks/profile_info_actions/common' %>
   <% end %>
 </ul>

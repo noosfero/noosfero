@@ -13,21 +13,19 @@
   <% end %>
 
   <%= button_bar do %>
-    <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
-    <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
+    <%= button(:back, _('Back'), controller: 'profile_editor') %>
+    <%= button(:search, _('Find people'), controller: 'search', action: 'assets', asset: 'people') %>
     <% unless @plugins.dispatch(:remove_invite_friends_button).include?(true) %>
-      <%= button(:person, _('Invite people'), :controller => 'invite', :action => 'invite_friends') %>
+      <%= button(:'user-plus', _('Invite people'), controller: 'invite', action: 'invite_friends') %>
     <% end %>
   <% end %>
 
   <%= render :partial => 'profile_list', :locals => { :profiles => @friends } %>
 
-  <br style="clear:both" />
   <%= pagination_links @friends, :param_name => 'npage' %>
 <% end %>
 
 <% unless @suggestions.empty? %>
-  <br style="clear:both" />
   <h2><%= _("Friends suggestions") %></h2>
   <div class="profiles-suggestions">
     <%= render :partial => 'shared/profile_suggestions_list', :locals => { :suggestions => @suggestions, :collection => :friends_suggestions, :per_page => 12 } %>

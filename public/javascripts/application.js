@@ -926,6 +926,14 @@ jQuery(function($){
      $(link).parents('.profile-activity-item').find('textarea').focus();
      return false;
   });
+
+  $(".profile-activity-item").hover(function() {
+    $(this).children(".profile-wall-actions").find("a").css("display", "block");
+  });
+
+  $(".profile-activity-item").mouseleave(function() {
+    $(this).children(".profile-wall-actions").find("a").css("display", "none");
+  });
 });
 
 /**
@@ -1213,11 +1221,52 @@ function stop_fetching(element){
   jQuery('.fetching-overlay', element).remove();
 }
 
-function add_new_file_fields() {
+function add_new_file_field() {
   var cloned = jQuery('#uploaded_files p:last').clone();
   cloned.find("input[type='file']").val('');
   cloned.appendTo('#uploaded_files');
-  jQuery('body').scrollTo(cloned);
+}
+
+function add_new_file_handler() {
+  $("#uploaded_files p:last input[type='file']").change(function() {
+    let input = $(this).get(0);
+    for(let i = 0; i < input.files.length; ++i) {
+      let file = input.files[i]; file.should_upload = true;
+        let remove_link = $("<a class='remove-file'><i class='fa fa-trash-o' aria-hidden='true'></i></a>");
+        let file_row = $("<tr></tr>").append($("<td>" + file.name + "</td>"))
+                                     .append($("<td>" + format_bytes(file.size) + "</td>"))
+                                     .append($("<td></td>").append(remove_link));
+        remove_link.click(function() { file.should_upload = false; file_row.fadeOut(500, function() { file_row.remove(); }); });
+      $("table.uploaded_files_table tbody").prepend(file_row);
+    }
+  });
+}
+
+function format_bytes(bytes) {
+  let kbyte = 1000, sizes = ["KB", "MB", "GB"], format = bytes + " Bytes";
+  for(let i = 0, curr_size = kbyte; i < 4 && bytes > curr_size; ++i, curr_size *= kbyte)
+    format = (bytes / curr_size).toFixed(2) + " " + sizes[i];
+  return format;
+}
+
+function add_new_files() {
+  add_new_file_field();
+  add_new_file_handler();
+  $("#uploaded_files p:last input").click();
+}
+
+function add_new_image(btn) {
+  let img_field = $(btn).siblings("#article_image_builder_uploaded_data");
+  img_field.click();
+}
+
+function update_image(input_field) {
+  let img_name = $(input_field).siblings('#img_name');
+  img_name.html($(input_field).val().split('\\').pop())
+}
+
+function submit_form(element) {
+  $(element).prev().click();
 }
 
 window.isHidden = function isHidden() { return (typeof(document.hidden) != 'undefined') ? document.hidden : !document.hasFocus() };
@@ -1255,3 +1304,34 @@ function fullscreenPageLoad(itemId){
     }
   });
 }
+
+$(document).ready(function() {
+
+  $(window).click(function(event) {
+    $(".noosfero-dropdown-menu").fadeOut();
+  });
+
+  $(".menu-toggle").click(function(e) {
+    e.stopPropagation();
+    $(this).siblings(".noosfero-dropdown-menu").toggle(400);
+  });
+
+  $(".trigger-menu-toggle").click(function(e) {
+    e.stopPropagation();
+    $(this).siblings(".menu-toggle").click();
+  });
+
+  $(".task-actions .accept-task").click(function(){
+    let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-accept-radio");
+    targetRadioBtn.attr("checked", "checked");
+    $(this).closest("form").submit();
+    $(this).closest("li").fadeOut(600, function() { $(this).remove(); });
+  });
+
+  $(".task-actions .reject-task").click(function(){
+    let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-reject-radio");
+    targetRadioBtn.attr("checked", "checked");
+    $(this).closest("form").submit();
+    $(this).closest("li").fadeOut(600, function() { $(this).remove(); });
+  });
+});

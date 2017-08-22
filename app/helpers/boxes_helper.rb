@@ -11,13 +11,7 @@ module BoxesHelper
       if controller.send(:uses_design_blocks?)
         display_boxes(controller.boxes_holder, content)
       else
-        content_tag('div',
-          content_tag('div',
-            content_tag('div', wrap_main_content(content), :class => 'no-boxes-inner-2'),
-            :class => 'no-boxes-inner-1'
-          ),
-          :class => 'no-boxes'
-        )
+        content_tag('div', wrap_main_content(content), class: 'no-boxes')
       end +
       maybe_display_custom_element(controller.boxes_holder, :custom_footer_expanded, :id => 'profile-footer')
     end
@@ -47,7 +41,7 @@ module BoxesHelper
 
   def display_boxes(holder, main_content)
     boxes = holder.boxes.with_position.first(boxes_limit(holder))
-    content = safe_join(boxes.reverse.map { |item| display_box(item, main_content) }, "\n")
+    content = safe_join(boxes.reverse.rotate.map { |item| display_box(item, main_content) }, "\n")
     content = main_content if (content.blank?)
 
     content_tag('div', content, :class => 'boxes', :id => 'boxes' )
@@ -147,17 +141,10 @@ module BoxesHelper
     result = filter_html(result, block)
 
     join_result = safe_join([result, footer_content, box_decorator.block_edit_buttons(block)])
-    content_tag_inner_1 = content_tag('div', join_result, :class => 'block-inner-2')
-
-    content_tag_inner_2 = content_tag('div', content_tag_inner_1, :class => 'block-inner-1')
-    content_tag_inner_3 = content_tag('div', content_tag_inner_2, options)
-    content_tag_inner_4 = box_decorator.block_target(block.box, block) + content_tag_inner_3
-    c = content_tag('div', content_tag_inner_4, :class => 'block-outer')
+    block_inner = content_tag('div', join_result, options)
+    block_container = box_decorator.block_target(block.box, block) + block_inner
     box_decorator_result = box_decorator.block_handle(block)
-    result_final = safe_join([c, box_decorator_result], "")
-
-
-    return result_final
+    safe_join([block_container, box_decorator_result], "")
   end
 
   def wrap_main_content(content)
@@ -299,7 +286,7 @@ module BoxesHelper
     end
 
     if block.respond_to?(:help)
-      buttons << modal_inline_icon(:help, _('Help on this block'), {}, "#help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help.html_safe, :style => 'margin-bottom: 1em;'), :style => 'display: none;', :id => "help-on-box-#{block.id}")
+      buttons << modal_inline_icon(:help, _('Help on this block'), '#!', "#help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help.html_safe, :style => 'margin-bottom: 1em;'), :style => 'display: none;', :id => "help-on-box-#{block.id}")
     end
 
     if block.embedable?
@@ -310,10 +297,10 @@ module BoxesHelper
               content_tag('div', _('Below, you''ll see a field containing embed code for the block. Just copy the code and paste it into your website or blogging software.'), :style => 'margin-bottom: 1em;') +
               content_tag('textarea', embed_code, :style => 'margin-bottom: 1em; width:100%; height:40%;', :readonly => 'readonly') +
               modal_close_button(_('Close')), :style => 'display: none;', :id => "embed-code-box-#{block.id}")
-      buttons << modal_inline_icon(:embed, _('Embed code'), {}, "#embed-code-box-#{block.id}") << html
+      buttons << modal_inline_icon(:embed, _('Embed code'), "#!", "#embed-code-box-#{block.id}") << html
     end
 
-    content_tag('div', buttons.join("\n").html_safe + tag('br', :style => 'clear: left'), :class => 'button-bar')
+    content_tag('div', buttons.join("\n").html_safe, :class => 'button-bar')
   end
 
   def current_blocks

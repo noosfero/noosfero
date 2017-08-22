@@ -5,17 +5,13 @@
 <% end %>
 
 <div class="profile-big-image <%= theme_option(:profile_list_bg_imgs) ? 'bg-pic' : 'img-pic' %>">
-  <div class="profile-big-image-inner1">
-    <div class="profile-big-image-inner2">
-      <%=
-        if theme_option(:profile_list_bg_imgs)
-          link_to '', profile.url, style: "background-image: url(#{profile_pic profile})"
-        else
-          link_to profile_image(block.owner, :big) +"\n", profile.url
-        end
-      %>
-    </div>
-  </div>
+  <%=
+    if theme_option(:profile_list_bg_imgs)
+      link_to '', profile.url, style: "background-image: url(#{profile_pic profile})"
+    else
+      link_to profile_image(block.owner, :big) +"\n", profile.url
+    end
+  %>
 </div>
 
 <% if block.show_name %>
@@ -24,7 +20,7 @@
 
 <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
   <div class='admin-link'>
-    <%= link_to _('Control panel'), block.owner.admin_url %>
+    <%= link_to font_awesome(:gear, _('Control panel')), block.owner.admin_url %>
   </div>
 <% end %>
 

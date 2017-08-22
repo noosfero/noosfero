@@ -15,7 +15,7 @@ module DisplayHelper
   end
 
   def link_to_tag(tag, html_options = {})
-    link_to tag.name, {:controller => 'search', :action => 'tag', :tag => tag.name}, html_options
+    link_to font_awesome(:tag, tag.name), {:controller => 'search', :action => 'tag', :tag => tag.name}, html_options
   end
 
   def link_to_category(category, full = true, html_options = {})

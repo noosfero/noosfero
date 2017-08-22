@@ -4,9 +4,7 @@
       <%= _('Your membership is waiting for approval') %>
     <% else %>
       <% if user.in? profile.members %>
-        <%= button :delete, content_tag('span', _('Leave community')), profile.leave_url,
-          class: 'leave-community',
-          style: 'position: relative;' %>
+        <%= link_to font_awesome(:leave, _('Leave community')), profile.leave_url, class: 'leave-community' %>
       <% else %>
         <%= join_community_button({:logged => true}) %>
       <% end %>

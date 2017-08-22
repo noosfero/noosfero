@@ -1,0 +1,45 @@
+#noosfero-modal {
+  display: none;
+  align-items: center;
+  background-color: rgba(0,0,0,0.4);
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  justify-content: center;
+
+  #noosfero-modal-content {
+    box-shadow: 0 0 4px 1px rgba(0, 0, 0, .3);
+    background-color: #fefefe;
+    padding: 15px;
+    border: 1px solid #888;
+    border-radius: 4px;
+    max-height: 80vh;
+    overflow-y: auto;
+    @media only screen and (max-width: 540px) {
+      width: 80%;
+    }
+
+    #close-modal {
+      color: #aaa;
+      float: right;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    #close-modal:hover,
+    #close-modal:focus {
+      color: #90949c;
+      text-decoration: none;
+    }
+
+    #noosfero-modal-inner {
+      width: 95%;
+      margin: auto;
+      padding: 0px 10px;
+    }
+  }
+}

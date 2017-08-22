@@ -1,17 +1,180 @@
+#profile-wall, #profile-network, #person-profile {
+  border-top: 1px solid #ddd;
+  margin-top: 0 !important;
+  padding: 2em 0em 0em 0.5em !important;
+
+  p {
+    word-break: break-all;
+  }
+
+  small a { padding-left: 4px; }
+
+  #leave_scrap {
+    margin-bottom: 10px;
+    width: 95%;
+
+    textarea {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      border-radius: 5px;
+      height: 120px;
+      line-height: 18px;
+      padding: 6px;
+      width: 100%;
+    }
+
+    .button-bar {
+      display: block;
+      text-align: right;
+      a {
+        font-weight: 700;
+        text-align: center;
+        width: 100px;
+      }
+    }
+  }
+}
+
+.profile-wall-actions {
+  min-width: 15px;
+  margin: 5px;
+  @media only screen and (max-width: 540px) { margin: 5px 0px; }
+  text-align: left;
+  a {
+    display: none;
+    font-size: 0.9em !important;
+  }
+  i {
+    color: #ccc;
+    &:hover {
+      color: #babdb6;
+    }
+  }
+}
+
 
 #profile-activity ul, #profile-network ul, #profile-wall ul {
   padding-left: 0;
-  clear: both;
+}
+
+#profile-wall ul#profile_activities {
+  border-top: 1px solid #e8e8e8;
+}
+
+#profile-network {
+  ul.profile-activities {
+    margin-top: 0px;
+    padding-top: 0px;
+  }
+}
+
+.profile-activities {
+  padding-top: 10px;
+  margin-top: 25px;
 }
 
 .profile-activities li {
-  max-width: 100%;
-  display: block;
-  padding: 3px 0px;
+  color: #333;
+  display: flex;
+  padding: 12px 0px 20px 0px;
   margin-bottom: 3px;
   background-color: #fff;
   border-bottom: 1px solid #e8e8e8;
-  position: relative;
+  width: 100%;
+  .profile-activity-image a img {
+    border-radius: 100%;
+  }
+  .profile-activity-description {
+    flex-grow: 1;
+    padding: 0px 10px;
+    @media only screen and (max-width: 540px) { padding: 0px 0px 0px 4px; }
+    hr {
+      border: none;
+      display: block !important;
+      padding: 5px 0px;
+      margin: 0;
+    }
+
+    .profile-activity-text, .profile-activity-lead {
+      word-break: break-all;
+      a {
+        color: #333;
+      }
+    }
+
+    a {
+      display: inline-block;
+    }
+
+    ul.scrap-replies li {
+      padding: 8px 0px 8px 8px;
+      .profile-activity-description {
+        padding-left: 0px;
+        .profile-activity-text {
+          margin: 0px;
+        }
+      }
+      .profile-wall-actions a.remove-comment {
+        display: none;
+      }
+    }
+
+    .view-more-replies {
+      margin-bottom: 5px;
+      text-align: center;
+      a {
+        color: #555 !important;
+        font-size: 11px;
+        text-decoration: none !important;
+
+        &:visited {
+          color: #555;
+        }
+
+        &:hover {
+          color: #707070 !important;
+        }
+      }
+    }
+
+    .profile-wall-reply, .profile-network-reply {
+      display: none;
+    }
+
+    .profile-wall-reply-form, .profile-network-reply-form {
+      margin-top: 10px;
+      a {
+        color: #555;
+        display: inline-block;
+        vertical-align: top;
+        margin-right: 4px;
+      }
+
+      img {
+        border-radius: 100%;
+        width: 34px;
+        padding: 0 !important;
+      }
+
+      textarea {
+        border-radius: 4px;
+        box-sizing: border-box;
+        display: inline-block;
+        vertical-align: top;
+        line-height: 20px;
+        height: 30px;
+        padding: 4px 6px;
+        resize: none !important;
+        width: 85%;
+        @media only screen and (max-width: 960px) { width: 75%; }
+      }
+    }
+
+    .activity-type-community {
+      margin-bottom: 20px;
+    }
+  }
 }
 
 .profile-activity-lead img {
@@ -21,12 +184,17 @@
 }
 
 .profile-activity-lead {
-  display: inline;
   text-align: left;
-  margin: 5px 0;
+  margin: 8px 0px 12px 0px;
 }
 
 .profile-activity-lead .article-name {
+  a {
+    color: #333;
+    &:visited {
+      color: #333;
+    }
+  }
   font-weight: bold;
   margin-bottom: 5px;
 }
@@ -38,6 +206,29 @@
   float: none;
   overflow: hidden;
   background: transparent url(../images/forum-activity-bg.png) left center no-repeat;
+}
+
+.profile-activities-more-pages {
+  margin-top: 10px;
+  text-align: center;
+  a.view-more-activities {
+    color: #212e3c !important;
+    display: inline-block;
+    width: 100%;
+    text-decoration: none !important;
+
+    &:visited {
+      color: #212e3c !important;
+    }
+
+    &:hover {
+      color: #555 !important;
+    }
+  }
+
+  .profile-activity-item {
+    text-align: initial;
+  }
 }
 
 .profile-activity-article-forum .see-forum {
@@ -57,11 +248,6 @@
   font-weight: normal;
 }
 
-#profile-activity li a, #profile-network li a, #profile-wall li a,
-#profile-wall .profile-wall-send-reply {
-  color: #333;
-}
-
 #profile-activity li a, #profile-network li a, #profile-wall li a {
   font-weight: bold;
   text-decoration: none;
@@ -73,9 +259,37 @@
 
 .profile-activity-text {
   margin: 0;
-  color: #000;
+  a:first-child {
+    margin: 0;
+  }
 }
 
+.profile-activity-send-reply {
+  a.profile-send-reply {
+    color: #555;
+    font-size: 11px;
+
+    &:visited {
+      color: #555;
+    }
+
+    &:hover {
+      color: #707070;
+    }
+  }
+}
+
+.view-all-comments {
+  a {
+    color: #555 !important;
+    font-size: 11px !important;
+    text-decoration: none !important;
+
+    &:visited, &:hover {
+      color: #707070 !important;
+    }
+  }
+}
 .remove-item-loading {
   background: transparent url(../images/loading-small.gif) no-repeat left center !important;
 }
@@ -154,17 +368,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
   max-height: 300px;
 }
 
-#profile-wall li.profile-activity-item ul.profile-wall-activities-comments,
-#profile-network li.profile-activity-item ul.profile-wall-activities-comments {
-  margin-top: 0;
-}
-
-#profile-wall li.profile-activity-item.upload_image .profile-activity-text,
-#profile-network li.profile-activity-item.upload_image .profile-activity-text,
-#profile-network li.profile-activity-item ul.profile-wall-activities-comments {
-  padding-left: 50px;
-}
-
 #profile-wall li.profile-activity-item.join_community .profile-activity-text a img,
 #profile-wall li.profile-activity-item.new_friendship .profile-activity-text a img,
 #profile-wall li.profile-activity-item.new_follower .profile-activity-text a img,
@@ -191,7 +394,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
 }
 
 #profile-activity .profile-wall-scrap-replies li,
-#profile-network .profile-wall-scrap-replies li,
+#profile-network .profile-network-scrap-replies li,
 #profile-wall .profile-wall-scrap-replies li {
   border-bottom: none;
 }
@@ -203,13 +406,14 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
   border: 1px solid transparent;
   text-align: center;
 }
+
 #profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
-  float: left;
-  margin: 0;
-  padding: 0;
   border: 1px solid #ccc;
+  display: inline-block;
+  margin: 0;
   overflow: hidden;
-  position: relative;
+  padding: 0;
+  width: 85%;
 }
 #profile-wall .profile-wall-description {
   border: 0;
@@ -231,12 +435,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
   -moz-border-radius: 3px;
 }
 
-#profile-activity .profile-activity-text,
-#profile-network .profile-activity-text,
-#profile-wall .profile-wall-text {
-  font-size: 13px;
-  margin: 2px 5px;
-}
 #profile-wall .profile-wall-text {
   padding-top: 0;
 }
@@ -244,39 +442,24 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
 .profile-activities .profile-activity-time,
 #profile-network .profile-activity-time,
 #profile-wall .profile-wall-time {
-  font-size: 11px;
-  margin: 5px;
-  color: #babdb6;
+  color: #90949c;
+  font-size: 12px;
+  letter-spacing: -0.2px;
   text-align: right;
+  @media only screen and (max-width: 540px) {
+    display: block;
+    text-align: left;
+    .bullet-separator {
+      display: none;
+    }
+  }
 }
 
-#profile-wall .profile-wall-send-reply,
-.profile-activities .profile-activity-time,
-#profile-network .profile-activity-time,
-#profile-wall .profile-wall-time,
-.profile-wall-actions a {
-  display: block;
-  float: right;
-  font-size: 10px;
-  margin: 2px 0 3px 10px;
-  color: #ccc;
-  padding: 0;
+.bullet-separator {
+  padding: 0 5px;
+  @media only screen and (max-width: 540px) { padding: 0 1px; }
 }
 
-#profile-wall li .profile-wall-actions a,
-#profile-activity li .profile-wall-actions a,
-#profile-network li .profile-wall-actions a,
-#profile-wall .profile-wall-send-reply a {
-  text-decoration: none;
-  color: #333;
-  font-weight: normal;
-}
-
-#profile-wall li .profile-wall-actions a:hover,
-#profile-network li .profile-wall-actions a:hover,
-#profile-wall .profile-wall-send-reply a:hover {
-  text-decoration: underline;
-}
 #profile-activity hr, #profile-network hr, #profile-wall hr {
   display: none;
 }
@@ -326,17 +509,15 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
   font-size: 12px;
   text-align: right;
   font-weight: bold;
-  color: #333;
   margin: 4px;
 }
 .profile-network-message-response, .profile-wall-message-response {
   color: #204a87;
   padding: 4px;
-  color: #333;
   text-align: right;
   font-size: 12px;
 }
-.profile-wall-sender, .profile-wall-time, .profile-wall-description, .profile-activity-sender, .profile-activity-time, .profile-activity-description, .profile-network-sender, .profile-network-time, .profile-network-description {
+.profile-wall-sender, .profile-wall-time, .profile-wall-description, .profile-activity-description, .profile-network-time, .profile-network-description {
   padding-left: 5px;
   margin: 5px;
 }
@@ -345,22 +526,27 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
 .profile-activity-sender,
 .profile-wall-sender {
   margin: 0;
+  a.profile-name {
+    color: #333;
+    &:visited {
+      color: #333;
+    }
+  }
+  + .profile-activity-text {
+    margin: 0.5em 0em;
+    line-height: 20px;
+  }
+
+  a {
+    @media only screen and (max-width: 540px) { display: block; }
+  }
 }
 #profile-activity .profile-activity-time, #profile-network .profile-network-time, #profile-wall .profile-wall-time {
   margin: 0;
 }
 #profile-network textarea, #profile-wall textarea {
-  margin: 4px 0;
   border: 1px solid #ccc;
-  padding: 2px;
   overflow: hidden;
-}
-
-#profile-network li textarea:focus,
-#profile-wall li textarea:focus {
-  background-position: left top;
-  background-repeat: no-repeat;
-  text-indent: 28px;
 }
 
 .profile-network-message,
@@ -373,7 +559,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
 .limited-text-area p {
   margin: 0;
   font-size: 11px;
-  color: #333;
   text-align: right;
 }
 #leave_scrap input.button {
@@ -381,15 +566,10 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
   margin-bottom: 10px;
 }
 #leave_scrap_content_limit, #leave_scrap_content_left {
-  float: right;
-  margin-right: 2px;
-}
-#leave_scrap {
   float: left;
-  padding: 4px;
-  border: 1px dotted #aaa;
-  margin-bottom: 10px;
+  margin: 4px 2px 0px 2px;
 }
+
 #leave_scrap textarea {
   overflow: hidden;
 }
@@ -402,13 +582,10 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
 }
 .profile-send-reply {
   color: #aaa;
+
 }
 #content .profile-send-reply:hover {
   text-decoration: none;
-}
-
-#profile-wall .profile-wall-actions {
-  text-align: right;
 }
 
 #profile-wall .profile-wall-scrap-replies .profile-wall-description {
@@ -417,70 +594,67 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
 #profile-wall .profile-wall-scrap-replies textarea {
   margin-left: 2px;
 }
-#profile-network .profile-wall-description .limited-text-area p, #profile-wall .profile-wall-description .limited-text-area p {
+#profile-network .profile-network-description .limited-text-area p, #profile-wall .profile-wall-description .limited-text-area p {
   margin-right: 10px;
 }
 .limited-text-area div.fieldWithErrors {
   background: transparent;
 }
 
-#profile-wall ul.profile-wall-activities-comments,
-#profile-network ul.profile-wall-activities-comments {
-  margin-top: 35px;
-  padding-left: 50px;
-  width: auto;
+ul.profile-wall-activities-comments, ul.profile-network-activities-comments {
+  border-left: 1px solid #e8e8e8;
+  margin: 8px 0px;
+
+  ul {
+    display: none;
+  }
+
+  li {
+    border-bottom: none;
+    padding: 8px 0px 8px 12px;
+    a img {
+      max-width: 36px;
+    }
+  }
+
+  .bullet-separator {
+    @media only screen and (max-width: 540px) { padding: 0 1px; }
+  }
 }
 
 #profile-wall ul.profile-wall-activities-comments ul,
-#profile-network ul.profile-wall-activities-comments ul {
+#profile-network ul.profile-network-activities-comments ul {
   padding-left: 12px;
-}
-
-#profile-wall .profile-wall-activities-comments li,
-#profile-network .profile-wall-activities-comments li {
-  background: #f0f0f1;
-  border-bottom: 1px solid #d2d2d2 !important;
-  border-top: 1px solid #fff;
-  margin-bottom: 0;
-}
-
-#profile-wall .profile-wall-activities-comments img,
-#profile-network .profile-wall-activities-comments img {
-  max-width: 32px;
-  max-height: 32px;
 }
 
 #profile-wall .profile-wall-activities-comments .comment_reply,
 #profile-wall .profile-wall-activities-comments h4,
-#profile-network .profile-wall-activities-comments .comment_reply,
-#profile-network .profile-wall-activities-comments h4 {
+#profile-network .profile-network-activities-comments .comment_reply,
+#profile-network .profile-network-activities-comments h4 {
   display: none;
 }
 
 #profile-wall .profile-wall-activities-comments .comment-picture,
-#profile-network .profile-wall-activities-comments .comment-picture {
-  width: 32px;
-  margin-right: 5px;
+#profile-network .profile-network-activities-comments .comment-picture {
   text-align: center;
 }
 
 #profile-wall .profile-wall-activities-comments .comment-text p,
-#profile-network .profile-wall-activities-comments .comment-text p {
+#profile-network .profile-network-activities-comments .comment-text p {
   margin: 0;
 }
 
 #profile-wall .profile-wall-activities-comments .profile-activity-time,
-#profile-network .profile-wall-activities-comments .profile-activity-time {
-  clear: both;
+#profile-network .profile-network-activities-comments .profile-activity-time {
 }
 
 #profile-wall .profile-wall-activities-comments .comment-details,
-#profile-network .profile-wall-activities-comments .comment-details {
+#profile-network .profile-network-activities-comments .comment-details {
   padding: 0;
 }
 
 #profile-wall .profile-wall-activities-comments .article-comment .button-bar,
-#profile-network .profile-wall-activities-comments .article-comment .button-bar {
+#profile-network .profile-network-activities-comments .article-comment .button-bar {
   float: right;
   padding: 0;
   text-align: right;
@@ -490,17 +664,16 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
 }
 
 #profile-wall .profile-wall-activities-comments .comment-content:hover .button-bar,
-#profile-network .profile-wall-activities-comments .comment-content:hover .button-bar {
+#profile-network .profile-network-activities-comments .comment-content:hover .button-bar {
   display: block;
 }
 
 #profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button,
-#profile-network .profile-wall-activities-comments .article-comment .button-bar a.button {
+#profile-network .profile-network-activities-comments .article-comment .button-bar a.button {
   background: transparent;
   border: 0;
   height: auto;
   line-height: auto;
-  color: #333;
   text-decoration: none;
   font-size: 10px;
   padding: 0;
@@ -512,12 +685,12 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
 }
 
 #profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button:hover,
-#profile-network .profile-wall-activities-comments .article-comment .button-bar a.button:hover {
+#profile-network .profile-network-activities-comments .article-comment .button-bar a.button:hover {
   text-decoration: underline;
 }
 
 #profile-wall .profile-wall-activities-comments .article-comment .button-bar .button span,
-#profile-network .profile-wall-activities-comments .article-comment .button-bar .button span {
+#profile-network .profile-network-activities-comments .article-comment .button-bar .button span {
   display: inline;
   position: static;
   display: inline;
@@ -540,15 +713,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
   margin: 0;
 }
 
-.profile-wall-reply-form {
-  display: block;
-  background: #f0f0f1;
-  border-bottom: 1px solid #d2d2d2;
-  border-top: 1px solid #fff;
-  margin-left: 50px;
-  padding: 0 5px;
-}
-
 .scrap-replies .profile-wall-reply-form {
   margin-left: 0px;
 }
@@ -558,31 +722,12 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
   margin-right: 2px;
 }
 
-.view-all-comments {
-  clear: both;
-  margin-left: 50px;
-  padding-left: 20px;
-}
-
-.view-more-comments, .view-more-replies {
-  text-align: center;
-}
-
 /* Profile activity relative dimensions */
-
-#leave_scrap {
-  width: 98%;
-}
-#leave_scrap textarea {
-  width: 98%;
-}
 
 .profile-activities .profile-activity-image,
 #profile-network .profile-activity-image,
 #profile-wall .profile-wall-image {
-  width: 50px;
   margin: 5px;
-  float: left;
 }
 
 #profile-activity .profile-activity-description,
@@ -591,15 +736,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg im
   word-wrap: break-word;
 }
 
-#profile-wall .profile-wall-scrap-replies textarea,
-#profile-network textarea, #profile-wall textarea,
-#profile-wall li .profile-wall-reply-form textarea {
-  width: 98%;
-}
-
-#profile-wall #leave_scrap textarea {
-  height: 100px
-}
 .profile-wall-scrap-replies {
   width: 100%;
   position: relative;

@@ -1,18 +1,12 @@
 module PgSearchPlugin::SearchHelper
 
   def facet(f)
-    html_id = "#{f[:name].to_slug}-facet"
-
-    result = content_tag('h2', _(f[:name]))
-    result += text_field_tag(nil, nil, :placeholder => _('Refine options'), :class => 'facet-refine')
-    result += facets_block(f[:options], f[:type])
-    result += button(:clear, _('Clear filters'), nil, class: 'clear-facet', 'data-facet' => html_id )
-
-    content_tag('div', result, :id => html_id, :class => 'facet')
+    facet_content = content_tag('h2', _(f[:name])) + facets_block(f[:options], f[:type])
+    content_tag('div', facet_content, id: "#{f[:name].to_slug}-facet", class: 'facet')
   end
 
   def facets_block(facets, type)
-    html_options = {:class => 'facets-block'}
+    html_options = { class: 'facets-block scrollbar' }
 
     content_tag('div',
       facets.map do |option|

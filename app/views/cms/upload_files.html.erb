@@ -12,16 +12,20 @@
   </div>
 <% end %>
 
-<h2><%= _('Publish media') %></h2>
+<h1><%= _('Publish media') %></h1>
 
 <h3>
   <%= _("Select the files you want to upload (max size %s):") %
       number_to_human_size(max_upload_size_for(@profile)) %>
 </h3>
-<h4><%= _('Documents, Images, Videos, Audio') %></h4>
 
 <h5><%= (_('Uploading files to %s') % content_tag('code', @target)).html_safe%></h5>
 
+<%= form_for('uploaded_file', url: { action: 'upload_files', controller: 'cms' }, html: { multipart: true, id: :file_upload_form }) do |f| %>
+
+  <%= safe_join(@plugins.dispatch(:upload_files_extra_fields, params[:parent_id]).collect { |content| instance_exec(&content) }, "") %>
+
 <%= render :partial => 'upload_file_form',
-           :locals => { :size => '45', back_to: @back_to, parent: @parent,
-                        :num_of_files => 3 } %>
+           :locals => { :size => '45', back_to: @back_to, parent: @parent } %>
+
+<% end %> 

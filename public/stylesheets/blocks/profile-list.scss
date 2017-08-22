@@ -34,22 +34,23 @@
   list-style: none;
   position: relative;
 }
+
 .common-profile-list-block .vcard a, .comment-actions .vcard a {
   display: block;
   height: 112px;
   max-height: 112px;
   padding-top: 3px;
   margin: 0px 2px;
-  float: left;
   border: 2px solid transparent;
   text-align: center;
   overflow: hidden;
-  font-size: 11px;
+  font-size: 12px;
   text-decoration: none !important;
-  color: #000;
+  color: #222;
   position: relative;
-  cursor: pointer; /* work arround bug for MSIE */
+  cursor: pointer;
 }
+
 .msie6 .common-profile-list-block .vcard a {
   border: 2px solid #FFF;
   width: 90px;

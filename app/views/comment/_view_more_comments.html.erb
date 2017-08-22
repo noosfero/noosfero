@@ -1,0 +1,1 @@
+<%= link_to_remote font_awesome(:down_arrow, _('View more')), url: { action: 'view_more_comments', id: @page.id, comment_page: @curr_page + 1}, html: { id: "view-more-comments" } %>

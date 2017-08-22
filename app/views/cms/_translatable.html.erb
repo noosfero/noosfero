@@ -1,6 +1,6 @@
 <% if @article.translatable? %>
-  <div class="article-translation-field">
-    <%= label :article, :language, _('Language') %> <br />
+  <div class="formfieldline article-translation-field">
+    <%= label :article, :language, _('Language'), class: "formlabel" %>
     <%= select :article, :language, @locales, { :selected => @selected_locale, :include_blank => true } %>
     <%= hidden_field(:article, :translation_of_id) %>
   </div>

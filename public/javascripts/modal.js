@@ -9,8 +9,8 @@ noosfero.modal = {
         return false;
       });
 
-      $(document).delegate('.modal-close', 'click', function() {
-        $.colorbox.close();
+      $('.modal-close').on('click', function() {
+        $(this).closest("#cboxClose").click();
         return false;
       });
 
@@ -34,16 +34,8 @@ noosfero.modal = {
   },
 
   inline: function(href, options) {
-    href = jQuery(href);
-    options = jQuery.extend({
-      inline: true, href: href,
-      onLoad: function(){ href.show(); },
-      onCleanup: function(){ href.hide(); },
-    }, options)
-
-    jQuery.colorbox(options);
-
-    return false;
+    $("#noosfero-modal-inner").html($(href).html());
+    $("#noosfero-modal").fadeIn().css("display", "flex");
   },
 
   html: function(html, options) {
@@ -55,6 +47,7 @@ noosfero.modal = {
   },
 
   close: function() {
+    console.log("rsrs");
     jQuery.colorbox.close();
   },
 
@@ -62,3 +55,27 @@ noosfero.modal = {
 
 noosfero.modal.watchClass();
 
+/**** New modal ****/
+$(function() {
+  $(".open-modal").click(function(event) {
+    event.preventDefault();
+    $.get($(this).attr('href'), function(data) {
+      $("#noosfero-modal-inner").html(data);
+      $("#noosfero-modal").fadeIn().css("display", "flex");
+    });
+  });
+
+  $("#close-modal").click(function() {
+    $("#noosfero-modal").fadeOut();
+  });
+
+  $(".modal-close").live('click', function() {
+    $("#noosfero-modal").fadeOut();
+  });
+
+  $(window).click(function(event) {
+    if($(event.target).is("#noosfero-modal")) {
+      $("#noosfero-modal").fadeOut(500);
+    }
+  });
+});

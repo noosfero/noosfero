@@ -28,32 +28,30 @@ code input {
 
 .formfieldline {
   padding: 3px 0px;
+  margin-bottom: 5px;
 }
-.pseudoformlabel, .formlabel {
+
+label, .pseudoformlabel, .formlabel {
   color: #444;
+  margin-bottom: 4px;
 }
 .formlabel {
-  /* font-size: 11px; */
+  font-size: 1.1em;
   display: block;
   padding: 2px 0px;
 }
-.formfield input, .formfield textarea {
-  background: transparent url("../images/input-bg.gif") no-repeat top left;
-  border: 1px solid #999;
-  border-top: none;
-  border-left: none;
-  color: #585858;
-  font-size: 11px;
-}
+
 .colorpicker_field {
   display: none;
 }
+
 .color_marker {
   display: inline-block;
   width: 10px;
   height: 10px;
   border: 1px solid;
 }
+
 .formfield input {
   text-indent: 5px;
   padding: 2px 0px;
@@ -70,9 +68,21 @@ code input {
 .Blog .formfield textarea {
   width: 99%;
 }
+
+.checkbox, .radio-button {
+  label {
+    input[type=checkbox], input[type=radio], span {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+}
+
 .formfield.type-radio input, .formfield.type-checkbox input {
   background: none;
   border: none;
+  display: inline-block;
+  vertical-align: middle;
 }
 .formfield.type-select select {
   max-width: 100%;
@@ -102,8 +112,30 @@ code input {
 
 .required-field label.formlabel {
   font-weight: bold;
-  color: #c00;
+  color: #d9534f;
 }
 .required-field label.formlabel:after {
   content: ' (*)';
+}
+
+.no-boxes {
+  input[type=text],
+  input[type=password] {
+    max-width: 100%;
+  }
+}
+
+input[type=text],
+input[type=password] {
+  display: inline-block;
+  background: none;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 3px #ddd;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding: 7px 10px;
+  max-width: 100%;
 }

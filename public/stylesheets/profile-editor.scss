@@ -8,10 +8,10 @@
 .controller-profile_editor .control-panel {
   /*border: 1px solid red;*/
   padding: 0px 15px 0px 15px;
+  @media only screen and (max-width: 768px) { padding: 0; }
 }
 .controller-profile_editor .control-panel a {
-  display: block;
-  float: left;
+  display: inline-flex;
   background-repeat: no-repeat;
   background-position: 0px 50%;
   height: 70px;
@@ -24,6 +24,28 @@
   color: black;
   /* default icon */
   background-image: url(../images/control-panel/important.png);
+  flex-direction: column;
+  justify-content: center;
+  width: 33%;
+  @media only screen and (max-width: 960px) {
+    display: inline-flex;
+    background-repeat: no-repeat;
+    background-position: 0px 50%;
+    height: 50px;
+    padding: 0px 0px 0px 55px;
+    margin-bottom: 20px;
+    margin-right: 0;
+    /* margin-right: 10px; */
+    text-align: left;
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+    background-image: url(../images/control-panel/important.png);
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+    vertical-align: top;
+  }
 }
 .controller-profile_editor .msie6 .control-panel a {
   background-image: url(../images/control-panel/important.gif);
@@ -173,12 +195,11 @@
 }
 
 .controller-profile_editor #profile-data {
-  display: table;
   width: auto;
 }
 
 .field-with-privacy-selector {
-  display: table-row;
+  display: block;
 }
 
 .field-with-privacy-selector:hover {
@@ -186,14 +207,22 @@
 }
 
 .controller-profile_editor #profile-data .field-with-privacy-selector .formfieldline {
-  width: auto;
+  display: inline-block;
+  width: 60%;
+  @media only screen and (max-width: 768px) { width: 75%; }
+  input {
+    width: 99%;
+  }
 }
 
 .field-privacy-selector {
-  display: table-cell;
+  display: inline-block;
   vertical-align: middle;
   text-align: center;
-  width: 100px;
+  input[type=checkbox] {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 #profile_change_picture {

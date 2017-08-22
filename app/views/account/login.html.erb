@@ -9,37 +9,30 @@
 
 <%= labelled_form_for :user, :url => login_url, :horizontal => true do |f| %>
 
-     <%= f.text_field :login, :id => 'main_user_login', :onchange => 'this.value = convToValidLogin( this.value )', :value => params[:userlogin] %>
+  <%= f.text_field :login, :id => 'main_user_login', :onchange => 'this.value = convToValidLogin( this.value )', :value => params[:userlogin] %>
 
-     <%= f.password_field :password %>
+  <%= f.password_field :password %>
 
-     <div class='checkbox'>
-       <label>
-         <%= check_box_tag :remember_me, '1', true %>
-         <%= _'Keep me logged in' %>
-       </label>
-     </div>
+  <div class='checkbox'>
+    <label>
+      <%= check_box_tag :remember_me, '1', true %>
+      <span><%= _'Keep me logged in' %></span>
+    </label>
+  </div>
 
-     <%= safe_join(@plugins.dispatch(:login_extra_contents).collect { |content| instance_exec(&content) }, "") %>
+  <%= safe_join(@plugins.dispatch(:login_extra_contents).collect { |content| instance_exec(&content) }, "") %>
 
-     <%= button_bar do %>
-       <%= submit_button( 'login', _('Log in') )%>
-       <% if is_popin %>
-         <%= modal_close_button(_('Cancel')) %>
-       <% end %>
-     <% end %>
-
-<% end %>
-
-<%= button_bar do %>
-  <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
-    <%= button :add, _("New user"), :controller => 'account', :action => 'signup' %>
+  <%= button_bar do %>
+    <%= submit_button( 'login', _('Log in') )%>
+    <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
+      <%= button :add, _("New user"), :controller => 'account', :action => 'signup' %>
+    <% end %>
   <% end %>
-
-  <% unless @plugins.dispatch(:allow_password_recovery).include?(false) %>
-    <%= button :help, _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
-  <% end %>
+  <p class="forgot-passwd">
+    <% unless @plugins.dispatch(:allow_password_recovery).include?(false) %>
+      <%= link_to font_awesome(:help, _("I forgot my password!")), controller: 'account', action: 'forgot_password' %>
+    <% end %>
+  </p>
 <% end %>
-
 </div><!-- end class="login-box" -->
 

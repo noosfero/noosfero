@@ -14,30 +14,26 @@
 <% end %>
 
 <% if @profile.public? || (logged_in? && current_person.follows?(@profile)) %>
-  <table class='profile'>
-    <tr>
-      <td colspan='2'>
-        <% plugins_tabs = @plugins.dispatch(:profile_tabs).map { |tab| {:title => tab[:title], :id => tab[:id], :content => instance_exec(&tab[:content]), :start => tab[:start]} }%>
+  <div class='profile'>
+    <% plugins_tabs = @plugins.dispatch(:profile_tabs).map { |tab| {:title => tab[:title], :id => tab[:id], :content => instance_exec(&tab[:content]), :start => tab[:start]} }%>
 
-        <% tabs = plugins_tabs.select { |tab| tab[:start] } %>
-        <% if @profile.organization?
-          kind = 'organization-profile'
-        elsif @profile.person?
-          kind = 'person-profile'
-        else
-          kind = 'profile'
-        end %>
+    <% tabs = plugins_tabs.select { |tab| tab[:start] } %>
+    <% if @profile.organization?
+         kind = 'organization-profile'
+    elsif @profile.person?
+      kind = 'person-profile'
+    else
+      kind = 'profile'
+    end %>
 
-        <% if logged_in? %>
-          <% tabs << {:title => _('Wall'), :id => 'profile-wall', :content => (render :partial => 'profile_wall')} if AccessLevels.can_access?(@profile.wall_access, user, @profile) %>
-          <% tabs << {:title => _('Network'), :id => 'profile-network', :content => (render :partial => 'profile_network')} if @profile == user %>
-        <% end %>
-        <% tabs << {:title => _('Profile'), :id => kind, :content => (render :partial => kind.gsub('-', '_'))} %>
+    <% if logged_in? %>
+      <% tabs << { title: font_awesome(:feed, _('Wall')), id: 'profile-wall', content: (render partial: 'profile_wall') } if AccessLevels.can_access?(@profile.wall_access, user, @profile) %>
+      <% tabs << { title: font_awesome(:network, _('Network')), id: 'profile-network', content: (render partial: 'profile_network') } if @profile == user %>
+    <% end %>
+    <% tabs << { title: font_awesome(:info, _("#{@profile.type == 'Person' ? 'User' : @profile.type} info")), id: kind, content: (render partial: kind.gsub('-', '_')) } %>
 
-        <% tabs += plugins_tabs.select { |tab| !tab[:start] } %>
+    <% tabs += plugins_tabs.select { |tab| !tab[:start] } %>
 
-        <%= render_tabs(tabs) %>
-      </td>
-    </tr>
-  </table>
+    <%= render_tabs(tabs) %>
+  </div>
 <% end %>

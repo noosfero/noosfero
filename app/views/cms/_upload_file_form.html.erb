@@ -1,38 +1,25 @@
-<%= form_for('uploaded_file', :url => { :action => 'upload_files', controller: 'cms' },
-                              :html => {:multipart => true}) do |f| %>
+<%= safe_join(@plugins.dispatch(:upload_files_extra_fields, params[:parent_id]).collect { |content| instance_exec(&content) }, "") %>
 
-  <%= safe_join(@plugins.dispatch(:upload_files_extra_fields, params[:parent_id]).collect { |content| instance_exec(&content) }, "") %>
-
-  <% if parent %>
-    <%= hidden_field_tag('parent_id', parent.id) %>
-  <% else %>
-    <%= select_profile_folder(_('Choose folder to upload files:'), :parent_id, profile) %>
-  <% end %>
-
-  <div id='uploaded_files'>
-    <% num_of_files.times do %>
-      <%= render partial: 'cms/upload_file', locals: { size: size } %>
-    <% end %>
-  </div>
-
-  <h5>
-    <%= _("Max size: %s") % UploadedFile.max_size.to_humanreadable %>
-  </h5>
-
-  <%= hidden_field_tag('back_to', back_to) %>
-
-  <%= button_bar do %>
-    <%= button_to_function :add, _('More files'), "add_new_file_fields()" %>
-    <% if back_to %>
-      <%= submit_button :save, _('Upload'), cancel: back_to %>
-    <% else %>
-      <% if parent.present? %>
-        <%= submit_button :save, _('Upload'),
-              cancel: { action: 'view', id: parent.id } %>
-      <% else %>
-        <%= submit_button :save, _('Upload'), cancel: { action: 'index' } %>
-      <% end %>
-    <% end %>
-  <% end %>
-
+<% if parent %>
+  <%= hidden_field_tag('parent_id', parent.id) %>
+<% else %>
+  <%= select_profile_folder(_('Choose folder to upload files:'), :parent_id, profile) %>
 <% end %>
+
+<div id='uploaded_files'>
+  <%= render :partial => 'upload_file', locals: { size: size } %>
+</div>
+
+<%= button_bar do %>
+  <%= button_to_function :plus, _('Add files...'), "add_new_files()", class: "button with-text btn-green" %>
+  <% if @back_to %>
+    <%= submit_button :upload, _('Upload'), :cancel => back_to %>
+  <% else %>
+    <%= submit_button :upload, _('Upload'), :cancel => {:action => (@parent ? 'view' : 'index'), :id => @parent } %>
+  <% end %>
+<% end %>
+
+<table class="uploaded_files_table">
+  <tbody>
+  </tbody>
+</table>

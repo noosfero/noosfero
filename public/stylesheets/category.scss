@@ -34,7 +34,6 @@
 }
 
 div#category-ajax-selector {
-  margin-bottom: 30px;
 
   #select-categories {
     margin-top: 10px;
@@ -47,16 +46,18 @@ div#category-ajax-selector {
       }
 
       a.select-subcategory-link {
+        border: #e8e8e8 solid 1px;
+        background-color: #346392;
+        color: #fff;
         display: inline-block;
-        padding: 3px;
-        margin-bottom: 3px;
-        background-color: #757575;
+        padding: 4px 8px;
+        margin-bottom: 4px;
+        margin-right: 2px;
         text-decoration: none;
-        border-radius: 3px;
-        color: white;
+        border-radius: 4px;
+        font-weight: 700;
 
         &:hover {
-          background-color: #555;
         }
       }
     }

@@ -1,4 +1,5 @@
 class Community < Organization
+  include ButtonsHelper
 
   attr_accessible :accessor_id, :accessor_type, :role_id, :resource_id,
     :resource_type, :address_reference, :district, :language, :description
@@ -94,12 +95,10 @@ class Community < Organization
 
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
-
     links = set_links
-
     [
       [MainBlock.new],
-      [ProfileImageBlock.new(:show_name => true), LinkListBlock.new(:links => links), RecentDocumentsBlock.new]
+      [ProfileImageBlock.new(show_name: true), LinkListBlock.new(links: links), RecentDocumentsBlock.new]
     ]
   end
 

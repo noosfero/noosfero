@@ -26,16 +26,10 @@
 
   <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
-    <%= submit_button :save, _('Save and continue'), :name => "continue" %>
+    <%= submit_button :save_and_continue, _('Save and continue'), :name => "continue" %>
   <% end %>
 
-  <div style='float: right'>
-    <%= modal_button :help, _('Why categorize?'), :action => 'why_categorize' %>
-  </div>
-
   <%= select_categories(:article, _('Categorize your article')) %>
-
-  <br />
 
   <%= render :partial => 'shared/tags_field', :locals => {:f => f, :value => @article.tag_list} %>
 

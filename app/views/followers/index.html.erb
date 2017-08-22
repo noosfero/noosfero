@@ -1,4 +1,4 @@
-<div id="manage_followed people">
+<div id="manage_followed">
 
 <h1><%= _("%s is following") % profile.name %></h1>
 
@@ -12,15 +12,14 @@
   <% end %>
 
   <%= button_bar do %>
-    <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+    <%= button(:back, _('Back'), :controller => 'profile_editor') %>
     <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
   <% end %>
 
-  <%= labelled_select(_('Profile type')+': ', :filter_profile_type, :last, :first, @active_filter, @profile_types, :id => "profile-type-filter") %>
+  <%= select_tag(:filter_profile_type, options_from_collection_for_select(@profile_types, :last, :first, @active_filter), id: "profile-type-filter") %>
 
   <%= render :partial => 'profile_list', :locals => { :profiles => @followed_people } %>
 
-  <br style="clear:both" />
   <%= pagination_links @followed_people, :param_name => 'npage' %>
 <% end %>
 

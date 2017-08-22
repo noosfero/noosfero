@@ -1,5 +1,6 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
+  include ButtonsHelper
 
   attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone, :comercial_phone, :jabber_id, :personal_website, :nationality, :address_reference, :address_line2, :district, :schooling, :schooling_status, :formation, :custom_formation, :area_of_study, :custom_area_of_study, :professional_activity, :organization_website, :following_articles, :editor
 
@@ -403,14 +404,14 @@ class Person < Profile
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
     links = [
-      {:name => _('Profile'), :address => '/profile/{profile}', :icon => 'menu-people'},
-      {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
-      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'event'},
-      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+      { name: font_awesome(:people, _('Profile')),      address: '/profile/{profile}',        icon: 'menu-people' },
+      { name: font_awesome(:image, _('Image gallery')), address: '/{profile}/gallery',        icon: 'photos'      },
+      { name: font_awesome(:calendar, _('Agenda')),     address: '/profile/{profile}/events', icon: 'event'       },
+      { name: font_awesome(:blog, _('Blog')),           address: '/{profile}/blog',           icon: 'edit'        }
     ]
     [
       [MainBlock.new],
-      [ProfileImageBlock.new(:show_name => true), LinkListBlock.new(:links => links), RecentDocumentsBlock.new],
+      [ProfileImageBlock.new(show_name: true), LinkListBlock.new(links: links), RecentDocumentsBlock.new],
       [CommunitiesBlock.new]
     ]
   end
@@ -669,6 +670,10 @@ class Person < Profile
 
   def available_blocks(person)
     super(person) + [FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock]
+  end
+
+  def pending_tasks
+    Task.to(self).pending
   end
 
 end

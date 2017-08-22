@@ -1,9 +1,9 @@
-
 .login-box {
   padding: 3px 20px 8px 20px;
 }
 .login-block {
   min-height: 100px;
+  .button { padding: 8px 16px !important; }
 }
 .login-block .login-box {
 }
@@ -12,32 +12,37 @@
   border: 2px solid #729FCF;
   background: #B8CFE7;
   padding: 0px 20px 5px 20px;
-}
-.login-box-content .button-bar .button {
-  position: relative;
+  input[type=text], input[type=password] {
+    max-width: 97.5%;
+  }
+
+  .button-bar .button {
+    margin-right: 6px !important;
+    margin-bottom: 4px;
+    @media only screen and (max-width: 540px) { width: auto; }
+  }
 }
 .login-box .formfieldline input {
   width: 99%;
 }
 .login-box form {
   margin: 0px;
-  padding: 0px 0px 10px 0px;
+  padding: 0px;
 }
 .msie7 .login-box form {
   padding: 0px 10px 10px 0px;
 }
 #content .login-block h2 {
   font-size: 20px;
-  text-align: center;
+  text-align: left;
   margin: 0px;
-  padding: 0px;
 }
 .login-box p {
   text-align: center;
   margin: 0px;
   padding: 0px;
 }
-.login-box #forgot-passwd {
+.login-box p.forgot-passwd {
   padding-bottom: 6px;
 }
 .want-to-be-an-user {
@@ -53,3 +58,21 @@
   padding-left: 50px;
 }
 
+.action-account-forgot_password {
+  form.with-recaptcha  {
+
+  }
+}
+
+form.change-password {
+  display: inline-block;
+  @media only screen and (max-width: 960px) {
+    display: block;
+    width: 225px;
+    margin: auto;
+  }
+  a.button {
+    width: 100%;
+    box-sizing: border-box;
+  }
+}

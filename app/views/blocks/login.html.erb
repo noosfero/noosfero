@@ -6,7 +6,7 @@
       <li><%= link_to _('Homepage'), url_for(user.url) %></li>
     </ul>
     <div class="user-actions">
-      <%= button(:'menu-logout',  _('Logout'), :controller => 'account', :action => 'logout') %>
+      <%= button(:logout,  _('Logout'), controller: 'account', action: 'logout') %>
     </div>
   </div>
 <% else %>

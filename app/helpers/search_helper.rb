@@ -1,7 +1,7 @@
 module SearchHelper
 
   MAP_SEARCH_LIMIT = 2000
-  LIST_SEARCH_LIMIT = 20
+  LIST_SEARCH_LIMIT = 10
   BLOCKS_SEARCH_LIMIT = 24
   MULTIPLE_SEARCH_LIMIT = 8
 
@@ -134,10 +134,15 @@ module SearchHelper
   def filters(asset)
     return if !asset || asset == :tag
     klass = asset_class(asset)
-    content_tag('div', safe_join(klass::SEARCH_FILTERS.map do |name, options|
-      default = klass.respond_to?("default_search_#{name}") ? klass.send("default_search_#{name}".to_s) : nil
-      select_filter(name, options, default)
-    end, "\n"), :id => 'search-filters')
+    filters = safe_join(klass::SEARCH_FILTERS.map do |name, options|
+                default = klass.respond_to?("default_search_#{name}") ? klass.send("default_search_#{name}".to_s) : nil
+                select_filter(name, options, default)
+              end, "\n")
+    if klass == Enterprise
+      filters
+    else
+      content_tag('div', filters, id: 'search-filters')
+    end
   end
 
   def assets_menu(selected)

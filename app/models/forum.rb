@@ -32,7 +32,7 @@ class Forum < Folder
   end
 
   def self.description
-    _('An internet forum, also called message board, where discussions can be held.')
+    _('An internet forum where discussions can be held.')
   end
 
   module TopicCreation

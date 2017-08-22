@@ -1,4 +1,4 @@
 <div class='view-more-comments'>
-  <%= link_to(_('More'), profile: @profile.identifier, controller: 'profile', action: 'more_comments',
-                         activity: activity, comment_page: (comment_page + 1), tab_action: tab_action) %>
+  <%= link_to(font_awesome(:down_arrow, _('View more comments')), profile: @profile.identifier, controller: 'profile', action: 'more_comments',
+                            activity: activity, comment_page: (comment_page + 1), tab_action: tab_action) %>
 </div>

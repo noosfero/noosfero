@@ -1,4 +1,18 @@
 /* Slider */
+h1 {
+  text-align: left;
+  padding-left: 40px;
+}
+
+.design-menu {
+  text-align: left;
+  padding-left: 40px;
+}
+
+.boxes#boxes, .box {
+  overflow: initial;
+}
+
 .slick-slider
 {
     position: relative;

@@ -1,5 +1,4 @@
 <% edition_mode = (defined? edition_mode) ? edition_mode : false %>
-<div class="<%= edition_mode ? '' : 'page-comment-form' %>">
 
 <% @comment ||= Comment.new %>
 
@@ -7,52 +6,25 @@
   <%= error_messages_for :comment %>
 <% end %>
 
-<div class="post_comment_box <%= ((defined? show_form) && show_form) ? 'opened' : 'closed' %>">
+  <%= remote_form_for(@comment, :url => {:profile => profile.identifier, :controller => 'comment', :action => (edition_mode ? 'update' : 'create'), :id => (edition_mode ?  @comment.id : @page.id)}, :html => { :class => 'comment_form' } ) do |f| %>
 
-  <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form') if display_link && @comment.reply_of_id.blank? %>
-<%= remote_form_for(@comment, :url => {:profile => profile.identifier, :controller => 'comment', :action => (edition_mode ? 'update' : 'create'), :id => (edition_mode ?  @comment.id : @page.id)}, :html => { :class => 'comment_form' } ) do |f| %>
+    <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
+    <%= expandable_text_area :comment, :body, "comment-field", rows: 1, title: _('Leave your comment'), placeholder: _('Leave your comment') %>
 
-  <%= required_fields_message %>
-
-  <% unless logged_in? %>
-
-    <%= required labelled_form_field(_('Name'), f.text_field(:name)) %>
-    <%= required labelled_form_field(_('e-mail'), f.text_field(:email)) %>
-    <p>
-    <%= _('If you are a registered user, you can login and be automatically recognized.') %>
-    </p>
-
-  <% end %>
-
-  <%= labelled_form_field(_('Title'), f.text_field(:title)) %>
-  <%= required labelled_form_field(_('Enter your comment'), f.text_area(:body, :rows => 5)) %>
-
-  <% if !edition_mode %>
-    <%= captcha_tags(:create_comment, user, environment, profile) %>
-  <% end %>
-
-  <% if logged_in? %>
-    <%= labelled_form_field check_box(:comment, :follow_article, {}, true, false) + _('Follow this article'), '' %>
-  <% end%>
-
-  <%= hidden_field_tag(:confirm, 'false') %>
-  <%= hidden_field_tag(:view, params[:view])%>
-  <%= f.hidden_field(:reply_of_id) %>
-
-  <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
-
-  <%= button_bar do %>
-    <%= submit_button('add', _('Post comment'), :onclick => "save_comment(this); return false;") %>
-    <% if !edition_mode %>
-      <%= button :cancel, _('Cancel'), '', :id => 'cancel-comment' %>
-    <% else %>
-      <%= button :cancel, _('Cancel'), '#', :onclick => "noosfero.modal.close();" %>
+    <% unless logged_in? %>
+      <p><%= _('If you are a registered user, you can login and be automatically recognized.') %></p>
     <% end %>
+
+
+    <% if !edition_mode %>
+      <%= captcha_tags(:create_comment, user, environment, profile) %>
+    <% end %>
+
+    <%= hidden_field_tag(:confirm, 'false') %>
+    <%= hidden_field_tag(:view, params[:view])%>
+    <%= hidden_field_tag(:reply_of_id) %>
+
+    <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
   <% end %>
-<% end %>
-
-
-</div><!-- end class="post_comment_box" -->
-</div><!-- end class="page-comment-form" -->
 
 <%= javascript_include_tag 'comment_form'%>

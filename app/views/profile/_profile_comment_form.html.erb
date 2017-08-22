@@ -1,22 +1,22 @@
-<div id='profile-wall-reply-<%= activity.id%>'>
-  <div id='profile-wall-reply-form-<%= activity.id%>'>
-    <p class='profile-wall-reply'>
+<div id=<%= "profile-#{tab_action}-reply-#{activity.id}" %> class=<%= "profile-#{tab_action}-reply" %> >
+  <div id=<%= "profile-#{tab_action}-reply-form-#{activity.id} " %> >
+    <p class=<%= "profile-#{tab_action}-reply" %> >
       <% update_area = tab_action == 'wall' ? 'profile_activities' : 'network-activities' %>
-      <%= form_remote_tag :url => {:controller => 'profile', :action => 'leave_comment_on_activity', :tab_action => tab_action}, :html => { :class => 'profile-wall-reply-form', 'data-update' => update_area } do %>
+      <%= form_remote_tag url: { controller: "profile", action: "leave_comment_on_activity", tab_action: tab_action}, html: { class: "profile-#{tab_action}-reply-form", 'data-update' => update_area } do %>
+        <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
         <%= expandable_text_area :comment,
                                  :body,
-                                 "reply_content_#{activity.id}",
+                                 "reply_content_#{tab_action}_#{activity.id}",
                                  :cols => 50,
                                  :rows => 1,
                                  :class => 'submit-with-keypress',
                                  :title => _('Leave your comment'),
-                                 :onfocus => ("if(this.value==this.title){this.value='';this.style.color='#000'};this.style.backgroundImage='url(" + profile_icon(current_person, :icon, false) + ")'" if logged_in?),
+                                 :onfocus => ("if(this.value==this.title){this.value='';this.style.color='#000'};" if logged_in?),
                                  :onblur => ("if(this.value==''){this.value=this.title;this.style.color='#ccc'};this.style.backgroundImage='none'" if logged_in?),
-                                 :value => _('Leave your comment'),
-                                 :style => 'color: #ccc' %>
+                                 :value => _('Leave your comment') %>
         <%= hidden_field_tag :source_id, activity.id, :id => "activity_id_#{activity.id}" %>
       <% end %>
     </p>
   </div>
-  <div id='profile-wall-message-response-<%=activity.id%>' class='profile-wall-message-response'></div>
+  <div id=<%= "profile-#{tab_action}-message-response-#{activity.id}" %> class=<%= "profile-#{tab_action}-message-response" %> ></div>
 </div>

@@ -2,8 +2,9 @@
 .blog-post a {
   text-decoration: none;
 }
-.blog-feed-link {
+#article .blog-feed-link {
   float: right;
+  margin-right: 0px !important;
 }
 #content .title {
   margin-bottom: 2px;

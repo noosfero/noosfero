@@ -160,12 +160,12 @@ class Organization < Profile
   end
 
   def set_links
-    links = [
-      {:name => _("Community's profile"), :address => '/profile/{profile}', :icon => 'ok'},
-      {:name => _('Invite Friends'), :address => '/profile/{profile}/invite/friends', :icon => 'send'},
-      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'event'},
-      {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
-      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+    [
+      { name: font_awesome(:users,    _('Community\'s profile')), address: '/profile/{profile}',                icon: 'community' },
+      { name: font_awesome(:add_user, _('Invite Friends')),       address: '/profile/{profile}/invite/friends', icon: 'send'      },
+      { name: font_awesome(:calendar, _('Agenda')),               address: '/profile/{profile}/events',         icon: 'event'     },
+      { name: font_awesome(:image,    _('Image gallery')),        address: '/{profile}/gallery',                icon: 'photos'    },
+      { name: font_awesome(:blog,     _('Blog')),                 address: '/{profile}/blog',                   icon: 'edit'      }
     ]
   end
 

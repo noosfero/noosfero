@@ -2,12 +2,10 @@
 
 <%= content_tag('em', _('(external feed was not loaded yet)'), :id => 'external-feed-info', :class => 'metadata') if blog.blog? && blog.external_feed && blog.external_feed.enabled && blog.external_feed.fetched_at.nil? %>
 
-<div>
-  <div class='blog-description'>
-    <%= (blog.body || '').html_safe %>
-  </div>
+<div class='blog-description'>
+  <%= (blog.body || '').html_safe %>
 </div>
-<hr class="pre-posts"/>
+
 <div class="blog-posts page-<%= @npage %>">
   <% paginate = true %>
   <%=

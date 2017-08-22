@@ -110,16 +110,29 @@
   min-height: 20px;
 }
 
+#box-organizer .block:hover .button-bar {
+  display: block;
+}
+
 #box-organizer .block .button-bar {
   cursor: move;
+  display: none;
   position: absolute;
-  display: block;
+  bottom: 15px;
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.3);
-  top: -40px;
-  padding-bottom: 40px;
-  display: none;
+  text-align: left;
+  z-index: 999;
+  a {
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    padding: 0px 1px;
+    vertical-align: top;
+    span { display: none; }
+  }
 }
 
 #box-organizer .block-outer:focus .button-bar,

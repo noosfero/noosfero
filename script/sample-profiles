@@ -141,26 +141,18 @@ for verb in VERBS
       community.state = place[:state]
       community.city = place[:city]
     end
-    save community do
-      communities << community
-      rand(10).times do
-        person = people.sample
-        community.add_member(person) unless community.members.include?(person)
-      end
-      if categories.present?
-        2.times do
-          category = categories.sample
-          community.add_category category unless category.communities.include?(community)
-        end
+    community.save
+    rand(10).times do
+      person = people.sample
+      community.add_member(person)
+    end
+    if categories.present?
+      2.times do
+        category = categories.sample
+        community.add_category(category)
       end
     end
   end
-end
-
-5.times do
-  community = communities.sample
-  community.add_member(guest.person) unless community.members.include?(guest.person)
-  community.add_admin(guest.person) unless community.admins.include?(guest.person)
 end
 
 done

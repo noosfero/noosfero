@@ -8,6 +8,9 @@ Noosfero::Application.routes.draw do
   match ':profile/*page/versions_diff', controller: :content_viewer, action: :versions_diff, profile: /#{Noosfero.identifier_format_in_url}/i, constraints: environment_domain_constraint, via: :all
   match '*page/versions_diff', controller: :content_viewer, action: :versions_diff, via: :all
 
+  match ':profile/*page/view_more_comments', controller: :content_viewer, action: :view_more_comments, profile: /#{Noosfero.identifier_format_in_url}/i, constraints: environment_domain_constraint, via: :all
+  match '*page/view_more_comments', controller: :content_viewer, action: :view_more_comments, via: :all
+
   # match requests for profiles that don't have a custom domain
   match ':profile(/*page)', controller: :content_viewer, action: :view_page, profile: /#{Noosfero.identifier_format_in_url}/i,
     constraints: environment_domain_constraint, via: :all, as: :page

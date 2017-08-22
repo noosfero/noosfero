@@ -4,7 +4,7 @@
 
 <%= error_messages_for :user, :person, :header_message => _('The account could not be created') %>
 
-<%= labelled_form_for :user, :html => { :multipart => true, :id => 'signup-form', :honeypot => true } do |f| %>
+<%= labelled_form_for :user, :html => { multipart: true, id: 'signup-form', class: 'form-with-captcha', honeypot: true } do |f| %>
 
 <input type="hidden" id="signup_time_key" name="signup_time_key" />
 <script type="text/javascript">
@@ -24,7 +24,6 @@
 
   <div id='signup-formfield-group'>
     <%= label(:user, :login, _('Username'), {:class => 'formlabel'}) %>
-    <span id="signup-domain"><%= environment.default_hostname %>/</span>
     <div id='signup-login'>
       <div id='signup-login-field' class='formfield'>
         <%= required text_field(:user, :login, :id => 'user_login',
@@ -33,7 +32,6 @@
         <span id='checking-message' class='checking' style='display:none'><%= _('Checking availability of login name...') %></span>
       </div>
       <%= content_tag(:small, _('Choose your login name carefully! It will be your network access and you will not be able to change it later.'), :id => 'signup-balloon') %>
-      <br style="clear: both;" />
     </div>
   </div>
   <%= javascript_include_tag "signup_form" %>
@@ -127,7 +125,7 @@
 <%= captcha_tags(:signup, nil, environment) %>
 
 <p style="text-align: center">
-  <%= submit_button('save', _('Create my account')) %>
+  <%= submit_button('new_user', _('Create my account')) %>
 </p>
 
 <% end -%>
@@ -193,3 +191,8 @@ function fill_username(element){
   jQuery('#user_login').val(element).addClass('validated').removeClass('invalid')
 }
 </script>
+
+<div class="about-noosfero">
+  <h2>Noosfero: a free web-based platform for social and solidarity economy networks</h2>
+  <%= link_to image_tag("/images/noosfero-network.png", alt: "Noosfero"), "http://noosfero.org", target: :_blank %>
+</div>

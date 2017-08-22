@@ -5,7 +5,7 @@ class FavoriteEnterprisesController < MyProfileController
   requires_profile_class Person
 
   def index
-    @favorite_enterprises = profile.favorite_enterprises
+    @favorite_enterprises = profile.favorite_enterprises.paginate(per_page: per_page, page: params[:npage])
   end
 
   def add
@@ -23,5 +23,11 @@ class FavoriteEnterprisesController < MyProfileController
       redirect_to :action => 'index'
     end
   end
+
+  protected
+
+    def per_page
+      10
+    end
 
 end
