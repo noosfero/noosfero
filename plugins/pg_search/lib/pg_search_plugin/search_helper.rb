@@ -6,7 +6,7 @@ module PgSearchPlugin::SearchHelper
     result = content_tag('h2', _(f[:name]))
     result += text_field_tag(nil, nil, :placeholder => _('Refine options'), :class => 'facet-refine')
     result += facets_block(f[:options], f[:type])
-    result += button(:clear, _('Clear filters'), nil, class: 'clear-facet', 'data-facet': html_id )
+    result += button(:clear, _('Clear filters'), nil, class: 'clear-facet', 'data-facet' => html_id )
 
     content_tag('div', result, :id => html_id, :class => 'facet')
   end
