@@ -18,7 +18,7 @@ class CustomFormsPlugin < Noosfero::Plugin
 
   def self.load_custom_routes
     Noosfero::Application.routes.draw do
-      get "/profile/:profile/plugin/query/:id",
+      get "/profile/:profile/query/:id",
         to: 'custom_forms_plugin_profile#show'
     end
   end
