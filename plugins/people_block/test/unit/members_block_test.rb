@@ -66,10 +66,21 @@ class MembersBlockTest < ActionView::TestCase
 
   should 'respect limit when listing members' do
     community = fast_create(Community)
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-    p3 = fast_create(Person)
-    p4 = fast_create(Person)
+    u1 = create_user
+    u1.activate
+    p1 = u1.person
+
+    u2 = create_user
+    u2.activate
+    p2 = u2.person
+
+    u3 = create_user
+    u3.activate
+    p3 = u3.person
+
+    u4 = create_user
+    u4.activate
+    p4 = u4.person
 
     community.add_member(p1)
     community.add_member(p2)
@@ -153,8 +164,13 @@ class MembersBlockTest < ActionView::TestCase
   should 'list only profiles with moderator role' do
     env = fast_create(Environment)
     env.boxes << Box.new
-    profile1 = fast_create(Person, :environment_id => env.id)
-    profile2 = fast_create(Person, :environment_id => env.id)
+    u1 = create_user
+    u1.activate
+    profile1 = u1.person
+
+    u2 = create_user
+    u2.activate
+    profile2 = u2.person
 
     block = MembersBlock.new
     owner = fast_create(Community)
@@ -178,8 +194,13 @@ class MembersBlockTest < ActionView::TestCase
   should 'list only profiles with member role' do
     env = fast_create(Environment)
     env.boxes << Box.new
-    profile1 = fast_create(Person, :environment_id => env.id)
-    profile2 = fast_create(Person, :environment_id => env.id)
+    u1 = create_user
+    u1.activate
+    profile1 = u1.person
+
+    u2 = create_user
+    u2.activate
+    profile2 = u2.person
 
     block = MembersBlock.new
     owner = fast_create(Community)
@@ -211,8 +232,14 @@ class MembersBlockTest < ActionView::TestCase
 
   should 'count number of profiles by role' do
     owner = fast_create(Community)
-    profile1 = fast_create(Person, {:public_profile => true})
-    profile2 = fast_create(Person, {:public_profile => true})
+    u1 = create_user(nil,{},{:public_profile => true})
+    u1.activate
+    profile1 = u1.person
+
+    u2 = create_user(nil,{},{:public_profile => true})
+    u2.activate
+    profile2 = u2.person
+
 
     owner.add_member profile2
     owner.add_moderator profile1
@@ -236,8 +263,12 @@ class MembersBlockViewTest < ActionView::TestCase
 
   should 'list members from community' do
     owner = fast_create(Community)
-    person1 = fast_create(Person)
-    person2 = fast_create(Person)
+    user1 = create_user
+    user1.activate
+    person1 = user1.person
+    user2 = create_user
+    user2.activate
+    person2 = user2.person
     owner.add_member(person1)
     owner.add_member(person2)
     profile = Profile.new
@@ -377,7 +408,9 @@ class MembersBlockViewTest < ActionView::TestCase
     env = fast_create(Environment)
     env.boxes << Box.new
     community = fast_create(Community)
-    p1 = fast_create(Person)
+    u1 = create_user
+    u1.activate
+    p1 = u1.person
     community.add_member(p1)
     identifier = "fake_template"
     template = User.new(:login => identifier, :email => identifier+'@templates.noo', :password => identifier, :password_confirmation => identifier, :person_data => {:name => identifier, :is_template => true}, :environment_id => env.id)

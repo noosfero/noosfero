@@ -66,10 +66,11 @@ class PeopleBlockTest < ActionView::TestCase
 
   should 'respect limit when listing people' do
     env = fast_create(Environment)
-    p1 = fast_create(Person, :environment_id => env.id)
-    p2 = fast_create(Person, :environment_id => env.id)
-    p3 = fast_create(Person, :environment_id => env.id)
-    p4 = fast_create(Person, :environment_id => env.id)
+
+    p1 = create_user('p1', environment: env, activated_at: DateTime.now).person
+    p2 = create_user('p2', environment: env, activated_at: DateTime.now).person
+    p3 = create_user('p3', environment: env, activated_at: DateTime.now).person
+    p4 = create_user('p4', environment: env, activated_at: DateTime.now).person
 
     block = PeopleBlock.new(:limit => 3)
     block.stubs(:owner).returns(env)
@@ -87,8 +88,9 @@ class PeopleBlockTest < ActionView::TestCase
 
   should 'count number of public and private people' do
     owner = fast_create(Environment)
-    private_p = fast_create(Person, :public_profile => false, :environment_id => owner.id)
-    public_p = fast_create(Person, :public_profile => true, :environment_id => owner.id)
+
+    private_p = fast_create(Person, :public_profile => false, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    public_p = fast_create(Person, :public_profile => true, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
@@ -99,8 +101,8 @@ class PeopleBlockTest < ActionView::TestCase
 
   should 'not count number of invisible people' do
     owner = fast_create(Environment)
-    private_p = fast_create(Person, :visible => false, :environment_id => owner.id)
-    public_p = fast_create(Person, :visible => true, :environment_id => owner.id)
+    private_p = fast_create(Person, :visible => false, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    public_p = fast_create(Person, :visible => true, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
@@ -120,8 +122,8 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'list people from environment' do
     owner = fast_create(Environment)
-    person1 = fast_create(Person, :environment_id => owner.id)
-    person2 = fast_create(Person, :environment_id => owner.id)
+    person1 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person2 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = PeopleBlock.new
 
@@ -186,8 +188,8 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'list people api content' do
     owner = fast_create(Environment)
-    person1 = fast_create(Person, :environment_id => owner.id)
-    person2 = fast_create(Person, :environment_id => owner.id)
+    person1 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person2 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
@@ -198,7 +200,7 @@ class PeopleBlockViewTest < ActionView::TestCase
   should 'limit people list in api content' do
     owner = fast_create(Environment)
     5.times do
-      fast_create(Person, :environment_id => owner.id)
+      fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     end
     block = PeopleBlock.new(limit: 3)
     block.expects(:owner).returns(owner.reload).at_least_once
@@ -209,9 +211,9 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'not list person template from environment' do
     owner = fast_create(Environment)
-    person1 = fast_create(Person, :environment_id => owner.id)
-    person2 = fast_create(Person, :environment_id => owner.id)
-    template = fast_create(Person, :environment_id => owner.id, is_template: true)
+    person1 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person2 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    template = fast_create(Person, :environment_id => owner.id, is_template: true, user_id: fast_create(User, activated_at: DateTime.now).id)
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
     assert_equal 2, block.profile_list.count
@@ -220,7 +222,7 @@ class PeopleBlockViewTest < ActionView::TestCase
   should 'return people randomically in api content' do
     owner = fast_create(Environment)
     5.times do
-      fast_create(Person, :environment_id => owner.id)
+      fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     end
     block = PeopleBlock.new(limit: 3)
     block.expects(:owner).returns(owner.reload).at_least_once
@@ -241,4 +243,12 @@ class PeopleBlockViewTest < ActionView::TestCase
     assert (json_response['people'][0][:name] < json_response['people'][1][:name]) && (json_response['people'][1][:name] < json_response['people'][2][:name])
   end
 
+  should 'not list inactive people' do
+    owner = fast_create(Environment)
+    person1 = create_user('John', environment: owner, activated_at: DateTime.now).person
+    person2 = create_user('Andrew', environment: owner).person
+    block = PeopleBlock.new
+    block.expects(:owner).returns(owner).at_least_once
+    assert_equal [person1.id], block.profile_list.map(&:id)
+  end
 end

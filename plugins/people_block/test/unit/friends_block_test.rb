@@ -137,8 +137,15 @@ class FriendsBlockViewTest < ActionView::TestCase
 
   should 'list friends from person' do
     owner = fast_create(Person)
-    friend1 = fast_create(Person)
-    friend2 = fast_create(Person)
+    u = create_user
+    u.activate
+    friend1 = u.person
+
+    u = create_user
+    u.activate
+    friend2 = u.person
+
+
     owner.add_friend(friend1)
     owner.add_friend(friend2)
 
