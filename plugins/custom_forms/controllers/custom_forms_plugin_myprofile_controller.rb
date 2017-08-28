@@ -18,18 +18,25 @@ class CustomFormsPluginMyprofileController < MyProfileController
   def create
     params[:form][:profile_id] = profile.id
     uploaded_data = params[:form].delete(:image)
-    @form = CustomFormsPlugin::Form.new(params[:form])
-    @form.build_article(
+    form_image = UploadedFile.new(
       :uploaded_data => uploaded_data,
       :profile => profile,
       :parent => nil,
     )
+
+    @form = CustomFormsPlugin::Form.new(params[:form])
+    form_gallery = Gallery.find_or_initialize_by(profile: profile, 
+                                                 name: "Query Gallery")
+    form_gallery.images << form_image
+    @form.image = form_image
+
     normalize_positions(@form)
     respond_to do |format|
-      if @form.save
+      if @form.save and form_gallery.save
         flash[:notice] = _("Custom form %s was successfully created.") % @form.name
         format.html { redirect_to(:action=>'index') }
       else
+        @form.errors.messages.merge!(form_image.errors.messages)
         format.html { render :action => 'new' }
       end
     end

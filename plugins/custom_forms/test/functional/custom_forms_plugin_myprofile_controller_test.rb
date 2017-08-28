@@ -278,4 +278,32 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     form = CustomFormsPlugin::Form.find_by(name: 'Form with image')
     assert_not_nil form.image
   end
+
+  should 'create a galery to store form images' do
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    gallery = Gallery.find_by(:profile => profile, :name => "Query Gallery")
+    assert_not_nil gallery
+  end
+
+  should 'add uploaded file inside query gallery' do
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    gallery = Gallery.find_by(:profile => profile, :name => "Query Gallery")
+    assert_equal gallery.images.first.name, "rails.png"
+  end
 end
