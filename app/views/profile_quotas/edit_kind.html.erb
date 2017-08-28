@@ -1,0 +1,4 @@
+<h1><%= _('Quota for %s profiles') % _(@kind.name) %></h1>
+
+<%= render partial: 'quota_form',
+           locals: { obj: :kind, value: @kind.upload_quota } %>

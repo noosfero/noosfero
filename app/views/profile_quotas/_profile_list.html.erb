@@ -1,0 +1,22 @@
+<div class='profile-list'>
+  <table>
+    <tr>
+      <th><%= _('Profile') %></th>
+      <th><%= _('Quota') %></th>
+      <th><%= _('Actions') %></th>
+    </tr>
+    <% profiles.each do |p| %>
+      <tr>
+        <td>
+          <%= link_to_profile p.short_name, p.identifier, :title => p.name %>
+        </td>
+        <td><%= number_to_human_size(p.upload_quota.try(:megabytes)) %></td>
+        <td class='actions'>
+          <%= button_without_text :edit, _('Edit Quota'), { action: :edit_profile, id: p.id } %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
+  <%= pagination_links profiles, { :param_name => 'npage', :page_links => true } %>
+</div>

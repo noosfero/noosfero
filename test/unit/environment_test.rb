@@ -1898,4 +1898,41 @@ class EnvironmentTest < ActiveSupport::TestCase
     refute environment.on_signup_blacklist?(ip)
   end
 
+  should 'not save object with invalid upload quotas' do
+    environment = Environment.default
+    environment.metadata['quotas'] = {
+      'Person' => 'invalid',
+      'Community' => 100.0
+    }
+    refute environment.valid?
+  end
+
+  should 'save object with valid upload quotas' do
+    environment = Environment.default
+    environment.metadata['quotas'] = {
+      'Person' => 0,
+      'Community' => 100.0,
+      'Enterprise' => ''
+    }
+    assert environment.valid?
+  end
+
+  should 'return upload quota for class' do
+    environment = Environment.default
+    environment.metadata['quotas'] = { 'Person' => 300.0 }
+    assert_equal 300.0, environment.quota_for(Person)
+  end
+
+  should 'return nil if quota for class is empty' do
+    environment = Environment.default
+    environment.metadata['quotas'] = { 'Person' => '' }
+    assert environment.quota_for(Person).nil?
+  end
+
+  should 'return default quota for class if it is not defined' do
+    Person.stubs(:default_quota).returns(500.0)
+    environment = Environment.default
+    assert_equal 500, environment.quota_for(Person)
+  end
+
 end

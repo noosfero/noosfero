@@ -1,0 +1,25 @@
+<%= form_for :quota do |f| %>
+
+  <p class='hint'>
+    <%= _('Leaving the size blank will set the upload quota as unlimited. '\
+          'Setting it to zero will make it impossible for profiles to upload '\
+          'new files. Any other numeric value is valid.') %>
+  </p>
+
+  <%= error_messages_for obj %>
+
+  <div class='formfieldline'>
+    <label for='quota_size'><%= _('Size (in Megabytes)') %></label>
+    <div class='formfield type-text'>
+      <%= f.text_field(:size, value: value) %>
+    </div>
+  </div>
+
+  <% if defined? type %>
+    <%= hidden_field(:quota, :type, name: 'type', value: type) %>
+  <% end %>
+
+  <%= button_bar do %>
+    <%= submit_button('save', _('Save'), :cancel => { :action => 'index' }) %>
+  <% end%>
+<% end %>

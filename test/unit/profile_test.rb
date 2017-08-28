@@ -2503,4 +2503,16 @@ class ProfileTest < ActiveSupport::TestCase
     profile.remove_admin(person)
     profile.remove_member(person)
   end
+
+  should 'return the used quota of the profile' do
+    profile = fast_create(Profile)
+
+    file1 = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file1.update_attributes({ size: 3.megabytes }, :without_protection => true)
+
+    file2 = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file2.update_attributes({ size: 5.megabytes }, :without_protection => true)
+
+    assert_equal 8.megabytes, profile.used_quota
+  end
 end

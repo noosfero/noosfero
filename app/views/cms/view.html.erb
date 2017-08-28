@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'cms.js' %>
+
 <h1>
   <%= _('Content management') %>
 </h1>
@@ -19,6 +21,18 @@
 
   <%= modal_button('new', _('New content'), url_for({:action => 'new', :parent_id => parent_id, :cms => true}).html_safe) %>
   <%= button(:back, _('Back to control panel'), :controller => 'profile_editor', :action => "index") %>
+<% end %>
+
+<% if profile.upload_quota.present? %>
+  <div class='quota-status'>
+    <span><%= _('Your upload quota (used %s of %s):') % [
+      number_to_human_size(profile.used_quota),
+      number_to_human_size(profile.upload_quota.megabytes)
+    ] %></span>
+    <div class="progressbar" data-used-quota='<%= profile.used_quota %>'
+         data-total-quota='<%= profile.upload_quota.megabytes %>'>
+    </div>
+  </div>
 <% end %>
 
 <% if @article %>

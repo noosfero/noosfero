@@ -1,0 +1,14 @@
+<div class="search-field">
+  <span class="formfield">
+    <%= text_field_tag 'q', nil, :title => _("Find users") %>
+  </span>
+  <span>
+    <%= button(:search, _('Search'), { controller: 'profile_quotas' }) %>
+  </span>
+</div>
+
+<div class='search-filters'>
+  <%= select_tag 'filter', options_for_select(@filters), id: 'type-filter' %>
+</div>
+
+<%= render partial: 'profile_list', locals: { profiles: profiles } %>

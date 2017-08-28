@@ -392,4 +392,37 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal file.name, 'Relação com Espaço.txt'
   end
 
+  should 'create an uploaded file if the profile quota is not exceeded' do
+    Profile.any_instance.stubs(:upload_quota).returns(5.0)
+
+    file = build(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file.stubs(:size).returns(3.megabytes)
+    assert file.valid?
+  end
+
+  should 'create an uploaded file if the profile quota fills completely' do
+    Profile.any_instance.stubs(:upload_quota).returns(5.0)
+
+    file = build(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file.stubs(:size).returns(5.megabytes)
+    assert file.valid?
+  end
+
+  should 'create an uploaded file if the profile quota is unlimited' do
+    Profile.any_instance.stubs(:upload_quota).returns(nil)
+
+    file = build(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file.stubs(:size).returns(3.megabytes)
+    assert file.valid?
+  end
+
+  should 'not create an uploaded file if the profile quota is exceeded' do
+    Profile.any_instance.stubs(:upload_quota).returns(10.0)
+    Profile.any_instance.stubs(:used_quota).returns(7.megabytes)
+
+    file = build(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file.stubs(:size).returns(5.megabytes)
+    refute file.valid?
+  end
+
 end
