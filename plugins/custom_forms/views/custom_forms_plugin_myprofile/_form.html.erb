@@ -10,7 +10,7 @@
 )) %>
 
 
-<%= labelled_form_field _('Query Identifier'), f.text_field(:identifier)%>
+<%= labelled_form_field _('Identifier'), f.text_field(:identifier)%>
 <%= labelled_form_field _('Access'), f.select(:access, access_options(profile))%>
 <% if profile.organization? %>
   <p>
@@ -62,3 +62,4 @@
 <% end %>
 
 <%= javascript_include_tag 'plugins/custom_forms/field' %>
+<%= javascript_include_tag 'plugins/custom_forms/identifier' %>
