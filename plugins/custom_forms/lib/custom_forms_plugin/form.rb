@@ -13,6 +13,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   validates_presence_of :profile, :name
   validates_uniqueness_of :slug, :scope => :profile_id
+  validates_uniqueness_of :identifier, :scope => :profile_id
   validate :period_range,
     :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
