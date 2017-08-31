@@ -1,6 +1,6 @@
 class CustomFormsPlugin::Form < ApplicationRecord
 
-  belongs_to :profile
+belongs_to :profile
 
   has_many :fields, -> { order 'position' },
     class_name: 'CustomFormsPlugin::Field', dependent: :destroy
@@ -48,8 +48,6 @@ class CustomFormsPlugin::Form < ApplicationRecord
     :identifier => {:label => _('identifier'), :weight => 5},
     :description => {:label => _('Description'), :weight => 3},
   }
-
-  validates :kind, inclusion: { in: KINDS, message: _("%{value} is not a valid kind.") }
 
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
@@ -107,23 +105,35 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   def duration_in_days
     if begining == nil and ending == nil
-      return "Has no ending date."
+      return "This query has no ending date"
     end
     seconds_to_days = 86400
     days = (ending.to_i - begining.to_i) / seconds_to_days
     if days < 1
-      return "Ends today."
+      return "This query ends today."
     end
 
     if days >= 1 && days < 2
-      return "Ends tomorow."
+      return "This query ends tomorow."
     end
 
     if days < 0
-      return "Already closed."
+      return "This query is already close."
     end
 
-    return "Ends in: #{days} days."
+    return "This query ends in: #{days} days."
+  end
+
+  def status
+    if begining.future?
+      'Not open yet'
+    elsif ending.future? && (ending < 3.days.from_now)
+      'Closing soon'
+    elsif ending.future?
+      'Open'
+    else
+      'Closed'
+    end
   end
 
   private

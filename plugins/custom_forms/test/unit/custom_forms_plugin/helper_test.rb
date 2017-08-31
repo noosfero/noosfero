@@ -25,4 +25,3 @@ class CustomFormsPlugin::HelperTest < ActiveSupport::TestCase
     assert time_status(s8) =~ /^Always open$/
   end
 end
-

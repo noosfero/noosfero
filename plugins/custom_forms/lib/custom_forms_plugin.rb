@@ -22,4 +22,12 @@ class CustomFormsPlugin < Noosfero::Plugin
         via: [:get, :post]
     end
   end
+
+  def self.extra_blocks
+    {
+      CustomFormsPlugin::SurveyBlock => { type: [Community] },
+      CustomFormsPlugin::PollsBlock => { type: [Community] }
+    }
+  end
+
 end

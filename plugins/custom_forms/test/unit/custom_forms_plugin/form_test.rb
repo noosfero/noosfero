@@ -1,13 +1,19 @@
 require 'test_helper'
 
 class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
+
+  def setup
+    @profile = fast_create(Profile)
+  end
+  attr_reader :profile
+
   should 'validates presence of a profile and a name' do
     form = CustomFormsPlugin::Form.new
     form.valid?
     assert form.errors.include?(:profile)
     assert form.errors.include?(:name)
 
-    form.profile = fast_create(Profile)
+    form.profile = profile
     form.name = 'Free Software'
     form.valid?
     refute form.errors.include?(:profile)
@@ -48,7 +54,6 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'validates uniqueness of slug scoped on profile' do
-    profile = fast_create(Profile)
     another_profile = fast_create(Profile)
     CustomFormsPlugin::Form.create!(:profile => profile,
                                     :name => 'Free Software',
@@ -65,10 +70,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'validate the difference between ending and beginning is positive' do
-    profile = fast_create(Profile)
-    form = CustomFormsPlugin::Form.new(:profile => profile,
-                                       :name => 'Free Software',
-                                       :identifier => 'free2')
+    form = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Free Software')
 
     form.begining = Time.now
     form.ending = Time.now + 1.day
@@ -208,7 +210,6 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'have a scope that retrieve forms from a profile' do
-    profile = fast_create(Profile)
     another_profile = fast_create(Profile)
     f1 = CustomFormsPlugin::Form.create!(:name => 'Free Software',
                                          :profile => profile,
@@ -227,19 +228,9 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'have a scope that retrieves all forms that are triggered on membership' do
-    profile = fast_create(Profile)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership 1',
-                                         :profile => profile,
-                                         :on_membership => true,
-                                         :identifier => 'onMemb1')
-    f2 = CustomFormsPlugin::Form.create!(:name => 'On membership 2',
-                                         :profile => profile,
-                                         :on_membership => true,
-                                         :identifier => 'onMemb2')
-    f3 = CustomFormsPlugin::Form.create!(:name => 'Not on memberhsip',
-                                         :profile => profile,
-                                         :on_membership => false,
-                                         :identifier => 'NotOnMemb')
+    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership 1', :profile => profile, :on_membership => true)
+    f2 = CustomFormsPlugin::Form.create!(:name => 'On membership 2', :profile => profile, :on_membership => true)
+    f3 = CustomFormsPlugin::Form.create!(:name => 'Not on memberhsip', :profile => profile, :on_membership => false)
     scope = CustomFormsPlugin::Form.from_profile(profile).on_memberships
 
     assert_includes scope, f1
@@ -276,19 +267,9 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'have a scope that retrieves all forms required for membership' do
-    profile = fast_create(Profile)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'For admission 1',
-                                         :profile => profile,
-                                         :for_admission => true,
-                                         :identifier => 'for1')
-    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission 2',
-                                         :profile => profile,
-                                         :for_admission => true,
-                                         :identifier => 'for2')
-    f3 = CustomFormsPlugin::Form.create!(:name => 'Not for admission',
-                                         :profile => profile,
-                                         :for_admission => false,
-                                         :identifier => 'NotFor')
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For admission 1', :profile => profile, :for_admission => true)
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission 2', :profile => profile, :for_admission => true)
+    f3 = CustomFormsPlugin::Form.create!(:name => 'Not for admission', :profile => profile, :for_admission => false)
     scope = CustomFormsPlugin::Form.from_profile(profile).for_admissions
 
     assert_includes scope, f1
@@ -297,9 +278,8 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'have a scope that retrieve forms from a kind' do
-    profile = fast_create(Profile)
-    survey = CustomFormsPlugin::Form.create!(:name => 'Free Software', :identifier => 'free-software', :profile => profile, :kind => 'survey')
-    poll = CustomFormsPlugin::Form.create!(:name => 'Open Source', :identifier => 'open-source', :profile => profile, :kind => 'poll')
+    survey = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile, :kind => 'survey')
+    poll = CustomFormsPlugin::Form.create!(:name => 'Open Source', :profile => profile, :kind => 'poll')
 
     assert_includes CustomFormsPlugin::Form.by_kind(:survey), survey
     assert_not_includes CustomFormsPlugin::Form.by_kind(:survey), poll
@@ -336,16 +316,8 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'not include admission membership in on membership named scope' do
-    profile = fast_create(Profile)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership',
-                                         :profile => profile,
-                                         :on_membership => true,
-                                         :identifier => 'membership1')
-    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission',
-                                         :profile => profile,
-                                         :on_membership => true,
-                                         :for_admission => true,
-                                         :identifier  => 'for-adm')
+    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership', :profile => profile, :on_membership => true)
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission', :profile => profile, :on_membership => true, :for_admission => true)
     scope = CustomFormsPlugin::Form.from_profile(profile).on_memberships
 
     assert_includes scope, f1
@@ -353,7 +325,6 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'cancel survey tasks after removing a form' do
-    profile = fast_create(Profile)
     person = create_user('john').person
 
     form1 = CustomFormsPlugin::Form.create!(:name => 'Free Software',
@@ -398,10 +369,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'destroy forms after profile is destroyed' do
-    profile = fast_create(Profile)
-    form = CustomFormsPlugin::Form.create!(:profile => profile,
-                                           :name => 'Free Software',
-                                           :identifier => 'free')
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
     profile.destroy
 
     assert_raise ActiveRecord::RecordNotFound do
@@ -468,3 +436,33 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_equal CustomFormsPlugin::Form.with_public_results_after_ends().count, 1
     end
   end
+
+  should 'return open forms, excluding the ones with current date' do
+    old_date = 5.days.ago
+    form1 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', ending: 1.days.from_now)
+    form2 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'OSS', ending: 10.days.ago)
+    form3 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'FSF', ending: old_date)
+
+    DateTime.stubs(:now).returns(old_date)
+    assert_equivalent [form1], CustomFormsPlugin::Form.open
+  end
+
+  should 'return closed forms, including the ondes with current date' do
+    old_date = 5.days.ago
+    form1 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', ending: 1.days.from_now)
+    form2 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'OSS', ending: 10.days.ago)
+    form3 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'FSF', ending: old_date)
+
+    assert_equivalent [form2, form3], CustomFormsPlugin::Form.closed
+  end
+
+  should 'take time into consideration when checking for open/closed polls' do
+    date = DateTime.strptime('2017-01-01', '%Y-%m-%d')
+    form1 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', ending: date)
+    form2 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'OSS', ending: date + 10.hours)
+
+    DateTime.stubs(:now).returns(date + 5.hours)
+    assert_equivalent [form2], CustomFormsPlugin::Form.open
+  end
+
+end
