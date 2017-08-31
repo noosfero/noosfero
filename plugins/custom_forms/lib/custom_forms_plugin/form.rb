@@ -1,6 +1,6 @@
 class CustomFormsPlugin::Form < ApplicationRecord
 
-  belongs_to :profile
+belongs_to :profile
 
   has_many :fields, -> { order 'position' },
     class_name: 'CustomFormsPlugin::Field', dependent: :destroy
@@ -9,12 +9,14 @@ class CustomFormsPlugin::Form < ApplicationRecord
   has_many :submissions,
     :class_name => 'CustomFormsPlugin::Submission', :dependent => :destroy
 
+  serialize :access
+
   validates_presence_of :profile, :name, :identifier
   validates_uniqueness_of :slug, :scope => :profile_id
   validates_uniqueness_of :identifier, :scope => :profile_id
   validate :period_range,
     :if => Proc.new { |f| f.begining.present? && f.ending.present? }
-  validate :valid_poll_alternatives
+  validate :access_format
 
   # We are using a belongs_to relation, to avoid change the UploadedFile schema.
   # With the belongs_to instead of the has_one, we keep the change only on the
@@ -61,17 +63,10 @@ class CustomFormsPlugin::Form < ApplicationRecord
   scope :from_profile, -> profile { where profile_id: profile.id }
   scope :on_memberships, -> { where on_membership: true, for_admission: false }
   scope :for_admissions, -> { where for_admission: true }
-  scope :by_kind, -> kind { where kind: kind.to_s }
-
-  scope :closed, -> { where('ending <= ?', DateTime.now) }
-  scope :not_open_yet, -> { where('begining > ?', DateTime.now) }
-  scope :not_closed, -> { where('(begining < ? OR begining IS NULL) AND '\
-                          '(ending > ? OR ending IS NULL)',
-                          DateTime.now, DateTime.now) }
-
   scope :with_public_results, -> { where access_result_options: "public" }
   scope :with_private_results, -> { where access_result_options: "private" }
   scope :with_public_results_after_ends, -> { where access_result_options: "public_after_ends" }
+  scope :by_kind, -> kind { where kind: kind.to_s }
   scope :by_status, -> status {
     case status
     when 'opened'
@@ -83,10 +78,6 @@ class CustomFormsPlugin::Form < ApplicationRecord
     end
   }
 
-  scope :accessible_to, -> user, profile {
-    where('access <= ?', AccessLevels.permission(user, profile))
-  }
-
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)
   end
@@ -95,8 +86,13 @@ class CustomFormsPlugin::Form < ApplicationRecord
     begining.present? && Time.now < begining
   end
 
-  def access_levels
-    AccessLevels.range_options(0, 2)
+  def accessible_to(target)
+    return true if access.nil? || target == profile
+    return false if target.nil?
+    return true if access == 'logged'
+    return true if access == 'associated' && ((profile.organization? && profile.members.include?(target)) || (profile.person? && profile.friends.include?(target)))
+    return true if access.kind_of?(Integer) && target.id == access
+    return true if access.kind_of?(Array) && access.include?(target.id)
   end
 
   def image
@@ -107,81 +103,65 @@ class CustomFormsPlugin::Form < ApplicationRecord
     self.article = uploaded_file
   end
 
-  def default_img_url
-    "/plugins/custom_forms/images/default-#{kind.underscore}.png"
-  end
-
-  def image_url
-    image.present? ? image.full_path : default_img_url
-  end
-
   def duration_in_days
     if begining == nil and ending == nil
-      return _("This query has no ending date")
+      return "This query has no ending date"
     end
     seconds_to_days = 86400
     days = (ending.to_i - begining.to_i) / seconds_to_days
     if days < 1
-      return _("Ends today")
+      return "This query ends today."
     end
 
     if days >= 1 && days < 2
-      return _("Ends tomorow")
+      return "This query ends tomorow."
     end
 
     if days < 0
-      return _("Already closed")
+      return "This query is already close."
     end
 
-    return _("%s days left") % days
+    return "This query ends in: #{days} days."
   end
 
   def status
-    if begining.try(:future?)
-      :not_open
-    elsif ending.try(:future?) && (ending < 3.days.from_now)
-      :closing_soon
-    elsif ending.nil? || ending.try(:future?)
-      :open
+    if begining.future?
+      'Not open yet'
+    elsif ending.future? && (ending < 3.days.from_now)
+      'Closing soon'
+    elsif ending.future?
+      'Open'
     else
-      :closed
+      'Closed'
     end
-  end
-
-  def submission_by(person)
-    if person.present?
-      subm = submissions.find_by(form_id: self.id, profile_id: person.id)
-    end
-    subm || CustomFormsPlugin::Submission.new(form: self, profile: person)
-  end
-
-  def results
-    CustomFormsPlugin::Graph.new(self).query_results
-  end
-
-  alias_attribute :result_access, :access_result_options
-
-  def show_results_for(person)
-    result_access.blank? ||
-    (result_access == 'public') ||
-    ((result_access == 'public_after_ends') && ending.present? &&
-                                              (ending < DateTime.now)) ||
-    ((result_access == 'private') && (person == profile ||
-                                      person.in?(profile.admins) ||
-                                      person.in?(profile.environment.admins)))
   end
 
   private
 
-  def period_range
-    errors.add(:base, _('The time range selected is invalid.')) if ending < begining
+  def access_format
+    if access.present?
+      if access.kind_of?(String)
+        if access != 'logged' && access != 'associated'
+          errors.add(:access, _('Invalid string format of access.'))
+        end
+      elsif access.kind_of?(Integer)
+        if !Profile.exists?(access)
+          errors.add(:access, _('There is no profile with the provided id.'))
+        end
+      elsif access.kind_of?(Array)
+        access.each do |value|
+          if !value.kind_of?(Integer) || !Profile.exists?(value)
+            errors.add(:access, _('There is no profile with the provided id.'))
+            break
+          end
+        end
+      else
+        errors.add(:access, _('Invalid type format of access.'))
+      end
+    end
   end
 
-  def valid_poll_alternatives
-    if kind == "poll" && fields.first.present? && fields.first.alternatives.size < 2
-      errors.add(:poll_alternatives, _('can\'t be less than 2'))
-      false
-    end
-    true
+  def period_range
+    errors.add(:base, _('The time range selected is invalid.')) if ending < begining
   end
 end

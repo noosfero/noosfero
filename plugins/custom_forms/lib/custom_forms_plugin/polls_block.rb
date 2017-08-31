@@ -2,8 +2,6 @@ class CustomFormsPlugin::PollsBlock < Block
 
   attr_accessible :metadata
 
-  validate :valid_status
-
   def default_title
     _('Polls')
   end
@@ -22,10 +20,6 @@ class CustomFormsPlugin::PollsBlock < Block
 
   def help
     _('This block show last polls performed in profile.')
-  end
-
-  def cacheable?
-    false
   end
 
   include CustomFormsPlugin::ListBlock

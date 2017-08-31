@@ -1,1 +1,3 @@
-<%= render partial: 'blocks/form_list_block', locals: { block: block, kind: 'survey' } %>
+<%= block_title(block.title, block.subtitle) %>
+
+<%= render partial: 'blocks/form_block', locals: { block: block } %>
