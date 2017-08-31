@@ -37,6 +37,17 @@ module CustomFormsPlugin::Helper
     end
   end
 
+  def next_period(form)
+    return '' unless form.begining.present? || form.ending.present?
+    if form.begining.try(:future?)
+      _('Begins %s') % time_format(form.begining)
+    elsif form.ending.try(:future?)
+      _('Until %s') % time_format(form.ending)
+    else
+      _('Closed %s') % time_format(form.ending)
+    end
+  end
+
   def time_format(time)
     minutes = (time.min == 0) ? '' : ':%M'
     hour = (time.hour == 0 && minutes.blank?) ? '' : ' %H'

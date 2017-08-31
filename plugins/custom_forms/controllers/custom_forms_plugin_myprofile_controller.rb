@@ -1,6 +1,9 @@
 require 'csv'
 
 class CustomFormsPluginMyprofileController < MyProfileController
+
+  include CustomFormsPlugin::Helper
+
   protect 'post_content', :profile
 
   before_filter :remove_empty_alternatives, :only => [:create, :update]
