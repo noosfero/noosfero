@@ -15,66 +15,87 @@ stages:
 #  script: bundle exec rake ci:smoke
 #  stage: smoke-tests
 
+.retriable-template: &retriable
+  retry: 2
+
 specs-models:
+  <<: *retriable
   script: bundle exec rake spec SPEC=spec/models
   stage: all-tests
 
 api:
+  <<: *retriable
   script: bundle exec rake test:api
   stage: all-tests
 
 units:
+  <<: *retriable
   script: bundle exec rake test:units
   stage: all-tests
 
 functionals:
+  <<: *retriable
   script: bundle exec rake test:functionals
   stage: all-tests
 
 integration:
+  <<: *retriable
   script: bundle exec rake test:integration
   stage: all-tests
 
 cucumber-1:
+  <<: *retriable
   script: SLICE=1/2 bundle exec rake cucumber
   stage: all-tests
 cucumber-2:
+  <<: *retriable
   script: SLICE=2/2 bundle exec rake cucumber
   stage: all-tests
 
 selenium-1:
+  <<: *retriable
   script: SLICE=1/6 bundle exec rake selenium
   stage: all-tests
 selenium-2:
+  <<: *retriable
   script: SLICE=2/6 bundle exec rake selenium
   stage: all-tests
 selenium-3:
+  <<: *retriable
   script: SLICE=3/6 bundle exec rake selenium
   stage: all-tests
 selenium-4:
+  <<: *retriable
   script: SLICE=4/6 bundle exec rake selenium
   stage: all-tests
 selenium-5:
+  <<: *retriable
   script: SLICE=5/6 bundle exec rake selenium
   stage: all-tests
 selenium-6:
+  <<: *retriable
   script: SLICE=6/6 bundle exec rake selenium
   stage: all-tests
 
 # NOOSFERO_BUNDLE_OPTS=install makes migrations fails
 # probably because of rubygems-integration
 plugins-1:
+  <<: *retriable
   script: SLICE=1/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-2:
+  <<: *retriable
   script: SLICE=2/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-3:
+  <<: *retriable
   script: SLICE=3/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-4:
+  <<: *retriable
   script: SLICE=4/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-5:
+  <<: *retriable
   script: SLICE=5/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
