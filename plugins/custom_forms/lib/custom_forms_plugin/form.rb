@@ -11,7 +11,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   serialize :access
 
-  validates_presence_of :profile, :name
+  validates_presence_of :profile, :name, :identifier
   validates_uniqueness_of :slug, :scope => :profile_id
   validates_uniqueness_of :identifier, :scope => :profile_id
   validate :period_range,

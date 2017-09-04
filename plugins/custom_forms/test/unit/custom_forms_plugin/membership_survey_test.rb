@@ -14,7 +14,9 @@ class CustomFormsPlugin::MembershipSurveyTest < ActiveSupport::TestCase
   should 'create submission with answers on perform' do
     profile = fast_create(Profile)
     person = create_user('john').person
-    form = CustomFormsPlugin::Form.create!(:name => 'Simple Form', :profile => profile)
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Simple form',
+                                           :identifier => 'free')
     field = CustomFormsPlugin::Field.create!(:name => 'Name', :form => form)
     task = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :submission => {field.id.to_s => 'Jack'}, :target => person, :requestor => profile)
 
@@ -32,7 +34,9 @@ class CustomFormsPlugin::MembershipSurveyTest < ActiveSupport::TestCase
   should 'have a scope that retrieves all tasks requested by profile' do
     profile = fast_create(Profile)
     person = create_user('john').person
-    form = CustomFormsPlugin::Form.create!(:name => 'Simple Form', :profile => profile)
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Simple form',
+                                           :identifier => 'free')
     task1 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :target => person, :requestor => profile)
     task2 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :target => person, :requestor => fast_create(Profile))
     scope = CustomFormsPlugin::MembershipSurvey.from_profile(profile)

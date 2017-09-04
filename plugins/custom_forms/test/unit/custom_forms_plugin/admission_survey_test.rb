@@ -4,7 +4,9 @@ class CustomFormsPlugin::AdmissionSurveyTest < ActiveSupport::TestCase
   should 'add member to community on perform' do
     profile = fast_create(Community)
     person = create_user('john').person
-    form = CustomFormsPlugin::Form.create!(:name => 'Simple Form', :profile => profile)
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Simple Form',
+                                           :identifier => 'free')
     task = CustomFormsPlugin::AdmissionSurvey.create!(:form_id => form.id, :target => person, :requestor => profile)
 
     assert_difference person.memberships, :count, 1 do

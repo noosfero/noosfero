@@ -6,7 +6,9 @@ class CustomFormsPlugin::AnswerTest < ActiveSupport::TestCase
     answer.valid?
     assert answer.errors.include?(:field)
 
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
     answer.field = field
     answer.valid?
@@ -14,7 +16,9 @@ class CustomFormsPlugin::AnswerTest < ActiveSupport::TestCase
   end
 
   should 'belong to a submission' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     submission = CustomFormsPlugin::Submission.create!(:form => form, :profile => fast_create(Profile))
     answer = CustomFormsPlugin::Answer.new
     answer.submission = submission
@@ -23,7 +27,9 @@ class CustomFormsPlugin::AnswerTest < ActiveSupport::TestCase
   end
 
   should 'require presence of value if field is mandatory' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form, :mandatory => true)
     answer = CustomFormsPlugin::Answer.new(:field => field)
     answer.valid?
@@ -35,7 +41,9 @@ class CustomFormsPlugin::AnswerTest < ActiveSupport::TestCase
   end
 
   should 'make string representation show answers' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     field = CustomFormsPlugin::Field.create!(:name => 'ProjectName', :form => form)
     answer = CustomFormsPlugin::Answer.new(:field => field, :value => 'MyProject')
 

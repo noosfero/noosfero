@@ -13,7 +13,9 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
   end
 
   should 'have answers' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
     a1 = CustomFormsPlugin::Answer.create!(:field => field)
     a2 = CustomFormsPlugin::Answer.create!(:field => field)
@@ -23,7 +25,9 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
   end
 
   should 'not destroy form after removing a field' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     license_field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
     url_field = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form)
 
@@ -34,7 +38,9 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
   end
 
   should 'destroy its answers after removing a field' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     field = CustomFormsPlugin::Field.create!(:name => 'Project name', :form => form)
 
     CustomFormsPlugin::Answer.create(:field => field, :value => 'My Project')
