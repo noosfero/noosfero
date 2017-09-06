@@ -30,25 +30,11 @@ class Html5VideoPlugin < Noosfero::Plugin
     full_filename = uploaded_file.full_filename
     file_presenter = FilePresenter.for(uploaded_file)
     if file_presenter.is_a? FilePresenter::Video
-      job = Html5VideoPlugin::CreateVideoPreviewJob.new
+      job = Html5VideoPlugin::EnqueueVideoConversionJob.new
       job.file_type = uploaded_file.class.name
       job.file_id = uploaded_file.id
       job.full_filename = full_filename
       Delayed::Job.enqueue job, priority: 10
-      [
-        [:OGV,  :tiny, 11],
-        [:WEBM, :tiny, 12],
-        [:OGV,  :nice, 13],
-        [:WEBM, :nice, 14],
-      ].each do |format, size, priority|
-        job = Html5VideoPlugin::CreateVideoForWebJob.new
-        job.file_type = uploaded_file.class.name
-        job.file_id = uploaded_file.id
-        job.full_filename = full_filename
-        job.format = format
-        job.size = size
-        Delayed::Job.enqueue job, priority: priority
-      end
     end
   end
 end

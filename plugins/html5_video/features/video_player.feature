@@ -11,6 +11,7 @@ Feature: video player
       | owner     | filename                | mime       |
       | joaosilva | ../videos/old-movie.mpg | video/mpeg |
     And there are no pending jobs
+    And all videos are processed
 
   @selenium
   Scenario: controls must work

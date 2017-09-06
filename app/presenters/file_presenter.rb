@@ -68,6 +68,14 @@ class FilePresenter < Presenter
              :object => file
     end
   end
+
+  # This method may be overridden in subclasses
+  #
+  # If the class encapsulates an object that can be converted to video
+  # formats, return true
+  def convertible_to_video?
+    false
+  end
 end
 
 Dir.glob(File.join('app', 'presenters', 'file', '*.rb')) do |file|
