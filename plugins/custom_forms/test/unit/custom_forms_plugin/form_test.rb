@@ -366,7 +366,9 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'add a UploadedFile to a form' do
     profile = fast_create(Profile)
-    form = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Free Software')
+    form = CustomFormsPlugin::Form.new(:profile => profile, 
+                                       :name => 'Free Software',
+                                       :identifier => 'free')
     form.build_article(:name => 'my_image')
     form.save!
 

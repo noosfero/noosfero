@@ -272,6 +272,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
         :name => 'Form with image',
         :access => 'logged',
         :description => 'Cool form',
+        :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png')
       }
 
@@ -286,6 +287,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
         :name => 'Form with image',
         :access => 'logged',
         :description => 'Cool form',
+        :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png')
       }
 
@@ -300,6 +302,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
         :name => 'Form with image',
         :access => 'logged',
         :description => 'Cool form',
+        :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png')
       }
 

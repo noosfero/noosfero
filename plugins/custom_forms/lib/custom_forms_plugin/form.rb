@@ -25,7 +25,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   attr_accessible :name, :profile, :for_admission, :access, :begining
   attr_accessible :ending, :description, :fields_attributes, :profile_id
-  attr_accessible :on_membership
+  attr_accessible :on_membership, :identifier
 
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
