@@ -24,15 +24,23 @@ class CustomFormsPluginMyprofileController < MyProfileController
       :parent => nil,
     )
 
+    form_settings = Noosfero::Plugin::Settings.new(profile, CustomFormsPlugin)
+
+    form_gallery = Gallery.where(id: form_settings.gallery_id).first
+
+    unless form_gallery
+      form_gallery = Gallery.new(profile: profile, name: _("Query Gallery"))
+    end
+
     @form = CustomFormsPlugin::Form.new(params[:form])
-    form_gallery = Gallery.find_or_initialize_by(profile: profile, 
-                                                 name: "Query Gallery")
     form_gallery.images << form_image
     @form.image = form_image
 
     normalize_positions(@form)
     respond_to do |format|
       if @form.save and form_gallery.save
+        form_settings.gallery_id = form_gallery.id
+        form_settings.save!
         flash[:notice] = _("Custom form %s was successfully created.") % @form.name
         format.html { redirect_to(:action=>'index') }
       else

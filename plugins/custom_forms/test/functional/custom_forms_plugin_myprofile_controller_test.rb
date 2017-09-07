@@ -5,7 +5,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   def setup
     @controller = CustomFormsPluginMyprofileController.new
 
-    @profile = create_user('profile').person
+    @profile = create_user('ze').person
     login_as(@profile.identifier)
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
