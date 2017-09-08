@@ -4,7 +4,7 @@ class CustomFormsPluginProfileController < ProfileController
   def show
     extend(CustomFormsPlugin::Helper)
 
-    @form = CustomFormsPlugin::Form.find(params[:id])
+    @form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
     if user
       @submission = CustomFormsPlugin::Submission.find_by form_id: @form.id, profile_id: user.id
       @submission ||= CustomFormsPlugin::Submission.new(:form => @form, :profile => user)
@@ -39,7 +39,8 @@ class CustomFormsPluginProfileController < ProfileController
   private
 
   def has_access
-    form = CustomFormsPlugin::Form.find(params[:id])
+    form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
     render_access_denied if !form.accessible_to(user)
   end
+
 end

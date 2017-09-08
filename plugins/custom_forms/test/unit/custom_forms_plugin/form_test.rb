@@ -15,10 +15,14 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'have many fields including fields subclasses' do
-    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile), :name => 'Free Software')
-    f1 = CustomFormsPlugin::Field.create!(:form => form, :name => 'License')
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
+    f1 = CustomFormsPlugin::Field.create!(:form => form,
+                                          :name => 'License')
     f2 = CustomFormsPlugin::Field.create!(:form => form, :name => 'Code')
-    f3 = CustomFormsPlugin::TextField.create!(:form => form, :name => 'Developer')
+    f3 = CustomFormsPlugin::TextField.create!(:form => form,
+                                              :name => 'Developer')
 
     assert_includes form.fields, f1
     assert_includes form.fields, f2
@@ -26,7 +30,9 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'have many submissions' do
-    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile), :name => 'Free Software')
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     s1 = CustomFormsPlugin::Submission.create!(:form => form, :profile => fast_create(Profile))
     s2 = CustomFormsPlugin::Submission.create!(:form => form, :profile => fast_create(Profile))
 
@@ -35,7 +41,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'set slug before validation based on name' do
-    form = CustomFormsPlugin::Form.new(:name => 'Name')
+    form = CustomFormsPlugin::Form.new(:name => 'Name', :identifier => 'name')
     form.valid?
     assert_equal form.name.to_slug, form.slug
   end
@@ -43,8 +49,12 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   should 'validates uniqueness of slug scoped on profile' do
     profile = fast_create(Profile)
     another_profile = fast_create(Profile)
-    CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
-    form = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Free Software')
+    CustomFormsPlugin::Form.create!(:profile => profile,
+                                    :name => 'Free Software',
+                                    :identifier => 'free')
+    form = CustomFormsPlugin::Form.create(:profile => profile,
+                                          :name => 'Free Software',
+                                          :identifier => 'free')
     form.valid?
     assert form.errors.include?(:slug)
 
@@ -55,7 +65,9 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'validate the difference between ending and beginning is positive' do
     profile = fast_create(Profile)
-    form = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Free Software')
+    form = CustomFormsPlugin::Form.new(:profile => profile,
+                                       :name => 'Free Software',
+                                       :identifier => 'free2')
 
     form.begining = Time.now
     form.ending = Time.now + 1.day
@@ -144,7 +156,9 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'defines who is able to access the form' do
     owner = fast_create(Community)
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => owner)
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software',
+                                           :profile => owner,
+                                           :identifier => 'free')
     assert form.accessible_to(nil)
 
     form.access = 'logged'
@@ -176,9 +190,15 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   should 'have a scope that retrieve forms from a profile' do
     profile = fast_create(Profile)
     another_profile = fast_create(Profile)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
-    f2 = CustomFormsPlugin::Form.create!(:name => 'Open Source', :profile => profile)
-    f3 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => another_profile)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'Free Software',
+                                         :profile => profile,
+                                         :identifier => 'free')
+    f2 = CustomFormsPlugin::Form.create!(:name => 'Open Source',
+                                         :profile => profile,
+                                         :identifier => 'open')
+    f3 = CustomFormsPlugin::Form.create!(:name => 'Free Software',
+                                         :profile => another_profile,
+                                         :identifier => 'free1')
     scope = CustomFormsPlugin::Form.from_profile(profile)
 
     assert_includes scope, f1
@@ -188,9 +208,18 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'have a scope that retrieves all forms that are triggered on membership' do
     profile = fast_create(Profile)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership 1', :profile => profile, :on_membership => true)
-    f2 = CustomFormsPlugin::Form.create!(:name => 'On membership 2', :profile => profile, :on_membership => true)
-    f3 = CustomFormsPlugin::Form.create!(:name => 'Not on memberhsip', :profile => profile, :on_membership => false)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership 1',
+                                         :profile => profile,
+                                         :on_membership => true,
+                                         :identifier => 'onMemb1')
+    f2 = CustomFormsPlugin::Form.create!(:name => 'On membership 2',
+                                         :profile => profile,
+                                         :on_membership => true,
+                                         :identifier => 'onMemb2')
+    f3 = CustomFormsPlugin::Form.create!(:name => 'Not on memberhsip',
+                                         :profile => profile,
+                                         :on_membership => false,
+                                         :identifier => 'NotOnMemb')
     scope = CustomFormsPlugin::Form.from_profile(profile).on_memberships
 
     assert_includes scope, f1
@@ -199,9 +228,13 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'destroy fields after removing a form' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
-    license_field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
-    url_field = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form)
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software',
+                                           :profile => fast_create(Profile),
+                                           :identifier => 'free')
+    license_field = CustomFormsPlugin::Field.create!(:name => 'License',
+                                                     :form => form)
+    url_field = CustomFormsPlugin::Field.create!(:name => 'URL',
+                                                 :form => form)
 
     assert_difference 'CustomFormsPlugin::Field.count', -2 do
       form.destroy
@@ -209,18 +242,33 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'sort fields by position' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
-    license_field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form, :position => 2)
-    url_field = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form, :position => 0)
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software',
+                                           :profile => fast_create(Profile),
+                                           :identifier => 'free')
+    license_field = CustomFormsPlugin::Field.create!(:name => 'License',
+                                                     :form => form,
+                                                     :position => 2)
+    url_field = CustomFormsPlugin::Field.create!(:name => 'URL',
+                                                 :form => form,
+                                                 :position => 0)
 
     assert_equal form.fields, [url_field, license_field]
   end
 
   should 'have a scope that retrieves all forms required for membership' do
     profile = fast_create(Profile)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'For admission 1', :profile => profile, :for_admission => true)
-    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission 2', :profile => profile, :for_admission => true)
-    f3 = CustomFormsPlugin::Form.create!(:name => 'Not for admission', :profile => profile, :for_admission => false)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For admission 1',
+                                         :profile => profile,
+                                         :for_admission => true,
+                                         :identifier => 'for1')
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission 2',
+                                         :profile => profile,
+                                         :for_admission => true,
+                                         :identifier => 'for2')
+    f3 = CustomFormsPlugin::Form.create!(:name => 'Not for admission',
+                                         :profile => profile,
+                                         :for_admission => false,
+                                         :identifier => 'NotFor')
     scope = CustomFormsPlugin::Form.from_profile(profile).for_admissions
 
     assert_includes scope, f1
@@ -230,8 +278,15 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'not include admission membership in on membership named scope' do
     profile = fast_create(Profile)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership', :profile => profile, :on_membership => true)
-    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission', :profile => profile, :on_membership => true, :for_admission => true)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership',
+                                         :profile => profile,
+                                         :on_membership => true,
+                                         :identifier => 'membership1')
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission',
+                                         :profile => profile,
+                                         :on_membership => true,
+                                         :for_admission => true,
+                                         :identifier  => 'for-adm')
     scope = CustomFormsPlugin::Form.from_profile(profile).on_memberships
 
     assert_includes scope, f1
@@ -242,11 +297,19 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
     person = create_user('john').person
 
-    form1 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
-    form2 = CustomFormsPlugin::Form.create!(:name => 'Operation System', :profile => profile)
+    form1 = CustomFormsPlugin::Form.create!(:name => 'Free Software',
+                                            :profile => profile,
+                                            :identifier => 'free')
+    form2 = CustomFormsPlugin::Form.create!(:name => 'Operation System',
+                                            :profile => profile,
+                                            :identifier => 'open')
 
-    task1 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form1.id, :target => person, :requestor => profile)
-    task2 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form2.id, :target => person, :requestor => profile)
+    task1 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form1.id,
+                                                        :target => person,
+                                                        :requestor => profile)
+    task2 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form2.id,
+                                                        :target => person,
+                                                        :requestor => profile)
 
     assert_includes Task.opened, task1
     assert_includes Task.opened, task2
@@ -258,9 +321,13 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'destroy submissions after form is destroyed' do
-    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile), :name => 'Free Software')
-    s1 = CustomFormsPlugin::Submission.create!(:form => form, :profile => fast_create(Profile))
-    s2 = CustomFormsPlugin::Submission.create!(:form => form, :profile => fast_create(Profile))
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
+    s1 = CustomFormsPlugin::Submission.create!(:form => form,
+                                               :profile => fast_create(Profile))
+    s2 = CustomFormsPlugin::Submission.create!(:form => form,
+                                               :profile => fast_create(Profile))
     form.destroy
 
     assert_raise ActiveRecord::RecordNotFound do
@@ -273,7 +340,9 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'destroy forms after profile is destroyed' do
     profile = fast_create(Profile)
-    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     profile.destroy
 
     assert_raise ActiveRecord::RecordNotFound do
@@ -281,4 +350,17 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     end
   end
 
+  should 'have a unique identifier' do
+    profile = fast_create(Profile)
+    CustomFormsPlugin::Form.create!(:profile => profile,
+                                    :name => 'Free Software',
+                                    :identifier => 'free-software')
+
+    form_error = CustomFormsPlugin::Form.new(:profile => profile,
+                                             :name => 'Free Software2',
+                                             :identifier => 'free-software')
+    assert_raise ActiveRecord::RecordInvalid do
+      form_error.save!
+    end
+  end
 end

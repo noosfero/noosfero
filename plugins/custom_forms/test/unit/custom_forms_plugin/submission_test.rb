@@ -11,7 +11,9 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
     submission.valid?
     assert submission.errors.include?(:form)
 
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Simple form',
+                                           :identifier => 'free')
     submission.form = form
     submission.valid?
     refute submission.errors.include?(:form)
@@ -37,7 +39,9 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
   end
 
   should 'have answers' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
     field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
     submission = CustomFormsPlugin::Submission.create!(:form => form, :profile => profile)
     a1 = submission.answers.create!(:field => field, :submission => submission)
@@ -48,7 +52,9 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
   end
 
   should 'store profile name as author' do
-    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Simple form',
+                                           :identifier => 'free')
     submission = CustomFormsPlugin::Submission.create(:form => form, :profile => profile)
 
     assert_equal profile.name, submission.author_name

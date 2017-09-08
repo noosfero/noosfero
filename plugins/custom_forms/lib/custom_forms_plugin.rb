@@ -16,4 +16,10 @@ class CustomFormsPlugin < Noosfero::Plugin
     {title: _('Manage Forms'), icon: 'custom-forms', url: {profile: profile.identifier, controller: 'custom_forms_plugin_myprofile'}}
   end
 
+  def self.load_custom_routes
+    Noosfero::Application.routes.draw do
+      get "/profile/:profile/query/:id",
+        to: 'custom_forms_plugin_profile#show'
+    end
+  end
 end

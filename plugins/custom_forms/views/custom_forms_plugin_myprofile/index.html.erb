@@ -11,7 +11,7 @@
   </tr>
   <% @forms.each do |form| %>
     <tr>
-      <td><%= link_to form.name, {:controller => 'custom_forms_plugin_profile', :action => 'show', :id => form.id} %></td>
+      <td><%= link_to form.name, {:controller => 'custom_forms_plugin_profile', :action => 'show', :id => form.identifier} %></td>
       <td><%= period_range(form) %></td>
       <td><%= form.submissions.count > 0 ? link_to(form.submissions.count, {:action => 'submissions', :id => form.id}) : 0 %></td>
       <td><%= access_text(form) %></td>
