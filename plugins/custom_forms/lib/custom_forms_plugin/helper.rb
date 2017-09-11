@@ -49,6 +49,14 @@ module CustomFormsPlugin::Helper
     ]
   end
 
+  def access_result_options
+    [
+      [c_('Public'), nil         ],
+      [_('Public after query ends'), 'public_after_ends'    ],
+      [ _('Private'), 'private'],
+    ]
+  end
+
   def type_options
     [
       [c_('Text'),   'text_field'  ],

@@ -18,14 +18,9 @@ class CustomFormsPlugin::Form < ApplicationRecord
     :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
 
-  # We are using a belongs_to relation, to avoid change the UploadedFile schema.
-  # With the belongs_to instead of the has_one, we keep the change only on the
-  # CustomFormsPlugin::Form schema.
-  belongs_to :article, :class_name => 'UploadedFile', dependent: :destroy
-
-  attr_accessible :name, :profile, :for_admission, :access, :begining
-  attr_accessible :ending, :description, :fields_attributes, :profile_id
-  attr_accessible :on_membership, :identifier
+  attr_accessible :name, :profile, :for_admission, :access, :begining,
+    :ending, :description, :fields_attributes, :profile_id,
+    :on_membership, :identifier, :access_result_options
 
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
