@@ -5,7 +5,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   def setup
     @controller = CustomFormsPluginMyprofileController.new
 
-    @profile = create_user('profile').person
+    @profile = create_user('ze').person
     login_as(@profile.identifier)
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
@@ -263,5 +263,50 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     get :pending, :profile => profile.identifier, :id => form.id
 
     assert_tag :td, :content => person.name
+  end
+
+  should 'create a form with a uploaded image' do
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    form = CustomFormsPlugin::Form.find_by(name: 'Form with image')
+    assert_not_nil form.image
+  end
+
+  should 'create a galery to store form images' do
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    gallery = Gallery.find_by(:profile => profile, :name => "Query Gallery")
+    assert_not_nil gallery
+  end
+
+  should 'add uploaded file inside query gallery' do
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    gallery = Gallery.find_by(:profile => profile, :name => "Query Gallery")
+    assert_equal gallery.images.first.name, "rails.png"
   end
 end

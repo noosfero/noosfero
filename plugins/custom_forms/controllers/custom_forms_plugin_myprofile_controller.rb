@@ -17,12 +17,14 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
   def create
     params[:form][:profile_id] = profile.id
+    uploaded_data = params[:form].delete(:image)
     @form = CustomFormsPlugin::Form.new(params[:form])
-
     normalize_positions(@form)
 
+    form_with_image  = add_gallery_in_form(@form, profile, uploaded_data)
+
     respond_to do |format|
-      if @form.save
+      if form_with_image
         flash[:notice] = _("Custom form %s was successfully created.") % @form.name
         format.html { redirect_to(:action=>'index') }
       else
@@ -115,5 +117,26 @@ class CustomFormsPluginMyprofileController < MyProfileController
         counter += 1
       end
     end
+  end
+
+  def add_gallery_in_form(form, profile, data)
+    return form.save unless data
+    form_image = UploadedFile.new(
+      :uploaded_data => data,
+      :profile => profile,
+      :parent => nil,
+    )
+
+    form_settings = Noosfero::Plugin::Settings.new(profile, CustomFormsPlugin)
+    form_gallery = Gallery.where(id: form_settings.gallery_id).first
+    unless form_gallery
+      form_gallery = Gallery.new(profile: profile, name: _("Query Gallery"))
+    end
+
+    form_gallery.images << form_image
+    @form.image = form_image
+    form_with_image = @form.save && form_gallery.save
+    @form.errors.messages.merge!(form_gallery.errors.messages)
+    form_with_image
   end
 end

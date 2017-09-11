@@ -18,9 +18,14 @@ class CustomFormsPlugin::Form < ApplicationRecord
     :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
 
-  attr_accessible :name, :profile, :for_admission, :access, :begining,
-    :ending, :description, :fields_attributes, :profile_id,
-    :on_membership, :identifier
+  # We are using a belongs_to relation, to avoid change the UploadedFile schema.
+  # With the belongs_to instead of the has_one, we keep the change only on the
+  # CustomFormsPlugin::Form schema.
+  belongs_to :article, :class_name => 'UploadedFile', dependent: :destroy
+
+  attr_accessible :name, :profile, :for_admission, :access, :begining
+  attr_accessible :ending, :description, :fields_attributes, :profile_id
+  attr_accessible :on_membership, :identifier
 
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
@@ -63,6 +68,14 @@ class CustomFormsPlugin::Form < ApplicationRecord
     return true if access == 'associated' && ((profile.organization? && profile.members.include?(target)) || (profile.person? && profile.friends.include?(target)))
     return true if access.kind_of?(Integer) && target.id == access
     return true if access.kind_of?(Array) && access.include?(target.id)
+  end
+
+  def image
+    self.article
+  end
+
+  def image=(uploaded_file)
+    self.article = uploaded_file
   end
 
   private

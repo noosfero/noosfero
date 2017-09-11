@@ -2,6 +2,7 @@
 
 <%= error_messages_for :form %>
 <%= required labelled_form_field _('Name'), f.text_field(:name) %>
+<%= labelled_form_field _('Image'), f.file_field(:image)%>
 <%= labelled_form_field(_('What is the time limit for this form to be filled?'), (
   date_range_field('form[begining]', 'form[ending]', @form.begining, @form.ending,
                    { :time => true, :change_month => true, :change_year => true,
