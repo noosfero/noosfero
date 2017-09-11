@@ -35,18 +35,9 @@ class CustomFormsPlugin::Form < ApplicationRecord
   scope :from_profile, -> profile { where profile_id: profile.id }
   scope :on_memberships, -> { where on_membership: true, for_admission: false }
   scope :for_admissions, -> { where for_admission: true }
-=begin
-  scope :accessible_to lambda do |profile|
-    #TODO should verify is profile is associated with the form owner
-    profile_associated = ???
-    {:conditions => ["
-      access IS NULL OR
-      (access='logged' AND :profile_present) OR
-      (access='associated' AND :profile_associated) OR
-      :profile_id in access
-    ", {:profile_present => profile.present?, :profile_associated => ???, :profile_id => profile.id}]}
-  end
-=end
+  scope :public_results, -> { where access_result_options: "public" }
+  scope :private_results, -> { where access_result_options: "private" }
+  scope :public_after_ends, -> { where access_result_options: "public_after_ends" }
 
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)
