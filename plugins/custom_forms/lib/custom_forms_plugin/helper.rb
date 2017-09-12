@@ -162,7 +162,7 @@ module CustomFormsPlugin::Helper
       if Time.now < form.begining
         _('%s left to open') % distance_of_time_in_words(Time.now, form.begining)
       else
-        _('Indefinitely open')
+        _('Always open')
       end
     elsif form.ending.present?
       if Time.now < form.ending

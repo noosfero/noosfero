@@ -80,7 +80,11 @@ class CustomFormsPluginProfileController < ProfileController
       [_('To come'), 'to-come']]
 
     @q = params[:q]
+<<<<<<< HEAD
     @order = available_orders.include?(params[:order]) ? params[:order] : 'recent'
+=======
+    @order = available_orders.include?(params[:order]) ? params[:order] : 'newer-creation'
+>>>>>>> custom-forms: view all profile queries
     @kind = available_kinds.include?(params[:kind]) ? params[:kind] : 'all'
     @status = available_status.include?(params[:status]) ? params[:status] : 'all'
 
