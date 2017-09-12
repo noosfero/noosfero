@@ -101,6 +101,20 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal feed.data, @response.body
   end
 
+  should 'produce rss feed for podcasting' do
+    profile = create_user('someone2').person
+    blog = Blog.create!(name:'My blog', profile: profile)
+    file = UploadedFile.create!(
+      :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
+      :profile => profile,
+      :parent => blog)
+    file.save!
+
+    get :view_page, blog.feed.url
+    assert_response :success
+    assert_match /.*<enclosure url="[^"]*rails.png[^"]*".*/, @response.body
+  end
+
   should "display current article's tags" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'test article', :tag_list => 'tag1, tag2')
 
@@ -789,13 +803,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     profile.home_page.destroy
     get :view_page, :profile => profile.identifier, :page => []
     assert_redirected_to :controller => 'profile', :action => 'index', :profile => profile.identifier
-  end
-
-  should "not display 'Upload files' when viewing blog" do
-    login_as(profile.identifier)
-    b = Blog.create!(:name => 'article folder', :profile => profile)
-    xhr :get, :view_page, :profile => profile.identifier, :page => b.path, :toolbar => true
-    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
   should "not display 'Upload files' when viewing post from a blog" do
