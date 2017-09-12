@@ -30,6 +30,12 @@ belongs_to :profile
 
   attr_accessor :remove_image
 
+  SEARCHABLE_FIELDS = {
+    :name => {:label => _('Name'), :weight => 10},
+    :slug => {:label => _('Slug'), :weight => 5},
+    :description => {:label => _('Description'), :weight => 3},
+  }
+
   KINDS = %w(survey poll)
   # Dynamic Translations
   _('Survey')
