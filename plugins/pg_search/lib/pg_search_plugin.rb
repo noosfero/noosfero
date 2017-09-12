@@ -101,8 +101,12 @@ class PgSearchPlugin < Noosfero::Plugin
   alias :communities_facets :profiles_facets
   alias :enterprises_facets :profiles_facets
 
-  def events_facets(scope, selected_facets)
-    []
+  def method_missing(method, *args, &block)
+    if method.to_s =~ /^(.+)_facets$/
+      []
+    else
+      super
+    end
   end
 
   def attribute_facet(klass, scope, selected_facets, params = {})

@@ -30,6 +30,9 @@
 @import 'profile';
 @import 'profile-list';
 
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 // views specifics. TODO: load them locally with `content_for :head`
 @import 'themes';
 @import 'tasks';

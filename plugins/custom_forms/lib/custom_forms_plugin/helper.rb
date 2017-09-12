@@ -1,4 +1,5 @@
 module CustomFormsPlugin::Helper
+  include ActionView::Helpers::DateHelper
 
   protected
 
@@ -136,6 +137,32 @@ module CustomFormsPlugin::Helper
 
   def check_box?(field)
     type_for_options(field.class) == 'select_field' && field.show_as == 'check_box'
+  end
+
+  def time_status(form)
+    if form.begining.present? && form.ending.present?
+      if Time.now < form.begining
+        _('%s left to open') % distance_of_time_in_words(Time.now, form.begining)
+      elsif Time.now < form.ending
+        _('%s left to close') % distance_of_time_in_words(Time.now, form.ending)
+      else
+        _('Closed')
+      end
+    elsif form.begining.present?
+      if Time.now < form.begining
+        _('%s left to open') % distance_of_time_in_words(Time.now, form.begining)
+      else
+        _('Always open')
+      end
+    elsif form.ending.present?
+      if Time.now < form.ending
+        _('%s left to close') % distance_of_time_in_words(Time.now, form.ending)
+      else
+        _('Closed')
+      end
+    else
+      _("Always open")
+    end
   end
 
 end

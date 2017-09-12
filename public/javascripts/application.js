@@ -14,6 +14,7 @@
 *= require vendor/jquery.cookie.js
 *= require vendor/jquery.ba-bbq.min.js
 *= require vendor/jquery.tokeninput.js
+*= require vendor/jquery.typewatch.js
 *= require vendor/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js
 *= require vendor/inputosaurus.js
 *= require vendor/reflection.js
