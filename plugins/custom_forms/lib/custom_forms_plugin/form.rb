@@ -18,6 +18,11 @@ class CustomFormsPlugin::Form < ApplicationRecord
     :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
 
+  # We are using a belongs_to relation, to avoid change the UploadedFile schema.
+  # With the belongs_to instead of the has_one, we keep the change only on the
+  # CustomFormsPlugin::Form schema.
+  belongs_to :article, :class_name => 'UploadedFile', dependent: :destroy
+
   attr_accessible :name, :profile, :for_admission, :access, :begining,
     :ending, :description, :fields_attributes, :profile_id,
     :on_membership, :identifier, :access_result_options
@@ -35,9 +40,9 @@ class CustomFormsPlugin::Form < ApplicationRecord
   scope :from_profile, -> profile { where profile_id: profile.id }
   scope :on_memberships, -> { where on_membership: true, for_admission: false }
   scope :for_admissions, -> { where for_admission: true }
-  scope :public_results, -> { where access_result_options: "public" }
-  scope :private_results, -> { where access_result_options: "private" }
-  scope :public_after_ends, -> { where access_result_options: "public_after_ends" }
+  scope :with_public_results, -> { where access_result_options: "public" }
+  scope :with_private_results, -> { where access_result_options: "private" }
+  scope :with_public_results_after_ends, -> { where access_result_options: "public_after_ends" }
 
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)

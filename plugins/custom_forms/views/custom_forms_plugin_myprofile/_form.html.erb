@@ -14,7 +14,7 @@
 <%= labelled_form_field _('Identifier'), f.text_field(:identifier)%>
 <%= labelled_form_field _('Access'), f.select(:access, access_options(profile))%>
 
-<%= labelled_form_field _('Result Access'), f.select(:access_result_options, 
+<%= labelled_form_field _('Result Access'), f.select(:access_result_options,
                                                      access_result_options)%>
 <% if profile.organization? %>
   <p>
