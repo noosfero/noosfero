@@ -21,6 +21,7 @@ available_plugins=$(find -L "$available_plugins_dir" -maxdepth 1 -mindepth 1 -ty
 enabled_plugins=$(find -L "$enabled_plugins_dir" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
 base_plugins=$(find -L "$base_plugins_dir" -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
 debian_install="$NOOSFERO_DIR/script/debian-install"
+init_scripts=$(find -L "$enabled_plugins_dir" -type f -wholename '*/script/init/*' )
 
 # operation defaults
 quiet=false
@@ -56,6 +57,7 @@ _usage() {
   echo "  $program_name [OPTIONS] enableall"
   echo "  $program_name [OPTIONS] disableall"
   echo "  $program_name [OPTIONS] new PLUGIN [PLUGIN ...]"
+  echo "  $program_name [OPTIONS] services [status|start|stop|run]"
   echo
   echo "Options:"
   echo "  --quiet|-q"
@@ -218,6 +220,22 @@ _disableall() {
   done
 }
 
+_services() {
+  command=$1
+  case "$command" in
+    status|start|stop|run)
+      for script in $init_scripts; do
+        $script $command
+      done
+      ;;
+    *)
+      echo "Unknown command: $command"
+      _usage
+      exit 1
+      ;;
+  esac
+}
+
 if [ $# -eq 0 ]; then
   _usage
   exit 0
@@ -251,7 +269,7 @@ shift
 
 
 case "$command" in
-  enableall|disableall|enable|disable|new)
+  enableall|disableall|enable|disable|new|services)
     if [ ! -w "$enabled_plugins_dir" ]; then
       echo "E: sorry, you don't have the required permissions to manage plugins"
       exit 2
@@ -271,6 +289,9 @@ case "$command" in
     for plugin in $@; do
       _$command "$plugin"
     done
+    ;;
+  services)
+    _services $@
     ;;
   *)
     echo "Unknown command: $command"
