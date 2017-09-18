@@ -23,9 +23,9 @@ class CustomFormsPlugin::Form < ApplicationRecord
   # CustomFormsPlugin::Form schema.
   belongs_to :article, :class_name => 'UploadedFile', dependent: :destroy
 
-  attr_accessible :name, :profile, :for_admission, :access, :begining,
-    :ending, :description, :fields_attributes, :profile_id,
-    :on_membership, :identifier, :access_result_options, :kind
+  attr_accessible :name, :profile, :for_admission, :access, :begining, :kind,
+                  :ending, :description, :fields_attributes, :profile_id,
+                  :on_membership, :identifier, :access_result_options, :image
 
   KINDS = %w(survey poll)
   # Dynamic Translations
@@ -42,6 +42,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
+    form.identifier = form.slug unless form.identifier.present?
     form.access = nil if form.access.blank?
   end
 

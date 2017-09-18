@@ -28,8 +28,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
     @form = CustomFormsPlugin::Form.new(params[:form])
     normalize_positions(@form)
 
-    form_with_image  = add_gallery_in_form(@form, profile, uploaded_data)
-
+    form_with_image = add_gallery_in_form(@form, profile, uploaded_data)
     respond_to do |format|
       if form_with_image
         session[:notice] = _("%s was successfully created") % @form.name
@@ -47,13 +46,14 @@ class CustomFormsPluginMyprofileController < MyProfileController
   end
 
   def update
+    uploaded_data = params[:form].delete(:image)
     @form = CustomFormsPlugin::Form.find(params[:id])
     @form.attributes = params[:form]
-
     normalize_positions(@form)
 
+    form_with_image = add_gallery_in_form(@form, profile, uploaded_data)
     respond_to do |format|
-      if @form.save!
+      if form_with_image
         session[:notice] = _("%s was successfully updated") % @form.name
         format.html { redirect_to(:action=>'index') }
       else
@@ -140,7 +140,9 @@ class CustomFormsPluginMyprofileController < MyProfileController
     form_settings = Noosfero::Plugin::Settings.new(profile, CustomFormsPlugin)
     form_gallery = Gallery.where(id: form_settings.gallery_id).first
     unless form_gallery
-      form_gallery = Gallery.new(profile: profile, name: _("Query Gallery"))
+      form_gallery = Gallery.create(profile: profile, name: _("Query Gallery"))
+      form_settings.gallery_id = form_gallery.id
+      form_settings.save!
     end
 
     form_gallery.images << form_image

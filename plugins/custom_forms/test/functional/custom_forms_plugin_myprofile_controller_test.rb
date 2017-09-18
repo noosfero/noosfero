@@ -335,6 +335,20 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_not_nil form.image
   end
 
+  should 'update a form with an uploaded image' do
+    form = CustomFormsPlugin::Form.create!(profile: profile,
+                                           name: 'Free?')
+    post :update, profile: profile.identifier, id: form.id,
+      form: {
+        name: 'Free as in freedon?',
+        description: 'Cool form',
+        image: fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    form.reload
+    assert form.image.present?
+  end
+
   should 'create a galery to store form images' do
 
     post :create, :profile => profile.identifier,
