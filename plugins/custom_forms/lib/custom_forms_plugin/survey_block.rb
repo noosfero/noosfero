@@ -2,6 +2,8 @@ class CustomFormsPlugin::SurveyBlock < Block
 
   attr_accessible :metadata
 
+  validate :valid_status
+
   def default_title
     _('Surveys')
   end
@@ -23,10 +25,6 @@ class CustomFormsPlugin::SurveyBlock < Block
   end
 
   include CustomFormsPlugin::ListBlock
-
-  def provide_partial_results?
-    self.metadata['provide_partial_results'] == '1' ? true : false
-  end
 
 end
 

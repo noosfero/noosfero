@@ -17,6 +17,7 @@ belongs_to :profile
   validate :period_range,
     :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
+  validate :valid_poll_alternatives
 
   # We are using a belongs_to relation, to avoid change the UploadedFile schema.
   # With the belongs_to instead of the has_one, we keep the change only on the
@@ -63,10 +64,17 @@ belongs_to :profile
   scope :from_profile, -> profile { where profile_id: profile.id }
   scope :on_memberships, -> { where on_membership: true, for_admission: false }
   scope :for_admissions, -> { where for_admission: true }
+  scope :by_kind, -> kind { where kind: kind.to_s }
+
+  scope :closed, -> { where('ending <= ?', DateTime.now) }
+  scope :not_open_yet, -> { where('begining > ?', DateTime.now) }
+  scope :not_closed, -> { where('(begining < ? OR begining IS NULL) AND '\
+                          '(ending > ? OR ending IS NULL)',
+                          DateTime.now, DateTime.now) }
+
   scope :with_public_results, -> { where access_result_options: "public" }
   scope :with_private_results, -> { where access_result_options: "private" }
   scope :with_public_results_after_ends, -> { where access_result_options: "public_after_ends" }
-  scope :by_kind, -> kind { where kind: kind.to_s }
   scope :by_status, -> status {
     case status
     when 'opened'
@@ -125,15 +133,37 @@ belongs_to :profile
   end
 
   def status
-    if begining.future?
+    if begining.try(:future?)
       'Not open yet'
-    elsif ending.future? && (ending < 3.days.from_now)
+    elsif ending.try(:future?) && (ending < 3.days.from_now)
       'Closing soon'
-    elsif ending.future?
+    elsif ending.nil? || ending.try(:future?)
       'Open'
     else
       'Closed'
     end
+  end
+
+  def submission_by(person)
+    if person.present?
+      subm = submissions.find_by(form_id: self.id, profile_id: person.id)
+    end
+    subm || CustomFormsPlugin::Submission.new(form: self, profile: person)
+  end
+
+  def results
+    CustomFormsPlugin::Graph.new(self).query_results
+  end
+
+  alias_attribute :result_acess, :access_result_options
+
+  def show_results_for(person)
+    result_acess.blank? ||
+    (result_acess == 'public') ||
+    ((result_acess == 'public_after_ends') && ending.present? &&
+                                              (ending < DateTime.now)) ||
+    ((result_acess == 'private') && (person.in?(profile.admins) ||
+                                     person.in?(profile.environment.admins)))
   end
 
   private
@@ -163,5 +193,13 @@ belongs_to :profile
 
   def period_range
     errors.add(:base, _('The time range selected is invalid.')) if ending < begining
+  end
+
+  def valid_poll_alternatives
+    if kind == "poll" && fields.first.alternatives.size < 2
+      errors.add(:poll_alternatives, _('can\'t be less than 2'))
+      false
+    end
+    true
   end
 end

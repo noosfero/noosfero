@@ -6,8 +6,8 @@
       <div class='form-item-info'>
         <div class='form-item-header'>
           <span class='form-name'><%= form.name %></span>
-          <span class='form-status <%= form.status.to_s.to_slug %>'>
-            <%= time_status(form) %>
+          <span class='form-status <%= form.status.to_slug %>'>
+            <%= _(form.status) %>
           </span>
         </div>
         <div class='form-submissions'>

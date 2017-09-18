@@ -2,6 +2,8 @@ class CustomFormsPlugin::PollsBlock < Block
 
   attr_accessible :metadata
 
+  validate :valid_status
+
   def default_title
     _('Polls')
   end

@@ -11,7 +11,18 @@ module CustomFormsPlugin::Helper
   end
 
   def access_text(form)
-    AccessLevels.label(form.access, form.profile)
+    if form.access.nil?
+      return content_tag('span', c_('Public'), title: _('Everyone can answer'))
+    elsif form.access == 'logged'
+      return content_tag('span', c_('Logged users'), title: _('Only logged user can answer'))
+    elsif form.access == 'associated'
+      if form.profile.organization?
+        return content_tag('span', c_('Members'), title: _('Only members can answer'))
+      elsif form.profile.person?
+        return content_tag('span', c_('Friends'), title: _('Only friends can answer'))
+      end
+    end
+    return content_tag('span', _('Custom'), title: _('Custom access definitions'))
   end
 
   def period_range(form)
@@ -23,17 +34,6 @@ module CustomFormsPlugin::Helper
       _('Until %s') % time_format(form.ending)
     elsif form.begining.present? && form.ending.present?
       _('From %s until %s') % [time_format(form.begining), time_format(form.ending)]
-    end
-  end
-
-  def next_period(form)
-    return '' unless form.begining.present? || form.ending.present?
-    if form.begining.try(:future?)
-      _('Begins %s') % time_format(form.begining)
-    elsif form.ending.try(:future?)
-      _('Until %s') % time_format(form.ending)
-    else
-      _('Closed %s') % time_format(form.ending)
     end
   end
 
@@ -57,9 +57,9 @@ module CustomFormsPlugin::Helper
 
   def access_result_options
     [
-      [_('Always'), 'public'],
-      [_('Only after the query ends'), 'public_after_ends'],
-      [_('Never'), 'private'],
+      [c_('Public'), 'public'],
+      [_('Public after query ends'), 'public_after_ends'],
+      [_('Private'), 'private'],
     ]
   end
 
@@ -139,12 +139,14 @@ module CustomFormsPlugin::Helper
     type_for_options(field.class) == 'select_field' && field.show_as == 'check_box'
   end
 
-  def form_image_header(form)
-    content_tag('div', '', class: 'form-image-header', style: "background-image: url(#{form.image_url})")
+  def default_img_for(kind)
+    "/plugins/custom_forms/images/default-#{kind.underscore}.png"
   end
 
   def form_image_tag(form)
-    image_tag(form.image_url)
+    image_url = form.image.present? ? form.image.full_path
+                                    : default_img_for(form.kind)
+    image_tag(image_url)
   end
 
   def time_status(form)
@@ -160,7 +162,7 @@ module CustomFormsPlugin::Helper
       if Time.now < form.begining
         _('%s left to open') % distance_of_time_in_words(Time.now, form.begining)
       else
-        _('Always open')
+        _('Indefinitely open')
       end
     elsif form.ending.present?
       if Time.now < form.ending
