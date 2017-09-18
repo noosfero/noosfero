@@ -49,8 +49,8 @@
           <input class='poll-option-icon' type='radio' disabled='disabled' />
         </td>
         <td class="poll-option">
-          <%= text_field_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.count}][label]", '', placeholder: _('Add option'), class: 'poll-option-input', 'data-default-placeholder' => _('Option')) %>
-          <%= hidden_field_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.count}][position]", field.alternatives.count, class: 'poll-option-position') %>
+          <%= text_field_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.size}][label]", '', placeholder: _('Add option'), class: 'poll-option-input', 'data-default-placeholder' => _('Option')) %>
+          <%= hidden_field_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.size}][position]", field.alternatives.size, class: 'poll-option-position') %>
         </td>
         <td class="poll-remove">
           <%= button_without_text :remove, _('Remove field'), '#', class: 'remove-poll-option' %>

@@ -1,12 +1,11 @@
 <%= link_to({ controller: 'custom_forms_plugin_profile', action: 'show',
-              id: form.id }, { class: 'form-item' }) do %>
+              id: form.identifier }, { class: 'form-item survey' }) do %>
 
   <div class='form-item-img'>
     <% if form.begining.present? || form.ending.present? %>
-      <span class='period-overlay'><%= next_period(form) %></span>
+      <span class='period-overlay'><%= time_status(form) %></span>
     <% end %>
     <%= form_image_tag(form) %>
-    </span>
   </div>
 
   <div class='form-item-info'>

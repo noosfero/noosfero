@@ -2,28 +2,33 @@ module CustomFormsPlugin::ListBlock
   extend ActiveSupport::Concern
 
   included do
-
     def self.status_options
-      #TODO Add validations
       {
         'all' => _('All'),
-        'open' => _('Open'),
+        'not_closed' => _('Open'),
         'closed' => _('Closed'),
-        'not_yet_open' => _('Not yet open')
+        'not_open_yet' => _('Not yet open')
       }
     end
   end
 
   def limit
-    self.metadata['limit'] ? self.metadata['limit'] : 1
+    self.metadata['limit'] ? self.metadata['limit'] : 3
   end
 
   def status
-    self.metadata['status'] ? self.metadata['status'] : 'all' 
+    self.metadata['status'] ? self.metadata['status'] : 'all'
   end
 
   def list_forms
-    CustomFormsPlugin::Form.send(status).by_kind(self.type).last(limit)
+    owner.forms.send(status)
+               .by_kind(self.type)
+               .order(:ending)
+               .first(limit)
+  end
+
+  def valid_status
+    errors.add(:metadata, _('Invalid status')) unless CustomFormsPlugin::SurveyBlock.status_options.key?(status)
   end
 
 end

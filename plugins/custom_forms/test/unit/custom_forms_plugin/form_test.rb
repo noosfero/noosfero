@@ -88,7 +88,14 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
   end
 
   should 'validate kinds' do
-    poll = CustomFormsPlugin::Form.new(kind: 'poll')
+    alternative_a = CustomFormsPlugin::Alternative.new(:label => 'A')
+    alternative_b = CustomFormsPlugin::Alternative.new(:label => 'B')
+    field = CustomFormsPlugin::SelectField.new(:name => 'Question 1')
+    field.alternatives= [alternative_a, alternative_b]
+    poll = CustomFormsPlugin::Form.new(:name => 'Open Source', :profile => profile, :kind => 'poll')
+    poll.fields= [field]
+    poll.save!
+
     survey = CustomFormsPlugin::Form.new(kind: 'survey')
     other = CustomFormsPlugin::Form.new(kind: 'other')
 
@@ -279,7 +286,14 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'have a scope that retrieve forms from a kind' do
     survey = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile, :kind => 'survey')
-    poll = CustomFormsPlugin::Form.create!(:name => 'Open Source', :profile => profile, :kind => 'poll')
+
+    alternative_a = CustomFormsPlugin::Alternative.new(:label => 'A')
+    alternative_b = CustomFormsPlugin::Alternative.new(:label => 'B')
+    field = CustomFormsPlugin::SelectField.new(:name => 'Question 1')
+    field.alternatives= [alternative_a, alternative_b]
+    poll = CustomFormsPlugin::Form.new(:name => 'Open Source', :profile => profile, :kind => 'poll')
+    poll.fields= [field]
+    poll.save!
 
     assert_includes CustomFormsPlugin::Form.by_kind(:survey), survey
     assert_not_includes CustomFormsPlugin::Form.by_kind(:survey), poll
@@ -434,17 +448,19 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_equal CustomFormsPlugin::Form.with_public_results().count, 2
     assert_equal CustomFormsPlugin::Form.with_private_results().count, 1
     assert_equal CustomFormsPlugin::Form.with_public_results_after_ends().count, 1
-    end
   end
 
   should 'return open forms, excluding the ones with current date' do
     old_date = 5.days.ago
-    form1 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', ending: 1.days.from_now)
+    form1 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', ending: old_date + 5.days)
     form2 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'OSS', ending: 10.days.ago)
     form3 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'FSF', ending: old_date)
+    form4 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'GNU')
+    form5 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Copyleft', begining: 10.days.ago)
+    form6 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Copyright', begining: old_date)
 
     DateTime.stubs(:now).returns(old_date)
-    assert_equivalent [form1], CustomFormsPlugin::Form.open
+    assert_equivalent [form1, form4, form5], CustomFormsPlugin::Form.not_closed
   end
 
   should 'return closed forms, including the ondes with current date' do
@@ -453,6 +469,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     form2 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'OSS', ending: 10.days.ago)
     form3 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'FSF', ending: old_date)
 
+    DateTime.stubs(:now).returns(old_date)
     assert_equivalent [form2, form3], CustomFormsPlugin::Form.closed
   end
 
@@ -462,7 +479,66 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     form2 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'OSS', ending: date + 10.hours)
 
     DateTime.stubs(:now).returns(date + 5.hours)
-    assert_equivalent [form2], CustomFormsPlugin::Form.open
+    assert_equivalent [form2], CustomFormsPlugin::Form.not_closed
+  end
+
+  should 'show results if results are public' do
+    form = CustomFormsPlugin::Form.new(profile: profile, name: 'Form 1')
+
+    form.access_result_options = nil
+    assert form.show_results_for(nil)
+
+    form.access_result_options = 'public'
+    assert form.show_results_for(nil)
+  end
+
+  should 'only show results if it is public and form is closed' do
+    form = CustomFormsPlugin::Form.new(profile: profile, name: 'Form 1')
+    form.access_result_options = 'public_after_ends'
+
+    form.ending = nil
+    refute form.show_results_for(nil)
+
+    form.ending = 3.days.from_now
+    refute form.show_results_for(nil)
+
+    form.ending = 3.days.ago
+    assert form.show_results_for(nil)
+  end
+
+  should 'only show private results if user is an admin' do
+    person1 = create_user('ze').person
+    person2 = create_user('admin').person
+    form = CustomFormsPlugin::Form.new(profile: profile, name: 'Form 1')
+    form.access_result_options = 'private'
+
+    refute form.show_results_for(person1)
+    refute form.show_results_for(person2)
+
+    Environment.default.add_admin(person1)
+    profile.add_admin(person2)
+    assert form.show_results_for(person1)
+    assert form.show_results_for(person2)
+  end
+
+  should 'create poll if number of alternatives is greater than 2' do
+
+    poll = CustomFormsPlugin::Form.new(:name => 'Open Source', :profile => profile, :kind => 'poll')
+    field = CustomFormsPlugin::SelectField.new(:name => 'Question 1')
+    poll.fields << field
+    poll.save
+    assert poll.errors.include?(:poll_alternatives)
+
+    alternative_a = CustomFormsPlugin::Alternative.new(:label => 'A')
+    field.alternatives << alternative_a
+    poll.save
+    assert poll.errors.include?(:poll_alternatives)
+
+    alternative_b = CustomFormsPlugin::Alternative.new(:label => 'B')
+    field.alternatives << alternative_b
+    poll.save
+    refute poll.errors.include?(:poll_alternatives)
+
   end
 
 end

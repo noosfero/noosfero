@@ -12,29 +12,13 @@
     <% end %>
   <% end %>
 
-  <%= error_messages_for :submission %>
+  <%= render partial: 'shared/form',
+             locals: { form: @form, submission: @submission } %>
 
-  <%= form_for :submission do |f| %>
-    <% if !user %>
-      <%= required labelled_form_field _('Name'), text_field_tag(:author_name, @submission.author_name) %>
-      <%= required labelled_form_field _('Email'), text_field_tag(:author_email, @submission.author_email) %>
-    <% end %>
-
-    <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
-
-    <%= button_bar do %>
-      <% if @form.expired? %>
-        <%= submit_button :save, c_('Save'), :disabled => '', :class => 'disabled', :cancel => {:controller => :profile, :profile => profile.identifier} %>
-      <% else %>
-        <%= submit_button :save, c_('Save'), :cancel => {:controller => :profile, :profile => profile.identifier} %>
-      <% end %>
-      <div class="notify"><%= _("Your e-mail will be visible to this form's owners.") %></div>
-    <% end %>
-
-  <% end %>
 <% else %>
   <%= fields_for :submission, @submission do |f| %>
-    <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
+    <%= render partial: 'shared/form_submission',
+             locals: { f: f, form: @form, submission: @submission } %>
   <% end %>
 <% end %>
 

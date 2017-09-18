@@ -1,0 +1,18 @@
+<% submission = form.submission_by(current_person) %>
+
+<% if submission.try(:id).present? %>
+  <%= fields_for :block_submission, submission do |f| %>
+    <%= render partial: 'shared/form_submission',
+               locals: { f: f, form: form, submission: submission } %>
+  <% end %>
+<% else %>
+  <%= render partial: 'shared/form',
+             locals: { form: form, submission: submission } %>
+<% end %>
+
+<% if form.show_results_for(current_person) %>
+  <%= link_to _('See parcial results'),
+              { controller: 'custom_forms_plugin_profile', action: 'review',
+                id: form.identifier },
+              class: 'partial-results-link' %>
+<% end %>

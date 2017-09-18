@@ -37,17 +37,6 @@ module CustomFormsPlugin::Helper
     end
   end
 
-  def next_period(form)
-    return '' unless form.begining.present? || form.ending.present?
-    if form.begining.try(:future?)
-      _('Begins %s') % time_format(form.begining)
-    elsif form.ending.try(:future?)
-      _('Until %s') % time_format(form.ending)
-    else
-      _('Closed %s') % time_format(form.ending)
-    end
-  end
-
   def time_format(time)
     minutes = (time.min == 0) ? '' : ':%M'
     hour = (time.hour == 0 && minutes.blank?) ? '' : ' %H'
@@ -68,9 +57,9 @@ module CustomFormsPlugin::Helper
 
   def access_result_options
     [
-      [c_('Public'), nil         ],
-      [_('Public after query ends'), 'public_after_ends'    ],
-      [ _('Private'), 'private'],
+      [c_('Public'), 'public'],
+      [_('Public after query ends'), 'public_after_ends'],
+      [_('Private'), 'private'],
     ]
   end
 
@@ -150,6 +139,16 @@ module CustomFormsPlugin::Helper
     type_for_options(field.class) == 'select_field' && field.show_as == 'check_box'
   end
 
+  def default_img_for(kind)
+    "/plugins/custom_forms/images/default-#{kind.underscore}.png"
+  end
+
+  def form_image_tag(form)
+    image_url = form.image.present? ? form.image.full_path
+                                    : default_img_for(form.kind)
+    image_tag(image_url)
+  end
+
   def time_status(form)
     if form.begining.present? && form.ending.present?
       if Time.now < form.begining
@@ -163,7 +162,7 @@ module CustomFormsPlugin::Helper
       if Time.now < form.begining
         _('%s left to open') % distance_of_time_in_words(Time.now, form.begining)
       else
-        _('Always open')
+        _('Indefinitely open')
       end
     elsif form.ending.present?
       if Time.now < form.ending
