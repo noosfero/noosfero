@@ -13,6 +13,9 @@
 
 <%= labelled_form_field _('Identifier'), f.text_field(:identifier)%>
 <%= labelled_form_field _('Access'), f.select(:access, access_options(profile))%>
+
+<%= labelled_form_field _('Result Access'), f.select(:access_result_options,
+                                                     access_result_options)%>
 <% if profile.organization? %>
   <p>
   <%= labelled_check_box _('Triggered on membership request as requirement for approval'), 'form[for_admission]', '1', @form.for_admission %>

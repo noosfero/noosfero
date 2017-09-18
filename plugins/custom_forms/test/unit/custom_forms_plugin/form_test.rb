@@ -366,7 +366,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
 
   should 'add a UploadedFile to a form' do
     profile = fast_create(Profile)
-    form = CustomFormsPlugin::Form.new(:profile => profile, 
+    form = CustomFormsPlugin::Form.new(:profile => profile,
                                        :name => 'Free Software',
                                        :identifier => 'free')
     form.build_article(:name => 'my_image')
@@ -375,4 +375,37 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_not_nil form.image
     assert_instance_of UploadedFile, form.image
   end
-end
+
+  should 'get forms by scope' do
+    profile = fast_create(Profile)
+    forms = [{
+              :profile => profile, :name => 'Free Software',
+              :identifier => 'free-software',
+              :access_result_options => 'public'
+             },
+             {
+              :profile => profile, :name => 'Free Software 2',
+              :identifier => 'free-software-2',
+              :access_result_options => 'public'
+             },
+             {
+              :profile => profile, :name => 'Free Software 3',
+              :identifier => 'free-software-3',
+              :access_result_options => 'private'
+             },
+             {
+              :profile => profile, :name => 'Free Software 4',
+              :identifier => 'free-software-4',
+              :access_result_options => 'public_after_ends'
+             }
+    ]
+
+    forms.each do |form|
+      CustomFormsPlugin::Form.create!(form)
+    end
+
+    assert_equal CustomFormsPlugin::Form.with_public_results().count, 2
+    assert_equal CustomFormsPlugin::Form.with_private_results().count, 1
+    assert_equal CustomFormsPlugin::Form.with_public_results_after_ends().count, 1
+    end
+  end

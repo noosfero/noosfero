@@ -23,9 +23,9 @@ class CustomFormsPlugin::Form < ApplicationRecord
   # CustomFormsPlugin::Form schema.
   belongs_to :article, :class_name => 'UploadedFile', dependent: :destroy
 
-  attr_accessible :name, :profile, :for_admission, :access, :begining
-  attr_accessible :ending, :description, :fields_attributes, :profile_id
-  attr_accessible :on_membership, :identifier
+  attr_accessible :name, :profile, :for_admission, :access, :begining,
+    :ending, :description, :fields_attributes, :profile_id,
+    :on_membership, :identifier, :access_result_options
 
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
@@ -40,18 +40,9 @@ class CustomFormsPlugin::Form < ApplicationRecord
   scope :from_profile, -> profile { where profile_id: profile.id }
   scope :on_memberships, -> { where on_membership: true, for_admission: false }
   scope :for_admissions, -> { where for_admission: true }
-=begin
-  scope :accessible_to lambda do |profile|
-    #TODO should verify is profile is associated with the form owner
-    profile_associated = ???
-    {:conditions => ["
-      access IS NULL OR
-      (access='logged' AND :profile_present) OR
-      (access='associated' AND :profile_associated) OR
-      :profile_id in access
-    ", {:profile_present => profile.present?, :profile_associated => ???, :profile_id => profile.id}]}
-  end
-=end
+  scope :with_public_results, -> { where access_result_options: "public" }
+  scope :with_private_results, -> { where access_result_options: "private" }
+  scope :with_public_results_after_ends, -> { where access_result_options: "public_after_ends" }
 
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)
