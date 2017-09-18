@@ -1,0 +1,32 @@
+<div id="poll-<%= form.identifier %>" class='form-item poll'>
+  <%= link_to({ controller: 'custom_forms_plugin_profile', action: 'show',
+                id: form.identifier }) do %>
+    <div class='form-item-img'>
+      <%= form_image_tag(form) %>
+      <div class='form-item-info'>
+        <div class='form-item-header'>
+          <span class='form-name'><%= form.name %></span>
+          <span class='form-status <%= form.status.to_slug %>'>
+            <%= _(form.status) %>
+          </span>
+        </div>
+        <div class='form-submissions'>
+          <%= n_("%s submission", "%s submissions", form.submissions.count) %
+              form.submissions.count %>
+        </div>
+        <div class='form-period'>
+          <%= time_status(form) %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class='poll-content'>
+    <% if form.expired? %>
+      <%= render partial: 'blocks/poll_results', locals: { form: form } %>
+    <% else %>
+      <%= render partial: 'blocks/poll_submission', locals: { form: form } %>
+    <% end %>
+  </div>
+</div>
+

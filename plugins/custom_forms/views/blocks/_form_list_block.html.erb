@@ -1,0 +1,16 @@
+<% self.extend CustomFormsPlugin::Helper %>
+
+<%= block_title(block.title, block.subtitle) %>
+
+<%= link_to _('View all'), { controller: 'custom_forms_plugin_profile',
+                             action: 'queries' },
+            class: 'view-all' %>
+
+<div class='form-list'>
+  <% block.list_forms.each do |form| %>
+    <% if form.accessible_to(current_person) %>
+      <%= render partial: "blocks/#{block.type}_item",
+                 locals: { form: form, block: block } %>
+    <% end %>
+  <% end %>
+</div>

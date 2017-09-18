@@ -1,9 +1,9 @@
 class CustomFormsPluginProfileController < ProfileController
   before_filter :has_access, :only => [:show]
 
-  def show
-    extend(CustomFormsPlugin::Helper)
+  include CustomFormsPlugin::Helper
 
+  def show
     @form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
     if user
       @submission = CustomFormsPlugin::Submission.find_by form_id: @form.id, profile_id: user.id

@@ -1,0 +1,24 @@
+<%= error_messages_for :submission %>
+
+<%= form_for :submission, url: { controller: :custom_forms_plugin_profile,
+                                 action: :show, id: form.identifier }, :html => { :class => 'query-form' } do |f| %>
+  <% if !user %>
+    <%= required labelled_form_field _('Name'), text_field_tag(:author_name, submission.author_name) %>
+    <%= required labelled_form_field _('Email'), text_field_tag(:author_email, submission.author_email) %>
+  <% end %>
+
+  <%= render :partial => 'shared/form_submission',
+             :locals => { form: form, submission: submission, f: f } %>
+
+  <%= button_bar do %>
+    <% if form.expired? %>
+      <%= submit_button :save, c_('Send'), disabled: '', class: 'disabled',
+                        cancel: { controller: :profile, profile:  profile.identifier } %>
+    <% else %>
+      <%= submit_button :save, c_('Send'),
+                        cancel: { controller: :profile, profile: profile.identifier } %>
+    <% end %>
+    <div class="notify"><%= _("Your e-mail will be visible to this form's owners.") %></div>
+  <% end %>
+
+<% end %>

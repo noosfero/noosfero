@@ -5,7 +5,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   def setup
     @controller = CustomFormsPluginMyprofileController.new
 
-    @profile = create_user('ze').person
+    @profile = create_user('testuser').person
     login_as(@profile.identifier)
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
@@ -15,26 +15,24 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
   should 'list forms associated with profile' do
     another_profile = fast_create(Profile)
-    f1 = CustomFormsPlugin::Form.create!(:profile => profile,
-                                         :name => 'Free Software',
-                                         :kind => 'survey',
-                                         :identifier => 'free')
-    f2 = CustomFormsPlugin::Form.create!(:profile => profile,
-                                         :kind => 'survey',
-                                         :name => 'Open Source',
-                                         :identifier => 'open')
-    f3 = CustomFormsPlugin::Form.create!(:profile => another_profile,
-                                         :name => 'Open Source',
-                                         :kind => 'survey',
-                                         :identifier => 'open')
-    p1 = CustomFormsPlugin::Form.create!(:profile => profile,
-                                         :name => 'Copyleft',
-                                         :kind => 'poll',
-                                         :identifier => 'copy')
-    p2 = CustomFormsPlugin::Form.create!(:profile => another_profile,
-                                         :name => 'Copyleft',
-                                         :kind => 'poll',
-                                         :identifier => 'copy')
+    f1 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :kind => 'survey')
+    f2 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Open Source', :kind => 'survey')
+    f3 = CustomFormsPlugin::Form.create!(:profile => another_profile, :name => 'Open Source', :kind => 'survey')
+
+    alternative_a = CustomFormsPlugin::Alternative.new(:label => 'A')
+    alternative_b = CustomFormsPlugin::Alternative.new(:label => 'B')
+
+    p1 = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Copyleft', :kind => 'poll')
+    field_1 = CustomFormsPlugin::SelectField.new(:name => 'Question 1')
+    field_1.alternatives= [alternative_a, alternative_b]
+    p1.fields= [field_1]
+    p1.save!
+
+    p2 = CustomFormsPlugin::Form.new(:profile => another_profile, :name => 'Copyleft', :kind => 'poll')
+    field_2 = CustomFormsPlugin::SelectField.new(:name => 'Question 2')
+    field_2.alternatives= [alternative_a, alternative_b]
+    p2.fields = [field_2]
+    p2.save!
 
     get :index, :profile => profile.identifier
 
@@ -383,7 +381,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   end
 
   should 'add uploaded file inside query gallery' do
-
     post :create, :profile => profile.identifier,
       :form => {
         :name => 'Form with image',
