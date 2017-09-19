@@ -36,11 +36,36 @@ class CustomFormsPluginProfileController < ProfileController
     end
   end
 
+  def review
+    @form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
+    @fields = @form.fields
+    @sort_by = params[:sort_by] == 'author_name' ? 'author_name' : 'created_at'
+
+    @query_results = CustomFormsPlugin::Graph.new(@form).query_results
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        # CSV contains form fields, timestamp, user name and user email
+        columns = @form.fields.count + 3
+        csv_content = CSV.generate_line(['Timestamp', 'Name', 'Email'] + @form.fields.map(&:name))
+        @submissions.each do |s|
+          fields = [s.updated_at.strftime('%Y/%m/%d %T %Z'), s.profile.present? ? s.profile.name : s.author_name, s.profile.present? ? s.profile.email : s.author_email]
+          @form.fields.each do |f|
+            fields << s.answers.select{|a| a.field == f}.map{|answer| answer.to_s}
+          end
+          fields = fields.flatten
+          csv_content << CSV.generate_line(fields + (columns - fields.size).times.map{""})
+        end
+        send_data csv_content, :type => 'text/csv', :filename => "#{@form.name}.csv"
+      end
+    end
+  end
+
   private
 
   def has_access
     form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
     render_access_denied if !form.accessible_to(user)
   end
-
 end

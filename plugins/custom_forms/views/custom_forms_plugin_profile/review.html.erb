@@ -1,0 +1,47 @@
+<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<h1><%= @form.name %></h1>
+
+<div>
+<p>
+<li> <span> <%= _('Query Duration') %> </span> <span class="query_info"> : <%=  @form.duration_in_days %></span> </li>
+  <br>
+  <li><span> <%= _('Participants') %> </span> <span class="query_info"><%=  %>: <%=  @form.submissions.count %></span></li>
+  <br>
+  <li><%= _('Download all form responses as') %>:
+  <%= link_to '[CSV]', :format => 'csv' %></li>
+</p>
+</div>
+<div>
+
+  <br>
+
+  <h4 style="text-align:center"> <%= _('Query Overview') %> </h4>
+<ul>
+  <% @query_results.each_with_index do |result, index|  %>
+    <div>
+      <% if result["show_as"] == "radio" %>
+        <h6 style="text-align:center"> <%= @fields[index].name   %></h6>
+        <%= pie_chart (result.keep_if {|key, value| key != "show_as"}), donut: true  %>
+
+        <% if index < @query_results.size - 1 %>
+          <hr>
+          <br>
+        <% end %>
+
+      <% end %>
+
+
+      <% if result["show_as"] == "check_box" %>
+        <h6 style="text-align:center"> <%= @fields[index].name   %></h6>
+        <%= column_chart (result.keep_if {|key, value| key != "show_as"}) %>
+
+        <% if index < @query_results.size - 1 %>
+          <hr>
+          <br>
+        <% end %>
+
+      <% end %>
+    </div>
+  <% end  %>
+</ul>
+</div>
