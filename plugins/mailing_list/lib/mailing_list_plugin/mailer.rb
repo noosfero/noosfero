@@ -24,7 +24,7 @@ class MailingListPlugin::Mailer < ApplicationMailer
 
   def generate_uuid(content)
     settings = Noosfero::Plugin::Metadata.new content, MailingListPlugin
-    "<#{settings.uuid}@#{content.environment.default_hostname}>"
+    "<#{settings.uuid}>"
   end
 
   def generate_subject(content)
