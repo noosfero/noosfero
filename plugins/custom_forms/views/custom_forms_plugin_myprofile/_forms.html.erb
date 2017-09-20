@@ -1,0 +1,36 @@
+<table class="action-table">
+  <tr>
+    <th style='width: 40%'><%= _('Name') %></th>
+    <th style='width: 30%'><%= _('Period') %></th>
+    <th style='width: 10%'><%= _('Submissions') %></th>
+    <th style='width: 10%'><%= _('Access') %></th>
+    <th style='width: 10%'><%= _('Actions') %></th>
+  </tr>
+  <% @forms[kind].each do |form| %>
+    <tr>
+      <td><%= link_to form.name, {:controller => 'custom_forms_plugin_profile', :action => 'show', :id => form.identifier}, :title => _('View %s') % kind %></td>
+      <td><%= period_range(form) %></td>
+      <td><%= form.submissions.count > 0 ? link_to(form.submissions.count, {:action => 'submissions', :id => form.id}, :title => _('Review submisisons')) : 0 %></td>
+      <td><%= access_text(form) %></td>
+      <td class="actions">
+        <%= button_without_text :edit, c_('Edit'), :action => 'edit', :id => form.id %>
+        <%= button_without_text :search, _('Pending'), :action => 'pending', :id => form.id if form.for_admission %>
+        <%= button_without_text :remove, c_('Remove'), {action: 'remove', id: form.id}, data: {confirm: _('Are you sure you want to remove this query?')} %>
+      </td>
+    </tr>
+  <% end %>
+
+  <% if @forms[kind].blank? %>
+    <tr id="no-items">
+      <td colspan='5'>
+        <%= _('There are no %s yet. Why not create one now?') % _(kind.to_s.pluralize) %>
+      </td>
+    </tr>
+  <% end %>
+
+  <tr id="new-item">
+    <td colspan='5'>
+      <%= button(:add, _('Create a new %s') % _(kind), :action => 'new', :kind => kind)%>
+    </td>
+  </tr>
+</table>

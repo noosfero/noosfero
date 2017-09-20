@@ -25,7 +25,20 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   attr_accessible :name, :profile, :for_admission, :access, :begining,
     :ending, :description, :fields_attributes, :profile_id,
-    :on_membership, :identifier, :access_result_options
+    :on_membership, :identifier, :access_result_options, :kind
+
+  KINDS = %w(survey poll)
+  # Dynamic Translations
+  _('Survey')
+  _('Surveys')
+  _('survey')
+  _('surveys')
+  _('Poll')
+  _('Polls')
+  _('poll')
+  _('polls')
+
+  validates :kind, inclusion: { in: KINDS, message: _("%{value} is not a valid kind.") }
 
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
@@ -43,6 +56,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
   scope :with_public_results, -> { where access_result_options: "public" }
   scope :with_private_results, -> { where access_result_options: "private" }
   scope :with_public_results_after_ends, -> { where access_result_options: "public_after_ends" }
+  scope :by_kind, -> kind { where kind: kind.to_s }
 
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)

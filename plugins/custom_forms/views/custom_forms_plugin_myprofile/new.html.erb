@@ -1,5 +1,6 @@
-<h1><%= _('New form') %></h1>
+<h1><%= _('New %s') % _(params[:kind]) %></h1>
 
 <%= form_for @form, :as => :form, :url => { :action => 'create', :id => params[:id] }  do |f| %>
+  <%= f.hidden_field :kind, value: @kind %>
   <%= render :partial => 'form', :locals => {:f => f}  %>
 <% end %>

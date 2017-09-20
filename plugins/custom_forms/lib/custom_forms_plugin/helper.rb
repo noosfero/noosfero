@@ -10,13 +10,18 @@ module CustomFormsPlugin::Helper
   end
 
   def access_text(form)
-    return c_('Public') if form.access.nil?
-    return _('Logged users') if form.access == 'logged'
-    if form.access == 'associated'
-      return c_('Members') if form.profile.organization?
-      return c_('Friends') if form.profile.person?
+    if form.access.nil?
+      return content_tag('span', c_('Public'), title: _('Everyone can answer'))
+    elsif form.access == 'logged'
+      return content_tag('span', c_('Logged users'), title: _('Only logged user can answer'))
+    elsif form.access == 'associated'
+      if form.profile.organization?
+        return content_tag('span', c_('Members'), title: _('Only members can answer'))
+      elsif form.profile.person?
+        return content_tag('span', c_('Friends'), title: _('Only friends can answer'))
+      end
     end
-    return _('Custom')
+    return content_tag('span', _('Custom'), title: _('Custom access definitions'))
   end
 
   def period_range(form)

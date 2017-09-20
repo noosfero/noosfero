@@ -123,3 +123,51 @@ tr.addition-buttons {
   margin: 0;
 }
 
+/* Poll */
+
+.poll-question {
+  width: 70%;
+}
+
+.poll-question input {
+  width: 100%
+}
+
+.poll-select-type {
+  width: 30%;
+}
+
+.poll-type {
+  text-align: center;
+  width: 10%;
+}
+
+.poll-option {
+  width: 75%;
+  padding-left: 0px;
+}
+
+.poll-remove {
+  text-align: center;
+  width: 15%;
+}
+
+.poll-type-icon {
+  display: inline-block;
+}
+
+.poll-option-input {
+  width: 100%;
+}
+
+.add-poll-option .remove-poll-option {
+  display: none;
+}
+
+#poll-options .field-list tr {
+  cursor: move;
+}
+
+#poll-options .field-list .add-poll-option {
+  cursor: auto;
+}

@@ -1,11 +1,11 @@
 class CustomFormsPlugin < Noosfero::Plugin
 
   def self.plugin_name
-    "Custom Forms"
+    _('Query')
   end
 
   def self.plugin_description
-    _("Enables the creation of forms.")
+    _("Enables the creation of custom queries like surveys or polls.")
   end
 
   def stylesheet?
@@ -13,7 +13,7 @@ class CustomFormsPlugin < Noosfero::Plugin
   end
 
   def control_panel_buttons
-    {title: _('Manage Forms'), icon: 'custom-forms', url: {profile: profile.identifier, controller: 'custom_forms_plugin_myprofile'}}
+    {title: _('Manage Queries'), icon: 'custom-forms', url: {profile: profile.identifier, controller: 'custom_forms_plugin_myprofile'}}
   end
 
   def self.load_custom_routes

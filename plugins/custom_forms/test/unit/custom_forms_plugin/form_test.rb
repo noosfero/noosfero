@@ -79,6 +79,25 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert form.errors.include?(:base)
   end
 
+  should 'have survey as default kind' do
+    form = CustomFormsPlugin::Form.new
+    assert_equal 'survey', form.kind
+  end
+
+  should 'validate kinds' do
+    poll = CustomFormsPlugin::Form.new(kind: 'poll')
+    survey = CustomFormsPlugin::Form.new(kind: 'survey')
+    other = CustomFormsPlugin::Form.new(kind: 'other')
+
+    poll.valid?
+    survey.valid?
+    other.valid?
+
+    assert poll.errors[:kind].blank?
+    assert survey.errors[:kind].blank?
+    refute other.errors[:kind].blank?
+  end
+
   should 'define form expiration' do
     form = CustomFormsPlugin::Form.new
     refute form.expired?
@@ -274,6 +293,17 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_includes scope, f1
     assert_includes scope, f2
     assert_not_includes scope, f3
+  end
+
+  should 'have a scope that retrieve forms from a kind' do
+    profile = fast_create(Profile)
+    survey = CustomFormsPlugin::Form.create!(:name => 'Free Software', :identifier => 'free-software', :profile => profile, :kind => 'survey')
+    poll = CustomFormsPlugin::Form.create!(:name => 'Open Source', :identifier => 'open-source', :profile => profile, :kind => 'poll')
+
+    assert_includes CustomFormsPlugin::Form.by_kind(:survey), survey
+    assert_not_includes CustomFormsPlugin::Form.by_kind(:survey), poll
+    assert_includes CustomFormsPlugin::Form.by_kind(:poll), poll
+    assert_not_includes CustomFormsPlugin::Form.by_kind(:poll), survey
   end
 
   should 'not include admission membership in on membership named scope' do
