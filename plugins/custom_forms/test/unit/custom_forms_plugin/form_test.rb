@@ -40,10 +40,11 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_includes form.submissions, s2
   end
 
-  should 'set slug before validation based on name' do
+  should 'set slug amd identifier before validation based on name' do
     form = CustomFormsPlugin::Form.new(:name => 'Name', :identifier => 'name')
     form.valid?
     assert_equal form.name.to_slug, form.slug
+    assert_equal form.name.to_slug, form.identifier
   end
 
   should 'validates uniqueness of slug scoped on profile' do
