@@ -41,6 +41,24 @@
         <% end %>
 
       <% end %>
+
+      <% if result["show_as"] == "text" %>
+        <h6 style="text-align:center"> <%= @fields[index].name   %></h6>
+        <table>
+          <tr>
+            <th > User </th>
+            <th> Answer </th>
+          </tr>
+          <tr>
+            <% result["answers"].each_with_index do |answer, index| %>
+          <tr>
+              <td style="text-align:center"> <%= result["users"][index] %> </td>
+              <td style="text-align:center"> <%= answer %> </td>
+          <tr>
+            <% end %>
+          </tr>
+        </table>
+      <% end %>
     </div>
   <% end  %>
 </ul>
