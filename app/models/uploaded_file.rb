@@ -34,6 +34,9 @@ class UploadedFile < Article
     end
   end unless RUBY_ENGINE == 'jruby'
 
+  after_save :update_profile_disk_usage
+  after_destroy :update_profile_disk_usage
+
   track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.gallery? }, :custom_target => :parent
 
   def title
@@ -204,9 +207,13 @@ class UploadedFile < Article
   def profile_quota_usage
     return if profile.nil?
     if profile.upload_quota.present? &&
-       ((size + profile.used_quota) > profile.upload_quota.megabytes)
+       ((size + profile.disk_usage) > profile.upload_quota.megabytes)
       errors.add(:size, _('Your upload quota has exceeded'))
     end
+  end
+
+  def update_profile_disk_usage
+    profile.update_disk_usage!
   end
 
 end

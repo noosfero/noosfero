@@ -20,7 +20,7 @@ $(document).ready(function() {
     return false
   })
 
-  $('#quota-by-profile').on('change', 'select#type-filter', function() {
+  $('#quota-by-profile .search-filters').on('change', 'select', function() {
     reloadProfiles()
   })
 
@@ -55,8 +55,9 @@ function reloadProfiles(url) {
 function buildUrl(url) {
   var query = $('.search-field #q').val()
   var type = $('select#type-filter').val()
+  var order = $('select#order-filter').val()
   if (!url) {
     url = '/admin/profile_quotas?'
   }
-  return (url + 'q=' + query + '&asset=' + type)
+  return (url + 'q=' + query + '&asset=' + type + '&order_by=' + order)
 }

@@ -3,6 +3,7 @@
     <tr>
       <th><%= _('Profile') %></th>
       <th><%= _('Quota') %></th>
+      <th><%= _('Usage') %></th>
       <th><%= _('Actions') %></th>
     </tr>
     <% profiles.each do |p| %>
@@ -10,9 +11,28 @@
         <td>
           <%= link_to_profile p.short_name, p.identifier, :title => p.name %>
         </td>
-        <td><%= number_to_human_size(p.upload_quota.try(:megabytes)) %></td>
+        <td>
+          <% if p.upload_quota.blank? %>
+            <%= _('Unlimited') %>
+          <% else %>
+            <%= number_to_human_size(p.upload_quota.megabytes) %>
+          <% end %>
+        </td>
+        <td>
+          <%= number_to_human_size(p.disk_usage) %>
+          <% if p.upload_quota.present? && p.upload_quota > 0 %>
+            (<%= number_to_percentage((p.disk_usage / p.upload_quota.megabytes) * 100,
+                                      precision: 0) %>)
+          <% end %>
+        </td>
         <td class='actions'>
           <%= button_without_text :edit, _('Edit Quota'), { action: :edit_profile, id: p.id } %>
+          <%= button_without_text :clear, _('Reset quota for this profile'),
+                                    { action: :reset_profile, id: p.id },
+                                    method: 'delete',
+                                    data: { confirm: _("This action will "\
+                                                       "reset the quota for "\
+                                                       "'#{p.name}.' ") } %>
         </td>
       </tr>
     <% end %>

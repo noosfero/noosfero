@@ -189,7 +189,7 @@ class CmsControllerTest < ActionController::TestCase
     post :set_home_page, :profile => profile.identifier, :id => nil
 
     profile.reload
-    assert_equal nil, profile.home_page
+    assert_nil profile.home_page
     assert_match /reseted/, session[:notice]
   end
 
@@ -495,8 +495,10 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'display max size of uploaded file' do
+    extend ActionView::Helpers::NumberHelper
     get :upload_files, :profile => profile.identifier
-    assert_tag :tag => 'h3', :content => /max size #{UploadedFile.max_size.to_humanreadable}/
+    max_size = number_to_human_size(UploadedFile.max_size)
+    assert_tag :tag => 'h3', :content => /max size #{max_size}/
   end
 
   should 'display link for selecting top categories' do
@@ -2051,19 +2053,50 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'display a progress bar if profile has an upload quota' do
-    @profile.metadata['quota'] = 100.0
-    @profile.save
-
+    @profile.update_attributes(upload_quota: 100.0)
     get :index, :profile => profile.identifier
     assert_tag :tag => 'div', :attributes => { :class => 'quota-status' }
   end
 
-  should 'not display a progress bar if profile does not have an upload quota' do
-    @profile.metadata['quota'] = ''
-    @profile.save
-
+  should 'not display a progress bar if profile upload quota is unlimited' do
+    @profile.update_attributes(upload_quota: '')
     get :index, :profile => profile.identifier
     assert_no_tag :tag => 'div', :attributes => { :class => 'quota-status' }
+  end
+
+  should 'display all profile files' do
+    file1 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file2 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/shoes.png', 'image/png'))
+    file3 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/tux.png', 'image/png'))
+
+    get :files, profile: profile.identifier
+    assert_tag tag: 'td', content: file1.name
+    assert_tag tag: 'td', content: file2.name
+    assert_tag tag: 'td', content: file3.name
+  end
+
+  should 'display files sorted by size' do
+    file1 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file2 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/shoes.png', 'image/png'))
+    file3 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/tux.png', 'image/png'))
+
+    get :files, profile: profile.identifier, sort_by: 'size ASC'
+    files = [file1, file2, file3].sort_by{ |f| f.size }
+    assert_equal files.map(&:id), assigns(:files).map(&:id)
+
+    get :files, profile: profile.identifier, sort_by: 'size DESC'
+    files = [file1, file2, file3].sort_by{ |f| -f.size }
+    assert_equal files.map(&:id), assigns(:files).map(&:id)
+  end
+
+  should 'display files sorted by name if sort_by option is invalid' do
+    file1 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file2 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/shoes.png', 'image/png'))
+    file3 = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/tux.png', 'image/png'))
+
+    get :files, profile: profile.identifier, sort_by: 'invalid'
+    files = [file1, file2, file3].sort_by{ |f| f.name }
+    assert_equal files.map(&:id), assigns(:files).map(&:id)
   end
 
   protected

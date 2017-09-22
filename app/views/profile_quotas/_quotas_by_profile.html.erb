@@ -8,7 +8,10 @@
 </div>
 
 <div class='search-filters'>
-  <%= select_tag 'filter', options_for_select(@filters), id: 'type-filter' %>
+  <%= select_tag 'filter', options_for_select(@type_filters),
+                 id: 'type-filter' %>
+  <%= select_tag 'order_by', options_for_select(@order_filters),
+                 id: 'order-filter' %>
 </div>
 
 <%= render partial: 'profile_list', locals: { profiles: profiles } %>
