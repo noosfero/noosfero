@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'plugins/custom_forms/graph' %>
 <%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
 <h1><%= @form.name %></h1>
 
@@ -16,7 +17,6 @@
   <br>
 
   <h4 style="text-align:center"> <%= _('Query Overview') %> </h4>
-<ul>
   <% @query_results.each_with_index do |result, index|  %>
     <div>
       <% if result["show_as"] == "radio" %>
@@ -44,7 +44,7 @@
 
       <% if result["show_as"] == "text" %>
         <h6 style="text-align:center"> <%= @fields[index].name   %></h6>
-        <table>
+        <table style="text-align:center">
           <tr>
             <th > User </th>
             <th> Answer </th>
@@ -61,5 +61,4 @@
       <% end %>
     </div>
   <% end  %>
-</ul>
 </div>

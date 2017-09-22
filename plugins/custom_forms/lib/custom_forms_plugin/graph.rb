@@ -37,6 +37,7 @@ class CustomFormsPlugin::Graph
     alternatives = field.alternatives
     answer_and_label = {}
     if alternatives.empty?
+      #It's a text field
       text_answers = {"text_answers" => {"answers" => [], "users" => []},
                       "show_as" => {"show_as" => field.show_as}}
       answer_and_label.merge!(text_answers)
@@ -70,15 +71,14 @@ class CustomFormsPlugin::Graph
         answer_with_alternative_label = @answers_with_alternative_label[index]
         show_as = answer_with_alternative_label["show_as"]["show_as"]
         if AVAILABLE_FIELDS.include? show_as
-          value = answer.value
-          self.send(show_as + "_answers", index, value)
+          self.send(show_as + "_answers", index, answer)
         end
       end
     end
   end
 
-  def check_box_answers(index, value)
-    list_of_answers = value.split(",")
+  def check_box_answers(index, answer)
+    list_of_answers = answer.value.split(",")
     list_of_answers.each do |answer|
       alternative_and_sum_of_answers = @answers_with_alternative_label[index][answer]
       alternative = alternative_and_sum_of_answers.keys.first
@@ -87,14 +87,14 @@ class CustomFormsPlugin::Graph
   end
 
   def radio_answers(index, answer)
-      alternative_and_sum_of_answers = @answers_with_alternative_label[index][answer]
+    alternative_and_sum_of_answers = @answers_with_alternative_label[index][answer.value]
       alternative = alternative_and_sum_of_answers.keys.first
-      @answers_with_alternative_label[index][answer][alternative] += 1
+      @answers_with_alternative_label[index][answer.value][alternative] += 1
   end
 
   def text_answers(index, answer)
-      @answers_with_alternative_label[index]["text_answers"]["answers"] << answer
-      user = @form.profile.name
-      @answers_with_alternative_label[index]["text_answers"]["users"] << user
+    @answers_with_alternative_label[index]["text_answers"]["answers"] << answer.value
+    user = answer.submission.author_name
+    @answers_with_alternative_label[index]["text_answers"]["users"] << user
   end
 end
