@@ -41,7 +41,8 @@ class CustomFormsPluginProfileController < ProfileController
     @fields = @form.fields
     @sort_by = params[:sort_by] == 'author_name' ? 'author_name' : 'created_at'
 
-    @query_results = CustomFormsPlugin::Graph.new(@form).query_results
+    @graph = CustomFormsPlugin::Graph.new(@form)
+    @query_results = @graph.query_results
 
     respond_to do |format|
       format.html

@@ -1,11 +1,10 @@
-<%= javascript_include_tag 'plugins/custom_forms/graph' %>
-<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
+<%= javascript_include_tag 'graph' %>
+<%= javascript_include_tag "vendor/loader" %>
+
 <h1><%= @form.name %></h1>
 
 <div>
 <p>
-<li> <span> <%= _('Query Duration') %> </span> <span class="query_info"> : <%=  @form.duration_in_days %></span> </li>
-  <br>
   <li><span> <%= _('Participants') %> </span> <span class="query_info"><%=  %>: <%=  @form.submissions.count %></span></li>
   <br>
   <li><%= _('Download all form responses as') %>:
@@ -16,12 +15,16 @@
 
   <br>
 
-  <h4 style="text-align:center"> <%= _('Query Overview') %> </h4>
+  <h4 class="review_text_align"> <%= _('Query Overview') %> </h4>
   <% @query_results.each_with_index do |result, index|  %>
     <div>
-      <% if result["show_as"] == "radio" %>
-        <h6 style="text-align:center"> <%= @fields[index].name   %></h6>
-        <%= pie_chart (result.keep_if {|key, value| key != "show_as"}), donut: true  %>
+      <% if @graph.show_as_pizza? result["data"]["show_as"] %>
+        <h6 class="review_text_align"> <%= @fields[index].name   %></h6>
+        <%= pie_chart (result["data"].keep_if {|key, value| key != "show_as"}), donut: true %>
+
+        <% result["percents"].each do |label, value| %>
+          <span><%= label %>: <%= value %>%</span>
+        <% end %>
 
         <% if index < @query_results.size - 1 %>
           <hr>
@@ -31,9 +34,9 @@
       <% end %>
 
 
-      <% if result["show_as"] == "check_box" %>
-        <h6 style="text-align:center"> <%= @fields[index].name   %></h6>
-        <%= column_chart (result.keep_if {|key, value| key != "show_as"}) %>
+      <% if @graph.show_as_column? result["data"]["show_as"] %>
+        <h6 class="review_text_align"> <%= @fields[index].name   %></h6>
+        <%= column_chart (result["data"].keep_if {|key, value| key != "show_as"}) %>
 
         <% if index < @query_results.size - 1 %>
           <hr>
@@ -42,18 +45,18 @@
 
       <% end %>
 
-      <% if result["show_as"] == "text" %>
-        <h6 style="text-align:center"> <%= @fields[index].name   %></h6>
-        <table style="text-align:center">
+      <% if @graph.show_as_text? result["data"]["show_as"] %>
+        <h6 class="review_text_align"> <%= @fields[index].name   %></h6>
+        <table class="review_text_align">
           <tr>
             <th > User </th>
             <th> Answer </th>
           </tr>
           <tr>
-            <% result["answers"].each_with_index do |answer, index| %>
+            <% result["data"]["answers"].each_with_index do |answer, user| %>
           <tr>
-              <td style="text-align:center"> <%= result["users"][index] %> </td>
-              <td style="text-align:center"> <%= answer %> </td>
+              <td class="review_text_align"> <%= result["data"]["users"][user] %> </td>
+              <td class="review_text_align"> <%= answer %> </td>
           <tr>
             <% end %>
           </tr>
