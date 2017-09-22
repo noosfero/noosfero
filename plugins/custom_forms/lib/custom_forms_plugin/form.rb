@@ -105,6 +105,27 @@ class CustomFormsPlugin::Form < ApplicationRecord
     self.article = uploaded_file
   end
 
+  def duration_in_days
+    if begining == nil and ending == nil
+      return "Has no ending date."
+    end
+    seconds_to_days = 86400
+    days = (ending.to_i - begining.to_i) / seconds_to_days
+    if days < 1
+      return "Ends today."
+    end
+
+    if days >= 1 && days < 2
+      return "Ends tomorow."
+    end
+
+    if days < 0
+      return "Already closed."
+    end
+
+    return "Ends in: #{days} days."
+  end
+
   private
 
   def access_format
