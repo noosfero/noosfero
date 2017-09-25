@@ -21,8 +21,6 @@ class CustomFormsPlugin::Graph
   # is the alternative id, "foo" is the alternative label and 5 is the number
   # of users that chose this alternative as answer to it respective field.
 
-  # Other custom_forms fields, should be added here. A method <field>_answers
-  # also will have to be implemented.
   AVAILABLE_FIELDS = %w(check_box radio select multiple_select text)
 
   def initialize(form)
