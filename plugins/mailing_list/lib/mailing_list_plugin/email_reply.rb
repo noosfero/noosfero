@@ -9,7 +9,8 @@ class MailingListPlugin::EmailReply
 
   def initialize(content)
     begin
-      mail  = Mail.read_from_string(content.force_encoding('utf-8'))
+      content.encode!('UTF-8', content.encoding, :invalid => :replace, :replace => '')
+      mail  = Mail.read_from_string(content)
       from  = mail.from.first
       message_uuid = mail.header['Message-Id']
       message_uuid = message_uuid.decoded if message_uuid.present?

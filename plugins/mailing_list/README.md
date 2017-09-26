@@ -98,7 +98,7 @@ Postfix
 In order to redirect received e-mails to the application, you need to add the following line in the file `/etc/aliases`
 
 ```
-noosfero: "| <RAILS_ROOT>/plugins/mailing_list/script/mail_receiver.rb" 
+noosfero: "| RAILS_ENV=production ruby --encoding utf-8 <RAILS_ROOT>/plugins/mailing_list/script/mail_receiver.rb" 
 ````
 
 This assumes your are receiving e-mails in the server as `noosfero@<your.domain>`.
