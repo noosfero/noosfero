@@ -7,6 +7,7 @@ export RAILS_ENV=development
 stop() {
   echo "Stopping ..."
   ./script/delayed_job stop
+  ./script/noosfero-plugins services stop
   ./script/feed-updater stop
   whenever --clear-crontab
   if [ -f tmp/pids/unicorn.pid ]; then
@@ -19,6 +20,7 @@ stop() {
 start() {
   rake db:abort_if_pending_migrations
   ./script/feed-updater start
+  ./script/noosfero-plugins services start
   ./script/delayed_job start
   trap stop INT TERM EXIT
   whenever --write-crontab --set 'environment=development'

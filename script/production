@@ -96,10 +96,12 @@ environments_loop() {
       RAILS_ENV=$env bundle exec ./script/feed-updater "$action" -i $env
       ./script/whenever $action $env
     done
+    RAILS_ENV=$env ./script/noosfero-plugins services "$action"
   else
     bundle exec ./script/delayed_job "$action"
     bundle exec ./script/feed-updater "$action"
     ./script/whenever $action
+    ./script/noosfero-plugins services "$action"
   fi
 }
 
