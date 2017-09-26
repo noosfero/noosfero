@@ -1,9 +1,12 @@
 require 'test_helper'
 require_relative '../download_fixture'
+require_relative '../html5_video_plugin_test_helper'
 
 class FfmpegTest < ActiveSupport::TestCase
 
-  ffmpeg = Html5VideoPlugin::Ffmpeg.new
+  prepend Html5VideoPluginTestHelper
+
+  ffmpeg = VideoProcessor::Ffmpeg.new
 
   def create_video(file, mime)
     file = UploadedFile.create!(
@@ -38,6 +41,10 @@ class FfmpegTest < ActiveSupport::TestCase
       end
     end
     rm_web_videos_dir
+
+    # Removes the pool dir for the test environment
+    pool = VideoProcessor::PoolManager.new(Rails.root.to_s)
+    FileUtils.rmtree(pool.path)
   end
 
   # Create a temp filename, not a file.
@@ -48,7 +55,7 @@ class FfmpegTest < ActiveSupport::TestCase
 
   should 'has the right version of ffmpeg' do
     response = ffmpeg.run :version
-    assert_match /^ffmpeg version 3\.0/, response[:output]
+    assert_match /^ffmpeg version 3\./, response[:output]
   end
 
   should 'complain about missing input' do

@@ -9,6 +9,10 @@ class FilePresenter::Video < FilePresenter
     _('Video (%s)') % content_type.split('/')[1].upcase
   end
 
+  def convertible_to_video?
+    true
+  end
+
   def meta_data #video_info
     Noosfero::Plugin::Settings.new(encapsulated_instance, Html5VideoPlugin)
   end
@@ -94,18 +98,11 @@ class FilePresenter::Video < FilePresenter
   end
 
   #TODO: add this to the user interface:
-  def web_version_jobs
+  def conversion_jobs
     #FIXME: in a newer version, the Delayed::Job may be searcheable in a uglyless way.
-    Delayed::Job.where("handler LIKE '%CreateVideoForWebJob%file_id: #{self.id}%'").all
+    Delayed::Job.where("handler LIKE '%EnqueueVideoConversionJob%file_id: #{self.id}%'").all
     #Delayed::Job.all :conditions => ['handler LIKE ?',
     #                                 "%CreateVideoForWebJob%file_id: #{self.id}%"]
-  end
-
-  def web_preview_jobs
-    #FIXME: in a newer version, the Delayed::Job may be searcheable in a uglyless way.
-    Delayed::Job.where("handler LIKE '%CreateVideoPreviewJob%file_id: #{self.id}%'").all
-    #Delayed::Job.all :conditions => ['handler LIKE ?',
-    #                                 "%CreateVideoPreviewJob%file_id: #{self.id}%"]
   end
 
   def has_previews?

@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'daemons'
+
+script = File.join(__dir__, 'video_processor_foreground.rb')
+Daemons.run(script, app_name: 'video_processor')
