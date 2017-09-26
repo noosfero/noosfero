@@ -3,17 +3,11 @@
 
 <h1><%= @form.name %></h1>
 
-<div>
-<p>
-  <li><span> <%= _('Participants') %> </span> <span class="query_info"><%=  %>: <%=  @form.submissions.count %></span></li>
-  <br>
-  <li><%= _('Download all form responses as') %>:
-  <%= link_to '[CSV]', :format => 'csv' %></li>
-</p>
+<div class="query-header">
+  <span><%= @form.duration_in_days.chop %></span>
+  <span><%= _(pluralize(@form.submissions.count, 'participants')) %></span>
+  <%= link_to 'Download as CSV', :format => 'csv' %>
 </div>
-<div>
-
-  <br>
 
   <h4 class="review_text_align"> <%= _('Query Overview') %> </h4>
   <% @query_results.each_with_index do |result, index|  %>
