@@ -19,7 +19,7 @@ class CategoriesControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template 'index'
-    assert_tag :tag => 'a', :attributes => { :href => '/admin/categories/new'}
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/categories/new?type=Category'}
   end
 
   def test_edit
@@ -134,8 +134,8 @@ class CategoriesControllerTest < ActionController::TestCase
     r = create(Region, :name => 'Some region', :environment => Environment.default)
 
     get :index
-    assert_equal [c], assigns(:categories)
-    assert_equal [r], assigns(:regions)
+    assert_tag :tag => 'span', :content => c.name
+    assert_tag :tag => 'span', :content => r.name
   end
 
   should 'use parent\'s type to determine subcategory\'s type' do

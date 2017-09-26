@@ -131,7 +131,7 @@ Feature: blog
       | joaosilva | My Blog |
     And I go to joaosilva's control panel
     And I follow "Configure blog"
-    And I attach the file "public/images/rails.png" to "Uploaded data"
+    And I attach the file "public/images/rails.png" to "Cover image:"
     And I press "Save"
     When I am on /joaosilva/my-blog
     Then there should be a div with class "blog-cover"

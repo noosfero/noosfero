@@ -6,17 +6,45 @@ class CategoriesHelperTest < ActiveSupport::TestCase
 
   def setup
     @environment = Environment.default
+    @plugins = mock
+    @plugins.stubs(:dispatch_without_flatten).returns([])
   end
   attr_reader :environment
   def _(s); s; end
 
   should 'generate list of category types for selection' do
     expects(:params).returns({'fieldname' => 'fieldvalue'})
-    expects(:options_for_select).with([['General Category', 'Category'], [ 'Region', 'Region' ]], 'fieldvalue').returns('OPTIONS')
+    expects(:options_for_select).with([['General category', 'Category'], [ 'Region', 'Region' ]], 'fieldvalue').returns('OPTIONS')
     expects(:select_tag).with('type', 'OPTIONS').returns('TAG')
     expects(:labelled_form_field).with(anything, 'TAG').returns('RESULT')
 
     assert_equal 'RESULT', select_category_type('fieldname')
+  end
+
+  should 'return a list of root categories' do
+    c1 = fast_create(Category)
+    c2 = fast_create(Category)
+    assert_equivalent [c1, c2], root_categories_for('Category')
+  end
+
+  should 'fetch categories from the environment relation, if it exists' do
+    categories = mock
+    categories.stubs(:where).returns([])
+
+    Environment.any_instance.expects(:try).with("regions").returns(categories)
+    Environment.any_instance.expects(:categories).never
+
+    root_categories_for('Region')
+  end
+
+  should 'filter categories by type, if there it is no relation with the environment' do
+    categories = mock
+    categories.stubs(:where).returns(categories)
+
+    Environment.any_instance.expects(:try).returns(nil)
+    Environment.any_instance.expects(:categories).returns(categories)
+
+    root_categories_for('SomeCategoryType')
   end
 
   should 'return category color if its defined' do

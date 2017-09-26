@@ -1,13 +1,22 @@
 module CategoriesHelper
 
-  TYPES = [
-    [ _('General Category'), Category.to_s ],
-    [ _('Region'), Region.to_s ],
-  ]
+  def category_types(plural = false)
+    plural = plural ? 2 : 1
+    [
+      [ n_('General category', 'General categories', plural), Category.to_s ],
+      [ n_('Region', 'Regions', plural), Region.to_s ],
+    ] + @plugins.dispatch_without_flatten(:extra_category_types, plural).flatten(1)
+  end
+
+  def root_categories_for(category_type)
+    categories = environment.try(category_type.underscore.pluralize) ||
+                 environment.categories.where("type='#{category_type}'")
+    categories.where(parent_id: nil)
+  end
 
   def select_category_type(field)
     value = params[field]
-    labelled_form_field(_('Type of category'), select_tag('type', options_for_select(TYPES, value)))
+    labelled_form_field(_('Type of category'), select_tag('type', options_for_select(category_types, value)))
   end
 
   def category_color_style(category)

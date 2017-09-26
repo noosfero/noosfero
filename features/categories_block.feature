@@ -20,7 +20,7 @@ Feature: categories_block
   Scenario: List just general categories
     Given display ".button-bar"
     And I follow "Edit" within ".block-outer .categories-block"
-    And I check "Generic category"
+    And I check "General category"
     When I press "Save"
     Then I should see "Wood"
 

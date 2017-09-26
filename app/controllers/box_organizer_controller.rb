@@ -1,5 +1,7 @@
 class BoxOrganizerController < ApplicationController
 
+  helper CategoriesHelper
+
   before_filter :login_required
 
   def index

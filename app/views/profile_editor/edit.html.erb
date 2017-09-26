@@ -17,9 +17,7 @@
     <span><%= unchangeable_privacy_field @profile %></span>
   </div>
   <div id="profile_change_picture">
-    <%= f.fields_for :image_builder, @profile.image do |i| %>
-      <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %><%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
-    <% end %>
+    <%= file_field_or_thumbnail(_('Image:'), @profile.image, 'profile_data[image_builder]') %><%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
   </div>
 
   <h2><%= _('Privacy options') %></h2>

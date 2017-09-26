@@ -36,9 +36,4 @@ class CategoriesBlockTest < ActiveSupport::TestCase
     assert category_block.category_types.empty?
   end
 
-  should 'available category types' do
-    category_block = CategoriesBlock.new
-    assert_equal({ _('Generic category') => nil, _('Region') => 'Region', _('Product') => 'ProductCategory' }, category_block.available_category_types)
-  end
-
 end

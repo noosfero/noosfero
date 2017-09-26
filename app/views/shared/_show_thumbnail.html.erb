@@ -14,12 +14,12 @@
 
 <br/>
 <div id='change-image' style='display:none'>
-  <%= render :partial => 'shared/change_image', :locals => { :i => i, :image => image } %>
+  <%= render :partial => 'shared/change_image', :locals => { :image => image, :for_attr => for_attr } %>
 </div>
 <br/>
 
 <% if image.present? && removable %>
   <div id='image-builder-remove-checkbox'>
-    <%= labelled_form_field(_('Remove image'), i.check_box(:remove_image, {}, true, false))%>
+    <%= labelled_form_field(_('Remove image'), check_box_tag("#{for_attr}[remove_image]", true, false))%>
   </div>
 <% end %>

@@ -54,10 +54,8 @@
 <%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 10, :class => current_editor)) %>
 
 <div id="blog-image-builder">
-  <%= f.fields_for :image_builder, @article.image do |i| %>
-    <%= file_field_or_thumbnail(_('Cover image:'), @article.image, i)%>
-    <%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
-  <% end %>
+  <%= file_field_or_thumbnail(_('Cover image:'), @article.image, 'article[image_builder]')%>
+  <%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
 </div>
 
 <%= labelled_form_field(_('How to display posts:'), f.select(:visualization_format, [

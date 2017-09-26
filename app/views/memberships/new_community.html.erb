@@ -26,9 +26,7 @@
   <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'community', :profile => @community } %>
   <%= render :partial => 'shared/custom_fields', :locals => { :f => f, :profile => @community, :signup => true } %>
 
-  <%= f.fields_for :image_builder, @community.image do |i| %>
-    <%= file_field_or_thumbnail(_('Image:'), @community.image, i) %>
-  <% end %>
+  <%= file_field_or_thumbnail(_('Image:'), @community.image, 'community[image_builder]') %>
 
   <div style='margin-bottom: 1em; margin-top: 1em;'>
   <%= _('New members must be approved:')%>

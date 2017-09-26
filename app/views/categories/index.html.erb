@@ -1,19 +1,15 @@
-<h1><%= _('Categories') %></h1>
+<% category_types(true).each do |category_name, category_type| %>
+  <div class='categories-wrapper'>
+    <h1><%= category_name %></h1>
 
-<ul class='tree'>
-  <%= render :partial => 'category', :collection => @categories %>
-</ul>
-<div>
-  <%= link_to _('New category'), :action => 'new' %>
-</div>
+    <div class='action-bar'>
+      <%= link_to _('New category'), :action => 'new', :type => category_type %>
+    </div>
 
-<h1><%= _('Regions') %></h1>
-<ul class='tree'>
-  <%= render :partial => 'category', :collection => @regions %>
-</ul>
-
-<div>
-  <%= link_to _('New category'), :action => 'new', :type => 'Region' %>
-</div>
+    <ul class='tree categories-list'>
+      <%= render :partial => 'category', :collection => root_categories_for(category_type) %>
+    </ul>
+  </div>
+<% end %>
 
 <%= javascript_include_tag 'manage-categories' %>

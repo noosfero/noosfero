@@ -11,7 +11,7 @@
   <% if @category.new_record? %>
     <% if @category.parent %>
       <%= hidden_field_tag('parent_id', @category.parent.id) %>
-      <%= hidden_field_tag('parent_type', @category.parent.class.name) %>
+      <%= hidden_field_tag('parent_type', @category.parent.class.sti_name) %>
     <% else %>
         <%= select_category_type :type %>
     <% end %>
@@ -22,11 +22,8 @@
   <%= labelled_check_box(_('Display in the menu'), 'category[display_in_menu]', '1', @category.display_in_menu) %>
 
   <%= labelled_colorpicker_field(_('Pick a color'), :category, 'display_color' ) unless environment.enabled?('disable_categories_menu')%>
-  <span id="color_preview" class = "color_marker" style="<%= category_color_style(@category) %>" ></span>
 
-  <%= f.fields_for :image_builder, @category.image do |i| %>
-    <%= file_field_or_thumbnail(_('Image:'), @category.image, i) %>
-  <% end %>
+  <%= file_field_or_thumbnail(_('Image:'), @category.image, 'category[image_builder]') %>
 
   <%= button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>

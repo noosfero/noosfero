@@ -33,6 +33,10 @@ module ProductsPlugin
       [EnterpriseHomepage] if context.kind_of?(Enterprise)
     end
 
+    def extra_category_types(plural)
+      [ [ n_('Product category', 'Product categories', plural), ProductCategory.sti_name ] ]
+    end
+
   end
 end
 
