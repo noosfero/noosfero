@@ -79,3 +79,16 @@ var customFormsPlugin = {
     }
   }
 }
+
+$('#upload_form_field').each(function() {
+   var elem = $(this);
+
+   elem.data('withoutImage', elem.val());
+
+   elem.bind("propertychange change", function(event){
+      if (elem.data('oldVal') != elem.val()) {
+        console.log("ENTROOOOOu");
+        elem.addClass('form-with-image');
+     }
+   });
+ });

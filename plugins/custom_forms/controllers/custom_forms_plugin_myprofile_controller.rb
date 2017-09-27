@@ -146,8 +146,10 @@ class CustomFormsPluginMyprofileController < MyProfileController
     end
 
     form_gallery.images << form_image
+    old_form_image = form.image
     @form.image = form_image
     form_with_image = @form.save && form_gallery.save
+    UploadedFile.delete(old_form_image.id) if old_form_image
     @form.errors.messages.merge!(form_gallery.errors.messages)
     form_with_image
   end

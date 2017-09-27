@@ -336,17 +336,35 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   end
 
   should 'update a form with an uploaded image' do
-    form = CustomFormsPlugin::Form.create!(profile: profile,
-                                           name: 'Free?')
-    post :update, profile: profile.identifier, id: form.id,
-      form: {
-        name: 'Free as in freedon?',
-        description: 'Cool form',
-        image: fixture_file_upload('/files/rails.png', 'image/png')
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
       }
 
+    form = CustomFormsPlugin::Form.last
+    assert Gallery.last.images.find(form.image.id)
+
+    post :update, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/fruits.png', 'image/png')
+      },
+      :id =>  form.id
+
+    assert_raise ActiveRecord::RecordNotFound do
+      Gallery.last.images.find(form.image.id)
+    end
     form.reload
-    assert form.image.present?
+
+    assert Gallery.last.images.find(form.image.id)
   end
 
   should 'create a galery to store form images' do

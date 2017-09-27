@@ -171,3 +171,8 @@ tr.addition-buttons {
 #poll-options .field-list .add-poll-option {
   cursor: auto;
 }
+
+.form-with-image input {
+  border: 3px solid #9bd8a0;
+  font-size: 12px;
+}
