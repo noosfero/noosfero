@@ -27,6 +27,8 @@ class CustomFormsPlugin::Form < ApplicationRecord
                   :ending, :description, :fields_attributes, :profile_id,
                   :on_membership, :identifier, :access_result_options, :image
 
+  attr_accessor :remove_image
+
   KINDS = %w(survey poll)
   # Dynamic Translations
   _('Survey')

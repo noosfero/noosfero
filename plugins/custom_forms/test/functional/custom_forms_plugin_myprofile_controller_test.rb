@@ -396,4 +396,35 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     gallery = Gallery.find_by(:profile => profile, :name => "Query Gallery")
     assert_equal gallery.images.first.name, "rails.png"
   end
+
+  should 'remove upload form image from form and gallery on update' do
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    form = CustomFormsPlugin::Form.last
+    assert_not_nil form.image
+    gallery_images = Gallery.last.images.count
+
+    post :update, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png'),
+        :remove_image => "1"
+      },
+      :id => form.id
+
+    form.reload
+    assert_equal Gallery.last.images.count, (gallery_images - 1)
+    assert_nil form.image
+  end
 end
