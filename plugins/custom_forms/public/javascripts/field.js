@@ -79,3 +79,12 @@ var customFormsPlugin = {
     }
   }
 }
+
+$(document).ready(function() {
+  $("a.remove-field").live('click', function() {
+    let field = $(this).closest('li');
+    field.fadeOut(500, function() {
+      $(this).remove();
+    });
+  });
+});
