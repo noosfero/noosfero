@@ -36,6 +36,14 @@ jQuery("ul.field-list").sortable({
 jQuery("ul.field-list li").disableSelection();
 
 var customFormsPlugin = {
+  removeFieldBox: function (button, confirmMsg) {
+    if (confirm(confirmMsg)) {
+      fb = jQuery(button).closest('.field-box');
+      jQuery('input.destroy-field', fb).val(1);
+      jQuery(fb).slideUp(600, 'linear');
+    }
+  },
+
   removeAlternative: function (button, confirmMsg) {
     if (confirm(confirmMsg)) {
       alt = jQuery(button).closest('tr.alternative');
@@ -74,7 +82,7 @@ var customFormsPlugin = {
 
 $(document).ready(function() {
   $("a.remove-field").live('click', function() {
-    var field = $(this).closest('li');
+    let field = $(this).closest('li');
     field.fadeOut(500, function() {
       $(this).remove();
     });
