@@ -116,14 +116,6 @@ class CustomFormsPlugin::Graph
     end
   end
 
-  def select_answers(index, answer)
-    radio_answers(index, answer)
-  end
-
-  def multiple_select_answers(index, answer)
-    check_box_answers(index, answer)
-  end
-
   def radio_answers(index, answer)
     answer_value = answer.value
     alternative_and_sum_of_answers = @answers_with_alternative_label[index][answer_value]
