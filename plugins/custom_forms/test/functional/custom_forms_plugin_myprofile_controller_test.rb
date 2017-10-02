@@ -336,17 +336,35 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   end
 
   should 'update a form with an uploaded image' do
-    form = CustomFormsPlugin::Form.create!(profile: profile,
-                                           name: 'Free?')
-    post :update, profile: profile.identifier, id: form.id,
-      form: {
-        name: 'Free as in freedon?',
-        description: 'Cool form',
-        image: fixture_file_upload('/files/rails.png', 'image/png')
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
       }
 
+    form = CustomFormsPlugin::Form.last
+    assert Gallery.last.images.find(form.image.id)
+
+    post :update, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/fruits.png', 'image/png')
+      },
+      :id =>  form.id
+
+    assert_raise ActiveRecord::RecordNotFound do
+      Gallery.last.images.find(form.image.id)
+    end
     form.reload
-    assert form.image.present?
+
+    assert Gallery.last.images.find(form.image.id)
   end
 
   should 'create a galery to store form images' do
@@ -377,5 +395,36 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
     gallery = Gallery.find_by(:profile => profile, :name => "Query Gallery")
     assert_equal gallery.images.first.name, "rails.png"
+  end
+
+  should 'remove upload form image from form and gallery on update' do
+
+    post :create, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png')
+      }
+
+    form = CustomFormsPlugin::Form.last
+    assert_not_nil form.image
+    gallery_images = Gallery.last.images.count
+
+    post :update, :profile => profile.identifier,
+      :form => {
+        :name => 'Form with image',
+        :access => 'logged',
+        :description => 'Cool form',
+        :identifier => "form",
+        :image => fixture_file_upload('/files/rails.png', 'image/png'),
+        :remove_image => "1"
+      },
+      :id => form.id
+
+    form.reload
+    assert_equal Gallery.last.images.count, (gallery_images - 1)
+    assert_nil form.image
   end
 end

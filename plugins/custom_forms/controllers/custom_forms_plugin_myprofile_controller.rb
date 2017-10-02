@@ -25,10 +25,12 @@ class CustomFormsPluginMyprofileController < MyProfileController
   def create
     params[:form][:profile_id] = profile.id
     uploaded_data = params[:form].delete(:image)
+    should_remove_image = params[:form].delete(:remove_image)
     @form = CustomFormsPlugin::Form.new(params[:form])
     normalize_positions(@form)
 
-    form_with_image = add_gallery_in_form(@form, profile, uploaded_data)
+    form_with_image = add_gallery_in_form(@form, profile,
+                                          uploaded_data, should_remove_image)
     respond_to do |format|
       if form_with_image
         session[:notice] = _("%s was successfully created") % @form.name
@@ -46,12 +48,14 @@ class CustomFormsPluginMyprofileController < MyProfileController
   end
 
   def update
-    uploaded_data = params[:form].delete(:image)
     @form = CustomFormsPlugin::Form.find(params[:id])
+    uploaded_data = params[:form].delete(:image)
+    should_remove_image = params[:form].delete(:remove_image)
     @form.attributes = params[:form]
     normalize_positions(@form)
 
-    form_with_image = add_gallery_in_form(@form, profile, uploaded_data)
+    form_with_image = add_gallery_in_form(@form, profile,
+                                          uploaded_data, should_remove_image)
     respond_to do |format|
       if form_with_image
         session[:notice] = _("%s was successfully updated") % @form.name
@@ -129,26 +133,31 @@ class CustomFormsPluginMyprofileController < MyProfileController
     end
   end
 
-  def add_gallery_in_form(form, profile, data)
-    return form.save unless data
-    form_image = UploadedFile.new(
-      :uploaded_data => data,
-      :profile => profile,
-      :parent => nil,
-    )
+  def add_gallery_in_form(form, profile, data, remove_image)
 
     form_settings = Noosfero::Plugin::Settings.new(profile, CustomFormsPlugin)
     form_gallery = Gallery.where(id: form_settings.gallery_id).first
+    return remove_form_image(form, form_gallery) if remove_image == "1"
+    return form.save unless data
+
     unless form_gallery
       form_gallery = Gallery.create(profile: profile, name: _("Query Gallery"))
       form_settings.gallery_id = form_gallery.id
       form_settings.save!
     end
 
+    form_image = UploadedFile.new(
+      :uploaded_data => data,
+      :profile => profile,
+      :parent => nil,
+    )
+
     form_gallery.images << form_image
-    @form.image = form_image
-    form_with_image = @form.save && form_gallery.save
-    @form.errors.messages.merge!(form_gallery.errors.messages)
+    old_form_image = form.image
+    form.image = form_image
+    form_with_image = form.save && form_gallery.save
+    UploadedFile.delete(old_form_image.id) if old_form_image
+    form.errors.messages.merge!(form_gallery.errors.messages)
     form_with_image
   end
 
@@ -158,6 +167,15 @@ class CustomFormsPluginMyprofileController < MyProfileController
         value['alternatives_attributes'].delete_if {|id, e| e['label'].blank? } if value['alternatives_attributes'].present?
       end
     end
+  end
+
+  def remove_form_image form, gallery
+    return form.save if !(form.image && form.image.valid?)
+    image_to_remove = form.image.id
+    form.image = nil
+    form.save
+    gallery.images.find(image_to_remove).delete
+    return UploadedFile.delete(image_to_remove)
   end
 
 end
