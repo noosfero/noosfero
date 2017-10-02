@@ -272,3 +272,66 @@ background-size: cover;
 font-size: 14px;
 font-style: italic;
 }
+
+.query-overview {
+  .query-header {
+    color: #90949c;
+
+    .bullet {
+      padding: 0px 4px;
+    }
+
+    a {
+      color: #fff;
+      cursor: pointer;
+      float: right;
+      background-color: #428bca;
+      border: 1px solid #357ebd;
+      line-height: 1.4;
+      text-align: center;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+
+      &:hover, &:visited {
+        text-decoration: none;
+      }
+
+      &:hover {
+        color: #fff;
+        background-color: #3071a9;
+        border: 1px solid #285e8e;
+      }
+    }
+  }
+
+  .overview {
+    margin-top: 35px;
+    h6 {
+      font-size: 14px !important;
+      font-weight: 400;
+    }
+
+    table.review_text_align {
+      td {
+        padding: 8px 4px;
+        &:not(:first-child) {
+          text-align: left;
+        }
+      }
+
+      th {
+        border-bottom: 1px solid #90949c;
+        font-weight: 400;
+      }
+
+      th:first-child, td:first-child {
+        width: 20%;
+      }
+    }
+
+    div:nth-child(n + 2) {
+      margin-top: 30px;
+    }
+  }
+}

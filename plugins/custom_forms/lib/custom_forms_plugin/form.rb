@@ -118,18 +118,18 @@ belongs_to :profile
     seconds_to_days = 86400
     days = (ending.to_i - begining.to_i) / seconds_to_days
     if days < 1
-      return "This query ends today."
+      return "Ends today."
     end
 
     if days >= 1 && days < 2
-      return "This query ends tomorow."
+      return "Ends tomorow."
     end
 
     if days < 0
-      return "This query is already close."
+      return "Already closed"
     end
 
-    return "This query ends in: #{days} days."
+    return "#{days} days left"
   end
 
   def status
