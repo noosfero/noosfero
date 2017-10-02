@@ -1,4 +1,4 @@
-class MailingListPlugin::ProcessReplyJob < Struct.new(:from, :uuid, :message)
+class MailingListPlugin::ProcessReplyJob < Struct.new(:from, :message_uuid, :reply_uuid, :message)
   def perform
     log_email_reception
 
@@ -7,15 +7,11 @@ class MailingListPlugin::ProcessReplyJob < Struct.new(:from, :uuid, :message)
     author = User.find_by_email(from).try(:person)
     return log('Unknown user!') if author.blank?
 
-    return log('Empty UUID!') if uuid.blank?
+    return log('Empty Message UUID!') if message_uuid.blank?
+    return log('Empty Reply UUID!') if reply_uuid.blank?
 
-    unless uuid =~ /([a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}?)/i
-      log("Invalid UUID [#{uuid}]!")
-      return
-    end
-
-    uuid_reply = Comment.with_plugin_metadata(MailingListPlugin, {uuid: uuid}).first
-    uuid_reply = Article.with_plugin_metadata(MailingListPlugin, {uuid: uuid}).first if uuid_reply.blank?
+    uuid_reply = Comment.with_plugin_metadata(MailingListPlugin, {uuid: reply_uuid}).first
+    uuid_reply = Article.with_plugin_metadata(MailingListPlugin, {uuid: reply_uuid}).first if uuid_reply.blank?
     if uuid_reply.blank?
       article = nil
     elsif uuid_reply.kind_of?(Article)
@@ -26,7 +22,7 @@ class MailingListPlugin::ProcessReplyJob < Struct.new(:from, :uuid, :message)
       article = uuid_reply.article
     end
 
-    return log("Unknonw UUID [#{uuid}]!") if article.blank?
+    return log("Unknown referenced content [#{reply_uuid}]!") if article.blank?
     return log('Article does not accept comments!') if !article.accept_comments?
 
     environment_settings = Noosfero::Plugin::Settings.new article.environment, MailingListPlugin
@@ -35,7 +31,10 @@ class MailingListPlugin::ProcessReplyJob < Struct.new(:from, :uuid, :message)
     return log("Ignore email from us [#{administrator_email}]") if from == administrator_email
 
     reply_address = "#{uuid_reply.author_name} <#{uuid_reply.author.email}>"
-    comment = Comment.new(body: treat_body(message, reply_address), author: author, source: article, reply_of_id: reply_of_id)
+    comment = Comment.new(
+      body: treat_body(message, reply_address),
+      author: author, source: article, reply_of_id: reply_of_id,
+      mailing_list_plugin_uuid: message_uuid, mailing_list_plugin_from_list: true)
     article.plugins.dispatch(:filter_comment, comment)
 
     begin
@@ -45,6 +44,9 @@ class MailingListPlugin::ProcessReplyJob < Struct.new(:from, :uuid, :message)
           log('ApproveComment task created!')
         else
           comment.save!
+          comment_metadata = Noosfero::Plugin::Metadata.new comment, MailingListPlugin
+          comment_metadata.uuid = message_uuid
+          comment_metadata.save!
           log('Comment created!')
         end
       end
@@ -71,7 +73,8 @@ class MailingListPlugin::ProcessReplyJob < Struct.new(:from, :uuid, :message)
     logger = Delayed::Worker.logger
     logger.info("== [MailingListPlugin] Received email!")
     logger.info("From: %s" % from)
-    logger.info("UUDI: %s" % uuid)
+    logger.info("Message UUID: %s" % message_uuid)
+    logger.info("Reply UUID: %s" % reply_uuid)
     logger.info("Message:\n\n%s" % message)
     logger.info("==")
   end
