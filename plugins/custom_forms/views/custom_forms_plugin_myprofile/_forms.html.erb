@@ -10,7 +10,7 @@
     <tr>
       <td><%= link_to form.name, {:controller => 'custom_forms_plugin_profile', :action => 'show', :id => form.identifier}, :title => _('View %s') % kind %></td>
       <td><%= period_range(form) %></td>
-      <td><%= form.submissions.count > 0 ? link_to(form.submissions.count, {:action => 'submissions', :id => form.id}, :title => _('Review submisisons')) : 0 %></td>
+      <td><%= form.submissions.count > 0 ? link_to(form.submissions.count, { :controller => 'custom_forms_plugin_profile', :action => 'review', :id => form.identifier}, :title => _('Review submisisons')) : 0 %></td>
       <td><%= access_text(form) %></td>
       <td class="actions">
         <%= button_without_text :edit, c_('Edit'), :action => 'edit', :id => form.id %>

@@ -74,4 +74,36 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
 
     assert_tag :tag => 'h2', :content => 'Sorry, you can\'t fill this form anymore'
   end
+
+  should 'show query review page' do
+
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                            :name => 'Free Software',
+                                            :identifier => 'free')
+    submission = CustomFormsPlugin::Submission.create!(:form => form,
+                                                       :profile => profile)
+    radio_field = CustomFormsPlugin::Field.create!(
+      :name => 'What is your favorite food?',
+      :form => form,
+      :show_as => 'radio'
+    )
+
+
+    CustomFormsPlugin::Alternative.create!(:field => radio_field,
+                                           :label => 'rice')
+    CustomFormsPlugin::Alternative.create!(:field => radio_field,
+                                           :label => 'beans')
+
+    alt = CustomFormsPlugin::Alternative.create!(:field => radio_field,
+                                                 :label => 'bread')
+
+    CustomFormsPlugin::Answer.create!(:field => radio_field,
+                                      :value => alt.id,
+                                      :submission => submission)
+
+    get :review, :profile => profile.identifier, :id => form.identifier
+
+    assert_tag :tag => 'h6', :attributes => {:class => 'review_text_align'},
+      :content => ' What is your favorite food?'
+  end
 end

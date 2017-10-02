@@ -36,7 +36,6 @@ gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 
-
 # API dependencies
 gem 'grape',                    '~> 0.12'
 gem 'grape-entity',             '~>0.4.8'

@@ -172,7 +172,6 @@ tr.addition-buttons {
   cursor: auto;
 }
 
-.form-with-image input {
-  border: 3px solid #9bd8a0;
-  font-size: 12px;
+.review_text_align {
+  text-align:center;
 }
