@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-08-16 20:08+0000\n"
-"PO-Revision-Date: 2016-08-19 22:29+0000\n"
-"Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"documentation/pt/>\n"
+"PO-Revision-Date: 2017-10-04 11:47+0000\n"
+"Last-Translator: shshshwhs <diogobeirao10@gmail.com>\n"
+"Language-Team: Portuguese "
+"<https://hosted.weblate.org/projects/noosfero/documentation/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"X-Generator: Weblate 2.17-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -8269,12 +8269,14 @@ msgstr ""
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/variables.en.xhtml:1
 msgid "Variables Plugin"
-msgstr ""
+msgstr "Plugin de variáveis"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:2
+#, fuzzy
 msgid "A set of simple variables to be used in a macro context."
 msgstr ""
+"Um conjunto de variáveis simples para serem utilizadas num contexto de macro"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -8305,38 +8307,44 @@ msgstr ""
 
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/variables.en.xhtml:10
+#, fuzzy
 msgid "Usage with TextArticle"
-msgstr ""
+msgstr "Utilizável com TextArticle"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:11
 msgid "The Noosfero&#8217;s macros add a extra button in toolbar of the editor"
 msgstr ""
+"As macros do Nosfero&#8217;s adicionam um botão extra à barra de ferramentas "
+"do editor"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:12
+#, fuzzy
 msgid "to use macros in a single way, that way this plugin add a option"
 msgstr ""
+"para usar as macros de forma única, desta forma este plugin adiciona a opção"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:13
+#, fuzzy
 msgid "called &#8220;Variables&#8221; under this option."
-msgstr ""
+msgstr "denominadas &#8220;variáveis&#8221; dentro desta opção"
 
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/variables.en.xhtml:14
 msgid "Supported variables"
-msgstr ""
+msgstr "Variáveis suportadas"
 
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/variables.en.xhtml:16
 msgid "{profile} &#8211; will be replaced by the identifier of the profile"
-msgstr ""
+msgstr "{perfil} &#8211; será substituído por um identificador de perfil"
 
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/variables.en.xhtml:17
 msgid "{name} &#8211; will be replaced by the name of the profile"
-msgstr ""
+msgstr "{nome} &#8211; será substituído pelo nome do perfil"
 
 #. type: Content of: <pre>
 #: doc/noosfero/plugins/variables.en.xhtml:21
@@ -8351,7 +8359,7 @@ msgstr ""
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:27
 msgid "This plugin was inspired by the solution proposed by the Serpro in"
-msgstr ""
+msgstr "Este plugin foi inspirado na solução proposta por Serpro em"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:28
@@ -8361,12 +8369,13 @@ msgstr ""
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/variables.en.xhtml:30
 msgid "https://gitorious.org/noosfero/noosfero/merge_requests/419"
-msgstr ""
+msgstr "https://gitorious.org/noosfero/noosfero/merge_requests/419"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:32
+#, fuzzy
 msgid "And improved by the guys from the UnB."
-msgstr ""
+msgstr "E melhorado pelo pessoal da UnB."
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
