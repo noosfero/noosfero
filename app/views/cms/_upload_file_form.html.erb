@@ -26,8 +26,12 @@
     <% if back_to %>
       <%= submit_button :save, _('Upload'), cancel: back_to %>
     <% else %>
-      <%= submit_button :save, _('Upload'),
-                        cancel: { action: (parent ? 'view' : 'index'), id: parent.id } %>
+      <% if parent.present? %>
+        <%= submit_button :save, _('Upload'),
+              cancel: { action: 'view', id: parent.id } %>
+      <% else %>
+        <%= submit_button :save, _('Upload'), cancel: { action: 'index' } %>
+      <% end %>
     <% end %>
   <% end %>
 

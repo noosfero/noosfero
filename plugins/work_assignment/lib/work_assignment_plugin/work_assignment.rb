@@ -33,7 +33,7 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def to_html(options = {})
-    lambda do
+    -> context do
       render :file => 'content_viewer/work_assignment.html.erb'
     end
   end

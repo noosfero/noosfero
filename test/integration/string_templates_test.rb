@@ -23,11 +23,11 @@ class StringTemplatesTest < ActionDispatch::IntegrationTest
     article = fast_create(TextArticle,
       author_id: @profile.id,
       profile_id: @profile.id,
-      body: '<p>The title is: !title</p>'
+      body: '<p>The title is: !article_name</p>'
     )
 
     get "/#{@profile.identifier}/#{article.title.to_slug}"
-    assert_no_match /<p>The title is: !title<\/p>/, @response.body
+    assert_no_match /<p>The title is: !article_name<\/p>/, @response.body
     assert_match /<p>The title is: #{article.title}<\/p>/, @response.body
   end
 
@@ -43,9 +43,9 @@ class StringTemplatesTest < ActionDispatch::IntegrationTest
   end
 
   should 'replace the title of an article if the macro is valid' do
-    article = TextArticle.create name: 'Hello, !name', author: @profile, profile: @profile, published: true
+    article = TextArticle.create name: 'Hello, !profile_name', author: @profile, profile: @profile, published: true
     get "/#{@profile.identifier}/#{article.name.to_slug}"
-    assert_no_match /Hello, !name/, @response.body
+    assert_no_match /Hello, !profile_name/, @response.body
     assert_match /Hello, #{@profile.name}/, @response.body
   end
 

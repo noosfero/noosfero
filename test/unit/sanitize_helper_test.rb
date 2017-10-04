@@ -9,36 +9,21 @@ class SanitizeHelperTest < ActionView::TestCase
   end
 
   should 'replace string content if it contains string params' do
-    obj = mock
-    obj.stubs(:id).returns('1')
-    obj.stubs(:title).returns('ze')
-
-    str = parse_string_params(obj, '!id should be replaced for !title')
-    assert_equal '1 should be replaced for ze', str
+    article = fast_create(Article)
+    str = parse_string_params(article, '!id should be replaced for !article_name')
+    assert_equal "#{article.id} should be replaced for #{article.title}", str
   end
 
   should 'not replace string content if string params do not exist' do
-    obj = mock
+    article = fast_create(Article)
     str = '!!!this !invalid is not a param!!!'
-    assert_equal str, parse_string_params(obj, str)
+    assert_equal str, parse_string_params(article, str)
   end
 
   should 'use string params for a Block' do
-    obj = mock
-    obj.stubs(:class).returns(Block)
-    obj.stubs(:owner).returns(obj)
-    obj.stubs(:name).returns('it works')
+    block = fast_create(Block)
 
-    assert_equal 'it works', parse_string_params(obj, '!name')
-  end
-
-  should 'use string params for an Article' do
-    obj = mock
-    obj.stubs(:class).returns(Article)
-    obj.stubs(:author).returns(obj)
-    obj.stubs(:name).returns('it works')
-
-    assert_equal 'it works', parse_string_params(obj, '!name')
+    assert_equal block.title, parse_string_params(block, '!title')
   end
 
   should 'use default params if it the object class is not supported' do

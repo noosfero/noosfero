@@ -9,7 +9,7 @@ module StringTemplate
   def to_html(options = {})
     article, content = self, super
     if content.is_a? Proc
-      -> { parse_string_params(article, self.instance_exec(&content)) }
+      -> context { article.parse_string_params(article, self.instance_exec(&content)) }
     else
       parse_string_params(article, content)
     end

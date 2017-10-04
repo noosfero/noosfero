@@ -14,7 +14,7 @@
     <%= select_tag 'custom-field-type', options_for_select(custom_fields_for_article types), id: 'custom-field-type' %>
     <%= text_field_tag("custom-field-name", nil, :size => 30, placeholder: _('Field name'), id: 'custom-field-name') %>
     <%= button_without_text :add, _('Add new field'), '#', id: 'add-field-btn' %>
-    <a href='#' id='hide-opts-link'><%= _('Cancel') %></a>
+    <a href='#' id='hide-opts-link'><%= _('Remove') %></a>
   </div>
 
   <div id='article-custom-field-templates'>

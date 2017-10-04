@@ -1,6 +1,7 @@
 module BoxesHelper
 
   include SanitizeHelper
+  include ActionView::Helpers::OutputSafetyHelper
 
   def insert_boxes(content)
     if controller.send(:boxes_editor?) && controller.send(:uses_design_blocks?)
@@ -95,8 +96,12 @@ module BoxesHelper
     method_name = "#{template_name}_block_extra_content"
     begin
       block_content = render template: "blocks/#{prefix}#{template_name}", locals: { block: block }
-      extra_content = @plugins.dispatch(method_name.to_sym, block, params).map do |p|
-        p.kind_of?(Proc) ? self.instance_exec(&p) : p
+      parameters = defined?(params) ? params : {}
+      extra_content = []
+      if @plugins.present?
+        extra_content = @plugins.dispatch(method_name.to_sym, block, parameters).map do |p|
+          p.kind_of?(Proc) ? self.instance_exec(&p) : p
+        end
       end
 
       block_content = safe_join [block_content, safe_join(extra_content)]

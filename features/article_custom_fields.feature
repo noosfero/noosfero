@@ -1,7 +1,6 @@
 Feature: article custom fields
   As a noosfero user
   I want to add custom fields to an article
-
   Background:
     Given I am on the homepage
     And the following users
@@ -11,9 +10,7 @@ Feature: article custom fields
       | owner     | name              | body |
       | joaosilva | Save the whales   | ...  |
     And I am logged in as "joaosilva"
-    And I am on joaosilva's sitemap
-    And I follow "Save the whales"
-    And I follow "Edit"
+    And I am on edit "Save the whales" by joaosilva
 
   @selenium
   Scenario: Add custom field to an article

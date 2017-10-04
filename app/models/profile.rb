@@ -1277,6 +1277,10 @@ private :generate_url, :url_options
     self.save
   end
 
+  def allow_single_file?
+    self.metadata["allow_single_file"] == "1"
+  end
+
   private
 
   def super_upload_quota
@@ -1288,9 +1292,5 @@ private :generate_url, :url_options
     else
       environment.quota_for(self.class)
     end
-  end
-
-  def allow_single_file?
-    self.metadata["allow_single_file"] == "1"
   end
 end

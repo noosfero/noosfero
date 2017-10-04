@@ -27,9 +27,9 @@ class ContentViewerHelperTest < ActionView::TestCase
     post2 = create(TextArticle, :name => 'second post', :profile => profile, :parent => blog, :published => false)
 
     assert_no_tag_in_string article_title(post1),
-      :tag => 'div', :attributes => { :class => 'not-published' }
+      :tag => 'div', :attributes => { :class => 'not-published aler-text' }
     assert_tag_in_string article_title(post2),
-      :tag => 'div', :attributes => { :class => 'not-published' }
+      :tag => 'div', :attributes => { :class => 'not-published alert-text' }
   end
 
   should 'display published-at for forum posts' do
