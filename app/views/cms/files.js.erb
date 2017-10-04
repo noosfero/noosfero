@@ -1,0 +1,3 @@
+$('div.cms-files table.cms-articles').replaceWith('\
+  <%= j(render partial: 'cms/files_list', locals: { files: @files }) %>\
+');

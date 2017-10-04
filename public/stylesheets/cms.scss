@@ -210,13 +210,45 @@ table.cms-articles .icon:hover {
   margin: 20px 0;
   align-items: center;
 
+  span {
+    margin-right: 5px;
+  }
+
   .progressbar {
     flex: 1;
     height: 10px;
-    margin-left: 5px;
 
     .ui-corner-right {
       background: #f44336;
     }
+  }
+}
+
+.cms-files {
+  #cms-files-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+
+    a.button {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  table.cms-articles td:last-child,
+  table.cms-articles th:last-child {
+    width: 40px;
+  }
+
+  table.cms-articles td.file-type {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  table.cms-articles td.no-entries {
+    font-style: italic;
+    text-align: center;
   }
 }

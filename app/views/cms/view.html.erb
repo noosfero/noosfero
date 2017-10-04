@@ -25,11 +25,14 @@
 
 <% if profile.upload_quota.present? %>
   <div class='quota-status'>
-    <span><%= _('Your upload quota (used %s of %s):') % [
-      number_to_human_size(profile.used_quota),
-      number_to_human_size(profile.upload_quota.megabytes)
-    ] %></span>
-    <div class="progressbar" data-used-quota='<%= profile.used_quota %>'
+    <span><%= link_to _('Your files'), { action: 'files' } %></span>
+    <span>
+      <%= _('(used %s of %s):') % [
+            number_to_human_size(profile.disk_usage),
+            number_to_human_size(profile.upload_quota.megabytes)
+          ] %>
+    </span>
+    <div class="progressbar" data-used-quota='<%= profile.disk_usage %>'
          data-total-quota='<%= profile.upload_quota.megabytes %>'>
     </div>
   </div>

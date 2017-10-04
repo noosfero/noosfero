@@ -2505,14 +2505,30 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'return the used quota of the profile' do
-    profile = fast_create(Profile)
+    person = create_user.person
+    community = fast_create(Community)
 
-    file1 = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    file1.update_attributes({ size: 3.megabytes }, :without_protection => true)
+    file1 = create(UploadedFile, :profile => person, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file2 = create(UploadedFile, :profile => person, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file3 = create(UploadedFile, :profile => community, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
-    file2 = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    file2.update_attributes({ size: 5.megabytes }, :without_protection => true)
-
-    assert_equal 8.megabytes, profile.used_quota
+    assert_equal (file1.size + file2.size), person.disk_usage
+    assert_equal file3.size, community.disk_usage
   end
+
+  should 'order by higher and lower disk usage with NULLS at the end' do
+    Profile.destroy_all
+    profile1 = fast_create(Profile)
+    profile2 = fast_create(Profile)
+    profile3 = fast_create(Profile)
+
+    profile1.metadata['disk_usage'] = 10
+    profile1.save
+    profile2.metadata['disk_usage'] = 30
+    profile2.save
+
+    assert_equal [profile2, profile1, profile3], Profile.higher_disk_usage
+    assert_equal [profile1, profile2, profile3], Profile.lower_disk_usage
+  end
+
 end

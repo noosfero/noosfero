@@ -257,6 +257,9 @@ class Profile < ApplicationRecord
   scope :is_public, -> { where visible: true, public_profile: true, secret: false }
   scope :enabled, -> { where enabled: true }
 
+  scope :higher_disk_usage, -> { order("metadata->>'disk_usage' DESC NULLS LAST") }
+  scope :lower_disk_usage, -> { order("metadata->>'disk_usage' ASC NULLS LAST") }
+
   # subclass specific
   scope :more_popular, -> { }
   scope :more_active, -> { order 'profiles.activities_count DESC' }
@@ -1265,8 +1268,13 @@ private :generate_url, :url_options
     nil
   end
 
-  def used_quota
-    files.sum('size')
+  def disk_usage
+    self.files.sum('size')
+  end
+
+  def update_disk_usage!
+    self.metadata['disk_usage'] = self.disk_usage
+    self.save
   end
 
   private

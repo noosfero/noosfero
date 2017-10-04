@@ -393,6 +393,27 @@ class CmsController < MyProfileController
     load_recent_files(params[:parent_id], params[:q], paginate_options)
   end
 
+  def files
+    @files = profile.files.paginate(per_page: per_page, page: params[:npage])
+    @filters = {
+      _('Name') => 'name',
+      _('Size (bigger first)') => 'size DESC',
+      _('Size (smaller first)') => 'size ASC'
+    }
+
+    @sort_by = params[:sort_by] || 'name'
+    if @sort_by.in?(@filters.values)
+      @files = @files.order(@sort_by)
+    else
+      @files = @files.order('name')
+    end
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
+  end
+
   protected
 
   include CmsHelper

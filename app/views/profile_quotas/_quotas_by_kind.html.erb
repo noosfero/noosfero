@@ -20,6 +20,12 @@
         <td class='actions'>
           <%= button_without_text :edit, _('Edit Quota'),
                                   { action: :edit_class, type: klass.to_s } %>
+          <%= button_without_text :clear, _('Reset quota for all profles'),
+                                  { action: :reset_class, type: klass.to_s },
+                                  method: 'delete',
+                                  data: { confirm: _("This action will reset "\
+                                                     "the quotas of all "\
+                                                     "'#{klass.to_s}' profiles") } %>
         </td>
       </tr>
       <% kinds.each do |kind| %>
@@ -30,6 +36,13 @@
           <td class='actions'>
             <%= button_without_text :edit, _('Edit Quota'),
                                     { action: :edit_kind, id: kind.id } %>
+            <%= button_without_text :clear, _('Reset quota for all profiles'),
+                                    { action: :reset_kind, id: kind.id },
+                                    method: 'delete',
+                                    data: { confirm: _("This action will "\
+                                                       "reset the quotas of "\
+                                                       "all '#{kind.name}' "\
+                                                       "profiles.") } %>
           </td>
         </tr>
       <% end %>

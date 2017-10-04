@@ -1,0 +1,19 @@
+<%= javascript_include_tag 'cms-files.js' %>
+
+<div class='cms-files'>
+  <h1>
+    <%= _('Files') %>
+  </h1>
+
+  <div id='cms-files-toolbar'>
+    <%= button(:back, _('Back to Content Management'), action: 'index') %>
+    <div class='filters'>
+      <span><%= _('Sort by') %></span>
+      <%= select_tag('sort_by', options_for_select(@filters, @sort_by),
+                     id: 'sort-by', data: { url: url_for(action: 'files') }) %>
+    </div>
+  </div>
+
+  <%= render partial: 'cms/files_list', locals: { files: @files } %>
+  <%= pagination_links @files, { param_name: 'npage', page_links: true } %>
+</div>

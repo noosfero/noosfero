@@ -11,15 +11,15 @@ class KindsControllerTest < ActionController::TestCase
   attr_accessor :environment
 
   should 'list kinds' do
-    pk1 = Kind.create(:environment_id => environment.id, :type => 'Person', :name => 'Captain')
-    pk2 = Kind.create(:environment_id => environment.id, :type => 'Person', :name => 'Officer')
+    pk1 = Kind.create(:environment => environment, :type => 'Person', :name => 'Captain')
+    pk2 = Kind.create(:environment => environment, :type => 'Person', :name => 'Officer')
 
-    ck1 = Kind.create(:environment_id => environment.id, :type => 'Community', :name => 'Discussion')
-    ck2 = Kind.create(:environment_id => environment.id, :type => 'Community', :name => 'Decision')
-    ck3 = Kind.create(:environment_id => environment.id, :type => 'Community', :name => 'Proposal')
+    ck1 = Kind.create(:environment => environment, :type => 'Community', :name => 'Discussion')
+    ck2 = Kind.create(:environment => environment, :type => 'Community', :name => 'Decision')
+    ck3 = Kind.create(:environment => environment, :type => 'Community', :name => 'Proposal')
 
-    ek1 = Kind.create(:environment_id => environment.id, :type => 'Enterprise', :name => 'Market')
-    ek2 = Kind.create(:environment_id => environment.id, :type => 'Enterprise', :name => 'Production')
+    ek1 = Kind.create(:environment => environment, :type => 'Enterprise', :name => 'Market')
+    ek2 = Kind.create(:environment => environment, :type => 'Enterprise', :name => 'Production')
 
     get 'index'
 
@@ -48,7 +48,7 @@ class KindsControllerTest < ActionController::TestCase
   should 'edit kind' do
     name = 'Officer'
     type = 'Person'
-    kind = Kind.create(:environment_id => environment.id, :type => 'Person', :name => 'Captain')
+    kind = Kind.create(:environment => environment, :type => 'Person', :name => 'Captain')
 
     post 'edit', :id => kind.id, :kind => {:type => type, :name => name}
 
@@ -58,7 +58,7 @@ class KindsControllerTest < ActionController::TestCase
   end
 
   should 'destroy kind' do
-    kind = Kind.create(:environment_id => environment.id, :type => 'Person', :name => 'Captain')
+    kind = Kind.create(:environment => environment, :type => 'Person', :name => 'Captain')
     post 'destroy', :id => kind.id
     assert_raise ActiveRecord::RecordNotFound do
       kind.reload

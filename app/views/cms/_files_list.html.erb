@@ -1,0 +1,37 @@
+<table class='cms-articles'>
+  <thead>
+    <tr>
+      <th><%= _('Name') %></th>
+      <th><%= _('Type') %></th>
+      <th><%= _('Size') %></th>
+      <th><%= _('Actions') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if files.present? %>
+      <% files.each do |file| %>
+        <tr title="<%= file.title %>">
+          <td class="article-name">
+            <%= link_to_article(file) %>
+          </td>
+          <td class="file-type" title=<%= file.content_type.to_json %>>
+            <%= file.content_type %>
+          </td>
+          <td class="file-size">
+            <%= number_to_human_size(file.size) %>
+          </td>
+          <td class="article-controls">
+            <%= button_without_text :eyes, _('Public view'), file.view_url %>
+            <% if !remove_content_button(:delete, file) %>
+              <%= display_delete_button(file) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <td colspan=4 class='no-entries'>
+        <%= _('No files to show') %>
+      </td>
+    <% end %>
+  </tbody>
+</table>
