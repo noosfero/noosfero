@@ -13,38 +13,38 @@ class HasUploadQuotaTest < ActiveSupport::TestCase
   end
 
   should 'return upload quota of the profile' do
-    @profile.metadata['quota'] = 300.0; @profile.save
-    @kind1.metadata['quota'] = 100.0; @kind1.save
+    @profile.update_attributes(upload_quota: 300)
+    @kind1.update_attributes(upload_quota: 100)
     assert_equal 300.0, @profile.upload_quota
   end
 
   should 'return nil if upload quota of the profile is empty' do
-    @profile.metadata['quota'] = ''; @profile.save
-    @kind1.metadata['quota'] = 100.0; @kind1.save
+    @profile.update_attributes(upload_quota: '')
+    @kind1.update_attributes(upload_quota: 100)
     assert @profile.upload_quota.nil?
   end
 
   should 'return zero if upload quota of the profile is zero' do
-    @profile.metadata['quota'] = 0; @profile.save
-    @kind1.metadata['quota'] = 100.0; @kind1.save
+    @profile.update_attributes(upload_quota: 0)
+    @kind1.update_attributes(upload_quota: 100)
     assert_equal 0, @profile.upload_quota
   end
 
   should 'return upload quota of the kind if profile does not have it' do
     Profile.stubs(:default_quota).returns(250.0)
-    @kind1.metadata['quota'] = 500; @kind1.save
+    @kind1.update_attributes(upload_quota: 500)
     assert_equal 500, @profile.upload_quota
   end
 
   should 'return unlimited if one of the kinds has unlimited quota' do
-    @kind1.metadata['quota'] = ''; @kind1.save
-    @kind2.metadata['quota'] = 100.0; @kind2.save
+    @kind1.update_attributes(upload_quota: '')
+    @kind2.update_attributes(upload_quota: 100)
     assert @profile.upload_quota.nil?
   end
 
   should 'return the largest quota of all profile kinds' do
-    @kind1.metadata['quota'] = 100.0; @kind1.save
-    @kind2.metadata['quota'] = 700.0; @kind2.save
+    @kind1.update_attributes(upload_quota: 100.50)
+    @kind2.update_attributes(upload_quota: 700)
     assert_equal 700.0, @profile.upload_quota
   end
 
@@ -53,8 +53,13 @@ class HasUploadQuotaTest < ActiveSupport::TestCase
     assert_equal 1000.0, @kind1.upload_quota
   end
 
-  should 'not save object with invalid upload quota' do
-    @profile.metadata['quota'] = 'not a number'
+  should 'not accept a quota that is not a number' do
+    @profile.upload_quota = 'not a number'
+    refute @profile.valid?
+  end
+
+  should 'not accept a quota that less than zero' do
+    @profile.upload_quota = -33.5
     refute @profile.valid?
   end
 

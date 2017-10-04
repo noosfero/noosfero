@@ -88,4 +88,59 @@ class ProfileQuotasControllerTest < ActionController::TestCase
     assert_tag tag: 'div', attributes: { class: 'errorExplanation' }
   end
 
+  should 'reset quotas by profile class' do
+    env = Environment.default
+    env.metadata['quotas'] = { 'Community' => 100 }
+    env.save
+
+    @community.update_attributes(upload_quota: 500)
+
+    delete :reset_class, type: 'Community'
+    @community.reload
+    assert_equal env.quota_for(Community), @community.upload_quota
+  end
+
+  should 'not reset quotas by profle class if type is invalid' do
+    delete :reset_class, type: 'invalid'
+    assert session[:notice].present?
+  end
+
+  should 'reset quotas by profile kind' do
+    @community.update_attributes(upload_quota: 500)
+    @kind.update_attributes(upload_quota: 1000)
+    @kind.profiles << @community
+
+    delete :reset_kind, id: @kind.id
+    @community.reload
+    assert_equal @kind.upload_quota, @community.upload_quota
+  end
+
+  should 'reset quotas by profile kind when quota is unlimited' do
+    @community.update_attributes(upload_quota: 500)
+    @kind.update_attributes(upload_quota: '')
+    @kind.profiles << @community
+
+    delete :reset_kind, id: @kind.id
+    @community.reload
+    assert @community.upload_quota.nil?
+  end
+
+  should 'silently redirect to index if kind does not exist' do
+    delete :reset_kind, id: 'do not exist'
+    assert_redirected_to action: :index
+  end
+
+  should 'reset quota of a single profile' do
+    @community.update_attributes(upload_quota: 1000)
+
+    delete :reset_profile, id: @community.id
+    @community.reload
+    assert_nil @community.upload_quota
+  end
+
+  should 'silently redirect to index if profile does not exist' do
+    delete :reset_profile, id: 'do not exist'
+    assert_redirected_to action: :index
+  end
+
 end

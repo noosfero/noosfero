@@ -11,10 +11,22 @@
     display: flex;
     justify-content: flex-end;
     margin: 10px 0;
+
+    select#order-filter {
+      margin-left: 5px;
+    }
   }
 
   .profile-list {
-    td:nth-child(2), td:nth-child(3) {
+    td {
+      text-align: center;
+    }
+
+    td:first-child {
+      text-align: left;
+    }
+
+    td:last-child {
       text-align: right;
     }
 

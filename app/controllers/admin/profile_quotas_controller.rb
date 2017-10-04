@@ -1,10 +1,14 @@
 class ProfileQuotasController < AdminController
 
   def index
-    asset = params[:asset].in?(type_filters.values) ? params[:asset] : :profiles
-    scope = environment.send(asset).no_templates.order('name')
-    @profiles = find_by_contents(asset, environment, scope, params[:q],
-                                 paginate_options)[:results]
+    asset = params[:asset].in?(type_filters.values) ? params[:asset]
+                                                    : :profiles
+    order = params[:order_by].in?(order_filters.values) ? params[:order_by]
+                                                        : nil
+    scope = environment.send(asset).no_templates
+    results = find_by_contents(asset, environment, scope, params[:q],
+                               paginate_options, filter: order)[:results]
+    @profiles = results.order('name')
 
     if request.xhr?
       respond_to do |format|
@@ -12,7 +16,8 @@ class ProfileQuotasController < AdminController
         format.json { render json: @profiles.map(&:name) }
       end
     else
-      @filters = type_filters
+      @type_filters = type_filters
+      @order_filters = order_filters
       @kinds = valid_classes.map do |klass|
         [ klass, environment.kinds.where(:type => klass.to_s) ]
       end.to_h
@@ -20,14 +25,13 @@ class ProfileQuotasController < AdminController
   end
 
   def edit_class
-    type = (params['type'] || '').capitalize
+    type = params['type'].try(:capitalize)
     begin
-      valid_types = valid_classes.map(&:to_s).push('Profile')
-      raise NameError unless type.in? valid_types
+      raise NameError unless type.in?(valid_classes.map(&:to_s))
       @klass = type.constantize
       if request.post?
         environment.metadata['quotas'] ||= {}
-        environment.metadata['quotas'][@klass.to_s] = params['quota']['size']
+        environment.metadata['quotas'][type] = params['quota']['size']
         if environment.save
           redirect_to action: :index
         end
@@ -48,11 +52,44 @@ class ProfileQuotasController < AdminController
     update_record(@profile)
   end
 
+  def reset_class
+    if request.delete?
+      begin
+        type = params['type'].try(:capitalize)
+        raise NameError unless type.in?(valid_classes.map(&:to_s))
+
+        quota = environment.metadata['quotas'].try(:[], type)
+        profiles = environment.profiles.where(type: type)
+        profiles.update_all(upload_quota: quota)
+      rescue NameError
+        session[:notice] = _('Invalid profile type')
+      end
+    end
+    redirect_to action: :index
+  end
+
+  def reset_kind
+    kind = environment.kinds.find_by(id: params[:id])
+    if request.delete? && kind.present?
+      quota = kind.upload_quota.nil? ? '' : kind.upload_quota
+      kind.profiles.update_all(upload_quota: quota)
+    end
+    redirect_to action: :index
+  end
+
+  def reset_profile
+    profile = environment.profiles.find_by(id: params[:id])
+    if request.delete? && profile.present?
+      profile.update_attributes(upload_quota: nil)
+    end
+    redirect_to action: :index
+  end
+
   private
 
   def update_record(obj)
     if request.post?
-      obj.metadata['quota'] = params['quota']['size']
+      obj.upload_quota = params['quota']['size']
       if obj.save
         redirect_to action: :index
       end
@@ -69,6 +106,14 @@ class ProfileQuotasController < AdminController
       _('People') => 'people',
       _('Communities') => 'communities',
       _('Enterprises') => 'enterprises'
+    }
+  end
+
+  def order_filters
+    {
+      _('Sort by name') => nil,
+      _('Higher disk usage') => 'higher_disk_usage',
+      _('Lower disk usage') => 'lower_disk_usage'
     }
   end
 

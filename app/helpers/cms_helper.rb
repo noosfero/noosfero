@@ -48,4 +48,9 @@ module CmsHelper
     end
     button_without_text action.to_sym, title, url, options
   end
+
+  def max_upload_size_for(profile)
+    quota = profile.upload_quota.try(:megabytes)
+    [quota, UploadedFile.max_size].select{|s| s.present? }.min
+  end
 end

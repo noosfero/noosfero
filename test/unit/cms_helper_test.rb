@@ -78,6 +78,24 @@ class CmsHelperTest < ActionView::TestCase
 
     result = display_delete_button(article)
   end
+
+  should 'return profile quota as max upload size if it is smaller than the config' do
+    profile = build(Profile, upload_quota: 50)
+    UploadedFile.stubs(:max_size).returns(100.megabytes)
+    assert_equal profile.upload_quota.megabytes, max_upload_size_for(profile)
+  end
+
+  should 'return config as max upload size if it is samller than the profile quota' do
+    profile = build(Profile, upload_quota: 300)
+    UploadedFile.stubs(:max_size).returns(100.megabytes)
+    assert_equal UploadedFile.max_size, max_upload_size_for(profile)
+  end
+
+  should 'return config as max upload size if profile quota is nil' do
+    profile = build(Profile, upload_quota: nil)
+    UploadedFile.stubs(:max_size).returns(250.megabytes)
+    assert_equal UploadedFile.max_size, max_upload_size_for(profile)
+  end
 end
 
 module RssFeedHelper

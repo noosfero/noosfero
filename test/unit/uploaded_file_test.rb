@@ -193,12 +193,10 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'use origin image if thumbnails were not processed and fallback is enabled' do
-    NOOSFERO_CONF.expects(:[]).with('delayed_attachment_fallback_original_image').returns(true).at_least_once
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    NOOSFERO_CONF.expects(:[]).with('delayed_attachment_fallback_original_image').returns(true).at_least_once
 
     assert_match(/rails.png/, UploadedFile.find(file.id).public_filename(:thumb))
-
-    file.destroy
   end
 
   should 'return image thumbnail if thumbnails were processed' do
@@ -206,8 +204,6 @@ class UploadedFileTest < ActiveSupport::TestCase
     process_delayed_job_queue
 
     assert_match(/rails_thumb.png/, UploadedFile.find(file.id).public_filename(:thumb))
-
-    file.destroy
   end
 
   should 'store width and height after processing' do
@@ -418,11 +414,28 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'not create an uploaded file if the profile quota is exceeded' do
     Profile.any_instance.stubs(:upload_quota).returns(10.0)
-    Profile.any_instance.stubs(:used_quota).returns(7.megabytes)
+    Profile.any_instance.stubs(:disk_usage).returns(7.megabytes)
 
     file = build(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     file.stubs(:size).returns(5.megabytes)
     refute file.valid?
+  end
+
+  should 'update the disk usage of the profile when a file is created' do
+    file1 = UploadedFile.create!(profile: profile, uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'))
+    assert_equal file1.size, profile.metadata['disk_usage']
+
+    file2 = UploadedFile.create!(profile: profile, uploaded_data: fixture_file_upload('/files/test.txt', 'text/plain'))
+    assert_equal (file1.size + file2.size), profile.metadata['disk_usage']
+  end
+
+  should 'update the disk usage of the profile when a file is destroyed' do
+    file1 = UploadedFile.create!(profile: profile, uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'))
+    file2 = UploadedFile.create!(profile: profile, uploaded_data: fixture_file_upload('/files/test.txt', 'text/plain'))
+    assert_equal (file1.size + file2.size), profile.metadata['disk_usage']
+
+    file1.destroy
+    assert_equal file2.size, profile.metadata['disk_usage']
   end
 
 end
