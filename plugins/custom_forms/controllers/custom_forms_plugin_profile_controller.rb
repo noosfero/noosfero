@@ -4,7 +4,8 @@ class CustomFormsPluginProfileController < ProfileController
   include CustomFormsPlugin::Helper
 
   def show
-    @form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
+    profile = Profile.find_by(identifier: params[:profile])
+    @form = profile.forms.find_by(identifier: params[:id])
     if user
       @submission = CustomFormsPlugin::Submission.find_by form_id: @form.id, profile_id: user.id
       @submission ||= CustomFormsPlugin::Submission.new(:form => @form, :profile => user)
@@ -37,7 +38,8 @@ class CustomFormsPluginProfileController < ProfileController
   end
 
   def review
-    @form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
+    profile = Profile.find_by(identifier: params[:profile])
+    @form = profile.forms.find_by(identifier: params[:id])
     @fields = @form.fields
     @sort_by = params[:sort_by] == 'author_name' ? 'author_name' : 'created_at'
 
