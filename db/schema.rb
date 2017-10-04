@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170805065322) do
+ActiveRecord::Schema.define(version: 20170923044548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -494,6 +494,7 @@ ActiveRecord::Schema.define(version: 20170805065322) do
     t.boolean "moderated",      default: false
     t.integer "environment_id"
     t.jsonb   "metadata",       default: {}
+    t.string  "upload_quota"
   end
 
   create_table "kinds_profiles", force: :cascade do |t|
@@ -671,6 +672,8 @@ ActiveRecord::Schema.define(version: 20170805065322) do
     t.string   "editor",                             default: "tiny_mce", null: false
     t.integer  "top_image_id"
     t.jsonb    "metadata",                           default: {}
+    t.string   "upload_quota"
+    t.float    "disk_usage"
   end
 
   add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
