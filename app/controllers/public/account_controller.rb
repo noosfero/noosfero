@@ -119,8 +119,6 @@ class AccountController < ApplicationController
         else
           @user.community_to_join = session[:join]
           @user.signup!
-          owner_role = Role.find_by(name: 'owner')
-          @user.person.affiliate(@user.person, [owner_role]) if owner_role
           invitation = Task.from_code(@invitation_code).first
           if invitation
             invitation.update! friend: @user.person
