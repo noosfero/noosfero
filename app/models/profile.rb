@@ -137,7 +137,6 @@ class Profile < ApplicationRecord
 
   scope :recent, -> limit=nil { order('id DESC').limit(limit) }
 
-
   # Returns a scoped object to select profiles in a given location or in a radius
   # distance from the given location center.
   # The parameter can be the `request.params` with the keys:
@@ -150,33 +149,43 @@ class Profile < ApplicationRecord
   # NOTE: This method may return an exception object, to inform filter error.
   # When chaining scopes, is hardly recommended you to add this as the last one,
   # if you can't be sure about the provided parameters.
+
+  def self.distance_is_blank (params)
+    where_code = []
+    [ :city, :state, :country ].each do |place|
+      unless params[place].blank?
+       # ... So we must to find on this named location
+       # TODO: convert location attrs to a table collumn
+       where_code << "(profiles.data like '%#{place}: #{params[place]}%')"
+     end
+   end
+   self.where where_code.join(' AND ')
+  end
+
+  def self.filter_in_a_georef_circle (params)
+    unless params[:lat].blank? && params[:lng].blank?
+      lat, lng = [ params[:lat].to_f, params[:lng].to_f ]
+    end
+    if !lat
+      location = [ params[:city], params[:state], params[:country] ].compact.join(', ')
+      if location.blank?
+        return Exception.new (
+        _('You must to provide `lat` and `lng`, or `city` and `country` to define the center of the search circle, defined by `distance`.')
+        )
+      end
+      lat, lng = Noosfero::GeoRef.location_to_georef location
+    end
+    dist = params[:distance].to_f
+    self.where "#{Noosfero::GeoRef.sql_dist lat, lng} <= #{dist}"
+  end
+
   def self.by_location(params)
     params = params.with_indifferent_access
     if params[:distance].blank?
-      where_code = []
-      [ :city, :state, :country ].each do |place|
-        unless params[place].blank?
-          # ... So we must to find on this named location
-          # TODO: convert location attrs to a table collumn
-          where_code << "(profiles.data like '%#{place}: #{params[place]}%')"
-        end
-      end
-      self.where where_code.join(' AND ')
+      distance_is_blank params
     else # Filter in a georef circle
-      unless params[:lat].blank? && params[:lng].blank?
-        lat, lng = [ params[:lat].to_f, params[:lng].to_f ]
-      end
-      if !lat
-        location = [ params[:city], params[:state], params[:country] ].compact.join(', ')
-        if location.blank?
-          return Exception.new (
-            _('You must to provide `lat` and `lng`, or `city` and `country` to define the center of the search circle, defined by `distance`.')
-          )
-        end
-        lat, lng = Noosfero::GeoRef.location_to_georef location
-      end
-      dist = params[:distance].to_f
-      self.where "#{Noosfero::GeoRef.sql_dist lat, lng} <= #{dist}"
+      # location = Location.new(params[:lat], params[:lng], params[:city], params[:state], params[:country], params[:distance])
+      self.filter_in_a_georef_circle(params)
     end
   end
 
