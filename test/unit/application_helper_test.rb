@@ -1011,4 +1011,3 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
 end
-
