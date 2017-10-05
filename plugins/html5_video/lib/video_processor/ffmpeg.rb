@@ -140,6 +140,7 @@ class VideoProcessor::Ffmpeg
   end
 
   def valid_abrate_for_web(info)
+    return 0 if info.audio_stream.empty?
     if brate = info.audio_stream[0][:bitrate]
       brate = 8 if brate < 8
       (brate>128)? 128 : brate
