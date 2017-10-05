@@ -159,7 +159,7 @@ class Organization < Profile
     true
   end
 
-  def default_set_of_blocks
+  def set_links
     links = [
       {:name => _("Community's profile"), :address => '/profile/{profile}', :icon => 'ok'},
       {:name => _('Invite Friends'), :address => '/profile/{profile}/invite/friends', :icon => 'send'},
@@ -167,6 +167,10 @@ class Organization < Profile
       {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
       {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
     ]
+  end
+
+  def default_set_of_blocks
+    links = set_links
     [
       [MainBlock.new],
       [ProfileImageBlock.new, LinkListBlock.new(:links => links)],

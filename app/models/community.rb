@@ -94,13 +94,9 @@ class Community < Organization
 
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
-    links = [
-      {:name => _('Community\'s profile'), :address => '/profile/{profile}', :icon => 'ok'},
-      {:name => _('Invite Friends'), :address => '/profile/{profile}/invite/friends', :icon => 'send'},
-      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'event'},
-      {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
-      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
-    ]
+
+    links = set_links
+
     [
       [MainBlock.new],
       [ProfileImageBlock.new(:show_name => true), LinkListBlock.new(:links => links), RecentDocumentsBlock.new]
