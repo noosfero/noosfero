@@ -42,6 +42,15 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   validates :kind, inclusion: { in: KINDS, message: _("%{value} is not a valid kind.") }
 
+  SEARCHABLE_FIELDS = {
+    :name => {:label => _('Name'), :weight => 10},
+    :slug => {:label => _('Slug'), :weight => 5},
+    :identifier => {:label => _('identifier'), :weight => 5},
+    :description => {:label => _('Description'), :weight => 3},
+  }
+
+  validates :kind, inclusion: { in: KINDS, message: _("%{value} is not a valid kind.") }
+
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
     form.identifier = form.slug unless form.identifier.present?
@@ -60,6 +69,16 @@ class CustomFormsPlugin::Form < ApplicationRecord
   scope :with_private_results, -> { where access_result_options: "private" }
   scope :with_public_results_after_ends, -> { where access_result_options: "public_after_ends" }
   scope :by_kind, -> kind { where kind: kind.to_s }
+  scope :by_status, -> status {
+    case status
+    when 'opened'
+      where('(begining IS NULL OR begining <= ?) AND (ending IS NULL OR ending > ?)', Time.now, Time.now)
+    when 'closed'
+      where('ending IS NOT NULL AND ending < ?', Time.now)
+    when 'to-come'
+      where('begining IS NOT NULL AND begining > ?', Time.now)
+    end
+  }
 
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)

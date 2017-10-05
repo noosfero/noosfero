@@ -1,0 +1,35 @@
+<% self.extend(CustomFormsPlugin::Helper) %>
+
+<div id='queries'>
+  <ul class="results-list">
+    <% if @forms.present? %>
+      <% @forms.each do |form| %>
+        <li>
+          <%= content_tag('div', '', class: 'form-image', style: "background-image: url(#{form.image.public_filename})") if form.image.present? %>
+          <%= link_to form.name, { action: 'show', id: form.identifier } %>
+          <div class="form-info">
+            <span class="form-days-left">
+              <i class="fa fa-hourglass"></i>
+              <%= time_status(form) %>
+            </span>
+            <span class="bullet">•</span>
+            <span class="form-submissions">
+              <i class="fa fa-send"></i>
+              <%= n_('%{count} submission', '%{count} submissions', form.submissions.count) % {count: form.submissions.count} %>
+            </span>
+          </div>
+
+          <div class="form-description">
+            <%== form.description %>
+          </div>
+        </li>
+      <% end %>
+    <% else %>
+      <li>
+        <%= content_tag('span', _('No queries found! Try different search terms or filters.'), class: 'no-results') %>
+      </li>
+    <% end %>
+  </ul>
+
+  <%= pagination_links @forms %>
+</div>

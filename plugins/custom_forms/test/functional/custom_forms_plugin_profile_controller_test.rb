@@ -106,4 +106,63 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'h6', :attributes => {:class => 'review_text_align'},
       :content => ' What is your favorite food?'
   end
+
+  should 'define filters default values' do
+    get :queries, :profile => profile.identifier
+    assert_equal 'recent', assigns(:order)
+    assert_equal 'all', assigns(:kind)
+    assert_equal 'all', assigns(:status)
+  end
+
+  should 'order forms' do
+    survey1 = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Survey 1', :identifier => 'survey1')
+    survey1.created_at = Time.now - 2.days
+    survey1.save!
+    survey2 = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Survey 2', :identifier => 'survey2')
+    survey2.created_at = Time.now - 1.day
+    survey2.save!
+    survey3 = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Survey 3', :identifier => 'survey3')
+    survey3.created_at = Time.now
+    survey3.save!
+
+    get :queries, :profile => profile.identifier, :order => 'older'
+
+    assert_equivalent assigns(:forms), [survey3, survey2, survey1]
+  end
+
+  should 'filter forms by kind' do
+    survey = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Survey', :identifier => 'survey', :kind => 'survey')
+    poll1 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Poll 1', :identifier => 'poll1', :kind => 'poll')
+    poll2 = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Poll 2', :identifier => 'poll2', :kind => 'poll')
+
+    get :queries, :profile => profile.identifier, :kind => 'poll'
+
+    assert_includes assigns(:forms), poll1
+    assert_includes assigns(:forms), poll2
+    assert_not_includes assigns(:forms), survey
+  end
+
+  should 'filter forms by status' do
+    opened_survey = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Opened Survey', :identifier => 'opened-survey', :begining => Time.now - 1.day)
+    closed_survey = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Closed Survey', :identifier => 'closed-survey', :ending => Time.now - 1.day)
+    to_come_survey = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'To Come Survey', :identifier => 'to-come-survey', :begining => Time.now + 1.day)
+
+    get :queries, :profile => profile.identifier, :status => 'opened'
+
+    assert_includes assigns(:forms), opened_survey
+    assert_not_includes assigns(:forms), closed_survey
+    assert_not_includes assigns(:forms), to_come_survey
+  end
+
+  should 'filter forms by query' do
+    space_wars = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Space Wars', :identifier => 'space-wars')
+    star_trek = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Star Trek', :identifier => 'star-trek')
+    star_wars = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Star Wars', :identifier => 'star-wars')
+
+    get :queries, :profile => profile.identifier, :q => 'star'
+
+    assert_includes assigns(:forms), star_wars
+    assert_includes assigns(:forms), star_trek
+    assert_not_includes assigns(:forms), space_wars
+  end
 end

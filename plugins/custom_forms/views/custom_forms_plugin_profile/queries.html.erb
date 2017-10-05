@@ -1,0 +1,16 @@
+<h1><%= _('%s\'s queries') % profile.name %></h1>
+
+<%= form_tag({action: 'queries'}, {id: 'queries-form'}) do %>
+  <%= text_field_tag(:q, @q, id: 'query-term') %>
+  <%= select_tag(:order, options_for_select(@order_options, @order)) %>
+  <%= select_tag(:kind, options_for_select(@kind_options, @kind))%>
+  <%= select_tag(:status, options_for_select(@status_options, @status))%>
+<% end %>
+
+<%= render partial: 'queries_content' %>
+
+<%= button_bar do %>
+  <%= button :back, _('Back'), :action => 'queries' %>
+<% end %>
+
+<%= javascript_include_tag 'plugins/custom_forms/queries' %>
