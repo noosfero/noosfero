@@ -100,6 +100,12 @@ unless RAILS_ENV == 'test'
     env_ids.each{|env_id| process_all_files(env_id, pool.to_sym) }
   end
 
+  trap "SIGTERM" do
+    # Gracefully finish all child processes
+    Process.kill("TERM", 0)
+    Process.exit
+  end
+
   # Start watching the pool dir
   watch_pool
 end

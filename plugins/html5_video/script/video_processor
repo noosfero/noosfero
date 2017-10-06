@@ -3,4 +3,6 @@
 require 'daemons'
 
 script = File.join(__dir__, 'video_processor_foreground.rb')
-Daemons.run(script, app_name: 'video_processor')
+tmp_folder = File.join(__dir__, '../../../tmp/')
+Daemons.run(script, app_name: 'video_processor', dir_mode: :normal,
+                    dir: tmp_folder)
