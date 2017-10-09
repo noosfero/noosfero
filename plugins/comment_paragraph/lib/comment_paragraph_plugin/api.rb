@@ -42,9 +42,9 @@ class CommentParagraphPlugin::API < Grape::API
       result = export_comments_csv(article)
       filename = "#{article.slug}_#{DateTime.now.strftime("%Y%m%d%H%M")}.csv"
       content_type 'text/csv; charset=UTF-8; header=present'
-      env['api.format'] = :binary # there's no formatter for :binary, data will be returned "as is"
-      header 'Content-Disposition', "attachment; filename*=UTF-8''#{CGI.escape(filename)}"
-      result
+      header 'Cache-Control', 'no-cache, must-revalidate, post-check=0, pre-check=0'
+      header 'Content-Disposition', "attachment; filename=#{CGI.escape(filename)}"
+      {:data => result}
     end
 
   end
