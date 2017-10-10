@@ -16,8 +16,8 @@ class CommentsReportTest < ActiveSupport::TestCase
     comment2 = fast_create(Comment, :created_at => Time.now - 2.days, :source_id => article, :title => 'b comment', :body => 'b comment', :paragraph_uuid => nil)
     csv = export_comments_csv(article)
     lines = csv.split("\n")
-    assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email"', lines.first
-    assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\"", lines.second
+    assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email","comment_date"', lines.first
+    assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\",\"#{comment2.created_at}\"", lines.second
   end
 
 end
