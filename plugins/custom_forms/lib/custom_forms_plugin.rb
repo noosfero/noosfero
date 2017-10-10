@@ -30,4 +30,9 @@ class CustomFormsPlugin < Noosfero::Plugin
       get "/profile/:profile/query/:id/results" => 'custom_forms_plugin_profile#review'
     end
   end
+
+  def js_files
+    'javascripts/graph.js'
+  end
+
 end

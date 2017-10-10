@@ -38,7 +38,7 @@ class CustomFormsPlugin::Graph
     end
     answers_by_submissions(@form.submissions.includes(:answers))
     format_data_to_generate_graph
-    compute_percents
+    check_fields_without_answer
   end
 
   def query_results
@@ -132,18 +132,23 @@ class CustomFormsPlugin::Graph
     @answers_with_alternative_label[index]["text_answers"]["users"] << user
   end
 
-  def compute_percents
-    total = @form.submissions.count
-    @query_results.each_with_index do | result, index |
-      next unless show_as_pizza? result["data"]["show_as"]
-      result_with_percents = {}
-      result_with_percents.merge!({"percents" => {}})
-      result["data"].each do |label, value|
-        next if label == "show_as"
-        result_percent = (value.to_i)*100.0/total;
-        result_with_percents["percents"].merge!({label => result_percent })
+  def check_fields_without_answer
+    @query_results.each do |result|
+      empty_field = false
+      data = result["data"]
+      data.each do |key, value|
+        next if key == "show_as"
+
+        if data[key] == 0
+          empty_field = true
+          next
+        else
+          empty_field = false
+          break
+        end
       end
-      @query_results[index] = result_with_percents.merge!(result)
+      data.merge!({"empty" => true}) if empty_field
     end
   end
+
 end

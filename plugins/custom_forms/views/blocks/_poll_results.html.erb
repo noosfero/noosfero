@@ -1,6 +1,3 @@
-<%= javascript_include_tag 'graph' %>
-<%= javascript_include_tag "https://www.gstatic.com/charts/loader.js" %>
-
 <% if form.show_results_for(current_person) %>
 
   <% if form.submissions.all.present? %>
@@ -8,7 +5,7 @@
       <div class="chart-wrapper">
         <h6><%= form.fields[index].name %></h6>
         <%= pie_chart result['data'].keep_if { |key, value| key != "show_as" },
-                      donut: true  %>
+                      donut: true, legend: "bottom"  %>
       </div>
     <% end  %>
     <%= link_to _('See results'), { controller: 'custom_forms_plugin_profile',
