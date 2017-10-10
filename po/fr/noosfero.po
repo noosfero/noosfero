@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2017-10-10 18:30+0000\n"
-"Last-Translator: Olivier Meinguet <olivier.meinguet@claroline.net>\n"
+"PO-Revision-Date: 2017-10-11 18:45+0000\n"
+"Last-Translator: LL <lu.lecocq@free.fr>\n"
 "Language-Team: French "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/fr/>\n"
 "Language: fr\n"
@@ -75,7 +75,7 @@ msgid "You are not a %s's friend and you did not made a friendship request."
 msgstr ""
 
 msgid "Email"
-msgstr "Email"
+msgstr "Courriel"
 
 msgid "Login"
 msgstr "Connexion"
@@ -416,7 +416,7 @@ msgid "e-Mail disabled successfully."
 msgstr "L'e-mail a bien été désactivé."
 
 msgid "e-Mail was not disabled successfully."
-msgstr "L'e-mail n'a pas pu être désactivé."
+msgstr "L'e-mail n'a pas pu être désactivé correctement."
 
 msgid "Address was updated successfully!"
 msgstr "Adresse a été mise à jour avec succès !"
@@ -2136,7 +2136,7 @@ msgid ""
 "\n"
 "%{reject_explanation}"
 msgstr ""
-"Voici l'explication laissé par l'admin qui a rejeté votre commentaire:\n"
+"Voici le motif de l'administrateur qui a rejeté votre commentaire:\n"
 "\n"
 "%{reject_explanation}"
 
@@ -2479,9 +2479,9 @@ msgid ""
 "Your request for registering the community \"%{community}\" was approved. You ca"
 "n access %{environment} now and start using your new community."
 msgstr ""
-"Votre requête pour enregistrer la communauté \"%{community}\"  a été acceptée. V"
-"ous pouvez accéder à %{environment} dès à présent et commencer à l'utiliser po"
-"ur votre nouvelle commaunté."
+"Votre requête pour enregistrer la communauté \"%{community}\"  a été "
+"acceptée. Vous pouvez accéder à %{environment} dès à présent et commencer à "
+"l'utiliser pour votre nouvelle communauté."
 
 msgid "Identifier"
 msgstr "Identifiant"
@@ -2490,7 +2490,7 @@ msgid "Address"
 msgstr "Adresse"
 
 msgid "Contact phone"
-msgstr "Téléphone de contact"
+msgstr "Téléphone du contact"
 
 msgid "Contact person"
 msgstr "Personne de contact"
@@ -4765,9 +4765,8 @@ msgstr "Chercher"
 msgid "Write words about the file you are looking for"
 msgstr "Saisir des mots pour effectuer une recherche sur %s"
 
-#, fuzzy
 msgid "Publish date"
-msgstr "Publier le contenu"
+msgstr "Date de publication"
 
 msgid "Textile markup quick reference"
 msgstr ""
@@ -6801,7 +6800,7 @@ msgid_plural "%s results found"
 msgstr[0] "%d resultats trouvés"
 
 msgid "Search on %s's profile"
-msgstr "Chercher sur le profil sur %s"
+msgstr "Chercher sur le profil de %s"
 
 msgid "Add a CSS file"
 msgstr "Ajouter un fichier CSS"
@@ -7014,7 +7013,7 @@ msgid "Search all content"
 msgstr "Chercher dans tous les contenus"
 
 msgid "You have no more suggestions :("
-msgstr "Vous n'avez pas d'autres suggestions :("
+msgstr "Vous n'avez plus d'autres suggestions :("
 
 msgid "Add suggestion"
 msgstr "Ajouter une suggestion"
@@ -7283,9 +7282,8 @@ msgstr "Pour : "
 msgid "%s's processed tasks"
 msgstr "Les tâches gérées par %s"
 
-#, fuzzy
 msgid "Status"
-msgstr "Statut : "
+msgstr "Statut"
 
 #, fuzzy
 msgid "Text Filter:"
@@ -7458,7 +7456,7 @@ msgid "User list as [CSV]"
 msgstr "Liste utilsiateur en [CSV]"
 
 msgid "User list as [XML]"
-msgstr "Liste utilisateur en [XML]"
+msgstr "Liste des utilisateurs en [XML]"
 
 msgid "Send e-mail to users"
 msgstr "Envoyer un e-mail aux utilisateurs"
