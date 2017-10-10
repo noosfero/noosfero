@@ -45,7 +45,8 @@ module CommentParagraphPlugin::CommentsReport
       comment_title: comment.present? ? comment.title : '-',
       comment_content: comment.present? ? comment.body : '-',
       comment_author_name: comment.present? ? comment.author_name : '-',
-      comment_author_email: comment.present? ? comment.author_email : '-'
+      comment_author_email: comment.present? ? comment.author_email : '-',
+      comment_date: comment.present? ? comment.created_at.in_time_zone : '-'
     }
   end
 

@@ -56,8 +56,8 @@ class CommentParagraphPluginProfileControllerTest < ActionController::TestCase
     xhr :get, :export_comments, :profile => @profile.identifier, :id => article.id
     assert_equal 'text/csv; charset=UTF-8; header=present', @response.content_type
     lines = @response.body.split("\n")
-    assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email"', lines.first
-    assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\"", lines.second
+    assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email","comment_date"', lines.first
+    assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\",\"#{comment2.created_at}\"", lines.second
   end
 
   should 'not export any comments as CSV' do

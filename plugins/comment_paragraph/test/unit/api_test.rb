@@ -99,9 +99,10 @@ class APITest <  ActiveSupport::TestCase
     get "/api/v1/articles/#{article.id}/comment_paragraph_plugin/export?#{params.to_query}"
     assert_equal 200, last_response.status
     assert_equal 'text/csv; charset=UTF-8; header=present', last_response.content_type
-    lines = last_response.body.split("\n")
-    assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email"', lines.first
-    assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\"", lines.second
+    json = JSON.parse(last_response.body)
+    lines = json['data'].to_s.split("\n")
+    assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email","comment_date"', lines.first
+    assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\",\"#{comment2.created_at}\"", lines.second
     assert_match /#{article.slug}/, last_response.original_headers["Content-Disposition"]
   end
 
