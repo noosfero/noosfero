@@ -1,0 +1,13 @@
+
+FROM ruby:2.4.2-jessie
+MAINTAINER Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>
+
+VOLUME /noosfero
+WORKDIR /noosfero
+
+ENV BUNDLE_PATH /bundle-cache
+
+RUN apt-get update
+RUN apt-get install -y sudo cron nodejs tango-icon-theme
+
+CMD ["/noosfero/config/docker/dev/start-dev.sh"]

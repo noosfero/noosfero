@@ -1,0 +1,23 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:9.4
+    environment:
+      POSTGRES_USER: noosfero
+      POSTGRES_PASSWORD:
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+  noosfero:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    volumes:
+      - bundle-cache:/bundle-cache
+      - noosfero-code-sync:/noosfero:nocopy
+volumes:
+  bundle-cache:
+  pg-data:
+  noosfero-code-sync:
+    external: true

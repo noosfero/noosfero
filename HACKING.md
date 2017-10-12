@@ -73,6 +73,20 @@ If you write such script for your own OS, *please* share it with us at the devel
 
 Use a docker image to run an out-of-the-box development environment. Further information can be found on: https://hub.docker.com/r/noosfero/dev-rails4/
 
+#### Building the image locally
+
+You can also build the image locally with one of the Dockerfiles provided in `config/docker/dev/`. There are two options: an image that runs both Noosfero and PostgreSQL, and a docker-compose alternative that will run it in different containers, making use of local volumes to persist the data and reload the code.
+
+To use one of the options, make sure to copy the desired Dockerfile to the project root folder. If you are willing to use the docker-compose alternative, copy the `Dockerfile.compose` (removing the extension) and `docker-compose.yml` to the project root, and run `docker-compose up --build`.
+
+#### Using the docker-compose alternative in OSX
+
+If you are using OSX, you may experience performance issues when using local volumes (more [here](https://github.com/docker/for-mac/issues/77)). You can use docker-sync as an alternative to regular file system mounted volumes.
+
+Just follow the same process as above using the files in `config/docker/dev/osx` instead. Make sure to also copy `docker-sync.yml`. Before starting the containers, start the sync daemon by running `docker-sync start` and waiting until the command returns (it might take a bit). Then, run `docker-compose up --build`.
+
+If you experience syncing issues, stop the containers and run `docker-sync clean`. Then, start docker-sync again before starting the containers.
+
 Submitting your changes back
 ----------------------------
 
