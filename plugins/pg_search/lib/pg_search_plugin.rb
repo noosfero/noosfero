@@ -1,6 +1,7 @@
 require 'noosfero/friendly_mime'
 
 class PgSearchPlugin < Noosfero::Plugin
+  include PgSearchPlugin::SearchHelper
 
   def self.plugin_name
     "Postgres Full-Text Search"
@@ -19,36 +20,79 @@ class PgSearchPlugin < Noosfero::Plugin
   end
 
   def js_files
-    'search.js'
+    ['search.js', 'profile_search_block.js']
   end
 
-  def find_by_contents(asset, scope, query, paginate_options={}, options={})
-    facets = options[:facets] || {}
-    periods = options[:periods] || {:created_at => nil, :updated_at => nil}
+  def find_by_contents(asset, scope, query, paginate_options={}, params={})
+    scope, facets, periods = active_filters asset, scope, params, query
+    { results: scope.paginate(paginate_options), facets: facets, periods: periods }
+  end
 
-    @base_scope = scope
-    @asset = asset
+  def profile_search_block_extra_content block, params
+    if block.advanced_search
+      if params[:controller] == 'profile_search'
+        # Load facets and periods
+        load_facets = true
+        scope, facets, periods = active_filters(:articles, block.owner.articles, params)
+        facets.reject!  { |f| !block.search_fields.include?(search_field_identifier(f[:name], f[:options].first[:type])) } if facets
+        periods.reject! { |k, p| !block.search_fields.include?(search_field_identifier(k, :date)) } if periods
+      else
+        # Do not load the facets, let the user request so
+        load_facets = false
+      end
 
-    scope = scope.send(options[:filter]) if options[:filter] && options[:filter] != 'more_relevant'
-
-    scope = filter_by_periods(scope, periods) if options[:periods].present?
-    scope = filter_by_facets(scope, facets) if options[:facets].present?
-
-    if query.present?
-      query_scope = @base_scope.pg_search_plugin_search(query)
-      #TODO The reorder is necessary to avoid crashes with core scopes chain
-      scope = query_scope.where(:id => scope.map(&:id)).reorder("")
+      -> { render partial: 'profile_search/facets',
+                  locals: { search_block_facets: facets, search_block_periods: periods, load_facets: load_facets } }
     end
-
-    {:results => scope.paginate(paginate_options), :facets => facets_options(asset, scope, facets), :periods => periods}
   end
 
   private
 
+  def active_filters asset, scope, params, query = nil
+    facets  = params[:facets] || {}
+    periods = params[:periods] || { created_at: nil, updated_at: nil, published_at: nil }
+    query ||= params[:query] || params[:q]
+    block = Block.find_by id: params[:block]
+
+    @asset, @base_scope = asset, scope
+
+    scope = scope.send(params[:filter]) if params[:filter] && params[:filter] != 'more_relevant'
+
+    scope = filter_by_periods(scope, periods) if params[:periods].present?
+    scope = filter_by_facets(scope, facets) if params[:facets].present?
+
+    if query.present?
+      query_scope = @base_scope.pg_search_plugin_search(query)
+      #TODO The reorder is necessary to avoid crashes with core scopes chain
+      scope = query_scope.where(id: scope.map(&:id)).reorder("")
+    end
+
+    facets, facets_periods = facets_options(asset, scope, facets).partition do |f|
+      f[:options].any? { |option| option[:type] != :date }
+    end
+
+    if facets
+      facets_periods = facets_periods.map { |p| [p[:name], { is_metadata: true }] }.to_h
+      periods.deep_merge! facets_periods
+
+      if block
+        facets.reject!  { |f| !block.search_fields.include?(search_field_identifier(f[:name], f[:options].first[:type])) }
+        periods.reject! { |k, p| !block.search_fields.include?(search_field_identifier(k, :date)) }
+      end
+    end
+
+    [scope, facets, periods]
+  end
+
   def filter_by_periods(scope, periods)
     periods.each do |attribute, period|
       next if period.blank?
-      scope = scope.send(attribute, period['start_date'], period['end_date'])
+      if !period['is_metadata'].blank? && period['is_metadata'] == "true"
+        scope = scope.pg_search_plugin_by_metadata_period(attribute, period['start_date'], period['end_date'])
+      else
+        period['end_date'] += " 23:59:59" unless period['end_date'].blank?
+        scope = scope.send(attribute, period['start_date'], period['end_date'])
+      end
     end
     scope
   end
@@ -57,7 +101,7 @@ class PgSearchPlugin < Noosfero::Plugin
     queries = []
     facets.each do |term, values|
       kind, klass = term.split('-')
-      if kind == 'attribute' || kind == 'relation'
+      if kind == 'attribute' || kind == 'relation' || kind == 'metadata'
         arguments = values.map {|value, check| value if check == '1'}.compact
         arguments.map! {|argument| argument == ' ' ? nil : argument}
       else
@@ -69,6 +113,8 @@ class PgSearchPlugin < Noosfero::Plugin
           queries << scope.base_class.send('pg_search_plugin_by_attribute', facet_slug, argument).to_sql
         elsif kind == 'relation'
           queries << scope.base_class.send("pg_search_plugin_by_#{facet_slug}", argument).to_sql
+        elsif kind == 'metadata'
+          queries << scope.base_class.send("pg_search_plugin_by_metadata", facet_slug, argument).to_sql
         end
         register_search_facet_occurrence(environment, @asset, kind, facet_slug, argument)
       end
@@ -80,13 +126,20 @@ class PgSearchPlugin < Noosfero::Plugin
     self.send("#{asset}_facets", scope, selected_facets).compact
   end
 
+  def metadata_facets(klass, scope, selected_facets)
+    custom_field_names(klass, scope).map do |name, type|
+      metadata_facet(klass, scope, selected_facets, { attribute: name.to_sym, type: type.to_sym })
+    end
+  end
+
   def articles_facets(scope, selected_facets)
     [
       attribute_facet(Article, scope, selected_facets, {:attribute => :type}),
       attribute_facet(Article, scope, selected_facets, {:attribute => :content_type}),
       relation_facet(Tag, scope, selected_facets),
-      relation_facet(Category, scope, selected_facets, {:filter => :pg_search_plugin_articles_facets})
-    ]
+      relation_facet(Category, scope, selected_facets, {:filter => :pg_search_plugin_articles_facets}),
+      metadata_facets(Article, scope, selected_facets)
+    ].flatten
   end
 
   def profiles_facets(scope, selected_facets)
@@ -117,6 +170,10 @@ class PgSearchPlugin < Noosfero::Plugin
     generic_facet(klass, scope, selected_facets, :relation, params)
   end
 
+  def metadata_facet(klass, scope, selected_facets, params = {})
+    generic_facet(klass, scope, selected_facets, :metadata, params)
+  end
+
   def generic_facet(klass, scope, selected_facets, kind, params = {})
     no_results = false
     results = self.send("#{kind}_results", klass, scope, params)
@@ -131,7 +188,7 @@ class PgSearchPlugin < Noosfero::Plugin
       name = self.send("#{kind}_option_name", result[:name], klass, params)
       enabled = selected_facets[identifier] && selected_facets[identifier][value] == '1'
       count = no_results ? 0 : result[:count]
-      {:label => name, :value => value, :count => count, :enabled => enabled, :identifier => identifier}
+      { :label => name, :value => value, :count => count, :enabled => enabled, :identifier => identifier, type: params[:type], metadata: (kind == :metadata) }
     end.compact
 
     return if options.blank?
@@ -199,6 +256,29 @@ class PgSearchPlugin < Noosfero::Plugin
         klass = klass.superclass
         return result.name if klass == ActiveRecord::Base
       end
+    end
+  end
+
+  def metadata_identifier(klass, params)
+    "metadata-#{params[:attribute]}"
+  end
+
+  def metadata_option_name(option_name, klass, params)
+    if params[:type] == :boolean
+      option_name == "1" ? _("True") : _("False")
+    else
+      option_name
+    end
+  end
+
+  def metadata_label(klass, params)
+    params[:attribute].to_s.humanize
+  end
+
+  def metadata_results(klass, scope, params)
+    results = custom_field_values(klass, scope, params)
+    results.map do |name, count|
+      {:name => name, :value => name, :count => count}
     end
   end
 

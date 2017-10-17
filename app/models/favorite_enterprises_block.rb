@@ -16,4 +16,8 @@ class FavoriteEnterprisesBlock < ProfileListBlock
     owner.favorite_enterprises
   end
 
+  def self.pretty_name
+      _('Favorite Enterprises')
+  end
+
 end

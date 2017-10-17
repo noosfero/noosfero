@@ -1,0 +1,14 @@
+<div class='article-custom-field-wrapper'>
+  <div class='custom-field-input'>
+    <%= hidden_field_tag "article[metadata][custom_fields][#{field[:name].to_slug}][type]", field[:type]%>
+    <%= hidden_field_tag "article[metadata][custom_fields][#{field[:name].to_slug}][name]", field[:name], class: 'custom-field-name' %>
+    <%= yield %>
+  </div>
+  <div class='custom-field-visibility'>
+    <%= labelled_check_box _('Public'), "article[metadata][custom_fields][#{field[:name].to_slug}][public]",
+                           '1', (field[:public] || '1') == '1' %>
+  </div>
+  <div class='custom-field-opts'>
+    <%= button_without_text :remove, _('Remove field'), '#', class: 'remove-article-btn' %>
+  </div>
+</div>

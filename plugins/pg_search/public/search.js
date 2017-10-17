@@ -1,11 +1,12 @@
 (function($) {
   $('#facets input[type=checkbox]').live('change', function() {
-    $('form.search_form').submit();
+      //    alert("1");
+    $(this).closest('form.search_form').submit();
     return false;
   });
 
   $('#facets .period input').live('change', function() {
-    $('form.search_form').submit();
+    $(this).closest('form.search_form').submit();
     return false;
   });
 

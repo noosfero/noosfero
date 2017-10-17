@@ -206,8 +206,13 @@ module ArticleHelper
   def article_to_html(article, options = {})
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
-    content = content.kind_of?(Proc) ? self.instance_exec(&content).html_safe : content.html_safe
+    content = content.kind_of?(Proc) ? self.instance_eval(&content).html_safe : content.html_safe
     filter_html(content, article)
+  end
+
+  # Receives a list of type names. The names should be previously translated
+  def custom_fields_for_article(types)
+    types.map { |type| [type.camelize, type.downcase] }
   end
 
 end

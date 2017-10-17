@@ -1,0 +1,13 @@
+<% if fields.present? %>
+  <div id="article-field-values">
+    <% fields.each do |name, field| %>
+      <% if ((field['public'] == '1') ||
+            @profile.display_private_info_to?(current_person)) %>
+        <div class='custom-field-value'>
+          <%= render partial: "content_viewer/custom_fields/#{field['type']}",
+                     locals: { field: field } %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

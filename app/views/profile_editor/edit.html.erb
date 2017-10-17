@@ -76,6 +76,12 @@
 
   <%= select_categories(:profile_data, _('Categories of your interest'), 2) %>
 
+  <%= content_tag('h2', _('Files upload')) %>
+  <div>
+    <%= labelled_check_box _('Send single file in upload with description').html_safe,
+                          'profile_data[metadata][allow_single_file]', "1", @profile.metadata['allow_single_file'] == "1" %>
+  </div>
+
   <%= button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>

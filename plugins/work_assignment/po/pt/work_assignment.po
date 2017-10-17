@@ -101,7 +101,7 @@ msgstr "Mensagem de e-mail padrão:"
 
 #: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:5
 msgid "The submissions can be viewed by anyone"
-msgstr "As submissões podem ser revistar por qualquer um"
+msgstr "As submissões podem ser revistas por qualquer um"
 
 #: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:7
 msgid "Allow users change submissions privacy?"

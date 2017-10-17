@@ -21,7 +21,7 @@ module EventsHelper
     content_tag( 'tr',
       content_tag('td',
         content_tag('div', show_time(article.start_date) + ( article.end_date.nil? ?  '' : (_(" to ") + show_time(article.end_date))),:class => 'event-date' ) +
-        content_tag('div',link_to(article.name,article.url),:class => 'event-title') +
+        content_tag('div',link_to(article.title,article.url),:class => 'event-title') +
         content_tag('div',(article.address.nil? or article.address == '')  ? '' : (_('Place: ') + article.address),:class => 'event-place')
       )
     )

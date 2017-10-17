@@ -5,6 +5,27 @@
   <hr/>
 <% end %>
 
-<%= display_submissions(@page, user) %>
+
+<div class='upload-files'>
+  <h3><%= _('Publish image or document') %></h3>
+  <p>
+    <%= _('Select the file you want to send (text documents, images, '\
+          'video, audio). Finally, click in the "Upload" button to submit '\
+          'the files.') %>
+  </p>
+
+  <%= render :partial => 'cms/upload_file_form',
+             :locals => { size: '45', back_to: url_for(@page.url),
+                          num_of_files: 1, parent: @page } %>
+
+  <p class='hint'>
+    <%= _('Uploading files to %s') % @page.full_path %>
+  </p>
+</div>
+
+<div class='submissions'>
+  <h3><%= _('Submissions') %></h3>
+  <%= display_submissions(@page, user) %>
+</div>
 
 <%= javascript_include_tag 'plugins/work_assignment/show_versions' %>

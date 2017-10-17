@@ -2,11 +2,15 @@
   <% require_dependency 'pg_search_plugin/search_helper' %>
   <% extend PgSearchPlugin::SearchHelper %>
 
-  <% @searches[@asset][:facets].each do |f| %>
-    <%= facet(f) %>
+  <% @facets = (defined?(search_block_facets) && search_block_facets) || @searches[@asset][:facets] %>
+  <% @facets.each do |f| %>
+    <% if f[:options].first[:type] != :date %>
+      <%= facet(f) %>
+    <% end %>
   <% end %>
 
-  <% @searches[@asset][:periods].each do |attribute, period| %>
-    <%= date_filter(attribute, period) %>
+  <% @periods = (defined?(search_block_periods) && search_block_periods) || @searches[@asset][:periods] %>
+  <% @periods.each do |attribute, period| %>
+    <%= date_filter(attribute, period, period.try(:[], :is_metadata) || false) %>
   <% end %>
 </div>

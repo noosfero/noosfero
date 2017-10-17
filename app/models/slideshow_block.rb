@@ -37,4 +37,8 @@ class SlideshowBlock < Block
     owner.image_galleries
   end
 
+  def self.pretty_name
+      _('Slideshow')
+  end
+
 end

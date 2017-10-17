@@ -211,7 +211,8 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     a6 = fast_create(TextArticle, :created_at => 4.days.ago, :published_at => 1.days.ago)
 
     scope = Article.where(:id => [a1.id, a2.id, a3.id, a4.id, a5.id, a6.id])
-    periods = {:created_at => {'start_date' => 10.days.ago.to_s, 'end_date' => 5.days.ago.to_s}, :published_at => {'start_date' => 4.days.ago.to_s, 'end_date' => 1.day.ago.to_s}}
+    periods = {created_at: {'start_date' => 10.days.ago.to_s, 'end_date' => 5.days.ago.to_s},
+               published_at: {'start_date' => 4.days.ago.to_s, 'end_date' => 1.day.ago.to_s}}
 
     assert_equivalent [a3, a4], plugin.send(:filter_by_periods, scope, periods)
   end
@@ -233,6 +234,83 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     assert_equal category, occurrence.target
     assert_nil occurrence.attribute_name
     assert_nil occurrence.value
+  end
+
+  should 'not load facets and periods eagerly on profile pages' do
+    block = mock
+    block.stubs(:advanced_search).returns(true)
+
+    @plugin.expects(:active_filters).never
+    @plugin.profile_search_block_extra_content(block, { controller: 'profile' })
+  end
+
+  should 'load facets and periods eagerly on profile search pages' do
+    block = mock
+    block.stubs(:advanced_search).returns(true)
+    block.stubs(:owner).returns(block)
+    block.stubs(:articles).returns([])
+
+    @plugin.expects(:active_filters).once
+    @plugin.profile_search_block_extra_content(block, { controller: 'profile_search' })
+  end
+
+  should 'filter by metadata text field' do
+    a1 = fast_create(Article, metadata: '{ "custom_fields" : { "text-field" : { "name" : "Text Field", "type" : "text", "value" : "text", "public" : "1" } } }')
+    a2 = fast_create(Article, metadata: '{ "custom_fields" : { "text-field" : { "name" : "Text Field", "type" : "text", "value" : "text", "public" : "1" } } }')
+    a3 = fast_create(Article, metadata: '{ "custom_fields" : { "text-field" : { "name" : "Text Field", "type" : "text", "value" : "some stuff", "public" : "1" } } }')
+    a4 = fast_create(Article)
+
+    articles = Article.pg_search_plugin_by_metadata('Text Field', 'text').map(&:id)
+
+    assert_includes articles, a1.id
+    assert_includes articles, a2.id
+    refute_includes articles, a3.id
+    refute_includes articles, a4.id
+  end
+
+  should 'filter by metadata boolean field' do
+    a1 = fast_create(Article, metadata: '{ "custom_fields" : { "boolean-field" : { "name" : "Boolean Field", "type" : "boolean", "value" : "1", "public" : "1" } } }')
+    a2 = fast_create(Article, metadata: '{ "custom_fields" : { "boolean-field" : { "name" : "Boolean Field", "type" : "boolean", "value" : "1", "public" : "1" } } }')
+    a3 = fast_create(Article, metadata: '{ "custom_fields" : { "boolean-field" : { "name" : "Boolean Field", "type" : "boolean", "value" : "0", "public" : "1" } } }')
+    a4 = fast_create(Article, metadata: '{ "custom_fields" : { "another-boolean-field" : { "name" : "Another Boolean Field", "type" : "boolean", "value" : "1", "public" : "1" } } }')
+    a5 = fast_create(Article, metadata: '{ "custom_fields" : { "text-field" : { "name" : "Text Field", "type" : "text", "value" : "some stuff", "public" : "1" } } }')
+    a6 = fast_create(Article)
+
+    articles = Article.pg_search_plugin_by_metadata('Boolean Field', '1').map(&:id)
+
+    assert_includes articles, a1.id
+    assert_includes articles, a2.id
+    refute_includes articles, a3.id
+    refute_includes articles, a4.id
+    refute_includes articles, a5.id
+    refute_includes articles, a6.id
+  end
+
+  should 'filter by metadata date field' do
+    a1 = fast_create(Article, metadata: '{ "custom_fields" : {"date-field" : { "name" : "Date Field", "type" : "date", "value" : "2017-08-06", "public" : "1" } } }')
+    a2 = fast_create(Article, metadata: '{ "custom_fields" : {"date-field" : { "name" : "Date Field", "type" : "date", "value" : "2017-08-03", "public" : "1" } } }')
+    a3 = fast_create(Article, metadata: '{ "custom_fields" : {"date-field" : { "name" : "Date Field", "type" : "date", "value" : "2017-07-30", "public" : "1" } } }')
+    a4 = fast_create(Article, metadata: '{ "custom_fields" : {"date-field" : { "name" : "Date Field", "type" : "date", "value" : "2017-06-17", "public" : "1" } } }')
+
+    a5 = fast_create(Article, metadata: '{ "custom_fields" : {"another-date-field" : { "name" : "Another Date Field", "type" : "date", "value" : "2017-08-06", "public" : "1" } } }')
+    a6 = fast_create(Article, metadata: '{ "custom_fields" : {"another-date-field" : { "name" : "Another Date Field", "type" : "date", "value" : "2017-08-04", "public" : "1" } } }')
+    a7 = fast_create(Article, metadata: '{ "custom_fields" : {"another-date-field" : { "name" : "Another Date Field", "type" : "date", "value" : "2017-07-24", "public" : "1" } } }')
+
+    a8 = fast_create(Article, metadata: '{ "custom_fields" : { "boolean-field" : { "name" : "Boolean Field", "type" : "boolean", "value" : "0", "public" : "1" } } }')
+
+    a9 = fast_create(Article)
+
+    articles = Article.pg_search_plugin_by_metadata_period('Date Field', '2017-07-30', '2017-08-06').map(&:id)
+
+    assert_includes articles, a1.id
+    assert_includes articles, a2.id
+    assert_includes articles, a3.id
+    refute_includes articles, a4.id
+    refute_includes articles, a5.id
+    refute_includes articles, a6.id
+    refute_includes articles, a7.id
+    refute_includes articles, a8.id
+    refute_includes articles, a9.id
   end
 
   private

@@ -1702,4 +1702,34 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag tag: 'a', attributes: {'title' => 'Follow'}
   end
 
+  should 'display only public custom fields' do
+    page = profile.articles.build(:name => 'test')
+    page.metadata['custom_fields'] = {
+      'field1' => { 'name' => 'field1', 'value' => '10', 'type' => 'text', 'public' => '1' },
+      'field2' => { 'name' => 'field2', 'value' => '0', 'type' => 'boolean', 'public' => '0' }
+    }
+    page.save!
+
+    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
+    assert_match /field1/i, @response.body
+    assert_no_match /field2/i, @response.body
+  end
+
+  should 'display private custom fields for authorized users' do
+    page = profile.articles.build(:name => 'test')
+    page.metadata['custom_fields'] = {
+      'field1' => { 'name' => 'field1', 'value' => '10', 'type' => 'text', 'public' => '1' },
+      'field2' => { 'name' => 'field2', 'value' => '0', 'type' => 'boolean', 'public' => '0' }
+    }
+    page.save!
+
+    friend = create_user.person
+    profile.add_friend(friend)
+    login_as friend.identifier
+
+    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
+    assert_match /field1/i, @response.body
+    assert_match /field2/i, @response.body
+  end
+
 end

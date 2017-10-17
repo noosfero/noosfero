@@ -24,4 +24,9 @@ class BlogArchivesBlock < Block
   def self.expire_on
       { :profile => [:article], :environment => [:article] }
   end
+
+  def self.pretty_name
+    _('Blog posts')
+  end
+
 end

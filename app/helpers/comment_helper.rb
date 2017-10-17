@@ -6,7 +6,7 @@ module CommentHelper
     title = content_tag('h1', h(title), :class => 'title')
     if article.belongs_to_blog?
       unless args[:no_link]
-        title = content_tag('h1', link_to(article.name, article.url), :class => 'title')
+        title = content_tag('h1', link_to(article.title, article.url), :class => 'title')
       end
       comments = ''
       unless args[:no_comments] || !article.accept_comments

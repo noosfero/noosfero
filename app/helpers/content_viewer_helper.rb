@@ -20,7 +20,7 @@ module ContentViewerHelper
     title = content_tag('h1', h(title), :class => 'title')
     if article.belongs_to_blog? || article.belongs_to_forum?
       unless args[:no_link]
-        title = content_tag('h1', link_to(article.name, url_for(article.url)), :class => 'title')
+        title = content_tag('h1', link_to(article.title, url_for(article.url)), :class => 'title')
       end
       comments = ''
       unless args[:no_comments] || !article.accept_comments
@@ -36,7 +36,7 @@ module ContentViewerHelper
       title << content_tag(:div,
         content_tag(:span, '', :class => 'ui-icon ui-icon-locked') +
         content_tag(:span, _("This is a private content"), :class => 'alert-message'),
-        :class => 'not-published'
+        :class => 'not-published alert-text'
       ) unless article.published?
     end
     title

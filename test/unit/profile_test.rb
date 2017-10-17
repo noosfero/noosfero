@@ -2531,4 +2531,21 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [profile1, profile2, profile3], Profile.lower_disk_usage
   end
 
+  should 'return true for single upload file metadata exist and equal 1' do
+    profile = create(Profile)
+    profile.metadata['allow_single_file'] = "1"
+    assert_equal true, profile.allow_single_file?
+  end
+
+  should 'return false for single upload file metadata exist and equal 0' do
+    profile = create(Profile)
+    profile.metadata['allow_single_file'] = "0"
+    assert_equal false, profile.allow_single_file?
+  end
+
+  should 'return false for single upload file metadata not exist' do
+    profile = create(Profile)
+    assert_equal false, profile.allow_single_file?
+  end
+
 end

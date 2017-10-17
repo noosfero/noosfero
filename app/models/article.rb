@@ -18,7 +18,8 @@ class Article < ApplicationRecord
                   :highlighted, :notify_comments, :display_hits, :slug,
                   :external_feed_builder, :display_versions, :external_link,
                   :image_builder, :show_to_followers, :archived,
-                  :author, :display_preview, :published_at, :person_followers, :editor
+                  :author, :display_preview, :published_at, :person_followers,
+                  :editor, :metadata
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
@@ -39,6 +40,11 @@ class Article < ApplicationRecord
   }
 
   N_('article')
+
+  def self.inherited(subclass)
+    subclass.prepend StringTemplate
+    super
+  end
 
   def initialize(*params)
     super
@@ -64,7 +70,7 @@ class Article < ApplicationRecord
     _('Content')
   end
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.notifiable? }
+  track_actions :create_article, :after_create, :keep_params => [:name, :title, :url, :lead, :first_image], :if => Proc.new { |a| a.notifiable? }
 
   before_create do |article|
     if article.author
@@ -77,6 +83,9 @@ class Article < ApplicationRecord
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
 
   validates_length_of :name, :maximum => 150
+  validate :validate_custom_fields
+
+  before_save :sanitize_custom_field_keys
 
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
@@ -173,7 +182,7 @@ class Article < ApplicationRecord
   RESERVED_SLUGS = %w[
     about
     activities
-  ] 
+  ]
 
   def valid_slug
     errors.add(:title, _('is not available as article name.')) unless Article.is_slug_available?(slug)
@@ -859,7 +868,7 @@ class Article < ApplicationRecord
 
   def create_activity
     if notifiable? && !image?
-      save_action_for_verb 'create_article', [:name, :url, :lead, :first_image], Proc.new{}, :author
+      save_action_for_verb 'create_article', [:name, :title, :url, :lead, :first_image], Proc.new{}, :author
     end
   end
 
@@ -894,6 +903,24 @@ class Article < ApplicationRecord
      if self.parent_id_changed? && self.parent && self.parent.archived?
        errors.add(:parent_folder, N_('is archived!!'))
      end
+  end
+
+  def validate_custom_fields
+    custom_fields = metadata['custom_fields']
+    if custom_fields.present?
+      custom_fields.each do |key, field|
+        if field['value'].blank?
+          errors.add(:metadata, _('Custom fields must have values'))
+        end
+      end
+    end
+  end
+
+  def sanitize_custom_field_keys
+    custom_fields = metadata['custom_fields'] || {}
+    metadata['custom_fields'] = custom_fields.keys.map do |field|
+      [field.to_slug, metadata['custom_fields'][field]]
+    end.to_h
   end
 
 end

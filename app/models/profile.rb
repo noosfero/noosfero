@@ -12,7 +12,7 @@ class Profile < ApplicationRecord
     :custom_url_redirection, :layout_template, :email_suggestions,
     :allow_members_to_invite, :invite_friends_only, :secret,
     :profile_admin_mail_notification, :allow_followers, :wall_access,
-    :profile_kinds, :tag_list, :boxes_attributes
+    :profile_kinds, :tag_list, :boxes_attributes, :metadata
 
   attr_accessor :old_region_id
 
@@ -64,7 +64,7 @@ class Profile < ApplicationRecord
     def self.organization_roles(env_id, profile_id)
       all_roles(env_id).where("profile_id = ?  or key like 'profile_%'", profile_id)
     end
-    def self.organization_member_and_custom_roles(env_id, profile_id) 
+    def self.organization_member_and_custom_roles(env_id, profile_id)
       self.organization_member_roles(env_id) | self.organization_custom_roles(env_id, profile_id)
     end
 
@@ -1284,6 +1284,10 @@ private :generate_url, :url_options
   def update_disk_usage!
     self.metadata['disk_usage'] = self.disk_usage
     self.save
+  end
+
+  def allow_single_file?
+    self.metadata["allow_single_file"] == "1"
   end
 
   private

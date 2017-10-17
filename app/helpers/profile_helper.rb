@@ -164,7 +164,7 @@ module ProfileHelper
   end
 
   def article_custom_title(article)
-    article.name
+    article.title
   end
   alias :blogs_custom_title :article_custom_title
   alias :image_galleries_custom_title :article_custom_title

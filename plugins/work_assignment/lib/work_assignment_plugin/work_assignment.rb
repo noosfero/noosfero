@@ -33,7 +33,7 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def to_html(options = {})
-    lambda do
+    -> context do
       render :file => 'content_viewer/work_assignment.html.erb'
     end
   end
@@ -53,5 +53,9 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
 
   def submissions
     children.map(&:children).flatten.compact
+  end
+
+  def accept_uploads?
+    false
   end
 end

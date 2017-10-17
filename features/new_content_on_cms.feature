@@ -50,3 +50,13 @@ Feature: create content on cms
     Given I follow "New content"
     When I follow "Uploaded file"
     Then I should be on /myprofile/joaosilva/cms/upload_files
+
+  Scenario: redirect to new if choose UploadedFile with single upload files cheked in profile
+    Given I am on joaosilva's control panel
+    And I follow "Edit Profile"
+    And I check "profile_data[metadata][allow_single_file]"
+    And I press "Save"
+    And I follow "Manage Content"
+    And I follow "New content"
+    When I follow "Uploaded file"
+    Then I should be on /myprofile/joaosilva/cms/new

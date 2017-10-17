@@ -18,7 +18,7 @@ class FeedWriter
         end
         for article in articles
           xml.item do
-            xml.title(article.name)
+            xml.title(article.title)
             xml.description(article.to_html)
             if article.created_at
               # rfc822

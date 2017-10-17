@@ -766,6 +766,10 @@ class Noosfero::Plugin
     # Example: article_after_create_callback
     elsif method.to_s =~ /^(.+)_#{Noosfero::Plugin::HotSpot::CALLBACK_HOTSPOTS.join('|')}_callback$/
       nil
+    # -> Generic hotspot to add extra contents to a block.
+    # Returns proc or string with the html of extra content.
+    elsif method.to_s =~ /^(.+)_block_extra_content$/
+      ''
     elsif context.respond_to?(method)
       context.send(method)
     else

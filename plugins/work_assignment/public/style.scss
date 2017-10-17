@@ -1,2 +1,17 @@
 .icon-newwork-assignment { background-image: url(../../designs/icons/tango/Tango/16x16/categories/applications-office.png) }
 .icon-work-assignment { background-image: url(../../designs/icons/tango/Tango/16x16/categories/applications-office.png) }
+
+#article .upload-files {
+  form {
+    margin-top: 20px;
+  }
+
+  a.icon-cancel {
+    display: none;
+  }
+}
+
+#article .submissions {
+  border-top: 1px solid #555;
+  margin-top: 30px;
+}

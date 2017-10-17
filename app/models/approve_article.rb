@@ -25,7 +25,7 @@ class ApproveArticle < Task
   end
 
   def name
-    data[:name].blank? ? (article ? article.name : _("Article removed.")) : data[:name]
+    data[:name].blank? ? (article ? article.title : _("Article removed.")) : data[:name]
   end
 
   def name= value
@@ -111,7 +111,7 @@ class ApproveArticle < Task
 
   def target_notification_description
     if article
-      _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name}
+      _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.title}
     else
       _('%{requestor} wanted to publish an article but it was removed.') % {:requestor => requestor.name}
     end

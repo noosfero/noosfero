@@ -23,6 +23,10 @@ class InterestTagsBlock < Block
     _('Interest Tags')
   end
 
+  def self.pretty_name
+      _('Interest Tags')
+  end 
+
   def self.expire_on
     { profile: [:profile] }
   end

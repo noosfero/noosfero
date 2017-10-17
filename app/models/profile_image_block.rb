@@ -16,4 +16,8 @@ class ProfileImageBlock < Block
     false
   end
 
+ def self.pretty_name
+     _('Profile Image')
+ end
+
 end

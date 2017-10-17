@@ -1,0 +1,32 @@
+<div id='article-custom-fields-wrapper'>
+  <h4 class='box-title'><%= _('Additional Fields') %></h4>
+
+  <div id='article-custom-fields'>
+    <% fields.each do |key, field| %>
+      <% field.symbolize_keys! %>
+      <%= render partial: "cms/custom_fields/#{field[:type]}", locals: { field: field } %>
+    <% end %>
+  </div>
+
+  <a href='#' id='show-opts-link'><%= _('Add new field') %></a>
+
+  <div id='article-custom-fields-opts'>
+    <%= select_tag 'custom-field-type', options_for_select(custom_fields_for_article types), id: 'custom-field-type' %>
+    <%= text_field_tag("custom-field-name", nil, :size => 30, placeholder: _('Field name'), id: 'custom-field-name') %>
+    <%= button_without_text :add, _('Add new field'), '#', id: 'add-field-btn' %>
+    <a href='#' id='hide-opts-link'><%= _('Remove') %></a>
+  </div>
+
+  <div id='article-custom-field-templates'>
+    <% types.each do |type| %>
+      <div id='<%= type %>'>
+        <%= render(partial: "cms/custom_fields/#{type}",
+                            locals: { field: { name: 'FIELD-NAME-TEMPLATE', type: type } }) %>
+      </div>
+    <% end %>
+    <div id='template-datepicker'>
+      <%= date_field("datepicker", DateTime.current, {}, disabled: true ) %>
+    </div>
+  </div>
+
+</div>

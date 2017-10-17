@@ -2099,6 +2099,43 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal files.map(&:id), assigns(:files).map(&:id)
   end
 
+  should 'not overwrite metadata when updating custom fields' do
+    a = @profile.articles.build(:name => 'my article')
+    a.metadata = {
+      'mydata' => 'data',
+      :custom_fields => { :field1 => { value: 1 } }
+    }
+    a.save!
+
+    post :edit, :profile => @profile.identifier, :id => a.id, :article => {
+      :body => 'new content for this article',
+      :metadata => { :custom_fields => { :field1 => { value: 5 } } }
+    }
+
+    a.reload
+    assert_equal 'data', a.metadata['mydata']
+    assert_equal '5', a.metadata['custom_fields']['field1']['value']
+  end
+
+  should 'execute upload_file method with single upload file option not exist in profile' do
+    get :upload_files, profile: profile.identifier
+    assert_template 'upload_files'
+  end
+
+  should 'execute upload_file method with single upload file option is false in profile' do
+    profile.metadata['allow_single_file'] = "0"
+    profile.save!
+    get :upload_files, profile: profile.identifier
+    assert_template 'upload_files'
+  end
+
+  should 'redirect to new article method in upload file if single upload file option is true in profile' do
+    profile.metadata['allow_single_file'] = "1"
+    profile.save!
+    get :upload_files, profile: profile.identifier
+    assert_redirected_to :action => 'new', :type => "UploadedFile"
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

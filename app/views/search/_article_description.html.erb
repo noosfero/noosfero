@@ -3,7 +3,7 @@
 <tr class="search-article-description">
   <td class="search-field-label"><%= _("Description") %></td>
 
-  <% content = article.abstract.present? ? article.abstract : article.body %>
+  <% content = article.abstract.present? ? article.abstract : article.to_html %>
 
   <% if content.present? %>
     <% description = strip_tags(content.to_s) %>

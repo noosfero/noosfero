@@ -97,3 +97,16 @@
 #article .article-body a.icon:hover {
   background-color: transparent;
 }
+#article #article-field-values {
+  margin: 10px 0 15px;
+
+  .custom-field-value {
+    color: #aaa;
+    font-size: 10px;
+
+    span.field-name {
+      margin-right: 5px;
+      font-weight: 600;
+    }
+  }
+}

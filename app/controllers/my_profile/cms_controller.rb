@@ -89,6 +89,8 @@ class CmsController < MyProfileController
         @article.image.label = params[:article][:image_builder][:label]
         @article.image.save!
       end
+      params_metadata = params[:article].try(:delete, :metadata) || {}
+      @article.metadata = @article.metadata.merge(params_metadata)
       @article.last_changed_by = user
       if @article.update(params[:article])
         if !continue
@@ -185,15 +187,16 @@ class CmsController < MyProfileController
     if article.nil?
       session[:notice] = _('Homepage reseted.')
     else
-      session[:notice] = _('"%s" configured as homepage.') % article.name
+      session[:notice] = _('"%s" configured as homepage.') % article.title
     end
 
     redirect_to (request.referer || profile.url)
   end
 
   def upload_files
+    upload_single_file?
     @uploaded_files = []
-    @article = @parent = check_parent(params[:parent_id])
+    @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
     record_coming
     if request.post? && params[:uploaded_files]
@@ -231,7 +234,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     if request.post?
       @article.destroy
-      session[:notice] = _("\"%s\" was removed." % @article.name)
+      session[:notice] = _("\"%s\" was removed." % @article.title)
       referer = Rails.application.routes.recognize_path URI.parse(request.referer).path rescue nil
       if referer and referer[:controller] == 'cms' and referer[:action] != 'edit'
         redirect_to referer
@@ -269,7 +272,7 @@ class CmsController < MyProfileController
       begin
         task.finish
       rescue Exception => ex
-         @failed[ex.message] ? @failed[ex.message] << @article.name : @failed[ex.message] = [@article.name]
+         @failed[ex.message] ? @failed[ex.message] << @article.title : @failed[ex.message] = [@article.title]
          task.cancel
       end
       if @failed.blank?
@@ -523,4 +526,11 @@ class CmsController < MyProfileController
     end
   end
 
+  def upload_single_file?
+    if profile.allow_single_file?
+      @article = UploadedFile.new if @article.nil?
+      @type = "UploadedFile"
+      redirect_to :action => 'new', type: "UploadedFile",  back_to: params[:back_to], parent_id: params[:parent_id]
+    end
+  end
 end

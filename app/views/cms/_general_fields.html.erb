@@ -1,4 +1,9 @@
-<%= select_profile_folder(_('Parent folder:'), 'article[parent_id]', profile, @article.parent_id) %>
+<% if @article.type == "UploadedFile" && @parent %>
+  <%= hidden_field_tag('parent_id', @parent.id) %>
+<% else %>
+  <%= select_profile_folder(_('Parent folder:'), 'article[parent_id]', profile, @article.parent_id) %>
+<% end %>
+
 <% if profile.environment.has_license? %>
   <%= labelled_form_field(_('License'), select(:article, :license_id, options_for_select_with_title([[_('None'), nil]] + profile.environment.licenses.map {|license| [license.name, license.id]}, @article.license ? @article.license.id : nil))) %>
 <% end %>

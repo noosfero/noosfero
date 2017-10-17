@@ -20,4 +20,8 @@ class FansBlock < ProfileListBlock
     profiles.visible.count
   end
 
+  def self.pretty_name
+      _('Fans')
+  end
+
 end

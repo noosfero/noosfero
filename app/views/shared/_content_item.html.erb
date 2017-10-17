@@ -4,7 +4,7 @@
       <%= display_content_icon(content) %>
     </div>
     <span class="item-description">
-      <%= link_to(content.name, content.url) %>
+      <%= link_to(content.title, content.url) %>
     </span>
     <span class="item-date"><%= _("Published at: %s") % show_date(content.updated_at) %></span>
   </div>

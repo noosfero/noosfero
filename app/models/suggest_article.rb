@@ -56,7 +56,7 @@ class SuggestArticle < Task
   end
 
   def article_name
-    article[:name]
+    article_object.title
   end
 
   def subject

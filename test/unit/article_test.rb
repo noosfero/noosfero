@@ -2316,7 +2316,7 @@ class ArticleTest < ActiveSupport::TestCase
     about
     activities
   ]
-   
+
   RESERVED_SLUGS.map do |reserved|
     define_method "test_should_not_create_an_article_with_#{reserved}_title" do
       article = fast_create(Article)
@@ -2324,6 +2324,27 @@ class ArticleTest < ActiveSupport::TestCase
       article.valid?
       assert !article.errors[:title].empty?
     end
+  end
+
+  should 'not save custom fields without value' do
+    article = fast_create(Article)
+    article.metadata = {'custom_fields' => {'text_1' => {'value' => ''}}}
+    refute article.valid?
+  end
+
+  should 'save custom fields' do
+    article = fast_create(Article)
+    article.metadata = {'custom_fields' => {'text_1' => {'value' => '10'}, 'text_2' => {'value' => '19'}}}
+    assert article.valid?
+  end
+
+  should 'sanitize custom field keys' do
+    article = fast_create(Article)
+    article.metadata = {'custom_fields' => {'Text 1' => {'value' => '10'}}}
+    article.save
+
+    refute article.metadata['custom_fields']['Text 1'].present?
+    assert article.metadata['custom_fields']['text-1'].present?
   end
 
 end
