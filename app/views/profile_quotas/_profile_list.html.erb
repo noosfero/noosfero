@@ -28,11 +28,8 @@
         <td class='actions'>
           <%= button_without_text :edit, _('Edit Quota'), { action: :edit_profile, id: p.id } %>
           <%= button_without_text :clear, _('Reset quota for this profile'),
-                                    { action: :reset_profile, id: p.id },
-                                    method: 'delete',
-                                    data: { confirm: _("This action will "\
-                                                       "reset the quota for "\
-                                                       "'#{p.name}.' ") } %>
+            { action: :reset_profile, id: p.id }, method: 'delete', 
+            data: { confirm: _("This action will reset the quota for %s.") % p.name } %>
         </td>
       </tr>
     <% end %>
