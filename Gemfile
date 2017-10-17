@@ -36,6 +36,8 @@ gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 gem 'font-awesome-sass'
+gem 'rspec',                  '~> 3.3'
+gem 'rspec-rails',            '~> 3.2'
 
 # API dependencies
 gem 'grape',                    '~> 0.12'
@@ -64,9 +66,6 @@ end
 group :development, :test do
   gem 'spring'
 end
-
-gem 'rspec',                  '~> 3.3'
-gem 'rspec-rails',            '~> 3.2'
 
 group :test do
   gem 'mocha',                  '~> 1.1.0', :require => false
