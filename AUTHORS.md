@@ -53,6 +53,7 @@ Eduardo Morais
 Eduardo Passos <eduardosteps@gmail.com>
 Eduardo Tourinho Edington <eduardo.edington@serpro.gov.br>
 Eduardo Vital <vitaldu@gmail.com>
+Euler <tiagobrasil2005@yahoo.com.br>
 Evandro Magalhaes Leite Junior <evandro.leite@serpro.gov.br>
 FAMMA TV NOTICIAS MEDIOS DE CO <revistafammatvmusic.oficial@gmail.com>
 Fabio Teixeira <fabio1079@gmail.com>
@@ -76,6 +77,7 @@ Hebert Douglas <hebertdougl@gmail.com>
 Hugo Melo <hugo@riseup.net>
 Iago Rodrigues <iago006@hotmail.com>
 Iago Rodrigues <iago006@hotmailcom>
+Iasmin Mendes <mendesiasmin96@gmail.com>
 Iolane Andrade <andrade.icaa@gmail.com>
 Iryna Pruitt <jdpruitt2807@prodigy.net>
 Isaac Canan <isaac@intelletto.com.br>
@@ -97,6 +99,7 @@ Jérôme Jutteau <j.jutteau@gmail.com>
 Jéssica Cristina <jessica.cris1127@gmail.com>
 Karine Valença <valenca.karine@gmail.com>
 Keilla Menezes <keilla@colivre.coop.br>
+LL <lu.lecocq@free.fr>
 Larissa Reis <larissa@colivre.coop.br>
 Leandro Alves <leandrosustenido@gmail.com>
 Leandro Nunes <leandronunes@gmail.com>
@@ -181,9 +184,11 @@ Vitor Barbosa <vitornga15@gmail.com>
 Wilton Rodrigues <braynwilton@gmail.com>
 Yann Lugrin <yann.lugrin@liquid-concept.ch>
 antoniocoj <_antonio_@hotmail.com>
+jessicacris <jessica.cris1127@gmail.com>
 lioh <fl.araujo95@gmail.com>
 matheuslacerda <matheusmirandalacerda@gmail.com>
 mendesiasmin <mendesiasmin96@gmail.com>
+shshshwhs <diogobeirao10@gmail.com>
 tiagorc <tiagobrasil2005@yahoo.com.br>
 Ábner Silva de Oliveira <abner.oliveira@serpro.gov.br>
 Álvaro Fernando <alvarofernandoms@gmail.com>
