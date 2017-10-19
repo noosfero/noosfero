@@ -2,4 +2,6 @@
 # Check it out: http://download.noosfero.org/debian/
 
 #FIXME The package is not working
-system 'gem install chartkick'
+unless(system 'gem list -i chartkick')
+  system 'gem install chartkick'
+end
