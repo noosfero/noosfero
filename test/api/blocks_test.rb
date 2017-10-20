@@ -267,4 +267,98 @@ class BlocksTest < ActiveSupport::TestCase
     assert_includes json["api_content"]['articles'].map{ |article| article['id'] }, article2.id
   end
 
+  ['environment_id', 'default', 'context'].map do |env_id|
+
+  define_method "test_should_return_forbidden_when_block_type_is_not_a_constant_declared_on_environment_with#{env_id}" do
+    params[:block_type] = 'FakeBlock'
+    environment_id = (env_id == 'environment_id') ? environment.id : env_id
+    get "/api/v1/environments/#{environment_id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  define_method "test_should_return_forbidden_when_block_type_is_a_constant_declared_but_is_not_derived_from_Block_on_envinronment_with_#{env_id}" do
+    params[:block_type] = 'Article'
+    environment_id = (env_id == 'environment_id') ? environment.id : env_id
+    get "/api/v1/environments/#{environment_id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  define_method "test_should_unlogged_user_not_be_able_to_get_preview_of_a_environment_Block_with_#{env_id}"do
+    logout_api
+    params[:block_type] = 'RawHTMLBlock'
+    environment_id = (env_id == 'environment_id') ? environment.id : env_id
+    get "/api/v1/environments/#{environment_id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json["api_content"]
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  define_method "test_should_only_user_with_permission_see_the_preview_of_a_environment_Block_with_#{env_id}"do
+    params[:block_type] = 'RawHTMLBlock'
+    environment_id = (env_id == 'environment_id') ? environment.id : env_id
+    get "/api/v1/environments/#{environment_id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json["api_content"]
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  define_method "test_should_'only_user_with_edit_environment_design_permission_see_the_preview_of_a_environment_Block_with_#{env_id}"do
+    give_permission(person, 'edit_environment_design', environment)
+    params[:block_type] = 'RawHTMLBlock'
+    environment_id = (env_id == 'environment_id') ? environment.id : env_id
+    get "/api/v1/environments/#{environment_id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_nil json["api_content"]
+  end
+
+  define_method "test_should_user_with_permissions_different_from_edit_environment_design_should_not_see_the_preview_of_a_environment_Block_with_#{env_id}" do
+    login_api
+
+    ['destroy_profile', 'edit_profile', 'post_content'].map do |permission|
+      give_permission(person, permission, environment)
+    end
+    params[:block_type] = 'RawHTMLBlock'
+    environment_id = (env_id == 'environment_id') ? environment.id : env_id
+    get "/api/v1/environments/#{environment_id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json["api_content"]
+    assert_equal json["message"], "403 Forbidden"
+  end
+
+  define_method "test_should_be_able_to_get_preview_of_CommunitiesBlock_on_environment_with_#{env_id}" do
+    community = fast_create(Community, :environment_id => environment.id)
+    environment.add_admin(person)
+    params[:block_type] = 'CommunitiesBlock'
+    environment_id = (env_id == 'environment_id') ? environment.id : env_id
+    get "/api/v1/environments/#{environment_id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json["api_content"]['communities'].map{ |community| community['id'] }, community.id
+  end
+
+
+  define_method "test_should_be_able_to_get_preview_of_RawHTMLBlock_on_environment_with_#{env_id}" do
+    params[:block_type] = 'RawHTMLBlock'
+    environment.add_admin(person)
+    environment_id = (env_id == 'environment_id') ? environment.id : env_id
+    get "/api/v1/environments/#{environment_id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json["api_content"]['html']
+  end
+
+  define_method "test_should_be_able_to_get_preview_of_RecentDocumentsBlock_on_environment_with_#{env_id}" do
+    article1 = fast_create(Article, :profile_id => user.person.id, :name => "Article 1")
+    article2 = fast_create(Article, :profile_id => user.person.id, :name => "Article 2")
+    params[:block_type] = 'RecentDocumentsBlock'
+    environment.add_admin(person)
+    get "/api/v1/environments/#{environment.id}/blocks/preview?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 2, json["api_content"]["articles"].size
+    assert_includes json["api_content"]['articles'].map{ |article| article['id'] }, article1.id
+    assert_includes json["api_content"]['articles'].map{ |article| article['id'] }, article2.id
+  end
+
+  end
+
 end
