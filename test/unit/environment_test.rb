@@ -1935,4 +1935,11 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal 500, environment.quota_for(Person)
   end
 
+  should 'allow_edit_design be true if the user is the environment admin' do
+    environment = Environment.default
+    person = fast_create(Person)
+    environment.add_admin(person)
+    assert environment.allow_edit_design?(person)
+  end
+
 end

@@ -1128,6 +1128,10 @@ class Environment < ApplicationRecord
     end
   end
 
+  def allow_edit_design?(person = nil )
+    person.kind_of?(Profile) && person.has_permission?('edit_environment_design', self)
+  end
+
   private
 
   def default_language_available
