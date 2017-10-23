@@ -798,6 +798,25 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal Api::Status::Friendship::FRIEND, json['code']
   end
 
+  should 'logged user list all admin members of a community' do
+    login_api
+    person1 = fast_create(Person)
+    person2 = fast_create(Person)
+    person3 = fast_create(Person)
+    person4 = fast_create(Person)
+    community = fast_create(Community)
+    community.add_admin(person3)
+    community.add_member(person1)
+    community.add_member(person2)
+    community.add_member(person4)
+    params['roles'] = [Role.find_by(key: "profile_admin").id]
+
+    get "/api/v1/profiles/#{community.id}/members?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.count
+    assert_equivalent [person3.id], json.map{|p| p["id"]}
+  end
+
   #####
   
   ATTRIBUTES = [:email, :country, :state, :city, :nationality, :formation, :schooling]

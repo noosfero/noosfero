@@ -296,6 +296,15 @@ module Api
       timestamp
     end
 
+    def by_roles(scope, params)
+      role_ids = params[:roles]
+      if role_ids.nil?
+        scope
+      else
+        scope.by_role(role_ids)
+      end
+    end
+
     def by_reference(scope, params)
       reference_id = params[:reference_id].to_i == 0 ? nil : params[:reference_id].to_i
       if reference_id.nil?
@@ -323,6 +332,7 @@ module Api
       objects = is_a_relation?(method_or_relation) ? method_or_relation : object.send(method_or_relation)
       objects = by_reference(objects, params)
       objects = by_categories(objects, params)
+      objects = by_roles(objects, params)
 
       objects = objects.where(conditions).where(timestamp).reorder(order)
 
