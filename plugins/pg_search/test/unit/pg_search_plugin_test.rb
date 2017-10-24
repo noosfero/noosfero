@@ -56,7 +56,7 @@ class PgSearchPluginTest < ActiveSupport::TestCase
   end
 
   should 'get attribute option name' do
-    assert_equal 'TextArticle', plugin.send(:attribute_option_name, 'TextArticle', Article, {:attribute => 'type'})
+    assert_equal 'Text article', plugin.send(:attribute_option_name, 'TextArticle', Article, {:attribute => 'type'})
     assert_equal 'TinyMce', plugin.send(:attribute_option_name, 'TinyMce', Article, {:attribute => 'editor'})
   end
 
@@ -153,7 +153,7 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     kind = :attribute
 
     results = plugin.send(:generic_facet, klass, scope, selected_facets, kind, {:attribute => :type})
-    text_article = results[:options].select {|opt| opt[:label] == 'TextArticle'}.first
+    text_article = results[:options].select {|opt| opt[:label] == 'Text article'}.first
     event = results[:options].select {|opt| opt[:label] == 'Event'}.first
     blog = results[:options].select {|opt| opt[:label] == 'Blog'}.first
 
