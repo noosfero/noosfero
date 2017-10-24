@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
 
     <%= stylesheet_link_tag "blazer/application" %>
-    <%= stylesheet_link_tag "#{File.join(theme_path, 'blazer')}/style.css" %>
+    <%= stylesheet_link_tag "/assets#{File.join(theme_path, 'blazer')}/style.css" %>
     <%= javascript_include_tag "blazer/application" %>
     <script>
       <%= blazer_js_var "rootPath", root_path %>
