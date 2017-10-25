@@ -1,7 +1,6 @@
 module Api
   module V1
     class Roles < Grape::API
-      before { authenticate! }
 
       MAX_PER_PAGE = 50
 
@@ -24,6 +23,7 @@ module Api
 
             resource :assign do
               post do
+                authenticate!
                 profile = environment.profiles.find(params[:id])
                 return forbidden! unless profile.kind_of?(Organization)
 

@@ -413,10 +413,14 @@ module Api
     end
 
     def render_api_error!(user_message, status = Api::Status::Http::BAD_REQUEST)
-      message_hash = {'message' => user_message}
       log_message = "#{status}, User message: #{user_message}"
       logger.error log_message unless Rails.env.test?
-      error!(message_hash, status)
+      msg = {
+        :success => false,
+        :message => user_message,
+        :code => status
+      }
+      error!(msg, status)
     end
 
     def render_model_errors!(active_record_errors)
