@@ -13,7 +13,7 @@ class UserMailer < ApplicationMailer
 
     mail(
       to: user_email,
-      from: "#{user.environment.name} <#{user.environment.contact_email}>".html_safe,
+      from: "#{user.environment.name} <#{user.environment.noreply_email}>".html_safe,
       subject: _("[%{environment}] Welcome to %{environment} mail!").html_safe % { :environment => user.environment.name }
     )
   end
@@ -28,7 +28,7 @@ class UserMailer < ApplicationMailer
     @join = (user.community_to_join if user.community_to_join)
 
     mail_with_template(
-      from: "#{user.environment.name} <#{user.environment.contact_email}>",
+      from: "#{user.environment.name} <#{user.environment.noreply_email}>",
       to: user.email,
       subject: _("[%s] Activate your account").html_safe % [user.environment.name],
       template_params: {:environment => user.environment, :activation_code => @activation_code, :redirection => @redirection, :join => @join, :person => user.person, :url => @url},
@@ -44,7 +44,7 @@ class UserMailer < ApplicationMailer
     mail(
       content_type: 'text/html',
       to: user.email,
-      from: "#{user.environment.name} <#{user.environment.contact_email}>".html_safe,
+      from: "#{user.environment.name} <#{user.environment.noreply_email}>".html_safe,
       subject: email_subject.blank? ? _("Welcome to environment %s").html_safe % [user.environment.name] : email_subject,
       body: @body
     )
@@ -63,7 +63,7 @@ class UserMailer < ApplicationMailer
     mail(
       content_type: 'text/html',
       to: user.email,
-      from: "#{user.environment.name} <#{user.environment.contact_email}>".html_safe,
+      from: "#{user.environment.name} <#{user.environment.noreply_email}>".html_safe,
       subject: _("[%s] What about grow up your network?").html_safe % user.environment.name
     )
   end
