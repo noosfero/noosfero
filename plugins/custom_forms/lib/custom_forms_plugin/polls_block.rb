@@ -24,6 +24,10 @@ class CustomFormsPlugin::PollsBlock < Block
     _('This block show last polls performed in profile.')
   end
 
+  def cacheable?
+    false
+  end
+
   include CustomFormsPlugin::ListBlock
 
 end
