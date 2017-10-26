@@ -24,6 +24,10 @@ class CustomFormsPlugin::SurveyBlock < Block
     _('This block show last surveys peformed in profile.')
   end
 
+  def cacheable?
+    false
+  end
+
   include CustomFormsPlugin::ListBlock
 
 end
