@@ -11,7 +11,7 @@ class Html5VideoPlugin::VideoChannel < Folder
   include ActionView::Helpers::TagHelper
   def to_html(options={})
     article = self
-    lambda do
+    lambda do |context|
       render :file => 'content_viewer/video_channel', :locals => {:article => article}
     end
   end
