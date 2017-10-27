@@ -1,6 +1,6 @@
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '1.10.1'
+  VERSION = '1.10.2'
 end
 
 root = File.expand_path(File.dirname(__FILE__) + '/../..')
