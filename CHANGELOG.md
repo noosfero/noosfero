@@ -1,3 +1,9 @@
+# 1.10.1
+  * Bumping version 1.10.1 (Rodrigo Souto) [9deba94]
+  * Makes filename secure for FS manipulation and URLs (Aurélio A. Heckert) [75d65a3]
+  * Merge branch 'noreply-emails' into 'master' (Rodrigo Souto) [cd84a99]
+  * only install chartkick gem if It is not installed (Leandro Nunes dos Santos) [da4602b]
+
 # 1.10.0
   * Bumping version 1.10.0 (Rodrigo Souto) [983b8bb]
   * Updating authors file (Rodrigo Souto) [8829c74]
