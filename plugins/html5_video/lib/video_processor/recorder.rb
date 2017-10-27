@@ -11,7 +11,7 @@ module VideoProcessor
 
       info = video_info.clone
       info.delete :output
-      `rails runner -e #{RAILS_ENV} "env = Environment.find(#{env_id}); \
+      `DISABLE_SPRING=1 rails runner -e #{RAILS_ENV} "env = Environment.find(#{env_id}); \
        file = env.articles.find(#{video_id}); \
        video = FilePresenter.for(file); \
        video.web_versions = #{videos.to_s.gsub('"', "'")}; \
@@ -40,7 +40,7 @@ module VideoProcessor
         end
       end
 
-      `rails runner -e #{RAILS_ENV} "env = Environment.find(#{env_id}); \
+      `DISABLE_SPRING=1 rails runner -e #{RAILS_ENV} "env = Environment.find(#{env_id}); \
        file = env.articles.find(#{video_id}); \
        video = FilePresenter.for(file); \
        video.web_versions = #{videos.to_s.gsub('"', "'")}; \
@@ -55,7 +55,7 @@ module VideoProcessor
         videos[format][size][:error] = error
       end
 
-      `rails runner -e #{RAILS_ENV} "env = Environment.find(#{env_id}); \
+      `DISABLE_SPRING=1 rails runner -e #{RAILS_ENV} "env = Environment.find(#{env_id}); \
        file = env.articles.find(#{video_id}); \
        video = FilePresenter.for(file); \
        video.web_versions = #{videos.to_s.gsub('"', "'")}; \
