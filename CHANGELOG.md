@@ -1,3 +1,9 @@
+# 1.10.2
+  * Bumping version 1.10.2 (Rodrigo Souto) [e973d3a]
+  * html5-video: avoid spring error (Rodrigo Souto) [9d292ad]
+  * html5_video: convert failed pending jobs (Rodrigo Souto) [ba6176b]
+  * html5-video: adapt to_html to received context (Rodrigo Souto) [4165cd1]
+
 # 1.10.1
   * Bumping version 1.10.1 (Rodrigo Souto) [9deba94]
   * Makes filename secure for FS manipulation and URLs (Aurélio A. Heckert) [75d65a3]
