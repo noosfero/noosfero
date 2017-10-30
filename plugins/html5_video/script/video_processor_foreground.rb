@@ -9,7 +9,7 @@ require_relative '../lib/video_processor/logger'
 
 include VideoProcessor::Recorder
 
-RAILS_ENV = ENV['RAILS_ENV'] ? ENV['RAILS_ENV'] : 'development'
+RAILS_ENV = ENV['RAILS_ENV'] || 'development'
 NOOSFERO_ROOT = File.join(__dir__, '../../../')
 POOL = VideoProcessor::PoolManager.new(NOOSFERO_ROOT)
 
@@ -50,17 +50,15 @@ def process_all_files(env_id, pool=:waiting)
     # Moves the file to the ONGOING pool, so we can try again if the process
     # dies during the conversion. It removes the file from the pool if it was
     # processed, or adds it back to the WAITING pool if something went wrong.
-    Process.fork do
-      video_id = file.split('/').last
-      video_path = POOL.assign(env_id, video_id, pool)
-      begin
-        process_video(env_id, video_path, video_id)
-        POOL.pop(env_id, video_id)
-      rescue => e
-        LOGGER.error "Error while processing [Video #{video_id}]: #{e}"
-        POOL.pop(env_id, video_id)
-        POOL.push(env_id, video_id, video_path)
-      end
+    video_id = file.split('/').last
+    video_path = POOL.assign(env_id, video_id, pool)
+    begin
+      process_video(env_id, video_path, video_id)
+      POOL.pop(env_id, video_id)
+    rescue => e
+      LOGGER.error "Error while processing [Video #{video_id}]: #{e}"
+      POOL.pop(env_id, video_id)
+      POOL.push(env_id, video_id, video_path)
     end
   end
 end
