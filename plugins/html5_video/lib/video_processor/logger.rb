@@ -9,6 +9,8 @@ module VideoProcessor
 
     def initialize(root_path)
       @root_path = root_path
+      create_logs_dir!
+
       @out_log = ::Logger.new info_log_path
       @err_log = ::Logger.new error_log_path
     end
@@ -22,11 +24,21 @@ module VideoProcessor
     end
 
     def info_log_path
-      File.join(@root_path, INFO_LOG)
+      File.join(env_dir, INFO_LOG)
     end
 
     def error_log_path
-      File.join(@root_path, ERR_LOG)
+      File.join(env_dir, ERR_LOG)
+    end
+
+    private
+
+    def env_dir
+      File.join(@root_path, ENV['RAILS_ENV'] || 'development')
+    end
+
+    def create_logs_dir!
+      FileUtils.mkdir_p(env_dir) unless File.directory?(env_dir)
     end
 
   end
