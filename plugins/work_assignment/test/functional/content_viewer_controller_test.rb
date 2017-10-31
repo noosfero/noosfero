@@ -38,7 +38,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     submission = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => folder)
     get :view_page, :profile => @organization.identifier, :page => work_assignment.path
     assert_response :success
-    assert_match /rails.png/, @response.body
+    assert_match /rails/, @response.body
   end
 
   should "display 'Upload files' when create children of image gallery" do

@@ -323,15 +323,15 @@ class CmsControllerTest < ActionController::TestCase
     assert_difference 'UploadedFile.count' do
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
     end
-    assert_not_nil profile.articles.find_by(path: 'test.txt')
+    assert_not_nil profile.articles.find_by(path: 'test')
     assigns(:article).destroy
   end
 
   should 'be able to update an uploaded file' do
     post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
 
-    file = profile.articles.find_by(path: 'test.txt')
-    assert_equal 'test.txt', file.name
+    file = profile.articles.find_by(path: 'test')
+    assert_equal 'test', file.name
 
     post :edit, :profile => profile.identifier, :id => file.id, :article => { :uploaded_data => fixture_file_upload('/files/test_another.txt', 'text/plain')}
 
@@ -362,8 +362,8 @@ class CmsControllerTest < ActionController::TestCase
     assert_difference 'UploadedFile.count', 2 do
       post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), fixture_file_upload('/files/rails.png', 'text/plain')]
     end
-    assert_not_nil profile.articles.find_by(path: 'test.txt')
-    assert_not_nil profile.articles.find_by(path: 'rails.png')
+    assert_not_nil profile.articles.find_by(path: 'test')
+    assert_not_nil profile.articles.find_by(path: 'rails')
   end
 
   should 'upload to rigth folder' do
@@ -372,14 +372,14 @@ class CmsControllerTest < ActionController::TestCase
     f.reload
 
     assert_not_nil f.children[0]
-    assert_equal 'test.txt', f.children[0].name
+    assert_equal 'test', f.children[0].name
   end
 
   should 'set author of uploaded files' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
 
-    uf = profile.articles.find_by(name: 'test.txt')
+    uf = profile.articles.find_by(name: 'test')
     assert_equal profile, uf.author
   end
 
@@ -400,14 +400,14 @@ class CmsControllerTest < ActionController::TestCase
     assert_nothing_raised do
       post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
     end
-    assert_not_nil profile.articles.find_by(path: 'test.txt')
+    assert_not_nil profile.articles.find_by(path: 'test')
   end
 
   should 'not crash when parent_id is blank' do
     assert_nothing_raised do
       post :upload_files, :profile => profile.identifier, :parent_id => '', :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
     end
-    assert_not_nil profile.articles.find_by(path: 'test.txt')
+    assert_not_nil profile.articles.find_by(path: 'test')
   end
 
   should 'redirect to cms after uploading files' do
@@ -1101,7 +1101,7 @@ class CmsControllerTest < ActionController::TestCase
                :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
 
     process_delayed_job_queue
-    file = FilePresenter.for profile.articles.find_by(name: 'rails.png')
+    file = FilePresenter.for profile.articles.find_by(name: 'rails')
     assert File.exists?(file.icon_name)
     file.destroy
   end
@@ -1112,7 +1112,7 @@ class CmsControllerTest < ActionController::TestCase
                :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
 
     process_delayed_job_queue
-    file = FilePresenter.for profile.articles.find_by(name: 'rails.png')
+    file = FilePresenter.for profile.articles.find_by(name: 'rails')
     assert File.exists?(file.icon_name)
     file.destroy
   end
@@ -1353,8 +1353,8 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'create thumbnails for images with delayed_job' do
     post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png'), fixture_file_upload('/files/test.txt', 'text/plain')]
-    file_1 = profile.articles.find_by(path: 'rails.png')
-    file_2 = profile.articles.find_by(path: 'test.txt')
+    file_1 = profile.articles.find_by(path: 'rails')
+    file_2 = profile.articles.find_by(path: 'test')
 
     process_delayed_job_queue
 
@@ -1701,7 +1701,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'display filename if uploaded file has not title' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
     get :index, :profile => @profile.identifier
-    assert_tag :a, :content => "rails.png"
+    assert_tag :a, :content => "rails"
   end
 
   should 'display title if uploaded file has one' do
@@ -1752,13 +1752,13 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'search for content for inclusion in articles' do
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'))
-    get :search, :profile => @profile.identifier, :q => 'test.txt'
-    assert_match /test.txt/, @response.body
+    get :search, :profile => @profile.identifier, :q => 'test'
+    assert_match /test/, @response.body
     assert_equal 'application/json', @response.content_type
 
     data = parse_json_response
-    assert_equal 'test.txt', data.first['title']
-    assert_match /\/testinguser\/test.txt$/, data.first['url']
+    assert_equal 'test', data.first['title']
+    assert_match /\/testinguser\/test$/, data.first['url']
     assert_match /text/, data.first['icon']
     assert_match /text/, data.first['content_type']
   end
@@ -2134,6 +2134,20 @@ class CmsControllerTest < ActionController::TestCase
     profile.save!
     get :upload_files, profile: profile.identifier
     assert_redirected_to :action => 'new', :type => "UploadedFile"
+  end
+
+  should 'escape upload filename' do
+    post :media_upload,
+      profile: profile.identifier,
+      media_listing: true,
+      format: 'js',
+      file: fixture_file_upload('files/fruits (2).png', 'image/png')
+    assert_response :success
+    process_delayed_job_queue
+    file = UploadedFile.last
+    assert_equal 'fruits (2)', file.name
+    assert_match /.*\/[0-9]+\/[0-9]+\/fruits-2.png/, file.public_filename
+    assert_match /PNG image data, 320 x 240/, `file '#{file.public_filename}'`
   end
 
   protected

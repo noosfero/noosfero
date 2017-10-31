@@ -13,19 +13,19 @@ Feature: edit_image
     Given the following files
       | owner   | file      | mime      |
       | morgoth | rails.png | image/png |
-    When I go to edit "rails.png" by morgoth
+    When I go to edit "rails" by morgoth
     Then I should see "External link"
 
   Scenario: dont offer to edit external link if no image
     Given the following files
       | owner   | file     | mime       |
       | morgoth | test_another.txt | text/plain |
-    When I go to edit "test_another.txt" by morgoth
+    When I go to edit "test_another" by morgoth
     Then I should not see "External link"
 
   Scenario: display tag list field when editing file
     Given the following files
       | owner   | file      | mime      |
       | morgoth | rails.png | image/png |
-    When I go to edit "rails.png" by morgoth
+    When I go to edit "rails" by morgoth
     Then I should see "Tag list"

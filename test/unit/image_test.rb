@@ -130,7 +130,7 @@ class ImageTest < ActiveSupport::TestCase
 
   should 'not allow script files to be uploaded without append .txt in the end' do
     file = create(Image, :uploaded_data => fixture_file_upload('files/hello_world.php', 'image/png'))
-    assert_equal 'hello_world.php.txt', file.filename
+    assert_equal 'hello-world.php.txt', file.filename
   end
 
   should 'have an owner' do
