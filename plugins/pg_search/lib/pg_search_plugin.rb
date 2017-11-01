@@ -201,13 +201,26 @@ class PgSearchPlugin < Noosfero::Plugin
   end
 
   def attribute_label(klass, params)
-    params[:attribute].to_s.humanize.pluralize
+    case params[:attribute]
+    when :content_type
+      :extension
+    when :type
+      :content_type
+    else
+      params[:attribute]
+    end.to_s.humanize.pluralize
   end
 
   def attribute_option_name(name, klass, params)
     return nil if name.blank?
     if params[:attribute].to_s == 'content_type'
       Noosfero::FriendlyMIME.find(name)[1..-1].upcase
+    elsif params[:attribute].to_s == 'type'
+      begin
+        name.constantize.short_description
+      rescue
+        name
+      end
     else
       name
     end
@@ -301,11 +314,9 @@ class PgSearchPlugin < Noosfero::Plugin
   def translations
     _('Created at')
     _('Updated at')
-    _('Types')
-    _('TextArticle')
-    _('UploadedFile')
-    _('RSSFeed')
+    _('Extensions')
     _('Content types')
     _('Tags')
+    _('Categories')
   end
 end
