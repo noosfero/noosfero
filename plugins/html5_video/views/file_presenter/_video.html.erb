@@ -2,13 +2,9 @@
 <div class="video-player">
   <% if video.has_web_version %>
     <%= render :partial => 'video_player', :locals => {:video => video} %>
-  <% elsif not video.conversion_jobs.empty? %>
-    <div class="message">
-      <%=_('Queued to generate the web version. Come back soon.')%>
-    </div>
   <% else %>
     <div class="message">
-      <%=_('This video is not queued to the video conversor. Contact the site admin.')%>
+      <%=_('Queued to generate the web version. Come back soon.')%>
     </div>
   <% end %>
   <div class="video-player-info">

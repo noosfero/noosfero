@@ -11,7 +11,7 @@ class FfmpegTest < ActiveSupport::TestCase
   def create_video(file, mime)
     file = UploadedFile.create!(
       :uploaded_data => fixture_file_upload('/videos/'+file, mime),
-      :profile => fast_create(Person))
+      :profile => create_user.person)
   end
 
   def video_path(file='')
