@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2017-11-02 17:21+0000\n"
-"Last-Translator: anonymous <>\n"
+"PO-Revision-Date: 2017-11-03 13:26+0000\n"
+"Last-Translator: Benjamin <bennyheld999@gmx.de>\n"
 "Language-Team: German "
 "<https://hosted.weblate.org/projects/noosfero/noosfero/de/>\n"
 "Language: de\n"
@@ -8766,7 +8766,7 @@ msgstr "Manuell (empty field)"
 
 #: ../app/views/invite/_select_address_book.html.erb:30
 msgid "Please type your username in the format yourname@example.com"
-msgstr "Bitte geben Sie Ihren Nutzernamen im Format ihrname@example.com ein."
+msgstr "Bitte geben Sie Ihren Nutzernamen im Format ihrname@beispiel.com ein."
 
 #: ../app/views/invite/_select_address_book.html.erb:40
 msgid "We won't store your password or contact anyone without your permission."
