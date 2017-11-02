@@ -232,9 +232,8 @@ msgstr "Aufgaben erfolgreich aktualisiert"
 msgid "Manage Roles"
 msgstr "Verwalte %s"
 
-#, fuzzy
 msgid "Kind sucessfully removed"
-msgstr "Aufgaben erfolgreich aktualisiert"
+msgstr "Aufgaben erfolgreich entfernt"
 
 #, fuzzy
 msgid "Edit welcome page"
