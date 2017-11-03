@@ -5,14 +5,15 @@ require_relative '../html5_video_plugin_test_helper'
 
 class VideoProcessorTest < ActiveSupport::TestCase
 
-  prepend Html5VideoPluginTestHelper
-
   # Disable transactional fixtures, so rails runner can see the same data
   self.use_transactional_fixtures = false
 
+  prepend Html5VideoPluginTestHelper
+
   def setup
+    UploadedFile.delete_all
     file = fixture_file_upload('/videos/atropelamento.ogv', 'video/ogv')
-    profile = fast_create(Person)
+    profile = create_user.person
     @video = UploadedFile.create!(uploaded_data: file, profile: profile)
     @presenter = FilePresenter.for @video
   end
