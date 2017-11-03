@@ -11,7 +11,7 @@ module Html5VideoPluginTestHelper
   end
 
   def create_video(file, mime, profile=nil)
-    profile ||= fast_create(Person)
+    profile ||= create_user.person
     data = fixture_file_upload("/videos/#{file}", mime)
     UploadedFile.create!(uploaded_data: data, profile: profile)
   end

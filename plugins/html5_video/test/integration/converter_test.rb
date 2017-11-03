@@ -10,7 +10,7 @@ class ConverterTest < ActiveSupport::TestCase
     Environment.default.enable_plugin Html5VideoPlugin
     @video = FilePresenter.for UploadedFile.create!(
       :uploaded_data => fixture_file_upload('/videos/firebus.3gp', 'video/3gp'),
-      :profile => fast_create(Person)
+      :profile => create_user.person
     )
 
     @ffmpeg = VideoProcessor::Ffmpeg.new
@@ -44,7 +44,7 @@ class ConverterTest < ActiveSupport::TestCase
   end
 
   should 'should not instantiate converter if file does not exist' do
-    assert_raise do
+    assert_raise IOError do
       VideoProcessor::Converter.new(@ffmpeg, 'nope', 404)
     end
   end
@@ -58,7 +58,7 @@ class ConverterTest < ActiveSupport::TestCase
   should 'create all web versions for a MPEG video' do
     video = FilePresenter.for UploadedFile.create!(
       :uploaded_data => fixture_file_upload('/videos/old-movie.mpg', 'video/mpeg'),
-      :profile => fast_create(Person)
+      :profile => create_user.person
     )
     converter = VideoProcessor::Converter.new(@ffmpeg, video.full_filename,
                                               video.id)
@@ -104,7 +104,8 @@ class ConverterTest < ActiveSupport::TestCase
 
     video = FilePresenter.for UploadedFile.create!(
       uploaded_data: Rack::Test::UploadedFile.new("#{@temp}/firebus.ogv", 'video/ogv'),
-      profile: fast_create(Person) )
+      profile: create_user.person
+    )
     converter = VideoProcessor::Converter.new(@ffmpeg, video.full_filename,
                                               video.id)
     converter.logger = @logger

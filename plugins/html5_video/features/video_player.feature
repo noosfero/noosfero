@@ -15,8 +15,8 @@ Feature: video player
 
   @selenium
   Scenario: controls must work
-    Given I am on /joaosilva/old-movie.mpg?view=true
+    Given I am on /joaosilva/old-movie?view=true
+    And I move the cursor over ".video-player .video-box"
+    And I click ".video-player .video-box .zoom"
     Then The page should contain only 2 ".video-player .quality li.ui-button"
-    #FIXME
-    #When I click ".video-player .video-box .zoom"
-    #Then the element ".video-player" has class "zoom-in"
+    And the element ".video-player" has class "zoom-in"
