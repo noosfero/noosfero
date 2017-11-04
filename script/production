@@ -34,7 +34,9 @@ app_server_start() {
 
 app_server_stop() {
   # see unicorn_rails(1)
-  kill -s QUIT $(cat tmp/pids/unicorn.pid)
+  if [ -e tmp/pids/unicorn.pid ]; then
+    kill -s QUIT $(cat tmp/pids/unicorn.pid)
+  fi
 }
 
 app_server_restart() {
