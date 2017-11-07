@@ -337,17 +337,18 @@ class AdminPanelControllerTest < ActionController::TestCase
     env.news_amount_by_folder = 5
     env.save
 
-    get :set_portal_news_amount
+    get :set_portal_news_configurations
     assert_tag :tag => 'select', :descendant => {:tag => 'option', :attributes => {:value => 5, :selected => 'selected'}}
   end
 
-  should 'save amount of news' do
-    post :set_portal_news_amount, :environment => { :news_amount_by_folder => '3', :highlighted_news_amount => '2', :portal_news_amount => '5' }
+  should 'save configuration of news' do
+    post :set_portal_news_configurations, :environment => { :news_amount_by_folder => '3', :highlighted_news_amount => '2', :portal_news_amount => '5', :area_news_show_not_highlighted => false }
     assert_redirected_to :action => 'index'
 
     assert_equal 3, Environment.default.news_amount_by_folder
     assert_equal 2, Environment.default.highlighted_news_amount
     assert_equal 5, Environment.default.portal_news_amount
+    assert_equal false, Environment.default.area_news_show_not_highlighted
   end
 
   should 'display plugins links' do
