@@ -38,7 +38,7 @@
           <%= content_tag(:div, :class => 'news-area-inner-2') do %>
             <h3><%= link_to h(folder.title), folder.url %></h3>
             <ul>
-              <% folder.news(environment.news_amount_by_folder).each do |news| %>
+              <% folder.news(environment.news_amount_by_folder, environment.area_news_show_not_highlighted).each do |news| %>
                 <li> <%= link_to(h(news.title), news.url) %></li>
               <% end%>
             </ul>

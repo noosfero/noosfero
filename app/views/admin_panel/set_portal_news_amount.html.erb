@@ -5,6 +5,8 @@
   <%= labelled_form_field _('Number of highlighted news'), select(:environment, :highlighted_news_amount, (0..10).to_a) %>
   <%= labelled_form_field _('Number of portal news'), select(:environment, :portal_news_amount, (0..10).to_a) %>
   <%= labelled_form_field _('Number of news by folder'), select(:environment, :news_amount_by_folder, (1..10).to_a) %>
+  <%= labelled_radio_button( _('Show all news on area news'), 'environment[area_news_show_not_highlighted]', true, environment.area_news_show_not_highlighted) %>
+  <%= labelled_radio_button( _('Show only not highlighted news on area news'), 'environment[area_news_show_not_highlighted]', false, !environment.area_news_show_not_highlighted) %>
 
   <%= button_bar do %>
     <%= submit_button(:save, _('Save')) %>

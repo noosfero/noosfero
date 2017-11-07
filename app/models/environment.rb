@@ -13,7 +13,7 @@ class Environment < ApplicationRecord
                   :reports_lower_bound, :noreply_email,
                   :signup_welcome_screen_body, :members_whitelist_enabled,
                   :members_whitelist, :highlighted_news_amount,
-                  :portal_news_amount, :date_format, :signup_intro,
+                  :portal_news_amount, :area_news_show_not_highlighted, :date_format, :signup_intro,
                   :enable_feed_proxy, :http_feed_proxy, :https_feed_proxy,
                   :disable_feed_ssl, :layout_template, :boxes_attributes
 
@@ -318,6 +318,7 @@ class Environment < ApplicationRecord
   settings_items :news_amount_by_folder, :type => Integer, :default => 4
   settings_items :highlighted_news_amount, :type => Integer, :default => 2
   settings_items :portal_news_amount, :type => Integer, :default => 5
+  settings_items :area_news_show_not_highlighted, :type => :boolean, :default => false
   settings_items :help_message_to_add_enterprise, :type => String, :default => ''
   settings_items :tip_message_enterprise_activation_question, :type => String, :default => ''
 
