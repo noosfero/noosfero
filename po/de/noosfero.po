@@ -8271,6 +8271,20 @@ msgid ""
 "ite is a site that you consider safe enough to incorporate their content throu"
 "gh <em>iframes</em>."
 msgstr ""
+"Sind Sie sicher, dass Sie diesen Kommentar und alle Antworten entfernen möchte"
+"n?"
+
+#, fuzzy
+msgid "Add a trusted site"
+msgstr "Neues Feld hinzufügen"
+
+#, fuzzy
+msgid "Add a new trusted site"
+msgstr "Neue Lizenz hinzufügen"
+
+#, fuzzy
+msgid "Add trusted site"
+msgstr "Text ergänzen"
 
 #, fuzzy
 msgid "Site"
