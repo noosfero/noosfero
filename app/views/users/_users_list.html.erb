@@ -1,6 +1,16 @@
 <div class="environment-profiles-results-header">
-  <div id='environment-profiles-filter-title'><%= users_filter_title(@filter) %></div>
+  <div id='environment-profiles-filter-title'>
+    <%= users_filter_title(@filter) %>
+  </div>
   <%= filter_selector(@filter) %>
+    <div>
+      <% if @filter == 'recently_logged_users' %>
+        <%= number_field :filter_number_of_days, { controller: 'user', action: 'index' }, disabled: false, placeholder: 'Ex.: 30' %>
+      <% else %>
+        <%= number_field :filter_number_of_days, { controller: 'user', action: 'index' }, disabled: true , placeholder: @filter %>
+      <% end %>
+    </div>
+
   <div style="clear: both"></div>
 </div>
 

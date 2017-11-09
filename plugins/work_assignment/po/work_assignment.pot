@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-04 15:18+0000\n"
-"PO-Revision-Date: 2017-08-04 15:18+0000\n"
+"POT-Creation-Date: 2017-11-07 17:21-0200\n"
+"PO-Revision-Date: 2017-11-07 17:21-0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -31,11 +31,7 @@ msgid "Notification not sent"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Name"
-msgstr ""
-
-#: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "e-Mail"
+msgid "Subject"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
@@ -43,7 +39,11 @@ msgid "Message"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Subject"
+msgid "e-Mail"
+msgstr ""
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "Name"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/helper.rb:9
@@ -96,6 +96,24 @@ msgstr ""
 
 #: ../views/cms/work_assignment_plugin/_work_assignment.html.erb:7
 msgid "Allow users change submissions privacy?"
+msgstr ""
+
+#: ../views/content_viewer/work_assignment.html.erb:10
+msgid "Publish image or document"
+msgstr ""
+
+#: ../views/content_viewer/work_assignment.html.erb:12
+msgid ""
+"Select the file you want to send (text documents, images, video, audio). Final"
+"ly, click in the \"Upload\" button to submit the files."
+msgstr ""
+
+#: ../views/content_viewer/work_assignment.html.erb:22
+msgid "Uploading files to %s"
+msgstr ""
+
+#: ../views/content_viewer/work_assignment.html.erb:27
+msgid "Submissions"
 msgstr ""
 
 #: ../views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16

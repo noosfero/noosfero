@@ -15,88 +15,68 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../lib/event_plugin.rb:4
 msgid "Event Extras"
 msgstr "Extras para Eventos"
 
-#: ../lib/event_plugin.rb:8
-msgid ""
-"Include a new block to show the environment's or profiles' events information"
+msgid "Include a new block to show the environment's or profiles' events information"
 msgstr ""
-"Adiciona um novo bloco para apresentar as informações de eventos do ambiente "
-"ou dos perfis"
+"Adiciona um novo bloco para apresentar as informações de eventos do ambiente o"
+"u dos perfis"
 
-#: ../lib/event_plugin/event_block.rb:11
 msgid "Events"
 msgstr "Eventos"
 
-#: ../lib/event_plugin/event_block.rb:15
 msgid "Show the profile events or all environment events."
 msgstr "Mostra todos os eventos de um perfil ou do ambiente."
 
-#: ../lib/event_plugin/event_block_helper.rb:14
 msgid "One month ago"
 msgid_plural "%d months ago"
 msgstr[0] "Um mês atrás"
 msgstr[1] "%d meses atrás."
 
-#: ../lib/event_plugin/event_block_helper.rb:16
 msgid "Yesterday"
 msgid_plural "%d days ago"
 msgstr[0] "Ontem"
 msgstr[1] "%d dias atrás"
 
-#: ../lib/event_plugin/event_block_helper.rb:18
 msgid "Today"
 msgstr "Hoje"
 
-#: ../lib/event_plugin/event_block_helper.rb:20
 msgid "Tomorrow"
 msgid_plural "%d days left to start"
 msgstr[0] "Amanhã"
 msgstr[1] "%d dias para começar"
 
-#: ../lib/event_plugin/event_block_helper.rb:22
 msgid "One month left to start"
 msgid_plural "%d months left to start"
 msgstr[0] "Um mês para iniciar"
 msgstr[1] "%d meses para iniciar"
 
-#: ../views/event_plugin/event_block_item.html.erb:8
 msgid "Duration: 1 day"
 msgid_plural "Duration: %s days"
 msgstr[0] "Duração: 1 dia"
 msgstr[1] "Duração: %s dias"
 
-#: ../views/profile_design/event_plugin/_event_block.html.erb:1
 msgid "Limit of items"
 msgstr "Limite de itens"
 
-#: ../views/profile_design/event_plugin/_event_block.html.erb:4
 msgid "Show all environment events"
 msgstr "Apresentar todos os eventos do ambiente"
 
-#: ../views/profile_design/event_plugin/_event_block.html.erb:9
 msgid "(Don't check to show only your events)"
 msgstr "(Não marque para apresentar somente seus eventos)"
 
-#: ../views/profile_design/event_plugin/_event_block.html.erb:11
-#: ../views/profile_design/event_plugin/_event_block.html.erb:14
 msgid "(Don't check to show only %s events)"
 msgstr "(Não marque para apresentar somente os eventos de %s)"
 
-#: ../views/profile_design/event_plugin/_event_block.html.erb:20
 msgid "Only show future events"
 msgstr "Mostrar apenas eventos futuros"
 
-#: ../views/profile_design/event_plugin/_event_block.html.erb:22
 msgid "Display as a calendar"
 msgstr "Mostrar como calendário"
 
-#: ../views/profile_design/event_plugin/_event_block.html.erb:24
 msgid "Limit of days to display"
 msgstr "Limite de dias para mostrar"
 
-#: ../views/profile_design/event_plugin/_event_block.html.erb:26
 msgid "Only show events in this interval of days."
 msgstr "Mostar somente os eventos nesse intervalo de dias"

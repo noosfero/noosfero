@@ -64,11 +64,11 @@ msgstr "Mais ativos"
 msgid "More popular"
 msgstr "Mais populares"
 
-#: ../lib/ext/text_article.rb:39
+#: ../lib/ext/text_article.rb:37
 msgid "More viewed"
 msgstr "Mais vistos"
 
-#: ../lib/ext/text_article.rb:40
+#: ../lib/ext/text_article.rb:38
 msgid "Most commented"
 msgstr "Mais comentados"
 
@@ -80,7 +80,7 @@ msgstr " resultados para "
 msgid " total results"
 msgstr " resultados"
 
-#: ../views/elasticsearch_plugin/_search_field.html.erb:11
+#: ../views/elasticsearch_plugin/_search_field.html.erb:10
 msgid "Send"
 msgstr "Enviar"
 

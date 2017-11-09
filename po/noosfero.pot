@@ -2817,7 +2817,11 @@ msgstr ""
 msgid "Deativated users"
 msgstr ""
 
-#: ../app/helpers/users_helper.rb:18 ../app/views/memberships/index.html.erb:16
+#: ../app/helpers/users_helper.rb:9
+msgid "Recently logged users"
+msgstr ""
+
+#: ../app/helpers/users_helper.rb:19 ../app/views/memberships/index.html.erb:16
 #: ../app/views/profile_members/_members_filter.erb:3
 #: ../app/views/tasks/index.html.erb:26
 #: ../app/views/tasks/processed.html.erb:12

@@ -15,6 +15,25 @@ class UsersController < AdminController
       scope = scope.activated
     elsif @filter == 'deactivated_users'
       scope = scope.deactivated
+    elsif @filter == 'recently_logged_users'
+      days = 90
+      scope = scope.recent
+
+      if params[:filter_number_of_days] == nil
+        scope = scope.where('last_login_at > ?', (Date.today - 0))
+        puts '*'*100
+        puts 'PASSOU AQUI'
+      else
+        # hash = params[:filter_number_of_days]
+        # days = hash[:"{:controller=>\"user\", :action=>\"index\"}"]
+        scope = scope.where('last_login_at > ?', (Date.today - days.to_i))
+      end
+      # else
+      #   puts '='*100
+      #   puts days.to_i
+      #   sleep 10
+      # scope = scope.where('last_login_at > ?', (Date.today - 90))
+      # end
     end
     scope = scope.order('name ASC')
     @q = params[:q]

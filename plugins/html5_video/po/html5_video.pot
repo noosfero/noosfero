@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 15:45+0000\n"
-"PO-Revision-Date: 2017-05-09 15:45+0000\n"
+"POT-Creation-Date: 2017-11-07 17:21-0200\n"
+"PO-Revision-Date: 2017-11-07 17:21-0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -20,48 +20,6 @@ msgstr ""
 
 #: ../lib/html5_video_plugin.rb:16
 msgid "A plugin to enable the video suport, with auto conversion for the web."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:26
-msgid "Unknow error"
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:29
-msgid "No such file or directory \"%s\"."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:32
-msgid "No output defined."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:35
-msgid "Unknown encoder \"%s\"."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:38
-msgid ""
-"Error while opening encoder for output - maybe incorrect parameters such as bi"
-"t rate, frame rate, width or height."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:41
-msgid "Could not open \"%s\"."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:44
-msgid "Unsupported codec %{codec} for %{act} stream %{id}."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:48
-msgid "Unable to find a suitable output format for %{file}."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:52
-msgid "Invalid data found when processing input."
-msgstr ""
-
-#: ../lib/html5_video_plugin/ffmpeg.rb:190
-msgid "Success."
 msgstr ""
 
 #: ../lib/html5_video_plugin/video_channel.rb:4
@@ -76,8 +34,50 @@ msgstr ""
 msgid "Video (%s)"
 msgstr ""
 
-#: ../lib/presenters/video.rb:137
+#: ../lib/presenters/video.rb:134
 msgid "Undefined"
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:32
+msgid "Unknow error"
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:35
+msgid "No such file or directory \"%s\"."
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:38
+msgid "No output defined."
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:41
+msgid "Unknown encoder \"%s\"."
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:44
+msgid ""
+"Error while opening encoder for output - maybe incorrect parameters such as bi"
+"t rate, frame rate, width or height."
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:47
+msgid "Could not open \"%s\"."
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:50
+msgid "Unsupported codec %{codec} for %{act} stream %{id}."
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:54
+msgid "Unable to find a suitable output format for %{file}."
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:58
+msgid "Invalid data found when processing input."
+msgstr ""
+
+#: ../lib/video_processor/ffmpeg.rb:197
+msgid "Success."
 msgstr ""
 
 #: ../views/content_viewer/_video_player.html.erb:21

@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "PO-Revision-Date: 2016-10-03 18:22+0000\n"
 "Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"plugin-vote/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/plugin"
+"-vote/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,30 +23,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.9-dev\n"
 
-#: ../lib/ext/vote.rb:11
 msgid "The target is achived and can't accept votes"
 msgstr "O alvo está arquivado e não aceita votos"
 
-#: ../lib/vote_plugin.rb:8
 msgid "Provide buttons to like/dislike a articles and comments."
 msgstr "Provê botões de curtir/rejeitar para artigos e comentários."
 
-#: ../views/vote_plugin_admin/index.html.erb:1
 msgid "Vote settings"
 msgstr "Configurações de voto"
 
-#: ../views/vote_plugin_admin/index.html.erb:6
 msgid "Enable on %s:"
 msgstr "Habilitar em %s:"
 
-#: ../views/vote_plugin_admin/index.html.erb:7
 msgid "Like"
 msgstr "Curtir"
 
-#: ../views/vote_plugin_admin/index.html.erb:8
 msgid "Dislike"
 msgstr "Rejeitar"
 
-#: ../views/vote_plugin_admin/index.html.erb:13
 msgid "Limit of voters to display:"
 msgstr "Limite de votantes para exibir:"
