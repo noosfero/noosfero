@@ -45,13 +45,17 @@ class ChatController < PublicController
 
   def avatar
     profile = environment.profiles.find_by(identifier: params[:id])
-    filename, mimetype = profile_icon(profile, :minor, true)
-    if filename =~ /^(https?:)?\/\//
-      redirect_to filename
+    if profile.present?
+      filename, mimetype = profile_icon(profile, :minor, true)
+      if filename =~ /^(https?:)?\/\//
+        redirect_to filename
+      else
+        data = File.read(File.join(Rails.root, 'public', filename))
+        render :text => data, :layout => false, :content_type => mimetype
+        expires_in 24.hours
+      end
     else
-      data = File.read(File.join(Rails.root, 'public', filename))
-      render :text => data, :layout => false, :content_type => mimetype
-      expires_in 24.hours
+      render nothing: true
     end
   end
 
