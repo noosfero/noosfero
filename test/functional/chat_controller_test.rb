@@ -206,4 +206,11 @@ class ChatControllerTest < ActionController::TestCase
     assert_equal @response.body, my_chat.to_json
   end
 
+  should 'not crash o avatar if no profile found' do
+    login_as 'testuser'
+    assert_nothing_raised do
+      get :avatar, :id => 'unexistent-user'
+    end
+  end
+
 end
