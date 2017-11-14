@@ -1,5 +1,6 @@
 class CustomFormsPluginProfileController < ProfileController
   before_filter :has_access, :only => [:show]
+  before_filter :can_view_results, :only => [:review]
 
   include CustomFormsPlugin::Helper
 
@@ -135,5 +136,10 @@ class CustomFormsPluginProfileController < ProfileController
   def has_access
     form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
     render_access_denied if form.blank? || !form.accessible_to(user)
+  end
+
+  def can_view_results
+    form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
+    render_access_denied if form.present? && !form.show_results_for(user)
   end
 end

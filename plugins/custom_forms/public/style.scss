@@ -226,7 +226,7 @@ border-top: none;
 background-color: #f9f9f9;
 }
 
-#queries ul.results-list li a {
+#queries ul.results-list li a.form-link {
 color: #333;
 cursor: pointer;
 display: block;
@@ -235,8 +235,17 @@ margin-bottom: 3px;
 text-decoration: none;
 }
 
-#queries ul.results-list li a:hover {
+#queries ul.results-list li a.form-link:hover {
 color: #666;
+}
+
+#queries ul.results-list li a.form-results {
+  text-decoration: none;
+  color: #90949c;
+}
+
+#queries ul.results-list li a.form-results:hover {
+  color: #555753;
 }
 
 #queries ul.results-list li .form-info {

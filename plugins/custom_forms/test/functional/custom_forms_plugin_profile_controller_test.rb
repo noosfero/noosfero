@@ -165,4 +165,31 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_includes assigns(:forms), star_trek
     assert_not_includes assigns(:forms), space_wars
   end
+
+  should 'filter forms by access permission' do
+    space_wars = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Space Wars', :identifier => 'space-wars')
+    star_trek = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Star Trek', :identifier => 'star-trek')
+    star_wars = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Star Wars', :identifier => 'star-wars')
+
+    get :queries, :profile => profile.identifier, :q => 'star'
+
+    assert_includes assigns(:forms), star_wars
+    assert_includes assigns(:forms), star_trek
+    assert_not_includes assigns(:forms), space_wars
+  end
+
+  should 'allow access to results' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :identifier => 'free-software', :access_result_options => 'private')
+    get :review, :profile => profile.identifier, :id => form.identifier
+    assert_response :success
+    assert_template 'custom_forms_plugin_profile/review'
+  end
+
+  should 'forbid access to results' do
+    logout
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :identifier => 'free-software', :access_result_options => 'private')
+    get :review, :profile => profile.identifier, :id => form.identifier
+    assert_response :forbidden
+    assert_template 'shared/access_denied'
+  end
 end

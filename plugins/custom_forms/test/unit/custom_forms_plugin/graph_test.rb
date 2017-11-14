@@ -128,18 +128,6 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
     assert_equal graph_data[1]['data']['show_as'], 'check_box'
   end
 
-  should 'calculate the user answers for a check_box field' do
-
-    graph_data = CustomFormsPlugin::Graph.new(@form).query_results
-
-    assert_equal graph_data.class, Array
-    assert_equal graph_data[1]['data']['azus'], 0
-    assert_equal graph_data[1]['data']['acer'], 2
-    assert_equal graph_data[1]['data']['mac'], 1
-    assert_equal graph_data[1]['data']['dell'], 1
-    assert_equal graph_data[1]['data']['show_as'], 'check_box'
-  end
-
   should 'Have a text answer to a text field' do
     graph_data = CustomFormsPlugin::Graph.new(form).query_results
 
