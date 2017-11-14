@@ -10,7 +10,7 @@
 <%= render partial: 'queries_content' %>
 
 <%= button_bar do %>
-  <%= button :back, _('Back'), :action => 'queries' %>
+  <%= button :back, _('Back'), profile.url %>
 <% end %>
 
 <%= javascript_include_tag 'plugins/custom_forms/queries' %>

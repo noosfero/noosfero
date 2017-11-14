@@ -66,6 +66,13 @@
       }
     }
 
+    &.survey {
+      .form-name, .form-submissions, .form-link {
+        color: initial;
+        text-decoration: none;
+      }
+    }
+
     &.survey .form-item-img {
       height: 100px;
     }
@@ -187,12 +194,6 @@
         }
       }
 
-      .partial-results-link {
-        margin: 15px 0 5px;
-        display: block;
-        text-align: center;
-      }
-
       .button-bar {
         padding-top: 0;
         margin-bottom: 0;
@@ -239,4 +240,10 @@
   text-align: center;
   font-style: italic;
   margin-top: 15px;
+}
+
+.partial-results-link {
+  margin: 15px 0 5px;
+  display: block;
+  text-align: center;
 }
