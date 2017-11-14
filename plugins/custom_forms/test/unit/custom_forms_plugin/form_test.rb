@@ -506,7 +506,17 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert form.show_results_for(nil)
   end
 
-  should 'only show private results if user is an admin' do
+  should 'show private results if user the owner' do
+    person = create_user('ze').person
+    random = create_user('random').person
+    form = CustomFormsPlugin::Form.new(profile: person, name: 'Form 1')
+    form.access_result_options = 'private'
+
+    assert form.show_results_for(person)
+    refute form.show_results_for(random)
+  end
+
+  should 'show private results if user is an admin' do
     person1 = create_user('ze').person
     person2 = create_user('admin').person
     form = CustomFormsPlugin::Form.new(profile: profile, name: 'Form 1')

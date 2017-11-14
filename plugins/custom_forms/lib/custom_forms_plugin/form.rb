@@ -1,6 +1,6 @@
 class CustomFormsPlugin::Form < ApplicationRecord
 
-belongs_to :profile
+  belongs_to :profile
 
   has_many :fields, -> { order 'position' },
     class_name: 'CustomFormsPlugin::Field', dependent: :destroy
@@ -155,15 +155,16 @@ belongs_to :profile
     CustomFormsPlugin::Graph.new(self).query_results
   end
 
-  alias_attribute :result_acess, :access_result_options
+  alias_attribute :result_access, :access_result_options
 
   def show_results_for(person)
-    result_acess.blank? ||
-    (result_acess == 'public') ||
-    ((result_acess == 'public_after_ends') && ending.present? &&
+    result_access.blank? ||
+    (result_access == 'public') ||
+    ((result_access == 'public_after_ends') && ending.present? &&
                                               (ending < DateTime.now)) ||
-    ((result_acess == 'private') && (person.in?(profile.admins) ||
-                                     person.in?(profile.environment.admins)))
+    ((result_access == 'private') && (person == profile ||
+                                      person.in?(profile.admins) ||
+                                      person.in?(profile.environment.admins)))
   end
 
   private
@@ -196,7 +197,7 @@ belongs_to :profile
   end
 
   def valid_poll_alternatives
-    if kind == "poll" && fields.first.alternatives.size < 2
+    if kind == "poll" && fields.first.present? && fields.first.alternatives.size < 2
       errors.add(:poll_alternatives, _('can\'t be less than 2'))
       false
     end
