@@ -11,18 +11,7 @@ module CustomFormsPlugin::Helper
   end
 
   def access_text(form)
-    if form.access.nil?
-      return content_tag('span', c_('Public'), title: _('Everyone can answer'))
-    elsif form.access == 'logged'
-      return content_tag('span', c_('Logged users'), title: _('Only logged user can answer'))
-    elsif form.access == 'associated'
-      if form.profile.organization?
-        return content_tag('span', c_('Members'), title: _('Only members can answer'))
-      elsif form.profile.person?
-        return content_tag('span', c_('Friends'), title: _('Only friends can answer'))
-      end
-    end
-    return content_tag('span', _('Custom'), title: _('Custom access definitions'))
+    AccessLevels.label(form.access, form.profile)
   end
 
   def period_range(form)

@@ -26,7 +26,9 @@
 
 
 <%= labelled_form_field _('Identifier'), f.text_field(:identifier)%>
-<%= labelled_form_field _('Access'), f.select(:access, access_options(profile))%>
+<%= content_tag('h4', _('Access')) %>
+<%= content_tag( 'small', _('Who will be able to see and answer your query?')) %>
+<%= access_slider_field_tag('access', 'form[access]', profile, @form.access, @form.access_levels) %>
 
 <%= labelled_form_field _('Result Access'), f.select(:access_result_options,
                                                      access_result_options)%>

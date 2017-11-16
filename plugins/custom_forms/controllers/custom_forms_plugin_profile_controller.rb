@@ -87,7 +87,7 @@ class CustomFormsPluginProfileController < ProfileController
     @kind = available_kinds.include?(params[:kind]) ? params[:kind] : 'all'
     @status = available_status.include?(params[:status]) ? params[:status] : 'all'
 
-    @forms = profile.forms
+    @forms = profile.forms.accessible_to(user, profile)
     @forms = apply_order(@forms, @order)
     @forms = filter_kinds(@forms, @kind)
     @forms = filter_status(@forms, @status)
@@ -135,7 +135,7 @@ class CustomFormsPluginProfileController < ProfileController
 
   def has_access
     form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
-    render_access_denied if form.blank? || !form.accessible_to(user)
+    render_access_denied if form.blank? || !AccessLevels.can_access?(form.access, user, profile)
   end
 
   def can_view_results

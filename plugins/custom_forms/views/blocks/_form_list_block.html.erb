@@ -6,11 +6,14 @@
                              action: 'queries' },
             class: 'view-all' %>
 
+<% forms = block.list_forms(user) %>
 <div class='form-list'>
-  <% block.list_forms.each do |form| %>
-    <% if form.accessible_to(current_person) %>
+  <% if forms.present? %>
+    <% forms.each do |form| %>
       <%= render partial: "blocks/#{block.type}_item",
-                 locals: { form: form, block: block } %>
+        locals: { form: form, block: block } %>
     <% end %>
+  <% else %>
+    <%= content_tag('i', _('No queries available'), style: 'margin: auto;') %>
   <% end %>
 </div>
