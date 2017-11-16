@@ -46,9 +46,9 @@ module CustomFormsPlugin::Helper
 
   def access_result_options
     [
-      [c_('Public'), 'public'],
-      [_('Public after query ends'), 'public_after_ends'],
-      [_('Private'), 'private'],
+      [_('Always'), 'public'],
+      [_('Only after the query ends'), 'public_after_ends'],
+      [_('Never'), 'private'],
     ]
   end
 
