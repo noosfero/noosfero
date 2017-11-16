@@ -17,6 +17,10 @@ class Levels
     values.sort.uniq.map {|value| levels.keys[value]}
   end
 
+  def self.label(permission, profile)
+    labels(profile)[levels.invert[permission]]
+  end
+
   def self.labels(profile)
     if profile.try(:person?)
       PERSON_LABELS
