@@ -2,44 +2,57 @@
 
 <%= error_messages_for :form %>
 <%= required labelled_form_field _('Name'), f.text_field(:name) %>
+<% address_field = content_tag('code', "/profile/#{profile.identifier}/query/".html_safe + f.text_field(:identifier)).html_safe %>
+<%= required labelled_form_field(_('Address'), address_field) %>
 
 <h4><%= _('Change picture') %></h4>
 <% if @form.image && @form.image.valid? %>
-	<div id="upload_form_field">
-  	<%= image_tag(@form.image.public_filename(:thumb)) %>
-	<p><%= f.file_field(:image) %></p>
-	<%= labelled_form_field _('Remove image'), f.check_box(:remove_image) %>
-	</div>
+  <div id="upload_form_field">
+    <%= image_tag(@form.image.public_filename(:thumb)) %>
+    <p><%= f.file_field(:image) %></p>
+    <%= labelled_form_field _('Remove image'), f.check_box(:remove_image) %>
+  </div>
 <% else %>
-	<div id="upload_form_field">
-	<%= f.file_field(:image) %>
-	</div>
+  <div id="upload_form_field">
+    <%= f.file_field(:image) %>
+  </div>
 <% end %>
-<br>
 
-<%= labelled_form_field(_('What is the time limit for this %s to be filled?') % _(@kind), (
-  date_range_field('form[begining]', 'form[ending]', @form.begining, @form.ending,
-                   { :time => true, :change_month => true, :change_year => true,
-                     :date_format => 'yy-mm-dd', :time_format => 'hh:mm' },
-                     { :size => 14 })
-)) %>
+<%= content_tag('h4', _('Period')) %>
+<%= content_tag( 'small', _('What is the time limit for this %s to be filled?') % _(@kind)) %>
+<div class='formfieldline'>
+  <%= date_range_field('form[begining]', 'form[ending]', @form.begining, @form.ending,
+      { :time => true, :change_month => true, :change_year => true,
+        :date_format => 'yy-mm-dd', :time_format => 'hh:mm' }, { :size => 14 }) %>
+</div>
 
-
-<%= labelled_form_field _('Identifier'), f.text_field(:identifier)%>
 <%= content_tag('h4', _('Access')) %>
-<%= content_tag( 'small', _('Who will be able to see and answer your query?')) %>
-<%= access_slider_field_tag('access', 'form[access]', profile, @form.access, @form.access_levels) %>
 
-<%= labelled_form_field _('Result Access'), f.select(:access_result_options,
-                                                     access_result_options)%>
+<%= content_tag( 'small', _('Who will be able to see and answer your query?')) %>
+<div class='formfieldline'>
+  <%= access_slider_field_tag('access', 'form[access]', profile, @form.access, @form.access_levels) %>
+</div>
+
+<br style='clear:both'/>
+
+<%= content_tag( 'small', _('When will the results of this query be displayed?')) %>
+<div class='formfieldline'>
+  <%= f.select(:access_result_options, access_result_options) %>
+</div>
+
 <% if profile.organization? %>
+  <%= content_tag('h4', _('Membership Query')) %>
   <p>
   <%= labelled_check_box _('Triggered on membership request as requirement for approval'), 'form[for_admission]', '1', @form.for_admission %>
   <br/>
   <%= labelled_check_box _('Triggered after membership'), 'form[on_membership]', '1', @form.on_membership %>
   </p>
 <% end %>
-<%= labelled_form_field c_('Description'), f.text_area(:description, :style => 'width: 100%', :class => current_editor('simple')) %>
+
+<%= content_tag('h4', _('Description')) %>
+<div class='formfieldline'>
+  <%= f.text_area(:description, :style => 'width: 100%', :class => current_editor('simple')) %>
+</div>
 
 <%= render partial: @kind, locals: {f: f} %>
 
