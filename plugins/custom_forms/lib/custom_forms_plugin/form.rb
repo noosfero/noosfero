@@ -107,6 +107,14 @@ class CustomFormsPlugin::Form < ApplicationRecord
     self.article = uploaded_file
   end
 
+  def default_img_url
+    "/plugins/custom_forms/images/default-#{kind.underscore}.png"
+  end
+
+  def image_url
+    image.present? ? image.full_path : default_img_url
+  end
+
   def duration_in_days
     if begining == nil and ending == nil
       return "This query has no ending date"
