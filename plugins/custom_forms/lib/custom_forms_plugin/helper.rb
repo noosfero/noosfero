@@ -128,14 +128,12 @@ module CustomFormsPlugin::Helper
     type_for_options(field.class) == 'select_field' && field.show_as == 'check_box'
   end
 
-  def default_img_for(kind)
-    "/plugins/custom_forms/images/default-#{kind.underscore}.png"
+  def form_image_header(form)
+    content_tag('div', '', class: 'form-image-header', style: "background-image: url(#{form.image_url})")
   end
 
   def form_image_tag(form)
-    image_url = form.image.present? ? form.image.full_path
-                                    : default_img_for(form.kind)
-    image_tag(image_url)
+    image_tag(form.image_url)
   end
 
   def time_status(form)
