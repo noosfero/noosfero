@@ -146,74 +146,24 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     refute form.will_open?
   end
 
-  should 'validates format of access' do
-    form = CustomFormsPlugin::Form.new
-    form.valid?
-    refute form.errors.include?(:access)
-
-    form.access = 'bli'
-    form.valid?
-    assert form.errors.include?(:access)
-
-    form.access = 'logged'
-    form.valid?
-    refute form.errors.include?(:access)
-
-    form.access = 'associated'
-    form.valid?
-    refute form.errors.include?(:access)
-
-    form.access = {:bli => 1}
-    form.valid?
-    assert form.errors.include?(:access)
-
-    form.access = 999
-    form.valid?
-    assert form.errors.include?(:access)
-
-    p1 = fast_create(Profile)
-    form.access = p1.id
-    form.valid?
-    refute form.errors.include?(:access)
-
-    p2 = fast_create(Profile)
-    p3 = fast_create(Profile)
-    form.access = [p1,p2,p3].map(&:id)
-    form.valid?
-    refute form.errors.include?(:access)
-  end
-
   should 'defines who is able to access the form' do
     owner = fast_create(Community)
     form = CustomFormsPlugin::Form.create!(:name => 'Free Software',
                                            :profile => owner,
                                            :identifier => 'free')
-    assert form.accessible_to(nil)
+    assert AccessLevels.can_access?(form.access, nil, owner)
 
-    form.access = 'logged'
-    refute form.accessible_to(nil)
+    form.access = AccessLevels.levels[:users]
+    refute AccessLevels.can_access?(form.access, nil, owner)
+
     person = fast_create(Person)
-    assert form.accessible_to(person)
+    assert AccessLevels.can_access?(form.access, person, owner)
 
-    form.access = 'associated'
-    refute form.accessible_to(person)
+    form.access = AccessLevels.levels[:related]
+    refute AccessLevels.can_access?(form.access, person, owner)
+
     owner.add_member(person)
-    assert form.accessible_to(person)
-
-    p1 = fast_create(Profile)
-    form.access = p1.id
-    refute form.accessible_to(person)
-    assert form.accessible_to(p1)
-
-    p2 = fast_create(Profile)
-    form.access = [person.id, p1.id]
-    assert form.accessible_to(person)
-    assert form.accessible_to(p1)
-    refute form.accessible_to(p2)
-    form.access << p2.id
-    assert form.accessible_to(p2)
-
-    assert form.accessible_to(owner)
+    assert AccessLevels.can_access?(form.access, person, owner)
   end
 
   should 'have a scope that retrieve forms from a profile' do
@@ -550,5 +500,48 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     refute poll.errors.include?(:poll_alternatives)
 
   end
+
+  should 'get forms accessible to a visitor' do
+    community = fast_create(Community)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+
+    scope = community.forms.accessible_to(nil, community)
+
+    assert_includes scope, f1
+    assert_not_includes scope, f2
+    assert_not_includes scope, f3
+  end
+
+  should 'get forms accessible to an user' do
+    community = fast_create(Community)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+
+    user = fast_create(Person)
+    scope = community.forms.accessible_to(user, community)
+
+    assert_includes scope, f1
+    assert_includes scope, f2
+    assert_not_includes scope, f3
+  end
+
+  should 'get forms accessible to a member' do
+    community = fast_create(Community)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+
+    member = fast_create(Person)
+    community.add_member(member)
+    scope = community.forms.accessible_to(member, community)
+
+    assert_includes scope, f1
+    assert_includes scope, f2
+    assert_includes scope, f3
+  end
+
 
 end

@@ -9,14 +9,11 @@ class CustomFormsPlugin::Form < ApplicationRecord
   has_many :submissions,
     :class_name => 'CustomFormsPlugin::Submission', :dependent => :destroy
 
-  serialize :access
-
   validates_presence_of :profile, :name, :identifier
   validates_uniqueness_of :slug, :scope => :profile_id
   validates_uniqueness_of :identifier, :scope => :profile_id
   validate :period_range,
     :if => Proc.new { |f| f.begining.present? && f.ending.present? }
-  validate :access_format
   validate :valid_poll_alternatives
 
   # We are using a belongs_to relation, to avoid change the UploadedFile schema.
@@ -86,6 +83,10 @@ class CustomFormsPlugin::Form < ApplicationRecord
     end
   }
 
+  scope :accessible_to, -> user, profile {
+    where('access <= ?', AccessLevels.permission(user, profile))
+  }
+
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)
   end
@@ -94,13 +95,8 @@ class CustomFormsPlugin::Form < ApplicationRecord
     begining.present? && Time.now < begining
   end
 
-  def accessible_to(target)
-    return true if access.nil? || target == profile
-    return false if target.nil?
-    return true if access == 'logged'
-    return true if access == 'associated' && ((profile.organization? && profile.members.include?(target)) || (profile.person? && profile.friends.include?(target)))
-    return true if access.kind_of?(Integer) && target.id == access
-    return true if access.kind_of?(Array) && access.include?(target.id)
+  def access_levels
+    AccessLevels.range_options(0, 2)
   end
 
   def image
@@ -168,29 +164,6 @@ class CustomFormsPlugin::Form < ApplicationRecord
   end
 
   private
-
-  def access_format
-    if access.present?
-      if access.kind_of?(String)
-        if access != 'logged' && access != 'associated'
-          errors.add(:access, _('Invalid string format of access.'))
-        end
-      elsif access.kind_of?(Integer)
-        if !Profile.exists?(access)
-          errors.add(:access, _('There is no profile with the provided id.'))
-        end
-      elsif access.kind_of?(Array)
-        access.each do |value|
-          if !value.kind_of?(Integer) || !Profile.exists?(value)
-            errors.add(:access, _('There is no profile with the provided id.'))
-            break
-          end
-        end
-      else
-        errors.add(:access, _('Invalid type format of access.'))
-      end
-    end
-  end
 
   def period_range
     errors.add(:base, _('The time range selected is invalid.')) if ending < begining

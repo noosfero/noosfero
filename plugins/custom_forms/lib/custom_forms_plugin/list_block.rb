@@ -20,11 +20,13 @@ module CustomFormsPlugin::ListBlock
     self.metadata['status'] ? self.metadata['status'] : 'all'
   end
 
-  def list_forms
-    owner.forms.send(status)
-               .by_kind(self.type)
-               .order(:ending)
-               .first(limit)
+  def list_forms(user)
+    owner.forms.
+      accessible_to(user, owner).
+      send(status).
+      by_kind(self.type).
+      order(:ending).
+      first(limit)
   end
 
   def valid_status
