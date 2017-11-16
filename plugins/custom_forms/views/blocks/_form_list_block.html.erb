@@ -2,9 +2,10 @@
 
 <%= block_title(block.title, block.subtitle) %>
 
-<%= link_to _('View all'), { controller: 'custom_forms_plugin_profile',
-                             action: 'queries' },
-            class: 'view-all' %>
+<%= link_to _('View all'),
+  { controller: 'custom_forms_plugin_profile',
+    action: 'queries', kind: kind },
+  class: 'view-all' %>
 
 <% forms = block.list_forms(user) %>
 <div class='form-list'>
