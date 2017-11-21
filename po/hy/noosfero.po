@@ -7928,6 +7928,10 @@ msgid "Send e-mail to users"
 msgstr ""
 
 #, fuzzy
+msgid "Last login"
+msgstr ""
+
+#, fuzzy
 msgid "Do you want to reset this user as administrator?"
 msgstr "Ցանկանո՞ւմ եք արդյոք այս կայքն այցելել:"
 

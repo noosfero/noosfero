@@ -7627,6 +7627,9 @@ msgstr "Liste des utilisateurs en [XML]"
 msgid "Send e-mail to users"
 msgstr "Envoyer un e-mail aux utilisateurs"
 
+msgid "Last login"
+msgstr ""
+
 #, fuzzy
 msgid "Do you want to reset this user as administrator?"
 msgstr "Voulez-vous rejoindre ce groupe ?"

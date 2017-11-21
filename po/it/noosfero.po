@@ -7019,6 +7019,9 @@ msgstr ""
 msgid "Send e-mail to users"
 msgstr ""
 
+msgid "Last login"
+msgstr ""
+
 msgid "Do you want to reset this user as administrator?"
 msgstr ""
 
