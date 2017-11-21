@@ -119,7 +119,7 @@ class UsersControllerTest < ActionController::TestCase
   should 'response as CSV to export users' do
     get :download, :format => 'csv'
     assert_equal 'text/csv', @response.content_type
-    assert_equal 'name;email', @response.body.split("\n")[0]
+    assert_equal 'name;email;last_login_at', @response.body.split("\n")[0]
   end
 
   should 'be able to remove a person' do
