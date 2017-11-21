@@ -7345,6 +7345,9 @@ msgstr "Lista de usuários como [XML]"
 msgid "Send e-mail to users"
 msgstr "Enviar e-mail para os usuários"
 
+msgid "Last login"
+msgstr "Ultimo acesso"
+
 msgid "Do you want to reset this user as administrator?"
 msgstr "Você quer remover os poderes de administrador desse usuário?"
 

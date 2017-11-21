@@ -8351,6 +8351,10 @@ msgid "Send e-mail to users"
 msgstr "E-Mail an Nutzer senden"
 
 #, fuzzy
+msgid "Last login"
+msgstr ""
+
+#, fuzzy
 msgid "Do you want to reset this user as administrator?"
 msgstr "Möchten Sie dieser Communitie beitreten?"
 
