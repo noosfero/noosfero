@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171114191715) do
+ActiveRecord::Schema.define(version: 20170923044548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,7 +234,7 @@ ActiveRecord::Schema.define(version: 20171114191715) do
     t.text    "path",                      default: ""
     t.integer "environment_id"
     t.integer "parent_id"
-    t.string  "type",                      default: "Category"
+    t.string  "type",                      default: 'Category'
     t.float   "lat"
     t.float   "lng"
     t.boolean "display_in_menu",           default: false
@@ -672,7 +672,6 @@ ActiveRecord::Schema.define(version: 20171114191715) do
     t.string   "editor",                             default: "tiny_mce", null: false
     t.integer  "top_image_id"
     t.jsonb    "metadata",                           default: {}
-    t.integer  "comments_count"
     t.string   "upload_quota"
     t.float    "disk_usage"
   end
