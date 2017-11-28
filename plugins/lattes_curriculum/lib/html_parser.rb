@@ -14,7 +14,7 @@ class Html_parser
       page = remove_select(page)
       page = remove_footer(page)
       page = remove_further_informations(page)
-		rescue OpenURI::HTTPError => e
+		rescue Errno::ECONNRESET => e
       page = _("Lattes not found. Please, make sure the informed URL is correct.")
     rescue Timeout::Error => e
       page = _("Lattes Platform is unreachable. Please, try it later.")
