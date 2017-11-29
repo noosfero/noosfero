@@ -1,6 +1,5 @@
 
 class Article < ApplicationRecord
-  before_save :highlight_if_parent_is_highlighted
 
   module Editor
     TEXTILE = 'textile'
@@ -41,15 +40,6 @@ class Article < ApplicationRecord
   }
 
   N_('article')
-
-  def highlight_if_parent_is_highlighted
-    if self.parent_id?
-      @parent = self.parent
-      if @parent.highlighted
-        self.highlighted = true
-      end
-    end
-  end
 
   def self.inherited(subclass)
     subclass.prepend StringTemplate
