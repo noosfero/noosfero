@@ -147,6 +147,7 @@ class CmsController < MyProfileController
       @article.parent = parent
       @article.published = parent.published
       @article.show_to_followers = parent.show_to_followers
+      @article.highlighted = parent.highlighted
       @parent_id = parent.id
     end
 
