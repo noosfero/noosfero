@@ -15,7 +15,7 @@ class UserRegistersAtTheApplicationTest < ActionDispatch::IntegrationTest
     post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
     assert_response :success
 
-    assert_tag :tag => 'a', :attributes => { :href => /^\/account\/login/ }
+    assert_tag :tag => 'a', :attributes => { :href => "#" }
   end
 
   def test_trying_an_existing_login_name
