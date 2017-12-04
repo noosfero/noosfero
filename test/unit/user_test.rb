@@ -55,7 +55,7 @@ class UserTest < ActiveSupport::TestCase
   def test_should_authenticate_user
     assert_equal users(:johndoe), User.authenticate('johndoe', 'test')
     assert_equal users(:johndoe), User.authenticate('johndoe@localhost.localdomain', 'test')
-    assert_equal nil, User.authenticate('wrongemail@localhost', 'test')
+    assert_nil User.authenticate('wrongemail@localhost', 'test')
   end
 
   def test_should_authenticate_user_of_nondefault_environment
@@ -387,7 +387,8 @@ class UserTest < ActiveSupport::TestCase
     assert_match 'd=', person.user.data_hash['avatar']
     assert_match 'size=20', person.user.data_hash['avatar']
 
-    assert_equal expected_hash['email_domain'], person.user.data_hash['email_domain']
+    assert_nil expected_hash['email_domain']
+    assert_nil person.user.data_hash['email_domain']
     assert_equal expected_hash['amount_of_friends'], person.user.data_hash['amount_of_friends']
     assert_equal expected_hash['friends_list'], person.user.data_hash['friends_list']
   end
