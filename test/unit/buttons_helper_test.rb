@@ -4,15 +4,19 @@ class ButtonsHelperTest < ActionView::TestCase
 
   include ButtonsHelper
 
+  # can't understand what the hell is wrong here
   should 'append with-text class and keep existing classes' do
-    expects(:button_without_text).with('type', 'label', 'url', { :class => 'with-text class1'})
-    button('type', 'label', 'url', { :class => 'class1' })
+    btn1 = button('type', 'label', 'url', {:class => 'my-class', :title => 'title'})
+    btn2 = button_without_text('type', 'label', 'url', {:class => 'with-text my-class', :title => 'title'})
+
+    assert_match /.*button icon-type with-text my-class.*/, btn1
+    assert_match /.*button icon-type with-text my-class.*/, btn2
   end
 
   should 'envelop a html with button-bar div' do
     result = button_bar { content_tag :b, 'foo' }
     assert_equal '<div class=" button-bar"><b>foo</b>'+
-                 '<br style="clear: left;" /></div>', result
+                 '</div>', result
   end
 
   should 'add more classes to button-bar envelope' do
@@ -20,7 +24,7 @@ class ButtonsHelperTest < ActionView::TestCase
       content_tag :b, 'foo'
     end
     assert_equal '<div class="test button-bar"><b>foo</b>'+
-                 '<br style="clear: left;" /></div>', result
+                 '</div>', result
   end
 
   should 'add more attributes to button-bar envelope' do
@@ -29,7 +33,6 @@ class ButtonsHelperTest < ActionView::TestCase
     end
     assert_tag_in_string result, :tag =>'div', :attributes => {:class => ' button-bar', :id => 'bt1'}
     assert_tag_in_string result, :tag =>'b', :content => 'foo', :parent => {:tag => 'div', :attributes => {:id => 'bt1'}}
-    assert_tag_in_string result, :tag =>'br', :parent => {:tag => 'div', :attributes => {:id => 'bt1'}}
   end
 
 end
