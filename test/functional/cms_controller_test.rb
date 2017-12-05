@@ -687,9 +687,10 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'body'
   end
 
-  should 'display OK button on why_categorize popup' do
+  should 'display OK (close) button on why_categorize popup' do
     get :why_categorize, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :rel => 'deactivate'} # modal close button
+    assert_tag :tag => 'a', :attributes => {  :class => 'button icon-close with-text  modal-close',
+                                              :title => 'Close' } # modal close button
   end
 
   should 'display published option' do
@@ -913,7 +914,7 @@ class CmsControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:enabled?).with(anything).returns(false)
     a = profile.articles.create!(:name => 'test')
     get :edit, :profile => profile.identifier, :id => a.id
-    assert_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article' }
+    assert_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article ' }
   end
 
   should 'not display categories if environment disable_categories enabled' do
