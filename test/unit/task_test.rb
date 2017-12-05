@@ -287,7 +287,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'the task environment method return nil if the target task is nil' do
     task = Task.new
-    assert_equal task.environment, nil
+    assert_nil task.environment
   end
 
   should 'have blank string on target_notification_description in Task base class' do
