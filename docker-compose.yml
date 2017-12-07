@@ -1,21 +1,29 @@
 version: "3"
+
 services:
   postgres:
+    container_name: noosfero-database
     image: postgres:9.4
     environment:
       POSTGRES_USER: noosfero
       POSTGRES_PASSWORD:
     volumes:
       - pg-data:/var/lib/postgresql/data
+
   noosfero:
-    build: .
+    container_name: noosfero
+    build:
+      context: .
+      dockerfile: config/docker/dev/Dockerfile.compose
+    command: /bin/bash -lc "./config/docker/dev/start-dev.sh"
     ports:
-      - "3000:3000"
+      - 3000:3000
     depends_on:
       - postgres
     volumes:
       - bundle-cache:/bundle-cache
       - .:/noosfero
+
 volumes:
   bundle-cache:
   pg-data:
