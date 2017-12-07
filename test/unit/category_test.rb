@@ -492,7 +492,7 @@ class CategoryTest < ActiveSupport::TestCase
     c2 = fast_create(Category, :parent_id => c1)
     c3 = fast_create(Category, :parent_id => c2)
     c4 = fast_create(Category, :parent_id => c3)
-    assert_equal nil, c4.with_color
+    assert_nil c4.with_color
   end
 
 end
