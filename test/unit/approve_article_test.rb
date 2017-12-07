@@ -181,8 +181,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
     community.articles << Blog.new(:profile => community)
     a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
-
-    assert_equal community.blog, article.class.last.parent
+    
+    unless community.blog == nil and article.class.last.parent == nil
+      assert_equal community.blog, article.class.last.parent
+    else
+      # this section is to avoid the depracated statement while running the test
+      assert_nil community.blog
+      assert_nil article.class.last.parent
+    end
   end
 
   should 'not be created in community blog if did not come from a blog' do

@@ -85,7 +85,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
 
   should 'unset selection of theme' do
     get :unset, :profile => 'testinguser'
-    assert_equal nil, profile.theme
+    assert_nil profile.theme
   end
 
   should 'display link to use the default theme' do
