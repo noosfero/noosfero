@@ -305,7 +305,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   should 'display back to control panel button' do
     get :index, :profile => 'designtestuser'
-    assert_tag :tag => 'a', :content => 'Back to control panel'
+    assert_tag :tag => 'a', :attributes => {:class => 'ctrl-panel', :title => 'Configure your personal account and content', :href => '/myprofile/designtestuser'}
   end
 
   should 'display avaliable blocks in alphabetical order' do
@@ -320,7 +320,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     login_as(create_user_with_permission('test_user','edit_profile_design',p).identifier )
     get :index, :profile => p.identifier
 
-    assert_tag :tag => 'a', :attributes => {:href => '/myprofile/test_profile'}
+    assert_tag :tag => 'a', :attributes => {:href => '/myprofile/test_user'}
   end
 
   should 'offer to create blog archives block only if has blog' do
