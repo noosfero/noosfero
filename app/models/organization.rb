@@ -1,6 +1,8 @@
 # Represents any organization of the system
 class Organization < Profile
 
+  include ButtonsHelper
+
   attr_accessible :moderated_articles, :foundation_year, :contact_person, :acronym, :legal_form, :economic_activity, :management_information, :cnpj, :display_name, :enable_contact_us
   attr_accessible :requires_email
 
