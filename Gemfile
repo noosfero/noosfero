@@ -50,6 +50,7 @@ gem 'liquid',                    '>= 3.0.3'
 
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
+gem 'sass', '~> 3.4', '>= 3.4.22'
 gem 'sass-rails'
 gem 'sass', '>= 3.4.6'
 gem 'sprockets-rails', '~> 2.1'
