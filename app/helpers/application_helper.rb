@@ -950,7 +950,7 @@ module ApplicationHelper
   def welcome_span
     user_identifier = "<i style='background-image:url(#{user.profile_custom_icon(gravatar_default)})'></i><strong>#{user.identifier}</strong>"
     welcome_link = link_to(user_identifier.html_safe,
-        user.public_profile_url,
+        user.url,
         :id => "homepage-link",
         :title => _('Go to your homepage'))
     welcome_span = _("<span class='welcome'>Welcome,</span> %s") % welcome_link.html_safe
