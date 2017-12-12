@@ -1,20 +1,39 @@
+<% extend Html5VideoPlugin::PoolHelper %>
+
 <% pub_path = __FILE__.sub /.*(\/plugins\/[^\/]+\/).*/, '\1' %>
 <div class="video-player">
   <% if video.has_web_version %>
     <%= render :partial => 'video_player', :locals => {:video => video} %>
+
+    <div class="video-player-info">
+      <div class="quality">
+        <strong><%=_('Quality options')%>:</strong>
+        <ul></ul>
+      </div>
+      <div class="abstract">
+        <strong><%=_('Description')%>:</strong>
+        <div class="data"><%= video.abstract %></div>
+      </div>
+    </div><!-- class="video-player-info" -->
+    <br style="clear: both"/>
+
+  <% elsif position_for(video).present? %>
+    <div class="message">
+      <p><%= _('Queued to generate the web version.') %></p>
+      <p><%= _('This is the %sº video in the queue. '\
+               'Come back soon') % position_for(video) %></p>
+    </div>
+  <% elsif video.enqueuing_jobs.present? %>
+    <div class="message">
+      <p><%= _('This video will be enqueued for conversion soon. '\
+               'Come back later.') %></p>
+    </div>
   <% else %>
     <div class="message">
-      <%=_('Queued to generate the web version. Come back soon.')%>
+      <p><%= _('It was not possible to convert this video, contact an '\
+               'administator.') %></p>
     </div>
   <% end %>
-  <div class="video-player-info">
-    <div class="quality"><strong><%=_('Quality options')%>:</strong> <ul></ul></div>
-    <div class="abstract">
-      <strong><%=_('Description')%>:</strong>
-      <div class="data"><%= video.abstract %></div>
-    </div>
-  </div><!-- class="video-player-info" -->
-  <br style="clear: both"/>
 </div><!-- class="video-player" -->
 
 <% if video.has_web_version %>

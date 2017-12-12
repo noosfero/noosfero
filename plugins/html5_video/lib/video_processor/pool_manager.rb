@@ -67,7 +67,8 @@ module VideoProcessor
 
     def queue_position(env_id, video_id)
       ids = all_files(env_id).map{ |f| f.split('/').last }
-      ids.index(video_id) + 1
+      index = ids.index(video_id.to_s)
+      index ? index + 1 : nil
     end
 
     private

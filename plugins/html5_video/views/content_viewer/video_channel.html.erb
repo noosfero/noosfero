@@ -1,3 +1,5 @@
+<% extend Html5VideoPlugin::PoolHelper %>
+
 <div>
   <%= @page.body %>
 </div>
@@ -7,6 +9,7 @@
     <p><em><%= _('This channel contains no videos yet') %></em></p>
   <% else %>
     <div class="video-player">
+      <h2></h2>
       <%= render :partial => 'video_player', :locals => {:video => nil} %>
       <div class="video-player-info">
         <div class="quality">
@@ -55,17 +58,29 @@
 
   <% if @page.unconverted_videos.present? %>
     <div class="unconverted-videos">
-      <p onclick="jQuery('ul',this.parentNode).slideToggle()">
+      <div>
         <span><%= n_(
             'This channel has one video waiting to be converted',
             'This channel has %d videos waiting to be converted',
             @page.unconverted_videos.length
           ) % @page.unconverted_videos.length
         %></span>
-      </p>
-      <ul style="display:none">
+        <span class='fa fa-plus-circle'></span>
+      </div>
+      <ul>
         <% @page.unconverted_videos.each do |f| %>
-          <li><%= link_to f.title, f.view_url %></li>
+          <li>
+            <%= link_to f.title, f.view_url %>
+            <span>
+              <% if position_for(f).present? %>
+                <%= _("%sº video in the queue") % position_for(f) %>
+              <% elsif f.enqueuing_jobs.present? %>
+                <%= _("This video will be enqueued soon") %>
+              <% else %>
+                <%= _("Conversion couldn't be completed") %>
+              <% end %>
+            </span>
+          </li>
         <% end %>
       </ul>
     </div>
