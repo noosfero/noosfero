@@ -16,6 +16,12 @@ Dir.glob Rails.root.join plugins_root, '*', 'controllers' do |controllers_dir|
     hash[folder] = Dir.glob("#{path}{*.rb,#{plugin_name}_plugin/*.rb}").map do |filename|
       filename.gsub(path, '').gsub(/[_\/]controller.rb$/, '')
     end
+
+    # Pushes the default plugin controller to the end of the list, otherwise
+    # it might obfuscate the routes that are listed after it.
+    plugin_controller = hash[folder].delete("#{plugin_name}_plugin")
+    hash[folder].push(plugin_controller) if plugin_controller.present?
+
     hash
   end
 
