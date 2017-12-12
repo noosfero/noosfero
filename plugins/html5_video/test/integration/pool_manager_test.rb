@@ -57,6 +57,7 @@ class PoolManagerTest < ActiveSupport::TestCase
   end
 
   should 'return all files for a specific environment' do
+    @pool.push(1, 40, '/some/path')
     @pool.push(1, 10, '/some/path')
     @pool.push(1, 20, '/some/path')
     @pool.push(1, 30, '/some/path')
@@ -66,8 +67,25 @@ class PoolManagerTest < ActiveSupport::TestCase
     waiting_files = @pool.all_files(1)
     ongoing_files = @pool.all_files(1, :ongoing)
 
-    assert_equivalent ['10', '20'], waiting_files.map{|f| f.split('/').last }
+    assert_equivalent ['10', '20', '40'],
+                      waiting_files.map{|f| f.split('/').last }
     assert_equivalent ['30'], ongoing_files.map{|name| name.split('/').last }
+  end
+
+  should 'return the queue position for a specific video' do
+    @pool.push(1, 10, '/some/path')
+    @pool.push(1, 20, '/some/path')
+    @pool.push(1, 40, '/some/path')
+
+    assert_equal 1, @pool.queue_position(1, 10)
+    assert_equal 3, @pool.queue_position(1, 40)
+  end
+
+  should 'return nil as queue position if video is not in the pool' do
+    @pool.push(1, 10, '/some/path')
+    @pool.push(1, 20, '/some/path')
+
+    assert @pool.queue_position(1, 30).nil?
   end
 
 end

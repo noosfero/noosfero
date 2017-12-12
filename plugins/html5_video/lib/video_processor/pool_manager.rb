@@ -55,7 +55,7 @@ module VideoProcessor
     end
 
     def all_files(env_id, pool=:waiting)
-      Dir[File.join(pool_for(env_id, pool), '*')]
+      Dir[File.join(pool_for(env_id, pool), '*')].sort
     end
 
     def init_pools
@@ -63,6 +63,11 @@ module VideoProcessor
         path = self.send("#{pool.downcase}_pool")
         FileUtils.mkdir_p(path) unless File.directory? path
       end
+    end
+
+    def queue_position(env_id, video_id)
+      ids = all_files(env_id).map{ |f| f.split('/').last }
+      ids.index(video_id) + 1
     end
 
     private
