@@ -37,15 +37,19 @@ module VideoProcessor
 
     # Moves a file to the ongoing pool, returning the full path of the video
     def assign(env_id, file_id, pool=:waiting)
-      if pool == :waiting
-        file = pool_file(env_id, file_id)
-        FileUtils.mv(file, pool_file(env_id, file_id, :ongoing))
+      begin
+        if pool == :waiting
+          file = pool_file(env_id, file_id)
+          FileUtils.mv(file, pool_file(env_id, file_id, :ongoing))
+        end
+        video_path = nil
+        File.open(pool_file(env_id, file_id, :ongoing)) do |f|
+          video_path = f.read
+        end
+        video_path
+      rescue Errno::ENOENT
+        nil
       end
-      video_path = nil
-      File.open(pool_file(env_id, file_id, :ongoing)) do |f|
-        video_path = f.read
-      end
-      video_path
     end
 
     # Removes a file from the ongoing pool, after it was converted successfully

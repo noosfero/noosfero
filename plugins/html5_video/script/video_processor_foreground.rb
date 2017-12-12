@@ -46,12 +46,14 @@ end
 
 # Processes every file inside an environment subfolder
 def process_all_files(env_id, pool=:waiting)
-  POOL.all_files(env_id, pool).map do |file|
+  POOL.all_files(env_id, pool).each do |file|
     # Moves the file to the ONGOING pool, so we can try again if the process
     # dies during the conversion. It removes the file from the pool if it was
     # processed, or adds it back to the WAITING pool if something went wrong.
     video_id = file.split('/').last
     video_path = POOL.assign(env_id, video_id, pool)
+    next if video_path.nil?
+
     begin
       process_video(env_id, video_path, video_id)
       POOL.pop(env_id, video_id)
@@ -91,11 +93,13 @@ unless RAILS_ENV == 'test'
   # Change the working dir to inside the app, so we can call `rails`
   Dir.chdir(__dir__)
 
-  # Process pending files
-  %w[ongoing waiting].each do |pool|
-    files = Dir[File.join(POOL.path, pool, '*')]
-    env_ids = files.map{|f| f.split('/').last }
-    env_ids.each{|env_id| process_all_files(env_id, pool.to_sym) }
+  Process.fork do
+    # Process pending files
+    %w[ongoing waiting].each do |pool|
+      files = Dir[File.join(POOL.path, pool, '*')]
+      env_ids = files.map{|f| f.split('/').last }
+      env_ids.each{|env_id| process_all_files(env_id, pool.to_sym) }
+    end
   end
 
   trap "SIGTERM" do
