@@ -110,20 +110,20 @@ class CmsControllerTest < ActionController::TestCase
   should 'display the profile homepage if can change homepage' do
     env = Environment.default; env.disable('cant_change_homepage')
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+    assert_tag :tag => 'i', :attributes => { :class => "fa fa-undo"}
   end
 
   should 'display the profile homepage if logged user is an environment admin' do
     env = Environment.default; env.enable('cant_change_homepage'); env.save!
     env.add_admin(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+    assert_tag :tag => 'i', :attributes => { :class => "fa fa-undo"}
   end
 
   should 'not display the profile homepage if cannot change homepage' do
     env = Environment.default; env.enable('cant_change_homepage')
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+    assert_no_tag :tag => 'i', :attributes => { :class => "fa fa-undo"}
   end
 
   should 'not allow profile homepage changes if cannot change homepage' do
@@ -197,7 +197,7 @@ class CmsControllerTest < ActionController::TestCase
     profile.home_page = nil
     profile.save!
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'div', :attributes => { :class => "cms-homepage" }, :descendant => { :tag => "span", :content => /Profile Information/ }
+    assert_tag :tag => 'tr', :attributes => { :class => "textarticle", :title => "homepage" }
   end
 
   should 'display article as home page' do
@@ -207,7 +207,7 @@ class CmsControllerTest < ActionController::TestCase
     profile.save!
     Article.stubs(:short_description).returns('short description')
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'div', :attributes => { :class => "cms-homepage" }, :descendant => { :tag => "a", :content => /my new home page/ }
+    assert_tag :tag => 'tr', :attributes => { :title => "my new home page" }, :descendant => { :tag => 'i', :attributes => { :class => "fa fa-home" } }
   end
 
   should 'set last_changed_by when creating article' do
@@ -386,14 +386,14 @@ class CmsControllerTest < ActionController::TestCase
   should 'display destination folder of files when uploading file in root folder' do
     get :upload_files, :profile => profile.identifier
 
-    assert_tag :tag => 'h5', :descendant => { :tag => 'code', :content => /\/#{profile.identifier}/ }
+    assert_tag :tag => 'select', :descendant => { :tag => 'option', :content => /#{profile.identifier}/ }
   end
 
-  should 'display destination folder of files when uploading file' do
+  should 'not display destination folder of files when uploading file in folder different than root' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     get :upload_files, :profile => profile.identifier, :parent_id => f.id
 
-    assert_tag :tag => 'h5', :descendant => { :tag => 'code', :content => /\/#{profile.identifier}\/#{f.full_name}/}
+    assert_no_tag :tag => 'select', :descendant => { :tag => 'option', :content => /#{profile.identifier}/ }
   end
 
   should 'not crash on empty file' do
