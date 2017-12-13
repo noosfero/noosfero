@@ -45,12 +45,13 @@ test: &TEST
   password: noosfero
 
 production:
+  host: postgres
   adapter: postgresql
   encoding: unicode
   database: noosfero_production
   template: template0
   username: noosfero
-  password:
+  password: noosfero
   pool: <%= (ENV['DB_POOL'] || '20').to_i %>
 
 cucumber:

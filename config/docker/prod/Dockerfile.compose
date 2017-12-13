@@ -1,0 +1,11 @@
+FROM ruby:2.4.2-jessie
+MAINTAINER Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>
+
+ADD . /noosfero/
+WORKDIR /noosfero
+
+
+ENV RAILS_ENV production
+
+RUN apt-get update && apt-get install -y sudo cron nodejs tango-icon-theme postgresql-client
+RUN bundle install

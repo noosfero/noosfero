@@ -6,5 +6,4 @@ WORKDIR /noosfero
 
 ENV BUNDLE_PATH /bundle-cache
 
-RUN apt-get update
-RUN apt-get install -y sudo cron nodejs tango-icon-theme
+RUN apt-get update && apt-get install -y sudo cron nodejs tango-icon-theme
