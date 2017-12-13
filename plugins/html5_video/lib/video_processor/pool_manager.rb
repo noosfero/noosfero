@@ -28,9 +28,13 @@ module VideoProcessor
       File.join(path, 'ongoing')
     end
 
-    # Adds a new file waiting to be converted
-    def push(env_id, file_id, file_path)
-      File.open(pool_file(env_id, file_id), 'w') do |f|
+    def failed_pool
+      File.join(path, 'failed')
+    end
+
+    # Pushes a file to one of the existing pools
+    def push(env_id, file_id, file_path, pool=:waiting)
+      File.open(pool_file(env_id, file_id, pool), 'w') do |f|
         f.write file_path
       end
     end
@@ -63,7 +67,7 @@ module VideoProcessor
     end
 
     def init_pools
-      [:ongoing, :waiting].each do |pool|
+      [:ongoing, :waiting, :failed].each do |pool|
         path = self.send("#{pool.downcase}_pool")
         FileUtils.mkdir_p(path) unless File.directory? path
       end

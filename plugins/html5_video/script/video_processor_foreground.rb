@@ -13,6 +13,9 @@ RAILS_ENV = ENV['RAILS_ENV'] || 'development'
 NOOSFERO_ROOT = File.join(__dir__, '../../../')
 POOL = VideoProcessor::PoolManager.new(NOOSFERO_ROOT)
 
+ERRORS = {}
+MAX_RETRIES = 3
+
 # Creates the pool dir if it does not exist
 POOL.init_pools
 
@@ -60,7 +63,10 @@ def process_all_files(env_id, pool=:waiting)
     rescue => e
       LOGGER.error "Error while processing [Video #{video_id}]: #{e}"
       POOL.pop(env_id, video_id)
-      POOL.push(env_id, video_id, video_path)
+
+      # Move to failed if MAX_RETRIES were exceeded
+      pool_dir = (ERRORS[video_id] >= MAX_RETRIES) ? :failed : :waiting
+      POOL.push(env_id, video_id, video_path, pool_dir)
     end
   end
 end
@@ -69,6 +75,9 @@ end
 # - Generate preview images
 # - Convert video to web formats
 def process_video(env_id, video_path, video_id)
+  ERRORS[video_id] ||= 0
+  return if ERRORS[video_id] > MAX_RETRIES
+
   LOGGER.info "Processing [Video #{video_id}] (#{video_path})"
   ffmpeg = VideoProcessor::Ffmpeg.new
 
@@ -76,16 +85,17 @@ def process_video(env_id, video_path, video_id)
     converter = VideoProcessor::Converter.new(ffmpeg, video_path, video_id)
     converter.logger = LOGGER
 
-    previews = converter.create_preview_imgs
     register_conversion_start(env_id, converter.info, video_id)
+    previews = converter.create_preview_imgs
     videos = converter.create_web_videos
 
     LOGGER.info "Registering results for [Video #{video_id}]"
     register_results(env_id, previews, videos, video_id)
     LOGGER.info "Finished processing [Video #{video_id}]"
-  rescue IOError => e
-    LOGGER.error "FFmpeg ERROR while reading '#{video_path}': #{e.to_s}"
+  rescue => e
+    ERRORS[video_id] += 1
     register_errors(env_id, video_id, e.to_s)
+    raise e
   end
 end
 

@@ -41,6 +41,8 @@ module VideoProcessor
         end
       end
 
+      previews = previews.is_a?(Symbol) ? ":#{previews}" : previews
+
       `DISABLE_SPRING=1 rails runner -e #{RAILS_ENV} "\
        env = Environment.find(#{env_id}); \
        file = env.articles.find(#{video_id}); \
@@ -53,7 +55,7 @@ module VideoProcessor
     def register_errors(env_id, video_id, error)
       videos = { OGV: { tiny: {}, nice: {} }, WEBM: { tiny: {}, nice: {} } }
       [:OGV, :WEBM].product([:nice, :tiny]).each do |format, size|
-        videos[format][size][:status] = 'error reading'
+        videos[format][size][:status] = 'error'
         videos[format][size][:error] = error
       end
 
