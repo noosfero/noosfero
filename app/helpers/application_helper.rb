@@ -56,6 +56,8 @@ module ApplicationHelper
 
   include StyleHelper
 
+  include CustomFieldsHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -909,7 +911,7 @@ module ApplicationHelper
     count = user ? Task.to(user).pending.count : -1
 
     if count > 0
-      pending_tasks_count = link_to(count.to_s, 
+      pending_tasks_count = link_to(count.to_s,
       user.tasks_url,
       :id => 'pending-tasks-count',
       :title => _("Manage your pending tasks"))
