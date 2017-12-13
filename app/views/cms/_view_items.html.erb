@@ -1,5 +1,5 @@
 <% @articles.partition { |article| article.is_a? Folder }.flatten.each do |article| article = FilePresenter.for article %>
-  <tr title="<%= article.title%>" class="<%= article.is_a?(Folder) ? "folder" : article.type.downcase %>">
+  <tr title="<%= article.title%>" class="<%= article.is_a?(Folder) ? "folder" : article.type == nil ? "" : article.type.downcase %>">
     <td class="article-name">
       <%= article_icon(article) %>
       <%= link_to_article(article) %>
