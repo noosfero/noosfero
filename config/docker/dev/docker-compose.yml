@@ -14,15 +14,15 @@ services:
     container_name: noosfero
     build:
       context: .
-      dockerfile: config/docker/dev/Dockerfile.compose
+      dockerfile: Dockerfile.compose
     command: /bin/bash -lc "./config/docker/dev/start-dev.sh"
     ports:
       - 3000:3000
     depends_on:
       - postgres
     volumes:
-      - bundle-cache:/bundle-cache
-      - .:/noosfero
+      - ../../../bundle-cache:/bundle-cache
+      - ../../../:/noosfero
 
 volumes:
   bundle-cache:
