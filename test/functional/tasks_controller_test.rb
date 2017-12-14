@@ -140,7 +140,7 @@ class TasksControllerTest < ActionController::TestCase
     t3 = profile.tasks.build; t3.save!
 
     post :close, :tasks => {t1.id => {:decision => 'finish', :task => {}}, t2.id => {:decision => 'cancel', :task => {}}, t3.id => {:decision => 'skip', :task => {}}}
-    assert_redirected_to :action => 'index'
+    assert_response :success
 
     t1.reload
     t2.reload
