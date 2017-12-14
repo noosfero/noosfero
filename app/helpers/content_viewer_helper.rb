@@ -27,7 +27,7 @@ module ContentViewerHelper
         comments = (" - %s").html_safe % link_to_comments(article)
       end
       date_format = show_with_right_format_date article
-      title << render('content_viewer/publishing_info', no_action_bar: true)
+      title << (render partial: "content_viewer/publishing_info", locals: {no_action_bar: true, article: article})
       title << content_tag(:div,
         content_tag(:span, '', :class => 'ui-icon ui-icon-locked') +
         content_tag(:span, _("This is a private content"), :class => 'alert-message'),
