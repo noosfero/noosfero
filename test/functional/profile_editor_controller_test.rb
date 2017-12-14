@@ -27,7 +27,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :index, :profile => ze.identifier
     assert_includes assigns(:pending_tasks), t1
     assert_includes assigns(:pending_tasks), t2
-    assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }, :descendant => { :tag => 'a', :attributes =>  { :href => '/myprofile/ze/tasks' } }
+    assert_tag :tag => 'li', :attributes => { :class => "user-pending-tasks" }
   end
 
   def test_edit_person_info
@@ -619,13 +619,13 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'display categories if environment disable_categories disabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(false)
     get :edit, :profile => profile.identifier
-    assert_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Categories of your interest' }
+    assert_tag :tag => 'h2', :content => /Categories of your interest/, :attributes => { :class => "box-title why-categorize" }
   end
 
   should 'not display categories if environment disable_categories enabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
     get :edit, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Categories of your interest' }
+    assert_no_tag :tag => 'h2', :content => /Categories of your interest/, :attributes => { :class => "box-title why-categorize" }
   end
 
   should 'show a e-mail field in profile editor' do
