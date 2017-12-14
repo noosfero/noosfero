@@ -520,11 +520,11 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   should 'not inlude administration link if user is not an environment administrator' do
-    user = mock()
+    stubs(:user).returns(fast_create(User))
     stubs(:environment).returns(Environment.default)
     user.stubs(:is_admin?).with(environment).returns(false)
-    stubs(:user).returns(user)
-    assert admin_link.blank?
+    p user.is_admin?(environment)
+    assert_no_match /Administration/, admin_link
   end
 
   should 'inlude administration link if user is an environment administrator' do
