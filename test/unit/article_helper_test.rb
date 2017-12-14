@@ -10,7 +10,7 @@ class ArticleHelperTest < ActionView::TestCase
     profile = fast_create(Profile, :environment_id => environment)
     article = fast_create(Article, :profile_id => profile)
     link = following_button article, person
-    assert_tag_in_string link, tag: 'a', attributes: {'title' => 'Follow'}
+    assert_tag_in_string link, tag: 'a', attributes: {'href' => "/profile/profile-6/follow_article?article_id=#{article.id}"}
   end
 
 end
