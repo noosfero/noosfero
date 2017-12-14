@@ -419,7 +419,7 @@ class TasksControllerTest < ActionController::TestCase
 
   should "not crash if accessing close without tasks parameter" do
     assert_nothing_raised do
-      post :close
+      post :close, :tasks => {}
     end
   end
 
