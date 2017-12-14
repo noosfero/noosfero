@@ -3,7 +3,7 @@ one:
   id: 1
   environment_id: 1
   name: 'member'
-  permissions: 
+  permissions:
    - post_content
 two:
   id: 2
@@ -24,7 +24,7 @@ four:
   id: 4
   environment_id: 1
   name: 'admin'
-  permissions: 
+  permissions:
    - view_environment_admin_panel
    - edit_environment_features
    - edit_environment_design
@@ -82,9 +82,33 @@ profile_moderator:
    - moderate_comments
    - view_private_content
    - send_mail_to_members
-environment_administrator:
+environment_administrator_1:
   id: 8
   environment_id: 1
+  key: 'environment_administrator'
+  name: 'Environment administrator'
+  system: true
+  permissions:
+   - perform_task
+   - view_environment_admin_panel
+   - edit_environment_features
+   - edit_environment_design
+   - manage_environment_categories
+   - manage_environment_roles
+   - manage_environment_trusted_sites
+   - manage_environment_validators
+   - moderate_comments
+   - manage_environment_users
+   - manage_environment_organizations
+   - edit_profile
+   - destroy_profile
+   - manage_environment_templates
+   - manage_environment_licenses
+   - edit_raw_html_block
+   - manage_email_templates
+environment_administrator_2:
+  id: 9
+  environment_id: 2
   key: 'environment_administrator'
   name: 'Environment administrator'
   system: true

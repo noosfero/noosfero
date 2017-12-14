@@ -7,6 +7,7 @@ class VotePluginAdminControllerTest < ActionController::TestCase
     @environment = Environment.default
     @profile = create_user_with_permission('profile', 'edit_environment_features', Environment.default)
     login_as(@profile.identifier)
+    @environment.add_admin @profile
   end
 
   attr_reader :environment

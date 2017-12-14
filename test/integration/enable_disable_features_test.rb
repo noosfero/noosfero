@@ -5,6 +5,7 @@ class EnableDisableFeaturesTest < ActionDispatch::IntegrationTest
   all_fixtures
 
   def test_enable_features
+    Environment.default.add_admin Profile['ze']
     login 'ze', 'test'
 
     get '/admin/features'

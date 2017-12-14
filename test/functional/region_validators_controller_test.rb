@@ -1,12 +1,14 @@
 require_relative '../test_helper'
 
 class RegionValidatorsControllerTest < ActionController::TestCase
-  all_fixtures
   def setup
+    @environment = Environment.default
     @controller = RegionValidatorsController.new
 
     login_as('ze')
+    give_permission('ze', 'manage_environment_validators', @environment)
   end
+  attr_reader :environment
 
   # Replace this with your real tests.
   should 'list regions at index' do
@@ -17,8 +19,6 @@ class RegionValidatorsControllerTest < ActionController::TestCase
   end
 
   should 'view validators for a  specific region' do
-    environment = fast_create(Environment, :name => "my environment")
-    give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
     refute region.new_record?
@@ -33,8 +33,6 @@ class RegionValidatorsControllerTest < ActionController::TestCase
   end
 
   should 'search possible validators by name' do
-    environment = fast_create(Environment, :name => "my environment")
-    give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
     refute region.new_record?
@@ -49,8 +47,6 @@ class RegionValidatorsControllerTest < ActionController::TestCase
   end
 
   should 'be able to add validators to the current region' do
-    environment = fast_create(Environment, :name => "my environment")
-    give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
     refute region.new_record?
@@ -66,8 +62,6 @@ class RegionValidatorsControllerTest < ActionController::TestCase
   end
 
   should 'be able to remove validators from the current region' do
-    environment = fast_create(Environment, :name => "my environment")
-    give_permission('ze', 'manage_environment_validators', environment)
     region = Region.new(:name => 'my region')
     environment.regions << region
     refute region.new_record?

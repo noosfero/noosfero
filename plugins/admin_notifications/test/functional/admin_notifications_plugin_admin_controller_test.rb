@@ -35,7 +35,7 @@ class AdminNotificationsPluginAdminControllerTest < ActionController::TestCase
                   :active => true,
                   :type => "AdminNotificationsPlugin::DangerNotification"
                 }
-     assert_redirected_to :root
+     assert_response 403
      assert_nil AdminNotificationsPlugin::Notification.last
   end
 
@@ -72,7 +72,7 @@ class AdminNotificationsPluginAdminControllerTest < ActionController::TestCase
                    :type => "AdminNotificationsPlugin::DangerNotification"
                  }
      @notification.reload
-     assert_redirected_to :root
+     assert_response 403
      assert_equal "Message", @notification.message
      assert @notification.active
   end
@@ -98,7 +98,7 @@ class AdminNotificationsPluginAdminControllerTest < ActionController::TestCase
                     )
      delete :destroy, :id => @notification.id
 
-     assert_redirected_to :root
+     assert_response 403
      assert_not_nil AdminNotificationsPlugin::Notification.find_by id: @notification.id
   end
 
@@ -125,7 +125,7 @@ class AdminNotificationsPluginAdminControllerTest < ActionController::TestCase
                       :type => "AdminNotificationsPlugin::DangerNotification"
                     )
      post :change_status, :id => @notification.id
-     assert_redirected_to :root
+     assert_response 403
 
      @notification.reload
      assert @notification.active

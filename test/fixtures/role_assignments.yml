@@ -25,5 +25,12 @@ four:
   accessor_id: 4
   accessor_type: 'Profile'
   role_id: 4
-  resource_id: 1 
+  resource_id: 1
+  resource_type: 'Environment'
+five:
+  id: 5
+  accessor_id: 4
+  accessor_type: 'Profile'
+  role_id: 8
+  resource_id: 1
   resource_type: 'Environment'
