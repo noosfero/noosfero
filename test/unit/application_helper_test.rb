@@ -840,9 +840,9 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'enable fullscreen buttons' do
     html = fullscreen_buttons("#article")
-    assert html.include?("<script>fullscreenPageLoad('#article')</script>")
-    assert html.include?("class=\"button with-text icon-fullscreen\"")
-    assert html.include?("onClick=\"toggle_fullwidth(&#39;#article&#39;)\"")
+    assert html.include?("id=\"fullscreen-btn\" onclick=\"toggle_fullwidth(&#39;#article&#39;)\" href=\"#\" title=\"Go to full screen mode\"")
+    assert html.include?("aria-hidden=\"true\"")
+    assert html.include?("onclick=\"toggle_fullwidth(&#39;#article&#39;)\"")
   end
 
   should "return the related class string" do
