@@ -1537,7 +1537,10 @@ class ContentViewerControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => "some_title1" }}
+    
+    assert_tag :tag => 'a', :attributes => { :href => '/testinguser' }, :content => "some_title1" 
+    assert_tag :tag => 'div', :attributes => { :class => 'publishing-info article-actions' }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }
   end
 
   should 'add more than one extra toolbar actions on article from plugins' do
