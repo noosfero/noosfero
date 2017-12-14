@@ -903,7 +903,7 @@ module ApplicationHelper
 
   def admin_link
     admin_icon = font_awesome(:shield, _('Administration'))
-    link_to(admin_icon, environment.admin_url, title: _("Configure the environment"), class: 'admin-link')
+    user.is_admin?(environment) ? link_to(admin_icon, environment.admin_url, title: _("Configure the environment"), class: 'admin-link') : nil
   end
 
   def usermenu_logged_in
