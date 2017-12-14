@@ -2,7 +2,7 @@ require_relative "../test_helper"
 
 class CmsHelperTest < ActionView::TestCase
 
-  include CmsHelper
+  # include CmsHelper
   include BlogHelper
   include ApplicationHelper
   include ActionView::Helpers::UrlHelper
@@ -24,7 +24,8 @@ class CmsHelperTest < ActionView::TestCase
   should 'display link to folder content if article is folder' do
     profile = fast_create(Profile)
     folder = fast_create(Folder, :name => 'My folder', :profile_id => profile.id)
-    expects(:link_to).with('My folder', {:action => 'view', :id => folder.id}, :class => icon_for_article(folder))
+
+    expects(:link_to).with('My folder/', {:action => 'view', :id => folder.id})
 
     result = link_to_article(folder)
   end
