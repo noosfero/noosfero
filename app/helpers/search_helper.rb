@@ -47,7 +47,7 @@ module SearchHelper
   end
 
   def asset_class(asset)
-    asset.to_s.singularize.camelize.constantize
+   asset.nil? ? '' : asset.to_s.singularize.camelize.constantize
   end
 
   def search_page_title(title, options = {})
