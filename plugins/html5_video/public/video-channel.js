@@ -213,3 +213,11 @@ NoosferoVideoPlayer.prototype.getVideoFromList = function (type, quality) {
 };
 
 }(window, jQuery));
+
+$(document).ready(function() {
+  $('.unconverted-videos').on('click', 'div', function() {
+    var parent = $(this).parent('.unconverted-videos')
+    parent.find('ul').slideToggle()
+    parent.toggleClass('collapsed')
+  })
+})

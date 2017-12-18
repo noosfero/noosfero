@@ -102,8 +102,8 @@ class VideoPresenterTest < ActiveSupport::TestCase
   should 'list its conversion_jobs' do
     videoA = FilePresenter::Video.new create_video 'old-movie.mpg', 'video/mpeg'
     videoB = FilePresenter::Video.new create_video 'atropelamento.ogv', 'video/ogg'
-    jobA = videoA.conversion_jobs.map &:payload_object
-    jobB = videoB.conversion_jobs.map &:payload_object
+    jobA = videoA.enqueuing_jobs.map &:payload_object
+    jobB = videoB.enqueuing_jobs.map &:payload_object
 
     # TODO: jobA.length must be 1.
     # `Html5VideoPlugin::uploaded_file_after_create_callback` is been called two times

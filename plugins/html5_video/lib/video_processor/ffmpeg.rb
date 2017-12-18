@@ -317,9 +317,6 @@ class VideoProcessor::Ffmpeg
         img = result_dir+"/f#{num}.png"
         File.exists?(img) ? img : nil
       }.compact
-      if imgs.size != 6
-        Rails.logger.error "Problem to create thumbs for video #{video} ???"
-      end
       imgs = Magick::ImageList.new *imgs
       imgs.montage{
         self.geometry='160x120+0+0'

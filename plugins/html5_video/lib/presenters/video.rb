@@ -97,12 +97,9 @@ class FilePresenter::Video < FilePresenter
     video ? video[1] : nil
   end
 
-  #TODO: add this to the user interface:
-  def conversion_jobs
-    #FIXME: in a newer version, the Delayed::Job may be searcheable in a uglyless way.
-    Delayed::Job.where("handler LIKE '%EnqueueVideoConversionJob%file_id: #{self.id}%'").all
-    #Delayed::Job.all :conditions => ['handler LIKE ?',
-    #                                 "%CreateVideoForWebJob%file_id: #{self.id}%"]
+  def enqueuing_jobs
+    Delayed::Job.where("handler LIKE '%EnqueueVideoConversionJob%"\
+                       "file_id: #{self.id}%'").all
   end
 
   def has_previews?

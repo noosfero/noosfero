@@ -28,24 +28,32 @@ module VideoProcessor
       File.join(path, 'ongoing')
     end
 
-    # Adds a new file waiting to be converted
-    def push(env_id, file_id, file_path)
-      File.open(pool_file(env_id, file_id), 'w') do |f|
+    def failed_pool
+      File.join(path, 'failed')
+    end
+
+    # Pushes a file to one of the existing pools
+    def push(env_id, file_id, file_path, pool=:waiting)
+      File.open(pool_file(env_id, file_id, pool), 'w') do |f|
         f.write file_path
       end
     end
 
     # Moves a file to the ongoing pool, returning the full path of the video
     def assign(env_id, file_id, pool=:waiting)
-      if pool == :waiting
-        file = pool_file(env_id, file_id)
-        FileUtils.mv(file, pool_file(env_id, file_id, :ongoing))
+      begin
+        if pool == :waiting
+          file = pool_file(env_id, file_id)
+          FileUtils.mv(file, pool_file(env_id, file_id, :ongoing))
+        end
+        video_path = nil
+        File.open(pool_file(env_id, file_id, :ongoing)) do |f|
+          video_path = f.read
+        end
+        video_path
+      rescue Errno::ENOENT
+        nil
       end
-      video_path = nil
-      File.open(pool_file(env_id, file_id, :ongoing)) do |f|
-        video_path = f.read
-      end
-      video_path
     end
 
     # Removes a file from the ongoing pool, after it was converted successfully
@@ -55,14 +63,20 @@ module VideoProcessor
     end
 
     def all_files(env_id, pool=:waiting)
-      Dir[File.join(pool_for(env_id, pool), '*')]
+      Dir[File.join(pool_for(env_id, pool), '*')].sort
     end
 
     def init_pools
-      [:ongoing, :waiting].each do |pool|
+      [:ongoing, :waiting, :failed].each do |pool|
         path = self.send("#{pool.downcase}_pool")
         FileUtils.mkdir_p(path) unless File.directory? path
       end
+    end
+
+    def queue_position(env_id, video_id)
+      ids = all_files(env_id).map{ |f| f.split('/').last }
+      index = ids.index(video_id.to_s)
+      index ? index + 1 : nil
     end
 
     private

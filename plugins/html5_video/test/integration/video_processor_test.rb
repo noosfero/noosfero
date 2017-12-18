@@ -34,12 +34,14 @@ class VideoProcessorTest < ActiveSupport::TestCase
   end
 
   should 'save errors when processing a file that does not exist' do
-    process_video(@video.environment_id, 'not/a/file', @video.id)
+    assert_raises IOError do
+      process_video(@video.environment_id, 'not/a/file', @video.id)
+    end
     @presenter.reload
 
     assert_equal :fail, @presenter.previews
     all_versions.each do |format, size|
-      assert_equal 'error reading',
+      assert_equal 'error',
                    @presenter.web_versions[format][size][:status]
     end
   end

@@ -59,8 +59,7 @@
 }
 
 .non-video-list {
-  border-top: 1px solid #DDD;
-  margin-top: 15px;
+  margin-top: 30px;
 }
 
 .video-player {
@@ -138,8 +137,51 @@
   padding: 0px;
 }
 
-.unconverted-videos p span {
-  cursor: pointer;
+.unconverted-videos {
+  background-color: #eee;
+  padding: 0 10px;
+  border-radius: 3px;
+  box-shadow: 0 2px 1px 0 #ccc;
+  margin-top: 30px;
+
+  ul {
+    display: none;
+    margin: 0;
+    padding: 10px 0;
+    border-top: 2px solid #ccc;
+    list-style-type: none;
+
+    li {
+      display: flex;
+      padding: 3px 0;
+      border-bottom: 1px #ccc solid;
+
+      a {
+        flex: 1;
+      }
+
+      span {
+        font-style: italic;
+        flex: 1;
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin: 0;
+    cursor: pointer;
+  }
+
+  &.collapsed div span.fa::before {
+    content: '\f056';
+  }
 }
 
 .conversion-error {
