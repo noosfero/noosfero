@@ -117,23 +117,23 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   def duration_in_days
     if begining == nil and ending == nil
-      return "This query has no ending date"
+      return _("This query has no ending date")
     end
     seconds_to_days = 86400
     days = (ending.to_i - begining.to_i) / seconds_to_days
     if days < 1
-      return "Ends today."
+      return _("Ends today")
     end
 
     if days >= 1 && days < 2
-      return "Ends tomorow."
+      return _("Ends tomorow")
     end
 
     if days < 0
-      return "Already closed"
+      return _("Already closed")
     end
 
-    return "#{days} days left"
+    return _("%s days left") % days
   end
 
   def status
