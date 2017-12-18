@@ -21,7 +21,7 @@
               <span class="bullet">•</span>
               <%= link_to(
                 content_tag('i', nil, class: 'fa fa-pie-chart') + ' ' +
-                (form.status == 'Closed' ? _('Final results') : _('Partial results')),
+                (form.status == :closed ? _('Final results') : _('Partial results')),
                 { controller: 'custom_forms_plugin_profile', action: 'review',
                   id: form.identifier }, class: 'form-results') %>
               <% end %>

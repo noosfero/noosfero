@@ -138,13 +138,13 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   def status
     if begining.try(:future?)
-      'Not open yet'
+      :not_open
     elsif ending.try(:future?) && (ending < 3.days.from_now)
-      'Closing soon'
+      :closing_soon
     elsif ending.nil? || ending.try(:future?)
-      'Open'
+      :open
     else
-      'Closed'
+      :closed
     end
   end
 
