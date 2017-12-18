@@ -310,7 +310,8 @@ class TasksControllerTest < ActionController::TestCase
       post :close, :tasks => {task.id => {:decision => "finish"}}
     end
 
-    assert_match /Validation.failed/, @response.body
+    assert_match "jQuery(\"#pending-tasks\").remove();\njQuery(\"#pending-tasks-menu\").remove();",
+     @response.body
 
     task.reload
     assert_equal Task::Status::FINISHED, task.status
