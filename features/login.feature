@@ -18,7 +18,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on the homepage
     And I should be logged in as "joaosilva"
 
@@ -38,7 +38,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on mariasilva's homepage
 
   Scenario: view my control panel
@@ -49,7 +49,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on joaosilva's control panel
 
   Scenario: be redirected if user goes to login page and is logged
@@ -74,7 +74,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on mariasilva's homepage
 
   @selenium
@@ -88,7 +88,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on the homepage
 
   @selenium
@@ -102,7 +102,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on joaosilva's profile
 
   @selenium
@@ -118,7 +118,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on joaosilva's homepage
 
   @selenium
@@ -132,7 +132,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on joaosilva's control panel
 
   @selenium
@@ -153,7 +153,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on mariasilva's homepage
 
   @selenium
@@ -168,7 +168,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on the homepage
 
   @selenium
@@ -183,7 +183,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on joaosilva's profile
 
   @selenium
@@ -201,7 +201,7 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on joaosilva's homepage
 
   @selenium
@@ -216,5 +216,5 @@ Feature: login
     And I fill in the following:
       | Username / Email | joaosilva |
       | Password | 123456 |
-    When I press "Log in"
+    When I follow "Log in"
     Then I should be on joaosilva's control panel
