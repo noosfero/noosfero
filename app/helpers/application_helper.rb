@@ -695,21 +695,6 @@ module ApplicationHelper
     content_for(:head) { stylesheet_link_tag(*args) }
   end
 
-  # Please, use link_to by default!
-  # This method was created to work around to inexplicable
-  # chain of problems when display_short_format was called
-  # from Article model for an ArticleBlock.
-  def reference_to_article(text, article, anchor=nil)
-    if article.profile.domains.empty?
-      href = "#{Noosfero.root}/#{article.url[:profile]}/"
-    else
-      href = "http://#{article.profile.domains.first.name}#{Noosfero.root}/"
-    end
-    href += article.url[:page].join('/')
-    href += '#' + anchor if anchor
-    content_tag('a', text, :href => href)
-  end
-
   def display_short_format(article, options={})
     options[:comments_link] ||= true
     options[:read_more_link] ||= true
