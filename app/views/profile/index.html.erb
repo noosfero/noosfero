@@ -30,9 +30,11 @@
       <% tabs << { title: font_awesome(:feed, _('Wall')), id: 'profile-wall', content: (render partial: 'profile_wall') } if AccessLevels.can_access?(@profile.wall_access, user, @profile) %>
       <% tabs << { title: font_awesome(:network, _('Network')), id: 'profile-network', content: (render partial: 'profile_network') } if @profile == user %>
     <% end %>
-    <% tabs << { title: font_awesome(:info, _("#{@profile.type == 'Person' ? 'User' : @profile.type} info")), id: kind, content: (render partial: kind.gsub('-', '_')) } %>
+    <% profile_type = @profile.type == 'Person' ? 'User' : @profile.type %>
+    <% information_tab = profile_type + " info" %>
+    <% tabs << { title: font_awesome(:info, _(information_tab)), id: kind, content: (render partial: kind.gsub('-', '_')) } %>
 
-    <% tabs += plugins_tabs.select { |tab| !tab[:start] } %>
+    <% plugins_tabs.select { |tab| !tab[:start] } %>
 
     <%= render_tabs(tabs) %>
   </div>
