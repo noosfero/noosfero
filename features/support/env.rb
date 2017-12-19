@@ -66,6 +66,7 @@ Before do
   e.home_cache_in_minutes    = 0
   e.general_cache_in_minutes = 0
   e.profile_cache_in_minutes = 0
+  e.languages = ["en"]
   e.save
 end
 
