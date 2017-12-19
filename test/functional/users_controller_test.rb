@@ -7,8 +7,8 @@ class UsersControllerTest < ActionController::TestCase
 
     @environment = Environment.default
 
-    admin_user = create_user_with_permission('adminuser', 'manage_environment_users', environment)
-    login_as('adminuser')
+    admin_user = create_admin_user(@environment)
+    login_as(admin_user)
   end
   attr_accessor :environment
 
@@ -163,8 +163,7 @@ class UsersControllerTest < ActionController::TestCase
     environment.add_admin admin_user
     environment.add_admin admin_user_2
 
-    assert_equal 2, environment.admins.count
-    assert_difference "MailingSent.count", 2 do
+    assert_difference "MailingSent.count", environment.admins.count do
       post :send_mail, mailing: { subject: "UnB", body: "Hail UnB" }, recipients: { profile_admins: "false", env_admins: "true" }
       process_delayed_job_queue
     end

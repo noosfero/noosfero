@@ -7,8 +7,9 @@ class OrganizationsControllerTest < ActionController::TestCase
 
     @environment = Environment.default
 
-    admin_user = create_user_with_permission('adminuser', 'manage_environment_organizations', environment)
-    login_as('adminuser')
+    admin_user = create_admin_user(@environment)
+    give_permission(admin_user, 'manage_environment_organizations', @environment)
+    login_as(admin_user)
   end
   attr_accessor :environment
 

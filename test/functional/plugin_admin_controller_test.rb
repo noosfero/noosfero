@@ -15,6 +15,7 @@ class PluginAdminControllerTest < ActionController::TestCase
   should 'allow user with the required permission to access plugin administration page' do
     create_user_with_permission('testuser', 'edit_environment_features', Environment.default)
     login_as('testuser')
+    Environment.default.add_admin Person['testuser']
     get :index
     assert_response :success
   end

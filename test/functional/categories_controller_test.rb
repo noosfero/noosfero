@@ -5,8 +5,7 @@ class CategoriesControllerTest < ActionController::TestCase
   def setup
     @controller = CategoriesController.new
 
-    @env = fast_create(Environment, :name => "My test environment")
-    Environment.stubs(:default).returns(env)
+    @env = Environment.default
     assert (@cat1 = env.categories.create(:name => 'a test category'))
     assert (@cat1 = env.categories.create(:name => 'another category'))
     login_as(create_admin_user(@env))
@@ -15,7 +14,6 @@ class CategoriesControllerTest < ActionController::TestCase
   attr_reader :env, :cat1, :cat2
 
   def test_index
-    login_as(create_admin_user(Environment.default))
     get :index
     assert_response :success
     assert_template 'index'
@@ -65,13 +63,13 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   should 'expire categories menu cache when some menu category is updated' do
-    cat = create(Category, :name => 'test category in menu', :environment => Environment.default, :display_in_menu => true)
+    cat = create(Category, :name => 'test category in menu', :environment => env, :display_in_menu => true)
     @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').at_least_once
     post :edit, :id => cat.id, :category => { :name => 'new name for category in menu' }
   end
 
   should 'not touch categories menu cache whem updated category is not in menu' do
-    cat = create(Category, :name => 'test category not in menu', :environment => Environment.default, :display_in_menu => false)
+    cat = create(Category, :name => 'test category not in menu', :environment => env, :display_in_menu => false)
     @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
     post :edit, :id => cat.id, :category => { :name => 'new name for category not in menu' }
   end
@@ -82,7 +80,7 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   should 'not handle cache when viewing "edit category" screen' do
-    cat = create(Category, :name => 'test category in menu', :environment => Environment.default, :display_in_menu => true)
+    cat = create(Category, :name => 'test category in menu', :environment => env, :display_in_menu => true)
     @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
     get :edit, :id => cat.id
   end
@@ -98,7 +96,7 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   should 'not expire cache when updating fails' do
-    cat = create(Category, :name => 'test category in menu', :environment => Environment.default, :display_in_menu => true)
+    cat = create(Category, :name => 'test category in menu', :environment => env, :display_in_menu => true)
     @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').never
 
     post :edit, :id => cat.id, :category => { :name => '' }
@@ -129,9 +127,9 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   should 'not list regions' do
-    Environment.default.categories.destroy_all
-    c = create(Category, :name => 'Regular category', :environment => Environment.default)
-    r = create(Region, :name => 'Some region', :environment => Environment.default)
+    env.categories.destroy_all
+    c = create(Category, :name => 'Regular category', :environment => env)
+    r = create(Region, :name => 'Some region', :environment => env)
 
     get :index
     assert_tag :tag => 'span', :content => c.name
@@ -139,7 +137,7 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   should 'use parent\'s type to determine subcategory\'s type' do
-    parent = create(Region, name: 'Sample category', environment: Environment.default)
+    parent = create(Region, name: 'Sample category', environment: env)
     post :new, :parent_id => parent.id, :parent_type => parent.class.name, :category => {:name => 'Subcategory'}
     sub = Region.find_by_name('Subcategory')
     assert_equal parent.class, sub.class

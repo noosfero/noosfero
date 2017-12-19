@@ -4,8 +4,10 @@ class KindsControllerTest < ActionController::TestCase
   def setup
     @controller = KindsController.new
     @environment = Environment.default
-    create_user_with_permission('adminuser', 'manage_environment_kinds', environment)
-    login_as('adminuser')
+
+    user = create_admin_user(@environment)
+    give_permission(user, 'manage_environment_kinds', @environment)
+    login_as(user)
   end
 
   attr_accessor :environment

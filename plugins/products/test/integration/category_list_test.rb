@@ -7,11 +7,15 @@ class CategoryListTest < ActionDispatch::IntegrationTest
 	attr_accessor :person, :environment
 	attr_reader :environment
 
-	should 'display products categories when plugin is enabled' do
+  def setup
 		@environment = Environment.default
     @environment.enable_plugin('ProductsPlugin')
     @environment.save!
 
+    @environment.add_admin Profile['ze']
+  end
+
+	should 'display products categories when plugin is enabled' do
     login 'ze', 'test'
 		get "/admin/categories", :profile => 'ze'
 
@@ -19,9 +23,7 @@ class CategoryListTest < ActionDispatch::IntegrationTest
 	end
 
 	should 'do not display products categories when plugin is disabled' do
-		@environment = Environment.default
     @environment.disable_plugin('ProductsPlugin')
-    @environment.save!
 		login 'ze', 'test'
 		get "/admin/categories", :profile => 'ze'
 
@@ -29,10 +31,6 @@ class CategoryListTest < ActionDispatch::IntegrationTest
 	end
 
 	should 'list products categories correctely' do
-		@environment = Environment.default
-    @environment.enable_plugin('ProductsPlugin')
-    @environment.save!
-
     @product_category = create ProductsPlugin::ProductCategory, name: 'Products'
     @product_category = create ProductsPlugin::ProductCategory, name: 'Test'
 
