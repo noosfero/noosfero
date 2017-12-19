@@ -1,5 +1,7 @@
 class Comment < ApplicationRecord
 
+  include Notifiable
+
   SEARCHABLE_FIELDS = {
     :title => {:label => _('Title'), :weight => 10},
     :name => {:label => _('Name'), :weight => 4},
@@ -47,6 +49,9 @@ class Comment < ApplicationRecord
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
 
   acts_as_voteable
+
+  will_notify :notification
+  will_notify :mail_to_followers
 
   def comment_root
     (reply_of && reply_of.comment_root) || self
@@ -150,18 +155,18 @@ class Comment < ApplicationRecord
   def verify_and_notify
     check_for_spam
     unless spam?
-      notify_by_mail
+      send_notifications
     end
   end
 
-  def notify_by_mail
+  def send_notifications
     if source.kind_of?(Article) && article.notify_comments?
       if !notification_emails.empty?
-        CommentNotifier.notification(self).deliver
+        notify(:notification, self)
       end
       emails = article.person_followers_email_list - [author_email]
       if !emails.empty?
-        CommentNotifier.mail_to_followers(self, emails).deliver
+        notify(:mail_to_followers, self, emails)
       end
     end
   end

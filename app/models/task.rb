@@ -17,6 +17,12 @@ class Task < ApplicationRecord
   store_accessor :metadata
   include MetadataScopes
 
+  include Notifiable
+
+  will_notify :generic_message
+  will_notify :target_notification
+  will_notify :invitation_notification
+
   module Status
     # the status of tasks just created
     ACTIVE = 1
@@ -76,7 +82,7 @@ class Task < ApplicationRecord
         target_msg = task.target_notification_message
         if target_msg && task.target && !task.target.notification_emails.empty?
           if target_profile_accepts_notification?(task)
-            TaskMailer.target_notification(task, target_msg).deliver
+            notify(:target_notification, task, target_msg)
           end
         end
       rescue NotImplementedError => ex
@@ -279,7 +285,7 @@ class Task < ApplicationRecord
     begin
       target_msg = target_notification_message
        if target_msg && self.target && !self.target.notification_emails.empty?
-         TaskMailer.target_notification(self, target_msg).deliver
+         notify(:target_notification, self, target_msg)
        end
     rescue NotImplementedError => ex
       Rails.logger.info ex.to_s
@@ -408,8 +414,7 @@ class Task < ApplicationRecord
   def send_notification(action)
     if sends_email?
       if self.requestor && !self.requestor.notification_emails.empty?
-        message = TaskMailer.generic_message("task_#{action}", self)
-        message.deliver if message
+        notify(:generic_message, "task_#{action}", self)
       end
     end
   end

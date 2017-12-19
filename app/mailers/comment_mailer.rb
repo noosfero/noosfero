@@ -1,4 +1,4 @@
-class CommentNotifier < ApplicationMailer
+class CommentMailer < ApplicationMailer
 
   def notification(comment)
     profile = comment.article.profile

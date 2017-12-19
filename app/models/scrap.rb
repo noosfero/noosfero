@@ -1,6 +1,7 @@
 class Scrap < ApplicationRecord
 
   include SanitizeHelper
+  include Notifiable
 
   attr_accessible :content, :sender_id, :receiver_id, :scrap_id, :marked_people
 
@@ -37,6 +38,8 @@ class Scrap < ApplicationRecord
   after_create :send_notification
 
   before_validation :strip_all_html_tags
+
+  will_notify :notification
 
   alias :user :sender
   alias :target :receiver
@@ -85,7 +88,7 @@ class Scrap < ApplicationRecord
 
   def send_notification
     self.root.update_attribute('updated_at', DateTime.now) unless self.root.nil?
-    ScrapNotifier.notification(self).deliver if self.send_notification?
+    notify(:notification, self) if self.send_notification?
   end
 
 end

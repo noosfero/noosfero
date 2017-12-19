@@ -27,7 +27,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     person.stubs(:contact_email).returns('requestor@example.com')
     person.stubs(:public_profile_url).returns('requestor_path')
 
-    task.send(:send_notification, :finished).deliver
+    task.send(:send_notification, :finished)
     refute ActionMailer::Base.deliveries.empty?
   end
 
@@ -42,7 +42,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     person.stubs(:contact_email).returns('requestor@example.com')
     person.stubs(:public_profile_url).returns('requestor_path')
 
-    task.send(:send_notification, :cancelled).deliver
+    task.send(:send_notification, :cancelled)
     refute ActionMailer::Base.deliveries.empty?
   end
 
@@ -58,7 +58,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     person.stubs(:contact_email).returns('requestor@example.com')
     person.stubs(:public_profile_url).returns('requestor_path')
 
-    task.send(:send_notification, :created).deliver
+    task.send(:send_notification, :created)
     refute ActionMailer::Base.deliveries.empty?
   end
 
@@ -139,7 +139,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:environment).returns(@environment).at_least_once
     task.expects(:environment).returns(@environment).at_least_once
 
-    task.send(:send_notification, :cancelled).deliver
+    task.send(:send_notification, :cancelled)
     assert !ActionMailer::Base.deliveries.empty?
     mail = ActionMailer::Base.deliveries.last
     assert_match /text\/html/, mail.content_type
@@ -162,7 +162,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:environment).returns(@environment).at_least_once
     task.expects(:environment).returns(@environment).at_least_once
 
-    task.send(:send_notification, :finished).deliver
+    task.send(:send_notification, :finished)
     assert !ActionMailer::Base.deliveries.empty?
     mail = ActionMailer::Base.deliveries.last
     assert_match /text\/html/, mail.content_type
