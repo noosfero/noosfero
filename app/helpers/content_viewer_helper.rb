@@ -60,6 +60,21 @@ module ContentViewerHelper
     reference_to_article number_of_comments(article), article, 'comments_list'
   end
 
+  # Please, use link_to by default!
+  # This method was created to work around to inexplicable
+  # chain of problems when display_short_format was called
+  # from Article model for an ArticleBlock.
+  def reference_to_article(text, article, anchor=nil)
+    if article.profile.domains.empty?
+      href = "#{Noosfero.root}/#{article.url[:profile]}/"
+    else
+      href = "http://#{article.profile.domains.first.name}#{Noosfero.root}/"
+    end
+    href += article.url[:page].join('/')
+    href += '#' + anchor if anchor
+    content_tag('a', text, :href => href)
+  end
+
   def article_translations(article)
     unless article.native_translation.translations.empty?
       links = (article.native_translation.translations + [article.native_translation]).map do |translation|

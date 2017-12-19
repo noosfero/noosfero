@@ -1,9 +1,7 @@
 <div class="publishing-info article-actions">
   <div class="content-publication-data">
     <div class="article-date-and-author">
-      <span class="date">
-        <%= show_time(article.published_at) %>
-      </span>
+      <span class="date"><%= show_time(article.published_at)%></span>
 
       <span class="author">
         <%= _(", by %s").html_safe % (article.author ? link_to(article.author_name, article.author_url) : article.author_name) %>
