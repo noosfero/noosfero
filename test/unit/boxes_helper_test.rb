@@ -188,7 +188,7 @@ class BoxesHelperTest < ActionView::TestCase
     block.stubs(:embedable?).returns(true)
     stubs(:url_for).returns('')
     @controller.stubs(:user).returns(box.owner)
-    assert_tag_in_string block_edit_buttons(block), :tag => 'a', :attributes => {:class => 'button icon-button icon-embed '}
+    assert_tag_in_string block_edit_buttons(block), :tag => 'a', :attributes => {:class => 'icon-button icon-embed '}
   end
 
   should 'not display embed button when a block is not embedable' do

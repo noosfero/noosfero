@@ -33,7 +33,7 @@ class CmsHelperTest < ActionView::TestCase
   should 'display link to article if article is not folder' do
     profile = fast_create(Profile)
     article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with('My article', article.url, :class => icon_for_article(article))
+    expects(:link_to).with('My article', article.url)
 
     result = link_to_article(article)
   end
@@ -64,7 +64,7 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My folder'
     folder = fast_create(Folder, :name => name, :profile_id => profile.id)
     confirm_message = "Are you sure that you want to remove the folder \"#{name}\"? Note that all the items inside it will also be removed!"
-    expects(:link_to).with('Delete', {action: 'destroy', id: folder.id}, method: :post, 'data-confirm' => confirm_message, class: 'button with-text icon-delete', title: nil)
+    expects(:link_to).with('Delete', {action: 'destroy', id: folder.id}, method: :post, 'data-confirm' => confirm_message, class: 'button icon-delete', title: 'Delete')
 
     result = display_delete_button(folder)
   end
@@ -75,7 +75,7 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My article'
     article = fast_create(TextArticle, :name => name, :profile_id => profile.id)
     confirm_message = "Are you sure that you want to remove the item \"#{name}\"?"
-    expects(:link_to).with('Delete', {action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button with-text icon-delete', title: nil)
+    expects(:link_to).with('Delete', {action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button icon-delete', title: 'Delete')
 
     result = display_delete_button(article)
   end
