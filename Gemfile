@@ -54,6 +54,8 @@ gem 'sass-rails'
 gem 'sass', '>= 3.4.6'
 gem 'sprockets-rails', '~> 2.1'
 
+gem 'serviceworker-rails', '~> 0.5.5'
+
 # gems to enable rails3 behaviour
 gem 'protected_attributes'
 gem 'rails-observers'

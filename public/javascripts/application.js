@@ -40,6 +40,9 @@
 *= require block-store.js
 *= require email_templates.js
 *= require categories_selector.js
+*
+* serviceworker
+*= require serviceworker-companion
 */
 
 // lodash configuration
