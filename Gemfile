@@ -51,6 +51,7 @@ gem 'liquid',                    '>= 3.0.3'
 # asset pipeline
 gem 'uglifier', '>= 1.0.3'
 gem 'sass-rails'
+gem 'sass', '>= 3.4.6'
 gem 'sprockets-rails', '~> 2.1'
 
 # gems to enable rails3 behaviour
