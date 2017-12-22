@@ -517,4 +517,26 @@ class CommentControllerTest < ActionController::TestCase
     assert_match /\{\"ids\":\[\"action1\",\"action2\"\]\}/, @response.body
   end
 
+  should 'send push notification to the article author and followers' do
+    commenter = create_user('commenter_user').person
+    author = create_user.person
+    article = author.articles.create!(name: 'test', profile: author)
+
+    follower1 = create_user.person
+    ArticleFollower.create!(article_id: article.id, person_id: follower1.id)
+    follower2 = create_user.person
+    ArticleFollower.create!(article_id: article.id, person_id: follower2.id)
+
+    [author, follower1, follower2].each do |p|
+      p.push_subscriptions.create(endpoint: '/some',
+                                  keys: { auth: '123', p256dh: '456' })
+    end
+
+    login_as commenter.identifier
+    xhr :post, :create, profile: author.identifier, id: article.id,
+                          comment: { title: 'push', body: 'notification' }
+
+    Webpush.expects(:payload_send).times(3)
+    process_delayed_job_queue
+  end
 end

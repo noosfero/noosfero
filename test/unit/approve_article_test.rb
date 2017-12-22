@@ -87,6 +87,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     community.stubs(:notification_emails).returns(['adm@example.com'])
 
     a = create(ApproveArticle, :name => '', :article => article, :target => community, :requestor => profile)
+    process_delayed_job_queue
     refute ActionMailer::Base.deliveries.empty?
   end
 
@@ -95,6 +96,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     community.save
 
     a = create(ApproveArticle, :name => '', :article => article, :target => community, :requestor => profile)
+    process_delayed_job_queue
     assert ActionMailer::Base.deliveries.empty?
   end
 
@@ -352,18 +354,22 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'deliver target finished message' do
-    task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)
+    task = ApproveArticle.create(:article => article, :target => community, :requestor => profile)
 
-    email = task.send(:send_notification, :finished).deliver
+    task.send(:send_notification, :finished)
+    process_delayed_job_queue
+    email = ActionMailer::Base.deliveries.last
 
     assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, email.subject)
   end
 
   should 'deliver target finished message about article deleted' do
-    task = build(ApproveArticle, :article => article, :target => community, :requestor => profile)
+    task = ApproveArticle.create(:article => article, :target => community, :requestor => profile)
     article.destroy
 
-    email = task.send(:send_notification, :finished).deliver
+    task.send(:send_notification, :finished)
+    process_delayed_job_queue
+    email = ActionMailer::Base.deliveries.last
 
     assert_match(/#{task.requestor.name} wanted to publish an article but it was removed/, email.subject)
   end

@@ -1,0 +1,3 @@
+noosfero.vapid = {}
+<% vapid_public_key = Base64.urlsafe_decode64(VAPID_KEYS['public_key'] || '') %>
+noosfero.vapid.publicKey = new Uint8Array(<%= vapid_public_key.bytes %>)

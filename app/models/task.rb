@@ -72,11 +72,7 @@ class Task < ApplicationRecord
 
   after_create do |task|
     unless task.status == Task::Status::HIDDEN
-      begin
-        task.send(:send_notification, :created)
-      rescue NotImplementedError => ex
-        Rails.logger.info ex.to_s
-      end
+      task.send(:send_notification, :created)
 
       begin
         target_msg = task.target_notification_message
@@ -106,11 +102,7 @@ class Task < ApplicationRecord
     transaction do
       close(Task::Status::FINISHED, closed_by)
       self.perform
-      begin
-        send_notification(:finished)
-      rescue NotImplementedError => ex
-        Rails.logger.info ex.to_s
-      end
+      send_notification(:finished)
     end
     after_finish
   end
@@ -132,11 +124,7 @@ class Task < ApplicationRecord
   def cancel(closed_by=nil)
     transaction do
       close(Task::Status::CANCELLED, closed_by)
-      begin
-        send_notification(:cancelled)
-      rescue NotImplementedError => ex
-        Rails.logger.info ex.to_s
-      end
+      send_notification(:cancelled)
     end
   end
 
@@ -276,11 +264,7 @@ class Task < ApplicationRecord
   def activate
     self.status = Task::Status::ACTIVE
     save!
-    begin
-      self.send(:send_notification, :activated)
-    rescue NotImplementedError => ex
-      Rails.logger.info ex.to_s
-    end
+    self.send(:send_notification, :activated)
 
     begin
       target_msg = target_notification_message
@@ -413,8 +397,12 @@ class Task < ApplicationRecord
   # If
   def send_notification(action)
     if sends_email?
-      if self.requestor && !self.requestor.notification_emails.empty?
-        notify(:generic_message, "task_#{action}", self)
+      begin
+        if self.requestor && !self.requestor.notification_emails.empty?
+          notify(:generic_message, "task_#{action}", self)
+        end
+      rescue NotImplementedError => ex
+        Rails.logger.info ex.to_s
       end
     end
   end

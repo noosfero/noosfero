@@ -1,6 +1,6 @@
 class CommentMailer < ApplicationMailer
 
-  def notification(comment)
+  def new_comment_for_author(comment)
     profile = comment.article.profile
     self.environment = profile.environment
     @recipient = profile.nickname || profile.name
@@ -19,7 +19,7 @@ class CommentMailer < ApplicationMailer
     )
   end
 
-  def mail_to_followers(comment, emails)
+  def new_comment_for_followers(comment, emails)
     profile = comment.article.profile
     self.environment = profile.environment
 

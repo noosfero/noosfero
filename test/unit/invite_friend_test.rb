@@ -86,6 +86,7 @@ class InviteFriendTest < ActiveSupport::TestCase
 
     task = InviteFriend.create!(:person => p1, :friend => p2)
     task.finish
+    process_delayed_job_queue
   end
 
   should 'send e-mails to friend if friend_email given' do
@@ -96,6 +97,7 @@ class InviteFriendTest < ActiveSupport::TestCase
     TaskMailer.expects(:invitation_notification).returns(mailer).once
 
     task = InviteFriend.create!(:person => p1, :friend_email => 'test@test.com', :message => '<url>')
+    process_delayed_job_queue
   end
 
   should 'not send e-mails to friend if target given (person being invited)' do
@@ -105,6 +107,7 @@ class InviteFriendTest < ActiveSupport::TestCase
     TaskMailer.expects(:deliver_invitation_notification).never
 
     task = InviteFriend.create!(:person => p1, :friend => p2)
+    process_delayed_job_queue
   end
 
   should 'has permission to manage friends' do

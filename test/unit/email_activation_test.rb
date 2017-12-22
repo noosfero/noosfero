@@ -37,6 +37,7 @@ class EmailActivationTest < ActiveSupport::TestCase
     task = EmailActivation.create!(:requestor => ze.person, :target => Environment.default)
     task.finish
 
+    process_delayed_job_queue
     assert_equal ["zezinho@#{ze.email_domain}"], ActionMailer::Base.deliveries.first.to
   end
 

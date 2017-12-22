@@ -50,8 +50,8 @@ class Comment < ApplicationRecord
 
   acts_as_voteable
 
-  will_notify :notification
-  will_notify :mail_to_followers
+  will_notify :new_comment_for_author, push: true
+  will_notify :new_comment_for_followers, push: true
 
   def comment_root
     (reply_of && reply_of.comment_root) || self
@@ -162,11 +162,11 @@ class Comment < ApplicationRecord
   def send_notifications
     if source.kind_of?(Article) && article.notify_comments?
       if !notification_emails.empty?
-        notify(:notification, self)
+        notify(:new_comment_for_author, self)
       end
       emails = article.person_followers_email_list - [author_email]
       if !emails.empty?
-        notify(:mail_to_followers, self, emails)
+        notify(:new_comment_for_followers, self, emails)
       end
     end
   end
@@ -240,6 +240,23 @@ class Comment < ApplicationRecord
 
   def article_archived?
     errors.add(:article, N_('associated with this comment is archived!')) if archived?
+  end
+
+  def new_comment_for_author_notification
+    author = self.article.profile
+    if author.respond_to? :push_subscriptions
+      new_comment_for_followers_notification.merge({
+        recipients: [author]
+      })
+    end
+  end
+
+  def new_comment_for_followers_notification
+    {
+      title: self.article.name,
+      body: _('%s published a comment.') % self.author.name,
+      recipients: self.article.person_followers
+    }
   end
 
 end

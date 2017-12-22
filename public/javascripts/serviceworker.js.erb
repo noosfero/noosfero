@@ -9,11 +9,9 @@ function onInstall(event) {
 
         // make sure serviceworker.js is not required by application.js
         // if you want to reference application.js from here
-        '<%#= asset_path "application.js" %>',
+        '<%= asset_path "application.js" %>',
 
         '<%= asset_path "application.css" %>'
-
-        // '/offline.html',
 
       ]);
     })
@@ -21,7 +19,7 @@ function onInstall(event) {
 }
 
 function onActivate(event) {
-  console.log('[Serviceworker]', "Activating!", event);
+  console.log('[Serviceworker]', "Activating!");
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
@@ -59,6 +57,18 @@ function onFetch(event) {
   );
 }
 
+function onPush(event) {
+  var data = event.data.json()
+  let title = data.title;
+  let body = data.body;
+  let icon = data.icon || '/assets/noosfero/logo-120x120.png';
+
+  event.waitUntil(
+    self.registration.showNotification(title, { body, icon })
+  );
+};
+
 self.addEventListener('install', onInstall);
 self.addEventListener('activate', onActivate);
 self.addEventListener('fetch', onFetch);
+self.addEventListener('push', onPush);

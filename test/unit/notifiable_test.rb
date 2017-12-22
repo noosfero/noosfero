@@ -46,6 +46,7 @@ class NotifiableTest < ActiveSupport::TestCase
     Foo.will_notify :new_things
     Foo.any_instance.expects(:notify_by_mail).once
     Foo.any_instance.expects(:notify_by_push).once
+    Foo.any_instance.expects(:notify_by_plugins).once
     Foo.new.notify(:new_things)
   end
 
@@ -57,7 +58,50 @@ class NotifiableTest < ActiveSupport::TestCase
 
     Foo.will_notify :new_things
     Foo.new.send(:notify_by_mail, :new_things)
+    process_delayed_job_queue
     NotifiableTest.send(:remove_const, :FooMailer)
   end
 
+  should 'push notification when push is enabled and data is defined' do
+    Foo.will_notify :new_things, push: true
+    Foo.any_instance.stubs(:new_things_notification)
+                    .returns({ recipients: [mock], title: 't', body: 'm' })
+    WebPush.expects(:notify_users).once
+    Foo.new.send(:notify_by_push, :new_things)
+    process_delayed_job_queue
+  end
+
+  should 'not push notification when push is enabled but data not defined' do
+    Foo.will_notify :new_things, push: true
+    WebPush.expects(:notify_users).never
+    Foo.new.send(:notify_by_push, :new_things)
+    process_delayed_job_queue
+  end
+
+  should 'not push notification if recipients are invalid' do
+    Foo.will_notify :new_things, push: true
+    Foo.any_instance.stubs(:new_things_notification)
+                    .returns({ title: 't', body: 'm' })
+    Foo.new.send(:notify_by_push, :new_things)
+    WebPush.expects(:notify_users).never
+    process_delayed_job_queue
+  end
+
+  should 'not push notification if recipients are empty' do
+    Foo.will_notify :new_things, push: true
+    Foo.any_instance.stubs(:new_things_notification)
+                    .returns({ title: 't', body: 'm', recipients: [] })
+    Foo.new.send(:notify_by_push, :new_things)
+    WebPush.expects(:notify_users).never
+    process_delayed_job_queue
+  end
+
+  should 'not push notification if data is incomplete' do
+    Foo.will_notify :new_things, push: true
+    Foo.any_instance.stubs(:new_things_notification)
+                    .returns({ recipients: [mock], title: nil })
+    Foo.new.send(:notify_by_push, :new_things)
+    WebPush.expects(:notify_users).never
+    process_delayed_job_queue
+  end
 end
