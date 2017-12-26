@@ -480,8 +480,7 @@ class Profile < ApplicationRecord
   end
 
   def self.is_available?(identifier, environment, profile_id=nil)
-    return false unless identifier =~ IDENTIFIER_FORMAT &&
-      !Profile::RESERVED_IDENTIFIERS.include?(identifier) &&
+    return false unless !Profile::RESERVED_IDENTIFIERS.include?(identifier) &&
       (NOOSFERO_CONF['exclude_profile_identifier_pattern'].blank? || identifier !~ /#{NOOSFERO_CONF['exclude_profile_identifier_pattern']}/)
     return true if environment.nil?
 
@@ -498,6 +497,7 @@ class Profile < ApplicationRecord
   validate :valid_identifier
 
   def valid_identifier
+    errors.add(:identifier, :invalid) unless identifier =~ IDENTIFIER_FORMAT
     errors.add(:identifier, :not_available) unless Profile.is_available?(identifier, environment, id)
   end
 

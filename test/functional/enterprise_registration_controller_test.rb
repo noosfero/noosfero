@@ -15,13 +15,13 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
   should 'go to the first step on index' do
     get :index
     assert_response :success
-    assert_template 'basic_information'
+    assert_template 'index'
   end
 
   should 'get back to entering basic information if data is invalid' do
     post :index, :create_enterprise => {}
     assert_response :success
-    assert_template 'basic_information'
+    assert_template 'index'
   end
 
   should 'skip prompt for selection validator if approval method is admin' do
@@ -105,13 +105,12 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
   should 'provide confirmation at the end of the process' do
     data = { 'name' => 'My new enterprise', 'identifier' => 'mynew' }
 
-    create_enterprise = CreateEnterprise.new
+    create_enterprise = CreateEnterprise.new(data)
     CreateEnterprise.expects(:new).with(data).returns(create_enterprise)
 
     # all including validator selected
     validator = mock()
     validator.stubs(:name).returns("lalala")
-    create_enterprise.expects(:valid_before_selecting_target?).returns(true)
     create_enterprise.stubs(:valid?).returns(true) # validator already selected
     create_enterprise.expects(:save!)
 

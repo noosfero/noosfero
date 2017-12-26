@@ -126,7 +126,7 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
     })
 
     enterprise = Enterprise.new
-    Enterprise.expects(:new).returns(enterprise)
+    Enterprise.expects(:new).times(2).returns(enterprise)
 
     task.finish
 
@@ -163,7 +163,7 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
     })
 
     enterprise = Enterprise.new
-    Enterprise.expects(:new).returns(enterprise)
+    Enterprise.expects(:new).times(2).returns(enterprise)
 
     task.finish
 
@@ -240,7 +240,7 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'require the same fields as an enterprise does' do
-    environment = mock
+    environment = Environment.default
     request = CreateEnterprise.new
     request.stubs(:environment).returns(environment)
     environment.stubs(:organization_approval_method).returns(:region)
