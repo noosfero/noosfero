@@ -4,6 +4,8 @@ class CustomFormsPlugin::ListLinkBlock < ActiveSupport::TestCase
 
   def setup
     @profile = fast_create(Community)
+    @user = create_user('admin').person
+    @profile.add_admin(@user)
     @polls_block = CustomFormsPlugin::PollsBlock.new
     @surveys_block = CustomFormsPlugin::SurveyBlock.new
 
@@ -29,11 +31,11 @@ class CustomFormsPlugin::ListLinkBlock < ActiveSupport::TestCase
     poll2.fields= [field2]
     poll2.save!
 
-    assert_equivalent [poll1], @polls_block.list_forms
+    assert_equivalent [poll1], @polls_block.list_forms(@user)
 
     survey1 = CustomFormsPlugin::Form.create!(profile: @profile, name: 'F2', kind: 'survey')
     survey2 = CustomFormsPlugin::Form.create!(profile: profile2, name: 'F2', kind: 'survey')
-    assert_equivalent [survey1], @surveys_block.list_forms
+    assert_equivalent [survey1], @surveys_block.list_forms(@user)
   end
 
   should 'return forms according to the block type' do
@@ -48,8 +50,8 @@ class CustomFormsPlugin::ListLinkBlock < ActiveSupport::TestCase
 
     survey = CustomFormsPlugin::Form.create!(profile: @profile, name: 'F2', kind: 'survey')
 
-    assert_equivalent [poll], @polls_block.list_forms
-    assert_equivalent [survey], @surveys_block.list_forms
+    assert_equivalent [poll], @polls_block.list_forms(@user)
+    assert_equivalent [survey], @surveys_block.list_forms(@user)
   end
 
   should 'return all block statuses by default' do
@@ -67,7 +69,7 @@ class CustomFormsPlugin::ListLinkBlock < ActiveSupport::TestCase
     3.times do |count|
       CustomFormsPlugin::Form.create!(profile: @profile, name: "F#{count}", kind: 'survey')
     end
-    assert_equal 2, @surveys_block.list_forms.count
+    assert_equal 2, @surveys_block.list_forms(@user).count
   end
 
   should 'order forms by ending date' do
@@ -99,7 +101,7 @@ class CustomFormsPlugin::ListLinkBlock < ActiveSupport::TestCase
     poll4.fields= [field4]
     poll4.save!
 
-    assert_equal [poll4, poll1, poll3, poll2], @polls_block.list_forms
+    assert_equal [poll4, poll1, poll3, poll2], @polls_block.list_forms(@user)
   end
 
 end

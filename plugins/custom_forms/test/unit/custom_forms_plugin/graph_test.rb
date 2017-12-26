@@ -59,33 +59,6 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
                                       :value => "#{check_alt1.id},#{check_alt2.id}",
                                       :submission => submission)
 
-    CustomFormsPlugin::Answer.create!(:field => radio_field,
-                                      :value => alt.id,
-                                      :submission => submission2)
-
-    check_box_field = CustomFormsPlugin::Field.create!(
-      :name => 'Which notebook marks do you already had?',
-      :form => @form,
-      :show_as => 'check_box'
-    )
-
-    check_alt = CustomFormsPlugin::Alternative.create!(
-      :field => check_box_field, :label => 'azus'
-    )
-    check_alt1 = CustomFormsPlugin::Alternative.create!(
-      :field => check_box_field, :label => 'acer'
-    )
-    check_alt2 = CustomFormsPlugin::Alternative.create!(
-      :field => check_box_field, :label => 'mac'
-    )
-    check_alt3 = CustomFormsPlugin::Alternative.create!(
-      :field => check_box_field, :label => 'dell'
-    )
-
-    CustomFormsPlugin::Answer.create!(:field => check_box_field,
-                                      :value => "#{check_alt1.id},#{check_alt2.id}",
-                                      :submission => submission)
-
     CustomFormsPlugin::Answer.create!(:field => check_box_field,
                                       :value => "#{check_alt1.id},#{check_alt3.id}",
                                       :submission => submission2)

@@ -12,7 +12,7 @@
     <div class='form-item-info'>
       <div class='form-item-header'>
         <span class='form-name'><%= form.name %></span>
-        <span class='form-status <%= form.status.to_slug %>'>
+        <span class='form-status <%= form.status.to_s.to_slug %>'>
           <%= time_status(form) %>
         </span>
       </div>
