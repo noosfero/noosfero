@@ -4,6 +4,12 @@ class NewsletterPlugin::NewsletterMailing < EnvironmentMailing
 
   validates_presence_of :person
 
+  after_create :replace_mailing_url
+
+  def replace_mailing_url
+    self.update_attribute(:body, self.body.gsub('%7Bmailing_url%7D', self.url))
+  end
+
   def url
     "#{self.source.top_url}/plugin/newsletter/mailing/#{self.id}"
   end

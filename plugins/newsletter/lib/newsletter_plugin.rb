@@ -32,7 +32,6 @@ class NewsletterPlugin < Noosfero::Plugin
             :person => newsletter.person,
             :locale => newsletter.environment.default_locale,
           )
-          mailing.update_attribute(:body, mailing.body.gsub('{mailing_url}', mailing.url))
         end
       end
     end
