@@ -15,16 +15,16 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
 
     get '/'
     assert_no_tag 'a', attributes: { href: /piwik.org/ },
-                       ancestor: { tag: 'div', attributes: { id: 'user' } }
+                       ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 
-  should 'not dsplay piwik link if the user is not admin' do
+  should 'not display piwik link if the user is not admin' do
     @environment.piwik_domain = 'piwik.org'
     @environment.save
 
     get '/'
     assert_no_tag 'a', attributes: { href: /piwik.org/ },
-                       ancestor: { tag: 'div', attributes: { id: 'user' } }
+                       ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 
   should 'display piwik link with http if request does not use SSL' do
@@ -35,7 +35,7 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
 
     get '/'
     assert_tag 'a', attributes: { href: /http:\/\/piwik.org/ },
-                    ancestor: { tag: 'div', attributes: { id: 'user' } }
+                    ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 
   should 'display piwik link with https if request uses SSL' do
@@ -46,7 +46,7 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
 
     get '/'
     assert_tag 'a', attributes: { href: /https:\/\/piwik.org/ },
-                    ancestor: { tag: 'div', attributes: { id: 'user' } }
+                    ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 
 end
