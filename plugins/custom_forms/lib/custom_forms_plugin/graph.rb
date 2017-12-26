@@ -119,8 +119,8 @@ class CustomFormsPlugin::Graph
   def radio_answers(index, answer)
     answer_value = answer.value
     alternative_and_sum_of_answers = @answers_with_alternative_label[index][answer_value]
-      alternative = alternative_and_sum_of_answers.keys.first
-      @answers_with_alternative_label[index][answer_value][alternative] += 1
+    alternative = alternative_and_sum_of_answers.keys.first
+    @answers_with_alternative_label[index][answer_value][alternative] += 1
   end
 
   alias select_answers radio_answers

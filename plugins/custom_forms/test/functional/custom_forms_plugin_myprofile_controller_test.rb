@@ -61,7 +61,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
       post :create, :profile => profile.identifier,
         :form => {
           :name => 'My Form',
-          :access => 'logged',
           :begining => begining,
           :ending => ending,
           :description => 'Cool form',
@@ -87,7 +86,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     end
 
     form = CustomFormsPlugin::Form.find_by(name: 'My Form')
-    assert_equal 'logged', form.access
     assert_equal begining, form.begining.strftime(format)
     assert_equal ending, form.ending.strftime(format)
     assert_equal 'Cool form', form.description
@@ -123,7 +121,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
       post :create, :profile => profile.identifier,
         :form => {
         :name => 'My Form',
-        :access => 'logged',
         :begining => begining,
         :ending => ending,
         :description => 'Cool form',
@@ -161,7 +158,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
       post :create, :profile => profile.identifier,
         :form => {
         :name => 'My Form',
-        :access => 'logged',
         :begining => begining,
         :ending => ending,
         :description => 'Cool form',
@@ -183,7 +179,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
       post :create, :profile => profile.identifier,
         :form => {
           :name => 'My Form',
-          :access => 'logged',
           :begining => begining,
           :ending => ending,
           :description => 'Cool form',
@@ -228,7 +223,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal form.fields.length, 0
 
     post :update, :profile => profile.identifier, :id => form.id,
-      :form => {:name => 'My Form', :access => 'logged', :begining => begining, :ending => ending, :description => 'Cool form',
+      :form => {:name => 'My Form', :begining => begining, :ending => ending, :description => 'Cool form',
         :fields_attributes => {1 => {:name => 'Source'}}}
 
     form.reload
@@ -236,7 +231,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
     field = form.fields.last
 
-    assert_equal 'logged', form.access
     assert_equal begining, form.begining.strftime(format)
     assert_equal ending, form.ending.strftime(format)
     assert_equal 'Cool form', form.description
@@ -323,7 +317,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     post :create, :profile => profile.identifier,
       :form => {
         :name => 'Form with image',
-        :access => 'logged',
         :description => 'Cool form',
         :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png')
@@ -338,7 +331,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     post :create, :profile => profile.identifier,
       :form => {
         :name => 'Form with image',
-        :access => 'logged',
         :description => 'Cool form',
         :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png')
@@ -350,7 +342,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     post :update, :profile => profile.identifier,
       :form => {
         :name => 'Form with image',
-        :access => 'logged',
         :description => 'Cool form',
         :identifier => "form",
         :image => fixture_file_upload('/files/fruits.png', 'image/png')
@@ -370,7 +361,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     post :create, :profile => profile.identifier,
       :form => {
         :name => 'Form with image',
-        :access => 'logged',
         :description => 'Cool form',
         :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png')
@@ -384,7 +374,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     post :create, :profile => profile.identifier,
       :form => {
         :name => 'Form with image',
-        :access => 'logged',
         :description => 'Cool form',
         :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png')
@@ -399,7 +388,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     post :create, :profile => profile.identifier,
       :form => {
         :name => 'Form with image',
-        :access => 'logged',
         :description => 'Cool form',
         :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png')
@@ -412,7 +400,6 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     post :update, :profile => profile.identifier,
       :form => {
         :name => 'Form with image',
-        :access => 'logged',
         :description => 'Cool form',
         :identifier => "form",
         :image => fixture_file_upload('/files/rails.png', 'image/png'),
