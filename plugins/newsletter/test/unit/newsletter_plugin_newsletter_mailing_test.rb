@@ -69,4 +69,21 @@ class NewsletterPluginNewsletterMailingTest < ActiveSupport::TestCase
     assert_equal "http://localhost/plugin/newsletter/mailing/#{mailing.id}", mailing.url
   end
 
+
+  should 'replace mailing_url for proper url' do
+    newsletter = NewsletterPlugin::Newsletter.create!(
+      :environment => fast_create(Environment),
+      :person => fast_create(Person),
+      :enabled => true
+    )
+    mailing = NewsletterPlugin::NewsletterMailing.create!(
+      :source => newsletter,
+      :subject => newsletter.subject,
+      :body => newsletter.body,
+      :person => newsletter.person,
+      :locale => newsletter.environment.default_locale,
+    )
+    assert_match /#{mailing.url}/, mailing.body
+  end
+
 end
