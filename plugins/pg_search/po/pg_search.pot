@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 15:45+0000\n"
-"PO-Revision-Date: 2017-05-09 15:45+0000\n"
+"POT-Creation-Date: 2017-11-07 17:21-0200\n"
+"PO-Revision-Date: 2017-11-07 17:21-0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,50 +18,66 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../lib/pg_search_plugin.rb:10
+#: ../lib/pg_search_plugin.rb:11
 msgid "Search engine that uses Postgres Full-Text Search."
 msgstr ""
 
-#: ../lib/pg_search_plugin.rb:220
+#: ../lib/pg_search_plugin.rb:268
+msgid "True"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:268
+msgid "False"
+msgstr ""
+
+#: ../lib/pg_search_plugin.rb:302
 msgid "Created at"
 msgstr ""
 
-#: ../lib/pg_search_plugin.rb:221
+#: ../lib/pg_search_plugin.rb:303
 msgid "Updated at"
 msgstr ""
 
-#: ../lib/pg_search_plugin.rb:222
+#: ../lib/pg_search_plugin.rb:304
 msgid "Types"
 msgstr ""
 
-#: ../lib/pg_search_plugin.rb:223
+#: ../lib/pg_search_plugin.rb:305
 msgid "TextArticle"
 msgstr ""
 
-#: ../lib/pg_search_plugin.rb:224
+#: ../lib/pg_search_plugin.rb:306
 msgid "UploadedFile"
 msgstr ""
 
-#: ../lib/pg_search_plugin.rb:225
+#: ../lib/pg_search_plugin.rb:307
 msgid "RSSFeed"
 msgstr ""
 
-#: ../lib/pg_search_plugin.rb:226
+#: ../lib/pg_search_plugin.rb:308
 msgid "Content types"
 msgstr ""
 
-#: ../lib/pg_search_plugin.rb:227
+#: ../lib/pg_search_plugin.rb:309
 msgid "Tags"
 msgstr ""
 
 #: ../lib/pg_search_plugin/search_helper.rb:7
-msgid "Clear"
+msgid "Refine options"
 msgstr ""
 
-#: ../lib/pg_search_plugin/search_helper.rb:8
-msgid "Refine options"
+#: ../lib/pg_search_plugin/search_helper.rb:9
+msgid "Clear filters"
 msgstr ""
 
 #: ../lib/pg_search_plugin/search_helper.rb:21
 msgid "Undefined"
+msgstr ""
+
+#: ../views/box_organizer/_profile_search_block.html.erb:3
+msgid "Enable advanced search"
+msgstr ""
+
+#: ../views/profile_search/_facets.html.erb:3
+msgid "Advanced Search"
 msgstr ""

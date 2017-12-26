@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-04 15:18+0000\n"
-"PO-Revision-Date: 2017-08-04 15:18+0000\n"
+"POT-Creation-Date: 2017-11-07 17:21-0200\n"
+"PO-Revision-Date: 2017-11-07 17:21-0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -57,10 +57,6 @@ msgstr ""
 msgid "removed the product %{title}"
 msgstr ""
 
-#: ../lib/ext/categories_helper.rb:5
-msgid "Product Category"
-msgstr ""
-
 #: ../lib/ext/enterprise.rb:17
 msgid "Enterprises's profile"
 msgstr ""
@@ -78,6 +74,12 @@ msgstr ""
 #: ../views/products_plugin/catalog/index.html.erb:7
 msgid "Manage Products/Services"
 msgstr ""
+
+#: ../lib/products_plugin/base.rb:37
+msgid "Product category"
+msgid_plural "Product categories"
+msgstr[0] ""
+msgstr[1] ""
 
 #: ../lib/products_plugin/enterprise_homepage_helper.rb:7
 msgid "Contact person:"
@@ -323,15 +325,6 @@ msgstr ""
 #: ../views/person_notifier/mailer/_create_product.html.erb:9
 #: ../views/person_notifier/mailer/_remove_product.html.erb:8
 #: ../views/person_notifier/mailer/_update_product.html.erb:9
-#: ../views/profile/_create_product.html.erb:9
-#: ../views/profile/_remove_product.html.erb:8
-#: ../views/profile/_update_product.html.erb:9
-msgid "Are you sure you want to remove this activity and all its replies?"
-msgstr ""
-
-#: ../views/person_notifier/mailer/_create_product.html.erb:9
-#: ../views/person_notifier/mailer/_remove_product.html.erb:8
-#: ../views/person_notifier/mailer/_update_product.html.erb:9
 #: ../views/products_plugin/page/_display_input.html.erb:8
 #: ../views/products_plugin/page/_edit_price_details.html.erb:6
 #: ../views/products_plugin/page/index.html.erb:19
@@ -339,6 +332,15 @@ msgstr ""
 #: ../views/profile/_remove_product.html.erb:8
 #: ../views/profile/_update_product.html.erb:9
 msgid "Remove"
+msgstr ""
+
+#: ../views/person_notifier/mailer/_create_product.html.erb:9
+#: ../views/person_notifier/mailer/_remove_product.html.erb:8
+#: ../views/person_notifier/mailer/_update_product.html.erb:9
+#: ../views/profile/_create_product.html.erb:9
+#: ../views/profile/_remove_product.html.erb:8
+#: ../views/profile/_update_product.html.erb:9
+msgid "Are you sure you want to remove this activity and all its replies?"
 msgstr ""
 
 #: ../views/products_plugin/catalog/index.html.erb:11
@@ -369,11 +371,11 @@ msgid "by "
 msgstr ""
 
 #: ../views/products_plugin/catalog/index.html.erb:53
-msgid "unit"
+msgid " / "
 msgstr ""
 
 #: ../views/products_plugin/catalog/index.html.erb:53
-msgid " / "
+msgid "unit"
 msgstr ""
 
 #: ../views/products_plugin/catalog/index.html.erb:61
@@ -447,13 +449,13 @@ msgid "Change image"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_info.html.erb:7
-msgid ""
-"Click here to edit price, discount and qualifiers/certifiers to make your prod"
-"uct more attractive and detailed for the consumers"
+msgid "Edit basic information"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_info.html.erb:7
-msgid "Edit basic information"
+msgid ""
+"Click here to edit price, discount and qualifiers/certifiers to make your prod"
+"uct more attractive and detailed for the consumers"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_info.html.erb:9
@@ -616,16 +618,16 @@ msgstr ""
 msgid "Highlight this product"
 msgstr ""
 
-#: ../views/products_plugin/page/_form.html.erb:11
+#: ../views/products_plugin/page/_form.html.erb:10
 msgid "Image:"
 msgstr ""
 
-#: ../views/products_plugin/page/_form.html.erb:15
-msgid "Save changes"
+#: ../views/products_plugin/page/_form.html.erb:13
+msgid "Create product"
 msgstr ""
 
-#: ../views/products_plugin/page/_form.html.erb:15
-msgid "Create product"
+#: ../views/products_plugin/page/_form.html.erb:13
+msgid "Save changes"
 msgstr ""
 
 #: ../views/products_plugin/page/_manage_product_details.html.erb:9
@@ -653,13 +655,13 @@ msgid ""
 msgstr ""
 
 #: ../views/products_plugin/page/_price_composition_bar.html.erb:20
-msgid "Congratulations! Now the price is open to the public"
-msgstr ""
-
-#: ../views/products_plugin/page/_price_composition_bar.html.erb:20
 msgid ""
 "The production cost of your product is fully described and will be displayed o"
 "n your product's page"
+msgstr ""
+
+#: ../views/products_plugin/page/_price_composition_bar.html.erb:20
+msgid "Congratulations! Now the price is open to the public"
 msgstr ""
 
 #: ../views/products_plugin/page/_price_details_button.html.erb:2

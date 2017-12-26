@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "PO-Revision-Date: 2015-02-23 11:37+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Armenian <https://hosted.weblate.org/projects/noosfero/plugin-"
-"custom-forms/hy/>\n"
+"Language-Team: Armenian <https://hosted.weblate.org/projects/noosfero/plugin-c"
+"ustom-forms/hy/>\n"
 "Language: hy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,40 +17,59 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Weblate 2.3-dev\n"
 
-#, fuzzy
-msgid "Custom form %s was successfully created."
-msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
+msgid "%s was successfully created"
+msgstr ""
+
+msgid "%s was successfully updated"
+msgstr ""
 
 #, fuzzy
-msgid "Custom form %s was successfully updated."
-msgstr "Մեկնաբանությունը հաջողությամբ հեռացված է:"
-
-#, fuzzy
-msgid "Form could not be updated"
+msgid "The %s could not be updated"
 msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
 
-#, fuzzy
-msgid "Form removed"
-msgstr "Բուն հոդված"
+msgid "The %s was removed"
+msgstr ""
 
 #, fuzzy
-msgid "Form could not be removed"
+msgid "The %s could not be removed"
 msgstr "Սկզբնական նյութի թարմացումը ձախողված է"
 
-#, fuzzy
-msgid "There are no submissions for this form."
-msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
+msgid "Query Gallery"
+msgstr ""
+
+msgid "Submission saved"
+msgstr ""
 
 #, fuzzy
 msgid "Submission could not be saved"
 msgstr "Անհանատական էջի տվյալների բաժին"
 
-#, fuzzy
-msgid "Enables the creation of forms."
-msgstr "Ակտիվացնել «%s» ձեռնարկությունը"
+msgid "Older"
+msgstr ""
+
+msgid "Recent"
+msgstr ""
+
+msgid "All"
+msgstr ""
+
+msgid "Opened"
+msgstr ""
+
+msgid "Closed"
+msgstr ""
+
+msgid "To come"
+msgstr ""
+
+msgid "Query"
+msgstr ""
+
+msgid "Enables the creation of custom queries like surveys or polls."
+msgstr ""
 
 #, fuzzy
-msgid "Manage Forms"
+msgid "Manage Queries"
 msgstr "Կառավարել"
 
 #, fuzzy
@@ -75,57 +94,119 @@ msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
 msgid "is mandatory."
 msgstr "Պատմություն"
 
-#, fuzzy
-msgid "Submissions for %s"
-msgstr "Վիճակագրություն"
+msgid "Survey"
+msgstr ""
 
-#, fuzzy
-msgid "Author"
-msgstr "Հեղինակ"
+msgid "Surveys"
+msgstr ""
 
-#, fuzzy
-msgid "Submission date"
-msgstr "Թույլտվություններ"
+msgid "survey"
+msgstr ""
 
-#, fuzzy
-msgid "Back to forms"
-msgstr "Արտադրանք չկա"
+msgid "surveys"
+msgstr ""
 
-#, fuzzy
-msgid "Logged users"
-msgstr "Մուտք որպես %s"
+msgid "Poll"
+msgstr ""
+
+msgid "Polls"
+msgstr ""
+
+msgid "poll"
+msgstr ""
+
+msgid "polls"
+msgstr ""
+
+msgid "%{value} is not a valid kind."
+msgstr ""
+
+msgid "Name"
+msgstr "Անվանում"
+
+msgid "Slug"
+msgstr ""
+
+msgid "identifier"
+msgstr ""
+
+msgid "Description"
+msgstr ""
+
+msgid "Invalid string format of access."
+msgstr ""
+
+msgid "There is no profile with the provided id."
+msgstr ""
+
+msgid "Invalid type format of access."
+msgstr ""
+
+msgid "The time range selected is invalid."
+msgstr ""
+
+msgid "Everyone can answer"
+msgstr ""
+
+msgid "Only logged user can answer"
+msgstr ""
+
+msgid "Only members can answer"
+msgstr ""
+
+msgid "Only friends can answer"
+msgstr ""
 
 #, fuzzy
 msgid "Custom"
 msgstr "մասնակից"
 
 #, fuzzy
-msgid "Sort by"
-msgstr "Մեկ համայնք"
+msgid "Custom access definitions"
+msgstr "մասնակից"
 
-#, fuzzy
-msgid "There are no pending submissions for this form."
-msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
+msgid "Always"
+msgstr ""
+
+msgid "Until %s"
+msgstr ""
 
 #, fuzzy
 msgid "From %s until %s"
 msgstr "%-ից մինչև %"
 
 #, fuzzy
+msgid "Logged users"
+msgstr "Մուտք որպես %s"
+
+msgid "Public after query ends"
+msgstr ""
+
+msgid "Private"
+msgstr ""
+
+#, fuzzy
 msgid "Select"
 msgstr "Որոնել..."
 
-#, fuzzy
-msgid "Pending submissions for %s"
-msgstr "Վիճակագրություն"
+msgid "Text field"
+msgstr ""
 
 #, fuzzy
 msgid "Select field"
 msgstr "Նոր թղթապանակ"
 
-#, fuzzy
-msgid "New form"
-msgstr "Նոր թղթապանակ"
+msgid "Hold down Ctrl to select options"
+msgstr ""
+
+msgid "%s left to open"
+msgstr ""
+
+msgid "%s left to close"
+msgstr ""
+
+msgid "Always open"
+msgstr ""
 
 #, fuzzy
 msgid "Membership survey"
@@ -135,9 +216,10 @@ msgstr "Անդամներ: %s"
 msgid "%{requestor} wants you to fill in some information."
 msgstr "%s ցանկանում է Ձեր ընկերը դառնալ"
 
-#, fuzzy
-msgid "Add a new form"
-msgstr "Մեկ ձեռնարկություն"
+msgid ""
+"After joining %{requestor}, the administrators of this organization\n"
+"      wants you to fill in some further information."
+msgstr ""
 
 #, fuzzy
 msgid "%{requestor} wants to fill in some further information."
@@ -151,33 +233,94 @@ msgstr "Կառավարել մեկնաբանությունները"
 msgid "Remove field"
 msgstr "Հեռացնել բաժինը"
 
-#, fuzzy
-msgid "Are you sure you want to remove this form?"
-msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
+msgid "Change picture"
+msgstr ""
 
-#, fuzzy
-msgid "Preselected"
-msgstr "Մերժված է"
+msgid "Remove image"
+msgstr ""
+
+msgid "What is the time limit for this %s to be filled?"
+msgstr ""
+
+msgid "Identifier"
+msgstr ""
 
 #, fuzzy
 msgid "Access"
 msgstr "Ընդունել"
 
 #, fuzzy
-msgid "Submissions"
-msgstr "Թույլտվություններ"
+msgid "Result Access"
+msgstr "Ընդունել"
+
+msgid "Triggered on membership request as requirement for approval"
+msgstr ""
 
 #, fuzzy
 msgid "Triggered after membership"
 msgstr "Կառավարել անդամակցությունները"
 
-#, fuzzy
-msgid "Manage forms"
-msgstr "Կառավարել ընկերներին"
+msgid "Period"
+msgstr ""
 
 #, fuzzy
-msgid "Edit form"
-msgstr "Փոփոխել"
+msgid "Submissions"
+msgstr "Թույլտվություններ"
+
+msgid "Actions"
+msgstr "Գործողություններ"
+
+msgid "View %s"
+msgstr ""
+
+msgid "Review submisisons"
+msgstr ""
+
+#, fuzzy
+msgid "Pending"
+msgstr "Սպասող առաջադրանքներ"
+
+#, fuzzy
+msgid "Are you sure you want to remove this query?"
+msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
+
+msgid "There are no %s yet. Why not create one now?"
+msgstr ""
+
+msgid "Create a new %s"
+msgstr ""
+
+msgid "Question"
+msgstr ""
+
+#, fuzzy
+msgid "Type"
+msgstr "Տեսակ"
+
+msgid "Type in your question"
+msgstr ""
+
+msgid "Multiple choice"
+msgstr ""
+
+msgid "Checkboxes"
+msgstr ""
+
+#, fuzzy
+msgid "Option"
+msgstr "Գործողություններ"
+
+msgid "Remove"
+msgstr ""
+
+msgid "Add option"
+msgstr ""
+
+msgid "This field will be added automatically to your survey"
+msgstr ""
+
+msgid "Email"
+msgstr ""
 
 #, fuzzy
 msgid "Add a new text field"
@@ -195,168 +338,125 @@ msgstr "Հեռացնել անդամին"
 msgid "Type:"
 msgstr "Տեսակ"
 
+msgid "Radio"
+msgstr ""
+
+msgid "Checkbox"
+msgstr ""
+
+msgid "Drop down"
+msgstr ""
+
+msgid "Multiple Select"
+msgstr ""
+
+msgid "Alternative"
+msgstr ""
+
 #, fuzzy
-msgid "Default text:"
-msgstr "Լեզուներ"
+msgid "Preselected"
+msgstr "Մերժված է"
 
 #, fuzzy
 msgid "Add a new alternative"
 msgstr "Մեկ ձեռնարկություն"
 
-#, fuzzy
-msgid "Pending"
-msgstr "Սպասող առաջադրանքներ"
-
-#: ../controllers/custom_forms_plugin_profile_controller.rb:31
-msgid "Submission saved"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/form.rb:68
-msgid "Invalid string format of access."
-msgstr ""
-
-#: ../lib/custom_forms_plugin/form.rb:72 ../lib/custom_forms_plugin/form.rb:77
-msgid "There is no profile with the provided id."
-msgstr ""
-
-#: ../lib/custom_forms_plugin/form.rb:82
-msgid "Invalid type format of access."
-msgstr ""
-
-#: ../lib/custom_forms_plugin/form.rb:88
-msgid "The time range selected is invalid."
-msgstr ""
-
-#: ../lib/custom_forms_plugin/helper.rb:24
-msgid "Always"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/helper.rb:28
-msgid "Until %s"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/helper.rb:61
-msgid "Text field"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/helper.rb:106
-msgid "Hold down Ctrl to select options"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/membership_survey.rb:44
-msgid ""
-"After joining %{requestor}, the administrators of this organization\n"
-"      wants you to fill in some further information."
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:30
-#: ../views/custom_forms_plugin_myprofile/index.html.erb:6
-#: ../views/custom_forms_plugin_profile/show.html.erb:19
-msgid "Name"
-msgstr "Անվանում"
-
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:5
-msgid "What is the time limit for this form to be filled?"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:14
-msgid "Triggered on membership request as requirement for approval"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:27
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:36
-msgid "This field will be added automatically to your form"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:39
-#: ../views/custom_forms_plugin_profile/show.html.erb:20
-msgid "Email"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:5
-msgid "Radio"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:7
-msgid "Checkbox"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
-msgid "Drop down"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:11
-msgid "Multiple Select"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:17
-msgid "Alternative"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:5
 msgid "One-line text"
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:7
 msgid "Multiline text"
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:13
+#, fuzzy
+msgid "Default text:"
+msgstr "Լեզուներ"
+
 msgid "Maximum of 255 characters"
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
+#, fuzzy
+msgid "Edit form"
+msgstr "Փոփոխել"
+
+#, fuzzy
+msgid "Manage queries"
+msgstr "Կառավարել"
+
+msgid "Back"
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/index.html.erb:10
-msgid "Actions"
-msgstr "Գործողություններ"
+msgid "New %s"
+msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:14
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:13
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:18
+#, fuzzy
+msgid "Pending submissions for %s"
+msgstr "Վիճակագրություն"
+
+#, fuzzy
+msgid "There are no pending submissions for this form."
+msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
+
+#, fuzzy
+msgid "Sort by"
+msgstr "Մեկ համայնք"
+
 msgid "Time"
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
 msgid "User"
 msgstr "Օգտվող"
 
-#: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:26
+#, fuzzy
+msgid "Back to forms"
+msgstr "Արտադրանք չկա"
+
+#, fuzzy
+msgid "Submission date"
+msgstr "Թույլտվություններ"
+
+#, fuzzy
+msgid "Author"
+msgstr "Հեղինակ"
+
 msgid "Unauthenticated"
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:48
 msgid "Back to submissions"
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
+#, fuzzy
+msgid "Submissions for %s"
+msgstr "Վիճակագրություն"
+
+#, fuzzy
+msgid "There are no submissions for this form."
+msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
+
 msgid "Download all form responses as"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:9
-#: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
+msgid "%{count} submission"
+msgid_plural "%{count} submissions"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "No queries found! Try different search terms or filters."
+msgstr ""
+
+msgid "%s's queries"
+msgstr ""
+
+msgid "Participants"
+msgstr ""
+
+msgid "Query Overview"
+msgstr ""
+
 msgid "Sorry, you can't fill this form yet"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:11
-#: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:31
 msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
-
-#~ msgid "Add a new option"
-#~ msgstr "Մեկ ձեռնարկություն"
-
-#~ msgid "Are you sure you want to remove this field?"
-#~ msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
-
-#~ msgid "Are you sure you want to remove this option?"
-#~ msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"

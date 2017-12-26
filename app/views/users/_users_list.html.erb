@@ -1,21 +1,40 @@
 <div class="environment-profiles-results-header">
-  <div id='environment-profiles-filter-title'><%= users_filter_title(@filter) %></div>
+  <div id='environment-profiles-filter-title'>
+    <%= users_filter_title(@filter) %>
+  </div>
   <%= filter_selector(@filter) %>
+    <div>
+      <% if @filter == 'recently_logged_users' %>
+        <%= number_field :filter_number_of_days, { controller: 'user', action: 'index' },
+         disabled: false, min:0, max:36500, placeholder: 'min 0, max 36500', style:'width: 128px' %>
+      <% else %>
+        <%= number_field :filter_number_of_days, { controller: 'user', action: 'index' },
+         disabled: true , placeholder: @filter, style:'width: 128px' %>
+      <% end %>
+    </div>
+
   <div style="clear: both"></div>
 </div>
 
 <table>
   <colgroup>
-    <col width="80%">
+    <col width="60%">
+    <col width="20%">
     <col width="20%">
   </colgroup>
   <tr>
     <th><%= _('Member') %></th>
+    <th><%= _('Last login') %>  </th>
     <th><%= _('Actions') %></th>
   </tr>
   <% @collection.each do |p| %>
     <tr title="<%= p.name %>">
       <td><%= link_to_profile p.short_name, p.identifier, :title => p.name %> </td>
+      <% if p.user.last_login_at != nil %>
+        <td style="text-align: center"><%= p.user.last_login_at.to_date %></td>
+      <%else%>
+        <td style="text-align: center"></td>
+      <%end%>
       <td class='actions'>
         <div class="members-buttons-cell">
           <% if p.is_admin? %>

@@ -153,6 +153,7 @@ class Person < Profile
   scope :admins, -> { joins(:role_assignments => :role).where('roles.key = ?', 'environment_administrator') }
   scope :activated, -> { joins(:user).where('users.activation_code IS NULL AND users.activated_at IS NOT NULL') }
   scope :deactivated, -> { joins(:user).where('NOT (users.activation_code IS NULL AND users.activated_at IS NOT NULL)') }
+  scope :recent, -> { joins(:user)}
 
   scope :with_role, -> role_id {
     distinct.joins(:role_assignments).

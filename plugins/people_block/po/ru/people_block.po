@@ -8,23 +8,24 @@ msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "PO-Revision-Date: 2014-12-12 14:23+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/ru/>\n"
+"Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/noosfero/"
+"ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4"
+" && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
 #, fuzzy
 msgid "Clicking a friend takes you to his/her homepage"
 msgstr "Выбор пользователя перенесет вас на его домашнюю страницу"
 
-#, fuzzy
-msgid "A plugin that adds a people block"
-msgstr "Блок, отображающий группы"
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] "Друг"
+msgstr[1] "{#} Друзья"
 
 #, fuzzy
 msgid "Clicking a member takes you to his/her homepage"
@@ -38,40 +39,31 @@ msgstr "Участники"
 msgid "{#} %s"
 msgstr "{#} группы"
 
+msgid "Show join leave button"
+msgstr ""
+
+msgid "Clicking a person takes you to his/her homepage"
+msgstr "Выбор пользователя перенесет вас на его домашнюю страницу"
+
 #, fuzzy
 msgid "{#} People"
 msgstr "Пользователи"
 
-#: ../lib/friends_block.rb:12
-msgid "{#} friend"
-msgid_plural "{#} friends"
-msgstr[0] "Друг"
-msgstr[1] "{#} Друзья"
-
-#: ../lib/members_block.rb:36
-msgid "Show join leave button"
-msgstr ""
-
-#: ../lib/people_block.rb:8
-msgid "Clicking a person takes you to his/her homepage"
-msgstr "Выбор пользователя перенесет вас на его домашнюю страницу"
-
-#: ../lib/people_block_base.rb:9
 msgid "Random people"
 msgstr "Случайные лица"
 
-#: ../views/blocks/footers/friends.html.erb:1
+#, fuzzy
+msgid "A plugin that adds a people block"
+msgstr "Блок, отображающий группы"
+
 msgid "friends|View all"
 msgstr "друзья|Просмотреть все"
 
-#: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
 msgstr ""
 
-#: ../views/blocks/footers/friends.html.erb:10
 msgid "See all suggestions"
 msgstr ""
 
-#: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr ""

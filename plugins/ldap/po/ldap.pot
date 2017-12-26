@@ -6,9 +6,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"POT-Creation-Date: 2015-10-30 16:35-0300\n"
-"PO-Revision-Date: 2015-08-06 17:21-0300\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-11-07 17:21-0200\n"
+"PO-Revision-Date: 2017-11-07 17:21-0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -17,86 +18,86 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: plugins/ldap/lib/ldap_plugin.rb:11
-msgid "A plugin that add ldap support."
-msgstr ""
-
-#: plugins/ldap/controllers/ldap_plugin_admin_controller.rb:10
+#: ../controllers/ldap_plugin_admin_controller.rb:10
 msgid "Ldap configuration updated successfully."
 msgstr ""
 
-#: plugins/ldap/controllers/ldap_plugin_admin_controller.rb:12
+#: ../controllers/ldap_plugin_admin_controller.rb:12
 msgid "Ldap configuration could not be saved."
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:1
+#: ../lib/ldap_plugin.rb:11
+msgid "A plugin that add ldap support."
+msgstr ""
+
+#: ../views/ldap_plugin_admin/index.html.erb:1
 msgid "Ldap Management"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:7
+#: ../views/ldap_plugin_admin/index.html.erb:7
 msgid "LDAP Configuration"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:8
+#: ../views/ldap_plugin_admin/index.html.erb:8
 msgid "Value"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:11
+#: ../views/ldap_plugin_admin/index.html.erb:11
 msgid "Host"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:15
+#: ../views/ldap_plugin_admin/index.html.erb:15
 msgid "Port"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:19
+#: ../views/ldap_plugin_admin/index.html.erb:19
 msgid "Account"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:23
+#: ../views/ldap_plugin_admin/index.html.erb:23
 msgid "Account Password"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:27
+#: ../views/ldap_plugin_admin/index.html.erb:27
 msgid "Base DN"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:31
+#: ../views/ldap_plugin_admin/index.html.erb:31
 msgid "LDAP Filter"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:35
+#: ../views/ldap_plugin_admin/index.html.erb:35
 msgid "On the fly creation"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:39
+#: ../views/ldap_plugin_admin/index.html.erb:39
 msgid "LDAPS"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:46
+#: ../views/ldap_plugin_admin/index.html.erb:46
 msgid "Attributes"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:47
+#: ../views/ldap_plugin_admin/index.html.erb:47
 msgid "LDAP Field"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:54
+#: ../views/ldap_plugin_admin/index.html.erb:54
 msgid "Fullname"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:58
+#: ../views/ldap_plugin_admin/index.html.erb:58
 msgid "Mail"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:65
+#: ../views/ldap_plugin_admin/index.html.erb:65
 msgid "Behaviour Configuration"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:70
+#: ../views/ldap_plugin_admin/index.html.erb:70
 msgid "Allow password recovery"
 msgstr ""
 
-#: plugins/ldap/views/ldap_plugin_admin/index.html.erb:78
+#: ../views/ldap_plugin_admin/index.html.erb:78
 msgid "Back to plugins administration panel"
 msgstr ""

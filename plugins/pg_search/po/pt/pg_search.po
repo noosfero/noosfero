@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "PO-Revision-Date: 2014-12-18 18:40-0200\n"
 "Last-Translator: Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/noosfe"
+"ro/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,50 +23,51 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: ../lib/pg_search_plugin.rb:10
 msgid "Search engine that uses Postgres Full-Text Search."
 msgstr "Motor de busca que usa a Busca Full-Text do Postgres."
 
-#: ../lib/pg_search_plugin.rb:220
+msgid "True"
+msgstr ""
+
+msgid "False"
+msgstr ""
+
 msgid "Created at"
 msgstr "Criado em"
 
-#: ../lib/pg_search_plugin.rb:221
 msgid "Updated at"
 msgstr "Atualizado em"
 
-#: ../lib/pg_search_plugin.rb:222
 msgid "Types"
 msgstr "Formatos"
 
-#: ../lib/pg_search_plugin.rb:223
 msgid "TextArticle"
 msgstr "Artigo de Texto"
 
-#: ../lib/pg_search_plugin.rb:224
 msgid "UploadedFile"
 msgstr "Arquivo"
 
-#: ../lib/pg_search_plugin.rb:225
 msgid "RSSFeed"
 msgstr "RSS"
 
-#: ../lib/pg_search_plugin.rb:226
 msgid "Content types"
 msgstr "Tipos de conteúdo"
 
-#: ../lib/pg_search_plugin.rb:227
 msgid "Tags"
 msgstr "Labels"
 
-#: ../lib/pg_search_plugin/search_helper.rb:7
-msgid "Clear"
-msgstr "Limpar"
-
-#: ../lib/pg_search_plugin/search_helper.rb:8
 msgid "Refine options"
 msgstr "Refinar opções"
 
-#: ../lib/pg_search_plugin/search_helper.rb:21
+#, fuzzy
+msgid "Clear filters"
+msgstr "Limpar"
+
 msgid "Undefined"
 msgstr "Indefinido"
+
+msgid "Enable advanced search"
+msgstr ""
+
+msgid "Advanced Search"
+msgstr ""
