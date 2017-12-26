@@ -41,6 +41,7 @@ class CreateEnterprise < Task
 
   validate :validator_correct_region
   validate :not_used_identifier
+  validate :enterprise_valid?
 
   after_create do |task|
     if requestor.user.person.is_admin?
@@ -59,7 +60,7 @@ class CreateEnterprise < Task
 
   def not_used_identifier
     if self.status != Task::Status::CANCELLED && self.identifier && Profile.exists?(:identifier => self.identifier)
-      self.errors.add(:identifier, _('{fn} is already being as identifier by another enterprise, organization or person.').fix_i18n)
+      errors.add(:identifier, _('{fn} is already being as identifier by another enterprise, organization or person.').fix_i18n)
     end
   end
 
@@ -68,6 +69,21 @@ class CreateEnterprise < Task
       true
     else
       self.errors.size == 1 && !self.errors[:target_id].nil?
+    end
+  end
+
+  def enterprise_valid?
+    enterprise = Enterprise.new
+
+    DATA_FIELDS.reject{|field| field == "reject_explanation"}.each do |field|
+      enterprise.send("#{field}=", self.send(field))
+    end
+
+    enterprise.environment = environment
+
+    unless enterprise.valid?
+      errors.add(:data, :invalid) unless enterprise.errors[:identifier].present? &&
+                                          enterprise.errors.count == 1
     end
   end
 
@@ -153,8 +169,7 @@ class CreateEnterprise < Task
 
     enterprise.user = self.requestor.user
 
-    enterprise.save!
-    enterprise.add_admin(enterprise.user.person)
+    enterprise.add_admin(enterprise.user.person) if enterprise.save
   end
 
   def title
