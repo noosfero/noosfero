@@ -8,13 +8,15 @@
 
   <%= remote_form_for(@comment, :url => {:profile => profile.identifier, :controller => 'comment', :action => (edition_mode ? 'update' : 'create'), :id => (edition_mode ?  @comment.id : @page.id)}, :html => { :class => 'comment_form' } ) do |f| %>
 
-    <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
-    <%= expandable_text_area :comment, :body, "comment-field", rows: 1, title: _('Leave your comment'), placeholder: _('Leave your comment') %>
-
-    <% unless logged_in? %>
+    <% if logged_in? %>
+      <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
+    <% else %>
+      <%= required labelled_form_field(_('Name'), f.text_field(:name)) %>
+      <%= required labelled_form_field(_('e-mail'), f.text_field(:email)) %>
       <p><%= _('If you are a registered user, you can login and be automatically recognized.') %></p>
     <% end %>
 
+    <%= expandable_text_area :comment, :body, "comment-field", rows: 1, title: _('Leave your comment'), placeholder: _('Leave your comment') %>
 
     <% if !edition_mode %>
       <%= captcha_tags(:create_comment, user, environment, profile) %>

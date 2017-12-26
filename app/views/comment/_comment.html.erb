@@ -10,7 +10,7 @@
       <%= link_to(
         image_tag(url_image, :onerror=>'gravatarCommentFailback(this)',
                   'data-gravatar'=>gravatar_profile_image_url(comment.email, :size=>50)) +
-      content_tag('span', comment.author.name, :class => 'comment-info') +
+      content_tag('span', comment.author_name, :class => 'comment-info') +
       content_tag('span', comment.message,
                   :class => 'comment-user-status ' + status_class),
                   gravatar_profile_url(comment.email),
@@ -23,7 +23,7 @@
 
   <div class="comment-content">
     <p class="comment-header">
-      <%= link_to comment.author.name, comment.author.url, class: "comment-author-name" %>
+      <%= link_to comment.author_name, comment.author_url, class: "comment-author-name" %>
       <span class="comment-time"><span class="bullet-separator">•</span><%= show_time comment.created_at %></span>
     </p>
 

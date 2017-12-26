@@ -307,7 +307,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :body => 'some content', :source_id => page.id, :source_type => 'Article')
 
     xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...', :reply_of_id => comment.id}, :confirm => 'true'
-    assert_match /id="#{comment.anchor}" class="article-comment"/, ActiveSupport::JSON.decode(@response.body)['html']
+    assert_match /id="#{comment.anchor}" class="comment"/, ActiveSupport::JSON.decode(@response.body)['html']
   end
 
   should 'filter html content from body' do
