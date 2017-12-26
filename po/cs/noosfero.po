@@ -1,4 +1,4 @@
-index# Czech translations for 1.0-690-gcb6e853 package.
+# Czech translations for 1.0-690-gcb6e853 package.
 # Copyright (C) 2015 THE 1.0-690-gcb6e853'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the 1.0-690-gcb6e853 package.
 # Automatically generated, 2015.
