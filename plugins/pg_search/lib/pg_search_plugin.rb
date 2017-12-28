@@ -50,7 +50,7 @@ class PgSearchPlugin < Noosfero::Plugin
 
   def active_filters asset, scope, params, query = nil
     facets  = params[:facets] || {}
-    periods = params[:periods] || { created_at: nil, updated_at: nil, published_at: nil }
+    periods = params[:periods] || default_periods_for(asset)
     query ||= params[:query] || params[:q]
     block = Block.find_by id: params[:block]
 
@@ -82,6 +82,12 @@ class PgSearchPlugin < Noosfero::Plugin
     end
 
     [scope, facets, periods]
+  end
+
+  def default_periods_for(asset)
+    periods = { created_at: nil, updated_at: nil }
+    periods[:published_at] = nil if asset == :articles
+    periods
   end
 
   def filter_by_periods(scope, periods)
@@ -138,6 +144,7 @@ class PgSearchPlugin < Noosfero::Plugin
       attribute_facet(Article, scope, selected_facets, {:attribute => :content_type}),
       relation_facet(Tag, scope, selected_facets),
       relation_facet(Category, scope, selected_facets, {:filter => :pg_search_plugin_articles_facets}),
+      relation_facet(Region, scope, selected_facets, {:filter => :pg_search_plugin_articles_facets}),
       metadata_facets(Article, scope, selected_facets)
     ].flatten
   end
@@ -147,7 +154,7 @@ class PgSearchPlugin < Noosfero::Plugin
       relation_facet(Kind, scope, selected_facets),
       relation_facet(Tag, scope, selected_facets),
       relation_facet(Category, scope, selected_facets, {:filter => :pg_search_plugin_profiles_facets}),
-      relation_facet(Region, scope, selected_facets),
+      relation_facet(Region, scope, selected_facets, {:filter => :pg_search_plugin_profiles_facets}),
     ]
   end
   alias :people_facets :profiles_facets
