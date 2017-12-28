@@ -15,8 +15,8 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     @profile.boxes.first.blocks << @my_block
 
     @form1 = create_poll('Form 1')
-    @form2 = create_poll('Form 2', access: 'logged')
-    @form3 = create_poll('Form 3', access: 'associated')
+    @form2 = create_poll('Form 2', access: AccessLevels.levels[:users])
+    @form3 = create_poll('Form 3', access: AccessLevels.levels[:related])
   end
 
   should 'only list polls of the current profile' do
