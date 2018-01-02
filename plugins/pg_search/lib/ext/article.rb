@@ -23,6 +23,7 @@ Article.class_eval do
     end
   end
 
-  PgSearchPlugin::Filters = {:tag => :tags, :category => :categories, :region => :categories}
+  PgSearchPlugin::Filters = { :tag => :tags }
+  PgSearchPlugin::CategoryFilters = { category: 'articles_categories', region: 'articles_categories' }
   include PgSearchPlugin::SearchFilters
 end

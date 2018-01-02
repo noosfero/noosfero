@@ -12,4 +12,15 @@ class ArticleTest < ActiveSupport::TestCase
                       Article.pg_search_plugin_by_region(region.id)
   end
 
+  should 'include subcategory results when filtering by category' do
+    article = fast_create(Article)
+    parent = fast_create(Category)
+    category = Category.create!(name: 'sub', environment: Environment.default,
+                                parent: parent)
+    article.add_category category
+
+    assert_equivalent [article],
+                      Article.pg_search_plugin_by_category(parent.id)
+  end
+
 end

@@ -313,6 +313,53 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     refute_includes articles, a9.id
   end
 
+  should 'inlcude parent categories in category facets' do
+    category1 = fast_create(Category, name: 'A')
+    category2 = environment.categories.create(name: 'B', parent: category1)
+    category3 = environment.categories.create(name: 'C', parent: category2)
+    names = [category1, category2, category3].map do |category|
+      plugin.send(:relation_result_label_for_category, category)
+    end
+
+    article = fast_create(TextArticle)
+    article.add_category(category3)
+
+    plugin.instance_variable_set(:@base_scope, Article.all)
+    facets = plugin.send(:articles_facets, Article.all, {})
+    category_facet = facets.find{ |f| f && f[:name] == 'Categories' }
+    assert_equivalent names, category_facet[:options].map{ |f| f[:label] }
+  end
+
+  should 'not count twice the same categorization for article facets' do
+    category1 = fast_create(Category, name: 'A')
+    category2 = environment.categories.create(name: 'B', parent: category1)
+
+    article = fast_create(TextArticle)
+    article.add_category(category1)
+    article.add_category(category2)
+
+    plugin.instance_variable_set(:@base_scope, Article.all)
+    facets = plugin.send(:articles_facets, Article.all, {})
+    category_facet = facets.find{ |f| f && f[:name] == 'Categories' }
+    options = category_facet[:options].map { |f| [f[:label], f[:count]] }.to_h
+    assert_equal 1, options[category1.name]
+  end
+
+  should 'not count twice the same categorization for profile facets' do
+    category1 = fast_create(Category, name: 'A')
+    category2 = environment.categories.create(name: 'B', parent: category1)
+
+    person = fast_create(Person)
+    person.add_category(category1)
+    person.add_category(category2)
+
+    plugin.instance_variable_set(:@base_scope, Person.all)
+    facets = plugin.send(:people_facets, Person.all, {})
+    category_facet = facets.find{ |f| f && f[:name] == 'Categories' }
+    options = category_facet[:options].map { |f| [f[:label], f[:count]] }.to_h
+    assert_equal 1, options[category1.name]
+  end
+
   private
 
   def search(scope, query)
