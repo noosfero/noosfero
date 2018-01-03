@@ -1,10 +1,12 @@
 class CustomFormsPluginProfileController < ProfileController
   before_filter :has_access, :only => [:show]
+  before_filter :can_view_results, :only => [:review]
+
+  include CustomFormsPlugin::Helper
 
   def show
-    extend(CustomFormsPlugin::Helper)
-
-    @form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
+    profile = Profile.find_by(identifier: params[:profile])
+    @form = profile.forms.find_by(identifier: params[:id])
     if user
       @submission = CustomFormsPlugin::Submission.find_by form_id: @form.id, profile_id: user.id
       @submission ||= CustomFormsPlugin::Submission.new(:form => @form, :profile => user)
@@ -37,7 +39,8 @@ class CustomFormsPluginProfileController < ProfileController
   end
 
   def review
-    @form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
+    profile = Profile.find_by(identifier: params[:profile])
+    @form = profile.forms.find_by(identifier: params[:id])
     @fields = @form.fields
     @sort_by = params[:sort_by] == 'author_name' ? 'author_name' : 'created_at'
 
@@ -84,7 +87,7 @@ class CustomFormsPluginProfileController < ProfileController
     @kind = available_kinds.include?(params[:kind]) ? params[:kind] : 'all'
     @status = available_status.include?(params[:status]) ? params[:status] : 'all'
 
-    @forms = profile.forms
+    @forms = profile.forms.accessible_to(user, profile)
     @forms = apply_order(@forms, @order)
     @forms = filter_kinds(@forms, @kind)
     @forms = filter_status(@forms, @status)
@@ -132,6 +135,11 @@ class CustomFormsPluginProfileController < ProfileController
 
   def has_access
     form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
-    render_access_denied if form.blank? || !form.accessible_to(user)
+    render_access_denied if form.blank? || !AccessLevels.can_access?(form.access, user, profile)
+  end
+
+  def can_view_results
+    form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
+    render_access_denied if form.present? && !form.show_results_for(user)
   end
 end

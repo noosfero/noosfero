@@ -165,4 +165,78 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_includes assigns(:forms), star_trek
     assert_not_includes assigns(:forms), space_wars
   end
+
+  should 'forbid access to form based on AccessLevels' do
+    community = fast_create(Community)
+    form = CustomFormsPlugin::Form.create!(:profile => community, :name => 'Free Software', :identifier => 'free-software', :access => AccessLevels.levels[:visitors])
+    AccessLevels.expects(:can_access?).with(form.access, profile, community).returns(false)
+    get :show, :profile => community.identifier, :id => form.identifier
+    assert_response :forbidden
+    assert_template 'shared/access_denied'
+  end
+
+  should 'allow access to form based on AccessLevels' do
+    community = fast_create(Community)
+    form = CustomFormsPlugin::Form.create!(:profile => community, :name => 'Free Software', :identifier => 'free-software', :access => AccessLevels.levels[:visitors])
+    AccessLevels.expects(:can_access?).with(form.access, profile, community).returns(true)
+    get :show, :profile => community.identifier, :id => form.identifier
+    assert_response :success
+    assert_template 'custom_forms_plugin_profile/show'
+  end
+
+  should 'filter forms for visitors' do
+    logout
+    community = fast_create(Community)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+
+    get :queries, :profile => community.identifier
+
+    assert_includes assigns(:forms), f1
+    assert_not_includes assigns(:forms), f2
+    assert_not_includes assigns(:forms), f3
+  end
+
+  should 'filter forms for logged users' do
+    community = fast_create(Community)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+
+    get :queries, :profile => community.identifier
+
+    assert_includes assigns(:forms), f1
+    assert_includes assigns(:forms), f2
+    assert_not_includes assigns(:forms), f3
+  end
+
+  should 'filter forms for related users' do
+    community = fast_create(Community)
+    community.add_member(profile)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+
+    get :queries, :profile => community.identifier
+
+    assert_includes assigns(:forms), f1
+    assert_includes assigns(:forms), f2
+    assert_includes assigns(:forms), f3
+  end
+
+  should 'allow access to results' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :identifier => 'free-software', :access_result_options => 'private')
+    get :review, :profile => profile.identifier, :id => form.identifier
+    assert_response :success
+    assert_template 'custom_forms_plugin_profile/review'
+  end
+
+  should 'forbid access to results' do
+    logout
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :identifier => 'free-software', :access_result_options => 'private')
+    get :review, :profile => profile.identifier, :id => form.identifier
+    assert_response :forbidden
+    assert_template 'shared/access_denied'
+  end
 end

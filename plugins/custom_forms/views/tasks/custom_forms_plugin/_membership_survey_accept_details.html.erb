@@ -12,5 +12,6 @@
 <% end %>
 
 <%= f.fields_for :submission do |fi| %>
-  <%= render :partial => 'shared/form_submission', :locals => {:f => fi} %>
+  <%= render partial: 'shared/form_submission',
+             locals: { f: fi, form: @form, submission: @submission } %>
 <% end %>

@@ -1,0 +1,20 @@
+<% self.extend CustomFormsPlugin::Helper %>
+
+<%= block_title(block.title, block.subtitle) %>
+
+<%= link_to _('View all'),
+  { controller: 'custom_forms_plugin_profile',
+    action: 'queries', kind: kind },
+  class: 'view-all' %>
+
+<% forms = block.list_forms(user) %>
+<div class='form-list'>
+  <% if forms.present? %>
+    <% forms.each do |form| %>
+      <%= render partial: "blocks/#{block.type}_item",
+        locals: { form: form, block: block } %>
+    <% end %>
+  <% else %>
+    <%= content_tag('i', _('No queries available'), style: 'margin: auto;') %>
+  <% end %>
+</div>

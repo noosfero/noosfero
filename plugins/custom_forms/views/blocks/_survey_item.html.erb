@@ -1,0 +1,34 @@
+<%= content_tag('div', class: 'form-item survey') do %>
+
+  <%= link_to({ controller: 'custom_forms_plugin_profile', action: 'show',
+                id: form.identifier }, class: 'form-link') do %>
+    <div class='form-item-img'>
+      <% if form.begining.present? || form.ending.present? %>
+        <span class='period-overlay'><%= time_status(form) %></span>
+      <% end %>
+      <%= form_image_tag(form) %>
+    </div>
+
+    <div class='form-item-info'>
+      <div class='form-item-header'>
+        <span class='form-name'><%= form.name %></span>
+        <span class='form-status <%= form.status.to_s.to_slug %>'>
+          <%= time_status(form) %>
+        </span>
+      </div>
+      <div class='form-submissions'>
+        <%= n_("%s submission", "%s submissions", form.submissions.count) %
+          form.submissions.count %>
+      </div>
+    </div>
+  <% end %>
+
+  <% if form.show_results_for(current_person) %>
+    <div class='form-results'>
+      <%= link_to (form.status == :closed ? _('See final results') : _('See partial results')),
+        { controller: 'custom_forms_plugin_profile', action: 'review',
+          id: form.identifier },
+          class: 'partial-results-link' %>
+    </div>
+  <% end %>
+<% end %>

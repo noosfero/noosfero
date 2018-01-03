@@ -1,3 +1,5 @@
+@import 'style/form_blocks';
+
 .controller-profile_editor a.control-panel-custom-forms,
 .controller-profile_editor .msie6 a.control-panel-custom-forms {
   background-image: url(/plugins/custom_forms/icons/custom-forms.png)
@@ -181,92 +183,164 @@ tr.addition-buttons {
 }
 
 #queries-form input[type=text] {
-    background: none !important;
-    border: 1px solid #90949c;
-    border-radius: 4px;
-    outline: none !important;
-    flex-grow: 1;
-    padding: 6px;
-    margin-right: 5px
+  background: none !important;
+  border: 1px solid #90949c;
+  border-radius: 4px;
+  outline: none !important;
+  flex-grow: 1;
+  padding: 6px;
+  margin-right: 5px
 }
 
 #queries-form select {
-  padding: 6px 25px 6px 10px;
-  margin-right: 5px;
-  height: 100%;
-  border: 1px solid #e3e3e3;
-  border-radius: 3px;
-  background: url(/plugins/custom_forms/icons/selectbox-down-arrow.png) right center no-repeat;
-  background-color: #fff;
-  color: #444444;
-  font-size: 1.1em;
-  line-height: 16px;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+padding: 6px 25px 6px 10px;
+margin-right: 5px;
+height: 100%;
+border: 1px solid #e3e3e3;
+border-radius: 3px;
+background: url(/plugins/custom_forms/icons/selectbox-down-arrow.png) right center no-repeat;
+background-color: #fff;
+color: #444444;
+font-size: 1.1em;
+line-height: 16px;
+appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none;
 }
 
 #queries ul.results-list {
-  list-style: none;
-  padding-left: 0px;
+list-style: none;
+padding-left: 0px;
 }
 
 #queries ul.results-list li {
-  border-top: 1px solid #ddd;
-  padding: 20px 15px;
+border-top: 1px solid #ddd;
+padding: 20px 15px;
 }
 
 #queries ul.results-list li:first-child {
-  border-top: none;
+border-top: none;
 }
 
 #queries ul.results-list li:nth-child(odd) {
-  background-color: #f9f9f9;
+background-color: #f9f9f9;
 }
 
-#queries ul.results-list li a {
-  color: #333;
-  cursor: pointer;
-  display: block;
-  font-size: 1.3em;
-  margin-bottom: 3px;
+#queries ul.results-list li a.form-link {
+color: #333;
+cursor: pointer;
+display: block;
+font-size: 1.3em;
+margin-bottom: 3px;
+text-decoration: none;
+}
+
+#queries ul.results-list li a.form-link:hover {
+color: #666;
+}
+
+#queries ul.results-list li a.form-results {
   text-decoration: none;
+  color: #90949c;
 }
 
-#queries ul.results-list li a:hover {
-  color: #666;
+#queries ul.results-list li a.form-results:hover {
+  color: #555753;
 }
 
 #queries ul.results-list li .form-info {
-  color: #90949c;
-  font-size: 10px;
+color: #90949c;
+font-size: 10px;
 }
 
 #queries ul.results-list li .form-info i {
-  font-size: 0.9em;
-  margin-right: 1px;
+font-size: 0.9em;
+margin-right: 1px;
 }
 
 #queries ul.results-list li .form-info .bullet {
-  padding: 0px 2px;
+padding: 0px 2px;
 }
 
 #queries ul.results-list li p {
-  margin: 5px 0px;
+margin: 5px 0px;
 }
 
 #queries ul.results-list li .form-description {
-  margin-top: 6px;
+margin-top: 6px;
 }
 
-#queries ul.results-list li .form-image {
-  width: 100%;
-  height: 100px;
-  margin-bottom: 10px;
-  background-size: cover;
+#queries ul.results-list li .form-image-header {
+width: 100%;
+height: 100px;
+margin-bottom: 10px;
+background-size: cover;
 }
 
 #queries ul.results-list li .no-results {
-  font-size: 14px;
-  font-style: italic;
+font-size: 14px;
+font-style: italic;
+}
+
+.query-overview {
+  .query-header {
+    color: #90949c;
+
+    .bullet {
+      padding: 0px 4px;
+    }
+
+    a {
+      color: #fff;
+      cursor: pointer;
+      float: right;
+      background-color: #428bca;
+      border: 1px solid #357ebd;
+      line-height: 1.4;
+      text-align: center;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 4px;
+
+      &:hover, &:visited {
+        text-decoration: none;
+      }
+
+      &:hover {
+        color: #fff;
+        background-color: #3071a9;
+        border: 1px solid #285e8e;
+      }
+    }
+  }
+
+  .overview {
+    margin-top: 35px;
+    h6 {
+      font-size: 14px !important;
+      font-weight: 400;
+    }
+
+    table.review_text_align {
+      td {
+        padding: 8px 4px;
+        &:not(:first-child) {
+          text-align: left;
+        }
+      }
+
+      th {
+        border-bottom: 1px solid #90949c;
+        font-weight: 400;
+      }
+
+      th:first-child, td:first-child {
+        width: 20%;
+      }
+    }
+
+    div:nth-child(n + 2) {
+      margin-top: 30px;
+    }
+  }
 }
