@@ -47,18 +47,23 @@ class CommentParagraphPlugin < Noosfero::Plugin
   def article_extra_toolbar_buttons(article)
     user = context.send :user
     return [] if !article.comment_paragraph_plugin_enabled? || !article.allow_edit?(user) || article.kind_of?(CommentParagraphPlugin::Discussion)
-    buttons = [
-      {
-      :title => article.comment_paragraph_plugin_activated? ? _('Deactivate Comments') : _('Activate Comments'),
-      :url => {:controller => 'comment_paragraph_plugin_myprofile', :profile => article.profile.identifier, :action => 'toggle_activation', :id => article.id},
-      :icon => :toggle_comment_paragraph
-      }
-    ]
-    buttons << {
-      :title => _('Export Comments'),
-      :url => {:controller => 'comment_paragraph_plugin_profile', :profile => article.profile.identifier, :action => 'export_comments', :id => article.id},
-      :icon => :toggle_comment_paragraph
-    } if article.comment_paragraph_plugin_activated?
+
+    buttons = []
+    buttons << { :title => article.comment_paragraph_plugin_activated? ? _('Deactivate Comments') : _('Activate Comments'),
+                 :url => { :controller => 'comment_paragraph_plugin_myprofile',
+                           :profile => article.profile.identifier,
+                           :action => 'toggle_activation',
+                           :id => article.id },
+                 :icon => 'comment-o' }
+
+    if article.comment_paragraph_plugin_activated?
+      buttons << { :title => _('Export Comments'),
+                   :url => { :controller => 'comment_paragraph_plugin_profile',
+                             :profile => article.profile.identifier,
+                             :action => 'export_comments',
+                             :id => article.id },
+                   :icon => 'download' }
+    end
     buttons
   end
 

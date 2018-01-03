@@ -261,7 +261,7 @@ class ApplicationControllerTest < ActionController::TestCase
     login_as 'testuser'
     class Plugin1 < Noosfero::Plugin
       def user_menu_items(user)
-        proc { content_tag('span', 'Plugin1') }
+        proc {{:title => 'Plugin1', :icon => 'some-icon', :url => '/plugin1'}}
       end
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new])
