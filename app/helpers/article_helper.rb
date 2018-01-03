@@ -262,7 +262,10 @@ module ArticleHelper
     end
 
     plugins_toolbar_actions_for_article(@page).each do |plugin_button|
-      actions << link_to(plugin_button[:title], plugin_button[:url], plugin_button[:html_options])
+      plugin_button[:html_options] ||= {}
+      plugin_button[:html_options][:title] ||= plugin_button[:title]
+      title = font_awesome(plugin_button[:icon], plugin_button[:title])
+      actions << link_to(title, plugin_button[:url], plugin_button[:html_options])
     end
 
     actions << fullscreen_buttons("#article") << report_abuse(profile, :link, @page)

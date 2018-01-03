@@ -923,8 +923,14 @@ module ApplicationHelper
   end
 
   def plugins_items
-    plugins_items = @plugins.dispatch(:user_menu_items, user).collect { |content| instance_eval(&content) }
-    plugins_items
+    actions = []
+    plugins_toolbar(user).each do |item|
+      item[:html_options] ||= {}
+      item[:html_options][:title] ||= item[:title]
+      title = font_awesome(item[:icon], item[:title])
+      actions << link_to( title, item[:url], item[:html_options])
+    end
+    actions
   end
 
   def welcome_span
