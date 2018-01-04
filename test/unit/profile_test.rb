@@ -2025,8 +2025,10 @@ class ProfileTest < ActiveSupport::TestCase
     env = fast_create(Environment)
     env.roles.delete_all
     profile = fast_create(Organization)
+    another_profile = fast_create(Organization)
     roles = %w(foo bar profile_foo profile_bar).map{ |r| create(Role, :name => r, :key => r, :environment_id => env.id, :permissions => ["some"]) }
     roles << create(Role, name: 'test', key: 'something_else', environment_id: env.id, profile_id: profile.id)
+    roles << create(Role, name: 'another test', key: 'profile_something_else', environment_id: env.id, profile_id: another_profile.id)
     assert_equal roles[2..4], Profile::Roles.organization_roles(env.id, profile.id)
   end
 
