@@ -101,7 +101,7 @@ function convToValidLogin( str ) {
 }
 
 function convToValidUsername( str ) {
-  return convToValidIdentifier(str, '');
+  return convToValidIdentifier(str, '-');
 }
 
 /* * * Convert a string to a valid login name * * */
