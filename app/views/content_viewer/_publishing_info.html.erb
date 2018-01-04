@@ -41,7 +41,7 @@
   </div>
 
   <% unless defined?(no_action_bar) %>
-    <%= link_to font_awesome(:ellipsis), '#!', class: 'menu-toggle' %>
+    <%= link_to font_awesome(:ellipsis), '#!', class: 'menu-toggle', id: 'article-options' %>
     <ul class="noosfero-dropdown-menu">
       <% article_actions.each do |action| %>
         <%== "<li>#{action}</li>" unless action.blank? %>
