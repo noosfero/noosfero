@@ -14,7 +14,7 @@
       <%= article.size ? number_to_human_size(article.size, precision: 2) : '<span style="font-weight: 700;">-</span>'.html_safe %>
     </td>
     <td>
-      <%= link_to font_awesome(:ellipsis), '#!', class: 'menu-toggle' %>
+      <%= link_to font_awesome(:ellipsis), '#!', class: 'menu-toggle', id: 'article-options' %>
       <ul class="noosfero-dropdown-menu">
         <% if !remove_content_button(:edit, article) %>
           <li>
