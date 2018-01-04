@@ -25,7 +25,7 @@
 
   <li class="user-menu">
     <%= link_to("#{profile_image(user, :minor, class: "profile-icon")} #{content_tag :span, user.name, id: 'user-name'}".html_safe, '#', class: 'trigger-menu-toggle') %>
-    <%= link_to(font_awesome('caret-down'), '#', class: "menu-toggle") %>
+    <%= link_to(font_awesome('caret-down'), '#', class: "menu-toggle", id: "menu-dropdown") %>
     <ul class="noosfero-dropdown-menu">
       <% user_menu_items.flatten.reject(&:blank?).each do |item| %>
         <li><%= item %></li>
