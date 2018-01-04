@@ -566,7 +566,7 @@ end
 When /^I search ([^\"]*) for "([^\"]*)"$/ do |asset, query|
   step %{I go to the search #{asset} page}
   step %{I fill in "search-input" with "#{query}"}
-  step %{I press "Search"}
+  step %{I follow "Search"}
 end
 
 Then /^I should see ([^\"]*)'s profile image$/ do |name|

@@ -6,6 +6,7 @@ Capybara.register_driver :selenium do |app|
   when 'chrome'
     Capybara::Selenium::Driver.new app, browser: :chrome
   else
+    Selenium::WebDriver::Firefox::Binary.path="/home/lucasmartins/firefox-47/firefox"
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile.native_events = true
     Capybara::Selenium::Driver.new app, browser: :firefox, profile: profile
