@@ -16,7 +16,7 @@
       <p><%= _('If you are a registered user, you can login and be automatically recognized.') %></p>
     <% end %>
 
-    <%= expandable_text_area :comment, :body, "comment-field", rows: 1, title: _('Leave your comment'), placeholder: _('Leave your comment') %>
+    <%= text_area_tag 'comment[body]', @comment.body, id: "comment-field", rows: 1, title: _('Leave your comment'), placeholder: _('Leave your comment') %>
 
     <% if !edition_mode %>
       <%= captcha_tags(:create_comment, user, environment, profile) %>
@@ -24,9 +24,7 @@
 
     <%= hidden_field_tag(:confirm, 'false') %>
     <%= hidden_field_tag(:view, params[:view])%>
-    <%= hidden_field_tag(:reply_of_id) %>
+    <%= hidden_field_tag('comment[reply_of_id]') %>
 
     <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
   <% end %>
-
-<%= javascript_include_tag 'comment_form'%>

@@ -737,25 +737,27 @@ jQuery(function($) {
   });
 });
 
-function add_comment_reply_form(button, comment_id) {
-  //var container = jQuery(button).parents('.comment_reply');
-  var container = jQuery('#comment_reply_to_'+comment_id);
-  var f = container.find('.comment_form');
-  if (f.length == 0) {
-    comments_div = jQuery(button).parents('.comments');
-    f = comments_div.find('.comment_form').first().clone();
-    f.find('.errorExplanation').remove();
-    f.append('<input type="hidden" name="comment[reply_of_id]" value="' + comment_id + '" />');
-    container.append('<div class="page-comment-form"></div>');
-    container.find('.page-comment-form').append(f);
+function add_comment_reply_form(comment_id) {
+  var comment = $('#comment-' + comment_id)
+  var container = comment.children('.reply-comment-form')
+  var form = container.find('form.comment_form')
+
+  if(form.length == 0) {
+    form = $('#page-comment-form form.comment_form').clone()
+    container.append(form)
+    container.removeClass('hidden')
+    form.find('#comment-field').val('')
+    form.find('#comment_id').val('')
+    form.find('#comment_reply_of_id').val(comment_id)
+    form.find('#comment-field').focus()
   }
-  if (container.hasClass('closed')) {
-    container.removeClass('closed');
-    container.addClass('opened');
-    container.find('.comment_form input[type=text]:visible:first').focus();
+
+  if(container.hasClass('closed')) {
+    container.removeClass('closed')
+    container.addClass('opened')
+    container.find('.comment_form input[type=text]:visible:first').focus()
   }
-  jQuery('.display-comment-form').hide();
-  return f;
+  return false
 }
 
 function update_comment_count(element, new_count) {
@@ -783,41 +785,33 @@ function update_comment_count(element, new_count) {
 
 }
 
-function remove_comment(button, url, msg) {
-  var $ = jQuery;
-  var $button = $(button);
-  if (msg && !confirm(msg)) {
-    $button.removeClass('comment-button-loading');
-    return;
-  }
-  $button.addClass('comment-button-loading');
-  $.post(url, function(data) {
-    if (data.ok) {
-      var $comment = $button.closest('.article-comment');
-      var $replies = $comment.find('.comment-replies .article-comment');
+function send_comment_action(link) {
+  var comment_id = link.closest('.comment-actions').data('comment-id')
+  var message = link.data('message')
+  var url = link.data('url')
 
-      var $comments_div = $button.closest('.comments');
+  if ((message && confirm(message)) || !message) {
+    $.post(url, function(data) {
+      if (data.ok) {
+        var comment = $('#comment-' + comment_id);
+        var replies = comment.find('.comment-replies li.comment-container');
+        var comments_removed = 1;
 
-      var comments_removed = 1;
-      $comment.slideUp(400, function() {
-        if ($button.hasClass('remove-children')) {
-          comments_removed = 1 + $replies.size();
-        } else {
-          $replies.appendTo('.article-comments-list');
-        }
-
-        $comments_div.find('.comment-count').add('#article-header .comment-count').each(function() {
-          var count = parseInt($(this).html());
-          update_comment_count($(this), count - comments_removed);
+        comment.slideUp(400, function() {
+          if(link.hasClass('remove-children')) {
+            comments_removed += replies.length
+          } else {
+            replies.appendTo('#article-comments-list')
+          }
+          $('.comment-count-write-out').each(function() {
+            var count = parseInt($(this).text());
+            update_comment_count($(this), count - comments_removed);
+          });
+          $(this).remove();
         });
-        $(this).remove();
-      });
-
-    }else{
-      $button.removeClass('comment-button-loading');
-      return;
-    }
-  });
+      }
+    });
+  }
 }
 
 function remove_item_wall(button, item, url, msg) {
@@ -1311,7 +1305,7 @@ $(document).ready(function() {
     $(".noosfero-dropdown-menu").fadeOut();
   });
 
-  $(".menu-toggle").click(function(e) {
+  $(".menu-toggle").live("click", function(e) {
     e.stopPropagation();
     $(this).siblings(".noosfero-dropdown-menu").toggle(400);
   });
@@ -1334,4 +1328,21 @@ $(document).ready(function() {
     $(this).closest("form").submit();
     $(this).closest("li").fadeOut(600, function() { $(this).remove(); });
   });
+
+  $('a.comment-remove').live('click', function() {
+    var comment_id = $(this).closest('.comment-actions').data('comment-id')
+    var message = $(this).data('message')
+    var url = $(this).data('url')
+    send_comment_action(comment_id, message, url)
+  })
+
+  $('a.comment-action').live('click', function() {
+    send_comment_action($(this))
+  })
+
+  $(".comment-item .reply-comment-link").live('click', function(){
+     var comment_id = $(this).data('comment-id')
+     add_comment_reply_form(comment_id)
+     return false
+  })
 });

@@ -1,43 +1,45 @@
-<li id="<%= comment.anchor %>" class="<%= kindify_class(comment.author, 'comment') %>">
-  <div class="comment-author-picture">
-    <% if comment.author %>
-      <%= link_to image_tag(profile_icon(comment.author, :minor)), comment.author.url, class: 'comment-picture', title: comment.author.name %>
-    <% else %>
-      <% url_image, status_class = comment.author_id ?
-        [comment.removed_user_image, 'icon-user-removed'] :
-        [gravatar_profile_image_url( comment.email, :size => 50, :d=>404 ), 'icon-user-unknown'] %>
+<li id="<%= comment.anchor %>" class="<%= kindify_class(comment.author, 'comment-container') %>">
+  <div class='comment-item'>
+    <div class='comment'>
+      <div class="comment-author-picture">
+        <% if comment.author %>
+          <%= link_to image_tag(profile_icon(comment.author, :minor)), comment.author.url, class: 'comment-picture', title: comment.author.name %>
+        <% else %>
+          <% url_image, status_class = comment.author_id ?
+            [comment.removed_user_image, 'icon-user-removed'] :
+            [gravatar_profile_image_url( comment.email, :size => 50, :d=>404 ), 'icon-user-unknown'] %>
 
-      <%= link_to(
-        image_tag(url_image, :onerror=>'gravatarCommentFailback(this)',
-                  'data-gravatar'=>gravatar_profile_image_url(comment.email, :size=>50)) +
-      content_tag('span', comment.author_name, :class => 'comment-info') +
-      content_tag('span', comment.message,
-                  :class => 'comment-user-status ' + status_class),
-                  gravatar_profile_url(comment.email),
-                  :target => '_blank',
-                  :class => 'comment-picture',
-                  :title => '%s %s' % [comment.author_name, comment.message]
-      )%>
-    <% end %>
-  </div>
+          <%= link_to(
+            image_tag(url_image, :onerror=>'gravatarCommentFailback(this)',
+                      'data-gravatar'=>gravatar_profile_image_url(comment.email, :size=>50)),
+                      gravatar_profile_url(comment.email),
+                      :target => '_blank',
+                      :class => 'comment-picture',
+                      :title => '%s %s' % [comment.author_name, comment.message]
+          )%>
+        <% end %>
+      </div>
 
-  <div class="comment-content">
-    <p class="comment-header">
-      <%= link_to comment.author_name, comment.author_url, class: "comment-author-name" %>
-      <span class="comment-time"><span class="bullet-separator">•</span><%= show_time comment.created_at %></span>
-    </p>
+      <div class="comment-content">
+        <p class="comment-header">
+          <%= link_to comment.author_name, comment.author_url, class: "comment-author-name" %>
+          <span class="comment-time"><span class="bullet-separator">•</span><%= show_time comment.created_at %></span>
+        </p>
 
-    <p class="comment-text">
-      <%= txt2html comment.body %>
-    </p>
-    <%= safe_join(@plugins.dispatch(:comment_extra_contents, local_assigns).collect { |content| instance_exec(&content) }, "") %>
+        <p class="comment-text"><%= txt2html comment.body %></p>
+        <%= safe_join(@plugins.dispatch(:comment_extra_contents, local_assigns).collect { |content| instance_exec(&content) }, "") %>
+      </div>
+    </div>
+    <%= comment_actions(comment) %>
   </div>
 
   <% unless comment.replies.blank? || comment.spam? %>
     <ul class="comment-replies">
       <% comment.replies.each do |reply| %>
-        <%= render partial: 'comment/comment', locals: { comment: reply } %>
+              <%= render partial: 'comment/comment', locals: { comment: reply, :edtion_mode => true } %>
       <% end %>
     </ul>
   <% end %>
+
+  <div class='reply-comment-form hidden'></div>
 </li>

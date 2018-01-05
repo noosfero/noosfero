@@ -1,20 +1,15 @@
-<ul>
-  <% if !links_submenu.empty? %>
-    <div class="comment-actions">
-      <%= popover_menu(_('Contents menu'),'',links_submenu,:class => 'comment-trigger', :url => url) %>
-    </div>
-  <% end %>
-</ul>
-<div class="comments-action-bar">
-  <% unless comment.spam? %>
-    <%= link_to_function '',
-      "var f = add_comment_reply_form(this, %s); f.find('comment_title, textarea').val(''); return false" % comment.id,
-      :class => 'comment-footer comment-footer-link comment-footer-hide comment-actions-reply button',
-      :id => 'comment-reply-to-' + comment.id.to_s,
-      :title => _('Reply')
-    %>
-  <% end %>
-  <% links_action_bar.collect do |link| %>
-    <%= link[:link] %>
-  <% end %>
+<div class='comment-actions' data-comment-id=<%= comment.id%>>
+
+  <ul class = comment-action-bar>
+    <% links_action_bar.each do |action| %>
+            <li><%= action %></li>
+    <% end %>
+  </ul>
+
+  <%= link_to font_awesome(:ellipsis), '#!', class: 'menu-toggle' %>
+  <ul class="noosfero-dropdown-menu">
+    <% links_submenu.each do |action| %>
+            <li><%= action %></li>
+    <% end %>
+  </ul>
 </div>
