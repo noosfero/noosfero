@@ -43,10 +43,10 @@ Feature: edit article
     And I fill in "Title" with "My Folder"
     And I choose "article_published_false"
     And I uncheck "article_show_to_followers"
-    And I press "Save"
+    And I follow "Save"
     And I log off
     And I go to /freesoftware/my-folder
-    Then I should see "Access denied"
+    Then I should see "You are not allowed to view this page."
 
   @selenium
   Scenario: Hide token field when show to members is activated
@@ -107,9 +107,10 @@ Feature: edit article
     And "Mario Souto" is a member of "Free Software"
     And "Maria Silva" is a member of "Free Software"
     And I go to /freesoftware/my-folder
+    And I follow "article-options"
     When I follow "Edit"
     And I choose "article_published_false"
-    And I press "Save"
+    And I follow "Save"
     And I add to "My Folder" the following exception "Maria Silva"
     And I am logged in as "maria"
     And I go to /freesoftware/my-folder
@@ -178,16 +179,18 @@ Feature: edit article
   Scenario: edit an article
     Given I am on joaosilva's sitemap
     When I follow "Save the whales"
+    And I follow "article-options"
     And I follow "Edit"
     And I fill in "Title" with "My Article edited"
-    And I press "Save"
+    And I follow "Save"
     Then I should be on /joaosilva/my-article-edited
 
   @selenium
   Scenario: cancel button back to article when edit
     Given I am on joaosilva's sitemap
     When I follow "Save the whales"
-    And I follow "Edit" within "#article-actions"
+    And I follow "article-options"
+    And I follow "Edit"
     And I follow "Cancel"
     Then I should be on /joaosilva/save-the-whales
 
@@ -200,13 +203,14 @@ Feature: edit article
     And I should see "Folder"
     And I follow "Folder"
     And I fill in "Title" with "My Folder"
-    And I press "Save"
+    And I follow "Save"
     Then I should be on /joaosilva/my-folder
+    Then I follow "article-options"
     When I follow "New article"
     And I should see "Text article"
     And I follow "Text article"
     And I fill in "Title" with "My Article"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "My Article"
     And I should be on /joaosilva/my-folder/my-article
 
@@ -219,8 +223,9 @@ Feature: edit article
     And I should see "Folder"
     And I follow "Folder"
     And I fill in "Title" with "My Folder"
-    And I press "Save"
+    And I follow "Save"
     Then I should be on /joaosilva/my-folder
+    Then I follow "article-options"
     When I follow "New article"
     And I should see "Text article"
     And I follow "Text article"
@@ -254,13 +259,15 @@ Feature: edit article
     And I follow "Save the whales"
     And the following languages "en es" are available on environment
     Then I should not see "Add translation"
+    Then I follow "article-options"
     And I follow "Edit"
     And I select "English" from "Language"
-    Then I press "Save"
+    Then I follow "Save"
+    Then I follow "article-options"
     And I follow "Add translation"
     And I fill in "Title" with "Mi neuvo artículo"
     And I select "Español" from "Language"
-    When I press "Save"
+    When I follow "Save"
     Then I should be on /joaosilva/mi-neuvo-articulo
     And I should see "Translations"
 
@@ -269,15 +276,22 @@ Feature: edit article
     Given the following articles
       | owner     | name               | language |
       | joaosilva | Article in English | en       |
+    Given I am logged in as admin
+    And I go to /admin
+    And I follow "Environment settings"
+    And I select "English" from "Default language"
+    And I check "Português"
+    And I check "English"
+    And I follow "Save"
     And I am on joaosilva's sitemap
-    And the following languages "en pt" are available on environment
     When I follow "Article in English"
+    Then I follow "article-options"
     And I follow "Add translation"
     And I fill in "Title" with "Article in Portuguese"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "Language must be choosen"
     When I select "Português" from "Language"
-    And I press "Save"
+    And I follow "Save"
     Then I should not see "Language must be choosen"
     And I should be on /joaosilva/article-in-portuguese
 
@@ -289,7 +303,6 @@ Feature: edit article
     When I follow "Text article"
     And I fill in "Title" with "My time testing Article"
     And I fill in "Publish date" with "1980-11-15 20:37"
-    And I press "Save"
+    And I follow "Save"
     And I go to /joaosilva/my-time-testing-article
     Then I should see "November 15, 1980 20:37"
-
