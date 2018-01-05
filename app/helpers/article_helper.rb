@@ -178,9 +178,17 @@ module ArticleHelper
   def following_button(page, user)
     if !user.blank? and user != page.author
       if page.is_followed_by? user
-        link_to unfollow_button_text(page), { controller: :profile, profile: page.profile.identifier, action: :unfollow_article, article_id: page.id }
+        link_to unfollow_button_text(page), { controller: :profile,
+                                              profile: page.profile.identifier,
+                                              action: :unfollow_article,
+                                              article_id: page.id },
+                                              { title: "Unfollow" }
       else
-        link_to follow_button_text(page), { controller: :profile, profile: page.profile.identifier, action: :follow_article, article_id: page.id }
+        link_to follow_button_text(page), { controller: :profile,
+                                            profile: page.profile.identifier,
+                                            action: :follow_article,
+                                            article_id: page.id },
+                                            { title: "Follow" }
       end
     end
   end
@@ -213,7 +221,7 @@ module ArticleHelper
     if @page.allow_edit?(user) && !remove_content_button(:edit, @page)
       content = font_awesome(:edit, label_for_edit_article(@page))
       url = profile.admin_url.merge({ controller: 'cms', action: 'edit', id: @page.id })
-      actions << link_to(content, url)
+      actions << expirable_content_reference(@page, :edit, content, url)
     end
 
     if @page != profile.home_page && !@page.has_posts? && @page.allow_delete?(user) && !remove_content_button(:delete, @page)
@@ -243,7 +251,7 @@ module ArticleHelper
 
       content = font_awesome(:clone, label_for_clone_article(@page))
       url = profile.admin_url.merge({ controller: 'cms', action: 'new', id: @page.id, clone: true, parent_id: (@page.folder? ? @page : @page.parent), type: @page.class})
-      actions << link_to(content, url)
+      actions << expirable_content_reference(@page, :clone, content, url)
     end
 
     if @page.accept_uploads? && @page.allow_create?(user)

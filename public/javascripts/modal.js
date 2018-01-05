@@ -47,7 +47,6 @@ noosfero.modal = {
   },
 
   close: function() {
-    console.log("rsrs");
     jQuery.colorbox.close();
   },
 

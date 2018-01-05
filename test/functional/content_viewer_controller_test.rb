@@ -229,7 +229,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'give link to edit the article for owner' do
     login_as('testinguser')
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
   should 'not give link to edit the article for non-logged-in people' do
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
@@ -324,7 +324,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     page.comments.create!(:author => profile, :body => 'list my comment', :body => 'foo bar baz')
     get :view_page, :profile => profile.identifier, :page => ['myarticle']
 
-    assert_tag :content => /list my comment/
+    assert_tag :tag => 'ul', :attributes => {:id => 'article-comments-list'}
   end
 
   should 'order comments according to comments ordering option' do
@@ -333,39 +333,19 @@ class ContentViewerControllerTest < ActionController::TestCase
       article.comments.create!(:author => profile, :title => "some title #{n}", :body => "some body #{n}")
     end
 
-    p "*" * 80
-    p article.path.split('/')
-    p "*" * 80
-
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
 
     for i in 1..12
-     # assert_tag :tag => 'div', :attributes => { :class => 'comment-content' },
-     #            :descendant => { :tag => 'p',
-     #            :attributes => { class: 'comment-text' },
-     #            :content => "some body #{i}" }
-
-
-      assert_tag :tag => 'p', :content => "some body #{i}"
-   #   assert_no_tag :tag => 'div', :attributes => { :class => 'comment-content' },
-   #              :descendant => { :tag => 'p',
-   #              :attributes => { class: 'comment-text' },
-   #              :content => "some body #{i+12}" }
+      assert_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i+12}"
+      assert_no_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i}"
     end
 
-   # xhr :get, :view_page, :profile => profile.identifier, :page => article.path.split('/'), :comment_page => 1, :comment_order => 'newest'
+    xhr :get, :view_page, :profile => profile.identifier, :page => article.path.split('/'), :comment_page => 1, :comment_order => 'oldest'
 
-   # for i in 1..12
-   #   assert_no_tag :tag => 'div', :attributes => { :class => 'comment-content' },
-   #              :descendant => { :tag => 'p',
-   #              :attributes => { class: 'comment-text' },
-   #              :content => "some body #{i}" }
-
-   #   assert_tag :tag => 'div', :attributes => { :class => 'comment-content' },
-   #              :descendant => { :tag => 'p',
-   #              :attributes => { class: 'comment-text' },
-   #              :content => "some body #{i+12}" }
-   # end
+    for i in 1..12
+      assert_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i}"
+      assert_no_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i+12}"
+    end
   end
 
   should 'redirect to new article path under an old path' do
@@ -870,7 +850,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => article.path
 
-    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status icon-user-removed'}
+    assert_tag :tag => 'a', :attributes => {:title => ' (removed user)'}
   end
 
   should 'show only first paragraph of blog posts if visualization_format is short' do
@@ -1245,7 +1225,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment = article.comments.create!(:author => profile, :title => 'a comment', :body => 'lalala')
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }
+    assert_tag :tag => 'a', :attributes => { :class => 'reply-comment-link' }
   end
 
   should 'display reply to comment button if not authenticated' do
@@ -1255,7 +1235,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }
+    assert_tag :tag => 'a', :attributes => { :class => 'reply-comment-link' }
   end
 
   should 'display replies if comment has replies' do
@@ -1384,7 +1364,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as('testinguser')
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => 'This button is expired.', :class => 'button with-text icon-edit disabled' } }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :title => 'This button is expired.' } }
   end
 
   should 'not display comments marked as spam' do

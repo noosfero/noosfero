@@ -1746,7 +1746,6 @@ table#recaptcha_table tr:hover td {
 a.menu-toggle {
   color: #212e3c;
   float: right;
-  margin-top: 4px;
   font-size: 16px;
   &:focus { outline: none; }
 }
@@ -1779,6 +1778,12 @@ ul.noosfero-dropdown-menu {
       text-decoration: none;
       text-align: left;
       white-space: nowrap;
+
+      &.disabled {
+        font-style: italic;
+        cursor: not-allowed;
+      }
+
       i { width: 20px; }
       &:hover {
         color: #212e3c !important;

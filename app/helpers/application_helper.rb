@@ -1055,10 +1055,9 @@ module ApplicationHelper
         link_to(text, url, :class => klass + 'with-text icon-alert', :title => report_profile_message)
       end
     elsif type == :comment_link
-      (user.already_reported?(profile) ?
-        content_tag('a', text, :class => klass + ' disabled comment-footer comment-footer-link', :title => already_reported_message) :
-        link_to(text, url, :class => klass + ' comment-footer comment-footer-link', :title => report_profile_message)
-      ) + content_tag('span', ' ', :class => 'comment-footer comment-footer-hide')
+      user.already_reported?(profile) ?
+        content_tag('a', text, :class => klass + 'disabled', :title => already_reported_message) :
+        link_to(text, url, :class => klass, :title => report_profile_message)
     end
   end
 

@@ -1,41 +1,50 @@
+form.comment_form {
+  width: 100%;
+  padding-top: 10px;
+  min-width: 260px;
+
+  a {
+    display: inline-block;
+    margin-right: 2px;
+    vertical-align: top;
+    overflow: auto;
+    img {
+      border-radius: 100%;
+      width: 36px;
+    }
+  }
+  textarea {
+    display: inline-block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: inherit !important;
+    padding: 6px;
+    margin-top: 3px;
+    width: 80%;
+    overflow: hidden;
+    @media only screen and (max-width: 960px) { width: 75%; }
+    @media only screen and (max-width: 540px) { width: 70%; }
+  }
+}
+
 .comments {
   margin-top: 40px;
   .comments-list-header {
     display: flex;
     margin: 20px 0px 30px 0px;
-    .page-comment-form {
-      flex-grow: 5;
-      form {
-        width: 100%;
-        a {
-          display: inline-block;
-          margin-right: 2px;
-          vertical-align: top;
-          overflow: auto;
-          img {
-            border-radius: 100%;
-            width: 36px;
-          }
-        }
-        textarea {
-          display: inline-block;
-          border-radius: 4px;
-          box-sizing: border-box;
-          font-family: inherit !important;
-          padding: 6px;
-          width: 80%;
-          @media only screen and (max-width: 960px) { width: 75%; }
-          @media only screen and (max-width: 540px) { width: 70%; }
-        }
-      }
-    }
 
     .comment-order {
       flex-grow: 1;
       form#form_order select {
         height: 32px;
+        margin-top: 10px;
       }
     }
+  }
+
+  .page-comment-form,
+  .reply-comment-form {
+    flex-grow: 5;
   }
 
   a#view-more-comments {
@@ -58,15 +67,23 @@
 
 .article-comments-list {
   padding-left: 0;
-  li.comment {
+  li.comment-container {
     box-sizing: border-box;
     color: #333;
-    display: flex;
     list-style: none;
     background-color: #fff;
     border-top: 1px solid #e8e8e8;
-    padding: 25px 15px;
+    padding: 25px 0;
     width: 100%;
+
+    .comment-item {
+      display: flex;
+      justify-content: space-between;
+
+      .comment {
+        display: flex;
+      }
+    }
 
     .comment-author-picture {
       a.comment-picture img {
@@ -107,7 +124,7 @@
 
       .comment-text {
         word-break: break-all;
-        margin: 5px 0 0 0;
+        margin: 5px 0 10px 0;
       }
 
       a {
@@ -394,9 +411,6 @@ a.comment-picture {
   padding-left: 74px;
   margin-top: 2px;
 }
-#article .comment-replies .comment-replies {
-  padding-left: 10px;
-}
 #article .comment-replies .comment-replies .article-comment, #article .comment-replies .comment-replies .article-comment-inner {
   border-right: 0;
   margin-right: -1px;
@@ -551,3 +565,26 @@ a.comment-picture {
   margin-bottom: 40px;
 }
 
+#report-abuse-form textarea {
+  overflow: hidden;
+  height: 100px;
+  width: 90%;
+}
+
+#article {
+  .comment-actions {
+    display: flex;
+
+    .comment-action-bar {
+      display: flex;
+
+      li {
+        margin-right: 7px;
+      }
+    }
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
