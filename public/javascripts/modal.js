@@ -55,8 +55,9 @@ noosfero.modal = {
 noosfero.modal.watchClass();
 
 /**** New modal ****/
-$(function() {
-  $(".open-modal").click(function(event) {
+//$(function() {
+$( document ).ready(function() {
+  $("body").on('click', '.open-modal', function(event) {
     event.preventDefault();
     $.get($(this).attr('href'), function(data) {
       $("#noosfero-modal-inner").html(data);
