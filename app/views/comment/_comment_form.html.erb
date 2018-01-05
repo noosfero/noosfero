@@ -28,3 +28,5 @@
 
     <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
   <% end %>
+
+  <%= javascript_include_tag 'comment_form' %>
