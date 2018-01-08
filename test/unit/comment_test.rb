@@ -328,7 +328,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'not provide author url for unauthenticated user' do
-    assert_nil build(Comment, :email => 'my@email.com').author_url
+    assert_equal '#', build(Comment, :email => 'my@email.com').author_url
   end
 
   should 'be able to reject a comment' do

@@ -39,6 +39,7 @@ class CommentHelperTest < ActionView::TestCase
     self.stubs(:link_for_spam).returns(nil)
     self.stubs(:link_for_edit).returns(nil)
     self.stubs(:link_for_remove).returns(nil)
+    self.stubs(:link_for_reply).returns(nil)
     menu = comment_actions(comment)
     assert_no_match /class=\"comment-actions\"/, menu
   end
@@ -134,7 +135,8 @@ class CommentHelperTest < ActionView::TestCase
   end
 
   should 'include actions of plugins in action bar' do
-    comment = Comment.new
+    article = Article.new(:profile => profile)
+    comment = build(Comment, :article => article)
     plugin_action = {:link => 'plugin_action', :action_bar => true}
     @plugins.stubs(:dispatch).returns([plugin_action])
     html = comment_actions(comment)

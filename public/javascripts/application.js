@@ -746,6 +746,7 @@ function add_comment_reply_form(comment_id) {
     form = $('#page-comment-form form.comment_form').clone()
     container.append(form)
     container.removeClass('hidden')
+    $('#page-comment-form .errorExplanation').remove()
     form.find('#comment-field').val('')
     form.find('#comment_id').val('')
     form.find('#comment_reply_of_id').val(comment_id)

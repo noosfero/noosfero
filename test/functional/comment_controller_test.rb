@@ -196,7 +196,7 @@ class CommentControllerTest < ActionController::TestCase
     assert_no_difference 'Comment.count' do
       xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => ""}, :confirm => 'true'
     end
-    assert_match /field_with_errors/, @response.body
+    assert_match /errorExplanation/, @response.body
   end
 
   should 'create ApproveComment task when adding a comment in a moderated article' do
@@ -297,7 +297,7 @@ class CommentControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle')
 
     xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
-    assert_match /id="#{Comment.last.anchor}" class="comment"/, ActiveSupport::JSON.decode(@response.body)['html']
+    assert_match /id="#{Comment.last.anchor}" class="comment-container"/, ActiveSupport::JSON.decode(@response.body)['html']
   end
 
   should "render the root comment when a reply is made" do
@@ -307,7 +307,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :body => 'some content', :source_id => page.id, :source_type => 'Article')
 
     xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...', :reply_of_id => comment.id}, :confirm => 'true'
-    assert_match /id="#{comment.anchor}" class="comment"/, ActiveSupport::JSON.decode(@response.body)['html']
+    assert_match /id="#{comment.anchor}" class="comment-container"/, ActiveSupport::JSON.decode(@response.body)['html']
   end
 
   should 'filter html content from body' do
@@ -438,7 +438,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile.id)
 
     get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
-    assert_tag :tag => 'textarea', :attributes => { :id => 'comment-field', :class => ' autogrow', :title => 'Leave your comment', :placeholder => 'Leave your comment' }, :content => /Original comment/
+    assert_tag :tag => 'textarea', :attributes => { :id => 'comment-field', :title => 'Leave your comment', :placeholder => 'Leave your comment' }, :content =>  /Original comment/
   end
 
    should 'not crash on edit comment if comment does not exist' do

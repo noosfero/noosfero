@@ -53,7 +53,7 @@ class CmsHelperTest < ActionView::TestCase
     plugins.stubs(:dispatch).returns([])
     profile = fast_create(Person)
     article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :class => 'modal-toggle button with-text icon-spread', :title => nil)
+    expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :modal => true, :class => 'button icon-spread', :title => 'Spread this')
 
     result = display_spread_button(article)
   end
