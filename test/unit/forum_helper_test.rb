@@ -75,10 +75,10 @@ class ForumHelperTest < ActionView::TestCase
     c = Comment.last
     out = last_topic_update(some_post)
     result = time_ago_in_words(c.created_at)
-    assert_match "#{result} by John", out
+    assert_match "#{result} by", out
     assert_match 'John', out
 
-    assert_match(/#{result} by John/m, last_topic_update(some_post))
+    assert_match(/#{result} by <a href=\"#\">John<\/a>/m, last_topic_update(some_post))
   end
 
   should "not escape html in last topic update" do

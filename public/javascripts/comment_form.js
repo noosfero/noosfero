@@ -1,4 +1,5 @@
 $('.comment_form textarea').live('keypress', function(e) {
+    e.stopPropagation()
     if(e.which == 13 && !e.shiftKey) {
         save_comment($(this));
         $("#noosfero-modal").fadeOut();

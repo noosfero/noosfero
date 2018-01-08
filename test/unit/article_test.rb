@@ -1394,7 +1394,7 @@ class ArticleTest < ActiveSupport::TestCase
     post.comments << build(Comment, :name => 'Guest', :email => 'guest@example.com', :title => 'test comment', :body => 'hello!')
     assert_equal post.comments.last.created_at, post.info_from_last_update[:date]
     assert_equal "Guest", post.info_from_last_update[:author_name]
-    assert_nil post.info_from_last_update[:author_url]
+    assert_equal '#', post.info_from_last_update[:author_url]
   end
 
   should 'return only folders' do
