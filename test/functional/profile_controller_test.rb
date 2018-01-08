@@ -1594,7 +1594,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     login_as(user.identifier)
     get :index
-    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+    assert_no_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
   end
 
   should 'display list of communities to manage on menu if enabled' do
@@ -1608,7 +1608,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     login_as(user.identifier)
     get :index
-    assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+    assert_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
 
   end
 
@@ -1641,10 +1641,10 @@ class ProfileControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+    assert_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
     doc = Nokogiri::HTML @response.body
     assert_select doc, '#manage-communities li > a' do |links|
-      assert_equal 2, links.length
+      assert_equal 4, links.length
       assert_match /community_1/, links.to_s
       assert_match /community_2/, links.to_s
       assert_no_match /community_3/, links.to_s
@@ -1670,10 +1670,10 @@ class ProfileControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
+    assert_tag :tag => 'ul', :attributes => {:id => 'manage-enterprises'}
     doc = Nokogiri::HTML @response.body
     assert_select doc, '#manage-enterprises li > a' do |links|
-      assert_equal 1, links.length
+      assert_equal 2, links.length # User menu and hamburger menu
       assert_match /Test enterprise1/, links.to_s
       assert_no_match /Test enterprise_2/, links.to_s
     end

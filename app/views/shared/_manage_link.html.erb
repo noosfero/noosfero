@@ -1,8 +1,6 @@
-<div id=<%= "manage-#{kind}" %> class="manage-groups">
-  <a href="#" id=<%= "manage-#{kind}-link" %> class="simplemenu-trigger" title="<%= _('Manage %s') % _(kind) %>"><i class=<%= "icon-menu-#{kind.singularize}" %>></i><strong><%= ui_icon('ui-icon-triangle-1-s') + title %></strong></a>
-  <ul class="simplemenu-submenu">
+<a href='#!' title="<%= _('Manage %s') % _(kind)%>" class='menu-toggle'><%= title %></a>
+<ul class='noosfero-dropdown-menu submenu' id='<%= 'manage-' + kind %>'>
     <% link.each do |link| %>
-      <li class="simplemenu-item"><%= link %></li>
+      <li><%= link %></li>
     <% end %>
-  </ul>
-</div>
+</ul>
