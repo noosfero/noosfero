@@ -15,7 +15,10 @@
 
 <% if @profile.public? || (logged_in? && current_person.follows?(@profile)) %>
   <div class='profile'>
-    <% plugins_tabs = @plugins.dispatch(:profile_tabs).map { |tab| {:title => tab[:title], :id => tab[:id], :content => instance_exec(&tab[:content]), :start => tab[:start]} }%>
+    <% plugins_tabs = @plugins.dispatch(:profile_tabs).map do |tab| %>
+          <% title = tab.has_key?(:icon) ? font_awesome(tab[:icon], tab[:title]) : tab[:title] %>
+          <% {:title => title, :id => tab[:id], :content => instance_exec(&tab[:content]), :start => tab[:start]}  %>
+    <% end %>
 
     <% tabs = plugins_tabs.select { |tab| tab[:start] } %>
     <% if @profile.organization?
@@ -34,7 +37,7 @@
     <% information_tab = profile_type + " info" %>
     <% tabs << { title: font_awesome(:info, _(information_tab)), id: kind, content: (render partial: kind.gsub('-', '_')) } %>
 
-    <% plugins_tabs.select { |tab| !tab[:start] } %>
+    <% tabs += plugins_tabs.select { |tab| !tab[:start] } %>
 
     <%= render_tabs(tabs) %>
   </div>

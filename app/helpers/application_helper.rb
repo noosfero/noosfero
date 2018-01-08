@@ -858,32 +858,33 @@ module ApplicationHelper
     result.html_safe
   end
 
-  def manage_link(list, kind, title)
+  def manage_link(list, kind, title, icon = '')
     if list.present?
       link_to_all = nil
       if list.count > 5
         list = list.first(5)
-        link_to_all = link_to(content_tag('strong', _('See all')), :controller => 'memberships', :profile => user.identifier)
+        link_to_all = link_to( font_awesome('plus-circle', _('See all')), :controller => 'memberships', :profile => user.identifier)
       end
       link = list.map do |element|
-        link_to(content_tag('strong', _('<span>Manage</span> %s').html_safe % element.short_name(25)), element.admin_url, :class => "icon-menu-"+element.class.identification.underscore, :title => _('Manage %s').html_safe % element.short_name)
+        link_to( font_awesome( icon, _('Manage %s').html_safe % element.short_name(25)),
+                 element.admin_url, :title => (_('Manage %s').html_safe % element.short_name))
       end
       if link_to_all
         link << link_to_all
       end
-      render :partial => "shared/manage_link", :locals => {:link => link, :kind => kind.to_s, :title => title}
+      render :partial => "shared/manage_link", :locals => {:link => link, :kind => kind.to_s, :title => font_awesome(icon, title)}
     end
   end
 
   def manage_enterprises
     return '' unless user && user.environment.enabled?(:display_my_enterprises_on_user_menu)
-    manage_link(user.enterprises, :enterprises, _('My enterprises')).to_s
+    manage_link(user.enterprises, :enterprises, _('My enterprises'), 'suitcase').to_s
   end
 
   def manage_communities
     return '' unless user && user.environment.enabled?(:display_my_communities_on_user_menu)
     administered_communities = user.communities.more_popular.select {|c| c.admins.include? user}
-    manage_link(administered_communities, :communities, _('My communities')).to_s
+    manage_link(administered_communities, :communities, _('My communities'), :users).to_s
   end
 
   def admin_link

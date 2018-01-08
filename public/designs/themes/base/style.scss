@@ -322,9 +322,12 @@ body, th, td, input {
           vertical-align: middle;
           &.menu-toggle {
             float: none;
-            padding-left: 6px;
             margin-top: 2px;
           }
+        }
+
+        > a {
+          padding-left: 6px;
         }
 
         img.profile-icon {
@@ -348,6 +351,11 @@ body, th, td, input {
           a {
             font-size: 1em;
           }
+          &.submenu {
+            font-size: 0.9em;
+            margin-top: 0;
+            margin-right: 45px
+          }
         }
       }
 
@@ -358,9 +366,6 @@ body, th, td, input {
       &.hamburger-menu {
         display: none;
         @media only screen and (max-width: 540px) { display: inline-block; }
-        a.menu-toggle {
-            padding-left: 0;
-        }
       }
 
       &.login-link, &.signup-link {
