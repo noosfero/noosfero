@@ -10,24 +10,24 @@ Feature: blog
     And "joaosilva" has no articles
     And I am logged in as "joaosilva"
 
-  # Scenario: create a blog
-  #   Given I go to joaosilva's control panel
-  #   And I follow "Create blog"
-  #   Then I should see "My Blog"
-  #   When I fill in "Title" with "My Blog"
-  #   And I fill in "Address" with "my-blog"
-  #   And I press "Save"
-  #   And I go to joaosilva's control panel
-  #   Then I should see "Configure blog"
+  @selenium
+  Scenario: create a blog
+    Given I go to joaosilva's control panel
+    And I follow "Create blog"
+    Then I should see "My Blog"
+    When I fill in "Title" with "My Blog"
+    And I follow "Save"
+    And I go to joaosilva's control panel
+    Then I should see "Configure blog"
 
-  # Scenario: redirect to blog after create blog from control panel
-  #   Given I go to joaosilva's control panel
-  #   And I follow "Create blog"
-  #   Then I should see "My Blog"
-  #   When I fill in "Title" with "My Blog"
-  #   And I fill in "Address" with "my-blog"
-  #   And I press "Save"
-  #   Then I should be on /joaosilva/my-blog
+  @selenium
+  Scenario: redirect to blog after create blog from control panel
+    Given I go to joaosilva's control panel
+    And I follow "Create blog"
+    Then I should see "My Blog"
+    When I fill in "Title" with "My Blog"
+    And I follow "Save"
+    Then I should be on /joaosilva/my-blog
 
   # Scenario: redirect to blog after create blog from cms
   #   Given I go to joaosilva's control panel
@@ -126,14 +126,14 @@ Feature: blog
 
   # the step for attaching a file on the input only works with capybara 1.1.2, but it requires rails 1.9.3
   #FIXME This test is possible failing because of this issue, https://gitlab.com/pedrodelyra/noosfero/issues/4
-  @selenium
-  Scenario: display cover image after uploading an image as the blog cover
-    Given the following blogs
-      | owner     | name    |
-      | joaosilva | My Blog |
-    And I go to joaosilva's control panel
-    And I follow "Configure blog"
-    And I attach the file "public/images/rails.png" to "Cover image:"
-    And I follow "Save"
-    When I am on /joaosilva/my-blog
-    Then there should be a div with class "blog-cover"
+  # @selenium
+  # Scenario: display cover image after uploading an image as the blog cover
+  #   Given the following blogs
+  #     | owner     | name    |
+  #     | joaosilva | My Blog |
+  #   And I go to joaosilva's control panel
+  #   And I follow "Configure blog"
+  #   And I attach the file "public/images/rails.png" to "Cover image:"
+  #   And I follow "Save"
+  #   When I am on /joaosilva/my-blog
+  #   Then there should be a div with class "blog-cover"
