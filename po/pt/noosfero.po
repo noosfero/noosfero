@@ -4096,7 +4096,7 @@ msgstr "Permanece na mesma página que o usuário estava antes do cadastro."
 
 #: ../app/models/environment.rb:197
 msgid "Redirects the user to the environment welcome page."
-msgstr "Redireciona o usuário para a página inicial do ambiente."
+msgstr "Redireciona o usuário para a página de boas-vindas do ambiente."
 
 #: ../app/models/environment.rb:299
 msgid "This enterprise needs to be enabled."
