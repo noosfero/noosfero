@@ -33,11 +33,11 @@ Feature: invitation
     Given I am on /myprofile/josesilva/friends
     And I follow "Invite people"
     And I choose "Email"
-    And I press "Next"
+    And I follow "Next"
     And I fill in "manual_import_addresses" with "misfits@devil.doll"
     And I follow "Personalize invitation mail"
     And I fill in "mail_template" with "Follow this link <url>"
-    When I press "Invite!"
+    When I follow "Invite!"
     Then I should be on /profile/josesilva/friends
 
   Scenario: see link to invite members to community
@@ -76,11 +76,11 @@ Feature: invitation
     Given I am on 26 Bsslines's members management
     And I follow "Invite people"
     And I choose "Email"
-    And I press "Next"
+    And I follow "Next"
     And I fill in "manual_import_addresses" with "misfits@devil.doll"
     And I follow "Personalize invitation mail"
     And I fill in "mail_template" with "Follow this link <url>"
-    When I press "Invite!"
+    When I follow "Invite!"
     Then I should be on /profile/26-bsslines/members
 
   @selenium
@@ -88,43 +88,76 @@ Feature: invitation
     Given I am on 26 Bsslines's members management
     And I follow "Invite people"
     And I choose "Email"
-    And I press "Next"
+    And I follow "Next"
     And I fill in "manual_import_addresses" with "santos@invalid.br"
     And I follow "Personalize invitation mail"
     And I fill in "mail_template" with "Follow this link <url>"
-    And I press "Invite!"
+    And I follow "Invite!"
     Given there are no pending jobs
     When I am logged in as "josesantos"
-    And I go to josesantos's control panel
-    And I should see "josesilva invited you to join 26 Bsslines."
+    And I follow "menu-toggle"
+    And I should see "Community invitation"
+    Then I should see "26 Bsslines" within "span.task_target"
 
   @selenium
-  Scenario: noosfero user accepts to join community
+  Scenario: noosfero user accepts to join community through tasks
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
     And there are no pending jobs
     When I am logged in as "josesantos"
     And I go to josesantos's control panel
-    And I follow "Process requests"
+    And I follow "Tasks"
     And I should see "josesilva invited you to join 26 Bsslines."
-    And I choose "Accept"
-    When I press "Apply!"
+    And I follow "Accept"
+    When I follow "Apply!"
     Then I should not see "josesilva invited you to join 26 Bsslines."
     When I go to josesantos's control panel
     And I follow "Manage my groups"
     Then I should see "26 Bsslines"
 
   @selenium
-  Scenario: noosfero user rejects to join community
+  Scenario: noosfero user accepts to join community through notification
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
     And there are no pending jobs
     When I am logged in as "josesantos"
     And I go to josesantos's control panel
-    And I follow "Process requests"
+    And I follow "menu-toggle"
+    And I should see "Community invitation"
+    Then I should see "26 Bsslines" within "span.task_target"
+    And I follow "Accept"
+    And I should not see "Community invitation"
+    Then I should not see "26 Bsslines"
+    When I go to josesantos's control panel
+    And I follow "Manage my groups"
+    Then I should see "26 Bsslines"
+
+  @selenium
+  Scenario: noosfero user rejects to join community through Tasks
+    Given I invite email "santos@invalid.br" to join community "26 Bsslines"
+    And there are no pending jobs
+    When I am logged in as "josesantos"
+    And I go to josesantos's control panel
+    And I follow "Tasks"
     And I should see "josesilva invited you to join 26 Bsslines."
-    And I choose "Reject"
-    When I press "Apply!"
+    And I follow "Reject"
+    When I follow "Apply!"
     Then I should not see "josesilva invited you to join 26 Bsslines."
     And I go to josesantos's control panel
+    And I follow "Manage my groups"
+    Then I should not see "26 Bsslines"
+
+  @selenium
+  Scenario: noosfero user rejects to join community through notifications
+    Given I invite email "santos@invalid.br" to join community "26 Bsslines"
+    And there are no pending jobs
+    When I am logged in as "josesantos"
+    And I go to josesantos's control panel
+    And I follow "menu-toggle"
+    And I should see "Community invitation"
+    Then I should see "26 Bsslines" within "span.task_target"
+    And I follow "Reject"
+    And I follow "menu-toggle"
+    And I should not see "Community invitation"
+    Then I should not see "26 Bsslines"
     And I follow "Manage my groups"
     Then I should not see "26 Bsslines"
 
@@ -134,46 +167,80 @@ Feature: invitation
     And I follow "Manage friends"
     And I follow "Invite people"
     And I choose "Email"
-    And I press "Next"
+    And I follow "Next"
     And I fill in "manual_import_addresses" with "santos@invalid.br"
     And I follow "Personalize invitation mail"
     And I fill in "mail_template" with "Follow this link <url>"
-    And I press "Invite!"
+    And I follow "Invite!"
     Given there are no pending jobs
     When I am logged in as "josesantos"
     And I go to josesantos's control panel
-    And I follow "Process requests"
+    And I follow "menu-toggle"
+    Then I should see "Friend invitation"
     Then I should see "josesilva wants to be your friend."
 
   @selenium
-  Scenario: noosfero user accepts to be friend
+  Scenario: noosfero user accepts to be friend through tasks
     Given I am logged in as "josesilva"
     And I go to josesilva's control panel
     And I invite email "santos@invalid.br" to be my friend
     And there are no pending jobs
     When I am logged in as "josesantos"
     And I go to josesantos's control panel
-    And I follow "Process requests"
+    And I follow "Tasks"
     And I should see "josesilva wants to be your friend."
-    And I choose "Accept"
-    When I press "Apply!"
+    And I follow "Accept"
+    When I follow "Apply!"
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
     And I follow "Manage friends"
     Then I should see "josesilva"
 
   @selenium
-  Scenario: noosfero user rejects to be friend
+  Scenario: noosfero user accepts to be friend through notifications
     Given I am logged in as "josesilva"
     And I go to josesilva's control panel
     And I invite email "santos@invalid.br" to be my friend
     And there are no pending jobs
     When I am logged in as "josesantos"
     And I go to josesantos's control panel
-    And I follow "Process requests"
+    And I follow "menu-toggle"
     And I should see "josesilva wants to be your friend."
-    And I choose "Reject"
-    When I press "Apply!"
+    And I follow "Accept"
+    And I should not see "josesilva wants to be your friend."
+    When I go to josesantos's control panel
+    And I follow "Manage friends"
+    Then I should see "josesilva"
+
+  @selenium
+  Scenario: noosfero user rejects to be friend through tasks
+    Given I am logged in as "josesilva"
+    And I go to josesilva's control panel
+    And I invite email "santos@invalid.br" to be my friend
+    And there are no pending jobs
+    When I am logged in as "josesantos"
+    And I go to josesantos's control panel
+    And I follow "Tasks"
+    And I should see "josesilva wants to be your friend."
+    And I follow "Reject"
+    When I follow "Apply!"
+    And I should not see "josesilva wants to be your friend."
+    When I go to josesantos's control panel
+    And I follow "Manage friends"
+    Then I should not see "josesilva"
+
+  @selenium
+  Scenario: noosfero user rejects to be friend through notifications
+    Given I am logged in as "josesilva"
+    And I go to josesilva's control panel
+    And I invite email "santos@invalid.br" to be my friend
+    And there are no pending jobs
+    When I am logged in as "josesantos"
+    And I go to josesantos's control panel
+    And I follow "menu-toggle"
+    And I should see "josesilva wants to be your friend."
+    And I follow "Reject"
+    And I follow "menu-toggle"
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
     And I follow "Manage friends"
