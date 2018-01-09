@@ -39,16 +39,15 @@ Feature: comment
     Given I am on /booking/article-to-comment
     Then I should see "Hey ho, let"
 
-  @selenium-fixme
+  @selenium
   Scenario: redirect to right place after comment a picture
     Given the following files
       | owner   | file      | mime      |
       | booking | rails.png | image/png |
     And I am on /booking/rails.png?view=true
-    And I follow "Post a comment"
-    And I fill in "Title" with "Hey ho, let's go!"
-    And I fill in "Enter your comment" with "Hey ho, let's go!"
-    When I press "Post comment"
+    And I fill in "comment-field" with "Hey ho, let's go!"
+    Then I send enter key in "comment-field" field
+    When I wait 3 seconds
     Then I should be exactly on /booking/rails.png?view=true
 
   @selenium
