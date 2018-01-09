@@ -6,6 +6,7 @@ Feature: Create envronment notification message
   @selenium
   Scenario: mce restricted mode should show on message creation
     Given I am logged in as admin
+    And I follow "menu-dropdown"
     And I follow "Administration"
     And I follow "Plugins"
     And I follow "Configuration"
