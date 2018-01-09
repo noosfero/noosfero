@@ -3,10 +3,11 @@ Feature: search
   I want to search
   In order to find stuff
 
+  @selenium
   Scenario: show empty results in all enabled assets
     Given I go to the search page
     And I fill in "search-input" with "Anything"
-    And I press "Search"
+    And I follow "Search"
     Then I should see "People" within ".search-results-people"
     And I should see "None" within ".search-results-people"
     And I should see "Communities" within ".search-results-communities"
@@ -18,6 +19,7 @@ Feature: search
     And I should see "Events" within ".search-results-events"
     And I should see "None" within ".search-results-events"
 
+  @selenium
   Scenario: simple search for person
     Given the following users
       | login      | name        |
@@ -25,10 +27,11 @@ Feature: search
       | josearaujo | Jose Araujo |
     When I go to the search people page
     And I fill in "search-input" with "Silva"
-    And I press "Search"
+    And I follow "Search"
     Then I should see "Joao Silva" within ".common-profile-list-block"
     And I should not see "Jose Araujo"
 
+  @selenium
   Scenario: show link to see all results
     Given the following users
       | login      | name        |
@@ -46,11 +49,12 @@ Feature: search
       | joaosilva | article #9 |
     When I go to the search page
     And I fill in "search-input" with "article"
-    And I press "Search"
+    And I follow "Search"
     And I should see "see all (9)"
     When I follow "see all (9)"
     Then I should be on the search articles page
 
+  @selenium
   Scenario: simple search for community
     Given the following communities
       | identifier       | name             | img |
@@ -58,10 +62,11 @@ Feature: search
       | fancy-community  | Fancy community  | agrotox |
     And I go to the search communities page
     And I fill in "search-input" with "fancy"
-    And I press "Search"
+    And I follow "Search"
     Then I should see "Fancy community" within ".common-profile-list-block"
     And I should not see "Boring community"
 
+  @selenium
   Scenario: simple search for enterprise
     Given the following enterprises
       | identifier | name |
@@ -69,10 +74,11 @@ Feature: search
       | shop2 | Fruits shop |
     And I go to the search enterprises page
     And I fill in "search-input" with "shoes"
-    And I press "Search"
+    And I follow "Search"
     Then I should see "Shoes shop" within ".common-profile-list-block"
     And I should not see "Fruits shop"
 
+  @selenium
   Scenario: simple search for content
     Given the following users
       | login     | name       |
@@ -83,10 +89,11 @@ Feature: search
       | joaosilva | whales and dolphins | this is an article about whales and dolphins |
     When I go to the search articles page
     And I fill in "search-input" with "whales"
-    And I press "Search"
+    And I follow "Search"
     Then I should see "whales and dolphins" within "div.search-results-articles"
     And I should not see "bees and butterflies"
 
+  @selenium
   Scenario: search different types of entities with the same query
     Given the following enterprises
       | identifier  | name                    |
@@ -96,6 +103,6 @@ Feature: search
       | noosfero-users | Noosfero users |
     When I go to the search page
     And I fill in "search-input" with "noosfero"
-    And I press "Search"
+    And I follow "Search"
     Then I should see "Colivre - Noosfero dev." within "div.search-results-enterprises"
     And I should see "Noosfero users" within "div.search-results-communities"
