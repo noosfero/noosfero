@@ -19,6 +19,7 @@ Feature: approve article
     And "Maria Silva" is a member of "Sample Community"
     And "Joao Silva" is admin of "Sample Community"
 
+  #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/8
   @selenium-fixme
   Scenario: edit an article before approval
     Given I am logged in as "mariasilva"
@@ -36,6 +37,7 @@ Feature: approve article
     And I follow "Sample Article"
     Then I should see "This is an article edited"
 
+  #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
   @selenium
   Scenario: reject an article with explanation
     Given I am logged in as "mariasilva"
@@ -53,6 +55,7 @@ Feature: approve article
     When I go to sample-community's sitemap
     Then I should not see "Sample Article"
 
+  #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
   @selenium
   Scenario: reject an article that was removed
     Given I am logged in as "mariasilva"
