@@ -308,7 +308,7 @@ When /^(?:|I )wait ([^ ]+) seconds?(?:| .+)$/ do |seconds|
   sleep seconds.to_f
 end
 
-When /^I send enter key in "([^"]*)" field$/ do |field|
+Then /^I send enter key in "([^"]*)" field$/ do |field|
   element = find_field(field)
   element.native.send_keys(:enter)
 end
