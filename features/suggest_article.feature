@@ -36,7 +36,7 @@ Feature: suggest article
     And I follow "Suggest an article"
     And I fill in "Title" with "Suggestion"
     And I fill in "Your name" with "Some Guy"
-    And I fill in "Email" with "someguy@somewhere.com"'
+    And I fill in "Email" with "someguy@somewhere.com"
     And I type "This is my suggestion's lead" in TinyMCE field "task_article_abstract"
     And I type "I like free software" in TinyMCE field "task_article_body"
     And I follow "Save"
