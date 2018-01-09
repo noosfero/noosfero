@@ -19,15 +19,16 @@ Feature: categories_block
   @selenium
   Scenario: List just general categories
     Given display ".button-bar"
-    And I follow "Edit" within ".block-outer .categories-block"
+    # And I wait for 60 seconds
+    And I follow "Edit" within ".blocks .categories-block"
     And I check "General category"
-    When I press "Save"
+    When I follow "Save"
     Then I should see "Wood"
 
   @selenium
   Scenario: List just regions
     Given display ".button-bar"
-    And I follow "Edit" within ".block-outer .categories-block"
+    And I follow "Edit" within ".blocks .categories-block"
     And I check "Region"
-    When I press "Save"
+    When I follow "Save"
     Then I should see "Bahia"
