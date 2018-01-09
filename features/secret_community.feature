@@ -15,7 +15,8 @@ Feature: Use a secret community
     And I go to mycommunity's control panel
     And I follow "Community Info and settings"
     And I check "Secret"
-    And I press "Save"
+    And I follow "Save"
+    And I follow "menu-dropdown"
     And I follow "Logout"
     And I go to /account/login
 
@@ -34,8 +35,8 @@ Feature: Use a secret community
   Scenario: Non members shouldn't see secret communit's content
     Given I am logged in as "maria"
     And I go to mycommunity's homepage
-    And I should see "Oops ... you cannot go ahead here"
-    And I follow "Communities"
+    And I should see "Oops ... You Cannot Go Ahead Here This profile is inaccessible. You don't have the permission to view the content here. Go back Go to the home page Manual This social network uses Noosfero, developed by Colivre and licensed under the GNU Affero General Public License version 3 or any later version."
+    And I go to /search/communities
     Then I should not see "My Community"
 
   Scenario: A member should see the secret community's content
@@ -55,7 +56,7 @@ Feature: Use a secret community
     And I follow "Text article"
     And I fill in "Title" with "My public article"
     And I choose "Public"
-    And I press "Save and continue"
+    And I follow "Save"
     When I am logged in as "maria"
     And I go to /mycommunity/my-public-article
     Then I should not see "My public article"
