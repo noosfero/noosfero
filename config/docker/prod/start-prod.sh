@@ -1,11 +1,13 @@
 #!/bin/bash
 
+cmd="$@"
+
 databaseymlfile='/noosfero/config/database.yml.docker'
 if [ -f $databaseymlfile ] ; then
   mv $databaseymlfile /noosfero/config/database.yml
 fi
 
-dump_file="/dump/${NOOSFERO_DUMP_FILE}"
+dump_file="/noosfero/dump/${NOOSFERO_DUMP_FILE}"
 if [ -f $dump_file ] ; then
   echo ">>>>> DUMP FILE FOUND PREPARING DATABASE <<<<<"
   RAILS_ENV=production bundle exec rake db:drop
@@ -36,4 +38,5 @@ fi
 
 echo ">>>>> STARTING SERVER <<<<<"
 /noosfero/script/production start
-tail -f /dev/null
+
+exec $cmd

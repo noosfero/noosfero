@@ -17,7 +17,6 @@ services:
       dockerfile: ./config/docker/prod/Dockerfile.compose
     environment:
       NOOSFERO_DUMP_FILE:
-    command: /bin/bash -lc "./config/docker/prod/start-prod.sh"
     ports:
       - 80:3000
     depends_on:
