@@ -115,7 +115,7 @@ Feature: publish article
     And I am on sample-community's control panel
     And I follow "Community Info and settings"
     And I choose "profile_data_moderated_articles_true"
-    And I press "Save"
+    And I follow "Save"
     And I am on joaosilva's control panel
     And I follow "Manage Content"
     And I follow "article-options"
@@ -130,11 +130,11 @@ Feature: publish article
     And I follow "Spread this"
     And I am on sample-community's control panel
     And I follow "Tasks"
-    And I choose "Accept"
-    And I press "Apply!"
+    And I follow "Accept"
+    And I follow "Apply!"
     And I should not see "The title (article name) is already being used by another article, please use another title."
-    And I choose "Accept"
-    When I press "Apply!"
+    And I follow "Accept"
+    When I follow "Apply!"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
