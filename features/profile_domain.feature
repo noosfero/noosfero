@@ -27,19 +27,19 @@ Feature: domain for profile
   @selenium
   Scenario: access user control panel
     Given I am logged in as "joaosilva"
-    When I follow "joaosilva"
+    When I follow "Profile"
     And I go to sample-community's homepage
     And I follow "Login"
-    And I fill in "joaosilva" for "Username"
+    And I fill in "joaosilva" for "Username / Email"
     And I fill in "123456" for "Password"
-    And I press "Log in"
-    And I follow "Control panel" within "div#user"
+    And I follow "Log in"
+    And I follow "Control panel"
     Then I should see "Joao Silva" within "span.control-panel-title"
 
   @selenium
   Scenario: access user page
     Given I am logged in as "joaosilva"
-    When I follow "joaosilva"
+    When I follow "Profile"
     Then I should be on joaosilva's profile
     And I should see "Joao Silva" within any "h1"
     And the page title should be "Joao Silva"
