@@ -17,20 +17,20 @@ Feature: send emails to environment members users
     When I go to /admin/users/send_mail
     Then I should see "Access Denied"
 
-  @selenium-fixme
+  @selenium
   Scenario: Send e-mail to members
     Given I am logged in as admin
     And I go to /admin/users/send_mail
     And I fill in "Subject" with "Hello, user!"
-    And I fill in "Body" with "We have some news"
+    And I type "We have some news" in TinyMCE field "mailing_body"
     When I follow "Send"
     Then I should be on /admin/users
 
-  @selenium-fixme
+  @selenium
   Scenario: Not send e-mail to members if subject is blank
     Given I am logged in as admin
     And I go to /admin/users/send_mail
-    And I fill in "Body" with "We have some news"
+    And I type "We have some news" in TinyMCE field "mailing_body"
     When I follow "Send"
     Then I should be on /admin/users/send_mail
 
