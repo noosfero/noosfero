@@ -7,3 +7,11 @@ Then /^The tinymce "(.+)" should contain "(.+)"$/ do |item, content|
   item_value = page.evaluate_script("tinyMCE.activeEditor.getParam('#{item}');")
   expect(item_value.to_s).to have_content(content)
 end
+
+Given(/^I type "(.*?)" in TinyMCE field "(.*?)"$/) do |content, field|
+  page.evaluate_script("tinyMCE.get('#{field}').setContent('#{content}');")
+end
+
+When(/^I refresh the page$/) do
+  page.evaluate_script("location.reload();")
+end
