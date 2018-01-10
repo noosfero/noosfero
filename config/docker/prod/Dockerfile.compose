@@ -4,11 +4,12 @@ MAINTAINER Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>
 ENV RAILS_ENV production
 RUN apt-get update && apt-get install -y sudo cron nodejs tango-icon-theme postgresql-client
 
-ADD Gemfile /noosfero/Gemfile
-WORKDIR /noosfero
+ADD Gemfile /tmp/Gemfile
+WORKDIR /tmp
 RUN bundle install
 
 ADD . /noosfero/
+WORKDIR /noosfero
 
 COPY ./config/docker/prod/start-prod.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
