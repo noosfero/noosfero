@@ -24,8 +24,9 @@ Feature: accept member
     And I go to private-community's homepage
     Then I should see "Your membership is waiting for approval"
 
-  @selenium
-  Scenario: approve member and make him become admin in a closed community
+  # issue #14
+  @selenium-fixme
+  Scenario: approve a task to accept a member as admin in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I follow "menu-toggle"
@@ -41,8 +42,9 @@ Feature: accept member
     And I follow "Save changes"
     Then "Marie Curie" should be admin of "My Community"
 
-  @selenium
-  Scenario: approve a task to accept a member as member in a closed community through tasks
+  # issue #14
+  @selenium-fixme
+  Scenario: approve a task to accept a member as member in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I go to mycommunity's control panel
@@ -53,8 +55,9 @@ Feature: accept member
     And I wait for 1 seconds
     Then "Marie Curie" should be a member of "My Community"
 
-  @selenium
-  Scenario: approve a task to accept a member as member in a closed community through notification
+  # issue #14
+  @selenium-fixme
+  Scenario: approve a task to accept a member as moderator in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I go to mycommunity's control panel
