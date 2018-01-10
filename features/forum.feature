@@ -152,6 +152,7 @@ Feature: forum
     When I follow "Accept"
     Then I should see "Login" within ".login-box"
 
+  # issue #16
   @selenium-fixme
   Scenario: last topic update by unautenticated user should not link
     Given the following forums
