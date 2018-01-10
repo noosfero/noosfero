@@ -42,13 +42,26 @@ Feature: accept member
     Then "Marie Curie" should be admin of "My Community"
 
   @selenium
-  Scenario: approve a member as member in a closed community
+  Scenario: approve a task to accept a member as member in a closed community through tasks
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
-    And I follow "menu-toggle"
-    And I should see "Marie Curie wants to be a member of 'My Community'."
+    And I go to mycommunity's control panel
+    And I follow "Tasks"
+    And I should see "Marie Curie wants to be a member"
     When I follow "Accept"
-    When I wait 2 seconds
+    And I follow "Apply!"
+    And I wait for 1 seconds
+    Then "Marie Curie" should be a member of "My Community"
+
+  @selenium
+  Scenario: approve a task to accept a member as member in a closed community through notification
+    Given "Marie Curie" asked to join "My Community"
+    And I am logged in as "mario"
+    And I go to mycommunity's control panel
+    And I follow "menu-toggle"
+    And I should see "Marie Curie wants to be a member"
+    When I follow "Accept"
+    And I wait for 1 seconds
     Then "Marie Curie" should be a member of "My Community"
 
   @selenium
