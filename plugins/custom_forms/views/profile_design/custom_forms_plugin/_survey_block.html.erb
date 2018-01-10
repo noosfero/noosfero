@@ -1,0 +1,4 @@
+<div class="survey-block-edition">
+  <%= labelled_form_field _('Survey limit'), number_field_tag('block[metadata][limit]', @block.limit, min: 1) %>
+  <%= labelled_form_field _('Display surveys:'), select_tag('block[metadata][status]', options_from_collection_for_select(@block.class.status_options, :first, :last, @block.status)) %>
+</div>

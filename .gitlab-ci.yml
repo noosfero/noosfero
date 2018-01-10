@@ -20,7 +20,6 @@ stages:
 
 .tags-template: &tags
   tags:
-    - jessie
 
 specs-models:
   <<: *retriable

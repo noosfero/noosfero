@@ -6,8 +6,7 @@ class NewsletterPluginAdminController < PluginAdminController
     if request.post?
       # token input gives the param as a comma separated string
       params[:newsletter][:blog_ids] = (params[:newsletter][:blog_ids] || '').split(',')
-
-      params[:newsletter][:person_id] = user.id
+      @newsletter.person_id = user.id
 
       file = params[:file]
       if file && file[:recipients].present?

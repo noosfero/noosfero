@@ -26,7 +26,7 @@ jQuery(function($) {
     $('.poll-option-icon').attr('type', new_type);
   });
 
-  $('.add-poll-option .poll-option-input').live('click', function(){
+  $('.add-poll-option .poll-option-input').live('keyup', function(){
     var input = $(this);
     var tr = $('.add-poll-option');
     var new_tr = tr.clone();
@@ -35,6 +35,7 @@ jQuery(function($) {
 
     new_input.attr('name', incrementName(new_input.attr('name')) + '[label]');
     new_input.attr('id', incrementId(new_input.attr('id')) + '_label');
+    new_input.attr('value', '');
     new_position.attr('name', incrementName(new_position.attr('name')) + '[position]');
     new_position.attr('id', incrementId(new_position.attr('id')) + '_position');
     new_position.attr('value', incrementValue(new_position.attr('value')));

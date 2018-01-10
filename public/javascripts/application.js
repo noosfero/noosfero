@@ -101,7 +101,7 @@ function convToValidLogin( str ) {
 }
 
 function convToValidUsername( str ) {
-  return convToValidIdentifier(str, '');
+  return convToValidIdentifier(str, '-');
 }
 
 /* * * Convert a string to a valid login name * * */
@@ -115,6 +115,7 @@ function convToValidIdentifier( str, sep ) {
             .replace( /ú|ũ|ü/g,   "u" )
             .replace( /ñ/g,       "n" )
             .replace( /ç/g,       "c" )
+            .replace( /(\-)+/g,   " "  )
             .replace( /[^-_a-z0-9.]+/g, sep )
 }
 

@@ -264,12 +264,23 @@ class Api::HelpersTest < ActiveSupport::TestCase
     assert 2, parse_parent_id(2)
   end
 
-  should 'return errors with full messages' do
+  should 'return errors with balnk and invalid identifier' do
     object = Person.new
     object.valid?
     hash = render_model_errors!(object.errors)
     expected = [
       {error: :blank, full_message: "Identifier can't be blank"},
+      {error: :invalid, full_message: "Identifier is invalid"}
+    ]
+    assert_equal expected, hash.first[:errors][:identifier]
+  end
+
+  should 'return errors when identifier is reserved' do
+    object = Person.new
+    object.identifier = 'admin'
+    object.valid?
+    hash = render_model_errors!(object.errors)
+    expected = [
       {error: :not_available, full_message: "Identifier is not available."}
     ]
     assert_equal expected, hash.first[:errors][:identifier]

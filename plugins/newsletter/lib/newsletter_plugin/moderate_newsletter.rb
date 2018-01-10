@@ -16,7 +16,6 @@ class NewsletterPlugin::ModerateNewsletter < Task
       :person => newsletter.person,
       :locale => newsletter.environment.default_locale,
     )
-    mailing.update_attribute(:body, mailing.body.gsub('{mailing_url}', mailing.url))
   end
 
   def title

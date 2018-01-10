@@ -15,240 +15,184 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:22
 msgid "Newsletter updated."
 msgstr "Boletim informtivo atualizado."
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:25
 msgid "Newsletter could not be saved."
 msgstr "O boletim informativo não pôde ser salvo."
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:41
-#: ../views/newsletter_plugin_admin/index.html.erb:31
 msgid "%s in %s"
 msgstr "%s em %s"
 
-#: ../controllers/newsletter_plugin_controller.rb:17
 msgid "You were unsubscribed from newsletter."
 msgstr "Você foi retirado do boletim informativo."
 
-#: ../lib/newsletter_plugin.rb:8
 msgid "Periodically sends newsletter via email to network users"
 msgstr "Enviar boletim informativo aos usuários de rede periodicamente"
 
-#: ../lib/newsletter_plugin/moderate_newsletter.rb:23
 msgid "Moderate newsletter"
 msgstr "Moderar boletim informativo"
 
-#: ../lib/newsletter_plugin/moderate_newsletter.rb:35
 msgid "You have to moderate a newsletter."
 msgstr "Você tem um boletim informativo para moderar."
 
-#: ../lib/newsletter_plugin/moderate_newsletter.rb:47
 msgid ""
-"A newsletter was generated and you need to review it before it is sent to "
-"users."
+"A newsletter was generated and you need to review it before it is sent to user"
+"s."
 msgstr ""
-"Um boletim informativo foi gerado e você precisa revisar antes de ser "
-"enviado aos usuários."
+"Um boletim informativo foi gerado e você precisa revisar antes de ser enviado "
+"aos usuários."
 
-#: ../lib/newsletter_plugin/moderate_newsletter.rb:51
 msgid "You need to moderate a newsletter."
 msgstr "Você precisa moderar um boletim informativo."
 
-#: ../lib/newsletter_plugin/newsletter.rb:9
-#: ../lib/newsletter_plugin/newsletter.rb:10
 msgid "must be a positive number"
 msgstr "deve ser um número positivo"
 
-#: ../lib/newsletter_plugin/newsletter.rb:54
 msgid "must be valid"
 msgstr "deve ser válido"
 
-#: ../lib/newsletter_plugin/newsletter.rb:58
 msgid "must not have duplicates"
 msgstr "não deve ter duplicidades"
 
-#: ../lib/newsletter_plugin/newsletter.rb:64
 msgid "must have only valid emails"
 msgstr "deve ter apenas emails válidos"
 
-#: ../lib/newsletter_plugin/newsletter.rb:113
 msgid "If you can't view this email, %s."
 msgstr "Se você não pode ver este email, %s."
 
-#: ../lib/newsletter_plugin/newsletter.rb:113
 msgid "click here"
 msgstr "clique aqui"
 
-#: ../lib/newsletter_plugin/newsletter.rb:117
+msgid ""
+"This is an automatically generated email, please do not reply. If you do not w"
+"ish to receive future newsletter emails, %s."
+msgstr ""
+"Este e-mail é gerado automaticamente, por favor não responda. Se você não dese"
+"ja continuar recebendo boletins informativos, %s."
+
 msgid "cancel your subscription here"
 msgstr "cancele sua inscrição aqui"
 
-#: ../lib/newsletter_plugin/newsletter.rb:117
-msgid ""
-"This is an automatically generated email, please do not reply. If you do not "
-"wish to receive future newsletter emails, %s."
-msgstr ""
-"Este e-mail é gerado automaticamente, por favor não responda. Se você não "
-"deseja continuar recebendo boletins informativos, %s."
-
-#: ../lib/newsletter_plugin/newsletter.rb:121
 msgid "Read more"
 msgstr "Leia mais"
 
-#: ../lib/newsletter_plugin/newsletter.rb:143
 msgid "Breaking news"
 msgstr "Últimas notícias"
 
-#: ../lib/newsletter_plugin/newsletter.rb:166
 msgid "have unknown file type: %s"
 msgstr "tem um tipo desconhecido: %s"
 
-#: ../views/newsletter_plugin/mailing_not_found.html.erb:1
 msgid "Mailing not found"
 msgstr "Mailing não encontrado"
 
-#: ../views/newsletter_plugin/mailing_not_found.html.erb:3
 msgid "There is no mailing with id #%s"
 msgstr "Não há mailing com o id #%s"
 
-#: ../views/newsletter_plugin/unsubscribe.html.erb:1
 msgid "Cancel newsletter subscription"
 msgstr "Cancelar inscrição no boletim informativo"
 
-#: ../views/newsletter_plugin/unsubscribe.html.erb:4
 msgid "I don't want to receive future newsletter emails from this network."
 msgstr "Eu não quero receber futuros boletins informativos desta rede."
 
-#: ../views/newsletter_plugin/unsubscribe.html.erb:7
 msgid ""
-"Send an email to %s requesting your unsubscription or click on the button "
-"below."
-msgstr ""
-"Envie um email para %s solicitando sua desinscrição ou clique no botão "
-"abaixo."
+"Send an email to %s requesting your unsubscription or click on the button belo"
+"w."
+msgstr "Envie um email para %s solicitando sua desinscrição ou clique no botão abaixo."
 
-#: ../views/newsletter_plugin/unsubscribe.html.erb:10
 msgid "Confirm unsubscription"
 msgstr "Confirmar desinscrição"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:1
 msgid "Newsletter settings"
 msgstr "Configurações do boletim informativo"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:9
 msgid "Enable send of newsletter to members on this environment"
 msgstr "Habilitar envio de boletim informativo aos membros deste ambiente"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:14
 msgid "Moderate newsletter each time before sending to users."
 msgstr "Moderar boletim informativo antes de enviar aos usuários."
 
-#: ../views/newsletter_plugin_admin/index.html.erb:18
 msgid "Content"
 msgstr "Conteúdo"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:22
 msgid "Period (in days) for news compilation"
 msgstr "Período (em dias) para compilação das notícias"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:26
 msgid ""
-"Number of posts compiled per blog (choose 0 for all posts since last "
-"newsletter)"
+"Number of posts compiled per blog (choose 0 for all posts since last newslette"
+"r)"
 msgstr ""
-"Número de posts compilado por blog (escolha 0 para todos os posts desde o "
-"último boletim informativo)"
+"Número de posts compilado por blog (escolha 0 para todos os posts desde o últi"
+"mo boletim informativo)"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:29
 msgid "Blogs from which news will be compiled"
 msgstr "Blogs utilizados como fonte do boletim informativo"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:34
 msgid "Type in the profiles' or blogs' names"
 msgstr "Digite nomes de perfis ou blogs"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:40
 msgid "Recipients"
 msgstr "Destinatários"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:44
 msgid ""
-"You can follow the link below to see which e-mails are currently being used "
-"as additional recipients for this newsletter."
+"You can follow the link below to see which e-mails are currently being used as"
+" additional recipients for this newsletter."
 msgstr ""
-"Você pode clicar no link abaixo para ver quais e-mails estão sendo "
-"utilizados como destinatários adicionais para este boletim informativo."
+"Você pode clicar no link abaixo para ver quais e-mails estão sendo utilizados "
+"como destinatários adicionais para este boletim informativo."
 
-#: ../views/newsletter_plugin_admin/index.html.erb:50
 msgid ""
-"You can set additional e-mails to send the newsletter to in addition to all "
-"environment's users that already receive the newsletter by default. To do "
-"that, you need to upload a CSV file that contains a column for the person's "
-"or enterprise's name as well as a column with their e-mail."
+"You can set additional e-mails to send the newsletter to in addition to all en"
+"vironment's users that already receive the newsletter by default. To do that, "
+"you need to upload a CSV file that contains a column for the person's or enter"
+"prise's name as well as a column with their e-mail."
 msgstr ""
-"Você pode configurar e-mails adicionais em adição aos usuários do ambiente, "
-"que já recebem boletins informativos por padrão. Para isto você precisa "
-"fazer upload de um arquivo CSV contendo uma coluna com o nome da pessoa ou "
-"da instituição e outra coluna com o e-mail."
+"Você pode configurar e-mails adicionais em adição aos usuários do ambiente, qu"
+"e já recebem boletins informativos por padrão. Para isto você precisa fazer up"
+"load de um arquivo CSV contendo uma coluna com o nome da pessoa ou da institui"
+"ção e outra coluna com o e-mail."
 
-#: ../views/newsletter_plugin_admin/index.html.erb:53
 msgid "Additional recipients for newsletter"
 msgstr "Destinatários adicionais para o boletim informativo"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:58
 msgid "The CSV file contains a header row"
 msgstr "O arquivo CSV contém uma linha de cabeçalho"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:62
 msgid "Number of colunm with name field"
 msgstr "Número da columa com o campo nome"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:66
 msgid "Number of colunm with email field"
 msgstr "Número da coluna com o campo email"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:71
 msgid "Layout"
 msgstr "Layout"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:75
 msgid "Header image (images with 640px width):"
 msgstr "Imagem do topo (imagens com 640px de largura):"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:80
 msgid "Newsletter footer"
 msgstr "Rodapé do boletim informativo"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:87
 msgid "Save"
 msgstr "Salvar"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:88
 msgid "Save and visualize"
 msgstr "Salvar e visualizar"
 
-#: ../views/newsletter_plugin_admin/recipients.html.erb:1
 msgid "Additional recipients"
 msgstr "Destinatários adicionais"
 
-#: ../views/newsletter_plugin_admin/recipients.html.erb:6
 msgid "Name"
 msgstr "Nome"
 
-#: ../views/newsletter_plugin_admin/recipients.html.erb:7
 msgid "E-mail"
 msgstr "E-mail"
 
-#: ../views/newsletter_plugin_admin/recipients.html.erb:17
 msgid "There are no additional recipients."
 msgstr "Não há destinatários adicionais."
 
-#: ../views/newsletter_plugin_admin/recipients.html.erb:21
 msgid "Back"
 msgstr "Voltar"
 
-#: ../views/tasks/newsletter_plugin/_moderate_newsletter_accept_details.html.erb:3
 msgid "Check posts you want to include"
 msgstr "Marques os posts que você quer incluir"

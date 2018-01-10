@@ -42,7 +42,7 @@
 
   <% unless defined?(no_action_bar) %>
     <%= link_to font_awesome(:ellipsis), '#!', class: 'menu-toggle', id: 'article-options' %>
-    <ul class="noosfero-dropdown-menu">
+    <ul class="noosfero-dropdown-menu" id="article-options-dropdown">
       <% article_actions.each do |action| %>
         <%== "<li>#{action}</li>" unless action.blank? %>
       <% end %>

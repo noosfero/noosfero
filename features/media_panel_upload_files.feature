@@ -14,19 +14,22 @@ Feature: uploads items on media panel
     Then I should see "Insert media"
       And I should not see an element ".show-media-panel"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: expand media panel
     When I follow "Show/Hide"
     Then I should see an element ".show-media-panel"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: upload file showing percentage and name
     When I follow "Show/Hide"
       And I attach the file "public/images/rails.png" to "file"
     Then I should see "100%"
       And I should see "rails.png"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: upload multiple files
     When I follow "Show/Hide"
       And I attach the file "public/images/rails.png" to "file"
@@ -34,7 +37,8 @@ Feature: uploads items on media panel
     Then I should see "rails.png" within "#file-1"
       And I should see "503.jpg" within "#file-2"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: show error when upload fails
     When I follow "Show/Hide"
     And I attach the file "public/images/rails.png" to "file"
@@ -45,7 +49,8 @@ Feature: uploads items on media panel
     But I should see "Validation failed: Slug The title (article name) is already being used by another article, please use another title." within "#file-2"
     And The page should contain "div.error-message"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: select destination folder
     When I follow "Show/Hide"
       And I attach the file "public/images/rails.png" to "file"
@@ -58,7 +63,8 @@ Feature: uploads items on media panel
     Then I should see "rails"
       But I should not see "503"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: create new folder with parent
     Given I follow "Show/Hide"
       And I should see "joaosilva" within "#media-upload-form"
@@ -92,7 +98,8 @@ Feature: uploads items on media panel
       And I should see "joaosilva/Main folder" within "#published-media"
       And I should see "joaosilva/Gallery/Gallery folder" within "#published-media"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: select type when create new folder
     Given I follow "Show/Hide"
     And I follow "New folder"
@@ -106,7 +113,8 @@ Feature: uploads items on media panel
     When I press "Create"
     Then I should see "joaosilva/Gallery/Gallery new folder" within "#parent_id"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: hide and show upload list
     When I follow "Show/Hide"
       And I attach the file "public/images/rails.png" to "file"
@@ -118,7 +126,8 @@ Feature: uploads items on media panel
     Then I should see "503"
       And I should see "rails"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: update recent media after file upload
     Given the following files
       | owner     | file          | mime       |
@@ -139,7 +148,8 @@ Feature: uploads items on media panel
       And I should see div with title "other-pic" within ".items"
       And I should see "robots" link
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: select folder to show items
     Given the following galleries
       | owner      | name          |
@@ -157,7 +167,8 @@ Feature: uploads items on media panel
     Then I should see div with title "rails" within ".items"
     And I should not see div with title "other-pic" within ".items"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: update selected folder content when upload file to same folder
     Given the following galleries
       | owner      | name          |
@@ -179,7 +190,8 @@ Feature: uploads items on media panel
       And I should see div with title "503" within ".items"
       And I should not see "robots" within ".items"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: filter media with search
     Given the following galleries
       | owner      | name          |
@@ -199,7 +211,8 @@ Feature: uploads items on media panel
       And I fill in "Search" with "rails" within "#published-media"
     Then I should see div with title "rails" within ".items"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: separete images from non-images
     When I follow "Show/Hide"
     Then I should not see "Images"
@@ -213,7 +226,8 @@ Feature: uploads items on media panel
       And I should see div with title "rails" within ".images"
       But I should not see div with title "robots" within ".images"
 
-  @selenium
+  # issue #18
+  @selenium-fixme
   Scenario: view all media button if there are too many uploads
     Given the following galleries
       | owner      | name          |

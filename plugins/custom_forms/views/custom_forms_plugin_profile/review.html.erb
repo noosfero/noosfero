@@ -1,67 +1,67 @@
-<%= javascript_include_tag 'graph' %>
-<%= javascript_include_tag "vendor/loader" %>
+<div class="query-overview">
+	<h1><%= @form.name %></h1>
 
-<h1><%= @form.name %></h1>
+	<div class="query-header">
+		<i class="fa fa-hourglass" aria-hidden="true"></i>
+		<span><%= @form.duration_in_days %></span>
+		<span class="bullet">•</span>
+		<i class="fa fa-users" aria-hidden="true"></i>
+		<span><%= _(pluralize(@form.submissions.count, 'participant')) %></span>
+		<%= link_to 'Download as CSV', format: 'csv'  %>
+	</div>
 
-<div>
-<p>
-  <li><span> <%= _('Participants') %> </span> <span class="query_info"><%=  %>: <%=  @form.submissions.count %></span></li>
-  <br>
-  <li><%= _('Download all form responses as') %>:
-  <%= link_to '[CSV]', :format => 'csv' %></li>
-</p>
-</div>
-<div>
+	<div class="overview">
+		<% @query_results.each_with_index do |result, index|  %>
+			<% if result["data"].has_key? "empty" %>
+				<div>
+					<h6 class="review_text_align"> <%= @fields[index].name   %></h6>
+					<h5 style="text-align: center" > <%= _('There is no answers for this question')%> </h5>
+					<br>
+				</div>
+			<% else %>
+				<div>
+					<% if @graph.show_as_pizza? result["data"]["show_as"] %>
+						<h6 class="review_text_align"> <%= @fields[index].name   %></h6>
+						<%= pie_chart (result["data"].keep_if {|key, value| key != "show_as"}),
+							donut: true, legend: 'left' %>
 
-  <br>
+						<% if index < @query_results.size - 1 %>
+							<hr>
+							<br>
+						<% end %>
+					<% end %>
 
-  <h4 class="review_text_align"> <%= _('Query Overview') %> </h4>
-  <% @query_results.each_with_index do |result, index|  %>
-    <div>
-      <% if @graph.show_as_pizza? result["data"]["show_as"] %>
-        <h6 class="review_text_align"> <%= @fields[index].name   %></h6>
-        <%= pie_chart (result["data"].keep_if {|key, value| key != "show_as"}), donut: true %>
+					<% if @graph.show_as_column? result["data"]["show_as"] %>
+						<h6 class="review_text_align"> <%= @fields[index].name   %></h6>
+						<%= column_chart (result["data"].keep_if {|key, value| key != "show_as"}) %>
+						<% if index < @query_results.size - 1 %>
+							<hr>
+							<br>
+						<% end %>
+					<% end %>
 
-        <% result["percents"].each do |label, value| %>
-          <span><%= label %>: <%= value %>%</span>
-        <% end %>
+					<% if @graph.show_as_text? result["data"]["show_as"] %>
+						<h6 class="review_text_align"> <%= @fields[index].name   %></h6>
+						<table class="review_text_align">
+							<tr>
+								<th > User </th>
+								<th> Answer </th>
+							</tr>
+							<tr>
+								<% result["data"]["answers"].each_with_index do |answer, user| %>
+									<tr>
+										<td class="review_text_align"> <%= result["data"]["users"][user] %> </td>
+										<td class="review_text_align"> <%= answer %> </td>
+										<tr>
+										<% end %>
+										</tr>
+						</table>
+					<% end %>
+				</div>
+			<% end  %>
+		<% end %>
+	</div>
 
-        <% if index < @query_results.size - 1 %>
-          <hr>
-          <br>
-        <% end %>
-
-      <% end %>
-
-
-      <% if @graph.show_as_column? result["data"]["show_as"] %>
-        <h6 class="review_text_align"> <%= @fields[index].name   %></h6>
-        <%= column_chart (result["data"].keep_if {|key, value| key != "show_as"}) %>
-
-        <% if index < @query_results.size - 1 %>
-          <hr>
-          <br>
-        <% end %>
-
-      <% end %>
-
-      <% if @graph.show_as_text? result["data"]["show_as"] %>
-        <h6 class="review_text_align"> <%= @fields[index].name   %></h6>
-        <table class="review_text_align">
-          <tr>
-            <th > User </th>
-            <th> Answer </th>
-          </tr>
-          <tr>
-            <% result["data"]["answers"].each_with_index do |answer, user| %>
-          <tr>
-              <td class="review_text_align"> <%= result["data"]["users"][user] %> </td>
-              <td class="review_text_align"> <%= answer %> </td>
-          <tr>
-            <% end %>
-          </tr>
-        </table>
-      <% end %>
-    </div>
-  <% end  %>
-</div>
+<%= button_bar do %>
+  <%= button :back, _('View all queries'), :action => 'queries' %>
+<% end %>

@@ -11,7 +11,8 @@ Feature: suggest article
       | identifier | name |
       | sample-community | Sample Community |
     And "Joao Silva" is admin of "Sample Community"
-
+    
+  # issue #9
   @selenium-fixme
   Scenario: highlight an article before approval of a suggested article
     Given I am on Sample Community's blog

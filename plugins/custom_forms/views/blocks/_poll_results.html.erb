@@ -1,0 +1,26 @@
+<% if form.show_results_for(current_person) %>
+
+  <% if form.submissions.all.present? %>
+    <% form.results.each_with_index do |result, index|  %>
+      <div class="chart-wrapper">
+        <h6><%= form.fields[index].name %></h6>
+        <%= pie_chart result['data'].keep_if { |key, value| key != "show_as" },
+                      donut: true, legend: "bottom"  %>
+      </div>
+    <% end  %>
+    <%= link_to _('See results'), { controller: 'custom_forms_plugin_profile',
+                                    action: 'review', id: form.identifier },
+                class: 'partial-results-link' %>
+  <% else %>
+    <div class='no-results'>
+      <span><%= _('There are no results for this poll.') %></span>
+    </div>
+  <% end %>
+
+<% else %>
+
+  <div class='no-results'>
+    <span><%= _('This poll is closed.') %></span>
+  </div>
+
+<% end %>
