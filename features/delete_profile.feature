@@ -38,6 +38,7 @@ Feature: delete profile
     And I follow "Edit Profile"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
+    And I confirm the browser dialog
     When I follow "No, I gave up"
     Then I should be on joaosilva's profile
 
