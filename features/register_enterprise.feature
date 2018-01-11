@@ -105,7 +105,8 @@ Feature: register enterprise
     When I follow "Manage my groups"
     Then I should see "My Enterprise"
 
-  @selenium
+  #Issue 19
+  @selenium-fixme
   Scenario: a user register an enterprise successfully through the admin
             validator method and the admin rejects
     Given organization_approval_method is "admin" on environment
@@ -134,8 +135,7 @@ Feature: register enterprise
     When I follow "Manage my groups"
     Then I should not see "My Enterprise"
 
-  # issue #19
-  @selenium-fixme
+  @selenium
   Scenario: a user register an enterprise successfully through the region
             validator method and the validator accepts
     Given organization_approval_method is "region" on environment
