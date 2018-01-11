@@ -591,52 +591,52 @@ msgstr ""
 msgid "You do not have access to "
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:188
+#: ../app/controllers/my_profile/cms_controller.rb:189
 msgid "Homepage reseted."
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:190
+#: ../app/controllers/my_profile/cms_controller.rb:191
 msgid "\"%s\" configured as homepage."
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:221
+#: ../app/controllers/my_profile/cms_controller.rb:222
 msgid "File(s) successfully uploaded"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:237
+#: ../app/controllers/my_profile/cms_controller.rb:238
 msgid "\"%s\" was removed."
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:279
+#: ../app/controllers/my_profile/cms_controller.rb:280
 msgid "You published this content successfully"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:299
+#: ../app/controllers/my_profile/cms_controller.rb:300
 msgid "Select some group to publish your article"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:311
-#: ../app/controllers/my_profile/cms_controller.rb:331
+#: ../app/controllers/my_profile/cms_controller.rb:312
+#: ../app/controllers/my_profile/cms_controller.rb:332
 msgid "Your publish request was sent successfully"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:318
+#: ../app/controllers/my_profile/cms_controller.rb:319
 msgid "Some of your publish requests couldn't be sent."
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:333
+#: ../app/controllers/my_profile/cms_controller.rb:334
 msgid "Your publish request couldn't be sent."
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:337
+#: ../app/controllers/my_profile/cms_controller.rb:338
 msgid "There is no portal community to publish your article."
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:358
+#: ../app/controllers/my_profile/cms_controller.rb:359
 msgid "Thanks for your suggestion. The community administrators were notified."
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:396
+#: ../app/controllers/my_profile/cms_controller.rb:400
 #: ../app/mailers/contact.rb:23 ../app/models/article.rb:30
 #: ../app/models/category.rb:6 ../app/models/circle.rb:3
 #: ../app/models/comment.rb:5 ../app/models/create_enterprise.rb:4
@@ -658,24 +658,24 @@ msgstr ""
 msgid "Name"
 msgstr "Nome"
 
-#: ../app/controllers/my_profile/cms_controller.rb:397
+#: ../app/controllers/my_profile/cms_controller.rb:401
 msgid "Size (bigger first)"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:398
+#: ../app/controllers/my_profile/cms_controller.rb:402
 msgid "Size (smaller first)"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:480
+#: ../app/controllers/my_profile/cms_controller.rb:484
 msgid "%s could not be uploaded"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:498
+#: ../app/controllers/my_profile/cms_controller.rb:502
 #: ../app/views/profile_themes/edit.html.erb:24
 msgid "Images"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:498
+#: ../app/controllers/my_profile/cms_controller.rb:502
 #: ../app/views/cms/files.html.erb:5
 msgid "Files"
 msgstr ""
@@ -1288,7 +1288,7 @@ msgstr ""
 
 #: ../app/helpers/application_helper.rb:859 ../app/helpers/forms_helper.rb:171
 #: ../app/views/blocks/slideshow.html.erb:31
-#: ../app/views/enterprise_registration/basic_information.html.erb:42
+#: ../app/views/enterprise_registration/index.html.erb:42
 #: ../app/views/invite/_select_address_book.html.erb:38
 #: ../app/views/layouts/slideshow.html.erb:18
 msgid "Next"
@@ -3554,7 +3554,7 @@ msgstr ""
 #: ../app/views/box_organizer/_highlights_block.html.erb:6
 #: ../app/views/box_organizer/_link_list_block.html.erb:8
 #: ../app/views/cms/_blog.html.erb:34
-#: ../app/views/enterprise_registration/basic_information.html.erb:23
+#: ../app/views/enterprise_registration/index.html.erb:23
 #: ../app/views/enterprise_validation/_details.html.erb:7
 #: ../app/views/enterprise_validation/index.html.erb:14
 #: ../app/views/enterprise_validation/list_processed.html.erb:9
@@ -3588,27 +3588,27 @@ msgstr ""
 msgid "Management information"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:55
+#: ../app/models/create_enterprise.rb:56
 msgid "{fn} is not a validator for the chosen region"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:62
+#: ../app/models/create_enterprise.rb:63
 msgid ""
 "{fn} is already being as identifier by another enterprise, organization or "
 "person."
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:161 ../app/models/environment.rb:146
-#: ../app/views/enterprise_registration/basic_information.html.erb:3
+#: ../app/models/create_enterprise.rb:176 ../app/models/environment.rb:146
+#: ../app/views/enterprise_registration/index.html.erb:3
 msgid "Enterprise registration"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:173
-#: ../app/models/create_enterprise.rb:219
+#: ../app/models/create_enterprise.rb:188
+#: ../app/models/create_enterprise.rb:234
 msgid "%{requestor} wants to create enterprise %{subject}."
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:181
+#: ../app/models/create_enterprise.rb:196
 msgid ""
 "Your request for registering enterprise \"%{enterprise}\" at %{environment} "
 "was just received. It will be reviewed by the validator organization of your "
@@ -3618,14 +3618,14 @@ msgid ""
 "position about your request."
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:187
+#: ../app/models/create_enterprise.rb:202
 msgid ""
 "Your request for registering the enterprise \"%{enterprise}\" was approved. "
 "You can access %{environment} now and provide start providing all relevant "
 "information your new enterprise."
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:191
+#: ../app/models/create_enterprise.rb:206
 msgid ""
 "Your request for registering the enterprise %{enterprise} at %{environment} "
 "was NOT approved by the validator organization. The following explanation "
@@ -3634,54 +3634,54 @@ msgid ""
 "%{explanation}"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:196
+#: ../app/models/create_enterprise.rb:211
 msgid ""
 "Enterprise \"%{enterprise}\" just requested to enter %{environment}. You "
 "have to approve or reject it through the \"Pending Validations\" section in "
 "your control panel.\n"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:198
+#: ../app/models/create_enterprise.rb:213
 msgid "The data provided by the enterprise was the following:\n"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:201
+#: ../app/models/create_enterprise.rb:216
 msgid "Name: %s"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:202
+#: ../app/models/create_enterprise.rb:217
 msgid "Acronym: %s"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:203
+#: ../app/models/create_enterprise.rb:218
 msgid "Address: %s"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:204
+#: ../app/models/create_enterprise.rb:219
 msgid "Legal form: %s"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:205
+#: ../app/models/create_enterprise.rb:220
 msgid "Foundation Year: %d"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:206
+#: ../app/models/create_enterprise.rb:221
 msgid "Economic activity: %s"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:208
+#: ../app/models/create_enterprise.rb:223
 msgid "Information about enterprise's management:\n"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:210
+#: ../app/models/create_enterprise.rb:225
 msgid "Contact phone: %s"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:211
+#: ../app/models/create_enterprise.rb:226
 msgid "Contact person: %s"
 msgstr ""
 
-#: ../app/models/create_enterprise.rb:213
+#: ../app/models/create_enterprise.rb:228
 msgid "CreateEnterprise|Identifier"
 msgstr ""
 
@@ -7270,36 +7270,6 @@ msgstr ""
 msgid "Embed unavailable."
 msgstr ""
 
-#: ../app/views/enterprise_registration/basic_information.html.erb:8
-msgid ""
-"There are no validators to validate the registration of this new enterprise. "
-"Contact your administrator for instructions."
-msgstr ""
-
-#: ../app/views/enterprise_registration/basic_information.html.erb:12
-#: ../app/views/favorite_enterprises/index.html.erb:27
-#: ../app/views/memberships/index.html.erb:8
-#: ../app/views/profile/_follow.html.erb:14
-#: ../app/views/profile/_private_profile.html.erb:15
-#: ../app/views/profile/communities.html.erb:18
-#: ../app/views/profile/enterprises.html.erb:12
-#: ../app/views/profile/fans.html.erb:12
-#: ../app/views/profile/favorite_enterprises.html.erb:12
-#: ../app/views/profile/friends.html.erb:18
-#: ../app/views/profile/members.html.erb:40
-#: ../app/views/shared/access_denied.html.erb:13
-#: ../app/views/shared/not_found.html.erb:8 ../public/500.html.erb:27
-msgid "Go back"
-msgstr ""
-
-#: ../app/views/enterprise_registration/basic_information.html.erb:16
-msgid ""
-"To register a new enterprise, fill in the form and hit the Register button. "
-"Then the enterprise will be submitted for evaluation at the validation "
-"entitiy of your choice (within your state) and when the enterprise is "
-"aproved you will be able to activate its profile."
-msgstr ""
-
 #: ../app/views/enterprise_registration/confirmation.html.erb:2
 msgid "Enterprise was created"
 msgstr ""
@@ -7336,6 +7306,36 @@ msgstr ""
 #: ../app/views/enterprise_registration/creation.html.erb:5
 #: ../app/views/memberships/welcome.html.erb:5
 msgid "What can I do with a %s?"
+msgstr ""
+
+#: ../app/views/enterprise_registration/index.html.erb:8
+msgid ""
+"There are no validators to validate the registration of this new enterprise. "
+"Contact your administrator for instructions."
+msgstr ""
+
+#: ../app/views/enterprise_registration/index.html.erb:12
+#: ../app/views/favorite_enterprises/index.html.erb:27
+#: ../app/views/memberships/index.html.erb:8
+#: ../app/views/profile/_follow.html.erb:14
+#: ../app/views/profile/_private_profile.html.erb:15
+#: ../app/views/profile/communities.html.erb:18
+#: ../app/views/profile/enterprises.html.erb:12
+#: ../app/views/profile/fans.html.erb:12
+#: ../app/views/profile/favorite_enterprises.html.erb:12
+#: ../app/views/profile/friends.html.erb:18
+#: ../app/views/profile/members.html.erb:40
+#: ../app/views/shared/access_denied.html.erb:13
+#: ../app/views/shared/not_found.html.erb:8 ../public/500.html.erb:27
+msgid "Go back"
+msgstr ""
+
+#: ../app/views/enterprise_registration/index.html.erb:16
+msgid ""
+"To register a new enterprise, fill in the form and hit the Register button. "
+"Then the enterprise will be submitted for evaluation at the validation "
+"entitiy of your choice (within your state) and when the enterprise is "
+"aproved you will be able to activate its profile."
 msgstr ""
 
 #: ../app/views/enterprise_registration/select_validator.html.erb:1
@@ -10154,10 +10154,8 @@ msgid ""
 "under the %{agpl_url} version 3 or any later version."
 msgstr ""
 
-#: ../app/models/categories_block.rb:4
 #~ msgid "Generic category"
 #~ msgstr "Categoria Generica"
 
-#: ../app/models/categories_block.rb:6
 #~ msgid "Product"
 #~ msgstr "Prodotto"
