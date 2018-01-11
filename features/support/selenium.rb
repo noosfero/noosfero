@@ -8,6 +8,7 @@ Capybara.register_driver :selenium do |app|
   else
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile.native_events = true
+    profile["intl.accept_languages"] = "en"
     Capybara::Selenium::Driver.new app, browser: :firefox, profile: profile
   end
 end
