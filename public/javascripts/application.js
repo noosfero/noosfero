@@ -1321,15 +1321,29 @@ $(document).ready(function() {
     let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-accept-radio");
     targetRadioBtn.attr("checked", "checked");
     $(this).closest("form").submit();
-    $(this).closest("li").fadeOut(600, function() { $(this).remove(); });
   });
 
   $(".task-actions .reject-task").click(function(){
-    let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-reject-radio");
-    targetRadioBtn.attr("checked", "checked");
-    $(this).closest("form").submit();
-    $(this).closest("li").fadeOut(600, function() { $(this).remove(); });
+    let reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
+    if(reject_explanation.css('display') == 'none') {
+      reject_explanation.fadeIn()
+    } else {
+      let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-reject-radio");
+      targetRadioBtn.attr("checked", "checked");
+      $(this).closest("form").submit()
+    }
   });
+
+  $(".task-actions #save-all-tasks").click('click', function(){
+    var form = $(this).closest("form")
+    form.find('.task-decisions input[type=radio]').attr('checked', false)
+    form.find('.task-decisions .task-accept-radio').attr('checked', true)
+    form.submit()
+  });
+
+  $('.task-box .task-view-datails-link').click(function() {
+    $(this).closest('.task-box').find('.task-view-details').toggle('display')
+  })
 
   $('a.comment-remove').live('click', function() {
     var comment_id = $(this).closest('.comment-actions').data('comment-id')

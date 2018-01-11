@@ -6,9 +6,14 @@
 
   <div class="task-description">
 
-    <%= render partial: 'tasks/task_title', locals: { task: task } %>
-    <span class="bullet-separator">•</span>
-    <div class="task-date"><%= show_time(task.created_at) %></div>
+    <div class='task-header'>
+      <div>
+        <%= render partial: 'tasks/task_title', locals: { task: task } %>
+        <span class="bullet-separator">•</span>
+        <div class="task-date"><%= show_time(task.created_at) %></div>
+      </div>
+      <%= link_to font_awesome('info'), '#!', :title => _('View task details'), :class => 'task-view-datails-link' if task.accept_details %>
+    </div>
 
     <% if !@view_only && profile&.organization? && @responsible_candidates.present? %>
       <div class="task_responsible">
@@ -31,11 +36,6 @@
       <%= task_information(task, params) %>
     </div>
 
-    <%= button_bar(class: 'task-actions') do %>
-      <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
-      <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
-    <% end %>
-
     <div class="task-decisions">
       <% unless @view_only %>
         <% [["accept", "finish"], ["reject", "cancel"], ["skip", "skip"]].each do |task_name, task_action| %>
@@ -50,23 +50,34 @@
 
     <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
       <% if task.custom_fields_moderate %>
-        <div id="custom-field-information-<%=task.id%>" style="display: none">
+        <div id="custom-field-information-<%=task.id%>">
           <%= render partial: "tasks/#{task.class.name.underscore}_custom_fields", locals: { task: task } %>
-        </div>
-      <% end %>
-
-      <% if task.accept_details %>
-        <div id="on-accept-information-<%=task.id%>" style="display: none">
-          <%= render partial: "tasks/#{task.class.name.underscore}_accept_details", locals: { task: task, f: f } %>
         </div>
       <% end %>
 
     <% end %>
 
+    <div class='task-view-details' style='display:none'>
+      <% if task.accept_details %>
+        <div id="on-accept-information-<%=task.id%>">
+          <%= render partial: "tasks/#{task.class.name.underscore}_accept_details", locals: { task: task } %>
+        </div>
+      <% end %>
+    </div>
     <% if task.footer %>
       <div id="task-footer-<%=task.id%>">
         <%= render partial: "tasks/#{task.class.name.underscore}_footer", locals: { task: task } %>
       </div>
     <% end %>
+
+    <div class='task-reject-explanation' style='display:none'>
+      <%= text_area_tag "tasks[#{task.id}][task][reject_explanation]", '', :placeholder => _('Rejection explanation') %>
+    </div>
+
+    <%= button_bar(class: 'task-actions') do %>
+      <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
+      <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
+    <% end %>
+
   </div>
 </div>

@@ -65,15 +65,16 @@ class TasksController < MyProfileController
           end
         end
       end
-      render :update do |page|
-        if user.pending_tasks.count > 0
-          page.replace_html "pending-tasks", user.pending_tasks.count
-        else
-          page.remove "pending-tasks"
-          page.remove "pending-tasks-menu"
-        end
-      end
     end
+
+    url = tasks_url(:action => 'index')
+    if failed.blank?
+      session[:notice] = _("All decisions were applied successfully.")
+    else
+      session[:notice] = _("Some decisions couldn't be applied.")
+      url = tasks_url(:action => 'index', :failed => failed)
+    end
+    redirect_to url 
   end
 
   def new
