@@ -22,7 +22,7 @@ Feature: follow profile
     When I go to nightswatch's homepage
     When I follow "Follow"
     When I check "Work"
-    When I press "Follow"
+    When I follow "Follow"
     And I wait 1 second
     Then "johnsnow" should be a follower of "nightswatch" in circle "Work"
 
@@ -33,7 +33,7 @@ Feature: follow profile
     When I follow "Follow"
     When I check "Work"
     When I check "Favorites"
-    When I press "Follow"
+    When I follow "Follow"
     And I wait 1 second
     Then "johnsnow" should be a follower of "nightswatch" in circle "Work"
     And "johnsnow" should be a follower of "nightswatch" in circle "Favorites"
@@ -52,7 +52,7 @@ Feature: follow profile
     Given I am logged in as "johnsnow"
     When I go to nightswatch's homepage
     When I follow "Follow"
-    When I press "Cancel"
+    When I follow "Cancel"
     And I wait 1 second
     Then I should not see "Family"
     And I should not see "Favorites"
@@ -66,7 +66,7 @@ Feature: follow profile
     When I go to nightswatch's homepage
     When I follow "Follow"
     When I follow "New Circle"
-    When I press "Cancel"
+    When I follow "Cancel"
     And I wait 1 second
     Then I should not see "Circle name"
     And I should not see "Create"
@@ -87,7 +87,7 @@ Feature: follow profile
     And I fill in "text-field-name-new-circle" with "Winterfell"
     When I follow "Create"
     When I check "Winterfell"
-    When I press "Follow"
+    When I follow "Follow"
     And I wait 1 second
     Then "johnsnow" should be a follower of "nightswatch" in circle "Winterfell"
 
