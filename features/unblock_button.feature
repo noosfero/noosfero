@@ -12,6 +12,7 @@ Feature: unblock button
       | sample-enterprise | DisabledEnterpriseMessageBlock |
     And enterprise "Sample Enterprise" is disabled
 
+  @selenium
   Scenario: the environment administrator unblocks a blocked enterprise
     Given I am logged in as admin
     And enterprise "Sample Enterprise" is blocked
