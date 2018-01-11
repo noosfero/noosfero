@@ -17,7 +17,7 @@ Feature: comment
 
   Scenario: not show any reply form by default
     When I go to /booking/article-to-comment
-    Then I should not see "Enter your comment" within "div.comment-balloon"
+    Then I should not see "Leave your comment"
 
   @selenium-fixme
   Scenario: show error messages when make a blank comment reply
