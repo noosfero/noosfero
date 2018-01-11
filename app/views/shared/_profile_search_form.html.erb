@@ -6,7 +6,6 @@
       <%= submit_button(:search, _('Search')) %>
     </span>
     <%= hidden_field_tag :block, block.id if defined? block %>
-    <%= submit_button(:search, _('Search')) %>
     <div>
       <%= labelled_radio_button profile.short_name, 'where', 'profile', true, :title => _("Find in %s's content") % profile.short_name %>
       <%= labelled_radio_button _('General'), 'where', 'environment', false, :title => _("Search all content") %>
