@@ -1,5 +1,5 @@
 <% if logged_in? && (user != profile) && profile.allow_followers? %>
-  <li class="profile-circles">
+  <li>
     <% follow = user.follows?(profile) %>
     <% if !user.follows? profile %>
       <%= link_to(font_awesome(:rss, _('Follow')), {:profile => profile.identifier, :controller => 'profile', :action => 'find_profile_circles'}, :id => 'action-follow', :title => _("Follow")) %>
