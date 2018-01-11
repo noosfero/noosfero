@@ -21,7 +21,7 @@ div.pending-tasks {
 }
 
 .controller-tasks #content .task-list {
-  margin: 0px;
+  margin: 30px 0px;
   padding: 0px;
 }
 
@@ -31,6 +31,9 @@ div.pending-tasks {
 }
 
 .task-box {
+  margin: 15px 0;
+  padding-top: 10px;
+  border-top: 1px solid #e8e8e8;
   display: flex;
   .task-requestor-img {
     a {
@@ -169,4 +172,30 @@ div.pending-tasks {
 
 .task-processed .task .label {
   font-weight: bold
+}
+
+.task-reject-explanation {
+
+  textarea{
+    border-radius: 5px;
+    width: 60%;
+    margin: 5px 0;
+  }
+
+  .reject-explanation-info {
+    color: red;
+  }
+}
+
+.task-description .task-header {
+  display:flex;
+  justify-content:space-between;
+
+  .task-view-datails-link {
+    color: #90949c;
+  }
+}
+
+.task-view-details {
+  padding: 10px 0;
 }

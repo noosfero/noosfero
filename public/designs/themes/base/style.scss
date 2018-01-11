@@ -262,9 +262,7 @@ body, th, td, input {
             @media only screen and (max-width: 540px) { width: 260px; }
           }
           li {
-            border-bottom: 1px solid #e9ebee;
 
-            &:not(.no-pending-tasks) { padding-top: 10px; }
             a {
               color: #333;
               font-size: 1em;
@@ -277,11 +275,21 @@ body, th, td, input {
               letter-spacing: -0.3px;
             }
 
+            .task-box {
+              margin:0;
+              border:0;
+              padding-bottom: 5px;
+            }
+
             .task-requestor-img {
               flex-grow: 1;
               .task_icon {
                 margin: auto;
               }
+            }
+
+            .task_icon {
+              padding: 10px;
             }
 
             .task-description {

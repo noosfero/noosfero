@@ -1,0 +1,23 @@
+<div class='task-link'>
+  <div class="task-box" id="task-<%= task.id %>">
+
+    <div class="task-requestor-img">
+      <%= render partial: 'tasks/task_icon', locals: { task: task } %>
+    </div>
+
+    <div class="task-description">
+
+      <div class='task-header'>
+        <div>
+          <%= render partial: 'tasks/task_title', locals: { task: task } %>
+          <span class="bullet-separator">•</span>
+          <div class="task-date"><%= show_time(task.created_at) %></div>
+        </div>
+      </div>
+
+      <div class="task-information">
+        <%= task_information(task, params) %>
+      </div>
+    </div>
+  </div>
+</div>
