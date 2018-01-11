@@ -36,9 +36,9 @@ Feature: search contents
     When I search contents for "birthday"
     Then I should see "John Doe's birthday" within ".search-event-item"
     And I should see "Start date"
-    And I should see "2009-09-01"
+    And I should see "September 1, 2009"
     And I should see "End date"
-    And I should see "2009-09-02"
+    And I should see "September 2, 2009"
     And I should not see "Group meeting"
     When I follow "John Doe's birthday"
     Then I should be on article "John Doe's birthday"
@@ -50,7 +50,7 @@ Feature: search contents
       | joaosilva | Videos Folder |
     When I search contents for "Music"
     Then I should see "Music Folder" within ".search-folder-item"
-    And I should see "None" within ".search-folder-items"
+    And I should see "" within ".search-folder-items"
     And I should not see "Videos Folder"
     When I follow "Music Folder"
     Then I should be on article "Music Folder"
@@ -168,14 +168,15 @@ Feature: search contents
     And I should see "The island Herreninsel, with" within ".search-article-description"
     And I should see "and Kraut..." within ".search-article-description"
 
-  Scenario: show empty description on search results
+  @selenium
+  Scenario: do not show description on search results
     Given the following articles
       | owner     | name        | body |
       | joaosilva | Herreninsel |      |
     When I go to the search articles page
     And I fill in "search-input" with "Herreninsel"
-    And I press "Search"
-    Then I should see "None" within ".search-article-description"
+    And I follow "Search"
+    Then I should not see "Description"
 
   Scenario: link to tags on search results
     Given the following tags
@@ -191,11 +192,11 @@ Feature: search contents
     When I follow "Hymenoptera"
     Then I should be on Hymenoptera's tag page
 
-  Scenario: show empty tags in search results
+  Scenario: do not show tags in search results
     When I go to the search articles page
     And I fill in "search-input" with "dolphins"
     And I press "Search"
-    Then I should see "None" within ".search-article-tags"
+    Then I should not see "Tags"
 
   Scenario: link to categories on search results
     Given the following category
@@ -210,16 +211,16 @@ Feature: search contents
     Then I should see "Categories" within ".search-article-categories"
     And I should see "Soviet" within ".search-article-category"
 
-  Scenario: show empty categories on search results
+  Scenario: do not show categories on search results
     When I go to the search articles page
     And I fill in "search-input" with "whales"
     And I press "Search"
     Then I should see "whales and dolphins"
-    And I should see "None" within ".search-article-categories-container"
+    And I should not see "Categories"
 
   Scenario: show date of last update from original author
     When I search contents for "whales"
-    Then I should see "Last update:" within ".search-article-author-changes"
+    Then I should see "Updated at" within ".search-article-author-changes"
 
   Scenario: show date of last update from another author
     Given the following users
