@@ -122,7 +122,7 @@ Feature: create community
     And I follow "Manage my groups"
     Then I should see "Community for approval"
 
-  @Selenium
+  @selenium
   Scenario: new community is not listed after rejection
     Given I am logged in as admin
     And feature "admin_must_approve_new_communities" is enabled on environment
