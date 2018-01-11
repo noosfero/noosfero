@@ -31,8 +31,10 @@ Feature: comment
   @selenium
   Scenario: render reply form
     Given I am on /booking/article-to-comment
-    When I follow "Reply" within ".comments-action-bar"
-    Then I should see "Enter your comment" within "div.comment_reply.opened"
+    And I follow "comment-options"
+    When I follow "Reply"
+    Then I should see "Name"
+    Then I should see "e-mail"
 
   # The text is hidden but the detector gets it anyway
   @selenium-fixme
