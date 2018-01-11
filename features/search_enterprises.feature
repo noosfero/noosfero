@@ -63,8 +63,8 @@ Feature: search enterprises
     When I search enterprises for "shoes"
     And I wait for 1 seconds
     And I select "Full" from "display"
-    Then I should see "This is the homepage of" within ".search-enterprise-description"
-    And I should see "about sho..." within ".search-enterprise-description"
+    Then I should see "This is the homepage of" within ".search-article-description"
+    And I should see "about sho..." within ".search-article-description"
 
   @selenium
   Scenario: show clean enterprise description on search results
@@ -85,4 +85,5 @@ Feature: search enterprises
     When I go to the search enterprises page
     And I fill in "search-input" with "Noosfero Developers"
     And I follow "Search"
+    And I wait for 1 seconds
     Then I should see "Noosfero Developers Association" within "#search-results"
