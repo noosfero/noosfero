@@ -148,6 +148,7 @@ Feature: forum
     And I follow "Save"
     And I follow "menu-dropdown"
     When I follow "Logout"
+    And I wait for 1 seconds
     And I go to /joaosilva/forum-one?terms=terms
     When I follow "Accept"
     Then I should see "Login" within ".login-box"
