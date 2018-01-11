@@ -7,8 +7,9 @@ if ! grep -q "$binary_packages" /etc/apt/sources.list.d/noosfero.list; then
 $binary_packages
 $source_packages
 EOF
+fi
 
-  sudo apt-key add - <<EOF
+sudo apt-key add - <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mQENBFo9LwwBCACthrtkJxzKTfG1zL32IWDqemvdWwnfgLFBkZ7yr4lKy5dDIK1m
@@ -41,7 +42,6 @@ CdUuv9egEIjH82viVMIjV67mxx0ifpRgIZsbktJvgElOqEzA8xxydU2NHUoVc6jb
 =JjJa
 -----END PGP PUBLIC KEY BLOCK-----
 EOF
-fi
 
 
 if test -f tmp/debian/Release.gpg; then
