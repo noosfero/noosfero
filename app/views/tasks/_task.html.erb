@@ -1,4 +1,4 @@
-<div class="task-box" id="task-<%= task.id %>">
+<div class="task-box gray-border-top" id="task-<%= task.id %>">
 
   <div class="task-requestor-img">
     <%= render partial: 'tasks/task_icon', locals: { task: task } %>
@@ -12,7 +12,9 @@
         <span class="bullet-separator">•</span>
         <div class="task-date"><%= show_time(task.created_at) %></div>
       </div>
-      <%= link_to font_awesome('info'), '#!', :title => _('View task details'), :class => 'task-view-datails-link' if task.accept_details %>
+      <%= link_to font_awesome('info'), '#!', :title => _('View task details'),
+                  :class => 'toggle-link task-view-datails-link',
+                  :data => { :element => "task-view-details-#{task.id}" } if task.accept_details %>
     </div>
 
     <% if !@view_only && profile&.organization? && @responsible_candidates.present? %>
@@ -57,7 +59,7 @@
 
     <% end %>
 
-    <div class='task-view-details' style='display:none'>
+    <div id=<%= "task-view-details-#{task.id}" %> style='display:none'>
       <% if task.accept_details %>
         <div id="on-accept-information-<%=task.id%>">
           <%= render partial: "tasks/#{task.class.name.underscore}_accept_details", locals: { task: task } %>

@@ -1341,10 +1341,6 @@ $(document).ready(function() {
     form.submit()
   });
 
-  $('.task-box .task-view-datails-link').click(function() {
-    $(this).closest('.task-box').find('.task-view-details').toggle('display')
-  })
-
   $('a.comment-remove').live('click', function() {
     var comment_id = $(this).closest('.comment-actions').data('comment-id')
     var message = $(this).data('message')
@@ -1361,4 +1357,10 @@ $(document).ready(function() {
      add_comment_reply_form(comment_id)
      return false
   })
+
+  $('.toggle-link').click(function() {
+    let element = '#' + $(this).data('element')
+    $(element).toggle('display')
+  })
+
 });

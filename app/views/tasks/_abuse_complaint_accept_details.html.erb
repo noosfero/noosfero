@@ -1,28 +1,25 @@
-<br />
 <% task.abuse_reports.each do |abuse_report| %>
-  <div>
-    <strong style="word-wrap: break-word; display: block; padding-right: 40px">"<%= abuse_report.reason %>"</strong> <br />
-    <i><%= _('Reported by %{reporter} %{time}.') % {:reporter => abuse_report.reporter.name, :time => time_ago_in_words(abuse_report.created_at) }%></i> <br />
-    <% if !abuse_report.content.blank? %>
-      <button class="display-abuse-report-details" data-report="<%=abuse_report.id%>"><%=_('View details')%></button>
-      <div style='display: none' id=<%= 'abuse-report-details-'+abuse_report.id.to_s %> class="abuse-report-details">
+  <div class='abuse-report gray-border-top'>
+    <% reporter = abuse_report.reporter %>
+    <div class="abuse-report-header">
+      <div>
+        <%= font_awesome('exclamation-circle') %>
+        <%= link_to(reporter.name, reporter.url, :class => 'abuse-reporter-name') %>
+        <span class="abuse-report-time">
+          <span class="bullet-separator">•</span>
+          <%= time_ago_in_words(abuse_report.created_at) %>
+        </span>
+      </div>
+      <%= link_to _('View deatils'), '#!', :class => 'toggle-link',
+                  :data => {:element => "abuse-report-details-#{abuse_report.id}"} unless abuse_report.content.blank?%>
+    </div>
+    <p class="abuse-report-reason">
+      "<%= abuse_report.reason %>"
+    </p>
+    <% unless abuse_report.content.blank? %>
+      <div id=<%= "abuse-report-details-#{abuse_report.id}" %> class='abuse-report-details'>
         <%= abuse_report.content.html_safe %>
       </div>
     <% end %>
-    <br />
-    --
-    <br />
   </div>
 <% end %>
-
-<script>
-  (function($){
-    $("#task-<%= task.id %> .display-abuse-report-details").button({
-        icons: { primary: "ui-icon-info" },
-        text: false
-    }).click(function(){
-      $('#abuse-report-details-'+$(this).attr('data-report')).slideToggle();
-      return false;
-    });
-  })(jQuery);
-</script>

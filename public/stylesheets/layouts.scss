@@ -141,6 +141,13 @@ a.button.disabled, input.disabled {
   filter-opacity: 50%;
 }
 
+.block a.toggle-link,
+.block a.toggle-link:hover,
+.block a.toggle-link:visited {
+  color: #90949c;
+  text-decoration: none;
+}
+
 .hint {
   font-size: 12px;
   font-style: italic;
