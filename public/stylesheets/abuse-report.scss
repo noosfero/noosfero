@@ -1,31 +1,28 @@
+.abuse-report {
+  margin-top: 15px;
+}
+
+.abuse-report-reason {
+  font-style: italic;
+  padding-left: 15px;
+}
+
+.abuse-report-header {
+  display:flex;
+  justify-content: space-between;
+  margin-top: 5px;
+
+  a.abuse-reporter-name {
+    color: #000;
+    font-weight: bold;
+  }
+  .abuse-report-time,
+  .fa-exclamation-circle {
+    color: #90949c;
+  }
+}
 
 .abuse-report-details {
-  background-color: #fff;
-  border-radius: 15px;
-  padding: 10px;
-  margin-top: 5px;
+  display: none;
+  padding-left: 15px;
 }
-
-.display-abuse-report-details {
-  float: right;
-  margin-top: -30px;
-}
-
-#content a.report-abuse-action.disabled {
-  cursor: default;
-  text-decoration: none;
-  color: #999;
-}
-
-#content a.button.report-abuse-action.disabled:hover {
-  background-color: #eee;
-  color: #999;
-  border: solid 1px #ccc;
-}
-
-#article-actions a.button.report-abuse-action.disabled:hover {
-  border: none;
-  background-color: transparent;
-  color: #999;
-}
-
