@@ -1,4 +1,4 @@
-<div<%= user && " class='logged-in'" %>>
+<div class="<%= user ? 'logged-in' : '' %>">
   <div id="article-header">
     <% if @page.blog? and !@page.image.nil? %>
       <div class="blog-cover"><%= image_tag(@page.image.public_filename())%></div>
