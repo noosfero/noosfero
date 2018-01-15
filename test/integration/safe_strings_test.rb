@@ -105,10 +105,8 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
 
     get "/myprofile/marley"
     assert_tag :tag => 'ul', :attributes => { :id => 'pending-tasks-menu', :class => 'noosfero-dropdown-menu scrollbar' }, :descendant => {
-      :tag => 'form', :attributes => { :action => '/myprofile/marley/tasks/close' }, :descendant => {
-        :tag => 'li', :attributes => {}, :descendant => {
-          :tag => 'div', :attributes => { :class => 'task-box' }
-        }
+      :tag => 'li', :descendant => {
+        :tag => 'div', :attributes => { :class => 'task-box' }
       }
     }
   end
