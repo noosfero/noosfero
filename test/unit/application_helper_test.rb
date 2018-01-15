@@ -523,7 +523,6 @@ class ApplicationHelperTest < ActionView::TestCase
     stubs(:user).returns(fast_create(User))
     stubs(:environment).returns(Environment.default)
     user.stubs(:is_admin?).with(environment).returns(false)
-    p user.is_admin?(environment)
     assert_no_match /Administration/, admin_link
   end
 
@@ -733,7 +732,7 @@ class ApplicationHelperTest < ActionView::TestCase
     enterprise.add_admin(profile)
 
     stubs(:user).returns(nil)
-    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
+    expects(:manage_link).never
     assert_equal '', manage_enterprises
   end
 
@@ -745,7 +744,7 @@ class ApplicationHelperTest < ActionView::TestCase
     enterprise.add_admin(profile)
 
     stubs(:user).returns(profile)
-    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).returns('enterprises list')
+    expects(:manage_link).once.returns('enterprises list')
     assert_equal 'enterprises list', manage_enterprises
   end
 
@@ -757,7 +756,7 @@ class ApplicationHelperTest < ActionView::TestCase
     enterprise.add_admin(profile)
 
     stubs(:user).returns(profile)
-    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
+    expects(:manage_link).never
     assert_equal '', manage_enterprises
   end
 
@@ -769,7 +768,7 @@ class ApplicationHelperTest < ActionView::TestCase
     community.add_admin(profile)
 
     stubs(:user).returns(nil)
-    expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
+    expects(:manage_link).never
     assert_equal '', manage_communities
   end
 
@@ -781,7 +780,7 @@ class ApplicationHelperTest < ActionView::TestCase
     community.add_admin(profile)
 
     stubs(:user).returns(profile)
-    expects(:manage_link).with(profile.communities, :communities, _('My communities')).returns('communities list')
+    expects(:manage_link).once.returns('communities list')
     assert_equal 'communities list', manage_communities
   end
 
@@ -793,7 +792,7 @@ class ApplicationHelperTest < ActionView::TestCase
     community.add_admin(profile)
 
     stubs(:user).returns(profile)
-    expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
+    expects(:manage_link).never
     assert_equal '', manage_communities
   end
 
