@@ -10,6 +10,8 @@
   <%= render :partial => 'upload_file', locals: { size: size } %>
 </div>
 
+<%= hidden_field_tag('back_to', back_to) %>
+
 <%= button_bar do %>
   <%= button_to_function :plus, _('Add files...'), "add_new_files()", class: "button with-text btn-green" %>
   <% if @back_to %>
