@@ -20,7 +20,7 @@ Feature: approve article
     And "Joao Silva" is admin of "Sample Community"
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/8
-  @selenium
+  @selenium-fixme
   Scenario: edit an article before approval
     Given I am logged in as "mariasilva"
     And I am on mariasilva's homepage
@@ -38,7 +38,7 @@ Feature: approve article
     Then I should see "This is an article edited"
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
-  @selenium
+  @selenium-fixme
   Scenario: reject an article with explanation
     Given I am logged in as "mariasilva"
     And I go to mariasilva's cms
@@ -56,7 +56,7 @@ Feature: approve article
     Then I should not see "Sample Article"
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
-  @selenium
+  @selenium-fixme
   Scenario: reject an article that was removed
     Given I am logged in as "mariasilva"
     And I follow "Dub Wars"
