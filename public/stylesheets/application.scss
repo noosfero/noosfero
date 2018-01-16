@@ -35,6 +35,7 @@
 // views specifics. TODO: load them locally with `content_for :head`
 @import 'themes';
 @import 'tasks';
+@import 'bullet-box';
 @import 'account';
 @import 'signup';
 @import 'cms';

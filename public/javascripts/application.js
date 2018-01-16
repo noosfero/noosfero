@@ -1318,9 +1318,14 @@ $(document).ready(function() {
   });
 
   $(".task-actions .accept-task").click(function(){
-    let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-accept-radio");
-    targetRadioBtn.attr("checked", "checked");
-    $(this).closest("form").submit();
+    let accept_details = $(this).closest('.task-description').find('.task-view-details')
+    if(accept_details.css('display') == 'none') {
+      accept_details.fadeIn()
+    } else {
+      let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-accept-radio");
+      targetRadioBtn.attr("checked", "checked");
+      $(this).closest("form").submit();
+    }
   });
 
   $(".task-actions .reject-task").click(function(){

@@ -65,6 +65,7 @@ div.pending-tasks {
       padding: 2px 0px;
       a {
         font-size: 1em;
+        font-weight: 500;
       }
     }
 
@@ -123,10 +124,6 @@ div.pending-tasks {
 .task_target {
   text-decoration: underline;
   font-weight: bold;
-}
-
-.task_responsible {
-  text-align: right;
 }
 
 .task-processed li {
@@ -197,4 +194,33 @@ div.pending-tasks {
 
 .task-view-details {
   padding: 10px 0;
+}
+
+.task-header {
+  .task-toolbar {
+    display: flex;
+    align-items: center;
+
+    .task-responsible {
+      margin-right: 20px;
+
+      span {
+        font-style: italic;
+      }
+    }
+  }
+}
+
+.task-community-custom-fields {
+  margin-top: 10px;
+
+  div.task-community-field {
+    margin-top: 5px;
+    margin-left: 10px;
+    span.field { font-weight: 500 }
+  }
+}
+
+.task-comment-body {
+  font-style: italic;
 }

@@ -1,7 +1,21 @@
-<p>
-  <b><%= _('Title: ') %></b>
-  <%= task.comment.title %>
-</p>
-<p>
-  <%= task.comment.body %>
-</p>
+<div class='bullet-box'>
+  <% comment = task.comment %>
+  <div class="task-comment-header bullet-header">
+    <div>
+      <%= font_awesome('comment') %>
+      <%= link_to(comment.author_name, comment.author_url, :class => 'bullet-name') %>
+      <span class="task-comment-time bullet-time">
+        <span class="bullet-separator">•</span>
+        <%= time_ago_in_words(comment.created_at) %>
+      </span>
+    </div>
+  </div>
+  <div class='bullet-body'>
+    <% unless comment.title.blank? %>
+      <p><b><%= comment.title %></b></p>
+    <% end %>
+    <p class='task-comment-body'>
+      "<%= comment.body %>" 
+    </p>
+  </div>
+</div>
