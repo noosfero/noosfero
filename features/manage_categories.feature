@@ -13,8 +13,7 @@ Feature: manage categories
       | Potatoes      | products  |
       | Development   | services  |
     And I am logged in as admin
-    And I am on the environment control panel
-    And I follow "Categories"
+    And I am on the administration categories panel
 
   @selenium
   Scenario: load only top level categories
