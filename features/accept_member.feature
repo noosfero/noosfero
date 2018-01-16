@@ -67,7 +67,7 @@ Feature: accept member
     And I wait for 1 seconds
     Then "Marie Curie" should be a member of "My Community"
 
-  @selenium
+  @selenium-fixme
   Scenario: approve a member as moderator in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"

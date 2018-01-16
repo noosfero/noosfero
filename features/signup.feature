@@ -249,7 +249,6 @@ Feature: signup
     And I follow "Control panel"
     And I follow "Tasks"
     And I follow "Accept"
-    And I follow "Apply!"
     And I follow "menu-dropdown"
     And I follow "Logout"
     And Teste da Silva's account is activated
@@ -277,7 +276,6 @@ Feature: signup
     And I follow "Control panel"
     And I follow "Tasks"
     And I follow "Reject"
-    And I follow "Apply!"
     And I follow "menu-dropdown"
     And I follow "Logout"
     And I follow "Login"
