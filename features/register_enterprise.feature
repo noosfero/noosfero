@@ -98,7 +98,6 @@ Feature: register enterprise
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
     And the first mail is to admin_user@example.com
     And I follow "Accept"
-    And I follow "Apply!"
     Then the last mail is to joaosilva@example.com
     And I am logged in as "joaosilva"
     And I am on joaosilva's control panel
@@ -164,7 +163,6 @@ Feature: register enterprise
     When I follow "Tasks"
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
     And I follow "Accept"
-    And I follow "Apply!"
     And I am on joaosilva's control panel
     When I follow "Manage my groups"
     Then I should see "My Enterprise"
