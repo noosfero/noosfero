@@ -32,6 +32,7 @@ Feature: delete profile
     And I go to /myprofile/joaosilva/profile_editor/destroy_profile
     Then I should see "Access denied"
 
+  @selenium
   Scenario: giving up of deleting profile
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
