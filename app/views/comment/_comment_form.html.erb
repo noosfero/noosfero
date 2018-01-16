@@ -27,6 +27,8 @@
     <%= hidden_field_tag('comment[reply_of_id]') %>
 
     <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
+
+    <%= f.submit _('Send'), :class => 'button with-text', :style => 'width:100px;margin-left:42px' %>
   <% end %>
 
   <%= javascript_include_tag 'comment_form' %>
