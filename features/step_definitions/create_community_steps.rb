@@ -21,7 +21,6 @@ Given /^I approve community "(.+)"$/ do |community|
   step %{I go to admin_user's control panel}
   click_link('Tasks')
   click_link("Accept")
-  first(:link, 'Apply!').click
 end
 
 Given /^I reject community "(.+)"$/ do |community|
@@ -29,7 +28,6 @@ Given /^I reject community "(.+)"$/ do |community|
   step %{I go to admin_user's control panel}
   click_link('Tasks')
   click_link("Reject")
-  first(:link, 'Apply!').click
 end
 
 Then /^I should see "([^\"]*)"'s creation date$/ do |community|

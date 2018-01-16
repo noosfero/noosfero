@@ -58,7 +58,6 @@ Feature: create community
     And I follow "Tasks"
     And I should see "Joao Silva wants to create community Community for approval"
     And I follow "Accept"
-    When I follow "Apply!"
     Then I should not see "Joao Silva wants to create community Community for approval"
     And I go to joaosilva's control panel
     And I follow "Manage my groups"
@@ -73,6 +72,7 @@ Feature: create community
     And I go to admin_user's control panel
     And I follow "menu-toggle"
     And I should see "Joao Silva wants to create community Community for approval"
+    And I follow "Manage tasks"
     And I follow "Accept"
     And I follow "menu-toggle"
     Then I should not see "Joao Silva wants to create community Community for approval"
@@ -90,7 +90,8 @@ Feature: create community
     And I follow "Tasks"
     And I should see "Joao Silva wants to create community Community for approval"
     And I follow "Reject"
-    When I follow "Apply!"
+    And I fill in "Rejection explanation" with "Short reject explanation" within ".task-reject-explanation"  
+    And I follow "Reject"
     Then I should not see "Joao Silva wants to create community Community for approval"
     And I go to joaosilva's control panel
     And I follow "Manage my groups"
@@ -105,6 +106,9 @@ Feature: create community
     And I go to admin_user's control panel
     And I follow "menu-toggle"
     And I should see "Joao Silva wants to create community Community for approval"
+    And I follow "Manage tasks"
+    And I follow "Reject"
+    And I fill in "Rejection explanation" with "Short reject explanation" within ".task-reject-explanation"  
     And I follow "Reject"
     And I follow "menu-toggle"
     Then I should not see "Joao Silva wants to create community Community for approval"
