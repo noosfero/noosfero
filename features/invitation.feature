@@ -99,9 +99,7 @@ Feature: invitation
     And I should see "Community invitation"
     Then I should see "26 Bsslines" within "span.task_target"
 
-  # issue #2
-  # tasks cannot be accepted in task's page
-  @selenium-fixme
+  @selenium
   Scenario: noosfero user accepts to join community through tasks
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
     And there are no pending jobs
@@ -110,33 +108,13 @@ Feature: invitation
     And I follow "Tasks"
     And I should see "josesilva invited you to join 26 Bsslines."
     And I follow "Accept"
-    When I follow "Apply!"
     Then I should not see "josesilva invited you to join 26 Bsslines."
     When I go to josesantos's control panel
     And I follow "Manage my groups"
     Then I should see "26 Bsslines"
 
-  #issue #11
-  @selenium-fixme
-  Scenario: noosfero user accepts to join community through notification
-    Given I invite email "santos@invalid.br" to join community "26 Bsslines"
-    And there are no pending jobs
-    When I am logged in as "josesantos"
-    And I go to josesantos's control panel
-    And I follow "menu-toggle"
-    And I should see "Community invitation"
-    Then I should see "26 Bsslines" within "span.task_target"
-    And I follow "Accept"
-    And I should not see "Community invitation"
-    Then I should not see "26 Bsslines"
-    When I go to josesantos's control panel
-    And I follow "Manage my groups"
-    Then I should see "26 Bsslines"
-
-  # issue #2
-  # tasks cannot be accepted in task's page
-  @selenium-fixme
-  Scenario: noosfero user rejects to join community through Tasks
+  @selenium
+  Scenario: noosfero user rejects to join community
     Given I invite email "santos@invalid.br" to join community "26 Bsslines"
     And there are no pending jobs
     When I am logged in as "josesantos"
@@ -144,26 +122,10 @@ Feature: invitation
     And I follow "Tasks"
     And I should see "josesilva invited you to join 26 Bsslines."
     And I follow "Reject"
-    When I follow "Apply!"
+    And I fill in "tasks_1_task_reject_explanation" with "Rejected"
+    And I follow "Reject"    
     Then I should not see "josesilva invited you to join 26 Bsslines."
     And I go to josesantos's control panel
-    And I follow "Manage my groups"
-    Then I should not see "26 Bsslines"
-
-  #issue #11
-  @selenium-fixme
-  Scenario: noosfero user rejects to join community through notifications
-    Given I invite email "santos@invalid.br" to join community "26 Bsslines"
-    And there are no pending jobs
-    When I am logged in as "josesantos"
-    And I go to josesantos's control panel
-    And I follow "menu-toggle"
-    And I should see "Community invitation"
-    Then I should see "26 Bsslines" within "span.task_target"
-    And I follow "Reject"
-    And I follow "menu-toggle"
-    And I should not see "Community invitation"
-    Then I should not see "26 Bsslines"
     And I follow "Manage my groups"
     Then I should not see "26 Bsslines"
 
@@ -185,9 +147,7 @@ Feature: invitation
     Then I should see "Friend invitation"
     Then I should see "josesilva wants to be your friend."
 
-  # issue #2
-  # tasks cannot be accepted in task's page
-  @selenium-fixme
+  @selenium
   Scenario: noosfero user accepts to be friend through tasks
     Given I am logged in as "josesilva"
     And I go to josesilva's control panel
@@ -198,32 +158,12 @@ Feature: invitation
     And I follow "Tasks"
     And I should see "josesilva wants to be your friend."
     And I follow "Accept"
-    When I follow "Apply!"
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
     And I follow "Manage friends"
     Then I should see "josesilva"
 
-  #issue #11
-  @selenium-fixme
-  Scenario: noosfero user accepts to be friend through notifications
-    Given I am logged in as "josesilva"
-    And I go to josesilva's control panel
-    And I invite email "santos@invalid.br" to be my friend
-    And there are no pending jobs
-    When I am logged in as "josesantos"
-    And I go to josesantos's control panel
-    And I follow "menu-toggle"
-    And I should see "josesilva wants to be your friend."
-    And I follow "Accept"
-    And I should not see "josesilva wants to be your friend."
-    When I go to josesantos's control panel
-    And I follow "Manage friends"
-    Then I should see "josesilva"
-
-  # issue #2
-  # tasks cannot be accepted in task's page
-  @selenium-fixme
+  @selenium
   Scenario: noosfero user rejects to be friend through tasks
     Given I am logged in as "josesilva"
     And I go to josesilva's control panel
@@ -234,25 +174,8 @@ Feature: invitation
     And I follow "Tasks"
     And I should see "josesilva wants to be your friend."
     And I follow "Reject"
-    When I follow "Apply!"
-    And I should not see "josesilva wants to be your friend."
-    When I go to josesantos's control panel
-    And I follow "Manage friends"
-    Then I should not see "josesilva"
-
-  #issue #11
-  @selenium-fixme
-  Scenario: noosfero user rejects to be friend through notifications
-    Given I am logged in as "josesilva"
-    And I go to josesilva's control panel
-    And I invite email "santos@invalid.br" to be my friend
-    And there are no pending jobs
-    When I am logged in as "josesantos"
-    And I go to josesantos's control panel
-    And I follow "menu-toggle"
-    And I should see "josesilva wants to be your friend."
-    And I follow "Reject"
-    And I follow "menu-toggle"
+    And I fill in "tasks_1_task_reject_explanation" with "Rejected"
+    And I follow "Reject" 
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
     And I follow "Manage friends"
