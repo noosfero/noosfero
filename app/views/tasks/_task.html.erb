@@ -57,29 +57,28 @@
         </div>
       <% end %>
 
-    <% end %>
+      <div id=<%= "task-view-details-#{task.id}" %> style='display:none'>
+        <% if task.accept_details %>
+          <div id="on-accept-information-<%=task.id%>">
+            <%= render partial: "tasks/#{task.class.name.underscore}_accept_details", locals: { task: task, f: f } %>
+          </div>
+        <% end %>
+      </div>
 
-    <div id=<%= "task-view-details-#{task.id}" %> style='display:none'>
-      <% if task.accept_details %>
-        <div id="on-accept-information-<%=task.id%>">
-          <%= render partial: "tasks/#{task.class.name.underscore}_accept_details", locals: { task: task } %>
+      <% if task.footer %>
+        <div id="task-footer-<%=task.id%>">
+          <%= render partial: "tasks/#{task.class.name.underscore}_footer", locals: { task: task } %>
         </div>
       <% end %>
-    </div>
-    <% if task.footer %>
-      <div id="task-footer-<%=task.id%>">
-        <%= render partial: "tasks/#{task.class.name.underscore}_footer", locals: { task: task } %>
+
+      <div class='task-reject-explanation' style='display:none'>
+        <%= text_area_tag "tasks[#{task.id}][task][reject_explanation]", '', :placeholder => _('Rejection explanation') %>
       </div>
+
+      <%= button_bar(class: 'task-actions') do %>
+        <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
+        <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
+      <% end %>
     <% end %>
-
-    <div class='task-reject-explanation' style='display:none'>
-      <%= text_area_tag "tasks[#{task.id}][task][reject_explanation]", '', :placeholder => _('Rejection explanation') %>
-    </div>
-
-    <%= button_bar(class: 'task-actions') do %>
-      <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
-      <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
-    <% end %>
-
   </div>
 </div>
