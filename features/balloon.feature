@@ -52,7 +52,8 @@ Feature: balloon
     When I go to /search/communities
     Then I should not see "Members"
 
-  @selenium
+  # issue #15
+  @selenium-fixme
   Scenario: I should see balloon when clicked on page trigger
     Given feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
     And I go to /search/communities
