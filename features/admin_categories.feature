@@ -16,8 +16,9 @@ Feature: manage categories
   @selenium
   Scenario: admin user could access new category
     Given I follow "menu-dropdown"
+    And I wait for 1 seconds
     And I follow "Administration"
-    When I follow "Categories"
+    And I follow "Categories"
     And I follow "New category"
     Then I should be on /admin/categories/new
 
@@ -32,6 +33,7 @@ Feature: manage categories
   @selenium
   Scenario: admin user could see all the category tree
     Given I follow "menu-dropdown"
+    And I wait for 1 seconds
     And I follow "Administration"
     And I follow "Categories"
     When I follow "Show"
@@ -41,6 +43,7 @@ Feature: manage categories
   @selenium
   Scenario: admin user could hide the category tree
     Given I follow "menu-dropdown"
+    And I wait for 1 seconds
     And I follow "Administration"
     And I follow "Categories"
     When I follow "Show"
@@ -55,8 +58,9 @@ Feature: manage categories
     Given the following category
       | parent  | name     | display_in_menu |
       | Steak   | Pig      | true            |
-    When I follow "menu-dropdown"
-    When I follow "Administration"
+    And I follow "menu-dropdown"
+    And I wait for 1 seconds
+    And I follow "Administration"
     And I follow "Categories"
     Then I should see "Food Show"
     When I follow "Show"
