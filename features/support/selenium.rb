@@ -1,6 +1,5 @@
 require 'selenium/webdriver'
 
-Selenium::WebDriver::Firefox::Binary.path = "/usr/bin/firefox-esr"
 Capybara.default_driver = :selenium
 Capybara.register_driver :selenium do |app|
   case ENV['SELENIUM_DRIVER']
