@@ -33,9 +33,7 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def to_html(options = {})
-    -> context do
-      render :file => 'content_viewer/work_assignment.html.erb'
-    end
+    -> { render :file => 'content_viewer/work_assignment.html.erb' }
   end
 
   def find_or_create_author_folder(author)
