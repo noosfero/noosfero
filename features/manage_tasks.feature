@@ -40,6 +40,5 @@ Feature: manage tasks
     And I should see "wants to be a member of 'My Community'"
     And I should not see "suggested the publication of the article:"
     And I follow "Accept"
-    And I follow "Apply"
     And I should see "wants to be a member of 'My Community'"
     Then I should not see "suggested the publication of the article:"

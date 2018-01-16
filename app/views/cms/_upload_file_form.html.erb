@@ -7,14 +7,14 @@
 <% end %>
 
 <div id='uploaded_files'>
-  <%= render :partial => 'upload_file', locals: { size: size } %>
+  <%= render :partial => 'cms/upload_file', locals: { size: size } %>
 </div>
 
 <%= hidden_field_tag('back_to', back_to) %>
 
 <%= button_bar do %>
   <%= button_to_function :plus, _('Add files...'), "add_new_files()", class: "button with-text btn-green" %>
-  <% if @back_to %>
+  <% if defined?(back_to) && back_to.present? %>
     <%= submit_button :upload, _('Upload'), :cancel => back_to %>
   <% else %>
     <%= submit_button :upload, _('Upload'), :cancel => {:action => (@parent ? 'view' : 'index'), :id => @parent } %>

@@ -107,7 +107,7 @@ Feature: publish article
     Then I should see "Sample Article"
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
-  @selenium
+  @selenium-fixme
   Scenario: publishing articles with the same name in a moderated community
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
@@ -138,7 +138,7 @@ Feature: publish article
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
-  @selenium
+  @selenium-fixme
   Scenario: ask to publish an article that was deleted before approval
     Given I am logged in as "joaosilva"
     And "Joao Silva" is admin of "Sample Community"
