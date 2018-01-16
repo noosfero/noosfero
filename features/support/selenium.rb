@@ -1,5 +1,6 @@
 require 'selenium/webdriver'
 
+Selenium::WebDriver::Firefox::Binary.path = "/usr/bin/firefox-esr"
 Capybara.default_driver = :selenium
 Capybara.register_driver :selenium do |app|
   case ENV['SELENIUM_DRIVER']
@@ -17,7 +18,7 @@ Before('@ignore-hidden-elements') do
   Capybara.ignore_hidden_elements = true
 end
 
-Capybara.default_wait_time = 30
+Capybara.default_max_wait_time = 30
 Capybara.server_host = "localhost"
 
 World(Capybara)
