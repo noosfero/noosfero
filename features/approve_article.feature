@@ -56,7 +56,7 @@ Feature: approve article
     Then I should not see "Sample Article"
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
-  @selenium-fixme
+  @selenium
   Scenario: reject an article that was removed
     Given I am logged in as "mariasilva"
     And I follow "Dub Wars"

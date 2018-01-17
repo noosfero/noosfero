@@ -47,11 +47,12 @@
 
     <div class="task-decisions">
       <% unless @view_only %>
-        <% [["accept", "finish"], ["reject", "cancel"], ["skip", "skip"]].each do |task_name, task_action| %>
+
+        <% [["accept", "finish", task.accept_disabled?], ["reject", "cancel", task.reject_disabled?], ["skip", "skip", task.skip_disabled?]].each do |task_name, task_action, is_disabled| %>
           <%= labelled_radio_button(_(task_name.capitalize), "tasks[#{task.id}][decision]", task_action, task.default_decision == task_name,
                                     id: "decision-#{task_action}-#{task.id}",
                                     class: "task-#{task_name}-radio",
-                                    disabled: task.accept_disabled?,
+                                    disabled: is_disabled,
                                     task_id: "#{task.id}") %>
         <% end %>
       <% end %>
