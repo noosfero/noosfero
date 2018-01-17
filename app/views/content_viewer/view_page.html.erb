@@ -61,25 +61,25 @@
 
 <% if @page.accept_comments? || @comments_count > 0 %>
   <div class="comments" id="comments_list">
+
     <h3 <%= 'class="no-comments-yet"'.html_safe if @comments_count == 0 %>>
       <%= display_number_of_comments(@comments_count) %>
     </h3>
 
-    <div class="comments-list-header">
-      <% if !@page.archived? && @page.accept_comments? %>
-        <div id='page-comment-form' class='page-comment-form'>
-          <%= render partial: 'comment/comment_form', locals: { url: { controller: :comment, action: :create }, display_link: true, cancel_triggers_hide: true }%>
-        </div>
-      <% end %>
+    <% if !@page.archived? && @page.accept_comments? %>
+      <div id='page-comment-form' class='page-comment-form'>
+        <%= render partial: 'comment/comment_form', locals: { url: { controller: :comment, action: :create }, display_link: true, cancel_triggers_hide: true } %>
+      </div>
+    <% end %>
 
+    <div class="comments-list-header">
       <% if @comments.present? && @comments.count > 1 %>
         <%= hidden_field_tag("page_url", url_for(:controller=>'content_viewer', :action=>'view_page', :profile=>profile.identifier, :page => @page.explode_path)) %>
         <%= javascript_include_tag "comment_order.js" %>
-        <div class="comment-order">
-          <%= form_tag({:controller=>'content_viewer' , :action=>'view_page'}, {:method=>'get', :id=>"form_order"}) do %>
-            <%= select_tag 'comment_order', options_for_select({ _('Newest') => 'newest', _('Oldest') => 'oldest' }, @comment_order) %>
-          <% end %>
-        </div>
+        <span><%= _('Order by') %></span>
+        <%= form_tag({:controller=>'content_viewer' , :action=>'view_page'}, {:method=>'get', :id=>"form_order"}) do %>
+          <%= select_tag 'comment_order', options_for_select({ _('Newest') => 'newest', _('Oldest') => 'oldest' }, @comment_order) %>
+        <% end %>
       <% end %>
     </div>
 

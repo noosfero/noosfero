@@ -1,29 +1,67 @@
 form.comment_form {
   width: 100%;
-  padding-top: 10px;
   min-width: 260px;
+
+  p {
+    margin-top: 0;
+  }
+
+  div.inline-fields {
+    display: flex;
+
+    span {
+      flex: 1;
+
+      input {
+        width: 100%;
+      }
+
+      &:not(:last-child) {
+        padding-right: 5px;
+      }
+    }
+  }
 
   a {
     display: inline-block;
     margin-right: 2px;
     vertical-align: top;
     overflow: auto;
+
     img {
       border-radius: 100%;
       width: 36px;
     }
   }
+
   textarea {
-    display: inline-block;
+    width: 380px;
+    margin-right: 5px;
     border-radius: 4px;
     box-sizing: border-box;
     font-family: inherit !important;
     padding: 6px;
-    margin-top: 3px;
-    width: 80%;
     overflow: hidden;
-    @media only screen and (max-width: 960px) { width: 75%; }
-    @media only screen and (max-width: 540px) { width: 70%; }
+  }
+
+  div.inline-captcha-wrapper {
+    flex-grow: 1;
+    height: 91px;
+
+    .button.with-text {
+      width: 100%;
+      margin: 0;
+      margin-bottom: 5px;
+    }
+
+    div.comment-recaptcha {
+      position: absolute;
+
+      > div {
+        transform: scale(0.7);
+        transform-origin: 0 0;
+      }
+    }
   }
 }
 
@@ -34,18 +72,20 @@ form.comment_form {
 
 .comments {
   margin-top: 40px;
-  .comments-list-header {
-    display: flex;
-    flex-direction: column;
-    margin: 20px 0px 30px 0px;
 
-    .comment-order {
-      flex-grow: 1;
-      float: left;
-      form#form_order select {
-        height: 32px;
-        margin-top: 10px;
-      }
+  .comments-list-header {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+
+    span {
+      margin-right: 5px;
+    }
+
+    form#form_order select {
+      height: 32px;
+      margin-top: 10px;
     }
   }
 
