@@ -24,56 +24,73 @@ Feature: accept member
     And I go to private-community's homepage
     Then I should see "Your membership is waiting for approval"
 
-  # issue #14
-  @selenium-fixme
+  @selenium
+  Scenario: approve a task to accept a member as member in a closed community
+    Given "Marie Curie" asked to join "My Community"
+    And I am logged in as "mario"
+    And I follow "menu-toggle"
+    And I should see "Marie Curie wants to be a member of 'My Community'."
+    When I follow "Manage tasks"
+    And I follow "Accept"
+    And I check "Profile Member"
+    And I follow "Accept"
+    Then "Marie Curie" should be a member of "My Community"
+
+  @selenium
   Scenario: approve a task to accept a member as admin in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
-    When I follow "Accept"
+    When I follow "Manage tasks"
+    And I follow "Accept"
+    And I check "Profile Administrator"
+    And I follow "Accept"
+    Then "Marie Curie" should be admin of "My Community"
+
+  @selenium
+  Scenario: approve a member as administrator in a closed community
+    Given "Marie Curie" asked to join "My Community"
+    And I am logged in as "mario"
+    And I follow "menu-toggle"
+    And I should see "Marie Curie wants to be a member of 'My Community'."
+    When I follow "Manage tasks"
+    And I follow "Accept"
+    And I wait 1 seconds
+    And I check "Profile Member"
+    And I follow "Accept"
     Given I am on /myprofile/mycommunity
     And I follow "Manage Members"
     And I fill in "Name or Email" with "Marie Curie"
     And I follow "Search"
     And I should see "Marie Curie"
     And I follow "Edit"
-    And I check "Profile Administrator"
+    And I check "Administrator"
     And I follow "Save changes"
     Then "Marie Curie" should be admin of "My Community"
 
-  # issue #14
-  @selenium-fixme
-  Scenario: approve a task to accept a member as member in a closed community
-    Given "Marie Curie" asked to join "My Community"
-    And I am logged in as "mario"
-    And I go to mycommunity's control panel
-    And I follow "Tasks"
-    And I should see "Marie Curie wants to be a member"
-    When I follow "Accept"
-    And I follow "Apply!"
-    And I wait for 1 seconds
-    Then "Marie Curie" should be a member of "My Community"
-
-  # issue #14
-  @selenium-fixme
+  @selenium
   Scenario: approve a task to accept a member as moderator in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
-    And I go to mycommunity's control panel
     And I follow "menu-toggle"
-    And I should see "Marie Curie wants to be a member"
-    When I follow "Accept"
-    And I wait for 1 seconds
-    Then "Marie Curie" should be a member of "My Community"
+    When I follow "Manage tasks"
+    And I follow "Accept"
+    And I check "Profile Moderator"
+    And I follow "Accept"
+    Then "Marie Curie" should be moderator of "My Community"
 
-  @selenium-fixme
+  @selenium
   Scenario: approve a member as moderator in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
-    When I follow "Accept"
+    When I follow "Manage tasks"
+    And I follow "Accept"
+    And I wait 1 seconds
+    And I check "Profile Member"
+    And I follow "Accept"
     Given I am on /myprofile/mycommunity
     And I follow "Manage Members"
     And I fill in "Name or Email" with "Marie Curie"
