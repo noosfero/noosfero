@@ -1,0 +1,11 @@
+function commentsCaptchaCallback() {
+  $('.comment-recaptcha').each(function(index) {
+    renderCaptcha(this)
+  })
+}
+
+function renderCaptcha(el) {
+  var siteKey = <%= Recaptcha.configuration.site_key.to_json %>
+  var widgetId = grecaptcha.render(el, { 'sitekey': siteKey })
+  $(el).data('widget-id', widgetId)
+}

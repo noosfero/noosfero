@@ -1,33 +1,44 @@
 <% edition_mode = (defined? edition_mode) ? edition_mode : false %>
-
 <% @comment ||= Comment.new %>
 
 <% if @comment.errors.any? %>
   <%= error_messages_for :comment %>
 <% end %>
 
-  <%= remote_form_for(@comment, :url => {:profile => profile.identifier, :controller => 'comment', :action => (edition_mode ? 'update' : 'create'), :id => (edition_mode ?  @comment.id : @page.id)}, :html => { :class => 'comment_form' } ) do |f| %>
+<%= remote_form_for(@comment, :url => {:profile => profile.identifier, :controller => 'comment', :action => (edition_mode ? 'update' : 'create'), :id => (edition_mode ?  @comment.id : @page.id)}, :html => { :class => 'comment_form' } ) do |f| %>
 
-    <% if logged_in? %>
-      <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
-    <% else %>
+  <% if logged_in? %>
+    <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
+  <% else %>
+    <div class='inline-fields'>
       <%= required labelled_form_field(_('Name'), f.text_field(:name)) %>
       <%= required labelled_form_field(_('e-mail'), f.text_field(:email)) %>
-      <p><%= _('If you are a registered user, you can login and be automatically recognized.') %></p>
-    <% end %>
+    </div>
+    <p><%= _('If you are a registered user, you can login and be automatically recognized.') %></p>
+  <% end %>
 
+  <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
+
+  <div class='inline-fields'>
     <%= text_area_tag 'comment[body]', @comment.body, id: "comment-field", rows: 1, title: _('Leave your comment'), placeholder: _('Leave your comment') %>
 
-    <% if !edition_mode %>
-      <%= captcha_tags(:create_comment, user, environment, profile) %>
+    <div class='inline-captcha-wrapper'>
+    <%= f.submit _('Send'), :class => 'button with-text' %>
+
+    <% if !edition_mode &&
+          environment.require_captcha?(:create_comment, user, profile) %>
+      <%= javascript_include_tag 'comment_captcha' %>
+      <script src="https://www.google.com/recaptcha/api.js?onload=commentsCaptchaCallback&render=explicit" async defer></script>
+      <div class='comment-recaptcha'></div>
     <% end %>
+    </div>
+  </div>
 
-    <%= hidden_field_tag(:confirm, 'false') %>
-    <%= hidden_field_tag(:view, params[:view])%>
-    <%= hidden_field_tag('comment[reply_of_id]') %>
+  <%= hidden_field_tag(:confirm, 'false') %>
+  <%= hidden_field_tag(:view, params[:view])%>
+  <%= hidden_field_tag('comment[reply_of_id]') %>
 
-    <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
+  <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
+<% end %>
 
-    <%= f.submit _('Send'), :class => 'button with-text', :id => 'submit_form_button', :style => 'width:100px; margin: 10px 0 0 42px' %>
-  <% end %>
-  <%= javascript_include_tag 'comment_form' %>
+<%= javascript_include_tag 'comment_form' %>
