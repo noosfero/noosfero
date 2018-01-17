@@ -15,7 +15,7 @@ Feature: create community
     And I follow "Manage my groups"
     When I follow "Create a new community"
     And I fill in "Name" with "Fancy community"
-    And I press "Create"
+    And I follow "Create"
     Then I should see "Fancy community"
     And I should see "Fancy community"'s creation date
 
@@ -26,7 +26,7 @@ Feature: create community
     And I follow "Manage my groups"
     And I follow "Create a new community"
     And I fill in "Name" with "Community for moderation"
-    And I press "Create"
+    And I follow "Create"
     Then I should not see "Community for moderation"
 
   Scenario: a user tries to create a community without a name
@@ -35,7 +35,7 @@ Feature: create community
     And I go to joaosilva's control panel
     And I follow "Manage my groups"
     When I follow "Create a new community"
-    And I press "Create"
+    And I follow "Create"
     Then I should see "Creating new community"
 
   @selenium
