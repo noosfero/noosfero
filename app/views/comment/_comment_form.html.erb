@@ -28,7 +28,6 @@
 
     <%= safe_join(@plugins.dispatch(:comment_form_extra_contents, local_assigns.merge(:comment => @comment)).collect { |content| instance_exec(&content) }, "") %>
 
-    <%= f.submit _('Send'), :class => 'button with-text', :id => 'submit_form_button', :style => 'width:100px;margin-left:42px' %>
+    <%= f.submit _('Send'), :class => 'button with-text', :id => 'submit_form_button', :style => 'width:100px; margin: 10px 0 0 42px' %>
   <% end %>
-
   <%= javascript_include_tag 'comment_form' %>

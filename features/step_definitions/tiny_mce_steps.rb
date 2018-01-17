@@ -11,7 +11,3 @@ end
 Given(/^I type "(.*?)" in TinyMCE field "(.*?)"$/) do |content, field|
   page.evaluate_script("tinyMCE.get('#{field}').setContent('#{content}');")
 end
-
-When(/^I refresh the page$/) do
-  page.evaluate_script("location.reload();")
-end

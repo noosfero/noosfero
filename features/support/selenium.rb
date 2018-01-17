@@ -17,7 +17,7 @@ Before('@ignore-hidden-elements') do
   Capybara.ignore_hidden_elements = true
 end
 
-Capybara.default_wait_time = 30
+Capybara.default_max_wait_time = 30
 Capybara.server_host = "localhost"
 
 World(Capybara)

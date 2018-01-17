@@ -75,7 +75,7 @@ function save_comment(button) {
     } else {
       let comment_order = $("#form_order select#comment_order option:selected").val();
       //New comment of article
-      if(comment_order.toLowerCase() == 'oldest') {
+      if(comment_order && comment_order.toLowerCase() == 'oldest') {
           comment_div.find('.article-comments-list').append(data.html);
       } else {
           comment_div.find('.article-comments-list').prepend(data.html);
