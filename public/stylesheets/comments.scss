@@ -27,14 +27,21 @@ form.comment_form {
   }
 }
 
+#form_order {
+  float: right;
+}
+
+
 .comments {
   margin-top: 40px;
   .comments-list-header {
     display: flex;
+    flex-direction: column;
     margin: 20px 0px 30px 0px;
 
     .comment-order {
       flex-grow: 1;
+      float: left;
       form#form_order select {
         height: 32px;
         margin-top: 10px;
@@ -45,6 +52,7 @@ form.comment_form {
   .page-comment-form,
   .reply-comment-form {
     flex-grow: 5;
+    flex-direction: row;
   }
 
   a#view-more-comments {
