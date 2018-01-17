@@ -40,7 +40,7 @@
   }
 }
 
-.button-search-min {
+.input-button-min {
   padding-left: 8px !important;
   padding-right: 8px !important;
   width: fit-content !important;
@@ -48,6 +48,11 @@
   background-color: #5cb85c;
   border-color: #4cae4c;
   color: white;
+}
+
+.input-button-min:hover {
+  background-color: #00ad44 !important;
+  border-color: #398439 !important;
 }
 
 .button-bar a.button.with-text {
