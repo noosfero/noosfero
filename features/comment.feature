@@ -16,8 +16,7 @@ Feature: comment
       | article with comment | booking | hello | i am fine    |
     And I am logged in as "booking"
 
-  # This test requires some way to overcome the captcha with unauthenticated
-  # user.
+  # This test requires some way to overcome the captcha with unauthenticated user.
   @selenium
   Scenario: post a comment while not authenticated
     Given I am not logged in
@@ -30,17 +29,12 @@ Feature: comment
     Given I am on /booking/article-to-comment
     Then I should see "Hey ho, let's go now"
 
-  # Not sure if the problem is in the noosfero or the test environment, but the page should
-  # refresh when Send button is pressed.
-  # A workaround for testing the rest is waiting 3 seconds for guaranting database commit
-  # and reloading page.
-  @selenium-fixme
+  @selenium
   Scenario: post comment while authenticated
     Given I am on /booking/article-to-comment
     And I fill in "comment-field" with "Hey ho, let's go!"
-    Then I follow "Send"
-    When I wait 3 seconds
-    Given I am on /booking/article-to-comment
+    And I click "#submit_form_button"
+    And I wait 1 seconds
     Then I should see "Hey ho, let"
 
   # The image is not uploading properly, the image is uploading without
@@ -63,25 +57,12 @@ Feature: comment
     When I send enter key in "comment-field" field
     Then I should see "Body can't be blank"
 
-  @selenium-fixme
-  Scenario: disable post comment button
-    Given I am on /booking/article-to-comment
-    And I follow "Post a comment"
-    And I fill in "Title" with "Hey ho, let's go!"
-    And I fill in "Enter your comment" with "Hey ho, let's go!"
-    When I press "Post comment"
-    # Implement these steps...
-    #    Then "Post comment" button should not be enabled
-    #    And I should see "Hey ho, let's go"
-
-  # This test does not make sense in the new frontend because
-  # title is not asked anymore
-  @selenium-fixme
+  @selenium
   Scenario: keep comments field filled while trying to do a comment
     Given I am on /booking/article-to-comment
     And I follow "Post a comment"
     And I fill in "Title" with "Joey Ramone"
-    When I press "Post comment"
+    When I follow "Post comment"
     Then the "Title" field should contain "Joey Ramone"
     And I should see "Body can't be blank"
 
@@ -89,9 +70,3 @@ Feature: comment
   Scenario: wrong comment doesn't increment comment counter
     Given I am on /booking/article-with-comment
     And I should see "2 comments"
-
-  @selenium-fixme
-  Scenario: hide post a comment button when clicked
-    Given I am on /booking/article-to-comment
-    And I follow "Send"
-    Then "Post comment" should not be visible within "#article"
