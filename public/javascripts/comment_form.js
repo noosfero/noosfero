@@ -7,6 +7,13 @@ $('.comment_form textarea').live('keypress', function(e) {
     }
 });
 
+$('#submit_form_button').live('click', function(e) {
+    e.stopPropagation()
+    save_comment($(this));
+    $("#noosfero-modal").fadeOut();
+    return false;
+});
+
 jQuery('.display-comment-form').unbind();
 jQuery('.display-comment-form').click(function(){
   var $button = jQuery(this);
