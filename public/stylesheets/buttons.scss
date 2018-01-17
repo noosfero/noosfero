@@ -40,10 +40,14 @@
   }
 }
 
-.top-search-button {
-  height: 22px !important;
-  margin: 0px !important;
-  padding: 8px 6px 0px 10px !important;
+.button-search-min {
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  width: fit-content !important;
+  margin-left: 2px !important;
+  background-color: #5cb85c;
+  border-color: #4cae4c;
+  color: white;
 }
 
 .button-bar a.button.with-text {
