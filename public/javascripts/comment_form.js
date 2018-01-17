@@ -8,6 +8,7 @@ $('.comment_form textarea').live('keypress', function(e) {
 });
 
 $('#submit_form_button').live('click', function(e) {
+    $('#submit_form_button').bind('click', false);
     e.stopPropagation()
     save_comment($(this));
     $("#noosfero-modal").fadeOut();
@@ -99,6 +100,7 @@ function save_comment(button) {
     show_display_comment_button();
     $button.removeClass('comment-button-loading');
     $button.enable();
+    $('#submit_form_button').unbind('click', false);
   }, 'json');
 }
 
