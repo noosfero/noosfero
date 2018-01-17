@@ -1,17 +1,19 @@
-$('.comment_form textarea').live('keypress', function(e) {
+$('.comment_form textarea').on('keypress', function(e) {
     e.stopPropagation()
     if(e.which == 13 && !e.shiftKey) {
         save_comment($(this));
         $("#noosfero-modal").fadeOut();
+        $('.comment_form textarea').val = "";
         return false;
     }
 });
 
-$('#submit_form_button').live('click', function(e) {
+$('#submit_form_button').on('click', function(e) {
     $('#submit_form_button').bind('click', false);
     e.stopPropagation()
     save_comment($(this));
     $("#noosfero-modal").fadeOut();
+    $('.comment_form textarea').val = "";
     return false;
 });
 
