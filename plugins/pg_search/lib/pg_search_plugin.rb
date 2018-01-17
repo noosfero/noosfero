@@ -50,7 +50,7 @@ class PgSearchPlugin < Noosfero::Plugin
 
   def active_filters asset, scope, params, query = nil
     facets  = params[:facets] || {}
-    periods = params[:periods] || { created_at: nil, updated_at: nil, published_at: nil }
+    periods = params[:periods] || default_periods_for(asset)
     query ||= params[:query] || params[:q]
     block = Block.find_by id: params[:block]
 
@@ -82,6 +82,12 @@ class PgSearchPlugin < Noosfero::Plugin
     end
 
     [scope, facets, periods]
+  end
+
+  def default_periods_for(asset)
+    periods = { created_at: nil, updated_at: nil }
+    periods[:published_at] = nil if asset == :articles
+    periods
   end
 
   def filter_by_periods(scope, periods)
@@ -137,7 +143,8 @@ class PgSearchPlugin < Noosfero::Plugin
       attribute_facet(Article, scope, selected_facets, {:attribute => :type}),
       attribute_facet(Article, scope, selected_facets, {:attribute => :content_type}),
       relation_facet(Tag, scope, selected_facets),
-      relation_facet(Category, scope, selected_facets, {:filter => :pg_search_plugin_articles_facets}),
+      relation_facet(Category, scope, selected_facets, {:filter => :pg_search_plugin_articles_facets, :count_filter => 'DISTINCT(articles_categories.article_id)'}),
+      relation_facet(Region, scope, selected_facets, {:filter => :pg_search_plugin_articles_facets, :count_filter => 'DISTINCT(articles_categories.article_id)'}),
       metadata_facets(Article, scope, selected_facets)
     ].flatten
   end
@@ -146,8 +153,8 @@ class PgSearchPlugin < Noosfero::Plugin
     [
       relation_facet(Kind, scope, selected_facets),
       relation_facet(Tag, scope, selected_facets),
-      relation_facet(Category, scope, selected_facets, {:filter => :pg_search_plugin_profiles_facets}),
-      relation_facet(Region, scope, selected_facets),
+      relation_facet(Category, scope, selected_facets, {:filter => :pg_search_plugin_profiles_facets, :count_filter => 'DISTINCT(categories_profiles.profile_id)'}),
+      relation_facet(Region, scope, selected_facets, {:filter => :pg_search_plugin_profiles_facets, :count_filter => 'DISTINCT(categories_profiles.profile_id)'}),
     ]
   end
   alias :people_facets :profiles_facets
@@ -246,8 +253,9 @@ class PgSearchPlugin < Noosfero::Plugin
   end
 
   def relation_results(klass, scope, params)
+    count_filter = params[:count_filter] || "#{klass.table_name}.*"
     results = klass.send(params[:filter], scope).
-      select("#{klass.table_name}.*, count(#{klass.table_name}.*) as counts").
+      select("#{klass.table_name}.*, count(#{count_filter}) as counts").
       order("counts DESC")
 
     results.map do |result|
