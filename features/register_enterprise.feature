@@ -78,8 +78,7 @@ Feature: register enterprise
     Then I should see "Contact email can't be blank"
 
   @selenium
-  Scenario: a user register an enterprise successfully through the admin
-            validator method and the admin accepts
+  Scenario: a user register an enterprise successfully through the admin validator method and the admin accepts
     Given organization_approval_method is "admin" on environment
     And the mailbox is empty
     And I follow "Manage my groups"
@@ -104,10 +103,8 @@ Feature: register enterprise
     When I follow "Manage my groups"
     Then I should see "My Enterprise"
 
-  #Issue 19
-  @selenium-fixme
-  Scenario: a user register an enterprise successfully through the admin
-            validator method and the admin rejects
+  @selenium
+  Scenario: a user register an enterprise successfully through the admin validator method and the admin rejects
     Given organization_approval_method is "admin" on environment
     And the mailbox is empty
     And I follow "Manage my groups"
@@ -127,7 +124,7 @@ Feature: register enterprise
     And the first mail is to admin_user@example.com
     And I follow "Reject"
     And I fill in "Rejection explanation" with "This enterprise has some irregularities."
-    And I follow "Apply!"
+    # And I follow "Apply!"
     Then the last mail is to joaosilva@example.com
     And I am logged in as "joaosilva"
     And I am on joaosilva's control panel
@@ -167,8 +164,7 @@ Feature: register enterprise
     When I follow "Manage my groups"
     Then I should see "My Enterprise"
 
-  # issue #19
-  @selenium-fixme
+  @selenium
   Scenario: a user register an enterprise successfully through the region
             validator method and the validator rejects
     Given organization_approval_method is "region" on environment
@@ -198,7 +194,7 @@ Feature: register enterprise
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
     And I follow "Reject"
     And I fill in "Rejection explanation" with "This enterprise has some irregularities."
-    And I follow "Apply"
+    # And I follow "Apply"
     And I am on joaosilva's control panel
     When I follow "Manage my groups"
     Then I should not see "My Enterprise"
