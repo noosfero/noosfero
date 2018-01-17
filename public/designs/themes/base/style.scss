@@ -176,8 +176,13 @@ body, th, td, input {
     }
 
     form#top-search {
+      display: flex;
+      flex-direction: row;
       flex-grow: 1;
       @media only screen and (max-width: 540px) { display: none; }
+      input#search-button {
+        width: 100px;
+      }
       input {
         padding: 8px;
         border-radius: 4px;
