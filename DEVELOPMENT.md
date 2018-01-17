@@ -21,6 +21,7 @@
 * Leandro Nunes (@leandronunes)
 * Marcos Ronaldo (@marcosronaldo)
 * Rodrigo Souto (@diguliu)
+* Tallys Martins (@TallysMartins)
 * Victor Costa (@vfcosta)
 
 ## Current Release Manager
