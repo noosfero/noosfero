@@ -312,3 +312,7 @@ Then /^I send enter key in "([^"]*)" field$/ do |field|
   element = find_field(field)
   element.native.send_keys(:enter)
 end
+
+When(/^I refresh the page$/) do
+  page.evaluate_script("location.reload();")
+end
