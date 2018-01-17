@@ -13,52 +13,46 @@ class TaskMailerTest < ActiveSupport::TestCase
     @environment.noreply_email = 'noreply@example.com'
     @environment.stubs(:default_hostname).returns('example.com')
     @environment.name = 'example'
+
+    Person.any_instance.stubs(:contact_email).returns('requestor@example.com')
+    Person.any_instance.stubs(:public_profile_url).returns('requestor_path')
+    @person = fast_create(Person, name: 'my nane')
   end
-  attr_reader :environment
+  attr_reader :environment, :person
 
   should 'be able to send a "task finished" message' do
-
     task = Task.new
-    task.expects(:task_finished_message).returns('the message')
-    task.expects(:target_notification_description).returns('the task')
-    task.target = task.requestor = person = Person.new
-    person.environment = environment
-    person.name = 'my name'
-    person.stubs(:contact_email).returns('requestor@example.com')
-    person.stubs(:public_profile_url).returns('requestor_path')
+    Task.any_instance.expects(:task_finished_message).returns('the message')
+    Task.any_instance.expects(:target_notification_description).returns('the task')
 
-    task.send(:send_notification, :finished).deliver
+    task.target = task.requestor = person
+
+    task.save
+    task.send(:send_notification, :finished)
+    process_delayed_job_queue
     refute ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "task cancelled" message' do
-
     task = Task.new
-    task.expects(:task_cancelled_message).returns('the message')
-    task.expects(:target_notification_description).returns('the task')
-    task.target = task.requestor = person = Person.new
-    person.environment = environment
-    person.name = 'my name'
-    person.stubs(:contact_email).returns('requestor@example.com')
-    person.stubs(:public_profile_url).returns('requestor_path')
+    Task.any_instance.expects(:task_cancelled_message).returns('the message')
+    Task.any_instance.expects(:target_notification_description).returns('the task')
+    task.target = task.requestor = person
 
-    task.send(:send_notification, :cancelled).deliver
+    task.save
+    task.send(:send_notification, :cancelled)
+    process_delayed_job_queue
     refute ActionMailer::Base.deliveries.empty?
   end
 
   should 'be able to send a "task created" message' do
-
     task = Task.new
+    Task.any_instance.expects(:task_created_message).returns('the message')
+    Task.any_instance.expects(:target_notification_description).returns('the task')
+    task.target = task.requestor = person
 
-    task.expects(:task_created_message).returns('the message')
-    task.expects(:target_notification_description).returns('the task')
-    task.target = task.requestor = person = Person.new
-    person.environment = environment
-    person.name = 'my name'
-    person.stubs(:contact_email).returns('requestor@example.com')
-    person.stubs(:public_profile_url).returns('requestor_path')
-
-    task.send(:send_notification, :created).deliver
+    task.save
+    process_delayed_job_queue
     refute ActionMailer::Base.deliveries.empty?
   end
 
@@ -125,7 +119,6 @@ class TaskMailerTest < ActiveSupport::TestCase
 
   should 'be able to send rejection notification based on a selected template' do
     task = Task.new
-    task.expects(:task_cancelled_message).returns('the message')
     task.reject_explanation = 'explanation'
 
     profile = fast_create(Community)
@@ -135,11 +128,14 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor = Profile.new(:name => 'my name')
     requestor.expects(:notification_emails).returns(['requestor@example.com']).at_least_once
 
-    task.expects(:requestor).returns(requestor).at_least_once
+    Task.any_instance.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(@environment).at_least_once
-    task.expects(:environment).returns(@environment).at_least_once
+    Task.any_instance.expects(:environment).returns(@environment).at_least_once
+    Task.any_instance.expects(:task_cancelled_message).returns('the message')
 
-    task.send(:send_notification, :cancelled).deliver
+    task.save
+    task.send(:send_notification, :cancelled)
+    process_delayed_job_queue
     assert !ActionMailer::Base.deliveries.empty?
     mail = ActionMailer::Base.deliveries.last
     assert_match /text\/html/, mail.content_type
@@ -149,7 +145,7 @@ class TaskMailerTest < ActiveSupport::TestCase
 
   should 'be able to send accept notification based on a selected template' do
     task = Task.new
-    task.expects(:task_finished_message).returns('the message')
+    Task.any_instance.expects(:task_finished_message).returns('the message')
 
     profile = fast_create(Community)
     email_template = EmailTemplate.create!(:owner => profile, :name => 'Template 1', :subject => 'template subject - {{environment.name}}', :body => 'template body - {{environment.name}} - {{task.requestor.name}}')
@@ -158,11 +154,13 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor = Profile.new(:name => 'my name')
     requestor.expects(:notification_emails).returns(['requestor@example.com']).at_least_once
 
-    task.expects(:requestor).returns(requestor).at_least_once
+    Task.any_instance.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(@environment).at_least_once
-    task.expects(:environment).returns(@environment).at_least_once
+    Task.any_instance.expects(:environment).returns(@environment).at_least_once
 
-    task.send(:send_notification, :finished).deliver
+    task.save
+    task.send(:send_notification, :finished)
+    process_delayed_job_queue
     assert !ActionMailer::Base.deliveries.empty?
     mail = ActionMailer::Base.deliveries.last
     assert_match /text\/html/, mail.content_type

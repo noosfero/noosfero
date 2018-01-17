@@ -18,7 +18,7 @@ class AddFriend < Task
   validates :target, :kind_of => { :kind => Person }
 
   after_create do |task|
-    TaskMailer.invitation_notification(task).deliver unless task.friend
+    notify(:invitation_notification, task) unless task.friend
     remove_from_suggestion_list(task)
   end
 

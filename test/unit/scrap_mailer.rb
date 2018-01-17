@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class ScrapNotifierTest < ActiveSupport::TestCase
+class ScrapMailerTest < ActiveSupport::TestCase
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
   CHARSET = "utf-8"
 
@@ -15,36 +15,43 @@ class ScrapNotifierTest < ActiveSupport::TestCase
   should 'deliver mail after leave scrap' do
     assert_difference 'ActionMailer::Base.deliveries.size' do
       Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
+      process_delayed_job_queue
     end
   end
 
   should 'deliver mail even if it is a reply' do
     s = Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
+    process_delayed_job_queue
     assert_difference 'ActionMailer::Base.deliveries.size' do
       s.replies << Scrap.new(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi again man!')
+      process_delayed_job_queue
     end
   end
 
   should 'deliver mail to receiver of the scrap' do
     Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
+    process_delayed_job_queue
     sent = ActionMailer::Base.deliveries.first
     assert_equal [@receiver.email], sent.to
   end
 
   should 'display sender name in delivered mail' do
     Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
+    process_delayed_job_queue
     sent = ActionMailer::Base.deliveries.first
     assert_match /user_scrap_sender_test/, sent.body.to_s
   end
 
   should 'display scrap content in delivered mail' do
     Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
+    process_delayed_job_queue
     sent = ActionMailer::Base.deliveries.first
     assert_match /Hi man!/, sent.body.to_s
   end
 
   should 'display receiver wall link in delivered mail' do
     Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
+    process_delayed_job_queue
     sent = ActionMailer::Base.deliveries.first
     assert_match /\/profile\/user_scrap_receiver_test#profile-wall/, sent.body.to_s
   end
@@ -52,6 +59,7 @@ class ScrapNotifierTest < ActiveSupport::TestCase
   should 'not deliver mail if notify receiver and sender are the same person' do
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
       Scrap.create!(:sender_id => @sender.id, :receiver_id => @sender.id, :content => 'Hi myself!')
+      process_delayed_job_queue
     end
   end
 
@@ -61,6 +69,7 @@ class ScrapNotifierTest < ActiveSupport::TestCase
     scrap = create(Scrap, receiver_id: community.id, sender_id: @sender.id)
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
       Scrap.create!(:sender_id => person.id, :receiver_id => @sender.id, :scrap_id => scrap.id, :content => 'Hi myself!')
+      process_delayed_job_queue
     end
   end
 

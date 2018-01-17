@@ -728,6 +728,7 @@ class TasksControllerTest < ActionController::TestCase
     Environment.default.add_admin(admin)
 
     task = ModerateUserRegistration.create!(:requestor => p1, :name => "great_person", :email => "alo@alo.alo", :target => Environment.default)
+    process_delayed_job_queue
     email = ActionMailer::Base.deliveries.last
     assert_match /#{task.target_custom_fields}/, email.body.to_s
   end
@@ -742,6 +743,7 @@ class TasksControllerTest < ActionController::TestCase
     Environment.default.add_admin(admin)
 
     task = ModerateUserRegistration.create!(:requestor => p1, :name => "great_person", :email => "alo@alo.alo", :target => Environment.default)
+    process_delayed_job_queue
     email = ActionMailer::Base.deliveries.last
     assert_no_match /#{person_custom_field.name}/, email.body.to_s
   end

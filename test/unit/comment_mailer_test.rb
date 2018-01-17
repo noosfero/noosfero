@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class CommentNotifierTest < ActiveSupport::TestCase
+class CommentMailerTest < ActiveSupport::TestCase
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
   CHARSET = "utf-8"
 

@@ -34,9 +34,9 @@
     <%= yield :head %>
     <%=
       str = (@plugins.dispatch(:head_ending).map do |content|
-              if content.respond_to?(:call) then 
+              if content.respond_to?(:call) then
                 instance_exec(&content).to_s
-              else 
+              else
                 content.to_s
               end
             end)
@@ -52,15 +52,18 @@
     <% if current_editor_is?(Article::Editor::TINY_MCE) %>
       <%= render :file => 'shared/tiny_mce' %>
     <% end %>
+
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
   </head>
   <body class="<%= h body_classes %>">
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
     <%=
       str = (@plugins.dispatch(:body_beginning).map do |content|
-              if content.respond_to?(:call) then 
+              if content.respond_to?(:call) then
                 instance_exec(&content).to_s
-              else 
-                content.to_s 
+              else
+                content.to_s
               end
             end)
       safe_join(str, "\n")
@@ -102,9 +105,9 @@
     <%= addthis_javascript.html_safe %>
     <%=
       str = (@plugins.dispatch(:body_ending).map do |content|
-              if content.respond_to?(:call) then 
+              if content.respond_to?(:call) then
                 instance_exec(&content).html_safe
-              else 
+              else
                 content.html_safe
               end
             end)

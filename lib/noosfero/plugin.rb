@@ -737,6 +737,11 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Implements a custom notificaiton strategy for the Notifiable module
+  def custom_notification(verb, *args)
+    nil
+  end
+
   def method_missing(method, *args, &block)
     # This is a generic hotspot for all controllers on Noosfero.
     # If any plugin wants to define filters to run on any controller, the name of

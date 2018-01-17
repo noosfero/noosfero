@@ -96,6 +96,7 @@ class InviteMemberTest < ActiveSupport::TestCase
 
     task = InviteMember.create!(:person => p1, :friend => p2, :community_id => fast_create(Community).id)
     task.finish
+    process_delayed_job_queue
   end
 
   should 'send e-mails to friend if friend_email given' do
@@ -106,6 +107,7 @@ class InviteMemberTest < ActiveSupport::TestCase
     TaskMailer.expects(:invitation_notification).returns(mailer).once
 
     task = InviteMember.create!(:person => p1, :friend_email => 'test@test.com', :message => '<url>', :community_id => fast_create(Community).id)
+    process_delayed_job_queue
   end
 
   should 'send e-mails notification to friend if target given (person being invited)' do
@@ -117,6 +119,7 @@ class InviteMemberTest < ActiveSupport::TestCase
     TaskMailer.expects(:target_notification).returns(mailer).once
 
     task = InviteMember.create!(:person => p1, :friend => p2, :community_id => fast_create(Community).id)
+    process_delayed_job_queue
   end
 
   should 'not invite yourself' do

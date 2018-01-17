@@ -457,13 +457,13 @@ class CommentTest < ActiveSupport::TestCase
 
   should 'notify by email' do
     c1 = create_comment
-    c1.expects(:notify_by_mail)
+    c1.expects(:send_notifications)
     c1.verify_and_notify
   end
 
   should 'not notify by email when comment is spam' do
     c1 = create_comment(:spam => true)
-    c1.expects(:notify_by_mail).never
+    c1.expects(:send_notifications).never
     c1.verify_and_notify
   end
 
@@ -479,7 +479,7 @@ class CommentTest < ActiveSupport::TestCase
 
     c1 = create_comment
 
-    c1.expects(:notify_by_mail).never
+    c1.expects(:send_notifications).never
 
     c1.verify_and_notify
   end

@@ -16,11 +16,11 @@ Feature: profile advanced search
       | joaosilva        | ProfileSearchBlock |
     And I am logged in as "joaosilva"
     And I go to joaosilva's control panel
-    And I follow "Edit sideboxes"
 
   @selenium
   Scenario: filters should be hidden by default in the profile page
-    Given I move the cursor over ".profile-search-block"
+    Given I follow "Edit sideboxes"
+    And I move the cursor over ".profile-search-block"
     And I follow "Edit" within ".profile-search-block"
     And I check "Enable advanced search"
     And I press "Save"
@@ -29,7 +29,8 @@ Feature: profile advanced search
 
   @selenium
   Scenario: filters should be collapsed by default in the profile search page
-    Given I move the cursor over ".profile-search-block"
+    Given I follow "Edit sideboxes"
+    And I move the cursor over ".profile-search-block"
     And I follow "Edit" within ".profile-search-block"
     And I check "Enable advanced search"
     And I press "Save"

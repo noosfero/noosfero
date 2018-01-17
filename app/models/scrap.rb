@@ -1,6 +1,8 @@
 class Scrap < ApplicationRecord
 
   include SanitizeHelper
+  include Noosfero::Plugin::HotSpot
+  include Notifiable
 
   attr_accessible :content, :sender_id, :receiver_id, :scrap_id, :marked_people
 
@@ -38,6 +40,8 @@ class Scrap < ApplicationRecord
 
   before_validation :strip_all_html_tags
 
+  will_notify :new_scrap, push: true
+
   alias :user :sender
   alias :target :receiver
 
@@ -71,6 +75,10 @@ class Scrap < ApplicationRecord
     marked_people.blank? || marked_people.include?(user)
   end
 
+  def environment
+    self.receiver.environment
+  end
+
   protected
 
   def create_activity
@@ -85,7 +93,17 @@ class Scrap < ApplicationRecord
 
   def send_notification
     self.root.update_attribute('updated_at', DateTime.now) unless self.root.nil?
-    ScrapNotifier.notification(self).deliver if self.send_notification?
+    notify(:new_scrap, self) if self.send_notification?
+  end
+
+  def new_scrap_notification
+    if self.receiver.respond_to?(:push_subscriptions)
+      {
+        title: _('You got a new scrap'),
+        body: _('%s left a scrap in your wall.') % self.sender.name,
+        recipients: [self.receiver]
+      }
+    end
   end
 
 end
