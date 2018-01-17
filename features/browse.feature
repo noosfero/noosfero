@@ -15,13 +15,14 @@ Feature: browse
       | comunity-neto | Community Neto |
 
   # issue #10
-  @selenium-fixme
+  @selenium
   Scenario: Show people browse menu
     Given I should not see "More recent"
     And I should not see "More active"
     And I should not see "More popular"
-    And display "#submenu-people-trigger"
-    When I follow "submenu-people-trigger"
+    And I go to /search/people
+    # And display "#submenu-people-trigger"
+    # When I follow "submenu-people-trigger"
     Then I should see "More recent"
     And I should see "More active"
     And I should see "More popular"
@@ -35,6 +36,7 @@ Feature: browse
     And I should not see "More popular"
     And I should not see "Invite friends"
     And I should not see "My friends"
+    And I go to /search/people
     And display "#submenu-people-trigger"
     When I follow "submenu-people-trigger"
     Then I should see "More recent"
@@ -63,6 +65,7 @@ Feature: browse
     And I should not see "More popular"
     And I should not see "My communities"
     And I should not see "New community"
+    And I go to /search/communities
     And display "#submenu-communities-trigger"
     When I follow "submenu-communities-trigger"
     Then I should see "More recent"
@@ -72,13 +75,14 @@ Feature: browse
     And I should see "New community"
 
   # issue #10
-  @selenium-fixme
+  @selenium
   Scenario: Show communities browse menu
     Given I should not see "More recent"
     And I should not see "More active"
     And I should not see "More popular"
-    And display "#submenu-communities-trigger"
-    When I follow "submenu-communities-trigger"
+    And I go to /search/communities
+    # And display "#submenu-communities-trigger"
+    # When I follow "submenu-communities-trigger"
     Then I should see "More recent"
     And I should see "More active"
     And I should see "More popular"
@@ -93,12 +97,13 @@ Feature: browse
     And I should not see "Paulo Neto"
     And I should not see "Community Silva"
 
-  # issue #10 
+  # issue #10
   @selenium-fixme
   Scenario: Show contents browse menu
     Given I should not see "Most commented"
     And I should not see "More viewed"
     And I should not see "More recent"
+    And I go to /search/contents
     And display "#submenu-contents-trigger"
     When I follow "submenu-contents-trigger"
     Then I should see "Most commented"
