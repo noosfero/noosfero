@@ -40,16 +40,16 @@ Feature: comment
   # The image is not uploading properly, the image is uploading without
   # extension so the link is /booking/rails?view=true.
   # Extra details: working in production but not in dev env or test env
-  @selenium-fixme
-  Scenario: redirect to right place after comment a picture
+  @selenium
+  Scenario: post comment in a picture
     Given the following files
       | owner   | file      | mime      |
       | booking | rails.png | image/png |
     And I am on /booking/rails.png?view=true
     And I fill in "comment-field" with "Hey ho, let's go!"
-    Then I send enter key in "comment-field" field
-    When I wait 3 seconds
-    Then I should be exactly on /booking/rails.png?view=true
+    And I click "#submit_form_button"
+    And I wait 1 seconds
+    Then I should see "Hey ho, let"
 
   @selenium
   Scenario: show error messages when make a blank comment
