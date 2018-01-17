@@ -122,8 +122,6 @@ Feature: invitation
     And I follow "Tasks"
     And I should see "josesilva invited you to join 26 Bsslines."
     And I follow "Reject"
-    And I fill in "tasks_1_task_reject_explanation" with "Rejected"
-    And I follow "Reject"    
     Then I should not see "josesilva invited you to join 26 Bsslines."
     And I go to josesantos's control panel
     And I follow "Manage my groups"
@@ -158,6 +156,8 @@ Feature: invitation
     And I follow "Tasks"
     And I should see "josesilva wants to be your friend."
     And I follow "Accept"
+    And I fill in "Classify your new friend" with "friends" within "#on-accept-information-1" 
+    And I follow "Accept"
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
     And I follow "Manage friends"
@@ -174,8 +174,6 @@ Feature: invitation
     And I follow "Tasks"
     And I should see "josesilva wants to be your friend."
     And I follow "Reject"
-    And I fill in "tasks_1_task_reject_explanation" with "Rejected"
-    And I follow "Reject" 
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
     And I follow "Manage friends"
