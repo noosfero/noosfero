@@ -129,10 +129,10 @@ Feature: publish article
     And I follow "Spread this"
     And I am on sample-community's control panel
     And I follow "Tasks"
-    And I follow "Accept"
+    And I follow "Accept" within "#task-1"
     And I follow "Accept"
     And I should not see "The title (article name) is already being used by another article, please use another title."
-    And I follow "Accept"
+    And I follow "Accept" within "#task-2"
     And I follow "Accept"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
