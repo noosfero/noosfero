@@ -1,4 +1,5 @@
 <%= link_to(image_tag("/designs/themes/noosfero/images/noosfero-logo.png"), top_url) %>
 <form action="/search/articles" id="top-search" class="search_form clean" method="get">
   <input name="query" placeholder="<%=_('Search on Noosfero')%>" />
+  <input type="submit" value="<%=_('Search')%>" id="search-button"/>
 </form>
