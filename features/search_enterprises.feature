@@ -33,7 +33,7 @@ Feature: search enterprises
       | shop2      | Fruits shop | fruits |
     When I go to the search enterprises page
     And I fill in "search-input" with "shoes"
-    And I follow "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Shoes shop" within ".only-one-result-box"
     And I should see Shoes shop's profile image
     And I should not see "Fruits shop"
@@ -63,8 +63,8 @@ Feature: search enterprises
     When I search enterprises for "shoes"
     And I wait for 1 seconds
     And I select "Full" from "display"
-    Then I should see "This is the homepage of" within ".search-article-description"
-    And I should see "about sho..." within ".search-article-description"
+    Then I should see "This is the homepage of"
+    And I should see "about sho..."
 
   @selenium
   Scenario: show clean enterprise description on search results
@@ -84,6 +84,6 @@ Feature: search enterprises
       | noosfero   | Noosfero Developers Association |
     When I go to the search enterprises page
     And I fill in "search-input" with "Noosfero Developers"
-    And I follow "Search"
+    And I follow "Search" within ".search-form"
     And I wait for 1 seconds
     Then I should see "Noosfero Developers Association" within "#search-results"
