@@ -11,7 +11,7 @@ Then /^I should see "([^"]*)" link$/ do |text|
 end
 
 Then /^I should not see "([^"]*)" link$/ do |text|
-  page.should have_no_css('a', :text => text, :href => nil)
+  page.should have_no_css('a', :text => text)
 end
 
 When /^I should see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
