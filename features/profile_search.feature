@@ -15,7 +15,7 @@ Feature: search inside a profile
   Scenario: search on profile
     Given I go to joaosilva's profile
     And I fill in "q" with "bees"
-    And I press "Search"
+    And I follow "profile-search-button"
     Then I should see "bees and butterflies" within ".main-block"
     And I should not see "whales and dolphins" within ".main-block"
 
@@ -26,7 +26,7 @@ Feature: search inside a profile
       | joaosilva | John Doe's birthday | 2009-09-01 |
     When I go to joaosilva's profile
     And I fill in "q" with "birthday"
-    And I press "Search"
+    And I follow "profile-search-button"
     Then I should see "John Doe's birthday" within ".main-block"
     And I should not see "Group meeting" within ".main-block"
 
@@ -46,7 +46,7 @@ Feature: search inside a profile
       | joaosilva | unpublished article | this is a private article | false     |
     And I go to joaosilva's profile
     And I fill in "q" with "article"
-    And I press "Search"
+    And I follow "profile-search-button"
     Then I should see "published article" within ".main-block"
     And I should not see "unpublished article" within ".main-block"
 
@@ -54,7 +54,7 @@ Feature: search inside a profile
     Given I go to joaosilva's profile
     And I fill in "q" with "bees"
     And I choose "General"
-    And I press "Search"
+    And I follow "profile-search-button"
     Then I should be on the search page
     And I should see "bees and butterflies" within "#search-page"
 

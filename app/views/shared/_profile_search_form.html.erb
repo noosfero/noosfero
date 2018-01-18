@@ -3,7 +3,7 @@
   <div class="search-field">
     <span class="formfield">
       <%= search_input_with_suggestions 'q', :articles, @q, :title => search_label, :placeholder => search_label %>
-      <%= submit_button(:search, _('Search')) %>
+      <%= submit_button(:search, _('Search'), :id => 'profile-search-button') %>
     </span>
     <%= hidden_field_tag :block, block.id if defined? block %>
     <div>
