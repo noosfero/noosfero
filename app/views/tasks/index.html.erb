@@ -24,6 +24,7 @@
 <%= form_tag '#', :method => 'post' do %>
 
     <%= field_set_tag _('Filter'), :class => 'filter_fields' do %>
+        <%= hidden_field_tag 'search', 'true' %>
         <p>
           <%= labelled_select(_('Type of task')+': ', :filter_type, :first, :last, @filter_type,  type_collection, {:id => 'filter-type'}) %>
         </p>
@@ -60,7 +61,8 @@
 
     </ul>
 
-    <%= pagination_links(@tasks)%>
+    <%= pagination_links(@tasks, :params => { :filter_type => @filter_type,
+                                              :filter_text => @filter_text })%>
 
   <% end %>
 <% end %>

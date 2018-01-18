@@ -7,6 +7,7 @@ class TasksController < MyProfileController
   helper CustomFieldsHelper
 
   def index
+    page = params[:search] ? nil : params[:page]
     @rejection_email_templates = profile.email_templates.where template_type: :task_rejection
     @acceptance_email_templates = profile.email_templates.where template_type: :task_acceptance
 
@@ -14,9 +15,9 @@ class TasksController < MyProfileController
     @filter_text = params[:filter_text].presence
     @filter_responsible = params[:filter_responsible]
     @task_types = Task.pending_types_for(profile)
-    @tasks = Task.pending_all_by_filter(profile, @filter_type, @filter_text).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
+    @tasks = Task.pending_all_by_filter(profile, @filter_type, @filter_text).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => page)
     @tasks = @tasks.where(:responsible_id => @filter_responsible.to_i != -1 ? @filter_responsible : nil) if @filter_responsible.present?
-    @tasks = @tasks.paginate(:per_page => Task.per_page, :page => params[:page])
+    @tasks = @tasks.paginate(:per_page => Task.per_page, :page => page)
     @failed = params ? params[:failed] : {}
 
     @responsible_candidates = profile.members.by_role(profile.roles.reject {|r| !r.has_permission?('perform_task')}) if profile.organization?
