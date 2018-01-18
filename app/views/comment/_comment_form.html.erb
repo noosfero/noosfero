@@ -23,14 +23,14 @@
     <%= text_area_tag 'comment[body]', @comment.body, id: "comment-field", rows: 1, title: _('Leave your comment'), placeholder: _('Leave your comment') %>
 
     <div class='inline-captcha-wrapper'>
-    <%= f.submit _('Send'), :class => 'button with-text' %>
+      <%= f.submit _('Send'), :class => 'button with-text', :id => 'submit_form_button' %>
 
-    <% if !edition_mode &&
-          environment.require_captcha?(:create_comment, user, profile) %>
-      <%= javascript_include_tag 'comment_captcha' %>
-      <script src="https://www.google.com/recaptcha/api.js?onload=commentsCaptchaCallback&render=explicit" async defer></script>
-      <div class='comment-recaptcha'></div>
-    <% end %>
+      <% if !edition_mode &&
+            environment.require_captcha?(:create_comment, user, profile) %>
+        <%= javascript_include_tag 'comment_captcha' %>
+        <script src="https://www.google.com/recaptcha/api.js?onload=commentsCaptchaCallback&render=explicit" async defer></script>
+        <div class='comment-recaptcha'></div>
+      <% end %>
     </div>
   </div>
 
