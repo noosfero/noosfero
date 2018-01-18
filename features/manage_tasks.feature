@@ -36,7 +36,7 @@ Feature: manage tasks
     And I should see "Maria Sousa suggested the publication of the article: Other Article"
     And I should see "Marie Curie suggested the publication of the article: Another Article"
     When I select "New member" from "Type of task"
-    And I follow "Search"
+    And I follow "Search" within ".filter_fields"
     And I should see "wants to be a member of 'My Community'"
     And I should not see "suggested the publication of the article:"
     And I follow "Accept"
