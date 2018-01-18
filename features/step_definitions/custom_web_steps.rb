@@ -11,11 +11,15 @@ Then /^I should see "([^"]*)" link$/ do |text|
 end
 
 Then /^I should not see "([^"]*)" link$/ do |text|
-  page.should have_no_css('a', :text => text)
+  page.should have_no_css('a', :text => text, :href => nil)
 end
 
 When /^I should see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
-  page.should have_xpath("//a[@href='#{href}']")
+  page.should have_link(text, href: href, exact: true)
+end
+
+Then /^I should not see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
+  page.should_not have_link(text, href: href, exact: true)
 end
 
 Then /^the field "([^"]*)" should be (enabled|disabled)$/ do |selector, status|
