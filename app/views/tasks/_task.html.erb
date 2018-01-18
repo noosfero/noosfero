@@ -14,7 +14,7 @@
       </div>
 
       <div class='task-toolbar'>
-        <% if !@view_only && profile&.organization? && @responsible_candidates.present? %>
+        <% if !@view_only && profile.try(:organization?) && @responsible_candidates.present? %>
 
           <div class="task-responsible">
             <% change_responsible_url = url_for :action => :change_responsible, :controller => :tasks %>
