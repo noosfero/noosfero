@@ -14,6 +14,7 @@
 ## Current Commiters
 
 * Antonio Terceiro (@terceiro)
+# Aurélio Heckert @aurium
 * Bráulio Bhavamitra (@brauliobo)
 * Daniela Feitosa (@danielafeitosa)
 * Gabriel Silva (@gabrielssilva)
