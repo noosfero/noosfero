@@ -12,7 +12,7 @@
       <%= search_input_with_suggestions('query', @asset, @query, {:id => 'search-input', :size => 50, :placeholder => hint}) %>
     </span>
 
-    <%= submit_button(:search, _('Search')) %>
+    <%= submit_button(:search, _('Search'), :id => 'search-button') %>
   </div>
   <%= filters(@asset) unless asset_class(@asset) == Enterprise %>
 </div>
