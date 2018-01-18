@@ -23,6 +23,7 @@ Feature: forum
     And I follow "article-options"
     Then I should see "Configure forum"
 
+  @selenium
   Scenario: redirect to forum after create forum from cms
     Given I go to joaosilva's control panel
     And I follow "Manage Content"
@@ -32,22 +33,24 @@ Feature: forum
     And I follow "Save"
     Then I should be on /joaosilva/forum-from-cms
 
+  @selenium
   Scenario: create multiple forums
     Given I go to joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
     And I follow "Forum"
-    And I fill in "Title" with "Forum One"
+    And I fill in "Title" with "Title One"
     And I follow "Save"
     Then I go to joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
     And I follow "Forum"
-    And I fill in "Title" with "Forum Two"
+    And I fill in "Title" with "Title Two"
     And I follow "Save"
     Then I should not see "error"
-    And I should be on /joaosilva/forum-two
+    And I should be on /joaosilva/title-two
 
+  @selenium
   Scenario: cancel button back to cms
     Given I go to joaosilva's control panel
     And I follow "Manage Content"
@@ -56,6 +59,7 @@ Feature: forum
     When I follow "Cancel" within ".main-block"
     Then I should be on /myprofile/joaosilva/cms
 
+  @selenium
   Scenario: cancel button back to myprofile
     Given I go to joaosilva's control panel
     And I follow "Manage Content"
@@ -153,8 +157,7 @@ Feature: forum
     When I follow "Accept"
     Then I should see "Login" within ".login-box"
 
-  # issue #16
-  @selenium-fixme
+  @selenium
   Scenario: last topic update by unautenticated user should not link
     Given the following forums
        | owner     | name  |
@@ -166,8 +169,9 @@ Feature: forum
        | article  | name | email            | title  | body   |
        | Post one | Joao | joao@example.com | Hi all | Hi all |
    When I go to /joaosilva/forum
-   Then I should not see "Joao" link
+   Then I should not see "Joao" linking to "#"
 
+  @selenium
   Scenario: last topic update by autenticated user should link to profile url
     Given the following forums
        | owner     | name  |
