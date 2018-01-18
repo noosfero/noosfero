@@ -151,7 +151,7 @@ Feature: search contents
   Scenario: link to author on search results
     When I go to the search articles page
     And I fill in "search-input" with "whales"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Author" within ".search-article-author"
     Then I should see "Joao Silva" within ".search-article-author-name"
     When I follow "Joao Silva"
@@ -163,7 +163,7 @@ Feature: search contents
       | joaosilva | Herreninsel | The island    <b>Herreninsel</b>,    with an area of 238 hectares, is the biggest of the three main islands of the Chiemsee, a lake in the state of Bavaria, Germany. Together with the islands of Fraueninsel and Krautinsel it forms the municipality of Chiemsee. |
     When I go to the search articles page
     And I fill in "search-input" with "island"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Description" within ".search-article-description"
     And I should see "The island Herreninsel, with" within ".search-article-description"
     And I should see "and Kraut..." within ".search-article-description"
@@ -175,7 +175,7 @@ Feature: search contents
       | joaosilva | Herreninsel |      |
     When I go to the search articles page
     And I fill in "search-input" with "Herreninsel"
-    And I follow "Search"
+    And I follow "Search" within ".search-form"
     Then I should not see "Description"
 
   Scenario: link to tags on search results
@@ -185,7 +185,7 @@ Feature: search contents
       | bees and butterflies | Lepidoptera |
     When I go to the search articles page
     And I fill in "search-input" with "bees"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Tags" within ".search-article-tags"
     And I should see "Hymenoptera" within ".search-article-tags"
     And I should see "Lepidoptera" within ".search-article-tags"
@@ -195,7 +195,7 @@ Feature: search contents
   Scenario: do not show tags in search results
     When I go to the search articles page
     And I fill in "search-input" with "dolphins"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should not see "Tags"
 
   Scenario: link to categories on search results
@@ -207,14 +207,14 @@ Feature: search contents
       | joaosilva | Sergei Sorokin | Retired ice hockey player  | soviet |
     When I go to the search articles page
     And I fill in "search-input" with "hockey"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Categories" within ".search-article-categories"
     And I should see "Soviet" within ".search-article-category"
 
   Scenario: do not show categories on search results
     When I go to the search articles page
     And I fill in "search-input" with "whales"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "whales and dolphins"
     And I should not see "Categories"
 
@@ -268,5 +268,5 @@ Feature: search contents
   Scenario: find enterprises without exact query
     When I go to the search articles page
     And I fill in "search-input" with "bees and"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "bees and butterflies" within "#search-results"
