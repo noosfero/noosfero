@@ -48,7 +48,7 @@ Feature: browse
   Scenario: Browse people by query
     Given I go to /search/people
     When I fill in "Silva" for "search-input"
-    And I press "Search"
+    And I follow "search-button"
     Then I should see "Joao Silva"
     And I should see "Pedro Silva"
     And I should not see "Paulo Neto"
@@ -90,7 +90,7 @@ Feature: browse
   Scenario: Browse communities by query
     When I go to /search/communities
     And I fill in "Neto" for "search-input"
-    And I press "Search"
+    And I follow "search-button"
     Then I should see "Community Neto"
     And I should not see "Joao Silva"
     And I should not see "Pedro Silva"
@@ -118,7 +118,7 @@ Feature: browse
       | joaosilva | Ants are small            | this is another article |
     When I go to /search/contents
     And I fill in "bees" for "search-input"
-    And I press "Search"
+    And I follow "search-button"
     Then I should see "Bees can fly"
     And I should see "Bees and ants are insects"
     And I should not see "Ants are small"
