@@ -1036,7 +1036,7 @@ module ApplicationHelper
             :profile => profile.identifier }
     url.merge!({:content_type => content.class.name, :content_id => content.id}) if content
     text = font_awesome(:alert, _('Report abuse'))
-    klass = 'report-abuse-action'
+    klass = 'report-abuse-action '
     already_reported_message = _('You already reported this profile.')
     report_profile_message = _('Report this profile for abusive behaviour')
     report_depending_component(profile, type, content, url, text, klass, already_reported_message, report_profile_message)
