@@ -16,6 +16,7 @@
 * Antonio Terceiro (@terceiro)
 * Bráulio Bhavamitra (@brauliobo)
 * Daniela Feitosa (@danielafeitosa)
+* Gabriel Silva (@gabrielssilva)
 * Joenio Costa (@joenio)
 * Larissa Reis (@larissa)
 * Leandro Nunes (@leandronunes)
