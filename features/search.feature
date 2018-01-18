@@ -28,7 +28,8 @@ Feature: search
     When I go to the search people page
     And I fill in "search-input" with "Silva"
     And I follow "Search" within ".search-form"
-    Then I should see "Joao Silva" within ".common-profile-list-block"
+    And I wait for 1 seconds
+    Then I should see "Joao Silva" within "#search-results"
     And I should not see "Jose Araujo"
 
   @selenium
@@ -63,7 +64,8 @@ Feature: search
     And I go to the search communities page
     And I fill in "search-input" with "fancy"
     And I follow "Search" within ".search-form"
-    Then I should see "Fancy community" within ".common-profile-list-block"
+    And I wait for 1 seconds
+    Then I should see "Fancy community" within "#search-results"
     And I should not see "Boring community"
 
   @selenium
@@ -75,7 +77,8 @@ Feature: search
     And I go to the search enterprises page
     And I fill in "search-input" with "shoes"
     And I follow "Search" within ".search-form"
-    Then I should see "Shoes shop" within ".common-profile-list-block"
+    And I wait for 1 seconds
+    Then I should see "Shoes shop" within "#search-results"
     And I should not see "Fruits shop"
 
   @selenium
@@ -90,7 +93,8 @@ Feature: search
     When I go to the search articles page
     And I fill in "search-input" with "whales"
     And I follow "Search" within ".search-form"
-    Then I should see "whales and dolphins" within "div.search-results-articles"
+    And I wait for 1 seconds
+    Then I should see "whales and dolphins" within "#search-results"
     And I should not see "bees and butterflies"
 
   @selenium
@@ -104,5 +108,6 @@ Feature: search
     When I go to the search page
     And I fill in "search-input" with "noosfero"
     And I follow "Search" within ".search-form"
-    Then I should see "Colivre - Noosfero dev." within "div.search-results-enterprises"
+    And I wait for 1 seconds
+    Then I should see "Colivre - Noosfero dev." within "#search-results"
     And I should see "Noosfero users" within "div.search-results-communities"
