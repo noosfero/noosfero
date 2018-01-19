@@ -8,7 +8,7 @@ $('.comment_form textarea').on('keypress', function(e) {
     }
 });
 
-$('#submit_form_button').on('click', function(e) {
+$('#comments_list').on('click', '#submit_form_button', function(e) {
     $('#submit_form_button').bind('click', false);
     e.stopPropagation()
     save_comment($(this));
