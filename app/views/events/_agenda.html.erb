@@ -2,9 +2,14 @@
   <div class='agenda-calendar'>
     <table class='noborder current-month'>
       <caption>
-        <h2><%= show_month(params[:year], params[:month]) %></h2>
+        <h2>
+          <%= link_to(show_month(params[:year], params[:month]),
+                      { action: 'events_by_date', year: params[:year],
+                        month: params[:month] }, remote: true,
+                      class: 'events-by-date') %>
+        </h2>
         <%= link_to_previous_month(params[:year], params[:month], show_month(params[:year], params[:month], :previous => true, :only_month => true)) %>
-        <%= link_to_next_month(params[:year], params[:month], show_month(params[:year], params[:month], :next => true, :only_month => true)) %> 
+        <%= link_to_next_month(params[:year], params[:month], show_month(params[:year], params[:month], :next => true, :only_month => true)) %>
       </caption>
       <%= render :partial => 'events/month', :locals => {:calendar => @calendar, :abbreviated => true} %>
     </table>

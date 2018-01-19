@@ -7,17 +7,20 @@ class EventsControllerTest < ActionController::TestCase
   end
   attr_reader :profile
 
-  should 'list today events by default' do
-    profile.events << Event.new(:name => 'Joao Birthday', :start_date => DateTime.now)
-    profile.events << Event.new(:name => 'Maria Birthday', :start_date => DateTime.now)
+  should 'list events for the month by default' do
+    date = DateTime.now.beginning_of_month
+    profile.events << Event.new(:name => 'Joao Birthday', :start_date => date)
+    profile.events << Event.new(:name => 'Maria Birthday', :start_date => date + 5.days)
+    profile.events << Event.new(:name => 'Jose Birthday', :start_date => date + 1.month)
 
     get :events, :profile => profile.identifier
 
-    today = DateTime.now.strftime("%B %d, %Y").html_safe
-    assert_tag :tag => 'div', :attributes => {:id => "agenda-items"},
-      :descendant => {:tag => 'h3', :content => "Events for #{today}"},
-      :descendant => {:tag => 'tr', :content => "Joao Birthday"},
-      :descendant => {:tag => 'tr', :content => "Maria Birthday"}
+    assert_tag :tag => 'tr', :content => "Joao Birthday",
+      :ancestor => { :tag => 'div', :attributes => {:id => "agenda-items"} }
+    assert_tag :tag => 'tr', :content => "Maria Birthday",
+      :ancestor => { :tag => 'div', :attributes => {:id => "agenda-items"} }
+    assert_no_tag :tag => 'tr', :content => "Jose Birthday",
+      :ancestor => { :tag => 'div', :attributes => {:id => "agenda-items"} }
   end
 
   should 'display calendar of current month' do
@@ -46,22 +49,44 @@ class EventsControllerTest < ActionController::TestCase
     assert_equal 20, assigns(:events).size
   end
 
-  should "show events for current month only" do
-    profile.events << Event.create(:name => 'Maria Birthday', :start_date => DateTime.now.in_time_zone.at_end_of_month - 1)
-    profile.events << Event.create(:name => 'Joao Birthday', :start_date => DateTime.now + 31)
+  should "show events for a specific month" do
+    profile.events << Event.create(:name => 'Maria Birthday', :start_date => DateTime.new(2018, 03, 10))
+    profile.events << Event.create(:name => 'Joao Birthday', :start_date => DateTime.new(2018, 05, 01))
 
-    get :events, :profile => profile.identifier
+    get :events, :profile => profile.identifier, year: 2018, month: 03
 
-    assert_no_tag :tag =>'a', :content => /Joao Birthday/
     assert_tag :tag =>'a', :content => /Maria Birthday/
+    assert_no_tag :tag =>'a', :content => /Joao Birthday/
   end
 
   should 'show events of specific day' do
     profile.events << Event.new(:name => 'Joao Birthday', :start_date => DateTime.new(2009, 10, 28))
+    profile.events << Event.new(:name => 'Jose Birthday', :start_date => DateTime.new(2018, 01, 31))
 
-    get :events_by_day, :profile => profile.identifier, :year => 2009, :month => 10, :day => 28
+    get :events_by_date, :profile => profile.identifier, :year => 2009, :month => 10, :day => 28
 
     assert_tag :tag => 'a', :content => /Joao Birthday/
+    assert_no_tag :tag => 'a', :content => /Jose Birthday/
+  end
+
+  should 'show events for month if day param is not present' do
+    profile.events << Event.new(:name => 'Joao Birthday', :start_date => DateTime.new(2018, 01, 01))
+    profile.events << Event.new(:name => 'Jose Birthday', :start_date => DateTime.new(2018, 01, 31))
+
+    get :events_by_date, :profile => profile.identifier, :year => 2018, :month => 01
+
+    assert_tag :tag => 'a', :content => /Joao Birthday/
+    assert_tag :tag => 'a', :content => /Jose Birthday/
+  end
+
+  should 'render div with xhr-links class if paginating the collection' do
+    profile.events << Event.new(:name => 'Joao Birthday', :start_date => DateTime.new(2018, 01, 01))
+    profile.events << Event.new(:name => 'Jose Birthday', :start_date => DateTime.new(2018, 01, 31))
+
+    @controller.stubs(:per_page).returns(1)
+    get :events_by_date, :profile => profile.identifier, :year => 2018, :month => 01
+
+    assert_tag :tag => 'div', :attributes => { class: 'xhr-links' }
   end
 
   should 'not show events page to non members of private community' do
@@ -76,7 +101,7 @@ class EventsControllerTest < ActionController::TestCase
   should 'not show events page to non members of invisible community' do
     community = fast_create(Community, :identifier => 'invisible-community', :name => 'Private Community', :visible => false)
 
-    post :events, :profile => community.identifier
+    get :events, :profile => community.identifier
 
     assert_response :forbidden
     assert_template 'shared/access_denied'
@@ -88,7 +113,7 @@ class EventsControllerTest < ActionController::TestCase
 
     login_as('testuser')
 
-    post :events, :profile => community.identifier
+    get :events, :profile => community.identifier
 
     assert_response :success
   end

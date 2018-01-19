@@ -44,7 +44,7 @@ Feature: events
   Scenario: go to specific day in global agenda
     Given I am on the homepage
     When I am on /search/events?year=2009&month=11&day=12
-    Then I should see "Events for November, 2009"
+    Then I should see "Events for November 12, 2009"
 
   Scenario: list events for specific day
     Given I am on /profile/josesilva/events/2009/10
@@ -278,8 +278,55 @@ Feature: events
       | josemanuel | Lecture Allien 19 | 2009-10-26 |
       | josemanuel | Lecture Allien 20 | 2009-10-26 |
       | josemanuel | Party On          | 2009-10-27 |
-
     When I am on /profile/josemanuel/events/2009/10
     Then I should not see "Party On" within "#agenda-items"
     When I follow "Next"
     Then I should see "Party On" within "#agenda-items"
+
+  @selenium
+  Scenario: paginate events on the same day correctly
+    Given the following events
+      | owner     | name              | start_date |
+      | josesilva | Event 5           | 2009-10-15 |
+      | josesilva | Event 3           | 2009-10-15 |
+      | josesilva | Test Event        | 2009-10-15 |
+      | josesilva | Oktoberfest       | 2009-10-15 |
+      | josesilva | WikiSym           | 2009-10-15 |
+      | josesilva | Free Software     | 2009-10-15 |
+      | josesilva | Rachel Birthday   | 2009-10-15 |
+      | josesilva | Manuel Birthday   | 2009-10-15 |
+      | josesilva | Michelle Birthday | 2009-10-15 |
+      | josesilva | Lecture Allien 10 | 2009-10-15 |
+      | josesilva | Lecture Allien 11 | 2009-10-15 |
+      | josesilva | Lecture Allien 12 | 2009-10-15 |
+      | josesilva | Lecture Allien 13 | 2009-10-15 |
+      | josesilva | Lecture Allien 14 | 2009-10-15 |
+      | josesilva | Lecture Allien 15 | 2009-10-15 |
+      | josesilva | Lecture Allien 16 | 2009-10-15 |
+      | josesilva | Lecture Allien 17 | 2009-10-15 |
+      | josesilva | Lecture Allien 18 | 2009-10-15 |
+      | josesilva | Lecture Allien 19 | 2009-10-15 |
+      | josesilva | Lecture Allien 20 | 2009-10-15 |
+      | josesilva | Party On          | 2009-10-15 |
+    When I am on /profile/josesilva/events/2009/10
+    And I follow "15"
+    And I follow "Next" within ".xhr-links"
+    Then I should see "Party On"
+    And I should see "October 2009" within "#agenda"
+
+  @selenium
+  Scenario: display all events for the current month
+    Given I am on /profile/josesilva/events/2009/10/24
+    When I follow "October"
+    Then I should see "Another Conference"
+    Then I should see "Some Conference"
+
+  Scenario: highlight the selected day when page is openened directly
+    Given I am on /profile/josesilva/events/2018/10/24
+    Then "24" should be visible within ".calendar-day.selected"
+
+  @selenium
+  Scenario: highlight the selected day when a day is selected
+    Given I am on /profile/josesilva/events/2009/10
+    And I follow "22"
+    Then "22" should be visible within ".calendar-day.selected"
