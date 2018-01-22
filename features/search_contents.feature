@@ -49,10 +49,10 @@ Feature: search contents
       | joaosilva | Music Folder |
       | joaosilva | Videos Folder |
     When I search contents for "Music"
-    Then I should see "Music Folder" within ".search-folder-item"
-    And I should see "" within ".search-folder-items"
+    Then I should see "Music Folder"
+    And I should see "" within ".search-folder-item"
     And I should not see "Videos Folder"
-    When I follow "Music Folder"
+    And I follow "Music Folder"
     Then I should be on article "Music Folder"
 
   Scenario: simple search for forum
@@ -61,7 +61,7 @@ Feature: search contents
       | joaosilva | Games Forum |
       | joaosilva | Movies Folder |
     When I search contents for "Games"
-    Then I should see "Games Forum" within ".search-forum-item"
+    Then I should see "Games Forum" within ".main-content"
     And I should see "None" within ".search-forum-items"
     And I should not see "Movies Folder"
     When I follow "Games Forum"
@@ -73,7 +73,7 @@ Feature: search contents
       | joaosilva | Landscape Photos |
       | joaosilva | People Photos |
     When I search contents for "Landscape"
-    Then I should see "Landscape Photos" within ".search-gallery"
+    Then I should see "Landscape Photos" within ".main-content"
     And I should not see "People Photos"
     When I follow "Landscape Photos"
 
@@ -83,7 +83,7 @@ Feature: search contents
       | joaosilva | rails.png |
       | joaosilva | shoes.png |
     When I search contents for "rails"
-    Then I should see "rails.png" within ".search-uploaded-file-item"
+    Then I should see "rails.png" within ".main-content"
     And I should not see "shoes"
     When I follow "rails"
     Then I should be on article "rails"
@@ -250,7 +250,7 @@ Feature: search contents
     And the following rss feeds
       | joaosilva | JSilva blog | post #3 |
     When I search contents for "JSilva"
-    Then I should see "Last posts" within ".search-blog-items"
+    Then I should see "Last posts" within ".main-content"
     And I should see "post #1"
     And I should see "post #2"
     And I should not see "post #3"
