@@ -47,14 +47,12 @@
 								<th > User </th>
 								<th> Answer </th>
 							</tr>
-							<tr>
-								<% result["data"]["answers"].each_with_index do |answer, user| %>
-									<tr>
-										<td class="review_text_align"> <%= result["data"]["users"][user] %> </td>
-										<td class="review_text_align"> <%= answer %> </td>
-										<tr>
-										<% end %>
-										</tr>
+							<% result["data"]["answers"].each_with_index do |answer, user| %>
+								<tr>
+									<td class="review_text_align"> <%= result["data"]["users"][user] %> </td>
+									<td class="review_text_align"> <%= answer %> </td>
+								</tr>
+							<% end %>
 						</table>
 					<% end %>
 				</div>
@@ -62,6 +60,7 @@
 		<% end %>
 	</div>
 
-<%= button_bar do %>
-  <%= button :back, _('View all queries'), :action => 'queries' %>
-<% end %>
+  <%= button_bar do %>
+    <%= button :back, _('View all queries'), :action => 'queries' %>
+  <% end %>
+</div>
