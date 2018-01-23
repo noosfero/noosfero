@@ -1284,7 +1284,7 @@ module ApplicationHelper
 
   def captcha_tags(action, user, environment, profile = nil)
     if environment.require_captcha?(action, user, profile)
-      content_tag('div', recaptcha_tags(:ajax => true, :script => false),
+      content_tag('div', recaptcha_tags(:ajax => true, :script => true),
                   class: 'recaptcha-wrapper')
     end
   end
