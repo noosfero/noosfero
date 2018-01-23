@@ -23,7 +23,7 @@ Feature: profile advanced search
     Given I move the cursor over ".profile-search-block"
     And I follow "Edit" within ".profile-search-block"
     And I check "Enable advanced search"
-    And I press "Save"
+    And I follow "Save"
     When I go to /joaosilva
     Then The page should not contain ".profile-search-block .facet"
 
@@ -32,6 +32,6 @@ Feature: profile advanced search
     Given I move the cursor over ".profile-search-block"
     And I follow "Edit" within ".profile-search-block"
     And I check "Enable advanced search"
-    And I press "Save"
+    And I follow "Save"
     When I go to /profile/joaosilva/search
     Then The page should contain ".profile-search-block .facet"
