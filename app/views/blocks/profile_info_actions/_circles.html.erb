@@ -4,8 +4,9 @@
     <%= render partial: "blocks/profile_info_actions/select_circles", :locals => {:circles => circles, :followed_profile => profile, :follower => current_person } %>
 
     <div id="circle-actions">
-      <%= submit_button :ok, _("Follow") %>
+      <%= submit_button :ok, _("Follow"), {:id => "submit-button-set-circle-block"}%>
       <input type="button" value="<%= _("Cancel") %>" id="cancel-set-circle" class="button with-text icon-cancel"/>
     </div>
   <% end %>
 </div>
+<%= javascript_include_tag 'select_circle_block' %>
