@@ -76,6 +76,7 @@ Feature: accept member
     And I follow "menu-toggle"
     When I follow "Manage tasks"
     And I follow "Accept"
+    And I wait 1 seconds
     And I check "Profile Moderator"
     And I follow "Accept"
     Then "Marie Curie" should be moderator of "My Community"
