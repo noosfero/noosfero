@@ -22,17 +22,19 @@ Feature: send_email_plugin
     When I go to Joao Silva's homepage
     Then I should see "URL path to /profile/joaosilva/plugin/send_email/deliver action"
 
+  @selenium
   Scenario: as admin I can configure plugin
     Given I am logged in as admin
     When I go to the environment control panel
     And I follow "Plugins"
     Then I should see "Configuration" linking to "/admin/plugin/send_email"
 
+  @selenium
   Scenario: configure plugin to allow emails to john@example.com
     Given I am logged in as admin
     When I go to /admin/plugin/send_email
     Then I should not see "john@example.com"
     When I fill in "E-Mail addresses you want to allow to send" with "john@example.com"
-    And I press "Save"
-    When I go to /admin/plugin/send_email
-    Then I should see "john@example.com"
+    And I follow "Save"
+    Then I go to /admin/plugin/send_email
+    And I should see "john@example.com"
