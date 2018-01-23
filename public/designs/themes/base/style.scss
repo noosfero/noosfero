@@ -1650,12 +1650,12 @@ table#recaptcha_table tr:hover td {
 /* Noosfero Events */
 
 .event-card {
-  float: left;
-  padding-top: 25px;
-  width: 494px;
-  height: 116px;
+  width: 100%;
+  height: 165px;
   background-repeat: no-repeat;
-  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
 }
 
 .event-image {
@@ -1721,7 +1721,6 @@ table#recaptcha_table tr:hover td {
 }
 
 .event-body {
-  float: left;
 }
 
 .event-body .event-lead {
@@ -1730,7 +1729,7 @@ table#recaptcha_table tr:hover td {
 
 .event-body .event-content p {
   margin-top: 20px;
-  width: 494px;
+  max-width: 494px;
   padding-left: 2px;
 }
 
