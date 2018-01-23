@@ -46,7 +46,7 @@ class CommentParagraphPluginProfileControllerTest < ActionController::TestCase
     login_as('testuser')
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala', :paragraph_uuid => 0)
     xhr :get, :comment_form, :profile => @profile.identifier, :article_id => article.id, :paragraph_uuid => 0
-    assert_select ".page-comment-form"
+    assert_tag tag: "textarea", attributes: { id: 'comment-field' }
     assert_select "#comment_paragraph_uuid[value=?]", '0'
   end
 
