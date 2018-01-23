@@ -54,6 +54,12 @@ form.comment_form {
       margin-bottom: 5px;
     }
 
+    .cancel-button {
+      box-sizing: border-box;
+      color: #d9534f !important;
+      border-color: #d9534f !important;
+    }
+
     div.comment-recaptcha {
       position: absolute;
 

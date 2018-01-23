@@ -24,6 +24,7 @@
 
     <div class='inline-captcha-wrapper'>
       <%= f.submit _('Send'), :class => 'button with-text', :id => 'submit_form_button' %>
+      <a class="button with-text cancel-button" id="cancel-comment"><%= _("Cancel") %></a>
 
       <% if !edition_mode &&
             environment.require_captcha?(:create_comment, user, profile) %>
