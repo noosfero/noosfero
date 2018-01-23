@@ -6,7 +6,7 @@ services:
     image: postgres:9.4
     environment:
       POSTGRES_USER: noosfero
-      POSTGRES_PASSWORD:
+      POSTGRES_PASSWORD: noosfero
     volumes:
       - pg-data:/var/lib/postgresql/data
 
@@ -14,16 +14,16 @@ services:
     container_name: noosfero
     build:
       context: .
-      dockerfile: Dockerfile.compose
-    command: /bin/bash -lc "./config/docker/dev/start-dev.sh"
+      dockerfile: ./config/docker/dev/Dockerfile
     ports:
       - 3000:3000
     depends_on:
       - postgres
     volumes:
-      - ../../../bundle-cache:/bundle-cache
-      - ../../../:/noosfero
+      - .:/noosfero
+    environment:
+      POSTGRES_USER: noosfero
+      POSTGRES_PASSWORD: noosfero
 
 volumes:
-  bundle-cache:
-  pg-data:
+  pg-data: {}

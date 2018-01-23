@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cmd="$@"
+#RAILS_ENV=production (remover esta variavel)
 
 databaseymlfile='/noosfero/config/database.yml.docker'
 if [ -f $databaseymlfile ] ; then
@@ -10,25 +11,25 @@ fi
 dump_file="/noosfero/dump/${NOOSFERO_DUMP_FILE}"
 if [ -f $dump_file ] ; then
   echo ">>>>> DUMP FILE FOUND PREPARING DATABASE <<<<<"
-  RAILS_ENV=production bundle exec rake db:drop
-  RAILS_ENV=production bundle exec rake db:create
+  bundle exec rake db:drop
+  bundle exec rake db:create
 
   echo ">>>>> LOADING DATABASE DUMP <<<<<"
-  yes | RAILS_ENV=production bundle exec rake restore BACKUP=$dump_file
+  yes | bundle exec rake restore BACKUP=$dump_file
 fi
 
-if RAILS_ENV=production bundle exec rake db:exists; then
+if bundle exec rake db:exists; then
   echo ">>>>> DATABASE DETECTED APPLYING MIGRATIONS <<<<<"
-  RAILS_ENV=production bundle exec rake db:migrate
+  bundle exec rake db:migrate
 else
   echo ">>>>> NO DATABASE DETECTED CREATING A NEW ONE <<<<<"
-  RAILS_ENV=production bundle exec rake db:create
-  RAILS_ENV=production bundle exec rake db:schema:load
-  RAILS_ENV=production bundle exec rake db:migrate
+  bundle exec rake db:create
+  bundle exec rake db:schema:load
+  bundle exec rake db:migrate
 fi
 
 echo ">>>>> COMPILING ASSETS <<<<<"
-RAILS_ENV=production bundle exec rake assets:precompile
+bundle exec rake assets:precompile
 
 pidfile='/noosfero/tmp/pids/server.pid'
 if [ -f $pidfile ] ; then

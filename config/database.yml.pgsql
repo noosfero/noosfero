@@ -13,8 +13,8 @@ development:
   encoding: unicode
   database: noosfero_development
   template: template0
-  username: noosfero
-  password:
+  username: <%= (ENV['POSTGRES_USER'] || 'noosfero') %>
+  password: <%= (ENV['POSTGRES_PASSWORD'] || '') %>
   pool: <%= (ENV['DB_POOL'] || '20').to_i %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -40,16 +40,16 @@ test: &TEST
   encoding: unicode
   database: noosfero_test
   template: template0
-  username: noosfero
-  password:
+  username: <%= (ENV['POSTGRES_USER'] || 'noosfero') %>
+  password: <%= (ENV['POSTGRES_PASSWORD'] || '') %>
 
 production:
   adapter: postgresql
   encoding: unicode
   database: noosfero_production
   template: template0
-  username: noosfero
-  password:
+  username: <%= (ENV['POSTGRES_USER'] || 'noosfero') %>
+  password: <%= (ENV['POSTGRES_PASSWORD'] || '') %>
   pool: <%= (ENV['DB_POOL'] || '20').to_i %>
 
 cucumber:

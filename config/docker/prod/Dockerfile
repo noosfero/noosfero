@@ -1,6 +1,8 @@
 FROM ruby:2.4.2-jessie
 MAINTAINER Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>
 
+LABEL Description="This dockerfile builds a noosfero production environment."
+
 ENV RAILS_ENV production
 RUN apt-get update && apt-get install -y sudo cron nodejs tango-icon-theme postgresql-client
 
@@ -11,7 +13,7 @@ RUN bundle install
 ADD . /noosfero/
 WORKDIR /noosfero
 
-COPY ./config/docker/prod/start-prod.sh /entrypoint.sh
+COPY ./config/docker/prod/entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
 
 CMD ["sleep", "infinity"]
