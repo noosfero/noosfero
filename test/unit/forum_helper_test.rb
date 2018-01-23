@@ -78,7 +78,7 @@ class ForumHelperTest < ActionView::TestCase
     assert_match "#{result} by", out
     assert_match 'John', out
 
-    assert_match(/#{result} by <a href=\"#\">John<\/a>/m, last_topic_update(some_post))
+    assert_match(/#{result} by John/m, last_topic_update(some_post))
   end
 
   should "not escape html in last topic update" do
