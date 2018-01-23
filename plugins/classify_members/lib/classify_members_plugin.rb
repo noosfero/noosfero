@@ -35,15 +35,13 @@ class ClassifyMembersPlugin < Noosfero::Plugin
           plugin.find_community(profile).map do |community, community_label|
           "jQuery(function(){
             jQuery('.cmm-member-list').prepend(
-              '<li>' + '#{link_to '<i></i>' + community_label,
+              '<li>' + '#{link_to community_label,
                 {:profile => community.identifier, :controller => 'profile', :action => 'members'},
                 :class => 'member-of-' + community.identifier}' + '</li>'
             );
           });"
           end.join("\n")
         )
-      else
-        '<!-- ClassCommunityPlugin not in a profile -->'
       end
     end
   end
@@ -77,6 +75,10 @@ class ClassifyMembersPlugin < Noosfero::Plugin
     communities.map do |community|
       profile.is_member_of?(community[0]) ? community : nil
     end.compact
+  end
+
+  def stylesheet?
+    true
   end
 
 end
