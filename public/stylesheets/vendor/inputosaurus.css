@@ -3,6 +3,7 @@
 }
 
 .inputosaurus-container {
+  width: 100%;
 	/*background-color: #fff;*/
 	/*border: 1px solid #bcbec0;*/
 	margin: 0;
@@ -16,7 +17,9 @@
 	overflow-y: auto;
 }
 .inputosaurus-container li {
-	display: block;
+  max-width: 97%;
+	display: flex;
+  flex-wrap: nowrap;
 	float: left;
 	overflow: hidden;
 	margin-right: 5px;
@@ -40,8 +43,8 @@
 }
 .inputosaurus-container li.inputosaurus-selected { background-color: #bdd6eb; }
 .inputosaurus-container li a {
-    display: inline-block;
-    vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 	font-size: 16px;
 	color: #5b9bcd;
 	padding: 1px;
@@ -49,8 +52,11 @@
 	outline: none;
 }
 .inputosaurus-container li span {
-    display: inline-block;
-    vertical-align: middle;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  overflow:hidden;
+  display: inline-block;
+  vertical-align: middle;
 }
 .inputosaurus-container .inputosaurus-input {
 	border: none;
@@ -79,4 +85,6 @@
 	box-shadow: none;
   background-color: #f0f0f0;
 }
-.inputosaurus-input-hidden { display: none; }
+.inputosaurus-input-hidden {
+  display: none;
+}
