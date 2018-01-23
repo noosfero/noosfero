@@ -74,8 +74,10 @@ Feature: accept member
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I follow "menu-toggle"
-    When I follow "Manage tasks"
+    And I follow "Manage tasks"
+    And I wait 1 seconds
     And I follow "Accept"
+    And I wait 1 seconds
     And I check "Profile Moderator"
     And I follow "Accept"
     Then "Marie Curie" should be moderator of "My Community"
