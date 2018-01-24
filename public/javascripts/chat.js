@@ -924,6 +924,12 @@ jQuery(function($) {
     }
   }
 
+  function resetNotificationCounter() {
+    Jabber.favico.reset();
+    Jabber.notification_counter = 0;
+    document.title = Jabber.window_title;
+  }
+
   $('.title-bar a').click(function() {
     $(this).parents('.status-group').find('.buddies').toggle('fast');
     return false;
@@ -972,6 +978,7 @@ jQuery(function($) {
 
   $('#chat-label').click(function(){
     toggle_chat_window();
+    resetNotificationCounter();
     $.post('/chat/toggle');
   });
 
@@ -992,12 +999,10 @@ jQuery(function($) {
   });
 
   window.onfocus = function() {
-    Jabber.window_visibility = true
-    Jabber.favico.reset();
-    Jabber.notification_counter = 0;
-    document.title = Jabber.window_title;
+    Jabber.window_visibility = true;
+    resetNotificationCounter();
   };
-  window.onblur = function() {Jabber.window_visibility = false};
+  window.onblur = function() { Jabber.window_visibility = false };
 
   //FIXME Workaround to solve availability problems
   function updateAvailabilities() {
