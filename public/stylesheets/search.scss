@@ -70,8 +70,8 @@
   height:auto;
   padding:inherit;
 }
+
 #search-results {
-  overflow: auto;
   .search-results-articles {
     color: #222;
     ul {
@@ -88,7 +88,6 @@
 
         .search-content-second-column {
           flex-grow: 1;
-          padding: 0px 20px 0px 0px;
           h2 {
             a { color: #212e3c; &:hover { border-color: #212e3c; } }
             margin: 0;
@@ -160,19 +159,13 @@
 #search-results .search-results-people,
 #search-results .search-results-communities,
 #search-results .search-results-enterprises {
-  overflow: auto;
+  width: 100%;
+  display: inline-block;
   ul {
-    overflow: auto;
-    @media only screen and (max-width: 960px) {
-      width: 100%;
-      margin: auto;
-    }
-    @media only screen and (max-width: 540px) {
-      width: 100%;
-      margin: auto;
-    }
+    width: 100%;
+    margin: auto;
     > li {
-      display: inline-block;
+      width: 100%
     }
   }
 }
@@ -750,6 +743,7 @@ li.search-product-item hr {
   clear:both;
   padding:10px 0 !important;
   display: inline-flex;
+  width: 100%;
 }
 .only-one-result-box .common-profile-list-block {
   float: left;
@@ -785,24 +779,22 @@ li.search-product-item hr {
 .common-profile-list-block span.search-enterprise-region-name,
 .common-profile-list-block .search-enterprise-categorization-children {
   display:inline-block;
-  width: 480px;
+  width: 100%;
 }
 .search-enterprise-item .search-enterprise-item-column-right {
   font-size:10px;
   margin-top: 25px;
   width: 100%;
   @media only screen and (max-width: 850px) {
-    width: 60%;
+    width: 70%;
   }
 
   @media only screen and (max-width: 650px) {
-    width: 40%;
+    width: 65%;
   }
 }
 .search-enterprise-category {
   clear: both;
-  float: left;
-
 }
 .search-enterprise-item-column-right .search-enterprise-description {
   margin: 0 0 5px;
@@ -919,10 +911,6 @@ li.search-product-item hr {
 }
 .facet-menu a.facet-options-toggle.facet-less-options {
   background-position: 0 -32px;
-}
-
-#search-content {
-  overflow: auto;
 }
 
 .search-content-second-column tr:hover {
