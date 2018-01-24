@@ -60,7 +60,7 @@ form.comment_form {
       width: 90%;
       margin-top: 10px;
       margin-left: auto;
-      margin-right: 0 !important;
+      margin-right: auto !important
     }
     #submit_form_button{
       margin-top: 15px;
@@ -131,6 +131,12 @@ form.comment_form {
   .reply-comment-form {
     flex-grow: 5;
     flex-direction: row;
+  }
+
+  .page-comment-form{
+    #cancel-comment {
+      display: none;
+    }
   }
 
   a#view-more-comments {
