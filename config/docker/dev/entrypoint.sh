@@ -7,7 +7,23 @@ cp /noosfero/config/database.yml.pgsql /noosfero/config/database.yml
 
 bundle check || bundle install
 
-bundle exec rake db:wait
+function_postgres_ready() {
+ruby << END
+require 'pg'
+begin
+  PG.connect(dbname: "$POSTGRES_USER", user: "$POSTGRES_USER", password: "$POSTGRES_PASSWORD", host="postgres")
+rescue
+  exit -1
+else
+  exit 0
+end
+END
+}
+
+until function_postgres_ready; do
+  >&2 echo "Postgres is unavailable - sleeping"
+  sleep 1
+done
 
 if bundle exec rake db:exists; then
   bundle exec rake db:migrate
