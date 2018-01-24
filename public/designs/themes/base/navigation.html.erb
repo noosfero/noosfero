@@ -54,4 +54,23 @@
   <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
     <li class="signup-link"><%= link_to_signup %></li>
   <% end %>
+
+  <li class="hamburger-menu">
+    <%= link_to(font_awesome(:bars), '#', class: "menu-toggle") %>
+    <ul class="noosfero-dropdown-menu">
+      <li><%= link_to(font_awesome(:search, _('Search')), controller: 'search', action: 'articles') %></li>
+      <% main_dropdown_items.flatten.reject(&:blank?).each do |item| %>
+        <li><%= item %></li>
+      <% end %>
+    </ul>
+  </li>
+
+  <li class="user-menu">
+    <%= link_to(font_awesome('caret-down'), '#', class: "menu-toggle", id: "menu-dropdown-items") %>
+    <ul class="noosfero-dropdown-menu">
+      <% main_dropdown_items.flatten.reject(&:blank?).each do |item| %>
+        <li><%= item %></li>
+      <% end %>
+    </ul>
+  </li>
 <% end %>
