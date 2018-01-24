@@ -8,6 +8,7 @@ form.comment_form {
 
   div.inline-fields {
     display: flex;
+    flex-direction: column;
 
     span {
       flex: 1;
@@ -35,7 +36,9 @@ form.comment_form {
   }
 
   textarea {
-    width: 380px;
+    width: 100%;
+    height: 10vw;
+    max-height: 100%;
     margin-right: 5px;
     border-radius: 4px;
     box-sizing: border-box;
@@ -46,23 +49,58 @@ form.comment_form {
 
   div.inline-captcha-wrapper {
     flex-grow: 1;
-    height: 91px;
+    flex-direction: row;
+
+    .comment-buttons {
+      display: flex;
+      flex-direction: column;
+    }
 
     .button.with-text {
-      width: 100%;
-      margin: 0;
-      margin-bottom: 5px;
+      width: 90%;
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: 0 !important;
+    }
+    #submit_form_button{
+      margin-top: 15px;
+    }
+
+    .cancel-button {
+      box-sizing: border-box;
+      color: #d9534f !important;
+      border-color: #d9534f !important;
     }
 
     div.comment-recaptcha {
-      position: absolute;
-
+      margin-top: 15px;
+      float: left;
       > div {
-        transform: scale(0.7);
+        transform: scale(0.7vw);
         transform-origin: 0 0;
       }
     }
   }
+
+  @media only screen and (max-width: 1130px) {
+    div.inline-captcha-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      div.comment-recaptcha {
+        float: none;
+        margin: 15px auto 0px auto;
+      }
+
+      .button.with-text {
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 5px;
+      }
+    }
+
+  }
+
 }
 
 #form_order {

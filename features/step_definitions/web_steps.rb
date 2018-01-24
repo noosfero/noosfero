@@ -118,7 +118,7 @@ end
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"(?: within "([^"]*)")?$/ do |path, field, selector|
   path = File.expand_path(path).gsub('/', File::ALT_SEPARATOR || File::SEPARATOR)
   with_scope(selector) do
-    attach_file(field, path)
+    attach_file(field, path, make_visible: true)
   end
   sleep 1
 end

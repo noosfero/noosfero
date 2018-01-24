@@ -2,11 +2,11 @@ function add_comment_reply_form(comment_id) {
   var comment = $('#comment-' + comment_id)
   var container = comment.children('.reply-comment-form')
   var form = container.find('form.comment_form')
-
+  container.removeClass('hidden')
   if(form.length == 0) {
     form = $('#page-comment-form form.comment_form').clone()
     container.append(form)
-    container.removeClass('hidden')
+
     $('#page-comment-form .errorExplanation').remove()
     form.find('script').remove()
     form.find('.comment-recaptcha div').remove()
@@ -16,7 +16,10 @@ function add_comment_reply_form(comment_id) {
     form.find('#comment-captcha').attr('id', 'comment-' + comment_id
                                                         + '-captcha')
     form.find('#comment-field').focus()
-    renderCaptcha(form.find('.comment-recaptcha')[0])
+    if(typeof(renderCaptcha) === typeof(Function))
+      renderCaptcha(form.find('.comment-recaptcha')[0])
+
+    return false
   }
 
   if(container.hasClass('closed')) {
@@ -95,6 +98,12 @@ $(document).ready(function() {
   $(".comment-item .reply-comment-link").live('click', function(){
      var comment_id = $(this).data('comment-id')
      add_comment_reply_form(comment_id)
-     return false
+  })
+
+  $("#comments_list").on("click", "#cancel-comment", function(){
+    var container = $(this).parents(".reply-comment-form")
+    container.find("textarea").val("")
+    container.addClass('hidden')
+    return false
   })
 })
