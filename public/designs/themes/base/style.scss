@@ -161,7 +161,7 @@ body, th, td, input {
     overflow: hidden;
     a {
       cursor: pointer;
-      height: 42px;
+      height: auto;
       margin-right: 12px;
 
       img {
@@ -176,6 +176,7 @@ body, th, td, input {
     }
 
     form#top-search {
+      height: 32px;
       display: flex;
       flex-direction: row;
       flex-grow: 1;
@@ -185,6 +186,7 @@ body, th, td, input {
       }
       input {
         padding: 8px;
+        margin-right: 5px;
         border-radius: 4px;
         border-width: 1px;
         margin-left: 10px;
