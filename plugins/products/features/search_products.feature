@@ -40,7 +40,7 @@ Feature: search products
       | wikis consultancy | development | true     |
     When I go to the search products page
     And I fill in "search-input" with "wikis"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "100%" within "div.search-product-ecosol-percentage-icon-100"
 
   Scenario: show percentage (50%) of solidary economy inputs in results
@@ -50,7 +50,7 @@ Feature: search products
       | wikis consultancy | development | false    |
     When I go to the search products page
     And I fill in "search-input" with "wikis"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "50%" within "div.search-product-ecosol-percentage-icon-50"
 
   Scenario: show percentage (75%) of solidary economy inputs in results
@@ -62,7 +62,7 @@ Feature: search products
       | wikis consultancy | development | false    |
     When I go to the search products page
     And I fill in "search-input" with "wikis"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "75%" within "div.search-product-ecosol-percentage-icon-75"
 
   Scenario: show percentage (25%) of solidary economy inputs in results
@@ -74,7 +74,7 @@ Feature: search products
       | wikis consultancy | development | false    |
     When I go to the search products page
     And I fill in "search-input" with "wikis"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "25%" within "div.search-product-ecosol-percentage-icon-25"
 
   Scenario: display "zoom in" button on images on results
@@ -83,7 +83,7 @@ Feature: search products
       | colivre-ent | development | noosfero | 12.34 | noosfero-network |
     When I go to the search products page
     And I fill in "search-input" with "noosfero"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should not see "No image"
     And I should see "Zoom in" within "a.zoomify-image"
 
@@ -96,13 +96,12 @@ Feature: search products
       | colivre-ent | Noosfero Social Network Platform | software-livre |
     When I go to the search products page
     And I fill in "search-input" with "Noosfero Social"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Noosfero Social Network Platform" within "#search-results"
 
   Scenario: simple search for product
     When I go to the search products page
     And I fill in "search-input" with "wikis"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "wikis consultancy" within "div.search-results-products"
     And I should not see "social networks consultancy"
-
