@@ -343,6 +343,7 @@ module ApplicationHelper
   def popover_menu(title, menu_title, links,html_options = {})
     html_options[:class] = "" unless html_options[:class]
     html_options[:class] << " menu-submenu-trigger"
+    html_options[:onclick] = "toggleSubmenu(this, '#{menu_title}', #{CGI::escapeHTML(links.to_json)}); return false".html_safe
     link_to(content_tag(:span, title), '#', html_options)
   end
 
