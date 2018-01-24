@@ -839,6 +839,12 @@ module ApplicationHelper
   end
   alias :browse_communities_menu :search_communities_menu
 
+  def search_events_menu
+    @search_events_url = content_tag(:a, content_tag(:i, "", :class => 'fa fa-calendar') + _('Events'), :class => 'icon-menu-events', :href => "/search/events")
+    render :text => @search_events_url
+  end
+  alias :browse_events_menu :search_events_menu
+
   def pagination_links(collection, options={})
     options = { previous_label: content_tag(:span, font_awesome('long-arrow-left', _('Previous'))),
                 next_label:     content_tag(:span, "#{_('Next')} #{font_awesome('long-arrow-right')}".html_safe),
@@ -907,8 +913,21 @@ module ApplicationHelper
     join_result
   end
 
+  def main_dropdown_items
+    [
+      search_contents_menu,
+      search_people_menu,
+      search_communities_menu,
+      search_events_menu
+    ]
+  end
+
   def user_menu_items
     [
+      search_contents_menu,
+      search_people_menu,
+      search_events_menu,
+      search_communities_menu,
       render_environment_features(:usermenu).html_safe,
       user.is_admin?(environment) ? admin_link : nil,
       manage_enterprises,
