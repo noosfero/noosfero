@@ -58,13 +58,13 @@ function onFetch(event) {
 }
 
 function onPush(event) {
-  var data = event.data.json()
-  let title = data.title;
-  let body = data.body;
-  let icon = data.icon || '/assets/noosfero/logo-120x120.png';
+  var data = event.data.json();
+  var title = data.title;
+  var body = data.body;
+  var icon = data.icon || '/assets/noosfero/logo-120x120.png';
 
   event.waitUntil(
-    self.registration.showNotification(title, { body, icon })
+    self.registration.showNotification(title, { body: body, icon: icon })
   );
 };
 
