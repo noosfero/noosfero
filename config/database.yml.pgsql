@@ -15,6 +15,7 @@ development:
   template: template0
   username: <%= (ENV['POSTGRES_USER'] || 'noosfero') %>
   password: <%= (ENV['POSTGRES_PASSWORD'] || '') %>
+  host: <%= (ENV['POSTGRES_HOST'] || '') %>
   pool: <%= (ENV['DB_POOL'] || '20').to_i %>
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -42,6 +43,7 @@ test: &TEST
   template: template0
   username: <%= (ENV['POSTGRES_USER'] || 'noosfero') %>
   password: <%= (ENV['POSTGRES_PASSWORD'] || '') %>
+  host: <%= (ENV['POSTGRES_HOST'] || '') %>
 
 production:
   adapter: postgresql
@@ -50,6 +52,7 @@ production:
   template: template0
   username: <%= (ENV['POSTGRES_USER'] || 'noosfero') %>
   password: <%= (ENV['POSTGRES_PASSWORD'] || '') %>
+  host: <%= (ENV['POSTGRES_HOST'] || '') %>
   pool: <%= (ENV['DB_POOL'] || '20').to_i %>
 
 cucumber:
