@@ -33,8 +33,8 @@ module Noosfero
     h2 h3 h4 h5 h6 ul ol li dl dt dd abbr acronym a img blockquote del ins a)
 
     ALLOWED_ATTRIBUTES = %w(name href cite class title src xml:lang height datetime alt abbr width
-      vspace hspace heigth value type data style target codebase archive data-macro align border
-      classid code flashvars scrolling frameborder controls autoplay colspan id rowspan)
+      vspace hspace heigth value type data style target codebase archive data-macro data-macro-id
+      align border classid code flashvars scrolling frameborder controls autoplay colspan id rowspan)
 
     config.action_view.sanitized_allowed_tags = ALLOWED_TAGS
     config.action_view.sanitized_allowed_attributes = ALLOWED_ATTRIBUTES
