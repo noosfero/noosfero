@@ -61,8 +61,8 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     Person['marley'].categories << subcategory
     login 'marley', 'test'
     get "/myprofile/marley/profile_editor/edit"
-    assert_tag :tag => 'td', :content => "#{category.name} &rarr; #{subcategory.name}",
-               :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories' }}
+    assert_tag :tag => 'div', :content => /#{category.name} &rarr; #{subcategory.name}/,
+               :ancestor => { :tag => 'div', :attributes => { :class => 'selected-category' }}
   end
 
   should 'not escape MainBlock on profile design' do
