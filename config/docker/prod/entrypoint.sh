@@ -3,10 +3,28 @@
 cmd="$@"
 #RAILS_ENV=production (remover esta variavel)
 
-databaseymlfile='/noosfero/config/database.yml.docker'
-if [ -f $databaseymlfile ] ; then
-  mv $databaseymlfile /noosfero/config/database.yml
-fi
+echo "copying config/database.yml.pgsql -> config/database.yml"
+cp /noosfero/config/database.yml.pgsql /noosfero/config/database.yml
+
+function_postgres_ready() {
+ruby << END
+require 'pg'
+begin
+  PG.connect(dbname: "$POSTGRES_DB", user: "$POSTGRES_USER", password: "$POSTGRES_PASSWORD", host: "postgres")
+rescue
+  exit -1
+else
+  exit 0
+end
+END
+}
+
+until function_postgres_ready; do
+  >&2 echo "POSTGRES IS UNAVAILABLE, SLEEP"
+  sleep 1
+done
+
+echo "POSTGRES IS UP, CONTINUE"
 
 dump_file="/noosfero/dump/${NOOSFERO_DUMP_FILE}"
 if [ -f $dump_file ] ; then
@@ -36,8 +54,5 @@ if [ -f $pidfile ] ; then
 	echo 'Server PID file exists. Removing it...'
 	rm $pidfile
 fi
-
-echo ">>>>> STARTING SERVER <<<<<"
-/noosfero/script/production start
 
 exec $cmd

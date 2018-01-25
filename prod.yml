@@ -2,27 +2,30 @@ version: "3"
 
 services:
   postgres:
-    container_name: noosfero-database-prod
     image: postgres:9.4
     environment:
       POSTGRES_USER: noosfero
-      POSTGRES_PASSWORD:
+      POSTGRES_PASSWORD: noosfero
+      POSTGRES_DB: noosfero_production
     volumes:
-      - pg-data:/var/lib/postgresql/data
+      - pg-prod-data:/var/lib/postgresql/data
 
   noosfero:
-    container_name: noosfero-prod
     build:
       context: .
-      dockerfile: ./config/docker/prod/Dockerfile.compose
-    environment:
-      NOOSFERO_DUMP_FILE:
+      dockerfile: ./config/docker/prod/Dockerfile
     ports:
       - 80:3000
     depends_on:
       - postgres
     volumes:
-      - ../../../tmp/backup:/dump
+      - ./tmp/backup:/dump
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_USER: noosfero
+      POSTGRES_PASSWORD: noosfero
+      POSTGRES_DB: noosfero_production
+      NOOSFERO_DUMP_FILE:
 
 volumes:
-  pg-data:
+  pg-prod-data: {}
