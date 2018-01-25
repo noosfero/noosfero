@@ -12,6 +12,8 @@
 
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
 
+  <hr>
+
   <div id="profile_change_picture_title">
     <h2><%= _('Change picture') %></h2>
     <span><%= unchangeable_privacy_field @profile %></span>
@@ -19,6 +21,8 @@
   <div id="profile_change_picture">
     <%= file_field_or_thumbnail(_('Image:'), @profile.image, 'profile_data[image_builder]') %><%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
   </div>
+
+  <hr>
 
   <h2><%= _('Privacy options') %></h2>
   <%= content_tag('h4', _('Followers')) %>
@@ -53,11 +57,15 @@
     <%= render 'redirection_after_login', f: f %>
   <% end %>
 
+  <hr>
+
   <h2><%= _('Translations') %></h2>
   <%= labelled_check_box(
     _('Automaticaly redirect the visitor to the article translated to his/her language'),
     'profile_data[redirect_l10n]', true, @profile.redirect_l10n
   )%>
+
+  <hr>
 
   <h2><%= _('Suggestions') %></h2>
   <%= labelled_check_box(
@@ -71,16 +79,24 @@
     end, "\n")
   %>
 
+  <hr>
+
   <h2><%= _('Tags of your interest') %></h2>
   <%= render :partial => 'shared/tags_field', :locals => {:f => f, :value => @profile.tag_list} %>
 
+  <hr>
+
   <%= select_categories(:profile_data, _('Categories of your interest'), 2) %>
+
+  <hr>
 
   <%= content_tag('h2', _('Files upload')) %>
   <div>
     <%= labelled_check_box _('Send single file in upload with description').html_safe,
                           'profile_data[metadata][allow_single_file]', "1", @profile.metadata['allow_single_file'] == "1" %>
   </div>
+
+  <hr>
 
   <%= button_bar do %>
     <%= button(:back, _('Back'), controller: 'profile_editor') %>
