@@ -1,4 +1,4 @@
-<div class='task-link'>
+<div  onclick="location.href='<%= url_for(:controller => 'tasks', :profile => user.identifier) =%>';" class='task-link'>
   <div class="task-box" id="task-<%= task.id %>">
 
     <div class="task-requestor-img">
