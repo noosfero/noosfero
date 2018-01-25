@@ -75,9 +75,23 @@ Use a docker image to run an out-of-the-box development environment. Further inf
 
 #### Building the image locally
 
-You can also build the image locally with one of the Dockerfiles provided in `config/docker/dev/`. There are two options: an image that runs both Noosfero and PostgreSQL, and a docker-compose alternative that will run it in different containers, making use of local volumes to persist the data and reload the code.
+The configuration is setup to run two containers, one with postgres and the other with noosfero. There are two options, development and production mode.
+- Development:  
+```
+docker-compose -f dev.yml up --build
+```
+This configuration synchronize noosfero local repository with the code into the container. You'll be able to edit the code outside the docker container.  
+You still able to use bash and other commands inside the container. After it is running, type the command:  
+```
+docker-compose -f dev.yml exec noosfero bash
+```
+You can access the web interface at `http://localhost:3000`
 
-To use one of the options, make sure to copy the desired Dockerfile to the project root folder. If you are willing to use the docker-compose alternative, copy the `Dockerfile.compose` (removing the extension) and `docker-compose.yml` to the project root, and run `docker-compose up --build`.
+- Production:
+```
+docker-compose -f prod.yml up --build
+```
+Before you run this command be aware that there are default database credentials in the `prod.yml` file. So, for several security reasons change it locally in both yml sections `postgres` and `noosfero`. Everything else is done automatically and you'll be able to access the production server at `http://localhost`
 
 #### Using the docker-compose alternative in OSX
 
