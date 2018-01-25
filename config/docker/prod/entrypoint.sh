@@ -3,8 +3,8 @@
 cmd="$@"
 #RAILS_ENV=production (remover esta variavel)
 
-echo "copying config/database.yml.pgsql -> config/database.yml"
-cp /noosfero/config/database.yml.pgsql /noosfero/config/database.yml
+echo "copying config/database.yml.docker -> config/database.yml"
+cp /noosfero/config/database.yml.docker /noosfero/config/database.yml
 
 function_postgres_ready() {
 ruby << END
