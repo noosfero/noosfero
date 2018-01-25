@@ -1,17 +1,16 @@
 #!/bin/bash
 
 cmd="$@"
+bundle install
 
 echo "copying config/database.yml.pgsql -> config/database.yml"
 cp /noosfero/config/database.yml.pgsql /noosfero/config/database.yml
-
-bundle check || bundle install
 
 function_postgres_ready() {
 ruby << END
 require 'pg'
 begin
-  PG.connect(dbname: "$POSTGRES_USER", user: "$POSTGRES_USER", password: "$POSTGRES_PASSWORD", host="postgres")
+  PG.connect(dbname: "$POSTGRES_DB", user: "$POSTGRES_USER", password: "$POSTGRES_PASSWORD", host: "postgres")
 rescue
   exit -1
 else
@@ -21,10 +20,13 @@ END
 }
 
 until function_postgres_ready; do
-  >&2 echo "Postgres is unavailable - sleeping"
+  >&2 echo "POSTGRES IS UNAVAILABLE, SLEEP"
   sleep 1
 done
 
+echo "POSTGRES IS UP, CONTINUE"
+
+echo "RUNNING MIGRATIONS"
 if bundle exec rake db:exists; then
   bundle exec rake db:migrate
 else

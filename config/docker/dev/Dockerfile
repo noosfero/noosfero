@@ -8,12 +8,12 @@ EXPOSE 3000
 ENV RAILS_ENV development
 RUN apt-get update && apt-get install -y sudo cron nodejs tango-icon-theme postgresql-client
 
-ADD Gemfile /tmp/Gemfile
-WORKDIR /tmp
+WORKDIR /noosfero
+ADD Gemfile /noosfero/Gemfile
+WORKDIR /noosfero
 RUN bundle install
 
 ADD . /noosfero/
-WORKDIR /noosfero
 
 COPY ./config/docker/dev/entrypoint.sh /
 ENTRYPOINT ["/entrypoint.sh"]
