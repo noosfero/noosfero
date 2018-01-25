@@ -1,12 +1,21 @@
 if @group_comment_page == 1
-  page.replace_html "comments_list_group_#{@group_id}", :partial => 'comment/comment.html.erb', :collection => @comments
+  page.replace_html "comments_list_group_#{@group_id}", :partial => 'comment_group_plugin_profile/list_comments', :locals => { :group_id => @group_id }
 else
-  page.insert_html :bottom, "comments_list_group_#{@group_id}", :partial => 'comment/comment.html.erb', :collection => @comments
+  page.insert_html :bottom, "article-comments-list-group-#{@group_id}", :partial => 'comment/comment', :collection => @comments
 end
 page.replace_html "comment-count-#{@group_id}", @comments_count
 
 if @no_more_pages
   page.replace_html "comments_list_group_#{@group_id}_more", ""
 else
-  page.replace_html "comments_list_group_#{@group_id}_more", link_to_remote(c_('More'), :url => { :profile => profile.identifier, :controller => 'comment_group_plugin_profile', :action => 'view_comments', :group_id => @group_id, :article_id => @article_id, :group_comment_page => @group_comment_page + 1}, :method => :get)
+  page.replace_html "comments_list_group_#{@group_id}_more",
+                    link_to_remote(font_awesome(:down_arrow, _('View more')),
+                                   :url => { :profile => profile.identifier,
+                                             :controller => 'comment_group_plugin_profile',
+                                             :action => 'view_comments',
+                                             :group_id => @group_id,
+                                             :article_id => @page.id,
+                                             :group_comment_page => @group_comment_page + 1},
+                                   :method => :get,
+                                   :html => { :id => 'view-more-comments' })
 end

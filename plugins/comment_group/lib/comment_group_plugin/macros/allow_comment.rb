@@ -13,13 +13,13 @@ class CommentGroupPlugin::AllowComment < Noosfero::Plugin::Macro
   end
 
   def parse(params, inner_html, source)
-    group_id = params[:group_id].to_i
+    group_id = params[:id].to_i
     article = source
     count = article.group_comments.without_spam.in_group(group_id).count
 
     proc {
       render :partial => 'comment_group_plugin_profile/comment_group',
-             :locals => {:group_id => group_id, :article_id => article.id, :inner_html => inner_html, :count => count, :profile_identifier => article.profile.identifier }
+             :locals => {:group_id => group_id, :article => article, :inner_html => inner_html, :count => count, :profile_identifier => article.profile.identifier }
     }
   end
 end

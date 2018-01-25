@@ -21,17 +21,18 @@ jQuery(document).ready(function($) {
 });
 
 function toggleGroup(group) {
-  var div = jQuery('div.comments_list_toggle_group_'+group);
+  var div = jQuery('div.comments_list_toggle_group_' + group);
   var visible = div.is(':visible');
-  if(!visible)
-    jQuery('div.comment-group-loading-'+group).addClass('comment-button-loading');
+  var comment_group = $(this).closest('.comment-group-list')
 
   div.toggle('fast');
+  comment_group.toggleClass('comment-group-show')
   return visible;
 }
 
 function loadCompleted(group) {
-  jQuery('div.comment-group-loading-'+group).removeClass('comment-button-loading')
+  let form = $('#comments_list_group_' + group).find('.comment_form')
+  form.append("<input type='hidden' name='comment[group_id]' value='" + group + "'>")
   if(comment_group_anchor) {
     jQuery.scrollTo(jQuery(comment_group_anchor));
     comment_group_anchor = null;
