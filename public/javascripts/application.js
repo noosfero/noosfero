@@ -1243,9 +1243,11 @@ $(document).ready(function() {
   $(".task-actions .accept-task").click(function(){
     let accept_details = $(this).closest('.task-description').find('.task-view-details')
     let reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
+    let reject_btn = $(this).closest('.task-description').find('.reject-task')
     let cancel_btn = $(this).closest('.task-description').find('.cancel-task')
 
     cancel_btn.removeClass('hidden')
+    reject_btn.addClass('hidden')
 
     if(accept_details.css('display') == 'none') {
       reject_explanation.fadeOut(100)
@@ -1261,7 +1263,9 @@ $(document).ready(function() {
     let accept_details = $(this).closest('.task-description').find('.task-view-details')
     let reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
     let cancel_btn = $(this).closest('.task-description').find('.cancel-task')
+    let accept_btn = $(this).closest('.task-description').find('.accept-task')
 
+    accept_btn.addClass('hidden')
     cancel_btn.removeClass('hidden')
 
     if(reject_explanation.css('display') == 'none') {
@@ -1277,7 +1281,12 @@ $(document).ready(function() {
   $(".task-actions .cancel-task").click(function(){
     let accept_details = $(this).closest('.task-description').find('.task-view-details')
     let reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
+    let accept_btn = $(this).closest('.task-description').find('.accept-task')
+    let reject_btn = $(this).closest('.task-description').find('.reject-task')
     let cancel_btn = $(this)
+
+    reject_btn.removeClass('hidden')
+    accept_btn.removeClass('hidden')
 
     if(accept_details.css('display') == 'none') {
       reject_explanation.fadeOut(10)
