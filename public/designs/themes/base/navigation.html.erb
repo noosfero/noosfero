@@ -7,12 +7,16 @@
     <% pending_tasks = user.pending_tasks.count > 0 %>
     <%= link_to font_awesome(:bell), '#', class: "menu-toggle", id: "menu-toggle" %>
     <% if user.pending_tasks.count > 0 %>
-        <ul id="pending-tasks-menu" class="noosfero-dropdown-menu scrollbar">
-          <li><%= link_to font_awesome('bell-o',_('Manage tasks')), url_for(:controller => 'tasks', :profile => user.identifier) %></li>
+      <div id="pending-tasks-menu" class="noosfero-dropdown-menu">
+        <ul class="dropdown-list">
           <% user.pending_tasks.each do |task| %>
             <li><%= render partial: 'tasks/task_info', locals: { task: task } %></li>
           <% end %>
         </ul>
+        <div class="all-tasks-button">
+          <%= link_to font_awesome('bell-o',_('Manage tasks')), url_for(:controller => 'tasks', :profile => user.identifier) %>
+        </div>
+      </div>
     <% else %>
       <div class="arrow-up"></div>
       <ul id="pending-tasks-menu" class="noosfero-dropdown-menu">
