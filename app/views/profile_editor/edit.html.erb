@@ -83,9 +83,11 @@
   </div>
 
   <%= button_bar do %>
-    <%= submit_button('save', _('Save')) %>
     <%= button(:back, _('Back'), controller: 'profile_editor') %>
+    <%= submit_button('save', _('Save')) %>
+  <% end %>
 
+  <%= button_bar do %>
     <% if user && user.has_permission?('destroy_profile', profile) %>
       <% if user.is_admin?(environment) %>
         <% if profile.visible? %>
@@ -107,7 +109,7 @@
                    { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
       <% end %>
     <% end %>
-  <% end %>
+  <% end %>  
 <% end %>
 
 <%= javascript_include_tag 'profile_editor' %>
