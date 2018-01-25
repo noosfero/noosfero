@@ -2,16 +2,15 @@ version: "3"
 
 services:
   postgres:
-    container_name: noosfero-database
     image: postgres:9.4
     environment:
       POSTGRES_USER: noosfero
       POSTGRES_PASSWORD: noosfero
+      POSTGRES_DB: noosfero_development
     volumes:
       - pg-data:/var/lib/postgresql/data
 
   noosfero:
-    container_name: noosfero
     build:
       context: .
       dockerfile: ./config/docker/dev/Dockerfile
@@ -22,8 +21,10 @@ services:
     volumes:
       - .:/noosfero
     environment:
+      POSTGRES_HOST: postgres
       POSTGRES_USER: noosfero
       POSTGRES_PASSWORD: noosfero
+      POSTGRES_DB: noosfero_development
 
 volumes:
   pg-data: {}
