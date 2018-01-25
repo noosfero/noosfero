@@ -1,3 +1,25 @@
+.admin-panel-items-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.admin-panel-menu-item {
+  padding: 10px;
+  &:hover,
+  &:active {
+    background-color: #f0f0f0;
+  }
+}
+
+.menu-link-override {
+  &:hover,
+  &:active,
+  &.selected {
+    background-color: #f0f0f0 !important;
+  }
+  text-decoration: none;
+}
+
 .controller-admin_panel #available-folders select {
   width: 50%;
 }
