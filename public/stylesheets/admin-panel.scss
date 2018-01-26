@@ -11,15 +11,6 @@
   }
 }
 
-.menu-link-override {
-  &:hover,
-  &:active,
-  &.selected {
-    background-color: #f0f0f0 !important;
-  }
-  text-decoration: none;
-}
-
 .controller-admin_panel #available-folders select {
   width: 50%;
 }
