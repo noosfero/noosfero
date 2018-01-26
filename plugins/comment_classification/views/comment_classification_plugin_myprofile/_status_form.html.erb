@@ -1,12 +1,14 @@
 <%= error_messages_for :status %>
 
-<%= form_for :status do |f| %>
-  <%= required_fields_message %>
+<div class='status-form'>
+  <%= form_for :status do |f| %>
+    <%= required_fields_message %>
 
-  <%= labelled_form_field(_('Status'), f.select(:status_id, @statuses.map{|s|[s.name,s.id]}))  %>
-  <%= labelled_form_field(_('Reason:'), f.text_area(:reason, :rows => 5)) %>
+    <%= labelled_form_field(_('Status'), f.select(:status_id, @statuses.map{|s|[s.name,s.id]}))  %>
+    <%= labelled_form_field(_('Reason:'), f.text_area(:reason)) %>
 
-  <%= button_bar do %>
-    <%= submit_button('save', c_('Save') ) %>
+    <%= button_bar do %>
+      <%= submit_button('save', c_('Save') ) %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

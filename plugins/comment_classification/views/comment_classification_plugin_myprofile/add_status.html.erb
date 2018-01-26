@@ -1,25 +1,32 @@
 <h1><%= _('Status for comment') %></h1>
 
 <div id='comment-classification-status-list'>
-  <% unless @comment.title.blank? %>
-    <div class='comment-title'><%= c_("Title: %s") % @comment.title %></div>
-  <% end %>
 
-  <b><%= c_('Body:') %></b>
-  <p><%= @comment.body %></p>
+  <h2><%= _('Comment Informations') %></h2>
+  <div class="comment-classification-informations">
+    <%= link_to @comment.author_name, @comment.author_url, class: "comment-author-name" %>
+    <span class="comment-time"><span class="bullet-separator">•</span><%= show_time @comment.created_at %></span>
+    <p>"<%= @comment.body %>"</p>
+  </div>
 
   <h2> <%= c_("History") %> </h2>
 
-    <ul>
-    <% @comment.comment_classification_plugin_comment_status_users.each do |relation| %>
-      <li>
-        <%= _("<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</i>.") % { :user => relation.profile.name, :status_name => relation.status.name, :created_at => time_ago_in_words(relation.created_at)} %>
-        <% unless relation.reason.blank? %>
-          <p><%= _("<i>Reason:</i> %s") % relation.reason %></p>
-        <% end %>
-      </li>
-    <% end %>
-    </ul>
+  <ul class='comment-classification-history'>
+   <% @comment.comment_classification_plugin_comment_status_users.each do |relation| %>
+     <li>
+       <%= link_to relation.profile.name, relation.profile.url, :class => 'comment-classification-responsible' %>
+       <%= _("added the status") %>
+       <span class='comment-classification-status'><%= relation.status.name %></span>
+       <span class="comment-time"><span class="bullet-separator">•</span><%= show_time relation.created_at %></span>
+       <% unless relation.reason.blank? %>
+         <p class='comment-classification-reason'>
+           <span><%= _("Reason") %>:</span>
+           <%= relation.reason %>
+         </p>
+       <% end %>
+     </li>
+   <% end %>
+  </ul>
 
   <h2> <%= _("Add a new status") %> </h2>
 
