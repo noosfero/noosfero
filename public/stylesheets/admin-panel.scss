@@ -1,3 +1,16 @@
+.admin-panel-items-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.admin-panel-menu-item {
+  padding: 10px;
+  &:hover,
+  &:active {
+    background-color: #f0f0f0;
+  }
+}
+
 .controller-admin_panel #available-folders select {
   width: 50%;
 }

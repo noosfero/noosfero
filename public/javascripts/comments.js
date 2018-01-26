@@ -4,7 +4,7 @@ function add_comment_reply_form(comment_id) {
   var form = container.find('form.comment_form')
   container.removeClass('hidden')
   if(form.length == 0) {
-    form = $('#page-comment-form form.comment_form').clone()
+    form = $('#page-comment-form form.comment_form').clone().first()
     container.append(form)
 
     $('#page-comment-form .errorExplanation').remove()

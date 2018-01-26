@@ -34,7 +34,6 @@ div.article-comments-list-more{
 }
 
 .popBox_comment_paragraph {
-  z-index: 2;
   background: #cccccc;
   width: 60px;
   padding: 0.3em;
@@ -112,14 +111,26 @@ div.article-comments-list-more{
   border-radius: 10px;
 }
 
-.side-comment .comment-header {
-  position: absolute;
-  width: 150px;
-  right: 0;
-  top: 0;
-  zoom: 0.8;
-  -moz-transform: scale(0.8);
+#article .side-comment {
+  .comment-header {
+    font-size: 0.9em;
+    .comment-time .bullet-separator:after {
+      content: "";
+      display: block;
+    }
+  }
+
+  li.comment-container {
+    padding: 5px 0;
+    line-height: 1
+  }
+  div.comment-actions {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
 }
+
 
 .side-comment .comment-created-at{display: none;}
 .side-comment #comment_title, .side-comment .comment_title{display: none;}
@@ -140,7 +151,7 @@ div.article-comments-list-more{
 }
 
 .side-comment{
-  z-index: 199;
+  z-index: 2;
   box-shadow: 0px 0px 20px #b8b8b8;
 }
 
@@ -160,7 +171,6 @@ div.article-comments-list-more{
   -moz-border-radius: 2px;
   border-radius: 2px;
   cursor: pointer;
-  z-index: 1;
   display: inline-block;
   font-weight: bold;
   color: white;
@@ -297,7 +307,6 @@ div.article-comments-list-more{
   right: -296px;
   top: 0px;
   background-color: white;
-  z-index: 199;
 }
 
 .comment-paragraph-plugin.comment-paragraph-slide-left {
@@ -370,3 +379,4 @@ li span[data-macro="comment_paragraph_plugin/allow_comment"] {
   vertical-align: top;
   min-height: 30px;
 }
+

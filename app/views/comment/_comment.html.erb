@@ -27,6 +27,8 @@
         </p>
 
         <p class="comment-text"><%= txt2html comment.body %></p>
+      </div>
+      <div>
         <%= safe_join(@plugins.dispatch(:comment_extra_contents, local_assigns).collect { |content| instance_exec(&content) }, "") %>
       </div>
     </div>
