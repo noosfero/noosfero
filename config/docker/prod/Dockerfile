@@ -6,7 +6,7 @@ LABEL Description="This dockerfile builds a noosfero production environment."
 EXPOSE 80
 
 ENV RAILS_ENV production
-RUN apt-get update && apt-get install -y sudo cron nodejs tango-icon-theme postgresql-client
+RUN apt-get update && apt-get install -y sudo cron nodejs postgresql-client
 
 WORKDIR /noosfero
 ADD Gemfile /noosfero/Gemfile

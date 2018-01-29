@@ -22,8 +22,7 @@ You need to install some packages Noosfero depends on. On Debian GNU/Linux or De
 
     # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby1.8 \
       libsqlite3-ruby librmagick-ruby libredcloth-ruby \
-      libwill-paginate-ruby iso-codes libfeedparser-ruby libdaemons-ruby thin \
-      tango-icon-theme
+      libwill-paginate-ruby iso-codes libfeedparser-ruby libdaemons-ruby thin
 
 On other systems, they may or may not be available through your regular package management system. Below are the links to their homepages.
 
@@ -38,7 +37,6 @@ On other systems, they may or may not be available through your regular package 
 * feedparser: http://packages.debian.org/sid/libfeedparser-ruby
 * Daemons - http://daemons.rubyforge.org
 * Thin: http://code.macournoyer.com/thin
-* tango-icon-theme: http://tango.freedesktop.org/Tango_Icon_Library
 
 If you manage to install Noosfero successfully on other systems than Debian,
 please feel free to contact the Noosfero development mailing with the
