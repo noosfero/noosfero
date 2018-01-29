@@ -1,7 +1,7 @@
 require 'noosfero/friendly_mime'
 
 class PgSearchPlugin < Noosfero::Plugin
-  include PgSearchPlugin::SearchHelper
+  include SearchHelper
 
   def self.plugin_name
     "Postgres Full-Text Search"
