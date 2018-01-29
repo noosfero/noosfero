@@ -41,13 +41,13 @@ module Api
         resource ':id/tags' do
           get do
             local_environment = Environment.find(params[:id])
-            present_partial local_environment.tags, :with => Entities::Tag
+            present_tags_for_asset(local_environment)
           end
         end
 
         desc 'Return the tag counts for this environment'
         get '/tags' do
-          present_partial environment.tags, :with => Entities::Tag
+          present_tags_for_asset(environment)
         end
       end
     end

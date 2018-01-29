@@ -242,6 +242,28 @@ module Api
       present_partial activities, :with => Entities::Activity, :current_person => current_person
     end
 
+    ###########################
+    #          Tags           #
+    ###########################
+
+    def find_tags(asset, method_or_relation = 'tags')
+      tags = select_filtered_collection_of(asset, method_or_relation, params)
+      tags
+    end
+
+    def present_tags_for_asset(asset, method_or_relation = 'tags')
+      tags = find_tags(asset, method_or_relation)
+      present_tags(tags)
+    end
+
+    def present_tags(tags)
+      present_partial tags, :with => Entities::Tag, :current_person => current_person
+    end
+
+    ###########################
+    #      Common Methods     #
+    ###########################
+
     def make_conditions_with_parameter(params = {}, class_type = nil)
 
       parsed_params = class_type.nil? ? parser_params(params) : parser_params_by_type(class_type, params)

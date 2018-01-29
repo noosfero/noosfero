@@ -61,7 +61,7 @@ class TagsTest < ActiveSupport::TestCase
     assert_equal [], profile.reload.tag_list
   end
 
-  should 'get environment tags for path environments' do
+  should 'get environment tags for path environments with the correct tag counter' do
     person = fast_create(Person)
     person.articles.create!(:name => 'article 1', :tag_list => 'first-tag')
     person.articles.create!(:name => 'article 2', :tag_list => 'first-tag, second-tag')
@@ -78,6 +78,44 @@ class TagsTest < ActiveSupport::TestCase
         assert_equal(1, count)
       end
     end
+  end
+
+  should 'get environment tags limited by default' do
+    person = fast_create(Person)
+    1.upto(22).map do |n| 
+      person.articles.create!(:name => "article #{n}", :tag_list => "tag #{n}")
+    end
+
+    get '/api/v1/environments/tags'
+    json = JSON.parse(last_response.body)
+    assert_equal 20, json.count
+  end
+
+  should 'get environment tags with limit parameter' do
+    person = fast_create(Person)
+    1.upto(4).map do |n| 
+      person.articles.create!(:name => "article #{n}", :tag_list => "tag #{n}")
+    end
+
+    limit = 2
+    get "/api/v1/environments/tags?limit=#{limit}"
+    json = JSON.parse(last_response.body)
+    assert_equal limit, json.count
+  end
+
+  should 'get environment tags with order parameter' do
+    person = fast_create(Person)
+    1.upto(4).map do |n| 
+      person.articles.create!(:name => "article #{n}", :tag_list => "tag #{n}")
+    end
+    a = Article.last
+    a.tag_list = ["tag 4", "tag 3"]
+    a.save
+
+    order = 'taggings_count DESC'
+    get "/api/v1/environments/tags?order=#{order}"
+    json = JSON.parse(last_response.body)
+    assert_equal 2, json.first['count']
   end
 
   should 'get environment tags for path environments with status OK' do
