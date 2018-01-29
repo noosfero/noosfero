@@ -1,7 +1,6 @@
 #!/bin/bash
 
 cmd="$@"
-#RAILS_ENV=production (remover esta variavel)
 
 echo "copying config/database.yml.docker -> config/database.yml"
 cp /noosfero/config/database.yml.docker /noosfero/config/database.yml

@@ -38,11 +38,8 @@ fi
 
 pidfile='/noosfero/tmp/pids/server.pid'
 if [ -f $pidfile ] ; then
-	echo 'Server PID file exists. Removing it...'
-	rm $pidfile
+  echo 'Server PID file exists. Removing it...'
+  rm $pidfile
 fi
-
-#RUN sh script/quick-start --skip-translations
-#RUN service postgresql start && sleep 2 && ruby script/sample-data
 
 exec $cmd
