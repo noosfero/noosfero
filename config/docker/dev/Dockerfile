@@ -1,18 +1,21 @@
-# Noosfero development environment
-#
-# VERSION 0.0.1
-
-FROM debian:jessie
+FROM ruby:2.4.2-jessie
 MAINTAINER Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>
 
 LABEL Description="This dockerfile builds a noosfero development environment."
-WORKDIR /src/noosfero
-
-RUN apt-get update && apt-get install -y sudo git
-RUN git clone --depth 1 https://gitlab.com/noosfero/noosfero.git .
-
-RUN sh script/quick-start --skip-translations
-
-RUN service postgresql start && sleep 2 && ruby script/sample-data
 
 EXPOSE 3000
+
+ENV RAILS_ENV development
+RUN apt-get update && apt-get install -y sudo cron nodejs postgresql-client
+
+WORKDIR /noosfero
+ADD Gemfile /noosfero/Gemfile
+WORKDIR /noosfero
+RUN bundle install
+
+ADD . /noosfero/
+
+COPY ./config/docker/dev/entrypoint.sh /
+ENTRYPOINT ["/entrypoint.sh"]
+
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]

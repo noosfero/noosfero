@@ -21,7 +21,6 @@ Build-Depends: cucumber,
                ruby-mocha,
                ruby-selenium-webdriver,
                ruby-will-paginate (>> 3.0.5-1),
-               tango-icon-theme,
                xvfb
 Standards-Version: 3.8.4
 Homepage: http://noosfero.org/
@@ -96,7 +95,6 @@ Depends: adduser,
          ruby-whenever,
          ruby-will-paginate (>> 3.0.5-1),
          ruby-slim,
-         tango-icon-theme,
          unicorn (>= 4.8),
          postgresql,
          postgresql-client,
@@ -122,7 +120,7 @@ Description: free web-based platform for social networks (apache frontend)
 
 Package: noosfero-chat
 Architecture: all
-Depends: noosfero (>= 1.5.1), ejabberd (>= 16.06), odbc-postgresql, pidgin-data
+Depends: noosfero (>= 1.5.1), ejabberd (>= 16.06), odbc-postgresql
 Description: free web-based platform for social networks (ejabberd based chat)
  Noosfero is a web platform for social and solidarity economy networks with
  blog, e-Porfolios, CMS, RSS, thematic discussion, events agenda and collective

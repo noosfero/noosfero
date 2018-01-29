@@ -94,7 +94,7 @@ var emoticons = {
          }
       },
       "::love": {
-         "image": "in-love.png",
+         "image": "in_love.png",
          "emotes": {
             "<3":   "",
             "<333": ""

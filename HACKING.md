@@ -73,6 +73,34 @@ If you write such script for your own OS, *please* share it with us at the devel
 
 Use a docker image to run an out-of-the-box development environment. Further information can be found on: https://hub.docker.com/r/noosfero/dev-rails4/
 
+#### Building the image locally
+
+The configuration is setup to run two containers, one with postgres and the other with noosfero. There are two options, development and production mode.
+- Development:  
+```
+docker-compose -f dev.yml up --build
+```
+This configuration synchronize noosfero local repository with the code into the container. You'll be able to edit the code outside the docker container.  
+You still able to use bash and other commands inside the container. After it is running, type the command:  
+```
+docker-compose -f dev.yml exec noosfero bash
+```
+You can access the web interface at `http://localhost:3000`
+
+- Production:
+```
+docker-compose -f prod.yml up --build
+```
+Before you run this command be aware that there are default database credentials in the `prod.yml` file. So, for several security reasons change it locally in both yml sections `postgres` and `noosfero`. Everything else is done automatically and you'll be able to access the production server at `http://localhost`
+
+#### Using the docker-compose alternative in OSX
+
+If you are using OSX, you may experience performance issues when using local volumes (more [here](https://github.com/docker/for-mac/issues/77)). You can use docker-sync as an alternative to regular file system mounted volumes.
+
+Just follow the same process as above using the files in `config/docker/dev/osx` instead. Make sure to also copy `docker-sync.yml`. Before starting the containers, start the sync daemon by running `docker-sync start` and waiting until the command returns (it might take a bit). Then, run `docker-compose up --build`.
+
+If you experience syncing issues, stop the containers and run `docker-sync clean`. Then, start docker-sync again before starting the containers.
+
 Submitting your changes back
 ----------------------------
 

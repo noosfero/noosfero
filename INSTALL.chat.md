@@ -27,7 +27,7 @@ This is a step-by-step guide to get a XMPP service working, in a Debian system.
 
 ## 1. Install the required packages
 
-    # apt-get install ejabberd odbc-postgresql librestclient-ruby pidgin-data ruby1.8-dev
+    # apt-get install ejabberd odbc-postgresql librestclient-ruby ruby1.8-dev
     # gem install SystemTimer
 
 ## 2. Ejabberd configuration
