@@ -16,6 +16,19 @@ class TagsTest < ActiveSupport::TestCase
     assert_equal ['name' => 'foo', 'count' => 1], json
   end
 
+  should 'get article tags limited by default' do
+    profile = fast_create(Profile)
+    a = profile.articles.create(name: 'Test')
+
+    1.upto(22).map do |n| 
+      a.tags.create!(:name => "tag #{n}")
+    end
+
+    get "/api/v1/articles/#{a.id}/tags?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 20, json.count
+  end
+
   should 'post article tags' do
     login_api
     profile = fast_create(Profile)
@@ -25,6 +38,22 @@ class TagsTest < ActiveSupport::TestCase
     assert_equal 201, last_response.status
     assert_equal ['foo'], a.reload.tag_list
   end
+
+  should 'get article tags limited by default after tag post' do
+    login_api
+    profile = fast_create(Profile)
+    a = profile.articles.create(name: 'Test')
+
+    tags = []
+    1.upto(22).map do |n| 
+      tags.push("tag #{n}")
+    end
+
+    post "/api/v1/articles/#{a.id}/tags?#{params.to_query}&tags=#{tags}"
+    json = JSON.parse(last_response.body)
+    assert_equal 20, json.count
+  end
+
 
   should 'not post article tags if not authenticated' do
     profile = fast_create(Profile)
@@ -44,6 +73,17 @@ class TagsTest < ActiveSupport::TestCase
     assert_equal ['name' => 'foo', 'count' => 1], json
   end
 
+  should 'get profile tags limited by default' do
+    profile = fast_create(Person)
+    1.upto(22).map do |n| 
+      profile.tags.create!(:name => "tag #{n}")
+    end
+
+    get "/api/v1/profiles/#{profile.id}/tags?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 20, json.count
+  end
+
   should 'post profile tags' do
     login_api
     profile = fast_create(Profile)
@@ -51,6 +91,20 @@ class TagsTest < ActiveSupport::TestCase
     post "/api/v1/profiles/#{profile.id}/tags?#{params.to_query}&tags=foo"
     assert_equal 201, last_response.status
     assert_equal ['foo'], profile.reload.tag_list
+  end
+
+  should 'get profile tags limited by default after tag post' do
+    login_api
+    profile = fast_create(Profile)
+
+    tags = []
+    1.upto(22).map do |n| 
+      tags.push("tag #{n}")
+    end
+
+    post "/api/v1/profiles/#{profile.id}/tags?#{params.to_query}&tags=#{tags}"
+    json = JSON.parse(last_response.body)
+    assert_equal 20, json.count
   end
 
   should 'not post profile tags if not authenticated' do

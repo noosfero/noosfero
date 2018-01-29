@@ -5,7 +5,7 @@ module Api
         resource ':id/tags' do
           get do
             article = find_article(environment.articles, {:id => params[:id]})
-            present_partial article.tags, :with => Entities::Tag
+            present_tags_for_asset(article)
           end
 
           desc "Add a tag to an article"
@@ -14,7 +14,7 @@ module Api
             article = find_article(environment.articles, {:id => params[:id]})
             article.tag_list=params[:tags]
             article.save
-            present_partial article.tags, :with => Entities::Tag
+            present_tags_for_asset(article)
           end
         end
       end
@@ -23,7 +23,7 @@ module Api
         resource ':id/tags' do
           get do
             profile = environment.profiles.find params[:id]
-            present_partial profile.tags, :with => Entities::Tag
+            present_tags_for_asset(profile)
           end
 
           desc "Add a tag to a profile"
@@ -32,7 +32,7 @@ module Api
             profile = environment.profiles.find params[:id]
             profile.tag_list=params[:tags]
             profile.save
-            present_partial profile.tags, :with => Entities::Tag
+            present_tags_for_asset(profile)
           end
         end
       end
