@@ -48,8 +48,9 @@ class TagsTest < ActiveSupport::TestCase
     1.upto(22).map do |n| 
       tags.push("tag #{n}")
     end
+    params['tags'] = tags
 
-    post "/api/v1/articles/#{a.id}/tags?#{params.to_query}&tags=#{tags}"
+    post "/api/v1/articles/#{a.id}/tags?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 20, json.count
   end
@@ -102,7 +103,8 @@ class TagsTest < ActiveSupport::TestCase
       tags.push("tag #{n}")
     end
 
-    post "/api/v1/profiles/#{profile.id}/tags?#{params.to_query}&tags=#{tags}"
+    params['tags'] = tags
+    post "/api/v1/profiles/#{profile.id}/tags?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 20, json.count
   end
@@ -166,8 +168,8 @@ class TagsTest < ActiveSupport::TestCase
     a.tag_list = ["tag 4", "tag 3"]
     a.save
 
-    order = 'taggings_count DESC'
-    get "/api/v1/environments/tags?order=#{order}"
+    params['order'] = 'taggings_count DESC'
+    get "/api/v1/environments/tags?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 2, json.first['count']
   end
