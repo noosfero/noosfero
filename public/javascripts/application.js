@@ -1242,8 +1242,16 @@ $(document).ready(function() {
 
   $(".task-actions .accept-task").click(function(){
     let accept_details = $(this).closest('.task-description').find('.task-view-details')
+    let reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
+    let reject_btn = $(this).closest('.task-description').find('.reject-task')
+    let cancel_btn = $(this).closest('.task-description').find('.cancel-task')
+
+    cancel_btn.removeClass('hidden')
+    reject_btn.addClass('hidden')
+
     if(accept_details.css('display') == 'none') {
-      accept_details.fadeIn()
+      reject_explanation.fadeOut(100)
+      accept_details.fadeIn(1000)
     } else {
       let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-accept-radio");
       targetRadioBtn.attr("checked", "checked");
@@ -1252,14 +1260,41 @@ $(document).ready(function() {
   });
 
   $(".task-actions .reject-task").click(function(){
+    let accept_details = $(this).closest('.task-description').find('.task-view-details')
     let reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
+    let cancel_btn = $(this).closest('.task-description').find('.cancel-task')
+    let accept_btn = $(this).closest('.task-description').find('.accept-task')
+
+    accept_btn.addClass('hidden')
+    cancel_btn.removeClass('hidden')
+
     if(reject_explanation.css('display') == 'none') {
-      reject_explanation.fadeIn()
+      accept_details.fadeOut(100)
+      reject_explanation.fadeIn(1000)
     } else {
       let targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-reject-radio");
       targetRadioBtn.attr("checked", "checked");
       $(this).closest("form").submit()
     }
+  });
+
+  $(".task-actions .cancel-task").click(function(){
+    let accept_details = $(this).closest('.task-description').find('.task-view-details')
+    let reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
+    let accept_btn = $(this).closest('.task-description').find('.accept-task')
+    let reject_btn = $(this).closest('.task-description').find('.reject-task')
+    let cancel_btn = $(this)
+
+    reject_btn.removeClass('hidden')
+    accept_btn.removeClass('hidden')
+
+    if(accept_details.css('display') == 'none') {
+      reject_explanation.fadeOut(10)
+    } else {
+      accept_details.fadeOut(10)
+    }
+
+    cancel_btn.addClass('hidden')
   });
 
   $(".task-actions #save-all-tasks").click('click', function(){

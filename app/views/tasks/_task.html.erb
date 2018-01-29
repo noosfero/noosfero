@@ -91,6 +91,7 @@
         <% unless task.accept_disabled? %>
           <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
           <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
+          <%= link_to _("Cancel"), '#!', class: 'button btn-red-reverse keep-when-hover cancel-task hidden' %>
         <% else %>
           <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
         <%end%>
