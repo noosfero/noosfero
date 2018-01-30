@@ -527,7 +527,7 @@ body, th, td, input {
 
 #footer-links {
   text-align: left;
-  float: left;
+  margin-top: 15px;
 }
 
 #link-to-doc {
@@ -539,6 +539,10 @@ body, th, td, input {
 
 #copyright {
   text-align: right;
+
+  @media screen and (max-width: 540px) {
+    text-align: center;
+  }
 }
 
 #noosfero-license {
