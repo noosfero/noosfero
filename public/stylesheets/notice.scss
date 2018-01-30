@@ -8,12 +8,10 @@ div#notice {
   font-size: 1.5em;
   font-weight: bold;
   z-index: 100000;
-  padding: 2em;
-  width: 15em;
+  padding: 10px;
+  width: 20vw;
   min-height: 1em;
   position: fixed;
-  top: 3em;
-  right: 3em;
-  left: 0.5em;
-  pointer-events: none;
+  top: 30px;
+  min-width: 206px;
 }
