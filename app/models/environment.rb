@@ -31,6 +31,7 @@ class Environment < ApplicationRecord
   has_many :person_custom_fields, -> { where(customized_type: 'Person')}, class_name: 'CustomField'
   has_many :community_custom_fields, -> { where(customized_type: 'Community')}, class_name: 'CustomField'
   has_many :enterprise_custom_fields, -> { where(customized_type: 'Enterprise')}, class_name: 'CustomField'
+  has_many :push_subscriptions
 
   IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/ unless const_defined?(:IDENTIFY_SCRIPTS)
 

@@ -26,6 +26,7 @@
 *
 * noosfero libraries
 *= require_self
+*= require consts.js
 *= require modal.js
 *= require loading-overlay.js
 *= require pagination.js
@@ -41,6 +42,12 @@
 *= require email_templates.js
 *= require categories_selector.js
 *= require comments.js
+*
+* serviceworker
+*= require serviceworker-companion.js
+*
+* push notifications
+*= require webpush.js
 */
 
 // lodash configuration
@@ -603,6 +610,8 @@ function userDataCallback(data) {
     // logged in
     jQuery('head').append('<meta content="authenticity_token" name="csrf-param" />');
     jQuery('head').append('<meta content="'+jQuery.cookie("_noosfero_.XSRF-TOKEN")+'" name="csrf-token" />');
+
+    noosfero.webPush.setup()
   }
   if (data.notice) {
     display_notice(data.notice);

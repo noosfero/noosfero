@@ -217,9 +217,10 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "remove the replies is the root is removed" do
-    s = fast_create(Scrap)
-    s1 = fast_create(Scrap, :scrap_id => s.id)
-    s2 = fast_create(Scrap, :scrap_id => s.id)
+    receiver = fast_create(Person)
+    s = fast_create(Scrap, :receiver_id => receiver.id)
+    s1 = fast_create(Scrap, :scrap_id => s.id, :receiver_id => receiver.id)
+    s2 = fast_create(Scrap, :scrap_id => s.id, :receiver_id => receiver.id)
     assert_equal [s1,s2], s.replies
     assert_equal 3, Scrap.count
     s.destroy
@@ -330,6 +331,13 @@ class ScrapTest < ActiveSupport::TestCase
     assert scrap.display_to?(u1)
     refute scrap.display_to?(u2)
     assert scrap.display_to?(u3)
+  end
+
+  should 'return receiver environment as scrap environment' do
+    env = fast_create(Environment)
+    receiver = fast_create(Person, environment_id: env.id)
+    scrap = fast_create(Scrap, receiver_id: receiver.id)
+    assert_equal env, scrap.environment
   end
 
 end

@@ -7,6 +7,8 @@ class EmailActivation < Task
 
   validate :already_requested, :on => :create
 
+  will_notify :activation_email_notify, mailer: UserMailer
+
   alias :environment :target
   alias :person :requestor
 
@@ -38,7 +40,7 @@ class EmailActivation < Task
 
   # :nodoc:
   def after_finish
-    UserMailer.activation_email_notify(person.user).deliver
+    notify(:activation_email_notify, person.user)
   end
 
   def sends_email?

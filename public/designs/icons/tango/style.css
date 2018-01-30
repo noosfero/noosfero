@@ -12,15 +12,12 @@
 .icon-parent-folder { background-image: url(Tango/16x16/places/folder_home.png) }
 .icon-newblog   { background-image: url(mod/16x16/apps/text-editor.png) }
 .icon-blog      { background-image: url(mod/16x16/apps/text-editor.png) }
-/*.icon-open    { background-image: url(folder-open.gif) } UNUSED*/
-/*.icon-cms     { background-image: url(abiword_48.png) } UNUSED*/
 .icon-save      { background-image: url(Tango/16x16/actions/filesave.png) }
 .icon-send      { background-image: url(Tango/16x16/actions/stock_mail-forward.png) }
 .icon-cancel    { background-image: url(Tango/16x16/actions/gtk-cancel.png) }
 .icon-person    { background-image: url(Tango/16x16/apps/system-config-users.png) }
 .icon-product   { background-image: url(Tango/16x16/mimetypes/package.png) }
 .icon-delete    { background-image: url(Tango/16x16/places/user-trash.png) }
-/*.icon-find    { background-image: url(noosfero-find.png) } UNUSED*/
 .icon-back      { background-image: url(Tango/16x16/actions/back.png) }
 .icon-next      { background-image: url(Tango/16x16/actions/go-next.png) }
 .icon-remove    { background-image: url(Tango/16x16/actions/gtk-remove.png) }
@@ -47,14 +44,10 @@
 .icon-spread    { background-image: url(mod/16x16/actions/spread.png) }
 .icon-todo            { background-image: url(Tango/16x16/actions/stock_paste.png) }
 .icon-eyes            { background-image: url(Tango/16x16/actions/find.png) }
-/*.icon-menu-         { background-image: url(menu-without-ico-HC.gif) }*/
 .icon-menu-home       { background-image: url(Tango/16x16/actions/go-home.png) }
-/*.icon-menu-blog     { background-image: url(blog-HC.gif) } UNUSED*/
-/*.icon-menu-album    { background-image: url(album-HC.gif) } UNUSED*/
 .icon-menu-product    { background-image: url(Tango/16x16/mimetypes/package.png) }
 .icon-menu-enterprise { background-image: url(Tango/16x16/actions/go-home.png) }
 .icon-menu-community  { background-image: url(Tango/16x16/apps/system-config-users.png) }
-/*.icon-menu-edit     { background-image: url(edit-HC.gif) } UNUSED */
 .icon-menu-ctrl-panel { background-image: url(Tango/16x16/categories/preferences-desktop.png) }
 .icon-menu-admin      { background-image: url(Tango/16x16/categories/preferences-system.png) }
 .icon-menu-stats      { background-image: url(Tango/16x16/mimetypes/x-office-presentation.png) }
@@ -62,12 +55,10 @@
 .icon-menu-login      { background-image: url(mod/16x16/actions/log-in.png) }
 .icon-menu-logout     { background-image: url(mod/16x16/actions/log-out.png) }
 .icon-menu-search     { background-image: url(Tango/16x16/actions/search.png) }
-/*.icon-menu-ed-design { background-image: url(edit-design-HC.gif) } UNUSED */
 .icon-menu-events     { background-image: url(Tango/16x16/mimetypes/stock_calendar.png) }
 .icon-event           { background-image: url(Tango/16x16/mimetypes/stock_calendar.png) }
 .icon-newevent        { background-image: url(Tango/16x16/mimetypes/stock_calendar.png) }
 .icon-menu-articles   { background-image: url(Tango/16x16/apps/text-editor.png) }
-/*.icon-menu-comments { background-image: url(blog-HC.gif) } UNUSED */
 .icon-menu-people     { background-image: url(mod/16x16/apps/user.png) }
 .icon-menu-mail       { background-image: url(Tango/16x16/apps/email.png) }
 .icon-upload-file     { background-image: url(Tango/16x16/actions/filesave.png) }
