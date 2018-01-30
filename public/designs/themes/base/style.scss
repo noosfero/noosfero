@@ -286,6 +286,11 @@ body, th, td, input {
               margin:0;
               border:0;
               padding-bottom: 5px;
+              cursor: pointer;
+            }
+
+            .task-box:hover {
+              background-color: #ecf0f1;
             }
 
             .task-requestor-img {
