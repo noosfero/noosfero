@@ -1,7 +1,7 @@
 class Kind < ActiveRecord::Base
   self.inheritance_column = 'etype'
 
-  attr_accessible :name, :type, :environment
+  attr_accessible :name, :type, :environment, :moderated
 
   store_accessor :metadata
   include MetadataScopes

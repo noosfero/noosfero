@@ -44,6 +44,10 @@ class EnterprisesBlockTest < ActiveSupport::TestCase
     assert_equal 2, block.profile_count
   end
 
+  should 'have Enterprise as base class' do
+    assert_equal Enterprise, EnterprisesBlock.new.send(:base_class)
+  end
+
 end
 
 require 'boxes_helper'

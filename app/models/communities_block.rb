@@ -37,4 +37,10 @@ class CommunitiesBlock < ProfileListBlock
     content['#'] = profiles.size
     content
   end
+
+  private
+
+  def base_class
+    Community
+  end
 end

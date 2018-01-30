@@ -28,5 +28,9 @@ class FansBlockTest < ActiveSupport::TestCase
     assert_same list, block.profiles
   end
 
+  should 'respond to person as base_class' do
+    assert_equal Person, FansBlock.new.send(:base_class)
+  end
+
 end
 
