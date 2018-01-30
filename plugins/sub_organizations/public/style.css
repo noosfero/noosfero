@@ -1,5 +1,7 @@
 #content .token-input-list {
   margin-bottom: 30px;
+  border-width: 1px;
+  border-color: #95a5a6;
 }
 
 .related-organizations-button-bar {

@@ -161,7 +161,7 @@ body, th, td, input {
     overflow: hidden;
     a {
       cursor: pointer;
-      height: 42px;
+      height: auto;
       margin-right: 12px;
 
       img {
@@ -176,6 +176,7 @@ body, th, td, input {
     }
 
     form#top-search {
+      height: 32px;
       display: flex;
       flex-direction: row;
       flex-grow: 1;
@@ -185,6 +186,7 @@ body, th, td, input {
       }
       input {
         padding: 8px;
+        margin-right: 5px;
         border-radius: 4px;
         border-width: 1px;
         margin-left: 10px;
@@ -357,7 +359,7 @@ body, th, td, input {
 
         ul.noosfero-dropdown-menu {
           margin-top: 11px;
-          right: 100px;
+          right: 85px;
           @media only screen and (max-width: 960px) { right: 30px; }
           @media only screen and (max-width: 768px) { margin-top: 15px; }
           @media only screen and (max-width: 540px) { right: 20px; }

@@ -3,32 +3,36 @@ Feature: newsletter plugin
   Background:
     Given I am logged in as admin
 
+  @selenium
   Scenario: as admin I can configure plugin
     When I go to the environment control panel
     And I follow "Plugins"
     Then I should see "Configuration" linking to "/admin/plugin/newsletter"
 
+  @selenium
   Scenario: in the newsletter settings I can see the field to enable/disable
     When I go to the environment control panel
     And I follow "Plugins"
     And I follow "Configuration"
     Then I should see "Enable send of newsletter to members on this environment"
 
+  @selenium
   Scenario: redirect to newsletter visualization after save and visualize
     Given "NewsletterPlugin" plugin is enabled
     When I go to the environment control panel
     And I follow "Plugins"
     And I follow "Configuration"
-    And I press "Save and visualize"
+    And I follow "Save and visualize"
     Then I should see "If you can't view this email, click here"
     And I should not see "Newsletter settings"
 
+  @selenium
   Scenario: stay on newsletter settings page after save
     Given "NewsletterPlugin" plugin is enabled
     When I go to the environment control panel
     And I follow "Plugins"
     And I follow "Configuration"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "Newsletter settings"
     And I should not see "If you can't view this email, click here"
 
@@ -45,7 +49,7 @@ Feature: newsletter plugin
     And I follow "Plugins"
     And I follow "Configuration"
     And I type in "Sample Community" into autocomplete list "search-profiles" and I choose "Sample Blog in Sample Community"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "Sample Blog in Sample Community"
 
   @selenium
@@ -61,7 +65,7 @@ Feature: newsletter plugin
     And I follow "Plugins"
     And I follow "Configuration"
     And I type in "Silva" into autocomplete list "search-profiles" and I choose "Joao Blog in Joao Silva"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "Joao Blog in Joao Silva"
 
   @selenium
@@ -77,5 +81,5 @@ Feature: newsletter plugin
     And I follow "Plugins"
     And I follow "Configuration"
     And I type in "Sample Blog" into autocomplete list "search-profiles" and I choose "Sample Blog in Sample Community"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "Sample Blog in Sample Community"

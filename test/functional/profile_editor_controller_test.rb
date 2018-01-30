@@ -92,9 +92,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
     profile.update_attributes(category_ids: [region.id, category.id])
 
     get :edit, :profile => profile.identifier
-    assert_tag :tag => 'td', :content => profile_region.name, :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories'}}
-    assert_tag :tag => 'td', :content => region.name, :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories'}}
-    assert_tag :tag => 'td', :content => category.name, :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories'}}
+    assert_tag :tag => 'div', :content => profile_region.name,
+               :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
+    assert_tag :tag => 'div', :content => region.name,
+               :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
+    assert_tag :tag => 'div', :content => category.name,
+               :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
   end
 
   should 'filter html from person name' do

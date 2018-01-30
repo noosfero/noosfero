@@ -317,8 +317,11 @@ font-style: italic;
   .overview {
     margin-top: 35px;
     h6 {
-      font-size: 14px !important;
-      font-weight: 400;
+      font-size: 14px;
+      font-weight: 600;
+      border-bottom: solid 1px #e8e8e8;
+      padding-bottom: 2px;
+      text-align: left;
     }
 
     table.review_text_align {
@@ -326,6 +329,12 @@ font-style: italic;
         padding: 8px 4px;
         &:not(:first-child) {
           text-align: left;
+        }
+      }
+
+      tr {
+        &:not(:last-child) {
+          border-bottom: solid 1px #e8e8e8;
         }
       }
 
