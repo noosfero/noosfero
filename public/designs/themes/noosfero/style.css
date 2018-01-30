@@ -156,3 +156,11 @@ a.remove-file {
   font-size: 1.4em;
   cursor: pointer;
 }
+
+#top-search {
+  justify-content: center;
+}
+
+#search-button{
+  height: 50% !important;
+}
