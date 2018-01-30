@@ -7,6 +7,9 @@ Feature: import lattes information
     Given "LattesCurriculumPlugin" plugin is enabled
     And I am logged in as admin
     And I go to /admin/plugins
+
+  @selenium
+  Scenario: Don't accept edit the profile with invalid lattes url
     And I check "Lattes Curriculum Plugin"
     And I follow "Save changes"
     And I go to /admin/features/manage_fields
@@ -14,9 +17,6 @@ Feature: import lattes information
     And I check "person_fields_lattes_url_active"
     And I check "person_fields_lattes_url_signup"
     And I follow "Save changes"
-
-  @selenium
-  Scenario: Don't accept edit the profile with invalid lattes url
     Given I am on admin_user's control panel
     When I follow "Edit Profile"
     And I fill in "Lattes URL" with "http://youtube.com.br/"
@@ -25,6 +25,13 @@ Feature: import lattes information
 
   @selenium
   Scenario: Import lattes informations
+    And I check "Lattes Curriculum Plugin"
+    And I follow "Save changes"
+    And I go to /admin/features/manage_fields
+    Given I follow "Person's fields"
+    And I check "person_fields_lattes_url_active"
+    And I check "person_fields_lattes_url_signup"
+    And I follow "Save changes"
     Given I am on admin_user's control panel
     And the field lattes_url is public for all users
     When I follow "Edit Profile"
@@ -35,6 +42,13 @@ Feature: import lattes information
 
   @selenium
   Scenario: Don't show lattes informations for blank lattes urls
+    And I check "Lattes Curriculum Plugin"
+    And I follow "Save changes"
+    And I go to /admin/features/manage_fields
+    Given I follow "Person's fields"
+    And I check "person_fields_lattes_url_active"
+    And I check "person_fields_lattes_url_signup"
+    And I follow "Save changes"
     Given I am on admin_user's control panel
     And the field lattes_url is public for all users
     When I follow "Edit Profile"
@@ -44,6 +58,13 @@ Feature: import lattes information
 
   @selenium
   Scenario: Inform problem if the informed lattes doesn't exist
+    And I check "Lattes Curriculum Plugin"
+    And I follow "Save changes"
+    And I go to /admin/features/manage_fields
+    Given I follow "Person's fields"
+    And I check "person_fields_lattes_url_active"
+    And I check "person_fields_lattes_url_signup"
+    And I follow "Save changes"
     Given I am on admin_user's control panel
     And the field lattes_url is public for all users
     When I follow "Edit Profile"
