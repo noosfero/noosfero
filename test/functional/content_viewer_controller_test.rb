@@ -335,7 +335,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'list comments if article has them, even if new comments are not allowed' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
-    page.comments.create!(:author => profile, :body => 'list my comment', :body => 'foo bar baz')
+    page.comments.create!(:author => profile, :body => 'list my comment')
     get :view_page, :profile => profile.identifier, :page => ['myarticle']
 
     assert_tag :tag => 'ul', :attributes => {:id => 'article-comments-list'}

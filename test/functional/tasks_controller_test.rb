@@ -563,7 +563,7 @@ class TasksControllerTest < ActionController::TestCase
     profile.add_admin(person)
     task = Task.create!(:requestor => person, :target => profile)
 
-    assert_equal nil, task.responsible
+    assert_nil task.responsible
     login_as person.user.login
     post :change_responsible, :task_id => task.id, :responsible_id => person.id
     assert_equal person, task.reload.responsible
@@ -764,10 +764,7 @@ class TasksControllerTest < ActionController::TestCase
     assert_tag :tag=> 'div', :attributes => { :class => 'task-community-field' },
                              :descendant => {:tag => 'span',
                                              :attributes => {:class => 'field'},
-                                             :content => 'great_field: '},
-                             :descendant => {:tag => 'span',
-                                             :attributes => {:class => 'value'},
-                                             :content => 'new value for community!'}
+                                             :content => 'great_field: '}
   end
 
   should "display email template selection when accept a task" do

@@ -367,7 +367,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
   should 'max_size should always return an integer' do
     NOOSFERO_CONF.expects(:[]).with('max_upload_size').returns("0.5 GB").at_least_once
-    assert_instance_of Fixnum, UploadedFile.max_size
+    assert_instance_of Integer, UploadedFile.max_size
   end
 
   should 'add file to dbm if it becomes private' do
