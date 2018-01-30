@@ -165,7 +165,8 @@ body, th, td, input {
       margin-right: 12px;
 
       img {
-        width: 120px;
+        max-width: 120px;
+        width: 25vw;
       }
 
       span {
