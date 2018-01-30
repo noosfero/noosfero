@@ -125,8 +125,7 @@ Feature: blog
     Then I should not see "Delete cover image"
 
   # the step for attaching a file on the input only works with capybara 1.1.2, but it requires rails 1.9.3
-  # FIXME This test is possible failing because of this issue, https://gitlab.com/pedrodelyra/noosfero/issues/4
-  @selenium-fixme
+  @selenium
   Scenario: display cover image after uploading an image as the blog cover
     Given the following blogs
       | owner     | name    |
