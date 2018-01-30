@@ -28,7 +28,7 @@ class Invitation < Task
   end
 
   after_create do |task|
-    TaskMailer.invitation_notification(task).deliver unless task.friend
+    notify(:invitation_notification, task) unless task.friend
   end
 
   def title

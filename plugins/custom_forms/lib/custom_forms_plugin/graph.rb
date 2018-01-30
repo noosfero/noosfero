@@ -12,18 +12,19 @@ class CustomFormsPlugin::Graph
   # chart.
   #
   # @answers_with_alternative_label have the format
-  # [
-  #   { "1" => {"foo" : 5}, "2" => {"bla": 7}, "show_as" => "radio"},
-  #   { "21" => {"foo" : 2}, "2" => {"test": 15}, "show_as" => "check_box"}
-  # ]
-  # In the hash "1" => {"foo" : 5}, "1" is the alternative id,
-  # "foo" is the alternative label and 5 is the number of users that
-  # chose this alternative as answer to it respective field.
+  # {
+  #   123 => { "1" => {"foo" : 5}, "2" => {"bla": 7}, "show_as" => "radio"},
+  #   124 => { "21" => {"foo" : 2}, "2" => {"test": 15}, "show_as" => "check_box"}
+  # }
+  #
+  # The keys 123 and 124 are the fields ids. In the hash "1" => {"foo" : 5} "1"
+  # is the alternative id, "foo" is the alternative label and 5 is the number
+  # of users that chose this alternative as answer to it respective field.
 
   AVAILABLE_FIELDS = %w(check_box radio select multiple_select text)
 
   def initialize(form)
-    @answers_with_alternative_label = []
+    @answers_with_alternative_label = {}
     @query_results = []
     @form = form
     self.compute_results
@@ -33,7 +34,7 @@ class CustomFormsPlugin::Graph
     @form.fields.includes(:alternatives).each do |field|
       answer_and_label = merge_field_answer_and_label(field)
       unless answer_and_label.empty?
-        @answers_with_alternative_label << answer_and_label
+        @answers_with_alternative_label[field.id] = answer_and_label
       end
     end
     answers_by_submissions(@form.submissions.includes(:answers))
@@ -80,7 +81,7 @@ class CustomFormsPlugin::Graph
 
   def format_data_to_generate_graph
     return [] if @answers_with_alternative_label.empty?
-    @answers_with_alternative_label.each do |answers|
+    @answers_with_alternative_label.each do |field_id, answers|
       merged_answers = {"data" => {}}
       answers.each do |key, value|
         if key != "show_as"
@@ -95,41 +96,44 @@ class CustomFormsPlugin::Graph
   end
 
   def answers_by_submissions submissions
-    return [] if @answers_with_alternative_label.empty?
+    return {} if @answers_with_alternative_label.empty?
     submissions.each do |submission|
       answers = submission.answers
-      answers.each_with_index do |answer, index|
+      answers.each do |answer|
         show_as = answer.field.show_as
         if AVAILABLE_FIELDS.include? show_as
-          self.send(show_as + "_answers", index, answer)
+          self.send(show_as + "_answers", answer)
         end
       end
     end
   end
 
-  def check_box_answers(index, answer)
+  def check_box_answers(answer)
+    field_id = answer.field_id
     list_of_answers = answer.value.split(",")
     list_of_answers.each do |answer_value|
-      alternative_and_sum_of_answers = @answers_with_alternative_label[index][answer_value]
+      alternative_and_sum_of_answers = @answers_with_alternative_label[field_id][answer_value]
       alternative = alternative_and_sum_of_answers.keys.first
-      @answers_with_alternative_label[index][answer_value][alternative] += 1
+      @answers_with_alternative_label[field_id][answer_value][alternative] += 1
     end
   end
 
-  def radio_answers(index, answer)
+  def radio_answers(answer)
+    field_id = answer.field_id
     answer_value = answer.value
-    alternative_and_sum_of_answers = @answers_with_alternative_label[index][answer_value]
+    alternative_and_sum_of_answers = @answers_with_alternative_label[field_id][answer_value]
     alternative = alternative_and_sum_of_answers.keys.first
-    @answers_with_alternative_label[index][answer_value][alternative] += 1
+    @answers_with_alternative_label[field_id][answer_value][alternative] += 1
   end
 
   alias select_answers radio_answers
   alias multiple_select_answers check_box_answers
 
-  def text_answers(index, answer)
-    @answers_with_alternative_label[index]["text_answers"]["answers"] << answer.value
+  def text_answers(answer)
+    field_id = answer.field_id
+    @answers_with_alternative_label[field_id]["text_answers"]["answers"] << answer.value
     user = answer.submission.author_name
-    @answers_with_alternative_label[index]["text_answers"]["users"] << user
+    @answers_with_alternative_label[field_id]["text_answers"]["users"] << user
   end
 
   def check_fields_without_answer

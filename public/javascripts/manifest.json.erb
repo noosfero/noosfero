@@ -1,0 +1,19 @@
+<% icon_sizes = Rails.configuration.serviceworker.icon_sizes %>
+{
+  "name": "Noosfero",
+  "short_name": "noosfero",
+  "start_url": "/",
+  "icons": [
+    <% icon_sizes.map{ |s| "#{s}x#{s}" }.each.with_index do |dim, i| %>
+      {
+        "src": "<%= image_path "noosfero/logo-#{dim}.png" %>",
+        "sizes": "<%= dim %>",
+        "type": "image/png"
+      }<%= i == (icon_sizes.length - 1) ? '' : ',' %>
+    <% end %>
+  ],
+  "theme_color": "#CCC",
+  "background_color": "#FFF",
+  "display": "fullscreen",
+  "orientation": "portrait"
+}

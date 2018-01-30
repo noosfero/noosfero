@@ -8,6 +8,7 @@ $binary_packages
 $source_packages
 EOF
 fi
+
 sudo apt-key add - <<EOF
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 

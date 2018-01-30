@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170923044548) do
+ActiveRecord::Schema.define(version: 20180105151301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -234,7 +234,7 @@ ActiveRecord::Schema.define(version: 20170923044548) do
     t.text    "path",                      default: ""
     t.integer "environment_id"
     t.integer "parent_id"
-    t.string  "type",                      default: 'Category'
+    t.string  "type",                      default: "Category"
     t.float   "lat"
     t.float   "lng"
     t.boolean "display_in_menu",           default: false
@@ -695,6 +695,16 @@ ActiveRecord::Schema.define(version: 20170923044548) do
   end
 
   add_index "profiles_circles", ["profile_id", "circle_id"], name: "profiles_circles_composite_key_index", unique: true, using: :btree
+
+  create_table "push_subscriptions", force: :cascade do |t|
+    t.string   "endpoint",                    null: false
+    t.jsonb    "keys",           default: {}, null: false
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.integer  "environment_id",              null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "qualifier_certifiers", force: :cascade do |t|
     t.integer "qualifier_id"

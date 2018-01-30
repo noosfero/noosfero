@@ -2204,4 +2204,16 @@ class ProfileControllerTest < ActionController::TestCase
     assert enterprise.followed_by?user
   end
 
+  should "send a push notification to the scrap receiver" do
+    login_as(profile.identifier)
+    another_person = create_user.person
+
+    another_person.push_subscriptions.create(endpoint: '/some',
+                                             keys: { auth: '1', p256dh: '2' })
+
+    post :leave_scrap, profile: another_person.identifier,
+                       scrap: { content: 'something' }
+    Webpush.expects(:payload_send).once
+    process_delayed_job_queue
+  end
 end
