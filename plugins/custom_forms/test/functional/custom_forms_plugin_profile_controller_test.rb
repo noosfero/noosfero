@@ -239,4 +239,14 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_response :forbidden
     assert_template 'shared/access_denied'
   end
+
+  should 'download csv with all submissions' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                            :name => 'Free Software',
+                                            :identifier => 'free')
+    submission = CustomFormsPlugin::Submission.create!(:form => form,
+                                                       :profile => profile)
+    get :review, :profile => profile.identifier, :id => form.identifier, :format => 'csv'
+    assert_response :success
+  end
 end
