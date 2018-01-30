@@ -1518,7 +1518,7 @@ table.profile th {
 
 /**** controller-memberships action-memberships-index ****/
 
-#memberships-index li {
+#groups-list li {
   background-color: #FFF;
   border: 1px solid #EEE;
   -moz-border-radius: 9px;
@@ -1526,12 +1526,12 @@ table.profile th {
   margin-bottom: 10px;
 }
 
-#memberships-index li .vcard a.profile_link.url {
+#groups-list li .vcard a.profile_link.url {
   border: 1px solid transparent;
   background-color: #FFF;
 }
 
-#memberships-index li .vcard a.profile_link.url:hover {
+#groups-list li .vcard a.profile_link.url:hover {
   border: 1px solid  #CCC;
   background-color: #EEE;
   -moz-border-radius: 4px;
