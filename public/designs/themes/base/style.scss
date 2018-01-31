@@ -261,7 +261,7 @@ body, th, td, input {
           right: -4px;
         }
 
-        ul.noosfero-dropdown-menu {
+        .noosfero-dropdown-menu {
           margin-top: 38px;
           right: 0px;
           max-height: 400px;
@@ -287,6 +287,11 @@ body, th, td, input {
               margin:0;
               border:0;
               padding-bottom: 5px;
+              cursor: pointer;
+            }
+
+            .task-box:hover {
+              background-color: #ecf0f1;
             }
 
             .task-requestor-img {
@@ -1778,7 +1783,26 @@ a.menu-toggle {
   &:focus { outline: none; }
 }
 
-ul.noosfero-dropdown-menu {
+.dropdown-list {
+  list-style-type: none;
+  padding: 0;
+  max-height: 360px;
+  overflow-x: auto;
+  overflow-y: scroll;
+}
+
+.all-tasks-button {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 1px solid #95a5a6;
+  > a {
+    color: black !important;
+  }
+}
+
+.noosfero-dropdown-menu {
   background: #fff;
   border: 1px solid #e8e8e8;
   box-shadow: 0 3px 8px rgba(0, 0, 0, .3);
