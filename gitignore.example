@@ -65,3 +65,12 @@ public/plugins
 features/plugins/*
 plugins/solr/config/solr.yml
 /solr
+
+# Docker
+.docker-sync/
+/Dockerfile
+/docker-sync.yml
+/docker-compose.yml
+
+# OSX trash
+.DS_Store

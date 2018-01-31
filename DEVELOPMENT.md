@@ -14,13 +14,16 @@
 ## Current Commiters
 
 * Antonio Terceiro (@terceiro)
+* Aurélio Heckert (@aurium)
 * Bráulio Bhavamitra (@brauliobo)
 * Daniela Feitosa (@danielafeitosa)
+* Gabriel Silva (@gabrielssilva)
 * Joenio Costa (@joenio)
 * Larissa Reis (@larissa)
 * Leandro Nunes (@leandronunes)
 * Marcos Ronaldo (@marcosronaldo)
 * Rodrigo Souto (@diguliu)
+* Tallys Martins (@TallysMartins)
 * Victor Costa (@vfcosta)
 
 ## Current Release Manager

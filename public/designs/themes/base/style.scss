@@ -165,7 +165,8 @@ body, th, td, input {
       margin-right: 12px;
 
       img {
-        width: 120px;
+        max-width: 120px;
+        width: 25vw;
       }
 
       span {
@@ -526,7 +527,7 @@ body, th, td, input {
 
 #footer-links {
   text-align: left;
-  float: left;
+  margin-top: 15px;
 }
 
 #link-to-doc {
@@ -538,6 +539,10 @@ body, th, td, input {
 
 #copyright {
   text-align: right;
+
+  @media screen and (max-width: 540px) {
+    text-align: center;
+  }
 }
 
 #noosfero-license {
@@ -1122,6 +1127,10 @@ div#notice {
 
 .msie .search-results-box {
   width: 48%;
+}
+
+.search-results-box ul li {
+  display: inline;
 }
 
 #content .no-boxes h1 {

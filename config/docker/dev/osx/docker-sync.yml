@@ -1,0 +1,7 @@
+version: "2"
+options:
+  verbose: true
+syncs:
+  noosfero-code-sync:
+    src: '.'
+    sync_excludes: ['tmp/cache']

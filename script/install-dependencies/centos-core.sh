@@ -6,7 +6,7 @@ fi
 
 DEPENDENCIES='make gcc gcc-c++ ruby ruby-devel rubygem-bundler
 libicu-devel cmake postgresql-devel postgresql-server ImageMagick-devel
-libxml2-devel libxslt-devel file-devel tango-icon-theme'
+libxml2-devel libxslt-devel file-devel'
 
 run sudo yum install -y $DEPENDENCIES
 

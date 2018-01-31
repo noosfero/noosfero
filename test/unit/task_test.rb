@@ -35,6 +35,7 @@ class TaskTest < ActiveSupport::TestCase
     t.expects(:perform)
     t.finish
     assert_equal Task::Status::FINISHED, t.status
+    process_delayed_job_queue
   end
 
   def test_should_have_cancelled_status_after_cancel
@@ -43,6 +44,7 @@ class TaskTest < ActiveSupport::TestCase
     t.requestor = sample_user
     t.cancel
     assert_equal Task::Status::CANCELLED, t.status
+    process_delayed_job_queue
   end
 
   def test_should_start_with_active_status
@@ -57,6 +59,7 @@ class TaskTest < ActiveSupport::TestCase
     TaskMailer.expects(:generic_message).with('task_finished', t)
 
     t.finish
+    process_delayed_job_queue
   end
 
   def test_should_notify_cancel
@@ -66,6 +69,7 @@ class TaskTest < ActiveSupport::TestCase
     TaskMailer.expects(:generic_message).with('task_cancelled', t)
 
     t.cancel
+    process_delayed_job_queue
   end
 
   def test_should_not_notify_when_perform_fails
@@ -95,6 +99,7 @@ class TaskTest < ActiveSupport::TestCase
 
     TaskMailer.expects(:generic_message).with('task_created', task)
     task.save!
+    process_delayed_job_queue
   end
 
   should 'not notify if the task is hidden' do
@@ -103,6 +108,7 @@ class TaskTest < ActiveSupport::TestCase
 
     TaskMailer.expects(:generic_message).with('task_created', anything).never
     task.save!
+    process_delayed_job_queue
   end
 
   should 'generate a random code before validation' do
@@ -169,6 +175,7 @@ class TaskTest < ActiveSupport::TestCase
     mailer.expects(:deliver).once
     TaskMailer.expects(:target_notification).returns(mailer).once
     task.save!
+    process_delayed_job_queue
   end
 
   should 'not send notification to target if the task is hidden' do
@@ -180,6 +187,7 @@ class TaskTest < ActiveSupport::TestCase
 
     TaskMailer.expects(:target_notification).never
     task.save!
+    process_delayed_job_queue
   end
 
   should 'not send notification to target if notification is disabled in profile' do
@@ -191,6 +199,7 @@ class TaskTest < ActiveSupport::TestCase
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
     TaskMailer.expects(:target_notification).never
     task.save!
+    process_delayed_job_queue
   end
 
   should 'send notification to target if notification is enabled in profile' do
@@ -205,6 +214,7 @@ class TaskTest < ActiveSupport::TestCase
     mailer.expects(:deliver).once
     TaskMailer.expects(:target_notification).returns(mailer).once
     task.save!
+    process_delayed_job_queue
   end
 
   should 'be able to list pending tasks' do
@@ -261,6 +271,7 @@ class TaskTest < ActiveSupport::TestCase
     task.stubs(:target_notification_message).returns(nil)
     TaskMailer.expects(:target_notification).never
     task.save!
+    process_delayed_job_queue
   end
 
   should 'not notify target if notification emails is empty' do
@@ -271,6 +282,7 @@ class TaskTest < ActiveSupport::TestCase
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
     TaskMailer.expects(:target_notification).never
     task.save!
+    process_delayed_job_queue
   end
 
   should 'the environment method be defined' do
@@ -308,6 +320,7 @@ class TaskTest < ActiveSupport::TestCase
 
     TaskMailer.expects(:generic_message).with('task_activated', task)
     task.activate
+    process_delayed_job_queue
   end
 
   should 'send notification message to target just after task activation' do
@@ -322,6 +335,7 @@ class TaskTest < ActiveSupport::TestCase
     mailer.expects(:deliver).once
     TaskMailer.expects(:target_notification).returns(mailer).once
     task.activate
+    process_delayed_job_queue
   end
 
   should 'filter tasks by type with scope' do

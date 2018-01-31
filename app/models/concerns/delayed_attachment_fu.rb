@@ -10,7 +10,7 @@ module DelayedAttachmentFu
         (origfname, fname, ext) = file.split_filename
         # ensure there is a fname
         fname = fname || file.filename
-        fname, thumb_suffix = fname.split(/(_big|_icon|_minor|_portrait|_thumb)$/) if file.kind_of?(Image) || file.is_image?
+        fname, thumb_suffix = fname.split(/(_big|_icon|_minor|_portrait|_thumb)$/) if file.try(:thumbnail?)
         thumb_suffix ||= ''
         # makes filename secure for FS manipulation and URLs
         file.filename = fname.to_slug + thumb_suffix + ext.to_s.to_slug

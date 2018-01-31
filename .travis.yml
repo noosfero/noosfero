@@ -32,10 +32,6 @@ addons:
   postgresql: '9.4'
   # same as in docker ci image
   #firefox: '45.7.0'
-  apt:
-    packages:
-      - tango-icon-theme
-      - pidgin-data
   artifacts:
     paths:
       - $(ls tmp/artifact* | tr "\n" ":")

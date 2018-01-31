@@ -12,7 +12,7 @@ dependencies:
     - vendor/bundle
     - elasticsearch-2.4.3
   pre:
-    - sudo apt-get install po4a iso-codes tango-icon-theme pidgin-data libpq-dev libreadline-dev libxslt1-dev
+    - sudo apt-get install po4a iso-codes libpq-dev libreadline-dev libxslt1-dev
     - mkdir -p tmp/{pids,cache} log cache
   post:
     - wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.4.3/elasticsearch-2.4.3.tar.gz

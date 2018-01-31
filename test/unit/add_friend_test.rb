@@ -69,6 +69,7 @@ class AddFriendTest < ActiveSupport::TestCase
     TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = AddFriend.create!(:person => person1, :friend => person2)
+    process_delayed_job_queue
   end
 
   should 'has permission to manage friends' do

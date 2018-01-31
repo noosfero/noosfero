@@ -104,7 +104,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
     TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-
+    process_delayed_job_queue
   end
 
    should 'override target notification message method from Task' do

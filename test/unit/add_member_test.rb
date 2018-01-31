@@ -62,6 +62,7 @@ class AddMemberTest < ActiveSupport::TestCase
     TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = AddMember.create!(:person => person, :organization => community)
+    process_delayed_job_queue
   end
 
   should 'send e-mails to requestor' do
@@ -69,8 +70,10 @@ class AddMemberTest < ActiveSupport::TestCase
     community.stubs(:notification_emails).returns(["adm@example.com"])
 
     task = AddMember.create!(:person => person, :organization => community)
+    process_delayed_job_queue
     assert_difference "ActionMailer::Base.deliveries.size" do
       task.finish
+      process_delayed_job_queue
     end
   end
 
