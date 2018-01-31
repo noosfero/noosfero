@@ -21,16 +21,26 @@ module CustomFormsPlugin::ListBlock
   end
 
   def list_forms(user)
-    owner.forms.
-      accessible_to(user, owner).
-      send(status).
-      by_kind(self.type).
-      order(:ending).
-      first(limit)
+    forms = owner.forms.accessible_to(user, owner)
+                       .send(status)
+                       .by_kind(self.type)
+    forms = filtered_ids.present? ? forms.where(id: filtered_ids) : forms
+    forms.order(:ending).first(limit)
   end
 
   def valid_status
     errors.add(:metadata, _('Invalid status')) unless CustomFormsPlugin::SurveyBlock.status_options.key?(status)
+  end
+
+  def filtered_forms_to_token
+    forms = CustomFormsPlugin::Form.where(kind: self.type, id: filtered_ids)
+    forms.map{ |f| { id: f.id, name: f.name } }
+  end
+
+  private
+
+  def filtered_ids
+    (self.metadata["filtered_queries"] || "").split(",")
   end
 
 end

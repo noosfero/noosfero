@@ -104,4 +104,40 @@ class CustomFormsPlugin::ListLinkBlock < ActiveSupport::TestCase
     assert_equal [poll4, poll1, poll3, poll2], @polls_block.list_forms(@user)
   end
 
+  should 'display only specific surveys respecting the filtered forms' do
+    survey1 = @profile.forms.create!(name: "F1", kind: 'survey')
+    survey2 = @profile.forms.create!(name: "F2", kind: 'survey')
+    survey3 = @profile.forms.create!(name: "F3", kind: 'survey')
+
+    @surveys_block.metadata["filtered_queries"] = "#{survey1.id}"
+    assert_equivalent [survey1], @surveys_block.list_forms(@user)
+  end
+
+  should 'display only specific polls respecting the filtered forms' do
+    poll1 = @profile.forms.create!(name: "F1", kind: 'poll')
+    poll2 = @profile.forms.create!(name: "F2", kind: 'poll')
+    poll3 = @profile.forms.create!(name: "F3", kind: 'poll')
+
+    @polls_block.metadata["filtered_queries"] = "#{poll1.id},#{poll2.id}"
+    assert_equivalent [poll1, poll2], @polls_block.list_forms(@user)
+  end
+
+  should 'return surveys prepared for token input' do
+    survey1 = @profile.forms.create!(name: "F1", kind: 'survey')
+    survey2 = @profile.forms.create!(name: "F2", kind: 'survey')
+    @surveys_block.metadata["filtered_queries"] = "#{survey1.id},#{survey2.id}"
+
+    assert_equivalent [survey1, survey2].map{ |s| { id: s.id, name: s.name } },
+                      @surveys_block.filtered_forms_to_token
+  end
+
+  should 'return polls prepared for token input' do
+    poll1 = @profile.forms.create!(name: "F1", kind: 'poll')
+    poll2 = @profile.forms.create!(name: "F2", kind: 'poll')
+    @polls_block.metadata["filtered_queries"] = "#{poll1.id},#{poll2.id}"
+
+    assert_equivalent [poll1, poll2].map{ |p| { id: p.id, name: p.name } },
+                      @polls_block.filtered_forms_to_token
+  end
+
 end

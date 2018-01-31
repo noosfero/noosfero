@@ -344,3 +344,7 @@ font-style: italic;
     }
   }
 }
+
+div.token-input-dropdown {
+  z-index: 9999 !important;
+}

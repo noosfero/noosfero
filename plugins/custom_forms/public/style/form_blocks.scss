@@ -247,3 +247,17 @@
   display: block;
   text-align: center;
 }
+
+.queries-block-edition {
+  .queries-filter {
+    margin: 15px 0;
+
+    p {
+      margin: 0;
+    }
+
+    ul.token-input-list {
+      margin-top: 5px;
+    }
+  }
+}

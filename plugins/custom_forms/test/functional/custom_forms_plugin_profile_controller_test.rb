@@ -1,10 +1,7 @@
 require 'test_helper'
-require_relative '../../controllers/custom_forms_plugin_profile_controller'
 
 class CustomFormsPluginProfileControllerTest < ActionController::TestCase
   def setup
-    @controller = CustomFormsPluginProfileController.new
-
     @profile = create_user('profile').person
     login_as(@profile.identifier)
     environment = Environment.default
