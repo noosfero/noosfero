@@ -55,7 +55,7 @@ gem 'sass', '>= 3.4.6'
 gem 'sprockets-rails', '~> 2.1'
 
 gem 'serviceworker-rails', '~> 0.5.5'
-gem 'webpush',             '~> 0.3.3'
+gem 'webpush',             '~> 0.2.5'
 
 # gems to enable rails3 behaviour
 gem 'protected_attributes'
