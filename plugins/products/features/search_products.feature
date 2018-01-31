@@ -84,9 +84,8 @@ Feature: search products
     When I go to the search products page
     And I fill in "search-input" with "noosfero"
     And I follow "Search" within ".search-form"
-    Then I should not see "None"
-    And I move the cursor over ".search-image-pic"
-    And I should see "Zoom in" within ".zoomify-image"
+    Then I should not see "No image"
+    And I should see "Zoom in" within "a.zoomify-image"
 
   Scenario: find products without exact query
     Given the following product_category
@@ -106,4 +105,3 @@ Feature: search products
     And I follow "Search" within ".search-form"
     Then I should see "wikis consultancy" within "div.search-results-products"
     And I should not see "social networks consultancy"
-
