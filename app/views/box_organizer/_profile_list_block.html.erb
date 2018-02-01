@@ -3,6 +3,12 @@
   <%= check_box(:block, :prioritize_profiles_with_image) %>
   <label for="block_prioritize_profiles_with_image"><%= _('Prioritize profiles with image') %></label>
 
+  <% if @block.respond_to? :available_kinds %>
+    <%= labelled_form_field _('Filter profiles by kind:'),
+                            select(:block, :kind_filter, @block.available_kinds) %>
+  <% end %>
+
+
   <div>
     <%= extra_option_checkbox(@block.extra_option) %>
   </div>

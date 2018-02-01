@@ -16,4 +16,10 @@ class EnterprisesBlock < ProfileListBlock
     owner.enterprises
   end
 
+  private
+
+  def base_class
+    Enterprise
+  end
+
 end
