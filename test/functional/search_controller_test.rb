@@ -206,21 +206,23 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
   end
 
-  should 'search for events' do
+  should 'show all events for the current month when searching' do
+    date = DateTime.now.beginning_of_month
     person = create_user('teste').person
-    event = create_event(person, :name => 'an event to be found', :start_date => DateTime.now)
+    event1 = create_event(person, :name => 'past event', :start_date => date)
+    event2 = create_event(person, :name => 'current event', :start_date => date + 10.days)
+    event3 = create_event(person, :name => 'future event', :start_date => date + 1.month)
 
-    get :events, :query => 'event to be found'
-
-    assert_includes assigns(:searches)[:events][:results], event
+    get :events
+    assert_equivalent assigns(:events), [event1, event2]
   end
 
   should 'return events of the day' do
     person = create_user('someone').person
     ten_days_ago = DateTime.now - 10.day
 
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => ten_days_ago)
-    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => DateTime.now - 2.month)
+    ev1 = create_event(person, :name => 'event 1', :start_date => ten_days_ago)
+    ev2 = create_event(person, :name => 'event 2', :start_date => DateTime.now - 2.month)
 
     get :events, day: ten_days_ago.day, month: ten_days_ago.month, year: ten_days_ago.year
     assert_equal [ev1], assigns(:events)
@@ -303,6 +305,17 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'table', :attributes => {:class => /current-month/}, :descendant => {:tag => 'caption', :content => /August 2008/}
   end
 
+  should 'not paginate events on the calendar' do
+    date = DateTime.now.beginning_of_month
+    person = create_user.person
+    25.times do |count|
+      create_event(person, name: "Event #{count}", start_date: date + count.days)
+    end
+
+    get :events
+    assert_select '.calendar-day a.events-by-date', count: 25
+  end
+
   should 'found TextArticle in articles' do
     person = create_user('teste').person
     art = TextArticle.create!(:name => 'an text_article article to be found', :profile => person)
@@ -342,11 +355,22 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'show events of specific day' do
     person = create_user('anotheruser').person
-    event = create_event(person, :name => 'Joao Birthday', :start_date => DateTime.new(2009, 10, 28))
+    create_event(person, :name => 'Joao Birthday', :start_date => DateTime.new(2009, 10, 28))
 
-    get :events_by_day, :year => 2009, :month => 10, :day => 28
+    get :events_by_date, :year => 2009, :month => 10, :day => 28
 
     assert_tag :tag => 'a', :content => /Joao Birthday/
+  end
+
+  should 'return all events of the month if day was not provided' do
+    date = DateTime.now.beginning_of_month
+    person = create_user('teste').person
+    event1 = create_event(person, :name => 'past event', :start_date => date)
+    event2 = create_event(person, :name => 'current event', :start_date => date + 10.days)
+    event3 = create_event(person, :name => 'future event', :start_date => date + 1.month)
+
+    get :events_by_date, month: date.month
+    assert_equivalent assigns(:events), [event1, event2]
   end
 
   should 'ignore filter of events if category not exists' do
@@ -356,7 +380,7 @@ class SearchControllerTest < ActionController::TestCase
 
     id_of_unexistent_category = Category.last.id + 10
 
-    get :events_by_day, :year => 2009, :month => 10, :day => 28, :category_id => id_of_unexistent_category
+    get :events_by_date, :year => 2009, :month => 10, :day => 28, :category_id => id_of_unexistent_category
 
     assert_tag :tag => 'a', :content => /Joao Birthday/
     assert_tag :tag => 'a', :content => /Maria Birthday/

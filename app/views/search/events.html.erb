@@ -1,2 +1,3 @@
 <%= search_page_title( Environment.default.name + "'s " + _('Events'), {:category => @category, :tag => @tag} ) %>
 <%= render :partial => 'events/agenda' %>
+<%= javascript_include_tag 'events' %>
