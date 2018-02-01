@@ -1792,7 +1792,7 @@ msgstr "%{day} de %{month_name}"
 
 #: ../app/helpers/dates_helper.rb:19
 msgid "%{month_name} %{year}"
-msgstr "%{month_name}, %{year}"
+msgstr "%{month_name} de %{year}"
 
 #: ../app/helpers/dates_helper.rb:22 ../app/helpers/dates_helper.rb:36
 msgid "%{month}/%{day}"
@@ -1892,7 +1892,7 @@ msgstr "Rejeitado"
 
 #: ../app/helpers/events_helper.rb:7
 msgid "Events for %s"
-msgstr "Eventos para %s"
+msgstr "Eventos em %s"
 
 #: ../app/helpers/events_helper.rb:14
 msgid "No events for this month"

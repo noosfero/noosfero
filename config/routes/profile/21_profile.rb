@@ -4,7 +4,7 @@ Noosfero::Application.routes.draw do
   match 'profile/:profile/activities', controller: :profile, action: :activities, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
 
   # events
-  match 'profile/:profile/events_by_day', controller: :events, action: :events_by_day, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
+  match 'profile/:profile/events_by_date', controller: :events, action: :events_by_date, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/events_by_month', controller: :events, action: :events_by_month, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/events/:year/:month/:day', controller: :events, action: :events, year: /\d*/, month: /\d*/, day: /\d*/, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/events/:year/:month', controller: :events, action: :events, year: /\d*/, month: /\d*/, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
