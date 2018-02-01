@@ -6,7 +6,7 @@ class PublicAccessRestrictionPluginTest < ActiveSupport::TestCase
     @plugin = PublicAccessRestrictionPlugin.new
     @context = mock()
     @plugin.context = @context
-    @env = Environment.new
+    @env = Environment.default
     @context.stubs(:environment).returns(@env)
   end
 
@@ -66,6 +66,21 @@ class PublicAccessRestrictionPluginTest < ActiveSupport::TestCase
 
   should 'not display public page if there is no profile' do
     refute @plugin.should_display_public_page?(profile: nil)
+  end
+
+  should 'not block unauthenticated user on portal news from other profiles' do
+    user = nil
+    portal = fast_create(Community)
+    @env.portal_community = portal
+    @env.save!
+
+    community = fast_create(Community)
+    article = fast_create(TextArticle, profile_id: community.id)
+
+    task = ApproveArticle.create!(article: article, name: article.name, target: portal, requestor: fast_create(Person), create_link: true)
+    task.finish
+
+    refute @plugin.should_block?(user, @env, article.url, community)
   end
 
 end
