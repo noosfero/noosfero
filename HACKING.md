@@ -97,7 +97,17 @@ Before you run this command be aware that there are default database credentials
 
 If you are using OSX, you may experience performance issues when using local volumes (more [here](https://github.com/docker/for-mac/issues/77)). You can use docker-sync as an alternative to regular file system mounted volumes.
 
-Just follow the same process as above using the files in `config/docker/dev/osx` instead. Make sure to also copy `docker-sync.yml`. Before starting the containers, start the sync daemon by running `docker-sync start` and waiting until the command returns (it might take a bit). Then, run `docker-compose up --build`.
+Before starting the containers, start the sync daemon and wait until the command returns (it might take a bit).
+
+```
+docker-sync start
+```
+
+Then, start the containers using the OSX docker-compose file.
+
+```
+docker-compose -f osx.yml up --build
+```
 
 If you experience syncing issues, stop the containers and run `docker-sync clean`. Then, start docker-sync again before starting the containers.
 
