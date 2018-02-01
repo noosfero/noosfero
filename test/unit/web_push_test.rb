@@ -18,4 +18,15 @@ class WebPushTest < ActiveSupport::TestCase
     WebPush.notify(subscription, {})
   end
 
+  should 'destroy the subscription when it raises InvalidSubscription' do
+    subscription = mock
+    subscription.stubs(:endpoint)
+    subscription.stubs(:keys).returns({})
+    subscription.stubs(:subject)
+
+    subscription.expects(:destroy).once
+    Webpush.expects(:payload_send).raises(Webpush::InvalidSubscription)
+    WebPush.notify(subscription, {})
+  end
+
 end
