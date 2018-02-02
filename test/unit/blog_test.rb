@@ -221,11 +221,6 @@ class BlogTest < ActiveSupport::TestCase
     assert_includes blog.posts, article
   end
 
-  should 'not accept uploads' do
-    folder = fast_create(Blog)
-    refute folder.accept_uploads?
-  end
-
   should 'know when blog has or when has no posts' do
     p = create_user('testuser').person
     blog =  Blog.create!(:profile => p, :name => 'Blog test')

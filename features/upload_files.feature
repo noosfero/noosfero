@@ -27,13 +27,3 @@ Feature: upload files
       | sample-enterprise | Gallery test |
     And I go to article "Gallery test"
     Then I should see "Upload files"
-
-  Scenario: not provile links to upload files on blogs
-    Given the following communities
-      | identifier | name | owner |
-      | sample-community | Sample Community | joaosilva |
-    And the following blogs
-      | owner | name |
-      | sample-community | Blog test |
-    And I go to Sample Community's blog
-    And I should not see "Upload files"

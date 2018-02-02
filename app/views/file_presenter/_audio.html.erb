@@ -1,0 +1,9 @@
+<audio src="<%= [Noosfero.root, audio.public_filename()].join %>" class="<%=audio.css_class_name%>" controls></audio>
+
+<% if audio.parent.is_a?(Gallery) && audio.parent.allow_download %>
+  <%= link_to _('Download audio'),  [Noosfero.root, audio.public_filename(:display)].join, download: audio.filename, id: 'download-audio-id', class: "button with-text icon-save" %>
+<% end %>
+
+<div class="uploaded-file-description <%= 'empty' if audio.abstract.blank? %>">
+  <%= audio.abstract %>
+</div>

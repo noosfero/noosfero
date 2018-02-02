@@ -56,4 +56,3 @@ class Presenter
     @instance.send(m, *args)
   end
 end
-

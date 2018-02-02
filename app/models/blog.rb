@@ -26,6 +26,10 @@ class Blog < Folder
     _('A blog, inside which you can put other articles.')
   end
 
+  def accept_uploads?
+    true
+  end
+
   # FIXME isn't this too much including just to be able to generate some HTML?
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
