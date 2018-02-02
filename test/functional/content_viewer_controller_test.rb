@@ -112,7 +112,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, blog.feed.url
     assert_response :success
-    assert_match /.*<enclosure url="[^"]*rails.png[^"]*".*/, @response.body
+    assert_match /.*<enclosure url="[^"]*rails[^"]*".*/, @response.body
   end
 
   should "display current article's tags" do
@@ -803,14 +803,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     profile.home_page.destroy
     get :view_page, :profile => profile.identifier, :page => []
     assert_redirected_to :controller => 'profile', :action => 'index', :profile => profile.identifier
-  end
-
-  should "not display 'Upload files' when viewing post from a blog" do
-    login_as(profile.identifier)
-    b = Blog.create!(:name => 'article folder', :profile => profile)
-    blog_post = TextArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
-    xhr :get, :view_page, :profile => profile.identifier, :page => blog_post.path, :toolbar => true
-    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
   should 'display title of image on image gallery' do
