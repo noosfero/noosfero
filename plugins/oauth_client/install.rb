@@ -1,6 +1,0 @@
-system 'gem install omniauth -v 1.3.1'
-system 'gem install omniauth-facebook -v 4.0.0'
-system 'gem install omniauth-twitter -v 1.2.1'
-system 'gem install omniauth-google-oauth2 -v 0.4.1'
-system 'gem install omniauth-oauth2 -v 1.4.0'
-system 'gem install omniauth-github -v 1.1.2'
