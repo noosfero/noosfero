@@ -8,7 +8,19 @@
   }
 }
 
-.block .form-list {
+.box-1 .block .form-list .form-item {
+  width: calc(50% - 6px);
+
+  @media screen and (max-width: 850px) {
+    width: 100%;
+  }
+
+  @media screen and (min-width: 1000px) {
+    width: calc(33% - 6px);
+  }
+}
+
+.block .form-list, .block .detailed-form {
   display: flex;
   flex-wrap: wrap;
 
@@ -32,18 +44,6 @@
     z-index: 1;
     min-height: 150px;
 
-    .box-1 & {
-      width: calc(50% - 6px);
-
-      @media screen and (max-width: 850px) {
-        width: 100%;
-      }
-
-      @media screen and (min-width: 1000px) {
-        width: calc(33% - 6px);
-      }
-    }
-
     .chart-wrapper {
       h6 {
         text-align: center;
@@ -63,14 +63,13 @@
 
       img {
         width: 100%;
+        min-height: 100%;
       }
     }
 
-    &.survey {
-      .form-name, .form-submissions, .form-link {
-        color: initial;
-        text-decoration: none;
-      }
+    a.form-link {
+      color: initial;
+      text-decoration: none;
     }
 
     &.survey .form-item-img {
@@ -81,17 +80,7 @@
       height: 65px;
     }
 
-    &.survey .form-item-img .period-overlay {
-      background: white;
-      padding: 2px 10px;
-      position: absolute;
-      right: 0;
-      color: #777;
-    }
-
     .form-item-info {
-      padding: 5px;
-
       .form-name {
         font-weight: bolder;
         color: #555;
@@ -232,6 +221,36 @@
 
     &:hover::after {
       opacity: 1;
+    }
+  }
+}
+
+.block .form-list .form-item {
+  .form-item-info {
+    padding: 5px;
+  }
+}
+
+.block .detailed-form .form-item {
+  .form-item-info {
+    padding: 10px;
+  }
+
+  .form-description {
+    padding: 0 10px;
+    max-height: 200px;
+    overflow: hidden;
+    position: relative;
+
+    &.overflown:after {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      content: '...';
+      width: calc(100% - 20px);
+      border-bottom: 1px solid black;
+      text-align: right;
+      font-size: 14px;
     }
   }
 }

@@ -1,6 +1,6 @@
 <div id="poll-<%= form.identifier %>" class='form-item poll'>
   <%= link_to({ controller: 'custom_forms_plugin_profile', action: 'show',
-                id: form.identifier }) do %>
+                id: form.identifier }, class: 'form-link') do %>
     <div class='form-item-img'>
       <%= form_image_tag(form) %>
       <div class='form-item-info'>
@@ -19,13 +19,19 @@
         </div>
       </div>
     </div>
+
+    <% if defined?(detailed) && detailed && form.description.present? %>
+      <div class="form-description">
+        <%= form.description.html_safe %>
+      </div>
+    <% end %>
   <% end %>
 
   <div class='poll-content'>
     <% if form.expired? %>
-      <%= render partial: 'blocks/poll_results', locals: { form: form } %>
+      <%= render partial: 'blocks/poll/results', locals: { form: form } %>
     <% else %>
-      <%= render partial: 'blocks/poll_submission', locals: { form: form } %>
+      <%= render partial: 'blocks/poll/submission', locals: { form: form } %>
     <% end %>
   </div>
 </div>

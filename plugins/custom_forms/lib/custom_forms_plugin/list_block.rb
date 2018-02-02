@@ -40,7 +40,7 @@ module CustomFormsPlugin::ListBlock
   private
 
   def filtered_ids
-    (self.metadata["filtered_queries"] || "").split(",")
+    (self.metadata["filtered_queries"].to_s || "").split(",")
   end
 
 end

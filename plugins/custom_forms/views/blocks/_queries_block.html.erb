@@ -1,0 +1,16 @@
+<% self.extend CustomFormsPlugin::Helper %>
+
+<%= block_title(block.title, block.subtitle) %>
+
+<% forms = block.list_forms(user) %>
+<% if forms.empty? %>
+  <%= content_tag('i', _('No queries available'), style: 'margin: auto;') %>
+<% elsif forms.size > 1 %>
+  <%= render partial: 'blocks/form_list_block',
+             locals: { block: block, forms: forms } %>
+<% else %>
+  <div class='detailed-form'>
+    <%= render partial: "blocks/#{block.type}/list_item",
+               locals: { form: forms.first, block: block, detailed: true } %>
+  </div>
+<% end %>
