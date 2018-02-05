@@ -1,10 +1,7 @@
 require 'test_helper'
-require_relative '../../controllers/custom_forms_plugin_myprofile_controller'
 
 class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   def setup
-    @controller = CustomFormsPluginMyprofileController.new
-
     @profile = create_user('testuser').person
     login_as(@profile.identifier)
     environment = Environment.default
@@ -410,5 +407,29 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     form.reload
     assert_equal Gallery.last.images.count, (gallery_images - 1)
     assert_nil form.image
+  end
+
+  should 'return filtered polls of a pofile' do
+    another_profile = fast_create(Profile)
+    f1 = profile.forms.create(name: 'Form 1', :kind => 'poll')
+    f2 = profile.forms.create(name: 'Form 2', :kind => 'poll')
+    profile.forms.create(name: 'Some Question', :kind => 'poll')
+    another_profile.forms.create(name: 'Form 3', :kind => 'poll')
+
+    get :polls, profile: profile.identifier, q: "Form"
+    assert_equivalent JSON.parse(@response.body),
+                      [f1, f2].map{ |f| { "id" => f.id, "name" => f.name } }
+  end
+
+  should 'return filtered surveys of a pofile' do
+    another_profile = fast_create(Profile)
+    f1 = profile.forms.create(name: 'Form 1', :kind => 'survey')
+    f2 = profile.forms.create(name: 'Form 2', :kind => 'survey')
+    profile.forms.create(name: 'Some Question', :kind => 'survey')
+    another_profile.forms.create(name: 'Form 3', :kind => 'survey')
+
+    get :surveys, profile: profile.identifier, q: "Form"
+    assert_equivalent JSON.parse(@response.body),
+                      [f1, f2].map{ |f| { "id" => f.id, "name" => f.name } }
   end
 end

@@ -168,6 +168,16 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
+  should 'display description if block is in detailed mode' do
+    survey = create_survey('Survey 1', description: 'Some text')
+    @my_block.metadata['filtered_queries'] = survey.id
+    @my_block.save
+
+    get "/profile/#{@profile.identifier}"
+    assert_tag tag: 'div', content: /#{survey.description}/,
+               attributes: { class: /form-description/ }
+  end
+
   private
 
   def create_survey(name, opts={})

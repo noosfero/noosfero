@@ -119,6 +119,16 @@ class CustomFormsPluginMyprofileController < MyProfileController
     @pendings = @pendings.sort_by { |s| s[:profile].name } if @sort_by == 'user'
   end
 
+  def polls
+    polls = queries_to_token_input('poll', params[:q])
+    render text: polls.to_json
+  end
+
+  def surveys
+    surveys = queries_to_token_input('survey', params[:q])
+    render text: surveys.to_json
+  end
+
   private
 
   def normalize_positions(form)
@@ -179,6 +189,12 @@ class CustomFormsPluginMyprofileController < MyProfileController
     form.save
     gallery.images.find(image_to_remove).delete
     return UploadedFile.delete(image_to_remove)
+  end
+
+  def queries_to_token_input(kind, query)
+    scope = profile.forms.where(kind: kind).order(:name)
+    forms = find_by_contents(:forms, profile, scope, query)[:results]
+    forms.map{ |f| { id: f.id, name: f.name } }
   end
 
 end

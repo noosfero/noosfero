@@ -1,0 +1,15 @@
+<div class="queries-block-edition">
+  <%= labelled_form_field (_('%s limit') % _(type.pluralize)).capitalize,
+                          number_field_tag('block[metadata][limit]', @block.limit, min: 1) %>
+  <%= labelled_form_field _('Display %s:') % _(type.pluralize),
+                          select_tag('block[metadata][status]', options_from_collection_for_select(@block.class.status_options, :first, :last, @block.status)) %>
+
+  <div class="queries-filter">
+    <p><%= _('Use the filter below to display specific queries.') %></p>
+    <p><%= _('If only one query is chosen, it will be displayed in detail.') %></p>
+    <%= token_input_field_tag('block[metadata][filtered_queries]', 'filtered-queries',
+                              { controller: 'custom_forms_plugin_myprofile', action: type.pluralize },
+                              { placeholder: _('Find queries by name'),
+                                pre_populate: @block.filtered_forms_to_token }) %>
+  </div>
+<div>

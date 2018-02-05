@@ -97,6 +97,10 @@ tr.addition-buttons {
   color: rgba(0,0,0,0.5);
 }
 
+#custom-forms-plugin_submission .custom-form-options {
+	text-align: right;
+}
+
 #custom-forms-plugin_submission textarea {
   width: 100%;
   height: 10em;
@@ -343,4 +347,8 @@ font-style: italic;
       margin-top: 30px;
     }
   }
+}
+
+div.token-input-dropdown {
+  z-index: 9999 !important;
 }

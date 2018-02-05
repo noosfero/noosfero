@@ -11,7 +11,7 @@
 <% end %>
 
 <% if form.show_results_for(current_person) %>
-  <%= link_to _('See parcial results'),
+  <%= link_to _('See partial results'),
               { controller: 'custom_forms_plugin_profile', action: 'review',
                 id: form.identifier },
               class: 'partial-results-link' %>
