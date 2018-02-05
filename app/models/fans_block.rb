@@ -24,4 +24,10 @@ class FansBlock < ProfileListBlock
       _('Fans')
   end
 
+  private
+
+  def base_class
+    Person
+  end
+
 end

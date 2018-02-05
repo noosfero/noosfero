@@ -2550,4 +2550,21 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal false, profile.allow_single_file?
   end
 
+  should 'return profiles with a specific kind' do
+    profile1 = fast_create(Profile)
+    profile2 = fast_create(Profile)
+    profile3 = fast_create(Profile)
+
+    k1 = fast_create(Kind, :name => 'Captain', :type => 'Profile', :environment_id => Environment.default.id)
+    k2 = fast_create(Kind, :name => 'Number One', :type => 'Profile', :environment_id => Environment.default.id)
+    k3 = fast_create(Kind, :name => 'Number Two', :type => 'Profile', :environment_id => Environment.default.id)
+
+    k1.add_profile(profile1)
+    k1.add_profile(profile2)
+    k2.add_profile(profile1)
+
+    assert_equivalent [profile1, profile2], Profile.with_kind(k1)
+    assert_equivalent [], Profile.with_kind(k3)
+  end
+
 end

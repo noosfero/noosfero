@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
-  
+
   should 'inherit from ProfileListBlock' do
     assert_kind_of ProfileListBlock, FavoriteEnterprisesBlock.new
   end
@@ -23,8 +23,12 @@ class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
 
     list = []
     owner.expects(:favorite_enterprises).returns(list)
-    
+
     assert_same list, block.profiles
+  end
+
+  should 'have Enterprise as base_class' do
+    assert_equal Enterprise, FavoriteEnterprisesBlock.new.send(:base_class)
   end
 
 end

@@ -17,9 +17,12 @@ class FeedWriter
           xml.description(options[:description])
         end
         for article in articles
+          article = FilePresenter.for article
           xml.item do
             xml.title(article.title)
-            xml.description(article.to_html)
+            desc = article.to_html
+            desc = article.abstract if desc.is_a? Proc
+            xml.description(desc)
             if article.created_at
               # rfc822
               xml.pubDate(article.created_at.rfc2822)
@@ -27,6 +30,12 @@ class FeedWriter
             # link to article
             xml.link(url_for(article.url))
             xml.guid(url_for(article.url))
+            if article.filename
+              url = url_for(article.url.merge(download:true))
+              length = article.size
+              type = article.mime_type
+              xml.enclosure(nil, url:url, length:length, type:type)
+            end
           end
         end
       end

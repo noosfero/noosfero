@@ -31,18 +31,6 @@ module DatesHelper
     end
   end
 
-  def show_date_month(date, use_numbers = false, year=true)
-    if date && use_numbers
-      date_format = year ? _('%{month}/%{year}') : _('%{month}/%{day}')
-      date_format % { :month => date.month, :year => date.year }
-    elsif date
-      date_format = year ? _('%{month_name}, %{year}') : _('%{month_name}')
-      date_format % { :month_name => month_name(date.month), :year => date.year }
-    else
-      ''
-    end
-  end
-
   # formats a datetime for displaying.
   def show_time(time, use_numbers = false, year = true, left_time = false)
     if time && use_numbers

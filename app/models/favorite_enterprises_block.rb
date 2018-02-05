@@ -20,4 +20,10 @@ class FavoriteEnterprisesBlock < ProfileListBlock
       _('Favorite Enterprises')
   end
 
+  private
+
+  def base_class
+    Enterprise
+  end
+
 end

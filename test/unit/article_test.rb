@@ -1439,12 +1439,6 @@ class ArticleTest < ActiveSupport::TestCase
     refute child.accept_uploads?
   end
 
-  should 'not accept uploads if parent is a blog' do
-    folder = fast_create(Blog)
-    child = fast_create(UploadedFile, :parent_id => folder.id)
-    refute child.accept_uploads?
-  end
-
   should 'not accept uploads if parent is a forum' do
     folder = fast_create(Forum)
     child = fast_create(UploadedFile, :parent_id => folder.id)
