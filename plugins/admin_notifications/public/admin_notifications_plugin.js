@@ -6,11 +6,11 @@
 
     notificationBar: function() {
       var completeMessage = $(".notification-plugin-notification-bar").remove();
-      $("#content-inner").before(completeMessage);
+      $("#content").before(completeMessage);
     },
 
     closeNotification: function(){
-      var notification = $(this).parent();
+      var notification = $(this).closest('.notification');
       var id = notification.attr("data-notification");
 
       $.ajax({
@@ -24,7 +24,7 @@
     },
 
     hideNotification: function(){
-      var notification = $(this).parent();
+      var notification = $(this).closest('.notification');
       var id = notification.attr("data-notification");
 
       $.ajax({
