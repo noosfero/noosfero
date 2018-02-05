@@ -246,4 +246,30 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     get :review, :profile => profile.identifier, :id => form.identifier, :format => 'csv'
     assert_response :success
   end
+
+  should 'display form options to profile admin' do
+    community = fast_create(Community)
+    community.add_admin(profile)
+    form = community.forms.create!(name: 'Free Software')
+
+    get :show, :profile => community.identifier, :id => form.identifier
+    assert_tag tag: 'div', attributes: { class: 'custom-form-options' }
+  end
+
+  should 'display form options to environment admin' do
+    community = fast_create(Community)
+    community.environment.add_admin(profile)
+    form = community.forms.create!(name: 'Free Software')
+
+    get :show, :profile => community.identifier, :id => form.identifier
+    assert_tag tag: 'div', attributes: { class: 'custom-form-options' }
+  end
+
+  should 'not display form options to visitors' do
+    community = fast_create(Community)
+    form = community.forms.create!(name: 'Free Software')
+
+    get :show, :profile => community.identifier, :id => form.identifier
+    assert_no_tag tag: 'div', attributes: { class: 'custom-form-options' }
+  end
 end
