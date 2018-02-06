@@ -49,7 +49,7 @@ Background:
     When I follow "Add a new status"
     And I fill in "Name" with "Merged"
     And I check "Enable this status"
-    And I press "Save"
+    And I follow "Save"
     Then I should see "Merged" within "#comment-classification-status"
 
   Scenario: save status for comment

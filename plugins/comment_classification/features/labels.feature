@@ -45,10 +45,9 @@ Background:
     And I am logged in as "joaosilva"
     And I go to article "Article to comment"
     And I fill in "Leave your comment" with "Hey ho, let's go!"
-    #Then I select "Addition" from "comment_label_id"
-    Then I select "Addition" from "Label..."
-    And I press "Post comment"
-    Then I should see "Addition" within ".comment-details"
+    Then I select "Addition" from "comment_label_id"
+    And I press "Send"
+    Then I should see "Addition" within ".comment-classification-options"
 
   @selenium
   Scenario: users without permission should not edit the labels
