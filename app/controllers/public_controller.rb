@@ -1,4 +1,24 @@
 class PublicController < ApplicationController
+
+  def urls_to_cache
+    assets = [
+      'application.css',
+      'application.js',
+      'designs/themes/base/style.css',
+      template_stylesheet_path,
+      theme_stylesheet_path,
+      icon_theme_stylesheet_path
+    ].flatten.map{ |f| ActionController::Base.helpers.asset_path(f) }
+
+    urls = [Noosfero.root('/'), '/offline'] + assets
+    urls += plugins.dispatch(:cache_urls)
+    render text: urls.flatten.to_json
+  end
+
+  def offline
+    @no_design_blocks = true
+  end
+
   protected
 
   def allow_access_to_page
