@@ -80,7 +80,7 @@ group :test do
 end
 
 group :cucumber, :test do
-  gem 'capybara',               '~> 2.2'
+  gem 'capybara',               '~> 2.15.0'
   gem 'launchy'
   gem 'cucumber',               '~> 1.3'
   gem 'cucumber-rails',         '~> 1.4.2', require: false
