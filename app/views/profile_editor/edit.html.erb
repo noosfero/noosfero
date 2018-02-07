@@ -127,6 +127,12 @@
                      { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
         <% end %>
       <% end %>
+
+      <% if !environment.enabled?('forbid_destroy_profile') || user.is_admin?(environment) %>
+        <%= button(:delete,
+                   _('Delete profile'),
+                   { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
+      <% end %>
     <% end %>
   <% end %>
 </div>

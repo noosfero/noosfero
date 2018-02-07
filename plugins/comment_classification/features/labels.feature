@@ -30,8 +30,8 @@ Background:
     And I follow "Plugins"
     And I follow "Configuration"
     And I follow "Manage Labels"
-    Then I should see "no label registered yet" within "#comment-classification-labels"
-    When I follow "Add a new label"
+    And I should see "no label registered yet" within "#comment-classification-labels"
+    And I follow "Add a new label"
     And I fill in "Name" with "Question"
     And I check "Enable this label"
     When I follow "Save"
@@ -61,3 +61,4 @@ Background:
     When I am not logged in
     And I am on article "Article to comment"
     Then I should not see "Label" within "#page-comment-form"
+

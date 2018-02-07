@@ -41,6 +41,7 @@
 *= require block-store.js
 *= require email_templates.js
 *= require categories_selector.js
+*= require comments.js
 *
 * serviceworker
 *= require serviceworker-companion.js
