@@ -393,6 +393,8 @@ class Profile < ApplicationRecord
 
   has_and_belongs_to_many :kinds
 
+  scope :with_kind, -> kind { joins(:kinds).where("kinds.id = ?", kind.id) }
+
   def top_level_categorization
     ret = {}
     self.profile_categorizations.each do |c|

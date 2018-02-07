@@ -18,6 +18,7 @@ Feature: delete profile
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
     And I follow "Edit Profile"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
     When I follow "Yes, I am sure"
@@ -37,6 +38,7 @@ Feature: delete profile
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
     And I follow "Edit Profile"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
     And I confirm the browser dialog
@@ -56,6 +58,7 @@ Feature: delete profile
     And I am logged in as "joaosilva"
     And I am on sample-community's control panel
     And I follow "Community Info and settings"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
     When I follow "Yes, I am sure"
@@ -90,6 +93,7 @@ Feature: delete profile
     And I am logged in as "joaosilva"
     And I am on sample-enterprise's control panel
     When I follow "Enterprise Info and settings"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
     When I follow "Yes, I am sure"
@@ -114,6 +118,7 @@ Feature: delete profile
     Given I am logged in as admin
     And I am on joaosilva's control panel
     And I follow "Edit Profile"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
     When I follow "Yes, I am sure"

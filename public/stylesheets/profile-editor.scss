@@ -288,3 +288,11 @@
 #profile_allow_follows {
   margin-top: 10px;
 }
+
+#advanced_options {
+  display: none;
+}
+
+#advanced_options:target {
+  display: block;
+}

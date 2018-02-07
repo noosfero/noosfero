@@ -1,0 +1,145 @@
+.notification-plugin-notification-bar,
+.notification-plugin-notification-modal {
+  width: 90%;
+  margin: auto;
+
+  .notification {
+    max-width: 820px;
+    margin: 10px auto;
+    padding: 7px 10px;
+    border-radius: 5px;
+    border: 1px solid blue;
+    font-size: 14px;
+    color: white;
+    overflow: auto;
+
+    p {
+      margin: 0px;
+      text-align: justify;
+    }
+
+    .notifications-actions {
+      display: flex;
+      margin-left: 15px;
+
+      a {
+        color: #777;
+        margin-left: 5px;
+        cursor: pointer;
+      }
+    }
+
+    .notification-title {
+      font-weight: bold;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    &:hover { opacity: 0.8; }
+
+  }
+
+  .warningnotification,
+  .informationnotification,
+  .successnotification,
+  .dangernotification,
+  .adminnotification {
+  }
+
+  .warningnotification {
+    background: #fcf8e3;
+    border: 1px solid #faebcc;
+    color: #8a6d3b;
+
+    p a {
+      font-weight: bold;
+      color: #8a6d3b;
+    }
+  }
+
+  .informationnotification {
+    background: #d9edf7;
+    border: 1px solid #bce8f1;
+    color: #31708f;
+
+    p a {
+      font-weight: bold;
+      color: #31708f;
+    }
+  }
+
+  .successnotification {
+    background: #dff0d8;
+    border: 1px solid #d6e9c6;
+    color: #3c763d;
+
+    p a {
+      font-weight: bold;
+      color: #3c763d;
+    }
+  }
+
+  .dangernotification {
+    background: #f2dede;
+    border: 1px solid #ebccd1;
+    color: #a94442;
+
+    p a {
+      font-weight: bold;
+      color: #a94442;
+    }
+  }
+  .adminnotification {
+    background: #9a959a;
+    border: 1px solid #9a959a;
+
+    p a {
+      font-weight: bold;
+      color: white;
+    }
+  }
+}
+
+#notification-plugin-notification-manager {
+  table {
+    margin-top: 50px;
+
+    a:visited {
+      color: #333;
+    }
+  }
+
+  .buttons-bar {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.notification-plugin-notification-bar {
+  .notification {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.notification-plugin-notification-modal {
+  max-width: 600px;
+}
+
+.notification-plugin-form .notification-variables-options {
+  font-style: italic;
+  color: red;
+}
+
+@media only screen and (max-width:600px) {
+  .notification-plugin-notification-modal {
+    max-width: 400px;
+  }
+}
+
+@media only screen and (max-width:450px) {
+  .notification-plugin-notification-modal {
+    max-width: 300px;
+  }
+}
+

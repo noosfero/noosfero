@@ -52,7 +52,7 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     end
   end
 
-  should 'list private profiles' do
+  should 'not list private profiles' do
     env = fast_create(Environment)
     env.boxes << Box.new
     profile1 = fast_create(Profile, :environment_id => env.id)
@@ -61,9 +61,9 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     env.boxes.first.blocks << block
     block.save!
 
-    profiles = block.profiles
+    profiles = block.profile_list
     assert_includes profiles, profile1
-    assert_includes profiles, profile2
+    assert_not_includes profiles, profile2
   end
 
   should 'not list invisible profiles' do
@@ -236,5 +236,79 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     block = ProfileListBlock.new
     block.limit = -5
     assert_equal 0, block.get_limit
+  end
+
+  should 'return available kinds according to base_class' do
+    kind1 = Kind.create!(name: 'Kind1', type: 'Person', environment: Environment.default)
+    kind2 = Kind.create!(name: 'Kind2', type: 'Community', environment: Environment.default)
+
+    block = ProfileListBlock.new
+    block.stubs(:environment).returns(Environment.default)
+    block.stubs(:base_class).returns(Person)
+
+    assert_includes block.available_kinds, [kind1.name, kind1.id]
+    assert_not_includes block.available_kinds, [kind2.name, kind2.id]
+  end
+
+  should 'filter profiles by kind if there is a kind filter' do
+    community1 = fast_create(Community)
+    community2 = fast_create(Community)
+    community3 = fast_create(Community)
+
+    kind = Kind.create!(name: 'Kind', type: 'Community', environment: Environment.default)
+    kind.add_profile(community1)
+    kind.add_profile(community2)
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(Environment.default)
+    block.kind_filter = kind.id
+
+    assert_equivalent [community1, community2], block.profile_list
+  end
+
+  should 'not filter profiles by kind if there is no kind filter' do
+    env = fast_create(Environment)
+    community1 = fast_create(Community, environment_id: env.id)
+    community2 = fast_create(Community, environment_id: env.id)
+    community3 = fast_create(Community, environment_id: env.id)
+
+    kind = Kind.create!(name: 'Kind', type: 'Community', environment: env)
+    kind.add_profile(community1)
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(env)
+    block.kind_filter = nil
+
+    assert_equivalent [community1, community2, community3], block.profile_list
+  end
+
+  should 'not filter profiles if there is a filter but the kind does not exist' do
+    env = fast_create(Environment)
+    community1 = fast_create(Community, environment_id: env.id)
+    community2 = fast_create(Community, environment_id: env.id)
+    community3 = fast_create(Community, environment_id: env.id)
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(env)
+    block.kind_filter = "invalid id"
+    Kind.expects(:find_by).once.returns(nil)
+
+    assert_equivalent [community1, community2, community3], block.profile_list
+  end
+
+  should 'only count number of profiles filtered by kind' do
+    community1 = fast_create(Community)
+    community2 = fast_create(Community)
+    community3 = fast_create(Community)
+
+    kind = Kind.create!(name: 'Kind', type: 'Community', environment: Environment.default)
+    kind.add_profile(community1)
+    kind.add_profile(community2)
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(Environment.default)
+    block.kind_filter = kind.id
+
+    assert_equal 2, block.profile_count
   end
 end

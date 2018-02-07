@@ -21,7 +21,7 @@ module WorkAssignmentPlugin::Helper
       content_tag('td', link_to_last_submission(author_folder, user)) +
       content_tag('td', time_format(author_folder.children.last.created_at)) +
       content_tag('td', author_folder.children.count, :style => 'text-align: center') +
-      content_tag('td', content_tag('button', _('View all versions'), :class => 'view-author-versions', 'data-folder-id' => author_folder.id)) +
+      content_tag('td', content_tag('a', font_awesome(:info), :title => _('View all versions'), :class => 'view-author-versions', 'data-folder-id' => author_folder.id)) +
       content_tag('td', display_privacy_button(author_folder, user))
     ).html_safe +
     author_folder.children.order('created_at DESC').map {|submission| display_submission(submission, user)}.join("\n").html_safe

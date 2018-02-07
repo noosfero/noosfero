@@ -1,9 +1,10 @@
 class ProfileListBlock < Block
 
-  attr_accessible :prioritize_profiles_with_image
+  attr_accessible :prioritize_profiles_with_image, :kind_filter
 
   settings_items :limit, :type => :integer, :default => 6
   settings_items :prioritize_profiles_with_image, :type => :boolean, :default => true
+  settings_items :kind_filter, :type => :string
 
   def self.description
     _('Random profiles')
@@ -17,6 +18,7 @@ class ProfileListBlock < Block
   def profile_list
     result = nil
     public_profiles = profiles.is_public.includes([:image,:domains,:preferred_domain,:environment])
+    public_profiles = filter_by_kind(public_profiles)
     if !prioritize_profiles_with_image
       result = public_profiles.limit(get_limit).order('profiles.updated_at DESC').sort_by{ rand }
     elsif profiles.visible.with_image.count >= get_limit
@@ -28,7 +30,7 @@ class ProfileListBlock < Block
   end
 
   def profile_count
-    profiles.is_public.length
+    filter_by_kind(profiles.is_public).length
   end
 
   # the title of the block. Probably will be overriden in subclasses.
@@ -47,5 +49,21 @@ class ProfileListBlock < Block
   # override in subclasses! See MembersBlock for example
   def extra_option
     {}
+  end
+
+  def available_kinds
+    kinds = environment.kinds.where(:type => base_class.try(:name)).order(:name)
+    [[_('All kinds'), nil]] + kinds.map{ |k| [k.name, k.id] }
+  end
+
+  private
+
+  def base_class
+    nil
+  end
+
+  def filter_by_kind(filtered_profiles)
+    kind = Kind.find_by(id: self.kind_filter)
+    kind.present? ? filtered_profiles.with_kind(kind) : filtered_profiles
   end
 end

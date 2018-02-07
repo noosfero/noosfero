@@ -43,6 +43,10 @@ class CommunitiesBlockTest < ActiveSupport::TestCase
     assert_equivalent [public_community, private_community], block.profiles
   end
 
+  should 'have Community as base class' do
+    assert_equal Community, CommunitiesBlock.new.send(:base_class)
+  end
+
 end
 
 require 'boxes_helper'

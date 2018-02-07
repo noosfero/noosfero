@@ -48,6 +48,7 @@
 *
 * push notifications
 *= require webpush.js
+*= require comments.js
 */
 
 // lodash configuration

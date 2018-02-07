@@ -55,7 +55,7 @@ gem 'sass', '>= 3.4.6'
 gem 'sprockets-rails', '~> 2.1'
 
 gem 'serviceworker-rails', '~> 0.5.5'
-gem 'webpush',             '~> 0.3.3'
+gem 'webpush',             '~> 0.2.5'
 
 # gems to enable rails3 behaviour
 gem 'protected_attributes'
@@ -80,7 +80,7 @@ group :test do
 end
 
 group :cucumber, :test do
-  gem 'capybara',               '~> 2.2'
+  gem 'capybara',               '~> 2.15.0'
   gem 'launchy'
   gem 'cucumber',               '~> 1.3'
   gem 'cucumber-rails',         '~> 1.4.2', require: false

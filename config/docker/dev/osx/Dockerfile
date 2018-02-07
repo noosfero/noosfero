@@ -1,13 +1,17 @@
-
 FROM ruby:2.4.2-jessie
 MAINTAINER Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>
 
-VOLUME /noosfero
+LABEL Description="This dockerfile builds a noosfero development environment."
+
+EXPOSE 3000
+
+ENV RAILS_ENV development
+RUN apt-get update && apt-get install -y sudo cron nodejs postgresql-client
+
 WORKDIR /noosfero
+ADD Gemfile /noosfero/Gemfile
+WORKDIR /noosfero
+RUN bundle install
 
-ENV BUNDLE_PATH /bundle-cache
-
-RUN apt-get update
-RUN apt-get install -y sudo cron nodejs tango-icon-theme
-
-CMD ["/noosfero/config/docker/dev/start-dev.sh"]
+ENTRYPOINT ["/noosfero/config/docker/dev/entrypoint.sh"]
+CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]

@@ -95,32 +95,21 @@ class SearchController < PublicController
   end
 
   def events
-    if params[:year].blank? && params[:year].blank? && params[:day].blank?
-      @date = DateTime.now
-    else
-      year = (params[:year] ? params[:year].to_i : DateTime.now.year)
-      month = (params[:month] ? params[:month].to_i : DateTime.now.month)
-      day = (params[:day] ? params[:day].to_i : 1)
-      @date = build_date(year, month, day)
-    end
-    date_range = (@date - 1.month).at_beginning_of_month..(@date + 1.month).at_end_of_month
-
-    @events = []
-    if params[:day] || !params[:year] && !params[:month]
-      @events = @category ?
-        environment.events.by_day(@date).in_category(Category.find(@category_id)).paginate(:per_page => per_page, :page => params[:page]) :
-        environment.events.by_day(@date).paginate(:per_page => per_page, :page => params[:page])
-    elsif params[:year] || params[:month]
-      @events = @category ?
-        environment.events.by_month(@date).in_category(Category.find(@category_id)).paginate(:per_page => per_page, :page => params[:page]) :
-        environment.events.by_month(@date).paginate(:per_page => per_page, :page => params[:page])
+    load_events!
+    if @category
+      @events = @events.in_category(Category.find(@category_id))
     end
 
-    @scope = date_range && params[:action] == 'events' ? environment.events.by_range(date_range) : environment.events
+    @scope = @events
     full_text_search
+    @calendar = populate_calendar(@date, @events)
+    @events = @events.paginate(:per_page => per_page, :page => params[:page])
+  end
 
-    events = @searches[@asset][:results]
-    @calendar = populate_calendar(@date, events)
+  def events_by_date
+    load_events!
+    @events = @events.paginate(:per_page => per_page, :page => params[:page])
+    render :partial => 'events/events', locals: { xhr_links: true }
   end
 
   # keep old URLs workings
@@ -143,12 +132,6 @@ class SearchController < PublicController
       send(:index)
       @asset = :tag
     end
-  end
-
-  def events_by_day
-    @date = build_date(params[:year], params[:month], params[:day])
-    @events = environment.events.by_day(@date).paginate(:per_page => per_page, :page => params[:page])
-    render :partial => 'events/events'
   end
 
   def suggestions
@@ -272,6 +255,20 @@ class SearchController < PublicController
       people:      _('People'),
       communities: _('Communities'),
     }
+  end
+
+  def load_events!
+    begin
+      @date = build_date params[:year], params[:month], params[:day]
+    rescue ArgumentError # invalid date
+      return render_not_found
+    end
+
+    if params[:year] && params[:month] && params[:day]
+      @events = environment.events.by_day(@date)
+    else
+      @events = environment.events.by_month(@date)
+    end
   end
 
 end

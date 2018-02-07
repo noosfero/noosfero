@@ -1,3 +1,4 @@
-<%= list_events(@date, @events) %>
+<%= list_events(@date, @events, params[:day].present?) %>
 
-<%= pagination_links @events, :param_name => 'page' %>
+<%= pagination_links @events, :param_name => 'page',
+                     class: ('xhr-links' if defined?(xhr_links) && xhr_links) %>

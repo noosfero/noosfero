@@ -50,15 +50,19 @@
 #agenda .agenda-calendar .next-month {
   border-left: 1px solid #BFC2BC;
 }
-#agenda .selected {
+#agenda .calendar-day.today {
   background: gray;
   font-weight: bold;
   font-style: normal;
+
+  &.selected {
+    font-style: italic;
+  }
 }
-#agenda .selected a, #agenda .selected span {
+#agenda .today a, #agenda .today span {
   color: white;
 }
-#agenda .calendar-day-out.selected {
+#agenda .calendar-day-out.today {
   background: none;
 }
 #agenda .agenda-calendar td {
@@ -85,6 +89,7 @@
   text-align: right;
   font-variant: normal;
   font-weight: normal;
+  margin-bottom: 10px;
 }
 h1#agenda-title {
   position: relative;
@@ -96,7 +101,6 @@ h1#agenda-title {
 }
 #agenda-toolbar a.button {
   border: none;
-  opacity: 0.6;
 }
 #agenda #events-of-the-day .select-a-day {
   font-size: 14px;
