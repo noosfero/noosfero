@@ -51,19 +51,14 @@ Background:
 
   @selenium
   Scenario: users without permission should not edit the labels
-    Given I follow "Plugins"
-    And I check "Comment Classification"
-    And I follow "Save changes"
-    And "Maria Silva" is a member of "Sample Community"
-    And "Joao Silva" is admin of "Sample Community"
-    And I am logged in as "joaosilva"
-    And the following labels
+    Given the following labels
       | owner       | name     | enabled |
       | environment | Addition | true    |
     And I am logged in as "joaosilva"
     And I go to article "Article to comment"
     Then I should see "Label" within "#page-comment-form"
     And I should see "Addition" within "#comment_label_id"
-    And I am not logged in
+    When I am not logged in
     And I am on article "Article to comment"
     Then I should not see "Label" within "#page-comment-form"
+
