@@ -437,11 +437,11 @@ class PeopleTest < ActiveSupport::TestCase
     profile = fast_create(Community)
     post "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['pending'], false
+    assert_equal json['code'], Api::Status::Membership::MEMBER
     assert person.is_member_of?(profile)
   end
 
-  should 'create task when add logged person as member of a moderated profile' do
+  should 'create pending task when add logged person as member of a moderated profile' do
     login_api
     profile = fast_create(Community, public_profile: false)
     profile.add_member(create_user.person)
@@ -449,8 +449,19 @@ class PeopleTest < ActiveSupport::TestCase
     profile.save!
     post "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['pending'], true
+    assert_equal json['code'], Api::Status::Membership::WAITING_FOR_APPROVAL
     assert !person.is_member_of?(profile)
+  end
+
+  should 'create return true on task creation when add logged person as member of a moderated profile' do
+    login_api
+    profile = fast_create(Community, public_profile: false)
+    profile.add_member(create_user.person)
+    profile.closed = true
+    profile.save!
+    post "/api/v1/profiles/#{profile.id}/members?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['success'], true
   end
 
   should 'remove logged person as member of a profile' do
@@ -667,16 +678,26 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal 3, json['count']
   end
 
-  should 'add a new person friend' do
+  should 'add a new person friend return success' do
     login_api
     friend = create_user('friend').person
     person.add_friend(friend)
     friend.add_friend(person)
     post "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['message'], 'WAITING_APPROVAL'
+    assert_equal json['success'], true
   end
-  
+
+  should 'add a new person friend return waiting for approval code' do
+    login_api
+    friend = create_user('friend').person
+    person.add_friend(friend)
+    friend.add_friend(person)
+    post "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['code'], Api::Status::Friendship::WAITING_FOR_APPROVAL
+  end
+
   should 'remove person friend' do
     login_api
     friend = fast_create(Person)
