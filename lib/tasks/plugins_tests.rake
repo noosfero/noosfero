@@ -4,6 +4,7 @@ $broken_plugins = %w[
   environment_notification
   ldap
   solr
+  variables
 ]
 
 @all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
