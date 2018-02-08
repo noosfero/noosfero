@@ -62,7 +62,7 @@ class CommentsTest < ActiveSupport::TestCase
     login_api
     article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing")
     body = 'My comment'
-    params.merge!({:body => body})
+    params.merge!(:comment => {:body => body})
 
     post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -95,7 +95,7 @@ class CommentsTest < ActiveSupport::TestCase
     amount = Comment.count
     article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing")
     body = 'My comment'
-    params.merge!({:body => body})
+    params.merge!({:comment => {:body => body}})
 
     post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     assert_equal amount + 1, Comment.count

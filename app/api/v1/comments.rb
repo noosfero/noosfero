@@ -35,7 +35,8 @@ module Api
           authenticate!
           article = find_article(environment.articles, {:id => params[:id]})
           return forbidden! unless article.accept_comments?
-          options = params.select { |key,v| !['id','private_token'].include?(key) }.merge(:author => current_person, :source => article)
+          options = params[:comment] || {}
+	  options.merge!(:author => current_person, :source => article)
           begin
             comment = Comment.create!(options)
           rescue ActiveRecord::RecordInvalid => e
