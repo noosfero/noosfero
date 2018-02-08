@@ -17,6 +17,14 @@ class EnvironmentTest < ActiveSupport::TestCase
       assert_equal environment.id, json['id']
     end
 
+    define_method "test_should_return_boxes_on_#{endpoint}_default_environment" do
+      environment = Environment.default
+      get "/api/v1/#{endpoint}/default?#{params.merge({:optional_fields => [:boxes]}).to_query}"
+      json = JSON.parse(last_response.body)
+      assert_equal environment.id, json['id']
+    assert_not_nil json['boxes']
+    end
+
     define_method "test_should_not_return_the_default_environment_settings_for_#{endpoint}" do
       environment = Environment.default
       get "/api/v1/#{endpoint}/default"
@@ -49,6 +57,16 @@ class EnvironmentTest < ActiveSupport::TestCase
       get "/api/v1/#{endpoint}/default"
       json = JSON.parse(last_response.body)
       assert_equal environment.description, json['description']
+    end
+
+    define_method "test_should_return_boxes_environment_for_#{endpoint}" do
+      environment = fast_create(Environment)
+      default_env = Environment.default
+      assert_not_equal environment.id, default_env.id
+      get "/api/v1/#{endpoint}/#{environment.id}?#{params.merge({:optional_fields => [:boxes]}).to_query}"
+      json = JSON.parse(last_response.body)
+      assert_equal environment.id, json['id']
+    assert_not_nil json['boxes']
     end
 
     define_method "test_should_return_created_environment_for_#{endpoint}" do
