@@ -148,7 +148,10 @@ module Api
           return not_found! if person.blank?
           begin
             current_person.remove_friend(person);
-            present({ message: 'Friend successfuly removed' })
+            output = {:success => true}
+	    output[:message] = _('The friendship with %s was removed.') % person.name
+            output[:code] = Api::Status::Http::NO_CONTENT
+            present output, :with => Entities::Response
           rescue ActiveRecord::RecordInvalid
             bad_request!
           end

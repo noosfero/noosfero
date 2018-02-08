@@ -52,7 +52,10 @@ module Api
           return forbidden! unless comment.can_be_destroyed_by?(current_person)
           begin
             comment.destroy
-            present_partial comment, with: Entities::Comment, :current_person => current_person
+            output = {:success => true}
+	    output[:message] = _("The comment '%s' was removed.") % comment.body
+            output[:code] = Api::Status::Http::NO_CONTENT
+            present output, :with => Entities::Response
           rescue => e
             render_api_error!(e.message, 500)
           end

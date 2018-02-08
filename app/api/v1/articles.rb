@@ -63,7 +63,10 @@ module Api
           return forbidden! unless article.allow_delete?(current_person)
           begin
             article.destroy
-            present({success: true})
+            output = {:success => true}
+	    output[:message] = _('The article %s was removed.') % article.title
+            output[:code] = Api::Status::Http::NO_CONTENT
+            present output, :with => Entities::Response
           rescue Exception => exception
             render_api_error!(_('The article couldn\'t be removed due to some problem. Please contact the administrator.'), Api::Status::Http::BAD_REQUEST)
           end

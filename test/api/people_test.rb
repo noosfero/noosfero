@@ -698,14 +698,43 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal json['code'], Api::Status::Friendship::WAITING_FOR_APPROVAL
   end
 
-  should 'remove person friend' do
+  should 'remove person friend should return https status 200' do
+    login_api
+    friend = fast_create(Person)
+    person.add_friend(friend)
+    friend.add_friend(person)
+    delete "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
+    assert_equal 200, last_response.status
+  end  
+
+  should 'remove person friend return success' do
     login_api
     friend = fast_create(Person)
     person.add_friend(friend)
     friend.add_friend(person)
     delete "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal json['message'], "Friend successfuly removed"
+    assert_equal json['success'], true
+  end
+
+  should 'remove person friend return  no content noosfero status code' do
+    login_api
+    friend = fast_create(Person)
+    person.add_friend(friend)
+    friend.add_friend(person)
+    delete "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['code'], Api::Status::Http::NO_CONTENT 
+  end
+
+  should 'remove person friend remove the relationship from database' do
+    login_api
+    friend = fast_create(Person)
+    person.add_friend(friend)
+    friend.add_friend(person)
+    delete "/api/v1/people/#{friend.id}/friends?#{params.to_query}"
+    person.reload
+    assert !person.friends.include?(friend)
   end  
 
   should 'list a person friend' do

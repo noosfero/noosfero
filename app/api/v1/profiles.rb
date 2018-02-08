@@ -63,9 +63,12 @@ module Api
           profile = profiles.find_by id: params[:id]
 
           not_found! if profile.blank?
-
           if profile.allow_destroy?(current_person)
-            present({ success: profile.destroy })
+            profile.destroy
+            output = {:success => true}
+	    output[:message] = _('The profile %s was removed.') % profile.name
+            output[:code] = Api::Status::Http::NO_CONTENT
+            present output, :with => Entities::Response
           else
             forbidden!
           end
