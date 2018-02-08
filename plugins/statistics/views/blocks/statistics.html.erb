@@ -3,56 +3,56 @@
 <div class="statistics-block">
   <ul>
     <% if block.is_visible?('user_counter') %>
-      <li>
+      <li class='users'>
         <%= font_awesome(:user) %>
         <span class="amount"><%= block.users%> </span>
         <span class="label"><%= _('users')%></span>
       </li>
     <% end %>
     <% if block.is_visible?('enterprise_counter') && !block.environment.enabled?('disable_asset_enterprises') %>
-      <li>
+      <li class='enterprises'>
         <%= font_awesome(:suitcase) %>
         <span class="amount"><%= block.enterprises%> </span>
         <span class="label"><%= _('enterprises')%></span>
       </li>
     <% end %>
     <% if block.is_visible?('product_counter') && block.environment.enabled?('products_for_enterprises') %>
-      <li>
+      <li class='products'>
         <%= font_awesome('shopping-cart') %>
         <span class="amount"><%= block.products%> </span>
         <span class="label"><%= _('products')%></span>
       </li>
     <% end %>
     <% if block.is_visible?('community_counter') %>
-      <li>
+      <li class='communities'>
         <%= font_awesome(:users) %>
         <span class="amount"><%= block.communities%> </span>
         <span class="label"><%= _('communities')%></span>
       </li>
     <% end %>
     <% if block.is_visible?('category_counter') %>
-      <li>
+      <li class='categories'>
         <%= font_awesome('tags') %>
         <span class="amount"><%= block.categories%> </span>
         <span class="label"><%= _('categories')%></span>
       </li>
     <% end %>
     <% if block.is_visible?('tag_counter') %>
-      <li>
+      <li class='tags'>
         <%= font_awesome(:tag) %>
         <span class="amount"><%= block.tags%> </span>
         <span class="label"><%= c_('tags')%></span>
       </li>
     <% end %>
     <% if block.is_visible?('comment_counter') %>
-      <li>
+      <li class='comments'>
         <%= font_awesome(:comments) %>
         <span class="amount"><%= block.comments%> </span>
         <span class="label"><%= c_('comments')%></span>
       </li>
     <% end %>
     <% if block.is_visible?('hit_counter') %>
-      <li>
+      <li class='hits'>
         <%= font_awesome('check-circle') %>
         <span class="amount"><%= block.hits%></span>
         <span class="label"><%= _('hits')%></span>
@@ -62,7 +62,7 @@
     <% if block.owner.kind_of?(Environment) then %>
       <% block.templates.each do |item|  %>
         <% if block.is_template_counter_active? item.id %>
-          <li>
+          <li class=<%= item.name.to_slug%>>
             <%= font_awesome('circle') %>
             <span class="amount"><%= block.template_counter_count(item.id)%></span>
             <span class="label"><%= item.name%></span>
