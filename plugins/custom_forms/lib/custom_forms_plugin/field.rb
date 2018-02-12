@@ -20,6 +20,10 @@ class CustomFormsPlugin::Field < ApplicationRecord
     field.slug = field.name.to_slug if field.name.present?
   end
 
+  def accept_multiple_answers?
+    self.show_as.in? ['check_box', 'multiple_select']
+  end
+
   private
 
   def attributes_protected_by_default
@@ -27,4 +31,3 @@ class CustomFormsPlugin::Field < ApplicationRecord
   end
 
 end
-

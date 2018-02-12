@@ -50,11 +50,13 @@ class CustomFormsPlugin::Submission < ApplicationRecord
     self.answers
   end
 
+  def answer_for(field)
+    self.answers.find{ |a| a.field == field }
+  end
+
   def q_and_a
     qa = {}
-    form.fields.each do |f|
-      self.answers.select{|a| a.field == f}.map{|answer| qa[f] = answer }
-    end
+    form.fields.each { |f| qa[f] = answer_for(f) }
     qa
   end
 
