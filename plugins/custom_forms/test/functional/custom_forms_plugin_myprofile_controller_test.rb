@@ -4,11 +4,11 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   def setup
     @profile = create_user('testuser').person
     login_as(@profile.identifier)
-    environment = Environment.default
-    environment.enable_plugin(CustomFormsPlugin)
+    @environment = Environment.default
+    @environment.enable_plugin(CustomFormsPlugin)
   end
 
-  attr_reader :profile
+  attr_reader :profile, :environment
 
   should 'list forms associated with profile' do
     another_profile = fast_create(Profile)
@@ -432,4 +432,65 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_equivalent JSON.parse(@response.body),
                       [f1, f2].map{ |f| { "id" => f.id, "name" => f.name } }
   end
+
+  should 'display number of imported submissions on success' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
+    report = { success_count: 500, errors: [] }
+    CustomFormsPlugin::CsvHandler.any_instance.expects(:import_csv)
+                                              .returns(report)
+
+    post :import, profile: profile.identifier, id: form.id
+    assert_tag tag: 'p', attributes: { class: 'result-msg' }, content: /500/
+  end
+
+  should 'not display errors if there were no failures' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
+    report = { success_count: 10, errors: [] }
+    CustomFormsPlugin::CsvHandler.any_instance.expects(:import_csv)
+                                              .returns(report)
+
+    post :import, profile: profile.identifier, id: form.id
+    assert_no_tag tag: 'div', attributes: { class: 'error-msgs' }
+  end
+
+  should 'display errors if there were failures' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
+    report = { success_count: 5, header: [], errors: [
+      { row: ['content'], row_number: 10, errors: { '2' => ['Err1', 'err2'] } },
+      { row: ['more content'], row_number: 25, errors: { '1' => ['Thing'] } }
+    ] }
+    CustomFormsPlugin::CsvHandler.any_instance.expects(:import_csv)
+                                              .returns(report)
+
+    post :import, profile: profile.identifier, id: form.id
+    assert_tag tag: 'div', attributes: { class: 'error-msgs' }, content: /2/
+    assert_tag tag: 'div', attributes: { class: /tooltip-error for-10-2/ },
+               content: /.*Err1.*err2.*/
+    assert_tag tag: 'div', attributes: { class: /tooltip-error for-25-1/ },
+               content: /Thing/
+  end
+
+  should 'not import file that exceeds maximum size' do
+    file = mock
+    file.expects(:size).returns(300.megabytes)
+    file.expects(:present?).returns(true)
+    @environment.custom_forms_plugin_metadata['max_csv_file'] = 200.megabytes
+    @environment.save
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
+
+    @controller.stubs(:params).returns({ profile: profile.identifier,
+                                         id: form.id, csv_file: file })
+    post :import, profile: profile.identifier, id: form.id, csv_file: file
+    assert_redirected_to action: 'import'
+    assert session[:notice].present?
+  end
+
 end
