@@ -1,3 +1,5 @@
+<% extend ProductsPlugin::CatalogHelper %>
+
 <%
   if @categories.nil? or @categories.length == 0
     categories = ProductCategory.on_level(nil).order(:name)
