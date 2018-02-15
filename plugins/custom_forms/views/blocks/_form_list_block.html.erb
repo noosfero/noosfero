@@ -1,17 +1,12 @@
-<% self.extend CustomFormsPlugin::Helper %>
-
-<%= block_title(block.title, block.subtitle) %>
-
 <%= link_to _('View all'),
   { controller: 'custom_forms_plugin_profile',
-    action: 'queries', kind: kind },
+    action: 'queries', kind: block.type },
   class: 'view-all' %>
 
-<% forms = block.list_forms(user) %>
 <div class='form-list'>
   <% if forms.present? %>
     <% forms.each do |form| %>
-      <%= render partial: "blocks/#{block.type}_item",
+      <%= render partial: "blocks/#{block.type}/list_item",
         locals: { form: form, block: block } %>
     <% end %>
   <% else %>

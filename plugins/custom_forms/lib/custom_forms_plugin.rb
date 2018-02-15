@@ -32,7 +32,7 @@ class CustomFormsPlugin < Noosfero::Plugin
   end
 
   def js_files
-    'javascripts/graph.js'
+    ['javascripts/graph.js', 'javascripts/query_blocks']
   end
 
 end

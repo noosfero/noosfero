@@ -1,10 +1,7 @@
 require 'test_helper'
-require_relative '../../controllers/custom_forms_plugin_profile_controller'
 
 class CustomFormsPluginProfileControllerTest < ActionController::TestCase
   def setup
-    @controller = CustomFormsPluginProfileController.new
-
     @profile = create_user('profile').person
     login_as(@profile.identifier)
     environment = Environment.default
@@ -238,5 +235,41 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     get :review, :profile => profile.identifier, :id => form.identifier
     assert_response :forbidden
     assert_template 'shared/access_denied'
+  end
+
+  should 'download csv with all submissions' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                            :name => 'Free Software',
+                                            :identifier => 'free')
+    submission = CustomFormsPlugin::Submission.create!(:form => form,
+                                                       :profile => profile)
+    get :review, :profile => profile.identifier, :id => form.identifier, :format => 'csv'
+    assert_response :success
+  end
+
+  should 'display form options to profile admin' do
+    community = fast_create(Community)
+    community.add_admin(profile)
+    form = community.forms.create!(name: 'Free Software')
+
+    get :show, :profile => community.identifier, :id => form.identifier
+    assert_tag tag: 'div', attributes: { class: 'custom-form-options' }
+  end
+
+  should 'display form options to environment admin' do
+    community = fast_create(Community)
+    community.environment.add_admin(profile)
+    form = community.forms.create!(name: 'Free Software')
+
+    get :show, :profile => community.identifier, :id => form.identifier
+    assert_tag tag: 'div', attributes: { class: 'custom-form-options' }
+  end
+
+  should 'not display form options to visitors' do
+    community = fast_create(Community)
+    form = community.forms.create!(name: 'Free Software')
+
+    get :show, :profile => community.identifier, :id => form.identifier
+    assert_no_tag tag: 'div', attributes: { class: 'custom-form-options' }
   end
 end

@@ -300,6 +300,16 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
+  should 'display description if block is in detailed mode' do
+    poll = create_poll('Poll 1', description: 'Some text')
+    @my_block.metadata['filtered_queries'] = poll.id
+    @my_block.save
+
+    get "/profile/#{@profile.identifier}"
+    assert_tag tag: 'div', content: /#{poll.description}/,
+               attributes: { class: /form-description/ }
+  end
+
   private
 
   def create_poll(name, opts={})

@@ -10,11 +10,11 @@ class CustomFormsPlugin::SurveyBlock < Block
 
   def self.description
     _('Surveys list in profile')
-  end 
+  end
 
   def self.pretty_name
    _('Surveys')
-  end 
+  end
 
   def type
     'survey'
