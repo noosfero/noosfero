@@ -14,6 +14,7 @@ class SearchController < PublicController
   before_filter :load_query, :except => :suggestions
   before_filter :load_order, :except => :suggestions
   before_filter :load_templates, :except => :suggestions
+  before_filter :load_kind, :only => [:people, :enterprises, :communities]
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -75,11 +76,13 @@ class SearchController < PublicController
 
   def people
     @scope = visible_profiles(Person)
+    @scope = @scope.with_kind(@kind) if @kind.present?
     full_text_search
   end
 
   def enterprises
     @scope = visible_profiles(Enterprise)
+    @scope = @scope.with_kind(@kind) if @kind.present?
     full_text_search
   end
 
@@ -91,6 +94,7 @@ class SearchController < PublicController
 
   def communities
     @scope = visible_profiles(Community)
+    @scope = @scope.with_kind(@kind) if @kind.present?
     full_text_search
   end
 
@@ -205,6 +209,13 @@ class SearchController < PublicController
   def load_templates
     @templates = {}
     @templates[@asset] = environment.send(@asset.to_s).templates if [:people, :enterprises, :communities].include?(@asset)
+  end
+
+  def load_kind
+    if params[:kind].present?
+      @kind = Kind.find_by(name: params[:kind])
+      render_not_found(params[:kind]) unless @kind.present?
+    end
   end
 
   def limit

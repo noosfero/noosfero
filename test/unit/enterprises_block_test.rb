@@ -71,7 +71,7 @@ class EnterprisesBlockViewTest < ActionView::TestCase
     block = EnterprisesBlock.new
     block.expects(:owner).twice.returns(env)
 
-    ActionView::Base.any_instance.expects(:link_to).with('View all', :controller => 'search', :action => 'assets', :asset => 'enterprises')
+    ActionView::Base.any_instance.expects(:link_to).with('View all', :controller => 'search', :action => 'assets', :asset => 'enterprises', :kind => nil)
     render_block_footer(block)
   end
 
