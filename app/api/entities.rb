@@ -318,6 +318,7 @@ module Api
         environment.permissions_for(options[:current_person])
       end
       expose :theme
+      expose :boxes, :using => Box, :if => lambda {|instance, options| Entities.expose_optional_field?(:boxes, options)}
     end
 
     class Tag < Entity

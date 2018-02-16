@@ -21,7 +21,7 @@ module Api
               local_environment = Environment.find(params[:id])
             end
             status Api::Status::DEPRECATED if path == 'environment'
-            present_partial local_environment, with: Entities::Environment, is_admin: is_admin?(local_environment), current_person: current_person
+            present_partial local_environment, with: Entities::Environment, is_admin: is_admin?(local_environment), current_person: current_person, :params => params
           end
   
           desc "Update environment information"
