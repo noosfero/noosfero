@@ -3,33 +3,39 @@ Feature: push notification administration
   I want to configure the push notification plugin
 
   Background:
-    Given plugin PushNotification is enabled on environment
+    Given "PushNotification" plugin is enabled
     Given I am logged in as admin
 
+  @selenium
   Scenario: configure the api key
-    Given I go to /admin/plugin/push_notification
+    Given I am on the environment control panel
+    And I follow "Plugins"
+    And I follow "Configuration"
     And I fill in "Server API key" with "ABCDEFGH1234567890"
-    When I press "Save"
+    When I follow "Save"
     Then I should be on /admin/plugin/push_notification
     Then the "Server API key" field should contain "ABCDEFGH1234567890"
 
+  @selenium
   Scenario: change the api key
     Given that "old_key" is the server api key
     Given I go to /admin/plugin/push_notification
     Then the "Server API key" field should contain "old_key"
     When I fill in "Server API key" with "new_key"
-    And I press "Save"
+    And I follow "Save"
     Then I should be on /admin/plugin/push_notification
     Then the "Server API key" field should contain "new_key"
 
+  @selenium
   Scenario: enable notifications
     Given I go to /admin/plugin/push_notification
     And I check "settings_add_member"
     And I check "settings_new_article"
-    When I press "Save"
+    When I follow "Save"
     Then the "settings_add_member" checkbox should be checked
     Then the "settings_new_article" checkbox should be checked
 
+  @selenium
   Scenario: disable notifications
     Given the following notifications
       |name|
@@ -40,7 +46,7 @@ Feature: push notification administration
     Then the "settings_add_member" checkbox should be checked
     And I uncheck "settings_add_friend"
     And I uncheck "settings_add_member"
-    When I press "Save"
+    When I follow "Save"
     Then I should be on /admin/plugin/push_notification
     Then the "settings_add_friend" checkbox should not be checked
     Then the "settings_add_member" checkbox should not be checked
