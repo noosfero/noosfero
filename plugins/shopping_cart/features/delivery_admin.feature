@@ -38,7 +38,7 @@ Feature: delivery administration
     And I fill in "Name" with "Bike"
     And I fill in "Fixed cost" with "8.00"
     And I fill in "delivery_method_free_over_price" with "35.50"
-    When I press "Add"
+    When I follow "Add"
     Then I should see "Bike" within ".delivery-method"
 
   @selenium
@@ -49,7 +49,7 @@ Feature: delivery administration
     And I select "Pickup" from "Type"
     And I fill in "Name" with "Bar"
     And I fill in "Fixed cost" with "0.00"
-    When I press "Add"
+    When I follow "Add"
     Then I should see "Bar"
 
   @selenium
@@ -58,7 +58,7 @@ Feature: delivery administration
     And I check "Enable shopping basket"
     And I follow "New delivery or pickup"
     And I fill in "Name" with "Bike"
-    When I press "Add"
+    When I follow "Add"
     Then I should see "Bike"
     And I follow "Remove" within ".delivery-method"
     When I confirm the browser dialog
@@ -70,10 +70,10 @@ Feature: delivery administration
     And I check "Enable shopping basket"
     And I follow "New delivery or pickup"
     And I fill in "Name" with "Bike"
-    When I press "Add"
+    When I follow "Add"
     Then I should see "Bike"
     And I follow "Edit" within ".delivery-method"
     And I fill in "Name" with "Car"
-    When I press "Save"
+    When I follow "Save"
     Then I should not see "Bike"
     Then I should see "Car"

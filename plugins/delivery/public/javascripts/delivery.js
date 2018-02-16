@@ -48,8 +48,8 @@ delivery = {
       select = jQuery(select)
     },
 
-    new: function(newUrl) {
-      this.edit(newUrl)
+    new: function(button) {
+      this.edit($(button).data('url'))
     },
 
     edit: function(editUrl) {
@@ -80,10 +80,12 @@ delivery = {
       return false;
     },
 
-    destroy: function(id, confirmText, destroy_url) {
-      if (!confirm(confirmText))
+    destroy: function(button) {
+      var element = $(button)
+      if (!confirm(element.data('message')))
         return
-      var method = jQuery('#delivery-method-'+id)
+      var method = jQuery('#delivery-method-'+ element.data('method-id'))
+      var destroy_url = element.data('url')
       jQuery.post(destroy_url, function() {
         method.fadeOut(function() {
           method.remove()

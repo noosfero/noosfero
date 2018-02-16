@@ -1,0 +1,13 @@
+<tr>
+  <td colspan='3'>
+    <%= button_to_function :add, t('delivery_plugin.views.method.index.new'), 'delivery.method.new(this)',
+                           :data => { :url => (url_for request.GET.merge(controller: 'delivery_plugin/admin_method', action: :new))} %>
+  </td>
+</tr>
+
+<% profile.delivery_methods.each do |m| %>
+  <tr class='delivery-method' id=<%= "delivery-method-#{m.id}" %>>
+    <%= render "delivery_plugin/admin_method/show", method: m %>
+  </tr>
+<% end %>
+
