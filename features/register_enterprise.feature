@@ -14,12 +14,12 @@ Feature: register enterprise
 
   Scenario: enterprise registration is disabled by admin
     Given feature "enterprise_registration" is disabled on environment
-    When I follow "Manage my groups"
+    When I follow "Groups" within "#section-relationships"
     Then I should not see "Register a new enterprise"
 
   Scenario: approval method is admin
     Given organization_approval_method is "admin" on environment
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     When I follow "Register a new enterprise"
     Then I should not see "Region"
 
@@ -34,13 +34,13 @@ Feature: register enterprise
     And the following states
       | name          | validator_name |
       | Sample State  | Validator      |
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     When I follow "Register a new enterprise"
     Then I should see "Region"
 
   Scenario: approval method is by region validator but there are no validators
     Given organization_approval_method is "region" on environment
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     When I follow "Register a new enterprise"
     Then I should see "There are no validators to validate the registration of this new enterprise. Contact your administrator for instructions."
 
@@ -49,7 +49,7 @@ Feature: register enterprise
       | foundation_year |
       | contact_person  |
       | contact_email   |
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     When I follow "Register a new enterprise"
     Then I should see "Foundation year"
     Then I should see "Contact person"
@@ -57,7 +57,7 @@ Feature: register enterprise
 
   Scenario: some required fields
     Given organization_approval_method is "admin" on environment
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     And the following states
       | name          |
       | Sample State  |
@@ -81,7 +81,7 @@ Feature: register enterprise
   Scenario: a user register an enterprise successfully through the admin validator method and the admin accepts
     Given organization_approval_method is "admin" on environment
     And the mailbox is empty
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     And the following states
       | name          |
       | Sample State  |
@@ -100,14 +100,14 @@ Feature: register enterprise
     Then the last mail is to joaosilva@example.com
     And I am logged in as "joaosilva"
     And I am on joaosilva's control panel
-    When I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should see "My Enterprise"
 
   @selenium
   Scenario: a user register an enterprise successfully through the admin validator method and the admin rejects
     Given organization_approval_method is "admin" on environment
     And the mailbox is empty
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     And the following states
       | name          |
       | Sample State  |
@@ -128,14 +128,14 @@ Feature: register enterprise
     Then the last mail is to joaosilva@example.com
     And I am logged in as "joaosilva"
     And I am on joaosilva's control panel
-    When I follow "Manage my groups"
+    When I follow "Groups" within "#section-relationships"
     Then I should not see "My Enterprise"
 
   @selenium
   Scenario: a user register an enterprise successfully through the region
             validator method and the validator accepts
     Given organization_approval_method is "region" on environment
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     And the following enterprise
       | name      | identifier | owner     |
       | Validator | validator  | joaosilva |
@@ -161,14 +161,14 @@ Feature: register enterprise
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
     And I follow "Accept"
     And I am on joaosilva's control panel
-    When I follow "Manage my groups"
+    When I follow "Groups" within "#section-relationships"
     Then I should see "My Enterprise"
 
   @selenium
   Scenario: a user register an enterprise successfully through the region
             validator method and the validator rejects
     Given organization_approval_method is "region" on environment
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     And the following enterprise
       | name      | identifier | owner     |
       | Validator | validator  | joaosilva |
@@ -196,7 +196,7 @@ Feature: register enterprise
     And I fill in "Rejection explanation" with "This enterprise has some irregularities."
     # And I follow "Apply"
     And I am on joaosilva's control panel
-    When I follow "Manage my groups"
+    When I follow "Groups" within "#section-relationships"
     Then I should not see "My Enterprise"
 
   Scenario: a user cant see button to register new enterprise if enterprise_registration disabled

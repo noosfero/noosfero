@@ -16,7 +16,7 @@ Feature:
       | sample-community | MembersBlock |
     And I am logged in as "joaosilva"
     And I go to sample-community's control panel
-    And I follow "Edit sideboxes"
+    And I follow "Blocks" within "#section-design"
     And I follow "Edit" within ".members-block"
     And I check "Show join leave button"
     And I press "Save"
@@ -26,7 +26,7 @@ Feature:
     And I go to sample-community's homepage
     When I follow "Join this community" within ".members-block"
     And I go to mariasilva's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should see "Sample Community"
 
   Scenario: a not logged in user can log in by members block's button
@@ -37,7 +37,7 @@ Feature:
 
   Scenario: the join-leave button do not appear if the checkbox show-join-leave-button is not checked
     And I go to sample-community's control panel
-    And I follow "Edit sideboxes"
+    And I follow "Blocks" within "#section-design"
     And I follow "Edit" within ".members-block"
     And I uncheck "Show join leave button"
     And I press "Save"

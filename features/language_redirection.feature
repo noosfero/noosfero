@@ -26,7 +26,7 @@ Feature: language redirection
     # Testing the web UI
     Given I am logged in as "manuel"
     And my browser prefers English
-    And I go to /myprofile/manuel/profile_editor/edit
+    And I go to /myprofile/manuel/profile_editor/preferences
     And I check "Automaticaly redirect the visitor to the article translated to his/her language"
     And I press "Save"
     When I go to /manuel/meu-artigo

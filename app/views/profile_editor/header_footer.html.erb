@@ -23,8 +23,8 @@
     <h2><%= _('Content for footer') %></h2>
     <%= text_area_tag(:custom_footer, @footer, :style => 'width: 100%; height: 150px;', :class => current_editor) %>
     <%= button_bar do %>
+      <%= button(:back, _('Back to control panel'), :action => 'index') %>
       <%= submit_button(:save, _('Save')) %>
-      <%= button(:cancel, _('Cancel'), :action => 'index') %>
     <% end %>
   </div>
 <% end %>

@@ -49,17 +49,8 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
     }
   end
 
-  def control_panel_buttons
-    if context.profile.organization?
-      {
-        title: _('Public Welcome Page'),
-        icon: 'welcome-page',
-        url: {
-          controller: 'public_access_restriction_plugin_page',
-          action: 'index'
-        }
-      }
-    end
+  def control_panel_entries
+    [PublicAccessRestrictionPlugin::ControlPanel::WelcomePage]
   end
 
   private

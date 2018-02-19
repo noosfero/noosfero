@@ -21,12 +21,12 @@ Feature: sub_organizations_display
       | springfield | RelatedOrganizationsBlock |
    And I am logged in as "nelson"
    And I go to springfield's control panel
-   When I follow "Edit sideboxes"
+   When I follow "Blocks" within "#section-design"
 
     @selenium
     Scenario: Display the sub organization block when there is a sub enterprise and communitys
       When I go to springfield's control panel
-      And I follow "Manage sub-groups"
+      And I follow "Subgroups" within "#section-relationships"
       And I follow "Register a new sub-enterprise"
       And I fill in "Name" with "Bart"
       And I fill in "Address" with "bart"
@@ -34,13 +34,13 @@ Feature: sub_organizations_display
       Then I should see "Enterprise registration completed"
       And I am logged in as admin
       And I go to admin_user's control panel
-      When I follow "Tasks" within ".control-panel"
+      When I follow "Tasks" within "#section-profile"
       Then I should see "Nelson wants to create enterprise Bart."
       And the first mail is to admin_user@example.com
       And I follow "Accept"
       And I am logged in as "nelson"
       When I go to springfield's control panel
-      And I follow "Manage sub-groups"
+      And I follow "Subgroups" within "#section-relationships"
       And I follow "Create a new sub-community"
       And I fill in "Name" with "Homer"
       And I follow "Create"

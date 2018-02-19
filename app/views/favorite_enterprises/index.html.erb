@@ -2,12 +2,8 @@
 
   <h1><%= _("%s's favorite enterprises") % profile.name %></h1>
 
-  <%= button_bar do %>
-    <%= button(:back, _('Go back'), :controller => 'profile_editor') %>
-  <% end %>
-
   <% if @favorite_enterprises.empty? %>
-    <p>
+    <p class='no-results'>
       <em>
         <%= _('You have no favorite enterprises yet.') %>
       </em>
@@ -29,3 +25,8 @@
     <%= pagination_links @favorite_enterprises, :param_name => 'npage' %>
   <% end %>
 </div>
+
+
+<%= button_bar do %>
+  <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+<% end %>

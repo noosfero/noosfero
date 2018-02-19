@@ -157,18 +157,10 @@ class Enterprise < Organization
   end
   alias_method_chain :template, :inactive_enterprise
 
-  def control_panel_settings_button
-    {:title => _('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}
-  end
-
   settings_items :enable_contact_us, :type => :boolean, :default => true
 
   def enable_contact?
     enable_contact_us
-  end
-
-  def control_panel_settings_button
-    {:title => _('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}
   end
 
   def more_recent_label

@@ -169,7 +169,7 @@ Feature: events
     And I am logged in as "josesilva"
     And "josesilva" is a member of "Sample Community"
     And I go to josesilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "Another Conference"
     And I follow "article-options"
     And I follow "Spread"
@@ -204,7 +204,7 @@ Feature: events
   Scenario: events lead should be shown on blogs with short format
     Given I am logged in as "josesilva"
     And I am on josesilva's control panel
-    And I follow "Configure blog"
+    And I follow "Configure Blog"
     And I select "First paragraph" from "How to display posts:"
     And I follow "Save"
     And I follow "article-options"

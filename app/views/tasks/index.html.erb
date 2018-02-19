@@ -37,7 +37,7 @@
     <% end %>
 <% end %>
 <% if @tasks.empty? %>
-  <p>
+  <p class='empty-tasks'>
     <em><%= _('No pending tasks for %s') % profile.name %></em>
   </p>
 <% else %>
@@ -48,7 +48,6 @@
       <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
       <%= button(:save, _("Accept all tasks"), '#!', :id => 'save-all-tasks') %>
       <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
-      <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
     <% end unless @view_only %>
 
     <ul class='task-list'>
@@ -68,5 +67,8 @@
 <% end %>
 </p>
 
+<%= button_bar do %>
+  <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
+<% end %>
 
 <%= javascript_include_tag 'tasks' %>

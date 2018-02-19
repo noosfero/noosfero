@@ -361,7 +361,7 @@ module ApplicationHelper
 
     @object = instance_variable_get("@#{object_name}")
     @categories = environment.send("top_level_#{kind}")
-    selected_categories = @object.send(kind)
+    selected_categories = @object.send(kind).where(type: kind.to_s.singularize.camelize)
 
     render :partial => 'shared/select_categories_top', :locals => { :object_name => object_name, :title => title, :title_size => title_size, :multiple => true, :categories_selected => selected_categories, :kind => kind }, :layout => false
   end

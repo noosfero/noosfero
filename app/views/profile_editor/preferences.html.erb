@@ -1,0 +1,36 @@
+<h1><%= _('%s\' Preferences').html_safe % profile.name %></h1>
+
+<%= error_messages_for :profile_data %>
+
+<%= labelled_form_for :profile_data, :html => { :id => 'profile-data'} do |f| %>
+  <h2><%= _('Editor') %></h2>
+  <%= select_editor(_('With which editor you want to use to write your contents?'), 'profile_data', 'editor', {}) %>
+
+  <h2><%= _('Translations') %></h2>
+  <%= labelled_check_box(
+    _('Automaticaly redirect the visitor to the article translated to his/her language'),
+    'profile_data[redirect_l10n]', true, @profile.redirect_l10n
+  )%>
+
+  <h2><%= _('Suggestions') %></h2>
+  <%= labelled_check_box(
+    _('Send me relationship suggestions by email'),
+    'profile_data[email_suggestions]', true, @profile.email_suggestions
+  )%>
+
+  <%= content_tag('h2', _('Files upload')) %>
+  <div>
+    <%= labelled_check_box _('Send single file in upload with description').html_safe,
+      'profile_data[metadata][allow_single_file]', "1", @profile.metadata['allow_single_file'] == "1" %>
+  </div>
+
+  <% if environment.enabled?('allow_change_of_redirection_after_login') %>
+    <%= content_tag('h2', _('Redirection after login')) %>
+    <%= render 'redirection_after_login', f: f %>
+  <% end %>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
+    <%= submit_button('save', _('Save')) %>
+  <% end %>
+<% end %>

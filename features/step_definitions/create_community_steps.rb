@@ -2,7 +2,7 @@ include DatesHelper
 
 Given /^I create community "(.+)"$/ do |community|
   step %{I go to admin_user's control panel}
-  click_link('Manage my groups')
+  click_link('Groups')
   click_link('Create a new community')
   fill_in("Name", :with => community)
   click_button("Create")
@@ -10,7 +10,7 @@ end
 
 Given /^"(.+)" creates the community "(.+)"$/ do |username, community|
   step %{I go to #{username}'s control panel}
-  click_link('Manage my groups')
+  click_link('Groups')
   click_link('Create a new community')
   fill_in("Name", :with => community)
   click_link("Create")

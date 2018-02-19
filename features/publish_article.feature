@@ -22,7 +22,7 @@ Feature: publish article
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
     And I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "article-options"
     And I follow "Spread"
     And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
@@ -35,7 +35,7 @@ Feature: publish article
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
     And I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "article-options"
     And I follow "Spread"
     And I choose the following communities to spread
@@ -52,7 +52,7 @@ Feature: publish article
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
     And I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "article-options"
     And I follow "Spread"
     And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
@@ -61,7 +61,7 @@ Feature: publish article
     And I am logged in as "mariasilva"
     And "Maria Silva" is a member of "Sample Community"
     And I am on mariasilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "New content"
     And I should see "Text article"
     And I follow "Text article"
@@ -86,14 +86,14 @@ Feature: publish article
     And "Joao Silva" is a member of "Another Community1"
     And "Joao Silva" is a member of "Another Community2"
     And I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "article-options"
     And I follow "Spread"
     And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
     And I follow "Spread this"
     And I should not see "This article name is already in use in the following community(ies):"
     And I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "article-options"
     And I follow "Spread"
     And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
@@ -112,17 +112,17 @@ Feature: publish article
     And "Joao Silva" is a member of "Sample Community"
     And "Joao Silva" is admin of "Sample Community"
     And I am on sample-community's control panel
-    And I follow "Community Info and settings"
+    And I follow "Informations" within "#section-profile"
     And I choose "profile_data_moderated_articles_true"
     And I follow "Save"
     And I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "article-options"
     And I follow "Spread"
     And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
     And I follow "Spread this"
     And I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "article-options"
     And I follow "Spread"
     And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"
@@ -142,11 +142,11 @@ Feature: publish article
     Given I am logged in as "joaosilva"
     And "Joao Silva" is admin of "Sample Community"
     And I am on sample-community's control panel
-    And I follow "Community Info and settings"
+    And I follow "Informations" within "#section-profile"
     And I choose "profile_data_moderated_articles_true"
     And I follow "Save"
     And I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "article-options"
     And I follow "Spread"
     And I type in "Sample Community" into autocomplete list "search-communities-to-publish" and I choose "Sample Community"

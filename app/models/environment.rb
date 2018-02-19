@@ -741,7 +741,7 @@ class Environment < ApplicationRecord
 
   # returns an array with the top level categories for this environment.
   def top_level_categories
-    Category.top_level_for(self)
+    Category.top_level_for(self).where(type: 'Category')
   end
 
   # returns an array with the top level regions for this environment.

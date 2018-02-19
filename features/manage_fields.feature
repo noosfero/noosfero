@@ -21,7 +21,7 @@ Feature: check all manage fields
     And I check "person_active"
     And I follow "Save changes"
     When I go to admin_user's control panel
-    And I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     Then I should see "Custom area of study"
 
   @selenium
@@ -30,7 +30,7 @@ Feature: check all manage fields
     And I check "enterprise_active"
     And I follow "Save changes"
     When I go to paper-street's control panel
-    And I follow "Enterprise Info and settings"
+    And I follow "Informations" within "#section-profile"
     Then I should see "Historic and current context"
 
   @selenium
@@ -39,7 +39,7 @@ Feature: check all manage fields
     And I check "community_active"
     And I follow "Save changes"
     When I go to mycommunity's control panel
-    And I follow "Community Info and settings"
+    And I follow "Informations" within "#section-profile"
     Then I should see "Economic activity"
 
   @selenium
@@ -51,7 +51,7 @@ Feature: check all manage fields
     And I follow "Save changes"
     And I follow "menu-dropdown"
     And I follow "Control panel"
-    When I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     Then I should not see "Custom area of study"
 
   @selenium
@@ -63,7 +63,7 @@ Feature: check all manage fields
     And I uncheck "community_active"
     And I follow "Save changes"
     When I go to mycommunity's control panel
-    And I follow "Community Info and settings"
+    And I follow "Informations" within "#section-profile"
     Then I should not see "Economic activity"
 
   @selenium
@@ -75,5 +75,5 @@ Feature: check all manage fields
     And I uncheck "enterprise_active"
     And I follow "Save changes"
     When I go to paper-street's control panel
-    And I follow "Enterprise Info and settings"
+    And I follow "Informations" within "#section-profile"
     Then I should not see "Historic and current context"

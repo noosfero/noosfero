@@ -16,7 +16,7 @@ class RequireAuthToCommentPlugin < Noosfero::Plugin
     c.reject! unless logged_in? || allowed_by_profile
   end
 
-  def profile_editor_extras
+  def profile_editor_informations
     expanded_template('profile-editor-extras.html.erb').html_safe
   end
 

@@ -12,6 +12,8 @@ class CommentClassificationPlugin < Noosfero::Plugin
   end
 
 #TODO Each organization can add its own status and labels
+#FIXME If this is ever written it should be rewrited to new control_panel
+#      format using control_panel_entries hotspot.
 #  def control_panel_buttons
 #    if context.profile.organization?
 #      { :title => _('Manage comment classification'), :icon => 'comment_classification', :url => {:controller => 'comment_classification_plugin_myprofile'} }
