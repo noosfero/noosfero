@@ -270,42 +270,6 @@ class PeopleTest < ActiveSupport::TestCase
     assert_equal Api::Status::Http::UNPROCESSABLE_ENTITY, last_response.status
   end
 
-  should 'display permissions' do
-    login_api
-    community = fast_create(Community)
-    community.add_member(fast_create(Person))
-    community.add_member(person)
-    permissions = Profile::Roles.member(person.environment.id).permissions
-    get "/api/v1/people/#{person.id}/permissions?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-
-    assert_equal json[community.identifier], permissions
-  end
-
-  should 'display permissions if self' do
-    login_api
-    get "/api/v1/people/#{person.id}/permissions?#{params.to_query}"
-    assert_equal 200, last_response.status
-  end
-
-  should 'display permissions if admin' do
-    login_api
-    environment = person.environment
-    environment.add_admin(person)
-    some_person = fast_create(Person)
-
-    get "/api/v1/people/#{some_person.id}/permissions?#{params.to_query}"
-    assert_equal 200, last_response.status
-  end
-
-  should 'not display permissions if not admin or self' do
-    login_api
-    some_person = fast_create(Person)
-
-    get "/api/v1/people/#{some_person.id}/permissions?#{params.to_query}"
-    assert_equal 403, last_response.status
-  end
-
   should 'not update another person' do
     login_api
     person = fast_create(Person, :environment_id => environment.id)

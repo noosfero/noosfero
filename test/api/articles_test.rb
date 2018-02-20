@@ -212,7 +212,7 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
 
     assert_not_equal 401, last_response.status
-    assert_equal true, json['vote']
+    assert_equal true, json['success']
   end
 
   expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count)
