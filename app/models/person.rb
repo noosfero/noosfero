@@ -344,7 +344,9 @@ class Person < Profile
   settings_items :formation, :custom_formation, :custom_area_of_study
 
   N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code'); N_('District'); N_('Address reference')
-  settings_items :photo, :contact_information, :sex, :city, :state, :country, :zip_code, :district, :address_line2, :address_reference
+  settings_items :photo, :contact_information, :sex
+  metadata_items :city, :state, :country, :zip_code, :district, :address_line2,
+                 :address_reference
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state
