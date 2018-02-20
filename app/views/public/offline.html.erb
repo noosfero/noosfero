@@ -1,0 +1,11 @@
+<div class='offline content'>
+  <h1><%= _('You are offline') %></h1>
+
+  <p><%= _('It was not possible to load this page.') %></p>
+  <p><%= _('Check your internet connection.') %></p>
+
+  <div class='offline-actions'>
+    <%= button :back, _('Go back'), '#', class: 'go-back' %>
+    <%= button :more, _('Reload'), '#', class: 'reload' %>
+  </div>
+</div>

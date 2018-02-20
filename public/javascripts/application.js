@@ -42,6 +42,7 @@
 *= require email_templates.js
 *= require categories_selector.js
 *= require comments.js
+*= require offline_page.js
 *
 * serviceworker
 *= require serviceworker-companion.js
