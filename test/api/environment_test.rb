@@ -6,7 +6,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     create_and_activate_user
   end
 
-  ENDPOINTS = ['environment', 'environments']
+  ENDPOINTS = ['environments']
 
   ENDPOINTS.map do |endpoint|
 
