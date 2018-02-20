@@ -26,6 +26,11 @@ module Api
       Session.find_by(session_id: cookies[:_noosfero_session])
     end
 
+    def reset_session
+      session.destroy unless session.nil?
+      logout
+    end
+
     def current_user
       private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
       @current_user ||= User.find_by private_token: private_token

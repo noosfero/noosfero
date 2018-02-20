@@ -95,10 +95,12 @@ module Api
               Delayed::Job.enqueue DownloadReportedImagesJob.new(abuse_report, article)
             end
 
-            {
-              :success => true,
-              :message => _('Your abuse report was registered. The administrators are reviewing your report.'),
-            }
+            output = {:success => true}
+	    output[:message] = _('Your abuse report was registered. The administrators are reviewing your report.'),
+            output[:code] = Api::Status::WAITING_FOR_REVIEW
+
+            present output, :with => Entities::Response
+
           rescue Exception => exception
             #logger.error(exception.to_s)
             render_api_error!(_('Your report couldn\'t be saved due to some problem. Please contact the administrator.'), Api::Status::Http::BAD_REQUEST)
@@ -130,7 +132,13 @@ module Api
           article = find_article(environment.articles, {:id => params[:id]})
           begin
             vote = Vote.new(:voteable => article, :voter => current_person, :vote => value)
-            {:vote => vote.save!}
+            vote.save!
+
+            output = {:success => true}
+	    output[:message] = _('Your vote was created.')
+            output[:code] = Api::Status::Http::CREATED
+
+            present output, :with => Entities::Response
           rescue ActiveRecord::RecordInvalid => e
             render_model_errors!(vote.errors)
           end
@@ -152,13 +160,21 @@ module Api
           article = find_article(environment.articles, {:id => params[:id]})
           if article.article_followers.exists?(:person_id => current_person.id)
             {:success => false, :already_follow => true}
+            output = {:success => false}
+	    output[:message] = _('You already follow this article.')
+            output[:code] = Api::Status::Http::ALREADY_FOLLOW
           else
             article_follower = ArticleFollower.new
             article_follower.article = article
             article_follower.person = current_person
             article_follower.save!
             {:success => true}
+            output = {:success => true}
+ 	    output[:message] = _('You are now following the article %s.') % article.title
+            output[:code] = Api::Status::Http::CREATED
           end
+
+          present output, :with => Entities::Response
         end
 
         desc 'Return the children of a article identified by id' do

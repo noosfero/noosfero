@@ -42,7 +42,7 @@ module Api
             current_person.user.change_password!(params[:current_password],
                                params[:new_password],
                                params[:new_password_confirmation])
-            present({ success: true })
+	    present current_person.user, :with => Entities::User, :current_person => current_person
           rescue Exception
             render_model_errors!(current_person.user.errors)
           end
