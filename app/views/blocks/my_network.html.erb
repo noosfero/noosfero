@@ -1,8 +1,8 @@
 <%= block_title(block.title, block.subtitle) %>
 
 <ul>
-  <li><%= link_to(_('Homepage'), block.owner.url, :class => 'url') %></li>
-  <li><%= link_to(_('View profile'), block.owner.public_profile_url) %></li>
+  <li><%= link_to(font_awesome(:home, _('Homepage')), block.owner.url, :class => 'link-this-page url') %></li>
+  <li><%= link_to(font_awesome(:user, _('View profile')), block.owner.public_profile_url) %></li>
   <% if !user.nil? and block.owner.organization? and user.has_permission?('edit_profile', profile) %>
     <li><%= link_to _('Control panel'), :controller => 'profile_editor', :profile => profile.identifier %></li>
   <% end %>
