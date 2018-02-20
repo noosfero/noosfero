@@ -1,4 +1,4 @@
-<%= link_to s_('friends|View all'), {:profile => block.owner.identifier, :controller => 'profile', :action => 'friends'}, :class => 'view-all' %>
+<%= link_to font_awesome('angle-double-right', _('View all')), {:profile => block.owner.identifier, :controller => 'profile', :action => 'friends'}, :class => 'view-all' %>
 
 <% if !block.suggestions.empty? && user == block.owner %>
   <div class='suggestions-block common-profile-list-block'>

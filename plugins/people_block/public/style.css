@@ -52,7 +52,6 @@
 .box-2 .people-block ul,
 .box-3 .people-block ul {
   min-width: 196px;
-  width: 192px;
   margin: 0px 0px 0px -3px;
   padding: 0px;
 }
@@ -60,13 +59,6 @@
 /*******************************************************************
  *                        BLOCKs                                   *
  *******************************************************************/
-#content .friends-block ul,
-#content .members-block ul {
-  min-width: 196px;
-  width: 192px;
-  margin: 0px 0px 0px -3px;
-  padding: 0px;
-}
 #content .box-1 .people-block ul,
 #content .box-1 .friends-block ul,
 #content .box-1 .members-block ul {
@@ -86,12 +78,6 @@
   border: 1px solid #2e3436;
   text-decoration: none;
 }
-#content .people-block .block-footer-content a.view-all,
-#content .friends-block .block-footer-content a.view-all,
-#content .members-block .block-footer-content a.view-all {
-  background: url(/designs/themes/base/imgs/arrow-right-p.png) 100% 50% no-repeat;
-}
-
 #content .friends-block .block-footer-content .profiles-suggestions a,
 #content .friends-block .block-footer-content a.more-suggestions {
   position: relative;

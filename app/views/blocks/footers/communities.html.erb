@@ -1,8 +1,8 @@
 <% if block.owner.kind_of?(Profile) || block.owner.kind_of?(Environment) %>
   <% if block.owner.kind_of?(Profile) %>
-    <%= link_to s_('communities|View all'), {:profile => block.owner.identifier, :controller => 'profile', :action => 'communities'}, :class => 'view-all' %>
+    <%= link_to font_awesome('angle-double-right', _('View all')), {:profile => block.owner.identifier, :controller => 'profile', :action => 'communities'}, :class => 'view-all' %>
   <% elsif block.owner.kind_of?(Environment) %>
-    <%= link_to s_('communities|View all'), {:controller => 'search', :action => 'communities', :kind => block.kind.try(:name)}, :class => 'view-all' %>
+    <%= link_to font_awesome('angle-double-right', _('View all')), {:controller => 'search', :action => 'communities', :kind => block.kind.try(:name)}, :class => 'view-all' %>
   <% end %>
 
   <% if user && user == profile && block.suggestions && !block.suggestions.empty? %>

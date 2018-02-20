@@ -1,36 +1,3 @@
-
-#content .communities-block .profile-image {
-  float: none;
-  padding-left: 0px;
-  max-width: none;
-}
-#content .communities-block .vcard {
-  display: inline-block;
-  width: 76px;
-  @media only screen and (max-width: 960px) { width: 70px; }
-  vertical-align: top;
-  text-align: center;
-  padding: 4px;
-  .profile_link {
-    display: inline-block;
-    font-size: 1em;
-    text-align: center;
-    padding-bottom: 0px;
-    text-decoration: none;
-
-    span.profile-image {
-      display: block;
-      margin: auto;
-    }
-
-    span.org {
-      display: block;
-      margin: auto;
-      width: 100%;
-    }
-  }
-}
-
 #content .communities-block .block-footer-content .profiles-suggestions a.accept-suggestion,
 #content .communities-block .block-footer-content .profiles-suggestions a.remove-suggestion {
   position: relative;
