@@ -157,21 +157,6 @@ module Api
           end
         end
 
-        desc "Return the person permissions on other profiles"
-        get ":id/permissions" do
-          authenticate!
-          person = environment.people.find(params[:id])
-          return not_found! if person.blank?
-          return forbidden! unless current_person == person || environment.admins.include?(current_person)
-
-          output = {}
-          person.role_assignments.map do |role_assigment|
-            if role_assigment.resource.respond_to?(:identifier)
-              output[role_assigment.resource.identifier] = role_assigment.role.permissions
-            end
-          end
-          present output
-        end
       end
 
       resource :profiles do
