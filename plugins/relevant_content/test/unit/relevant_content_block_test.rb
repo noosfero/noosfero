@@ -93,6 +93,7 @@ class RelevantContentBlockViewTest < ActionView::TestCase
 
     Environment.any_instance.stubs(:enabled_plugins).returns(['RelevantContent'])
     ActionView::Base.any_instance.expects(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("")
 
     assert_tag_in_string render_block_content(block), tag: 'span', attributes: { class: 'title mread' }
   end
