@@ -15,12 +15,11 @@ class EventsControllerTest < ActionController::TestCase
 
     get :events, :profile => profile.identifier
 
-    assert_tag :tag => 'tr', :content => "Joao Birthday",
-      :ancestor => { :tag => 'div', :attributes => {:id => "agenda-items"} }
-    assert_tag :tag => 'tr', :content => "Maria Birthday",
-      :ancestor => { :tag => 'div', :attributes => {:id => "agenda-items"} }
-    assert_no_tag :tag => 'tr', :content => "Jose Birthday",
-      :ancestor => { :tag => 'div', :attributes => {:id => "agenda-items"} }
+    today = DateTime.now.strftime("%B %d, %Y").html_safe
+    assert_tag :tag => 'div', :attributes => {:id => "agenda-items"},
+      :descendant => {:tag => 'tr', :content => "Maria Birthday"}
+    assert_tag :tag => 'div', :attributes => {:id => "agenda-items"},
+      :descendant => {:tag => 'tr', :content => "Joao Birthday"}
   end
 
   should 'display calendar of current month' do
