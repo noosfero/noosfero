@@ -169,7 +169,7 @@ class FriendsBlockViewTest < ActionView::TestCase
     block = FriendsBlock.new
     block.stubs(:suggestions).returns([])
     block.expects(:owner).returns(person1).at_least_once
-
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View All")
     assert_tag_in_string render_block_footer(block), tag: 'a', attributes: {class: 'view-all', href: '/profile/mytestperson/friends' }
   end
 
