@@ -30,17 +30,17 @@ module Api
         
         content_type :binary, "image"
         ['icon', 'thumb', 'big', 'portrait', 'minor'].map do |thumb_size|
-        get ":id/#{thumb_size}", requirements: { id: /#{Noosfero.identifier_format}/ } do
-          key = params[:key].to_s == "identifier" ? :identifier : :id
-          profile = environment.profiles.visible.find_by key => params[:id]
-          if profile && profile.image && profile.image.data(thumb_size)
-            content_type 'image'
-            present profile.image.data(thumb_size)
-          else
-            not_found!
+          get ":id/#{thumb_size}", requirements: { id: /#{Noosfero.identifier_format}/ } do
+            key = params[:key].to_s == "identifier" ? :identifier : :id
+            profile = environment.profiles.visible.find_by key => params[:id]
+            if profile && profile.image && profile.image.data(thumb_size)
+              content_type 'image'
+              present profile.image.data(thumb_size)
+            else
+              not_found!
+            end
+            
           end
-          
-        end
         end
 
         desc "Update profile information"

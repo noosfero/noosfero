@@ -48,7 +48,6 @@ module Api
     mount V1::Tasks
     mount V1::Tags
     mount V1::Environments
-    mount V1::Contacts
     mount V1::Boxes
     mount V1::Blocks
     mount V1::Profiles
