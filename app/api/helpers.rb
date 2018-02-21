@@ -363,9 +363,9 @@ module Api
 
       objects = objects.where(conditions).where(timestamp).reorder(order)
 
-      if params[:search].present?
+      if params[:search].present? || params[:tag].present?
         asset = objects.model.name.underscore.pluralize
-        objects = find_by_contents(asset, object, objects, params[:search])[:results]
+        objects = find_by_contents(asset, object, objects, params[:search], {:page => 1}, tag: params[:tag])[:results]
       end
 
       params[:page] ||= 1
