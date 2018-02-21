@@ -48,6 +48,12 @@ fi
 echo ">>>>> COMPILING ASSETS <<<<<"
 bundle exec rake assets:precompile
 
+echo ">>>>> DEFAULT ENVIRONMENT <<<<<"
+RAILS_ENV=production rails runner config/docker/prod/default_env_config.rb
+
+echo ">>>>> ADMIN ACCOUNT <<<<<"
+RAILS_ENV=production rails runner config/docker/prod/default_adminuser_config.rb
+
 pidfile='/noosfero/tmp/pids/server.pid'
 if [ -f $pidfile ] ; then
 	echo 'Server PID file exists. Removing it...'

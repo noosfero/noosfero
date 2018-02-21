@@ -27,5 +27,13 @@ services:
       POSTGRES_DB: noosfero_production
       NOOSFERO_DUMP_FILE:
 
+      # Set your custom credentials if you want to create a default admin account
+      ADMIN_LOGIN:
+      ADMIN_EMAIL:
+      ADMIN_PASSWORD:
+
+      # Set your custom environment configs
+      ENVIRONMENT_NAME: Noosfero
+
 volumes:
   pg-prod-data: {}
