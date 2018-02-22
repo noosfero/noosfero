@@ -105,7 +105,7 @@ class FfmpegTest < ActiveSupport::TestCase
 
   should 'read ffmpeg information and features' do
     response = ffmpeg.register_information
-    assert_match /^[0-9]\.[0-9]\.[0-9]$/, response[:version]
+    assert_match /^[0-9]\.[0-9]\.[0-9]+$/, response[:version]
     formatWebM = /^\{demux:false,description:WebM,mux:true\}$/
     assert_match formatWebM, h2s(response[:formats][:webm])
     codecVorbis = /^\{decode:true,description:Vorbis[^,]+,direct_rendering:false,draw_horiz_band:false,encode:true,type:audio,wf_trunc:false\}$/
@@ -243,7 +243,7 @@ class FfmpegTest < ActiveSupport::TestCase
   end
 
   should 'recognize ffmpeg version' do
-    assert_match /^[0-9]\.[0-9]\.[0-9]$/, ffmpeg.version
+    assert_match /^[0-9]\.[0-9]\.[0-9]+$/, ffmpeg.version
   end
 
   should 'list supported formats' do
