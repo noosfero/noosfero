@@ -61,6 +61,7 @@ class EnterprisesBlockViewTest < ActionView::TestCase
     block = EnterprisesBlock.new
     block.expects(:owner).twice.returns(profile)
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View all")
     ActionView::Base.any_instance.expects(:link_to).with('View all', :controller => 'profile', :profile => 'theprofile', :action => 'enterprises')
 
     render_block_footer(block)
