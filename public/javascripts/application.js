@@ -213,12 +213,15 @@ function showIconSelector(main_div) {
    jQuery(iconSelector).toggle();
 }
 
-function changeIcon(iconSelected, iconName) {
+function changeIcon(iconSelected, iconName, icon) {
    iconSelector = iconSelected.parentNode;
    setTimeout('iconSelector.style.display = "none"', 100);
    main_div = iconSelector.parentNode;
+   $(main_div).removeClass()
+   $(main_div).addClass('link-list-icon ' + iconName)
    span = main_div.getElementsByTagName('span')[0];
-   span.className = iconSelected.className;
+   $(span).find('i').first().removeClass()
+   $(span).find('i').first().addClass('fa fa-' + icon)
    iconInput = main_div.getElementsByTagName('input')[0];
    iconInput.value = iconName;
 }

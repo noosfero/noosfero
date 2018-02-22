@@ -1,19 +1,17 @@
-<li>
-  <ul class="link-list-row">
-    <li>
-      <%= icon_selector(link['icon']) %>
-    </li>
-    <li>
+<tr <%= "class=link-list-template" if defined? template %>>
+    <td class='link-list-row'>
+      <%= icon_selector(link[:icon]) %>
+    </td>
+    <td>
       <%= text_field_tag 'block[links][][name]', link[:name], :class => 'link-name', :maxlength => 20 %>
-    </li>
-    <li>
+    </td>
+    <td>
       <%= text_field_tag 'block[links][][address]', link[:address], :class => 'link-address' %>
-    </li>
-    <li>
+    </td>
+    <td>
       <%= select_tag('block[links][][target]', options_for_select(LinkListBlock::TARGET_OPTIONS, link[:target])) %>
-    </li>
-    <li>
-      <%= button_without_text(:delete, _('Delete'), "#" , :class=>"delete-link-list-row") %>
-    </li>
-  </ul>
-</li>
+    </td>
+    <td>
+      <%= link_to font_awesome(:remove), "#" , :class=>"delete-link-list-row" %>
+    </td>
+</tr>

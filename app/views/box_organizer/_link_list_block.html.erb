@@ -1,24 +1,22 @@
 <%= javascript_include_tag "edit-link-list.js" %>
 
-<strong><%= _('Links') %></strong>
+<h3><%= _('Links') %></h3>
 <div id='edit-link-list-block'>
-  <ul class='link-list-header'>
-    <li class='link-list-icon'><%= _('Icon') %></li>
-    <li class='link-list-name'><%= _('Name') %></li>
-    <li class='link-list-address'><%= _('Address') %></li>
-    <li class='link-list-target'><%= _('Target') %></li>
-  </ul>
-  <ul id="dropable-link-list">
+  <table id="dropable-link-list">
+    <tr class='link-list-header'>
+      <th class='link-list-icon'><%= _('Icon') %></th>
+      <th class='link-list-name'><%= _('Name') %></th>
+      <th class='link-list-address'><%= _('Address') %></th>
+      <th class='link-list-target'><%= _('Target') %></th>
+      <th class='link-list-remove'><%= _('Remove') %></th>
+    </tr>
+    <% template_link = {:icon => 'ok'} %>
+    <%= render :partial => 'link_list_item', :locals => {:link => template_link, :template => true} %>
     <% @block.links.each do |link| %>
       <%= render partial: 'link_list_item', locals: { link: link } %>
     <% end %>
-  </ul>
+  </table>
   <input type="hidden" id="page_url" value="<%=url_for(:action=>'search_autocomplete')%>" />
-
-  <div id="new-template">
-    <% template_link = {'icon' => 'ok'} %>
-    <%= render :partial => 'link_list_item', :locals => {:link => template_link} %>
-  </div>
 </div>
 
 <%= link_to_function(_('New link'), 'add_new_link();', :class => 'button icon-add with-text') %>

@@ -408,10 +408,10 @@ class Person < Profile
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
     links = [
-      { name: font_awesome(:people, _('Profile')),      address: '/profile/{profile}',        icon: 'menu-people' },
-      { name: font_awesome(:image, _('Image gallery')), address: '/{profile}/gallery',        icon: 'photos'      },
-      { name: font_awesome(:calendar, _('Agenda')),     address: '/profile/{profile}/events', icon: 'event'       },
-      { name: font_awesome(:blog, _('Blog')),           address: '/{profile}/blog',           icon: 'edit'        }
+      { name: _('Profile'),       address: '/profile/{profile}',        icon: 'menu-people' },
+      { name: _('Image gallery'), address: '/{profile}/gallery',        icon: 'photos'      },
+      { name: _('Agenda'),        address: '/profile/{profile}/events', icon: 'event'       },
+      { name: _('Blog'),          address: '/{profile}/blog',           icon: 'blog'        }
     ]
     [
       [MainBlock.new],
