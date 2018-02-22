@@ -1,10 +1,31 @@
 
 .tags-block {
 }
-.tags-block .tag_cloud a {
+.tags-block  a {
   text-decoration: none;
   padding: 0px 4px;
 }
-.tags-block .tag_cloud a:hover {
+.tags-block a:hover {
   color: red;
+}
+
+.block.tags-cloud-block {
+  .tag_cloud {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  a.tag-cloud-item {
+    padding: 5px;
+    background: #c8c8c8;
+    border-radius: 5px;
+    margin: 2px;
+    color: #555;
+    text-decoration: none;
+
+    &:hover {
+      color: #fff;
+      background: #212e3c;
+    }
+  }
 }
