@@ -1,8 +1,9 @@
 require_relative '../test_helper'
 
-class FooPlugin < Noosfero::Plugin; end
-
 class MetadataScopesTest < ActiveSupport::TestCase
+
+  class FooPlugin < Noosfero::Plugin; end
+  class Foo; end
 
   def setup
     @profile1 = create_user.person
@@ -39,6 +40,23 @@ class MetadataScopesTest < ActiveSupport::TestCase
     assert_equivalent [@profile3],
                       Profile.with_plugin_metadata(FooPlugin, attr: true,
                                                    not_attr: false)
+  end
+
+  should 'define getters and setters for each metadata item' do
+    Foo.stubs(:scope) # mocks ActiveRecord methods
+    Foo.class_eval do
+      include MetadataScopes
+      def metadata
+        {}
+      end
+      metadata_items :item1, :item2
+    end
+
+    foo = Foo.new
+    assert foo.respond_to? :item1
+    assert foo.respond_to? :item1=
+    assert foo.respond_to? :item2
+    assert foo.respond_to? :item2=
   end
 
 end

@@ -56,6 +56,10 @@ class ProfileListBlock < Block
     [[_('All kinds'), nil]] + kinds.map{ |k| [k.name, k.id] }
   end
 
+  def kind
+    Kind.find_by(id: self.kind_filter)
+  end
+
   private
 
   def base_class
@@ -63,7 +67,6 @@ class ProfileListBlock < Block
   end
 
   def filter_by_kind(filtered_profiles)
-    kind = Kind.find_by(id: self.kind_filter)
     kind.present? ? filtered_profiles.with_kind(kind) : filtered_profiles
   end
 end

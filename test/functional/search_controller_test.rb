@@ -675,6 +675,41 @@ class SearchControllerTest < ActionController::TestCase
     assert !tag.upcase.include?('SCRIPT')
   end
 
+  should 'filter people by kind' do
+    fast_create(Person)
+    person = fast_create(Person)
+    kind = environment.kinds.create!(name: 'A Kind', type: 'Person')
+    kind.add_profile(person)
+
+    get :people, query: '', kind: 'A Kind'
+    assert_equivalent [person], assigns(:searches)[:people][:results]
+  end
+
+  should 'filter communities by kind' do
+    fast_create(Community)
+    community = fast_create(Community)
+    kind = environment.kinds.create!(name: 'A Kind', type: 'Community')
+    kind.add_profile(community)
+
+    get :communities, query: '', kind: 'A Kind'
+    assert_equivalent [community], assigns(:searches)[:communities][:results]
+  end
+
+  should 'filter enterprises by kind' do
+    fast_create(Enterprise)
+    enterprise = fast_create(Enterprise)
+    kind = environment.kinds.create!(name: 'A Kind', type: 'Enterprise')
+    kind.add_profile(enterprise)
+
+    get :enterprises, query: '', kind: 'A Kind'
+    assert_equivalent [enterprise], assigns(:searches)[:enterprises][:results]
+  end
+
+  should 'respond with 404 if kind does not exist' do
+    get :enterprises, query: '', kind: 'does not exist'
+    assert_response 404
+  end
+
   protected
 
   def create_event(profile, options)

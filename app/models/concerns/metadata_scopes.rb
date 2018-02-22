@@ -15,4 +15,18 @@ module MetadataScopes
       where "metadata ? '#{key}'"
     }
   end
+
+  class_methods do
+    def metadata_items(*items)
+      items.each do |item|
+        define_method item do
+          self.metadata[item.to_s]
+        end
+
+        define_method "#{item}=" do |value|
+          self.metadata[item.to_s] = value
+        end
+      end
+    end
+  end
 end
