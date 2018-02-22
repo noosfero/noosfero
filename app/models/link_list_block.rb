@@ -4,38 +4,40 @@ class LinkListBlock < Block
 
   attr_accessible :links
 
-  ICONS = [
-    ['no-icon', _('(No icon)')],
-    ['edit', N_('Edit')],
-    ['new', N_('New')],
-    ['save', N_('Save')],
-    ['send', N_('Send')],
-    ['cancel', N_('Cancel')],
-    ['add', N_('Add')],
-    ['up', N_('Up')],
-    ['down', N_('Down')],
-    ['left', N_('Left')],
-    ['right', N_('Right')],
-    ['up-disabled', N_('Gray Up')],
-    ['down-disabled', N_('Gray Down')],
-    ['left-disabled', N_('Gray Left')],
-    ['right-disabled', N_('Gray Right')],
-    ['up-red', N_('Red Up')],
-    ['search', N_('Search')],
-    ['ok', N_('Ok')],
-    ['login', N_('Login')],
-    ['help', N_('Help')],
-    ['spread', N_('Spread')],
-    ['eyes', N_('Eyes')],
-    ['photos', N_('Photos')],
-    ['menu-people', N_('Person')],
-    ['event', N_('Event')],
-    ['forum', N_('Forum')],
-    ['home', N_('Home')],
-    ['product', N_('Package')],
-    ['todo', N_('To do list')],
-    ['chat', N_('Chat')]
-  ]
+  ICONS = {
+    'no-icon'        => { :title => _('(No icon)'),  :icon => 'no-icon' },
+    'edit'           => { :title => _('Edit'),       :icon => 'edit' },
+    'new'            => { :title => _('New'),        :icon => 'plus-circle' },
+    'save'           => { :title => _('Save'),       :icon => 'save' },
+    'send'           => { :title => _('Send'),       :icon => 'share-square' },
+    'cancel'         => { :title => _('Cancel'),     :icon => 'remove' },
+    'add'            => { :title => _('Add'),        :icon => 'plus' },
+    'up'             => { :title => _('Up'),         :icon => 'arrow-up' },
+    'down'           => { :title => _('Down'),       :icon => 'arrow-down' },
+    'left'           => { :title => _('Left'),       :icon => 'arrow-left' },
+    'right'          => { :title => _('Right'),      :icon => 'arrow-right' },
+    'up-disabled'    => { :title => _('Gray up'),    :icon => 'arrow-up' },
+    'down-disabled'  => { :title => _('Gray down'),  :icon => 'arrow-down' },
+    'left-disabled'  => { :title => _('Gray left'),  :icon => 'arrow-left' },
+    'right-disabled' => { :title => _('Gray Right'), :icon => 'arrow-right' },
+    'up-read'        => { :title => _('Read up'),    :icon => 'quote-right' },
+    'search'         => { :title => _('Search'),     :icon => 'search' },
+    'ok'             => { :title => _('Ok'),         :icon => 'check' },
+    'login'          => { :title => _('Login'),      :icon => 'sign-in' },
+    'help'           => { :title => _('Help'),       :icon => 'question' },
+    'spread'         => { :title => _('Spread'),     :icon => 'send' },
+    'eyes'           => { :title => _('Eyes'),       :icon => 'eye' },
+    'photos'         => { :title => _('Photos'),     :icon => 'image' },
+    'menu-people'    => { :title => _('Person'),     :icon => 'user' },
+    'event'          => { :title => _('Event'),      :icon => 'calendar' },
+    'forum'          => { :title => _('Forum'),      :icon => 'users' },
+    'home'           => { :title => _('Home'),       :icon => 'home' },
+    'product'        => { :title => _('Package'),    :icon => 'shopping-bag' },
+    'todo'           => { :title => _('To do list'), :icon => 'clipboard' },
+    'chat'           => { :title => _('Chat'),       :icon => 'comments' },
+    'enterprise'     => { :title => _('Enterprise'), :icon => 'building-o' },
+    'blog'           => { :title => _('Blog'),       :icon => 'newspaper-o' },
+  }
 
   TARGET_OPTIONS = [
     [N_('Same page'), '_self'],
@@ -83,6 +85,14 @@ class LinkListBlock < Block
 
   def icons
     ICONS
+  end
+
+  def get_icon key
+    if ICONS.has_key?(key)
+      ICONS[key][:icon]
+    else
+      ICONS['no-icon'][:icon]
+    end
   end
 
 end

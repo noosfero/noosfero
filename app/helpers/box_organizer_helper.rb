@@ -42,8 +42,8 @@ module BoxOrganizerHelper
     )
   end
 
-  def icon_selector(icon = 'no-ico')
-    render :partial => 'icon_selector', :locals => { :icon => icon }
+  def icon_selector(icon = 'no-icon')
+    render :partial => 'icon_selector', :locals => { :key => icon }
   end
 
   def extra_option_checkbox(option)
@@ -51,5 +51,4 @@ module BoxOrganizerHelper
       labelled_check_box(option[:human_name], option[:name], option[:value], option[:checked], option[:options])
     end
   end
-
 end

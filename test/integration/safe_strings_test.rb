@@ -186,7 +186,8 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     profile.boxes.first.blocks << LinkListBlock.new
     block = profile.boxes.first.blocks.first
     get "/myprofile/#{profile.identifier}/profile_design/edit/#{block.id}"
-    assert_select '.icon-selector .icon-edit'
+    assert_select '.icon-selector'
+    assert_tag :tag => 'span', :attributes => { :class => 'edit' }
   end
 
   should 'not escape read more link to article on display short format' do

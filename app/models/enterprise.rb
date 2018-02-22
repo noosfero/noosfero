@@ -122,8 +122,8 @@ class Enterprise < Organization
 
   def default_set_of_blocks
     links = [
-      { name: font_awesome(:'building-o', _("Enterprises's profile")), address: '/profile/{profile}', icon: 'enterprise' },
-      { name: font_awesome(:blog, _('Blog')),                          address: '/{profile}/blog',    icon: 'edit' }
+      { name: _("Enterprises's profile"), address: '/profile/{profile}', icon: 'enterprise' },
+      { name: _('Blog'),                  address: '/{profile}/blog',    icon: 'blog' }
     ]
     blocks = [
       [MainBlock.new],
