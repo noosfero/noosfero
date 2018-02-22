@@ -24,25 +24,13 @@ module Api
           end
         end
 
-        get ":id/permissions" do
-          authenticate!
-          user = environment.users.find(params[:id])
-          output = {}
-          user.person.role_assignments.map do |role_assigment|
-            if role_assigment.resource.respond_to?(:identifier) && role_assigment.resource.identifier == params[:profile]
-              output[:permissions] = role_assigment.role.permissions
-            end
-          end
-          present output
-        end
-
         patch ":id" do
           authenticate!
           begin
             current_person.user.change_password!(params[:current_password],
                                params[:new_password],
                                params[:new_password_confirmation])
-            present({ success: true })
+	    present current_person.user, :with => Entities::User, :current_person => current_person
           rescue Exception
             render_model_errors!(current_person.user.errors)
           end

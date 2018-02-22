@@ -132,7 +132,10 @@ module Api
           add_friend = AddFriend.new(:person => current_person, :friend => person)
           begin
             add_friend.save!
-            present({ message: 'WAITING_APPROVAL' })
+            output = {:success => true}
+            output[:message] = _('Your friendship request is waiting for approval.')
+            output[:code] = Api::Status::Friendship::WAITING_FOR_APPROVAL
+            present output, :with => Entities::Response
           rescue ActiveRecord::RecordInvalid
             render_model_errors!(add_friend.errors)
           end
@@ -145,27 +148,15 @@ module Api
           return not_found! if person.blank?
           begin
             current_person.remove_friend(person);
-            present({ message: 'Friend successfuly removed' })
+            output = {:success => true}
+	    output[:message] = _('The friendship with %s was removed.') % person.name
+            output[:code] = Api::Status::Http::NO_CONTENT
+            present output, :with => Entities::Response
           rescue ActiveRecord::RecordInvalid
             bad_request!
           end
         end
 
-        desc "Return the person permissions on other profiles"
-        get ":id/permissions" do
-          authenticate!
-          person = environment.people.find(params[:id])
-          return not_found! if person.blank?
-          return forbidden! unless current_person == person || environment.admins.include?(current_person)
-
-          output = {}
-          person.role_assignments.map do |role_assigment|
-            if role_assigment.resource.respond_to?(:identifier)
-              output[role_assigment.resource.identifier] = role_assigment.role.permissions
-            end
-          end
-          present output
-        end
       end
 
       resource :profiles do
@@ -182,7 +173,15 @@ module Api
               authenticate!
               profile = environment.profiles.find_by id: params[:id]
               profile.add_member(current_person) rescue forbidden!
-              {pending: !current_person.is_member_of?(profile)}
+              output = {:success => true}
+	      if current_person.is_member_of?(profile)
+                output[:message] = _("You already make a membership solicitation")
+                output[:code] = Api::Status::Membership::MEMBER
+              else
+                output[:message] = _('Your membership request is waiting for approval.')
+                output[:code] = Api::Status::Membership::WAITING_FOR_APPROVAL
+              end
+              present output, :with => Entities::Response
             end
 
             delete do

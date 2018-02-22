@@ -30,17 +30,17 @@ module Api
         
         content_type :binary, "image"
         ['icon', 'thumb', 'big', 'portrait', 'minor'].map do |thumb_size|
-        get ":id/#{thumb_size}", requirements: { id: /#{Noosfero.identifier_format}/ } do
-          key = params[:key].to_s == "identifier" ? :identifier : :id
-          profile = environment.profiles.visible.find_by key => params[:id]
-          if profile && profile.image && profile.image.data(thumb_size)
-            content_type 'image'
-            present profile.image.data(thumb_size)
-          else
-            not_found!
+          get ":id/#{thumb_size}", requirements: { id: /#{Noosfero.identifier_format}/ } do
+            key = params[:key].to_s == "identifier" ? :identifier : :id
+            profile = environment.profiles.visible.find_by key => params[:id]
+            if profile && profile.image && profile.image.data(thumb_size)
+              content_type 'image'
+              present profile.image.data(thumb_size)
+            else
+              not_found!
+            end
+            
           end
-          
-        end
         end
 
         desc "Update profile information"
@@ -63,9 +63,12 @@ module Api
           profile = profiles.find_by id: params[:id]
 
           not_found! if profile.blank?
-
           if profile.allow_destroy?(current_person)
-            present({ success: profile.destroy })
+            profile.destroy
+            output = {:success => true}
+	    output[:message] = _('The profile %s was removed.') % profile.name
+            output[:code] = Api::Status::Http::NO_CONTENT
+            present output, :with => Entities::Response
           else
             forbidden!
           end

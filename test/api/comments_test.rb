@@ -62,7 +62,7 @@ class CommentsTest < ActiveSupport::TestCase
     login_api
     article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing")
     body = 'My comment'
-    params.merge!({:body => body})
+    params.merge!(:comment => {:body => body})
 
     post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -95,7 +95,7 @@ class CommentsTest < ActiveSupport::TestCase
     amount = Comment.count
     article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing")
     body = 'My comment'
-    params.merge!({:body => body})
+    params.merge!({:comment => {:body => body}})
 
     post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
     assert_equal amount + 1, Comment.count
@@ -196,15 +196,38 @@ class CommentsTest < ActiveSupport::TestCase
     assert_equal [comment1.id], json.map { |c| c['id'] }
   end
 
-  should 'delete comment successfully' do
+  should 'delete comment return http status 200 on delete' do
+    login_api
+    article = fast_create(Article, profile_id: person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: person)
+    delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
+    assert_equal 200, last_response.status
+  end
+
+  should 'delete comment return success on delete' do
     login_api
     article = fast_create(Article, profile_id: person.id, name: "Some thing")
     comment = article.comments.create!(body: "some comment", author: person)
     delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 200, last_response.status
-    assert_equal comment.id, json['id']
-    assert_not_includes article.comments, comment
+    assert_equal json['success'], true
+  end
+
+  should 'delete comment return  no content noosfero status code' do
+    login_api
+    article = fast_create(Article, profile_id: person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: person)
+    delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal json['code'], Api::Status::Http::NO_CONTENT 
+  end
+
+  should 'delete comment the object was removed from database' do
+    login_api
+    article = fast_create(Article, profile_id: person.id, name: "Some thing")
+    comment = article.comments.create!(body: "some comment", author: person)
+    delete "api/v1/articles/#{article.id}/comments/#{comment.id}?#{params.to_query}"
+    assert_nil Comment.find_by_id comment.id
   end
 
   should 'not delete a comment when user is not logged' do
