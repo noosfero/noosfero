@@ -55,11 +55,9 @@
       <tr>
         <td>
           <% if @article.parent %>
-            <%= image_tag "/designs/icons/tango/Tango/32x32/places/folder_home.png" %>
-            <%= link_to _('Parent Folder'), { action: 'view', id: @article.parent.id } %>
+            <%= link_to font_awesome(:reply, _('Parent Folder')), { action: 'view', id: @article.parent.id } %>
           <% else %>
-            <%= image_tag "/designs/icons/tango/Tango/32x32/places/folder_home.png" %>
-            <%= link_to _('Parent Folder'), { action: 'index' } %>
+            <%= link_to font_awesome(:reply, _('Parent Folder')), { action: 'index' } %>
           <% end %>
         </td>
         <td></td>

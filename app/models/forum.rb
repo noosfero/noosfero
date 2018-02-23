@@ -92,4 +92,8 @@ class Forum < Folder
   def allow_create?(user)
     super || AccessLevels.can_access?(topic_creation, user, profile)
   end
+
+  def icon
+    'comments'
+  end
 end

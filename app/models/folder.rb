@@ -71,4 +71,8 @@ class Folder < Article
     'application/folder'
   end
 
+  def icon
+    'folder'
+  end
+
 end
