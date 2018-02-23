@@ -46,22 +46,16 @@ module TagsHelper
     # at the end of the tag list.
     # Example: AA ÁA AB Z instead of AA AB Z ÁA
     tags.collect{ |k,v| [ActiveSupport::Inflector.transliterate(k).downcase, [k,v]] }.sort.collect { |ascii, t| t }.map do |tag,count|
-      if ( max == min )
-        v = 0.5
-      else
-        v = (count.to_f - min) / (max - min)
-      end
-      style = ""+
-        "font-size: #{ (v * delta).round + min_size }px;"+
-        "top: #{ -(delta/2) - (v * (delta/2)).round }px;"
       destination = url.merge(tagname_option => tag)
 
       if options[:show_count]
         display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""
-        link_to (tag + display_count).html_safe, destination, :style => style
+        link_to (tag + display_count).html_safe, destination,
+                 :class => 'tag-cloud-item'
       else
-        link_to h(tag) , destination, :style => style,
-          :title => n_( 'one item', '%d items', count ) % count
+        link_to h(tag) , destination,
+          :title => n_( 'one item', '%d items', count ) % count,
+          :class => 'tag-cloud-item'
       end
 
     end.join("\n").html_safe
