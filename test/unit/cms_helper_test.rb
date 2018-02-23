@@ -25,7 +25,8 @@ class CmsHelperTest < ActionView::TestCase
     profile = fast_create(Profile)
     folder = fast_create(Folder, :name => 'My folder', :profile_id => profile.id)
 
-    expects(:link_to).with('My folder/', {:action => 'view', :id => folder.id})
+    title = font_awesome(folder.icon, "#{folder.name}/")
+    expects(:link_to).with(title, {:action => 'view', :id => folder.id})
 
     result = link_to_article(folder)
   end
@@ -33,7 +34,8 @@ class CmsHelperTest < ActionView::TestCase
   should 'display link to article if article is not folder' do
     profile = fast_create(Profile)
     article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with('My article', article.url)
+    title = font_awesome(article.icon, article.title)
+    expects(:link_to).with(title, article.url)
 
     result = link_to_article(article)
   end

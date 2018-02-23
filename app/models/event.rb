@@ -134,6 +134,10 @@ class Event < Article
     false
   end
 
+  def icon
+    'calendar'
+  end
+
   include TranslatableContent
   include MaybeAddHttp
 

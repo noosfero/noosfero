@@ -202,6 +202,10 @@ class UploadedFile < Article
     !image?
   end
 
+  def icon
+    content_type.split('/').first()
+  end
+
   private
 
   def profile_quota_usage
@@ -215,5 +219,4 @@ class UploadedFile < Article
   def update_profile_disk_usage
     profile.update_disk_usage!
   end
-
 end

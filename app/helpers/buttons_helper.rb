@@ -1,14 +1,41 @@
 module ButtonsHelper
 
+  NOOSFERO_TO_FONTAWESOME = {
+    back:              'arrow-left',
+    new:               'plus',
+    save_and_continue: 'cloud-upload',
+    cancel:            'arrow-left',
+    delete:            'exclamation-triangle',
+    add:               'plus',
+    new_user:          'user',
+    login:             'sign-in',
+    help:              'question-circle',
+    logout:            'sign-out',
+    people:            'user',
+    blog:              'newspaper-o',
+    add_user:          'user-plus',
+    leave:             'sign-out',
+    email:             'envelope-o',
+    alert:             'exclamation-triangle',
+    network:           'code-fork',
+    article:           'file-text',
+    down_arrow:        'chevron-down',
+    fullscreen:        'arrows-alt',
+    spread:            'share-alt',
+    file:              'file-text-o',
+    text:              'file-o',
+    application:       'file',
+    audio:             'volume-up',
+    ellipsis:          'ellipsis-h',
+    lightbulb:         'lightbulb-o',
+    clock:             'clock-o',
+    ok:                'check',
+    event:             'calendar',
+    pdf:               'file-pdf-o'
+  }
+
   def font_awesome type, label = ""
-    noosfero_to_fontawesome = { back: "arrow-left", new: "plus", save_and_continue: "cloud-upload",
-                                cancel: "arrow-left", delete: "exclamation-triangle", add: "plus",
-                                new_user: "user", login: "sign-in", help: 'question-circle', logout: 'sign-out',
-                                people: "user", blog: "newspaper-o", add_user: 'user-plus', leave: 'sign-out',
-                                email: "envelope-o", alert: "exclamation-triangle", network: "code-fork", article: "file-text",
-                                down_arrow: "chevron-down", fullscreen: "arrows-alt", spread: 'share-alt', file: "file-text-o",
-                                ellipsis: "ellipsis-h", lightbulb: 'lightbulb-o', clock: 'clock-o', ok: 'check' }
-    type = noosfero_to_fontawesome[type.to_sym] if noosfero_to_fontawesome.key? type.to_sym
+    type = NOOSFERO_TO_FONTAWESOME[type.to_sym] if NOOSFERO_TO_FONTAWESOME.key? type.to_sym
     fa = content_tag(:i, nil, class: "fa fa-#{type}", 'aria-hidden' => true)
     (fa + label).html_safe
   end
