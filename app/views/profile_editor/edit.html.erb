@@ -49,10 +49,6 @@
   <%= content_tag( 'small', _('Who will be able to see your wall?')) %>
   <%= access_slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, @profile.wall_access, @profile.wall_access_levels) %>
 
-  <% if environment.enabled?('allow_change_of_redirection_after_login') %>
-    <%= render 'redirection_after_login', f: f %>
-  <% end %>
-
   <h2><%= _('Translations') %></h2>
   <%= labelled_check_box(
     _('Automaticaly redirect the visitor to the article translated to his/her language'),
