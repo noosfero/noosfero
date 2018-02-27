@@ -22,13 +22,13 @@
     <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
   </head>
   <body>
-    <div  id="header">
+    <div  id="custom-header">
       <%= env_theme_include 'blazer/header' %>
     </div>
     <div class="container">
       <%= yield %>
     </div>
-    <div  id="footer">
+    <div  id="custom-footer">
       <%= env_theme_include 'blazer/footer' %>
     </div>
   </body>
