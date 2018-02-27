@@ -144,7 +144,7 @@ class UsersTest < ActiveSupport::TestCase
     params[:new_password_confirmation] = 'USER_NEW_PASSWORD';
     patch "/api/v1/users/#{user.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['success'], true
+    assert_not_nil json['id']
   end
 
 end

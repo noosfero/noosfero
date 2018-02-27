@@ -52,7 +52,7 @@ class ProfilesTest < ActiveSupport::TestCase
 
   group_kinds = %w(community enterprise)
   group_kinds.each do |kind|
-    should "delete #{kind} from profile id with permission" do
+    should "delete #{kind} from profile id with permission and return 200 http status" do
       login_api
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       give_permission(@person, 'destroy_profile', profile)
@@ -60,7 +60,41 @@ class ProfilesTest < ActiveSupport::TestCase
 
       delete "/api/v1/profiles/#{profile.id}?#{params.to_query}"
 
-      assert_includes [200, 204], last_response.status
+      assert_equal 200, last_response.status
+    end
+
+    should "delete #{kind} from profile id with permission and return success true" do
+      login_api
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      give_permission(@person, 'destroy_profile', profile)
+      assert_not_nil Profile.find_by_id profile.id
+
+      delete "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+
+      assert_equal true, json['success']
+    end
+
+    should "delete #{kind} from profile id with permission and return no content noosfero status code" do
+      login_api
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      give_permission(@person, 'destroy_profile', profile)
+      assert_not_nil Profile.find_by_id profile.id
+
+      delete "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+
+      assert_equal Api::Status::Http::NO_CONTENT, json['code']
+    end
+
+    should "delete #{kind} from profile id with permission and the object was removed from database" do
+      login_api
+      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
+      give_permission(@person, 'destroy_profile', profile)
+      assert_not_nil Profile.find_by_id profile.id
+
+      delete "/api/v1/profiles/#{profile.id}?#{params.to_query}"
+
       assert_nil Profile.find_by_id profile.id
     end
 
