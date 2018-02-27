@@ -5,11 +5,10 @@
 <ul class="link-list-items">
   <% block.links.select{ |i| !i[:name].blank? and !i[:address].blank? }.each do |link| %>
     <li>
-      <% title = link[:name].html_safe %>
-      <% classes = link[:icon] ? "link-list-icon #{link[:icon]}" : '' %>
+      <% title = font_awesome(block.get_icon(link[:icon]), link[:name]) %>
       <%= block.sanitize_link(link_to(title, block.expand_address(link[:address]),
                 :target => link[:target],
-                :class => classes,
+                :class => link[:icon] ? "link-list-icon #{link[:icon]}" : '',
                 :title => link[:title])).html_safe %>
     </li>
   <% end %>
