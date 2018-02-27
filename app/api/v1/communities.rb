@@ -76,6 +76,28 @@ module Api
           present msg, :with => Entities::Response
         end
 
+        resource ':id/contact' do
+          desc "Send a contact message"
+          post do
+            profile = environment.communities.find(params[:id])
+            forbidden! unless profile.present?
+            contact = Contact.new params[:contact].merge(dest: profile)
+            output = {}
+            output[:code] = Api::Status::Http::OK
+            if contact.deliver
+              output[:success] = true
+	      output[:message] = _('The contact was sent.')
+            else
+              output[:success] = false
+              output[:message] = _('The contact was not sent.')
+            end
+
+            present output, :with => Entities::Response
+
+          end
+
+        end
+
         segment '/:id' do
 
           resource :membership do

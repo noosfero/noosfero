@@ -7,16 +7,38 @@ class ArticlesTest < ActiveSupport::TestCase
     login_api
   end
 
-  should 'remove article' do
+  should 'remove article return 200 http status' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     delete "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
-    assert_not_equal 401, last_response.status
+    assert_equal 200, last_response.status
+  end
+
+  should 'remove article return success' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    delete "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
     assert_equal true, json['success']
+  end
+
+  should 'remove article return no content noosfero status code' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    delete "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+
+    assert_equal Api::Status::Http::NO_CONTENT, json['code']
+  end
+
+  should 'remove article erase the data from database' do
+    article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+    delete "/api/v1/articles/#{article.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
 
     assert !Article.exists?(article.id)
   end
+
 
   should 'create uploaded file type article' do
     params['article'] = { name: 'UploadedFileArticle', type: 'UploadedFile', uploaded_data: {path: '/files/rails.png'} }
@@ -190,7 +212,7 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
 
     assert_not_equal 401, last_response.status
-    assert_equal true, json['vote']
+    assert_equal true, json['success']
   end
 
   expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count)

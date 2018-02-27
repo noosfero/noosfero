@@ -28,6 +28,20 @@ module Api
         present user, :with => Entities::UserLogin, :current_person => current_person
       end
 
+      # Logout to remove all user information from session
+      #
+      # Example Request:
+      #  POST http://localhost:3000/api/v1/logout
+      post "/logout" do
+	current_user.forget_me
+	current_user.update({:chat_status_at => DateTime.now}.merge({:last_chat_status => current_user.chat_status, :chat_status => 'offline'}))
+	reset_session
+        output = {:success => true}
+	output[:message] = _('Logout successfully.')
+        output[:code] = Api::Status::LOGOUT
+        present output, :with => Entities::Response
+      end
+
       post "/login_from_cookie" do
         return unauthorized! if cookies[:auth_token].blank?
         user = User.where(remember_token: cookies[:auth_token]).first
@@ -114,6 +128,11 @@ module Api
         requestors.each do |requestor|
           ChangePassword.create!(:requestor => requestor)
         end
+
+        output = {:success => true}
+	output[:message] = _('All change password requests were sent.')
+        output[:code] = Api::Status::Http::OK
+        present output, :with => Entities::Response
       end
 
       # Resend activation code.

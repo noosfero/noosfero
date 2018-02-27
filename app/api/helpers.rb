@@ -26,6 +26,11 @@ module Api
       Session.find_by(session_id: cookies[:_noosfero_session])
     end
 
+    def reset_session
+      session.destroy unless session.nil?
+      logout
+    end
+
     def current_user
       private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
       @current_user ||= User.find_by private_token: private_token
@@ -358,9 +363,9 @@ module Api
 
       objects = objects.where(conditions).where(timestamp).reorder(order)
 
-      if params[:search].present?
+      if params[:search].present? || params[:tag].present?
         asset = objects.model.name.underscore.pluralize
-        objects = find_by_contents(asset, object, objects, params[:search])[:results]
+        objects = find_by_contents(asset, object, objects, params[:search], {:page => 1}, tag: params[:tag])[:results]
       end
 
       params[:page] ||= 1
