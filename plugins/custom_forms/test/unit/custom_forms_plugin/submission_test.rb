@@ -59,5 +59,15 @@ class CustomFormsPlugin::SubmissionTest < ActiveSupport::TestCase
 
     assert_equal profile.name, submission.author_name
   end
+
+  should 'return the answer for a specific field' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
+    field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
+    submission = form.submissions.create!(profile: profile)
+    answer = submission.answers.create!(field: field, submission: submission)
+    assert_equal answer, submission.answer_for(field)
+  end
 end
 

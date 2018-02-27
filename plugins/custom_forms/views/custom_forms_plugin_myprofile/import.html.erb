@@ -1,0 +1,37 @@
+<h1><%= _("Import submissions for %s") % @form.name %></h1>
+
+<div class='import-submissions'>
+  <div class='important'>
+    <p class='msg'>
+      <%= _("You must choose a CSV file that follows a specific structure. "\
+            "It is recommended that you follow the generated template. Note "\
+            "that a file with header is expected.") %>
+    </p>
+
+    <%= button :download, _('Download Template'),
+               { action: 'csv_template', id: @form.id } %>
+  </div>
+
+  <div class='instructions'>
+    <h4><%= _('Take note') %></h4>
+    <ul>
+      <li><%= _('Select fields are identified as single or multiple choice '\
+                'in the template.') %></li>
+      <li><%= _('A semicolon (;) should be used to separate multiple answers '\
+                'for multiple choice fields.') %></li>
+    </ul>
+  </div>
+
+  <%= form_tag({ action: 'import', id: @form.id }, multipart: true) do %>
+    <%= labelled_form_field(_('Choose a CSV file to import submissions from'),
+                            file_field_tag(:csv_file, accept: 'text/csv')) %>
+
+    <p><%= _('Maximum file size: %s') %
+           number_to_human_size(environment.submissions_csv_max_size) %></p>
+
+    <div class='button-bar'>
+      <%= button :back, _('Go back'), action: 'index' %>
+      <%= submit_button(:ok, _('Import file')) %>
+    </div>
+  <% end %>
+</div>

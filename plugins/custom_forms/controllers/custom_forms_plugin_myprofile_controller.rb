@@ -90,18 +90,9 @@ class CustomFormsPluginMyprofileController < MyProfileController
     respond_to do |format|
       format.html
       format.csv do
-        # CSV contains form fields, timestamp, user name and user email
-        columns = @form.fields.count + 3
-        csv_content = CSV.generate_line(['Timestamp', 'Name', 'Email'] + @form.fields.map(&:name))
-        @submissions.each do |s|
-          fields = [s.updated_at.strftime('%Y/%m/%d %T %Z'), s.profile.present? ? s.profile.name : s.author_name, s.profile.present? ? s.profile.email : s.author_email]
-          @form.fields.each do |f|
-            fields << s.answers.select{|a| a.field == f}.map{|answer| answer.to_s}
-          end
-          fields = fields.flatten
-          csv_content << CSV.generate_line(fields + (columns - fields.size).times.map{""})
-        end
-        send_data csv_content, :type => 'text/csv', :filename => "#{@form.name}.csv"
+        handler = CustomFormsPlugin::CsvHandler.new(@form)
+        csv_content = handler.generate_csv
+        send_data csv_content, type: 'text/csv', filename: "#{@form.name}.csv"
       end
     end
   end
@@ -127,6 +118,40 @@ class CustomFormsPluginMyprofileController < MyProfileController
   def surveys
     surveys = queries_to_token_input('survey', params[:q])
     render text: surveys.to_json
+  end
+
+  def import
+    @form = CustomFormsPlugin::Form.find(params[:id])
+    if request.post?
+      if params[:csv_file].present? &&
+         params[:csv_file].size > environment.submissions_csv_max_size
+        session[:notice] = _('Maximum file size exceeded')
+        redirect_to action: :import
+        return
+      end
+
+      file_content = params[:csv_file].try(:read) || ''
+      file_content = file_content.force_encoding('utf-8')
+      handler = CustomFormsPlugin::CsvHandler.new(@form)
+
+      @report = handler.import_csv(file_content)
+      if @report[:errors].present?
+        @failed_csv = CSV.generate do |csv|
+          csv << @report[:header]
+          @report[:errors].each do |error|
+            csv << error[:row]
+          end
+        end
+      end
+      render 'report'
+    end
+  end
+
+  def csv_template
+    @form = CustomFormsPlugin::Form.find(params[:id])
+    handler = CustomFormsPlugin::CsvHandler.new(@form)
+    send_data handler.generate_template, type: 'text/csv',
+              filename: "Template #{@form.name}.csv"
   end
 
   private
