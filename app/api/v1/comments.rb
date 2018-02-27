@@ -35,7 +35,8 @@ module Api
           authenticate!
           article = find_article(environment.articles, {:id => params[:id]})
           return forbidden! unless article.accept_comments?
-          options = params.select { |key,v| !['id','private_token'].include?(key) }.merge(:author => current_person, :source => article)
+          options = params[:comment] || {}
+	  options.merge!(:author => current_person, :source => article)
           begin
             comment = Comment.create!(options)
           rescue ActiveRecord::RecordInvalid => e
@@ -51,7 +52,10 @@ module Api
           return forbidden! unless comment.can_be_destroyed_by?(current_person)
           begin
             comment.destroy
-            present_partial comment, with: Entities::Comment, :current_person => current_person
+            output = {:success => true}
+	    output[:message] = _("The comment '%s' was removed.") % comment.body
+            output[:code] = Api::Status::Http::NO_CONTENT
+            present output, :with => Entities::Response
           rescue => e
             render_api_error!(e.message, 500)
           end

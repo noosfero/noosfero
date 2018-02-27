@@ -11,10 +11,15 @@ module Api
       UNPROCESSABLE_ENTITY = 422
       OK = 200
       CREATED = 201
+      NO_CONTENT = 204
     end
 
     # Noosfero API Status
     DEPRECATED = 299
+    LOGOUT = 291
+    WAITING_FOR_REVIEW = 290
+    ALREADY_FOLLOW = 289
+
     module Membership
       INVITATION_SENT_TO_BE_PROCESSED = 298
       NOT_MEMBER = 297
