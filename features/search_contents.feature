@@ -152,8 +152,8 @@ Feature: search contents
     When I go to the search articles page
     And I fill in "search-input" with "whales"
     And I press "Search"
-    Then I should see "Author" within ".search-article-author"
-    Then I should see "Joao Silva" within ".search-article-author-name"
+    Then I should see "Profile" within ".search-article-profile"
+    Then I should see "Joao Silva" within ".search-article-profile-name"
     When I follow "Joao Silva"
     Then I should be on joaosilva's profile
 
