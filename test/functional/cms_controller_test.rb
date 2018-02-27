@@ -2117,6 +2117,23 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal '5', a.metadata['custom_fields']['field1']['value']
   end
 
+  should 'update custom_fields even when it is empty' do
+    a = @profile.articles.build(:name => 'my article')
+    a.metadata = {
+      'mydata' => 'data',
+      :custom_fields => { :field1 => { value: 1 }, :field2 => { value: 5 } }
+    }
+    a.save!
+
+    post :edit, :profile => @profile.identifier, :id => a.id, :article => {
+      :body => 'new content for this article'}
+
+    a.reload
+
+    assert a.metadata['custom_fields']['field1'].blank?
+    assert a.metadata['custom_fields']['field2'].blank?
+  end
+
   should 'execute upload_file method with single upload file option not exist in profile' do
     get :upload_files, profile: profile.identifier
     assert_template 'upload_files'
