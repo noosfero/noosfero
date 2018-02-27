@@ -1,0 +1,16 @@
+.controller-cms .with_media_panel {
+  float: left;
+  width: 100%;
+}
+
+.controller-cms .show-media-panel .with_media_panel {
+  width: 100%;
+}
+
+.text-editor-sidebar {
+  position: relative;
+  width: 100%;
+  max-height: 45px;
+  overflow: hidden;
+  transition: 1s;
+}
