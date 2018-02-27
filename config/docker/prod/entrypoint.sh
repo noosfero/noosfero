@@ -26,7 +26,7 @@ done
 echo "POSTGRES IS UP, CONTINUE"
 
 dump_file="/noosfero/dump/${NOOSFERO_DUMP_FILE}"
-if [ -f $dump_file ] ; then
+if [ -f $dump_file ]; then
   echo ">>>>> DUMP FILE FOUND PREPARING DATABASE <<<<<"
   bundle exec rake db:drop
   bundle exec rake db:create
@@ -51,13 +51,13 @@ else
   RAILS_ENV=production rails runner config/docker/prod/default_adminuser_config.rb
 fi
 
+echo ">>>>> PID VERIFICATION <<<<<"
+pidfiles="/noosfero/tmp/pids/*.*"
+rm -rf $pidfiles
+echo "PID folder is now clean"
+
+
 echo ">>>>> COMPILING ASSETS <<<<<"
 bundle exec rake assets:precompile
-
-pidfile='/noosfero/tmp/pids/server.pid'
-if [ -f $pidfile ] ; then
-	echo 'Server PID file exists. Removing it...'
-	rm $pidfile
-fi
 
 exec $cmd
