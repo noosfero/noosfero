@@ -256,9 +256,9 @@ class SearchControllerTest < ActionController::TestCase
     person = create_user('someone').person
 
     ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],
-      :start_date => DateTime.now + 2.month)
+      :start_date => DateTime.now.beginning_of_month + 2.month)
     ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],
-      :start_date => DateTime.now + 2.day)
+      :start_date => DateTime.now.beginning_of_month + 2.day)
 
     get :events
 

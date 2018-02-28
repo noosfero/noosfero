@@ -11,7 +11,7 @@ redirection_after_login = {
 
   toggleCustomUrl: function() {
     var view = redirection_after_login.view
-    var formGroup = view.customUrl().parents('.form-group')
+    var formGroup = view.customUrl().parents('.formfieldline')
     formGroup.toggle(view.select().val() == 'custom_url')
   },
 

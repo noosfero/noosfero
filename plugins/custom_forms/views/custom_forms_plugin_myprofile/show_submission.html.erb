@@ -21,7 +21,7 @@
       <td>
         <%=
           img = image_tag gravatar_profile_image_url @submission.author_email, :size=>64, :d => gravatar_default
-          sanitizer.sanitize link_to(img +' '+ @submission.author_name, "mailto:#{@submission.author_email}")
+          sanitizer.sanitize(link_to(img +' '+ @submission.author_name, "mailto:#{@submission.author_email}")).html_safe
         %>
         <span>(<%= _('Unauthenticated') %>)<span>
       </td>

@@ -6,4 +6,8 @@ class CustomFormsPlugin::SelectField < CustomFormsPlugin::Field
   after_initialize do
     self.show_as ||= 'radio'
   end
+
+  def description
+    self.accept_multiple_answers? ? _('Multiple Choice') : _('Single Choice')
+  end
 end
