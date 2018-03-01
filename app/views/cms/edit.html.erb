@@ -1,8 +1,5 @@
 <%= error_messages_for 'article' %>
 
-<% if @article.display_media_panel? %>
-  <%= render :partial => 'text_editor_sidebar' %>
-<% end %>
 <% if @article.archived? %>
   <%= render :partial => 'archived_warning', :locals => {:article => @article} %>
 <% end %>
@@ -15,6 +12,10 @@
   <%= hidden_field_tag('back_to', @back_to) %>
 
   <%= hidden_field_tag('success_back_to', @success_back_to) %>
+
+  <% if @article.display_media_panel? %>
+    <%= render :partial => 'text_editor_sidebar' %>
+  <% end %>
 
   <%= render_partial_for_class @article.class, f: f %>
   <%= render partial: 'article_custom_fields',

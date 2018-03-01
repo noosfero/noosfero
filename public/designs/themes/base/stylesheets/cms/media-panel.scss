@@ -7,10 +7,39 @@
   width: 100%;
 }
 
+#published-media {
+  margin-bottom: 0px;
+}
+
+.text-editor-sidebar .header .icon-vertical-toggle {
+  font-size: 1em !important;
+  padding: 0.5em !important;
+}
+
 .text-editor-sidebar {
+
   position: relative;
-  width: 100%;
   max-height: 45px;
   overflow: hidden;
   transition: 1s;
+  width: 100%;
+
+  @media screen and (min-width: 1200px) {
+	display: inline;
+	float: right;
+	width: 30%;
+  }
+}
+
+.show-media-panel .text-editor-sidebar {
+  @media screen and (max-width: 1199px) {
+    background: #f0f0f0;
+	border-radius: 0.3em;
+  }
+}
+
+#media-upload-box, #published-media {
+  @media screen and (max-width: 1199px) {
+    margin: 0.3em;
+  }
 }
