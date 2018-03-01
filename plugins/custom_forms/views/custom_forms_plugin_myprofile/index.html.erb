@@ -4,7 +4,9 @@
 
 <% tabs = [] %>
 <% @forms.each do |kind, forms| %>
-  <% tabs << {title: _(kind.to_s.pluralize.humanize), id: kind.to_s.pluralize, content: (render :partial => 'forms', :locals => {:kind => kind})} %>
+  <% tabs << { title: _(kind.to_s.pluralize.humanize),
+               id: kind.to_s.pluralize,
+               content: (render partial: 'forms', locals: { kind: kind }) } %>
 <% end %>
 
 <%= render_tabs(tabs) %>

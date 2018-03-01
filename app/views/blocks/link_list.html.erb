@@ -8,8 +8,9 @@
       <% title = font_awesome(block.get_icon(link[:icon]), link[:name]) %>
       <%= block.sanitize_link(link_to(title, block.expand_address(link[:address]),
                 :target => link[:target],
-                :class => link[:icon] ? "link-list-icon #{link[:icon]}" : '',
+                :class => (link[:icon] ? "link-list-icon #{link[:icon]}" : ''),
                 :title => link[:title])).html_safe %>
     </li>
   <% end %>
 </ul>
+

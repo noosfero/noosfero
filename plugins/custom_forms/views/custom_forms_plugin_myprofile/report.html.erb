@@ -1,0 +1,74 @@
+<%= javascript_include_tag 'import_report' %>
+
+<div class='import-report'>
+  <h1><%= _('Report for submissions import') %></h1>
+
+  <p class='result-msg'>
+    <%= n_('One submission was successfully imported.',
+           '%s submissions were successfully imported.',
+           @report[:success_count]) % @report[:success_count] %>
+  </p>
+
+  <% if @report[:errors].size > 0 %>
+    <div class='error-msgs'>
+      <p>
+        <%= n_('One entry could not be imported.',
+               '%s entries could not be imported.',
+               @report[:errors].size) % @report[:errors].size %>
+      </p>
+
+      <p>
+        <%= _('The failed rows are listed below, and the columns with errors '\
+              'have been highlighted. Move the cursor over the highlighted '\
+              'cells to see more details.') %>
+      </p>
+    </div>
+
+    <div class='table-scroll'>
+      <table>
+        <thead>
+          <tr>
+            <th><%= _('Row') %></th>
+            <% @report[:header].each do |col| %>
+              <th><%= col %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @report[:errors].each do |error| %>
+            <tr class='row-entry' data-row-number='<%= error[:row_number] %>'>
+              <td><%= error[:row_number] %></td>
+              <% @report[:header].each_with_index do |col, index| %>
+                <td class="<%= 'error' if index.in? error[:errors].keys %>"
+                    data-col-number='<%= index %>'>
+                  <%= error[:row][index] %>
+                </td>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <% @report[:errors].each do |error| %>
+        <% error[:errors].each do |col, msgs| %>
+          <div class='tooltip-error <%= "for-#{error[:row_number]}-#{col}" %>'>
+            <%= msgs.join(", ").capitalize %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= text_area_tag :failed_csv, @failed_csv, class: 'failed-csv-content' %>
+  <% end %>
+
+  <div class='button-bar'>
+    <%= button :back, _('Go back'), action: 'index' %>
+    <% if @report[:errors].size > 0 %>
+      <%= button :download, _('Download failed entries'), '#', disabled: true,
+                 class: 'download-failed-csv',
+                 download: _("Failed %s Entries.csv") % @form.name %>
+    <% end %>
+    <%= button :up, _('Import another file'), action: 'import', id: @form.id %>
+  </div>
+
+</div>
