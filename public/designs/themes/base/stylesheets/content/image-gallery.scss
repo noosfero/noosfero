@@ -1,9 +1,11 @@
 .image-gallery ul {
-  width: 486px;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .image-gallery-item {
   margin: 10px;
-  float: left;
 }
 
