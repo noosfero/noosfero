@@ -1813,7 +1813,7 @@ a.menu-toggle {
   position: absolute;
   right: 20px;
   @media only screen and (max-width: 540px) { right: 0px; }
-  z-index: 1;
+  z-index: 2;
   > li {
     font-size: 1.2em;
     &:nth-child(n + 2) { border-top: 1px solid #e8e8e8; }
