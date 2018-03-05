@@ -197,6 +197,10 @@ body, th, td, input {
           -webkit-box-shadow: 0 0 0px 1000px white inset;
         }
       }
+      a.button {
+        margin: 0;
+        white-space: nowrap;
+      }
     }
   }
 
