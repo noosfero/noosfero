@@ -23,12 +23,15 @@ table.actions td:last-child {
 
 table {
   border-collapse: collapse;
+  table-layout: fixed;
   width: 100%;
 }
 th, td {
   font-size: 14px;
   padding: 2px 10px;
   height: 26px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 th {
   font-weight: bold;
