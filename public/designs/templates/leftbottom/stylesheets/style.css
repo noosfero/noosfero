@@ -1,25 +1,33 @@
-#boxes {
-  display: table;
-  width: 100%;
+.boxes {
+  display:flex;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.box-1 {
-  margin: 0 0 0 200px;
+.boxes .box-1 {
+  width: 60%;
+  order: 2;
 }
 
-.box-1 .blocks {
-  width: 100%;
-  float: left;
+.boxes .box-2 {
+  order: 1;
+  width: 22%;
+  margin-right: 4%;
 }
 
-.box-2 {
-  position: relative;
-  float: left;
-  width: 190px;
+.boxes .box-3 {
+  order: 3;
+  width: 86%;
 }
 
-.box-3 {
-  position: relative;
-  display: table-footer-group;
-  width: 100%;
+@media only screen and (max-width: 600px) {
+  .boxes {
+    flex-direction: column;
+  }
+  .boxes .box-1,
+  .boxes .box-2,
+  .boxes .box-3 {
+    margin: auto;
+    width: 90%;
+  }
 }
