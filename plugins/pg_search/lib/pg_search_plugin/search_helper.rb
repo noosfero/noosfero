@@ -1,11 +1,12 @@
 module PgSearchPlugin::SearchHelper
 
   def facet(f)
-    facet_content = content_tag('h2', _(f[:name])) + facets_block(f[:options], f[:type])
-    content_tag('div', facet_content, id: "#{f[:name].to_slug}-facet", class: 'facet')
+    facet_id = "#{f[:name].to_slug}-facet"
+    facet_content = content_tag('h2', _(f[:name])) + facets_block(f[:options], f[:type], facet_id)
+    content_tag('div', facet_content, id: facet_id, class: 'facet')
   end
 
-  def facets_block(facets, type)
+  def facets_block(facets, type, facet_id)
     html_options = { class: 'facets-block scrollbar' }
 
     content_tag('div',
@@ -22,7 +23,8 @@ module PgSearchPlugin::SearchHelper
           content_tag('span', "(#{option[:count]})", :class => 'facet-count'),
           :class => "facet-option #{'undefined-value' if value == ' '}"
         )
-      end.join("\n").html_safe, html_options)
+      end.join("\n").html_safe, html_options) +
+      link_to(font_awesome(:trash, _('Clear filters')), '#!', class: 'clear-facet', data: { facet: facet_id })
   end
 
   def date_filter(attribute, period, is_metadata)
