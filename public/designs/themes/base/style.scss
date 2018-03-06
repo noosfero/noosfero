@@ -1887,3 +1887,17 @@ form.form-with-captcha {
     margin: auto;
   }
 }
+
+#organizations-search {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#organizations-search-field {
+  width: 100%;
+}
+
+#organizations-search a {
+  width: 12%;
+}
