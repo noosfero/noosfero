@@ -166,7 +166,7 @@ module ProfileImageHelper
         class: 'profile_link url',
         style: (
           theme_option(:profile_list_bg_imgs) ?
-          "background-image: url(#{profile_icon(profile, size)})" : ''
+          "background-image: none;" : ''
         ),
         title: profile.name ).html_safe,
       class: "vcard common-profile-list-block #{profile.image ? 'has-pic' : 'no-pic'}"
