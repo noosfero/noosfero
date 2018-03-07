@@ -1901,3 +1901,31 @@ form.form-with-captcha {
 #organizations-search a {
   width: 12%;
 }
+
+#environment-profiles-filter-filter {
+  display: flex;
+  float: right;
+}
+
+#environment-profiles-filter-filter strong {
+  align-self: center;
+}
+
+#environment-profiles-filter-filter select {
+  margin-left: 0.5em;
+  font-size: 100%;
+}
+
+#organizations-list select{
+  margin-left: 0.5em;
+  font-size: 100%;
+  margin: 0%;
+}
+
+.organization_button{
+  font-size: 100% !important;
+  padding: 0.5em 0.5em 0.8em 0.5em !important;
+  margin-right: 0.5em important;
+  height: 1em;
+  width: 4em;
+}

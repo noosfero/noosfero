@@ -14,7 +14,16 @@
 
     <div id="environment-profiles-filter-filter">
       <strong><%= _("Filter by: ") %></strong>
-      <%= select_tag(:filter, options_for_select([[_('Any'), 'any'],[_('Disabled'), "disabled"], [_('Enabled') , "enabled"]], @filter)) %>
+
+      <%= select_tag(:filter,
+        options_for_select(
+          [[_('Any'), 'any'],
+          [_('Disabled'), "disabled"],
+          [_('Enabled') , "enabled"]],
+          @filter
+        )
+      ) %>
+
     </div>
     <div style="clear: both"></div>
   </div>
