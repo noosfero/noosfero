@@ -68,7 +68,6 @@ body, th, td, input {
 }
 
 #content {
-  text-align: center;
   padding: 32px 2px;
 }
 
@@ -196,6 +195,10 @@ body, th, td, input {
         &:-webkit-autofill {
           -webkit-box-shadow: 0 0 0px 1000px white inset;
         }
+      }
+      a.button {
+        margin: 0;
+        white-space: nowrap;
       }
     }
   }
@@ -567,7 +570,6 @@ div#notice {
 .block a {
   cursor: pointer;
   color: #333;
-  font-size: 1.1em;
   text-decoration: none;
 }
 
@@ -1116,7 +1118,7 @@ div#notice {
 }
 #portal-news .post-title {
   display: block;
-  margin-left: 65px;
+  margin-left: 75px;
 }
 
 #highlighted-news .post-title {
@@ -1847,8 +1849,19 @@ a.menu-toggle {
 
 .scrollbar {
   overflow-y: scroll;
+
   &::-webkit-scrollbar {
-    width: 0px;
+      width: 1em;
+  }
+
+  &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      border-radius: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 10px;
   }
 }
 
@@ -1888,6 +1901,8 @@ form.form-with-captcha {
   }
 }
 
+/********************** Organization Index **********************/
+
 #organizations-search {
   display: flex;
   flex-direction: row;
@@ -1925,7 +1940,21 @@ form.form-with-captcha {
 .organization_button{
   font-size: 100% !important;
   padding: 0.5em 0.5em 0.8em 0.5em !important;
-  margin-right: 0.5em important;
+  margin-right: 0.5em !important;
   height: 1em;
   width: 4em;
 }
+
+.hidden-submit {
+  display: none !important;
+}
+
+.no-boxes {
+  width: 94%;
+  margin: auto;
+}
+
+i.fa {
+  margin-right: 4px;
+}
+

@@ -1,3 +1,4 @@
+<% # FIXME This partil isn't used in new layout. Check if it is used by another themes and remove. %>
 <div id="user">
   <% user = (session[:user] && User.find_by(id: session[:user])) || nil %>
   <% if user.present? %>

@@ -312,6 +312,10 @@ module ApplicationHelper
     @theme_site_title ||= theme_include 'site_title'
   end
 
+  def theme_user
+    @theme_user ||= theme_include 'user'
+  end
+
   def theme_header
     @theme_header ||= theme_include 'header'
   end
@@ -841,7 +845,7 @@ module ApplicationHelper
   alias :browse_communities_menu :search_communities_menu
 
   def search_events_menu
-    @search_events_url = content_tag(:a, content_tag(:i, "", :class => 'fa fa-calendar') + _('Events'), :class => 'icon-menu-events', :href => "/search/events")
+    @search_events_url = content_tag(:a, content_tag(:i, "", :class => 'fa fa-calendar') + _('Events'), :class => 'icon-menu-events', :href => "/search/events", :id => 'submenu-events')
     render :text => @search_events_url
   end
   alias :browse_events_menu :search_events_menu

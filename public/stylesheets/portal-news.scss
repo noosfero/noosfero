@@ -1,8 +1,21 @@
 // FIXME prefix/scope general selectors
 
-#portal-news {
-  font-size: 11px;
+#highlighted-news {
+  font-size: 14px;
+  text-align: left;
+
+  .event-dates { margin-bottom: 10px; }
+  p {
+    clear: both;
+    text-align: justify;
+  }
 }
+
+#portal-news {
+  font-size: 12px;
+  text-align: left;
+}
+
 #portal-news a, #highlighted-news a, .news-area a {
   text-decoration: none;
 }
