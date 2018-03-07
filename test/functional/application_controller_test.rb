@@ -267,7 +267,8 @@ class ApplicationControllerTest < ActionController::TestCase
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new])
 
     get :index
-    assert_tag :tag => 'div', :attributes => {:id => 'user'}
+    assert_tag :tag => 'a', :attributes => {:title => 'Plugin1'}
+
   end
 
   should 'not display invisible blocks' do

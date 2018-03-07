@@ -7,7 +7,7 @@
 <div class="profile-big-image <%= theme_option(:profile_list_bg_imgs) ? 'bg-pic' : 'img-pic' %>">
   <%=
     if theme_option(:profile_list_bg_imgs)
-      link_to '', profile.url, style: "background-image: url(#{profile_pic profile})"
+      link_to image_tag(profile_pic profile), profile.url
     else
       link_to profile_image(block.owner, :big) +"\n", profile.url
     end

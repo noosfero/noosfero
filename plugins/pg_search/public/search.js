@@ -18,7 +18,7 @@
   });
 
   // Facet Clear
-  $('.facet .clear-facet').live('click', function() {
+  $('#facets .clear-facet').live('click', function() {
     var id = $(this).data('facet');
     var update = $('#'+ id +' input[type="checkbox"]:checked').length > 0;
     $('#'+ id +' input[type="checkbox"]').attr('checked', false);
