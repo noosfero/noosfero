@@ -2,7 +2,9 @@ module PgSearchPlugin::SearchHelper
 
   def facet(f)
     facet_id = "#{f[:name].to_slug}-facet"
-    facet_content = content_tag('h2', _(f[:name])) + facets_block(f[:options], f[:type], facet_id)
+    facet_content = content_tag('h2', _(f[:name])) + 
+                    text_field_tag(nil, nil, :placeholder => _('Refine options'), :class => 'facet-refine') +
+                    facets_block(f[:options], f[:type], facet_id)
     content_tag('div', facet_content, id: facet_id, class: 'facet')
   end
 
