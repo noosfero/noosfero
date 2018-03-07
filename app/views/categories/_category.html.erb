@@ -8,7 +8,7 @@
   </div>
 
   <% if category.children.count > 0 %>
-    <div class='button' id="category-loading-<%= category.id %>" style="position: relative;">
+    <div class='button' id="category-loading-<%= category.id %>">
       <a href="#" id="show-button-<%= category.id %>" class="show-button" onclick="return false;" data-category="<%= category.id %>"><%= _('Show subcategories') %></a>
     </div>
     <a href="#" id="hide-button-<%= category.id %>" class="hide-button" onclick="return false;" data-category="<%= category.id %>" style="display: none;"><%= _('Hide subcategories') %></a>
@@ -21,6 +21,6 @@
   </div>
 </div>
 
-<ul id="category-sub-items-<%= category.id %>" class="tree" style='display:none;'></ul>
+<ul id="category-sub-items-<%= category.id %>" class="tree"></ul>
 
 </li>
