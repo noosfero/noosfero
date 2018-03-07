@@ -159,14 +159,22 @@ module ProfileImageHelper
         ) : ""
       ).html_safe +
       link_to(
-        content_tag('span', profile_image(profile, size), class: img_class) +
-        content_tag('span', h(name), class: (profile.class == Person ? 'fn' : 'org')) +
+        content_tag('span', profile_image(profile, size), class: img_class, style: (
+          theme_option(:profile_list_bg_imgs) ?
+          "visibility:hidden;" : ''
+        )) +
+        content_tag('span', h(name), class: (profile.class == Person ? 'fn' : 'org'), style: (
+          theme_option(:profile_list_bg_imgs) ?
+          "margin-top: 1.7em;" : ''
+        )) +
         extra_info_tag + profile_sex_icon(profile),
         profile.url,
         class: 'profile_link url',
         style: (
           theme_option(:profile_list_bg_imgs) ?
-          "background-image: url(#{profile_icon(profile, size)})" : ''
+          "background: url(#{profile_icon(profile, size)}) no-repeat center center; 
+           background-size: cover;
+           margin-top: 2em;" : ''
         ),
         title: profile.name ).html_safe,
       class: "vcard common-profile-list-block #{profile.image ? 'has-pic' : 'no-pic'}"
