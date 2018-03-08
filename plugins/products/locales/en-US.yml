@@ -1,0 +1,15 @@
+en-US: &en-US
+
+  products_plugin:
+    lib:
+      plugin:
+        name: "Products"
+        description: "A plugin to manage product and service transactions"
+
+
+
+en_US:
+  <<: *en-US
+en:
+  <<: *en-US
+
