@@ -28,7 +28,6 @@
   font-size: 14px !important;
   &:not(:last-child) { margin-right: 8px !important; }
   padding: 7px 12px !important;
-  @media only screen and (max-width: 768px) { margin-bottom: 5px; }
   @media only screen and (max-width: 540px) { padding: 6px 8px !important; }
   height: auto;
   line-height: 16px !important;
