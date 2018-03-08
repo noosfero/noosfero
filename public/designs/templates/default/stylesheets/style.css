@@ -1,71 +1,35 @@
-.box-1, .box-2, .box-3, .no-boxes {
-  display: inline-block;
-  text-align: left;
-  vertical-align: top;
+.boxes {
+  display:flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
-.box-1 .blocks {
-  width: 100%;
-}
-
-.no-boxes {
-  width: 80%;
-}
-
-/************* Grid dimensions *************/
-
-.box {
-  padding: 0 1em;
-  overflow: initial;
-}
-
-.box-1 {
+.boxes .box-1 {
   width: 50%;
+  order: 2;
 }
 
-.box-2 {
-  width: 18%;
+.boxes .box-2 {
+  order: 1;
+  width: 20%;
+  margin-right: 2%;
 }
 
-.box-3 {
-  width: 22%;
+.boxes .box-3 {
+  order: 3;
+  width: 20%;
+  margin-left: 2%;
 }
 
-@media only screen and (max-width: 960px) {
-  .box {
-    padding: 0 0.5em;
+@media only screen and (max-width: 660px) {
+  .boxes {
+    flex-direction: column;
   }
-
-  .box-1 {
-    width: 48%;
-  }
-
-  .box-2, .box-3 {
-    width: 20%;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .box-1 {
-    width: 52%;
-  }
-
-  .box-2 {
-    width: 20%;
-  }
-
-  .box-3 {
-    width: 18%;
-  }
-
-}
-
-@media only screen and (max-width: 540px) {
-  .box-1, .box-2, .box-3 {
-      display: block;
-      width: 100%;
-      margin: auto;
-      box-sizing: border-box;
+  .boxes .box-1,
+  .boxes .box-2,
+  .boxes .box-3 {
+    margin: auto;
+    width: 90%;·
   }
 
   .no-boxes {

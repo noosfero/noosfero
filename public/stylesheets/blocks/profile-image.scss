@@ -1,6 +1,7 @@
 .profile-image-block {
   text-align: center;
 
+  .profile-big-image.bg-pic,
   .profile-big-image.img-pic {
     width: 90%;
     margin: auto;
@@ -13,17 +14,6 @@
         width: 100%;
         max-width: 156px;
       }
-    }
-  }
-
-  .profile-big-image.bg-pic {
-    a {
-      display: block;
-      width: 156px;
-      height: 156px;
-      margin: auto;
-      background-size: cover;
-      background-position: 50% 30%;
     }
   }
 
