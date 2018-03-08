@@ -4,23 +4,32 @@
     <% unless category_color_style(category).empty? %>
       <span class="color_marker" style="<%= category_color_style(category) %>" ></span>
     <% end %>
-    <span><%= category.name %></span>
+    <span id="general-categories"><%= category.name %></span>
   </div>
 
   <% if category.children.count > 0 %>
+  <div class='category-actions'>
+    <div class='button' style="position: relative;">    
+      <%= link_to _('Add subcategory'), :action => 'new', :parent_id => category %>
+    </div>
+    <div class='button' style="position: relative;">    
+      <%= link_to _('Edit'), :action => 'edit', :id => category %>
+    </div>  
+    <div class='button' style="position: relative;">    
+      <%= link_to _('Remove'), { action: 'remove', id: category, }, method: 'post', data: {confirm: if category.children.empty? then _('Are you sure you want to remove "%s"?') % category.name else _('Are you sure you want to remove "%s" and all its subcategories?') % category.name end} %>
+    </div>
+    
     <div class='button' id="category-loading-<%= category.id %>" style="position: relative;">
       <a href="#" id="show-button-<%= category.id %>" class="show-button" onclick="return false;" data-category="<%= category.id %>"><%= _('Show subcategories') %></a>
     </div>
-    <a href="#" id="hide-button-<%= category.id %>" class="hide-button" onclick="return false;" data-category="<%= category.id %>" style="display: none;"><%= _('Hide subcategories') %></a>
+    <div class='button' id="category-loading-<%= category.id %>" style="position: relative;">    
+      <a href="#" id="hide-button-<%= category.id %>" class="hide-button" onclick="return false;" data-category="<%= category.id %>"><%= _('Hide subcategories') %></a>
+    </div>
+    
   <% end %>
-
-  <div class='category-actions'>
-    <%= link_to _('Add subcategory'), :action => 'new', :parent_id => category %>
-    <%= link_to _('Edit'), :action => 'edit', :id => category %>
-    <%= link_to _('Remove'), { action: 'remove', id: category, }, method: 'post', data: {confirm: if category.children.empty? then _('Are you sure you want to remove "%s"?') % category.name else _('Are you sure you want to remove "%s" and all its subcategories?') % category.name end} %>
   </div>
 </div>
 
-<ul id="category-sub-items-<%= category.id %>" class="tree" style='display:none;'></ul>
+<ul id="category-sub-items-<%= category.id %>" class="tree" style="display:none;"></ul>
 
 </li>
