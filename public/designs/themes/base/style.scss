@@ -1891,19 +1891,6 @@ a.menu-toggle {
   }
 }
 
-form.form-with-captcha {
-  input {
-    width: 302px;
-    @media only screen and (max-width: 540px) {
-      width: 273px;
-    }
-  }
-  @media only screen and (max-width: 540px) {
-    width: 275px;
-    margin: auto;
-  }
-}
-
 .hidden-submit {
   display: none !important;
 }
