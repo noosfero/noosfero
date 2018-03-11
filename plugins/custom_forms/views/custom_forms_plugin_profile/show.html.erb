@@ -1,5 +1,5 @@
 <div id="custom-forms-plugin_submission">
-  <h1><%= @form.name %></h1>
+  <h3><%= @form.name %></h3>
 
   <% if environment.admins.include?(current_person) ||
         profile.admins.include?(current_person) %>
@@ -14,7 +14,7 @@
     </div>
   <% end %>
 
-  <p><%= (@form.description || "").html_safe %></p>
+  <%= (@form.description || "").html_safe %>
 
   <% if @submission.id.nil? %>
     <% if @form.expired? %>
