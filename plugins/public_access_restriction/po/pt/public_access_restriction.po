@@ -23,12 +23,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../controllers/myprofile/public_access_restriction_plugin_page_controller.rb:12
 msgid "There was an error while updating the profile data"
 msgstr "Houve um erro ao atualizar os dados do perfil"
 
+#: ../lib/public_access_restriction_plugin.rb:4
 msgid "Public Access Restriction"
 msgstr "Restrição ao Acesso Público"
 
+#: ../lib/public_access_restriction_plugin.rb:8
 msgid ""
 "Restrict unauthenticated visitors to access any public profile, but the "
 "portal."
@@ -36,9 +39,12 @@ msgstr ""
 "Restringe visitantes não autenticados a acessar qualquer perfil público, "
 "exceto o portal."
 
+#: ../lib/public_access_restriction_plugin.rb:54
+#: ../views/public_access_restriction_plugin_page/index.html.erb:2
 msgid "Public Welcome Page"
 msgstr "Página Pública de Boas Vindas"
 
+#: ../views/public_access_restriction_plugin_page/index.html.erb:11
 msgid ""
 "Enables a public welcome page that replaces the default profile page when "
 "the user is not authorized to access it"
@@ -46,6 +52,7 @@ msgstr ""
 "Ativa uma página pública de boas vindas que substitui a página de perfil "
 "padrão quando o usuário não está autorizado a acessá-lo"
 
+#: ../views/public_access_restriction_plugin_page/index.html.erb:18
 msgid ""
 "The following content will be displyed in the public welcome page, along "
 "with a button to the sign up page. If you do not set a custom content, only "
@@ -55,9 +62,11 @@ msgstr ""
 "juntamente com um botão para a página de cadastro. Se você não definir um "
 "conteúdo personalizado, apenas uma mensagem padrão será exibida."
 
+#: ../views/public_access_restriction_plugin_page/index.html.erb:26
 msgid "Save"
 msgstr "Salvar"
 
+#: ../views/public_access_restriction_plugin_public_page/index.html.erb:18
 msgid ""
 "This profile is not public. Only authenticated users can join, see its "
 "information, read and publish contents, and interact with its members."
@@ -65,5 +74,6 @@ msgstr ""
 "Esse perfil não é público. Apenas usuários autorizados podem fazer parte, "
 "lere publicar conteúdos, e interagir com os seus membros."
 
+#: ../views/public_access_restriction_plugin_public_page/index.html.erb:23
 msgid "Do you want to find out more? Sign in and join this organization"
 msgstr "Você quer saber mais? Entre e faça parte dessa organização"

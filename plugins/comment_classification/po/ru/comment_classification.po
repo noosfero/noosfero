@@ -70,14 +70,17 @@ msgstr "Адрес не может быть сохранен"
 msgid "A plugin that allow classification of comments."
 msgstr "Блок, отображающий группы"
 
-msgid "Status"
-msgstr "Статус"
+#, fuzzy
+msgid "Reason enabled?"
+msgstr "%s не позволено"
 
-msgid "Label"
-msgstr ""
+#, fuzzy
+msgid "(no status registered yet)"
+msgstr "(продукты не зарегистрированы)"
 
-msgid "[Select ...]"
-msgstr "[Выберите...]"
+#, fuzzy
+msgid "Manage comments status"
+msgstr "Управлять контактами"
 
 #, fuzzy
 msgid "Comments classification options"
@@ -91,11 +94,13 @@ msgstr "Управлять списком друзей"
 msgid "Manage Status"
 msgstr "Управлять контактами"
 
-msgid "Name"
-msgstr "Имя"
+#, fuzzy
+msgid "Editing status %s"
+msgstr "Редактирование %s"
 
-msgid "Color"
-msgstr ""
+#, fuzzy
+msgid "Add a new status"
+msgstr "Одна компания"
 
 #, fuzzy
 msgid "Enable this label?"
@@ -117,11 +122,13 @@ msgstr "Управлять полями сообщества"
 msgid "(no label registered yet)"
 msgstr "(продукты не зарегистрированы)"
 
-msgid "Enabled"
-msgstr "Разрешено"
+#, fuzzy
+msgid "Enable this status?"
+msgstr "Активировать \"Контакты\""
 
-msgid "Actions"
-msgstr "Действия"
+#, fuzzy
+msgid "Manage comment classification"
+msgstr "Информация о менеджменте"
 
 #, fuzzy
 msgid "Are you sure you want to  remove this label?"
@@ -135,42 +142,51 @@ msgstr "Регион"
 msgid "Status for comment"
 msgstr "Комментарий"
 
+#, fuzzy
+msgid "Are you sure you want to remove this status?"
+msgstr "Вы уверены что хотите удалить этот элемент?"
+
+#: ../views/comment/comment_extra.html.erb:12
+#: ../views/comment_classification_plugin_myprofile/_status_form.html.erb:6
+#: ../views/comment_classification_plugin_status/index.html.erb:9
+msgid "Status"
+msgstr "Статус"
+
+#: ../views/comment/comments_labels_select.html.erb:3
+msgid "[Select ...]"
+msgstr "[Выберите...]"
+
+#: ../views/comment/comments_labels_select.html.erb:3
+#: ../views/comment_classification_plugin_labels/index.html.erb:9
+msgid "Label"
+msgstr ""
+
+#: ../views/comment_classification_plugin_labels/_form.html.erb:6
+#: ../views/comment_classification_plugin_status/_form.html.erb:6
+msgid "Name"
+msgstr "Имя"
+
+#: ../views/comment_classification_plugin_labels/_form.html.erb:7
+#: ../views/comment_classification_plugin_labels/index.html.erb:10
+msgid "Color"
+msgstr ""
+
+#: ../views/comment_classification_plugin_labels/index.html.erb:11
+#: ../views/comment_classification_plugin_status/index.html.erb:10
+msgid "Enabled"
+msgstr "Разрешено"
+
+#: ../views/comment_classification_plugin_labels/index.html.erb:12
+#: ../views/comment_classification_plugin_status/index.html.erb:12
+msgid "Actions"
+msgstr "Действия"
+
+#: ../views/comment_classification_plugin_myprofile/add_status.html.erb:16
 msgid ""
 "<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</"
 "i>."
 msgstr ""
 
+#: ../views/comment_classification_plugin_myprofile/add_status.html.erb:18
 msgid "<i>Reason:</i> %s"
 msgstr ""
-
-#, fuzzy
-msgid "Add a new status"
-msgstr "Одна компания"
-
-#, fuzzy
-msgid "Manage comment classification"
-msgstr "Информация о менеджменте"
-
-#, fuzzy
-msgid "Enable this status?"
-msgstr "Активировать \"Контакты\""
-
-#, fuzzy
-msgid "Editing status %s"
-msgstr "Редактирование %s"
-
-#, fuzzy
-msgid "Manage comments status"
-msgstr "Управлять контактами"
-
-#, fuzzy
-msgid "(no status registered yet)"
-msgstr "(продукты не зарегистрированы)"
-
-#, fuzzy
-msgid "Reason enabled?"
-msgstr "%s не позволено"
-
-#, fuzzy
-msgid "Are you sure you want to remove this status?"
-msgstr "Вы уверены что хотите удалить этот элемент?"

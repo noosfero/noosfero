@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-12 13:14-0300\n"
-"PO-Revision-Date: 2016-09-12 13:14-0300\n"
+"POT-Creation-Date: 2018-03-12 14:28+0000\n"
+"PO-Revision-Date: 2018-03-12 14:28+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -43,7 +43,8 @@ msgid "Defines a step."
 msgstr ""
 
 #: ../lib/community_track_plugin/step_helper.rb:4
-msgid "Closed"
+#: ../test/unit/community_track_plugin/step_helper_test.rb:33
+msgid "Soon"
 msgstr ""
 
 #: ../lib/community_track_plugin/step_helper.rb:4
@@ -51,8 +52,7 @@ msgid "Join!"
 msgstr ""
 
 #: ../lib/community_track_plugin/step_helper.rb:4
-#: ../test/unit/community_track_plugin/step_helper_test.rb:33
-msgid "Soon"
+msgid "Closed"
 msgstr ""
 
 #: ../lib/community_track_plugin/track.rb:16
@@ -86,7 +86,7 @@ msgid "This block displays a list of most relevant tracks."
 msgstr ""
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Hits"
+msgid "Most Recent"
 msgstr ""
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
@@ -94,7 +94,7 @@ msgid "Random"
 msgstr ""
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Most Recent"
+msgid "Hits"
 msgstr ""
 
 #: ../views/blocks/_track.html.erb:12 ../views/content_viewer/track.html.erb:9

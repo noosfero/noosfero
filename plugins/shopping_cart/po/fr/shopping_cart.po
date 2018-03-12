@@ -141,9 +141,6 @@ msgstr "Envoyer une requête"
 msgid "Delivery or pickup method"
 msgstr "Détruire le profil"
 
-msgid "Email"
-msgstr "Courriel"
-
 #, fuzzy
 msgid "shopping_cart|Change"
 msgstr "Statut de formation"
@@ -221,6 +218,10 @@ msgstr ""
 msgid "Name"
 msgstr "Nom"
 
+#: ../views/shopping_cart_plugin/buy.html.erb:22
+msgid "Email"
+msgstr "Courriel"
+
 #: ../views/shopping_cart_plugin/buy.html.erb:23
 msgid "Contact phone"
 msgstr "Téléphone du contact"
@@ -270,6 +271,5 @@ msgstr ""
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
 
-#, fuzzy
 #~ msgid "Item name"
 #~ msgstr "Nom de fichier"

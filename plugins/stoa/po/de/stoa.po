@@ -18,15 +18,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
-msgid "USP Number"
-msgstr "USP-Nummer"
-
-msgid "Conection requires post method."
-msgstr "Die Verbindung benötigt ein SSL-Zertifikat und eine POST-Methode."
-
 #: ../controllers/stoa_plugin_controller.rb:21 ../lib/stoa_plugin/auth.rb:26
 msgid "Incorrect user/password pair."
 msgstr "Falsches Paar aus Nutzername und Passwort."
+
+#: ../controllers/stoa_plugin_controller.rb:25 ../lib/stoa_plugin/auth.rb:33
+msgid "Conection requires post method."
+msgstr "Die Verbindung benötigt ein SSL-Zertifikat und eine POST-Methode."
+
+#: ../lib/ext/person.rb:6 ../lib/stoa_plugin.rb:122 ../lib/stoa_plugin.rb:126
+msgid "USP Number"
+msgstr "USP-Nummer"
 
 #: ../lib/ext/person.rb:18
 msgid "is being used by another user or is not valid"
