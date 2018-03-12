@@ -26,8 +26,11 @@
     <%= label(:user, :login, _('Username'), {:class => 'formlabel'}) %>
     <div id='signup-login'>
       <div id='signup-login-field' class='formfield'>
-        <%= required text_field(:user, :login, :id => 'user_login',
-                                :onchange => 'this.value = convToValidUsername(this.value);') %>
+        <div class='domain-field'>
+          <span id="signup-domain"><%= environment.default_hostname %>/</span>
+          <%= required text_field(:user, :login, :id => 'user_login',
+                                  :onchange => 'this.value = convToValidUsername(this.value);') %>
+        </div>
         <div id='url-check'><p>&nbsp;</p></div>
         <span id='checking-message' class='checking' style='display:none'><%= _('Checking availability of login name...') %></span>
       </div>
@@ -191,8 +194,3 @@ function fill_username(element){
   jQuery('#user_login').val(element).addClass('validated').removeClass('invalid')
 }
 </script>
-
-<div class="about-noosfero">
-  <h2>Noosfero: a free web-based platform for social and solidarity economy networks</h2>
-  <%= link_to image_tag("/images/noosfero-network.png", alt: "Noosfero"), "http://noosfero.org", target: :_blank %>
-</div>
