@@ -14,7 +14,7 @@
   margin-bottom: 10px;
 
   label {
-    font-size: 10px;
+    font-size: 14px;
     font-weight: normal;
     color: #444;
   }
@@ -52,10 +52,6 @@
     background: transparent url(../images/loading.gif) no-repeat scroll center 50px;
     opacity: 0.5;
   }
-}
-
-#signup-form #location-support-fields input {
-  padding: 2px 0;
 }
 
 p.help-message {

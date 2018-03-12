@@ -37,6 +37,7 @@ class LinkListBlock < Block
     'chat'           => { :title => _('Chat'),       :icon => 'comments' },
     'enterprise'     => { :title => _('Enterprise'), :icon => 'building-o' },
     'blog'           => { :title => _('Blog'),       :icon => 'newspaper-o' },
+    'community'      => { :title => _('Community\'s profile'),     :icon => 'users' },
   }
 
   TARGET_OPTIONS = [
