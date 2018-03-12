@@ -1,3 +1,22 @@
+# 1.10.4
+  * Bumping version 1.10.4 (Rodrigo Souto) [9dbaaff]
+  * Update translations (Rodrigo Souto) [7740552]
+  * custom-form: populate answers through field_id (Rodrigo Souto) [5433d7a]
+  * Merge branch 'no-author' into 'master' (Rodrigo Souto) [5938391]
+  * Merge branch 'link-article-author' into 'master' (Rodrigo Souto) [99603b4]
+  * Merge branch 'search-results-fields' into 'master' (Rodrigo Souto) [717ee67]
+  * Merge branch 'custom-fields-remove' into 'master' (Rodrigo Souto) [7d61f45]
+  * social-statistics: change header and footer id to avoid conflicts (Rodrigo Souto) [05469e2]
+  * Merge branch 'products-fix' into 'master' (Rodrigo Souto) [d2af9a0]
+  * Merge branch 'search-content-display' into 'master' (Rodrigo Souto) [22a9102]
+  * Merge branch 'agenda' into 'master' (Rodrigo Souto) [a0bf861]
+  * Merge branch 'newsletter-html-safe' into 'master' (Rodrigo Souto) [abbd7fc]
+  * Merge branch 'image-filename' into 'master' (Rodrigo Souto) [4c0d973]
+  * Merge branch 'chat_badge' into 'master' (Rodrigo Souto) [3b77541]
+  * Merge branch 'comment-report' into 'master' (Rodrigo Souto) [15d3a92]
+  * Merge branch 'show-block-to-admins' into 'master' (Leandro Nunes) [a0a1274]
+  * Adds repository key every build (Gabriel Silva) [ca15ac6]
+
 # 1.10.3
   * Bumping version 1.10.3 (Rodrigo Souto) [0c0a34b]
   * Update translations (Rodrigo Souto) [71a58f6]
