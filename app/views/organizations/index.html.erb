@@ -10,14 +10,13 @@
     <%= submit_button(:search, _('Search')) %>
   </div>
 
-  <div class="environment-profiles-results-header">
-    <div id='environment-profiles-filter-title'><%= @title %></div>
+  <div id='environment-profiles-filter-title'>
+    <%= @title %>
+  </div>
 
-    <div id="environment-profiles-filter-filter">
-      <strong><%= _("Filter by: ") %></strong>
-      <%= select_tag(:filter, options_for_select([[_('Any'), 'any'],[_('Disabled'), "disabled"], [_('Enabled') , "enabled"]], @filter)) %>
-    </div>
-    <div style="clear: both"></div>
+  <div id="environment-profiles-filter-filter">
+    <strong><%= _("Filter by: ") %></strong>
+    <%= select_tag(:filter, options_for_select([[_('Any'), 'any'],[_('Disabled'), "disabled"], [_('Enabled') , "enabled"]], @filter)) %>
   </div>
 
   <%= render :partial => 'results' %>
