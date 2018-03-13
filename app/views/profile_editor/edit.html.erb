@@ -101,40 +101,26 @@
   <%= button_bar do %>
     <%= button(:back, _('Back'), controller: 'profile_editor') %>
     <%= submit_button('save', _('Save')) %>
-  <% end %>
-
-  <a class="button with-text" href="#advanced_options"><%= _('Advanced Options') %></a>
-  <div id="advanced_options">
-    <%= button_bar do %>
-      <% if user && user.has_permission?('destroy_profile', profile) %>
-        <% if user.is_admin?(environment) %>
-          <% if profile.visible? %>
-            <%= button(:ban,
-                       _('Deactivate profile'),
-                       { action: :deactivate_profile, id: profile.id },
-                       id: 'deactivate_profile_button', data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
-          <% else %>
-            <%= button(:'toggle-on',
-                       _('Activate profile'),
-                       { action: :activate_profile, id: profile.id },
-                       data: { confirm: _("Are you sure you want to activate this profile?") }) %>
+    
+    <a class="button with-text" id="advanced_options_button">
+      <%= _('Advanced Options') %>
+    </a>
+    <div id="advanced_options">
+        <% if user && user.has_permission?('destroy_profile', profile) %>
+          <% if user.is_admin?(environment) %>
+            <% if profile.visible? %>
+              <%= button(:ban, _('Deactivate profile'), { action: :deactivate_profile, id: profile.id }, id: 'deactivate_profile_button', data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
+            <% else %>
+              <%= button(:'toggle-on', _('Activate profile'), { action: :activate_profile, id: profile.id }, data: { confirm: _("Are you sure you want to activate this profile?") }) %>
+            <% end %>
           <% end %>
         <% end %>
 
         <% if !environment.enabled?('forbid_destroy_profile') || user.is_admin?(environment) %>
-          <%= button(:delete,
-                     _('Delete profile'),
-                     { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
+            <%= button(:delete, _('Delete profile'), { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
         <% end %>
-      <% end %>
-
-      <% if !environment.enabled?('forbid_destroy_profile') || user.is_admin?(environment) %>
-        <%= button(:delete,
-                   _('Delete profile'),
-                   { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
-      <% end %>
-    <% end %>
+    </div>
   <% end %>
-</div>
+<% end %>
 
 <%= javascript_include_tag 'profile_editor' %>
