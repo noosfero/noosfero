@@ -748,7 +748,13 @@ module ApplicationHelper
   end
 
   def float_to_currency(value)
-    number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :format => "%u %n")
+    number_to_currency(value,  :format => "%u %n", locale: currency_locale())
+  end
+
+  def currency_locale
+    current_lang = environment.default_language
+    return :"pt-BR" if current_lang.eql? 'pt'
+    current_lang.to_sym
   end
 
   def collapsed_item_icon
@@ -909,7 +915,7 @@ module ApplicationHelper
     count = user ? Task.to(user).pending.count : -1
 
     if count > 0
-      pending_tasks_count = link_to(count.to_s, 
+      pending_tasks_count = link_to(count.to_s,
       user.tasks_url,
       :id => 'pending-tasks-count',
       :title => _("Manage your pending tasks"))
@@ -931,7 +937,7 @@ module ApplicationHelper
       pending_tasks_count.html_safe,
       logout_link.html_safe
     ]
-    items 
+    items
   end
 
   def logout_link
@@ -939,7 +945,7 @@ module ApplicationHelper
     logout_link = link_to(logout_icon.html_safe,
       {:controller => 'account',:action => 'logout'},
       :id => "logout", :title => _("Leave the system"))
-    logout_link   
+    logout_link
   end
 
   def plugins_items
@@ -957,7 +963,7 @@ module ApplicationHelper
     welcome_span
   end
 
-  def ctrl_panel_link 
+  def ctrl_panel_link
     ctrl_panel_icon = '<i class="icon-menu-ctrl-panel"></i>'
     ctrl_panel_section = '<strong>' + ctrl_panel_icon + _('Control panel') + '</strong>'
     ctrl_panel_link = link_to(ctrl_panel_section.html_safe, user.admin_url,
