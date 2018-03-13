@@ -19,7 +19,8 @@
     <span><%= unchangeable_privacy_field @profile %></span>
   </div>
   <div id="profile_change_picture">
-    <%= file_field_or_thumbnail(_('Image:'), @profile.image, 'profile_data[image_builder]') %><%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
+    <%= file_field_or_thumbnail(_('Image:'), @profile.image, 'profile_data[image_builder]') %>
+    <%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
   </div>
 
   <hr>
@@ -27,31 +28,41 @@
   <h2><%= _('Privacy options') %></h2>
   <%= content_tag('h4', _('Followers')) %>
   <div>
-    <%= labelled_check_box _("Allow other users to follow me"), 'profile_data[allow_followers]', true, @profile.allow_followers?, :class => "person-can-be-followed" %>
+    <%= labelled_check_box _("Allow other users to follow me"), 'profile_data[allow_followers]',
+                            true, @profile.allow_followers?, :class => "person-can-be-followed" %>
   </div>
   <%= content_tag('h4', _('Visibility')) %>
   <% if profile.person? %>
     <div id="profile_allow_follows">
-      <%= labelled_radio_button _('Public &mdash; show my contents to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile? %>
+      <%= labelled_radio_button _('Public &mdash; show my contents to all internet users').html_safe, 
+                                'profile_data[public_profile]', true, @profile.public_profile? %>
     </div>
     <div>
-      <%= labelled_radio_button _('Private &mdash; show my contents only to friends').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile? %>
+      <%= labelled_radio_button _('Private &mdash; show my contents only to friends').html_safe, 
+                                'profile_data[public_profile]', false, !@profile.public_profile? %>
     </div>
   <% else %>
     <div>
-      <%= labelled_check_box _("Secret &mdash; hide the community and all its contents for non members and other people can't join this community unless they are invited to.").html_safe, 'profile_data[secret]', true, profile.secret, :class => "profile-secret-box" %>
+      <%= labelled_check_box _("Secret &mdash; hide the community and all its contents for non members 
+                             and other people can't join this community unless they are invited to.").html_safe,
+                             'profile_data[secret]', true, profile.secret, :class => "profile-secret-box" %>
     </div>
     <div>
-      <%= labelled_radio_button _('Public &mdash; show content of this group to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile?, :class => "public-community-button" %>
+      <%= labelled_radio_button _('Public &mdash; show content of this group to all internet users').html_safe, 
+                                'profile_data[public_profile]', true, @profile.public_profile?, 
+                                :class => "public-community-button" %>
     </div>
     <div>
-      <%= labelled_radio_button _('Private &mdash; show content of this group only to members').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile?, :class => "private-community-button" %>
+      <%= labelled_radio_button _('Private &mdash; show content of this group only to members').html_safe,
+                                'profile_data[public_profile]', false, !@profile.public_profile?,
+                                :class => "private-community-button" %>
     </div>
   <% end %>
 
   <%= content_tag('h4', _('Wall access')) %>
   <%= content_tag( 'small', _('Who will be able to see your wall?')) %>
-  <%= access_slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, @profile.wall_access, @profile.wall_access_levels) %>
+  <%= access_slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, 
+                              @profile.wall_access, @profile.wall_access_levels) %>
 
   <% if environment.enabled?('allow_change_of_redirection_after_login') %>
     <%= render 'redirection_after_login', f: f %>
@@ -109,15 +120,19 @@
         <% if user && user.has_permission?('destroy_profile', profile) %>
           <% if user.is_admin?(environment) %>
             <% if profile.visible? %>
-              <%= button(:ban, _('Deactivate profile'), { action: :deactivate_profile, id: profile.id }, id: 'deactivate_profile_button', data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
+              <%= button(:ban, _('Deactivate profile'), { action: :deactivate_profile, id: profile.id }, 
+                         id: 'deactivate_profile_button', 
+                         data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
             <% else %>
-              <%= button(:'toggle-on', _('Activate profile'), { action: :activate_profile, id: profile.id }, data: { confirm: _("Are you sure you want to activate this profile?") }) %>
+              <%= button(:'toggle-on', _('Activate profile'), { action: :activate_profile, id: profile.id }, 
+                         data: { confirm: _("Are you sure you want to activate this profile?") }) %>
             <% end %>
           <% end %>
         <% end %>
 
         <% if !environment.enabled?('forbid_destroy_profile') || user.is_admin?(environment) %>
-            <%= button(:delete, _('Delete profile'), { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
+            <%= button(:delete, _('Delete profile'), { action: :destroy_profile }, 
+                       data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
         <% end %>
     </div>
   <% end %>
