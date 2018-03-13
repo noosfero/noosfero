@@ -110,7 +110,7 @@
   min-height: 20px;
 }
 
-#box-organizer .block .button-bar {
+#box-organizer .block .button-bar-boxes {
   cursor: move;
   position: absolute;
   display: block;
@@ -122,8 +122,8 @@
   display: none;
 }
 
-#box-organizer .block-outer:focus .button-bar,
-#box-organizer .block-outer:hover .button-bar {
+#box-organizer .block-outer:focus .button-bar-boxes,
+#box-organizer .block-outer:hover .button-bar-boxes {
   display: block;
 }
 
