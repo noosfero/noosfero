@@ -21,7 +21,7 @@ class UserActivationJobTest < ActiveSupport::TestCase
 
   should 'not destroy user if activated' do
     user = new_user :login => 'test3'
-    user.activate
+    user.activate!
     job = UserActivationJob.new(user.id)
     assert_no_difference 'User.count' do
       job.perform

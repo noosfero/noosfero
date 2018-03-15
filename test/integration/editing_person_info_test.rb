@@ -8,7 +8,7 @@ class EditingPersonInfoTest < ActionDispatch::IntegrationTest
 
     profile = create_user('user_ze', :password => 'test', :password_confirmation => 'test').person
 
-    profile.user.activate
+    profile.user.activate!
 
     login(profile.identifier, 'test')
 

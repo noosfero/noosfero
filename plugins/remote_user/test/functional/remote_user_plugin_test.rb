@@ -20,7 +20,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'authenticate user if its a valid remote user' do
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    user.activate
+    user.activate!
     @request.env["HTTP_REMOTE_USER"] = user.login
     get :index
     assert session[:user]
@@ -28,9 +28,9 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'authenticate another user if the remote user doesnt belong to the current user' do
     user1 = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    user1.activate
+    user1.activate!
     user2 = create_user('anotheruser', :email => 'anotheruser@example.com', :password => 'test', :password_confirmation => 'test')
-    user2.activate
+    user2.activate!
 
     login_as user1.login
     assert_equal user1.id, session[:user]
@@ -63,7 +63,7 @@ class AccountControllerTest < ActionController::TestCase
     users = User.count
 
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    user.activate
+    user.activate!
 
     login_as user.login
 
@@ -100,7 +100,7 @@ class AccountControllerTest < ActionController::TestCase
     users = User.count
 
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    user.activate
+    user.activate!
 
     login_as user.login
 
@@ -117,7 +117,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'logout if there is a current logged user but not a remote user' do
     user1 = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    user1.activate
+    user1.activate!
 
     login_as user1.login
 

@@ -19,12 +19,12 @@ class PushNotificationHelperTest < ActiveSupport::TestCase
 
   should 'get all tokens for a group of users' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => environment)
-    user.activate
+    user.activate!
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenHomer1", device_name: "my device", :user => user)
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenHomer2", device_name: "my device", :user => user)
 
     user2 = User.create!(:login => 'bart', :email => 'bart@example.com', :password => 'fart', :password_confirmation => 'fart', :environment => environment)
-    user2.activate
+    user2.activate!
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenBart1", device_name: "my device", :user => user2)
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenBart2", device_name: "my device", :user => user2)
     PushNotificationPlugin::DeviceToken.create!(:token => "tokenBart3", device_name: "my device", :user => user2)
@@ -36,9 +36,9 @@ class PushNotificationHelperTest < ActiveSupport::TestCase
 
   should 'filter users registered for a notification' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => environment)
-    user.activate
+    user.activate!
     user2 = User.create!(:login => 'bart', :email => 'bart@example.com', :password => 'fart', :password_confirmation => 'fart', :environment => environment)
-    user2.activate
+    user2.activate!
 
     user.notification_settings.activate_notification "new_comment"
     user.save!

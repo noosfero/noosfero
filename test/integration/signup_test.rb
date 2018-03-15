@@ -41,7 +41,10 @@ class SignupTest < ActionDispatch::IntegrationTest
     assert_equal mail_count, ActionMailer::Base.deliveries.count
 
     post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
-    assert_redirected_to controller: 'home', action: 'welcome'
+    user = User.last
+    assert_redirected_to action: :activate,
+                         activation_token: user.activation_code,
+                         return_to: { controller: :home, action: :welcome, template_id: nil }
 
     assert_equal count + 1, User.count
     assert_includes Delayed::Job.all.map{|d|d.name}, 'UserMailer::Job'
@@ -61,7 +64,14 @@ class SignupTest < ActionDispatch::IntegrationTest
     data = ActiveSupport::JSON.decode @response.body
     sleep sleep_secs
     post '/account/signup', :user => { :login => 'someone', :password => 'test', :password_confirmation => 'test', :email => 'someone@example.com' }, :signup_time_key => data['key']
-    sleep_secs > min_signup_delay ? assert_redirected_to(controller: 'home', action: 'welcome') : assert_response(:success)
+    if sleep_secs > min_signup_delay
+      user = User.last
+      assert_redirected_to action: :activate,
+                           activation_token: user.activation_code,
+                           return_to: { controller: :home, action: :welcome, template_id: nil }
+    else
+      assert_response(:success)
+    end
   end
 
 end

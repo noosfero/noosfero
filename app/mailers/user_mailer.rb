@@ -22,7 +22,8 @@ class UserMailer < ApplicationMailer
     self.environment = user.environment
 
     @recipient = user.name
-    @activation_code = user.activation_code
+    @activation_token = user.activation_code
+    @short_activation_code = user.short_activation_code.try(:upcase)
     @url = user.environment.top_url
     @redirection = (true if user.return_to)
     @join = (user.community_to_join if user.community_to_join)

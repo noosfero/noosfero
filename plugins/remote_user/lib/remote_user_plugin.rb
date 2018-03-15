@@ -22,7 +22,7 @@ class RemoteUserPlugin < Noosfero::Plugin
     user = User.where(environment_id: environment, login: remote_user).first
     unless user
       user = User.create!(:environment => environment, :login => remote_user, :email => remote_user_email, :name => remote_user_name, :password => ('pw4'+remote_user), :password_confirmation => ('pw4'+remote_user))
-      user.activate
+      user.activate!
       user.save!
     end
     user

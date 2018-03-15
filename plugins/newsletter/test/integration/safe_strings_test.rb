@@ -6,7 +6,7 @@ class NewsletterPluginSafeStringsTest < ActionDispatch::IntegrationTest
     environment = Environment.default
     environment.enable_plugin('newsletter')
     person = create_user('john', :environment_id => environment.id, :password => 'test', :password_confirmation => 'test').person
-    person.user.activate
+    person.user.activate!
     environment.add_admin(person)
 
     blog = fast_create(Blog, :profile_id => person.id)

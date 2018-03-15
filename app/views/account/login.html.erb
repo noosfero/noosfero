@@ -5,8 +5,6 @@
 <% @user ||= User.new %>
 <% is_popin ||= false %>
 
-<%= @message %>
-
 <%= labelled_form_for :user, :url => login_url, :horizontal => true do |f| %>
 
      <%= f.text_field :login, :id => 'main_user_login', :onchange => 'this.value = convToValidLogin( this.value )', :value => params[:userlogin] %>
