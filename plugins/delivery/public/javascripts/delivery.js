@@ -1,3 +1,18 @@
+/* this hacking is necessary because the onclick function is generated
+ * on a Noosfero helper (app/helpers/buttons_helper.rb:37). This helper
+ * scapes the js code passed by the view (check http://api.rubyonrails.org/classes/ActionView/Helpers/JavaScriptHelper.html),
+ * and without this hacking the final function argument
+ * will trigger a syntax error. */
+$(document).ready(function(){
+  var html_elements = document.getElementsByClassName('replace-onclick-arg');
+  var elements_array = Array.from(html_elements);
+
+  elements_array.map(element => {
+    onclick_event = element.getAttribute('onclick');
+    var new_onclick_event = onclick_event.replace(/&\*/g, "'");
+    element.setAttribute('onclick', new_onclick_event);
+  })
+});
 
 delivery = {
 
@@ -49,6 +64,7 @@ delivery = {
     },
 
     new: function(newUrl) {
+      parsedUrl = newUrl.replace(/&\*/g, "'")
       this.edit(newUrl)
     },
 

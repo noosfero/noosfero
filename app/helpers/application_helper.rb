@@ -760,8 +760,8 @@ module ApplicationHelper
   def currency_symbol
     current_lang = environment.default_language
     return "R$" if current_lang.eql? 'pt'
-    return "$" if current_lang.eql? 'en'
     return "€" if (current_lang.eql? 'fr' or current_lang.eql? 'es')
+    "$"
   end
 
   def collapsed_item_icon
