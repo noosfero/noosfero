@@ -7,4 +7,3 @@ class CustomFormsPlugin::Alternative < ApplicationRecord
 
   attr_accessible :label, :field, :position, :selected_by_default
 end
-

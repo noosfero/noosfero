@@ -102,6 +102,19 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     end
   end
 
+  should 'flag imported submissions from CSV' do
+    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 1')
+    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 2')
+
+    csv_content = "Name,Email,Question 1,Question 2\n"
+    csv_content += "rosa,rosa@mail.com,answer 1,answer 2\n"
+    csv_content += "maria,maria@mail.com,answer 3,answer 4"
+
+    @handler.import_csv(csv_content)
+    answers = @form.submissions.map(&:answers).flatten
+    assert answers.all?(&:imported)
+  end
+
   should 'accept multiple alternatives for select fields during import' do
     field = CustomFormsPlugin::SelectField.new(form: @form, name: 'OS', show_as: 'check_box')
     alt1 = field.alternatives.new(label: 'Debian')

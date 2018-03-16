@@ -26,12 +26,18 @@
       <% @submissions.each do |submission| %>
         <tr>
           <% author = submission.profile.present? ? submission.profile.name : submission.author_name %>
-          <td><%= link_to(author, {:action => 'show_submission', :id => submission.id}) %></td>
+          <td>
+            <%= link_to(author, {:action => 'show_submission', :id => submission.id}) %>
+            <% if submission.has_imported_answers? %>
+              <span>*</span>
+            <% end %>
+          </td>
           <td><%= time_format(submission.created_at) %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
+  <p>* <%= _('imported submissions') %></p>
 <% end %>
 
 <%= button_bar do %>

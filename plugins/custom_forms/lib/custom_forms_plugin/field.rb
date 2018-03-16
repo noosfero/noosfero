@@ -24,6 +24,25 @@ class CustomFormsPlugin::Field < ApplicationRecord
     self.show_as.in? ['check_box', 'multiple_select']
   end
 
+  def summary
+    summary = {}
+    answers.each do |answer|
+      answer.to_text_list
+            .map{ |v| [v, answer.imported] }
+            .each do |value, imported|
+        summary[value] ||= { online: 0, offline: 0 }
+        key = imported ? :offline : :online
+        summary[value][key] += 1
+      end
+    end
+
+    summary.each do |_, values|
+      total = (values[:online] + values[:offline]).to_f
+      values[:online] = (values[:online] / total).round(2) * 100
+      values[:offline] = (values[:offline] / total).round(2) * 100
+    end
+  end
+
   private
 
   def attributes_protected_by_default

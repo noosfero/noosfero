@@ -1,15 +1,11 @@
 class CustomFormsPlugin::Graph
   # @query_results have the format
   # [
-  #   {"data" => { "foo"=> 5, "bla" => 7, "show_as" => "radio"},
-  #    "percents" => {"foo" => 40, "bla" => 60}
-  #   },
-  #   {"data" => { "foo"=> 5, "test" => 7, "show_as" => "check_box"}}
+  #   { "data" => { "foo"=> 5, "bla" => 7, "show_as" => "radio"} },
+  #   { "data" => { "foo"=> 5, "test" => 7, "show_as" => "check_box"} }
   # ]
   # Each 'data' key on @query_results represents the data that will be used by
-  # chartkick lib, to render a graph based on the show_as value. The 'percents'
-  # key will be used to show the percentage by answer when render a pizza
-  # chart.
+  # chartkick lib, to render a graph based on the show_as value.
   #
   # @answers_with_alternative_label have the format
   # {
@@ -65,9 +61,10 @@ class CustomFormsPlugin::Graph
     alternatives = field.alternatives
     answer_and_label = {}
     if alternatives.empty?
-      #It's a text field
-      text_answers = {"text_answers" => {"answers" => [], "users" => []},
-                      "show_as" => field.show_as}
+      # It's a text field
+      text_answers = { "text_answers" => { "answers" => [], "users" => [],
+                                          "imported" => [] },
+                       "show_as" => field.show_as}
       answer_and_label.merge!(text_answers)
       return answer_and_label
     end
@@ -75,20 +72,19 @@ class CustomFormsPlugin::Graph
     alternatives.map do |alternative|
       answer_and_label.merge!({alternative.id.to_s => {alternative.label => 0}})
     end
-    answer_and_label.merge!({"show_as" => field.show_as})
+    answer_and_label.merge!({ "show_as" => field.show_as })
+    answer_and_label.merge!({ "summary" => field.summary })
     answer_and_label
   end
 
   def format_data_to_generate_graph
     return [] if @answers_with_alternative_label.empty?
     @answers_with_alternative_label.each do |field_id, answers|
-      merged_answers = {"data" => {}}
+      merged_answers = { "data" => {} }
+      merged_answers["show_as"] = answers.delete("show_as")
+      merged_answers["summary"] = answers.delete("summary")
       answers.each do |key, value|
-        if key != "show_as"
-          merged_answers["data"].merge!(value)
-        else
-          merged_answers["data"].merge!({key => value})
-        end
+        merged_answers["data"].merge!(value)
       end
       @query_results << merged_answers
     end
@@ -132,6 +128,7 @@ class CustomFormsPlugin::Graph
   def text_answers(answer)
     field_id = answer.field_id
     @answers_with_alternative_label[field_id]["text_answers"]["answers"] << answer.value
+    @answers_with_alternative_label[field_id]["text_answers"]["imported"] << answer.imported
     user = answer.submission.author_name
     @answers_with_alternative_label[field_id]["text_answers"]["users"] << user
   end

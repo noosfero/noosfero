@@ -109,9 +109,10 @@ class CustomFormsPlugin::CsvHandler
         end
         alternative.id
       end
-      CustomFormsPlugin::Answer.new(field: field, value: ids.join(','))
+      CustomFormsPlugin::Answer.new(field: field, value: ids.join(','),
+                                    imported: true)
     else
-      CustomFormsPlugin::Answer.new(field: field, value: value)
+      CustomFormsPlugin::Answer.new(field: field, value: value, imported: true)
     end
   end
 
