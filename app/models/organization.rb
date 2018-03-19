@@ -1,8 +1,6 @@
 # Represents any organization of the system
 class Organization < Profile
 
-  include ButtonsHelper
-
   attr_accessible :moderated_articles, :foundation_year, :contact_person, :acronym, :legal_form, :economic_activity, :management_information, :cnpj, :display_name, :enable_contact_us
   attr_accessible :requires_email
 
@@ -159,16 +157,6 @@ class Organization < Profile
   # Returns <tt>true</tt>.
   def has_members?
     true
-  end
-
-  def set_links
-    [
-      { name: _('Community\'s profile'), address: '/profile/{profile}',                icon: 'community' },
-      { name: _('Invite Friends'),       address: '/profile/{profile}/invite/friends', icon: 'send'      },
-      { name: _('Agenda'),               address: '/profile/{profile}/events',         icon: 'event'     },
-      { name: _('Image gallery'),        address: '/{profile}/gallery',                icon: 'photos'    },
-      { name: _('Blog'),                 address: '/{profile}/blog',                   icon: 'edit'      }
-    ]
   end
 
   def default_set_of_blocks
