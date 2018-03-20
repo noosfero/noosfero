@@ -1,7 +1,5 @@
 module OrganizationHelper
   
-  include ButtonsHelper
-
   def set_links
     [
       { name: _('Community\'s profile'), address: '/profile/{profile}',                icon: 'community' },
