@@ -1,5 +1,4 @@
 class Enterprise < Organization
-  include ButtonsHelper
 
   attr_accessible :business_name, :address_reference, :district,
     :organization_website, :historic_and_current_context,

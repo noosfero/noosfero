@@ -1,6 +1,5 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
-  include ButtonsHelper
 
   attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone, :comercial_phone, :jabber_id, :personal_website, :nationality, :address_reference, :address_line2, :district, :schooling, :schooling_status, :formation, :custom_formation, :area_of_study, :custom_area_of_study, :professional_activity, :organization_website, :following_articles, :editor
 
