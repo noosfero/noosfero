@@ -1,6 +1,7 @@
 class LinkListBlock < Block
 
   include SanitizeHelper
+  include LinkListBlockHelper
 
   attr_accessible :links
 
