@@ -143,7 +143,7 @@
 
 #signup-form .invalid {
   border-color: #7f0000;
-  background-image: url(../images/passwords_nomatch.png);
+  background-image: url(/images/passwords_nomatch.png);
   box-shadow: 0 0 7px red;
 }
 
@@ -157,7 +157,7 @@
 
 #signup-form .checking {
   border-color: #4A4A4A;
-  background-image: url(../images/login_checking.png);
+  background-image: url(/images/login_checking.png);
 }
 
 #signup-form span.checking {
@@ -170,7 +170,7 @@
 
 #signup-form .validated {
   border-color: #005000;
-  background-image: url(../images/passwords_match.png);
+  background-image: url(/images/passwords_match.png);
 }
 
 #signup-form span.validated {
@@ -228,7 +228,7 @@
   padding: 5px 10px 45px 10px;
   margin: 0;
   line-height: 1.5em;
-  background: transparent url(../images/gray-balloon.png) bottom center no-repeat;
+  background: transparent url(/images/gray-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
   right: -150px;
