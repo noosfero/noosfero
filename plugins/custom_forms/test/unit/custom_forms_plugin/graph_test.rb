@@ -86,7 +86,8 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
     assert_equal graph_data[0]['data']['bread'], 2
     assert_equal graph_data[0]['data']['rice'], 0
     assert_equal graph_data[0]['data']['beans'], 0
-    assert_equal graph_data[0]['data']['show_as'], 'radio'
+    assert_equal graph_data[0]['show_as'], 'radio'
+    assert graph_data[0]['summary'].present?
   end
 
   should 'calculate the user answers for a check_box field' do
@@ -98,7 +99,8 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
     assert_equal graph_data[1]['data']['acer'], 2
     assert_equal graph_data[1]['data']['mac'], 1
     assert_equal graph_data[1]['data']['dell'], 1
-    assert_equal graph_data[1]['data']['show_as'], 'check_box'
+    assert_equal graph_data[1]['show_as'], 'check_box'
+    assert graph_data[1]['summary'].present?
   end
 
   should 'Have a text answer to a text field' do

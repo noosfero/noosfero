@@ -1,66 +1,93 @@
 <div class="query-overview">
-	<h1><%= @form.name %></h1>
+  <h3><%= @form.name %></h3>
 
-	<div class="query-header">
-		<i class="fa fa-hourglass" aria-hidden="true"></i>
-		<span><%= @form.duration_in_days %></span>
-		<span class="bullet">•</span>
-		<i class="fa fa-users" aria-hidden="true"></i>
-		<span><%= _(pluralize(@form.submissions.count, 'participant')) %></span>
-		<%= link_to 'Download as CSV', format: 'csv'  %>
-	</div>
+  <div class="query-header">
+    <i class="fa fa-hourglass" aria-hidden="true"></i>
+      <span><%= @form.duration_in_days %></span>
+    <span class="bullet">•</span>
+    <i class="fa fa-users" aria-hidden="true"></i>
+    <span><%= _(pluralize(@form.submissions.count, 'participant')) %></span>
+    <%= link_to 'Download as CSV', format: 'csv'  %>
+  </div>
 
-	<div class="overview">
-		<% @query_results.each_with_index do |result, index|  %>
-			<% if result["data"].has_key? "empty" %>
-				<div>
-					<h6 class="review_text_align"> <%= @fields[index].name   %></h6>
-					<h5 style="text-align: center" > <%= _('There is no answers for this question')%> </h5>
-					<br>
-				</div>
-			<% else %>
-				<div>
-					<% if @graph.show_as_pizza? result["data"]["show_as"] %>
-						<h6 class="review_text_align"> <%= @fields[index].name   %></h6>
-						<%= pie_chart (result["data"].keep_if {|key, value| key != "show_as"}),
-							donut: true, legend: 'left' %>
+  <% if @query_results.any? { |r| r['field'].present? } %>
+    <ul class='table-of-contents'>
+      <% @query_results.each do |result| %>
+        <li>
+          <%= link_to(result['field'], "##{result['field'].to_slug}") %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 
-						<% if index < @query_results.size - 1 %>
-							<hr>
-							<br>
-						<% end %>
-					<% end %>
+  <div class="overview">
+    <% @query_results.each_with_index do |result, index|  %>
+      <% if result["data"].has_key? "empty" %>
+        <div>
+          <h4 class="review_text_align"><%= @fields[index].name %></h4>
+          <p class="review_text_align"><%= _('There is no answers for this question')%> </h5>
+          <br>
+        </div>
+      <% else %>
+        <div>
+          <% if @graph.show_as_pizza? result["show_as"] %>
+            <h4 id="<%= result['field'].to_slug %>" class="review_text_align">
+              <%= @fields[index].name %>
+            </h4>
+            <%= pie_chart result["data"], donut: true, legend: 'left',
+                          summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
 
-					<% if @graph.show_as_column? result["data"]["show_as"] %>
-						<h6 class="review_text_align"> <%= @fields[index].name   %></h6>
-						<%= column_chart (result["data"].keep_if {|key, value| key != "show_as"}) %>
-						<% if index < @query_results.size - 1 %>
-							<hr>
-							<br>
-						<% end %>
-					<% end %>
+            <% if index < @query_results.size - 1 %>
+              <hr>
+              <br>
+            <% end %>
+          <% end %>
 
-					<% if @graph.show_as_text? result["data"]["show_as"] %>
-						<h6 class="review_text_align"> <%= @fields[index].name   %></h6>
-						<table class="review_text_align">
-							<tr>
-								<th > User </th>
-								<th> Answer </th>
-							</tr>
-							<tr>
-								<% result["data"]["answers"].each_with_index do |answer, user| %>
-									<tr>
-										<td class="review_text_align"> <%= result["data"]["users"][user] %> </td>
-										<td class="review_text_align"> <%= answer %> </td>
-										<tr>
-										<% end %>
-										</tr>
-						</table>
-					<% end %>
-				</div>
-			<% end  %>
-		<% end %>
-	</div>
+          <% if @graph.show_as_column? result["show_as"] %>
+            <h4 id="<%= result['field'].to_slug %>" class="review_text_align">
+              <%= @fields[index].name %>
+            </h4>
+            <%= column_chart result["data"],
+                             summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
+            <% if index < @query_results.size - 1 %>
+              <hr>
+              <br>
+            <% end %>
+          <% end %>
+
+          <% if @graph.show_as_text? result["show_as"] %>
+            <table id="<%= result['field'].to_slug %>" class="review_text_align"
+                   summary='<%= @fields[index].name %>'>
+              <caption><%= @fields[index].name %></caption>
+              <thead>
+                <tr>
+                  <th > User </th>
+                  <th> Answer </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% result["data"]["answers"].each_with_index do |answer, index| %>
+                  <tr>
+                    <td class="review_text_align">
+                      <%= result["data"]["users"][index] %>
+                      <% if result["data"]["imported"][index] &&
+                            current_person.try(:can_see_summary?, profile) %>
+                        <span>*</span>
+                      <% end %>
+                    </td>
+                    <td class="review_text_align"> <%= answer %> </td>
+                  <tr>
+                <% end %>
+              </tbody>
+            </table>
+            <% if current_person.try(:can_see_summary?, profile) %>
+              <p>* <%= _('imported submissions') %></p>
+            <% end %>
+          <% end %>
+        </div>
+      <% end  %>
+    <% end %>
+  </div>
 </div>
 
 <%= button_bar do %>
