@@ -10,6 +10,16 @@
     <%= link_to 'Download as CSV', format: 'csv'  %>
   </div>
 
+  <% if @query_results.any? { |r| r['field'].present? } %>
+    <ul class='table-of-contents'>
+      <% @query_results.each do |result| %>
+        <li>
+          <%= link_to(result['field'], "##{result['field'].to_slug}") %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+
   <div class="overview">
     <% @query_results.each_with_index do |result, index|  %>
       <% if result["data"].has_key? "empty" %>
@@ -21,7 +31,9 @@
       <% else %>
         <div>
           <% if @graph.show_as_pizza? result["show_as"] %>
-            <h4 class="review_text_align"> <%= @fields[index].name %></h4>
+            <h4 id="<%= result['field'].to_slug %>" class="review_text_align">
+              <%= @fields[index].name %>
+            </h4>
             <%= pie_chart result["data"], donut: true, legend: 'left',
                           summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
 
@@ -32,7 +44,9 @@
           <% end %>
 
           <% if @graph.show_as_column? result["show_as"] %>
-            <h4 class="review_text_align"> <%= @fields[index].name %></h4>
+            <h4 id="<%= result['field'].to_slug %>" class="review_text_align">
+              <%= @fields[index].name %>
+            </h4>
             <%= column_chart result["data"],
                              summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
             <% if index < @query_results.size - 1 %>
@@ -42,7 +56,8 @@
           <% end %>
 
           <% if @graph.show_as_text? result["show_as"] %>
-            <table class="review_text_align" summary='<%= @fields[index].name %>'>
+            <table id="<%= result['field'].to_slug %>" class="review_text_align"
+                   summary='<%= @fields[index].name %>'>
               <caption><%= @fields[index].name %></caption>
               <thead>
                 <tr>

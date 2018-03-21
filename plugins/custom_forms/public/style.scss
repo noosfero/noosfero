@@ -348,6 +348,19 @@ font-style: italic;
     }
   }
 
+  ul.table-of-contents {
+    margin-top: 30px;
+    background-color: #eee;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding: 20px 30px;
+    width: calc(50% - 60px);
+
+    li:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
   .overview {
     margin-top: 35px;
 

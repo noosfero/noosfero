@@ -64,7 +64,7 @@ class CustomFormsPlugin::Graph
       # It's a text field
       text_answers = { "text_answers" => { "answers" => [], "users" => [],
                                           "imported" => [] },
-                       "show_as" => field.show_as}
+                       "show_as" => field.show_as, "field" => field.name }
       answer_and_label.merge!(text_answers)
       return answer_and_label
     end
@@ -72,8 +72,9 @@ class CustomFormsPlugin::Graph
     alternatives.map do |alternative|
       answer_and_label.merge!({alternative.id.to_s => {alternative.label => 0}})
     end
-    answer_and_label.merge!({ "show_as" => field.show_as })
-    answer_and_label.merge!({ "summary" => field.summary })
+    answer_and_label.merge!({ "show_as" => field.show_as,
+                              "summary" => field.summary,
+                              "field"   => field.name })
     answer_and_label
   end
 
@@ -83,6 +84,7 @@ class CustomFormsPlugin::Graph
       merged_answers = { "data" => {} }
       merged_answers["show_as"] = answers.delete("show_as")
       merged_answers["summary"] = answers.delete("summary")
+      merged_answers["field"] = answers.delete("field")
       answers.each do |key, value|
         merged_answers["data"].merge!(value)
       end
@@ -151,5 +153,4 @@ class CustomFormsPlugin::Graph
       data.merge!({"empty" => true}) if empty_field
     end
   end
-
 end
