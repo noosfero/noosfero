@@ -313,7 +313,7 @@ module BoxesHelper
       buttons << modal_inline_icon(:embed, _('Embed code'), {}, "#embed-code-box-#{block.id}") << html
     end
 
-    content_tag('div', buttons.join("\n").html_safe + tag('br', :style => 'clear: left'), :class => 'button-bar')
+    content_tag('div', buttons.join("\n").html_safe + tag('br', :style => 'clear: left'), :class => 'button-bar button-bar-boxes')
   end
 
   def current_blocks
