@@ -22,7 +22,7 @@
 
       <div class="comment-content">
         <p class="comment-header">
-          <%= link_to comment.author_name, comment.author_url, class: "comment-author-name" %>
+          <%= link_to comment.author_name, comment.author_url || '#', class: "comment-author-name" %>
           <span class="comment-time"><span class="bullet-separator">•</span><%= show_time comment.created_at %></span>
         </p>
 
