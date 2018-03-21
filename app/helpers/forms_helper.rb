@@ -253,8 +253,8 @@ module FormsHelper
   def date_range_field(from_name, to_name, from_value, to_value, datepicker_options = {}, html_options = {})
     from_id = html_options[:from_id] || 'datepicker-from-date'
     to_id = html_options[:to_id] || 'datepicker-to-date'
-    from = content_tag('div', content_tag('label', (_('From') + ' ').html_safe  + date_field(from_name, from_value, datepicker_options, html_options.merge({:id => from_id, :style => "margin-bottom: 0.5em; margin-left: 1.5em;"}))))
-    to = content_tag('div', content_tag('label', (_('Until') + ' ').html_safe + date_field(to_name, to_value, datepicker_options, html_options.merge({:id => to_id}))))
+    from = content_tag('div', content_tag('label', (_('From') + ' ').html_safe  + date_field(from_name, from_value, datepicker_options, html_options.merge({:id => from_id, :style => "margin-left: 1em"}))), html_options.merge({:style => "margin-bottom: 0.5em; margin-right: 1em;"}))
+    to = content_tag('div', content_tag('label', (_('Until') + ' ').html_safe + date_field(to_name, to_value, datepicker_options, html_options.merge({:id => to_id, :style => "margin-left: 1em"}))))
     return from + to
   end
 
