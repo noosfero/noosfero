@@ -42,16 +42,10 @@ class CustomFormsPlugin::Graph
     @query_results
   end
 
-  def show_as_pizza?(show_as)
-    return true if ["radio", "select"].include? show_as
-  end
-
-  def show_as_column?(show_as)
-    return true if ["check_box", "multiple_select"].include? show_as
-  end
-
-  def show_as_text?(show_as)
-    return true if show_as == "text"
+  def exibition_method(show_as)
+    return 'pizza' if ["radio", "select"].include?(show_as)
+    return 'column' if ["check_box", "multiple_select"].include?(show_as)
+    return 'text' if show_as == 'text'
   end
 
   private
