@@ -14,7 +14,7 @@
       <td>
         <%= link_to site, :action => 'show', :site => site %>
       </td>
-      <td style='white-space: nowrap;'>
+      <td>
         <%= button_without_text :edit, _('Edit'), :action => 'edit', :site => site %>
         <%= button_without_text :remove,  _('Remove'), {action: :destroy, site: site}, method: :delete, data: {confirm: _('Are you sure you want to remove this site from the list of trusted sites?')} %>
       </td>
