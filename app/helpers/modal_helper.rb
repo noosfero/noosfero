@@ -13,7 +13,7 @@ module ModalHelper
   end
 
   def modal_close_link text, options = {}
-    link_to text, '#!', modal_options(options, :close)
+    link_to text, '#', modal_options(options, :close)
   end
 
   def modal_close_button(text, options = {})
