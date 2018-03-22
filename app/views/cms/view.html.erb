@@ -11,8 +11,6 @@
       <% @article.hierarchy.each do |item| %>
         <%= font_awesome('long-arrow-right') + ((item == @article) ? item.name.html_safe : link_to(item.slug, :id => item.id).html_safe) %>
       <% end %>
-    <% else %>
-      Maybe a message here describing noosfero cms?
     <% end %>
   </div>
 
