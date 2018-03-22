@@ -290,7 +290,7 @@ class ContentViewerController < ApplicationController
       @comments = @comments.reverse
     end
     @curr_page = (params[:comment_page] || 1).to_i
-    @total_pages = @comments.size / per_page + (@comments.size % per_page != 0 ? 1 : 0)
+    @total_pages = (@comments.size.to_f / per_page).ceil
     @comments = @comments.paginate(:per_page => per_page, :page => params[:comment_page] )
   end
 
