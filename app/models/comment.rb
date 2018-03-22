@@ -78,7 +78,7 @@ class Comment < ApplicationRecord
   end
 
   def author_url
-    author ? author.url : '#'
+    author ? author.url : nil
   end
 
   #FIXME make this test
