@@ -754,7 +754,7 @@ module ApplicationHelper
   def currency_locale
     current_lang = environment.default_language
     return :"pt-BR" if current_lang.eql? 'pt'
-    current_lang.to_sym
+    current_lang.try(:to_sym)
   end
 
   def currency_symbol
