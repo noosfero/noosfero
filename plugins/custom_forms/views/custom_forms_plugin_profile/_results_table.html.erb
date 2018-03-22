@@ -1,0 +1,17 @@
+<table class="results-table" summary='<%= _('Answers') %>'>
+  <caption><%= _('Answers') % result['field'] %></caption>
+  <thead>
+    <tr>
+      <th><%= _('Alternative') %></th>
+      <th><%= _('Answers') %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% result['data'].each do |key, value| %>
+      <tr>
+        <td><%= key %></td>
+        <td><%= value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

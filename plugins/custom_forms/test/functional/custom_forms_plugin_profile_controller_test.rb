@@ -101,7 +101,9 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     get :review, :profile => profile.identifier, :id => form.identifier
 
     assert_tag :tag => 'h4', :attributes => {:class => 'review_text_align'},
-      :content => /What is your favorite food?/
+               :content => /What is your favorite food?/
+    assert_tag :tag => 'table', :attributes => { :class => 'results-table' },
+               :descendant => { :tag => 'td', :content => /bread/ }
   end
 
   should 'define filters default values' do
