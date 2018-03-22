@@ -161,7 +161,6 @@ body, th, td, input {
     a {
       cursor: pointer;
       height: auto;
-      margin-right: 12px;
 
       img {
         max-width: 120px;
@@ -169,9 +168,13 @@ body, th, td, input {
       }
 
       span {
+        @media only screen and (max-width: 768px) { display: none; }
         font-family: Apercu, sans-serif;
-        font-size: 4em;
         padding: 0;
+        margin-left: 4px;
+      }
+      i {
+        margin-right: 0px;
       }
     }
 
@@ -604,6 +607,10 @@ div#notice {
   text-align: center;
   border-bottom: 1px solid #AAA;
   padding: 2px 0;
+}
+
+#content .block.link-list-block {
+  padding-top: 0;
 }
 
 /*************************** Login block *****************************/
@@ -1073,7 +1080,7 @@ div#notice {
 
 #content .news-area h3 {
   background: #FFF;
-  margin: 0px;
+  margin: 0px 0px 3px 0px;
   padding: 0px;
 }
 
@@ -1885,19 +1892,6 @@ a.menu-toggle {
     -webkit-transform:scale(0.90);
     transform-origin:0 0;
     -webkit-transform-origin:0 0;
-  }
-}
-
-form.form-with-captcha {
-  input {
-    width: 302px;
-    @media only screen and (max-width: 540px) {
-      width: 273px;
-    }
-  }
-  @media only screen and (max-width: 540px) {
-    width: 275px;
-    margin: auto;
   }
 }
 

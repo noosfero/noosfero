@@ -96,7 +96,7 @@ table.uploaded_files_table tr:nth-child(odd) {
 }
 
 i {
-  font-size: 1.1em !important;
+  font-size: 1.1em;
   margin-right: 4px;
 }
 
