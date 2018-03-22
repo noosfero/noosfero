@@ -1,21 +1,18 @@
 <div class="environment-profiles-results-header">
-
-  <div id="environment-profiles-filter-title">
-    <%= users_filter_title(@filter) %>
-  </div>
   <div id="environment-profiles-filter-title">  
     <%= filter_selector(@filter) %>
   </div>
-
+  <div id="environment-profiles-filter-title">
+    <%= users_filter_title(@filter) %>
+    <% if @filter == 'recently_logged_users' %>
+      <%= number_field :filter_number_of_days, { controller: 'user', action: 'index' },
+        disabled: false, min:0, max:36500, placeholder: 'min 0, max 36500', style:'width: 8em' %>
+    <% else %>
+      <%= number_field :filter_number_of_days, { controller: 'user', action: 'index' },
+        disabled: true , placeholder: "Search users...", style:'height: 1.7em' %>
+    <% end %>
+  </div>
 </div>
-
-  <% if @filter == 'recently_logged_users' %>
-    <%= number_field :filter_number_of_days, { controller: 'user', action: 'index' },
-      disabled: false, min:0, max:36500, placeholder: 'min 0, max 36500', style:'width: 128px' %>
-  <% else %>
-    <%= number_field :filter_number_of_days, { controller: 'user', action: 'index' },
-      disabled: true , placeholder: "Search users...", style:'width: 128px' %>
-  <% end %>
 
 <table>
   <colgroup>
