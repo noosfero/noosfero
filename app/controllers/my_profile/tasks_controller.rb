@@ -75,7 +75,7 @@ class TasksController < MyProfileController
       session[:notice] = _("Some decisions couldn't be applied.")
       url = tasks_url(:action => 'index', :failed => failed)
     end
-    redirect_to url 
+    redirect_to url
   end
 
   def new

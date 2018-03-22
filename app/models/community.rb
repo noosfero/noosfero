@@ -1,5 +1,4 @@
 class Community < Organization
-  include ButtonsHelper
 
   attr_accessible :accessor_id, :accessor_type, :role_id, :resource_id,
     :resource_type, :address_reference, :district, :language, :description
