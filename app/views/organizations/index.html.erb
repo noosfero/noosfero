@@ -2,11 +2,10 @@
 
 <%= form_tag( { :action => 'index' }, :method => 'get', :id => 'manage-profiles' ) do %>
 
-  <div class="search-field">
+  <div class="search-field" id="organizations-search">
     <span class="formfield">
-      <%= text_field_tag 'q', @q, :title => _('Find organizations'), :style=>"width:85%" %>
+      <%= text_field_tag 'q', @q, :title => _('Find organizations'), :id => 'organizations-search-field' %>
     </span>
-
     <%= submit_button(:search, _('Search')) %>
   </div>
 
@@ -15,7 +14,16 @@
 
     <div id="environment-profiles-filter-filter">
       <strong><%= _("Filter by: ") %></strong>
-      <%= select_tag(:filter, options_for_select([[_('Any'), 'any'],[_('Disabled'), "disabled"], [_('Enabled') , "enabled"]], @filter)) %>
+
+      <%= select_tag(:filter,
+        options_for_select(
+          [[_('Any'), 'any'],
+          [_('Disabled'), "disabled"],
+          [_('Enabled') , "enabled"]],
+          @filter
+        )
+      ) %>
+
     </div>
     <div style="clear: both"></div>
   </div>
