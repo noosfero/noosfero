@@ -146,7 +146,6 @@ body, th, td, input {
 
 #navigation {
   background-color: #212e3c;
-  border: 1px solid #e7e7e7;
   color: #f8f8f8;
   display: flex;
   padding: 6px 76px;
@@ -1895,6 +1894,70 @@ a.menu-toggle {
   }
 }
 
+form.form-with-captcha {
+  input {
+    width: 302px;
+    @media only screen and (max-width: 540px) {
+      width: 273px;
+    }
+  }
+  @media only screen and (max-width: 540px) {
+    width: 275px;
+    margin: auto;
+  }
+}
+
+/********************** Organization Index **********************/
+
+#organizations-search {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+#organizations-search-field {
+  width: 100%;
+  height: 100%;
+}
+
+#organizations-search a {
+  width: 12%;
+}
+
+#environment-profiles-filter-filter {
+  display: flex;
+  float: right;
+}
+
+#environment-profiles-filter-filter strong {
+  align-self: center;
+}
+
+#environment-profiles-filter-filter select {
+  margin-left: 0.5em;
+  font-size: 100%;
+}
+
+#organizations-list th {
+  min-width: 100%;
+}
+
+#organizations-list select {
+  font-size: 100%;
+  width: 100%;
+  padding-right: 20px;
+  margin-top: 2px;
+}
+
+.organization_button {
+  font-size: 100% !important;
+  padding: 0.5em 0.5em 0.8em 0.5em !important;
+  margin-right: 0.5em !important;
+  height: 1em;
+  min-width: 4em;
+  margin-top: 2px;
+}
+
 .hidden-submit {
   display: none !important;
 }
@@ -1907,3 +1970,4 @@ a.menu-toggle {
 i.fa {
   margin-right: 4px;
 }
+
