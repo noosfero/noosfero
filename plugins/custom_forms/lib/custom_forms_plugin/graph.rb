@@ -79,16 +79,11 @@ class CustomFormsPlugin::Graph
 
   def format_data_to_generate_graph
     return [] if @answers_with_alternative_label.empty?
-<<<<<<< HEAD
-    @answers_with_alternative_label.each do |answers|
-      merged_answers = {"data" => {}}
-=======
     @answers_with_alternative_label.each do |field_id, answers|
       merged_answers = { "data" => {} }
       merged_answers["show_as"] = answers.delete("show_as")
       merged_answers["summary"] = answers.delete("summary")
       merged_answers["field"] = answers.delete("field")
->>>>>>> 21ad07541dae6965f885fe6bcaa14d8ccf93bb03
       answers.each do |key, value|
         merged_answers["data"].merge!(value)
       end
