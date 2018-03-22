@@ -1,6 +1,6 @@
 <% self.extend CustomFormsPlugin::Helper %>
 
-<h1><%= _('Submissions for %s') % @form.name %></h1>
+<h3><%= _('Submissions for %s') % @form.name %></h3>
 
 <% if @form.submissions.empty? %>
   <%= _('There are no submissions for this form.') %>
@@ -14,19 +14,30 @@
     <%= link_to 'Download as CSV', format: 'csv'  %>
   </div>
 
-  <table class="action-table">
-    <tr>
-      <th style='width: 50%'><%= c_('Author') %></th>
-      <th style='width: 50%'><%= _('Time') %></th>
-    </tr>
-    <% @submissions.each do |submission| %>
+  <table class="action-table" summary='<%= _('Submissions') %>'>
+    <caption><%= _('Submissions') %></caption>
+    <thead>
       <tr>
-        <% author = submission.profile.present? ? submission.profile.name : submission.author_name %>
-        <td><%= link_to(author, {:action => 'show_submission', :id => submission.id}) %></td>
-        <td><%= time_format(submission.created_at) %></td>
+        <th style='width: 50%'><%= c_('Author') %></th>
+        <th style='width: 50%'><%= _('Time') %></th>
       </tr>
-    <% end %>
+    </thead>
+    <tbody>
+      <% @submissions.each do |submission| %>
+        <tr>
+          <% author = submission.profile.present? ? submission.profile.name : submission.author_name %>
+          <td>
+            <%= link_to(author, {:action => 'show_submission', :id => submission.id}) %>
+            <% if submission.has_imported_answers? %>
+              <span>*</span>
+            <% end %>
+          </td>
+          <td><%= time_format(submission.created_at) %></td>
+        </tr>
+      <% end %>
+    </tbody>
   </table>
+  <p>* <%= _('imported submissions') %></p>
 <% end %>
 
 <%= button_bar do %>

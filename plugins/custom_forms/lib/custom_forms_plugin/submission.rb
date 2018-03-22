@@ -60,6 +60,10 @@ class CustomFormsPlugin::Submission < ApplicationRecord
     qa
   end
 
+  def has_imported_answers?
+    answers.any?(&:imported)
+  end
+
   protected
 
   def check_answers

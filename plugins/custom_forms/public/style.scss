@@ -92,6 +92,17 @@ tr.addition-buttons {
   border-radius: 4px;
 }
 
+.action-custom_forms_plugin_myprofile-submissions #content,
+#content #custom-forms-plugin_submission, #content .query-overview {
+  h3 {
+    font-variant: small-caps;
+    color: #555753;
+    text-align: left;
+    border-bottom: 2px solid #2e3436;
+    font-size: 20px;
+  }
+}
+
 #custom-forms-plugin_submission .notify {
   padding: 8px;
   color: rgba(0,0,0,0.5);
@@ -179,7 +190,7 @@ tr.addition-buttons {
 }
 
 .review_text_align {
-  text-align:center;
+  text-align: center;
 }
 
 #queries-form {
@@ -328,7 +339,7 @@ font-style: italic;
   }
 }
 
-.query-overview {
+#content .query-overview {
   .query-header {
     color: #90949c;
 
@@ -337,9 +348,23 @@ font-style: italic;
     }
   }
 
+  ul.table-of-contents {
+    margin-top: 30px;
+    background-color: #eee;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding: 20px 30px;
+    width: calc(50% - 60px);
+
+    li:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
   .overview {
     margin-top: 35px;
-    h6 {
+
+    table caption, h4 {
       font-size: 14px;
       font-weight: 600;
       border-bottom: solid 1px #e8e8e8;

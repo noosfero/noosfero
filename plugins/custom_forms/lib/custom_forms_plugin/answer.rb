@@ -7,7 +7,7 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   validate :value_is_mandatory, :if => 'field.present?'
   validate :value_is_valid, :if => 'field.try(:alternatives).present?'
 
-  attr_accessible :field, :value, :submission
+  attr_accessible :field, :value, :submission, :imported
 
   def to_text_list
     return [value] if value.blank? || field.alternatives.blank?

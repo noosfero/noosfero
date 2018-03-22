@@ -115,7 +115,7 @@
   display: block;
 }
 
-#box-organizer .block .button-bar {
+#box-organizer .block .button-bar-boxes {
   cursor: move;
   display: none;
   position: absolute;
@@ -136,8 +136,8 @@
   }
 }
 
-#box-organizer .block-outer:focus .button-bar,
-#box-organizer .block-outer:hover .button-bar {
+#box-organizer .block-outer:focus .button-bar-boxes,
+#box-organizer .block-outer:hover .button-bar-boxes {
   display: block;
 }
 
