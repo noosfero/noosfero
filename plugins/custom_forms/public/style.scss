@@ -370,6 +370,11 @@ font-style: italic;
       margin-bottom: 10px;
     }
 
+    table.results-table {
+      position: absolute;
+      left: -100vw;
+    }
+
     table.review_text_align {
       td {
         padding: 8px 4px;
