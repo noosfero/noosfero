@@ -4,15 +4,19 @@
  * and without this hacking the final function argument
  * will trigger a syntax error. */
 $(document).ready(function(){
+  fix_onclick_argument();
+});
+
+function fix_onclick_argument() {
   var html_elements = document.getElementsByClassName('replace-onclick-arg');
   var elements_array = Array.from(html_elements);
 
   elements_array.map(element => {
     onclick_event = element.getAttribute('onclick');
-    var new_onclick_event = onclick_event.replace(/&\*/g, "'");
+    var new_onclick_event = onclick_event.replace(/\&\*/g, "'");
     element.setAttribute('onclick', new_onclick_event);
   })
-});
+}
 
 delivery = {
 
