@@ -21,34 +21,41 @@ class SignupTest < ActionDispatch::IntegrationTest
     end
   end
 
-  def test_should_require_acceptance_of_terms_for_signup
-    env = Environment.default
-    env.update(:terms_of_use => 'You agree to not be annoying.')
-    env.min_signup_delay = 0
-    env.save!
-
-    count = User.count
-    mail_count = ActionMailer::Base.deliveries.count
-
+  should 'render terms acceptance field' do
+    Environment.default.update(terms_of_use: 'You agree to not be annoying.')
     get '/account/signup'
-    assert_response :success
     assert_tag :tag => 'input', :attributes => { :name => 'user[terms_accepted]' }
+  end
 
-    post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com'  }
-    assert_response :success
-    assert_template 'signup'
-    assert_equal count, User.count
-    assert_equal mail_count, ActionMailer::Base.deliveries.count
+  should 'not create user that did not accepet the temrs' do
+    @env = Environment.default
+    @env.terms_of_use = 'You agree to not be annoying.'
+    @env.min_signup_delay = 0
+    @env.save!
 
-    post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
-    user = User.last
-    assert_redirected_to action: :activate,
-                         activation_token: user.activation_code,
-                         return_to: { controller: :home, action: :welcome, template_id: nil }
+    assert_no_difference 'User.count' do
+      post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com'  }
+      assert_response :success
+    end
+  end
 
-    assert_equal count + 1, User.count
-    assert_includes Delayed::Job.all.map{|d|d.name}, 'UserMailer::Job'
+  should 'create user that accepted the temrs' do
+    @env = Environment.default
+    @env.terms_of_use = 'You agree to not be annoying.'
+    @env.min_signup_delay = 0
+    @env.save!
 
+    assert_difference 'User.count' do
+      post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
+      user = User.last
+      assert_redirected_to action: :activate,
+                           activation_token: user.activation_code,
+                           return_to: { controller: :home, action: :welcome, template_id: nil }
+    end
+
+    assert_difference 'ActionMailer::Base.deliveries.count' do
+      process_delayed_job_queue
+    end
   end
 
   private

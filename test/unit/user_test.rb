@@ -760,13 +760,23 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  should 'clean activation code when creating moderation_task' do
+  should 'clean activation codes when creating moderation_task' do
     user = fast_create(User, activation_code: '123456')
     assert user.activation_code.present?
 
     user.create_moderate_task
     user.reload
     assert user.activation_code.blank?
+    assert user.short_activation_code.blank?
+  end
+
+  should 'clean activation codes when activating a user' do
+    user = create_user_full
+
+    user.activate!
+    user.reload
+    assert user.activation_code.blank?
+    assert user.short_activation_code.blank?
   end
 
   should 'not activate if short code is not correct' do
