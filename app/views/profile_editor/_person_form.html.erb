@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'fields_validators' %>
+
 <% @person ||= @profile %>
 <% editing_profile ||= false %>
 
@@ -11,9 +13,10 @@
 <%= optional_field(@person, 'description', f.text_area(:description, :rows => 5, :rel => _('Description'))) %>
 <%= optional_field(@person, 'preferred_domain', select_preferred_domain(:profile_data)) %>
 <%= optional_field(@person, 'contact_information', f.text_field(:contact_information, :rel => _('Contact information'))) %>
-<%= optional_field(@person, 'contact_phone', labelled_form_field(_('Home phone'), text_field(:profile_data, :contact_phone, :rel => _('Contact phone')))) %>
-<%= optional_field(@person, 'cell_phone', f.text_field(:cell_phone, :rel => _('Cell phone'))) %>
-<%= optional_field(@person, 'comercial_phone', f.text_field(:comercial_phone, :rel => _('Comercial phone'))) %>
+<%= optional_field(@person, 'contact_phone', labelled_form_field(_('Home phone'), text_field(:profile_data, :contact_phone, :rel => _('Contact phone'),
+                                                                                                                            :placeholder => _('With area code, only numbers')))) %>
+<%= optional_field(@person, 'cell_phone', f.text_field(:cell_phone, :rel => _('Cell phone'), :placeholder => _('With area code, only numbers'))) %>
+<%= optional_field(@person, 'comercial_phone', f.text_field(:comercial_phone, :rel => _('Comercial phone'), :placeholder => _('With area code, only numbers'))) %>
 <%= optional_field(@person, 'jabber_id', f.text_field(:jabber_id, :rel => _('Jabber'))) %>
 <%= optional_field(@person, 'personal_website', f.text_field(:personal_website, :rel => _('Personal website'))) %>
 <%= optional_field(@person, 'sex', f.radio_group(:profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')] ])) %>
