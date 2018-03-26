@@ -21,6 +21,8 @@ Article.class_eval do
     end
   end
 
-  PgSearchPlugin::Filters = {:tag => :tags, :category => :categories}
+  def self.pg_search_plugin_filters
+    {:tag => :tags, :category => :categories}
+  end
   include PgSearchPlugin::SearchFilters
 end

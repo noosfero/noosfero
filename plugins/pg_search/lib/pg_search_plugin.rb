@@ -1,7 +1,6 @@
 require 'noosfero/friendly_mime'
 
 class PgSearchPlugin < Noosfero::Plugin
-  include PgSearchPlugin::SearchHelper
 
   def self.plugin_name
     "Postgres Full-Text Search"
@@ -309,3 +308,6 @@ class PgSearchPlugin < Noosfero::Plugin
     _('Tags')
   end
 end
+
+require_dependency 'pg_search_plugin/search_helper'
+PgSearchPlugin.include(PgSearchPlugin::SearchHelper)
