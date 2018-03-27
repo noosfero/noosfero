@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 platform :ruby do
   gem 'pg',                     '~> 0.17'
-  gem 'rmagick',                '~> 2.13'
+  gem 'rmagick',                '~> 2.13', require: false
   gem 'RedCloth',               '~> 4.2'
   gem 'unicorn',                '~> 4.8'
 end
@@ -37,8 +37,6 @@ gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 gem 'font-awesome-sass'
-gem 'rspec'
-gem 'rspec-rails'
 
 # API dependencies
 gem 'grape'
@@ -78,6 +76,8 @@ group :test do
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'simplecov', :require => false
+  gem 'rspec'
+  gem 'rspec-rails'
 end
 
 group :cucumber, :test do
