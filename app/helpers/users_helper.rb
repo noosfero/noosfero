@@ -10,7 +10,7 @@ module UsersHelper
     }
   end
 
-  def filter_selector(filter, float = 'right')
+  def filter_selector(filter)
     options = options_for_select(filter_translation.map {|key, name| [name, key]}, :selected => filter)
     url_params = url_for(params.merge(:filter => 'FILTER'))
 
@@ -20,7 +20,8 @@ module UsersHelper
 
     content_tag('div',
       content_tag('strong', _('Filter')) + ': ' + select_field,
-      :class => "environment-profiles-customize-search"
+      :class => "environment-profiles-customize-search",
+      :style => "display: inline-flex;"
     )
   end
 

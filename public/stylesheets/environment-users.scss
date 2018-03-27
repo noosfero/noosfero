@@ -20,14 +20,22 @@
 
 .environment-profiles-results-header {
   font-size: 0.9em;
-  padding: 6px 0px 0px 0px;
-  margin:0 0 5px 0;
-  border-bottom: 2px dotted #999;
+  padding: 0.375em 0px 0px 0px;
+  margin:0 0 0.313em 0;
+  border-bottom: 0.125em dotted #999;
   text-align: right;
+  display: block;
 }
 #environment-profiles-filter-title {
   font-weight: bold;
   font-size: 130%;
-  line-height: 35px;
+  padding: 0.500em 0.500em 0.500em 0.500em;
+  line-height: 2.188em;
   float: left;
+}
+.environment-profiles-results-footer {
+  float: right;
+}
+#environment-profiles-filter-filter {
+  background-color: blue;
 }

@@ -107,3 +107,35 @@ $(document).ready(function() {
     return false
   })
 })
+
+function show_comment_reply_form(element){
+  var activityId = $(element).data("activity-id");
+  var tabAction = $(element).data("tab-action");
+  hide_and_show(['#profile-' + tabAction + '-message-response-' + activityId], ['#profile-' + tabAction + '-reply-' + activityId, '#profile-' + tabAction + '-reply-form-' + activityId]);
+  jQuery('#reply_content_' + tabAction + '_' + activityId).val('');
+  jQuery('#reply_content_' + tabAction + '_' + activityId).focus();
+  return false;
+}
+
+function show_scrap_reply_form(element){
+  var scrapId = $(element).data("scrap-id");
+  hide_and_show(['#profile-wall-message-response-' + scrapId], ['#profile-wall-reply-' + scrapId, '#profile-wall-reply-form-' + scrapId]);
+  jQuery('#reply_content_' + scrapId).val('');
+  jQuery('#reply_content_' + scrapId).focus();
+  return false;
+}
+
+function fill_placeholder(element){
+  if(element.value == ''){
+    element.value = element.title;
+    element.style.color = '#ccc';
+  };
+  element.style.backgroundImage = 'none';
+}
+
+function clear_placeholder(element){
+  if(element.value == element.title){
+    element.value = '';
+    element.style.color = '#000';
+  };
+}

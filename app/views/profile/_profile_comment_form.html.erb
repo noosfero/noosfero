@@ -11,8 +11,8 @@
                                  :rows => 1,
                                  :class => 'submit-with-keypress',
                                  :title => _('Leave your comment'),
-                                 :onfocus => ("if(this.value==this.title){this.value='';this.style.color='#000'};" if logged_in?),
-                                 :onblur => ("if(this.value==''){this.value=this.title;this.style.color='#ccc'};this.style.backgroundImage='none'" if logged_in?),
+                                 :onfocus => ('clear_placeholder(this)' if logged_in?),
+                                 :onblur => ('fill_placeholder(this)' if logged_in?),
                                  :value => _('Leave your comment') %>
         <%= hidden_field_tag :source_id, activity.id, :id => "activity_id_#{activity.id}" %>
       <% end %>
