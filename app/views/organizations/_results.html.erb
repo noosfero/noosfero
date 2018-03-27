@@ -1,8 +1,8 @@
 <div class='results'>
   <table id='organizations-list'>
     <colgroup>
-      <col width="60%">
-      <col width="20%">
+      <col width="50%">
+      <col width="30%">
       <col width="20%">
     </colgroup>
 
@@ -10,8 +10,7 @@
       <th><%= _('Profile') %></th>
       <th><%= _('Actions') %></th>
       <th><%= _('Type') %>
-
-      <%= select_tag(:type, options_for_select(@types_filter, @type)) %>
+        <span><%= select_tag(:type, options_for_select(@types_filter, @type)) %></span>
       </th>
     </tr>
 
@@ -20,13 +19,13 @@
         <td><%= link_to_profile p.short_name, p.identifier, :title => p.name %> </td>
 
         <td class='actions'>
-          <div class="members-buttons-cell">
+          <div class="members-buttons-cell" style="display: inline;">
             <% if p.visible %>
-              <%= button_without_text :'deactivate-user', _('Deactivate'), {:action => 'deactivate', :id => p.id}, :class => 'action', data: {confirm: _("Do you want to deactivate this organization?")} %>
+              <%= button_without_text :'deactivate-user', _('Deactivate'), {:action => 'deactivate', :id => p.id}, :class => 'action organization_button', data: {confirm: _("Do you want to deactivate this organization?")} %>
             <% else %>
-              <%= button_without_text :'activate-user', _('Activate'), {:action => 'activate', :id => p.id}, :class => 'action', data: {confirm: _("Do you want to activate this organization?")} %>
+              <%= button_without_text :'activate-user', _('Activate'), {:action => 'activate', :id => p.id}, :class => 'action organization_button', data: {confirm: _("Do you want to activate this organization?")} %>
             <% end %>
-            <%= button_without_text :'delete', _('Remove'), {:action => 'destroy', :id => p.id}, :class => 'action', 'data-method' => :post, data: {confirm: _("Do you want to destroy this organization?")} %>
+            <%= button_without_text :'delete', _('Remove'), {:action => 'destroy', :id => p.id}, :class => 'action organization_button', 'data-method' => :post, data: {confirm: _("Do you want to destroy this organization?")} %>
          </div>
         </td>
 
