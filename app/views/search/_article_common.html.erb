@@ -2,8 +2,7 @@
 <% show_description = true if show_description.nil? %>
 <% content = article.abstract.present? ? article.abstract : article.body %>
 
-<%= render partial: 'article_author', object: article %>
 <%= render partial: 'article_profile', object: article %>
 <%= render partial: 'article_description', object: article if show_description && content.present? %>
-<%= render partial: 'article_categories', object: article.categories unless article.categories.empty? %>
 <%= render partial: 'article_tags', object: article.tags unless article.tags.empty? %>
+<%= render partial: 'article_categories', object: article.categories unless article.categories.empty? %>

@@ -1,8 +1,7 @@
 <% article = article_profile %>
 
-<tr class="search-article-profile search-article-profile-name">
-  <td class="search-field-label"><%= _("Profile") %></td>
-  <td>
-    <%= link_to_profile article.profile.name, article.profile.identifier %>
-  </td>
-</tr>
+<div class="search-article-profile search-article-profile-name">
+  <span class="search-field-label"><%= _("Profile") %></span>
+  <%= link_to_profile article.profile.name, article.profile.identifier %>
+</div>
+
