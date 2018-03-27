@@ -1,7 +1,7 @@
 #suppliers-products-import.popin
   h1= t'views.product.import.action'
 
-  = form_tag({controller: 'suppliers_plugin/product', action: :import}, onsubmit: '$(this).ajaxSubmit(); return false') do
+  = form_tag({controller: 'suppliers_plugin/product', action: :import}, onsubmit: '$(this).ajaxSubmit(); return false', multipart: true) do
     p= t'views.product.import.help'
     table
       thead

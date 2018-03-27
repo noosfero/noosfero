@@ -31,4 +31,17 @@ module DeliveryPlugin::DisplayHelper
     @delivery_context || 'delivery_plugin/admin_method'
   end
 
+  def button_to_function(type, label, js_code, html_options = {}, &block)
+    html_options[:class] << "button with-text" unless html_options[:class]
+    html_options[:class] << " icon-#{type}"
+    # If the js_code is a function and uses single quotes or double quotes,
+    # rails will scape it to \' or \", and this will brake the final js
+    # function. js_code.gsub(/'/, '&*') is a workaround for this. When the
+    # page is loaded we put the quotes back using javascript.
+    # Check here which are the chars that rails will scape:
+    # http://api.rubyonrails.org/classes/ActionView/Helpers/JavaScriptHelper.html
+    link_to_function(label, j(js_code.gsub(/'/, '&*')), html_options, &block)
+  end
+
+
 end
