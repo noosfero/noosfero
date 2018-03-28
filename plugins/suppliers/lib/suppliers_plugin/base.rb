@@ -15,21 +15,21 @@ class SuppliersPlugin::Base < Noosfero::Plugin
   ProductTabs = {
     distribution: {
       id: 'product-distribution',
-      content: lambda do
+      content: -> (_) {
         render 'suppliers_plugin/manage_products/distribution_tab'
-      end
+      }
     },
     compare: {
       id: 'product-compare-origin',
-      content: lambda do
+      content: -> (_) {
         render 'suppliers_plugin/manage_products/compare_tab'
-      end
+      }
     },
     basket: {
       id: 'product-basket',
-      content: lambda do
+      content: -> (_) {
         render 'suppliers_plugin/manage_products/basket_tab'
-      end
+      }
     },
   }
 

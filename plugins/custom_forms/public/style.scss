@@ -366,10 +366,13 @@ font-style: italic;
 
     table caption, h4 {
       font-size: 14px;
-      font-weight: 600;
-      border-bottom: solid 1px #e8e8e8;
-      padding-bottom: 2px;
-      text-align: left;
+      font-weight: 400;
+      margin-bottom: 10px;
+    }
+
+    table.results-table {
+      position: absolute;
+      left: -100vw;
     }
 
     table.review_text_align {

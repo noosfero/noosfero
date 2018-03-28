@@ -28,6 +28,7 @@
     <% end %>
   </tr>
 <% @submission.q_and_a.each do |field, answer| %>
+  <% next unless answer.present? %>
   <tr>
     <th><%= sanitizer.sanitize field.name %></th>
     <td><%=

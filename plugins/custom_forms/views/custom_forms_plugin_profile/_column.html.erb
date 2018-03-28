@@ -1,0 +1,7 @@
+<h4 id="<%= result['field'].to_slug %>" class="review_text_align">
+  <%= result['field'] %>
+</h4>
+
+<%= render partial: 'results_table', locals: { result: result } %>
+<%= column_chart result["data"],
+                 summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>

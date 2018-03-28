@@ -740,7 +740,20 @@ module ApplicationHelper
   end
 
   def float_to_currency(value)
-    number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :format => "%u %n")
+    number_to_currency(value,  :format => "%u %n", locale: currency_locale())
+  end
+
+  def currency_locale
+    current_lang = environment.default_language
+    return :"pt-BR" if current_lang.eql? 'pt'
+    current_lang.try(:to_sym)
+  end
+
+  def currency_symbol
+    current_lang = environment.default_language
+    return "R$" if current_lang.eql? 'pt'
+    return "€" if (current_lang.eql? 'fr' or current_lang.eql? 'es')
+    "$"
   end
 
   def collapsed_item_icon

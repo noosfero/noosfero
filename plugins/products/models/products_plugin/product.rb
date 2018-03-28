@@ -20,7 +20,7 @@ class ProductsPlugin::Product < ApplicationRecord
   }
 
   attr_accessible :name, :product_category, :profile, :profile_id, :enterprise,
-    :highlighted, :price, :image_builder, :description, :available, :qualifiers, :unit_id, :discount, :inputs, :qualifiers_list
+    :highlighted, :price, :image_builder, :description, :available, :qualifiers, :unit_id, :discount, :inputs, :qualifiers_list, :unit
 
   def self.default_search_display
     'full'

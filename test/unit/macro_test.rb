@@ -34,4 +34,10 @@ class MacroTest < ActiveSupport::TestCase
   should 'convert macro' do
     assert_equal 'Testing: It works!', macro.convert(macro_element, nil)
   end
+
+  should 'include element classes when parsing macro' do
+    macro.expects(:parse).with(has_entry('classes', 'macro nonEdit'),
+                               anything, anything)
+    macro.convert(macro_element, nil)
+  end
 end
