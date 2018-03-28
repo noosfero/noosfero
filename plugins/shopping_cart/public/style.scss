@@ -37,8 +37,9 @@ input.button.with-text.icon-cart,
   position: fixed;
   right: 20px;
   top: 0px;
-  z-index: 100;
+  z-index: 1001;
 }
+
 .cart-minimized {
   float: right;
   position: relative;
@@ -47,7 +48,9 @@ input.button.with-text.icon-cart,
   float: right;
   margin: 0;
 }
+
 #cart1 .cart-inner {
+  /*top: 120px;*/
   width: 200px;
   z-index: 1000;
   border: 1px solid #777;

@@ -60,7 +60,8 @@ Feature: delivery administration
     And I fill in "Name" with "Bike"
     When I follow "Add"
     Then I should see "Bike"
-    And I follow "Remove" within ".delivery-method"
+    When I fix button onclick argument
+    And I follow "Remove"
     When I confirm the browser dialog
     Then I should not see "Bike"
 
@@ -72,7 +73,8 @@ Feature: delivery administration
     And I fill in "Name" with "Bike"
     When I follow "Add"
     Then I should see "Bike"
-    And I follow "Edit" within ".delivery-method"
+    When I fix button onclick argument
+    And I follow "Edit"
     And I fill in "Name" with "Car"
     When I follow "Save"
     Then I should not see "Bike"

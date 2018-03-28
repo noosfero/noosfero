@@ -30,59 +30,12 @@
         </div>
       <% else %>
         <div>
-          <% if @graph.show_as_pizza? result["show_as"] %>
-            <h4 id="<%= result['field'].to_slug %>" class="review_text_align">
-              <%= @fields[index].name %>
-            </h4>
-            <%= pie_chart result["data"], donut: true, legend: 'left',
-                          summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
+          <%= render partial: @graph.exibition_method(result['show_as']),
+                     locals: { graph: @graph, result: result, index: index } %>
 
-            <% if index < @query_results.size - 1 %>
-              <hr>
-              <br>
-            <% end %>
-          <% end %>
-
-          <% if @graph.show_as_column? result["show_as"] %>
-            <h4 id="<%= result['field'].to_slug %>" class="review_text_align">
-              <%= @fields[index].name %>
-            </h4>
-            <%= column_chart result["data"],
-                             summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
-            <% if index < @query_results.size - 1 %>
-              <hr>
-              <br>
-            <% end %>
-          <% end %>
-
-          <% if @graph.show_as_text? result["show_as"] %>
-            <table id="<%= result['field'].to_slug %>" class="review_text_align"
-                   summary='<%= @fields[index].name %>'>
-              <caption><%= @fields[index].name %></caption>
-              <thead>
-                <tr>
-                  <th > User </th>
-                  <th> Answer </th>
-                </tr>
-              </thead>
-              <tbody>
-                <% result["data"]["answers"].each_with_index do |answer, index| %>
-                  <tr>
-                    <td class="review_text_align">
-                      <%= result["data"]["users"][index] %>
-                      <% if result["data"]["imported"][index] &&
-                            current_person.try(:can_see_summary?, profile) %>
-                        <span>*</span>
-                      <% end %>
-                    </td>
-                    <td class="review_text_align"> <%= answer %> </td>
-                  <tr>
-                <% end %>
-              </tbody>
-            </table>
-            <% if current_person.try(:can_see_summary?, profile) %>
-              <p>* <%= _('imported submissions') %></p>
-            <% end %>
+          <% if index < @query_results.size - 1 %>
+            <hr>
+            <br>
           <% end %>
         </div>
       <% end  %>

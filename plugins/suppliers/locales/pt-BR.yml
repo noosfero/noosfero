@@ -283,8 +283,8 @@ pt-BR: &pt-BR
 
       supplier:
         _new:
-          title: "Adicionar %{terms.supplier.singular} a %{profile}"
-          intro_help: "Comece a digitar o nome %{terms.supplier.from_article.singular} que deseja adicionar. Procuraremos para ver se %{terms.supplier.article.singular} já existe no %{environment}. Caso ele não exista, você poderá criar um tipo de empreendimento que ficará visível APENAS %{terms.profile.on_your.singular}, e não no %{environment} como um todo. Se %{terms.supplier.this.singular} quiser entrar realmente no %{environment}, deve enviar uma mensagem para %{contact_email} fazendo o pedido."
+          title: "Adicionar fornecedor a %{profile}"
+          intro_help: "Comece a digitar o nome da organização que deseja adicionar. Procuraremos para ver se o fornecedor já existe no ambiente %{environment}. Caso ele não exista, você poderá criar um tipo de empreendimento que ficará visível APENAS em seu coletivo de consumo, e não no ambiente %{environment} como um todo. Se o fornecedor quiser entrar realmente no %{environment}, deve enviar uma mensagem para %{contact_email} fazendo o pedido."
           query_placeholder: "busque %{terms.supplier.undefined_article.singular}"
           search: "Buscar"
           none_found: "%{terms.supplier.none.singular} foi encontrado. Por favor revise o texto da busca."

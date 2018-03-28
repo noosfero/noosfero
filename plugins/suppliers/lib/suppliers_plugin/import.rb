@@ -22,7 +22,7 @@ class SuppliersPlugin::Import
   end
 
   def self.products consumer, csv
-    default_product_category = consumer.environment.product_categories.find_by name: 'Produtos'
+    default_product_category = consumer.environment.product_categories.find_by slug: 'software-livre'
 
     detection = CharlockHolmes::EncodingDetector.detect csv
     csv = CharlockHolmes::Converter.convert csv, detection[:encoding], 'UTF-8'
@@ -59,8 +59,9 @@ class SuppliersPlugin::Import
       end
 
       attrs[:name] = attrs.delete :product_name
-      if product_category = attrs[:product_category]
-        attrs[:product_category] = ProductCategory.find_by_solr(product_category, query_fields: ['name']).first
+      unless attrs[:product_category].blank?
+        attrs[:product_category] = ProductCategory.find_by_solr(
+          attrs[:product_category], query_fields: ['name']).first
       end
       attrs[:product_category] ||= default_product_category
       if qualifiers = attrs[:qualifiers]
@@ -116,7 +117,7 @@ class SuppliersPlugin::Import
       end
 
       products.each do |attrs|
-        distributed_attrs = attrs.delete :distributed
+        attrs.delete :distributed
 
         product = attrs.delete :record
         product ||= supplier.profile.products.where(name: attrs[:name]).first
@@ -130,7 +131,7 @@ class SuppliersPlugin::Import
           product.update! attrs
         end
 
-        distributed_product = product.distribute_to_consumer consumer, distributed_attrs
+        distributed_product = product.distribute_to_consumer consumer, attrs
       end
     end
   end

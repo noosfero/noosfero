@@ -10,11 +10,11 @@
 
   <table>
     <tr>
-      <td><%= f.label :price, _('Price (%s)') % environment.currency_unit, class: 'formlabel' %></td>
+      <td><%= f.label :price, _('Price (%s)') % currency_symbol(), class: 'formlabel' %></td>
       <td class='formfield'><%= f.text_field(:price, value: @product.formatted_value(:price), class: 'numbers-only') %></td>
     </tr>
     <tr>
-      <td><%= f.label :discount, _('Discount (%s)') % environment.currency_unit, class: 'formlabel' %></td>
+      <td><%= f.label :discount, _('Discount (%s)') % currency_symbol(), class: 'formlabel' %></td>
       <td class='formfield'><%= f.text_field(:discount, value: @product.formatted_value(:discount), class: 'numbers-only', title: _('If your product is on sale, fill this field with the discount value')) %></td>
     </tr>
     <tr>

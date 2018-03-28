@@ -5,3 +5,7 @@ Given /^"([^""]*)" has the following delivery methods$/ do |name, table|
     delivery_method.update_attributes(item)
   end
 end
+
+When /I fix button onclick argument/ do
+  execute_script("fix_onclick_argument()")
+end

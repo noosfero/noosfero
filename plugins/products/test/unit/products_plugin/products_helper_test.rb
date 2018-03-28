@@ -26,9 +26,7 @@ class ProductsHelperTest < ActionView::TestCase
 
   include ActionView::Helpers::NumberHelper
   should 'format price to environment currency' do
-    @environment.currency_unit = "R$"
-    @environment.currency_separator = ","
-    @environment.currency_delimiter = "."
+    @environment.default_language = "pt"
     @environment.save
     assert_equal 'R$ 10,00', float_to_currency(10.0)
   end
