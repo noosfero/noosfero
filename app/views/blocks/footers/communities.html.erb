@@ -1,3 +1,4 @@
+<% unless block.profile_list.empty? %>
 <% if block.owner.kind_of?(Profile) || block.owner.kind_of?(Environment) %>
   <% if block.owner.kind_of?(Profile) %>
     <%= link_to font_awesome('angle-double-right', _('View all')), {:profile => block.owner.identifier, :controller => 'profile', :action => 'communities'}, :class => 'view-all' %>
@@ -16,4 +17,5 @@
       </div>
     </div>
   <% end %>
+<% end %>
 <% end %>
