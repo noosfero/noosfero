@@ -24,18 +24,7 @@
   <%= render :partial => 'addthis' %>
 <% end %>
 
-<% cache(@page.cache_key(params, user, language)) do %>
-  <div class="<%="article-body article-body-" + @page.css_class_name %>">
-    <% options = @page.image? ? {:gallery_view => true} : {} %>
-    <% if @page.image.present? && !@page.event? && !@page.blog? %>
-      <div class="article-body-img">
-        <%= image_tag(@page.image.public_filename) %>
-        <p><%= @page.image.label%></p>
-      </div>
-    <% end %>
-    <%= article_to_html(@page, options) %>
-  </div> <!-- end class="article-body" -->
-<% end %>
+<%= render partial: 'article_body', locals: { page: @page } %>
 
 <div class=<%= !@page.categories.empty? || !@page.tags.empty? ? "article-footer" : "" %> >
   <% unless @page.categories.empty? %>

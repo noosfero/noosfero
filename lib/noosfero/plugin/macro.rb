@@ -43,6 +43,7 @@ class Noosfero::Plugin
     def convert(macro, source)
       macro_name = macro['data-macro']
       attrs = attributes(macro)
+      attrs['classes'] = macro.attr('class')
 
       begin
         content = parse(attrs, macro.inner_html, source)

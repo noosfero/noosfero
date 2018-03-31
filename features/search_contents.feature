@@ -148,13 +148,15 @@ Feature: search contents
     When I follow "Folder for Uploaded Files"
     Then I should be on article "Folder for Uploaded Files"
 
+@selenium
   Scenario: link to author on search results
     When I go to the search articles page
     And I fill in "search-input" with "whales"
     And I follow "Search" within ".search-form"
-    Then I should see "Author" within ".search-article-author"
-    Then I should see "Joao Silva" within ".search-article-author-name"
+    Then I should see "Profile" within ".search-article-profile"
+    Then I should see "Joao Silva" within ".search-article-profile-name"
     When I follow "Joao Silva"
+    And I wait for 1 seconds
     Then I should be on joaosilva's profile
 
   Scenario: show clean description excerpt on search results

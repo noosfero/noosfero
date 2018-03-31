@@ -66,5 +66,18 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
 
     assert_equal field.alternatives, [first, second]
   end
+
+  should 'create a summary based on answers' do
+    form = CustomFormsPlugin::Form.create!(profile: fast_create(Profile),
+                                           name: 'Free Software',
+                                           identifier: 'free')
+    field = CustomFormsPlugin::Field.create!(name: 'License', form: form)
+    CustomFormsPlugin::Answer.create!(field: field, value: 'opt1')
+    CustomFormsPlugin::Answer.create!(field: field, value: 'opt1', imported: true)
+    CustomFormsPlugin::Answer.create!(field: field, value: 'opt2', imported: true)
+
+    assert_equal({ online: 50, offline: 50}, field.summary['opt1'])
+    assert_equal({ online: 0, offline: 100}, field.summary['opt2'])
+  end
 end
 

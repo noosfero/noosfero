@@ -19,6 +19,13 @@ class LinkArticleTest < ActiveSupport::TestCase
     assert_equal article.name, link.name
   end
 
+  should 'author of article link is the same as the name of referenced article' do
+    author = fast_create(Person)
+    article = fast_create(Article, :profile_id => profile.id, :author_id => author.id)
+    link = LinkArticle.new(:reference_article => article)
+    assert_equal article.author, link.author
+  end
+
   should 'destroy link article when reference article is removed' do
     target_profile = fast_create(Community)
     article = fast_create(Article, :profile_id => profile.id)
