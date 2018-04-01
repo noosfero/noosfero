@@ -74,5 +74,3 @@ class CommentParagraphPlugin < Noosfero::Plugin
   end
 
 end
-
-require_dependency 'comment_paragraph_plugin/macros/allow_comment'

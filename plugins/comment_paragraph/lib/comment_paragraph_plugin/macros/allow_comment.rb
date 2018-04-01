@@ -3,13 +3,13 @@ class Application < Rails::Application
 end
 
 class CommentParagraphPlugin::AllowComment < Noosfero::Plugin::Macro
-
   def self.configuration
     { params: [],
       skip_dialog: true,
       generator: 'makeCommentable();',
       js_files: 'macro/allow_comment.js',
-      icon_path: '/designs/icons/tango/Tango/16x16/emblems/emblem-system.png',
+      title: _('Select/Deselect section as commentable'),
+      icon_path: '/designs/icons/tango/Tango/16x16/actions/comment.png',
       css_files: 'macro/allow_comment.css' }
   end
 
