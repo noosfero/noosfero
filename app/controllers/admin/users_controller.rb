@@ -47,7 +47,7 @@ class UsersController < AdminController
 
   def activate
     person = environment.people.find(params[:id])
-    person.user.activate
+    person.user.activate!
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 

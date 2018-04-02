@@ -400,7 +400,7 @@ module Noosfero::Factory
 
   def defaults_for_user(params = {})
     username = "user_#{rand(1000)}"
-    { :login => username, :email => username + '@noosfero.colivre', :crypted_password => 'test'}.merge(params)
+    { :login => username, :email => username + '@noosfero.colivre', :crypted_password => 'test', :environment_id => Environment.default.id}.merge(params)
   end
 
   ###############################################

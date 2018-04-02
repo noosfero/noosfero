@@ -5,7 +5,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   def setup
     Environment.default.enable_plugin(CustomFormsPlugin)
     @user = create_user('jose').person
-    @user.user.activate
+    @user.user.activate!
 
     @my_block = CustomFormsPlugin::PollsBlock.new
     @my_block.metadata['limit'] = 3
