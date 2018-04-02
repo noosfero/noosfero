@@ -24,7 +24,6 @@
 
   <div id='signup-formfield-group'>
     <%= label(:user, :login, _('Username'), {:class => 'formlabel'}) %>
-    <span id="signup-domain"><%= environment.default_hostname %>/</span>
     <div id='signup-login'>
       <div id='signup-login-field' class='formfield'>
         <div class='domain-field'>
@@ -35,13 +34,11 @@
         <div id='url-check'><p>&nbsp;</p></div>
         <span id='checking-message' class='checking' style='display:none'><%= _('Checking availability of login name...') %></span>
       </div>
-      <%= content_tag(:small, _('Choose your login name carefully! It will be your network access and you will not be able to change it later.'), :id => 'signup-balloon') %>
     </div>
   </div>
   <%= javascript_include_tag "signup_form" %>
   <div id='signup-password'>
     <%= required f.password_field(:password, :id => 'user_pw') %>
-    <%= content_tag(:small,_('Choose a password that you can remember easily. It must have at least 4 characters.'), :id => 'password-balloon') %>
     <div id='password-rate'>
       <p><span class="invalid" id='result-blank'>
         &nbsp;
@@ -63,13 +60,11 @@
 
   <div id='signup-password-confirmation'>
     <%= required f.password_field(:password_confirmation) %>
-    <%= content_tag(:small,_('We need to be sure that you filled in your password correctly. Confirm you password.'), :id => 'password-confirmation-balloon') %>
     <div id='password-check'><p>&nbsp;</p></div>
   </div>
 
   <div id='signup-email'>
     <%= required f.text_field(:email) %>
-    <%= content_tag(:small,_('This e-mail address will be used to contact you.'), :id => 'email-balloon') %>
     <div id='email-check'><p>&nbsp;</p></div>
   </div>
   <%= observe_field "user_email",
@@ -94,7 +89,6 @@
 
   <div id='signup-name'>
     <%= labelled_form_field(_('Full name'), text_field(:profile_data, :name)) %>
-    <%= content_tag(:small,_('Tell us your name, it will be used to identify yourself.'), :id => 'name-balloon') %>
   </div>
 
 </div>
@@ -146,12 +140,6 @@ jQuery(function($) {
     });
   });
 
-  $('#user_pw').focus(function() {
-    $('#password-balloon').fadeIn('slow');
-  });
-  $('#user_password_confirmation').focus(function() {
-    $('#password-confirmation-balloon').fadeIn('slow');
-  });
   $('#user_password_confirmation, #user_pw').blur(function() {
     if ($('#user_password_confirmation').val() != '') {
       if ($('#user_password_confirmation').val() == $('#user_pw').val()) {
@@ -164,25 +152,11 @@ jQuery(function($) {
         $('#password-check').html("<p><span class='invalid'><%= _('Passwords don\'t match') %></span></p>");
       }
     }
-    $('#password-balloon').fadeOut('slow');
-    $('#password-confirmation-balloon').fadeOut('slow');
   });
-  $('#user_login').focus(function() {
-    $('#signup-balloon').fadeIn('slow');
-  });
-  $('#user_login').blur(function() { $('#signup-balloon').fadeOut('slow'); });
+
   $('#signup-form').validate({ rules: { 'user[email]': { email: true } }, messages: { 'user[email]' : '' } });
-  $('#user_email').focus(function() {
-    $('#email-balloon').fadeIn('slow');
-  });
-  $('#user_email').blur(function() {
-    $('#email-balloon').fadeOut('slow');
-  });
-  $('#profile_data_name').focus(function() {
-    $('#name-balloon').fadeIn('slow');
-  });
+
   $('#profile_data_name').blur(function() {
-    $('#name-balloon').fadeOut('slow');
     if ($(this).val() == '') {
       $(this).removeClass('validated');
     }
