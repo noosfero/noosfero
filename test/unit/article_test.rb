@@ -2341,4 +2341,10 @@ class ArticleTest < ActiveSupport::TestCase
     assert article.metadata['custom_fields']['text-1'].present?
   end
 
+  should 'return environment name as author if no author name available' do
+    article = fast_create(Article)
+    article.author = nil
+    assert_equal article.environment.name, article.author_name
+  end
+
 end

@@ -92,6 +92,10 @@ div#category-ajax-selector {
   }
 }
 
+#general-categories {
+  font-size: 1.3em;
+}
+
 .categories-wrapper {
   ul {
     list-style: none;
@@ -126,8 +130,7 @@ div#category-ajax-selector {
 
         .color_marker {
           border: none;
-          width: 15px;
-          margin-right: 5px;
+          width: 0.188em;
         }
       }
 

@@ -1,5 +1,5 @@
 function enableMoveContainerChildren(container, box) {
-  var div = jQuery('#box-'+box+' > .block-outer > .block');
+  var div = jQuery('#box-'+box+' >  .block');
   if(!div.is('.ui-resizable')) {
     div.removeClass('ui-draggable');
     div.resizable({
@@ -13,7 +13,7 @@ function enableMoveContainerChildren(container, box) {
 }
 
 function disableMoveContainerChildren(container, box) {
-  var div = jQuery('#box-'+box+' > .block-outer > .block');
+  var div = jQuery('#box-'+box+' > .block');
   if(div.is('.ui-resizable')) {
     div.addClass('ui-draggable');
     div.resizable('destroy');
@@ -22,7 +22,7 @@ function disableMoveContainerChildren(container, box) {
 
 function containerChildrenWidth(container, box) {
   widths = "";
-  jQuery('#box-'+box+' > .block-outer > .block').each(function(i) {
+  jQuery('#box-'+box+' > .block').each(function(i) {
     childId = jQuery(this).attr('id').match(/block-(\d+)/)[1];
     widths+=childId+","+jQuery(this).width()+"|";
   });

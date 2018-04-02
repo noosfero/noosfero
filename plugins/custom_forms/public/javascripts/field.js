@@ -72,11 +72,18 @@ var customFormsPlugin = {
   }
 }
 
+/* Remove field */
 $(document).ready(function() {
   $("a.remove-field").live('click', function() {
     var field = $(this).closest('li');
+    var destroy_field = jQuery('input.destroy-field', field);
     field.fadeOut(500, function() {
-      $(this).remove();
+      if(destroy_field.length >= 1){
+        destroy_field.val(1);
+        field.hide();
+      }
     });
+    return false;
   });
 });
+

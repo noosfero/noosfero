@@ -1,0 +1,31 @@
+<table id="<%= result['field'].to_slug %>" class="review_text_align"
+       summary='<%= result['field'].to_slug %>'>
+
+  <caption><%= result['field'] %></caption>
+
+  <thead>
+    <tr>
+      <th> <%= _('User') %> </th>
+      <th> <%= _('Answer') %> </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% result["data"]["answers"].each_with_index do |answer, index| %>
+      <tr>
+        <td class="review_text_align">
+          <%= result["data"]["users"][index] %>
+          <% if result["data"]["imported"][index] &&
+                current_person.try(:can_see_summary?, profile) %>
+            <span>*</span>
+          <% end %>
+        </td>
+        <td class="review_text_align"> <%= answer %> </td>
+      <tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if current_person.try(:can_see_summary?, profile) %>
+  <p>* <%= _('imported submissions') %></p>
+<% end %>

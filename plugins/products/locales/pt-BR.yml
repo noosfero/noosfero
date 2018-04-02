@@ -1,0 +1,12 @@
+pt-BR: &pt-BR
+
+  products_plugin:
+    lib:
+      plugin:
+        name: "Produtos"
+        description: "Um plugin para gerenciar transações de produtos e serviços"
+
+pt_BR:
+  <<: *pt-BR
+pt:
+  <<: *pt-BR

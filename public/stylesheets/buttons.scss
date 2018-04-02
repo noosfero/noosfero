@@ -23,11 +23,14 @@
   cursor: pointer;
   display: inline-block;
   background-image: none !important;
-  border: 1px solid;
-  border-radius: 4px;
-  font-size: 14px !important;
+  border: 0.063em solid;
+  border-radius: 0.250em;
   &:not(:last-child) { margin-right: 8px !important; }
-  padding: 7px 12px !important;
+  font-size: 14px !important;
+  padding: 0.313em 0.750em;
+  margin-top: 0.250em;
+  margin-bottom: 0.125em;
+  @media only screen and (max-width: 768px) { margin-bottom: 5px; }
   @media only screen and (max-width: 540px) { padding: 6px 8px !important; }
   height: auto;
   line-height: 16px !important;

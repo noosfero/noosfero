@@ -7,7 +7,7 @@
   <%= describe(activity).html_safe %>
   </p>
   <span class='profile-activity-send-reply'>
-    <%= link_to_function font_awesome(:reply, s_('profile|Comment')), "hide_and_show(['#profile-#{tab_action}-message-response-#{activity.id}'],['#profile-#{tab_action}-reply-#{activity.id}', '#profile-#{tab_action}-reply-form-#{activity.id}']);jQuery('#reply_content_#{tab_action}_#{activity.id}').val('');jQuery('#reply_content_#{tab_action}_#{activity.id}').focus();return false", :class => "profile-send-reply" %>
+    <%= link_to_function font_awesome(:reply, s_('profile|Comment')), 'show_comment_reply_form(this)', { :class => "profile-send-reply", "data-activity-id" => "#{activity.id}", "data-tab-action" => "#{tab_action}" } %>
   </span>
   <%= render partial: "profile_comments", locals: { activity: activity, tab_action: tab_action } %>
 </div>

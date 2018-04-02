@@ -747,6 +747,13 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Redirects to a custom URL after login
+  # (overrides any environment configuration)
+  # returns = a location string or a options hash for an URL
+  def custom_redirection_after_login(current_person)
+    nil
+  end
+
   def method_missing(method, *args, &block)
     # This is a generic hotspot for all controllers on Noosfero.
     # If any plugin wants to define filters to run on any controller, the name of

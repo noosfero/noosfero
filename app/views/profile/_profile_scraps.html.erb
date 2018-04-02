@@ -10,7 +10,7 @@
     <p class='profile-activity-text'><%= txt2html scrap.content %></p>
     <% if logged_in? && current_person.follows?(scrap.sender) %>
       <span class='profile-activity-send-reply'>
-        <%= link_to_function s_("profile|#{font_awesome(:reply, 'Comment')}").html_safe, "hide_and_show(['#profile-wall-message-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);jQuery('#reply_content_#{scrap.id}').val('');jQuery('#reply_content_#{scrap.id}').focus();return false", :class => "profile-send-reply" %>
+        <%= link_to_function s_("profile|#{font_awesome(:reply, 'Comment')}").html_safe, 'show_scrap_reply_form(this)', { :class => "profile-send-reply", "data-scrap-id" => "#{scrap.id}" } %>
       </span>
     <% end %>
     <% if scrap.replies.count > 0 %>
