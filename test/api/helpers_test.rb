@@ -43,7 +43,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
     class CoolPlugin < Noosfero::Plugin
       def api_custom_login request
         user = User.create!(:login => 'zombie', :password => 'zombie', :password_confirmation => 'zombie', :email => 'zombie@brains.org', :environment => environment)
-        user.activate
+        user.activate!
         user
       end
     end

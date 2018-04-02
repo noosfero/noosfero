@@ -53,3 +53,36 @@
   padding-left: 50px;
 }
 
+#content div.account-activation {
+  form {
+    margin: 30px 0 50px;
+
+    p {
+      text-align: center;
+      font-size: 11px;
+    }
+  }
+
+  form div.inline-form {
+    display: flex;
+    justify-content: center;
+
+    input[type=text] {
+      width: 250px;
+      height: 30px;
+      padding: 0 5px;
+      text-transform: uppercase;
+    }
+
+    input[type=submit] {
+      max-height: unset;
+      height: 34px;
+      margin-left: 3px;
+      width: 100px;
+    }
+  }
+
+  a.button {
+    display: inline-block;
+  }
+}

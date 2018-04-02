@@ -9,6 +9,8 @@ require 'database_cleaner'
 RSpec.configure do |config|
 
   config.fixture_path = 'spec/fixtures'
+  config.global_fixtures = :all
+
   config.include Noosfero::Factory
 
 # This cleaning method is important when you have annomalous data created on

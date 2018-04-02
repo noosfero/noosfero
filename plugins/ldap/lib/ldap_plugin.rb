@@ -68,7 +68,7 @@ class LdapPlugin < Noosfero::Plugin
     ldap = LdapAuthentication.new(context.environment.ldap_plugin_attributes)
     begin
       if user.save
-        user.activate
+        user.activate!
         plugins.dispatch(:ldap_plugin_update_user, user, attrs)
       else
         user = nil

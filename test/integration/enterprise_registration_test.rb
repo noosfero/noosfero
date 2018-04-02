@@ -52,7 +52,7 @@ class EnterpriseRegistrationTest < ActionDispatch::IntegrationTest
 
     # steps done by the validator
     validator = create_user_with_permission('validator', 'validate_enterprise', org)
-    validator.user.activate
+    validator.user.activate!
     login 'validator', 'validator'
 
     get "/myprofile/myorg/enterprise_validation"
