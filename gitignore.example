@@ -1,6 +1,5 @@
 .gitignore
 
-/Gemfile.lock
 config/Gemfile
 
 .rbenv-*

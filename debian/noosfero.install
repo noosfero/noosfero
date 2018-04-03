@@ -38,3 +38,4 @@ public                            usr/share/noosfero
 script                            usr/share/noosfero
 util                              usr/share/noosfero
 vendor                            usr/share/noosfero
+Gemfile.lock                      usr/share/noosfero

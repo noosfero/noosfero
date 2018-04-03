@@ -9,7 +9,6 @@ makedir() {
   chown noosfero:noosfero $1
 }
 
-
 # migrate thin configuration to unicorn
 unicorn_config=/etc/noosfero/unicorn.rb
 thin_config=/etc/noosfero/thin.yml
@@ -39,6 +38,11 @@ chgrp noosfero /var/log/noosfero 2>/dev/null ||
   addgroup --system noosfero
 chown noosfero /var/log/noosfero 2>/dev/null ||
   adduser --system --home /usr/share/noosfero --shell /bin/sh --no-create-home --disabled-password --ingroup noosfero noosfero
+
+# Install unavailable dependencies with RubyGems
+##############################################################################
+
+cd /usr/share/noosfero && bundle
 
 # create noosfero dynamic data directories
 ##############################################################################
