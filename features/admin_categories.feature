@@ -66,3 +66,6 @@ Feature: manage categories
     When I follow "Show subcategories"
     Then I should see "Vegetarian"
     And I should see "Steak"
+    And I follow "Hide subcategories"    
+    And I should not see "Steak"
+    Then I should not see "Vegetarian"
