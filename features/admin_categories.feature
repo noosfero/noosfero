@@ -62,8 +62,7 @@ Feature: manage categories
     And I wait for 1 seconds
     And I follow "Administration"
     And I follow "Categories"
-    Then I should see "Food Show"
-    When I follow "Show"
+    Then I should see "Food"
+    When I follow "Show subcategories"
     Then I should see "Vegetarian"
-    And I should not see "Vegetarian Show"
-    And I should see "Steak Show"
+    And I should see "Steak"
