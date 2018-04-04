@@ -2,6 +2,7 @@ $broken_plugins = %w[
   anti_spam
   bsc
   comment_classification
+  comment_group
   ldap
   solr
 ]
