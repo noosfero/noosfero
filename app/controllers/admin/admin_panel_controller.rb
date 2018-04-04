@@ -60,12 +60,12 @@ class AdminPanelController < AdminController
        env.portal_folders = folders
        if env.save
          session[:notice] = _('Saved the portal folders')
-         redirect_to :action => 'set_portal_news_amount'
+         redirect_to :action => 'set_portal_news_configurations'
        end
      end
   end
 
-  def set_portal_news_amount
+  def set_portal_news_configurations
     if request.post?
       if @environment.update(params[:environment])
         session[:notice] = _('Saved the number of news on folders')
