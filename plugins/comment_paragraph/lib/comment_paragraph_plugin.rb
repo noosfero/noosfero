@@ -33,7 +33,13 @@ class CommentParagraphPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['comment_paragraph_macro', 'rangy-core', 'rangy-cssclassapplier', 'rangy-serializer']
+    [
+      'comment_paragraph_macro',
+      'cms',
+      'rangy-core',
+      'rangy-cssclassapplier',
+      'rangy-serializer'
+    ]
   end
 
   def stylesheet?
