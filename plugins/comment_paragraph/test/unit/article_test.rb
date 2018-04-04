@@ -56,10 +56,30 @@ class ArticleTest < ActiveSupport::TestCase
   should 'return nil as paragraph content when paragraph uuid is not found' do
     uuid = 0
     article.body = "<div class=\"macro\" data-macro-paragraph_uuid=#{uuid}>paragraph content</div>"
-    assert_equal nil, article.comment_paragraph_plugin_paragraph_content(1)
+    assert_nil article.comment_paragraph_plugin_paragraph_content(1)
   end
 
   should 'be enabled if plugin is enabled and article is a kind of Discussion' do
     assert fast_create(CommentParagraphPlugin::Discussion, profile_id: profile.id).comment_paragraph_plugin_enabled?
+  end
+
+  should 'remove paragraph comments if paragraph uuid does not exist' do
+    article.body = "<div class=\"macro\" data-macro-paragraph_uuid=1>paragraph content</div>"
+    author = fast_create(Person)
+    comment1 = article.comments.create!(body: 'comment one', paragraph_uuid: 1,
+                                        author: author)
+    comment2 = article.comments.create!(body: 'comment two', paragraph_uuid: 2,
+                                        author: author)
+
+    article.save
+    assert Comment.exists?(comment1)
+    refute Comment.exists?(comment2)
+  end
+
+  should 'not call remove_zombie_comments if body does not change' do
+    article.save
+    article.name = 'New name'
+    article.expects(:remove_zombie_comments).never
+    article.save
   end
 end
