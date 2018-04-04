@@ -3,6 +3,11 @@
 <% if @article.archived? %>
   <%= render :partial => 'archived_warning', :locals => {:article => @article} %>
 <% end %>
+
+<% if @article.display_media_panel? %>
+  <%= render :partial => 'text_editor_sidebar' %>
+<% end %>
+
 <div class='<%= (@article.display_media_panel? ? 'with_media_panel' : 'no_media_panel') %>'>
 <%= labelled_form_for 'article', :html => { :multipart => true, :class => "#{@type} #{@type.to_css_class}" } do |f| %>
 
@@ -13,9 +18,6 @@
 
   <%= hidden_field_tag('success_back_to', @success_back_to) %>
 
-  <% if @article.display_media_panel? %>
-    <%= render :partial => 'text_editor_sidebar' %>
-  <% end %>
 
   <%= render_partial_for_class @article.class, f: f %>
   <%= render partial: 'article_custom_fields',

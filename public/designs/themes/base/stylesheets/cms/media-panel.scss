@@ -17,16 +17,15 @@
 }
 
 .text-editor-sidebar {
-
-  position: relative;
   max-height: 45px;
   overflow: hidden;
   transition: 1s;
   width: 100%;
 
-  @media screen and (min-width: 1200px) {
-	display: inline;
-	float: right;
+  @media screen and (min-width: 1100px) {
+  position: absolute;
+  margin-top: 1em;
+  right: 5%;
 	width: 30%;
   }
 }
