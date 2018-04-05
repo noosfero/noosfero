@@ -80,34 +80,32 @@ module Api
       end
 
       params do
-        requires :activation_code, type: String, desc: _("Activation token")
+        requires :activation_token, type: String, desc: _("Activation token")
+        requires :short_activation_code, type: String,
+                                         desc: _("Short activation code")
       end
 
       # Activate a user.
       #
       # Parameter:
-      #   activation_code (required)                  - Activation token
+      #   activation_token (required)                  - Activation token
+      #   short_activation_code (required)             - Short Activation code
       # Example Request:
-      #   PATCH /activate?activation_code=28259abd12cc6a64ef9399cf3286cb998b96aeaf
+      #   PATCH /activate?activation_token=28259abd12cc6a64ef9399cf3286cb998b96aeaf&short_activation_code=123456
       patch "/activate" do
-        user = User.find_by activation_code: params[:activation_code]
+        user = User.find_by activation_code: params[:activation_token]
         if user
-          unless user.environment.enabled?('admin_must_approve_new_users')
-            if user.activate
-                user.generate_private_token!
-                present user, :with => Entities::UserLogin, :current_person => current_person
-            end
-          else
-            if user.create_moderate_task
-              user.activation_code = nil
-              user.save!
-
+          if user.activate(params[:short_activation_code])
+            if user.activated?
+              user.generate_private_token!
+              present user, :with => Entities::UserLogin, :current_person => current_person
+            else
               # Waiting for admin moderate user registration
               status 202
-              body({
-                :message => 'Waiting for admin moderate user registration'
-              })
+              body({ message: 'Waiting for admin moderate user registration' })
             end
+          else
+            render_api_error!(_('Token is invalid'), 412)
           end
         else
           # Token not found in database

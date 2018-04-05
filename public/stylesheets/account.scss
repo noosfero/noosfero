@@ -5,8 +5,7 @@
   min-height: 100px;
   .button { padding: 8px 16px !important; }
 }
-.login-block .login-box {
-}
+
 .login-box-content {
   margin-top: -6px;
   border: 2px solid #729FCF;
@@ -58,12 +57,6 @@
   padding-left: 50px;
 }
 
-.action-account-forgot_password {
-  form.with-recaptcha  {
-
-  }
-}
-
 form.change-password {
   display: inline-block;
   @media only screen and (max-width: 960px) {
@@ -74,5 +67,39 @@ form.change-password {
   a.button {
     width: 100%;
     box-sizing: border-box;
+  }
+}
+
+#content div.account-activation {
+  form {
+    margin: 30px 0 50px;
+
+    p {
+      text-align: center;
+      font-size: 11px;
+    }
+  }
+
+  form div.inline-form {
+    display: flex;
+    justify-content: center;
+
+    input[type=text] {
+      width: 250px;
+      height: 30px;
+      padding: 0 5px;
+      text-transform: uppercase;
+    }
+
+    input[type=submit] {
+      max-height: unset;
+      height: 34px;
+      margin-left: 3px;
+      width: 100px;
+    }
+  }
+
+  a.button {
+    display: inline-block;
   }
 }

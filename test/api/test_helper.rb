@@ -14,7 +14,7 @@ class ActiveSupport::TestCase
   def create_and_activate_user
     @environment = Environment.default
     @user = User.create!(:login => USER_LOGIN, :password => USER_PASSWORD, :password_confirmation => USER_PASSWORD, :email => 'test@test.org', :environment => @environment)
-    @user.activate
+    @user.activate!
     @person = @user.person
     @params = {}
   end

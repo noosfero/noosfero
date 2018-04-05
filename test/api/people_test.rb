@@ -292,7 +292,7 @@ class PeopleTest < ActiveSupport::TestCase
     login_api
     CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => environment)
     some_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
-    some_person.user.activate
+    some_person.user.activate!
     some_person.reload
 
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
@@ -310,7 +310,7 @@ class PeopleTest < ActiveSupport::TestCase
     some_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
     some_person.save!
-    some_person.user.activate
+    some_person.user.activate!
 
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -352,7 +352,7 @@ class PeopleTest < ActiveSupport::TestCase
     login_api
     CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => environment)
     some_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
-    some_person.user.activate
+    some_person.user.activate!
     some_person.reload
 
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }

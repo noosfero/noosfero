@@ -10,7 +10,7 @@ class AccountControllerTest < ActionController::TestCase
     StoaPlugin::UspUser.create!({:codpes => 12345678, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :birth_date => '1970-01-30'}, :without_protection => true)
     Environment.default.enable_plugin(StoaPlugin.name)
     @user = create_user('joao-stoa', {:password => 'pass', :password_confirmation => 'pass'},:usp_id=>'87654321')
-    @user.activate
+    @user.activate!
   end
 
   should 'fail if confirmation value doesn\'t match' do

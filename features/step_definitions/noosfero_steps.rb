@@ -6,7 +6,7 @@ Given /^the following users?$/ do |table|
     category = Category.find_by slug: person_data.delete("category")
     email = item[:email] || item[:login] + "@example.com"
     user = User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => email, :person_data => person_data)
-    user.activate
+    user.activate!
     p = user.person
     p.categories << category if category
     p.save!
@@ -243,7 +243,7 @@ end
 Given /^I am logged in as admin$/ do
   visit('/account/logout')
   user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
-  user.activate
+  user.activate!
   e = Environment.default
   e.add_admin(user.person)
   visit('/account/login')
@@ -472,7 +472,7 @@ Given /^the environment domain is "([^\"]*)"$/ do |domain|
 end
 
 When /^([^\']*)'s account is activated$/ do |person|
-  Person.find_by(name: person).user.activate
+  Person.find_by(name: person).user.activate!
 end
 
 Then /^I should receive an e-mail on (.*)$/ do |address|
