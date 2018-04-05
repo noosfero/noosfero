@@ -278,13 +278,4 @@ module ArticleHelper
 
     actions << fullscreen_buttons("#article") << report_abuse(profile, :link, @page)
   end
-
-  def article_icon article
-    if article.is_a? Folder
-      image_tag "/designs/icons/tango/Tango/32x32/places/folder.png"
-    elsif article.is_a? TextArticle
-      image_tag "/designs/icons/tango/Tango/32x32/mimetypes/x-office-document.png"
-    end
-  end
-
 end
