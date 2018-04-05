@@ -22,7 +22,7 @@ class User
   end
 
   def activate_oauth_user
-    self.activate if oauth_providers.present? || @oauth_providers.present?
+    self.activate! if oauth_providers.present? || @oauth_providers.present?
   end
 
   def password_required_with_oauth?

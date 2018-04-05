@@ -6,7 +6,7 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
     @environment = Environment.default
 
     @environment.enable_plugin(PiwikPlugin)
-    @person.user.activate
+    @person.user.activate!
     login('testuser', 'test')
   end
 

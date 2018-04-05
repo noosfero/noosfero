@@ -6,7 +6,7 @@ class NotificationSettingsTest < ActiveSupport::TestCase
 
   should 'list notifications options in a hash' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
-    user.activate
+    user.activate!
     settings = PushNotificationPlugin::NotificationSettings.create!(:user => user)
     user.reload
     assert_equivalent PushNotificationPlugin::NotificationSettings::NOTIFICATIONS.keys, settings.hash_flags.keys
@@ -18,7 +18,7 @@ class NotificationSettingsTest < ActiveSupport::TestCase
 
   should 'all notifications be disabled by default for new settingss' do
     user = User.create!(:login => 'outro', :email => 'outro@example.com', :password => 'outro', :password_confirmation => 'outro', :environment => Environment.default)
-    user.activate
+    user.activate!
     settings = PushNotificationPlugin::NotificationSettings.create!(:user => user)
     settings.hash_flags.each_pair do |notification, status|
       refute status
@@ -27,7 +27,7 @@ class NotificationSettingsTest < ActiveSupport::TestCase
 
   should 'activate a notification for a settings' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
-    user.activate
+    user.activate!
     settings = PushNotificationPlugin::NotificationSettings.create!(:user => user)
     settings.activate_notification "new_comment"
     settings.save!
@@ -37,7 +37,7 @@ class NotificationSettingsTest < ActiveSupport::TestCase
 
   should 'deactivate a notification for a settings' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
-    user.activate
+    user.activate!
     settings = PushNotificationPlugin::NotificationSettings.create!(:user => user)
 
     settings.activate_notification "new_comment"
@@ -51,7 +51,7 @@ class NotificationSettingsTest < ActiveSupport::TestCase
 
   should 'set notification to specific state' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
-    user.activate
+    user.activate!
     settings = PushNotificationPlugin::NotificationSettings.new(:user => user)
 
     settings.set_notification_state "new_comment", 1
@@ -65,7 +65,7 @@ class NotificationSettingsTest < ActiveSupport::TestCase
 
   should 'check if notification is active' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
-    user.activate
+    user.activate!
     settings = PushNotificationPlugin::NotificationSettings.create!(:user => user)
 
     settings.activate_notification "new_comment"
@@ -76,7 +76,7 @@ class NotificationSettingsTest < ActiveSupport::TestCase
 
   should 'list active notifications' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
-    user.activate
+    user.activate!
     settings = PushNotificationPlugin::NotificationSettings.create!(:user => user)
 
     settings.activate_notification "new_comment"
@@ -90,7 +90,7 @@ class NotificationSettingsTest < ActiveSupport::TestCase
 
   should 'list inactive notifications' do
     user = User.create!(:login => 'homer', :email => 'homer@example.com', :password => 'beer', :password_confirmation => 'beer', :environment => Environment.default)
-    user.activate
+    user.activate!
     settings = PushNotificationPlugin::NotificationSettings.create!(:user => user)
 
     assert_equivalent PushNotificationPlugin::NotificationSettings::NOTIFICATIONS.keys, settings.inactive_notifications

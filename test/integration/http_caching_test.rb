@@ -3,7 +3,7 @@ require_relative "../test_helper"
 class HttpCachingTest < ActionDispatch::IntegrationTest
 
   def setup
-    create_user('joao', password: 'test', password_confirmation: 'test').activate
+    create_user('joao', password: 'test', password_confirmation: 'test').activate!
   end
 
   test 'home page, default configuration' do

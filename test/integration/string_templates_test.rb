@@ -4,7 +4,7 @@ class StringTemplatesTest < ActionDispatch::IntegrationTest
 
   def setup
     @profile = create_user('testuser', password: 'test').person
-    @profile.user.activate
+    @profile.user.activate!
     login(@profile.identifier, 'test')
   end
 

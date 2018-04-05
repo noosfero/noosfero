@@ -20,8 +20,7 @@ class UserMailerTest < ActiveSupport::TestCase
 
   should 'deliver profiles suggestions email' do
     person = create_user('some-user').person
-    ProfileSuggestion.create!(:person => person, :suggestion =>
-fast_create(Person))
+    ProfileSuggestion.create!(person: person, suggestion: fast_create(Person))
     email = UserMailer.profiles_suggestions_email(person).deliver
     assert_match /profile\/some-user\/friends\/suggest/, email.body.to_s
   end
@@ -42,6 +41,16 @@ fast_create(Person))
     mail = ActionMailer::Base.deliveries.last
     assert_equal 'activation template subject', mail.subject.to_s
     assert_equal 'activation template body', mail.body.to_s
+  end
+
+  should 'include activation code and link on activation mail' do
+    user = create_user_full
+    UserMailer.activation_code(user).deliver
+    mail = ActionMailer::Base.deliveries.last
+
+    assert_match /\/activate\?activation_token=#{user.activation_code}/,
+                 mail.body.to_s
+    assert_match /#{user.short_activation_code}/i, mail.body.to_s
   end
 
   should 'not leak template params into activation email' do

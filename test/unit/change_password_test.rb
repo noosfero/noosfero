@@ -29,7 +29,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
     change.password_confirmation = 'newpass'
     change.finish
 
-    person.user.activate
+    person.user.activate!
     assert person.user.authenticated?('newpass')
   end
 

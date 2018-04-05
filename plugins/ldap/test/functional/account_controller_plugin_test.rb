@@ -24,7 +24,7 @@ class AccountControllerPluginTest < ActionController::TestCase
 
   should 'authenticate user if its a local user but is not a ldap user' do
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    user.activate
+    user.activate!
     post :login, :user => {:login => 'testuser', :password => 'test'}
     assert session[:user]
   end
@@ -40,7 +40,7 @@ class AccountControllerPluginTest < ActionController::TestCase
 
     should 'authenticate an existing noosfero user with ldap and loggin' do
       user = create_user(@ldap_config['user']['login'], :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-      user.activate
+      user.activate!
       count = User.count
       post :login, :user => @ldap_config['user']
       assert session[:user]
