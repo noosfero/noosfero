@@ -650,6 +650,7 @@ class Article < ApplicationRecord
     :children_count,
     :comments_count,
     :hits,
+    :translation_of_id,
   ]
 
   def self.find_by_old_path(old_path)
