@@ -1,6 +1,6 @@
 <% if user.present? %>
   <li class="user-home">
-    <%= link_to font_awesome(:home, content_tag(:span, _('Home'), class: 'home')).html_safe, url_for(user.public_profile_url) %>
+    <%= link_to font_awesome(:user, content_tag(:span, _('Profile'), class: 'home')).html_safe, url_for(user.public_profile_url) %>
   </li>
 
   <li class="user-pending-tasks">
