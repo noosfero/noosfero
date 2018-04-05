@@ -104,7 +104,8 @@ class SessionTest < ActiveSupport::TestCase
     user = User.new(params)
     user.save!
 
-    params = { activation_code: user.activation_code}
+    params = { activation_token: user.activation_code,
+               short_activation_code: user.short_activation_code }
     patch "/api/v1/activate?#{params.to_query}"
     assert_equal 200, last_response.status
   end
@@ -121,13 +122,14 @@ class SessionTest < ActiveSupport::TestCase
     user.environment.enable('admin_must_approve_new_users')
     user.save!
 
-    params = { activation_code: user.activation_code}
+    params = { activation_token: user.activation_code,
+               short_activation_code: user.short_activation_code }
     patch "/api/v1/activate?#{params.to_query}"
     assert_equal 202, last_response.status
     assert_equal 'Waiting for admin moderate user registration', JSON.parse(last_response.body)["message"]
   end
 
-  should 'do not activate a user if the token is invalid' do
+  should 'not activate a user if the token is invalid' do
     params = {
       :login => "newuserapi",
       :password => "newuserapi",
@@ -138,7 +140,25 @@ class SessionTest < ActiveSupport::TestCase
     user = User.new(params)
     user.save!
 
-    params = { activation_code: '70250abe20cc6a67ef9399cf3286cb998b96aeaf'}
+    params = { activation_token: '70250abe20cc6a67ef9399cf3286cb998b96aeaf',
+               short_activation_code: user.short_activation_code }
+    patch "/api/v1/activate?#{params.to_query}"
+    assert_equal 412, last_response.status
+  end
+
+  should 'not activate a user if short code is not correct' do
+    params = {
+      :login => "newuserapi",
+      :password => "newuserapi",
+      :password_confirmation => "newuserapi",
+      :email => "newuserapi@email.com",
+      :environment => Environment.default
+    }
+    user = User.new(params)
+    user.save!
+
+    params = { activation_token: user.activation_code,
+               short_activation_code: 'nope00' }
     patch "/api/v1/activate?#{params.to_query}"
     assert_equal 412, last_response.status
   end
@@ -224,7 +244,7 @@ class SessionTest < ActiveSupport::TestCase
 
    should 'authenticate from plugin when fail to login with user/password' do
      user = create_user
-     user.activate
+     user.activate!
      class Plugin1 < Noosfero::Plugin
        def alternative_authentication
          User.last

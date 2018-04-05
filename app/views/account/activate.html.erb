@@ -1,0 +1,33 @@
+<div class='account-activation'>
+  <h3>
+    <%= _('Welcome to %s, %s') % [@user.environment.name, @user.person.name] %>
+  </h3>
+
+  <h4><%= _('One more thing...') %></h4>
+
+  <p>
+    <%= _('Before you can access the network you need to active your account. '\
+          'We sent you an activation code, please enter it in the field '\
+          'below.') %>
+  </p>
+
+  <%= form_for :user, url: { action: :activate } do |f| %>
+    <%= hidden_field_tag :activation_token, @user.activation_code %>
+    <%= hidden_field_tag :return_to, url_for(params[:return_to]) %>
+    <div class='inline-form'>
+      <%= text_field_tag :short_activation_code, nil,
+                         maxlength: User::SHORT_ACTIVATION_CODE_SIZE,
+                         placeholder: _('Enter your %d digit activation code') %
+                                      User::SHORT_ACTIVATION_CODE_SIZE %>
+      <%= submit_button :ok, _('Activate') %>
+    </div>
+
+    <p>
+      <%= (_('If you did not receive the activation code, %s to request a '\
+             'new obe.') % link_to(_('click here'), action: :resend_activation_codes, activation_token: @user.activation_code)).html_safe %>
+    </p>
+  <% end %>
+
+
+  <%= button :cancel, _('Cancel'), root_url %>
+</div>

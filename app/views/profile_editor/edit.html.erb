@@ -107,9 +107,8 @@
     <%= button(:back, _('Back'), controller: 'profile_editor') %>
     <%= submit_button('save', _('Save')) %>
     
-    <a class="button with-text" id="advanced_options_button">
-      <%= _('Advanced Options') %>
-    </a>
+    <%= button(:add, _('Advanced Options'), '#!', id: 'advanced_options_button') %>
+    
     <div id="advanced_options">
         <% if user && user.has_permission?('destroy_profile', profile) %>
           <% if user.is_admin?(environment) %>
