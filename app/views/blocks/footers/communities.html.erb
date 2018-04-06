@@ -1,10 +1,8 @@
-<% unless block.profile_list.empty? %>
 <% if block.owner.kind_of?(Profile) || block.owner.kind_of?(Environment) %>
   <% if block.owner.kind_of?(Profile) %>
-    <%= link_to font_awesome('angle-double-right', _('View all')), {:profile => block.owner.identifier, :controller => 'profile', :action => 'communities'}, :class => 'view-all' %>
+    <%= render partial: 'blocks/footers/view_all', locals: {:profile => block.owner.identifier, :controller => 'profile', :action => 'communities', :block_elements => block.profile_list} %>
   <% elsif block.owner.kind_of?(Environment) %>
-    <%= link_to font_awesome('angle-double-right', _('View all')), {:controller => 'search', :action => 'communities', :kind => block.kind.try(:name)}, :class => 'view-all' %>
-  <% end %>
+    <%= render partial: 'blocks/footers/view_all', locals: {:controller => 'search', :action => 'communities', :kind => block.kind.try(:name), :block_elements => block.profile_list} %>
 
   <% if user && user == profile && block.suggestions && !block.suggestions.empty? %>
     <div class='suggestions-block common-profile-list-block'>

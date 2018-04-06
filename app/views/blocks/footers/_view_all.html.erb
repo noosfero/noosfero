@@ -1,0 +1,11 @@
+<% 
+    args = {}
+    args[:profile] = profile if defined?(profile)
+    args[:kind] = kind if defined?(kind)
+    args[:asset] = asset if defined?(asset)
+    args[:anchor] = anchor if defined?(anchor)
+    args[:controller] = controller
+    args[:action] = action
+%>
+
+<%= link_to font_awesome('angle-double-right', _('View all')), args, :class => 'view-all' unless block_elements.count == 0 %>

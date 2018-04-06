@@ -15,7 +15,7 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def default_title
-    return _('Communities') if profile_count.to_i == 0
+    return _('communities') if profile_count.to_i == 0
     n_('{#} community', '{#} communities', profile_count)
   end
 
