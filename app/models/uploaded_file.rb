@@ -203,76 +203,45 @@ class UploadedFile < Article
   end
 
   def icon
-    case content_type.split('/').first()
-    when 'no-icon'
-      'no-icon'
-    when 'edit'
-      'edit'
-    when 'new'
-      'plus-circle'
-    when 'save'
-      'save'
-    when 'send'
-      'share-square'
-    when 'cancel'
-      'remove'
-    when 'add'
-      'plus'
-    when 'up'
-      'arrow-up'
-    when 'down'
-      'arrow-down'
-    when 'left'
-      'arrow-left'
-    when 'right'
-      'arrow-right'
-    when 'up-disabled'
-      'arrow-up'
-    when 'down-disabled'
-      'arrow-down'
-    when 'left-disabled'
-      'arrow-left'
-    when 'right-disabled'
-      'arrow-right'
-    when 'up-read'
-      'quote-right'
-    when 'search'
-      'search'
-    when 'ok'
-      'check'
-    when 'login'
-      'sign-in'
-    when 'help'
-      'question'
-    when 'spread'
-      'send'
-    when 'eyes'
-      'eye'
-    when 'photos'
-      'image'
-    when 'menu-people'
-      'user'
-    when 'event'
-      'calendar'
-    when 'forum'
-      'users'
-    when 'home'
-      'home'
-    when 'product'
-      'shopping-bag'
-    when 'todo'
-      'clipboard'
-    when 'chat'
-      'comments'
-    when 'enterprise'
-      'building-o'
-    when 'blog'
-      'newspaper-o'
-    when 'community'
-      'users'
-    else
-      'generic-icon'
-    end
+    icons = {
+      'no-icon' => 'no-icon',
+      'edit' => 'edit',
+      'new' => 'plus-circle',
+      'save' => 'save',
+      'send' => 'share-square',
+      'cancel' => 'remove',
+      'add' => 'plus',
+      'up' => 'arrow-up',
+      'down' => 'arrow-down',
+      'left' => 'arrow-left',
+      'right' => 'arrow-right',
+      'up-disabled' => 'arrow-up',
+      'down-disabled' => 'arrow-down',
+      'left-disabled' => 'arrow-left',
+      'right-disabled' => 'arrow-right',
+      'up-read' => 'quote-right',
+      'search' => 'search',
+      'ok' => 'check',
+      'login' => 'sign-in',
+      'help' => 'question',
+      'spread' => 'send',
+      'eyes' => 'eye',
+      'photos' => 'image',
+      'menu-people' => 'user',
+      'event' => 'calendar',
+      'forum' => 'users',
+      'home' => 'home',
+      'product' => 'shopping-bag',
+      'todo' => 'clipboard',
+      'chat' => 'comments',
+      'enterprise' => 'building-o',
+      'blog' => 'newspaper-o',
+      'community' => 'users',
+    }
+
+    icons.default = 'generic-icon'
+    
+    icons[content_type.split('/').first()]
   end
 
   private
