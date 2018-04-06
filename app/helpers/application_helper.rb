@@ -826,6 +826,7 @@ module ApplicationHelper
   alias :browse_contents_menu :search_contents_menu
 
   def search_people_menu
+    return '' if user && !user.environment.enabled?(:search_people)
     link_to(font_awesome(:user, _('People')), { controller: "search", action: 'people', category_path: ''}, { id: 'submenu-people', class: 'icon-menu-people' })
   end
   alias :browse_people_menu :search_people_menu
@@ -849,6 +850,7 @@ module ApplicationHelper
   end
 
   def search_communities_menu
+    return '' if user && !user.environment.enabled?(:search_communities)
     link_to(font_awesome(:users, _('Communities')), { controller: "search", action: 'communities' }, { id: 'submenu-communities', class: 'icon-menu-community' })
   end
   alias :browse_communities_menu :search_communities_menu
@@ -974,8 +976,7 @@ module ApplicationHelper
         user.url,
         :id => "homepage-link",
         :title => _('Go to your homepage'))
-    welcome_span = _("<span class='welcome'>Welcome,</span> %s") % welcome_link.html_safe
-    welcome_span.html_safe
+    welcome_link.html_safe
   end
 
   def ctrl_panel_link
