@@ -1,8 +1,8 @@
 module NoosferoHttpCaching
 
   def self.included(c)
-    c.send(:after_filter, :noosfero_set_cache)
-    c.send(:after_filter, :noosfero_session_check)
+    c.send(:after_action, :noosfero_set_cache)
+    c.send(:after_action, :noosfero_session_check)
   end
 
   def noosfero_set_cache

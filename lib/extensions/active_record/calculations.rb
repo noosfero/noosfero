@@ -6,5 +6,4 @@ ActiveRecord::Calculations.class_eval do
       count_without_distinct
     end
   end
-  alias_method_chain :count, :distinct
 end

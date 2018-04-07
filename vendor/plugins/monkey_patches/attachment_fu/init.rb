@@ -3,7 +3,7 @@
 
 require_dependency 'technoweenie/attachment_fu'
 
-ActionDispatch::Reloader.to_prepare do
+ActionDispatch::Reloader.to_param do
   Technoweenie::AttachmentFu::InstanceMethods.module_eval do
     def thumbnailable?
       image? && !is_thumbnail?

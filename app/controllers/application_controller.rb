@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     render_access_denied unless user.is_admin? || environment.in_whitelist?(user)
   end
 
-  after_filter :set_csrf_cookie
+  after_action :set_csrf_cookie
 
   def set_csrf_cookie
     cookies['_noosfero_.XSRF-TOKEN'] = form_authenticity_token if protect_against_forgery? && logged_in?

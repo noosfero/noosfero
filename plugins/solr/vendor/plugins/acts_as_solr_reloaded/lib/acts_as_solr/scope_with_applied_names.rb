@@ -29,7 +29,7 @@ if Rails::VERSION::STRING >= "3.2"
 
             singleton_class.send(:redefine_method, name, &scope_proc)
           end
-          alias_method_chain :scope, :applied_names
+          alias_method :scope, :applied_names
 
         end
       end
@@ -61,7 +61,7 @@ else
             scope
           end
         end
-        alias_method_chain :named_scope, :applied_names
+        alias_method :named_scope, :applied_names
       end
 
       class Scope
@@ -77,7 +77,7 @@ else
             @current_scoped_methods_when_defined = proxy_scope.send(:current_scoped_methods)
           end
         end
-        alias_method_chain :initialize, :applied_names
+        alias_method :initialize, :applied_names
 
         def scope_name= name
           @scope_name = name

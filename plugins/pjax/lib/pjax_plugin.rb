@@ -36,7 +36,7 @@ class PjaxPlugin < Noosfero::Plugin
       self.class.send :define_method, :get_layout_with_pjax do
         if @pjax then 'pjax' else get_layout_without_pjax end
       end
-      self.class.alias_method_chain :get_layout, :pjax
+      self.class.alias_method :get_layout, :pjax
     end
   end
 

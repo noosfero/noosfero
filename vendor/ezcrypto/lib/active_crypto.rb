@@ -284,8 +284,8 @@ To manually clear the session keys call clear_session_keys. This should be done 
 =end
     def self.append_features(base) #:nodoc:
       super
-      base.send :prepend_before_filter, :load_session_keys
-      base.send :prepend_after_filter, :save_session_keys
+      base.send :prepend_before_action, :load_session_keys
+      base.send :prepend_after_action, :save_session_keys
     end
 
 =begin rdoc

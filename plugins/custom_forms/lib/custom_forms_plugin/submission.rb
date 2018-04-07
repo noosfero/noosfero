@@ -22,7 +22,7 @@ class CustomFormsPlugin::Submission < ApplicationRecord
     end
   end
   class << self
-    alias_method_chain :human_attribute_name, :customization
+    alias_method :human_attribute_name, :customization
   end
 
   before_create do |submission|

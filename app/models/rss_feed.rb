@@ -36,7 +36,7 @@ class RssFeed < Article
     self.limit_without_body_change= value
   end
 
-  alias_method_chain :limit=, :body_change
+  alias_method :limit=, :body_change
 
   # FIXME this should be validates_numericality_of, but Rails 2.0.2 does not
   # support validates_numericality_of with virtual attributes

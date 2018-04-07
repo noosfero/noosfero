@@ -7,7 +7,7 @@ class ThemeManagerPluginAdminController < AdminController
   include ThemeManagerHelper
   
   before_filter :create_temp, only: :add_theme
-  after_filter :destroy_temp, only: :add_theme
+  after_action :destroy_temp, only: :add_theme
 
   def index
     @enabled_themes = list_enabled_themes

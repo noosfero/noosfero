@@ -57,7 +57,7 @@ module CurrencyFields
           value = CurrencyFields.parse_localized_number value if value.is_a? String
           self.send "#{attr}_without_locale=", value
         end
-        alias_method_chain "#{attr}=", :locale
+        alias_method "#{attr}=", :locale
       end
 
       define_method "#{attr}_localized" do |*args, &block|

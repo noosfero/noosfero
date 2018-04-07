@@ -89,8 +89,8 @@ module DefaultDelegate
           self.send "#{own_field}=", nil if value
           self.send "#{default_setting}_without_presence=", value
         end
-        alias_method_chain default_setting, :presence
-        alias_method_chain "#{default_setting}=", :presence
+        alias_method default_setting, :presence
+        alias_method "#{default_setting}=", :presence
       end
 
       define_method "#{field}_with_default" do
@@ -114,8 +114,8 @@ module DefaultDelegate
         self.send "#{default_setting}=", self.send(own_field_is_default)
         own
       end
-      alias_method_chain field, :default
-      alias_method_chain "#{field}=", :default
+      alias_method field, :default
+      alias_method "#{field}=", :default
 
       include DefaultDelegate::InstanceMethods
     end

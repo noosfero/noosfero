@@ -6,7 +6,7 @@ module I18nAutoScope
   included do
     define_method :translate, I18n.method(:translate).to_proc unless self.respond_to? :translate
 
-    alias_method_chain :translate, :auto_scope
+    alias_method :translate, :auto_scope
     alias_method :t, :translate
   end
 

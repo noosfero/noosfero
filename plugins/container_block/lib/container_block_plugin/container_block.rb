@@ -72,7 +72,7 @@ class ContainerBlockPlugin::ContainerBlock < Block
     @blocks_to_copy = block.blocks
   end
 
-  alias_method_chain :copy_from, :container
+  alias_method :copy_from, :container
 
   def copy_blocks
     new_children_settings = {}

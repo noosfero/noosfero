@@ -52,7 +52,7 @@ class OauthClientPlugin < Noosfero::Plugin
     true
   end
 
-  Rails.configuration.to_prepare do
+  Rails.configuration.to_param do
     OmniAuth.config.on_failure = OauthClientPluginPublicController.action(:failure)
   end
 

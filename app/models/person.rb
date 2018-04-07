@@ -27,7 +27,7 @@ class Person < Profile
     end
   end
   class << self
-    alias_method_chain :human_attribute_name, :customization
+    alias_method :human_attribute_name, :customization
   end
 
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
@@ -76,7 +76,7 @@ class Person < Profile
     return true if resource.kind_of?(Profile) && resource.environment.admins.include?(self)
     has_permission_without_admin?(permission, resource)
   end
-  alias_method_chain :has_permission?, :admin
+  alias_method :has_permission?, :admin
 
   def has_permission_with_plugins?(permission, resource)
     permissions = [has_permission_without_plugins?(permission, resource)]
@@ -85,7 +85,7 @@ class Person < Profile
     end
     permissions.include?(true)
   end
-  alias_method_chain :has_permission?, :plugins
+  alias_method :has_permission?, :plugins
 
   # for eager loading
   has_many :memberships, through: :role_assignments, source: :resource, source_type: 'Profile'

@@ -50,7 +50,7 @@ class AdminNotificationsPlugin < Noosfero::Plugin
     end
 
     [{
-      :type => "after_filter",
+      :type => "after_action",
       :method_name => "clean_hide_notifications_cookie",
       :options => { },
       :block => block

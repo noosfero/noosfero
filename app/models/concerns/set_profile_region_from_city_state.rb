@@ -5,8 +5,8 @@ module SetProfileRegionFromCityState
       before_save :region_from_city_and_state
 
       include InstanceMethods
-      alias_method_chain :city=, :region
-      alias_method_chain :state=, :region
+      alias_method :city=, :region
+      alias_method :state=, :region
     end
   end
 

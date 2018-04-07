@@ -53,7 +53,7 @@ class Profile
     self_supplier # guarantee that the self_supplier is created
     suppliers_without_self_supplier
   end
-  alias_method_chain :suppliers, :self_supplier
+  alias_method :suppliers, :self_supplier
 
   def add_consumer consumer_profile
     consumer = self.consumers.where(consumer_id: consumer_profile.id).first

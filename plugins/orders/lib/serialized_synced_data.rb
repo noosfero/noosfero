@@ -31,7 +31,7 @@ module SerializedSyncedData
         define_method "#{field_data}_with_sync_default" do
           self.send("#{field_data}_without_sync_default") || {}
         end
-        alias_method_chain field_data, :sync_default
+        alias_method field_data, :sync_default
       end
       if not self.method_defined? "#{field_data}=" and field_data.to_s.in? self.column_names
         define_method "#{field_data}=" do |value|
@@ -41,7 +41,7 @@ module SerializedSyncedData
         define_method "#{field_data}_with_prepare=" do |value|
           self.send "#{field_data}_without_prepare=", SerializedSyncedData.prepare_data(value)
         end
-        alias_method_chain "#{field_data}=", :prepare
+        alias_method "#{field_data}=", :prepare
       end
 
       # return data from foreign registry if any data was synced yet
@@ -49,7 +49,7 @@ module SerializedSyncedData
         current_data = self.send field_data_without_sync
         if current_data.present? then current_data else self.send "#{field}_synced_data" end
       end
-      alias_method_chain field_data, :sync
+      alias_method field_data, :sync
 
       # get the data to sync as defined
       define_method "#{field}_synced_data" do

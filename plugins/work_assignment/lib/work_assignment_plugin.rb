@@ -67,7 +67,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       end
     end
 
-    { :type => 'after_filter',
+    { :type => 'after_action',
       :method_name => 'send_email_after_upload_file',
       :options => {:only => 'upload_files'},
       :block => block }
