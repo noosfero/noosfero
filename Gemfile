@@ -12,14 +12,14 @@ platform :jruby do
   gem 'rmagick4j'
 end
 
-gem 'rails',                    '~> 4.2.4'
+gem 'rails',                    '~> 5.1.6'
 gem 'fast_gettext'
 gem 'acts-as-taggable-on'
 gem 'rails_autolink'
 gem 'ruby-feedparser'
 gem 'daemons'
-gem 'nokogiri',                 (if RUBY_VERSION >= '2.4.0' then '~> 1.7.0' else '~> 1.6.0' end)
-gem 'mini_portile2'
+gem 'nokogiri',                 (if RUBY_VERSION >= '2.4.0' then '~> 1.8.2' else '~> 1.6.0' end)
+gem 'mini_portile2',		'~> 2.3.0'
 gem 'will_paginate'
 gem 'pothoven-attachment_fu'
 gem 'delayed_job'
@@ -33,7 +33,7 @@ gem 'whenever', :require => false
 gem 'eita-jrails', require: 'jrails'
 gem 'diffy'
 gem 'slim'
-gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
+gem 'activerecord-session_store', ('1.1.1' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 gem 'font-awesome-sass'
@@ -50,16 +50,16 @@ gem 'liquid'
 
 # asset pipeline
 gem 'uglifier'
-gem 'sass-rails'
-gem 'sass'
-gem 'sprockets-rails'
+gem 'sass-rails',		'~> 5.0.7'
+gem 'sass',			'~> 3.5.6'
+gem 'sprockets-rails',		'~> 3.2.1'
 
 gem 'serviceworker-rails'
 gem 'webpush'
 
 # gems to enable rails3 behaviour
-gem 'protected_attributes'
-gem 'rails-observers'
+gem 'protected_attributes_continued'
+gem 'rails-observers',		'~> 0.1.5'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
@@ -82,10 +82,10 @@ group :test do
 end
 
 group :cucumber, :test do
-  gem 'capybara'
+  gem 'capybara',		'~> 2.18.0'
   gem 'launchy'
   gem 'cucumber'
-  gem 'cucumber-rails', require: false
+  gem 'cucumber-rails',		'~> 1.5.0', :require => false
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver'
