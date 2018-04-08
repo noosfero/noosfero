@@ -30,12 +30,11 @@ gem 'exception_notification'
 gem 'gettext', :require => false
 gem 'locale'
 gem 'whenever', :require => false
-gem 'eita-jrails', require: 'jrails'
+gem 'eita-jrails',      '~> 0.10.0'
 gem 'diffy'
 gem 'slim'
 gem 'activerecord-session_store', ('1.1.1' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
-gem 'honeypot-captcha'
 gem 'font-awesome-sass'
 gem 'rpush'
 
