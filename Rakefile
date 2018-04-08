@@ -2,6 +2,8 @@
 
 require_relative 'config/application'
 
+require 'rake/testtask'
+
 Noosfero::Application.load_tasks
 
 [
