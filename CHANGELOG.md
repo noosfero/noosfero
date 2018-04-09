@@ -1,3 +1,6 @@
+# 1.10.5
+
+
 # 1.10.4
   * Bumping version 1.10.4 (Rodrigo Souto) [9dbaaff]
   * Update translations (Rodrigo Souto) [7740552]
