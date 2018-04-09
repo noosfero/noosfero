@@ -128,6 +128,7 @@ María Vecino <mariavecino@ecoalternative.net>
 Matheus Faria <matheus.sousa.faria@gmail.com>
 Matheus Miranda <matheusmirandalacerda@gmail.com>
 Maurilio Atila <cabelotaina@gmail.com>
+Maxwell Borges Bezerra <maxbborges@gmail.com>
 Melissa Wen <melissa.srw@gmail.com>
 Michal Čihař <michal@cihar.com>
 Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>
