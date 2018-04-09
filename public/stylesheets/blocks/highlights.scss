@@ -26,10 +26,15 @@
       filter: blur(3px);
       opacity: 0.5;
     }
+
     .highlights-img2 {
       position: relative;
       z-index: 2;
       background-size: contain;
+
+      @media screen and (max-width: 375px) {
+        max-width: 375px;
+      }
 
       @media screen and (max-width: 414px) {
         max-width: 414px;
@@ -37,18 +42,12 @@
 
       @media screen and (max-width: 412px) {
         max-width: 412px;
-
-      }
-
-      @media screen and (max-width: 375px) {
-        max-width: 375px;
       }
 
       @media screen and (max-width: 360px) {
         max-width: 360px;
       }
 
-      /* Iphone 5 */
       @media screen and (max-width: 320px) {
         max-width: 320px;
       }
