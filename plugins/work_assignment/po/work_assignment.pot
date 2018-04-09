@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-07 17:21-0200\n"
-"PO-Revision-Date: 2017-11-07 17:21-0200\n"
+"POT-Creation-Date: 2018-04-10 00:10+0000\n"
+"PO-Revision-Date: 2018-04-10 00:10+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -31,6 +31,10 @@ msgid "Notification not sent"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "Name"
+msgstr ""
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "Subject"
 msgstr ""
 
@@ -40,10 +44,6 @@ msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "e-Mail"
-msgstr ""
-
-#: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Name"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/helper.rb:9

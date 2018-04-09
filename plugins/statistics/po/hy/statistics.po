@@ -23,7 +23,8 @@ msgstr "Վիճակագրություն"
 msgid "This block presents some statistics about your context."
 msgstr "Ձեր նախընտրած ձեռնարկությունները ցուցադրող բաժին"
 
-msgid "A plugin that adds a block where you can see statistics of it's context."
+msgid ""
+"A plugin that adds a block where you can see statistics of it's context."
 msgstr ""
 
 #, fuzzy
