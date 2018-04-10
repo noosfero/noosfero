@@ -73,18 +73,21 @@ Background:
     And I press "Save"
     Then I should see "Quinto post do joao silva" within ".block.recent-content-block"
 
+  @selenium
   Scenario: the user should see the blog cover image if configured and the image is available
     Given I go to joaosilva's control panel
     And I follow "Configure blog"
-    And I follow "Edit" within "tr[title='JSilva blog']"
-    And I attach the file "public/images/rails.png" to "Cover image:"
-    And I press "Save"
+    And I follow "article-options" within "tr[title='JSilva blog']"
+    And I follow "Edit" within ".noosfero-dropdown-menu"
+    And I attach the file "public/images/rails.png" to "article[image_builder][uploaded_data]"
+    And I follow "Save"
     When I go to joaosilva's control panel
     And I follow "Edit sideboxes"
+    And I move the cursor over ".block.recent-content-block"
     And I follow "Edit" within ".block.recent-content-block"
     And I select "JSilva blog" from "Choose which blog should be displayed"
     And I select "Title only" from "Choose how the content should be displayed"
     And I fill in "Choose how many items will be displayed" with "3"
     And I check "Display blog cover image"
-    And I press "Save"
+    And I follow "Save"
     Then there should be a div with class "recent-content-cover"

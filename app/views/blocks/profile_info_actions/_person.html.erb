@@ -3,12 +3,12 @@
 
     <% if !user.already_request_friendship?(profile) and !user.is_a_friend?(profile) %>
       <li>
-      <%= button(:add, content_tag('span', _('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
+        <%= link_to(font_awesome(:add_user, _('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
       </li>
     <% end %>
 
     <% if user.is_a_friend?(profile) && profile.enable_contact? %>
-      <li><%= button(:back, _('Send an e-mail'), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}) %></li>
+      <li><%= link_to(font_awesome(:email, _('Send an e-mail')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}) %></li>
     <% end %>
 
     <%= render :partial => 'blocks/profile_info_actions/common' %>

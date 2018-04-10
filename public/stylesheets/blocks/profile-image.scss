@@ -1,40 +1,19 @@
 .profile-image-block {
   text-align: center;
 
+  .profile-big-image.bg-pic,
   .profile-big-image.img-pic {
-    position: relative;
-    display: table;
-    width: 156px;
-    height: 156px;
+    width: 90%;
     margin: auto;
 
-    .profile-big-image-inner1 {
-      display: table-cell;
-      text-align: center;
-      vertical-align: middle;
-      .profile-big-image-inner2 {
-        position: relative;
-        left: 0px;
-        display: block;
-        a {
-          img {
-            border: 1px solid #888;
-            padding: 2px;
-            background: transparent;
-          }
-        }
-      }
-    }
-  }
-
-  .profile-big-image.bg-pic {
     a {
-      display: block;
-      width: 156px;
-      height: 156px;
-      margin: auto;
-      background-size: cover;
-      background-position: 50% 30%;
+      img {
+        border: 1px solid #888;
+        padding: 2px;
+        background: transparent;
+        width: 100%;
+        max-width: 156px;
+      }
     }
   }
 

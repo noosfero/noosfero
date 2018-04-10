@@ -1,16 +1,28 @@
-.box-1 {
-  margin: 0 200px 0 0;
+.boxes {
+  display:flex;
+  justify-content: center;
 }
 
-.box-1 .blocks {
-  width: 100%;
-  float: right;
+.boxes .box-1 {
+  width: 60%;
+  order: 1;
 }
 
-.box-2 {
-  position: relative;
-  float: right;
-  width: 190px;
+.boxes .box-2 {
+  order: 2;
+  width: 22%;
+  margin-left: 4%;
+}
+
+@media only screen and (max-width: 600px) {
+  .boxes {
+    flex-direction: column;
+  }
+  .boxes .box-1,
+  .boxes .box-2 {
+    margin: auto;
+    width: 90%; 
+  }
 }
 
 #leave_scrap_content_limit,

@@ -2,7 +2,7 @@ function getNextGroupId() {
   max = -1;
   groups = jQuery('#article_body_ifr').contents().find('.article_comments');
   groups.each(function(key, value) {
-    value = jQuery(value).attr('data-macro-group_id');
+    value = jQuery(value).attr('data-macro-id');
     if(value>max) max = parseInt(value);
   });
   return max+1;
@@ -29,7 +29,7 @@ function makeCommentable() {
   if(!hasTag) {
     tags = start.siblings().add(start);
     tags = tags.slice(tags.index(start), tags.index(end)>=0?tags.index(end)+1:tags.index(start)+1);
-    tags.wrapAll('<div class=\"macro article_comments\" data-macro=\"comment_group_plugin/allow_comment\" data-macro-group_id=\"'+getNextGroupId()+'\"/>');
+    tags.wrapAll('<div class=\"macro article_comments\" data-macro=\"comment_group_plugin/allow_comment\" data-macro-id=\"'+getNextGroupId()+'\"/>');
 
     contents = jQuery('#article_body_ifr').contents();
     lastP = contents.find('p.article_comments_last_paragraph');

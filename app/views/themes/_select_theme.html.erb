@@ -4,7 +4,7 @@
 <h2><%= _('Select theme') %></h2>
 <%= button :home, _('Use the default theme'), { action: 'unset'}, method: 'post', data: {confirm: _('Are you sure you want to use the environment default theme?')} %>
 
-<% for themes in @themes.in_groups_of(3) %>
+<% for themes in @themes.in_groups_of(@themes.length) %>
   <div class="list-group">
     <% for theme in themes %><%=
       if theme
@@ -34,4 +34,3 @@
 
 </div><!-- end id="theme-options" -->
 <% end %>
-

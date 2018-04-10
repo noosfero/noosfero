@@ -7,7 +7,7 @@ module ContentViewerHelper
   def display_number_of_comments(n)
     base_str = "<span class='comment-count hide'>#{n}</span>"
     amount_str = n == 0 ? _('no comments yet') : (n == 1 ? _('One comment') : _('%s comments') % n)
-    base_str += "<span class='comment-count-write-out'>#{amount_str}</span>"
+    base_str += "<span class='comment-count-write-out'>#{font_awesome :comments} #{amount_str}</span>"
     base_str.html_safe
   end
 
@@ -27,12 +27,7 @@ module ContentViewerHelper
         comments = (" - %s").html_safe % link_to_comments(article)
       end
       date_format = show_with_right_format_date article
-      title << content_tag('span',
-        date_format +
-        content_tag('span', _(", by %s").html_safe % (article.author ? link_to(article.author_name, article.author_url) : article.author_name), :class => 'author') +
-        content_tag('span', comments, :class => 'comments'),
-        :class => 'publishing-info'
-      )
+      title << (render partial: "content_viewer/publishing_info", locals: {no_action_bar: true, article: article})
       title << content_tag(:div,
         content_tag(:span, '', :class => 'ui-icon ui-icon-locked') +
         content_tag(:span, _("This is a private content"), :class => 'alert-message'),
@@ -63,6 +58,20 @@ module ContentViewerHelper
   def link_to_comments(article, args = {})
     return '' unless article.accept_comments?
     reference_to_article number_of_comments(article), article, 'comments_list'
+  end
+
+  # FIXME
+  # In application_helper.rb (line 706, col 107) if you change `reference_to_article`
+  # to `link_to`, the article_block's start breaking.
+  def reference_to_article(text, article, anchor=nil)
+    if article.profile.domains.empty?
+      href = "#{Noosfero.root}/#{article.url[:profile]}/"
+    else
+      href = "http://#{article.profile.domains.first.name}#{Noosfero.root}/"
+    end
+    href += article.url[:page].join('/')
+    href += '#' + anchor if anchor
+    content_tag('a', text, :href => href)
   end
 
   def article_translations(article)

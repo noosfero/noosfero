@@ -26,6 +26,7 @@
 @import 'blocks/disabled-enterprise-message';
 @import 'blocks/sellers-search';
 @import 'blocks/menu';
+@import 'blocks/profiles-list-block';
 
 .msie7 .block .menu-submenu {
   z-index: 4;
@@ -112,18 +113,27 @@
 
 #box-organizer .block .button-bar-boxes {
   cursor: move;
+  display: none;
   position: absolute;
-  display: block;
+  bottom: 15px;
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.3);
-  top: -40px;
-  padding-bottom: 40px;
-  display: none;
+  text-align: left;
+  z-index: 999;
+  a {
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    padding: 0px 1px;
+    vertical-align: top;
+    span { display: none; }
+  }
 }
 
-#box-organizer .block-outer:focus .button-bar-boxes,
-#box-organizer .block-outer:hover .button-bar-boxes {
+#box-organizer .block:focus .button-bar-boxes,
+#box-organizer .block:hover .button-bar-boxes {
   display: block;
 }
 

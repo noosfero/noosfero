@@ -294,6 +294,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.box = profile.boxes.first
     block.save!
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select "[href=/profile/mytestuser/members#members-tab]"
@@ -307,6 +308,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.visible_role = 'profile_member'
     block.save!
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select '[href=/profile/mytestuser/members#members-tab]'
@@ -320,6 +322,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.visible_role = 'profile_moderator'
     block.save!
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select '[href=/profile/mytestuser/members#members-tab]'
@@ -333,6 +336,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.visible_role = 'profile_admin'
     block.save!
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select '[href=/profile/mytestuser/members#admins-tab]'

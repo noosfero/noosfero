@@ -1,12 +1,10 @@
 <% article = article_author %>
 
-<tr class="search-article-author search-article-author-name">
-  <td class="search-field-label"><%= _("Author") %></td>
-  <td>
-    <% if article.author.present? %>
-      <%= link_to_profile article.author.name, article.author.identifier %>
-    <% else %>
-      <%= article.author_name %>
-    <% end %>
-  </td>
-</tr>
+<div class="search-article-author search-article-author-name">
+  <span class="search-field-label"><%= _("Author") %></span>
+  <% if article.author.present? %>
+    <%= link_to_profile article.author.name, article.author.identifier %>
+  <% else %>
+    <span><%= article.author_name %></span>
+  <% end %>
+</div>

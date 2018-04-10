@@ -10,23 +10,23 @@ Feature: blog
     And "joaosilva" has no articles
     And I am logged in as "joaosilva"
 
+  @selenium
   Scenario: create a blog
     Given I go to joaosilva's control panel
     And I follow "Create blog"
     Then I should see "My Blog"
     When I fill in "Title" with "My Blog"
-    And I fill in "Address" with "my-blog"
-    And I press "Save"
+    And I follow "Save"
     And I go to joaosilva's control panel
     Then I should see "Configure blog"
 
+  @selenium
   Scenario: redirect to blog after create blog from control panel
     Given I go to joaosilva's control panel
     And I follow "Create blog"
     Then I should see "My Blog"
     When I fill in "Title" with "My Blog"
-    And I fill in "Address" with "my-blog"
-    And I press "Save"
+    And I follow "Save"
     Then I should be on /joaosilva/my-blog
 
   Scenario: redirect to blog after create blog from cms
@@ -94,6 +94,7 @@ Feature: blog
        | owner     | name     |
        | joaosilva | Blog One |
     And I go to /joaosilva/blog-one
+    And I follow "article-options"
     When I follow "Configure blog"
     Then I should be on edit "Blog One" by joaosilva
 
@@ -132,6 +133,6 @@ Feature: blog
     And I go to joaosilva's control panel
     And I follow "Configure blog"
     And I attach the file "public/images/rails.png" to "Cover image:"
-    And I press "Save"
+    And I follow "Save"
     When I am on /joaosilva/my-blog
     Then there should be a div with class "blog-cover"

@@ -898,6 +898,10 @@ class Article < ApplicationRecord
     self.editor == editor
   end
 
+  def icon
+    'file'
+  end
+
   private
 
   def parent_archived?

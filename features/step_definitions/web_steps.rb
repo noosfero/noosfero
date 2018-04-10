@@ -39,15 +39,20 @@ end
 
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
-    link   = find :link_or_button, link, match: :prefer_exact
-    # If the link has child elements, then $(link).click() has no effect,
-    # so find the first child and click on it.
-    if Capybara.default_driver == :selenium
-      target = link.all('*').first || link
-    else
-      target = link
+    begin
+      link   = find :link_or_button, link, match: :prefer_exact
+      # If the link has child elements, then $(link).click() has no effect,
+      # so find the first child and click on it.
+      if Capybara.default_driver == :selenium
+        target = link.all('*').first || link
+      else
+        target = link
+      end
+      target.click
+    rescue
+      alert = page.driver.browser.switch_to.alert
+      alert.send 'accept'
     end
-    target.click
   end
 end
 
@@ -113,7 +118,7 @@ end
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"(?: within "([^"]*)")?$/ do |path, field, selector|
   path = File.expand_path(path).gsub('/', File::ALT_SEPARATOR || File::SEPARATOR)
   with_scope(selector) do
-    attach_file(field, path)
+    attach_file(field, path, make_visible: true)
   end
   sleep 1
 end
@@ -127,7 +132,12 @@ end
 
 Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
   with_scope(selector) do
-    expect(page).to have_content(text)
+    begin
+      expect(page).to have_content(text)
+    rescue
+      alert = page.driver.browser.switch_to.alert
+      alert.text.should eq(text)
+    end
   end
 end
 
@@ -298,3 +308,11 @@ When /^(?:|I )wait ([^ ]+) seconds?(?:| .+)$/ do |seconds|
   sleep seconds.to_f
 end
 
+Then /^I send enter key in "([^"]*)" field$/ do |field|
+  element = find_field(field)
+  element.native.send_keys(:enter)
+end
+
+When(/^I refresh the page$/) do
+  page.evaluate_script("location.reload();")
+end

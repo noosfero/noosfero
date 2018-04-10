@@ -168,7 +168,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'show create community in own profile' do
     login_as(@profile.identifier)
     get :communities, :profile => @profile.identifier
-    assert_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
+    assert_tag :tag => 'a',  :attributes => {:class => 'button icon-add with-text', :title => 'Create a new community' }
   end
 
   should 'not show create community on profile of other users' do
@@ -404,7 +404,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(@profile.identifier)
 
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+    assert_tag :tag => 'a', :attributes => { :class => /open-modal join-community/ }
   end
 
   should 'show regular join button for community without email visibility requirement' do
@@ -988,7 +988,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "show the scrap area on wall for the user" do
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Publish'} }
   end
 
   should "show the scrap area on wall for a friend" do
@@ -998,7 +998,7 @@ class ProfileControllerTest < ActionController::TestCase
     profile.add_friend(person)
 
     get :index, :profile => person.identifier
-    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Publish'} }
   end
 
   should "show the scrap area on wall for a member" do
@@ -1007,7 +1007,7 @@ class ProfileControllerTest < ActionController::TestCase
     community.add_member(profile)
 
     get :index, :profile => community.identifier
-    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Publish'} }
   end
 
   should "not show the scrap button on wall activity if the user is himself" do
@@ -1594,7 +1594,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     login_as(user.identifier)
     get :index
-    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+    assert_no_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
   end
 
   should 'display list of communities to manage on menu if enabled' do
@@ -1608,7 +1608,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     login_as(user.identifier)
     get :index
-    assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+    assert_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
 
   end
 
@@ -1641,10 +1641,10 @@ class ProfileControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+    assert_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
     doc = Nokogiri::HTML @response.body
     assert_select doc, '#manage-communities li > a' do |links|
-      assert_equal 2, links.length
+      assert_equal 4, links.length
       assert_match /community_1/, links.to_s
       assert_match /community_2/, links.to_s
       assert_no_match /community_3/, links.to_s
@@ -1670,10 +1670,10 @@ class ProfileControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
+    assert_tag :tag => 'ul', :attributes => {:id => 'manage-enterprises'}
     doc = Nokogiri::HTML @response.body
     assert_select doc, '#manage-enterprises li > a' do |links|
-      assert_equal 1, links.length
+      assert_equal 2, links.length # User menu and hamburger menu
       assert_match /Test enterprise1/, links.to_s
       assert_no_match /Test enterprise_2/, links.to_s
     end

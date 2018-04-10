@@ -15,22 +15,26 @@ Feature: manage categories
 
   @selenium
   Scenario: admin user could access new category
-    Given I follow "Administration"
-    When I follow "Categories"
+    Given I follow "menu-dropdown"
+    And I wait for 1 seconds
+    And I follow "Administration"
+    And I follow "Categories"
     And I follow "New category"
     Then I should be on /admin/categories/new
 
   @selenium
   Scenario: admin user could create a category
     Given I go to /admin/categories/new
-      And I fill in "Name" with "Category 1"
-     When I press "Save"
-     Then I should see "General categories"
-      And I should see "Category 1"
+    And I fill in "Name" with "Category 1"
+    When I follow "Save"
+    Then I should see "General categories"
+    And I should see "Category 1"
 
   @selenium
   Scenario: admin user could see all the category tree
-    Given I follow "Administration"
+    Given I follow "menu-dropdown"
+    And I wait for 1 seconds
+    And I follow "Administration"
     And I follow "Categories"
     When I follow "Show"
     Then I should see "Vegetarian"
@@ -38,7 +42,9 @@ Feature: manage categories
 
   @selenium
   Scenario: admin user could hide the category tree
-    Given I follow "Administration"
+    Given I follow "menu-dropdown"
+    And I wait for 1 seconds
+    And I follow "Administration"
     And I follow "Categories"
     When I follow "Show"
     Then I should see "Vegetarian"
@@ -52,10 +58,14 @@ Feature: manage categories
     Given the following category
       | parent  | name     | display_in_menu |
       | Steak   | Pig      | true            |
-    When I follow "Administration"
+    And I follow "menu-dropdown"
+    And I wait for 1 seconds
+    And I follow "Administration"
     And I follow "Categories"
-    Then I should see "Food Show"
-    When I follow "Show"
+    Then I should see "Food"
+    When I follow "Show subcategories"
     Then I should see "Vegetarian"
-    And I should not see "Vegetarian Show"
-    And I should see "Steak Show"
+    And I should see "Steak"
+    And I follow "Hide subcategories"    
+    And I should not see "Steak"
+    Then I should not see "Vegetarian"

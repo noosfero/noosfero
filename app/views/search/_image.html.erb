@@ -3,20 +3,7 @@
   <% if image.is_a? UploadedFile and image.filename %>
     <% extension = image.extension %>
     <% if ['jpg', 'jpeg', 'gif', 'png', 'tiff', 'svg'].include? extension %>
-      <%= link_to '', image.view_url, :class => "search-image-pic", :style => 'background-image: url(%s)'% image.public_filename(:thumb) %>
-      <% if image.width && image.height %>
-        <%= javascript_tag do %>
-          image = jQuery('script').last().parent().find('.search-image-pic');
-          des_width = parseInt(image.css('width'));
-          des_height = parseInt(image.css('height'));
-
-          width = <%= image.width %>;
-          height = <%= image.height %>;
-          scale_factor = width > height ? des_width/width : des_height/height;
-
-          image.css({'width' : scale_factor*width +'px', 'height' : scale_factor*height+'px'});
-        <% end %>
-      <% end %>
+      <%= link_to image_tag(image.public_filename(:thumb)), image.view_url, class: 'search-image-pic' %>
     <% elsif ['pdf'].include? extension %>
       <%= link_to '', image.view_url, :class => 'search-image-pic icon-application-pdf' %>
     <% elsif ['doc', 'docx', 'odt', 'rtf', 'txt', 'html', 'htm'].include? extension %>
@@ -37,6 +24,6 @@
       <% end %>
     </div>
   <% else %>
-    <div class="search-content-type-icon icon-content-<%=image.class.to_s.underscore.dasherize%>"></div>
+    <div class="search-content-type-icon icon-content-<%=image.class.to_s.underscore.dasherize%>" style="padding: 0;"></div>
   <% end %>
 </div>

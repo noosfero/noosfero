@@ -227,7 +227,7 @@ Given /^I am logged in as "(.+)"$/ do |username|
   step %{I go to login page}
   step %{I fill in "main_user_login" with "#{username}"}
   step %{I fill in "user_password" with "123456"}
-  step %{I press "Log in"}
+  step %{I follow "Log in"}
   step %{I go to #{username}'s control panel}
   step %{I should be on #{username}'s control panel}
   @current_user = username
@@ -249,7 +249,7 @@ Given /^I am logged in as admin$/ do
   visit('/account/login')
   fill_in("Username", :with => user.login)
   fill_in("Password", :with => '123456')
-  click_button("Log in")
+  click_link("Log in")
 end
 
 Given /^I am not logged in$/ do
@@ -566,7 +566,7 @@ end
 When /^I search ([^\"]*) for "([^\"]*)"$/ do |asset, query|
   step %{I go to the search #{asset} page}
   step %{I fill in "search-input" with "#{query}"}
-  step %{I press "Search"}
+  step %{I follow "search-button" within ".search-form"}
 end
 
 Then /^I should see ([^\"]*)'s profile image$/ do |name|

@@ -10,6 +10,7 @@ class Comment
   end
 
   def mark_as_not_read(person)
+    read_comments.find_by(person: person).delete()
     people.delete(person)
   end
 

@@ -1,28 +1,35 @@
-function mark_comments_as_read(comments) {
-  jQuery(document).ready(function($) {
-    for(var i=0; i<comments.length; i++) {
-      $comment = jQuery('#comment-'+comments[i]);
-      $comment.find('.comment-content').first().addClass('comment-mark-read');
-    }
-  });
-}
-
 function toggle_comment_read(button, url, mark) {
   var $ = jQuery;
-  var $button = $(button);
-  $button.addClass('comment-button-loading');
+  var comment = $(button).closest('.comment-item')
+  var menu = $(button).closest('.noosfero-dropdown-menu')
   $.post(url, function(data) {
     if (data.ok) {
-      var $comment = $button.closest('.article-comment');
-      var $content = $comment.find('.comment-content').first();
-      if(mark)
-        $content.addClass('comment-mark-read');
-      else
-        $content.removeClass('comment-mark-read');
-      $button.hide();
-      $button.removeClass('comment-button-loading');
+      if (mark) {
+        comment.addClass('read-comment')
+        menu.find('.mark-comment-read').closest('li').hide()
+        menu.find('.mark-comment-not-read').closest('li').show()
+      }
+      else {
+        comment.removeClass('read-comment')
+        menu.find('.mark-comment-not-read').closest('li').first().hide()
+        menu.find('.mark-comment-read').closest('li').first().show()
+      }
       return;
     }
   });
 }
 
+$(document).ready(function() {
+
+  $('.mark-comment-link').closest('li').hide()
+  $('.mark-comment-link').each(function() {
+    var link = $(this).first()
+    if(link.data('show')) {
+      link.closest('li').show()
+      if(link.hasClass('mark-comment-not-read')) {
+        link.closest('.comment-item').addClass('read-comment')
+      }
+    }
+  })
+
+})

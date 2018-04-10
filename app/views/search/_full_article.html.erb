@@ -1,16 +1,13 @@
 <li class="search-article-item article-item">
-  <div>
-    <%= link_to(article.title, article.url, :class => "search-result-title") %>
-  </div>
+  <h2>
+    <%= link_to(article.title, article.url, class: "search-result-title") %>
+  </h2>
 
   <div class="search-content-first-column">
-    <%= render :partial => 'image', :object => article %>
+    <%= render partial: 'image', object: article %>
   </div>
 
-  <table class="noborder search-content-second-column">
-    <%= render :partial => 'article_common', :object => article %>
-  </table>
-  <%= render :partial => 'article_last_change', :object => article %>
-
-  <div style="clear:both"></div>
+  <div class="search-content-second-column">
+    <%= render partial: 'article_common', object: article %>
+  </div>
 </li>

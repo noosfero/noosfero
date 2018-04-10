@@ -1,6 +1,6 @@
 - unless docs.blank?
   div class="block #{html_class}"
     span class="title #{html_class}"
-      = title
+      = font_awesome(icon, title)
     ul
       = render partial: 'blocks/relevant_content/doc', collection: docs

@@ -19,5 +19,5 @@ Feature: Create a new Discussion Article
   When I follow "Comments Discussion"
   And I fill in "Title" with "My discussion"
   And I fill in tinyMCE "article_body" with "My discussion body!!!"
-  And I press "Save"
+  And I follow "Save"
   Then I should see "My discussion body!!!"

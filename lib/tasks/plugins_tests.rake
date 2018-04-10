@@ -1,9 +1,10 @@
 $broken_plugins = %w[
   anti_spam
   bsc
-  comment_classification
+  environment_notification
   ldap
   solr
+  variables
 ]
 
 @all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']

@@ -383,6 +383,12 @@ font-style: italic;
         }
       }
 
+      tr {
+        &:not(:last-child) {
+          border-bottom: solid 1px #e8e8e8;
+        }
+      }
+
       th {
         border-bottom: 1px solid #90949c;
         font-weight: 400;

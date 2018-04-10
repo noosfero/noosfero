@@ -30,7 +30,9 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     community.boxes.first.blocks << MembersBlock.new
     get "/profile/#{community.identifier}"
     assert_tag :tag => 'div', :attributes => { :id => "block-#{community.blocks.first.id}" }, :descendant => {
-      :tag => 'li', :attributes => { :class => 'vcard' }, :content => person.name
+      :tag => 'li', :attributes => { :class => 'vcard common-profile-list-block no-pic' }, :descendant => {
+        :tag => 'a', :attributes => { :class => 'profile_link url', :title => person.name }
+      }
     }
   end
 
@@ -59,8 +61,8 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     Person['marley'].categories << subcategory
     login 'marley', 'test'
     get "/myprofile/marley/profile_editor/edit"
-    assert_tag :tag => 'td', :content => "#{category.name} &rarr; #{subcategory.name}",
-               :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories' }}
+    assert_tag :tag => 'div', :content => /#{category.name} &rarr; #{subcategory.name}/,
+               :ancestor => { :tag => 'div', :attributes => { :class => 'selected-category' }}
   end
 
   should 'not escape MainBlock on profile design' do
@@ -98,9 +100,17 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     create_user('marley', :password => 'test', :password_confirmation => 'test').activate!
     person = Person['marley']
     task = create(Task, :requestor => person, :target => person)
+
     login 'marley', 'test'
+
     get "/myprofile/marley"
-    assert_select ".pending-tasks ul li a"
+    assert_tag :tag => 'div', :attributes => { :id => 'pending-tasks-menu', :class => 'noosfero-dropdown-menu' },
+               :descendant => {:tag => 'ul', :attributes => {:class => 'dropdown-list'},
+               :descendant => {:tag => 'li',
+               :descendant => {:tag => 'div', :attributes => { :class => 'task-link' }
+         }
+      }
+    }
   end
 
   should 'not escape author link in publishing info of article' do
@@ -141,7 +151,9 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
     get "/profile/marley"
     assert_tag 'li', :attributes => {:id => "profile-activity-item-#{activity.id}"}, :descendant => {
-      :tag => 'div', :content => "\n    " + expected_content, :attributes => {:class => 'profile-activity-lead'}
+      :tag => 'div',  :attributes => {:class => 'profile-activity-description profile-activity-article-text-html'}, :descendant => {
+        :tag => 'div', :attributes => {:class => 'profile-activity-lead'}
+      }
     }
   end
 
@@ -174,7 +186,8 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     profile.boxes.first.blocks << LinkListBlock.new
     block = profile.boxes.first.blocks.first
     get "/myprofile/#{profile.identifier}/profile_design/edit/#{block.id}"
-    assert_select '.icon-selector .icon-edit'
+    assert_select '.icon-selector'
+    assert_tag :tag => 'span', :attributes => { :class => 'edit' }
   end
 
   should 'not escape read more link to article on display short format' do

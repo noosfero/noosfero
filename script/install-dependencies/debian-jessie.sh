@@ -1,11 +1,13 @@
 binary_packages='deb http://download.noosfero.org/debian/jessie-test ./'
-
 source_packages=$(echo "$binary_packages" | sed -e 's/^deb/deb-src/')
-
-if ! grep -q "$binary_packages" /etc/apt/sources.list.d/noosfero.list; then
+ci_binary_packages='deb http://download.noosfero.org/debian/ci ./'
+ci_source_packages=$(echo "$binary_packages" | sed -e 's/^deb/deb-src/')
+if ! grep -q "$ci_binary_packages" /etc/apt/sources.list.d/noosfero.list; then
   sudo tee /etc/apt/sources.list.d/noosfero.list <<EOF
 $binary_packages
 $source_packages
+$ci_binary_packages
+$ci_source_packages
 EOF
 fi
 

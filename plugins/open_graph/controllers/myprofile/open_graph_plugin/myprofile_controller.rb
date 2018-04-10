@@ -40,7 +40,9 @@ class OpenGraphPlugin::MyprofileController < MyProfileController
 
   # inherit routes from core skipping use_relative_controller!
   def url_for options
-    options[:controller] = "/#{options[:controller]}" if options.is_a? Hash and options[:controller]
+    if options.is_a? Hash and options[:controller] and options[:controller].first != '/'
+      options[:controller] = "/#{options[:controller]}"
+    end
     super options
   end
   helper_method :url_for

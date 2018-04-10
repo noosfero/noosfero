@@ -4,7 +4,7 @@
 
 <div>
   <% unless block.profile_count == 0 %>
-    <ul>
+    <ul class='common-profile-list-block'>
       <%= profiles_images_list(block.profile_list) %>
 
       <% unless block.name.blank? || block.address.blank? %>
@@ -24,5 +24,4 @@
   <% else %>
     <div class="common-profile-list-block-none"><%= c_('None') %></div>
   <% end %>
-  <br style="clear:both" />
 </div>

@@ -117,4 +117,8 @@ class RssFeed < Article
     false
   end
 
+  def icon
+    'rss'
+  end
+
 end

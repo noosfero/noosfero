@@ -1,28 +1,26 @@
 <li class="search-forum-item article-item">
-  <div>
-    <%= link_to forum.title, forum.view_url, :class => 'search-result-title' %>
-  </div>
-
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => forum %>
   </div>
 
-  <table class="noborder search-content-second-column">
-    <tr class="search-forum-items">
-      <td class="search-field-label"><%= _("Last topics") %></td>
+  <div class="noborder search-content-second-column">
+    <h2>
+      <%= link_to forum.title, forum.view_url, :class => 'search-result-title' %>
+    </h2>
+    <%= render partial: 'article_last_change', object: forum %>
+
+    <div class="search-forum-items">
+      <span class="search-field-label"><%= _("Last topics") %></span>
 
       <% r = forum.children.order(:updated_at).where('type != ?', 'RssFeed').last(3) %>
-      <td class="<%= "search-field-none" if r.empty? %>">
+      <span class="<%= "search-field-none" if r.empty? %>">
         <% r.each do |a| %>
           <%= link_to a.title, a.view_url, :class => 'search-forum-sample-item '+icon_for_article(a) %>
         <% end %>
         <%= _('None') if r.empty? %>
-      </td>
-    </tr>
+      </span>
+    </div>
 
     <%= render :partial => 'article_common', :object => forum %>
-  </table>
-  <%= render :partial => 'article_last_change', :object => forum %>
-
-  <div style="clear:both"></div>
+  </div>
 </li>

@@ -130,7 +130,7 @@ Feature: purchases
     And I follow "Shopping checkout"
     And I fill in "Contact phone" with "123456789"
     And I select "Bike ($8.00)" from "Option"
-    And I press "Send buy request"
+    And I follow "Send buy request"
     And I go to homer's control panel
     When I follow "Purchases made"
     Then I should see "Moes Tavern" within any ".actor-name"

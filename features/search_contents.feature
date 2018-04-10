@@ -36,9 +36,9 @@ Feature: search contents
     When I search contents for "birthday"
     Then I should see "John Doe's birthday" within ".search-event-item"
     And I should see "Start date"
-    And I should see "2009-09-01"
+    And I should see "September 1, 2009"
     And I should see "End date"
-    And I should see "2009-09-02"
+    And I should see "September 2, 2009"
     And I should not see "Group meeting"
     When I follow "John Doe's birthday"
     Then I should be on article "John Doe's birthday"
@@ -49,10 +49,10 @@ Feature: search contents
       | joaosilva | Music Folder |
       | joaosilva | Videos Folder |
     When I search contents for "Music"
-    Then I should see "Music Folder" within ".search-folder-item"
-    And I should see "None" within ".search-folder-items"
+    Then I should see "Music Folder"
+    And I should see "" within ".search-folder-item"
     And I should not see "Videos Folder"
-    When I follow "Music Folder"
+    And I follow "Music Folder"
     Then I should be on article "Music Folder"
 
   Scenario: simple search for forum
@@ -61,7 +61,7 @@ Feature: search contents
       | joaosilva | Games Forum |
       | joaosilva | Movies Folder |
     When I search contents for "Games"
-    Then I should see "Games Forum" within ".search-forum-item"
+    Then I should see "Games Forum" within ".main-content"
     And I should see "None" within ".search-forum-items"
     And I should not see "Movies Folder"
     When I follow "Games Forum"
@@ -73,7 +73,7 @@ Feature: search contents
       | joaosilva | Landscape Photos |
       | joaosilva | People Photos |
     When I search contents for "Landscape"
-    Then I should see "Landscape Photos" within ".search-gallery"
+    Then I should see "Landscape Photos" within ".main-content"
     And I should not see "People Photos"
     When I follow "Landscape Photos"
 
@@ -83,7 +83,7 @@ Feature: search contents
       | joaosilva | rails.png |
       | joaosilva | shoes.png |
     When I search contents for "rails"
-    Then I should see "rails.png" within ".search-uploaded-file-item"
+    Then I should see "rails.png" within ".main-content"
     And I should not see "shoes"
     When I follow "rails"
     Then I should be on article "rails"
@@ -148,13 +148,15 @@ Feature: search contents
     When I follow "Folder for Uploaded Files"
     Then I should be on article "Folder for Uploaded Files"
 
+@selenium
   Scenario: link to author on search results
     When I go to the search articles page
     And I fill in "search-input" with "whales"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Profile" within ".search-article-profile"
     Then I should see "Joao Silva" within ".search-article-profile-name"
     When I follow "Joao Silva"
+    And I wait for 1 seconds
     Then I should be on joaosilva's profile
 
   Scenario: show clean description excerpt on search results
@@ -163,19 +165,20 @@ Feature: search contents
       | joaosilva | Herreninsel | The island    <b>Herreninsel</b>,    with an area of 238 hectares, is the biggest of the three main islands of the Chiemsee, a lake in the state of Bavaria, Germany. Together with the islands of Fraueninsel and Krautinsel it forms the municipality of Chiemsee. |
     When I go to the search articles page
     And I fill in "search-input" with "island"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Description" within ".search-article-description"
     And I should see "The island Herreninsel, with" within ".search-article-description"
     And I should see "and Kraut..." within ".search-article-description"
 
-  Scenario: show empty description on search results
+  @selenium
+  Scenario: do not show description on search results
     Given the following articles
       | owner     | name        | body |
       | joaosilva | Herreninsel |      |
     When I go to the search articles page
     And I fill in "search-input" with "Herreninsel"
-    And I press "Search"
-    Then I should see "None" within ".search-article-description"
+    And I follow "Search" within ".search-form"
+    Then I should not see "Description"
 
   Scenario: link to tags on search results
     Given the following tags
@@ -184,18 +187,18 @@ Feature: search contents
       | bees and butterflies | Lepidoptera |
     When I go to the search articles page
     And I fill in "search-input" with "bees"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Tags" within ".search-article-tags"
     And I should see "Hymenoptera" within ".search-article-tags"
     And I should see "Lepidoptera" within ".search-article-tags"
     When I follow "Hymenoptera"
     Then I should be on Hymenoptera's tag page
 
-  Scenario: show empty tags in search results
+  Scenario: do not show tags in search results
     When I go to the search articles page
     And I fill in "search-input" with "dolphins"
-    And I press "Search"
-    Then I should see "None" within ".search-article-tags"
+    And I follow "Search" within ".search-form"
+    Then I should not see "Tags"
 
   Scenario: link to categories on search results
     Given the following category
@@ -206,20 +209,20 @@ Feature: search contents
       | joaosilva | Sergei Sorokin | Retired ice hockey player  | soviet |
     When I go to the search articles page
     And I fill in "search-input" with "hockey"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Categories" within ".search-article-categories"
     And I should see "Soviet" within ".search-article-category"
 
-  Scenario: show empty categories on search results
+  Scenario: do not show categories on search results
     When I go to the search articles page
     And I fill in "search-input" with "whales"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "whales and dolphins"
-    And I should see "None" within ".search-article-categories-container"
+    And I should not see "Categories"
 
   Scenario: show date of last update from original author
     When I search contents for "whales"
-    Then I should see "Last update:" within ".search-article-author-changes"
+    Then I should see "Updated at" within ".search-article-author-changes"
 
   Scenario: show date of last update from another author
     Given the following users
@@ -249,7 +252,7 @@ Feature: search contents
     And the following rss feeds
       | joaosilva | JSilva blog | post #3 |
     When I search contents for "JSilva"
-    Then I should see "Last posts" within ".search-blog-items"
+    Then I should see "Last posts" within ".main-content"
     And I should see "post #1"
     And I should see "post #2"
     And I should not see "post #3"
@@ -267,5 +270,5 @@ Feature: search contents
   Scenario: find enterprises without exact query
     When I go to the search articles page
     And I fill in "search-input" with "bees and"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "bees and butterflies" within "#search-results"

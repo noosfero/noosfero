@@ -21,14 +21,16 @@
   padding-top: 20px;
 }
 .list-options {
-  width: 800px;
+  width: inherit;
   margin: auto;
   clear: left;
   padding-top: 20px;
+  overflow-y: auto;
 }
 #theme-options .list-group {
   clear: left;
   padding-top: 7px;
+  overflow-y: auto;
 }
 .list-opt {
   position: relative;

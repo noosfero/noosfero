@@ -1,0 +1,23 @@
+.bullet-box {
+  margin-top: 15px;
+  border-top: 1px solid #e8e8e8;
+
+  .bullet-body {
+    padding-left: 15px;
+  }
+
+  .bullet-header {
+    display:flex;
+    justify-content: space-between;
+    margin-top: 5px;
+
+    a.bullet-name {
+      color: #000;
+      font-weight: bold;
+    }
+    .bullet-time,
+    .fa {
+      color: #90949c;
+    }
+  }
+}

@@ -16,4 +16,8 @@ class StatisticsPlugin < Noosfero::Plugin
     }
   end
 
+  def stylesheet?
+    true
+  end
+
 end

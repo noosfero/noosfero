@@ -1,0 +1,22 @@
+.relevant-content-plugin_relevant-content-block {
+  word-wrap: break-word;
+
+  .title {
+    font-size: 14px;
+    color: #212e3c;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    border-bottom: solid 1px #e8e8e8;
+
+    li {
+      padding-bottom: 2px;
+      margin-top: 10px;
+    }
+  }
+}

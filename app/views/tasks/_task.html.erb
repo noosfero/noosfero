@@ -1,79 +1,101 @@
-<div class="task_box" id="task-<%= task.id %>">
+<div class="task-box gray-border-top" id="task-<%= task.id %>">
 
-  <%= render :partial => 'task_icon', :locals => {:task => task} %>
-
-  <div class="task_date"><%= show_time(task.created_at) %></div>
-
-  <%= render :partial => 'task_title', :locals => {:task => task} %>
-
-  <% if !@view_only && profile.organization? && @responsible_candidates.present? %>
-    <div class="task_responsible">
-      <span class="label"><%= _('Assign to:') %></span>
-      <span>
-        <% change_responsible_url = url_for :action => :change_responsible, :controller => :tasks %>
-        <%= select_tag "tasks[#{task.id}][responsible]", options_from_collection_for_select(@responsible_candidates, :id, :name, task.responsible.present? ? task.responsible.id : nil), :include_blank => true, :onchange => "change_task_responsible(this);", 'data-old-responsible' => task.responsible.present? ? task.responsible.id : nil, 'data-task' => task.id, 'data-url' => change_responsible_url %>
-      </span>
-    </div>
-  <% end %>
-
-  <% if @view_only && task.responsible.present? %>
-    <div class="task_responsible">
-      <span class="label"><%= _('Assigned to:') %></span>
-      <span class="value"><%= task.responsible.name %></span>
-    </div>
-  <% end %>
-
-  <div class="task_decisions">
-    <% unless @view_only %>
-      <%=
-        labelled_radio_button(_("Accept"), "tasks[#{task.id}][decision]", 'finish', task.default_decision == 'accept',
-                              :id => "decision-finish-#{task.id}",
-                              :class => 'task_accept_radio',
-                              :disabled => task.accept_disabled?,
-                              :task_id => "#{task.id}") +
-        labelled_radio_button(_("Reject"), "tasks[#{task.id}][decision]", 'cancel', task.default_decision == 'reject',
-                              :id => "decision-cancel-#{task.id}",
-                              :class => 'task_reject_radio',
-                              :disabled => task.reject_disabled?,
-                              :task_id => "#{task.id}") +
-        labelled_radio_button(_("Skip"), "tasks[#{task.id}][decision]", 'skip', task.default_decision == 'skip',
-                              :id => "decision-skip-#{task.id}",
-                              :class => 'task_skip_radio',
-                              :disabled => task.skip_disabled?,
-                              :task_id => "#{task.id}")
-      %>
-    <% end %>
-  </div><!-- class="task_decisions" -->
-
-
-  <div class="task_information">
-    <%= task_information(task, params) %>
+  <div class="task-requestor-img">
+    <%= render partial: 'tasks/task_icon', locals: { task: task } %>
   </div>
 
-  <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
-    <% if task.custom_fields_moderate %>
-      <div id="custom-field-information-<%=task.id%>" style="display: none">
-        <%= render :partial => task.class.name.underscore+'_custom_fields', :locals => {:task => task} %>
-      </div>
-    <% end %>
+  <div class="task-description">
 
-    <% if task.accept_details %>
-      <div id="on-accept-information-<%=task.id%>" style="display: none">
-        <%= render :partial => partial_for_class(task.class, nil, :accept_details), :locals => {:task => task, :f => f} %>
+    <div class='task-header'>
+      <div>
+        <%= render partial: 'tasks/task_title', locals: { task: task } %>
+        <span class="bullet-separator">•</span>
+        <div class="task-date"><%= show_time(task.created_at) %></div>
       </div>
-    <% end %>
 
-    <% if task.reject_details %>
-      <div id="on-reject-information-<%=task.id%>" style="display: none">
-        <%= render :partial => partial_for_class(task.class, nil, :reject_details), :locals => {:task => task, :f => f} %>
+      <div class='task-toolbar'>
+        <% if !@view_only && profile.try(:organization?) && @responsible_candidates.present? %>
+
+          <div class="task-responsible">
+            <% change_responsible_url = url_for :action => :change_responsible, :controller => :tasks %>
+            <%= select_tag "tasks[#{task.id}][responsible]",
+                           options_from_collection_for_select(@responsible_candidates, :id, :name,
+                                                              task.responsible.present? ? task.responsible.id : nil),
+                           :onchange => "change_task_responsible(this);",
+                           'data-old-responsible' => task.responsible.present? ? task.responsible.id : nil,
+                           'data-task' => task.id, 'data-url' => change_responsible_url, :prompt => _('Assign to...')%>
+          </div>
+
+        <% elsif @view_only && task.responsible.present? %>
+
+          <div class="task-responsible">
+            <span><%= _('Assigned to') + ' ' + task.responsible.name %></span>
+          </div>
+
+        <% end %>
+
+        <%= link_to font_awesome('info'), '#!', :title => _('View task details'),
+                    :class => 'toggle-link task-view-datails-link',
+                    :data => { :element => "task-view-details-#{task.id}" } if task.accept_details %>
       </div>
-    <% end %>
-  <% end %>
-
-  <% if task.footer %>
-    <div id="task-footer-<%=task.id%>">
-      <%= render :partial => partial_for_class(task.class, nil, :footer), :locals => {:task => task} %>
     </div>
-  <% end %>
 
-</div><!-- class="task_box" -->
+
+    <div class="task-information">
+      <%= task_information(task, params) %>
+    </div>
+
+    <div class="task-decisions">
+      <% unless @view_only %>
+
+        <% [["accept", "finish", task.accept_disabled?], ["reject", "cancel", task.reject_disabled?], ["skip", "skip", task.skip_disabled?]].each do |task_name, task_action, is_disabled| %>
+          <%= labelled_radio_button(_(task_name.capitalize), "tasks[#{task.id}][decision]", task_action, task.default_decision == task_name,
+                                    id: "decision-#{task_action}-#{task.id}",
+                                    class: "task-#{task_name}-radio",
+                                    disabled: is_disabled,
+                                    task_id: "#{task.id}") %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
+      <% if task.custom_fields_moderate %>
+        <div id="custom-field-information-<%=task.id%>">
+          <%= render partial: "tasks/#{task.class.name.underscore}_custom_fields", locals: { task: task } %>
+        </div>
+      <% end %>
+
+      <% if task.accept_details %>
+        <div id=<%= "task-view-details-#{task.id}" %> class='task-view-details' style='display:none'>
+          <div id="on-accept-information-<%=task.id%>">
+            <%= render partial: "tasks/#{task.class.name.underscore}_accept_details", locals: { task: task, f: f } %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if task.footer %>
+        <div id="task-footer-<%=task.id%>">
+          <%= render partial: "tasks/#{task.class.name.underscore}_footer", locals: { task: task } %>
+        </div>
+      <% end %>
+
+      <% if task.reject_details %>
+        <div class='task-reject-explanation' style='display:none'>
+          <%= render :partial => partial_for_class(task.class, nil, :reject_details), :locals => {:task => task, :f => f} %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% unless @view_only %>
+      <%= button_bar(class: 'task-actions') do %>
+        <% unless task.accept_disabled? %>
+          <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
+          <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
+          <%= link_to _("Cancel"), '#!', class: 'button btn-red-reverse keep-when-hover cancel-task hidden' %>
+        <% else %>
+          <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
+        <%end%>
+      <% end %>
+    <% end %>
+  </div>
+</div>

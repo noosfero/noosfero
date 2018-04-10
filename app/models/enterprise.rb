@@ -121,8 +121,8 @@ class Enterprise < Organization
 
   def default_set_of_blocks
     links = [
-      {:name => _("Enterprises's profile"), :address => '/profile/{profile}', :icon => 'ok'},
-      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+      { name: _("Enterprises's profile"), address: '/profile/{profile}', icon: 'enterprise' },
+      { name: _('Blog'),                  address: '/{profile}/blog',    icon: 'blog' }
     ]
     blocks = [
       [MainBlock.new],

@@ -29,7 +29,7 @@ Feature: search communities
   Scenario: simple search for community
     When I go to the search communities page
     And I fill in "search-input" with "noosfero"
-    And I press "Search"
+    And I follow "search-button"
     Then I should see "Noosfero Community" within "#search-results"
     And I should see "Noosfero Community" within ".only-one-result-box"
     And I should see Noosfero Community's community image
@@ -40,5 +40,5 @@ Feature: search communities
       | luwac      | Linux Users Without a Clue |
     When I go to the search communities page
     And I fill in "search-input" with "Linux Users"
-    And I press "Search"
+    And I follow "search-button"
     Then I should see "Linux Users Without a Clue" within "#search-results"

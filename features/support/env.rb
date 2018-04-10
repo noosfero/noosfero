@@ -68,4 +68,3 @@ Before do
   e.profile_cache_in_minutes = 0
   e.save
 end
-

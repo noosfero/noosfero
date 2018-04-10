@@ -7,5 +7,5 @@ div#driven-signup-tokens.table
     = render 'auth', auth: auth
 
   div.row id="auth-new"
-    td= link_to _('New'), {action: :new}, remote: true, class: 'btn btn-default fa-add'
+    td= link_to font_awesome(:new, _('New')), {action: :new}, remote: true, class: 'button with-text'
 

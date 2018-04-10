@@ -1,13 +1,12 @@
 /* Example tokeninput style #1: Token vertical list*/
 ul.token-input-list {
-    overflow: hidden; 
-    height: auto !important; 
+    overflow: hidden;
+    height: auto !important;
     height: 1%;
-    width: 400px;
+    width: 100%;
     border: 1px solid #999;
     cursor: text;
     font-size: 12px;
-    font-family: Verdana;
     z-index: 999;
     margin: 0;
     padding: 0;
@@ -18,27 +17,35 @@ ul.token-input-list {
 
 ul.token-input-list li {
     list-style-type: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
 }
 
 ul.token-input-list li input {
     border: 0;
-    width: 350px;
+    margin: 10px 0 10px 0;
+    width: 95% !important;
     padding: 3px 8px;
     background-color: white;
     -webkit-appearance: caret;
+    border: 1px solid black;
 }
 
 li.token-input-token {
-    overflow: hidden; 
-    height: auto !important; 
+    overflow: hidden;
+    height: auto !important;
     height: 1%;
-    margin: 3px;
-    padding: 3px 5px;
+    margin: 10px;
+    padding: 10px 10px;
     background-color: #d0efa0;
     color: #000;
     font-weight: bold;
     cursor: default;
     display: block;
+    background-color: #B8CFE7;
+    justify-content: flex-start !important;
 }
 
 li.token-input-token p {
@@ -48,13 +55,15 @@ li.token-input-token p {
 }
 
 li.token-input-token span {
-    float: right;
+    margin-left: auto;
     color: #777;
     cursor: pointer;
+    font-family: Verdana;
+    font-size: 17px;
 }
 
 li.token-input-selected-token {
-    background-color: #08844e;
+    background-color: #212E3C;
     color: #fff;
 }
 

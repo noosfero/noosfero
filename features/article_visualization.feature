@@ -16,15 +16,19 @@ Feature: article visualization
   @selenium
   Scenario: viewing the article in fullscreen by default
     Given I go to /joaosilva/sample-article?fullscreen=1
+    And I follow "article-options"
     Then I should see "Exit full screen"
 
   @selenium
   Scenario: viewing the article not in fullscreen by default
     Given I go to /joaosilva/sample-article
+    And I follow "article-options"
     Then I should see "Full screen"
 
   @selenium
   Scenario: changing the view mode from not in fullscreen to fullscreen
     Given I go to /joaosilva/sample-article
+    And I follow "article-options"
     And I follow "Full screen"
+    And I follow "article-options"
     Then I should see "Exit full screen"

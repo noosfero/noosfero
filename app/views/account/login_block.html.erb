@@ -1,7 +1,7 @@
 <div class="login-box">
   <% unless logged_in? %>
 
-    <h2><span><%= _('Login') %></span></h2>
+    <h2 class="block-title"><span><%= _('Login') %></span></h2>
 
     <div class="login-box-content">
 
@@ -20,7 +20,7 @@
       <%= button_bar do %>
         <%= submit_button( 'login', _('Log in') )%>
         <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
-          <%= button(:add, _('New user'), { :controller => 'account', :action => 'signup' }) %>
+          <%= button(:new_user, _('New user'), { :controller => 'account', :action => 'signup' }) %>
         <% end %>
       <% end %>
 
@@ -28,7 +28,7 @@
 
     <% unless @plugins.dispatch(:allow_password_recovery).include?(false) %>
       <p class="forgot-passwd">
-        <%= link_to _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
+        <%= link_to _(font_awesome(:help, "I forgot my password!")), :controller => 'account', :action => 'forgot_password' %>
       </p>
     <% end %>
 

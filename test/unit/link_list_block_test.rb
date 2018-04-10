@@ -81,7 +81,9 @@ class LinkListBlockTest < ActiveSupport::TestCase
 
   should 'link with icon' do
     l = LinkListBlock.new(:links => [{:icon => 'save', :name => 'test', :address => 'test.com'}])
-    assert_match /a class="icon-[^"]+"/, render_block_content(l)
+    result = render_block_content(l)
+    assert_match /a class="link-list-icon save"/, result
+    assert_match /i class="fa fa-save"/, result
   end
 
   should 'no class without icon' do

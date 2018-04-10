@@ -75,6 +75,9 @@ module NavigationHelpers
     when /the environment control panel/
       '/admin'
 
+    when /the administration categories panel/
+      '/admin/categories'
+
     when /^the search page$/
       '/search'
 

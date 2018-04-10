@@ -7,11 +7,10 @@
 }
 
 .profile-list li {
-  float: left;
+  display: inline-block;
   margin: 5px;
   padding: 5px;
   list-style: none;
-  position: relative;
 }
 
 .profile-list li:hover {
@@ -29,7 +28,7 @@
   text-decoration: none;
   text-align: center;
   display: block;
-  font-size: 11px;
+  font-size: 12px;
 }
 .controller-favorite_enterprises .profile-list a.profile-link:hover,
 .controller-friends .profile-list a.profile-link:hover,
@@ -45,21 +44,116 @@
   display: block;
   overflow: hidden;
 }
-.controller-favorite_enterprises .profile-list,
+
+#manage_friends {
+  .profile-list {
+    @media only screen and (max-width: 960px) { width: 345px; margin: auto; }
+    @media only screen and (max-width: 768px) { width: 250px; margin: auto; }
+  }
+
+  .button-bar {
+    display: flex;
+    a.button {
+      flex-grow: 1;
+    }
+  }
+
+  .pagination {
+    margin: 0;
+  }
+}
+
+#manage_followed {
+  .profile-list {
+    @media only screen and (max-width: 960px) { width: 345px; margin: auto; }
+    @media only screen and (max-width: 768px) { width: 250px; margin: auto; }
+  }
+
+  .button-bar {
+    display: inline-block;
+    margin-right: 7px;
+    @media only screen and (max-width: 768px) {
+      display: flex;
+      margin-right: 0px;
+      a {
+        flex-grow: 1;
+      }
+    }
+  }
+
+  select#profile-type-filter {
+    display: inline-block;
+    @media only screen and (max-width: 768px) { width: 100%; }
+  }
+}
+
+.controller-favorite_enterprises .profile-list {
+  @media only screen and (max-width: 960px) { text-align: center; }
+  li {
+    display: inline-flex;
+    width: 250px;
+    a {
+      flex-grow: 1;
+      img {
+        display: block;
+        width: 64px;
+        margin: auto;
+        margin-bottom: 4px;
+      }
+    }
+
+    .controll {
+      width: 25px;
+      a.remove-favorite-enterprise {
+        display: none;
+      }
+    }
+
+    &:hover {
+      a.remove-favorite-enterprise {
+        display: block;
+        color: #ccc !important;
+        &:hover {
+          color: #babdb6 !important;
+        }
+      }
+    }
+  }
+}
+
 .controller-friends .profile-list,
 .controller-followers .profile-list,
 .profiles-suggestions .profile-list {
-  position: relative;
+  li {
+    width: 100px;
+    img {
+      display: block;
+      width: 64px;
+      margin: auto;
+      margin-bottom: 4px;
+    }
+
+    a {
+      width: 100%;
+    }
+  }
 }
 
 .controller-favorite_enterprises .profile-list .controll,
 .controller-friends .profile-list .controll,
 .controller-followers .profile-list .controll,
 .profiles-suggestions .profile-list .controll {
-  position: absolute;
-  top: 7px;
-  right: -5px;
+  display: flex;
+  width: 64px;
+  margin: auto;
+  margin-top: 2px;
+  a {
+    color: #212e3c !important;
+    flex-grow: 1;
+    text-align: center;
+  }
 }
+
 .controller-favorite_enterprises .profile-list .controll a,
 .controller-friends .profile-list .controll a,
 .controller-followers .profile-list .controll a,
@@ -72,13 +166,6 @@
 .controller-folloed_people .msie6 .profile-list .controll a,
 .profiles-suggestions .msie6 .profile-list .controll a {
   width: 0px;
-}
-.controller-favorite_enterprises .button-bar,
-.controller-friends .button-bar,
-.controller-followers .button-bar,
-.profiles-suggestions .button-bar {
-  clear: both;
-  padding-top: 20px;
 }
 
 .profiles-suggestions .profile-list .extra_info p {

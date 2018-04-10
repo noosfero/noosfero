@@ -1,0 +1,49 @@
+#content .block {
+
+  ul.common-profile-list-block {
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .common-profile-list-block {
+    .profile-image {
+      float: none;
+      padding-left: 0px;
+      max-width: none;
+    }
+
+    &.vcard {
+      display: inline-block;
+      width: 25%;
+      min-width: 70px;
+      @media only screen and (max-width: 960px) { width: 70px; }
+      vertical-align: top;
+      text-align: center;
+      padding: 4px;
+      .profile_link {
+        display: inline-block;
+        font-size: 1em;
+        text-align: center;
+        padding-bottom: 2em;
+        text-decoration: none;
+
+        span.profile-image {
+          display: block;
+          margin: auto;
+        }
+
+        span.org {
+          display: block;
+          margin: auto;
+          width: 100%;
+        }
+      }
+    }
+  }
+
+  .block-footer-content {
+    margin-top: 30px;
+  }
+}

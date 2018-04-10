@@ -13,7 +13,7 @@ Feature: activate enterprise
     Given feature "enterprise_activation" is enabled on environment
     And I am on joaosilva's control panel
     And I fill in "Enterprise activation code" with "abcde"
-    When I press "Activate"
+    When I follow "Activate"
     Then I should see "Invalid enterprise code"
 
   Scenario: added a code from an activated enterprise
@@ -24,7 +24,7 @@ Feature: activate enterprise
     And I am on joaosilva's control panel
     And enterprise "Products Factory" is enabled
     And I fill in "Enterprise activation code" with code of "Products Factory"
-    When I press "Activate"
+    When I follow "Activate"
     Then I should see "This enterprise is already active"
 
   Scenario: added a code from an enterprise with no foundation year or cnpj
@@ -34,7 +34,7 @@ Feature: activate enterprise
       | products-factory | Products Factory | false |
     And I am on joaosilva's control panel
     And I fill in "Enterprise activation code" with code of "Products Factory"
-    When I press "Activate"
+    When I follow "Activate"
     Then I should see "We don't have enough information about your enterprise to identify you."
     And enterprise "Products Factory" should not be blocked
 
@@ -45,9 +45,9 @@ Feature: activate enterprise
       | services-provider | Services Provider | false | 2000 |
     And I am on joaosilva's control panel
     And I fill in "Enterprise activation code" with code of "Services Provider"
-    And I press "Activate"
+    And I follow "Activate"
     And I fill in "What year your enterprise was founded? It must have 4 digits, eg 1990." with "1999"
-    When I press "Continue"
+    When I follow "Continue"
     Then I should see "There was a failed atempt of activation and the automated activation was disabled for your security."
     And enterprise "Services Provider" should be blocked
 
@@ -58,9 +58,9 @@ Feature: activate enterprise
       | services-provider | Services Provider | false | 94.132.024/0001-48 |
     And I am on joaosilva's control panel
     And I fill in "Enterprise activation code" with code of "Services Provider"
-    And I press "Activate"
+    And I follow "Activate"
     And I fill in "What is the CNPJ of your enterprise?" with "12345678912345"
-    When I press "Continue"
+    When I follow "Continue"
     Then I should see "There was a failed atempt of activation and the automated activation was disabled for your security."
     And enterprise "Services Provider" should be blocked
 
@@ -72,11 +72,11 @@ Feature: activate enterprise
       | services-provider | Services Provider | false | 2000 |
     And I go to joaosilva's control panel
     And I fill in "Enterprise activation code" with code of "Services Provider"
-    And I press "Activate"
+    And I follow "Activate"
     And I fill in "What year your enterprise was founded? It must have 4 digits, eg 1990." with "2000"
-    And I press "Continue"
+    And I follow "Continue"
     And I check "I read the terms of use and accepted them"
-    When I press "Continue"
+    When I follow "Continue"
     Then I should see "Services Provider was successfuly activated. Now you may go to your control panel or to the control panel of your enterprise"
     And enterprise "Services Provider" should be enabled
     And "Joao Silva" is admin of "Services Provider"
@@ -93,11 +93,11 @@ Feature: activate enterprise
     And "Services Provider 2" doesnt have "Active Template" as template
     And I go to joaosilva's control panel
     And I fill in "Enterprise activation code" with code of "Services Provider 2"
-    And I press "Activate"
+    And I follow "Activate"
     And I fill in "What year your enterprise was founded? It must have 4 digits, eg 1990." with "2000"
-    And I press "Continue"
+    And I follow "Continue"
     And I check "I read the terms of use and accepted them"
-    When I press "Continue"
+    When I follow "Continue"
     Then I should see "Services Provider 2 was successfuly activated. Now you may go to your control panel or to the control panel of your enterprise"
     And enterprise "Services Provider 2" should be enabled
     And "Joao Silva" is admin of "Services Provider 2"
@@ -115,11 +115,11 @@ Feature: activate enterprise
     And "Services Provider 3" doesnt have "Active Template" as template
     When I go to joaosilva's control panel
     And I fill in "Enterprise activation code" with code of "Services Provider 3"
-    And I press "Activate"
+    And I follow "Activate"
     And I fill in "What year your enterprise was founded? It must have 4 digits, eg 1990." with "2000"
-    And I press "Continue"
+    And I follow "Continue"
     And I check "I read the terms of use and accepted them"
-    When I press "Continue"
+    When I follow "Continue"
     Then I should see "Services Provider 3 was successfuly activated. Now you may go to your control panel or to the control panel of your enterprise"
     And enterprise "Services Provider 3" should be enabled
     And "Joao Silva" is admin of "Services Provider 3"
