@@ -9,6 +9,9 @@ Developers
 ==========
 
 Alan Freihof Tygel <alantygel@gmail.com>
+Alax Alves <alaxallves@gmail.com>
+AlaxAlves <alaxallves@gmail.com>
+Alaxalves <lucasmartions456@hotmail.com>
 Alessandro Caetano <alesasndro.caetanob@gmail.com>
 Alessandro Caetano <alessandro.caetanob@gmail.com>
 Alessandro Palmeira <alessandro.palmeira@gmail.com>
@@ -19,12 +22,19 @@ Alipio muñiz <alipio@ecoalternative.net>
 Ana Losnak <analosnak@gmail.com>
 Ana Paula Vargas <anapaulavnoronha@gmail.com>
 Andre Bedran <bedran.fleck@gmail.com>
+Andre de Sousa <andre.filho001@outlook.com>
+Andre de Sousa C.F. <andre.filho001@outlook.com>
+Andre de Sousa Costa Filho <andre.filho001@outlook.com>
+Andre de Sousa Costa Filho <dedaoskater@hotmail.com>
 Andre de Sousa Costa filho <dedaoskater@hotmail.com>
 Andrey Aleksanyants <aaleksanyants@yahoo.com>
 André Guedes <andrebsguedes@gmail.com>
+André de Sousa C.F <andre.filho001@outlook.com>
+André de Sousa C.F. <andre.filho001@outlook.com>
 Antonio Terceiro <terceiro@colivre.coop.br>
 Arthur Assis <arthur120496@gmail.com>
 Arthur Del Esposte <arthurmde@gmail.com>
+Arthur Diniz <arthurbdiniz@gmail.com>
 Arthur Jahn <stutrzbecher@gmail.com>
 Artur Bersan de Faria <arturbersan@gmail.com>
 Athos Ribeiro <athoscribeiro@gmail.com>
@@ -84,6 +94,7 @@ Hugo Melo <hugo@riseup.net>
 Iago Rodrigues <iago006@hotmail.com>
 Iago Rodrigues <iago006@hotmailcom>
 Iasmin Mendes <mendesiasmin96@gmail.com>
+Iasmin Mendes <mendesiasmin@colivre.coop.br>
 Iolane Andrade <andrade.icaa@gmail.com>
 Iryna Pruitt <jdpruitt2807@prodigy.net>
 Isaac Canan <isaac@intelletto.com.br>
@@ -117,11 +128,17 @@ Luan Guimarães <guimaraesluan@me.com>
 Luan Guimarães <luang@protonmail.ch>
 Lucas Couto <loc.unb@gmail.com>
 Lucas Kanashiro <kanashiro.duarte@gmail.com>
+Lucas Malta <lucas50xd@hotmail.com>
 Lucas Malta <lucasbellboy@gmail.com>
+Lucas Martins <lucas465@hotmail.com>
+Lucas Martis <lucas465@hotmail.com>
 Lucas Melo <lucaspradomelo@gmail.com>
 Lucas Moura <lucas.moura128@gmail.com>
 Lucas Severo <lucassalves65@gmail.com>
+LucasMartins <alaxallves@gmail.com>
+LucasMartins <lucas465@hotmail.com>
 Luciano Prestes Cavalcanti <lucianopcbr@gmail.com>
+Lucilia <lucilia.p.oliveira@gmail.com>
 Luis David Aguilar Carlos <ludwig9003@gmail.com>
 Luiz Fernando de Freitas Matos <luiz@luizff.matos@gmail.com>
 Luiz Matos <luizff.matos@gmail.com>
@@ -131,10 +148,14 @@ Marcelo Júnior <maljunior@gmail.com>
 Marcos Ramos <ms.ramos@outlook.com>
 Marcos Ronaldo <marcos.rpj2@gmail.com>
 Mariel Zasso <noosfero-br@listas.softwarelivre.org>
+MartinsLucas <lucas465@hotmail.com>
 Martín Olivera <molivera@solar.org.ar>
 María Vecino <mariavecino@ecoalternative.net>
 Matheus Faria <matheus.sousa.faria@gmail.com>
 Matheus Miranda <matheusmirandalacerda@gmail.com>
+Matheus Richard <matheusrichardt@gamil.com>
+Matheus Richard <matheusrichardt@gmail.com>
+MatheusRich <matheusrichardt@gmail.com>
 Maurilio Atila <cabelotaina@gmail.com>
 Maxwell Borges Bezerra <maxbborges@gmail.com>
 Melissa Wen <melissa.srw@gmail.com>
@@ -177,8 +198,11 @@ Simião Carvalho <simiaosimis@gmail.com>
 Sires <ranearodrigo1@gmail.com>
 TWS <tablettws@gmail.com>
 Tallys Martins <tallysmartins@yahoo.com.br>
+Thalisson Melo <tallisonmelo46@gmail.com>
 ThalissonMelo <tallisonmelo46@gmail.com>
+ThalissonMelo <tallisonmelo46@hotmail.com>
 ThalissonMelo <tallisonmelo@hotmail.com>
+ThallisonMelo <tallisonmelo46@gmail.com>
 Thiago Casotti <thiago.casotti@uol.com.br>
 Thiago Kairala <thiagor.kairala@gmail.com>
 Thiago Ribeiro <thiagitosouza@hotmail.com>
@@ -196,19 +220,27 @@ Vinicius Borges <vbda123@gmail.com>
 Vinicius Brand <viniciuscb@gmail.com>
 Vinicius Melo <vinimelo@riseup.net>
 Vitor Barbosa <vitornga15@gmail.com>
+Vitor Falcao <vitorfhcosta@gmail.com>
 Vitor Falcão <vitorfhcosta@gmail.com>
 Wilton Rodrigues <braynwilton@gmail.com>
 Yann Lugrin <yann.lugrin@liquid-concept.ch>
 alaxalves <alaxallves@gmail.com>
 anonymous <>
 antoniocoj <_antonio_@hotmail.com>
+arthur0496 <arthur120496@gmail.com>
+arthurbdiniz <arthurbdiniz@gmail.com>
+baronMidnight <andre.filho001@outlook.com>
+baronMidnight <dedaoskater@hotmail.com>
 caiomnt <monturil@mail.com>
 jessicacris <jessica.cris1127@gmail.com>
 lioh <fl.araujo95@gmail.com>
+lucasssm <lucas50dx@hotmail.com>
+lucasssm <lucas50xd@hotmail.com>
 matheuslacerda <matheusmirandalacerda@gmail.com>
 mendesiasmin <mendesiasmin96@gmail.com>
 shshshwhs <diogobeirao10@gmail.com>
 tiagorc <tiagobrasil2005@yahoo.com.br>
+victorcmoura <victor_cmoura@hotmail.com>
 vinimlo <vinimelo@riseup.net>
 Ábner Silva de Oliveira <abner.oliveira@serpro.gov.br>
 Álax Alves <alaxallves@gmail.com>
