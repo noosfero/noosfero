@@ -35,7 +35,7 @@ msgstr "As configurações do plugin Piwik não puderam ser gravadas."
 msgid "Tracking and web analytics to your Noosfero's environment"
 msgstr "Rastreamento e análise web para o seu ambiente Noosfero"
 
-#: ../lib/piwik_plugin.rb:39
+#: ../lib/piwik_plugin.rb:38
 msgid "Piwik"
 msgstr "Piwik"
 

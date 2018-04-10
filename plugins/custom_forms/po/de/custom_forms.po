@@ -23,16 +23,16 @@ msgid "Type"
 msgstr "Typ:"
 
 #, fuzzy
-msgid "Checkboxes"
-msgstr "Checkbox"
+msgid "Multiple choice"
+msgstr "Mehrfachauswahl"
 
 #, fuzzy
 msgid "The %s could not be updated"
 msgstr "Das Formular konnte nicht aktualisiert werden"
 
 #, fuzzy
-msgid "Multiple choice"
-msgstr "Mehrfachauswahl"
+msgid "Checkboxes"
+msgstr "Checkbox"
 
 #, fuzzy
 msgid "The %s could not be removed"
@@ -173,12 +173,6 @@ msgid "do not accept multiple answers"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr "E-Mail"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
 #: ../lib/custom_forms_plugin/form.rb:44
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
@@ -186,6 +180,12 @@ msgstr "E-Mail"
 #: ../views/shared/_form.html.erb:6
 msgid "Name"
 msgstr "Name"
+
+#: ../lib/custom_forms_plugin/csv_handler.rb:5
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
+msgstr "E-Mail"
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:26
 msgid "Timestamp"
@@ -661,15 +661,15 @@ msgid "Time"
 msgstr "Zeit"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
-msgid "Sort by"
-msgstr "Sortieren nach"
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
 #: ../views/custom_forms_plugin_profile/_text.html.erb:8
 msgid "User"
 msgstr "Nutzer"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
+msgid "Sort by"
+msgstr "Sortieren nach"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:44
@@ -745,11 +745,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Partial results"
+msgid "Final results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
+msgid "Partial results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
@@ -828,11 +828,9 @@ msgstr ""
 #~ msgid "Custom"
 #~ msgstr "Benutzerdefiniert"
 
-#, fuzzy
 #~ msgid "Custom access definitions"
 #~ msgstr "Benutzerdefiniert"
 
-#, fuzzy
 #~ msgid "Result Access"
 #~ msgstr "Zugriff"
 

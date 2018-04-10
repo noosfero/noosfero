@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-10 00:10+0000\n"
-"PO-Revision-Date: 2018-04-10 00:10+0000\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -27,14 +27,14 @@ msgid "A plugin that display comments divided by paragraphs."
 msgstr ""
 
 #: ../lib/comment_paragraph_plugin.rb:52
-msgid "Deactivate Comments"
-msgstr ""
-
-#: ../lib/comment_paragraph_plugin.rb:52
 msgid "Activate Comments"
 msgstr ""
 
-#: ../lib/comment_paragraph_plugin.rb:58
+#: ../lib/comment_paragraph_plugin.rb:52
+msgid "Deactivate Comments"
+msgstr ""
+
+#: ../lib/comment_paragraph_plugin.rb:60
 msgid "Export Comments"
 msgstr ""
 

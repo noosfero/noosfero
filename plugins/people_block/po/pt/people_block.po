@@ -66,8 +66,10 @@ msgid "A plugin that adds a people block"
 msgstr "Um plugin que adiciona um bloco de pessoas"
 
 #: ../views/blocks/footers/friends.html.erb:1
-msgid "friends|View all"
-msgstr "Ver todos"
+#: ../views/blocks/footers/members.html.erb:2
+#: ../views/blocks/footers/people.html.erb:1
+msgid "View all"
+msgstr "Ver todos(as)"
 
 #: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
@@ -80,3 +82,7 @@ msgstr "Veja todas as sugestões"
 #: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr "Filtrar por papel:"
+
+#: ../views/blocks/footers/friends.html.erb:1
+#~ msgid "friends|View all"
+#~ msgstr "Ver todos"

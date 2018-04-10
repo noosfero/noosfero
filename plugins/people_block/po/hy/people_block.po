@@ -39,10 +39,6 @@ msgid "{#} %s"
 msgstr "%{num} խմբեր"
 
 #, fuzzy
-msgid "friends|View all"
-msgstr "Տեսնել բոլորին"
-
-#, fuzzy
 msgid "A plugin that adds a people block"
 msgstr "Ձեր խմբերը ցուցադրող բաժին"
 
@@ -62,6 +58,12 @@ msgstr ""
 msgid "Clicking a person takes you to his/her homepage"
 msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
 
+#: ../views/blocks/footers/friends.html.erb:1
+#: ../views/blocks/footers/members.html.erb:2
+#: ../views/blocks/footers/people.html.erb:1
+msgid "View all"
+msgstr ""
+
 #: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
 msgstr ""
@@ -73,3 +75,7 @@ msgstr ""
 #: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr ""
+
+#, fuzzy
+#~ msgid "friends|View all"
+#~ msgstr "Տեսնել բոլորին"

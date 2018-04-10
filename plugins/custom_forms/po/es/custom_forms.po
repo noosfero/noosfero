@@ -246,12 +246,6 @@ msgid "do not accept multiple answers"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr "Correo electrónico"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
 #: ../lib/custom_forms_plugin/form.rb:44
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
@@ -259,6 +253,12 @@ msgstr "Correo electrónico"
 #: ../views/shared/_form.html.erb:6
 msgid "Name"
 msgstr "Nombre"
+
+#: ../lib/custom_forms_plugin/csv_handler.rb:5
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
+msgstr "Correo electrónico"
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:26
 msgid "Timestamp"
@@ -424,11 +424,11 @@ msgid "This block show last polls performed in profile."
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Single Choice"
+msgid "Multiple Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Multiple Choice"
+msgid "Single Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/survey_block.rb:12
@@ -704,11 +704,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Partial results"
+msgid "Final results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
+msgid "Partial results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
@@ -781,18 +781,14 @@ msgstr ""
 #~ msgid "There is no profile with the provided id."
 #~ msgstr "No hay perfil con este id."
 
-#, fuzzy
 #~ msgid "Invalid type format of access."
 #~ msgstr "Nombre nombre de ciudad o estado inválido."
 
-#, fuzzy
 #~ msgid "Custom"
 #~ msgstr "Cliente"
 
-#, fuzzy
 #~ msgid "Custom access definitions"
 #~ msgstr "Cliente"
 
-#, fuzzy
 #~ msgid "Result Access"
 #~ msgstr "Accesor"

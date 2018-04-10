@@ -269,12 +269,6 @@ msgid "do not accept multiple answers"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr "Courriel"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
 #: ../lib/custom_forms_plugin/form.rb:44
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
@@ -282,6 +276,12 @@ msgstr "Courriel"
 #: ../views/shared/_form.html.erb:6
 msgid "Name"
 msgstr "Nom"
+
+#: ../lib/custom_forms_plugin/csv_handler.rb:5
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
+msgstr "Courriel"
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:26
 msgid "Timestamp"
@@ -646,17 +646,17 @@ msgid "New %s"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Utilisateur"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:14
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:22
 msgid "Time"
 msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Utilisateur"
 
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:4
 msgid "Report for submissions import"
@@ -701,11 +701,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
+msgid "Partial results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Partial results"
+msgid "Final results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
@@ -778,14 +778,11 @@ msgstr ""
 #~ msgid "There is no profile with the provided id."
 #~ msgstr "Il n'y a pas le profil avec l'ID fourni."
 
-#, fuzzy
 #~ msgid "Custom"
 #~ msgstr "En-tête sur-mesure"
 
-#, fuzzy
 #~ msgid "Custom access definitions"
 #~ msgstr "En-tête sur-mesure"
 
-#, fuzzy
 #~ msgid "Result Access"
 #~ msgstr "Accepter"

@@ -31,7 +31,7 @@ msgstr ""
 "Um plugin que adiciona um bloco onde você pode adicionar vídeos do youtube, "
 "vimeo e html5."
 
-#: ../lib/video_plugin.rb:41
+#: ../lib/video_plugin.rb:38
 msgid "New Video"
 msgstr "Novo Vídeo"
 

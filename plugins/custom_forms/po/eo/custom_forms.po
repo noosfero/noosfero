@@ -126,18 +126,18 @@ msgid "do not accept multiple answers"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
 #: ../lib/custom_forms_plugin/form.rb:44
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
 #: ../views/shared/_form.html.erb:6
 msgid "Name"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/csv_handler.rb:5
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:26
@@ -332,11 +332,11 @@ msgid "This block show last polls performed in profile."
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Single Choice"
+msgid "Multiple Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Multiple Choice"
+msgid "Single Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/survey_block.rb:12
@@ -489,11 +489,11 @@ msgid "Type in your question"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Checkboxes"
+msgid "Multiple choice"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Multiple choice"
+msgid "Checkboxes"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
@@ -652,9 +652,8 @@ msgid "There are no pending submissions for this form."
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
+msgid "Sort by"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
@@ -665,8 +664,9 @@ msgid "Time"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
-msgid "Sort by"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
@@ -748,11 +748,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
+msgid "Partial results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Partial results"
+msgid "Final results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
@@ -777,7 +777,7 @@ msgstr ""
 msgid "There is no answers for this question"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:47
+#: ../views/custom_forms_plugin_profile/review.html.erb:46
 msgid "View all queries"
 msgstr ""
 

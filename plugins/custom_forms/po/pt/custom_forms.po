@@ -136,12 +136,6 @@ msgid "do not accept multiple answers"
 msgstr "não aceita múltiplas respostas"
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr "E-mail"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
 #: ../lib/custom_forms_plugin/form.rb:44
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
@@ -149,6 +143,12 @@ msgstr "E-mail"
 #: ../views/shared/_form.html.erb:6
 msgid "Name"
 msgstr "Nome"
+
+#: ../lib/custom_forms_plugin/csv_handler.rb:5
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
+msgstr "E-mail"
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:26
 msgid "Timestamp"
@@ -344,12 +344,12 @@ msgid "This block show last polls performed in profile."
 msgstr "Esse bloco mostra as últimas enquetes realizadas no perfil."
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Single Choice"
-msgstr "Escolha Única"
-
-#: ../lib/custom_forms_plugin/select_field.rb:11
 msgid "Multiple Choice"
 msgstr "Múltipla Escolha"
+
+#: ../lib/custom_forms_plugin/select_field.rb:11
+msgid "Single Choice"
+msgstr "Escolha Única"
 
 #: ../lib/custom_forms_plugin/survey_block.rb:12
 msgid "Surveys list in profile"
@@ -501,12 +501,12 @@ msgid "Type in your question"
 msgstr "Digite a sua pergunta"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Checkboxes"
-msgstr "Checkboxes"
-
-#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
 msgid "Multiple choice"
 msgstr "Múltipla escolha"
+
+#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
+msgid "Checkboxes"
+msgstr "Checkboxes"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:38
@@ -671,10 +671,9 @@ msgid "There are no pending submissions for this form."
 msgstr "Não há submissões pendentes para esse formulário."
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Usuário"
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
+msgid "Sort by"
+msgstr "Ordenar por"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:14
@@ -684,9 +683,10 @@ msgid "Time"
 msgstr "Tempo"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
-msgid "Sort by"
-msgstr "Ordenar por"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Usuário"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:44
@@ -769,12 +769,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
-msgstr "Resultados finais"
-
-#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
 msgid "Partial results"
 msgstr "Resultados parciais"
+
+#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
+msgid "Final results"
+msgstr "Resultados finais"
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
 msgid "No queries found! Try different search terms or filters."
@@ -798,7 +798,7 @@ msgstr "Consultas de %s"
 msgid "There is no answers for this question"
 msgstr "Não há respostas para essa pergunta"
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:47
+#: ../views/custom_forms_plugin_profile/review.html.erb:46
 msgid "View all queries"
 msgstr "Ver todas as consultas"
 

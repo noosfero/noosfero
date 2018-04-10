@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-14 13:36+0000\n"
-"PO-Revision-Date: 2016-09-14 13:36+0000\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -22,10 +22,14 @@ msgstr ""
 msgid "Provide a button to mark a comment as read."
 msgstr ""
 
-#: ../lib/mark_comment_as_read_plugin.rb:23
+#: ../lib/mark_comment_as_read_plugin.rb:24
 msgid "Mark as not read"
 msgstr ""
 
-#: ../lib/mark_comment_as_read_plugin.rb:24
+#: ../lib/mark_comment_as_read_plugin.rb:33
 msgid "Mark as read"
+msgstr ""
+
+#: ../lib/mark_comment_as_read_plugin.rb:43
+msgid "Comment read"
 msgstr ""

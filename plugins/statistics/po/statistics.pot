@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 15:45+0000\n"
-"PO-Revision-Date: 2017-05-09 15:45+0000\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -30,27 +30,27 @@ msgstr ""
 msgid "A plugin that adds a block where you can see statistics of it's context."
 msgstr ""
 
-#: ../views/blocks/statistics.html.erb:7
+#: ../views/blocks/statistics.html.erb:9
 msgid "users"
 msgstr ""
 
-#: ../views/blocks/statistics.html.erb:10
+#: ../views/blocks/statistics.html.erb:16
 msgid "enterprises"
 msgstr ""
 
-#: ../views/blocks/statistics.html.erb:13
+#: ../views/blocks/statistics.html.erb:23
 msgid "products"
 msgstr ""
 
-#: ../views/blocks/statistics.html.erb:16
+#: ../views/blocks/statistics.html.erb:30
 msgid "communities"
 msgstr ""
 
-#: ../views/blocks/statistics.html.erb:19
+#: ../views/blocks/statistics.html.erb:37
 msgid "categories"
 msgstr ""
 
-#: ../views/blocks/statistics.html.erb:28
+#: ../views/blocks/statistics.html.erb:58
 msgid "hits"
 msgstr ""
 

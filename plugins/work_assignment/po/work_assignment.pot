@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-10 00:10+0000\n"
-"PO-Revision-Date: 2018-04-10 00:10+0000\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -35,15 +35,15 @@ msgid "Name"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "e-Mail"
+msgstr ""
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "Subject"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "Message"
-msgstr ""
-
-#: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "e-Mail"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/helper.rb:9
@@ -108,11 +108,11 @@ msgid ""
 "ly, click in the \"Upload\" button to submit the files."
 msgstr ""
 
-#: ../views/content_viewer/work_assignment.html.erb:22
+#: ../views/content_viewer/work_assignment.html.erb:24
 msgid "Uploading files to %s"
 msgstr ""
 
-#: ../views/content_viewer/work_assignment.html.erb:27
+#: ../views/content_viewer/work_assignment.html.erb:29
 msgid "Submissions"
 msgstr ""
 

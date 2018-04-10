@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-10 00:10+0000\n"
-"PO-Revision-Date: 2018-04-10 00:10+0000\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -425,13 +425,13 @@ msgid "type a category for the product"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_description.html.erb:3
-msgid "Edit description"
-msgstr ""
-
-#: ../views/products_plugin/page/_display_description.html.erb:3
 msgid ""
 "Edit the description of your product and give consumers more information about"
 " what you are advertising"
+msgstr ""
+
+#: ../views/products_plugin/page/_display_description.html.erb:3
+msgid "Edit description"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_description.html.erb:8
@@ -449,13 +449,13 @@ msgid "Change image"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_info.html.erb:7
-msgid ""
-"Click here to edit price, discount and qualifiers/certifiers to make your prod"
-"uct more attractive and detailed for the consumers"
+msgid "Edit basic information"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_info.html.erb:7
-msgid "Edit basic information"
+msgid ""
+"Click here to edit price, discount and qualifiers/certifiers to make your prod"
+"uct more attractive and detailed for the consumers"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_info.html.erb:9
@@ -555,15 +555,15 @@ msgid "Available"
 msgstr ""
 
 #: ../views/products_plugin/page/_edit_info.html.erb:22
-#: ../views/products_plugin/page/_edit_input.html.erb:20
-#: ../views/products_plugin/page/_edit_input.html.erb:29
-msgid "Yes"
-msgstr ""
-
-#: ../views/products_plugin/page/_edit_info.html.erb:22
 #: ../views/products_plugin/page/_edit_input.html.erb:22
 #: ../views/products_plugin/page/_edit_input.html.erb:31
 msgid "No"
+msgstr ""
+
+#: ../views/products_plugin/page/_edit_info.html.erb:22
+#: ../views/products_plugin/page/_edit_input.html.erb:20
+#: ../views/products_plugin/page/_edit_input.html.erb:29
+msgid "Yes"
 msgstr ""
 
 #: ../views/products_plugin/page/_edit_info.html.erb:25
@@ -623,11 +623,11 @@ msgid "Image:"
 msgstr ""
 
 #: ../views/products_plugin/page/_form.html.erb:13
-msgid "Save changes"
+msgid "Create product"
 msgstr ""
 
 #: ../views/products_plugin/page/_form.html.erb:13
-msgid "Create product"
+msgid "Save changes"
 msgstr ""
 
 #: ../views/products_plugin/page/_manage_product_details.html.erb:9
@@ -650,8 +650,8 @@ msgstr ""
 
 #: ../views/products_plugin/page/_price_composition_bar.html.erb:20
 msgid ""
-"The production cost of your product is not described yet. If you want to displ"
-"ay the price composition, please add all the costs"
+"The production cost of your product is fully described and will be displayed o"
+"n your product's page"
 msgstr ""
 
 #: ../views/products_plugin/page/_price_composition_bar.html.erb:20
@@ -660,8 +660,8 @@ msgstr ""
 
 #: ../views/products_plugin/page/_price_composition_bar.html.erb:20
 msgid ""
-"The production cost of your product is fully described and will be displayed o"
-"n your product's page"
+"The production cost of your product is not described yet. If you want to displ"
+"ay the price composition, please add all the costs"
 msgstr ""
 
 #: ../views/products_plugin/page/_price_details_button.html.erb:2
@@ -805,4 +805,8 @@ msgstr ""
 
 #: ../views/search/products.html.erb:7
 msgid "Type words about the %s you're looking for"
+msgstr ""
+
+#: ../views/search/products.html.erb:13
+msgid "Filter by category"
 msgstr ""

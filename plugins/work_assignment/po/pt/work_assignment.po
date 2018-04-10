@@ -23,9 +23,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.5\n"
 
-msgid "Submissions"
-msgstr "Submissões"
-
 #: ../lib/work_assignment_plugin.rb:8
 msgid "New kind of content for organizations."
 msgstr "Novo tipo de conteúdo para organizações."
@@ -43,16 +40,16 @@ msgid "Name"
 msgstr "Nome"
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Message"
-msgstr "Mensagem"
+msgid "e-Mail"
+msgstr "e-Mail"
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "Subject"
 msgstr "Assunto"
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "e-Mail"
-msgstr "e-Mail"
+msgid "Message"
+msgstr "Mensagem"
 
 #: ../lib/work_assignment_plugin/helper.rb:9
 msgid "Submission date"
@@ -123,9 +120,13 @@ msgstr ""
 "vídeos, audios). Por fim, clique no botão \"Enviar\" para submeter os "
 "arquivos."
 
-#: ../views/content_viewer/work_assignment.html.erb:22
+#: ../views/content_viewer/work_assignment.html.erb:24
 msgid "Uploading files to %s"
 msgstr "Enviando arquivos para %s"
+
+#: ../views/content_viewer/work_assignment.html.erb:29
+msgid "Submissions"
+msgstr "Submissões"
 
 #: ../views/work_assignment_plugin_myprofile/edit_visibility.html.erb:16
 msgid "Save"

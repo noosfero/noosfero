@@ -23,14 +23,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
+#: ../lib/social_statistics_plugin.rb:4
+#: ../views/layouts/blazer/application.html.erb:6
 msgid "Social Statistics"
 msgstr "Estatísticas Sociais"
 
+#: ../lib/social_statistics_plugin.rb:8
 msgid "Provides customized social statistics graphs and checks."
 msgstr "Provê checagens e gráficos sociais estatísticos customizados."
 
+#: ../lib/social_statistics_plugin.rb:18
 msgid "Stats"
 msgstr "Estatísticas"
 
+#: ../lib/social_statistics_plugin.rb:22
 msgid "Manage the environment statistics."
 msgstr "Gerenciar as estatísticas do ambiente."
