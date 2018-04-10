@@ -13,49 +13,50 @@ platform :jruby do
 end
 
 gem 'rails',                    '~> 4.2.4'
-gem 'fast_gettext',             '~> 0.9'
-gem 'acts-as-taggable-on',      '~> 3.5'
-gem 'rails_autolink',           '~> 1.1.5'
-gem 'ruby-feedparser',          '~> 0.7'
-gem 'daemons',                  '~> 1.1'
+gem 'fast_gettext'
+gem 'acts-as-taggable-on'
+gem 'rails_autolink'
+gem 'ruby-feedparser'
+gem 'daemons'
 gem 'nokogiri',                 (if RUBY_VERSION >= '2.4.0' then '~> 1.7.0' else '~> 1.6.0' end)
-gem 'will_paginate',            '~> 3.0.7'
-gem 'pothoven-attachment_fu',   '~> 3.2.16'
+gem 'mini_portile2'
+gem 'will_paginate'
+gem 'pothoven-attachment_fu'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'rake', :require => false
-gem 'rest-client',              '~> 1.6'
-gem 'exception_notification',   '~> 4.0.1'
-gem 'gettext',                  '~> 3.1', :require => false
-gem 'locale',                   '~> 2.1'
-gem 'whenever',                 '~> 0.9.4', :require => false
-gem 'eita-jrails', '~> 0.10.0', require: 'jrails'
-gem 'diffy',                    '~> 3.0'
+gem 'rest-client'
+gem 'exception_notification'
+gem 'gettext', :require => false
+gem 'locale'
+gem 'whenever', :require => false
+gem 'eita-jrails', require: 'jrails'
+gem 'diffy'
 gem 'slim'
 gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 gem 'font-awesome-sass'
-gem 'rspec',                  '~> 3.3'
-gem 'rspec-rails',            '~> 3.2'
+gem 'rspec'
+gem 'rspec-rails'
 
 # API dependencies
-gem 'grape',                    '~> 0.12'
-gem 'grape-entity',             '~>0.4.8'
+gem 'grape'
+gem 'grape-entity'
 gem 'grape_logging'
 gem 'rack-cors'
 gem 'rack-contrib'
-gem 'api-pagination',           '>= 4.1.1'
-gem 'liquid',                   '>= 3.0.3'
+gem 'api-pagination'
+gem 'liquid'
 
 # asset pipeline
-gem 'uglifier', '>= 1.0.3'
+gem 'uglifier'
 gem 'sass-rails'
-gem 'sass', '>= 3.4.6'
-gem 'sprockets-rails', '~> 2.1'
+gem 'sass'
+gem 'sprockets-rails'
 
-gem 'serviceworker-rails', '~> 0.5.5'
-gem 'webpush',             '~> 0.2.5'
+gem 'serviceworker-rails'
+gem 'webpush'
 
 # gems to enable rails3 behaviour
 gem 'protected_attributes'
@@ -80,13 +81,13 @@ group :test do
 end
 
 group :cucumber, :test do
-  gem 'capybara',               '~> 2.15.0'
+  gem 'capybara'
   gem 'launchy'
-  gem 'cucumber',               '~> 1.3'
-  gem 'cucumber-rails',         '~> 1.4.2', require: false
-  gem 'database_cleaner',       '~> 1.3'
+  gem 'cucumber'
+  gem 'cucumber-rails', require: false
+  gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
-  gem 'selenium-webdriver',     '>= 2.53', '< 3.0'
+  gem 'selenium-webdriver'
   gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
 end
 

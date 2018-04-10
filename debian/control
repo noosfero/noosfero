@@ -38,6 +38,8 @@ Depends: adduser,
          exim4 | mail-transport-agent,
          git,
          iso-codes,
+         libmagickcore-dev,
+         libmagickwand-dev,
          memcached,
          rails (>= 2:4.2),
          rake,
@@ -99,9 +101,11 @@ Depends: adduser,
          ruby-will-paginate (>> 3.0.5-1),
          ruby-slim,
          unicorn (>= 4.8),
+         pkg-config,
          postgresql,
          postgresql-client,
          postgresql-contrib,
+         zlib1g-dev
          ${misc:Depends}
 Description: free web-based platform for social networks
  Noosfero is a web platform for social and solidarity economy networks with
