@@ -102,7 +102,7 @@ Depends: adduser,
          postgresql,
          postgresql-client,
          postgresql-contrib,
-         zlib1g-dev
+         zlib1g-dev,
          ${misc:Depends}
 Description: free web-based platform for social networks
  Noosfero is a web platform for social and solidarity economy networks with
