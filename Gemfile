@@ -1,10 +1,16 @@
 source "https://rubygems.org"
+ruby "2.4.1"
+
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
 
 platform :ruby do
-  gem 'pg',                     '~> 0.17'
+  gem 'pg',                     '~> 1.0'
   gem 'rmagick',                '~> 2.13', require: false
   gem 'RedCloth',               '~> 4.2'
-  gem 'unicorn',                '~> 4.8'
+  gem 'unicorn',                '~> 5.4'
 end
 
 platform :jruby do
