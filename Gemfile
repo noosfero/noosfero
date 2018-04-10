@@ -19,7 +19,7 @@ gem 'rails_autolink'
 gem 'ruby-feedparser'
 gem 'daemons'
 gem 'nokogiri',                 (if RUBY_VERSION >= '2.4.0' then '~> 1.8.2' else '~> 1.6.0' end)
-gem 'mini_portile2',		'~> 2.3.0'
+gem 'mini_portile2',		        '~> 2.3.0'
 gem 'will_paginate'
 gem 'pothoven-attachment_fu'
 gem 'delayed_job'
@@ -30,13 +30,18 @@ gem 'exception_notification'
 gem 'gettext', :require => false
 gem 'locale'
 gem 'whenever', :require => false
-gem 'eita-jrails',      '~> 0.10.0'
+gem 'eita-jrails',              '~> 0.10.0'
 gem 'diffy'
 gem 'slim'
 gem 'activerecord-session_store', ('1.1.1' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'font-awesome-sass'
 gem 'rpush'
+gem 'acts_as_list',             '~> 0.9.11'
+gem 'acts_as_tree',             '~> 2.7.1'
+gem 'validates_as_cnpj',        '~> 0.2.1'
+gem 'action_tracker',           '~> 1.0.2'
+gem 'contacts',                 '~> 1.2.4'
 
 # API dependencies
 gem 'grape'
@@ -49,16 +54,16 @@ gem 'liquid'
 
 # asset pipeline
 gem 'uglifier'
-gem 'sass-rails',		'~> 5.0.7'
-gem 'sass',			'~> 3.5.6'
-gem 'sprockets-rails',		'~> 3.2.1'
+gem 'sass-rails',		            '~> 5.0.7'
+gem 'sass',			                '~> 3.5.6'
+gem 'sprockets-rails',	      	'~> 3.2.1'
 
 gem 'serviceworker-rails'
 gem 'webpush'
 
 # gems to enable rails3 behaviour
 gem 'protected_attributes_continued'
-gem 'rails-observers',		'~> 0.1.5'
+gem 'rails-observers',		      '~> 0.1.5'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
@@ -81,10 +86,10 @@ group :test do
 end
 
 group :cucumber, :test do
-  gem 'capybara',		'~> 2.18.0'
+  gem 'capybara',	             	'~> 2.18.0'
   gem 'launchy'
   gem 'cucumber'
-  gem 'cucumber-rails',		'~> 1.5.0', :require => false
+  gem 'cucumber-rails',	       	'~> 1.5.0', :require => false
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver'
