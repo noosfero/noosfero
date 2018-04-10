@@ -19,19 +19,24 @@ Alipio muñiz <alipio@ecoalternative.net>
 Ana Losnak <analosnak@gmail.com>
 Ana Paula Vargas <anapaulavnoronha@gmail.com>
 Andre Bedran <bedran.fleck@gmail.com>
+Andre de Sousa Costa filho <dedaoskater@hotmail.com>
 Andrey Aleksanyants <aaleksanyants@yahoo.com>
 André Guedes <andrebsguedes@gmail.com>
 Antonio Terceiro <terceiro@colivre.coop.br>
+Arthur Assis <arthur120496@gmail.com>
 Arthur Del Esposte <arthurmde@gmail.com>
 Arthur Jahn <stutrzbecher@gmail.com>
 Artur Bersan de Faria <arturbersan@gmail.com>
 Athos Ribeiro <athoscribeiro@gmail.com>
 Aurelio A. Heckert <aurium@colivre.coop.br>
 Becca Cook <b.cook28@gmail.com>
+Benjamin <bennyheld999@gmx.de>
 Braulio Bhavamitra <braulio@eita.org.br>
 Braulio Bhavamitra <braulio@prout.io>
 Brenddon Gontijo <brenddongontijo@msn.com>
+Caio <monturil@mail.com>
 Caio Formiga <caio.formiga@gmail.com>
+Caio Monturil <monturil@mail.com>
 Caio SBA <caio@colivre.coop.br>
 Caio Salgado <caio.csalgado@gmail.com>
 Caio Tiago Oliveira <caiotiago@colivre.coop.br>
@@ -67,6 +72,7 @@ Gabriela Navarro <navarro1703@gmail.com>
 Gonzalo Exequiel Pedone <hipersayan.x@gmail.com>
 Grazieno Pellegrino <grazieno@gmail.com>
 Guilherme C. Muniz <guilherme.cmuniz@gmail.com>
+Guilherme Lacerda <guiglacerda@gmail.com>
 Guilherme Rojas <guilhermehrojas@gmail.com>
 Gustavo Cavalcante <gustavo.cavalcante.oliveira@live.com>
 Gustavo Coelho <gust.rod.coelho@gmail.com>
@@ -108,8 +114,10 @@ Leandro Veloso <leandrovelosorodrigues@gmail.com>
 Leonardo Soares <leors75@gmail.com>
 LinguÁgil 2010 <linguagil.bahia@gmail.com>
 Luan Guimarães <guimaraesluan@me.com>
+Luan Guimarães <luang@protonmail.ch>
 Lucas Couto <loc.unb@gmail.com>
 Lucas Kanashiro <kanashiro.duarte@gmail.com>
+Lucas Malta <lucasbellboy@gmail.com>
 Lucas Melo <lucaspradomelo@gmail.com>
 Lucas Moura <lucas.moura128@gmail.com>
 Lucas Severo <lucassalves65@gmail.com>
@@ -128,6 +136,7 @@ María Vecino <mariavecino@ecoalternative.net>
 Matheus Faria <matheus.sousa.faria@gmail.com>
 Matheus Miranda <matheusmirandalacerda@gmail.com>
 Maurilio Atila <cabelotaina@gmail.com>
+Maxwell Borges Bezerra <maxbborges@gmail.com>
 Melissa Wen <melissa.srw@gmail.com>
 Michal Čihař <michal@cihar.com>
 Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>
@@ -137,6 +146,7 @@ Nanda Lopes <nanda.listas+psl@gmail.com>
 Nathania Saphira <nathaniasaphira@gmail.com>
 Naíla Alves <naila@colivre.coop.br>
 Nicacio Arruda <nicacionetobsb@gmail.com>
+Nicolas Alvarado <naav972@gmail.com>
 Niemand Jedermann <predatorix@web.de>
 Olivier Meinguet <olivier.meinguet@claroline.net>
 Omar Junior <omarroinuj@gmail.com>
@@ -164,8 +174,11 @@ Ronny Kursawe <kursawe.ronny@googlemail.com>
 Sabryna Sousa <sabryna.sousa1323@gmail.com>
 Samuel R. C. Vale <srcvale@holoscopio.com>
 Simião Carvalho <simiaosimis@gmail.com>
+Sires <ranearodrigo1@gmail.com>
 TWS <tablettws@gmail.com>
 Tallys Martins <tallysmartins@yahoo.com.br>
+ThalissonMelo <tallisonmelo46@gmail.com>
+ThalissonMelo <tallisonmelo@hotmail.com>
 Thiago Casotti <thiago.casotti@uol.com.br>
 Thiago Kairala <thiagor.kairala@gmail.com>
 Thiago Ribeiro <thiagitosouza@hotmail.com>
@@ -177,22 +190,31 @@ Valet 322 <petymakar@gmail.com>
 Victor Costa <vfcosta@gmail.com>
 Victor Fernandes <victor.hmfd@gmail.com>
 Victor Hugo Alves de Carvalho <victorhugodf.ac@gmail.com>
+Victor Moura <victor_cmoura@hotmail.com>
 Victor Navarro <victor.matias.navarro@gmail.com>
 Vinicius Borges <vbda123@gmail.com>
 Vinicius Brand <viniciuscb@gmail.com>
+Vinicius Melo <vinimelo@riseup.net>
 Vitor Barbosa <vitornga15@gmail.com>
+Vitor Falcão <vitorfhcosta@gmail.com>
 Wilton Rodrigues <braynwilton@gmail.com>
 Yann Lugrin <yann.lugrin@liquid-concept.ch>
+alaxalves <alaxallves@gmail.com>
+anonymous <>
 antoniocoj <_antonio_@hotmail.com>
+caiomnt <monturil@mail.com>
 jessicacris <jessica.cris1127@gmail.com>
 lioh <fl.araujo95@gmail.com>
 matheuslacerda <matheusmirandalacerda@gmail.com>
 mendesiasmin <mendesiasmin96@gmail.com>
 shshshwhs <diogobeirao10@gmail.com>
 tiagorc <tiagobrasil2005@yahoo.com.br>
+vinimlo <vinimelo@riseup.net>
 Ábner Silva de Oliveira <abner.oliveira@serpro.gov.br>
+Álax Alves <alaxallves@gmail.com>
 Álvaro Fernando <alvarofernandoms@gmail.com>
 Вадим Кардашьян <iosphone77@gmail.com>
+Марс Ямбар <mjambarmeta@gmail.com>
 
 Ideas, specifications and incentive
 ===================================
