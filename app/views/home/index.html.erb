@@ -4,15 +4,29 @@
     <div id='highlighted-news'>
       <% @highlighted_news.each_with_index do |highlighted, index| %>
         <div class='highlighted-news-item post-<%= index + 1 %>'>
-          <div class='highlighted-news-item post-<%= index + 1 %>-inner'>
-            <h2><%= link_to(h(highlighted.title), highlighted.url, :class => 'post-title') %></h2>
-            <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span>
-            <div class='headline'><%= raw highlighted.lead %></div>
-            <p class='highlighted-news-read-more'>
+          <h2><%= link_to(h(highlighted.title), highlighted.url, :class => 'post-title') %></h2>
+          <span class="post-date"><%= show_date(highlighted.published_at, true) %> </span>
+          <div class='headline'><%= raw highlighted.lead %></div>
+
+          <div class='highlighted-news-item-footer'>
+            <span class='highlighted-news-read-more'>
               <%= link_to(_('Read more'), highlighted.url) %>
-            </p>
-            <br style='clear:both' />
+            </span>
+            <% if environment.admins.include? current_person %>
+              <div class='order-options'>
+                <%= link_to({ action: :reorder, index: index, direction: 'up' },
+                            class: (index == 0 ? 'disabled' : '')) do %>
+                  <%= _('move up') %> <i class='fa fa-angle-up'></i>
+                <% end %>
+                <%= link_to({ action: :reorder, index: index, direction: 'down' },
+                              class: (@portal_news.size == 0 ? 'disabled' : '')) do %>
+                  <%= _('move down') %> <i class='fa fa-angle-down'></i>
+                <% end %>
+                </a>
+              </div>
+            <% end %>
           </div>
+          <br style='clear:both' />
         </div>
       <% end %>
     </div>
@@ -21,10 +35,26 @@
 
     <div id='portal-news'>
       <ul>
-        <% @portal_news.each do |news| %>
-          <li>
-          <span class="post-date"><%= show_date(news.published_at, true) %> </span>
-          <%= link_to(h(news.title), news.url, :class =>  'post-title' ) %>
+        <% @portal_news.each_with_index do |news, index| %>
+          <li class='portal-news-item'>
+            <span class="post-date">
+              <%= show_date(news.published_at, true) %>
+            </span>
+            <%= link_to(h(news.title), news.url, class: 'post-title') %>
+            <% if environment.admins.include? current_person %>
+              <div class='order-options'>
+                <%= link_to({ action: :reorder, direction: 'up',
+                              index: index + @highlighted_news.size },
+                            class: (@highlighted_news.size == 0 ? 'disabled' : '')) do %>
+                  <%= _('move up') %> <i class='fa fa-angle-up'></i>
+                <% end %>
+                <%= link_to({ action: :reorder, direction: 'down',
+                              index: index + @highlighted_news.size },
+                            class: (index == (@portal_news.size - 1) ? 'disabled' : '')) do %>
+                  <%= _('move down') %> <i class='fa fa-angle-down'></i>
+                <% end %>
+              </div>
+            <% end %>
           </li>
         <% end %>
       </ul>
