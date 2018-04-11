@@ -15,6 +15,7 @@ protected
   def expire_caches(profile)
     profile.members.each do |member|
       expire_communities(member) if profile.community?
+      expire_profile_index(member) if profile.community?
       expire_enterprises(member) if profile.enterprise?
       expire_profile_index(member) if profile.enterprise?
     end
