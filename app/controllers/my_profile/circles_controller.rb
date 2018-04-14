@@ -26,7 +26,7 @@ class CirclesController < MyProfileController
         render :partial => "circle_checkbox", :locals => { :circle => circle },
                :status => 201
       else
-        render :text => _('The circle could not be saved'), :status => 400
+        render plain: 'The circle could not be saved', :status => 400
       end
     else
       render_not_found

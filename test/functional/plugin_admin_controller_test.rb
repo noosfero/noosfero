@@ -2,7 +2,7 @@ require_relative '../test_helper'
 
 class PluginAdminController
   def index
-    render :text => 'ok'
+    render plain: 'ok'
   end
 end
 

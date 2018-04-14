@@ -385,7 +385,7 @@ class CmsController < MyProfileController
           format.js
         end
       rescue Exception => exception
-        render :text => exception.to_s, :status => :bad_request
+        render plain: => exception.to_s, :status => :bad_request
       end
     end
   end

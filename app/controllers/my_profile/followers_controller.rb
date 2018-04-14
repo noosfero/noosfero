@@ -28,9 +28,9 @@ class FollowersController < MyProfileController
 
     if followed_profile
       profile.update_profile_circles(followed_profile, selected_circles)
-      render :text => _("Circles of %s updated successfully") % followed_profile.name, :status => 200
+      render plain: _("Circles of %s updated successfully") % followed_profile.name, :status => 200
     else
-      render :text => _("Error: No profile to follow."), :status => 400
+      render plain: "Error: No profile to follow."), :status => 400
     end
   end
 

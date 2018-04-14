@@ -7,7 +7,7 @@ class MailconfController < MyProfileController
   before_filter :check_mail_enabled
   def check_mail_enabled
     unless MailConf.enabled?
-      render :text => "Mail is not enabled in noosfero.", :status => 500
+      render plain: "Mail is not enabled in noosfero.", :status => 500
     end
   end
 

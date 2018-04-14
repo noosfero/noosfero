@@ -111,7 +111,7 @@ module AuthenticatedSystem
       respond_to do |accepts|
         accepts.html do
           if request.xhr?
-            render :text => _('Access denied'), :status => 401
+            render :plain => _('Access denied'), :status => 401
           else
             store_location
             redirect_to :controller => '/account', :action => 'login'
@@ -120,7 +120,7 @@ module AuthenticatedSystem
         accepts.xml do
           headers["Status"]           = "Unauthorized"
           headers["WWW-Authenticate"] = %(Basic realm="Web Password")
-          render :text => "Could't authenticate you", :status => '401 Unauthorized'
+          render plain: "Could't authenticate you", :status => '401 Unauthorized'
         end
       end
       false

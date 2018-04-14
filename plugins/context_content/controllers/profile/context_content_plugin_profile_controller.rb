@@ -14,7 +14,7 @@ class ContextContentPluginProfileController < ProfileController
         page.replace_html "context_content_more_#{block.id}", :file => 'blocks/footers/context_content', :locals => {:block => block}
       end
     else
-      render :text => "invalid page", :status => 500
+      render plain: "Invalid page", :status => 500
     end
    end
 
