@@ -58,7 +58,7 @@ class OrganizationsController < AdminController
         render :text => (_('%s could not be removed') % organization.name).to_json
       end
     else
-      render :nothing => true
+      head :ok
     end
   end
 

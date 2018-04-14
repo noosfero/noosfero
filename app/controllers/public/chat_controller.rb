@@ -20,23 +20,23 @@ class ChatController < PublicController
 
   def toggle
     session[:chat][:status] = session[:chat][:status] == 'opened' ? 'closed' : 'opened'
-    render :nothing => true
+    head :ok
   end
 
   def tab
     session[:chat][:tab_id] = params[:tab_id]
-    render :nothing => true
+    head :ok
   end
 
   def join
     session[:chat][:rooms] << params[:room_id]
     session[:chat][:rooms].uniq!
-    render :nothing => true
+    head :ok
   end
 
   def leave
     session[:chat][:rooms].delete(params[:room_id])
-    render :nothing => true
+    head :ok
   end
 
   def my_session
@@ -73,7 +73,7 @@ class ChatController < PublicController
     if request.xhr?
       current_user.update({:chat_status_at => DateTime.now}.merge(params[:status] || {}))
     end
-    render :nothing => true
+    head :ok
   end
 
   def save_message
