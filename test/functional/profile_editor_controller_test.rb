@@ -1046,7 +1046,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     class TestProfileEditPlugin < Noosfero::Plugin
       def profile_editor_extras
         lambda do
-          (render :text => "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>".html_safe).html_safe
+          (render html: "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>".html_safe).html_safe
         end
       end
     end
