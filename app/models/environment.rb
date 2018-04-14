@@ -24,10 +24,10 @@ class Environment < ApplicationRecord
     false
   end
 
-  has_many :tasks, :dependent => :destroy, :as => 'target'
+  has_many :tasks, dependent:  :destroy, :as => 'target'
   has_many :search_terms, :as => :context
-  has_many :email_templates, :foreign_key => :owner_id
-  has_many :custom_fields, :dependent => :destroy
+  has_many :email_templates, foreign_key:  :owner_id
+  has_many :custom_fields, dependent:  :destroy
   has_many :person_custom_fields, -> { where(customized_type: 'Person')}, class_name: 'CustomField'
   has_many :community_custom_fields, -> { where(customized_type: 'Community')}, class_name: 'CustomField'
   has_many :enterprise_custom_fields, -> { where(customized_type: 'Enterprise')}, class_name: 'CustomField'
@@ -226,7 +226,7 @@ class Environment < ApplicationRecord
 
   # One Environment can be reached by many domains
   has_many :domains, :as => :owner
-  has_many :profiles, :dependent => :destroy
+  has_many :profiles, dependent:  :destroy
 
   has_many :organizations
   has_many :enterprises
@@ -243,10 +243,10 @@ class Environment < ApplicationRecord
   has_many :states
   has_many :cities
 
-  has_many :roles, :dependent => :destroy
+  has_many :roles, dependent:  :destroy
   has_many :kinds
 
-  has_many :mailings, :class_name => 'EnvironmentMailing', :foreign_key => :source_id, :as => 'source'
+  has_many :mailings, class_name:  'EnvironmentMailing', foreign_key:  :source_id, :as => 'source'
 
   acts_as_accessible
 
@@ -779,15 +779,15 @@ class Environment < ApplicationRecord
     self.name || '?'
   end
 
-  has_many :articles, :through => :profiles
+  has_many :articles, through:  :profiles
   def recent_documents(limit = 10, options = {}, pagination = true)
     self.articles.recent(limit, options, pagination)
   end
 
-  has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event'
+  has_many :events, through:  :profiles, source:  :articles, class_name:  'Event'
 
-  has_many :article_tags, :through => :articles, :source => :tags
-  has_many :profile_tags, :through => :profiles, :source => :tags
+  has_many :article_tags, through:  :articles, source:  :tags
+  has_many :profile_tags, through:  :profiles, source:  :tags
 
   include ScopeTool
   scope :tags, -> environment {ScopeTool.union(environment.article_tags, environment.profile_tags)}

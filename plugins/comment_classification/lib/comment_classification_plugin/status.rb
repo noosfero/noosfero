@@ -1,6 +1,6 @@
 class CommentClassificationPlugin::Status < ApplicationRecord
 
-  belongs_to :owner, :polymorphic => true
+  belongs_to :owner, polymorphic: true
 
   attr_accessible :name, :enabled
 

@@ -292,25 +292,25 @@ class Profile < ApplicationRecord
   settings_items :allow_followers, :type => :boolean, :default => true
   alias_method :allow_followers?, :allow_followers
 
-  acts_as_trackable :dependent => :destroy
+  acts_as_trackable dependent: :destroy
 
   has_many :profile_activities
-  has_many :action_tracker_notifications, :foreign_key => 'profile_id'
+  has_many :action_tracker_notifications, foreign_key: 'profile_id'
   has_many :tracked_notifications, -> { order 'updated_at DESC' }, through: :action_tracker_notifications, source: :action_tracker
   has_many :scraps_received, -> { order 'updated_at DESC' }, class_name: 'Scrap', foreign_key: :receiver_id, dependent: :destroy
-  belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
+  belongs_to :template, class_name: 'Profile', foreign_key: 'template_id'
 
-  has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
+  has_many :comments_received, class_name: 'Comment', through:  :articles, source:  :comments
 
-  has_many :email_templates, :foreign_key => :owner_id
+  has_many :email_templates, foreign_key: :owner_id
 
   has_many :profile_followers
-  has_many :followers, -> { uniq }, :class_name => 'Person', :through => :profile_followers, :source => :person
+  has_many :followers, -> { uniq }, class_name: 'Person', through:  :profile_followers, source:  :person
 
   # Although this should be a has_one relation, there are no non-silly names for
   # a foreign key on article to reference the template to which it is
   # welcome_page... =P
-  belongs_to :welcome_page, :class_name => 'Article', :dependent => :destroy
+  belongs_to :welcome_page, class_name: 'Article', dependent: :destroy
 
   def welcome_page_content
     welcome_page && welcome_page.published ? welcome_page.body : nil
@@ -356,19 +356,19 @@ class Profile < ApplicationRecord
   belongs_to :user
 
   has_many :domains, :as => :owner
-  belongs_to :preferred_domain, :class_name => 'Domain', :foreign_key => 'preferred_domain_id'
+  belongs_to :preferred_domain, class_name: 'Domain', foreign_key: 'preferred_domain_id'
   belongs_to :environment
 
-  has_many :articles, :dependent => :destroy
-  belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
+  has_many :articles, dependent: :destroy
+  belongs_to :home_page, class_name: Article.name, foreign_key: 'home_page_id'
 
-  has_many :files, :class_name => 'UploadedFile'
+  has_many :files, class_name:  'UploadedFile'
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
   acts_as_having_image field: :top_image
 
-  has_many :tasks, :dependent => :destroy, :as => 'target'
+  has_many :tasks, dependent:  :destroy, :as => 'target'
 
   has_many :events, -> { order 'start_date' }, source: 'articles', class_name: 'Event'
 
@@ -381,15 +381,15 @@ class Profile < ApplicationRecord
   end
 
   has_many :profile_categorizations, -> { where 'categories_profiles.virtual = ?', false }
-  has_many :categories, :through => :profile_categorizations
-  has_many :regions, -> { where(:type => ['Region', 'State', 'City']) }, :through => :profile_categorizations, :source => :category
+  has_many :categories, through:  :profile_categorizations
+  has_many :regions, -> { where(:type => ['Region', 'State', 'City']) }, through:  :profile_categorizations, source:  :category
 
-  has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'
-  has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
+  has_many :profile_categorizations_including_virtual, class_name:  'ProfileCategorization'
+  has_many :categories_including_virtual, through:  :profile_categorizations_including_virtual, source:  :category
 
-  has_many :abuse_complaints, :foreign_key => 'requestor_id', :dependent => :destroy
+  has_many :abuse_complaints, foreign_key:  'requestor_id', dependent:  :destroy
 
-  has_many :profile_suggestions, :foreign_key => :suggestion_id, :dependent => :destroy
+  has_many :profile_suggestions, foreign_key:  :suggestion_id, dependent:  :destroy
 
   has_and_belongs_to_many :kinds
 
@@ -978,7 +978,7 @@ private :generate_url, :url_options
 
   settings_items :layout_template, :type => String, :default => 'default'
 
-  has_many :blogs, :source => 'articles', :class_name => 'Blog'
+  has_many :blogs, source:  'articles', class_name:  'Blog'
 
   def blog
     self.has_blog? ? self.blogs.order(:id).first : nil
@@ -988,7 +988,7 @@ private :generate_url, :url_options
     self.blogs.count.nonzero?
   end
 
-  has_many :forums, :source => 'articles', :class_name => 'Forum'
+  has_many :forums, source:  'articles', class_name:  'Forum'
 
   def forum
     self.has_forum? ? self.forums.order(:id).first : nil

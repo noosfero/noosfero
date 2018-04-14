@@ -9,7 +9,7 @@ module ActsAsAccessible
   module ClassMethods
     # Acts as accessible makes a model acts as a resource that can be targeted by a permission
     def acts_as_accessible
-      has_many :role_assignments, :as => :resource, :dependent => :destroy
+      has_many :role_assignments, :as => :resource, dependent:  :destroy
     end
   end
 

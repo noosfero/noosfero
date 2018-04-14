@@ -1,10 +1,10 @@
 class CustomFormsPlugin::Submission < ApplicationRecord
 
-  belongs_to :form, :class_name => 'CustomFormsPlugin::Form'
+  belongs_to :form, class_name: 'CustomFormsPlugin::Form'
   belongs_to :profile
 
   # validation is done manually, see below
-  has_many :answers, :class_name => 'CustomFormsPlugin::Answer', :dependent => :destroy, :validate => false
+  has_many :answers, class_name:  'CustomFormsPlugin::Answer', dependent: :destroy, :validate => false
 
   attr_accessible :form, :profile, :author_name, :author_email
 

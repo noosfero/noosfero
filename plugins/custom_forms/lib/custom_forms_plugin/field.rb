@@ -6,8 +6,8 @@ class CustomFormsPlugin::Field < ApplicationRecord
 
   attr_accessible :name, :form, :mandatory, :type, :position, :default_value, :show_as, :alternatives_attributes
 
-  belongs_to :form, :class_name => 'CustomFormsPlugin::Form'
-  has_many :answers, :class_name => 'CustomFormsPlugin::Answer', :dependent => :destroy
+  belongs_to :form, class_name: 'CustomFormsPlugin::Form'
+  has_many :answers, class_name: 'CustomFormsPlugin::Answer', dependent: :destroy
 
   has_many :alternatives, -> { order 'position' }, class_name: 'CustomFormsPlugin::Alternative'
   accepts_nested_attributes_for :alternatives, :allow_destroy => true

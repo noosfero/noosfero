@@ -7,7 +7,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
   accepts_nested_attributes_for :fields, :allow_destroy => true
 
   has_many :submissions,
-    :class_name => 'CustomFormsPlugin::Submission', :dependent => :destroy
+    class_name: 'CustomFormsPlugin::Submission', dependent: :destroy
 
   validates_presence_of :profile, :name, :identifier
   validates_uniqueness_of :slug, :scope => :profile_id
@@ -19,7 +19,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
   # We are using a belongs_to relation, to avoid change the UploadedFile schema.
   # With the belongs_to instead of the has_one, we keep the change only on the
   # CustomFormsPlugin::Form schema.
-  belongs_to :article, :class_name => 'UploadedFile', dependent: :destroy
+  belongs_to :article, class_name: 'UploadedFile', dependent: :destroy
 
   attr_accessible :name, :profile, :for_admission, :access, :begining, :kind,
                   :ending, :description, :fields_attributes, :profile_id,

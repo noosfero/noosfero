@@ -2,9 +2,9 @@ class AbuseReport < ApplicationRecord
 
   attr_accessible :content, :reason
 
-  belongs_to :reporter, :class_name => 'Person'
+  belongs_to :reporter, class_name: 'Person'
   belongs_to :abuse_complaint
-  has_many :reported_images, :dependent => :destroy
+  has_many :reported_images, dependent:  :destroy
 
   validates_presence_of :reporter, :abuse_complaint, :reason
   validates_uniqueness_of :reporter_id, :scope => :abuse_complaint_id

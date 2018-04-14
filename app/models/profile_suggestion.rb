@@ -1,13 +1,13 @@
 class ProfileSuggestion < ApplicationRecord
 
   belongs_to :person
-  belongs_to :suggestion, :class_name => 'Profile', :foreign_key => :suggestion_id
+  belongs_to :suggestion, class_name: 'Profile', foreign_key: :suggestion_id
 
   attr_accessible :person, :suggestion, :suggestion_type, :categories, :enabled
 
-  has_many :suggestion_connections, :foreign_key => 'suggestion_id'
-  has_many :profile_connections, :through => :suggestion_connections, :source => :connection, :source_type => 'Profile'
-  has_many :tag_connections, :through => :suggestion_connections, :source => :connection, :source_type => 'ActsAsTaggableOn::Tag'
+  has_many :suggestion_connections, foreign_key: 'suggestion_id'
+  has_many :profile_connections, through: :suggestion_connections, source:  :connection, :source_type => 'Profile'
+  has_many :tag_connections, through: :suggestion_connections, source:  :connection, :source_type => 'ActsAsTaggableOn::Tag'
 
   before_create do |profile_suggestion|
     profile_suggestion.suggestion_type = self.suggestion.class.to_s

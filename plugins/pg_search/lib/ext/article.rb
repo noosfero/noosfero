@@ -2,7 +2,7 @@ require_dependency 'article'
 require_dependency 'pg_search_plugin/search_filters'
 
 Article.class_eval do
-  has_many :regions, -> { where(:type => ['Region', 'State', 'City']) }, :through => :article_categorizations, :source => :category
+  has_many :regions, -> { where(:type => ['Region', 'State', 'City']) }, through:  :article_categorizations, source:  :category
 
   scope :pg_search_plugin_by_attribute, -> attribute, value { select('articles.id').where("articles.#{attribute}" => value) }
 

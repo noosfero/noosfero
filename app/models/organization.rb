@@ -61,11 +61,11 @@ include OrganizationHelper
 
   has_one :validation_info
 
-  has_many :validations, :class_name => 'CreateEnterprise', :foreign_key => :target_id
+  has_many :validations, class_name:  'CreateEnterprise', foreign_key:  :target_id
 
-  has_many :mailings, :class_name => 'OrganizationMailing', :foreign_key => :source_id, :as => 'source'
+  has_many :mailings, class_name:  'OrganizationMailing', foreign_key:  :source_id, :as => 'source'
 
-  has_many :custom_roles, :class_name => 'Role', :foreign_key => :profile_id
+  has_many :custom_roles, class_name:  'Role', foreign_key:  :profile_id
 
   scope :more_popular, -> { order 'profiles.members_count DESC' }
 

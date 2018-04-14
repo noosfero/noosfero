@@ -12,14 +12,14 @@ class Comment < ApplicationRecord
 
   validates_presence_of :body
 
-  belongs_to :source, :counter_cache => true, :polymorphic => true
+  belongs_to :source, counter_cache: true, polymorphic: true
   alias :article :source
   alias :article= :source=
   attr_accessor :follow_article
 
-  belongs_to :author, :class_name => 'Person', :foreign_key => 'author_id'
-  has_many :children, :class_name => 'Comment', :foreign_key => 'reply_of_id', :dependent => :destroy
-  belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
+  belongs_to :author, class_name: 'Person', foreign_key: 'author_id'
+  has_many :children, class_name: 'Comment', foreign_key: 'reply_of_id', dependent: :destroy
+  belongs_to :reply_of, class_name: 'Comment', foreign_key: 'reply_of_id'
 
   scope :without_reply, -> { where 'reply_of_id IS NULL' }
 

@@ -4,7 +4,7 @@ class ProductsPlugin::ProductionCost < ApplicationRecord
 
   attr_accessible :name, :owner
 
-  belongs_to :owner, :polymorphic => true
+  belongs_to :owner, polymorphic:  true
   validates_presence_of :owner
   validates_presence_of :name
   validates_length_of :name, :maximum => 30, :allow_blank => true

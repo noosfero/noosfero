@@ -11,10 +11,10 @@ class AdminNotificationsPlugin::Notification < ApplicationRecord
 
   attr_accessible :message, :target_id, :active, :type, :display_only_in_homepage, :display_to_all_users, :display_popup, :title, :target
 
-  has_many :notifications_users, :class_name => "AdminNotificationsPlugin::NotificationsUser"
-  has_many :users, :through => :notifications_users
+  has_many :notifications_users, class_name:  "AdminNotificationsPlugin::NotificationsUser"
+  has_many :users, through:  :notifications_users
 
-  belongs_to :target, :polymorphic => true
+  belongs_to :target, polymorphic: true
 
   validates_presence_of :message
   validates_presence_of :target_id

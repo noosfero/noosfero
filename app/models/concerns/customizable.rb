@@ -8,7 +8,7 @@ module Customizable
   module ClassMethods
     def acts_as_customizable(options = {})
       attr_accessor :custom_values
-      has_many :custom_field_values, :dependent => :delete_all, :as => :customized
+      has_many :custom_field_values, dependent:  :delete_all, :as => :customized
       send :include, Customizable::InstanceMethods
       after_save :save_custom_values
       validate :valid_custom_values?

@@ -12,11 +12,11 @@ class ProductsPlugin::Certifier < ApplicationRecord
 
   belongs_to :environment
 
-  has_many :qualifier_certifiers, :dependent => :destroy
-  has_many :qualifiers, :through => :qualifier_certifiers
+  has_many :qualifier_certifiers, dependent:  :destroy
+  has_many :qualifiers, through:  :qualifier_certifiers
 
   has_many :product_qualifiers
-  has_many :products, :through => :product_qualifiers, :source => :product
+  has_many :products, through:  :product_qualifiers, source:  :product
 
   validates_presence_of :environment_id
   validates_presence_of :name

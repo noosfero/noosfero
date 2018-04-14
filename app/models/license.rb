@@ -8,7 +8,7 @@ class License < ApplicationRecord
   }
 
   belongs_to :environment
-  has_many :content, :class_name => 'Article', :foreign_key => 'license_id'
+  has_many :content, class_name: 'Article', foreign_key:'license_id'
 
   validates_presence_of :name, :environment
   validates_presence_of :slug, :if => lambda {|license| license.name.present?}

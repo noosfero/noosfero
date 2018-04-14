@@ -47,7 +47,7 @@ class Blog < Folder
     true
   end
 
-  has_one :external_feed, :foreign_key => 'blog_id', :dependent => :destroy
+  has_one :external_feed, foreign_key:  'blog_id', dependent:  :destroy
 
   attr_accessor :external_feed_data
   def external_feed_builder=(efeed)

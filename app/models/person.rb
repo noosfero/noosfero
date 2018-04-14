@@ -103,11 +103,11 @@ class Person < Profile
     memberships.where('role_assignments.role_id = ?', role.id)
   end
 
-  has_many :comments, :foreign_key => :author_id
-  has_many :article_followers, :dependent => :destroy
-  has_many :following_articles, :class_name => 'Article', :through => :article_followers, :source => :article
-  has_many :friendships, :dependent => :destroy
-  has_many :friends, :class_name => 'Person', :through => :friendships
+  has_many :comments, foreign_key:  :author_id
+  has_many :article_followers, dependent:  :destroy
+  has_many :following_articles, class_name:  'Article', through:  :article_followers, source:  :article
+  has_many :friendships, dependent:  :destroy
+  has_many :friends, class_name:  'Person', through:  :friendships
   has_many :circles
   has_many :push_subscriptions, as: :owner
 
@@ -115,19 +115,19 @@ class Person < Profile
     joins(:user).where("users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes)
   }
 
-  has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
+  has_many :requested_tasks, class_name:  'Task', foreign_key:  :requestor_id, dependent:  :destroy
 
-  has_many :abuse_reports, :foreign_key => 'reporter_id', :dependent => :destroy
+  has_many :abuse_reports, foreign_key:  'reporter_id', dependent:  :destroy
 
   has_many :mailings
 
-  has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
+  has_many :scraps_sent, class_name:  'Scrap', foreign_key:  :sender_id, dependent:  :destroy
 
   has_many :favorite_enterprise_people
   has_many :favorite_enterprises, source: :enterprise, through: :favorite_enterprise_people
 
-  has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
-  has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
+  has_and_belongs_to_many :acepted_forums, class_name:  'Forum', :join_table => 'terms_forum_people'
+  has_and_belongs_to_many :articles_with_access, class_name:  'Article', :join_table => 'article_privacy_exceptions'
 
   has_many :suggested_profiles, -> { order 'score DESC' },
     class_name: 'ProfileSuggestion', foreign_key: :person_id, dependent: :destroy
@@ -138,7 +138,7 @@ class Person < Profile
     where 'profile_suggestions.suggestion_type = ? AND profile_suggestions.enabled = ?', 'Community', true
   }, through: :suggested_profiles, source: :suggestion
 
-  has_and_belongs_to_many :marked_scraps, :join_table => :private_scraps, :class_name => 'Scrap'
+  has_and_belongs_to_many :marked_scraps, :join_table => :private_scraps, class_name:  'Scrap'
 
   scope :more_popular, -> { order 'profiles.friends_count DESC' }
 
@@ -165,7 +165,7 @@ class Person < Profile
     Friendship.where(friend_id: person.id).each{ |friendship| friendship.destroy }
   end
 
-  belongs_to :user, :dependent => :delete
+  belongs_to :user, dependent:  :delete
 
   acts_as_voter
 
@@ -490,7 +490,7 @@ class Person < Profile
     self.friends.include?(person)
   end
 
-  has_and_belongs_to_many :refused_communities, :class_name => 'Community', :join_table => 'refused_join_community'
+  has_and_belongs_to_many :refused_communities, class_name:  'Community', :join_table => 'refused_join_community'
 
   def ask_to_join?(community)
     return false if !community.visible?

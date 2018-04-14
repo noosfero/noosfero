@@ -3,7 +3,7 @@ class CommentClassificationPlugin::CommentStatusUser < ApplicationRecord
 
   belongs_to :profile
   belongs_to :comment
-  belongs_to :status, :class_name => 'CommentClassificationPlugin::Status'
+  belongs_to :status, class_name: 'CommentClassificationPlugin::Status'
 
   attr_accessible :name, :enabled, :profile, :comment, :status_id, :reason
 

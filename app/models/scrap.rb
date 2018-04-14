@@ -12,16 +12,16 @@ class Scrap < ApplicationRecord
   validates_presence_of :content
   validates_presence_of :sender_id, :receiver_id
 
-  belongs_to :receiver, :class_name => 'Profile', :foreign_key => 'receiver_id'
-  belongs_to :sender, :class_name => 'Person', :foreign_key => 'sender_id'
-  has_many :replies, :class_name => 'Scrap', :foreign_key => 'scrap_id', :dependent => :destroy
-  belongs_to :root, :class_name => 'Scrap', :foreign_key => 'scrap_id'
+  belongs_to :receiver, class_name: 'Profile', foreign_key: 'receiver_id'
+  belongs_to :sender, class_name: 'Person', foreign_key: 'sender_id'
+  has_many :replies, class_name: 'Scrap', foreign_key: 'scrap_id', dependent: :destroy
+  belongs_to :root, class_name: 'Scrap', foreign_key: 'scrap_id'
 
   has_many :profile_activities, -> {
     where profile_activities: {activity_type: 'Scrap'}
   }, foreign_key: :activity_id, dependent: :destroy
 
-  has_and_belongs_to_many :marked_people, :join_table => :private_scraps, :class_name => 'Person'
+  has_and_belongs_to_many :marked_people, :join_table => :private_scraps, class_name:  'Person'
 
   after_create :create_activity
   after_update :update_activity

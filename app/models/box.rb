@@ -2,7 +2,7 @@ class Box < ApplicationRecord
 
   acts_as_list scope: -> box { where owner_id: box.owner_id, owner_type: box.owner_type }
 
-  belongs_to :owner, :polymorphic => true
+  belongs_to :owner, polymorphic: true
   has_many :blocks, -> { order 'position' }, dependent: :destroy
   accepts_nested_attributes_for :blocks, allow_destroy: true
 

@@ -3,7 +3,7 @@ class CustomField < ApplicationRecord
   attr_accessible :name, :default_value, :format, :extras, :customized_type, :active, :required, :signup, :environment, :moderation_task
   serialize :customized_type
   serialize :extras
-  has_many :custom_field_values, :dependent => :delete_all
+  has_many :custom_field_values, dependent:  :delete_all
   belongs_to :environment
 
   validates_presence_of :name, :format, :customized_type, :environment

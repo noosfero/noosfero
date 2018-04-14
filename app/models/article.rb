@@ -89,21 +89,21 @@ class Article < ApplicationRecord
 
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
-  belongs_to :author, :class_name => 'Person'
-  belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
-  belongs_to :created_by, :class_name => 'Person', :foreign_key => 'created_by_id'
+  belongs_to :author, class_name: 'Person'
+  belongs_to :last_changed_by, class_name: 'Person', foreign_key: 'last_changed_by_id'
+  belongs_to :created_by, class_name: 'Person', foreign_key: 'created_by_id'
 
   has_many :comments, -> { order 'created_at asc' }, class_name: 'Comment', as: 'source', dependent: :destroy
 
-  has_many :article_followers, :dependent => :destroy
-  has_many :person_followers, :class_name => 'Person', :through => :article_followers, :source => :person
+  has_many :article_followers, dependent: :destroy
+  has_many :person_followers, class_name: 'Person', through: :article_followers, source: :person
   has_many :person_followers_emails, -> { select :email }, class_name: 'User', through: :person_followers, source: :user
 
   has_many :article_categorizations, -> { where 'articles_categories.virtual = ?', false }
-  has_many :categories, :through => :article_categorizations
+  has_many :categories, through:  :article_categorizations
 
-  has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization'
-  has_many :categories_including_virtual, :through => :article_categorizations_including_virtual, :source => :category
+  has_many :article_categorizations_including_virtual, class_name: 'ArticleCategorization'
+  has_many :categories_including_virtual, through:  :article_categorizations_including_virtual, source:  :category
 
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :setting
@@ -115,14 +115,14 @@ class Article < ApplicationRecord
   settings_items :author_name, :type => :string, :default => ""
   settings_items :allow_members_to_edit, :type => :boolean, :default => false
   settings_items :moderate_comments, :type => :boolean, :default => false
-  has_and_belongs_to_many :article_privacy_exceptions, :class_name => 'Person', :join_table => 'article_privacy_exceptions'
+  has_and_belongs_to_many :article_privacy_exceptions, class_name:  'Person', :join_table => 'article_privacy_exceptions'
 
-  belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
+  belongs_to :reference_article, class_name: "Article", foreign_key: 'reference_article_id'
 
   belongs_to :license
 
-  has_many :translations, :class_name => 'Article', :foreign_key => :translation_of_id
-  belongs_to :translation_of, :class_name => 'Article', :foreign_key => :translation_of_id
+  has_many :translations, class_name: 'Article', foreign_key: :translation_of_id
+  belongs_to :translation_of, class_name: 'Article', foreign_key: :translation_of_id
   before_destroy :rotate_translations
 
   acts_as_voteable
