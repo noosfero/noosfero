@@ -18,14 +18,14 @@ platform :jruby do
   gem 'rmagick4j'
 end
 
-gem 'rails',                    '~> 5.1.6'
+gem 'rails',                      '~> 5.1.6'
 gem 'fast_gettext'
 gem 'acts-as-taggable-on'
 gem 'rails_autolink'
 gem 'ruby-feedparser'
 gem 'daemons'
-gem 'nokogiri',                 (if RUBY_VERSION >= '2.4.0' then '~> 1.8.2' else '~> 1.6.0' end)
-gem 'mini_portile2',		        '~> 2.3.0'
+gem 'nokogiri',                   (if RUBY_VERSION >= '2.4.0' then '~> 1.8.2' else '~> 1.6.0' end)
+gem 'mini_portile2',		          '~> 2.3.0'
 gem 'will_paginate'
 gem 'pothoven-attachment_fu'
 gem 'delayed_job'
@@ -36,10 +36,10 @@ gem 'exception_notification'
 gem 'gettext', :require => false
 gem 'locale'
 gem 'whenever', :require => false
-gem 'eita-jrails',               '~> 0.10.0'
+gem 'eita-jrails',                  '~> 0.10.0'
 gem 'diffy'
 gem 'slim'
-gem 'activerecord-session_store', ('1.1.1' if RUBY_VERSION >= '2.3.0')
+gem 'activerecord-session_store',   ('1.1.1' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'font-awesome-sass'
 gem 'rpush'
@@ -50,7 +50,6 @@ gem 'action_tracker',             '~> 1.0.2'
 gem 'contacts',                   '~> 1.2.4'
 gem 'responders',                 '~> 2.4.0'
 gem 'activemodel-serializers-xml','~> 1.0.2'
->>>>>>> Adds responders and activemodel-serializers-xml gems to continue using respond_to and to_xml methods
 
 # API dependencies
 gem 'grape'
@@ -72,12 +71,12 @@ gem 'webpush'
 
 # gems to enable rails3 behaviour
 gem 'protected_attributes_continued'
-gem 'rails-observers',		           '~> 0.1.5'
+gem 'rails-observers',		          '~> 0.1.5'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
 group :production do
-  gem 'dalli',                       '~> 2.7.0'
+  gem 'dalli',                      '~> 2.7.0'
 end
 
 group :development, :test do
@@ -85,20 +84,21 @@ group :development, :test do
 end
 
 group :test do
-  gem 'mocha',                        '~> 1.1.0', :require => false
-  gem 'test-unit'                     if RUBY_VERSION >= '2.2.0'
+  gem 'mocha',                      '~> 1.1.0', :require => false
+  gem 'test-unit'                   if RUBY_VERSION >= '2.2.0'
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'simplecov', :require => false
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'rails-controller-testing',   '~> 1.0.2'
 end
 
 group :cucumber, :test do
-  gem 'capybara',	                  	'~> 2.18.0'
+  gem 'capybara',	                  '~> 2.18.0'
   gem 'launchy'
   gem 'cucumber'
-  gem 'cucumber-rails',		            '~> 1.5.0', :require => false
+  gem 'cucumber-rails',		          '~> 1.5.0', :require => false
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver'
