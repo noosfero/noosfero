@@ -46,10 +46,10 @@ gem 'rpush'
 gem 'acts_as_list',               '~> 0.9.11'
 gem 'acts_as_tree',               '~> 2.7.1'
 gem 'validates_as_cnpj',          '~> 0.2.1'
-gem 'action_tracker',             '~> 1.0.2'
 gem 'contacts',                   '~> 1.2.4'
 gem 'responders',                 '~> 2.4.0'
 gem 'activemodel-serializers-xml','~> 1.0.2'
+gem 'hpricot',                    '~> 0.8.6' #This gem is deprecated, must use nokogiri instead
 
 # API dependencies
 gem 'grape'
