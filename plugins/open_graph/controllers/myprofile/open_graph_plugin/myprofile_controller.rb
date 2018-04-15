@@ -1,7 +1,7 @@
 class OpenGraphPlugin::MyprofileController < MyProfileController
 
   protect 'edit_profile', :profile
-  before_filter :set_context
+  before_action :set_context
 
   def enterprise_search
     scope = environment.enterprises.enabled.is_public

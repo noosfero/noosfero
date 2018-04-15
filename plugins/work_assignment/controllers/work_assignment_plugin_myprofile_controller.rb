@@ -3,7 +3,7 @@ class WorkAssignmentPluginMyprofileController < MyProfileController
 helper ArticleHelper
 helper CmsHelper
 
-before_filter :protect_if, :only => [:edit_visibility]
+before_action :protect_if, :only => [:edit_visibility]
 
 def edit_visibility
   unless params[:article_id].blank?

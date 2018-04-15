@@ -8,7 +8,7 @@ class EnvironmentEmailTemplatesController < EmailTemplatesController
     environment
   end
 
-  before_filter :only => :index do
+  before_action :only => :index do
     @back_to = url_for(:controller => :admin_panel)
   end
 

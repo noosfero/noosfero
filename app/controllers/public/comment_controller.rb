@@ -2,7 +2,7 @@ class CommentController < ApplicationController
 
   needs_profile
 
-  before_filter :can_update?, :only => [:edit, :update]
+  before_action :can_update?, :only => [:edit, :update]
 
   include Captcha
 

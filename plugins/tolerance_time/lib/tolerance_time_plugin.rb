@@ -35,7 +35,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
         redirect_to content.url
       end
     end
-    { :type => 'before_filter',
+    { :type => 'before_action',
       :method_name => 'expired_content',
       :options => {:only => 'edit'},
       :block => block }
@@ -49,7 +49,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
         redirect_to content.article.url
       end
     end
-    { :type => 'before_filter',
+    { :type => 'before_action',
       :method_name => 'expired_content',
       :options => {:only => 'edit_comment'},
       :block => block }

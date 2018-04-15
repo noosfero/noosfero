@@ -1,6 +1,6 @@
 class VotePluginProfileController < ProfileController
 
-  before_filter :login_required, :only => [:vote]
+  before_action :login_required, :only => [:vote]
 
   def vote
     model = params[:model].to_sym

@@ -90,7 +90,7 @@ class OauthClientPlugin < Noosfero::Plugin
 
   def account_controller_filters
     {
-      :type => 'before_filter', :method_name => 'signup',
+      :type => 'before_action', :method_name => 'signup',
       :block => proc {
         auth = session[:oauth_data]
 

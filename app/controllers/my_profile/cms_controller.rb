@@ -8,7 +8,7 @@ class CmsController < MyProfileController
   include Captcha
 
   def self.protect_if(*args)
-    before_filter(*args) do |c|
+    before_action(*args) do |c|
       user, profile = c.send(:user), c.send(:profile)
       if yield(c, user, profile)
         true
@@ -20,8 +20,8 @@ class CmsController < MyProfileController
     end
   end
 
-  before_filter :login_required, :except => [:suggest_an_article]
-  before_filter :load_recent_files, :only => [:new, :edit]
+  before_action :login_required, :except => [:suggest_an_article]
+  before_action :load_recent_files, :only => [:new, :edit]
 
   helper_method :file_types
 

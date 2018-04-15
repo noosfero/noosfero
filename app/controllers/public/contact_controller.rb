@@ -1,7 +1,7 @@
 class ContactController < PublicController
 
   needs_profile
-  before_filter :allow_access_to_page
+  before_action :allow_access_to_page
 
   include Captcha
 

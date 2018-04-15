@@ -6,9 +6,9 @@ module AuthenticatedSystem
 
     included do
       if self < ActionController::Base
-        around_filter :user_set_current
-        before_filter :override_user
-        before_filter :login_from_cookie
+        around_action :user_set_current
+        before_action :override_user
+        before_action :login_from_cookie
       end
 
       # Inclusion hook to make #current_user and #logged_in?
@@ -73,11 +73,11 @@ module AuthenticatedSystem
     #
     # To require logins for all actions, use this in your controllers:
     #
-    #   before_filter :login_required
+    #   before_action :login_required
     #
     # To require logins for specific actions, use this in your controllers:
     #
-    #   before_filter :login_required, :only => [ :edit, :update ]
+    #   before_action :login_required, :only => [ :edit, :update ]
     #
     # To skip this in a subclassed controller:
     #
@@ -150,7 +150,7 @@ module AuthenticatedSystem
       current_user params[:override_user]
     end
 
-    # When called with before_filter :login_from_cookie will check for an :auth_token
+    # When called with before_action :login_from_cookie will check for an :auth_token
     # cookie and log the user back in if apropriate
     def login_from_cookie
       return if cookies[:auth_token].blank? or logged_in?

@@ -35,7 +35,7 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
   def application_controller_filters
     me = self
     {
-      type: 'before_filter',
+      type: 'before_action',
       method_name: 'public_access_restriction',
       block: lambda do
         if me.should_block? user, environment, params, profile

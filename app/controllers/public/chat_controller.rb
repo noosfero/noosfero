@@ -1,8 +1,8 @@
 class ChatController < PublicController
 
-  before_filter :login_required
-  before_filter :check_environment_feature
-  before_filter :can_send_message, :only => :register_message
+  before_action :login_required
+  before_action :check_environment_feature
+  before_action :can_send_message, :only => :register_message
 
   def start_session
     login = user.jid

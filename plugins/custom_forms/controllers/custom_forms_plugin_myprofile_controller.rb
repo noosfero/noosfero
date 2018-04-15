@@ -6,7 +6,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
   protect 'post_content', :profile
 
-  before_filter :remove_empty_alternatives, :only => [:create, :update]
+  before_action :remove_empty_alternatives, :only => [:create, :update]
 
   def index
     @forms = {}

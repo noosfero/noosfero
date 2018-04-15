@@ -1,6 +1,6 @@
 class CustomFormsPluginProfileController < ProfileController
-  before_filter :has_access, :only => [:show]
-  before_filter :can_view_results, :only => [:review]
+  before_action :has_access, :only => [:show]
+  before_action :can_view_results, :only => [:review]
 
   include CustomFormsPlugin::Helper
 

@@ -1,7 +1,7 @@
 class MailingListPluginMyprofileController < MyProfileController
 
-  before_filter :load_client
-  before_filter :load_profile_settings, :only => :edit
+  before_action :load_client
+  before_action :load_profile_settings, :only => :edit
 
   def edit
     @collection = @collection.no_templates.order('name ASC').paginate(:per_page => per_page, :page => params[:npage])

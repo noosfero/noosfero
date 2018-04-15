@@ -4,8 +4,8 @@ module ProductsPlugin
     helper ProductsHelper
 
     protect 'manage_products', :profile, except: [:show]
-    before_filter :login_required, except: [:show]
-    before_filter :create_product?, only: [:new]
+    before_action :login_required, except: [:show]
+    before_action :create_product?, only: [:new]
 
     def index
       @products = @profile.products.paginate(per_page: 10, page: params[:page])

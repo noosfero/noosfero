@@ -42,7 +42,7 @@ class PjaxPlugin < Noosfero::Plugin
 
   def application_controller_filters
     [{
-      :type => 'before_filter', :method_name => 'pjax_check',
+      :type => 'before_action', :method_name => 'pjax_check',
       :options => {}, :block => PjaxCheck,
     }]
   end

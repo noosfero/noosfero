@@ -1,7 +1,7 @@
 class ProfileRolesController < MyProfileController
 
   protect 'manage_custom_roles', :profile
-  before_filter :ensure_organization
+  before_action :ensure_organization
 
   def index
     @roles = profile.custom_roles

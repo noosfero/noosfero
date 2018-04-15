@@ -83,11 +83,11 @@ class LattesCurriculumPlugin < Noosfero::Plugin
       end
     end
 
-    [{:type => 'before_filter',
+    [{:type => 'before_action',
       :method_name => 'validate_lattes_url',
       :options => {:only => 'edit'},
       :block => validate_lattes_url_block },
-    {:type => 'before_filter',
+    {:type => 'before_action',
       :method_name => 'create_academic_info',
       :options => {:only => 'edit'},
       :block => create_academic_info_block }]
@@ -115,11 +115,11 @@ class LattesCurriculumPlugin < Noosfero::Plugin
       end
     end
 
-    [{:type => 'before_filter',
+    [{:type => 'before_action',
       :method_name => 'validate_lattes_url',
       :options => {:only => 'signup'},
       :block => validate_lattes_url_block },
-    {:type => 'before_filter',
+    {:type => 'before_action',
       :method_name => 'create_academic_info',
       :options => {:only => 'edit'},
       :block => create_academic_info_block }]

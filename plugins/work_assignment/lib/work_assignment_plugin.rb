@@ -45,7 +45,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       end
     end
 
-    { :type => 'before_filter',
+    { :type => 'before_action',
       :method_name => 'work_assingment_only_admin_or_owner_download',
       :options => {:only => 'view_page'},
       :block => block }

@@ -2,7 +2,7 @@ class CommunityTrackPluginPublicController < PublicController
 
   no_design_blocks
 
-  before_filter :login_required, :only => :select_community
+  before_action :login_required, :only => :select_community
 
   def view_tracks
     block = Block.find(params[:id])

@@ -778,7 +778,7 @@ class Noosfero::Plugin
     #             :method_name => method_name,
     #             :options => {:opt1 => opt1, :opt2 => opt2},
     #             :block => Proc or lambda block}
-    #   type = 'before_filter' or 'after_filter'
+    #   type = 'before_action' or 'after_filter'
     #   method_name = The name of the filter
     #   option = Filter options, like :only or :except
     #   block = Block that the filter will call

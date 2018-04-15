@@ -1,14 +1,14 @@
 class ProfileController < PublicController
 
   needs_profile
-  before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
-  before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse, :send_mail]
-  before_filter :login_required, :only => [:add, :join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail, :follow, :unfollow]
-  before_filter :allow_followers?, :only => [:follow, :unfollow]
-  before_filter :accept_only_post, :only => [:follow, :unfollow]
-  before_filter :allow_scrap?, :only => [:leave_scrap]
-  before_filter :allow_comment?, :only => [:leave_comment_on_activity]
-  before_filter :load_tags, only: [:index, :about]
+  before_action :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
+  before_action :store_location, :only => [:join, :join_not_logged, :report_abuse, :send_mail]
+  before_action :login_required, :only => [:add, :join, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail, :follow, :unfollow]
+  before_action :allow_followers?, :only => [:follow, :unfollow]
+  before_action :accept_only_post, :only => [:follow, :unfollow]
+  before_action :allow_scrap?, :only => [:leave_scrap]
+  before_action :allow_comment?, :only => [:leave_comment_on_activity]
+  before_action :load_tags, only: [:index, :about]
 
   include ProfileHelper
   helper TagsHelper

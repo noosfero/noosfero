@@ -1,8 +1,8 @@
 class InviteController < PublicController
 
   needs_profile
-  before_filter :login_required
-  before_filter :check_permissions_to_invite
+  before_action :login_required
+  before_action :check_permissions_to_invite
 
   def invite_friends
     @import_from = params[:import_from] || "manual"

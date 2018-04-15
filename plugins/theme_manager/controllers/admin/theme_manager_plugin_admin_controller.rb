@@ -6,7 +6,7 @@ class ThemeManagerPluginAdminController < AdminController
 
   include ThemeManagerHelper
   
-  before_filter :create_temp, only: :add_theme
+  before_action :create_temp, only: :add_theme
   after_action :destroy_temp, only: :add_theme
 
   def index

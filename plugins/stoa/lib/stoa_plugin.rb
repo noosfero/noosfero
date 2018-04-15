@@ -74,7 +74,7 @@ class StoaPlugin < Noosfero::Plugin
       end
     end
 
-    [{ :type => 'before_filter',
+    [{ :type => 'before_action',
       :method_name => 'validate_usp_id',
       :options => {:only => 'signup'},
       :block => block }]
@@ -95,14 +95,14 @@ class StoaPlugin < Noosfero::Plugin
       end
     end
 
-    [{ :type => 'before_filter',
+    [{ :type => 'before_action',
       :method_name => 'validate_usp_id',
       :options => {:only => 'edit'},
       :block => block }]
   end
 
   def invite_controller_filters
-    [{ :type => 'before_filter',
+    [{ :type => 'before_action',
       :method_name => 'check_usp_id_existence',
       :block => proc {render_access_denied if !user || user.usp_id.blank?} }]
   end

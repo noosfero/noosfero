@@ -1,6 +1,6 @@
 class SiteTourPluginPublicController < PublicController
 
-  before_filter :login_required
+  before_action :login_required
 
   def mark_action
     user.site_tour_plugin_actions += [params[:action_name]].flatten

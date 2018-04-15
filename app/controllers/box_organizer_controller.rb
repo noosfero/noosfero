@@ -2,7 +2,7 @@ class BoxOrganizerController < ApplicationController
 
   helper CategoriesHelper
 
-  before_filter :login_required
+  before_action :login_required
 
   def index
     @available_blocks = available_blocks.uniq.sort_by(&:pretty_name)

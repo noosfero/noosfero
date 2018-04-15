@@ -1,6 +1,6 @@
 class CommentParagraphPluginMyprofileController < MyProfileController
 
-  before_filter :check_permission
+  before_action :check_permission
 
   def toggle_activation
     @article.comment_paragraph_plugin_activate = !@article.comment_paragraph_plugin_activate

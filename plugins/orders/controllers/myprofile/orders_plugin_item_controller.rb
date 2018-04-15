@@ -5,7 +5,7 @@ class OrdersPluginItemController < MyProfileController
   no_design_blocks
 
   #protect 'edit_profile', :profile
-  before_filter :set_actor_name
+  before_action :set_actor_name
 
   helper OrdersPlugin::DisplayHelper
 

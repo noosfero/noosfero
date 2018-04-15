@@ -2,8 +2,8 @@ class FbAppPluginMyprofileController < OpenGraphPlugin::MyprofileController
 
   no_design_blocks
 
-  before_filter :load_provider
-  before_filter :load_auth
+  before_action :load_provider
+  before_action :load_auth
 
   def index
     if params[:tabs_added]

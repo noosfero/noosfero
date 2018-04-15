@@ -3,10 +3,10 @@ class ProfileEditorController < MyProfileController
   protect 'edit_profile', :profile, :except => [:destroy_profile]
   protect 'destroy_profile', :profile, :only => [:destroy_profile]
 
-  before_filter :access_welcome_page, :only => [:welcome_page]
-  before_filter :back_to
-  before_filter :forbid_destroy_profile, :only => [:destroy_profile]
-  before_filter :check_user_can_edit_header_footer, :only => [:header_footer]
+  before_action :access_welcome_page, :only => [:welcome_page]
+  before_action :back_to
+  before_action :forbid_destroy_profile, :only => [:destroy_profile]
+  before_action :check_user_can_edit_header_footer, :only => [:header_footer]
   helper_method :has_welcome_page
   helper CustomFieldsHelper
   include CategoriesHelper

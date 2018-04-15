@@ -3,17 +3,17 @@ require 'noosfero/multi_tenancy'
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :detect_stuff_by_domain
-  before_filter :init_noosfero_plugins
-  before_filter :allow_cross_domain_access
+  before_action :detect_stuff_by_domain
+  before_action :init_noosfero_plugins
+  before_action :allow_cross_domain_access
 
   include AuthenticatedSystem
-  before_filter :require_login_for_environment, :if => :private_environment?
+  before_action :require_login_for_environment, :if => :private_environment?
 
-  before_filter :verify_members_whitelist, :if => [:private_environment?, :user]
-  before_filter :redirect_to_current_user
+  before_action :verify_members_whitelist, :if => [:private_environment?, :user]
+  before_action :redirect_to_current_user
 
-  before_filter :set_session_theme
+  before_action :set_session_theme
 
   # FIXME: only include necessary methods
   include ApplicationHelper
@@ -87,7 +87,7 @@ class ApplicationController < ActionController::Base
   helper :document
   helper :language
 
-  before_filter :set_locale
+  before_action :set_locale
   def set_locale
     FastGettext.available_locales = environment.available_locales
     FastGettext.default_locale = environment.default_locale || 'en'
@@ -104,7 +104,7 @@ class ApplicationController < ActionController::Base
   # declares that the given <tt>actions</tt> cannot be accessed by other HTTP
   # method besides POST.
   def self.post_only(actions, redirect = { :action => 'index'})
-    before_filter(:only => actions) do |controller|
+    before_action(:only => actions) do |controller|
       if !controller.request.post?
         controller.redirect_to redirect
       end
