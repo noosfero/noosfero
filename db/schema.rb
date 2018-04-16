@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 20180220140808) do
     t.integer  "observers_id"
     t.string   "subtitle",        default: ""
     t.jsonb    "metadata",        default: {}
+    t.string   "css"
   end
 
   add_index "blocks", ["box_id"], name: "index_blocks_on_box_id", using: :btree
