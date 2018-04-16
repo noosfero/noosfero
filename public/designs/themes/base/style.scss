@@ -25,6 +25,7 @@ p {
 
 input, textarea {
   background-color: white;
+  &:disabled { background-color: rgb(235, 235, 228); }
 }
 
 /* ==> button.css <== */
