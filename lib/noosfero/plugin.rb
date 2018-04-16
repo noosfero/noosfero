@@ -733,6 +733,12 @@ class Noosfero::Plugin
     {}
   end
 
+  # -> Adds extra options to CMS forms
+  # returns = lambda block that creates html code or raw rhtml/html.erb
+  def cms_extra_options
+    nil
+  end
+
   def api_custom_login request
     nil
   end

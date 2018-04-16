@@ -44,6 +44,12 @@
     <%= options_for_article(@article, @tokenized_children) %>
   </div>
 
+  <div id='article-extra-options'>
+    <%= safe_join( @plugins.dispatch(:cms_extra_options).map do |content|
+          content.kind_of?(Proc) ? self.instance_exec(&content) : content
+        end, "\n") %>
+  </div>
+
   <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
 
