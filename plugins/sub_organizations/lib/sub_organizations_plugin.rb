@@ -33,6 +33,10 @@ class SubOrganizationsPlugin < Noosfero::Plugin
     Person.members_of(children.all) if children.present?
   end
 
+  def person_friends(person)
+    person.environment.people
+  end
+
   def person_memberships(person)
     Organization.parentz(*Profile.memberships_of(person))
   end
