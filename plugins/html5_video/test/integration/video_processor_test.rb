@@ -6,7 +6,7 @@ require_relative '../html5_video_plugin_test_helper'
 class VideoProcessorTest < ActiveSupport::TestCase
 
   # Disable transactional fixtures, so rails runner can see the same data
-  self.use_transactional_fixtures = false
+  self.use_transactional_tests = false
 
   prepend Html5VideoPluginTestHelper
 
