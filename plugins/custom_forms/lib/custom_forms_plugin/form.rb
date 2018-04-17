@@ -27,6 +27,8 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   attr_accessor :remove_image
 
+  delegate :environment, to: :profile
+
   KINDS = %w(survey poll)
   # Dynamic Translations
   _('Survey')

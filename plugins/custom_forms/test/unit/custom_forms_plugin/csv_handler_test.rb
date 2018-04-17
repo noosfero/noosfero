@@ -83,6 +83,28 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     assert_match /#{alt2.label}/, content
   end
 
+  should 'include city if it field is enabled' do
+    person = fast_create(Person)
+    person.city = 'Valhalla'
+
+    Environment.any_instance.stubs(:active_person_fields).returns(['location'])
+    @form.submissions.create!(profile: person)
+
+    content = @handler.generate_csv
+    assert_match /#{person.city}/, content
+  end
+
+  should 'not include city if field is disabled' do
+    person = fast_create(Person)
+    person.city = 'Valhalla'
+
+    Environment.any_instance.stubs(:active_person_fields).returns([])
+    @form.submissions.create!(profile: person)
+
+    content = @handler.generate_csv
+    assert_no_match /#{person.city}/, content
+  end
+
   should 'import submissions from CSV' do
     CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 1')
     CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 2')
