@@ -3,14 +3,21 @@
 <% if @article.archived? %>
   <%= render :partial => 'archived_warning', :locals => {:article => @article} %>
 <% end %>
+
+<% if @article.display_media_panel? %>
+  <%= render :partial => 'text_editor_sidebar' %>
+<% end %>
+
 <div class='<%= (@article.display_media_panel? ? 'with_media_panel' : 'no_media_panel') %>'>
 <%= labelled_form_for 'article', :html => { :multipart => true, :class => "#{@type} #{@type.to_css_class}" } do |f| %>
+
 
   <%= hidden_field_tag("type", @type) if @type %>
 
   <%= hidden_field_tag('back_to', @back_to) %>
 
   <%= hidden_field_tag('success_back_to', @success_back_to) %>
+
 
   <%= render_partial_for_class @article.class, f: f %>
   <%= render partial: 'article_custom_fields',
@@ -26,16 +33,10 @@
 
   <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
-    <%= submit_button :save, _('Save and continue'), :name => "continue" %>
+    <%= submit_button :save_and_continue, _('Save and continue'), :name => "continue" %>
   <% end %>
 
-  <div style='float: right'>
-    <%= modal_button :help, _('Why categorize?'), :action => 'why_categorize' %>
-  </div>
-
   <%= select_categories(:article, _('Categorize your article')) %>
-
-  <br />
 
   <%= render :partial => 'shared/tags_field', :locals => {:f => f, :value => @article.tag_list} %>
 
@@ -62,9 +63,6 @@
 <% end %>
 </div>
 
-<% if @article.display_media_panel? %>
-  <%= render :partial => 'text_editor_sidebar' %>
-<% end %>
 
 <br style='clear: both'/>
 

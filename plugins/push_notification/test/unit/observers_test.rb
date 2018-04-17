@@ -32,17 +32,17 @@ class ObserversTest < ActiveSupport::TestCase
   end
 
   should 'send notification when adding a member to a community' do
-    PushNotificationPlugin.any_instance.expects(:send_to_users)
+    PushNotificationPlugin.any_instance.expects(:send_to_users).twice
     create_add_member_task
   end
 
   should 'send notification when accepting a member in a community' do
-    PushNotificationPlugin.any_instance.expects(:send_to_users).twice
+    PushNotificationPlugin.any_instance.expects(:send_to_users).times(4)
     create_add_member_task.finish
   end
 
   should 'send notification when rejecting a member in a community' do
-    PushNotificationPlugin.any_instance.expects(:send_to_users).twice
+    PushNotificationPlugin.any_instance.expects(:send_to_users).times(4)
     create_add_member_task.cancel
   end
 

@@ -16,15 +16,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Pootle 1.1.0\n"
 
-msgid "Statistics for %s"
-msgstr "Վիճակագրություն"
+#, fuzzy
+msgid "Show user counter"
+msgstr "Վայր"
 
 #, fuzzy
 msgid "This block presents some statistics about your context."
 msgstr "Ձեր նախընտրած ձեռնարկությունները ցուցադրող բաժին"
 
-msgid "A plugin that adds a block where you can see statistics of it's context."
-msgstr ""
+#, fuzzy
+msgid "Show hit counter"
+msgstr "Ամբողջ բովանդակությունը"
 
 #, fuzzy
 msgid "users"
@@ -34,8 +36,9 @@ msgstr "մասնակից"
 msgid "enterprises"
 msgstr "Կազմակերպություն Ձեռնարկություն"
 
-msgid "products"
-msgstr ""
+#, fuzzy
+msgid "Show comment counter"
+msgstr "Մեկնաբանությունների հաշվարկում"
 
 #, fuzzy
 msgid "communities"
@@ -45,12 +48,13 @@ msgstr "Համայնքներ"
 msgid "categories"
 msgstr "Կատեգորիաներ"
 
-msgid "hits"
-msgstr ""
+#, fuzzy
+msgid "Show tag counter"
+msgstr "Ամբողջ բովանդակությունը"
 
 #, fuzzy
-msgid "Show user counter"
-msgstr "Վայր"
+msgid "Show category counter"
+msgstr "Նոր կատեգորիա"
 
 #, fuzzy
 msgid "Show community counter"
@@ -64,21 +68,23 @@ msgstr "%s-ի բոլոր ձեռնարկությունները"
 msgid "Show product counter"
 msgstr "Ամբողջ բովանդակությունը"
 
-#, fuzzy
-msgid "Show category counter"
-msgstr "Նոր կատեգորիա"
+#: ../lib/statistics_block.rb:24
+msgid "Statistics for %s"
+msgstr "Վիճակագրություն"
 
-#, fuzzy
-msgid "Show tag counter"
-msgstr "Ամբողջ բովանդակությունը"
+#: ../lib/statistics_plugin.rb:10
+msgid ""
+"A plugin that adds a block where you can see statistics of it's context."
+msgstr ""
 
-#, fuzzy
-msgid "Show comment counter"
-msgstr "Մեկնաբանությունների հաշվարկում"
+#: ../views/blocks/statistics.html.erb:23
+msgid "products"
+msgstr ""
 
-#, fuzzy
-msgid "Show hit counter"
-msgstr "Ամբողջ բովանդակությունը"
+#: ../views/blocks/statistics.html.erb:58
+msgid "hits"
+msgstr ""
 
+#: ../views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
 msgstr ""

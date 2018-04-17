@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-07 17:21-0200\n"
-"PO-Revision-Date: 2017-11-07 17:21-0200\n"
+"POT-Creation-Date: 2018-04-10 00:10+0000\n"
+"PO-Revision-Date: 2018-04-10 00:10+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:22
+#: ../controllers/newsletter_plugin_admin_controller.rb:21
 msgid "Newsletter updated."
 msgstr ""
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:25
+#: ../controllers/newsletter_plugin_admin_controller.rb:24
 msgid "Newsletter could not be saved."
 msgstr ""
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:41
+#: ../controllers/newsletter_plugin_admin_controller.rb:40
 #: ../views/newsletter_plugin_admin/index.html.erb:31
 msgid "%s in %s"
 msgstr ""
@@ -39,21 +39,21 @@ msgstr ""
 msgid "Periodically sends newsletter via email to network users"
 msgstr ""
 
-#: ../lib/newsletter_plugin/moderate_newsletter.rb:23
+#: ../lib/newsletter_plugin/moderate_newsletter.rb:22
 msgid "Moderate newsletter"
 msgstr ""
 
-#: ../lib/newsletter_plugin/moderate_newsletter.rb:35
+#: ../lib/newsletter_plugin/moderate_newsletter.rb:34
 msgid "You have to moderate a newsletter."
 msgstr ""
 
-#: ../lib/newsletter_plugin/moderate_newsletter.rb:47
+#: ../lib/newsletter_plugin/moderate_newsletter.rb:46
 msgid ""
 "A newsletter was generated and you need to review it before it is sent to user"
 "s."
 msgstr ""
 
-#: ../lib/newsletter_plugin/moderate_newsletter.rb:51
+#: ../lib/newsletter_plugin/moderate_newsletter.rb:50
 msgid "You need to moderate a newsletter."
 msgstr ""
 
@@ -75,21 +75,21 @@ msgid "must have only valid emails"
 msgstr ""
 
 #: ../lib/newsletter_plugin/newsletter.rb:113
-msgid "If you can't view this email, %s."
+msgid "click here"
 msgstr ""
 
 #: ../lib/newsletter_plugin/newsletter.rb:113
-msgid "click here"
+msgid "If you can't view this email, %s."
+msgstr ""
+
+#: ../lib/newsletter_plugin/newsletter.rb:117
+msgid "cancel your subscription here"
 msgstr ""
 
 #: ../lib/newsletter_plugin/newsletter.rb:117
 msgid ""
 "This is an automatically generated email, please do not reply. If you do not w"
 "ish to receive future newsletter emails, %s."
-msgstr ""
-
-#: ../lib/newsletter_plugin/newsletter.rb:117
-msgid "cancel your subscription here"
 msgstr ""
 
 #: ../lib/newsletter_plugin/newsletter.rb:121
@@ -172,6 +172,10 @@ msgstr ""
 msgid ""
 "You can follow the link below to see which e-mails are currently being used as"
 " additional recipients for this newsletter."
+msgstr ""
+
+#: ../views/newsletter_plugin_admin/index.html.erb:47
+msgid "Currently set additional recipients"
 msgstr ""
 
 #: ../views/newsletter_plugin_admin/index.html.erb:50

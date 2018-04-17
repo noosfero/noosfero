@@ -5,6 +5,7 @@
     <%= yield(:feeds) %>
     <!--<meta http-equiv="refresh" content="1"/>-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <%=
       theme_option(:meta_tags).map do |name, content|
@@ -68,30 +69,32 @@
             end)
       safe_join(str, "\n")
     %>
-    <div id="global-header">
-      <%= global_header %>
-    </div>
-
-    <div id="wrap-1">
-      <div id="theme-header">
-        <%= theme_header %>
+    <div id="noosfero">
+      <div id="global-header">
+        <%= global_header %>
       </div>
-      <div id="wrap-2">
-        <%= render :partial => 'layouts/user' %>
-        <h1 id="site-title">
-          <%= theme_site_title %>
-        </h1>
-        <div id="navigation">
-          <ul>
-            <%= theme_extra_navigation %>
-          </ul>
-          <div id="navigation-end"></div>
-        </div><!-- end id="navigation" -->
-        <div id="content">
-          <%= render 'layouts/content' %>
-        </div><!-- end id="content" -->
-      </div><!-- end id="wrap-2" -->
-    </div><!-- end id="wrap-1" -->
+
+      <div id='wrap-1'>
+        <div id="theme-header">
+          <%= theme_header %>
+        </div>
+        <div id='wrap-2'>
+          <%= theme_user %>
+          <div id="navigation">
+            <h1 id="site-title">
+              <%= theme_site_title %>
+            </h1>
+            <ul id='navigation-actions'>
+              <%= theme_extra_navigation %>
+            </ul>
+            <div id="navigation-end"></div>
+          </div><!-- end id="navigation" -->
+          <div id="content">
+            <%= render 'layouts/content' %>
+          </div><!-- end id="content" -->
+        </div><!-- end id='wrap-2' -->
+      </div><!-- end id='wrap-1' -->
+    </div><!-- end id="noosfero" -->
     <%= render_environment_features(:logged_in).html_safe if logged_in? %>
     <div id="footer">
       <div id="theme-footer">
@@ -113,5 +116,11 @@
             end)
       safe_join(str, "\n")
     %>
+    <div id="noosfero-modal">
+      <div id="noosfero-modal-content" class="scrollbar">
+        <a id="close-modal" href="#!"><%= font_awesome :times %></a>
+        <div id="noosfero-modal-inner"></div>
+      </div>
+    </div>
   </body>
 </html>

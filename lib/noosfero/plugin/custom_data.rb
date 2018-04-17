@@ -5,7 +5,11 @@ class Noosfero::Plugin::CustomData
     @plugin = plugin
     attributes ||= {}
     attributes.each do |k,v|
-      self.send("#{k}=", v, type.try("[]", k))
+      if type.present?
+        self.send("#{k}=", v, type.try("[]", k))
+      else
+        self.send("#{k}=", v)
+      end
     end
   end
 

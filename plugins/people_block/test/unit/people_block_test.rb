@@ -143,6 +143,7 @@ class PeopleBlockViewTest < ActionView::TestCase
     env = fast_create(Environment)
     block = PeopleBlock.new
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select '[href=/search/people]'

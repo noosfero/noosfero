@@ -55,7 +55,7 @@ class UserTest < ActiveSupport::TestCase
   def test_should_authenticate_user
     assert_equal users(:johndoe), User.authenticate('johndoe', 'test')
     assert_equal users(:johndoe), User.authenticate('johndoe@localhost.localdomain', 'test')
-    assert_equal nil, User.authenticate('wrongemail@localhost', 'test')
+    assert_nil User.authenticate('wrongemail@localhost', 'test')
   end
 
   def test_should_authenticate_user_of_nondefault_environment
@@ -123,7 +123,7 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_change_password
     user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
-    user.activate
+    user.activate!
     assert_nothing_raised do
       user.change_password!('test', 'newpass', 'newpass')
     end
@@ -133,7 +133,7 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_give_correct_current_password_for_changing_password
     user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
-    user.activate
+    user.activate!
     assert_raise User::IncorrectPassword do
       user.change_password!('wrong', 'newpass', 'newpass')
     end
@@ -143,7 +143,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'require matching confirmation when changing password by force' do
     user = create_user('changetest', :password => 'test', :password_confirmation => 'test', :email => 'changetest@example.com')
-    user.activate
+    user.activate!
 
     assert_raise ActiveRecord::RecordInvalid do
       user.force_change_password!('newpass', 'newpasswrong')
@@ -158,7 +158,7 @@ class UserTest < ActiveSupport::TestCase
       user.force_change_password!('newpass', 'newpass')
     end
 
-    user.activate
+    user.activate!
     assert user.authenticated?('newpass')
   end
 
@@ -262,7 +262,7 @@ class UserTest < ActiveSupport::TestCase
 
     # when the user logs in, her password must be reencrypted with the new
     # method
-    user.activate
+    user.activate!
     user.authenticated?('test')
 
     # and the new password must be saved back to the database
@@ -280,7 +280,7 @@ class UserTest < ActiveSupport::TestCase
     User.expects(:system_encryption_method).returns(:md5).at_least_once
 
     # but the user provided the wrong password
-    user.activate
+    user.activate!
     user.authenticated?('WRONG_PASSWORD')
 
     # and then her password is not updated
@@ -387,7 +387,8 @@ class UserTest < ActiveSupport::TestCase
     assert_match 'd=', person.user.data_hash['avatar']
     assert_match 'size=20', person.user.data_hash['avatar']
 
-    assert_equal expected_hash['email_domain'], person.user.data_hash['email_domain']
+    assert_nil expected_hash['email_domain']
+    assert_nil person.user.data_hash['email_domain']
     assert_equal expected_hash['amount_of_friends'], person.user.data_hash['amount_of_friends']
     assert_equal expected_hash['friends_list'], person.user.data_hash['friends_list']
   end
@@ -502,8 +503,9 @@ class UserTest < ActiveSupport::TestCase
     assert_respond_to user, :activated_at
   end
 
-  should 'make activation code before creation' do
+  should 'make activation codes before creation' do
     assert_not_nil new_user.activation_code
+    assert_not_nil new_user.short_activation_code
   end
 
   should 'deliver e-mail with activation code after creation' do
@@ -523,7 +525,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'authenticate an activated user' do
     user = new_user :login => 'testuser', :password => 'test123', :password_confirmation => 'test123'
-    user.activate
+    user.activate!
     assert_equal user, User.authenticate('testuser', 'test123')
   end
 
@@ -543,7 +545,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'activate an user' do
     user = new_user
-    assert user.activate
+    assert user.activate!
     assert_nil user.activation_code
     assert_not_nil user.activated_at
     assert user.person.visible
@@ -552,7 +554,7 @@ class UserTest < ActiveSupport::TestCase
   should 'return if the user is activated' do
     user = new_user
     refute user.activated?
-    user.activate
+    user.activate!
     assert user.activated?
   end
 
@@ -581,7 +583,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'deactivate an user' do
     user = new_user
-    user.activate
+    user.activate!
     assert user.deactivate
     assert_nil user.activated_at
     refute user.person.visible
@@ -589,7 +591,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'return if the user is deactivated' do
     user = new_user
-    user.activate
+    user.activate!
     assert user.activated?
     user.deactivate
     refute user.activated?
@@ -606,7 +608,7 @@ class UserTest < ActiveSupport::TestCase
   should 'cancel activation if user has no person associated' do
     user = new_user
     user.stubs(:person).returns(nil)
-    refute user.activate
+    refute user.activate!
   end
 
   should 'be able to skip the password requirement' do
@@ -626,7 +628,7 @@ class UserTest < ActiveSupport::TestCase
 
     user = new_user :email => 'pending@activation.com'
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      user.activate
+      user.activate!
     end
   end
 
@@ -642,7 +644,7 @@ class UserTest < ActiveSupport::TestCase
     user = new_user :email => 'pending@activation.com'
     process_delayed_job_queue
     assert_difference 'ActionMailer::Base.deliveries.size', 1 do
-      user.activate
+      user.activate!
       process_delayed_job_queue
     end
 
@@ -663,7 +665,7 @@ class UserTest < ActiveSupport::TestCase
     user = new_user :email => 'pending@activation.com'
     process_delayed_job_queue
     assert_difference 'ActionMailer::Base.deliveries.size', 1 do
-      user.activate
+      user.activate!
       process_delayed_job_queue
     end
 
@@ -683,7 +685,7 @@ class UserTest < ActiveSupport::TestCase
     user = new_user :name => 'John Doe', :email => 'pending@activation.com'
     process_delayed_job_queue
     assert_difference 'ActionMailer::Base.deliveries.size', 1 do
-      user.activate
+      user.activate!
       process_delayed_job_queue
     end
 
@@ -701,7 +703,7 @@ class UserTest < ActiveSupport::TestCase
 
     user = new_user :email => 'pending@activation.com'
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      user.activate
+      user.activate!
     end
   end
 
@@ -712,7 +714,7 @@ class UserTest < ActiveSupport::TestCase
 
     user = new_user :email => 'pending@activation.com'
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
-      user.activate
+      user.activate!
     end
   end
 
@@ -751,12 +753,51 @@ class UserTest < ActiveSupport::TestCase
 
   should 'not deliver e-mail with activation code when resend was requested and user was activated' do
     user = new_user :email => 'pending@activation.com'
-    user.activate
+    user.activate!
     Delayed::Job.destroy_all
     assert_no_difference 'ActionMailer::Base.deliveries.size' do
       user.resend_activation_code
       process_delayed_job_queue
     end
+  end
+
+  should 'clean activation codes when creating moderation_task' do
+    user = fast_create(User, activation_code: '123456')
+    assert user.activation_code.present?
+
+    user.create_moderate_task
+    user.reload
+    assert user.activation_code.blank?
+    assert user.short_activation_code.blank?
+  end
+
+  should 'clean activation codes when activating a user' do
+    user = create_user_full
+
+    user.activate!
+    user.reload
+    assert user.activation_code.blank?
+    assert user.short_activation_code.blank?
+  end
+
+  should 'not activate if short code is not correct' do
+    user = create_user_full
+    user.activate('wrong_code')
+    refute user.activated?
+  end
+
+  should 'activate if short code is correct and moderation is disabled' do
+    user = create_user_full
+    user.activate(user.short_activation_code)
+    assert user.activated?
+  end
+
+  should 'create task if short code is correct and moderation is enabled' do
+    user = create_user_full
+    user.environment.enable('admin_must_approve_new_users', true)
+    user.activate(user.short_activation_code)
+    assert user.moderate_registration_pending?
+    refute user.activated?
   end
 
   protected

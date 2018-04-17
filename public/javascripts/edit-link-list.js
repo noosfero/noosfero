@@ -30,7 +30,8 @@ function new_link_action(){
 }
 
 function add_new_link() {
-  var new_link = jQuery('#edit-link-list-block #new-template>li').clone();
+  var new_link = $('#edit-link-list-block #dropable-link-list .link-list-template').clone()
+  new_link.removeClass('link-list-template')
   new_link.show();
   jQuery('#dropable-link-list').append(new_link);
   new_link_action();

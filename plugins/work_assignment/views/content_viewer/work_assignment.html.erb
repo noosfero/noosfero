@@ -14,9 +14,11 @@
           'the files.') %>
   </p>
 
-  <%= render :partial => 'cms/upload_file_form',
-             :locals => { size: '45', back_to: url_for(@page.url),
-                          num_of_files: 1, parent: @page } %>
+  <%= form_for('uploaded_file', url: { action: 'upload_files', controller: 'cms' }, html: { multipart: true, id: :file_upload_form }) do |f| %>
+    <%= render :partial => 'cms/upload_file_form',
+               :locals => { size: '45', back_to: url_for(@page.url),
+                            num_of_files: 1, parent: @page } %>
+  <% end %>
 
   <p class='hint'>
     <%= _('Uploading files to %s') % @page.full_path %>

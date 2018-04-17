@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-08-04 15:18+0000\n"
-"PO-Revision-Date: 2017-08-04 15:18+0000\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -28,6 +28,10 @@ msgstr ""
 
 #: ../lib/piwik_plugin.rb:13
 msgid "Tracking and web analytics to your Noosfero's environment"
+msgstr ""
+
+#: ../lib/piwik_plugin.rb:38
+msgid "Piwik"
 msgstr ""
 
 #: ../views/piwik_plugin_admin/index.html.erb:1

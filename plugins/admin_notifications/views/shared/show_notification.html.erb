@@ -21,12 +21,19 @@
 <div class="notification-plugin-notification-bar">
   <% @notifications.each do |notification| %>
     <div class="<%= notification.type.gsub("AdminNotificationsPlugin::", "").downcase %> notification" data-notification="<%=notification.id%>" notification-display-popup="<%=notification.display_popup?%>">
-      <div class="notification-message">
-        <%= AdminNotificationsPlugin::NotificationHelper.substitute_variables(notification.message, current_user).html_safe %>
+      <div>
+        <% unless notification.title.blank? %>
+          <div class='notification-title'><%= notification.title %></div>
+        <% end %>
+        <div class="notification-message">
+          <%= AdminNotificationsPlugin::NotificationHelper.substitute_variables(notification.message, current_user).html_safe %>
+        </div>
       </div>
       <% if logged_in? %>
-        <div class="notification-close" title="<%= _('Do not show anymore') %>"></div>
-        <div class="notification-hide" title="<%= _('Hide for now') %>"></div>
+        <div class='notifications-actions'>
+          <a class="notification-close" title="<%= _('Do not show anymore') %>"><%= font_awesome(:remove) %></a>
+          <a class="notification-hide" title="<%= _('Hide for now') %>"><%= font_awesome('eye-slash') %></a>
+        </div>
       <% end %>
     </div>
   <% end %>

@@ -520,11 +520,10 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   should 'not inlude administration link if user is not an environment administrator' do
-    user = mock()
+    stubs(:user).returns(fast_create(User))
     stubs(:environment).returns(Environment.default)
     user.stubs(:is_admin?).with(environment).returns(false)
-    stubs(:user).returns(user)
-    assert admin_link.blank?
+    assert_no_match /Administration/, admin_link
   end
 
   should 'inlude administration link if user is an environment administrator' do
@@ -733,7 +732,7 @@ class ApplicationHelperTest < ActionView::TestCase
     enterprise.add_admin(profile)
 
     stubs(:user).returns(nil)
-    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
+    expects(:manage_link).never
     assert_equal '', manage_enterprises
   end
 
@@ -745,7 +744,7 @@ class ApplicationHelperTest < ActionView::TestCase
     enterprise.add_admin(profile)
 
     stubs(:user).returns(profile)
-    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).returns('enterprises list')
+    expects(:manage_link).once.returns('enterprises list')
     assert_equal 'enterprises list', manage_enterprises
   end
 
@@ -757,7 +756,7 @@ class ApplicationHelperTest < ActionView::TestCase
     enterprise.add_admin(profile)
 
     stubs(:user).returns(profile)
-    expects(:manage_link).with(profile.enterprises, :enterprises, _('My enterprises')).never
+    expects(:manage_link).never
     assert_equal '', manage_enterprises
   end
 
@@ -769,7 +768,7 @@ class ApplicationHelperTest < ActionView::TestCase
     community.add_admin(profile)
 
     stubs(:user).returns(nil)
-    expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
+    expects(:manage_link).never
     assert_equal '', manage_communities
   end
 
@@ -781,7 +780,7 @@ class ApplicationHelperTest < ActionView::TestCase
     community.add_admin(profile)
 
     stubs(:user).returns(profile)
-    expects(:manage_link).with(profile.communities, :communities, _('My communities')).returns('communities list')
+    expects(:manage_link).once.returns('communities list')
     assert_equal 'communities list', manage_communities
   end
 
@@ -793,7 +792,7 @@ class ApplicationHelperTest < ActionView::TestCase
     community.add_admin(profile)
 
     stubs(:user).returns(profile)
-    expects(:manage_link).with(profile.communities, :communities, _('My communities')).never
+    expects(:manage_link).never
     assert_equal '', manage_communities
   end
 
@@ -840,9 +839,9 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'enable fullscreen buttons' do
     html = fullscreen_buttons("#article")
-    assert html.include?("<script>fullscreenPageLoad('#article')</script>")
-    assert html.include?("class=\"button with-text icon-fullscreen\"")
-    assert html.include?("onClick=\"toggle_fullwidth(&#39;#article&#39;)\"")
+    assert html.include?("id=\"fullscreen-btn\" onclick=\"toggle_fullwidth(&#39;#article&#39;)\" href=\"#\" title=\"Go to full screen mode\"")
+    assert html.include?("aria-hidden=\"true\"")
+    assert html.include?("onclick=\"toggle_fullwidth(&#39;#article&#39;)\"")
   end
 
   should "return the related class string" do

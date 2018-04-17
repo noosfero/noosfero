@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "PO-Revision-Date: 2015-02-23 11:37+0200\n"
 "Last-Translator: Michal Čihař <michal@cihar.com>\n"
-"Language-Team: Armenian <https://hosted.weblate.org/projects/noosfero/plugin-c"
-"omment-classification/hy/>\n"
+"Language-Team: Armenian <https://hosted.weblate.org/projects/noosfero/plugin-"
+"comment-classification/hy/>\n"
 "Language: hy\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,14 +69,13 @@ msgstr "Սկզբնական նյութի թարմացումը ձախողված է
 msgid "A plugin that allow classification of comments."
 msgstr "Ձեր խմբերը ցուցադրող բաժին"
 
-msgid "Status"
-msgstr "Կարգավիճակ"
+#, fuzzy
+msgid "Are you sure you want to remove this status?"
+msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
 
-msgid "Label"
-msgstr ""
-
-msgid "[Select ...]"
-msgstr ""
+#, fuzzy
+msgid "Reason enabled?"
+msgstr "%s ակտիվացված չէ:"
 
 #, fuzzy
 msgid "Comments classification options"
@@ -90,19 +89,21 @@ msgstr "Կառավարել անդամներին"
 msgid "Manage Status"
 msgstr "Կառավարել բովանդակությունը:"
 
-msgid "Name"
-msgstr "Անվանում"
+#, fuzzy
+msgid "(no status registered yet)"
+msgstr "սեռը գրանցված չէ"
 
-msgid "Color"
-msgstr ""
+#, fuzzy
+msgid "Manage comments status"
+msgstr "Կառավարել բովանդակությունը:"
 
 #, fuzzy
 msgid "Enable this label?"
 msgstr "Ակտիվացնել ձեռնարկությունը"
 
 #, fuzzy
-msgid "Add a new label"
-msgstr "Մեկ ձեռնարկություն"
+msgid "Reason:"
+msgstr "Տարածաշրջան"
 
 #, fuzzy
 msgid "Editing label %s"
@@ -116,58 +117,68 @@ msgstr "Կառավարել ընկերներին"
 msgid "(no label registered yet)"
 msgstr "սեռը գրանցված չէ"
 
-msgid "Enabled"
-msgstr "Ակտիվացված է"
-
-msgid "Actions"
-msgstr "Գործողություններ"
-
 #, fuzzy
-msgid "Are you sure you want to  remove this label?"
-msgstr "Ցանկանո՞ւմ եք արդյոք հեռացնել այս մեկնաբանությունը:"
-
-#, fuzzy
-msgid "Reason:"
-msgstr "Տարածաշրջան"
-
-#, fuzzy
-msgid "Status for comment"
-msgstr "Մեկ մեկնաբանություն"
-
-msgid "<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}</i>."
-msgstr ""
-
-msgid "<i>Reason:</i> %s"
-msgstr ""
-
-#, fuzzy
-msgid "Add a new status"
-msgstr "Մեկ ձեռնարկություն"
-
-#, fuzzy
-msgid "Manage comment classification"
-msgstr "Տեղեկություններ ղեկավարության մասին"
+msgid "Editing status %s"
+msgstr "Փոփոխում %s"
 
 #, fuzzy
 msgid "Enable this status?"
 msgstr "Հատկություններ ակտիվացնել/դիզակտիվացնել"
 
 #, fuzzy
-msgid "Editing status %s"
-msgstr "Փոփոխում %s"
+msgid "Manage comment classification"
+msgstr "Տեղեկություններ ղեկավարության մասին"
 
 #, fuzzy
-msgid "Manage comments status"
-msgstr "Կառավարել բովանդակությունը:"
+msgid "Are you sure you want to  remove this label?"
+msgstr "Ցանկանո՞ւմ եք արդյոք հեռացնել այս մեկնաբանությունը:"
 
 #, fuzzy
-msgid "(no status registered yet)"
-msgstr "սեռը գրանցված չէ"
+msgid "Status for comment"
+msgstr "Մեկ մեկնաբանություն"
 
 #, fuzzy
-msgid "Reason enabled?"
-msgstr "%s ակտիվացված չէ:"
+msgid "Add a new status"
+msgstr "Մեկ ձեռնարկություն"
 
 #, fuzzy
-msgid "Are you sure you want to remove this status?"
-msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
+msgid "Add a new label"
+msgstr "Մեկ ձեռնարկություն"
+
+#: ../views/comment/comment_extra.html.erb:12
+#: ../views/comment_classification_plugin_myprofile/_status_form.html.erb:7
+#: ../views/comment_classification_plugin_status/index.html.erb:9
+msgid "Status"
+msgstr "Կարգավիճակ"
+
+#: ../views/comment/comments_labels_select.html.erb:3
+msgid "Label..."
+msgstr ""
+
+#: ../views/comment_classification_plugin_labels/_form.html.erb:6
+#: ../views/comment_classification_plugin_status/_form.html.erb:6
+msgid "Name"
+msgstr "Անվանում"
+
+#: ../views/comment_classification_plugin_labels/_form.html.erb:7
+#: ../views/comment_classification_plugin_labels/index.html.erb:10
+msgid "Color"
+msgstr ""
+
+#: ../views/comment_classification_plugin_labels/index.html.erb:9
+msgid "Label"
+msgstr ""
+
+#: ../views/comment_classification_plugin_labels/index.html.erb:11
+#: ../views/comment_classification_plugin_status/index.html.erb:10
+msgid "Enabled"
+msgstr "Ակտիվացված է"
+
+#: ../views/comment_classification_plugin_labels/index.html.erb:12
+#: ../views/comment_classification_plugin_status/index.html.erb:12
+msgid "Actions"
+msgstr "Գործողություններ"
+
+#: ../views/comment_classification_plugin_myprofile/add_status.html.erb:5
+msgid "Comment Informations"
+msgstr ""

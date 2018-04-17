@@ -427,7 +427,7 @@ class Task < ApplicationRecord
     end
 
     def per_page
-      15
+      10
     end
 
   end

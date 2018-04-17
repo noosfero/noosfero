@@ -15,11 +15,11 @@ class AllowCommentTest < ActiveSupport::TestCase
   should 'parse contents to include comment group view' do
     profile = fast_create(Community)
     article = fast_create(Article, :profile_id => profile.id)
-    comment = fast_create(Comment, :group_id => 1, :source_id => article.id)
+    comment = fast_create(Comment, :group_id => 0, :source_id => article.id)
     inner_html = 'inner'
     content = macro.parse({:group_id => comment.group_id}, inner_html, article)
 
-    expects(:render).with({:partial => 'comment_group_plugin_profile/comment_group', :locals => {:group_id => comment.group_id, :article_id => article.id, :inner_html => inner_html, :count => 1, :profile_identifier => profile.identifier} })
+    expects(:render).with({:partial => 'comment_group_plugin_profile/comment_group', :locals => {:group_id => comment.group_id, :article => article, :inner_html => inner_html, :count => 1, :profile_identifier => profile.identifier} })
     instance_eval(&content)
   end
 

@@ -72,14 +72,13 @@ Feature: register enterprise
       | Foundation year   |                 |
       | Contact person    |                 |
       | Contact email     |                 |
-    When I press "Next"
+    When I follow "Next"
     Then I should see "Foundation year can't be blank"
     Then I should see "Contact person can't be blank"
     Then I should see "Contact email can't be blank"
 
   @selenium
-  Scenario: a user register an enterprise successfully through the admin
-            validator method and the admin accepts
+  Scenario: a user register an enterprise successfully through the admin validator method and the admin accepts
     Given organization_approval_method is "admin" on environment
     And the mailbox is empty
     And I follow "Manage my groups"
@@ -90,15 +89,14 @@ Feature: register enterprise
     And I fill in the following:
       | Address | my-enterprise  |
       | Name    | My Enterprise  |
-    And I press "Next"
+    And I follow "Next"
     Then I should see "Enterprise registration completed"
     And I am logged in as admin
     And I go to admin_user's control panel
     When I follow "Tasks" within ".control-panel"
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
     And the first mail is to admin_user@example.com
-    And I choose "Accept"
-    And I press "Apply!"
+    And I follow "Accept"
     Then the last mail is to joaosilva@example.com
     And I am logged in as "joaosilva"
     And I am on joaosilva's control panel
@@ -106,8 +104,7 @@ Feature: register enterprise
     Then I should see "My Enterprise"
 
   @selenium
-  Scenario: a user register an enterprise successfully through the admin
-            validator method and the admin rejects
+  Scenario: a user register an enterprise successfully through the admin validator method and the admin rejects
     Given organization_approval_method is "admin" on environment
     And the mailbox is empty
     And I follow "Manage my groups"
@@ -118,16 +115,16 @@ Feature: register enterprise
     And I fill in the following:
       | Address | my-enterprise |
       | Name    | My Enterprise |
-    And I press "Next"
+    And I follow "Next"
     Then I should see "Enterprise registration completed"
     And I am logged in as admin
     And I go to admin_user's control panel
     When I follow "Tasks" within ".control-panel"
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
     And the first mail is to admin_user@example.com
-    And I choose "Reject"
+    And I follow "Reject"
     And I fill in "Rejection explanation" with "This enterprise has some irregularities."
-    And I press "Apply!"
+    # And I follow "Apply!"
     Then the last mail is to joaosilva@example.com
     And I am logged in as "joaosilva"
     And I am on joaosilva's control panel
@@ -153,17 +150,16 @@ Feature: register enterprise
       | Address        | my-enterprise   |
       | Name              | My Enterprise   |
     And I select "Sample State" from "Region"
-    And I press "Next"
+    And I follow "Next"
     Then I should see "Validator"
     Then I should see "Sample methodology"
     When I choose "Validator"
-    And I press "Confirm"
+    And I follow "Confirm"
     Then I should see "Enterprise registration completed"
     And I am on validator's control panel
     When I follow "Tasks"
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
-    And I choose "Accept"
-    And I press "Apply!"
+    And I follow "Accept"
     And I am on joaosilva's control panel
     When I follow "Manage my groups"
     Then I should see "My Enterprise"
@@ -187,18 +183,18 @@ Feature: register enterprise
       | Address        | my-enterprise   |
       | Name              | My Enterprise   |
     And I select "Sample State" from "Region"
-    And I press "Next"
+    And I follow "Next"
     Then I should see "Validator"
     Then I should see "Sample methodology"
     When I choose "Validator"
-    And I press "Confirm"
+    And I follow "Confirm"
     Then I should see "Enterprise registration completed"
     And I am on validator's control panel
     When I follow "Tasks"
     Then I should see "Joao Silva wants to create enterprise My Enterprise."
-    And I choose "Reject"
+    And I follow "Reject"
     And I fill in "Rejection explanation" with "This enterprise has some irregularities."
-    And I press "Apply"
+    # And I follow "Apply"
     And I am on joaosilva's control panel
     When I follow "Manage my groups"
     Then I should not see "My Enterprise"

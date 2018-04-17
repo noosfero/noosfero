@@ -116,4 +116,8 @@ class Blog < Folder
           .sort_by {|month, count| -month.to_i}
     end
   end
+
+  def icon
+    'blog'
+  end
 end

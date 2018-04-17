@@ -5,8 +5,9 @@
 <%= render :partial => 'general_fields' %>
 <%= render :partial => 'translatable' %>
 
-<%= date_range_field('article[start_date]', 'article[end_date]', @article.start_date, @article.end_date, {:time => true}, {:id => 'article_start_date'} ) %>
-
+<div class="formfieldline" style="display: flex; flex-wrap: wrap; margin-top: 2.2em;">
+  <%= date_range_field('article[start_date]', 'article[end_date]', @article.start_date, @article.end_date, {:time => true}, {:id => 'article_start_date'} ) %>
+</div>
 
 <%= labelled_form_field(_('Event website:'), text_field(:article, :link)) %>
 

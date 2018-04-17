@@ -1,12 +1,12 @@
 <ul>
   <%if logged_in? %>
     <%if !user.favorite_enterprises.include?(profile) %>
-      <li><%= button(:love, _('Add as favorite'), { profile: user.identifier, controller: 'favorite_enterprises', action: 'add', id: profile.id }, title: _('Add enterprise as favorite')) %></li>
+      <li><%= link_to(font_awesome(:heart, _('Add as favorite')), { profile: user.identifier, controller: 'favorite_enterprises', action: 'add', id: profile.id }, title: _('Add enterprise as favorite')) %></li>
     <% end %>
   <% end %>
   <% if profile.enable_contact? %>
-      <li><%= button(:'menu-mail', _('Send an e-mail'), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, {:id => 'enterprise-contact-button'} ) %></li>
+      <li><%= link_to(font_awesome(:email, _('Send an e-mail')), { profile: profile.identifier, controller: 'contact', action: 'new' }, { id: 'enterprise-contact-button' } ) %></li>
   <% end %>
 
-    <%= render :partial => 'blocks/profile_info_actions/common' %>
+  <%= render partial: 'blocks/profile_info_actions/common' %>
 </ul>

@@ -674,6 +674,7 @@ class Article < ApplicationRecord
     :children_count,
     :comments_count,
     :hits,
+    :translation_of_id,
   ]
 
   def self.find_by_old_path(old_path)
@@ -895,6 +896,10 @@ class Article < ApplicationRecord
 
   def editor?(editor)
     self.editor == editor
+  end
+
+  def icon
+    'file'
   end
 
   private

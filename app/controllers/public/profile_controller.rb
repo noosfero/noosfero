@@ -334,12 +334,9 @@ class ProfileController < PublicController
       page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity],
         :partial => 'profile_scrap', :collection => activity.replies.paginate(:per_page => comments_per_page, :page => comment_page), :as => :scrap
 
-      if no_more_pages
-        page.remove 'profile-wall-activities-comments-more-'+params[:activity]
-      else
-        page.replace_html 'profile-wall-activities-comments-more-'+params[:activity],
-          :partial => 'more_replies', :locals => {:activity => activity, :comment_page => comment_page}
-      end
+      page.remove 'profile-wall-activities-comments-more-'+params[:activity] if comment_page == 1
+      page.insert_html :after, "profile-wall-activities-comments-#{params[:activity]}",
+                        partial: "more_replies", locals: { activity: activity, comment_page: comment_page } unless no_more_pages
     end
   end
 

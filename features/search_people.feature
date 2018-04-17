@@ -17,7 +17,7 @@ Feature: search people
   Scenario: simple search for person
     When I go to the search people page
     And I fill in "search-input" with "Silva"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Joao Silva" within "#search-results"
     And I should see "Joao Silva" within ".only-one-result-box"
     And I should not see "Jose Araujo"
@@ -32,5 +32,5 @@ Feature: search people
       | jsilva | Joao Adalberto de Oliveira Silva |
     When I go to the search people page
     And I fill in "search-input" with "Adalberto de Oliveira"
-    And I press "Search"
+    And I follow "Search" within ".search-form"
     Then I should see "Joao Adalberto de Oliveira Silva" within "#search-results"

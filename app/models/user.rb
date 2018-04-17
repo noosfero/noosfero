@@ -5,10 +5,19 @@ require 'securerandom'
 # Rails generator.
 class User < ApplicationRecord
 
+  include Noosfero::Plugin::HotSpot
+  include MetadataScopes
+  include Notifiable
+
+  SHORT_ACTIVATION_CODE_SIZE = 6
+
   attr_accessible :login, :email, :password, :password_confirmation, :activated_at
 
   store_accessor :metadata
-  include MetadataScopes
+  metadata_items :short_activation_code
+
+  will_notify :activation_code
+  will_notify :signup_welcome_email
 
   N_('Password')
   N_('Password confirmation')
@@ -36,7 +45,7 @@ class User < ApplicationRecord
       when :login
         return [_('Username'), _('Email')].join(' / ')
       when :email
-        return _('e-Mail')
+        return _('E-mail')
       else _(self.human_attribute_name_without_customization(attrib))
     end
   end
@@ -56,7 +65,7 @@ class User < ApplicationRecord
     if user.environment.nil?
       user.environment = Environment.default
     end
-    user.send(:make_activation_code) unless user.environment.enabled?('skip_new_user_email_confirmation')
+    user.send(:make_activation_codes) unless user.environment.enabled?('skip_new_user_email_confirmation')
   end
 
   after_create do |user|
@@ -77,7 +86,7 @@ class User < ApplicationRecord
       if user.environment.enabled?('admin_must_approve_new_users')
         create_moderate_task
       else
-        user.activate
+        user.activate!
       end
     end
   end
@@ -172,20 +181,34 @@ class User < ApplicationRecord
     end
   end
 
+  def activate(code)
+    return unless code && short_activation_code
+
+    if code.downcase == short_activation_code.downcase
+      if environment.enabled?('admin_must_approve_new_users')
+        create_moderate_task
+      else
+        activate!
+      end
+    end
+  end
+
   # Activates the user in the database.
-  def activate
+  def activate!
     return false unless self.person
-    self.activated_at = Time.now.utc
-    self.activation_code = nil
-    self.person.visible = true
-    begin
-      self.person.save! && self.save!
-    rescue Exception => exception
-      logger.error(exception.to_s)
-      false
-    else
-      if environment.enabled?('send_welcome_email_to_new_users') && environment.has_signup_welcome_text?
-        Delayed::Job.enqueue(UserMailer::Job.new(self, :signup_welcome_email))
+
+    ActiveRecord::Base.transaction do
+      self.activation_code = nil
+      self.short_activation_code = nil
+      self.activated_at = Time.now.utc
+      self.person.visible = true
+
+      self.person.save!
+      self.save!
+
+      if environment.enabled?('send_welcome_email_to_new_users') &&
+         environment.has_signup_welcome_text?
+        notify(:signup_welcome_email, self)
       end
       true
     end
@@ -207,12 +230,19 @@ class User < ApplicationRecord
   end
 
   def create_moderate_task
-    @task = ModerateUserRegistration.create(
-              user_id: self.id,
-              name: self.name,
-              email: self.email,
-              target: self.environment,
-              requestor: self.person)
+    ActiveRecord::Base.transaction do
+      ModerateUserRegistration.create!(
+        user_id: self.id,
+        name: self.name,
+        email: self.email,
+        target: self.environment,
+        requestor: self.person
+      )
+
+      self.activation_code = nil
+      self.short_activation_code = nil
+      self.save!
+    end
   end
 
   def activated?
@@ -424,7 +454,8 @@ class User < ApplicationRecord
 
   def resend_activation_code
     return if self.activated?
-    update_attribute(:activation_code, make_activation_code)
+    self.make_activation_codes
+    self.save!
     self.deliver_activation_code
   end
 
@@ -450,13 +481,15 @@ class User < ApplicationRecord
       @is_password_required.nil? ? true : @is_password_required
     end
 
-    def make_activation_code
+    def make_activation_codes
       self.activation_code = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by{rand}.join)
+      token = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by{rand}.join)
+      self.short_activation_code = token[1..SHORT_ACTIVATION_CODE_SIZE]
     end
 
     def deliver_activation_code
-      return if person.is_template?
-      Delayed::Job.enqueue(UserMailer::Job.new(self, :activation_code)) unless self.activation_code.blank?
+      return if person.is_template? || activation_code.blank?
+      notify(:activation_code, self)
     end
 
     def delay_activation_check

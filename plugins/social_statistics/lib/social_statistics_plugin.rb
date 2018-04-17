@@ -13,8 +13,18 @@ class SocialStatisticsPlugin < Noosfero::Plugin
   end
 
   def user_menu_items(user)
-    icon = '<i class="icon-menu-stats"></i><strong>' + _('Stats') + '</strong>'
-    user.is_admin? ? proc { link_to(icon.html_safe, '/stats', :title => _("Manage the environment statistics."), :target => '_blank') } : nil
+    if user.is_admin?
+      proc do
+        { :title => _('Stats'),
+          :icon => 'pie-chart',
+          :url => '/stats',
+          :html_options =>
+            { :title => _("Manage the environment statistics."),
+              :target => '_blank'
+            }
+        }
+      end
+    end
   end
 
 end

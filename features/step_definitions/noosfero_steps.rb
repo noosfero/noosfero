@@ -6,7 +6,7 @@ Given /^the following users?$/ do |table|
     category = Category.find_by slug: person_data.delete("category")
     email = item[:email] || item[:login] + "@example.com"
     user = User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => email, :person_data => person_data)
-    user.activate
+    user.activate!
     p = user.person
     p.categories << category if category
     p.save!
@@ -227,7 +227,7 @@ Given /^I am logged in as "(.+)"$/ do |username|
   step %{I go to login page}
   step %{I fill in "main_user_login" with "#{username}"}
   step %{I fill in "user_password" with "123456"}
-  step %{I press "Log in"}
+  step %{I follow "Log in"}
   step %{I go to #{username}'s control panel}
   step %{I should be on #{username}'s control panel}
   @current_user = username
@@ -243,13 +243,13 @@ end
 Given /^I am logged in as admin$/ do
   visit('/account/logout')
   user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
-  user.activate
+  user.activate!
   e = Environment.default
   e.add_admin(user.person)
   visit('/account/login')
   fill_in("Username", :with => user.login)
   fill_in("Password", :with => '123456')
-  click_button("Log in")
+  click_link("Log in")
 end
 
 Given /^I am not logged in$/ do
@@ -472,7 +472,7 @@ Given /^the environment domain is "([^\"]*)"$/ do |domain|
 end
 
 When /^([^\']*)'s account is activated$/ do |person|
-  Person.find_by(name: person).user.activate
+  Person.find_by(name: person).user.activate!
 end
 
 Then /^I should receive an e-mail on (.*)$/ do |address|
@@ -566,7 +566,7 @@ end
 When /^I search ([^\"]*) for "([^\"]*)"$/ do |asset, query|
   step %{I go to the search #{asset} page}
   step %{I fill in "search-input" with "#{query}"}
-  step %{I press "Search"}
+  step %{I follow "search-button" within ".search-form"}
 end
 
 Then /^I should see ([^\"]*)'s profile image$/ do |name|

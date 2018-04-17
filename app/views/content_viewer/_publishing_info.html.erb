@@ -1,46 +1,60 @@
-<span class="publishing-info">
-  <span class="date">
-    <%= show_time(@page.published_at) %>
-  </span>
-  <span class="author">
-    <%= _(", by %s").html_safe % (@page.author ? link_to(@page.author_name, @page.author_url) : @page.author_name) %>
-  </span>
-<% unless @no_comments %>
-  <span class="comments">
-    <%= (" - %s").html_safe % link_to_comments(@page) %>
-  </span>
-<% end %>
+<div class="publishing-info article-actions">
+  <div class="content-publication-data">
+    <div class="article-date-and-author">
+      <span class="date"><%= show_time(article.published_at)%></span>
 
-<span class="followers-count">
-|
-<% if @page.event? %>
-  <% if @page.person_followers.size > 0 %>
-    <%= _("%s will attend this event.") % [ pluralize(@page.person_followers.size, _("person"))]%>
-  <% else %>
-    <%= _("No one attending this event yet.") %>
+      <span class="author">
+        <%= _(", by %s").html_safe % (article.author ? link_to(article.author_name, article.author_url) : article.author_name) %>
+      </span>
+    </div>
+    <div class="article-comments-and-followers">
+      <% unless @no_comments %>
+        <span class="comments">
+          <%= link_to_comments(article).html_safe %>
+        </span>
+        <% unless link_to_comments(article).blank? %>
+          <span class="bullet-separator">•</span>
+        <% end %>
+      <% end %>
+
+      <span class="followers-count">
+        <% if article.event? %>
+          <% if article.person_followers.size > 0 %>
+            <%= _("%s will attend this event.") % [ pluralize(article.person_followers.size, _("person"))]%>
+          <% else %>
+            <%= _("No one attending this event yet.") %>
+          <% end %>
+        <% elsif article.person_followers.size > 0 %>
+          <%= _("%s following this article.") % [ pluralize(article.person_followers.size, _("person"))]%>
+        <% else %>
+          <%= _("No one following this article yet.") %>
+        <% end %>
+      </span>
+
+      <% if article.display_hits? %>
+        <span class="bullet-separator">•</span>
+        <span id="article-hits">
+          <%= n_('One view %{desc}', '%{num} views %{desc}', article.hits) % { :num => article.hits, :desc => article.archived? ? '<b>'+_('(Not countable anymore)')+'</b>' : '' } %>
+        </span>
+      <% end %>
+    </div>
+  </div>
+
+  <% unless defined?(no_action_bar) %>
+    <%= link_to font_awesome(:ellipsis), '#!', class: 'menu-toggle', id: 'article-options' %>
+    <ul class="noosfero-dropdown-menu" id="article-options-dropdown">
+      <% article_actions.each do |action| %>
+        <%= content_tag(:li, action) unless action.blank? %>
+      <% end %>
+    </ul>
   <% end %>
-<% else %>
-  <% if @page.person_followers.size > 0 %>
-    <%= _("%s following this article.") % [ pluralize(@page.person_followers.size, _("person"))]%>
-  <% else %>
-    <%= _("No one following this article yet.") %>
-  <% end %>
-<% end %>
-</span>
+</div>
 
-</span>
-
-<% if @page.display_hits? || @page.license.present? %>
+<% if article.license.present? %>
   <div id='article-sub-header'>
-    <% if @page.display_hits? %>
-      <div id="article-hits">
-        <%= n_('Viewed one time %{desc}', 'Viewed %{num} times %{desc}', @page.hits) % { :num => @page.hits, :desc => @page.archived? ? '<b>'+_('(Not countable anymore)')+'</b>' : '' } %>
-      </div>
-    <% end %>
-
-    <% if @page.license.present? %>
+    <% if article.license.present? %>
       <div id="article-license">
-        <%= _('Licensed under %s').html_safe % (@page.license.url.present? ? link_to(@page.license.name, @page.license.url, :target => '_blank') : @page.license.name) %>
+        <%= _('Licensed under %s').html_safe % (article.license.url.present? ? link_to(article.license.name, article.license.url, :target => '_blank') : article.license.name) %>
       </div>
     <% end %>
   </div>

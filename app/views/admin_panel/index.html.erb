@@ -2,49 +2,154 @@
 
 <h2><%= _('System settings') %></h2>
 
-<table>
-  <tr><td><%= link_to _('Environment settings'), :action => 'site_info' %></td></tr>
-  <tr><td><%= link_to _('Features'), :controller => 'features' %></td></tr>
-  <tr><td><%= link_to _('Plugins'), :controller => 'plugins' %></td></tr>
-  <tr><td><%= link_to _('Appearance'), :controller =>'environment_themes' %></td></tr>
-  <tr><td><%= link_to _('Sideboxes'), :controller => 'environment_design'%></td></tr>
-  <tr><td><%= link_to _('Homepage'), :action => 'set_portal_community' %></td></tr>
-  <tr><td><%= link_to _('Licenses'), :controller =>'licenses' %></td></tr>
-  <tr><td><%= link_to _('Trusted sites'), :controller =>'trusted_sites' %></td></tr>
-  <tr><td><%= link_to _('Email templates'), :controller =>'environment_email_templates' %></td></tr>
-  <tr><td><%= link_to _('Captcha'), :controller =>'captcha' %></td></tr>
-  <tr><td><%= link_to _('Macros'), :action => 'string_templates' %></td></tr>
-</table>
+<ul class="admin-panel-items-list">
+  <%= link_to :action => 'site_info' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Environment settings') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'features' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Features') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'plugins' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Plugins') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller =>'environment_themes' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Appearance') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'environment_design' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Sideboxes') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :action => 'set_portal_community' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Homepage') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller =>'licenses' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Licenses') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller =>'trusted_sites' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Trusted sites') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller =>'environment_email_templates' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Email templates') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller =>'captcha' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Captcha') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :action => 'string_templates' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Macros') %>
+    </li>
+  <% end %>
+</ul>
 
 <h2><%= _('Profiles') %></h2>
 
-<table>
-  <tr><td><%= link_to _('User roles'), :controller => 'role' %></td></tr>
-  <tr><td><%= link_to _('Users'), :controller => 'users' %></td></tr>
-  <tr><td><%= link_to _('Organizations'), :controller => 'organizations' %></td></tr>
-  <tr><td><%= link_to _('Profile templates'), :controller => 'templates' %></td></tr>
-  <tr><td><%= link_to _('Fields'), :controller => 'features', :action => 'manage_fields' %></td></tr>
-  <tr><td><%= link_to _('Kinds'), :controller => 'kinds' %></td></tr>
-  <tr><td><%= link_to _('Quotas'), :controller => 'profile_quotas' %></td></tr>
-</table>
-
-
-<%
-  plugin_links = @plugins.dispatch(:admin_panel_links)
-%>
-<% unless plugin_links.empty? %>
-  <h2><%= _('Plugins') %></h2>
-  <table>
-  <% plugin_links.each do |link| %>
-    <tr><td><%= link_to link[:title], link[:url] %></td></tr>
+<ul class="admin-panel-items-list">
+  <%= link_to :controller => 'role' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('User roles') %>
+    </li>
   <% end %>
-  </table>
+  
+  <%= link_to :controller => 'users' do %>
+    <li class="admin-panel-menu-item">
+      <%=  _('Users') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'organizations' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Organizations') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'templates' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Profile templates') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'features', :action => 'manage_fields' do %>
+    <li class="admin-panel-menu-item">
+      <%=  _('Fields') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'kinds' do %>
+    <li class="admin-panel-menu-item">
+      <%=  _('Kinds') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'profile_quotas' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Quotas') %>
+    </li>
+  <% end %>
+</ul>
+
+
+<% plugin_links = @plugins.dispatch(:admin_panel_links) %>
+
+<% unless plugin_links.empty? %>
+
+  <h2><%= _('Plugins') %></h2>  
+  <ul class="admin-panel-items-list">
+  <% plugin_links.each do |link| %>
+    <%= link_to link[:url] do %>
+      <li class="admin-panel-menu-item"><%= link[:title] %></li>
+    <% end %>
+  <% end %>
+  </ul>
+
 <% end %>
 
 <h2><%= _('Enterprise-related settings') %></h2>
 
-<table>
-  <tr><td><%= link_to _('Message for disabled enterprises'), :action => 'message_for_disabled_enterprise' %></td></tr>
-  <tr><td><%= link_to _('Validators by region'), :controller => 'region_validators' %></td></tr>
-  <tr><td><%= link_to _('Categories'), :controller => 'categories'%></td></tr>
-</table>
+<ul class="admin-panel-items-list">
+  <%= link_to :action => 'message_for_disabled_enterprise' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Message for disabled enterprises') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'region_validators' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Validators by region') %>
+    </li>
+  <% end %>
+  
+  <%= link_to :controller => 'categories' do %>
+    <li class="admin-panel-menu-item">
+      <%= _('Categories') %>
+    </li>
+  <% end %>
+</ul>

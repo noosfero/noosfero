@@ -3,7 +3,9 @@
 
 <% extend CategoriesHelper %>
 
-<%= content_tag "h#{title_size}", title, :class => "box-title" %>
+<%= content_tag "h#{title_size}",
+                "#{title} #{modal_link_to(font_awesome(:help), action: 'why_categorize')}".html_safe,
+                class: "box-title why-categorize" %>
 
 <%= hidden_field_tag "#{object_name}[category_ids][]", nil %>
 

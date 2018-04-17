@@ -2,9 +2,7 @@
   padding-top: 0.1em !important;
   padding-bottom: 0.1em !important;
 }
-.treeitem .button {
-  display: inline;
-}
+
 .fg-state-highlight, .fg-state-error {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -23,3 +21,6 @@ body .ui-widget-overlay {
   background: #000;
 }
 
+.ui-widget {
+  font-family: inherit !important;
+}

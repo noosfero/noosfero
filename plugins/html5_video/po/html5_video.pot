@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-07 17:21-0200\n"
-"PO-Revision-Date: 2017-11-07 17:21-0200\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Video (%s)"
 msgstr ""
 
-#: ../lib/presenters/video.rb:134
+#: ../lib/presenters/video.rb:131
 msgid "Undefined"
 msgstr ""
 
@@ -92,54 +92,74 @@ msgstr ""
 msgid "Download"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:7
+#: ../views/content_viewer/video_channel.html.erb:9
 msgid "This channel contains no videos yet"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:14
-#: ../views/file_presenter/_video.html.erb:15
+#: ../views/content_viewer/video_channel.html.erb:16
+#: ../views/file_presenter/_video.html.erb:10
 msgid "Quality options"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:18
+#: ../views/content_viewer/video_channel.html.erb:20
 msgid "Tags"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:22
-#: ../views/file_presenter/_video.html.erb:17
+#: ../views/content_viewer/video_channel.html.erb:24
+#: ../views/file_presenter/_video.html.erb:14
 msgid "Description"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:66
+#: ../views/content_viewer/video_channel.html.erb:62
 msgid "This channel has one video waiting to be converted"
 msgid_plural "This channel has %d videos waiting to be converted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/content_viewer/video_channel.html.erb:83
+#: ../views/content_viewer/video_channel.html.erb:76
+msgid "%sº video in the queue"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:78
+msgid "This video will be enqueued soon"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:80
+msgid "Conversion couldn't be completed"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:91
 msgid "Non video files"
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:7
-msgid "Queued to generate the web version. Come back soon."
+#: ../views/file_presenter/_video.html.erb:22
+msgid "Queued to generate the web version."
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:11
-msgid "This video is not queued to the video conversor. Contact the site admin."
+#: ../views/file_presenter/_video.html.erb:23
+msgid "This is the %sº video in the queue. Come back soon"
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:34
-msgid "Video conversion errors"
+#: ../views/file_presenter/_video.html.erb:28
+msgid "This video will be enqueued for conversion soon. Come back later."
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:44
-msgid "Error while converting %{orig_type} to %{new_type}, %{size} size."
-msgstr ""
-
-#: ../views/file_presenter/_video.html.erb:47
-msgid "Code %s"
+#: ../views/file_presenter/_video.html.erb:33
+msgid "It was not possible to convert this video, contact an administator."
 msgstr ""
 
 #: ../views/file_presenter/_video.html.erb:49
+msgid "Video conversion errors"
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:59
+msgid "Error while converting %{orig_type} to %{new_type}, %{size} size."
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:62
+msgid "Code %s"
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:64
 msgid "display full output"
 msgstr ""

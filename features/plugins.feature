@@ -34,6 +34,7 @@ Feature: plugins
     And I am on joaosilva's profile
     Then I should not see "Foo plugin tab"
 
+  @selenium
   Scenario: an admin should be able to deactivate a plugin
     Given plugin Foo is enabled on environment
     And I am logged in as admin
@@ -44,7 +45,7 @@ Feature: plugins
     And I go to the environment control panel
     And I follow "Plugins"
     And I uncheck "Foo"
-    And I press "Save changes"
+    And I follow "Save changes"
     When I go to admin_user's control panel
     Then I should not see "Foo plugin button"
     When I go to admin_user's profile

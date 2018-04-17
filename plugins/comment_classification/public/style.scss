@@ -1,0 +1,85 @@
+.controller-profile_editor .control-panel a.control-panel-comment_classification {
+  background-image: url(images/comment-classification.png);
+}
+
+#content {
+  .comment-classification-options {
+     .comment-classification-status a {
+       text-decoration: none;
+       color: gray;
+
+       &:hover {
+         text-decoration: underline;
+       }
+     }
+
+    .label-name {
+      font-style: italic;
+      padding: 2px 5px;
+      border-radius: 5px;
+      color: #fff;
+      margin-right: 5px;
+    }
+
+    .comment-classification-options a.button {
+      background-color: transparent;
+      border: none;
+    }
+
+    .comment-classification-label-green {
+      background-color: #093;
+    }
+    .comment-classification-label-red {
+      background-color: #f66;
+    }
+    .comment-classification-label-blue {
+      background-color: #09f;
+    }
+    .comment-classification-label-yellow {
+      background-color: #fc6;
+    }
+    .comment-classification-label-gray {
+      background-color: #887;
+    }
+  }
+
+  #comment-classification-status-list {
+    .comment-classification-informations {
+      border-bottom: solid 1px #e8e8e8;
+      margin: 30px 50px;
+
+      .comment-author-name { font-weight: bold }
+      p { font-style: italic }
+    }
+
+    a.comment-classification-responsible {
+      font-style: italic;
+    }
+    .comment-classification-status {
+      font-weight: bold;
+    }
+
+    .comment-time {
+      color: gray;
+    }
+
+    .comment-classification-reason {
+      span {
+        color: gray;
+      }
+    }
+
+    .comment-classification-informations,
+    .comment-classification-history {
+      margin-bottom: 50px;
+    }
+
+    .status-form textarea {
+      border-radius: 5px;
+      width: 100%;
+      height: 50px;
+      padding: 5px;
+      border-color: #e3e3e3;
+    }
+  }
+}

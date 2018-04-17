@@ -94,12 +94,10 @@ class Community < Organization
 
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
-
     links = set_links
-
     [
       [MainBlock.new],
-      [ProfileImageBlock.new(:show_name => true), LinkListBlock.new(:links => links), RecentDocumentsBlock.new]
+      [ProfileImageBlock.new(show_name: true), LinkListBlock.new(links: links), RecentDocumentsBlock.new]
     ]
   end
 

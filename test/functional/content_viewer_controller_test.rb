@@ -116,7 +116,9 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should "display current article's tags" do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'test article', :tag_list => 'tag1, tag2')
+    page = profile.articles.create!(:name => 'myarticle',
+                                    :body => 'test article',
+                                    :tag_list => 'tag1, tag2')
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
     assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => {
@@ -128,7 +130,8 @@ class ContentViewerControllerTest < ActionController::TestCase
       :attributes => { :href => "/profile/#{profile.identifier}/tags/tag2" }
     }
 
-    assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
+    assert_tag :tag => 'div', :attributes => { :id => 'article-tags' },
+                              :descendant => { :tag => 'h3', :content => 'Tags' }
   end
 
   should "display image label on article image" do
@@ -240,7 +243,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'give link to edit the article for owner' do
     login_as('testinguser')
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
   should 'not give link to edit the article for non-logged-in people' do
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
@@ -256,23 +259,23 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'give link to create new article' do
     login_as('testinguser')
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
   should 'give no link to create new article for non-logged in people ' do
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+    assert_no_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
   should 'give no link to create new article for other people' do
     login_as(create_user('anotheruser').login)
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+    assert_no_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
 
   should 'give link to create new article inside folder' do
     login_as('testinguser')
     folder = Folder.create!(:name => 'myfolder', :profile => @profile)
     xhr :get, :view_page, :profile => 'testinguser', :page => [ 'myfolder' ], :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
   end
 
   should 'not give access to private articles if logged off' do
@@ -332,10 +335,10 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'list comments if article has them, even if new comments are not allowed' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
-    page.comments.create!(:author => profile, :title => 'list my comment', :body => 'foo bar baz')
+    page.comments.create!(:author => profile, :body => 'list my comment')
     get :view_page, :profile => profile.identifier, :page => ['myarticle']
 
-    assert_tag :content => /list my comment/
+    assert_tag :tag => 'ul', :attributes => {:id => 'article-comments-list'}
   end
 
   should 'order comments according to comments ordering option' do
@@ -347,15 +350,15 @@ class ContentViewerControllerTest < ActionController::TestCase
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
 
     for i in 1..12
-      assert_tag :tag => 'div', :attributes => { :class => 'comment-details' }, :descendant => { :tag => 'h4', :content => "some title #{i}" }
-      assert_no_tag :tag => 'div', :attributes => { :class => 'comment-details' }, :descendant => { :tag => 'h4', :content => "some title #{i + 12}" }
+      assert_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i+12}"
+      assert_no_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i}"
     end
 
-    xhr :get, :view_page, :profile => profile.identifier, :page => article.path.split('/'), :comment_page => 1, :comment_order => 'newest'
+    xhr :get, :view_page, :profile => profile.identifier, :page => article.path.split('/'), :comment_page => 1, :comment_order => 'oldest'
 
     for i in 1..12
-      assert_no_tag :tag => 'div', :attributes => { :class => 'comment-details' }, :descendant => { :tag => 'h4', :content => "some title #{i}" }
-      assert_tag :tag => 'div', :attributes => { :class => 'comment-details' }, :descendant => { :tag => 'h4', :content => "some title #{i + 12}" }
+      assert_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i}"
+      assert_no_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i+12}"
     end
   end
 
@@ -563,7 +566,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     folder = Folder.create!(:name => 'myfolder', :profile => @profile)
     folder.children << TextArticle.new(:name => 'children-article', :profile => @profile)
     xhr :get, :view_page, :profile => 'testinguser', :page => [ 'myfolder', 'children-article' ], :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
   end
 
   should "display 'New article' when create children of folder" do
@@ -846,7 +849,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => article.path
 
-    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status icon-user-removed'}
+    assert_tag :tag => 'a', :attributes => {:title => ' (removed user)'}
   end
 
   should 'show only first paragraph of blog posts if visualization_format is short' do
@@ -880,7 +883,14 @@ class ContentViewerControllerTest < ActionController::TestCase
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     login_as(profile.identifier)
     xhr :get, :view_page, :profile => profile.identifier, :page => blog.path, :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" }, :content => 'Configure blog' }
+
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" },
+                                :descendant => { :tag => 'i',
+                                                 :attributes => { :class => 'fa fa-edit' }}
+                              }
   end
 
   # Forum
@@ -997,7 +1007,11 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as(author.identifier)
     get :view_page, :profile => community.identifier, :page => post.path.split('/')
 
-    assert_select "div#article-actions a.icon-edit"
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :descendant => { :tag => 'i',
+                                                 :attributes => { :class => 'fa fa-edit' }}}
   end
 
   should 'display icon-delete button to author topic' do
@@ -1008,19 +1022,27 @@ class ContentViewerControllerTest < ActionController::TestCase
     community.add_member(author)
 
     forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
-    post = fast_create(TextArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :author_id => author.id)
+    post = fast_create(TextArticle, :name => 'First post', :profile_id => community.id,
+                                    :parent_id => forum.id, :author_id => author.id)
 
     login_as(author.identifier)
     get :view_page, :profile => community.identifier, :page => post.path.split('/')
 
-    assert_select "div#article-actions a.icon-delete"
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :descendant => { :tag => 'i',
+                                                 :attributes => { :class => 'fa fa-trash-o' }}}
   end
 
   should 'add meta tag to rss feed on view forum' do
     login_as(profile.identifier)
     profile.articles << Forum.new(:name => 'Forum', :profile => profile)
     get :view_page, :profile => profile.identifier, :page => ['forum']
-    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Forum', :href => "http://#{environment.default_hostname}/testinguser/forum/feed" }
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate',
+                               :type => 'application/rss+xml',
+                               :title => 'Forum',
+                               :href => "http://#{environment.default_hostname}/testinguser/forum/feed" }
   end
 
   should 'add meta tag to rss feed on view post forum' do
@@ -1050,7 +1072,14 @@ class ContentViewerControllerTest < ActionController::TestCase
     forum = fast_create(Forum, :profile_id => profile.id, :path => 'forum')
     login_as(profile.identifier)
     xhr :get, :view_page, :profile => profile.identifier, :page => forum.path, :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" }, :content => 'Configure forum' }
+
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" },
+                                :descendant => { :tag => 'i',
+                                                 :attributes => { :class => 'fa fa-edit' }}
+                              }
   end
 
   should 'display add translation link if article is translatable' do
@@ -1195,7 +1224,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment = article.comments.create!(:author => profile, :title => 'a comment', :body => 'lalala')
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }
+    assert_tag :tag => 'a', :attributes => { :class => 'reply-comment-link' }
   end
 
   should 'display reply to comment button if not authenticated' do
@@ -1205,7 +1234,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }
+    assert_tag :tag => 'a', :attributes => { :class => 'reply-comment-link' }
   end
 
   should 'display replies if comment has replies' do
@@ -1256,19 +1285,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     article.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
-  end
-
-  should 'show a post comment button on top if there are at least two comments' do
-    profile = create_user('testuser').person
-    article = profile.articles.build(:name => 'test')
-    Comment.destroy_all
-    article.save!
-    comment1 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
-    comment1.save!
-    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
-    comment2.save!
-    get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'not show a post comment button on top if there are one comment and one reply' do
@@ -1328,7 +1344,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as('testinguser')
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
+    assert_no_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
   end
 
   should 'expire article actions button if any plugins says so' do
@@ -1347,7 +1363,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as('testinguser')
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => 'This button is expired.', :class => 'button with-text icon-edit disabled' } }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :title => 'This button is expired.' } }
   end
 
   should 'not display comments marked as spam' do
@@ -1424,7 +1440,10 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal 15, article.comments.count
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
-    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_order=oldest&amp;comment_page=2", :rel => 'next' }
+
+    assert_tag :tag => 'a', :attributes => { :id => 'view-more-comments' },
+                                             :descendant => { :tag => 'i',
+                                                              :attributes => { :class => 'fa fa-chevron-down' }}
   end
 
   should 'not escape acceptable HTML in list of blog posts' do
@@ -1526,7 +1545,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'add extra toolbar actions on article from plugins' do
     class Plugin1 < Noosfero::Plugin
       def article_extra_toolbar_buttons(article)
-        {:title => 'some_title1', :icon => 'some_icon1', :url => {}}
+        {:title => 'some_title1', :icon => 'my-icon', :url => {}}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
@@ -1536,18 +1555,25 @@ class ContentViewerControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => "some_title1" }}
+
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :attributes => { :title => "some_title1" },
+                                :descendant => { :tag => 'i',
+                                                 :attributes => { :class => 'fa fa-my-icon' }}
+                              }
   end
 
   should 'add more than one extra toolbar actions on article from plugins' do
     class Plugin1 < Noosfero::Plugin
       def article_extra_toolbar_buttons(article)
-        {:title => 'some_title1', :icon => 'some_icon1', :url => {}}
+        {:title => 'some_title1', :icon => 'my-icon-1', :url => {}}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def article_extra_toolbar_buttons(article)
-        {:title => 'some_title2', :icon => 'some_icon2', :url => {}}
+        {:title => 'some_title2', :icon => 'my-icon-2', :url => {}}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
@@ -1558,14 +1584,26 @@ class ContentViewerControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => "some_title1" }}
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => "some_title2" }}
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :attributes => { :title => "some_title1" },
+                                :descendant => { :tag => 'i',
+                                                 :attributes => { :class => 'fa fa-my-icon-1' }}
+                              }
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :attributes => { :title => "some_title2" },
+                                :descendant => { :tag => 'i',
+                                                 :attributes => { :class => 'fa fa-my-icon-2' }}
+                              }
   end
 
   should 'add icon attribute in extra toolbar actions on article from plugins' do
     class Plugin1 < Noosfero::Plugin
       def article_extra_toolbar_buttons(article)
-        {:title => 'some_title', :icon => 'some_icon', :url => {}}
+        {:title => 'some_title', :icon => 'my-icon', :url => {}}
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
@@ -1575,7 +1613,13 @@ class ContentViewerControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :class => /some_icon/ }}
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :attributes => { :title => "some_title" },
+                                :descendant => { :tag => 'i',
+                                                 :attributes => { :class => 'fa fa-my-icon' }}
+                              }
   end
 
   should 'add url attribute in extra toolbar actions on article from plugins' do
@@ -1591,7 +1635,11 @@ class ContentViewerControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/someurl" }}
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :attributes => { :title => "some_title",
+                                                 :href => '/someurl' }}
   end
 
   should 'use context method in extra toolbar actions on article from plugins' do
@@ -1614,7 +1662,11 @@ class ContentViewerControllerTest < ActionController::TestCase
     profile.save
     login_as(profile.identifier)
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/anotherurl" }}
+    assert_tag :tag => 'ul',
+               :attributes => { :class => 'noosfero-dropdown-menu' },
+               :descendant => { :tag => 'a',
+                                :attributes => { :title => "another_title",
+                                                 :href => '/anotherurl' }}
   end
 
   should  'show lead,image and title in compact blog visualization' do

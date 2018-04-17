@@ -33,11 +33,12 @@ class AccountControllerTest < ActionController::TestCase
     post :login, :user => { :login => 'fake', :password => 'fake' }
   end
 
-  should 'fail login if a user is inactive and show a warning message' do
+  should 'fail login and redirect to activation if user is inactive' do
     user = User.create!(login: 'testuser', email: 'test@email.com', password:'test', password_confirmation:'test', activation_code: nil)
     post :login, :user => { :login => 'testuser', :password => 'test' }
 
-    assert_match 'not activated', session[:notice]
+    assert_redirected_to action: :activate,
+                         activation_token: user.activation_code
     assert_nil session[:user]
   end
 
@@ -286,7 +287,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'require password confirmation correctly to enter new password' do
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    user.activate
+    user.activate!
     change = ChangePassword.create!(:requestor => user.person)
 
     post :new_password, :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' }
@@ -623,8 +624,6 @@ class AccountControllerTest < ActionController::TestCase
         :image => fixture_file_upload('/files/rails.png', 'image/png')
       }
 
-    assert_redirected_to controller: 'home', action: 'welcome'
-
     person = Person["testuser"]
     assert_equal "rails.png", person.image.filename
   end
@@ -709,36 +708,73 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal User.find_by(login: 'ze').data_hash(@controller.gravatar_default).merge({ 'foo' => 'bar', 'test' => 5 }), ActiveSupport::JSON.decode(@response.body)
   end
 
+  should 'render activate template when is a get' do
+    user = create_user_full
+    get :activate, activation_token: user.activation_code
+    assert_template 'activate'
+  end
+
+  should 'redirect to login if cant find a user with an activation token' do
+    get :activate, activation_token: 'doesntexist'
+    assert_redirected_to action: :login
+  end
+
+  should 'respond with 404 when activation token is not sent' do
+    get :activate, activation_token: nil
+    assert_response 404
+  end
+
   should 'activate user when activation code is present and correct' do
-    user = User.create! :login => 'testuser', :password => 'test123', :password_confirmation => 'test123', :email => 'test@test.org'
-    get :activate, :activation_code => user.activation_code
-    assert_not_nil assigns(:message)
-    assert_response :success
-    post :login, :user => {:login => 'testuser', :password => 'test123'}
-    assert_not_nil session[:user]
-    assert_redirected_to :controller => 'profile_editor', :profile => 'testuser', :action => 'index'
+    user = create_user_full
+    post :activate, activation_token: user.activation_code,
+                    short_activation_code: user.short_activation_code
+
+    user.reload
+    assert user.activated?
+    assert_equal user, assigns(:current_user)
   end
 
-  should 'not activate user when activation code is missing' do
-    @request.env["HTTP_REFERER"] = '/bli'
-    user = User.create! :login => 'testuser', :password => 'test123', :password_confirmation => 'test123', :email => 'test@test.org'
-    get :activate
-    assert_nil assigns(:message)
-    post :login, :user => {:login => 'testuser', :password => 'test123'}
+  should 'not authenticate after activation if env is moderated' do
+    user = create_user_full
+    user.environment.enable('admin_must_approve_new_users')
+    post :activate, activation_token: user.activation_code,
+                    short_activation_code: user.short_activation_code
 
-    assert_match 'not activated', session[:notice]
-    assert_nil session[:user]
+    assert assigns(:current_user).nil?
   end
 
-  should 'not activate user when activation code is incorrect' do
-    @request.env["HTTP_REFERER"] = '/bli'
-    user = User.create! :login => 'testuser', :password => 'test123', :password_confirmation => 'test123', :email => 'test@test.org'
-    get :activate, :activation_code => 'wrongcode'
-    assert_nil assigns(:message)
-    post :login, :user => {:login => 'testuser', :password => 'test123'}
+  should 'not activate user when activation code is wrong' do
+    user = create_user_full
+    post :activate, activation_token: user.activation_code,
+                    short_activation_code: 'worngcode'
 
-    assert_match 'not activated', session[:notice]
-    assert_nil session[:user]
+    user.reload
+    refute user.activated?
+    assert_redirected_to action: :activate,
+                         activation_token: user.activation_code
+  end
+
+  should 'not activate if short activation code is empty' do
+    user = create_user_full
+    post :activate, activation_token: user.activation_code,
+                    short_activation_code: nil
+
+    user.reload
+    refute user.activated?
+    assert_redirected_to action: :activate,
+                         activation_token: user.activation_code
+  end
+
+  should 'render activate again if user fails to activate' do
+    user = create_user_full
+    User.any_instance.expects(:activate).with(user.short_activation_code)
+        .raises(ActiveRecord::RecordInvalid, user)
+
+    post :activate, activation_token: user.activation_code,
+                    short_activation_code: user.short_activation_code
+
+    assert_redirected_to action: :activate,
+                         activation_token: user.activation_code
   end
 
   should 'be able to upload an image' do
@@ -963,9 +999,18 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal label, "Lavras do Sul"
   end
 
+  should 'redirect to activation page after signup' do
+    new_user
+    user = assigns(:user)
+    assert_redirected_to action: :activate,
+                         activation_token: user.activation_code,
+                         return_to: { controller: :home, action: :welcome, template_id: user.person.template.try(:id) }
+  end
+
   should 'redirect to welcome page after successful signup if environment configured as so' do
     environment = Environment.default
     environment.redirection_after_signup = 'welcome_page'
+    environment.enable('skip_new_user_email_confirmation')
     environment.save!
     new_user
     assert_redirected_to :controller => 'home', :action => 'welcome'
@@ -1079,4 +1124,30 @@ class AccountControllerTest < ActionController::TestCase
     assert_redirected_to url
   end
 
+  should 'generate new activation codes when requesting new codes' do
+    user = create_user_full
+    old_token = user.activation_code
+    old_code = user.short_activation_code
+
+    get :resend_activation_codes, activation_token: user.activation_code
+    user.reload
+    assert_not_equal old_token, user.activation_code
+    assert_not_equal old_code, user.short_activation_code
+    assert_redirected_to action: :activate,
+                         activation_token: user.activation_code
+  end
+
+  should 'render 404 if activation token is not sent when requesting new codes' do
+    get :resend_activation_codes
+    assert_response 404
+  end
+
+  should 'redirect to login if user was activated when requesting new codes' do
+    user = create_user_full
+    old_token = user.activation_code
+    user.activate!
+
+    get :resend_activation_codes, activation_token: old_token
+    assert_redirected_to action: :login
+  end
 end

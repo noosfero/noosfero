@@ -2,7 +2,7 @@ require_relative "../test_helper"
 
 class CmsHelperTest < ActionView::TestCase
 
-  include CmsHelper
+  # include CmsHelper
   include BlogHelper
   include ApplicationHelper
   include ActionView::Helpers::UrlHelper
@@ -24,7 +24,9 @@ class CmsHelperTest < ActionView::TestCase
   should 'display link to folder content if article is folder' do
     profile = fast_create(Profile)
     folder = fast_create(Folder, :name => 'My folder', :profile_id => profile.id)
-    expects(:link_to).with('My folder', {:action => 'view', :id => folder.id}, :class => icon_for_article(folder))
+
+    title = font_awesome(folder.icon, "#{folder.name}/")
+    expects(:link_to).with(title, {:action => 'view', :id => folder.id})
 
     result = link_to_article(folder)
   end
@@ -32,7 +34,8 @@ class CmsHelperTest < ActionView::TestCase
   should 'display link to article if article is not folder' do
     profile = fast_create(Profile)
     article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with('My article', article.url, :class => icon_for_article(article))
+    title = font_awesome(article.icon, article.title)
+    expects(:link_to).with(title, article.url)
 
     result = link_to_article(article)
   end
@@ -52,7 +55,7 @@ class CmsHelperTest < ActionView::TestCase
     plugins.stubs(:dispatch).returns([])
     profile = fast_create(Person)
     article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :class => 'modal-toggle button with-text icon-spread', :title => nil)
+    expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :modal => true, :class => 'button icon-spread', :title => 'Spread this')
 
     result = display_spread_button(article)
   end
@@ -63,7 +66,7 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My folder'
     folder = fast_create(Folder, :name => name, :profile_id => profile.id)
     confirm_message = "Are you sure that you want to remove the folder \"#{name}\"? Note that all the items inside it will also be removed!"
-    expects(:link_to).with('Delete', {action: 'destroy', id: folder.id}, method: :post, 'data-confirm' => confirm_message, class: 'button with-text icon-delete', title: nil)
+    expects(:link_to).with('Delete', {action: 'destroy', id: folder.id}, method: :post, 'data-confirm' => confirm_message, class: 'button icon-delete', title: 'Delete')
 
     result = display_delete_button(folder)
   end
@@ -74,7 +77,7 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My article'
     article = fast_create(TextArticle, :name => name, :profile_id => profile.id)
     confirm_message = "Are you sure that you want to remove the item \"#{name}\"?"
-    expects(:link_to).with('Delete', {action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button with-text icon-delete', title: nil)
+    expects(:link_to).with('Delete', {action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button icon-delete', title: 'Delete')
 
     result = display_delete_button(article)
   end

@@ -10,7 +10,7 @@ class ManageFriendshipsTest < ActionDispatch::IntegrationTest
     Person.delete_all
     @person = create_user("albert", :password => 'test',
       :password_confirmation => 'test').person
-    @person.user.activate
+    @person.user.activate!
 
     @friend = fast_create(Person, :identifier => "isaac")
 

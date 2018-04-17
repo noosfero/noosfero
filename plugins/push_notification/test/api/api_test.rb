@@ -21,7 +21,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
 
   should 'not list other people device tokens' do
     user = User.create!(:login => 'outro', :email => 'outro@example.com', :password => 'outro', :password_confirmation => 'outro', :environment => Environment.default)
-    user.activate
+    user.activate!
     PushNotificationPlugin::DeviceToken.create!(:token => "firsttoken", device_name: "my device", :user => user)
     get "/api/v1/push_notification_plugin/device_tokens?#{params.merge(:target_id => user.id).to_query}"
     assert_equal 401, last_response.status
@@ -33,7 +33,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
     logged_user.reload
 
     user = User.create!(:login => 'outro', :email => 'outro@example.com', :password => 'outro', :password_confirmation => 'outro', :environment => Environment.default)
-    user.activate
+    user.activate!
 
     token1 = PushNotificationPlugin::DeviceToken.create!(:token => "firsttoken", device_name: "my device", :user => user)
 
@@ -53,7 +53,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
 
   should 'not add device tokens for other people' do
     user = User.create!(:login => 'outro', :email => 'outro@example.com', :password => 'outro', :password_confirmation => 'outro', :environment => Environment.default)
-    user.activate
+    user.activate!
     params.merge!(:device_name => "my_device", :token => "tokenX", :target_id => user.id)
     post "/api/v1/push_notification_plugin/device_tokens?#{params.to_query}"
     assert_equal 401, last_response.status
@@ -65,7 +65,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
     logged_user.reload
 
     user = User.create!(:login => 'outro', :email => 'outro@example.com', :password => 'outro', :password_confirmation => 'outro', :environment => Environment.default)
-    user.activate
+    user.activate!
 
     params.merge!(:device_name => "my_device", :token=> "tokenY", :target_id => user.id)
     post "/api/v1/push_notification_plugin/device_tokens?#{params.to_query}"
@@ -89,7 +89,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
 
   should 'not delete device tokens for other people' do
     user = User.create!(:login => 'outro', :email => 'outro@example.com', :password => 'outro', :password_confirmation => 'outro', :environment => Environment.default)
-    user.activate
+    user.activate!
 
     PushNotificationPlugin::DeviceToken.create!(:token => "secondtoken", device_name: "my device", :user => user)
     user.reload
@@ -106,7 +106,7 @@ class PushNotificationApiTest < ActiveSupport::TestCase
     logged_user.reload
 
     user = User.create!(:login => 'outro', :email => 'outro@example.com', :password => 'outro', :password_confirmation => 'outro', :environment => Environment.default)
-    user.activate
+    user.activate!
 
     PushNotificationPlugin::DeviceToken.create!(:token => "firsttoken", device_name: "my device", :user => user)
     PushNotificationPlugin::DeviceToken.create!(:token => "secondtoken", device_name: "my device", :user => user)

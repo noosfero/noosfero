@@ -31,4 +31,8 @@ class Gallery < Folder
     'gallery'
   end
 
+  def icon
+   'image'
+  end
+
 end

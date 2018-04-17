@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 15:45+0000\n"
-"PO-Revision-Date: 2017-05-09 15:45+0000\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -81,11 +81,11 @@ msgid ""
 msgstr ""
 
 #: ../views/shared/_form.html.erb:16
-msgid "Notifications Status"
+msgid "Active"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:16
-msgid "Active"
+msgid "Notifications Status"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:16
@@ -93,11 +93,7 @@ msgid "Inactive"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
-msgid "Notifications Color/Type"
-msgstr ""
-
-#: ../views/shared/_form.html.erb:18
-msgid "Blue - Information"
+msgid "Green - Success"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
@@ -105,19 +101,23 @@ msgid "Yellow - Warning"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
+msgid "Blue - Information"
+msgstr ""
+
+#: ../views/shared/_form.html.erb:18
 msgid "Red - Danger"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
-msgid "Green - Success"
-msgstr ""
-
-#: ../views/shared/_form.html.erb:21
-msgid "Display only in the profile homepage"
+msgid "Notifications Color/Type"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:21
 msgid "Display only in the homepage"
+msgstr ""
+
+#: ../views/shared/_form.html.erb:21
+msgid "Display only in the profile homepage"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:25
@@ -132,45 +132,45 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:3
-#: ../views/shared/_notifications_list.html.erb:16
+#: ../views/shared/_notifications_list.html.erb:2
+#: ../views/shared/_notifications_list.html.erb:11
 msgid "Notifications"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:7
-msgid "New Notification"
-msgstr ""
-
-#: ../views/shared/_notifications_list.html.erb:10
+#: ../views/shared/_notifications_list.html.erb:4
 msgid "Back to control panel"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:19
+#: ../views/shared/_notifications_list.html.erb:5
+msgid "New Notification"
+msgstr ""
+
+#: ../views/shared/_notifications_list.html.erb:12
 msgid "Actions"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:30
+#: ../views/shared/_notifications_list.html.erb:20
 msgid "Deactivate"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:30
-#: ../views/shared/_notifications_list.html.erb:32
+#: ../views/shared/_notifications_list.html.erb:21
+#: ../views/shared/_notifications_list.html.erb:24
 msgid "Do you want to change the status of this notification?"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:32
+#: ../views/shared/_notifications_list.html.erb:23
 msgid "Activate"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:34
+#: ../views/shared/_notifications_list.html.erb:28
 msgid "Edit"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:35
+#: ../views/shared/_notifications_list.html.erb:32
 msgid "Delete"
 msgstr ""
 
-#: ../views/shared/_notifications_list.html.erb:35
+#: ../views/shared/_notifications_list.html.erb:33
 msgid "Do you want to delete this notification?"
 msgstr ""
 
@@ -182,10 +182,10 @@ msgstr ""
 msgid "Manage all notifications here."
 msgstr ""
 
-#: ../views/shared/show_notification.html.erb:28
+#: ../views/shared/show_notification.html.erb:34
 msgid "Do not show anymore"
 msgstr ""
 
-#: ../views/shared/show_notification.html.erb:29
+#: ../views/shared/show_notification.html.erb:35
 msgid "Hide for now"
 msgstr ""

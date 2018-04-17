@@ -2,13 +2,15 @@
 
 <%= block.links.empty? && block.title.empty? ? content_tag('em', _('Please, edit this block to add links')) : '' %>
 
-<ul>
-  <% block.links.select{|i| !i[:name].blank? and !i[:address].blank?}.each do |link| %>
+<ul class="link-list-items">
+  <% block.links.select{ |i| !i[:name].blank? and !i[:address].blank? }.each do |link| %>
     <li>
-      <%= block.sanitize_link(link_to(link[:name], block.expand_address(link[:address]),
+      <% title = font_awesome(block.get_icon(link[:icon]), link[:name]) %>
+      <%= block.sanitize_link(link_to(title, block.expand_address(link[:address]),
                 :target => link[:target],
-                :class => (link[:icon] ? "icon-#{link[:icon]}" : ''),
+                :class => (link[:icon] ? "link-list-icon #{link[:icon]}" : ''),
                 :title => link[:title])).html_safe %>
     </li>
   <% end %>
 </ul>
+

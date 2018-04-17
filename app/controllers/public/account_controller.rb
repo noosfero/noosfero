@@ -3,9 +3,10 @@ class AccountController < ApplicationController
   no_design_blocks
 
   before_filter :login_required, :require_login_for_environment, :only => [:activation_question, :accept_terms, :activate_enterprise, :change_password]
-  before_filter :redirect_if_logged_in, :only => [:login, :signup]
+  before_filter :redirect_if_logged_in, :only => [:login, :signup, :activate]
   before_filter :protect_from_spam, :only => :signup
   before_filter :block_blacklisted_user, :only => :signup
+  before_filter :check_activation_token, :only => [:activate, :resend_activation_codes]
 
   protect_from_forgery except: [:login]
 
@@ -20,28 +21,54 @@ class AccountController < ApplicationController
   end
 
   def activate
-    @user = User.find_by(activation_code: params[:activation_code]) if params[:activation_code]
-    if @user
-      unless @user.environment.enabled?('admin_must_approve_new_users')
-        if @user.activate
-          @message = _("Your account has been activated, now you can log in!")
-          check_redirection
-          session[:join] = params[:join] unless params[:join].blank?
-          render :action => 'login', :userlogin => @user.login
+    @user = User.find_by(activation_code: params[:activation_token])
+
+    if @user.nil?
+      session[:notice] = _("We couldn't find an account to be activated. "\
+                           "Maybe it is to be approved by an admin.")
+      redirect_to action: :login
+    end
+
+    if request.post?
+      if @user.activate(params[:short_activation_code])
+        check_redirection
+        session[:join] = params[:join] unless params[:join].blank?
+
+        if @user.activated?
+          session[:notice] = _('Your account was successfully activated!')
+          self.current_user = @user
+          go_to_initial_page
+        else
+          session[:notice] = _('Your account was activated, now wait until '\
+                               'an administrator approves your account.')
+          redirect_to controller: :home, action: :welcome,
+                      template_id: @user.person.template.try(:id)
         end
       else
-        if @user.create_moderate_task
-          session[:notice] = _('Thanks for registering. The administrators were notified.')
-          @register_pending = true
-          @user.activation_code = nil
-          @user.save!
-          redirect_to :controller => :home
-        end
+        session[:notice] = _('Looks like your activation code is not correct. '\
+                             'Would you try again?')
+        redirect_to action: :activate, activation_token: @user.activation_code
       end
-    else
-      session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
-      redirect_to :controller => :home
     end
+  rescue ActiveRecord::RecordInvalid
+    session[:notice] = _('Something went wrong. You can try again, and if it '\
+                         'persists, contact an administrator.')
+    redirect_to action: :activate, activation_token: @user.activation_code
+  end
+
+  def resend_activation_codes
+    @user = User.find_by(activation_code: params[:activation_token])
+    unless @user.present?
+      session[:notice] = _('Invalid activation token. Maybe this account '\
+                           'was already activated?')
+      redirect_to action: :login
+      return
+    end
+
+    @user.resend_activation_code
+    session[:notice] = _('A new activation code is on its way. Make sure to '\
+                         'use the last code you received.')
+    redirect_to action: :activate, activation_token: @user.activation_code
   end
 
   # action to perform login to the application
@@ -55,9 +82,15 @@ class AccountController < ApplicationController
     begin
       self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
     rescue User::UserNotActivated => e
-      session[:notice] = e.message
+      if e.user.activation_code.present?
+        redirect_to action: :activate, activation_token: e.user.activation_code
+      else
+        session[:notice] = _('An admin will approve your account soon.')
+        redirect_to action: :login
+      end
       return
     end
+
     if logged_in?
       check_join_in_community(self.current_user)
 
@@ -137,8 +170,9 @@ class AccountController < ApplicationController
             check_join_in_community(@user)
             go_to_signup_initial_page
           else
-            redirect_to :controller => :home, :action => :welcome, :template_id => (@user.person.template && @user.person.template.id)
-            session[:notice] = _('Thanks for registering!')
+            redirect_to action: :activate,
+                        activation_token: @user.activation_code,
+                        return_to: { controller: :home, action: :welcome, template_id: @user.person.template.try(:id) }
           end
         end
       end
@@ -511,5 +545,9 @@ class AccountController < ApplicationController
     if environment.on_signup_blacklist?(request.remote_ip)
       return head :ok, content_type: "text/html"
     end
+  end
+
+  def check_activation_token
+    render_not_found unless params[:activation_token]
   end
 end

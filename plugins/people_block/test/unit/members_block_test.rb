@@ -67,19 +67,19 @@ class MembersBlockTest < ActionView::TestCase
   should 'respect limit when listing members' do
     community = fast_create(Community)
     u1 = create_user
-    u1.activate
+    u1.activate!
     p1 = u1.person
 
     u2 = create_user
-    u2.activate
+    u2.activate!
     p2 = u2.person
 
     u3 = create_user
-    u3.activate
+    u3.activate!
     p3 = u3.person
 
     u4 = create_user
-    u4.activate
+    u4.activate!
     p4 = u4.person
 
     community.add_member(p1)
@@ -165,11 +165,11 @@ class MembersBlockTest < ActionView::TestCase
     env = fast_create(Environment)
     env.boxes << Box.new
     u1 = create_user
-    u1.activate
+    u1.activate!
     profile1 = u1.person
 
     u2 = create_user
-    u2.activate
+    u2.activate!
     profile2 = u2.person
 
     block = MembersBlock.new
@@ -195,11 +195,11 @@ class MembersBlockTest < ActionView::TestCase
     env = fast_create(Environment)
     env.boxes << Box.new
     u1 = create_user
-    u1.activate
+    u1.activate!
     profile1 = u1.person
 
     u2 = create_user
-    u2.activate
+    u2.activate!
     profile2 = u2.person
 
     block = MembersBlock.new
@@ -233,11 +233,11 @@ class MembersBlockTest < ActionView::TestCase
   should 'count number of profiles by role' do
     owner = fast_create(Community)
     u1 = create_user(nil,{},{:public_profile => true})
-    u1.activate
+    u1.activate!
     profile1 = u1.person
 
     u2 = create_user(nil,{},{:public_profile => true})
-    u2.activate
+    u2.activate!
     profile2 = u2.person
 
 
@@ -264,10 +264,10 @@ class MembersBlockViewTest < ActionView::TestCase
   should 'list members from community' do
     owner = fast_create(Community)
     user1 = create_user
-    user1.activate
+    user1.activate!
     person1 = user1.person
     user2 = create_user
-    user2.activate
+    user2.activate!
     person2 = user2.person
     owner.add_member(person1)
     owner.add_member(person2)
@@ -294,6 +294,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.box = profile.boxes.first
     block.save!
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select "[href=/profile/mytestuser/members#members-tab]"
@@ -307,6 +308,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.visible_role = 'profile_member'
     block.save!
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select '[href=/profile/mytestuser/members#members-tab]'
@@ -320,6 +322,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.visible_role = 'profile_moderator'
     block.save!
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select '[href=/profile/mytestuser/members#members-tab]'
@@ -333,6 +336,7 @@ class MembersBlockViewTest < ActionView::TestCase
     block.visible_role = 'profile_admin'
     block.save!
 
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select '[href=/profile/mytestuser/members#admins-tab]'
@@ -409,7 +413,7 @@ class MembersBlockViewTest < ActionView::TestCase
     env.boxes << Box.new
     community = fast_create(Community)
     u1 = create_user
-    u1.activate
+    u1.activate!
     p1 = u1.person
     community.add_member(p1)
     identifier = "fake_template"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-22 18:48+0000\n"
-"PO-Revision-Date: 2017-05-22 18:48+0000\n"
+"POT-Creation-Date: 2018-04-10 00:10+0000\n"
+"PO-Revision-Date: 2018-04-10 00:10+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -33,7 +33,7 @@ msgid ""
 "."
 msgstr ""
 
-#: ../lib/public_access_restriction_plugin.rb:54
+#: ../lib/public_access_restriction_plugin.rb:55
 #: ../views/public_access_restriction_plugin_page/index.html.erb:2
 msgid "Public Welcome Page"
 msgstr ""

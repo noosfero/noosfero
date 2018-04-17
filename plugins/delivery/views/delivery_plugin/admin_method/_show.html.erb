@@ -1,0 +1,18 @@
+<td class='name' title=<%= strip_tags method.description %>>
+  <%= method.name %>
+</td>
+
+<td class='actions'>
+  <% if request.GET[:select_ids].present? and not method.id.to_s.in? Array(request.GET[:selected_ids]) %>
+    <%= button_to_function :add, t('delivery_plugin.views.delivery_option._select_content.add'),
+                           "delivery.option.add('#{url_for request.GET.merge(controller: 'delivery_plugin/admin_options', action: :new, method_id: method.id)}')" %>
+  <% end %>
+  <%= button_to_function :edit, t('delivery_plugin.views.delivery_option._select_content.edit_this'), "delivery.method.new(this)",
+                         :data => { :url => (url_for request.GET.merge(controller: delivery_context, action: :edit, id: method.id))} %>
+  <%= button_to_function :remove, t('delivery_plugin.views.delivery_option._select_content.remove_method'),
+                         "delivery.method.destroy(this)",
+                         :data => { :url => (url_for request.GET.merge(controller: delivery_context, action: :destroy, id: method.id)),
+                                    :method_id => method.id,
+                                    :message => t('delivery_plugin.views.delivery_option._select_content.are_you_sure_you_want')} %>
+</td>
+

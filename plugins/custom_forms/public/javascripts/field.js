@@ -52,7 +52,7 @@ var customFormsPlugin = {
     content = content.replace(regexp, new_id);
 
     if(association == 'alternatives') {
-      jQuery(content).appendTo(jQuery(button).closest('tfoot').next('tbody.field-list')).hide().slideDown();
+      jQuery(content).appendTo(jQuery(button).closest('tfoot').next('tbody.field-list'));
       jQuery(button).closest('table').find('tr:first').show();
       jQuery(button).closest('tfoot').next('tbody.field-list').sortable({ helper: fixHelperSortable, update: updatePosition});
     } else {

@@ -1,4 +1,7 @@
 module FormsHelper
+
+  include ButtonsHelper
+
   def labelled_radio_button( human_name, name, value, checked = false, options = {} )
     options[:id] ||= 'radio-' + FormsHelper.next_id_number
     radio_button_tag( name, value, checked, options ) +
@@ -26,19 +29,20 @@ module FormsHelper
   end
 
   def submit_button(type, label, html_options = {})
-    bt_cancel = html_options[:cancel] ? button(:cancel, _('Cancel'), html_options[:cancel]) : ''
+    bt_cancel = html_options[:cancel] ? button("ban" , _('Cancel'), html_options[:cancel], class: 'btn-red') : ''
 
     html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
 
-    the_class = "button with-text icon-#{type}"
+    css_class = "button with-text icon-#{type} hidden-submit"
     if html_options.has_key?(:class)
-      the_class << ' ' << html_options[:class]
+      css_class << ' ' << html_options[:class]
     end
 
     html_options.delete(:cancel)
-    bt_submit = submit_tag(label, html_options.merge(:class => the_class))
+    hidden_submit = submit_tag(label, html_options.merge(class: css_class))
+    bt_submit = button_to_function(type, label, "submit_form(this)", class: "button with-text")
 
-    bt_submit + bt_cancel
+    hidden_submit + bt_submit + bt_cancel
   end
 
   def text_field_with_local_autocomplete(name, choices, html_options = {})
@@ -249,8 +253,8 @@ module FormsHelper
   def date_range_field(from_name, to_name, from_value, to_value, datepicker_options = {}, html_options = {})
     from_id = html_options[:from_id] || 'datepicker-from-date'
     to_id = html_options[:to_id] || 'datepicker-to-date'
-    from = content_tag('label', (_('From') + ' ').html_safe  + date_field(from_name, from_value, datepicker_options, html_options.merge({:id => from_id})))
-    to = content_tag('label', (' ' + _('until') + ' ').html_safe + date_field(to_name, to_value, datepicker_options, html_options.merge({:id => to_id})))
+    from = content_tag('div', content_tag('label', (_('From') + ' ').html_safe  + date_field(from_name, from_value, datepicker_options, html_options.merge({:id => from_id, :style => "margin-left: 1em"}))), html_options.merge({:style => "margin-bottom: 0.5em; margin-right: 1em;"}))
+    to = content_tag('div', content_tag('label', (_('Until') + ' ').html_safe + date_field(to_name, to_value, datepicker_options, html_options.merge({:id => to_id, :style => "margin-left: 1em"}))))
     return from + to
   end
 
@@ -330,4 +334,3 @@ protected
     end
   end
 end
-

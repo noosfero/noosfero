@@ -23,7 +23,7 @@ class CommentHelperTest < ActionView::TestCase
     article = Article.new(:profile => profile)
     comment = build(Comment, :article => article)
     menu = comment_actions(comment)
-    assert_match /class=\"comment-actions\"/, menu
+    assert_match "class='comment-actions", menu
   end
 
   should 'do not show menu if it has no actions' do
@@ -39,6 +39,7 @@ class CommentHelperTest < ActionView::TestCase
     self.stubs(:link_for_spam).returns(nil)
     self.stubs(:link_for_edit).returns(nil)
     self.stubs(:link_for_remove).returns(nil)
+    self.stubs(:link_for_reply).returns(nil)
     menu = comment_actions(comment)
     assert_no_match /class=\"comment-actions\"/, menu
   end
@@ -79,7 +80,7 @@ class CommentHelperTest < ActionView::TestCase
     comment = Comment.new
     comment.stubs(:can_be_marked_as_spam_by?).with(user).returns(true)
     link = link_for_spam(comment)
-    assert_match /Mark as SPAM/, link[:link]
+    assert_match /Mark as Spam/, link[:link]
   end
 
   should 'not return link for mark comment as spam if user does not have the permissions' do
@@ -94,7 +95,7 @@ class CommentHelperTest < ActionView::TestCase
     comment.spam = true
     comment.stubs(:can_be_marked_as_spam_by?).with(user).returns(true)
     link = link_for_spam(comment)
-    assert_match /Mark as NOT SPAM/, link[:link]
+    assert_match /Mark as not Spam/, link[:link]
   end
 
   should 'not return link for mark comment as not spam if user does not have the permissions' do
@@ -134,11 +135,12 @@ class CommentHelperTest < ActionView::TestCase
   end
 
   should 'include actions of plugins in action bar' do
-    comment = Comment.new
+    article = Article.new(:profile => profile)
+    comment = build(Comment, :article => article)
     plugin_action = {:link => 'plugin_action', :action_bar => true}
     @plugins.stubs(:dispatch).returns([plugin_action])
     html = comment_actions(comment)
-    assert_match /plugin_action/, Nokogiri::HTML.fragment(html).css('.comments-action-bar').to_html
+    assert_match /plugin_action/, Nokogiri::HTML.fragment(html).css('.comment-action-bar').to_html
   end
 
 end

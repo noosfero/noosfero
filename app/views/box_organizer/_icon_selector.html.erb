@@ -1,9 +1,12 @@
-<div class='icon' style='width:16px; height:16px;' onclick="hideOthersIconSelector(this); showIconSelector(this)">
-  <%= hidden_field_tag 'block[links][][icon]', icon %>
-  <span class='icon-<%= icon %>' style='display:block; width:16px; height:16px;'></span>
+<div class='link-list-icon <%= key %>' onclick="hideOthersIconSelector(this); showIconSelector(this)">
+  <%= hidden_field_tag 'block[links][][icon]', key %>
+  <span><%= font_awesome(@block.get_icon key) %></span>
   <div class="icon-selector" style='display:none;'>
-    <% @block.icons.map do |i| %>
-      <%= content_tag('span', '', :title => i[1], :class => "icon-#{i[0]}", :onclick => "changeIcon(this, '#{i[0]}')") %>
+    <% @block.icons.each do |key, value| %>
+            <%= content_tag('span', font_awesome(value[:icon]),
+                            :title => value[:title],
+                            :class => key,
+                            :onclick => "changeIcon(this, '#{key}', '#{value[:icon]}')") %>
     <% end %>
   </div>
 </div>

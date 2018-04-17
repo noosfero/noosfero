@@ -10,7 +10,7 @@
 <% end %>
 
 <% if activities.current_page < activities.total_pages %>
-  <div id='profile_activities_page_<%= activities.current_page %>'>
-    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_activities', :page => (activities.current_page + 1), :offsets => @offsets, :kind => 'wall'}, :update => "profile_activities_page_#{activities.current_page}" %>
+  <div id='profile_activities_page_<%= activities.current_page %>' class="profile-activities-more-pages">
+    <%= link_to_remote font_awesome(:down_arrow, _('View more')), url: { action: 'view_more_activities', page: (activities.current_page + 1), offsets: @offsets, kind: 'wall'}, update: "profile_activities_page_#{activities.current_page}", html: { class: "view-more-activities" } %>
   </div>
 <% end %>

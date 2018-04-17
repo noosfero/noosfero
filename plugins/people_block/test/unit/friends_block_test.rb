@@ -138,11 +138,11 @@ class FriendsBlockViewTest < ActionView::TestCase
   should 'list friends from person' do
     owner = fast_create(Person)
     u = create_user
-    u.activate
+    u.activate!
     friend1 = u.person
 
     u = create_user
-    u.activate
+    u.activate!
     friend2 = u.person
 
 
@@ -169,7 +169,7 @@ class FriendsBlockViewTest < ActionView::TestCase
     block = FriendsBlock.new
     block.stubs(:suggestions).returns([])
     block.expects(:owner).returns(person1).at_least_once
-
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View All")
     assert_tag_in_string render_block_footer(block), tag: 'a', attributes: {class: 'view-all', href: '/profile/mytestperson/friends' }
   end
 

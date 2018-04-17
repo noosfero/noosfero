@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-07 17:21-0200\n"
-"PO-Revision-Date: 2017-11-07 17:21-0200\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -61,7 +61,9 @@ msgid "A plugin that adds a people block"
 msgstr ""
 
 #: ../views/blocks/footers/friends.html.erb:1
-msgid "friends|View all"
+#: ../views/blocks/footers/members.html.erb:2
+#: ../views/blocks/footers/people.html.erb:1
+msgid "View all"
 msgstr ""
 
 #: ../views/blocks/footers/friends.html.erb:5

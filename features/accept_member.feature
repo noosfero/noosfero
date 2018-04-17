@@ -25,37 +25,80 @@ Feature: accept member
     Then I should see "Your membership is waiting for approval"
 
   @selenium
-  Scenario: approve a task to accept a member as admin in a closed community
-    Given "Marie Curie" asked to join "My Community"
-    And I am logged in as "mario"
-    And I go to mycommunity's control panel
-    And I follow "Process requests"
-    And I should see "Marie Curie wants to be a member"
-    When I choose "Accept"
-    And I check "Profile Administrator"
-    And I press "Apply!"
-    Then "Marie Curie" should be admin of "My Community"
-
-  @selenium
   Scenario: approve a task to accept a member as member in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
-    And I go to mycommunity's control panel
-    And I follow "Process requests"
-    And I should see "Marie Curie wants to be a member"
-    When I choose "Accept"
+    And I follow "menu-toggle"
+    And I should see "Marie Curie wants to be a member of 'My Community'."
+    When I follow "Manage tasks"
+    And I follow "Accept" within "#task-1"
     And I check "Profile Member"
-    And I press "Apply!"
+    And I follow "Accept"
     Then "Marie Curie" should be a member of "My Community"
+
+  @selenium
+  Scenario: approve a task to accept a member as admin in a closed community
+    Given "Marie Curie" asked to join "My Community"
+    And I am logged in as "mario"
+    And I follow "menu-toggle"
+    And I should see "Marie Curie wants to be a member of 'My Community'."
+    When I follow "Manage tasks"
+    And I follow "Accept" within "#task-1"
+    And I check "Profile Administrator"
+    And I follow "Accept"
+    Then "Marie Curie" should be admin of "My Community"
+
+  @selenium
+  Scenario: approve a member as administrator in a closed community
+    Given "Marie Curie" asked to join "My Community"
+    And I am logged in as "mario"
+    And I follow "menu-toggle"
+    And I should see "Marie Curie wants to be a member of 'My Community'."
+    When I follow "Manage tasks"
+    And I follow "Accept" within "#task-1"
+    And I wait 1 seconds
+    And I check "Profile Member"
+    And I follow "Accept"
+    Given I am on /myprofile/mycommunity
+    And I follow "Manage Members"
+    And I fill in "Name or Email" with "Marie Curie"
+    And I follow "Search" within ".filter_fields"
+    And I should see "Marie Curie"
+    And I follow "Edit"
+    And I check "Administrator"
+    And I follow "Save changes"
+    Then "Marie Curie" should be admin of "My Community"
 
   @selenium
   Scenario: approve a task to accept a member as moderator in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
-    And I go to mycommunity's control panel
-    And I follow "Process requests"
-    And I should see "Marie Curie wants to be a member"
-    When I choose "Accept"
+    And I follow "menu-toggle"
+    And I follow "Manage tasks"
+    And I wait 1 seconds
+    And I follow "Accept"
+    And I wait 1 seconds
     And I check "Profile Moderator"
-    And I press "Apply!"
+    And I follow "Accept"
+    Then "Marie Curie" should be moderator of "My Community"
+
+  @selenium
+  Scenario: approve a member as moderator in a closed community
+    Given "Marie Curie" asked to join "My Community"
+    And I am logged in as "mario"
+    And I follow "menu-toggle"
+    And I should see "Marie Curie wants to be a member of 'My Community'."
+    When I follow "Manage tasks"
+    And I follow "Accept" within "#task-1"
+    And I wait 1 seconds
+    And I check "Profile Member"
+    And I follow "Accept"
+    Given I am on /myprofile/mycommunity
+    And I follow "Manage Members"
+    And I fill in "Name or Email" with "Marie Curie"
+    And I follow "Search" within ".filter_fields"
+    And I should see "Marie Curie"
+    And I follow "Edit"
+    And I check "Moderator"
+    And I follow "Save changes"
     Then "Marie Curie" should be moderator of "My Community"

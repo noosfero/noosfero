@@ -5,7 +5,7 @@ class CommentGroupPlugin < Noosfero::Plugin
   end
 
   def self.plugin_description
-    _("A plugin that display comment groups.")
+    _("Deprecated. Use the Comment Paragraph plugin instead.")
   end
 
   def unavailable_comments(scope)

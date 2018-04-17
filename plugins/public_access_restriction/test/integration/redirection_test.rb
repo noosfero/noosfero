@@ -5,7 +5,7 @@ class RedirectionTest < ActionDispatch::IntegrationTest
   def setup
     @profile = fast_create(Organization)
     @user = create_user('testuser')
-    @user.activate
+    @user.activate!
     Environment.default.enable_plugin(PublicAccessRestrictionPlugin.name)
   end
 

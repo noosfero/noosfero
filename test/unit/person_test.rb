@@ -1430,7 +1430,7 @@ class PersonTest < ActiveSupport::TestCase
     activated = []
     (1..5).each {|i|
       u = create_user('user'+i.to_s)
-      u.activate
+      u.activate!
       activated << u.person
     }
     (6..10).each {|i|
@@ -1451,7 +1451,7 @@ class PersonTest < ActiveSupport::TestCase
     }
     (6..10).each {|i|
       u = create_user('user'+i.to_s)
-      u.activate
+      u.activate!
     }
     assert_equivalent deactivated, Person.deactivated
   end

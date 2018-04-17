@@ -1,7 +1,34 @@
-
 #content .my-network-block {
-  padding: 10px 0px 10px 10px;
-}
-.my-network-block a {
-  text-decoration: none;
+
+  ul {
+    list-style:none;
+    padding: 0;
+    font-size: 14px;
+
+    li {
+      list-style: none;
+      list-style-image: none;
+      margin: 0px 0px 5px 0px;
+      padding: 2px;
+      border-bottom: 1px solid #707070;
+      cursor: pointer;
+
+      a {
+        box-sizing: border-box;
+        color: #212e3c;
+        display: inline-block;
+        line-height: 28px;
+        padding: 6px 10px 6px 25px;
+        text-decoration: none;
+        width: 100%;
+
+        i.fa {
+          font-size: 16px;
+          margin-right: 10px;
+        }
+
+        &:hover { background-color: #e9ebee }
+      }
+    }
+  }
 }

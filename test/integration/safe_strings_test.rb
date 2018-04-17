@@ -4,7 +4,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = create_user('safestring', :password => 'test', :password_confirmation => 'test')
-    @user.activate
+    @user.activate!
     @person = user.person
   end
 
@@ -23,14 +23,16 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   should 'not escape people names on members block' do
     user = create User
     person = user.person
-    user.activate
+    user.activate!
     community = fast_create Community
     community.add_member(person)
     community.boxes << Box.new
     community.boxes.first.blocks << MembersBlock.new
     get "/profile/#{community.identifier}"
     assert_tag :tag => 'div', :attributes => { :id => "block-#{community.blocks.first.id}" }, :descendant => {
-      :tag => 'li', :attributes => { :class => 'vcard' }, :content => person.name
+      :tag => 'li', :attributes => { :class => 'vcard common-profile-list-block no-pic' }, :descendant => {
+        :tag => 'a', :attributes => { :class => 'profile_link url', :title => person.name }
+      }
     }
   end
 
@@ -53,18 +55,18 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape &rarr; symbol from categories' do
-    create_user('marley', :password => 'test', :password_confirmation => 'test').activate
+    create_user('marley', :password => 'test', :password_confirmation => 'test').activate!
     category = fast_create Category
     subcategory = fast_create(Category, :parent_id => category.id)
     Person['marley'].categories << subcategory
     login 'marley', 'test'
     get "/myprofile/marley/profile_editor/edit"
-    assert_tag :tag => 'td', :content => "#{category.name} &rarr; #{subcategory.name}",
-               :ancestor => { :tag => 'table', :attributes => { :id => 'selected-categories' }}
+    assert_tag :tag => 'div', :content => /#{category.name} &rarr; #{subcategory.name}/,
+               :ancestor => { :tag => 'div', :attributes => { :class => 'selected-category' }}
   end
 
   should 'not escape MainBlock on profile design' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
     jimi = Person['jimi']
     jimi.boxes << Box.new
     jimi.boxes.first.blocks << MainBlock.new
@@ -74,7 +76,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape confirmation message on deleting folders' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
     fast_create(Folder, :name => 'Hey Joe', :profile_id => Person['jimi'].id, :updated_at => DateTime.now)
     login 'jimi', 'test'
     get "/myprofile/jimi/cms"
@@ -84,7 +86,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape people names on manage friends' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
     friend = fast_create Person
     Person['jimi'].add_friend(friend)
     login 'jimi', 'test'
@@ -95,16 +97,24 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape task information on manage profile' do
-    create_user('marley', :password => 'test', :password_confirmation => 'test').activate
+    create_user('marley', :password => 'test', :password_confirmation => 'test').activate!
     person = Person['marley']
     task = create(Task, :requestor => person, :target => person)
+
     login 'marley', 'test'
+
     get "/myprofile/marley"
-    assert_select ".pending-tasks ul li a"
+    assert_tag :tag => 'div', :attributes => { :id => 'pending-tasks-menu', :class => 'noosfero-dropdown-menu' },
+               :descendant => {:tag => 'ul', :attributes => {:class => 'dropdown-list'},
+               :descendant => {:tag => 'li',
+               :descendant => {:tag => 'div', :attributes => { :class => 'task-link' }
+         }
+      }
+    }
   end
 
   should 'not escape author link in publishing info of article' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
     person = Person['jimi']
     article = fast_create(Article, author_id: person.id, profile_id: person.id)
     get url_for(article.view_url)
@@ -121,7 +131,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SafeStringsTest::Plugin1.new])
 
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
     person = Person['jimi']
     login 'jimi', 'test'
     get "/myprofile/jimi/cms/new?type=TextArticle"
@@ -130,7 +140,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
 
   should 'not escape short_description of articles in activities' do
     user = create_user('marley', :password => 'test', :password_confirmation => 'test')
-    user.activate
+    user.activate!
     profile = user.person
     login 'marley', 'test'
 
@@ -141,7 +151,9 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
     get "/profile/marley"
     assert_tag 'li', :attributes => {:id => "profile-activity-item-#{activity.id}"}, :descendant => {
-      :tag => 'div', :content => "\n    " + expected_content, :attributes => {:class => 'profile-activity-lead'}
+      :tag => 'div',  :attributes => {:class => 'profile-activity-description profile-activity-article-text-html'}, :descendant => {
+        :tag => 'div', :attributes => {:class => 'profile-activity-lead'}
+      }
     }
   end
 
@@ -167,14 +179,15 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape icons options editing link_list block' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate
+    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
     profile = Person['jimi']
     login 'jimi', 'test'
     profile.blocks.each(&:destroy)
     profile.boxes.first.blocks << LinkListBlock.new
     block = profile.boxes.first.blocks.first
     get "/myprofile/#{profile.identifier}/profile_design/edit/#{block.id}"
-    assert_select '.icon-selector .icon-edit'
+    assert_select '.icon-selector'
+    assert_tag :tag => 'span', :attributes => { :class => 'edit' }
   end
 
   should 'not escape read more link to article on display short format' do
@@ -191,7 +204,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     env = Environment.default
     env.custom_person_fields = { 'sex' => { 'active' => 'true' } }
     env.save!
-    create_user('marley', :password => 'test', :password_confirmation => 'test').activate
+    create_user('marley', :password => 'test', :password_confirmation => 'test').activate!
     login 'marley', 'test'
     get "/myprofile/marley/profile_editor/edit"
     assert_tag :tag => 'input', :attributes => { :id => "profile_data_sex_male" }

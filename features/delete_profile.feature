@@ -18,24 +18,30 @@ Feature: delete profile
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
     And I follow "Edit Profile"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to delete this profile?"
+    Then I should see "Are you sure you want to deactivate this profile?"
     When I follow "Yes, I am sure"
+    Then I should see "Are you sure you want to delete this profile?"
+    Then I follow "Yes, I am sure"
     Then I should be on the homepage
     When I go to /joaosilva
-    Then I should see "There is no such page"
+    Then I should see "You may have clicked an expired link or mistyped the address"
 
   Scenario: deleting other profile
     Given I am logged in as "mariasilva"
     And I go to /myprofile/joaosilva/profile_editor/destroy_profile
     Then I should see "Access denied"
 
+  @selenium
   Scenario: giving up of deleting profile
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
     And I follow "Edit Profile"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to delete this profile?"
+    Then I should see "Are you sure you want to deactivate this profile?"
+    And I confirm the browser dialog
     When I follow "No, I gave up"
     Then I should be on joaosilva's profile
 
@@ -52,12 +58,15 @@ Feature: delete profile
     And I am logged in as "joaosilva"
     And I am on sample-community's control panel
     And I follow "Community Info and settings"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to delete this profile?"
+    Then I should see "Are you sure you want to deactivate this profile?"
     When I follow "Yes, I am sure"
+    Then I should see "Are you sure you want to delete this profile?"
+    Then I follow "Yes, I am sure"
     Then I should be on the homepage
     When I go to /sample-community
-    Then I should see "There is no such page"
+    Then I should see "You may have clicked an expired link or mistyped the address"
 
   Scenario: community regular member tries to delete the community
     Given "Joao Silva" is a member of "Sample Community"
@@ -84,12 +93,15 @@ Feature: delete profile
     And I am logged in as "joaosilva"
     And I am on sample-enterprise's control panel
     When I follow "Enterprise Info and settings"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to delete this profile?"
+    Then I should see "Are you sure you want to deactivate this profile?"
     When I follow "Yes, I am sure"
+    Then I should see "Are you sure you want to delete this profile?"
+    Then I follow "Yes, I am sure"
     Then I should be on the homepage
     When I go to /sample-enterprise
-    Then I should see "There is no such page"
+    Then I should see "You may have clicked an expired link or mistyped the address"
 
   Scenario: enterprise regular member tries to delete the enterprise
     Given the following enterprise
@@ -106,9 +118,12 @@ Feature: delete profile
     Given I am logged in as admin
     And I am on joaosilva's control panel
     And I follow "Edit Profile"
+    And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to delete this profile?"
+    Then I should see "Are you sure you want to deactivate this profile?"
     When I follow "Yes, I am sure"
+    Then I should see "Are you sure you want to delete this profile?"
+    Then I follow "Yes, I am sure"
     Then I should be on the homepage
     When I go to /joaosilva
-    Then I should see "There is no such page"
+    Then I should see "You may have clicked an expired link or mistyped the address"

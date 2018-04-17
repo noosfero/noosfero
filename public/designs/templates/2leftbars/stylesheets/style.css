@@ -1,23 +1,30 @@
-.box-1 {
-  margin: 0 0 0 400px;
+.boxes {
+  display:flex;
+  justify-content: center;
 }
 
-.box-1 .blocks {
-  width: 100%;
-  float: left;
+.boxes .box-1 {
+  width: 50%;
+  order: 2;
 }
 
-.box-2 {
-  position: relative;
-  float: left;
-  width: 190px;
-  padding-left: 10px;
+.boxes .box-2,
+.boxes .box-3 {
+  order: 1;
+  width: 20%;
+  margin-right: 2%;
 }
 
-.box-3 {
-  position: relative;
-  float: left;
-  width: 190px;
+@media only screen and (max-width: 600px) {
+  .boxes {
+    flex-direction: column;
+  }
+  .boxes .box-1,
+  .boxes .box-2,
+  .boxes .box-3 {
+    margin: auto;
+    width: 90%;·
+  }
 }
 
 #profile-activity ul,

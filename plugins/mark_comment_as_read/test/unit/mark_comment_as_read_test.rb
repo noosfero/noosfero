@@ -2,6 +2,8 @@ require 'test_helper'
 
 class MarkCommentAsReadPluginTest < ActionView::TestCase
 
+  include ButtonsHelper
+
   def setup
     @plugin = MarkCommentAsReadPlugin.new
     @person = create_user('user').person
@@ -29,14 +31,14 @@ class MarkCommentAsReadPluginTest < ActionView::TestCase
   should 'return actions when comment is not read' do
     action = @plugin.comment_actions(@comment)
     links = self.instance_eval(&action)
-    assert_equal 2, links.size
+    assert_equal 3, links.size
   end
 
   should 'return actions when comment is read' do
     @comment.mark_as_read(@person)
     action = @plugin.comment_actions(@comment)
     links = self.instance_eval(&action)
-    assert_equal 2, links.size
+    assert_equal 3, links.size
   end
 
   should 'do not return any id when user is not logged in' do
@@ -57,24 +59,6 @@ class MarkCommentAsReadPluginTest < ActionView::TestCase
     action = @plugin.check_comment_actions(@comment)
     id = self.instance_eval(&action)
     assert_equal "#comment-action-mark-as-read-#{@comment.id}", id
-  end
-
-  should 'return javascript to mark comment as read' do
-    @comment.mark_as_read(@person)
-    content = @plugin.article_extra_contents(@article)
-    assert self.instance_eval(&content)
-  end
-
-  should 'do not return extra content if comment is not marked as read' do
-    content = @plugin.article_extra_contents(@article)
-    refute self.instance_eval(&content)
-  end
-
-  should 'do not return extra content if user is not logged in' do
-    @comment.mark_as_read(@person)
-    self.stubs(:user).returns(nil)
-    content = @plugin.article_extra_contents(@article)
-    refute self.instance_eval(&content)
   end
 
   def link_to_function(content, url, options = {})

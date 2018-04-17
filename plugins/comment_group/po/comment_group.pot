@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-12 13:14-0300\n"
-"PO-Revision-Date: 2016-09-12 13:14-0300\n"
+"POT-Creation-Date: 2018-04-10 12:34+0000\n"
+"PO-Revision-Date: 2018-04-10 12:34+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -24,4 +24,16 @@ msgstr ""
 
 #: ../lib/ext/article.rb:15
 msgid "Not empty group comment cannot be removed"
+msgstr ""
+
+#: ../views/comment_group_plugin_profile/_list_comments.html.erb:12
+msgid "Order by"
+msgstr ""
+
+#: ../views/comment_group_plugin_profile/_list_comments.html.erb:14
+msgid "Newest"
+msgstr ""
+
+#: ../views/comment_group_plugin_profile/_list_comments.html.erb:14
+msgid "Oldest"
 msgstr ""

@@ -11,4 +11,16 @@
       }
     }
   }
+
+  form {
+    margin-bottom: 10px;
+
+    input {
+      margin-right: 10px;
+    }
+
+    &.new_auth {
+      margin-top: 50px;
+    }
+  }
 }

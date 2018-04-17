@@ -1,20 +1,50 @@
-
 .controller-cms .with_media_panel {
   float: left;
-  width: 900px;
+  width: 100%;
 }
 
 .controller-cms .show-media-panel .with_media_panel {
-  width: 540px;
+  width: 100%;
+}
+
+#published-media {
+  margin-bottom: 0px;
+}
+
+.text-editor-sidebar .header .icon-vertical-toggle {
+  font-size: 1em !important;
+  padding: 0.5em !important;
 }
 
 .text-editor-sidebar {
-  position: absolute;
-  width: 340px;
-  right: 20px;
-  top: 70px;
+  position: relative;
   max-height: 45px;
   overflow: hidden;
   transition: 1s;
+  width: 100%;
+
+  @media screen and (min-width: 1100px) {
+    position: absolute;
+    margin-top: 1em;
+    right: 5%;
+    width: 30%;
+  }
 }
 
+#media-panel-button {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.show-media-panel .text-editor-sidebar {
+  @media screen and (max-width: 1199px) {
+    background: #f0f0f0;
+	border-radius: 0.3em;
+  }
+}
+
+#media-upload-box, #published-media {
+  @media screen and (max-width: 1199px) {
+    margin: 0.3em;
+  }
+}

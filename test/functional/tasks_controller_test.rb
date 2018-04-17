@@ -79,7 +79,7 @@ class TasksControllerTest < ActionController::TestCase
   should 'display task created_at' do
     Task.create!(:requestor => fast_create(Person), :target => profile, :spam => false)
     get :index
-    assert_select '.task_date'
+    assert_select '.task-date'
   end
 
   should 'list processed tasks without spam' do
@@ -140,15 +140,15 @@ class TasksControllerTest < ActionController::TestCase
     t3 = profile.tasks.build; t3.save!
 
     post :close, :tasks => {t1.id => {:decision => 'finish', :task => {}}, t2.id => {:decision => 'cancel', :task => {}}, t3.id => {:decision => 'skip', :task => {}}}
-    assert_redirected_to :action => 'index'
+    assert_response :redirect
 
     t1.reload
     t2.reload
     t3.reload
 
-    ok('task should be finished') { t1.status == Task::Status::FINISHED }
-    ok('task should be canceled') { t2.status == Task::Status::CANCELLED }
-    ok('task should be skipped')  { t3.status == Task::Status::ACTIVE }
+    assert t1.status, Task::Status::FINISHED
+    assert t2.status, Task::Status::CANCELLED
+    assert t3.status, Task::Status::ACTIVE
   end
 
   should 'affiliate roles to user after finish add member task' do
@@ -419,7 +419,7 @@ class TasksControllerTest < ActionController::TestCase
 
   should "not crash if accessing close without tasks parameter" do
     assert_nothing_raised do
-      post :close
+      post :close, :tasks => {}
     end
   end
 
@@ -527,7 +527,7 @@ class TasksControllerTest < ActionController::TestCase
     get :index
 
     assert_select "#task-#{t1.id}"
-    assert_select '.task_responsible', 0
+    assert_select '.task-responsible', 0
   end
 
   should 'do not display responsible assignment filter if profile is not an organization' do
@@ -553,7 +553,7 @@ class TasksControllerTest < ActionController::TestCase
     login_as person1.user.login
     get :index
     assert_equivalent [person1, person2], assigns(:responsible_candidates)
-    assert_select '.task_responsible'
+    assert_select '.task-responsible'
   end
 
   should 'change task responsible' do
@@ -563,7 +563,7 @@ class TasksControllerTest < ActionController::TestCase
     profile.add_admin(person)
     task = Task.create!(:requestor => person, :target => profile)
 
-    assert_equal nil, task.responsible
+    assert_nil task.responsible
     login_as person.user.login
     post :change_responsible, :task_id => task.id, :responsible_id => person.id
     assert_equal person, task.reload.responsible
@@ -640,7 +640,7 @@ class TasksControllerTest < ActionController::TestCase
     assert_select '#down-set-all-tasks-to', 0
   end
 
-  should 'display decision selector when user has perform_task permission' do
+  should 'display accept all tasks button when user has perform_task permission' do
     community = fast_create(Community)
     @controller.stubs(:profile).returns(community)
     person = create_user_with_permission('taskperformer', 'perform_task', community)
@@ -649,8 +649,7 @@ class TasksControllerTest < ActionController::TestCase
     Task.create!(:requestor => person, :target => community)
     get :index
 
-    assert_select '#up-set-all-tasks-to'
-    assert_select '#down-set-all-tasks-to'
+    assert_select '#save-all-tasks'
   end
 
   should 'hide decision buttons when user has only view_tasks permission' do
@@ -690,8 +689,8 @@ class TasksControllerTest < ActionController::TestCase
     task = Task.create!(:requestor => person, :target => community, :responsible => person)
     get :index
 
-    assert_select ".task_responsible select", 0
-    assert_select ".task_responsible .value"
+    assert_select ".task-responsible select", 0
+    assert_select ".task-responsible span", 1
   end
 
   should 'store the person who closes a task' do
@@ -762,7 +761,10 @@ class TasksControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_tag :tag=> 'div', :attributes => { :class => 'field-name' }, :content => /great_field: new value for community!/
+    assert_tag :tag=> 'div', :attributes => { :class => 'task-community-field' },
+                             :descendant => {:tag => 'span',
+                                             :attributes => {:class => 'field'},
+                                             :content => 'great_field: '}
   end
 
   should "display email template selection when accept a task" do
@@ -787,7 +789,7 @@ class TasksControllerTest < ActionController::TestCase
     email_template = EmailTemplate.create!(:name => 'template', :owner => community, :template_type => :task_rejection)
     task = ApproveArticle.create!(:requestor => person, :target => community, :responsible => person)
     get :index
-    assert_select "#on-reject-information-#{task.id} .template-selection"
+    assert_select "#task-#{task.id} .task-reject-explanation .template-selection"
     assert_equal [email_template], assigns(:rejection_email_templates)
   end
 

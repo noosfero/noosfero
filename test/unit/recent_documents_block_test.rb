@@ -51,7 +51,7 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
 
   should 'store limit as a number' do
     block.limit = ''
-    assert block.limit.is_a?(Fixnum)
+    assert block.limit.is_a?(Integer)
   end
 
   should 'have a non-zero default' do

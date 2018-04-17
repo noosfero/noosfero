@@ -1,41 +1,9 @@
 class LinkListBlock < Block
 
   include SanitizeHelper
+  include LinkListBlockHelper
 
   attr_accessible :links
-
-  ICONS = [
-    ['no-icon', _('(No icon)')],
-    ['edit', N_('Edit')],
-    ['new', N_('New')],
-    ['save', N_('Save')],
-    ['send', N_('Send')],
-    ['cancel', N_('Cancel')],
-    ['add', N_('Add')],
-    ['up', N_('Up')],
-    ['down', N_('Down')],
-    ['left', N_('Left')],
-    ['right', N_('Right')],
-    ['up-disabled', N_('Gray Up')],
-    ['down-disabled', N_('Gray Down')],
-    ['left-disabled', N_('Gray Left')],
-    ['right-disabled', N_('Gray Right')],
-    ['up-red', N_('Red Up')],
-    ['search', N_('Search')],
-    ['ok', N_('Ok')],
-    ['login', N_('Login')],
-    ['help', N_('Help')],
-    ['spread', N_('Spread')],
-    ['eyes', N_('Eyes')],
-    ['photos', N_('Photos')],
-    ['menu-people', N_('Person')],
-    ['event', N_('Event')],
-    ['forum', N_('Forum')],
-    ['home', N_('Home')],
-    ['product', N_('Package')],
-    ['todo', N_('To do list')],
-    ['chat', N_('Chat')]
-  ]
 
   TARGET_OPTIONS = [
     [N_('Same page'), '_self'],
@@ -79,10 +47,6 @@ class LinkListBlock < Block
       end
       add
     end
-  end
-
-  def icons
-    ICONS
   end
 
 end
