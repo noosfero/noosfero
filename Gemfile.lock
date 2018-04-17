@@ -52,6 +52,11 @@ PATH
       rest-client
 
 PATH
+  remote: vendor/plugins/validates_as_cnpj
+  specs:
+    validates_as_cnpj (0.0.0)
+
+PATH
   remote: vendor/plugins/validates_multiparameter_assignments
   specs:
     validates_multiparameter_assignments (0.0.0)
@@ -131,7 +136,7 @@ GEM
       descendants_tracker (~> 0.0.4)
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
-    backports (3.11.2)
+    backports (3.11.3)
     builder (3.2.3)
     capybara (2.18.0)
       addressable
@@ -398,7 +403,6 @@ GEM
     unicorn (5.4.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    validates_as_cnpj (0.2.1)
     virtus (1.0.5)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -496,7 +500,7 @@ DEPENDENCIES
   test-unit
   uglifier
   unicorn (~> 5.4)
-  validates_as_cnpj (~> 0.2.1)
+  validates_as_cnpj (= 0.0.0)!
   validates_multiparameter_assignments (= 0.0.0)!
   webpush
   whenever

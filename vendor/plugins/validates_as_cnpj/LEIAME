@@ -1,0 +1,13 @@
+Validacao de CNPJ
+=================
+
+Plugin para validacao do formato e dos digitos verificadores de um CNPJ.
+
+Uso:
+  Adicione ao modelo:
+    validates_as_cnpj :nome_do_campo
+
+Exemplo:
+  class Empresa < ActiveRecord::Base
+    validates_as_cnpj :cnpj
+  end
