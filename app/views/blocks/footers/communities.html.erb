@@ -1,6 +1,6 @@
 <% if block.owner.kind_of?(Profile) || block.owner.kind_of?(Environment) %>
   <% if block.owner.kind_of?(Profile) %>
-    <%= render partial: 'blocks/footers/view_all', locals: {:profile => block.owner.identifier, :controller => 'profile', :action => 'communities', :block_elements => block.profile_list} %>
+    <%= render partial: 'blocks/footers/view_all', locals: {:owner => block.owner.identifier, :controller => 'profile', :action => 'communities', :block_elements => block.profile_list} %>
   <% elsif block.owner.kind_of?(Environment) %>
     <%= render partial: 'blocks/footers/view_all', locals: {:controller => 'search', :action => 'communities', :kind => block.kind.try(:name), :block_elements => block.profile_list} %>
 

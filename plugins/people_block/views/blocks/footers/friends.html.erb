@@ -1,4 +1,4 @@
-<%= render partial: 'blocks/footers/view_all', locals: {:profile => block.owner.identifier, :controller => 'profile', :action => 'friends', :block_elements => block.profile_list} unless block.profile_count == 0 %>
+<%= render partial: 'blocks/footers/view_all', locals: {:owner => block.owner.identifier, :controller => 'profile', :action => 'friends', :block_elements => block.profile_list} unless block.profile_count == 0 %>
 
 <% if !block.suggestions.empty? && user == block.owner %>
   <div class='suggestions-block common-profile-list-block'>

@@ -1,6 +1,6 @@
 <%
     args = {}
-    args[:profile] = profile if defined?(profile)
+    args[:profile] = owner if (defined?(owner) && !owner.kind_of?(Environment))
     args[:kind] = kind if defined?(kind)
     args[:asset] = asset if defined?(asset)
     args[:anchor] = anchor if defined?(anchor)

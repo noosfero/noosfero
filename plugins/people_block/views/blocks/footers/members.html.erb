@@ -1,6 +1,6 @@
 <% anchor = block.visible_role == "profile_admin" ? "admins-tab" : "members-tab" %>
 
-<%= render partial: 'blocks/footers/view_all', locals: {:profile => block.owner.identifier, :controller => 'profile', :action => 'members', :anchor => anchor, :block_elements => block.profile_list} unless block.profile_count == 0 %>
+<%= render partial: 'blocks/footers/view_all', locals: {:owner => block.owner.identifier, :controller => 'profile', :action => 'members', :anchor => anchor, :block_elements => block.profile_list} unless block.profile_count == 0 %>
 
 <% if block.show_join_leave_button %>
   <%= render :partial => 'blocks/profile_info_actions/join_leave_community' %>
