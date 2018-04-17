@@ -18,7 +18,7 @@ class Event < Article
     maybe_add_http(self.setting[:link])
   end
 
-  xss_terminate :only => [ :name, :body, :address ], :with => 'white_list', :on => 'validation'
+  xss_terminate only: [ :name, :body, :address ], with: :white_list, on: :validation
 
   def initialize(*args)
     super(*args)

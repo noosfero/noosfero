@@ -13,7 +13,7 @@ class Mailing < ApplicationRecord
 
   has_many :mailing_sents
 
-  xss_terminate :only => [ :subject, :body ], :with => 'white_list', :on => 'validation'
+  xss_terminate :only => [ :subject, :body ], with: :white_list, on: :validation
 
   after_create do |mailing|
     mailing.schedule

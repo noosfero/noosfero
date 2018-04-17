@@ -11,7 +11,7 @@ class TextArticle < Article
     _('Text article to create user content.')
   end
 
-  xss_terminate :only => [ :name, :body, :abstract ], :with => 'white_list', :on => 'validation', :if => lambda { |a| !a.editor?(Article::Editor::TEXTILE) && !a.editor?(Article::Editor::RAW_HTML) }
+  xss_terminate only: [ :name, :body, :abstract ], with: :white_list, on: :validation, :if => lambda { |a| !a.editor?(Article::Editor::TEXTILE) && !a.editor?(Article::Editor::RAW_HTML) }
 
   include WhiteListFilter
   filter_iframes :abstract, :body

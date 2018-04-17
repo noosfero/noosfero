@@ -152,7 +152,7 @@ class Article < ApplicationRecord
     Article.where(:reference_article_id => self.id, :type => LinkArticle).destroy_all
   end
 
-  xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
+  xss_terminate only: [ :name ], on: :validation, with: :white_list
 
   scope :in_category, -> category {
     includes('categories_including_virtual').where('categories.id' => category.id)

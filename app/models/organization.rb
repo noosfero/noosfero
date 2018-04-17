@@ -152,7 +152,7 @@ include OrganizationHelper
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| !org.contact_email.blank? })
   validates_as_cnpj :cnpj
 
-  xss_terminate :only => [ :acronym, :contact_person, :contact_email, :legal_form, :economic_activity, :management_information ], :on => 'validation'
+  xss_terminate only: [ :acronym, :contact_person, :contact_email, :legal_form, :economic_activity, :management_information ], on: :validation
 
   # Yes, organizations have members.
   #

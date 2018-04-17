@@ -17,7 +17,7 @@ class VideoPlugin::VideoGallery < Folder
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :setting
 
-  xss_terminate :only => [ :body ], :with => 'white_list', :on => 'validation'
+  xss_terminate :only => [ :body ], with: :white_list, on: :validation
 
   include WhiteListFilter
   filter_iframes :body

@@ -9,7 +9,7 @@ class AbuseReport < ApplicationRecord
   validates_presence_of :reporter, :abuse_complaint, :reason
   validates_uniqueness_of :reporter_id, :scope => :abuse_complaint_id
 
-  xss_terminate :sanitize => [:reason]
+  xss_terminate sanitize: [:reason]
 
   after_create do |abuse_report|
     abuse_report.abuse_complaint.save!

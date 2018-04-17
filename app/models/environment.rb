@@ -719,7 +719,7 @@ class Environment < ApplicationRecord
 
   validates_format_of :contact_email, :noreply_email, :with => Noosfero::Constants::EMAIL_FORMAT, :allow_blank => true
 
-  xss_terminate :only => [ :message_for_disabled_enterprise ], :with => 'white_list', :on => 'validation'
+  xss_terminate only: [ :message_for_disabled_enterprise ], with: :white_list, on: :validation
 
   validates_presence_of :theme
   validates_numericality_of :reports_lower_bound, :allow_nil => false, :only_integer => true, :greater_than_or_equal_to => 0
