@@ -16,7 +16,7 @@ class AnalyticsPlugin::Base < Noosfero::Plugin
   # FIXME: not reloading on development, need server restart
   def application_controller_filters
     [{
-      type: 'around_filter', options: {}, block: -> &block do
+      type: 'around_action', options: {}, block: -> &block do
         request_started_at = Time.now
         block.call
         request_finished_at = Time.now
