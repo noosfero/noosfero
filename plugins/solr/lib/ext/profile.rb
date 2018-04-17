@@ -61,7 +61,8 @@ class Profile
       self.solr_save
     end
   end
-  alias_method :add_category, :solr_save
+  alias_method :add_category_without_solr_save, :add_category
+  alias_method :add_category, :add_category_with_solr_save
 
   private
 

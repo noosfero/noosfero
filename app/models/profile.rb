@@ -570,7 +570,8 @@ class Profile < ApplicationRecord
   def template_with_default
     template_without_default || default_template
   end
-  alias_method :template, :default
+  alias_method :template_without_default, :template
+  alias_method :template, :template_with_default
 
   def apply_template(template, options = {:copy_articles => true})
     raise "#{template.identifier} is not a template" if !template.is_template

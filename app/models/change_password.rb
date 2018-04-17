@@ -13,7 +13,8 @@ class ChangePassword < Task
     end
   end
   class << self
-    alias_method :human_attribute_name, :customization
+    alias_method :human_attribute_name_without_customization, :human_attribute_name
+    alias_method :human_attribute_name, :human_attribute_name_with_customization
   end
 
   validates_presence_of :requestor

@@ -13,7 +13,8 @@ class User
     @oauth_providers = attributes.delete(:oauth_providers) || []
     initialize_without_oauth_client(attributes, options)
   end
-  alias_method :initialize, :oauth_client
+  alias_method :initialize_without_oauth_client, :initialize
+  alias_method :initialize, :initialize_with_oauth_client
 
   def store_oauth_providers
     @oauth_providers.each do |provider|
@@ -29,12 +30,14 @@ class User
     password_required_without_oauth? && oauth_providers.empty? && @oauth_providers.blank?
   end
 
-  alias_method :password_required?, :oauth
+  alias_method :password_required_without_oauth?, :password_required
+  alias_method :password_required, :password_required_with_oauth?
 
   def make_activation_codes_with_oauth
     @oauth_providers.blank? && oauth_providers.blank? ? make_activation_code_without_oauth : nil
   end
 
-  alias_method :make_activation_code, :oauth
+  alias_method :make_activation_code_without_oauth, :make_activation
+  alias_method :make_activation, :make_activation_code_with_oauth
 
 end

@@ -46,6 +46,6 @@ class SnifferPlugin::Opportunity < ApplicationRecord
   def respond_to_with_opportunity? method, p2 = true
     respond_to_without_opportunity? method, p2 or (self.opportunity and self.opportunity.respond_to? method)
   end
-  alias_method :respond_to?, :opportunity
-
+  alias_method :respond_to_without_opportunity?, :respond_to
+  alias_method :respond_to, :respond_to_with_opportunity?
 end

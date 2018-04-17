@@ -122,7 +122,8 @@ SQL
     return self.available_without_supplier unless self.supplier_product
     self.available_without_supplier and self.supplier_product.available and self.supplier.active rescue false
   end
-  alias_method :available, :supplier
+  alias_method :available_without_supplier, :available
+  alias_method :available, :available_with_supplier
 
   def dependent?
     self.from_products.length >= 1
@@ -162,14 +163,18 @@ SQL
   def product_category_id_with_default
     self.product_category_id_without_default or self.product_category_with_default.id
   end
-  alias_method :product_category, :default
-  alias_method :product_category_id, :default
+  alias_method :product_category_without_default, :product_category
+  alias_method :product_category, :product_category_with_default
+
+  alias_method :product_category_id_without_default, :product_category_id
+  alias_method :product_category_id, :product_category_id_with_default
 
   # FIXME: move to core
   def unit_with_default
     self.unit_without_default or self.class.default_unit
   end
-  alias_method :unit, :default
+  alias_method :unit_without_default, :unit
+  alias_method :unit, :unit_with_default
 
   # FIXME: move to core
   def archive

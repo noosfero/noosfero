@@ -155,7 +155,8 @@ class Enterprise < Organization
   def template_with_inactive_enterprise
     !enabled? ? environment.inactive_enterprise_template : template_without_inactive_enterprise
   end
-  alias_method :template, :inactive_enterprise
+  alias_method :template_without_inactive_enterprise, :template
+  alias_method :template, :template_with_inactive_enterprise
 
   def control_panel_settings_button
     {:title => _('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}

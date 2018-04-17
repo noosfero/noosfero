@@ -15,7 +15,8 @@ module PostsLimit
       def posts_per_page_with_limit
         [self.class.posts_per_page_limit, posts_per_page_without_limit].min
       end
-      alias_method :posts_per_page, :limit
+      alias_method :posts_per_page_without_limit, :posts_per_page
+      alias_method :posts_per_page, :posts_per_page_with_limit
     end
   end
 end

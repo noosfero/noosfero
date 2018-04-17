@@ -7,5 +7,6 @@ module TinymceHelper
     tinymce_init_js_without_comment_paragraph(options)
   end
 
-  alias_method :tinymce_init_js, :comment_paragraph
+  alias_method :tinymce_init_js_without_comment_paragraph, :tinymce_init_js
+  alias_method :tinymce_init_js, :tinymce_init_js_with_comment_paragraph
 end

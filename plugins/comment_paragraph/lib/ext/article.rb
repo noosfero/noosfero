@@ -23,7 +23,8 @@ class Article
     cache_key_without_comment_paragraph(params, user, language) + (user.present? ? '-logged_in-': '-not_logged-')
   end
 
-  alias_method :cache_key, :comment_paragraph
+  alias_method :cache_key_without_comment_paragraph, :cache_key
+  alias_method :cache_key, :cache_key_with_comment_paragraph
 
   def comment_paragraph_plugin_paragraph_content(paragraph_uuid)
     doc =  Nokogiri::HTML(body)

@@ -96,7 +96,8 @@ class SuppliersPlugin::Supplier < ApplicationRecord
     end
     self.destroy_without_dummy
   end
-  alias_method :destroy, :dummy
+  alias_method :destroy_without_dummy, :destroy
+  alias_method :destroy, :destroy_with_dummy
 
   protected
 
@@ -153,6 +154,7 @@ class SuppliersPlugin::Supplier < ApplicationRecord
   def respond_to_with_profile? method, include_private=false
     respond_to_without_profile? method, include_private or Profile.new.respond_to? method, include_private
   end
-  alias_method :respond_to?, :profile
+  alias_method :respond_to_without_profile?, :respond_to
+  alias_method :respond_to, :respond_to_with_profile?
 
 end

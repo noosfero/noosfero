@@ -90,7 +90,8 @@ module DefaultDelegate
           self.send "#{default_setting}_without_presence=", value
         end
         alias_method default_setting, :presence
-        alias_method "#{default_setting}=", :presence
+        alias_method ("#{default_setting}="_without_presence).to_sym, :("#{default_setting}=").to_sym
+        alias_method :("#{default_setting}=").to_sym, ("#{default_setting}="_with_presence).to_sym
       end
 
       define_method "#{field}_with_default" do

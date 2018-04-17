@@ -12,7 +12,8 @@ class Blog < Folder
   def posts_with_no_folders
     posts_without_no_folders.no_folders(profile)
   end
-  alias_method :posts, :no_folders
+  alias_method :posts_without_no_folders, :posts
+  alias_method :posts, :posts_with_no_folders
 
   def self.type_name
     _('Blog')
