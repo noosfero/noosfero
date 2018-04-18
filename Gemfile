@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "2.4.1"
+ruby "2.4.4"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -100,7 +100,7 @@ group :cucumber, :test do
   gem 'cucumber-rails',		          '~> 1.5.0', :require => false
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
-  gem 'selenium-webdriver'
+  gem 'selenium-webdriver', 		  '~> 3.11'
   gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
 end
 
