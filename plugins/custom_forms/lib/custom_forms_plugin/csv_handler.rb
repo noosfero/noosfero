@@ -2,7 +2,8 @@ require 'csv'
 
 class CustomFormsPlugin::CsvHandler
 
-  DEFAULT_COLUMNS = [_("Name"), _("Email")]
+  DEFAULT_COLUMNS = [_('Name'), _('Email')]
+  OPTIONAL_COLUMNS = [{ attr: :city, name: _('City'), field: :location }]
 
   class InvalidAlternativeError < RuntimeError
     def initialize(message, col_num)
@@ -22,8 +23,10 @@ class CustomFormsPlugin::CsvHandler
   end
 
   def generate_csv
+    profile_cols = DEFAULT_COLUMNS
+    profile_cols += active_optional_cols.map { |c| c[:name] }
     CSV.generate do |csv|
-      csv << ([_('Timestamp')] + DEFAULT_COLUMNS + @fields.map(&:name))
+      csv << ([_('Timestamp')] + profile_cols + @fields.map(&:name))
       @form.submissions.each do |submission|
         csv << submission_row(submission)
       end
@@ -69,8 +72,14 @@ class CustomFormsPlugin::CsvHandler
 
   private
 
+  def active_optional_cols
+    OPTIONAL_COLUMNS.select do |column|
+      column[:field].to_s.in? @form.environment.active_person_fields
+    end
+  end
+
   def submission_row(subm)
-    row = default_values(subm)
+    row = default_values(subm) + optional_values_for(subm.profile)
     @fields.each do |field|
       row << subm.answer_for(field).to_s
     end
@@ -82,6 +91,12 @@ class CustomFormsPlugin::CsvHandler
     name = subm.author_name
     email = subm.profile.present? ? subm.profile.email : subm.author_email
     [timestamp, name, email]
+  end
+
+  def optional_values_for(profile)
+    active_optional_cols.map do |col|
+      profile.try(:send, col[:attr]) || ''
+    end
   end
 
   def submission_from_row(row)

@@ -1,0 +1,54 @@
+<%= javascript_include_tag 'profile_selector' %>
+
+<h2><%= _('Custom Froms Plugin') %></h2>
+
+<h3><%= _('Export environment queries') %></h3>
+
+<p>
+  <%= _('Export one file with several queries at once.') %>
+</p>
+
+<p>
+  <%= _('Select which profiles you want to export the queries from.') %>
+</p>
+
+<%= form_for :profile, url: { action: 'download_files' },
+                       html: { class: 'profile-selector' } do |form| %>
+  <%= text_field_tag :profile_selector_search, nil,
+                     placeholder: _('Filter profiles by name'),
+                     id: 'profile-selector-search' %>
+
+  <div class='profile-selector-container'>
+    <% @profiles.each do |profile| %>
+      <label class='profile-selector-entry'>
+        <%= check_box_tag 'profile_ids[]', profile.id %>
+        <%= image_tag profile_icon(profile) %>
+        <div class='profile-selector-entry-info'>
+          <span class='profile-name'><%= profile.name %></span>
+          <span class='profile-forms-count'>
+            <%= n_('%s form', '%s forms', profile.forms.count) %
+                profile.forms.count %>
+          </span>
+        </div>
+      </label>
+    <% end %>
+  </div>
+
+  <div class='profile-selector-actions'>
+    <%= link_to 'Go back', { controller: :plugins, action: :index },
+                class: 'button back-button' %>
+    <div class='selection-actions'>
+      <button type='button' class='button deselect-all'>
+        <i class='far fa-square'></i><%= _('Deselect all') %>
+      </button>
+      <button type='button' class='button select-all'>
+        <i class='far fa-check-square'></i><%= _('Select all') %>
+      </button>
+    </div>
+    <button type='submit' class='button'>
+      <i class='fa fa-download'></i>
+      <%= _('Generate CSV') %>
+    </button>
+
+  </div>
+<% end %>
