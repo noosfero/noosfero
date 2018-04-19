@@ -1,4 +1,4 @@
-image: noosfero/ci
+image: alaxalves/noosfero:5.1.6
 
 before_script:
   - mkdir -p locale # makes quick-start skip compiling translations

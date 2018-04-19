@@ -14,6 +14,7 @@ git clone --depth 1 https://gitlab.com/noosfero/noosfero.git /var/tmp/noosfero
 cd /var/tmp/noosfero
 ./script/set-apt-proxy
 mkdir -p locale
+bundle update
 ./script/quick-start
 
 # cleanup
