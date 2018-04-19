@@ -9,6 +9,8 @@ class HomeControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = HomeController.new
+    @admin = create_user.person
+    Environment.default.add_admin @admin
   end
 
   should 'not display news from portal if disabled in environment' do
@@ -184,5 +186,134 @@ class HomeControllerTest < ActionController::TestCase
     assert_select 'html.controller-home.action-home-index'
     # There are plugin classes?
     assert_select 'html.t1.t2.test'
+  end
+
+  should 'display move options to admins' do
+    login_as @admin.identifier
+    community = fast_create(Community)
+    fast_create(TextArticle, profile_id: community.id, highlighted: true)
+
+    env = Environment.default
+    env.portal_community = community
+    env.enable('use_portal_community')
+    env.save!
+
+    get :index
+    assert_select '.order-options', { count: 1 }
+  end
+
+  should 'not display move options to regular users' do
+    user = create_user.person
+    login_as user.identifier
+    community = fast_create(Community)
+    fast_create(TextArticle, profile_id: community.id, highlighted: true)
+
+    env = Environment.default
+    env.portal_community = community
+    env.enable('use_portal_community')
+    env.save!
+
+    get :index
+    assert_select '.order-options', { count: 0 }
+  end
+
+  should 'not display move options to visitors' do
+    logout
+    community = fast_create(Community)
+    fast_create(TextArticle, profile_id: community.id, highlighted: true)
+
+    env = Environment.default
+    env.portal_community = community
+    env.enable('use_portal_community')
+    env.save!
+
+    get :index
+    assert_select '.order-options', { count: 0 }
+  end
+
+  should 'render 400 if index is not sent' do
+    login_as @admin.identifier
+    get :reorder, index: nil, direction: 'up'
+    assert_response 400
+  end
+
+  should 'render 400 if direction is not sent' do
+    login_as @admin.identifier
+    get :reorder, index: 0, direction: nil
+    assert_response 400
+  end
+
+  should 'render 400 if direction is invalid' do
+    login_as @admin.identifier
+    get :reorder, index: 0, direction: 'invalid'
+    assert_response 400
+  end
+
+  should 'render 403 if user is not an admin' do
+    user = create_user.person
+    login_as user.identifier
+
+    get :reorder, index: 0, direction: 'up'
+    assert_response 403
+  end
+
+  should 'render 403 if there is no current user' do
+    logout
+    get :reorder, index: 0, direction: 'up'
+    assert_response 403
+  end
+
+  should 'initialize orders for all portal news' do
+    login_as @admin.identifier
+    community = fast_create(Community)
+    fast_create(TextArticle, profile_id: community.id, highlighted: true)
+    fast_create(TextArticle, profile_id: community.id, highlighted: true)
+    fast_create(TextArticle, profile_id: community.id, highlighted: true)
+
+    env = Environment.default
+    env.portal_community = community
+    env.save!
+
+    get :reorder, index: 0, direction: 'down'
+    news = community.news(3, true)
+    assert news.all? { |a| a.metadata['order'].present? }
+  end
+
+  should 'move an article up' do
+    login_as @admin.identifier
+    community = fast_create(Community)
+    article1 = fast_create(TextArticle, profile_id: community.id, highlighted: true,
+                                        published_at: 3.hours.ago)
+    article2 = fast_create(TextArticle, profile_id: community.id, highlighted: true,
+                                        published_at: 2.hours.ago)
+    article3 = fast_create(TextArticle, profile_id: community.id, highlighted: true,
+                                        published_at: 1.hours.ago)
+
+    env = Environment.default
+    env.portal_community = community
+    env.save!
+
+    get :reorder, index: 2, direction: 'up'
+    news = community.news(3, true)
+    assert_equal [article3, article1, article2], news
+  end
+
+  should 'move an article down' do
+    login_as @admin.identifier
+    community = fast_create(Community)
+    article1 = fast_create(TextArticle, profile_id: community.id, highlighted: true,
+                                        published_at: 3.hours.ago)
+    article2 = fast_create(TextArticle, profile_id: community.id, highlighted: true,
+                                        published_at: 2.hours.ago)
+    article3 = fast_create(TextArticle, profile_id: community.id, highlighted: true,
+                                        published_at: 1.hours.ago)
+
+    env = Environment.default
+    env.portal_community = community
+    env.save!
+
+    get :reorder, index: 0, direction: 'down'
+    news = community.news(3, true)
+    assert_equal [article2, article3, article1], news
   end
 end

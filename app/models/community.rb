@@ -74,7 +74,8 @@ class Community < Organization
   end
 
   def news(limit = 30, highlight = false)
-    recent_documents(limit, ["articles.type != ? AND articles.highlighted = ?", 'Folder', highlight])
+    news = recent_documents(limit, ["articles.type != ? AND articles.highlighted = ?", 'Folder', highlight])
+    news.reorder("articles.metadata->'order' NULLS FIRST, published_at DESC")
   end
 
   def each_member(offset=0)
