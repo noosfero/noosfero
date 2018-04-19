@@ -221,8 +221,9 @@ GEM
     grape-entity (0.7.1)
       activesupport (>= 4.0)
       multi_json (>= 1.3.2)
-    grape_logging (1.7.0)
+    grape_logging (1.8.0)
       grape
+      rack
     hkdf (0.3.0)
     hpricot (0.8.6)
     http-cookie (1.0.3)

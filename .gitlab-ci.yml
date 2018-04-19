@@ -1,9 +1,7 @@
-image: alaxalves/noosfero:5.1.6
+image: alaxalves/noosfero-ci
 
 before_script:
-  - mkdir -p locale # makes quick-start skip compiling translations
-  - ./script/set-apt-proxy
-  - ./script/silent-quick-start
+  - ./script/quick-start
   - bundle exec rake db:migrate RAILS_ENV=test
 
 stages:

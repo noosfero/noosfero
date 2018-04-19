@@ -102,6 +102,7 @@ group :cucumber, :test do
   # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver', 		  '~> 3.11'
   gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
+  gem 'geckodriver-helper', '~> 0.0.5' if ENV['SELENIUM_DRIVER'] == 'firefox'
 end
 
 # Requires custom dependencies
