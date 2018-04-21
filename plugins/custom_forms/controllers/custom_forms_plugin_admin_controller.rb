@@ -1,7 +1,7 @@
 require 'zip'
 
 class CustomFormsPluginAdminController < AdminController
-  before_filter :set_profiles
+  before_action :set_profiles
 
   def index; end
 

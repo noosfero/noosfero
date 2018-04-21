@@ -1,6 +1,6 @@
 class HomeController < PublicController
 
-  before_filter :require_admin, only: :reorder
+  before_action :require_admin, only: :reorder
 
   def index
     @has_news = false
