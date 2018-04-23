@@ -78,7 +78,7 @@ class Article < ApplicationRecord
     end
   end
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
 
@@ -89,9 +89,9 @@ class Article < ApplicationRecord
 
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
-  belongs_to :author, class_name: 'Person'
-  belongs_to :last_changed_by, class_name: 'Person', foreign_key: 'last_changed_by_id'
-  belongs_to :created_by, class_name: 'Person', foreign_key: 'created_by_id'
+  belongs_to :author, class_name: 'Person', optional: true
+  belongs_to :last_changed_by, class_name: 'Person', foreign_key: 'last_changed_by_id', optional: true
+  belongs_to :created_by, class_name: 'Person', foreign_key: 'created_by_id', optional: true
 
   has_many :comments, -> { order 'created_at asc' }, class_name: 'Comment', as: 'source', dependent: :destroy
 
@@ -117,12 +117,12 @@ class Article < ApplicationRecord
   settings_items :moderate_comments, :type => :boolean, :default => false
   has_and_belongs_to_many :article_privacy_exceptions, class_name:  'Person', :join_table => 'article_privacy_exceptions'
 
-  belongs_to :reference_article, class_name: "Article", foreign_key: 'reference_article_id'
+  belongs_to :reference_article, class_name: "Article", foreign_key: 'reference_article_id', optional: true
 
-  belongs_to :license
+  belongs_to :license, optional: true
 
   has_many :translations, class_name: 'Article', foreign_key: :translation_of_id
-  belongs_to :translation_of, class_name: 'Article', foreign_key: :translation_of_id
+  belongs_to :translation_of, class_name: 'Article', foreign_key: :translation_of_id, optional: true
   before_destroy :rotate_translations
 
   acts_as_voteable

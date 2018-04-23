@@ -298,7 +298,7 @@ class Profile < ApplicationRecord
   has_many :action_tracker_notifications, foreign_key: 'profile_id'
   has_many :tracked_notifications, -> { order 'updated_at DESC' }, through: :action_tracker_notifications, source: :action_tracker
   has_many :scraps_received, -> { order 'updated_at DESC' }, class_name: 'Scrap', foreign_key: :receiver_id, dependent: :destroy
-  belongs_to :template, class_name: 'Profile', foreign_key: 'template_id'
+  belongs_to :template, class_name: 'Profile', foreign_key: 'template_id', optional: true
 
   has_many :comments_received, class_name: 'Comment', through:  :articles, source:  :comments
 
@@ -310,7 +310,7 @@ class Profile < ApplicationRecord
   # Although this should be a has_one relation, there are no non-silly names for
   # a foreign key on article to reference the template to which it is
   # welcome_page... =P
-  belongs_to :welcome_page, class_name: 'Article', dependent: :destroy
+  belongs_to :welcome_page, class_name: 'Article', dependent: :destroy, optional: true
 
   def welcome_page_content
     welcome_page && welcome_page.published ? welcome_page.body : nil
@@ -353,14 +353,14 @@ class Profile < ApplicationRecord
   site
   ]
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   has_many :domains, :as => :owner
-  belongs_to :preferred_domain, class_name: 'Domain', foreign_key: 'preferred_domain_id'
+  belongs_to :preferred_domain, class_name: 'Domain', foreign_key: 'preferred_domain_id', optional: true
   belongs_to :environment
 
   has_many :articles, dependent: :destroy
-  belongs_to :home_page, class_name: Article.name, foreign_key: 'home_page_id'
+  belongs_to :home_page, class_name: Article.name, foreign_key: 'home_page_id', optional: true
 
   has_many :files, class_name:  'UploadedFile'
 
@@ -412,7 +412,7 @@ class Profile < ApplicationRecord
     categories.select {|item| !item.is_a?(Region)}
   end
 
-  belongs_to :region
+  belongs_to :region, optional: true
 
   LOCATION_FIELDS = %w[address district city state country_name zip_code]
 
