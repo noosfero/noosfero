@@ -19,6 +19,7 @@ platform :jruby do
 end
 
 gem 'rails',                      '~> 5.1.6'
+gem 'rails-html-sanitizer',       '~> 1.0.3'
 gem 'fast_gettext'
 gem 'acts-as-taggable-on'
 gem 'rails_autolink'
