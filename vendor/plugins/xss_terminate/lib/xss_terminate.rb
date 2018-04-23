@@ -70,7 +70,8 @@ module XssTerminate
     end
 
     def sanitize_columns(with = :full)
-      columns_serialized = self.class.serialized_attributes.keys
+      class_object = self.class
+      columns_serialized = self.class.serialized_attributes(class_object).keys
       only = eval "xss_terminate_#{with}_options[:only]"
       except = eval "xss_terminate_#{with}_options[:except]"
       unless except.empty?
