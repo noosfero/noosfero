@@ -9,13 +9,16 @@
     <p><em><%= _('This channel contains no videos yet') %></em></p>
   <% else %>
     <div class="video-player">
-      <h2></h2>
       <%= render :partial => 'video_player', :locals => {:video => nil} %>
-      <div class="video-player-info">
+      <div class="video-footer-infos">
+        <h2></h2>
         <div class="quality">
           <strong><%=_('Quality options')%>:</strong>
           <ul></ul>
         </div>
+      </div>
+
+      <div class="video-player-info">
         <div class="tags">
           <strong><%=_('Tags')%>:</strong>
           <div class="data"></div>

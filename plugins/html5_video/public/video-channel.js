@@ -123,10 +123,11 @@ NoosferoVideoPlayer.prototype.update = function(data, autoplay) {
   this.videoEl.autoplay = autoplay;
   this.poster = data.posterURL;
   this.videoEl.load();
-  var tags = data.tags || '<span class="empty">None</span>'
-  $(this.info.tags).empty().append(tags);
-  var desc = data.abstract || '<span class="empty">None</span>'
-  $(this.info.abstract).empty().append(desc);
+  var tags = data.tags || $('.tags').css('display', 'none')
+  var desc = data.abstract || $('.abstract').css('display', 'none')
+  if (data.abstract) {
+    $(this.info.abstract).empty().append(desc);
+  }
   this.info.downloadBt.href = data.videoURL;
 };
 
