@@ -910,7 +910,7 @@ module ApplicationHelper
   end
 
   def admin_link
-    admin_icon = font_awesome(:shield, _('Administration'))
+    admin_icon = font_awesome('shield-alt', _('Administration'))
     user.is_admin?(environment) ? link_to(admin_icon, environment.admin_url, title: _("Configure the environment"), class: 'admin-link') : nil
   end
 

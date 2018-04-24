@@ -3,7 +3,7 @@
     <% if @page.blog? and !@page.image.nil? %>
       <div class="blog-cover"><%= image_tag(@page.image.public_filename())%></div>
     <% end %>
-    <%= link_to(font_awesome(:feed, _('RSS feed')), @page.feed.url, class: 'button blog-feed-link') if @page.has_posts? && @page.feed %>
+    <%= link_to(font_awesome(:rss, _('RSS feed')), @page.feed.url, class: 'button blog-feed-link') if @page.has_posts? && @page.feed %>
     <%= safe_join(@plugins.dispatch(:article_header_extra_contents, @page).collect { |content| instance_exec(&content) }) %>
     <% if @page.archived? %>
       <%= render :partial => 'cms/archived_warning', :locals => {:article => @page} %>
