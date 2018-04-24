@@ -112,14 +112,28 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   should 'response as XML to export users' do
+    create_user('maryjane')
     get :download, :format => 'xml'
     assert_equal 'text/xml', @response.content_type
+    assert_match 'maryjane', @response.body
   end
 
   should 'response as CSV to export users' do
+    create_user('maryjane')
     get :download, :format => 'csv'
     assert_equal 'text/csv', @response.content_type
-    assert_equal 'name;email;last_login_at', @response.body.split("\n")[0]
+    assert_match 'maryjane', @response.body
+  end
+
+  should 'filter users when downloading' do
+    create_user('jhondoe')
+    create_user('jhonbaz')
+    create_user('maryjane')
+
+    get :download, format: 'csv', q: 'jhon'
+    assert_match 'jhondoe', @response.body
+    assert_match 'jhonbaz', @response.body
+    assert_no_match 'maryjane', @response.body
   end
 
   should 'be able to remove a person' do
