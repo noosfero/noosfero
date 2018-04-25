@@ -5,10 +5,10 @@
 <% body_method ||= :body %>
 <% editor_type = current_editor %>
 <% lead_id ||= 0%>
-<% f ||= false%>
+<% f ||= false %>
 
 <% if @article %>
-  <%= file_field_or_thumbnail(_('Image:'), @article.image, 'article[image_builder]') %>
+        <%= file_field_or_thumbnail(_('Image:'), @article.image, 'article[image_builder]', 'article') %>
 <% end %>
 
 <%= button :add, _("Add Lead"), '#', :class => "lead-button", :article_id => "#article-lead-"+lead_id.to_s, :style => "margin-left: 0px;" %>

@@ -340,7 +340,19 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'be able to upload an image' do
     assert_difference 'UploadedFile.count' do
-      post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+      post :new, :type => UploadedFile.name, :profile => profile.identifier,
+           :article => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
+    end
+  end
+
+  should 'be able to upload an image with crop' do
+    assert_difference 'UploadedFile.count' do
+      post :new, :type => UploadedFile.name, :profile => profile.identifier,
+           :article => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
+                         :crop_x => 0,
+                         :crop_y => 0,
+                         :crop_w => 25,
+                         :crop_h => 25 }
     end
   end
 
@@ -360,7 +372,9 @@ class CmsControllerTest < ActionController::TestCase
 
    should 'be able to upload more than one file at once' do
     assert_difference 'UploadedFile.count', 2 do
-      post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), fixture_file_upload('/files/rails.png', 'text/plain')]
+      post :upload_files, :profile => profile.identifier,
+           :uploaded_files => { '0' => { :file => fixture_file_upload('/files/test.txt', 'text/plain')},
+                                '1' => { :file => fixture_file_upload('/files/rails.png', 'text/plain')}}
     end
     assert_not_nil profile.articles.find_by(path: 'test')
     assert_not_nil profile.articles.find_by(path: 'rails')
@@ -368,7 +382,9 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'upload to rigth folder' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => profile.identifier, :parent_id => f.id,
+         :uploaded_files => { '0' => { 'file' => fixture_file_upload('/files/test.txt')},
+                              '1' => { 'file' => fixture_file_upload('/files/test_another.txt')}}
     f.reload
 
     assert_not_nil f.children[0]
@@ -377,7 +393,9 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'set author of uploaded files' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => profile.identifier, :parent_id => f.id,
+         :uploaded_files => { '0' => { 'file' => fixture_file_upload('/files/test.txt')},
+                              '1' => { 'file' => fixture_file_upload('/files/test_another.txt')}}
 
     uf = profile.articles.find_by(name: 'test')
     assert_equal profile, uf.author
@@ -398,45 +416,55 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not crash on empty file' do
     assert_nothing_raised do
-      post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
+      post :upload_files, :profile => profile.identifier,
+           :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')},
+                                "1" => { :file => "" }}
     end
     assert_not_nil profile.articles.find_by(path: 'test')
   end
 
   should 'not crash when parent_id is blank' do
     assert_nothing_raised do
-      post :upload_files, :profile => profile.identifier, :parent_id => '', :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
+      post :upload_files, :profile => profile.identifier, :parent_id => '',
+           :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')},
+                                "1" => { :file => "" }}
     end
     assert_not_nil profile.articles.find_by(path: 'test')
   end
 
   should 'redirect to cms after uploading files' do
-    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => profile.identifier,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')}}
     assert_redirected_to :action => 'index'
   end
 
   should 'redirect to folder after uploading files' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    post :upload_files, :profile => profile.identifier, :parent_id => f.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => profile.identifier, :parent_id => f.id,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')}}
     assert_redirected_to :action => 'view', :id => f.id
   end
 
   should 'display error message when file has more than max size' do
     UploadedFile.any_instance.stubs(:size).returns(UploadedFile.attachment_options[:max_size] + 1024)
-    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png')]
+    post :upload_files, :profile => profile.identifier,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/rails.png', 'image/png')}}
     assert assigns(:uploaded_files).first.size > UploadedFile.attachment_options[:max_size]
     assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
   end
 
   should 'not display error message when file has less than max size' do
     UploadedFile.any_instance.stubs(:size).returns(UploadedFile.attachment_options[:max_size] - 1024)
-    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png')]
+    post :upload_files, :profile => profile.identifier,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/rails.png', 'image/png')}}
+
     assert_no_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
   end
 
   should 'not redirect when some file has errors' do
     UploadedFile.any_instance.stubs(:size).returns(UploadedFile.attachment_options[:max_size] + 1024)
-    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png')]
+    post :upload_files, :profile => profile.identifier,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/rails.png', 'image/png')}}
     assert_response :success
     assert_template 'upload_files'
   end
@@ -1141,7 +1169,8 @@ class CmsControllerTest < ActionController::TestCase
     folder = Folder.create!(:name => 'test_folder', :profile => profile)
     @request.expects(:referer).returns(folder.view_url).at_least_once
 
-    post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => @request.referer, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
+    post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => @request.referer,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('files/rails.png', 'image/png')}}
     assert_template nil
     assert_redirected_to "#{profile.environment.top_url}/testinguser/test-folder"
   end
@@ -1353,7 +1382,9 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'create thumbnails for images with delayed_job' do
-    post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png'), fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => profile.identifier,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/rails.png', 'image/png')},
+                              "1" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')}}
     file_1 = profile.articles.find_by(path: 'rails')
     file_2 = profile.articles.find_by(path: 'test')
 
@@ -1767,6 +1798,17 @@ class CmsControllerTest < ActionController::TestCase
   should 'upload media by AJAX' do
     assert_difference 'UploadedFile.count', 1 do
       post :media_upload, :format => 'js', :profile => profile.identifier, :file => fixture_file_upload('/files/test.txt', 'text/plain')
+    end
+  end
+
+  should 'upload image with crop by AJAX' do
+    assert_difference 'UploadedFile.count', 1 do
+      post :media_upload, :format => 'js', :profile => profile.identifier,
+           :crop => { :file => fixture_file_upload('/files/rails.png', 'image/png'),
+           :crop_x => 0,
+           :crop_y => 0,
+           :crop_h => 25,
+           :crop_w => 25 }
     end
   end
 

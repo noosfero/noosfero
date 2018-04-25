@@ -53,10 +53,6 @@
   line-height: 15px;
 }
 
-#uploaded_files {
-  display: none;
-}
-
 form#file_upload_form .formfieldline label {
   display: inline-block;
   margin-right: 5px;
@@ -163,4 +159,15 @@ a.remove-file {
 
 #search-button{
   height: 50% !important;
+}
+
+#crop-image {
+  display: none;
+  width: 700px;
+  height: 540px;
+  padding: 10px 8px;
+}
+
+#crop-image #cropbox {
+  margin: auto;
 }

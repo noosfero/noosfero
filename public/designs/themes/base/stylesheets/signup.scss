@@ -252,3 +252,11 @@
 #signup-form-profile {
   margin-bottom: 10px;
 }
+
+#signup-form #signup-avatar {
+  margin: 10px auto;
+  text-align: left;
+  input { padding-left: 0 }
+  .file-fieldset { padding: 0 }
+  .formfieldline { display: none }
+}

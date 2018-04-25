@@ -204,17 +204,17 @@ class CmsController < MyProfileController
     record_coming
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
-        unless file == ''
-          @uploaded_files << UploadedFile.create(
-            {
-              :uploaded_data => file,
-              :profile => profile,
-              :parent => @parent,
-              :last_changed_by => user,
-              :author => user,
-            },
-            :without_protection => true
-          )
+        file = file[1]
+        if file && file.has_key?('file') && file[:file] != ''
+          data = {
+                :uploaded_data => file[:file],
+                :profile => profile,
+                :parent => @parent,
+                :last_changed_by => user,
+                :author => user,
+          }
+          data = data.merge(cropped_params(file)) if file.key?(:crop_x)
+          @uploaded_files << UploadedFile.create(data, :without_protection => true)
         end
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
@@ -374,7 +374,12 @@ class CmsController < MyProfileController
     parent = check_parent(params[:parent_id])
     if request.post?
       begin
-        @file = UploadedFile.create!(:uploaded_data => params[:file], :profile => profile, :parent => parent) unless params[:file] == ''
+        file = params[:file].present? ? params[:file] : params[:crop][:file]
+        data = { :uploaded_data => file,
+                 :profile => profile,
+                 :parent => parent }
+        data = data.merge(cropped_params(params[:crop])) if params.include?(:crop)
+        @file = UploadedFile.create!(data) unless params[:file] == ''
         @file = FilePresenter.for(@file)
         respond_to do |format|
           format.js
@@ -538,5 +543,18 @@ class CmsController < MyProfileController
       @type = "UploadedFile"
       redirect_to :action => 'new', type: "UploadedFile",  back_to: params[:back_to], parent_id: params[:parent_id]
     end
+  end
+
+  def cropped_params(file_params)
+    data = {}
+    if file_params[:crop_x].present?
+      data = {
+        :crop_x => file_params[:crop_x],
+        :crop_y => file_params[:crop_y],
+        :crop_w => file_params[:crop_w],
+        :crop_h => file_params[:crop_h]
+      }
+    end
+    data
   end
 end

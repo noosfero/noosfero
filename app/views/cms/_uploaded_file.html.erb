@@ -1,6 +1,6 @@
 <%= labelled_form_field(_('Title'), text_field(:article, :title, :maxlength => 60)) %>
 
-<%= render :partial => 'upload_file', :locals => {:size => '45', :name => 'article[uploaded_data]' } %>
+<%= render :partial => 'upload_file', :locals => {:size => '45', :name => 'article', :single_file => true} %>
 
 <%= render :partial => 'general_fields' %>
 
@@ -8,3 +8,8 @@
 <% if @article.image? %>
   <%= f.text_field(:external_link, :size => 64) %>
 <% end %>
+
+<%= modal_inline_link_to '', '#', '#crop-image', id: "crop-image-button", style: "display: none" %>
+<%= render 'shared/crop_image' %>
+
+<%= javascript_include_tag 'cropped_image' %>

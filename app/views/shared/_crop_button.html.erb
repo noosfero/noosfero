@@ -1,0 +1,12 @@
+<%= button(:image, _('Add image'), '#', :id => 'add-cropped-image') %>
+
+<div class='file-fieldset'>
+  <%= file_field_tag('crop[file]',
+                     :class => 'picture-input',
+                     :accept => "image/*",
+                     :onChange => 'cropImage(this)') %>
+
+  <%= render :partial => 'shared/cropped_image_preview', :locals => { :image => nil, :type => 'default' } %>
+  <%= render :partial => 'shared/crop_image_form',
+             :locals => { :for_attr => 'crop'} %>
+</div>

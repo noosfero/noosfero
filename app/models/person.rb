@@ -258,7 +258,6 @@ class Person < Profile
 
   FIELDS = %w[
   description
-  image
   preferred_domain
   nickname
   sex

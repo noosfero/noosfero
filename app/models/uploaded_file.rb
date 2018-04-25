@@ -8,6 +8,7 @@ require 'sdbm' unless RUBY_ENGINE == 'jruby'
 class UploadedFile < Article
 
   include UploadSanitizer
+  include CroppedImage
 
   attr_accessible :uploaded_data, :title
 
@@ -42,6 +43,7 @@ class UploadedFile < Article
   def title
     if self.name.present? then self.name else self.filename end
   end
+
   def title= value
     self.name = value
   end
@@ -86,7 +88,11 @@ class UploadedFile < Article
   #  :min_size => 2.megabytes
   #  :max_size => 5.megabytes
   has_attachment :storage => :file_system,
-    :thumbnails => { :icon => [24,24], :bigicon => [50,50], :thumb => '130x130>', :slideshow => '320x240>', :display => '640X480>' },
+    :thumbnails => { :icon => [24,24],
+                     :bigicon => [50,50],
+                     :thumb => '130x130>',
+                     :slideshow => '320x240>',
+                     :display => '640X480>' },
     :thumbnail_class => Thumbnail,
     :max_size => self.max_size,
     processor: 'Rmagick'

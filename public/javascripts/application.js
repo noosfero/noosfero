@@ -16,6 +16,7 @@
 *= require vendor/jquery.tokeninput.js
 *= require vendor/jquery.typewatch.js
 *= require vendor/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js
+*= require vendor/jquery.Jcrop.js
 *= require vendor/inputosaurus.js
 *= require vendor/reflection.js
 *= require vendor/rails.js
@@ -1154,25 +1155,30 @@ function stop_fetching(element){
   jQuery('.fetching-overlay', element).remove();
 }
 
-function add_new_file_field() {
-  var cloned = jQuery('#uploaded_files p:last').clone();
-  cloned.find("input[type='file']").val('');
-  cloned.appendTo('#uploaded_files');
+function add_uploaded_file() {
+  var template = $('.file-fieldset.template').clone();
+  var input = template.find('input[type=file]')[0]
+  var file_number = $('#uploaded_files .file-fieldset').length
+
+  template.removeClass('template')
+  $(input).attr('name', 'uploaded_files[' + file_number  + '][file]')
+  template.find('.crop_x').attr('name', 'uploaded_files[' + file_number  + '][crop_x]')
+  template.find('.crop_y').attr('name', 'uploaded_files[' + file_number  + '][crop_y]')
+  template.find('.crop_w').attr('name', 'uploaded_files[' + file_number  + '][crop_w]')
+  template.find('.crop_h').attr('name', 'uploaded_files[' + file_number  + '][crop_h]')
+  template.appendTo('#uploaded_files');
+
+  $(input).click()
+  $(input).change(function() {
+    let file = input.files[0];
+    template.find('.file-name').text(file.name)
+    template.find('.file-size').text(format_bytes(file.size))
+  })
 }
 
-function add_new_file_handler() {
-  $("#uploaded_files p:last input[type='file']").change(function() {
-    let input = $(this).get(0);
-    for(let i = 0; i < input.files.length; ++i) {
-      let file = input.files[i]; file.should_upload = true;
-        let remove_link = $("<a class='remove-file'><i class='fa fa-trash-o' aria-hidden='true'></i></a>");
-        let file_row = $("<tr></tr>").append($("<td>" + file.name + "</td>"))
-                                     .append($("<td>" + format_bytes(file.size) + "</td>"))
-                                     .append($("<td></td>").append(remove_link));
-        remove_link.click(function() { file.should_upload = false; file_row.fadeOut(500, function() { file_row.remove(); }); });
-      $("table.uploaded_files_table tbody").prepend(file_row);
-    }
-  });
+function remove_uploaded_file(element) {
+  $(element).closest('.file-fieldset').remove()
+  return false
 }
 
 function format_bytes(bytes) {
@@ -1182,15 +1188,9 @@ function format_bytes(bytes) {
   return format;
 }
 
-function add_new_files() {
-  add_new_file_field();
-  add_new_file_handler();
-  $("#uploaded_files p:last input").click();
-}
-
-function add_new_image(btn) {
-  let img_field = $(btn).siblings("#article_image_builder_uploaded_data");
-  img_field.click();
+function add_new_image(element) {
+  $(element).closest('.file-fieldset').find('input[type=file]').click();
+  return false
 }
 
 function update_image(input_field) {
@@ -1200,6 +1200,27 @@ function update_image(input_field) {
 
 function submit_form(element) {
   $(element).prev().click();
+}
+
+function add_new_file_fields() {
+  var files = $('.file-fieldset')
+  var template = files.first().clone()
+  var file_number = files.length
+  var crop = ['x', 'y', 'w', 'h']
+
+  input = template.find('input[type=file]').val('')
+  input.attr('name', 'uploaded_files[' + file_number + '][file]')
+  input.attr('id', 'uploaded_files_' + file_number + '_file')
+  template.find('.preview-image').hide()
+
+  for(var i = 0; i < crop.length; i++) {
+    input = template.find('.crop_' + crop[i])
+    input.attr('name', 'uploaded_files[' + file_number + '][crop_' + crop[i] + ']')
+    input.attr('id', 'uploaded_files_' + file_number + '_crop_' + crop[i])
+  }
+
+  template.appendTo('#uploaded_files');
+  return false
 }
 
 window.isHidden = function isHidden() { return (typeof(document.hidden) != 'undefined') ? document.hidden : !document.hasFocus() };
@@ -1324,3 +1345,19 @@ $(document).ready(function() {
   })
 
 });
+
+$(function() {
+  $('#cropbox').Jcrop({
+    onChange: updateCrop,
+    onSelect: updateCrop,
+    setSelect: [0, 0, 500, 500],
+    aspectRatio: 1
+  });
+});
+
+function updateCrop(coords) {
+  $("#crop_x").val(Math.round(coords.x));
+  $("#crop_y").val(Math.round(coords.y));
+  $("#crop_w").val(Math.round(coords.w));
+  $("#crop_h").val(Math.round(coords.h));
+}

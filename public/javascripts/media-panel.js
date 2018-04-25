@@ -14,13 +14,19 @@
   });
 
 
-  $('#file').fileupload({
+  $('#file, #crop_file').fileupload({
     add: function(e, data){
       data.files[0].id = file_id;
       file_id++;
       data.context = $(tmpl("template-upload", data.files[0]));
       $('#media-upload-form').append(data.context);
-      data.submit();
+      if(e.target.id == 'crop_file') {
+        $('#confirm-crop-image').die('click.submit').live('click.submit', function() {
+          data.submit()
+        })
+      } else {
+        data.submit();
+      }
     },
     progress: function (e, data) {
       if ($('#hide-uploads').data('bootstraped') == false) {
@@ -35,7 +41,9 @@
     },
     fail: function(e, data){
       var file_id = '#file-'+data.files[0].id;
-      $(file_id).find('.progress .bar').addClass('error');
+      var progress_bar = $(file_id).find('.progress .bar')
+      progress_bar.addClass('error')
+      progress_bar.width('100%')
       $(file_id).append("<div class='error-message'>" + data.jqXHR.responseText + "</div>")
     }
   });

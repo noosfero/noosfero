@@ -1,0 +1,3 @@
+<% %w[x y w h].each do |attribute| %>
+  <%= hidden_field_tag "#{for_attr}[crop_#{attribute}]", nil, :class => "crop_#{attribute}"%>
+<% end %>
