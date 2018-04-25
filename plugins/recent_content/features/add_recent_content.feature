@@ -80,6 +80,7 @@ Background:
     And I follow "article-options" within "tr[title='JSilva blog']"
     And I follow "Edit" within ".noosfero-dropdown-menu"
     And I attach the file "public/images/rails.png" to "article[image_builder][uploaded_data]"
+    And I follow "Crop"
     And I follow "Save"
     When I go to joaosilva's control panel
     And I follow "Edit sideboxes"

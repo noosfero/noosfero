@@ -21,8 +21,11 @@
                 "type='Folder' or type='Gallery'"
           ) %>
           <%= button(:newfolder, _('New folder'), '#', :id => 'new-folder-button') %>
+          <%= render partial: 'shared/crop_button' %>
         </div>
-        <p><%= file_field_tag('file', :multiple => true) %></p>
+        <p>
+          <%= file_field_tag('file', :multiple => true) %>
+        </p>
       <% end %>
     </div>
     <div class='hide-and-show-uploads'>

@@ -2,7 +2,7 @@
 
   <% if image.is_a? UploadedFile and image.filename %>
     <% extension = image.extension %>
-    <% if ['jpg', 'jpeg', 'gif', 'png', 'tiff', 'svg'].include? extension %>
+    <% if ['jpg', 'jpeg', 'gif', 'png', 'svg'].include? extension %>
       <%= link_to image_tag(image.public_filename(:thumb)), image.view_url, class: 'search-image-pic' %>
     <% elsif ['pdf'].include? extension %>
       <%= link_to '', image.view_url, :class => 'search-image-pic icon-application-pdf' %>

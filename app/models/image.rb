@@ -1,8 +1,10 @@
 class Image < ApplicationRecord
 
   include UploadSanitizer
+  include CroppedImage
 
   attr_accessible :uploaded_data, :label, :remove_image
+
   attr_accessor :remove_image
 
   belongs_to :owner, polymorphic: true
@@ -35,6 +37,12 @@ class Image < ApplicationRecord
 
   def data(size = nil)
     File.file?(full_filename(size)) ? File.read(full_filename(size)) : nil
+  end
+
+  protected
+  def resize_image(img, size)
+    crop(img)
+    super
   end
 
 end

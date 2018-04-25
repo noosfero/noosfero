@@ -1,24 +1,9 @@
-<%= image_tag(image.public_filename(:thumb)) %>
-<div id='preview-text' data-label="<%= _('Preview') %>"></div>
-<div id='preview-image'></div>
-
-<br/>
+<div>
+  <div id='actual-image'><%= image_tag(image.public_filename(:thumb)) %></div>
+  <%= render :partial => 'shared/change_image', :locals => { :for_attr => for_attr, :display => 'none', :type => type } %>
+</div>
 
 <%= button_to_function(:photos, _('Change image'), 'display_change_image()', :id => 'change-image-link' ) %>
-
-<script>
-  function display_change_image() {
-    jQuery('#change-image').show();
-    jQuery('#change-image-link').hide();
-    jQuery('#cancel-change-image-link').show();
-  }
-</script>
-
-<br/>
-<div id='change-image' style='display:none'>
-  <%= render :partial => 'shared/change_image', :locals => { :image => image, :for_attr => for_attr } %>
-</div>
-<br/>
 
 <% if image.present? && removable %>
   <div id='image-builder-remove-checkbox'>

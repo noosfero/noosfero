@@ -91,6 +91,11 @@
     <%= labelled_form_field(_('Full name'), text_field(:profile_data, :name)) %>
   </div>
 
+  <div id='signup-avatar'>
+    <label class='formlabel'><%= _('Profile Image')%></label>
+    <%= render :partial => 'shared/change_image', :locals => { :for_attr => 'profile_data[image_builder]', :type => 'profile' } %>
+  </div>
+
 </div>
 
 <div id="signup-form-profile">

@@ -1,1 +1,24 @@
-<p><%= file_field_tag('uploaded_files[]', id: :file_upload, size: size, multiple: true) %></p>
+<% name = name ? name : 'uploaded_files[]' %>
+<% single_file = defined?(single_file) ? single_file : false %>
+<% file_name = single_file ? "#{name}[uploaded_data]" : "#{name}[file]" %>
+
+<div class='file-fieldset template'>
+
+  <div class='file-preview'>
+    <%= render :partial => 'shared/cropped_image_preview', :locals => { :image => nil, :type => 'default' } %>
+  </div>
+  <div class='file-name'></div>
+  <div class='file-size'></div>
+  <div class='file-actions'>
+    <%= button_to_function :trash, '', 'remove_uploaded_file(this)' %>
+  </div>
+  <div class='file-inputs'>
+    <%= file_field_tag(file_name,
+                       :size => size,
+                       :class => 'picture-input',
+                       :onChange => 'checkImageToCrop(this)') %>
+    <%= render :partial => 'shared/crop_image_form',
+               :locals => { :for_attr => name, :single_file => single_file} %>
+  </div>
+
+</div>

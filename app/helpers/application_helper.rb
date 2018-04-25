@@ -447,10 +447,10 @@ module ApplicationHelper
     javascript_include_tag script if script
   end
 
-  def file_field_or_thumbnail(label, image, for_attr, removable = true)
+  def file_field_or_thumbnail(label, image, for_attr, type = 'default', removable = true)
     display_form_field label, (
       render :partial => (image && image.valid? ? 'shared/show_thumbnail' : 'shared/change_image'),
-      :locals => { :image => image, :removable => removable, :for_attr => for_attr }
+      :locals => { :image => image, :removable => removable, :for_attr => for_attr, :type => type }
       )
   end
 
