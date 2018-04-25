@@ -11,22 +11,20 @@
 
 #email-check,
 #fake-check,
-#password-rate,
-#password-check {
-  margin: -2px 16px -5px 13px;
+#password-check,
+#password-rate {
   text-align: right;
-  clear: both;
+}
+
+p#password-check {
+  display: none;
 }
 
 #email-check p,
 #fake-check p,
-#password-rate p,
-#password-check p {
+p#password-check,
+p#password-rate {
   margin: 0;
-}
-
-#password-rate {
-  font-weight:bold;
 }
 
 .hidden {
@@ -48,7 +46,6 @@
 
 #email-check p,
 #password-rate p,
-#password-check p,
 #url-check p ,
 #signup-form span.invalid,
 #signup-form span.validated,
@@ -91,8 +88,9 @@
 #content #signup-form .submit {
   border: 0;
   padding: 8px 36px 12px;
-  background: transparent url(../images/gray-bg.png) left center repeat-x;
   font-size: 17px;
+  background: none;
+  background-color: #6f6f6f;
   color: #FFF;
   text-align: center;
   text-shadow: #424242 0 -1px 0;
