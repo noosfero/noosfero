@@ -57,6 +57,7 @@ module ApplicationHelper
   include StyleHelper
 
   include CustomFieldsHelper
+  include TooltipHelper
 
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
