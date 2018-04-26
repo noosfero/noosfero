@@ -100,10 +100,7 @@ module FormsHelper
   end
 
   def required_fields_message
-    content_tag('p', content_tag('span',
-      _("The <label class='pseudoformlabel'>highlighted</label> fields are mandatory.").html_safe,
-      :class => 'required-field'
-    ))
+    content_tag('p', _('* field is mandatory'), class: 'required-fields-msg')
   end
 
   def options_for_select_with_title(container, selected = nil)

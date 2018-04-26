@@ -10,8 +10,8 @@
     </div>
   <% end %>
   <script type="text/javascript">
-    jQuery('#user_login').parent('.formfield').removeClass('<%= validation_classes %>');
-    jQuery('#user_login').parent('.formfield').addClass('<%= @status_class %>');
+    jQuery('#user_login').parents('.formfield').removeClass('<%= validation_classes %>');
+    jQuery('#user_login').parents('.formfield').addClass('<%= @status_class %>');
     jQuery('.suggested_usernames a').click(function(e) {
       e.preventDefault();
 

@@ -100,10 +100,11 @@ code input {
   width: 33%
 }
 
-.required-field label.formlabel {
-  font-weight: bold;
-  color: #c00;
+.required-fields-msg {
+	color: red;
 }
+
 .required-field label.formlabel:after {
-  content: ' (*)';
+	color: red;
+  content: '*';
 }
