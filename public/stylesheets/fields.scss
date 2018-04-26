@@ -110,12 +110,13 @@ label, .pseudoformlabel, .formlabel {
   width: 33%
 }
 
-.required-field label.formlabel {
-  font-weight: bold;
+.required-fields-msg {
   color: #d9534f;
 }
+
 .required-field label.formlabel:after {
-  content: ' (*)';
+  color: #d9534f;
+  content: '*';
 }
 
 .no-boxes {

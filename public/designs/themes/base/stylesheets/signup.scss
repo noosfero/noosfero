@@ -91,8 +91,9 @@
   margin: 5px 10px;
 }
 
-#signup-form label{
-  font-size: 16px;
+#signup-form label {
+  font-variant: small-caps;
+  font-size: 18px;
 }
 
 #signup-form #template-options li label {
@@ -106,19 +107,9 @@
 #signup-form label[for=profile_data_sex_female],
 #signup-form label[for=profile_data_sex_male] {
   color: #6d786e;
+  font-size: 18px;
   display: inline;
   margin-left: 8px;
-}
-
-#signup-form label[for=profile_data_country],
-#signup-form label[for=profile_data_preferred_domain_id],
-#signup-form label[for=profile_data_birth_date_2i],
-#signup-form label[for=profile_data_birth_date_3i],
-#signup-form label[for=profile_data_schooling],
-#signup-form label[for=profile_data_formation],
-#signup-form label[for=profile_data_area_of_study],
-#signup-form label[for=profile_data_image_builder_uploaded_data] {
-  display: block;
 }
 
 @mixin validation_icon {
@@ -170,7 +161,24 @@
   color: #005000;
 }
 
+.label-wrapper {
+  text-align: left;
+  margin-bottom: 1em;
+
+  .formlabel, .field_with_errors {
+    display: inline-block;
+  }
+}
+
+#checking-message {
+  display: none;
+}
+
 #signup-username-section {
+  > p {
+    font-style: italic;
+  }
+
   #signup-username-form-line {
     display: flex;
 
@@ -188,12 +196,13 @@
 
     #signup-login {
       flex: 1;
+      text-align: right;
     }
   }
 }
 
 #signup-password-section {
-  margin: 10px 0;
+  margin: 15px 0;
 
   .formfield {
     margin-bottom: 5px;
@@ -209,18 +218,13 @@
 }
 
 #signup-name {
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
-#signup-form .required-field label,
 #signup-form .formlabel {
   color: #4A4A4A;
   font-weight: normal;
   text-align: left;
-}
-
-#signup-form .required-field label::after {
-  content: '';
 }
 
 #signup-form div.custom-field.checkbox {

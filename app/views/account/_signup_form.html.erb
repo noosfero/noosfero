@@ -23,13 +23,14 @@
 
 <div id='signup-form-header'>
   <div id='signup-username-section'>
-    <%= label(:user, :login, _('Choose your username'), { class: 'formlabel' }) %>
+    <div class='label-wrapper required-field'>
+      <%= label(:user, :login, _('Username'), { class: 'formlabel' }) %>
+      <%= tooltip(_('Your username identifies you inside the network, and '\
+                    'will be used to generate a custom address to your pages. '\
+                    'Choose wisely, you will not be able to change it.'), :large) %>
+    </div>
 
-    <p><%= _('Your username identifies you inside the network, and will be used '\
-             'to generate a custom address to your pages. Choose wisely, you '\
-             'will not be able to change it.') %></p>
-
-    <p><%= _('Example of usernames: jose-silva, maria-santos, josecosta') %></p>
+    <p><%= _('Example of good usernames: jose-silva, maria.santos, josecosta') %></p>
 
     <div id='signup-username-form-line'>
       <span id="signup-domain"><%= environment.default_hostname %>/</span>
@@ -37,20 +38,22 @@
         <div id='signup-login-field' class='formfield'>
           <%= text_field(:user, :login, :id => 'user_login',
                                 :onchange => 'this.value = convToValidUsername(this.value);') %>
-          <div id='url-check'><p>&nbsp;</p></div>
-          <span id='checking-message' class='checking' style='display:none'><%= _('Checking availability of login name...') %></span>
         </div>
-        <br style="clear: both;" />
+        <div id='url-check'><p>&nbsp;</p></div>
+        <span id='checking-message' class='validated checking'>
+          <%= _('Checking availability of login name...') %>
+        </span>
       </div>
     </div>
-
   </div>
 
   <div id='signup-password-section'>
-    <%= label(:user, :password, _('Choose a password'), { class: 'formlabel' }) %>
-
-    <p><%= _('You also need a password in order to access the network. Choose '\
-             'something with at least 4 characters that you will remember later.') %></p>
+    <div class='label-wrapper required-field'>
+      <%= label(:user, :password, _('Password'), { class: 'formlabel' }) %>
+      <%= tooltip(_('You also need a password in order to access the network. '\
+                    'Choose something with at least 4 characters that you will '\
+                    'remember later.'), :large) %>
+    </div>
 
     <div id='signup-password'>
       <div class='formfield'>
@@ -86,15 +89,15 @@
     </div>
   </div>
 
-  <p><%= _('Just a few more things...') %></p>
+  <div class='separator-msg'><%= _('Just a few more things...') %></div>
 
   <div id='signup-name'>
-    <%= labelled_form_field(_('Full name'),
+    <%= required labelled_form_field(_('Full name'),
                             text_field(:profile_data, :name, placeholder: _('E.g.: Maria Silva'))) %>
   </div>
 
   <div id='signup-email'>
-    <%= labelled_form_field(_('Email Address'),
+    <%= required labelled_form_field(_('Email Address'),
                             text_field(:user, :email, placeholder: _('E.g.: maria.silva@mail.com'))) %>
     <div id='email-check'><p>&nbsp;</p></div>
   </div>
@@ -156,5 +159,7 @@
 <p style="text-align: center">
   <%= submit_button('new_user', _('Create my account')) %>
 </p>
+
+<%= required_fields_message %>
 
 <% end -%>
