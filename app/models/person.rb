@@ -277,6 +277,7 @@ class Person < Profile
   organization_website
   contact_phone
   contact_information
+  address
   location
   ]
 
