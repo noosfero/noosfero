@@ -104,8 +104,16 @@ module ProfileEditorHelper
     @country_helper ||= CountriesHelper::Object.instance
   end
 
-  def select_country(title, object, method, html_options = {}, options = {})
-    labelled_form_field(title, select(object, method, [[_('[Select ...]'), nil]] + country_helper.countries, options, html_options))
+  def select_country(object, method, html_options = {}, options = {})
+    select(object, method, [[_('Select a country...'), nil]] + country_helper.countries, options, html_options)
+  end
+
+  def select_state(object, method, html_options = {}, options = {})
+    select(object, method, [[_('Select a state...'), nil]], options, html_options)
+  end
+
+  def select_city(object, method, html_options = {}, options = {})
+    select(object, method, [[_('Select a city...'), nil]], options, html_options)
   end
 
   def select_schooling(object, method, options)

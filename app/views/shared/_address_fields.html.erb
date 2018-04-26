@@ -1,0 +1,24 @@
+<%= javascript_include_tag 'address_fields' %>
+
+<div id='location-support-fields'>
+  <div class='location-support-fields-row formfield'>
+    <%= select_country(:profile_data, :country, {}, selected: profile.country || 'Brazil') %>
+    <%= select_state(:profile_data, :state, {}, selected: profile.state) %>
+  </div>
+
+  <div class='formfield'>
+    <%= select_city(:profile_data, :city, {}, selected: profile.city) %>
+  </div>
+
+  <div class='location-support-fields-row formfield'>
+    <%= text_field_tag(:district, profile.district, id: 'profile_data_district',
+                                                    placeholder: _('District')) %>
+    <%= text_field_tag(:zip_code, profile.zip_code, id: 'profile_data_zip_code',
+                                                    placeholder: _('ZIP code')) %>
+  </div>
+
+  <div class='formfield'>
+    <%= text_field_tag(:address, profile.address, id: 'profile_data_address',
+                                                  placeholder: _('Address')) %>
+  </div>
+</div>

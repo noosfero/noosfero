@@ -5,8 +5,23 @@ class NationalRegion < ApplicationRecord
     :national_region_code => {:label => _('Region Code'), :weight => 1},
   }
 
-  def self.search_city(city_name, like = false, state = nil)
+  def self.cities
+    where(national_region_type_id: NationalRegionType::CITY)
+  end
 
+  def self.states
+    where(national_region_type_id: NationalRegionType::STATE)
+  end
+
+  def self.countries
+    where(national_region_type_id: NationalRegionType::COUNTRY)
+  end
+
+  def self.with_parent(parent_code)
+    where(parent_national_region_code: parent_code)
+  end
+
+  def self.search_city(city_name, like = false, state = nil)
     operator = "="
     find_return = :first
     adtional_contions = "";
