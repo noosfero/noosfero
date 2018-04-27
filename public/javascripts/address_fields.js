@@ -2,6 +2,7 @@
 
 function fetchStates(countryCode) {
   $.get('/national_regions/states?country_code=' + countryCode, function(data) {
+    replaceOptions('#profile_data_city', [])
     replaceOptions('#profile_data_state', data.states)
   })
 }
