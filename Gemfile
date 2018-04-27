@@ -7,7 +7,7 @@ git_source(:github) do |repo_name|
 end
 
 platform :ruby do
-  gem 'pg',                     '~> 1.0'
+  gem 'pg',                     '~> 1.0.0'
   gem 'rmagick',                '~> 2.13', require: false
   gem 'RedCloth',               '~> 4.2'
   gem 'unicorn',                '~> 5.4'
@@ -95,10 +95,10 @@ group :test do
 end
 
 group :cucumber, :test do
-  gem 'capybara',	                  '~> 2.18.0'
+  gem 'capybara',                   '~> 3.0.2'
   gem 'launchy'
   gem 'cucumber'
-  gem 'cucumber-rails',		          '~> 1.5.0', :require => false
+  gem 'cucumber-rails',		          '~> 1.6.0', :require => false
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver', 		  '~> 3.11'
