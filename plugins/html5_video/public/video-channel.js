@@ -184,8 +184,8 @@ NoosferoVideoPlayer.prototype.zoomOut = function () {
 NoosferoVideoPlayer.prototype.selectWebVersion = function () {
   var video = null;
   var me = this;
-  var q1 = $.cookie("video_quality") || "tiny";
-  var q2 = ( q1 == "tiny" ) ? "nice" : "tiny";
+  var q1 = $.cookie("video_quality") || "low";
+  var q2 = ( q1 == "low" ) ? "high" : "low";
   var type = canPlay.webm ? "WEBM" : canPlay.ogg ? "OGV" : "MP4";
   if (  (video = this.getVideoFromList(type, q1))
      || (video = this.getVideoFromList(type, q2))
@@ -201,7 +201,13 @@ NoosferoVideoPlayer.prototype.getVideoFromList = function (type, quality) {
     log.info( 'The video list is empty' );
     return null;
   }
-  if ( quality.toLowerCase() != "nice" ) quality = "tiny";
+
+  if (quality.toLowerCase() == 'low') {
+    quality = "tiny";
+  } else {
+    quality = "nice";
+  }
+
   var selected = this.videoList[type][quality];
   log.info( 'getVideoFromList find:', selected );
   if ( selected && selected.status == "done" ) {
