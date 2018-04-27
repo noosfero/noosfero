@@ -3,7 +3,7 @@ class UsersController < AdminController
 
   protect 'manage_environment_users', :environment
 
-  before_filter :set_person, except: [:index, :download, :send_mail]
+  before_action :set_person, except: [:index, :download, :send_mail]
 
   include UsersHelper
 
