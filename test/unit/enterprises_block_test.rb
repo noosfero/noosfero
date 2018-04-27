@@ -56,24 +56,43 @@ class EnterprisesBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
   should 'link to all enterprises for profile' do
-    profile = Profile.new
-    profile.identifier = 'theprofile'
+    env = fast_create(Environment)
+    enterprise = fast_create(Enterprise, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+
+    relation = RoleAssignment.new(:resource_id => enterprise.id, :resource_type => 'Profile', :role_id => 3)
+    relation.accessor = profile
+    relation.save
+
     block = EnterprisesBlock.new
-    block.expects(:owner).twice.returns(profile)
+    block.expects(:owner).returns(profile).at_least_once
 
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View all")
-    ActionView::Base.any_instance.expects(:link_to).with('View all', :controller => 'profile', :profile => 'theprofile', :action => 'enterprises')
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select "[href=/profile/#{profile.identifier}/enterprises]"
+    end
   end
 
   should 'link to all enterprises for environment' do
-    env = Environment.default
-    block = EnterprisesBlock.new
-    block.expects(:owner).twice.returns(env)
+    env = fast_create(Environment)
+    enterprise = fast_create(Enterprise, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
-    ActionView::Base.any_instance.expects(:link_to).with('View all', :controller => 'search', :action => 'assets', :asset => 'enterprises', :kind => nil)
-    render_block_footer(block)
+    block = EnterprisesBlock.new
+    block.expects(:owner).returns(env).at_least_once
+
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View all")
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
+
+    footer = render_block_footer(block)
+    assert_tag_in_string footer, tag: 'a', attributes: {href: "/search/assets?asset=enterprises"}
   end
 
   should 'give empty footer for unsupported owner type' do

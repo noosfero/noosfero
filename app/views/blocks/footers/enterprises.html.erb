@@ -1,5 +1,5 @@
 <% if block.owner.is_a?(Profile) %>
-  <%= link_to font_awesome('angle-double-right', _('View all')), :profile => block.owner.identifier, :controller => 'profile', :action => 'enterprises' %>
+    <%= render partial: 'blocks/footers/view_all', locals: {:owner => block.owner.identifier, :controller => 'profile', :action => 'enterprises', :block_elements => block.profile_list} %>
 <% elsif block.owner.is_a?(Environment) %>
-  <%= link_to s_('enterprises|View all'), :controller => 'search', :action => 'assets', :asset => 'enterprises', :kind => block.kind.try(:name) %>
+    <%= render partial: 'blocks/footers/view_all', locals: {:controller => 'search', :action => 'assets', :asset => 'enterprises', :kind => block.kind.try(:name), :block_elements => block.profile_list} %>
 <% end %>

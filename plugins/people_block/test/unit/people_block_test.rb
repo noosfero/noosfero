@@ -139,15 +139,79 @@ class PeopleBlockViewTest < ActionView::TestCase
     assert_match(/#{person2.name}/, content)
   end
 
-  should 'link to "all people"' do
+  should 'link to "all people" on people block' do
     env = fast_create(Environment)
+    fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     block = PeopleBlock.new
+    block.expects(:owner).returns(env).at_least_once
 
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
       assert_select '[href=/search/people]'
     end
+  end
+
+  should 'link to "all people" on friends block' do
+    env = fast_create(Environment)
+    profile = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    friend = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile.add_friend(friend)
+    profile.save!
+    block = FriendsBlock.new
+    block.expects(:owner).returns(profile.reload).at_least_once
+
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
+    render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select "[href=/profile/#{profile.id}/friends]"
+    end
+  end
+
+  should 'link to "all people" on members block' do
+    env = fast_create(Environment)
+    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    relation = RoleAssignment.new(:resource_id => profile.id, :resource_type => 'Profile', :role_id => 3)
+    relation.accessor = member
+    relation.save
+    block = MembersBlock.new
+    block.expects(:owner).returns(profile.reload).at_least_once
+
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
+    render_block_footer(block)
+    assert_select 'a.view-all' do |elements|
+      assert_select "[href=/profile/#{profile.id}/members]"
+    end
+  end
+
+  should 'Not show link to "all people" if the people block is empty' do
+    env = fast_create(Environment)
+    block = PeopleBlock.new
+    block.expects(:owner).returns(env).at_least_once
+
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
+    assert_equal "\n", render_block_footer(block)
+  end
+
+
+  should 'Not show link to "all members" if the members block is empty' do
+    env = fast_create(Community)
+    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    block = MembersBlock.new
+    block.expects(:owner).returns(profile).at_least_once
+
+    assert_equal "\n\n\n", render_block_footer(block)
+  end
+
+  should 'Not show link to "all friends" if the friends block is empty' do
+    profile = fast_create(Person)
+    block = FriendsBlock.new
+    block.expects(:owner).returns(profile).at_least_once
+
+    assert_equal "\n\n", render_block_footer(block)
   end
 
   should 'not have a linear increase in time to display people block' do
