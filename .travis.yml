@@ -8,7 +8,7 @@ notifications:
 
 # Ensure Container-based environment for faster boot times.
 # See https://docs.travis-ci.com/user/ci-environment/#Virtualization-environments
-sudo: false
+sudo: required
 
 ##
 # Stick with precise as trusty is at least 50% slower.
@@ -21,12 +21,9 @@ jdk:
 
 language: ruby
 rvm:
-  - 2.4.1
+  - 2.4.4
 
 cache: bundler
-
-services:
-  - postgresql
 
 addons:
   postgresql: '9.4'
@@ -36,13 +33,9 @@ addons:
     paths:
       - $(ls tmp/artifact* | tr "\n" ":")
 
-
 before_install:
-  # geckodriver, from http://www.columbia.edu/~njn2118/journal/2016/10/28.html
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.14.0/geckodriver-v0.14.0-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.14.0-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
+  - gem update --system
+  - bundle update
   # elasticsearch 2
   - wget ${ES_DOWNLOAD_URL}
   - tar -xzf elasticsearch-${ES_VERSION}.tar.gz
@@ -52,11 +45,10 @@ before_script:
   - mkdir -p tmp/{pids,cache} log cache
   - script/noosfero-plugins disableall
   #- bundle exec rake makemo &>/dev/null
-# database
-  - cp config/database.yml.travis config/database.yml
+  # database
   - psql -c 'create database myapp_test;' -U postgres
-  - bundle exec rake db:schema:load
-  - bundle exec rake db:migrate &>/dev/null
+  - touch ./script/install-dependencies/ubuntu-trusty.sh
+  - ./script/quick-start
 
 env:
   global:
