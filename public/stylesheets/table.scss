@@ -52,6 +52,7 @@ table.noborder:hover td.selected, td.selected {
   font-style: italic;
 }
 td .button {
+  width: inherit;
   background-color: transparent;
 }
 table.profile td.field-name {
