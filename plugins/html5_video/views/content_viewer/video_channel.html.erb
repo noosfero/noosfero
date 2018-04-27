@@ -40,12 +40,13 @@
                     gsub(/([a-z0-9])_+([a-z0-9])/i, '\1 \2').
                     gsub(/\.[a-z0-9]{2,4}$/i, '')
                 ),
-                f.view_url,
+                "#video-box-anchor",
                 {
                   'data-poster'      => f.image_preview(:big),
                   'data-download'    => f.public_filename,
                   'data-webversions' => CGI::escapeHTML(f.web_versions!.to_json).html_safe,
-                  :style => "background-image:url(#{f.image_preview(:big)})"
+                  :style => "background-image:url(#{f.image_preview(:big)})",
+                  'id' => "video-box-anchor"
                 }) %>
           <ul>
             <li class="vli-data-tags">
