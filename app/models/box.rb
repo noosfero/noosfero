@@ -1,6 +1,6 @@
 class Box < ApplicationRecord
 
-  acts_as_list scope: -> box { where owner_id: box.owner_id, owner_type: box.owner_type }
+  acts_as_list scope: :owner
 
   belongs_to :owner, polymorphic: true
   has_many :blocks, -> { order 'position' }, dependent: :destroy
@@ -10,7 +10,7 @@ class Box < ApplicationRecord
 
   include Noosfero::Plugin::HotSpot
 
-  scope :with_position, -> { where 'boxes.position > 0' }
+  scope :with_position, -> { where ('boxes.position > 0').to_sym }
   scope :with_blocks, -> { includes({blocks: :box}) }
 
   def environment

@@ -12,7 +12,7 @@ class Block < ApplicationRecord
 
   delegate :environment, :to => :box, :allow_nil => true
 
-  acts_as_list scope: -> block { where box_id: block.box_id }
+  acts_as_list scope: :box
 
   belongs_to :box, optional: true
   belongs_to :mirror_block, class_name: "Block", optional: true
