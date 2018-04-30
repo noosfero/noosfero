@@ -13,12 +13,7 @@ class FormsHelperTest < ActiveSupport::TestCase
 
   should 'wrapper required fields message in <span class=required-field>' do
     content = required_fields_message()
-    assert_tag_in_string content, :tag => 'span', :attributes => {:class => 'required-field'}
-  end
-
-  should 'wrapper highlighted in label pseudoformlabel' do
-    content = required_fields_message()
-    assert_tag_in_string content, :tag => 'label', :content => 'highlighted', :attributes => {:class => 'pseudoformlabel'}
+    assert_tag_in_string content, :tag => 'p', :attributes => {:class => 'required-fields-msg'}
   end
 
   should 'show title for option in select' do

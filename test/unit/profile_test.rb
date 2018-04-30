@@ -711,7 +711,7 @@ class ProfileTest < ActiveSupport::TestCase
     p.expects(:address).returns("Rua A").at_least_once
     p.expects(:city).returns("Salvador").at_least_once
     p.expects(:state).returns("Bahia").at_least_once
-    p.expects(:country_name).returns("Brasil").at_least_once
+    p.expects(:country).returns("Brasil").at_least_once
     p.expects(:zip_code).returns("40000000").at_least_once
     assert_equal 'Rua A - Salvador - Bahia - Brasil - 40000000', p.location
   end
@@ -722,7 +722,7 @@ class ProfileTest < ActiveSupport::TestCase
     p.expects(:address).returns("Rua A").at_least_once
     p.expects(:city).returns("Salvador").at_least_once
     p.expects(:state).returns("Bahia").at_least_once
-    p.expects(:country_name).returns("Brasil").at_least_once
+    p.expects(:country).returns("Brasil").at_least_once
     p.expects(:zip_code).returns("40000000").at_least_once
     assert_equal 'Rua A, Salvador, Bahia, Brasil, 40000000', p.location(', ')
   end
@@ -733,7 +733,7 @@ class ProfileTest < ActiveSupport::TestCase
     p.expects(:address).returns("Rua A").at_least_once
     p.expects(:city).returns("Salvador").at_least_once
     p.expects(:state).returns("").at_least_once
-    p.expects(:country_name).returns("Brasil").at_least_once
+    p.expects(:country).returns("Brasil").at_least_once
     p.expects(:zip_code).returns("40000000").at_least_once
     assert_equal 'Rua A - Salvador - Brasil - 40000000', p.location
   end
@@ -744,7 +744,7 @@ class ProfileTest < ActiveSupport::TestCase
     p.expects(:address).returns("Rua A").at_least_once
     p.expects(:city).returns("Salvador").at_least_once
     p.expects(:state).returns("").at_least_once
-    p.expects(:country_name).returns("Brasil").at_least_once
+    p.expects(:country).returns("Brasil").at_least_once
     p.expects(:zip_code).returns("40000000").at_least_once
     assert_equal 'Rua A - Salvador - Brasil - 40000000', p.geolocation
   end

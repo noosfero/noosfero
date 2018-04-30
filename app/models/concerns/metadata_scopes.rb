@@ -18,6 +18,8 @@ module MetadataScopes
 
   class_methods do
     def metadata_items(*items)
+      attr_accessible *items
+
       items.each do |item|
         define_method item do
           self.metadata[item.to_s]

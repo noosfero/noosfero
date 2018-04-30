@@ -593,6 +593,10 @@ module ApplicationHelper
       field_html   = [field_html, capture(&block)].safe_join
     end
 
+    if is_required
+      field_html = required(field_html)
+    end
+
     if controller.action_name == 'signup' || controller.action_name == 'new_community' || (controller.controller_name == "enterprise_registration" && controller.action_name == 'index') || (controller.controller_name == 'home' && controller.action_name == 'index' && user.nil?)
       if profile.signup_fields.include?(name)
         result = field_html
@@ -603,10 +607,6 @@ module ApplicationHelper
           [field_html, profile_field_privacy_selector(profile, name)].safe_join
         end
       end
-    end
-
-    if is_required
-      result = required(result)
     end
 
     result

@@ -1,5 +1,5 @@
 <% unless profile.active_fields.include? 'location' %>
-  <% field = optional_field(profile, 'address') do %>
+  <% field = optional_field(profile, 'full_address') do %>
     <label class='formlabel'><%= _('Address') %></label>
   <% end %>
 
