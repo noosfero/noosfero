@@ -110,12 +110,14 @@ module CustomFormsPlugin::Helper
     when 'check_box'
       field.alternatives.map do |alternative|
         default = answer.present? ? answer.value.split(',').include?(alternative.id.to_s) : alternative.selected_by_default
-        labelled_check_box alternative.label, form.to_s + "[#{field.id}][#{alternative.id}]", '1', default, :disabled => display_disabled?(field, answer)
+        alternative = labelled_check_box alternative.label, form.to_s + "[#{field.id}][#{alternative.id}]", '1', default, :disabled => display_disabled?(field, answer)
+        content_tag(:div, alternative, class: 'field-alternative-row')
       end.join("\n")
     when 'radio'
       field.alternatives.map do |alternative|
         default = answer.present? ? answer.value == alternative.id.to_s : alternative.selected_by_default
-        labelled_radio_button alternative.label, form.to_s + "[#{field.id}]", alternative.id, default, :disabled => display_disabled?(field, answer)
+        alternative = labelled_radio_button alternative.label, form.to_s + "[#{field.id}]", alternative.id, default, :disabled => display_disabled?(field, answer)
+        content_tag(:div, alternative, class: 'field-alternative-row')
       end.join("\n")
     end
   end
