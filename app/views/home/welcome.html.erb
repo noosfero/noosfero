@@ -6,9 +6,9 @@
     <%= environment.settings[:signup_welcome_screen_body].html_safe %>
   <% else %>
       <h3><%= _("Thanks for signing up, we're thrilled to have you on our social network!") %></h3>
-      <% if !current_user || !current_user.activated? %>
-        <h4><%= _("Wait for admin approvement!") %></h4>
-        <p><%= _("The administrators will evaluate your signup request for approvement.") %></p>
+      <% if environment.enabled?(:admin_must_approve_new_users) %>
+        <h4><%= _("Wait for admin approval!") %></h4>
+        <p><%= _("The administrators will evaluate your signup request for approval.") %></p>
         <p><%= _("You won't appear as %s until your account is approved.").html_safe % link_to(_('user'), {:controller => :search, :action => :people, :filter => 'more_recent'}, :target => '_blank') %></p>
       <% end %>
       <h4><%= _("What to do next?") %></h4>
