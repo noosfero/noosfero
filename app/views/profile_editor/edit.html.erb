@@ -75,7 +75,7 @@
   <%= content_tag('h2', _('Files upload')) %>
   <div>
     <%= labelled_check_box _('Send single file in upload with description').html_safe,
-                          'profile_data[metadata][allow_single_file]', "1", @profile.metadata['allow_single_file'] == "1" %>
+                          'profile_data[allow_single_file]', "1", @profile.allow_single_file == "1" %>
   </div>
 
   <%= button_bar do %>

@@ -9,11 +9,11 @@ Feature: signup
     When I follow "Login"
     And I follow "New user"
     And I fill in the following within ".no-boxes":
-      | e-Mail                | josesilva@example.com |
-      | Username              | josesilva             |
-      | Password              | secret                |
-      | Password confirmation | secret                |
-      | Full name             | José da Silva         |
+      | Email Address            | josesilva@example.com |
+      | Username                 | josesilva             |
+      | Password                 | secret                |
+      | Type your password again | secret                |
+      | Full name                | José da Silva         |
     And wait for the captcha signup time
     And I press "Create my account"
     And there are no pending jobs
@@ -37,7 +37,7 @@ Feature: signup
       | josesilva |
     When I go to signup page
     And I fill in "Username" with "josesilva"
-    And I fill in "e-Mail" with "josesilva1"
+    And I fill in "Email Address" with "josesilva1"
     Then I should see "This login name is unavailable"
 
   Scenario: be redirected if user goes to signup page and is logged
@@ -53,10 +53,10 @@ Feature: signup
     Given I am on the homepage
     And I follow "Login"
     And I follow "New user"
-    And I fill in "e-Mail" with "josesilva@example.com"
+    And I fill in "Email Address" with "josesilva@example.com"
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
-    And I fill in "Password confirmation" with "secret"
+    And I fill in "Type your password again" with "secret"
     And wait for the captcha signup time
     And I press "Create my account"
     Then I should see "Name can't be blank"

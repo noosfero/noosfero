@@ -30,7 +30,7 @@ Feature: delivery client
     And I am logged in as "homer"
     And I go to moes-tavern's products page
 
-  @selenium
+  @selenium-fixme
   Scenario: choose deliver method for purchase
     Given I follow "Add to basket"
     And I follow "Add to basket"
@@ -45,7 +45,7 @@ Feature: delivery client
     And I should see "Bike" within "#delivery-name"
     And I should see "8.00" within "#delivery-price"
 
-  @selenium
+  @selenium-fixme
   Scenario: choose pickup method for purchase
     Given I follow "Add to basket"
     And I follow "Add to basket"
@@ -60,7 +60,7 @@ Feature: delivery client
     And I should see "Bar" within "#delivery-name"
     And I should see "0.00" within "#delivery-price"
 
-  @selenium
+  @selenium-fixme
   Scenario: gets free delivery due to free over price
     Given I follow "Add to basket"
     And I follow "Add to basket"

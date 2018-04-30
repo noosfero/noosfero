@@ -104,8 +104,31 @@ module ProfileEditorHelper
     @country_helper ||= CountriesHelper::Object.instance
   end
 
-  def select_country(title, object, method, html_options = {}, options = {})
-    labelled_form_field(title, select(object, method, [[_('[Select ...]'), nil]] + country_helper.countries, options, html_options))
+  def select_profile_country(profile, html_options = {}, options = {})
+    options[:selected] = profile.metadata['country']
+    select(:profile_data, :country, [[_('Select a country...'), nil]] + country_helper.countries, options, html_options)
+  end
+
+  def select_profile_state(profile, html_options = {}, options = {})
+    states = NationalRegion.states.with_parent(profile.metadata['country'])
+                           .order(:name).pluck(:name, :national_region_code)
+    if profile.state.present? &&
+       !states.find { |c| c[1] == profile.metadata['state'] }
+      states.unshift [profile.state, profile.state]
+      options[:selected] = profile.metadata['state']
+    end
+    select(:profile_data, :state, [[_('Select a state...'), nil]] + states, options, html_options)
+  end
+
+  def select_profile_city(profile, html_options = {}, options = {})
+    cities = NationalRegion.cities.with_parent(profile.metadata['state'])
+                           .order(:name).pluck(:name, :national_region_code)
+    if profile.city.present? &&
+       !cities.find { |c| c[1] == profile.metadata['city'] }
+      cities.unshift [profile.city, profile.city]
+      options[:selected] = profile.metadata['city']
+    end
+    select(:profile_data, :city, [[_('Select a city...'), nil]] + cities, options, html_options)
   end
 
   def select_schooling(object, method, options)

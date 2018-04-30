@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 
 class NationalRegionTest < ActiveSupport::TestCase
-  
+
   should 'search_city especific city' do
     city_name = "Santos"
 
@@ -26,7 +26,7 @@ class NationalRegionTest < ActiveSupport::TestCase
     end
 
     found_regions = NationalRegion.search_city('Santo %', true)
-    
+
     refute (found_regions.length != 3)
 
     found_regions.each do |region|
@@ -65,6 +65,44 @@ class NationalRegionTest < ActiveSupport::TestCase
     found_regions.each do |region|
       assert state_names.find_index(region.state) >=  0
     end
+  end
 
+  should 'return only countries' do
+    country = fast_create(NationalRegion, national_region_type_id: NationalRegionType::COUNTRY)
+    fast_create(NationalRegion, national_region_type_id: NationalRegionType::STATE)
+    fast_create(NationalRegion, national_region_type_id: NationalRegionType::CITY)
+    assert_equal [country], NationalRegion.countries
+  end
+
+  should 'return only states' do
+    fast_create(NationalRegion, national_region_type_id: NationalRegionType::COUNTRY)
+    state = fast_create(NationalRegion, national_region_type_id: NationalRegionType::STATE)
+    fast_create(NationalRegion, national_region_type_id: NationalRegionType::CITY)
+    assert_equal [state], NationalRegion.states
+  end
+
+  should 'return only cities' do
+    fast_create(NationalRegion, national_region_type_id: NationalRegionType::COUNTRY)
+    fast_create(NationalRegion, national_region_type_id: NationalRegionType::STATE)
+    city = fast_create(NationalRegion, national_region_type_id: NationalRegionType::CITY)
+    assert_equal [city], NationalRegion.cities
+  end
+
+  should 'return region name if code exists' do
+    region = fast_create(NationalRegion, name: 'region one',
+                                         national_region_code: '300')
+    assert_equal region.name, NationalRegion.name_or_default('300')
+  end
+
+  should 'return return argument value if region does not exist' do
+    region = NationalRegion.name_or_default('some region')
+    assert_equal 'some region', region
+  end
+
+  should 'return regions by parent code' do
+    parent = fast_create(NationalRegion, national_region_code: 'BR')
+    child1 = fast_create(NationalRegion, parent_national_region_code: parent.national_region_code)
+    child2 = fast_create(NationalRegion, parent_national_region_code: parent.national_region_code)
+    assert_equivalent [child1, child2], NationalRegion.with_parent(parent.national_region_code)
   end
 end

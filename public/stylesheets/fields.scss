@@ -100,10 +100,43 @@ code input {
   width: 33%
 }
 
-.required-field label.formlabel {
-  font-weight: bold;
-  color: #c00;
+.required-fields-msg {
+	color: red;
 }
+
 .required-field label.formlabel:after {
-  content: ' (*)';
+	color: red;
+  content: '*';
+}
+
+#content #location-support-fields {
+  margin: 5px 0 25px;
+
+  .formfield {
+    margin-bottom: 10px;
+
+    input, select {
+      width: 100%;
+    }
+  }
+
+  .location-support-fields-row {
+    display: flex;
+    justify-content: space-between;
+
+    select, input {
+      width: 49%;
+    }
+  }
+
+  input {
+    padding: 2px 0;
+  }
+
+  &.loading {
+    cursor: progress;
+    pointer-events: none;
+    background: transparent url(../images/loading.gif) no-repeat scroll center 50px;
+    opacity: 0.5;
+  }
 }

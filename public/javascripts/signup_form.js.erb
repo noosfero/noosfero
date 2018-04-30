@@ -1,0 +1,68 @@
+function verifyLoginAjax(value) {
+  $('#user_login').parents('.formfield')
+                  .removeClass('available unavailable valid validated invalid checking')
+  $("#url-check").hide();
+
+  if (value === '') { return }
+
+  $('#user_login').parents('.formfield').addClass('checking');
+  $("#checking-message").show();
+
+  $.get(
+    "/account/check_valid_name",
+    {'identifier': encodeURIComponent(value)},
+    function(request){
+      $('#user_login').parents('.formfield').removeClass('checking');
+      $("#url-check").html(request);
+      $("#url-check").show()
+      $("#checking-message").hide();
+    }
+  );
+}
+
+function fill_username(element){
+  $('#url-check').html("<p><span class='checking'><%= _('This login name is available') %></span></p>")
+  $('#user_login').val(element)
+}
+
+$(document).ready(function(){
+  $("#user_login").blur(function(){
+    verifyLoginAjax(this.value);
+  });
+
+  $('#signup-form input[type=text], #signup-form textarea').each(function() {
+    $(this).bind('blur', function() {
+      if ($(this).val() == '') {
+        $(this).removeClass('filled-in');
+      }
+      else $(this).addClass('filled-in');
+    });
+  });
+
+  $('#user_password_confirmation, #user_pw').blur(function() {
+    if ($('#user_password_confirmation').val() != '') {
+      if ($('#user_password_confirmation').val() == $('#user_pw').val()) {
+        $('#user_password_confirmation').parents('.formfield')
+                                        .addClass('validated')
+                                        .removeClass('invalid');
+        $('p#password-rate').show()
+        $('p#password-check').hide()
+      } else if ($('#user_password_confirmation').val() != $('#user_pw').val()) {
+        $('#user_password_confirmation').parents('.formfield')
+                                        .removeClass('validated')
+                                        .addClass('invalid');
+        $('p#password-rate').hide()
+        $('p#password-check').show()
+      }
+    }
+  });
+
+  $('#signup-form').validate({ rules: { 'user[email]': { email: true } }, messages: { 'user[email]' : '' } });
+
+  $('#profile_data_name').blur(function() {
+    if ($(this).val() == '') {
+      $(this).parents('.formfield').removeClass('validated');
+    }
+    else $(this).parents('.formfield').addClass('validated');
+  });
+});

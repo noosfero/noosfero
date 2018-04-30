@@ -406,9 +406,9 @@ class ApplicationHelperTest < ActionView::TestCase
     profile.stubs(:active_fields).returns(['field'])
     profile.expects(:required_fields).returns(['field'])
 
-    stubs(:required).with(anything).returns('<span>EDIT_FIELD</span>')
+    stubs(:required).with(anything).returns('<span>EDIT_FIELD</span>'.html_safe)
     expects(:profile_field_privacy_selector).with(profile, 'field').returns('')
-    assert_equal '<span>EDIT_FIELD</span>', optional_field(profile, 'field', 'EDIT_FIELD')
+    assert_match /<span>EDIT_FIELD<\/span>/, optional_field(profile, 'field', 'EDIT_FIELD')
   end
 
   should 'base theme uses default icon theme' do
