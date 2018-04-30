@@ -103,6 +103,10 @@ protected
       'title' => {
         description: _('Title of the block'),
         value: -> (block) { block.title }
+      },
+      'current_person' => {
+        description: _('Identifier of the current person that is logged in the system'),
+        value: -> (block) { current_person ? current_person.identifier : '' }
       }
     }
   end
