@@ -5,6 +5,11 @@ class NationalRegion < ApplicationRecord
     :national_region_code => {:label => _('Region Code'), :weight => 1},
   }
 
+  def self.name_or_default(code)
+    region = find_by(national_region_code: code)
+    region.present? ? region.name : code
+  end
+
   def self.cities
     where(national_region_type_id: NationalRegionType::CITY)
   end
@@ -76,7 +81,6 @@ class NationalRegion < ApplicationRecord
    end
 
   def self.validate!(city, state, country)
-
     country_region = NationalRegion
       .find_by(national_region_code: country, national_region_type_id: NationalRegionType::COUNTRY)
 

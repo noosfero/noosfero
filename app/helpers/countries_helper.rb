@@ -39,7 +39,7 @@ module CountriesHelper
     ["Bosnia and Herzegovina", "BA"],
     ["Botswana", "BW"],
     ["Bouvet Island", "BV"],
-    ["Brasil", "BR"],
+    ["Brazil", "BR"],
     ["British Indian Ocean Territory", "IO"],
     ["Brunei Darussalam", "BN"],
     ["Bulgaria", "BG"],
