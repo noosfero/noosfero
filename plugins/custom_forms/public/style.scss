@@ -104,6 +104,47 @@ tr.addition-buttons {
   }
 }
 
+#content #custom-forms-plugin_submission {
+  div.form-description {
+    margin-bottom: 20px;
+  }
+
+  .query-form .form-submission {
+    border-top: 1px solid #777;
+    padding-top: 10px;
+
+    .formfieldline {
+      margin-bottom: 25px;
+
+      label {
+        font-size: 16px;
+      }
+
+      .formfield {
+        margin-top: 10px;
+
+        input[type=text] {
+          width: 100%;
+          height: 24px;
+        }
+
+        select {
+          width: 50%;
+          height: 30px;
+        }
+
+        .field-alternative-row {
+          margin-top: 5px;
+
+          label {
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
 #custom-forms-plugin_submission .notify {
   padding: 8px;
   color: rgba(0,0,0,0.5);
