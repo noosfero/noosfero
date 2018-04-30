@@ -19,20 +19,20 @@ msgstr ""
 "X-Generator: Weblate 2.6-dev\n"
 
 #, fuzzy
-msgid "Access"
-msgstr "Подтвердить"
+msgid "Mandatory"
+msgstr "Модератор"
 
 #, fuzzy
 msgid "Remove field"
 msgstr "Удалить блок"
 
 #, fuzzy
-msgid "The %s could not be updated"
-msgstr "Адрес не может быть сохранен"
+msgid "Access"
+msgstr "Подтвердить"
 
 #, fuzzy
-msgid "Mandatory"
-msgstr "Модератор"
+msgid "The %s could not be updated"
+msgstr "Адрес не может быть сохранен"
 
 #, fuzzy
 msgid "The %s could not be removed"
@@ -55,12 +55,12 @@ msgid "Submission could not be saved"
 msgstr "Блок персональной информации"
 
 #, fuzzy
-msgid "There are no submissions for this form."
-msgstr "Нет подкатегорий %s."
-
-#, fuzzy
 msgid "Are you sure you want to remove this query?"
 msgstr "Вы уверены что хотите удалить этот элемент?"
+
+#, fuzzy
+msgid "There are no submissions for this form."
+msgstr "Нет подкатегорий %s."
 
 #, fuzzy
 msgid "Type"
@@ -101,10 +101,6 @@ msgid ""
 msgstr "%s хочет быть вашим другом"
 
 #, fuzzy
-msgid "Back to submissions"
-msgstr "Назад к %s"
-
-#, fuzzy
 msgid "is mandatory."
 msgstr "%{fn} обязательное поле"
 
@@ -117,20 +113,20 @@ msgid "Preselected"
 msgstr "Отклонено"
 
 #, fuzzy
-msgid "%{requestor} wants to fill in some further information."
-msgstr "%s хочет быть вашим другом"
-
-#, fuzzy
 msgid "Add a new alternative"
 msgstr "Одна компания"
 
 #, fuzzy
-msgid "%{requestor} wants you to fill in some information."
+msgid "%{requestor} wants to fill in some further information."
 msgstr "%s хочет быть вашим другом"
 
 #, fuzzy
 msgid "Default text:"
 msgstr "Языки"
+
+#, fuzzy
+msgid "%{requestor} wants you to fill in some information."
+msgstr "%s хочет быть вашим другом"
 
 #, fuzzy
 msgid "Edit form"
@@ -141,12 +137,12 @@ msgid "Pending submissions for %s"
 msgstr "Статистика для %s"
 
 #, fuzzy
-msgid "Always open"
-msgstr "Всегда"
-
-#, fuzzy
 msgid "Manage queries"
 msgstr "Управлять%s"
+
+#, fuzzy
+msgid "Always open"
+msgstr "Всегда"
 
 #, fuzzy
 msgid "There are no pending submissions for this form."
@@ -169,6 +165,10 @@ msgid "Submission date"
 msgstr "Разрешения"
 
 #, fuzzy
+msgid "Author"
+msgstr "Автор"
+
+#, fuzzy
 msgid "Logged users"
 msgstr "В системе как %s"
 
@@ -177,8 +177,8 @@ msgid "From %s until %s"
 msgstr "с %s по %s"
 
 #, fuzzy
-msgid "Author"
-msgstr "Автор"
+msgid "Back to submissions"
+msgstr "Назад к %s"
 
 #, fuzzy
 msgid "Submissions for %s"
@@ -187,6 +187,10 @@ msgstr "Статистика для %s"
 #, fuzzy
 msgid "%{requestor} wants you to fill in some further information."
 msgstr "%s хочет быть вашим другом"
+
+#: ../controllers/custom_forms_plugin_admin_controller.rb:12
+msgid "There is no data to be downloaded"
+msgstr ""
 
 #: ../controllers/custom_forms_plugin_myprofile_controller.rb:39
 msgid "%s was successfully created"
@@ -232,8 +236,8 @@ msgid "Opened"
 msgstr ""
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:73
-#: ../lib/custom_forms_plugin/helper.rb:146
-#: ../lib/custom_forms_plugin/helper.rb:158
+#: ../lib/custom_forms_plugin/helper.rb:148
+#: ../lib/custom_forms_plugin/helper.rb:160
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
 msgstr ""
@@ -263,7 +267,7 @@ msgid "do not accept multiple answers"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../lib/custom_forms_plugin/form.rb:44
+#: ../lib/custom_forms_plugin/form.rb:46
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
@@ -277,96 +281,100 @@ msgstr "Имя"
 msgid "Email"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:26
+#: ../lib/custom_forms_plugin/csv_handler.rb:6
+msgid "City"
+msgstr ""
+
+#: ../lib/custom_forms_plugin/csv_handler.rb:29
 msgid "Timestamp"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:36
+#: ../lib/custom_forms_plugin/csv_handler.rb:39
 msgid " or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:37
+#: ../lib/custom_forms_plugin/csv_handler.rb:40
 msgid ", or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:32
+#: ../lib/custom_forms_plugin/form.rb:34
 msgid "Survey"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:33
+#: ../lib/custom_forms_plugin/form.rb:35
 #: ../lib/custom_forms_plugin/survey_block.rb:8
 #: ../lib/custom_forms_plugin/survey_block.rb:16
 msgid "Surveys"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:34
+#: ../lib/custom_forms_plugin/form.rb:36
 msgid "survey"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:35
+#: ../lib/custom_forms_plugin/form.rb:37
 msgid "surveys"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:36
+#: ../lib/custom_forms_plugin/form.rb:38
 msgid "Poll"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:37
+#: ../lib/custom_forms_plugin/form.rb:39
 #: ../lib/custom_forms_plugin/polls_block.rb:8
 #: ../lib/custom_forms_plugin/polls_block.rb:16
 msgid "Polls"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:38
+#: ../lib/custom_forms_plugin/form.rb:40
 msgid "poll"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:39
+#: ../lib/custom_forms_plugin/form.rb:41
 msgid "polls"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:41
+#: ../lib/custom_forms_plugin/form.rb:43
 msgid "%{value} is not a valid kind."
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:45
+#: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:46
+#: ../lib/custom_forms_plugin/form.rb:48
 msgid "identifier"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:47
+#: ../lib/custom_forms_plugin/form.rb:49
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:52
 msgid "Description"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:120
+#: ../lib/custom_forms_plugin/form.rb:122
 msgid "This query has no ending date"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:125
+#: ../lib/custom_forms_plugin/form.rb:127
 msgid "Ends today"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:129
+#: ../lib/custom_forms_plugin/form.rb:131
 msgid "Ends tomorow"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:133
+#: ../lib/custom_forms_plugin/form.rb:135
 msgid "Already closed"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:136
+#: ../lib/custom_forms_plugin/form.rb:138
 msgid "%s days left"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:177
+#: ../lib/custom_forms_plugin/form.rb:179
 msgid "The time range selected is invalid."
 msgstr "Диапазон времени выбран неверно."
 
-#: ../lib/custom_forms_plugin/form.rb:182
+#: ../lib/custom_forms_plugin/form.rb:184
 msgid "can't be less than 2"
 msgstr ""
 
@@ -399,13 +407,13 @@ msgstr "Выбрать поле"
 msgid "Hold down Ctrl to select options"
 msgstr "Держать нажатой клавишу Ctrl для выбора опций"
 
-#: ../lib/custom_forms_plugin/helper.rb:142
-#: ../lib/custom_forms_plugin/helper.rb:150
+#: ../lib/custom_forms_plugin/helper.rb:144
+#: ../lib/custom_forms_plugin/helper.rb:152
 msgid "%s left to open"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/helper.rb:144
-#: ../lib/custom_forms_plugin/helper.rb:156
+#: ../lib/custom_forms_plugin/helper.rb:146
+#: ../lib/custom_forms_plugin/helper.rb:158
 msgid "%s left to close"
 msgstr ""
 
@@ -475,6 +483,39 @@ msgstr ""
 
 #: ../views/blocks/survey/_list_item.html.erb:30
 msgid "See final results"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:3
+msgid "Queries Plugin"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:5
+msgid "Export environment queries"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:8
+msgid "Export one file with several queries at once."
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:12
+msgid "Select which profiles you want to export the queries from."
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:18
+msgid "Filter profiles by name"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:42
+msgid "Deselect all"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:45
+#, fuzzy
+msgid "Select all"
+msgstr "Выбрать поле"
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:50
+msgid "Generate CSV"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:8
@@ -699,11 +740,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Partial results"
+msgid "Final results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
+msgid "Partial results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
@@ -732,12 +773,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:22
+#: ../views/custom_forms_plugin_profile/show.html.erb:24
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:24
+#: ../views/custom_forms_plugin_profile/show.html.erb:26
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr ""
@@ -762,7 +803,7 @@ msgstr ""
 msgid "Find queries by name"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:21
+#: ../views/shared/_form.html.erb:13
 msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
@@ -773,21 +814,17 @@ msgstr ""
 #~ msgid "Invalid string format of access."
 #~ msgstr "Недействительный формат строки доступа."
 
-#, fuzzy
 #~ msgid "There is no profile with the provided id."
 #~ msgstr "Со следующими файлами возникли проблемы:"
 
 #~ msgid "Invalid type format of access."
 #~ msgstr "Недействительный тип формата доступа."
 
-#, fuzzy
 #~ msgid "Custom"
 #~ msgstr "Пользовательский заголовок"
 
-#, fuzzy
 #~ msgid "Custom access definitions"
 #~ msgstr "Пользовательский заголовок"
 
-#, fuzzy
 #~ msgid "Result Access"
 #~ msgstr "Подтвердить"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 15:45+0000\n"
-"PO-Revision-Date: 2017-05-09 15:45+0000\n"
+"POT-Creation-Date: 2018-04-30 22:51+0000\n"
+"PO-Revision-Date: 2018-04-30 22:51+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -93,11 +93,7 @@ msgid "Inactive"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
-msgid "Notifications Color/Type"
-msgstr ""
-
-#: ../views/shared/_form.html.erb:18
-msgid "Blue - Information"
+msgid "Green - Success"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
@@ -105,19 +101,23 @@ msgid "Yellow - Warning"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
+msgid "Blue - Information"
+msgstr ""
+
+#: ../views/shared/_form.html.erb:18
 msgid "Red - Danger"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
-msgid "Green - Success"
-msgstr ""
-
-#: ../views/shared/_form.html.erb:21
-msgid "Display only in the profile homepage"
+msgid "Notifications Color/Type"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:21
 msgid "Display only in the homepage"
+msgstr ""
+
+#: ../views/shared/_form.html.erb:21
+msgid "Display only in the profile homepage"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:25
@@ -150,12 +150,12 @@ msgid "Actions"
 msgstr ""
 
 #: ../views/shared/_notifications_list.html.erb:30
-msgid "Deactivate"
+#: ../views/shared/_notifications_list.html.erb:32
+msgid "Do you want to change the status of this notification?"
 msgstr ""
 
 #: ../views/shared/_notifications_list.html.erb:30
-#: ../views/shared/_notifications_list.html.erb:32
-msgid "Do you want to change the status of this notification?"
+msgid "Deactivate"
 msgstr ""
 
 #: ../views/shared/_notifications_list.html.erb:32
