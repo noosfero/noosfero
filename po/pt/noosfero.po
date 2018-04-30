@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2017-10-04 14:30+0000\n"
-"Last-Translator: shshshwhs <diogobeirao10@gmail.com>\n"
+"PO-Revision-Date: 2018-04-30 22:19+0000\n"
+"Last-Translator: Gabriel Silva <gabriel93.silva@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"X-Generator: Weblate 3.0-dev\n"
 
 #: ../app/api/helpers.rb:420
 msgid "(Invalid request) %s can't be saved"
@@ -1093,8 +1093,8 @@ msgstr "entrou em 1 comunidade %{time_ago}<hr/>%{name}"
 #: ../app/helpers/action_tracker_helper.rb:46
 msgid "uploaded %{total} image %{time_ago}"
 msgid_plural "uploaded %{total} images %{time_ago}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "carregou %{total} imagem %{time_ago}"
+msgstr[1] "carregou %{total} imagens %{time_ago}"
 
 #: ../app/helpers/action_tracker_helper.rb:68
 msgid "sent a message to %{receiver} %{time_ago}<hr/>%{message}"
@@ -10563,84 +10563,65 @@ msgstr ""
 #~ msgid "Reset quota for all profiles"
 #~ msgstr "Cota para perfis %s"
 
-#: ../app/helpers/action_tracker_helper.rb:4
 #~ msgid "published an article: %{title}"
 #~ msgstr "publicou um artigo: %{title}"
 
-#: ../app/helpers/action_tracker_helper.rb:8
 #~ msgid "has made 1 new friend:<br />%{name}"
 #~ msgid_plural "has made %{num} new friends:<br />%{name}"
 #~ msgstr[0] "fez 1 novo amigo:<br />%{name}"
 #~ msgstr[1] "fez %{num} novos amigos:<br />%{name}"
 
-#: ../app/helpers/action_tracker_helper.rb:18
 #~ msgid "has 1 new follower:<br />%{name}"
 #~ msgid_plural "has %{num} new followers:<br />%{name}"
 #~ msgstr[0] "tem 1 novo seguidor:<br />%{name}"
 #~ msgstr[1] "tem %{num} novos seguidores:<br />%{name}"
 
-#: ../app/helpers/action_tracker_helper.rb:28
 #~ msgid "has joined 1 community:<br />%{name}"
 #~ msgid_plural "has joined %{num} communities:<br />%{name}"
 #~ msgstr[0] "entrou em 1 comunidade:<br />%{name}"
 #~ msgstr[1] "entrou em %{num} comunidades:<br />%{name}"
 
-#: ../app/helpers/action_tracker_helper.rb:38
 #~ msgid "has joined the community."
 #~ msgstr "entrou na comunidade."
 
-#: ../app/helpers/action_tracker_helper.rb:43
 #~ msgid "uploaded 1 image"
 #~ msgid_plural "uploaded %d images"
 #~ msgstr[0] "adicionou 1 imagem"
 #~ msgstr[1] "adicionou %d imagens"
 
-#: ../app/helpers/action_tracker_helper.rb:65
 #~ msgid "sent a message to %{receiver}: <br /> \"%{message}\""
 #~ msgstr "deixou um recado para %{receiver}: <br /> \"%{message}\""
 
-#: ../app/helpers/action_tracker_helper.rb:72
 #~ msgid "replied to a scrap from %{receiver}: <br /> \"%{message}\""
 #~ msgstr "repondeu a um recado para %{receiver}: <br /> \"%{message}\""
 
-#: ../app/helpers/action_tracker_helper.rb:79
 #~ msgid "wrote: <br /> \"%{text}\""
 #~ msgstr "escreveu: <br /> \"%{text}\""
 
-#: ../app/helpers/action_tracker_helper.rb:85
 #~ msgid "favorited enterprise %{title}"
 #~ msgstr "favoritou o empreendimento %{title}"
 
-#: ../app/helpers/application_helper.rb:833
-#: ../app/views/comment/_comment_actions.html.erb:4
 #~ msgid "Contents menu"
 #~ msgstr "Menu de conteúdos"
 
-#: ../app/helpers/application_helper.rb:850
 #~ msgid "People menu"
 #~ msgstr "Menu de pessoas"
 
-#: ../app/helpers/application_helper.rb:867
 #~ msgid "Communities menu"
 #~ msgstr "Menu de comunidades"
 
-#: ../app/helpers/application_helper.rb:895
 #~ msgid "<span>Manage</span> %s"
 #~ msgstr "<span>Gerenciar</span> %s"
 
-#: ../app/helpers/application_helper.rb:984
 #~ msgid "<span class='login'>%s</span>"
 #~ msgstr "<span class='login'>%s</span>"
 
-#: ../app/helpers/application_helper.rb:990
 #~ msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
 #~ msgstr "<span class='or'>ou</span> <span class='signup'>%s</span>"
 
-#: ../app/helpers/forms_helper.rb:253
 #~ msgid "until"
 #~ msgstr "até"
 
-#: ../app/models/forum.rb:35
 #~ msgid ""
 #~ "An internet forum, also called message board, where discussions can be "
 #~ "held."
@@ -10648,23 +10629,18 @@ msgstr ""
 #~ "Um fórum online, também chamado de quadro de mensagens, onde discussões "
 #~ "podem ser feitas."
 
-#: ../app/models/link_list_block.rb:19
 #~ msgid "Gray Up"
 #~ msgstr "Acima Cinza"
 
-#: ../app/models/link_list_block.rb:20
 #~ msgid "Gray Down"
 #~ msgstr "Abaixo Cinza"
 
-#: ../app/models/link_list_block.rb:21
 #~ msgid "Gray Left"
 #~ msgstr "Esquerda Cinza"
 
-#: ../app/models/link_list_block.rb:23
 #~ msgid "Red Up"
 #~ msgstr "Acima Vermelho"
 
-#: ../app/views/account/_signup_form.html.erb:35
 #~ msgid ""
 #~ "Choose your login name carefully! It will be your network access and you "
 #~ "will not be able to change it later."
@@ -10672,7 +10648,6 @@ msgstr ""
 #~ "Escolha o nome de usuário cuidadosamente! Ele será seu acesso à rede e "
 #~ "você não poderá alterá-lo depois."
 
-#: ../app/views/account/_signup_form.html.erb:42
 #~ msgid ""
 #~ "Choose a password that you can remember easily. It must have at least 4 "
 #~ "characters."
@@ -10680,7 +10655,6 @@ msgstr ""
 #~ "Escolha uma senha fácil de ser lembrada por você. Ela deve ter ao menos 4 "
 #~ "caracteres."
 
-#: ../app/views/account/_signup_form.html.erb:64
 #~ msgid ""
 #~ "We need to be sure that you filled in your password correctly. Confirm "
 #~ "you password."
@@ -10688,107 +10662,77 @@ msgstr ""
 #~ "Nós precisamos ter certeza que você preencheu sua senha corretamente. "
 #~ "Confirme sua senha."
 
-#: ../app/views/account/_signup_form.html.erb:70
 #~ msgid "This e-mail address will be used to contact you."
 #~ msgstr "Este endereço de e-mail será usado para contactar você."
 
-#: ../app/views/account/_signup_form.html.erb:95
 #~ msgid "Tell us your name, it will be used to identify yourself."
 #~ msgstr "Nos informe seu nome, ele será usado para identificar você."
 
-#: ../app/views/blocks/footers/communities.html.erb:3
-#: ../app/views/blocks/footers/communities.html.erb:5
 #~ msgid "communities|View all"
 #~ msgstr "Ver todas"
 
-#: ../app/views/cms/_upload_file_form.html.erb:25
 #~ msgid "More files"
 #~ msgstr "Mais arquivos"
 
-#: ../app/views/cms/upload_files.html.erb:21
 #~ msgid "Documents, Images, Videos, Audio"
 #~ msgstr "Documentos, Imagens, Vídeos, Áudio"
 
-#: ../app/views/cms/view.html.erb:9
 #~ msgid "Profile homepage:"
 #~ msgstr "Página inicial do perfil:"
 
-#: ../app/views/cms/view.html.erb:43
 #~ msgid "Current folder: "
 #~ msgstr "Pasta atual: "
 
-#: ../app/views/cms/view.html.erb:57
 #~ msgid "Last update"
 #~ msgstr "Última atualização"
 
-#: ../app/views/cms/view.html.erb:65 ../app/views/cms/view.html.erb:67
 #~ msgid "parent folder"
 #~ msgstr "pasta superior"
 
-#: ../app/views/comment/_comment_form.html.erb:12
-#: ../app/views/content_viewer/_comment_form.html.erb:33
-#: ../app/views/content_viewer/view_page.html.erb:60
 #~ msgid "Post a comment"
 #~ msgstr "Enviar um comentário"
 
-#: ../app/views/comment/_comment_form.html.erb:28
-#: ../app/views/content_viewer/_comment_form.html.erb:71
 #~ msgid "Enter your comment"
 #~ msgstr "Digite seu comentário"
 
-#: ../app/views/comment/_comment_form.html.erb:35
 #~ msgid "Follow this article"
 #~ msgstr "Seguir este artigo"
 
-#: ../app/views/comment/_comment_form.html.erb:45
-#: ../app/views/content_viewer/_comment_form.html.erb:77
 #~ msgid "Post comment"
 #~ msgstr "Enviar comentário"
 
-#: ../app/views/content_viewer/_comment_form.html.erb:37
 #~ msgid "Please type the two words below"
 #~ msgstr "Por favor digite as duas palavras abaixo"
 
-#: ../app/views/content_viewer/_publishing_info.html.erb:37
 #~ msgid "Viewed one time %{desc}"
 #~ msgid_plural "Viewed %{num} times %{desc}"
 #~ msgstr[0] "Visualizado uma vez"
 #~ msgstr[1] "Visualizado %{num} vezes"
 
-#: ../app/views/content_viewer/view_page.html.erb:19
 #~ msgid "Go back to %s"
 #~ msgstr "Voltar a %s"
 
-#: ../app/views/content_viewer/view_page.html.erb:44
 #~ msgid "This article's tags:"
 #~ msgstr "Tags deste artigo:"
 
-#: ../app/views/content_viewer/view_page.html.erb:66
 #~ msgid "Newest first"
 #~ msgstr "Data (mais recentes primeiro)"
 
-#: ../app/views/content_viewer/view_page.html.erb:66
 #~ msgid "Oldest first"
 #~ msgstr "Data (mais antigos primeiro)"
 
-#: ../app/views/followers/_profile_list.html.erb:7
 #~ msgid "unfollow"
 #~ msgstr "deixar de seguir"
 
-#: ../app/views/followers/_profile_list.html.erb:11
 #~ msgid "change category"
 #~ msgstr "alterar categoria"
 
-#: ../app/views/profile/_more_comments.html.erb:2
-#: ../app/views/profile/_more_replies.html.erb:2
 #~ msgid "More"
 #~ msgstr "Mais"
 
-#: ../app/views/profile/_profile_network.html.erb:1
 #~ msgid "Your network activity"
 #~ msgstr "Sua atividade de rede"
 
-#: ../app/views/profile_editor/edit.html.erb:38
 #~ msgid ""
 #~ "Secret &mdash; hide the community and all its contents for non members "
 #~ "and other people can't join this community unless they are invited to."
@@ -10797,49 +10741,36 @@ msgstr ""
 #~ "membros e outras pessoas não podem entrar na comunidade a não ser que "
 #~ "sejam convidadas."
 
-#: ../app/views/search/_article_last_change.html.erb:8
 #~ msgid "Last update: %s."
 #~ msgstr "Última atualização: %s."
 
-#: ../app/views/shared/_tags_field.html.erb:2
 #~ msgid "Separate tags with commas"
 #~ msgstr "Separe os marcadores com vírgulas"
 
-#: ../app/views/tasks/_abuse_complaint_accept_details.html.erb:5
 #~ msgid "Reported by %{reporter} %{time}."
 #~ msgstr "Reportado por %{reporter} %{time}."
 
-#: ../app/views/tasks/_abuse_complaint_accept_details.html.erb:7
 #~ msgid "View details"
 #~ msgstr "Ver os detalhes"
 
-#: ../app/views/tasks/_add_friend_accept_details.html.erb:1
-#: ../app/views/tasks/_invite_friend_accept_details.html.erb:1
 #~ msgid "Classify your new friend:"
 #~ msgstr "Classifique seu(sua) novo(a) amigo(a):"
 
-#: ../app/views/tasks/_approve_comment_accept_details.html.erb:2
 #~ msgid "Title: "
 #~ msgstr "Título: "
 
-#: ../app/views/tasks/_task.html.erb:11
 #~ msgid "Assign to:"
 #~ msgstr "Atribuir para:"
 
-#: ../app/views/tasks/_task.html.erb:21
 #~ msgid "Assigned to:"
 #~ msgstr "Atribuído para:"
 
-#: ../app/views/tasks/_task.html.erb:39 ../app/views/tasks/index.html.erb:55
-#: ../app/views/tasks/index.html.erb:67
 #~ msgid "Skip"
 #~ msgstr "Pular"
 
-#: ../app/views/tasks/index.html.erb:47 ../app/views/tasks/index.html.erb:77
 #~ msgid "Apply!"
 #~ msgstr "Aplicar!"
 
-#: ../app/views/tasks/index.html.erb:55 ../app/views/tasks/index.html.erb:67
 #~ msgid "Set all to: "
 #~ msgstr "Marque todos como: "
 
