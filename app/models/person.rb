@@ -93,7 +93,7 @@ class Person < Profile
   def memberships
     scopes = []
     plugins_scopes = plugins.dispatch_scopes(:person_memberships, self)
-    scopes = plugins_scopes unless plugins_scopes.first.blank?
+    scopes = plugins_scopes
     scopes << Profile.memberships_of(self)
     return scopes.first if scopes.size == 1
     ScopeTool.union *scopes
