@@ -1,3 +1,23 @@
+# 1.12.0
+  * Bumping version 1.12.0 (Rodrigo Souto) [6e51e5a]
+  * Update translations (Rodrigo Souto) [f21c8eb]
+  * custom-forms: change admin page title (Rodrigo Souto) [2d797ff]
+  * welcome: verify if user approval is enabled on environment (Rodrigo Souto) [1aba219]
+  * Improves custom forms query layout (Gabriel Silva) [8d5a759]
+  * Skips shopping cart tests (Gabriel Silva) [fc59567]
+  * Refactors profile address field (Gabriel Silva) [40507c2]
+  * person: membership hotspot works with empty scopes too (Rodrigo Souto) [85f193a]
+  * Fixes location field with new address fields (Gabriel Silva) [ddf00f3]
+  * Adds Address field, refactors Location field (Gabriel Silva) [8b0dbcc]
+  * Refactors signup layout (Gabriel Silva) [4a6bc1f]
+  * Adds tooltip and separator (Gabriel Silva) [c46dfbb]
+  * Refactors signuop layout (Gabriel Silva) [e9d8c2d]
+  * Merge branch 'export-forms' into 'master' (Rodrigo Souto) [9328eb1]
+  * CommengGroup: Adds deprecated message (Gabriel Silva) [e763979]
+  * CommentParagraph: removes zombie comments (Gabriel Silva) [ab2cb0f]
+  * CommentParagraph: Adds macro to select all sections (Gabriel Silva) [90dae96]
+  * CommentParagraph: selects individual paragraphs (Gabriel Silva) [1a7ba49]
+
 # 1.11.0
   * Bumping version 1.11.0 (Rodrigo Souto) [ab0853a]
   * Updating authors file (Rodrigo Souto) [0f04255]
