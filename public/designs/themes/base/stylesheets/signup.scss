@@ -8,11 +8,14 @@
 
 #signup-form {
   color: #4A4A4A;
-  display: inline-block;
-  width: 85%;
-}
+  display: block;
+  width: 60%;
+  margin: 0 auto;
+  text-align: center;
 
   input { width: 100%; }
+}
+
 
 #signup-form #signup-form-header {
   -moz-border-radius: 8px;
@@ -26,8 +29,6 @@
 #signup-form textarea,
 #signup-form input {
   padding: 7px 7% 10px 3%;
-  height: 20px;
-  width: 90%;
   color: #6d786e;
   font-size: 18px;
 }
@@ -52,10 +53,6 @@
   margin-left: 0;
 }
 
-.webkit #signup-form select {
-  background: #fff;
-}
-
 #signup-form select {
   width: 100%;
 }
@@ -64,6 +61,12 @@
   height: 100px;
   padding-right: 3px;
   width: 96%;
+}
+
+#signup-form .button-bar a.button {
+  width: 200px;
+  height: 30px;
+  line-height: 30px !important;
 }
 
 #signup-form input[type=file] {
@@ -185,8 +188,8 @@
     #signup-domain {
       background: #EEE;
       border: 1px solid #CFCFCF;
-      height: 36px;
-      line-height: 36px;
+      height: 38px;
+      line-height: 38px;
       padding: 0px 7px;
       color: #4A4A4A;
       font-size: 14px;

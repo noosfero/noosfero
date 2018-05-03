@@ -96,6 +96,11 @@
                             text_field(:profile_data, :name, placeholder: _('E.g.: Maria Silva'))) %>
   </div>
 
+  <div id='signup-avatar'>
+    <label class='formlabel'><%= _('Profile Image')%></label>
+    <%= render :partial => 'shared/change_image', :locals => { :for_attr => 'profile_data[image_builder]', :type => 'profile' } %>
+  </div>
+
   <div id='signup-email'>
     <%= required labelled_form_field(_('Email Address'),
                             text_field(:user, :email, placeholder: _('E.g.: maria.silva@mail.com'))) %>
@@ -118,14 +123,7 @@
                         field.parent('.formfield').removeClass('#{validation_classes}').addClass('invalid');
                         jQuery('#email-check').html('<p><span class=\"invalid\">#{_('This e-mail address is not valid')}</span></p>');
                         return false;
-                      }"
-  %>
-
-  <div id='signup-avatar'>
-    <label class='formlabel'><%= _('Profile Image')%></label>
-    <%= render :partial => 'shared/change_image', :locals => { :for_attr => 'profile_data[image_builder]', :type => 'profile' } %>
-  </div>
-
+                      }" %>
 </div>
 
 <div id="signup-form-profile">
@@ -156,7 +154,7 @@
 
 <%= captcha_tags(:signup, nil, environment) %>
 
-<p style="text-align: center">
+<p class='button-bar'>
   <%= submit_button('new_user', _('Create my account')) %>
 </p>
 
