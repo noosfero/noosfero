@@ -1,45 +1,45 @@
 module ButtonsHelper
 
   NOOSFERO_TO_FONTAWESOME = {
-    add:               'plus',
-    add_user:          'user-plus',
-    alert:             'exclamation-triangle',
-    application:       'file',
-    article:           'file-text',
-    audio:             'volume-up',
-    back:              'arrow-left',
-    blog:              'newspaper-o',
-    cancel:            'arrow-left',
-    clock:             'clock-o',
-    delete:            'exclamation-triangle',
-    down_arrow:        'chevron-down',
-    ellipsis:          'ellipsis-h',
-    email:             'envelope-o',
-    event:             'calendar',
-    file:              'file-text-o',
-    fullscreen:        'arrows-alt',
-    help:              'question-circle',
-    leave:             'sign-out',
-    lightbulb:         'lightbulb-o',
-    login:             'sign-in',
-    logout:            'sign-out',
-    network:           'code-fork',
-    new:               'plus',
-    new_user:          'user',
-    next:              'arrow-right',
-    ok:                'check',
-    pdf:               'file-pdf-o',
-    people:            'user',
-    save_and_continue: 'cloud-upload',
-    spread:            'share-alt',
-    text:              'file-o',
-    menu:              'align-justify',
-    remove:            'trash-alt',
-    clear:             'eraser',
-    blocks:            'th',
-    appearance:        'paint-brush',
-    'welcome-page':    'home',
-    'header-footer':   'window-maximize'
+    add:                'plus',
+    add_user:           'user-plus',
+    alert:              'exclamation-triangle',
+    application:        'file',
+    article:            'file-text',
+    audio:              'volume-up',
+    back:               'arrow-left',
+    blog:               'newspaper-o',
+    cancel:             'arrow-left',
+    clock:              'clock-o',
+    delete:             'exclamation-triangle',
+    down_arrow:         'chevron-down',
+    ellipsis:           'ellipsis-h',
+    email:              'envelope-o',
+    event:              'calendar',
+    file:               'file-text-o',
+    fullscreen:         'arrows-alt',
+    help:               'question-circle',
+    leave:              'sign-out',
+    lightbulb:          'lightbulb-o',
+    login:              'sign-in',
+    logout:             'sign-out',
+    network:            'code-fork',
+    new:                'plus',
+    new_user:           'user',
+    next:               'arrow-right',
+    ok:                 'check',
+    pdf:                'file-pdf-o',
+    people:             'user',
+    save_and_continue:  'cloud-upload',
+    spread:             'share-alt',
+    text:               'file-o',
+    menu:               'align-justify',
+    remove:             'trash-alt',
+    clear:              'eraser',
+    blocks:             'th',
+    appearance:         'paint-brush',
+    :'welcome-page'  => 'home',
+    :'header-footer' => 'window-maximize'
   }
 
   def font_awesome type, label = ""
@@ -61,9 +61,7 @@ module ButtonsHelper
 
   def generic_button(type, label, url, html_options = {})
     classes = 'button'
-    if html_options.has_key?(:class)
-      classes << ' ' << html_options[:class]
-    end
+    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
     html_options[:title] ||= label
     link_to(url, html_options.merge(class: classes)) do
       font_awesome(type, label)
@@ -71,11 +69,16 @@ module ButtonsHelper
   end
 
   def button(type, label, url, html_options = {})
-    generic_button(type, label, url, class: 'with-text')
+    classes = 'with-text'
+    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
+    generic_button(type, label, url, html_options.merge(class: classes))
   end
 
   def button_without_text(type, label, url, html_options = {})
-    generic_button(type, '', url, class: 'without-text', title: label)
+    classes = 'without-text'
+    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
+    html_options[:title] = label
+    generic_button(type, '', url, html_options.merge(class: classes))
   end
 
   def button_to_function(type, label, js_code, html_options = {}, &block)

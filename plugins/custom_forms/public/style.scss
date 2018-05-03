@@ -9,20 +9,23 @@
 .action-table {
   width: 100%;
   overflow: hidden;
-}
 
-.action-table th,
-.action-table td{
-  text-align: center;
-}
+  th, td {
+    text-align: center;
+  }
 
-.action-table .actions{
-  white-space: nowrap;
-  text-align: left;
-}
+  .actions {
+    white-space: nowrap;
+    text-align: left;
+  }
 
-.action-table .new-item{
-  background-color: #EEE;
+  .new-item {
+    background-color: #EEE;
+  }
+
+  td a:not(.button) {
+    text-decoration: underline;
+  }
 }
 
 .edit-information {
@@ -125,12 +128,12 @@ tr.addition-buttons {
 
         input[type=text] {
           width: 100%;
-          height: 24px;
+          height: 40px;
         }
 
         select {
           width: 50%;
-          height: 30px;
+          height: 40px;
         }
 
         .field-alternative-row {
