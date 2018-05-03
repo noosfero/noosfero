@@ -33,7 +33,13 @@ module ButtonsHelper
     save_and_continue: 'cloud-upload',
     spread:            'share-alt',
     text:              'file-o',
-    menu:              'align-justify'
+    menu:              'align-justify',
+    remove:            'trash-alt',
+    clear:             'eraser',
+    blocks:            'th',
+    appearance:        'paint-brush',
+    'welcome-page':    'home',
+    'header-footer':   'window-maximize'
   }
 
   def font_awesome type, label = ""
@@ -53,25 +59,23 @@ module ButtonsHelper
     end
   end
 
-  def button(type, label, url, html_options = {})
-    klass = 'with-text'
+  def generic_button(type, label, url, html_options = {})
+    classes = 'button'
     if html_options.has_key?(:class)
-      klass << ' ' << html_options[:class]
+      classes << ' ' << html_options[:class]
     end
-    button_without_text type, font_awesome(type, label), url, html_options.merge(class: klass, title: label)
+    html_options[:title] ||= label
+    link_to(url, html_options.merge(class: classes)) do
+      font_awesome(type, label)
+    end
+  end
+
+  def button(type, label, url, html_options = {})
+    generic_button(type, label, url, class: 'with-text')
   end
 
   def button_without_text(type, label, url, html_options = {})
-    klass = "button icon-#{type}"
-    if html_options.has_key?(:class)
-      klass << ' ' << html_options[:class]
-    end
-    title = html_options[:title] || label
-    if html_options[:disabled]
-      content_tag('a', label, html_options.merge(class: klass, title: title))
-    else
-      link_to(label, url, html_options.merge(class: klass, title: title))
-    end
+    generic_button(type, '', url, class: 'without-text', title: label)
   end
 
   def button_to_function(type, label, js_code, html_options = {}, &block)
