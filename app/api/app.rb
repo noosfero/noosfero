@@ -56,7 +56,7 @@ module Api
 
     # hook point which allow plugins to add Grape::API extensions to Api::App
     #finds for plugins which has api mount points classes defined (the class should extends Grape::API)
-    @plugins = Noosfero::Plugin.all.map { |p| p.constantize }
+    @plugins = Noosfero::Plugin.all.map{|p| p.constantize if Object.const_defined?(p) }.compact
     @plugins.each do |klass|
       if klass.public_methods.include? :api_mount_points
         klass.api_mount_points.each do |mount_class|
