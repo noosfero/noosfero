@@ -176,16 +176,29 @@ class ProfilesTest < ActiveSupport::TestCase
 
     some_person.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?('description')
     assert_equal "some description", json['additional_data']['description']
   end
 
+  should 'not display profile public fields to anonymous without pass additional_data as optional_fields' do
+    some_person = create_user('testuser', { :email => "lappis@unb.br" }).person
+    some_person.description = 'some description'
+    set_profile_field_privacy(some_person,'description', 'public')
+
+    some_person.save!
+    get "/api/v1/profiles/#{some_person.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json['additional_data']
+  end
+
   should 'not display private fields to anonymous' do
     set_profile_field_privacy(person, 'nickname', 'private_content')
     person.nickname = 'nickname'
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
@@ -198,6 +211,7 @@ class ProfilesTest < ActiveSupport::TestCase
     set_profile_field_privacy(person, 'nickname', 'private_content')
     person.nickname = 'nickname'
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
@@ -211,6 +225,7 @@ class ProfilesTest < ActiveSupport::TestCase
     person.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
     person.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?('Rating')
@@ -224,6 +239,7 @@ class ProfilesTest < ActiveSupport::TestCase
     person.custom_values = { "Rating" => { "value" => "Five stars"} }
     person.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
@@ -238,6 +254,7 @@ class ProfilesTest < ActiveSupport::TestCase
     person.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
     person.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/profiles/#{person.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
 
@@ -252,6 +269,7 @@ class ProfilesTest < ActiveSupport::TestCase
     some_profile.save!
     set_profile_field_privacy(some_profile,'Rating', 'public')
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/profiles/#{some_profile.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?('Rating')
@@ -266,6 +284,7 @@ class ProfilesTest < ActiveSupport::TestCase
     some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
     some_profile.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/profiles/#{some_profile.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert !json['additional_data'].has_key?('Rating')

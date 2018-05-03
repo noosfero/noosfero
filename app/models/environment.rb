@@ -755,8 +755,9 @@ class Environment < ApplicationRecord
   # environment has not associated domains, returns 'localhost'.
   def default_hostname(email_hostname = false)
     domain = 'localhost'
-    unless self.domains(true).empty?
-      domain = (self.domains.find_by(is_default: true) || self.domains.order(:id).first).name
+    domains = self.domains(true)
+    unless domains.empty?
+      domain = (domains.detect{ |d| d.is_default } || domains.first).name
       domain = email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
     end
     domain
@@ -1074,7 +1075,7 @@ class Environment < ApplicationRecord
   end
 
   def permissions_for(person)
-    person.role_assignments.where(resource: self).map {|ra| ra.role.permissions}.flatten.uniq
+    person.role_assignments.where(resource: self).includes(:role).map {|ra| ra.role.permissions}.flatten.uniq
   end
 
   def available_blocks(person)

@@ -2,11 +2,9 @@ require_dependency 'api/helpers'
 
 module Api
   class App < Grape::API
-    use Rack::JSONP
 
     logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
     logger.formatter = GrapeLogging::Formatters::Default.new
-    #use GrapeLogging::Middleware::RequestLogger, { logger: logger }
 
     rescue_from :all do |e|
       logger.error e
@@ -26,12 +24,12 @@ module Api
     before { set_locale  }
     before { setup_multitenancy }
     before { detect_stuff_by_domain }
+    before { set_current_user }
     before { filter_disabled_plugins_endpoints }
     before { init_noosfero_plugins }
     after { set_session_cookie }
 
     version 'v1'
-    prefix [ENV['RAILS_RELATIVE_URL_ROOT'], "api"].compact.join('/')
     format :json
     content_type :txt, "text/plain"
 

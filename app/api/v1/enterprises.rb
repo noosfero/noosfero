@@ -19,14 +19,14 @@ module Api
           enterprises = select_filtered_collection_of(environment, 'enterprises', params)
           enterprises = enterprises.visible
           enterprises = enterprises.by_location(params) # Must be the last. May return Exception obj.
-          present enterprises, :with => Entities::Enterprise, :current_person => current_person
+          present enterprises, :with => Entities::Enterprise, :current_person => current_person, :params => params
         end
 
         desc "Return one enterprise by id"
         get ':id' do
           enterprise = environment.enterprises.visible.find_by(id: params[:id])
           not_found! unless enterprise.present?
-          present enterprise, :with => Entities::Enterprise, :current_person => current_person
+          present enterprise, :with => Entities::Enterprise, :current_person => current_person, :params => params
         end
 
       end
@@ -41,7 +41,7 @@ module Api
               person = environment.people.find(params[:person_id])
               enterprises = select_filtered_collection_of(person, 'enterprises', params)
               enterprises = enterprises.visible.by_location(params)
-              present enterprises, :with => Entities::Enterprise, :current_person => current_person
+              present enterprises, :with => Entities::Enterprise, :current_person => current_person, :params => params
             end
 
           end
