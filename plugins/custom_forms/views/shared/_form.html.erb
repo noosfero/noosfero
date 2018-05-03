@@ -12,12 +12,14 @@
 
   <div class="notify"><%= _("Your e-mail will be visible to this form's owners.") %></div>
   <%= button_bar do %>
+    <% label = form.kind == 'poll' ? _('Vote!') : _('Send') %>
     <% if form.expired? %>
-      <%= submit_button :save, c_('Send'), disabled: '', class: 'disabled',
-                        cancel: { controller: :profile, profile:  profile.identifier } %>
+      <%= submit_button :save, label, disabled: '', class: 'disabled',
+                        data: { confirm: _('Are you sure your want to submit your vote?') } %>
     <% else %>
-      <%= submit_button :save, c_('Send'),
-                        cancel: { controller: :profile, profile: profile.identifier } %>
+      <%= submit_button :save, label,
+                        data: { confirm: _('Are you sure your want to submit your vote?') } %>
     <% end %>
+    <%= button :back, _('Go back'), controller: :profile, profile: profile.identifier %>
   <% end %>
 <% end %>
