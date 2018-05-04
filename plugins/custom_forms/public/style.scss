@@ -600,7 +600,7 @@ div.import-submissions, div.import-report {
   }
 }
 
-.CustomFormsPlugin-query-form {
+.CustomFormsPlugin-query-form, #custom-forms-plugin_submission, .custom-forms-plugin_polls-block {
   display: flex;
   flex-direction: column;
   height: 100%;
