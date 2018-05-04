@@ -97,6 +97,7 @@
         padding: 2px 3px;
         border-radius: 3px;
         color: white;
+        margin-right: 5px;
 
         &.closed {
           background-color: #ad0d0d;
@@ -140,6 +141,10 @@
       flex-direction: column;
       justify-content: space-between;
 
+      .partial-results-link {
+        margin: 0;
+      }
+
       .form-submission {
         margin-top: 5px;
         overflow-y: auto;
@@ -150,13 +155,19 @@
         display:flex;
         flex-direction: column;
         height: 100%;
+
+        div.notify {
+          text-align: center;
+          margin-top: 20px;
+          color: rgba(0, 0, 0, 0.6);
+        }
       }
 
       .no-results {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-style: italic; 
+        font-style: italic;
         height: 100%;
         text-align: center;
       }
@@ -167,6 +178,7 @@
       }
 
       .formfield {
+        overflow: scroll;
         padding: 10px 10px 3px 0px;
         max-height: 120px;
         white-space: pre-wrap;
@@ -190,20 +202,17 @@
         align-items: flex-end;
         display: flex;
 
-        .icon-cancel, br {
+        a.icon-back, br {
           display: none;
         }
 
         input.button {
+          margin: 0;
           background-image: none;
           width: 100%;
           padding: 2px;
           height: auto;
           max-height: none;
-        }
-
-        div.notify {
-          display: none;
         }
       }
     }
@@ -259,12 +268,6 @@
   text-align: center;
   font-style: italic;
   margin-top: 15px;
-}
-
-.partial-results-link {
-  margin: 15px 0 5px;
-  display: block;
-  text-align: center;
 }
 
 .queries-block-edition {

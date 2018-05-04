@@ -104,6 +104,12 @@ tr.addition-buttons {
   }
 }
 
+.partial-results-link {
+  margin: 15px 0;
+  display: block;
+  text-align: center;
+}
+
 #content #custom-forms-plugin_submission {
   div.form-description {
     margin-bottom: 20px;
@@ -147,7 +153,7 @@ tr.addition-buttons {
 
 #custom-forms-plugin_submission .notify {
   padding: 8px;
-  color: rgba(0,0,0,0.5);
+  color: rgba(0, 0, 0, 0.6);
 }
 
 #custom-forms-plugin_submission .custom-form-options {
@@ -390,7 +396,7 @@ font-style: italic;
     }
   }
 
-  ul.table-of-contents {
+  div.table-of-contents {
     margin-top: 30px;
     background-color: #eee;
     padding-top: 20px;
@@ -398,7 +404,7 @@ font-style: italic;
     padding: 20px 30px;
     width: calc(50% - 60px);
 
-    li:not(:last-child) {
+    ul li:not(:last-child) {
       margin-bottom: 5px;
     }
   }
