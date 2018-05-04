@@ -110,14 +110,22 @@ module CustomFormsPlugin::Helper
     when 'check_box'
       field.alternatives.map do |alternative|
         default = answer.present? ? answer.value.split(',').include?(alternative.id.to_s) : alternative.selected_by_default
-        alternative = labelled_check_box alternative.label, form.to_s + "[#{field.id}][#{alternative.id}]", '1', default, :disabled => display_disabled?(field, answer)
-        content_tag(:div, alternative, class: 'field-alternative-row')
+        content_tag('label',
+          content_tag('span', check_box("#{form}[#{field.id}]", alternative.id,
+            checked: default, disabled: display_disabled?(field, answer))) +
+          content_tag('mark', alternative.label),
+          class: "field-alternative-row #{default ? 'checked' : ''}",
+          onclick: 'customForms.updateCBoxLabelClass(this)')
       end.join("\n")
     when 'radio'
       field.alternatives.map do |alternative|
         default = answer.present? ? answer.value == alternative.id.to_s : alternative.selected_by_default
-        alternative = labelled_radio_button alternative.label, form.to_s + "[#{field.id}]", alternative.id, default, :disabled => display_disabled?(field, answer)
-        content_tag(:div, alternative, class: 'field-alternative-row')
+        content_tag('label',
+          content_tag('span', radio_button(form, field.id, alternative.id,
+            checked: default, disabled: display_disabled?(field, answer))) +
+          content_tag('mark', alternative.label),
+          class: "field-alternative-row #{default ? 'checked' : ''}",
+          onclick: 'customForms.updateRadioGroupClass(this)')
       end.join("\n")
     end
   end

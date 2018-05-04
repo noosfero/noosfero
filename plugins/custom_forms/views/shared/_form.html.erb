@@ -1,7 +1,8 @@
 <%= error_messages_for :submission %>
 
 <%= form_for :submission, url: { controller: :custom_forms_plugin_profile,
-                                 action: :show, id: form.identifier }, :html => { :class => 'query-form' } do |f| %>
+                                 action: :show, id: form.identifier },
+                                 html: { class: "CustomFormsPlugin-query-form query-kind-#{form.kind}" } do |f| %>
   <% if !user %>
     <%= required labelled_form_field _('Name'), text_field_tag(:author_name, submission.author_name) %>
     <%= required labelled_form_field _('Email'), text_field_tag(:author_email, submission.author_email) %>

@@ -599,3 +599,82 @@ div.import-submissions, div.import-report {
     justify-content: space-between;
   }
 }
+
+.CustomFormsPlugin-query-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .form-submission {
+    margin-top: 5px;
+    overflow-y: auto;
+    text-align: justify;
+    .field-alternative-row {
+      display: block;
+      mark {
+        background: transparent;
+        padding: 0 0.2em;
+        border-radius: 2px;
+      }
+      &.checked mark {
+        background: rgba(255,240,0,0.5);
+      }
+    }
+  }
+
+  &.query-kind-survey {
+    .formfield.type-radio, .formfield.type-hidden {
+      columns: 2;
+      column-gap: 1em;
+    }
+  }
+
+  .no-results {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    height: 100%;
+    text-align: center;
+  }
+
+  .formlabel {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .required-field {
+    .formlabel {
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+
+    .formfield.type-text {
+      padding: 0;
+    }
+  }
+
+  .button-bar {
+    padding-top: 0;
+    margin-bottom: 0;
+    flex-grow: 1;
+    align-items: flex-end;
+    display: flex;
+
+    .icon-cancel, br {
+      display: none;
+    }
+
+    input.button {
+      background-image: none;
+      width: 100%;
+      padding: 2px;
+      height: auto;
+      max-height: none;
+    }
+
+    div.notify {
+      display: none;
+    }
+  }
+}
