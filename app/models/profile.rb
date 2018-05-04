@@ -265,7 +265,7 @@ class Profile < ApplicationRecord
   scope :disabled, -> { where visible: false }
   scope :is_public, -> { where visible: true, public_profile: true, secret: false }
   scope :enabled, -> { where enabled: true }
-
+  
   scope :higher_disk_usage, -> { order("metadata->>'disk_usage' DESC NULLS LAST") }
   scope :lower_disk_usage, -> { order("metadata->>'disk_usage' ASC NULLS LAST") }
 
@@ -1290,6 +1290,11 @@ private :generate_url, :url_options
 
   def allow_single_file?
     self.metadata["allow_single_file"] == "1"
+  end
+
+  #FIXME make this test
+  def boxes_with_blocks
+    self.boxes.with_blocks
   end
 
   private

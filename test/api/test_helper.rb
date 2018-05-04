@@ -8,7 +8,7 @@ class ActiveSupport::TestCase
   USER_LOGIN = "testapi"
 
   def app
-    Api::App
+    Rails.application
   end
 
   def create_and_activate_user

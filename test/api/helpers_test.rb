@@ -15,12 +15,14 @@ class Api::HelpersTest < ActiveSupport::TestCase
   should 'get the current user with valid token' do
     login_api
     self.params = {:private_token => user.private_token}
+    set_current_user
     assert_equal user, current_user
   end
 
   should 'get the current user with valid token in header' do
     login_api
     headers['Private-Token'] = user.private_token
+    set_current_user
     assert_equal user, current_user
   end
 
@@ -29,6 +31,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
     user.private_token_generated_at = DateTime.now.prev_year
     user.save
     self.params = {:private_token => user.private_token}
+    set_current_user
     assert_equal user, current_user
   end
 
@@ -109,7 +112,10 @@ class Api::HelpersTest < ActiveSupport::TestCase
     fast_create(Article, :profile_id => user.person.id)
 
     self.params = {private_token: user.private_token}
-    User.expects(:find_by).with(private_token: user.private_token).returns(user)
+    result = mock()
+    result.expects(:includes).with(:person).returns([user])
+    User.expects(:where).with(private_token: user.private_token).returns(result)
+    set_current_user
     assert_equal a, find_article(user.person.articles,{:id => a.id})
   end
 
@@ -120,7 +126,10 @@ class Api::HelpersTest < ActiveSupport::TestCase
     fast_create(Article, :profile_id => p.id)
 
     self.params = {private_token: user.private_token}
-    User.expects(:find_by).with(private_token: user.private_token).returns(user)
+    result = mock()
+    result.expects(:includes).with(:person).returns([user])
+    User.expects(:where).with(private_token: user.private_token).returns(result)
+    set_current_user
     assert_equal 403, find_article(p.articles, {:id => a.id}).last
   end
 
@@ -291,6 +300,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
     session = create(Session, session_id: 'some_id', data: { 'user' => user.id })
     stubs(:request)
     stubs(:cookies).returns({_noosfero_session: session.session_id})
+    set_current_user
     assert_equal user, current_user
   end
 

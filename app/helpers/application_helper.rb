@@ -951,8 +951,13 @@ module ApplicationHelper
       manage_communities,
       ctrl_panel_link,
       *plugins_items,
-      logout_link
+      logout_link,
+      angular_logout_script
     ]
+  end
+
+  def angular_logout_script
+    javascript_include_tag('clear-localstorage.js')
   end
 
   def logout_link

@@ -192,6 +192,7 @@ class EnterprisesTest < ActiveSupport::TestCase
     some_enterprise.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
     some_enterprise.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/enterprises/#{some_enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?('Rating')
@@ -204,6 +205,7 @@ class EnterprisesTest < ActiveSupport::TestCase
     some_enterprise.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
     some_enterprise.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/enterprises/#{some_enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     refute json['additional_data'].has_key?('Rating')

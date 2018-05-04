@@ -6,135 +6,151 @@ class EnvironmentTest < ActiveSupport::TestCase
     create_and_activate_user
   end
 
-  ENDPOINTS = ['environments']
+  should 'display host if optional_fields is passed as parameter' do
+    environment = Environment.default
 
-  ENDPOINTS.map do |endpoint|
+    params[:optional_fields] = ['host']
+    get "/api/v1/environments/default?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
 
-    define_method "test_should_return_the_#{endpoint}_default_environment" do
-      environment = Environment.default
-      get "/api/v1/#{endpoint}/default"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.id, json['id']
-    end
-
-    define_method "test_should_return_boxes_on_#{endpoint}_default_environment" do
-      environment = Environment.default
-      get "/api/v1/#{endpoint}/default?#{params.merge({:optional_fields => [:boxes]}).to_query}"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.id, json['id']
-    assert_not_nil json['boxes']
-    end
-
-    define_method "test_should_not_return_the_default_environment_settings_for_#{endpoint}" do
-      environment = Environment.default
-      get "/api/v1/#{endpoint}/default"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.id, json['id']
-      assert_nil json['settings']
-    end
-
-    define_method "test_should_return_the_default_environment_settings_for_admin_for_#{endpoint}" do
-      login_api
-      environment = Environment.default
-      environment.add_admin(person)
-      get "/api/v1/#{endpoint}/default?#{params.to_query}"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.id, json['id']
-      assert_equal environment.settings, json['settings']
-    end
-
-    define_method "test_should_not_return_the_default_environment_settings_for_non_admin_users_for_#{endpoint}" do
-      login_api
-      environment = Environment.default
-      get "/api/v1/#{endpoint}/default?#{params.to_query}"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.id, json['id']
-      assert_nil json['settings']
-    end
-
-    define_method "test_should_return_the_default_environment_descriptionfor_#{endpoint}" do
-      environment = Environment.default
-      get "/api/v1/#{endpoint}/default"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.description, json['description']
-    end
-
-    define_method "test_should_return_boxes_environment_for_#{endpoint}" do
-      environment = fast_create(Environment)
-      default_env = Environment.default
-      assert_not_equal environment.id, default_env.id
-      get "/api/v1/#{endpoint}/#{environment.id}?#{params.merge({:optional_fields => [:boxes]}).to_query}"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.id, json['id']
-    assert_not_nil json['boxes']
-    end
-
-    define_method "test_should_return_created_environment_for_#{endpoint}" do
-      environment = fast_create(Environment)
-      default_env = Environment.default
-      assert_not_equal environment.id, default_env.id
-      get "/api/v1/#{endpoint}/#{environment.id}"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.id, json['id']
-    end
-
-    define_method "test_should_return_context_environment_for_#{endpoint}" do
-      context_env = fast_create(Environment)
-      context_env.name = "example org"
-      context_env.save
-      context_env.domains<< Domain.new(:name => 'example.org')
-      default_env = Environment.default
-      assert_not_equal context_env.id, default_env.id
-      get "/api/v1/#{endpoint}/context"
-      json = JSON.parse(last_response.body)
-      assert_equal context_env.id, json['id']
-    end
-
-    define_method "test_should_return_no_permissions_for_the_current_person_that_has_no_role_in_the_environment_for_#{endpoint}" do
-      login_api
-      environment = Environment.default
-      get "/api/v1/#{endpoint}/default?#{params.to_query}"
-      json = JSON.parse(last_response.body)
-      assert_equal [], json['permissions']
-    end
-
-    define_method "test_should_return_permissions_for_the_current_person_in_the_environment_for_#{endpoint}" do
-      login_api
-      environment = Environment.default
-      environment.add_admin(person)
-      get "/api/v1/#{endpoint}/default?#{params.to_query}"
-      json = JSON.parse(last_response.body)
-      assert_equal environment.permissions_for(person), json['permissions']
-    end
-
-    define_method "test_should_update_environment_for_#{endpoint}" do
-      login_api
-      environment = Environment.default
-      environment.add_admin(person)
-      params[:environment] = {layout_template: "leftbar"}
-      post "/api/v1/#{endpoint}/#{environment.id}?#{params.to_query}"
-      assert_equal "leftbar", environment.reload.layout_template
-    end
-
-    define_method "test_should_forbid_update_for_non_admin_users_for_#{endpoint}" do
-      login_api
-      environment = Environment.default
-      params[:environment] = {layout_template: "leftbar"}
-      post "/api/v1/#{endpoint}/#{environment.id}?#{params.to_query}"
-      assert_equal 403, last_response.status
-      assert_equal "default", environment.reload.layout_template
-    end
-
-    define_method "test_should_return_signup_person_fields_for_#{endpoint}" do
-      environment = Environment.default
-      fields = ['field1', 'field2']
-      Environment.any_instance.expects(:signup_person_fields).returns(fields)
-      get "/api/v1/#{endpoint}/signup_person_fields"
-      json = JSON.parse(last_response.body)
-      assert_equal fields, json
-    end
-
+    assert_not_nil json['host']
   end
+
+  should 'not display host if optional_fields is not passed as parameter' do
+    environment = Environment.default
+
+    get "/api/v1/environments/default?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
+
+    assert_nil json['host']
+  end
+
+  should "test_should_return_the_environments_default_environment" do
+    environment = Environment.default
+    get "/api/v1/environments/default"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
+  end
+
+  should "test_should_return_boxes_on_environments_default_environment" do
+    environment = Environment.default
+    get "/api/v1/environments/default?#{params.merge({:optional_fields => [:boxes]}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
+    assert_not_nil json['boxes']
+  end
+
+  should "test_should_not_return_the_default_environment_settings_for_environments" do
+    environment = Environment.default
+    get "/api/v1/environments/default"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
+    assert_nil json['settings']
+  end
+
+  should "test_should_return_the_default_environment_settings_for_admin_for_environments" do
+    login_api
+    environment = Environment.default
+    environment.add_admin(person)
+    get "/api/v1/environments/default?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
+    assert_equal environment.settings, json['settings']
+  end
+
+  should "test_should_not_return_the_default_environment_settings_for_non_admin_users_for_environments" do
+    login_api
+    environment = Environment.default
+    get "/api/v1/environments/default?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
+    assert_nil json['settings']
+  end
+
+  should "test_should_return_the_default_environment_descriptionfor_environments" do
+    environment = Environment.default
+    get "/api/v1/environments/default"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.description, json['description']
+  end
+
+  should "test_should_return_boxes_environment_for_environments" do
+    environment = fast_create(Environment)
+    default_env = Environment.default
+    assert_not_equal environment.id, default_env.id
+    get "/api/v1/environments/#{environment.id}?#{params.merge({:optional_fields => [:boxes]}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
+    assert_not_nil json['boxes']
+  end
+
+  should "test_should_return_created_environment_for_environments" do
+    environment = fast_create(Environment)
+    default_env = Environment.default
+    assert_not_equal environment.id, default_env.id
+    get "/api/v1/environments/#{environment.id}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.id, json['id']
+  end
+
+  should "test_should_return_context_environment_for_environments" do
+    context_env = fast_create(Environment)
+    context_env.name = "example org"
+    context_env.save
+    context_env.domains<< Domain.new(:name => 'example.org')
+    default_env = Environment.default
+    assert_not_equal context_env.id, default_env.id
+    get "/api/v1/environments/context"
+    json = JSON.parse(last_response.body)
+    assert_equal context_env.id, json['id']
+  end
+
+  should "test_should_return_no_permissions_for_the_current_person_that_has_no_role_in_the_environment_for_environments" do
+    login_api
+    environment = Environment.default
+    get "/api/v1/environments/default?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [], json['permissions']
+  end
+
+  should "test_should_return_permissions_for_the_current_person_in_the_environment_for_environments" do
+    login_api
+    environment = Environment.default
+    environment.add_admin(person)
+    get "/api/v1/environments/default?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal environment.permissions_for(person), json['permissions']
+  end
+
+  should "test_should_update_environment_for_environments" do
+    login_api
+    environment = Environment.default
+    environment.add_admin(person)
+    params[:environment] = {layout_template: "leftbar"}
+    post "/api/v1/environments/#{environment.id}?#{params.to_query}"
+    assert_equal "leftbar", environment.reload.layout_template
+  end
+
+  should "test_should_forbid_update_for_non_admin_users_for_environments" do
+    login_api
+    environment = Environment.default
+    params[:environment] = {layout_template: "leftbar"}
+    post "/api/v1/environments/#{environment.id}?#{params.to_query}"
+    assert_equal 403, last_response.status
+    assert_equal "default", environment.reload.layout_template
+  end
+
+  should "test_should_return_signup_person_fields_for_environments" do
+    environment = Environment.default
+    fields = ['field1', 'field2']
+    Environment.any_instance.expects(:signup_person_fields).returns(fields)
+    get "/api/v1/environments/signup_person_fields"
+    json = JSON.parse(last_response.body)
+    assert_equal fields, json
+  end
+
 
   should 'return the default environment with status OK' do
     environment = Environment.default

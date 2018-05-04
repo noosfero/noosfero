@@ -195,8 +195,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'have a default image if thumbnails were not processed' do
-    file = UploadedFile.new
-    file.expects(:thumbnailable?).returns(true)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
     assert_equal '/images/icons-app/image-loading-thumb.png', file.public_filename
   end
 

@@ -101,6 +101,26 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_nil json['admins']
   end
 
+  should 'display admins community if optional_fields is passed as parameter' do
+    login_api
+    community = fast_create(Community, :environment_id => environment.id)
+
+    params[:optional_fields] = ['admins']
+    get "/api/v1/communities/#{community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal community.id, json['id']
+    assert_equal [], json['admins']
+  end
+
+  should 'display admins community only if optional_fields is passed as parameter' do
+    login_api
+    community = fast_create(Community, :environment_id => environment.id)
+
+    get "/api/v1/communities/#{community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json['admins']
+  end
+
   should 'get private community to logged member' do
     login_api
     community = fast_create(Community, :environment_id => environment.id, :public_profile => false, :visible => true)
@@ -308,7 +328,37 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_not_includes json.map { |a| a["id"] }, community2.id
   end
 
-  should 'display public custom fields to anonymous' do
+  should 'display public custom fields to anonymous if additional_data optional_field is passed as parameter' do
+    CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
+    some_community = fast_create(Community)
+    some_community.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
+    some_community.save!
+
+    params[:optional_fields] = 'additional_data'
+    get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json['additional_data'].has_key?('Rating')
+    assert_equal "Five stars", json['additional_data']['Rating']
+  end
+
+  should 'not display cateogories if it has no optional_field is passed as parameter' do
+    some_community = fast_create(Community)
+    some_community.save!
+    get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json['categories']
+  end
+
+  should 'display cateogories if it has optional_field passed as parameter' do
+    some_community = fast_create(Community)
+    some_community.save!
+    params[:optional_fields] = 'categories'
+    get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal [], json['categories']
+  end
+
+  should 'not display public custom fields to anonymous if additional_data optional_field is not passed as parameter' do
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
     some_community = fast_create(Community)
     some_community.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
@@ -316,8 +366,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
     get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert json['additional_data'].has_key?('Rating')
-    assert_equal "Five stars", json['additional_data']['Rating']
+    assert_nil json['additional_data']
   end
 
   should 'not display private custom fields to anonymous' do
@@ -326,6 +375,7 @@ class CommunitiesTest < ActiveSupport::TestCase
     some_community.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
     some_community.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/communities/#{some_community.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     refute json['additional_data'].has_key?('Rating')

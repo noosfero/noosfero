@@ -298,6 +298,7 @@ class PeopleTest < ActiveSupport::TestCase
     some_person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
     some_person.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?('Custom Blog')
@@ -312,6 +313,7 @@ class PeopleTest < ActiveSupport::TestCase
     some_person.save!
     some_person.user.activate!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal json['additional_data'], {}
@@ -323,10 +325,22 @@ class PeopleTest < ActiveSupport::TestCase
     person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
     person.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?('Custom Blog')
     assert_equal "www.blog.org", json['additional_data']['Custom Blog']
+  end
+
+  should 'not display custom fields if additional_data is not passed as optional_fields' do
+    CustomField.create!(:name => "Custom Blog", :format => "string", :customized_type => "Person", :active => true, :environment => environment)
+    person.reload
+    person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "true"} }
+    person.save!
+
+    get "/api/v1/people/#{person.id}?d#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json['additional_data']
   end
 
   should 'not display non-public custom fields to anonymous' do
@@ -334,6 +348,7 @@ class PeopleTest < ActiveSupport::TestCase
     person.custom_values = { "Custom Blog" => { "value" => "www.blog.org", "public" => "0"} }
     person.save!
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/people/#{person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal json['additional_data'], {}
@@ -361,6 +376,7 @@ class PeopleTest < ActiveSupport::TestCase
     some_person.add_friend(person)
     person.add_friend(some_person)
 
+    params[:optional_fields] = 'additional_data'
     get "/api/v1/people/#{some_person.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert json['additional_data'].has_key?("Custom Blog")

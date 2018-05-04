@@ -43,8 +43,8 @@ module Api
       end
 
       post "/login_from_cookie" do
-        return unauthorized! if cookies[:auth_token].blank?
-        user = User.where(remember_token: cookies[:auth_token]).first
+        return unauthorized! if (!session.present? || session[:user_id].blank?)
+        user = session.user
         return unauthorized! unless user && user.activated?
         @current_user = user
         present user, :with => Entities::UserLogin, :current_person => current_person

@@ -99,7 +99,7 @@ module Api
       expose :permissions do |block, options|
         Entities.permissions_for_entity(block, options[:current_person], :allow_edit?)
       end
-      expose :images, :using => Image
+      expose :images, :using => Image, :if => lambda {|profile, options| Entities.expose_optional_field?(:images, options)}
       expose :definition do |block, options|
         BlockDefinition.represent(block.class)
       end
@@ -110,14 +110,14 @@ module Api
       expose :blocks, :using => Block do |box, options|
         box.blocks.select {|block| block.visible_to_user?(options[:current_person]) || block.allow_edit?(options[:current_person]) }
       end
-    end
+   end
 
     class Profile < Entity
       expose :identifier, :name, :id
       expose :created_at
       expose :updated_at
 
-      expose :additional_data do |profile, options|
+      expose :additional_data, :if => lambda {|profile, options| Entities.expose_optional_field?(:additional_data, options)} do |profile, options|
         hash = {}
         profile.environment.send("all_custom_#{profile.type.downcase}_fields").each  do |field, settings|
           if settings['active'].to_s == 'true'
@@ -135,7 +135,7 @@ module Api
       expose :image, :using => Image
       expose :top_image, :using => Image
       expose :region, :using => Region
-      expose :tag_list
+      expose :tag_list, :if => lambda {|profile, options| Entities.expose_optional_field?(:tag_list, options)}
       expose :type
       expose :custom_header
       expose :custom_footer
@@ -147,7 +147,7 @@ module Api
       expose :theme do |profile, options|
         profile.theme || profile.environment.theme
       end
-      expose :boxes, :using => Box, :if => lambda {|profile, options| Entities.expose_optional_field?(:boxes, options)}
+      expose :boxes_with_blocks, :using => Box, :as => :boxes, :if => lambda {|profile, options| Entities.expose_optional_field?(:boxes, options)}
 
     end
 
@@ -185,11 +185,12 @@ module Api
 
     class Community < Profile
       expose :description
-      expose :admins, :if => lambda { |community, options| community.display_info_to? options[:current_person]} do |community, options|
+      expose :admins, :if => lambda { |community, options| Entities.expose_optional_field?(:admins, options) && (community.display_info_to? options[:current_person])} do |community, options|
         community.admins.map{|admin| {"name"=>admin.name, "id"=>admin.id, "username" => admin.identifier}}
       end
-      expose :categories, :using => Category
-      expose :members_count, :closed
+      expose :categories, :using => Category, :if => lambda {|community, options| Entities.expose_optional_field?(:categories, options)}
+      expose :members_count
+      expose :closed
       expose :members, :if => lambda {|community, options| Entities.expose_optional_field?(:members, options)}
     end
 
@@ -309,7 +310,7 @@ module Api
       expose :layout_template
       expose :signup_intro
       expose :terms_of_use
-      expose :top_url, as: :host
+      expose :top_url, as: :host, :if => lambda {|instance, options| Entities.expose_optional_field?(:host, options)}
       expose :type do |environment, options|
         "Environment"
       end
