@@ -33,13 +33,7 @@ class CommentParagraphPlugin < Noosfero::Plugin
   end
 
   def js_files
-    [
-      'comment_paragraph_macro',
-      'cms',
-      'rangy-core',
-      'rangy-cssclassapplier',
-      'rangy-serializer'
-    ]
+    ['comment_paragraph_macro', 'rangy-core', 'rangy-cssclassapplier', 'rangy-serializer']
   end
 
   def stylesheet?
@@ -52,17 +46,25 @@ class CommentParagraphPlugin < Noosfero::Plugin
 
   def article_extra_toolbar_buttons(article)
     user = context.send :user
-    return [] if !article.comment_paragraph_plugin_enabled? ||
-                 !article.allow_edit?(user) ||
-                 article.kind_of?(CommentParagraphPlugin::Discussion)
+    return [] if !article.comment_paragraph_plugin_enabled? || !article.allow_edit?(user) || article.kind_of?(CommentParagraphPlugin::Discussion)
 
-    [{
-      :title => _('Export Comments'),
-      :url => { controller: 'comment_paragraph_plugin_profile',
-                profile: article.profile.identifier,
-                action: 'export_comments', id: article.id },
-      :icon => 'download'
-    }]
+    buttons = []
+    buttons << { :title => article.comment_paragraph_plugin_activated? ? _('Deactivate Comments') : _('Activate Comments'),
+                 :url => { :controller => 'comment_paragraph_plugin_myprofile',
+                           :profile => article.profile.identifier,
+                           :action => 'toggle_activation',
+                           :id => article.id },
+                 :icon => 'comment-o' }
+
+    if article.comment_paragraph_plugin_activated?
+      buttons << { :title => _('Export Comments'),
+                   :url => { :controller => 'comment_paragraph_plugin_profile',
+                             :profile => article.profile.identifier,
+                             :action => 'export_comments',
+                             :id => article.id },
+                   :icon => 'download' }
+    end
+    buttons
   end
 
   def self.api_mount_points
@@ -80,3 +82,5 @@ class CommentParagraphPlugin < Noosfero::Plugin
   end
 
 end
+
+require_dependency 'comment_paragraph_plugin/macros/allow_comment'
