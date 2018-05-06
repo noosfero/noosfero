@@ -67,6 +67,26 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal 'some', json['name']
   end
 
+  should 'make a create community request if the environment was configured to admin_must_approve_new_communities' do
+    login_api
+    env = Environment.default
+    env.enable('admin_must_approve_new_communities')
+    person.stubs(:notification_emails).returns(['sample@example.org'])
+    params[:community] = {:name => 'some'}
+    post "/api/v1/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_nil json['id']
+  end
+
+  should 'not create community with the same identifier' do
+    login_api
+    community = fast_create(Community)
+    params[:community] = {:name => community.name}
+    post "/api/v1/communities?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 'not_available', json['errors']['identifier'].first['error']
+  end
+
   should 'return 400 status for invalid community creation to logged user ' do
     login_api
     post "/api/v1/communities?#{params.to_query}"
