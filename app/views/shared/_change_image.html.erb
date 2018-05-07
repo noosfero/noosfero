@@ -1,6 +1,7 @@
 <div class='file-fieldset'>
 
-    <div id='change-image' style='<%= "display:#{display}" if display %>' >
+    <div id='change-image'
+         style='<%= "display:#{display}" if local_assigns.has_key?(:display) %>'>
 
     <%= button_to_function :plus, _('Add image'), "add_new_image(this)",
                            class: "button with-text icon-plus" %>
