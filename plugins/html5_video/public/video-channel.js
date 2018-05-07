@@ -3,6 +3,10 @@
 **  Released under the same Noosfero's license
 */
 
+var _me = null;
+var showNextFrame = false;
+var nextFrameLoop;
+
 (function (exports, $) {
 "use strict";
 
@@ -23,11 +27,7 @@ exports.VideoChannel = function VideoChannel(baseEl) {
 
 VideoChannel.prototype.init = function() {
   var me = this;
-  $('.video-list-item', this.baseEl).each(
-    function(num, item) {
-      me.initItem(item);
-    }
-  );
+  _me = this;
   if ( $('.video-list li', this.baseEl)[0] ) {
     this.updatePlayer( $('li', this.baseEl).first() );
   } else {
@@ -36,7 +36,7 @@ VideoChannel.prototype.init = function() {
   }
 };
 
-VideoChannel.prototype.initItem = function(item) {
+VideoChannel.prototype.initItem = function(item, fade) {
   var me = this;
   $(item).click(function(){ me.updatePlayer(item, true); });
   var link = $('a', item)[0];
@@ -47,28 +47,30 @@ VideoChannel.prototype.initItem = function(item) {
   link.frameFade.style.backgroundImage = link.style.backgroundImage;
   link.addEventListener("animationend", function(){ link.nextFrame() }, false);
   link.addEventListener("webkitAnimationEnd", function(){ link.nextFrame() }, false);
-  link.nextFrame();
+  link.nextFrame(fade);
 };
 
 VideoChannel.nextFrame = function(fade) {
-  if ( !fade ) {
-    this.frameFade.style.opacity = 0.0;
-    this.frameFade.style.animationName = "";
-    this.frameFade.style.MozAnimationName = "";
-    this.frameFade.style.webkitAnimationName = "";
-    if ( !this.bgYPos ) this.bgYPos = 0;
-    this.style.backgroundPosition = "50% "+ ( this.bgYPos++ * -120 ) +"px";
-    if ( this.bgYPos > 5 ) this.bgYPos = 0;
-    this.frameFade.style.backgroundPosition = "50% "+ ( this.bgYPos * -120 ) +"px";
-    var link = this;
-    setTimeout( function(){ link.nextFrame(true) }, 10 );
-  } else {
-    this.frameFade.style.animationDuration = "1s";
-    this.frameFade.style.animationName = "fadein";
-    this.frameFade.style.MozAnimationDuration = "1s";
-    this.frameFade.style.MozAnimationName = "fadein";
-    this.frameFade.style.webkitAnimationDuration = "1s";
-    this.frameFade.style.webkitAnimationName = "'fadein'";
+  if (showNextFrame) { 
+    if ( !fade ) {
+      this.frameFade.style.opacity = 0.0;
+      this.frameFade.style.animationName = "";
+      this.frameFade.style.MozAnimationName = "";
+      this.frameFade.style.webkitAnimationName = "";
+      if ( !this.bgYPos ) this.bgYPos = 0;
+      this.style.backgroundPosition = "50% "+ ( this.bgYPos++ * -120 ) +"px";
+      if ( this.bgYPos > 5 ) this.bgYPos = 0;
+      this.frameFade.style.backgroundPosition = "50% "+ ( this.bgYPos * -120 ) +"px";
+      var link = this;
+      nextFrameLoop = setTimeout( function(){ link.nextFrame(true) }, 10 );
+    } else {
+      this.frameFade.style.animationDuration = "1s";
+      this.frameFade.style.animationName = "fadein";
+      this.frameFade.style.MozAnimationDuration = "1s";
+      this.frameFade.style.MozAnimationName = "fadein";
+      this.frameFade.style.webkitAnimationDuration = "1s";
+      this.frameFade.style.webkitAnimationName = "'fadein'";
+    }
   }
 };
 
@@ -270,3 +272,21 @@ $(document).ready(function() {
       }
     });
 });
+
+var firstHover = true;
+function _triggerHoverEfect(element) {
+  setTimeout( function() { 
+    showNextFrame = true
+    _me.initItem(element, false);
+  }, 1000);
+}
+
+function _disableHoverEfect(element) {
+  if (!firstHover) {
+    showNextFrame = false;
+    clearTimeout(nextFrameLoop);
+  }
+  else {
+    firstHover = false;
+  }
+}

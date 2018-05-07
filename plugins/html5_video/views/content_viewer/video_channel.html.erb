@@ -33,7 +33,7 @@
 
     <ul class="video-list">
       <% @page.converted_videos.each do |f| %>
-        <li class="video-list-item" title="<%=html_escape f.title%>">
+        <li onmouseover="_triggerHoverEfect(this, event)" onmouseout="_disableHoverEfect(this, event)" class="video-list-item" title="<%=html_escape f.title%>">
           <%= link_to(
                 content_tag('strong',
                   f.title.
