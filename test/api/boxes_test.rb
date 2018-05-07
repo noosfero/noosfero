@@ -20,7 +20,7 @@ class BoxesTest < ActiveSupport::TestCase
 
   should 'get boxes from default environment' do
     Environment.delete_all
-    environment = fast_create(Environment, :is_default => true)
+    environment = fast_create(Environment, is_default: true)
     box = fast_create(Box, :owner_id => environment.id, :owner_type => 'Environment')
     get "/api/v1/environments/default/boxes?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -28,7 +28,7 @@ class BoxesTest < ActiveSupport::TestCase
   end
 
   should 'get boxes from context environment' do
-    env = fast_create(Environment, :is_default => true)
+    env = fast_create(Environment, is_default: true)
     env2 = fast_create(Environment).domains << Domain.new(:name => 'test.host')
     box = fast_create(Box, :owner_id => environment.id, :owner_type => 'Environment')
     get "/api/v1/environments/context/boxes?#{params.to_query}"
@@ -39,7 +39,7 @@ class BoxesTest < ActiveSupport::TestCase
 
   should 'not display block api_content by default' do
     Environment.delete_all
-    environment = fast_create(Environment, :is_default => true)
+    environment = fast_create(Environment, is_default: true)
     box = fast_create(Box, :owner_id => environment.id, :owner_type => 'Environment')
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/environments/default/boxes?#{params.to_query}"
@@ -49,7 +49,7 @@ class BoxesTest < ActiveSupport::TestCase
 
   should 'get blocks from boxes' do
     Environment.delete_all
-    environment = fast_create(Environment, :is_default => true)
+    environment = fast_create(Environment, is_default: true)
     box = fast_create(Box, :owner_id => environment.id, :owner_type => 'Environment')
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/environments/default/boxes?#{params.to_query}"

@@ -176,8 +176,8 @@ module Noosfero::Factory
   def defaults_for_environment
     seq = factory_num_seq
     {
-      :name => "Environment %d" % seq,
-      :contact_email => "environment%d@example.com" % seq
+      name: "Environment %d" % seq,
+      contact_email: "environment%d@example.com" % seq
     }
   end
 

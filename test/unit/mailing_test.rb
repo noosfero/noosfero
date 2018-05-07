@@ -89,7 +89,7 @@ class MailingTest < ActiveSupport::TestCase
 
   should 'return blank string on url' do
     mailing = build(Mailing, :source => environment)
-    environment.domains << create(Domain, :name => 'noosfero.net', :is_default => true)
+    environment.domains << create(Domain, name: 'noosfero.net', is_default: true)
     assert_equal '', mailing.url
   end
 

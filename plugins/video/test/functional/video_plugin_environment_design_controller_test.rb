@@ -7,7 +7,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
 
     Environment.delete_all
     User.delete_all
-    @environment = Environment.create!(defaults_for_environment.merge(:is_default => true))
+    @environment = Environment.create!(defaults_for_environment.merge(is_default: true))
     user = create_user('testinguser')
     login_as(user.person.identifier)
     @environment.add_admin(user.person)

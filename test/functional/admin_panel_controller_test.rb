@@ -10,7 +10,7 @@ class AdminPanelControllerTest < ActionController::TestCase
   end
 
   should 'manage the correct environment' do
-    current = fast_create(Environment, :name => 'test environment', :is_default => false)
+    current = fast_create(Environment, :name => 'test environment', is_default: false)
     current.domains.create!(:name => 'example.com')
 
     @request.expects(:host).returns('example.com').at_least_once

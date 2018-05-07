@@ -6,7 +6,7 @@ class ContainerBlockPluginControllerTest < ActionController::TestCase
 
   def setup
     Environment.delete_all
-    @environment = Environment.new(:name => 'testenv', :is_default => true)
+    @environment = Environment.new(name: 'testenv', is_default: true)
     @environment.enabled_plugins = ['ContainerBlockPlugin::ContainerBlock']
     @environment.save!
 

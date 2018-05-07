@@ -2,8 +2,8 @@ module NestedEnvironment
 
   def self.hash
     {
-      :id         => { type: :integer },
-      :is_default => {type: :boolean }
+      id:         { type: :integer },
+      is_default: {type: :boolean }
     }
   end
 
