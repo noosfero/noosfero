@@ -1,4 +1,4 @@
-class RemoveImageInCustomPersonFields < ActiveRecord::Migration
+class RemoveImageInCustomPersonFields < ActiveRecord::Migration[5.1]
 
   def change
     Environment.all.each do |env|
