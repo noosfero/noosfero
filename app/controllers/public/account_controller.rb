@@ -461,14 +461,8 @@ class AccountController < ApplicationController
   end
 
   def go_to_initial_page
-    plugin_url = @plugins.dispatch_first(:custom_redirection_after_login,
-                                         current_person)
-
     if params[:return_to]
       redirect_to url_for(params[:return_to])
-    elsif plugin_url.present?
-      plugin_url = plugin_url.is_a?(Hash) ? url_for(plugin_url) : plugin_url
-      redirect_to plugin_url
     elsif environment.enabled?('allow_change_of_redirection_after_login')
       check_redirection_options(user, user.preferred_login_redirection, user.admin_url)
     else
