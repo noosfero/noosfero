@@ -158,9 +158,9 @@ class CommunityTest < ActiveSupport::TestCase
     c = fast_create(Community, :name => 'test_com')
     f = fast_create(Folder, :name => 'folder', :profile_id => c.id)
     u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    older_t = fast_create(TextArticle, :name => 'old news', :profile_id => c.id)
-    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id)
-    t_in_f = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
+    older_t = fast_create(TextArticle, :name => 'old news', :profile_id => c.id, :published_at => 3.days.ago)
+    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :published_at => 1.day.ago)
+    t_in_f = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id, :published_at => 1.hour.ago)
 
     assert_equal [t_in_f, t], c.news(2)
   end
@@ -179,6 +179,20 @@ class CommunityTest < ActiveSupport::TestCase
     t = fast_create(TextArticle, :name => 'news', :profile_id => c.id)
 
     assert_equal [highlighted_t].map(&:slug), c.news(2, true).map(&:slug)
+  end
+
+  should 'use metadata field to order results' do
+    community = fast_create(Community)
+    article1 = fast_create(TextArticle, profile_id: community.id, highlighted: true)
+    article2 = fast_create(TextArticle, profile_id: community.id, highlighted: true)
+    article3 = fast_create(TextArticle, profile_id: community.id, highlighted: true)
+
+    article1.metadata['order'] = 0
+    article1.save
+    article2.metadata['order'] = 1
+    article2.save
+
+    assert_equal community.news(3, true), [article3, article1, article2]
   end
 
   should 'sanitize description' do

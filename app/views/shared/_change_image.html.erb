@@ -1,5 +1,32 @@
-<%= file_field_tag("#{for_attr}[uploaded_data]", { onchange: 'update_image(this)', style: 'display: none;' } ) %>
-<%= button_to_function :plus, _('Add image'), "add_new_image(this); return false;", class: "button with-text icon-plus" %>
-<%= content_tag :span, '', id: 'img_name' %>
-<%= labelled_form_field(_("Image Label:"), text_field_tag("#{for_attr}[label]")) %>
-<%= button_to_function(:cancel, _('Cancel'),"jQuery('#change-image-link').show(); jQuery('#change-image').hide()", :id => 'cancel-change-image-link', style: 'display: none')%>
+<div class='file-fieldset'>
+
+    <div id='change-image'
+         style='<%= "display:#{display}" if local_assigns.has_key?(:display) %>'>
+
+    <%= button_to_function :plus, _('Add image'), "add_new_image(this)",
+                           class: "button with-text icon-plus" %>
+
+    <%= file_field_tag("#{for_attr}[uploaded_data]",
+                       { :onchange => 'cropImage(this)',
+                         :accept => ".jpg, .gif, .png, .bmp",
+                         :class => "picture-input" } ) %>
+
+    <div><%= _("Max size: %s (.jpg, .gif, .png, .bmp, .tiff)").html_safe % Image.max_size.to_humanreadable %></div>
+
+    <%= labelled_form_field(_("Image Label:"), text_field_tag("#{for_attr}[label]")) %>
+
+    <%= button_to_function(:cancel,_('Cancel'), 'hideen_change_image()',
+                           :id => 'cancel-change-image-link',
+                           :style => 'display: none') %>
+
+    <%= render :partial => 'shared/crop_image_form', :locals => { :for_attr => for_attr } %>
+    <%= modal_inline_link_to '', '#', '#crop-image', id: "crop-image-button", style: "display: none" %>
+    <%= render 'shared/crop_image' %>
+
+  </div>
+
+  <%= render :partial => 'shared/cropped_image_preview',
+                :locals => { :type => type } %>
+</div>
+
+<%= javascript_include_tag 'cropped_image' %>

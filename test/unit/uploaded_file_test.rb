@@ -195,8 +195,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'have a default image if thumbnails were not processed' do
-    file = UploadedFile.new
-    file.expects(:thumbnailable?).returns(true)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
     assert_equal '/images/icons-app/image-loading-thumb.png', file.public_filename
   end
 
@@ -446,4 +445,44 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal file2.size, profile.metadata['disk_usage']
   end
 
+  should 'create cropped image' do
+
+    File.stubs(:extname).returns('.png')
+    Magick::Image.stubs(:crop!).returns(true)
+    Magick::Image.stubs(:write).returns(true)
+
+    assert_difference 'UploadedFile.count', 1 do
+      file = create(UploadedFile, :profile => profile,
+                    :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
+                    :crop_x => 0, :crop_y => 0, :crop_w => 25, :crop_h => 25)
+    end
+  end
+
+  should 'create image without crop if don\'t have cropping meassures' do
+
+    File.stubs(:extname).returns('.png')
+    Magick::Image.stubs(:crop!).returns(true)
+    Magick::Image.stubs(:write).returns(true)
+
+    Magick::Image.expects(:crop!).times(0)
+
+    assert_difference 'UploadedFile.count', 1 do
+      file = create(UploadedFile, :profile => profile,
+                    :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    end
+  end
+
+  should 'create file without calling the crop if it is not an image' do
+
+    File.stubs(:extname).returns('.txt')
+    Magick::Image.stubs(:crop!).returns(true)
+    Magick::Image.stubs(:write).returns(true)
+
+    Magick::Image.expects(:crop).times(0)
+
+    assert_difference 'UploadedFile.count', 1 do
+      file = create(UploadedFile, :profile => profile,
+                    :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
+    end
+  end
 end

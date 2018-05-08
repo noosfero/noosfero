@@ -66,7 +66,6 @@ class TasksController < MyProfileController
           end
         end
       end
-    end
 
     url = tasks_url(:action => 'index')
     if failed.blank?
@@ -76,6 +75,7 @@ class TasksController < MyProfileController
       url = tasks_url(:action => 'index', :failed => failed)
     end
     redirect_to url
+    end
   end
 
   def new

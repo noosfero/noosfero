@@ -25,9 +25,8 @@
     <div class='button' id="category-loading-<%= category.id %>" style="position: relative;">    
       <a href="#" id="hide-button-<%= category.id %>" class="hide-button" onclick="return false;" data-category="<%= category.id %>"><%= _('Hide subcategories') %></a>
     </div>
-    
+  </div>  
   <% end %>
-  </div>
 </div>
 
 <ul id="category-sub-items-<%= category.id %>" class="tree" style="display:none;"></ul>

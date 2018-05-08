@@ -9,6 +9,7 @@ class FriendsBlock < PeopleBlockBase
   end
 
   def default_title
+    return _('friends') if profile_count == 0
     n_('{#} friend', '{#} friends', profile_count)
   end
 

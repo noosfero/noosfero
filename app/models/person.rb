@@ -93,7 +93,7 @@ class Person < Profile
   def memberships
     scopes = []
     plugins_scopes = plugins.dispatch_scopes(:person_memberships, self)
-    scopes = plugins_scopes unless plugins_scopes.first.blank?
+    scopes = plugins_scopes
     scopes << Profile.memberships_of(self)
     return scopes.first if scopes.size == 1
     ScopeTool.union *scopes
@@ -258,7 +258,6 @@ class Person < Profile
 
   FIELDS = %w[
   description
-  image
   preferred_domain
   nickname
   sex
@@ -679,4 +678,9 @@ class Person < Profile
     Task.to(self).pending
   end
 
+  def self.exportable_fields(environment)
+    active_fields = environment.active_person_fields
+    { base: %w[name updated_at created_at identifier lat lng] + active_fields,
+      user: %w[email last_login_at] }
+  end
 end

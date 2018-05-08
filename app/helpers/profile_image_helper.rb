@@ -45,8 +45,8 @@ module ProfileImageHelper
 
   def profile_icon( profile, size=:portrait, return_mimetype=false )
     filename, mimetype = '', 'image/png'
-    if profile.image
-      filename = profile.image.public_filename( size )
+    if profile.image.present?
+      filename = profile.image.public_filename(size)
       mimetype = profile.image.content_type
     else
       icon =

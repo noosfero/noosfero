@@ -32,7 +32,8 @@ module ButtonsHelper
     people:            'user',
     save_and_continue: 'cloud-upload',
     spread:            'share-alt',
-    text:              'file-o'
+    text:              'file-o',
+    menu:              'align-justify'
   }
 
   def font_awesome type, label = ""

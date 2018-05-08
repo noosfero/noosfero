@@ -1,59 +1,33 @@
-require 'csv'
 
 class UsersController < AdminController
 
   protect 'manage_environment_users', :environment
 
+  before_filter :set_person, except: [:index, :download, :send_mail]
+
   include UsersHelper
 
   def index
-    @filter = params[:filter] || 'all_users'
-    scope = environment.people.no_templates
-    if @filter == 'admin_users'
-      scope = scope.admins
-    elsif @filter == 'activated_users'
-      scope = scope.activated
-    elsif @filter == 'deactivated_users'
-      scope = scope.deactivated
-    elsif @filter == 'recently_logged_users'
-      days = 90
-      scope = scope.recent
-
-      if params[:filter_number_of_days] == nil
-        scope = scope.where('last_login_at > ?', (Date.today - 0))
-      else
-        days = 100000
-        hash = params[:filter_number_of_days]
-        days = hash[:"{:controller=>\"user\", :action=>\"index\"}"]
-        scope = scope.where('last_login_at > ?', (Date.today - days.to_i))
-      end
-    end
-    scope = scope.order('name ASC')
-    @q = params[:q]
-    @collection = find_by_contents(:people, environment, scope, @q, {:per_page => per_page, :page => params[:npage]})[:results]
+    @collection = filter_users(per_page: per_page, page: params[:npage])
   end
 
   def set_admin_role
-    person = environment.people.find(params[:id])
-    environment.add_admin(person)
+    environment.add_admin(@person)
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
   def reset_admin_role
-    person = environment.people.find(params[:id])
-    environment.remove_admin(person)
+    environment.remove_admin(@person)
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
   def activate
-    person = environment.people.find(params[:id])
-    person.user.activate!
+    @person.user.activate!
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
   def deactivate
-    person = environment.people.find(params[:id])
-    person.user.deactivate
+    @person.user.deactivate
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
@@ -70,28 +44,17 @@ class UsersController < AdminController
   end
 
   def download
+    users = filter_users(per_page: environment.users.count, page: nil)
+    exporter = Exporter.new(users, Person.exportable_fields(environment))
+    date = Time.current.strftime('%Y-%m-%d %Hh%Mm')
+    filename = _('%s people list - %s') % [environment.name, date]
+
     respond_to do |format|
-      format.html
       format.xml do
-        users = User.where(:environment_id => environment.id).includes(:person)
-        send_data users.to_xml(
-            :skip_types => true,
-            :only => %w[email login created_at updated_at last_login_at],
-            :include => { :person => {:only => %w[name updated_at created_at address birth_date contact_phone identifier lat lng] } }),
-          :type => 'text/xml',
-          :disposition => "attachment; filename=users.xml"
+        send_data exporter.to_xml, type: 'text/xml', filename: "#{filename}.xml"
       end
       format.csv do
-        # using a direct connection with the dbms to optimize
-        command = User.send(:sanitize_sql, ["SELECT profiles.name, users.email, users.last_login_at FROM profiles
-                                             INNER JOIN users ON profiles.user_id=users.id
-                                             WHERE profiles.environment_id = ?", environment.id])
-        users = User.connection.execute(command)
-        csv_content = "name;email;last_login_at\n"
-        users.each { |u|
-          csv_content << CSV.generate_line([u['name'], u['email'], u['last_login_at']], {:col_sep => ';'})
-        }
-        render :text => csv_content, :content_type => 'text/csv', :layout => false
+        send_data exporter.to_csv, type: 'text/csv', filename: "#{filename}.csv"
       end
     end
   end
@@ -119,4 +82,37 @@ class UsersController < AdminController
     10
   end
 
+  def filter_users(pagination_opts)
+    @filter = params[:filter] || 'all_users'
+    @q = params[:q]
+
+    scope = environment.people.no_templates
+    if @filter == 'admin_users'
+      scope = scope.admins
+    elsif @filter == 'activated_users'
+      scope = scope.activated
+    elsif @filter == 'deactivated_users'
+      scope = scope.deactivated
+    elsif @filter == 'recently_logged_users'
+      days = 90
+      scope = scope.recent
+
+      if params[:filter_number_of_days] == nil
+        scope = scope.where('last_login_at > ?', (Date.today - 0))
+      else
+        days = 100000
+        hash = params[:filter_number_of_days]
+        days = hash[:"{:controller=>\"user\", :action=>\"index\"}"]
+        scope = scope.where('last_login_at > ?', (Date.today - days.to_i))
+      end
+    end
+
+    scope = scope.order('name ASC')
+    find_by_contents(:people, environment, scope, params[:q],
+                     pagination_opts)[:results]
+  end
+
+  def set_person
+    @person = environment.people.find_by(id: params[:id])
+  end
 end

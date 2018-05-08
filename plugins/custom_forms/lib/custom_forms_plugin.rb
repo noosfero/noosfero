@@ -18,8 +18,8 @@ class CustomFormsPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-      CustomFormsPlugin::SurveyBlock => { },
-      CustomFormsPlugin::PollsBlock => { }
+      CustomFormsPlugin::SurveyBlock => {:type => [Person, Community, Enterprise]},
+      CustomFormsPlugin::PollsBlock => {:type => [Person, Community, Enterprise]},
     }
   end
 

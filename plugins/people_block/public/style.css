@@ -61,7 +61,8 @@
  *******************************************************************/
 #content .box-1 .people-block ul,
 #content .box-1 .friends-block ul,
-#content .box-1 .members-block ul {
+#content .box-1 .members-block ul
+{
   width: auto;
   display: block;
 }

@@ -1065,7 +1065,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     env.save!
     get :edit, :profile => profile.identifier
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[image_builder][uploaded_data]' }
-    assert_tag :tag => 'div', :attributes => { :id => 'profile_change_picture' }
+    assert_tag :tag => 'div', :attributes => { :id => 'change-image' }
   end
 
   should 'add extra content on person info from plugins' do

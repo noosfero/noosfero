@@ -38,7 +38,7 @@ module Api
                 end
                 return forbidden! unless local_environment.allow_edit_design?(current_person)
                 block = block_type.constantize.new(:box => Box.new(:owner => local_environment))
-                present_partial block, :with => Entities::Block, display_api_content: true
+                present_partial block, :with => Entities::Block, display_api_content: true, :params => params
               end
             end
           end
@@ -49,14 +49,14 @@ module Api
         get ':id' do
           block = Block.find(params["id"])
           return forbidden! unless block.visible_to_user?(current_person) || block.allow_edit?(current_person)
-          present_partial block, :with => Entities::Block, display_api_content: true, current_person: current_person, api_content_params: params.except("id")
+          present_partial block, :with => Entities::Block, display_api_content: true, current_person: current_person, api_content_params: params.except("id"), :params => params
         end
 
         post ':id' do
           block = Block.find(params["id"])
           return forbidden! unless block.allow_edit?(current_person)
           block.update_attributes!(asset_with_images(params[:block]))
-          present_partial block, :with => Entities::Block, display_api_content: true, current_person: current_person, api_content_params: params.except("id")
+          present_partial block, :with => Entities::Block, display_api_content: true, current_person: current_person, api_content_params: params.except("id"), :params => params
         end
       end
 

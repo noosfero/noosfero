@@ -9,7 +9,7 @@
 
 <div>
   <% if list.empty? %>
-    <div class='common-profile-list-block-none'><%= _('None') %></div>
+    <div class='common-profile-list-block-none'><%= _('This profile is not member of any community yet.') %></div>
   <% else %>
     <ul class="common-profile-list-block"><%= list.html_safe %></ul>
   <% end %>

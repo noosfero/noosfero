@@ -491,6 +491,13 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Extends person list of friends
+  # returns = An instance of ActiveRecord::NamedScope::Scope retrieved through
+  # friends relationship.
+  def person_friends(person)
+    nil
+  end
+
   # -> Extends person memberships list
   # returns = An instance of ActiveRecord::NamedScope::Scope retrived through
   # Person.memberships_of method.
@@ -731,6 +738,12 @@ class Noosfero::Plugin
   #   OBS: The default value is a empty hash.
   def self.extra_blocks
     {}
+  end
+
+  # -> Adds extra options to CMS forms
+  # returns = lambda block that creates html code or raw rhtml/html.erb
+  def cms_extra_options
+    nil
   end
 
   def api_custom_login request

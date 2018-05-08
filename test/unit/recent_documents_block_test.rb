@@ -114,11 +114,22 @@ class RecentDocumentsBlockViewTest < ActionView::TestCase
     render_block_content(block)
   end
 
-  should 'display a link to sitemap with title "All content"' do
-    ActionView::Base.any_instance.expects(:link_to).with('All content', :controller => 'profile', :action => 'sitemap', :profile => profile.identifier)
-    ActionView::Base.any_instance.expects(:_).with('All content').returns('All content')
+  should 'display a link to sitemap with title "View All"' do
+    profile = fast_create(Community)
+    article = fast_create(TextArticle, profile_id: profile.id)
+    block = RecentDocumentsBlock.new
+    box = mock
+    block.expects(:box).returns(box).at_least_once
+    box.expects(:owner).returns(profile.reload).at_least_once
 
-    render_block_footer(block)
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View all")
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
+
+    footer = render_block_footer(block)
+    assert_select 'a.view-all'
   end
 
   should 'not display link to sitemap when owner is environment' do

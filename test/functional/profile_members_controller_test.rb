@@ -287,7 +287,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     p7.name = 'Bli'
     p7.save!
 
-    get :search_user, :profile => e.identifier, 'q_'+r1.key => 'per', :role => r1.id
+    get :search_user, :profile => e.identifier, 'q_'+r1.key => 'Per', :role => r1.id
     assert_match /#{p1.name}/, @response.body
     assert_match /#{p2.name}/, @response.body
     assert_no_match /#{p3.name}/, @response.body

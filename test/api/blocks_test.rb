@@ -162,6 +162,7 @@ class BlocksTest < ActiveSupport::TestCase
     Environment.default.add_admin(person)
     base64_image = create_base64_image
     params[:block] = {images_builder: [base64_image]}
+    params[:optional_fields] = 'images'
     post "/api/v1/blocks/#{block.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal 201, last_response.status

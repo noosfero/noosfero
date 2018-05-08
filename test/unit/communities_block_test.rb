@@ -55,18 +55,30 @@ class CommunitiesBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
   should 'support profile as block owner' do
-    profile = Profile.new
-    profile.identifier = 42
+    env = fast_create(Environment)
+    community = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+
+    relation = RoleAssignment.new(:resource_id => community.id, :resource_type => 'Profile', :role_id => 3)
+    relation.accessor = profile
+    relation.save
+
+    block = CommunitiesBlock.new
+    block.box = env.boxes.first
+    block.save
+    block.expects(:owner).returns(profile).at_least_once
+
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     ActionView::Base.any_instance.stubs(:user).with(anything).returns(profile)
     ActionView::Base.any_instance.stubs(:profile).with(anything).returns(profile)
 
-    block = CommunitiesBlock.new
-    block.expects(:owner).returns(profile).at_least_once
-
     footer = render_block_footer(block)
 
-    assert_tag_in_string footer, tag: 'a', attributes: {href: '/profile/42/communities'}
+    assert_tag_in_string footer, tag: 'a', attributes: {href: "/profile/#{profile.identifier}/communities"}
 
     ActionView::Base.any_instance.unstub(:user)
     ActionView::Base.any_instance.unstub(:profile)
@@ -74,14 +86,22 @@ class CommunitiesBlockViewTest < ActionView::TestCase
 
   should 'support environment as block owner' do
     env = Environment.default
+    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+
     block = CommunitiesBlock.new
+    block.box = env.boxes.first
+    block.save
     block.expects(:owner).returns(env).at_least_once
 
-    profile = Profile.new
-    profile.identifier = 42
+    ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
+    ActionView::Base.any_instance.stubs(:block_title).returns("")
+    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
+
 
     ActionView::Base.any_instance.stubs(:user).with(anything).returns(profile)
-    ActionView::Base.any_instance.stubs(:profile).with(anything).returns(profile)
+    ActionView::Base.any_instance.stubs(:profile).with(anything).returns(env)
 
     footer = render_block_footer(block)
 

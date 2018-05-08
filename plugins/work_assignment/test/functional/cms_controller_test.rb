@@ -31,14 +31,17 @@ class CmsControllerTest < ActionController::TestCase
   should 'redirect to Work Assignment view page after upload submission' do
     @organization.add_member(@person)
     work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
-    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')] , :back_to => @work_assignment.url
+    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')}},
+         :back_to => @work_assignment.url
     assert_redirected_to work_assignment.url
   end
 
   should 'upload submission and automatically move it to the author folder' do
     work_assignment = create_work_assignment('Work Assignment', @organization, nil, nil)
     @organization.add_member(@person)
-    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')}}
     submission = UploadedFile.last
     assert_equal work_assignment.find_or_create_author_folder(@person), submission.parent
   end
@@ -53,14 +56,16 @@ class CmsControllerTest < ActionController::TestCase
     @organization.add_member(@person)
     work_assignment = create_work_assignment('Work Assignment', @organization, true, nil)
     assert_equal true, work_assignment.publish_submissions
-    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')}}
     submission = UploadedFile.last
     assert_equal work_assignment.publish_submissions, submission.published
     assert_equal work_assignment.publish_submissions, submission.parent.published
 
     other_work_assignment = create_work_assignment('Other Work Assigment', @organization, false, nil)
     assert_equal false, other_work_assignment.publish_submissions
-    post :upload_files, :profile => @organization.identifier, :parent_id => other_work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => @organization.identifier, :parent_id => other_work_assignment.id,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')}}
     submission = UploadedFile.last
     assert_equal other_work_assignment.publish_submissions, submission.published
     assert_equal other_work_assignment.publish_submissions, submission.parent.published
@@ -72,7 +77,8 @@ class CmsControllerTest < ActionController::TestCase
 
     assert !work_assignment.publish_submissions
 
-    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => @organization.identifier, :parent_id => work_assignment.id,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain') }}
     submission = UploadedFile.last
 
     assert !submission.show_to_followers?
@@ -83,7 +89,8 @@ class CmsControllerTest < ActionController::TestCase
 
     assert_equal true, other_work_assignment.publish_submissions
 
-    post :upload_files, :profile => @organization.identifier, :parent_id => other_work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+    post :upload_files, :profile => @organization.identifier, :parent_id => other_work_assignment.id,
+         :uploaded_files => { "0" => { :file => fixture_file_upload('/files/test.txt', 'text/plain')}}
     submission = UploadedFile.last
 
     assert submission.show_to_followers?

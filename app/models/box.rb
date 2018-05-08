@@ -11,6 +11,7 @@ class Box < ApplicationRecord
   include Noosfero::Plugin::HotSpot
 
   scope :with_position, -> { where 'boxes.position > 0' }
+  scope :with_blocks, -> { includes({blocks: :box}) }
 
   def environment
     owner ? (owner.kind_of?(Environment) ? owner : owner.environment) : nil
