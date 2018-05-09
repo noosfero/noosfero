@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cmd="$@"
-
 bundle check || bundle install
 
 echo "copying config/database.yml.docker -> config/database.yml"
@@ -29,7 +27,7 @@ echo "POSTGRES IS UP, CONTINUE"
 
 echo "RUNNING MIGRATIONS"
 if bundle exec rake db:exists; then
-  bundle exec rake db:migrate
+  bundle exec rake db:migrate   
 else
   bundle exec rake db:create
   bundle exec rake db:schema:load
@@ -42,4 +40,4 @@ if [ -f $pidfile ] ; then
   rm $pidfile
 fi
 
-exec $cmd
+bundle exec rails s -b 0.0.0.0
