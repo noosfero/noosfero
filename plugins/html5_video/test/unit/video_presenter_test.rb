@@ -52,7 +52,7 @@ class VideoPresenterTest < ActiveSupport::TestCase
     data = video1.tiniest_web_version(:OGV)
     # Path will not match completely, since we are caching conversions
     assert_equal h2s(data.except :path), h2s(
-      :type=>:OGV, :size_name=>"tiny", :status=>"done",
+      :type=>:OGV, :size_name=>"low", :status=>"done",
       :fps=>12, :abrate=>64, :vbrate=>250, :size=>{:h=>212, :w=>320},
       :file_name=>"tiny.ogv" )
     assert data[:path].present?

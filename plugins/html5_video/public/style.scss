@@ -19,7 +19,7 @@
 .video-list-item a {
   display: block;
   height: 100%;
-  background-size: 200px 720px !important;
+  background-size: 200px 720px;
   background-position: 50% -120px;
   background-repeat: no-repeat;
   position: relative;
@@ -32,7 +32,7 @@
   width: 100%;
   height: 100%;
   display: block;
-  background-size: 200px 720px !important;
+  background-size: 200px 720px;
 }
 
 @keyframes fadein {
