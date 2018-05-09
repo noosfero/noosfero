@@ -25,6 +25,7 @@
       <tr>
         <th class="poll-type"><%= _('Type') %></th>
         <th class="poll-option"><%= _('Option') %></th>
+        <th class="poll-preselected"><%= _('Preselected') %></th>
         <th class="poll-remove"><%= _('Remove') %></th>
       </tr>
     </thead>
@@ -37,6 +38,9 @@
           <td class="poll-option">
             <%= alternative.text_field(:label, placeholder: _('Add option'), class: 'poll-option-input', 'data-default-placeholder' => _('Option')) %>
             <%= alternative.hidden_field(:position) %>
+          </td>
+          <td class="poll-preselected">
+            <%= alternative.check_box(:selected_by_default) %>
           </td>
           <td class="poll-remove">
             <%= button_without_text :remove, _('Remove field'), '#', class: 'remove-poll-option' %>
@@ -51,6 +55,9 @@
         <td class="poll-option">
           <%= text_field_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.size}][label]", '', placeholder: _('Add option'), class: 'poll-option-input', 'data-default-placeholder' => _('Option')) %>
           <%= hidden_field_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.size}][position]", field.alternatives.size, class: 'poll-option-position') %>
+        </td>
+        <td class="poll-preselected">
+          <%= check_box_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.size}][selected_by_default]", '1', false) %>
         </td>
         <td class="poll-remove">
           <%= button_without_text :remove, _('Remove field'), '#', class: 'remove-poll-option' %>

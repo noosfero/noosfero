@@ -202,13 +202,18 @@ tr.addition-buttons {
 }
 
 .poll-option {
-  width: 75%;
+  width: 50%;
   padding-left: 0px;
+}
+
+.poll-preselected {
+  text-align: center;
+  width: 20%;
 }
 
 .poll-remove {
   text-align: center;
-  width: 15%;
+  width: 20%;
 }
 
 .poll-type-icon {
