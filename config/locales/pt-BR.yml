@@ -229,6 +229,8 @@
     attributes:
       user:
         password: "senha"
+        terms_accepted: "Termos de uso"
+
     errors:
       messages:
         <<: *errors_messages
