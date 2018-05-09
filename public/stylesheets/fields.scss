@@ -101,42 +101,32 @@ code input {
 }
 
 .required-fields-msg {
-	color: red;
+  color: red;
 }
 
 .required-field label.formlabel:after {
-	color: red;
+  color: red;
   content: '*';
 }
 
-#content #location-support-fields {
-  margin: 5px 0 25px;
-
-  .formfield {
-    margin-bottom: 10px;
-
-    input, select {
-      width: 100%;
-    }
-  }
-
-  .location-support-fields-row {
+#content .address-fields {
+  .field-with-privacy-selector {
     display: flex;
-    justify-content: space-between;
+    margin-bottom: 5px;
 
-    select, input {
-      width: 49%;
+    > select, > input, span.required-field {
+      flex: 1;
+      margin-right: 5px;
     }
-  }
 
-  input {
-    padding: 2px 0;
-  }
+    span.required-field {
+      input, select {
+        width: 100%;
+      }
+    }
 
-  &.loading {
-    cursor: progress;
-    pointer-events: none;
-    background: transparent url(../images/loading.gif) no-repeat scroll center 50px;
-    opacity: 0.5;
+    .field-privacy-selector {
+      width: auto;
+    }
   }
 }

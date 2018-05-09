@@ -11,7 +11,9 @@ Feature: Location
 
   Scenario: editing my address
     Given the following Person fields are active fields
-      | location |
+      | address  |
+      | country  |
+      | zip_code |
     And I go to zezinho's control panel
     And I follow "Location"
     When I fill in "Address" with "Rua Marechal Floriano, 28"
@@ -24,7 +26,9 @@ Feature: Location
 
   Scenario Outline: editing address of collectives
     Given the following <class> fields are active fields
-      | location  |
+      | address  |
+      | country  |
+      | zip_code |
     Given the following <plural>
       | identifier   | name    | owner   |
       | mycollective | My Collective | zezinho |

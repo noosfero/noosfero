@@ -233,3 +233,9 @@
 #signup-form-profile {
   margin-bottom: 50px;
 }
+
+#signup-form #address-and-location .address-fields {
+  select, input {
+    margin-bottom: 10px;
+  }
+}

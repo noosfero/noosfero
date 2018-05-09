@@ -87,7 +87,7 @@ Feature: organization custom fields
     When I follow <creation_button>
     Then I should see "Display name"
     Then I should see "Contact email"
-    Then I should see "City"
+    Then I should see "Location"
   Examples:
     | organization  | creation_button             |
     | community     | "Create a new community"    |
