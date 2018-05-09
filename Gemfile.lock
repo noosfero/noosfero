@@ -151,6 +151,7 @@ GEM
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.1)
     contacts (1.2.4)
       gdata (= 1.1.1)
       json (>= 0.4.1)
@@ -226,6 +227,7 @@ GEM
       rack
     hkdf (0.3.0)
     hpricot (0.8.6)
+    http-2 (0.9.0)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (1.0.1)
@@ -265,6 +267,10 @@ GEM
     mustermann (1.0.2)
     mustermann-grape (1.0.0)
       mustermann (~> 1.0.0)
+    net-http-persistent (3.0.0)
+      connection_pool (~> 2.2)
+    net-http2 (0.17.0)
+      http-2 (= 0.9.0)
     netrc (0.11.0)
     nio4r (2.3.1)
     nokogiri (1.8.2)
@@ -329,6 +335,14 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rmagick (2.16.0)
+    rpush (3.1.1)
+      activesupport
+      ansi
+      multi_json (~> 1.0)
+      net-http-persistent
+      net-http2 (~> 0.14)
+      railties
+      thor (>= 0.18.1, < 2.0)
     rspec (3.7.0)
       rspec-core (~> 3.7.0)
       rspec-expectations (~> 3.7.0)
@@ -487,6 +501,7 @@ DEPENDENCIES
   rest-client
   rmagick (~> 2.13)
   rmagick4j
+  rpush
   rspec
   rspec-rails
   ruby-feedparser
