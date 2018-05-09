@@ -216,6 +216,11 @@
       body: "There were problems with the following fields:"
 
   activerecord:
+    attributes:
+      user:
+        terms_accepted: "Terms of use"
+
+  activerecord:
     errors:
       messages:
         <<: *errors_messages

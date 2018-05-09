@@ -140,7 +140,7 @@ class User < ApplicationRecord
   before_save :generate_private_token_if_not_exist
   validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|user| !user.email.blank?})
 
-  validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('{fn} must be checked in order to signup.').fix_i18n
+  validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => _('must be accepted in order to signup.').fix_i18n
 
   scope :has_login?, lambda { |login,email,environment_id|
     where('login = ? OR email = ?', login, email).
