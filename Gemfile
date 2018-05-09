@@ -64,7 +64,7 @@ gem 'liquid'
 gem 'uglifier'
 gem 'sass-rails',		                '~> 5.0.7'
 gem 'sass',			                    '~> 3.5.6'
-gem 'sprockets-rails',		          '~> 3.2.1'
+gem 'sprockets-rails',		          '~> 2.3.1'
 
 gem 'serviceworker-rails'
 gem 'webpush'
