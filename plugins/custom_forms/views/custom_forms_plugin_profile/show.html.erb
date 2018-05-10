@@ -18,6 +18,13 @@
     <%= (@form.description || "").html_safe %>
   </div>
 
+  <% if @form.show_results_for(user) %>
+    <%= link_to _('See partial results'),
+                { controller: 'custom_forms_plugin_profile', action: 'review',
+                  id: @form.identifier },
+                class: 'partial-results-link' %>
+  <% end %>
+
   <% if @submission.id.nil? %>
     <% if @form.expired? %>
       <% if @form.will_open? %>
