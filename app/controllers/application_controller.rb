@@ -211,4 +211,14 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  def redirect_to_with_plugins(options = {}, response_status = {})
+    result = plugins.dispatch_first(:custom_redirect, user, params, options, response_status = {})
+    if result.present? && result[:options].present?
+      redirect_to_without_plugins(result[:options], result[:response_status])
+    else
+      redirect_to_without_plugins(options, response_status)
+    end
+  end
+  alias_method_chain :redirect_to, :plugins
 end
