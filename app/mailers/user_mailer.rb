@@ -22,17 +22,17 @@ class UserMailer < ApplicationMailer
     self.environment = user.environment
 
     @recipient = user.name
-    @activation_token = user.activation_code
     @short_activation_code = user.short_activation_code.try(:upcase)
     @url = user.environment.top_url
-    @redirection = (true if user.return_to)
-    @join = (user.community_to_join if user.community_to_join)
+    @activation_url = url_for(controller: :account, action: :activate,
+                              activation_token: user.activation_code,
+                              redirection: (true if user.return_to),
+                              join: user.community_to_join)
 
     mail_with_template(
       from: "#{user.environment.name} <#{user.environment.noreply_email}>",
       to: user.email,
       subject: _("[%s] Activate your account").html_safe % [user.environment.name],
-      template_params: {:environment => user.environment, :activation_code => @activation_code, :redirection => @redirection, :join => @join, :person => user.person, :url => @url},
       email_template: user.environment.email_templates.find_by_template_type(:user_activation),
     )
   end

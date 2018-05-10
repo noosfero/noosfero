@@ -10,10 +10,22 @@ module Notifiable
       unless respond_to?("#{verb}_settings", true)
         raise UnregisteredVerb, "Notification verb not registered"
       end
-      notify_by_mail(verb, *args)
-      notify_by_push(verb, *args)
-      notify_by_plugins(verb, *args)
+      notify_later(verb, *args)
     end
+
+    def notify_later(verb, *args)
+      env = environment if respond_to?(:environment)
+      env ||= Environment.default
+      locale = env.default_language || 'en'
+
+      Noosfero.with_locale(locale) do
+        notify_by_mail(verb, *args)
+        notify_by_push(verb, *args)
+        notify_by_plugins(verb, *args)
+      end
+    end
+
+    handle_asynchronously :notify_later
 
     private
 
@@ -46,10 +58,6 @@ module Notifiable
     def notify_by_plugins(verb, *args)
       plugins.dispatch(:custom_notification, verb, *args)
     end
-
-    handle_asynchronously :notify_by_mail
-    handle_asynchronously :notify_by_push
-
   end
 
   class_methods do
@@ -75,5 +83,4 @@ module Notifiable
       end
     end
   end
-
 end
