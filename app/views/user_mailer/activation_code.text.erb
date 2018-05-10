@@ -1,10 +1,9 @@
-<%= _('Hi, %{recipient}!') % { :recipient => @recipient } %>
+<%= _('Hi, %{recipient}!') % { recipient: @recipient } %>
 
-<%= _('Welcome to %{environment}!') %>
+<%= _('Welcome to %{environment}!') % { environment: @environment.name } %>
 <%= word_wrap(_('To activate your account you must enter your activation '\
                 'code. To do so, access your account or follow the link: '\
-                '%{activation_url}') % { environment: @environment.name,
-                                         activation_url: url_for(controller: :account, action: :activate, activation_token: @activation_token, redirection: @redirection, join: @join) }) %>
+                '%{activation_url}') % { activation_url: @activation_url }) %>
 
 <%= _('Your activation code is: %s') % @short_activation_code %>
 
