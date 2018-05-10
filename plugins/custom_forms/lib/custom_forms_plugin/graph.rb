@@ -64,7 +64,9 @@ class CustomFormsPlugin::Graph
     end
 
     alternatives.map do |alternative|
-      answer_and_label.merge!({alternative.id.to_s => {alternative.label => 0}})
+      label = alternative.label
+      short_label = label.present? && label.length > 70 ? label[0..70] + '...' : label
+      answer_and_label.merge!({alternative.id.to_s => {short_label => 0}})
     end
     answer_and_label.merge!({ "show_as" => field.show_as,
                               "summary" => field.summary,
