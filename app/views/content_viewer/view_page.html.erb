@@ -79,9 +79,6 @@
         <%= render :partial => 'comment/comment', :collection => @comments %>
       <% end %>
     </ul>
-    <% if @comments.present? && @curr_page < @total_pages %>
-      <%= render partial: 'comment/view_more_comments' %>
-    <% end %>
   </div><!-- end class="comments" -->
 <% end %>
 
