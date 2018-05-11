@@ -25,6 +25,7 @@ gem 'pothoven-attachment_fu'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'rake', :require => false
+gem 'netrc'
 gem 'rest-client'
 gem 'exception_notification'
 gem 'gettext', :require => false
