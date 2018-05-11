@@ -44,6 +44,7 @@
 *= require categories_selector.js
 *= require comments.js
 *= require offline_page.js
+*= require upload-file.js
 *
 * serviceworker
 *= require serviceworker-companion.js
@@ -854,24 +855,6 @@ jQuery(function($){
     hideAndGetUrl(this);
     return false;
   });
-
-  function loadMoreComments() {
-    $('#view-more-comments').click()
-
-    setTimeout(function(){
-      $(window).bind('scroll', bindScroll);
-    }, 800)
-
-  }
-
-  function bindScroll() {
-    let loadingPoint = $(document).height() - 300
-    if ($(window).scrollTop() + $(window).height() > loadingPoint) {
-      $(window).unbind('scroll');
-      loadMoreComments();
-    }
-  }
-  $(window).scroll(bindScroll);
 
   $('.focus-on-comment').live('click', function(e) {
      var link = this;

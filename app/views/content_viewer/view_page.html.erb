@@ -72,7 +72,7 @@
       <% end %>
     </div>
 
-    <ul class="article-comments-list" id="article-comments-list">
+    <ul class="article-comments-list" id="article-comments-list" data-page="<%= @page.id %>" data-comment-page="<%= @curr_page %>">
       <% if @comments.present? %>
         <%= render :partial => 'comment/comment', :collection => @comments %>
       <% end %>
