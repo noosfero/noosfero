@@ -247,6 +247,7 @@ GEM
     multi_json (1.10.1)
     multi_test (0.1.1)
     multi_xml (0.5.5)
+    netrc (0.11.0)
     nokogiri (1.6.8.1)
     pg (0.17.1)
     pothoven-attachment_fu (3.2.16)
@@ -294,7 +295,7 @@ GEM
     rake (10.3.2)
     recaptcha (4.3.1)
       json
-    rest-client (1.6.7)
+    rest-client (2.0.2)
       mime-types (>= 1.16)
     rmagick (2.16.0)
     rspec (3.3.0)
@@ -428,6 +429,7 @@ DEPENDENCIES
   minitest-reporters
   mocha (~> 1.1.0)
   monkey_patches (= 0.0.0)!
+  netrc
   nokogiri (~> 1.6.0)
   pg (~> 0.17)
   pothoven-attachment_fu
