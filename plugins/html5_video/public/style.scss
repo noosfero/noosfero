@@ -4,12 +4,14 @@
   text-align: left;
 }
 
+.video-list li { margin-right: 20px; }
+
 .video-list-item {
   margin: 2px 1px;
   padding: 0px;
   list-style: none;
   display: inline-block;
-  width: 160px;
+  width: 22%;
   height: 120px;
   overflow: hidden;
 }
@@ -17,6 +19,7 @@
 .video-list-item a {
   display: block;
   height: 100%;
+  background-size: 200px 720px;
   background-position: 50% -120px;
   background-repeat: no-repeat;
   position: relative;
@@ -29,6 +32,7 @@
   width: 100%;
   height: 100%;
   display: block;
+  background-size: 200px 720px;
 }
 
 @keyframes fadein {
@@ -77,8 +81,9 @@
 }
 
 .video-channel .video-box {
-  float: left;
-  width: 400px;
+  width: 85%;
+  margin: auto;
+  margin-left: 60px;
 }
 .video-channel .zoom-in .video-box {
   float: none;
@@ -108,13 +113,11 @@
 }
 
 .video-player-info {
+  clear: both;
   text-align: left;
   margin-top: 10px;
 }
 
-.video-channel .video-player-info {
-  margin-left: 415px;
-}
 .video-channel .zoom-in .video-player-info {
   margin: 0px;
 }
@@ -215,3 +218,30 @@
 
 .icon-videochannel { background-image: url(/designs/icons/tango/Tango/16x16/mimetypes/video-x-generic.png) }
 .icon-newvideochannel { background-image: url(/designs/icons/tango/Tango/16x16/mimetypes/video-x-generic.png) }
+
+.video-footer-infos {
+  width: 85%;
+  margin-left: 60px;
+}
+.video-footer-infos .quality {
+  float: right;
+  margin-top: -5px;
+}
+
+.video-footer-infos h2 {
+  margin-top: 12px;
+}
+
+
+.video-footer-infos .quality * {
+  float: left;
+}
+
+.video-footer-infos .quality strong {
+  margin-top: 18px;
+  margin-right: -28px;
+}
+
+.video-footer-infos h2 {
+  float: left;
+}

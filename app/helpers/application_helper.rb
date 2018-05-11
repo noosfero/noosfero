@@ -989,10 +989,11 @@ module ApplicationHelper
 
   def usermenu_signup
     signup_str = '<strong>' + _('Sign up') + '</strong>'
-    ret = _("<span class='or'>or</span> <span class='signup'>%s</span>") % link_to(signup_str.html_safe, :controller => 'account', :action => 'signup')
+    _or = "<span class='or'>" + _('or') +" </span>"
+    ret = _("%s <span class='signup'>%s</span>") % [_or, link_to(signup_str.html_safe, :controller => 'account', :action => 'signup')]
     return ret.html_safe
-
   end
+
   def limited_text_area(object_name, method, limit, text_area_id, options = {})
     content_tag(:div, safe_join([
       text_area(object_name, method, { :id => text_area_id, :onkeyup => "limited_text_area('#{text_area_id}', #{limit})" }.merge(options)),

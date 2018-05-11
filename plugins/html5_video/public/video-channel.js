@@ -3,6 +3,10 @@
 **  Released under the same Noosfero's license
 */
 
+var _me = null;
+var showNextFrame = false;
+var nextFrameLoop;
+
 (function (exports, $) {
 "use strict";
 
@@ -23,11 +27,7 @@ exports.VideoChannel = function VideoChannel(baseEl) {
 
 VideoChannel.prototype.init = function() {
   var me = this;
-  $('.video-list-item', this.baseEl).each(
-    function(num, item) {
-      me.initItem(item);
-    }
-  );
+  _me = this;
   if ( $('.video-list li', this.baseEl)[0] ) {
     this.updatePlayer( $('li', this.baseEl).first() );
   } else {
@@ -36,7 +36,7 @@ VideoChannel.prototype.init = function() {
   }
 };
 
-VideoChannel.prototype.initItem = function(item) {
+VideoChannel.prototype.initItem = function(item, fade) {
   var me = this;
   $(item).click(function(){ me.updatePlayer(item, true); });
   var link = $('a', item)[0];
@@ -47,28 +47,30 @@ VideoChannel.prototype.initItem = function(item) {
   link.frameFade.style.backgroundImage = link.style.backgroundImage;
   link.addEventListener("animationend", function(){ link.nextFrame() }, false);
   link.addEventListener("webkitAnimationEnd", function(){ link.nextFrame() }, false);
-  link.nextFrame();
+  link.nextFrame(fade);
 };
 
 VideoChannel.nextFrame = function(fade) {
-  if ( !fade ) {
-    this.frameFade.style.opacity = 0.0;
-    this.frameFade.style.animationName = "";
-    this.frameFade.style.MozAnimationName = "";
-    this.frameFade.style.webkitAnimationName = "";
-    if ( !this.bgYPos ) this.bgYPos = 0;
-    this.style.backgroundPosition = "50% "+ ( this.bgYPos++ * -120 ) +"px";
-    if ( this.bgYPos > 5 ) this.bgYPos = 0;
-    this.frameFade.style.backgroundPosition = "50% "+ ( this.bgYPos * -120 ) +"px";
-    var link = this;
-    setTimeout( function(){ link.nextFrame(true) }, 10 );
-  } else {
-    this.frameFade.style.animationDuration = "1s";
-    this.frameFade.style.animationName = "fadein";
-    this.frameFade.style.MozAnimationDuration = "1s";
-    this.frameFade.style.MozAnimationName = "fadein";
-    this.frameFade.style.webkitAnimationDuration = "1s";
-    this.frameFade.style.webkitAnimationName = "'fadein'";
+  if (showNextFrame) { 
+    if ( !fade ) {
+      this.frameFade.style.opacity = 0.0;
+      this.frameFade.style.animationName = "";
+      this.frameFade.style.MozAnimationName = "";
+      this.frameFade.style.webkitAnimationName = "";
+      if ( !this.bgYPos ) this.bgYPos = 0;
+      this.style.backgroundPosition = "50% "+ ( this.bgYPos++ * -120 ) +"px";
+      if ( this.bgYPos > 5 ) this.bgYPos = 0;
+      this.frameFade.style.backgroundPosition = "50% "+ ( this.bgYPos * -120 ) +"px";
+      var link = this;
+      nextFrameLoop = setTimeout( function(){ link.nextFrame(true) }, 10 );
+    } else {
+      this.frameFade.style.animationDuration = "1s";
+      this.frameFade.style.animationName = "fadein";
+      this.frameFade.style.MozAnimationDuration = "1s";
+      this.frameFade.style.MozAnimationName = "fadein";
+      this.frameFade.style.webkitAnimationDuration = "1s";
+      this.frameFade.style.webkitAnimationName = "'fadein'";
+    }
   }
 };
 
@@ -123,10 +125,11 @@ NoosferoVideoPlayer.prototype.update = function(data, autoplay) {
   this.videoEl.autoplay = autoplay;
   this.poster = data.posterURL;
   this.videoEl.load();
-  var tags = data.tags || '<span class="empty">None</span>'
-  $(this.info.tags).empty().append(tags);
-  var desc = data.abstract || '<span class="empty">None</span>'
-  $(this.info.abstract).empty().append(desc);
+  var tags = data.tags || $('.tags').css('display', 'none')
+  var desc = data.abstract || $('.abstract').css('display', 'none')
+  if (data.abstract) {
+    $(this.info.abstract).empty().append(desc);
+  }
   this.info.downloadBt.href = data.videoURL;
 };
 
@@ -183,8 +186,8 @@ NoosferoVideoPlayer.prototype.zoomOut = function () {
 NoosferoVideoPlayer.prototype.selectWebVersion = function () {
   var video = null;
   var me = this;
-  var q1 = $.cookie("video_quality") || "tiny";
-  var q2 = ( q1 == "tiny" ) ? "nice" : "tiny";
+  var q1 = $.cookie("video_quality") || "low";
+  var q2 = ( q1 == "low" ) ? "high" : "low";
   var type = canPlay.webm ? "WEBM" : canPlay.ogg ? "OGV" : "MP4";
   if (  (video = this.getVideoFromList(type, q1))
      || (video = this.getVideoFromList(type, q2))
@@ -200,7 +203,13 @@ NoosferoVideoPlayer.prototype.getVideoFromList = function (type, quality) {
     log.info( 'The video list is empty' );
     return null;
   }
-  if ( quality.toLowerCase() != "nice" ) quality = "tiny";
+
+  if (quality.toLowerCase() == 'low') {
+    quality = "tiny";
+  } else {
+    quality = "nice";
+  }
+
   var selected = this.videoList[type][quality];
   log.info( 'getVideoFromList find:', selected );
   if ( selected && selected.status == "done" ) {
@@ -212,6 +221,7 @@ NoosferoVideoPlayer.prototype.getVideoFromList = function (type, quality) {
   }
 };
 
+
 }(window, jQuery));
 
 $(document).ready(function() {
@@ -220,4 +230,63 @@ $(document).ready(function() {
     parent.find('ul').slideToggle()
     parent.toggleClass('collapsed')
   })
-})
+
+  // Hide the initial zoomed video.
+  $("a[href=#video-box-anchor]").click(function() {
+    $(".video-player, .zoom-out").css("display", "block");
+  });
+
+  $('a[href*="#"]')
+  // Remove links that don't actually link to anything
+    .not('[href="#"]')
+    .not('[href="#0"]')
+    .click(function(event) {
+      // On-page links
+      if (
+        location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '')
+        &&
+        location.hostname == this.hostname
+      ) {
+        // Figure out element to scroll to
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+        // Does a scroll target exist?
+        if (target.length) {
+          // Only prevent default if animation is actually gonna happen
+          event.preventDefault();
+          $('html, body').animate({
+            scrollTop: target.offset().top
+          }, 1000, function() {
+            // Callback after animation
+            // Must change focus!
+            var $target = $(target);
+            $target.focus();
+            if ($target.is(":focus")) { // Checking if the target was focused
+              return false;
+            } else {
+              $target.attr('tabindex','-1'); // Adding tabindex for elements not focusable
+              $target.focus(); // Set focus again
+            };
+          });
+        }
+      }
+    });
+});
+
+var firstHover = true;
+function _triggerHoverEfect(element) {
+  setTimeout( function() { 
+    showNextFrame = true
+    _me.initItem(element, false);
+  }, 1000);
+}
+
+function _disableHoverEfect(element) {
+  if (!firstHover) {
+    showNextFrame = false;
+    clearTimeout(nextFrameLoop);
+  }
+  else {
+    firstHover = false;
+  }
+}

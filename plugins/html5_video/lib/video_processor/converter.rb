@@ -50,7 +50,7 @@ module VideoProcessor
       audio_stream = info[:streams].find{ |s| s[:type] == 'audio' }
       abrate = audio_stream.nil? ? 64 : audio_stream[:bitrate] || 64
       abrate = 64 if abrate > 64
-      conf = { size_name: 'tiny', in: @video_path,
+      conf = { size_name: 'low', in: @video_path,
                fps: 12, vbrate: 250, abrate: abrate }
 
       if video.is_big
@@ -92,7 +92,7 @@ module VideoProcessor
       else
         conf = { in: @video_path, vbrate: video.brate }
       end
-      conf[:size_name] = 'nice'
+      conf[:size_name] = 'high'
       if format == :OGV && ( video.is_toobig || ! video.is_ogv )
         conf[:file_name] = 'nice.ogv'
         result = @ffmpeg.make_ogv_for_web(conf)
