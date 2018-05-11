@@ -112,7 +112,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (106,'Araputanga','510125','51', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (107,'Barra do Bugres','510170','51', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (108,'Figueirópolis D''Oeste','510380','51', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (109,'510550','510550','51', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (109,'Vila Bela da Santíssima Trindade','510550','51', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (110,'Pontes e Lacerda','510675','51', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (111,'Porto Esperidião','510682','51', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (112,'Jauru','510500','51', 3);
@@ -222,7 +222,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (216,'Catuípe','430500','43', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (217,'Coronel Barros','430587','43', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (218,'Quevedos','431532','43', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (219,'430540','430540','43', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (219,'Chiapetta','430540','43', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (220,'Cruz Alta','430610','43', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (221,'Hulha Negra','430965','43', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (222,'Ijuí','431020','43', 3);
@@ -556,7 +556,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (550,'Curuá','150285','15', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (551,'Monte Alegre','150480','15', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (552,'Prainha','150600','15', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (553,'160080','160080','16', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (553,'Vitória do Jari','160080','16', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (554,'Abaetetuba','150010','15', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (555,'Abel Figueiredo','150013','15', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (556,'Acará','150020','15', 3);
@@ -742,7 +742,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (736,'Marilena','411500','41', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (737,'Porto Rico','412020','41', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (738,'São Pedro do Paraná','412590','41', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (739,'500200','500200','50', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (739,'Batayporã','500200','50', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (740,'Nova Londrina','411710','41', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (741,'Guairaçá','410890','41', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (742,'Itaúna do Sul','411130','41', 3);
@@ -1788,7 +1788,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (1782,'Cariri do Tocantins','170386','17', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (1783,'Figueirópolis','170765','17', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (1784,'Gália','351660','35', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (1785,'352090','352090','35', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (1785,'Ipaussu','352090','35', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (1786,'Timburi','355460','35', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (1787,'Aurora','420190','42', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (1788,'Balneário Gaivota','420207','42', 3);
@@ -3260,7 +3260,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3254,'São Gonçalo','330490','33', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3255,'Itaboraí','330190','33', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3256,'Maricá','330270','33', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3257,'330515','330515','33', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3257,'São José do Vale do Rio Preto','330515','33', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3258,'Teresópolis','330580','33', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3259,'Sapucaia','330540','33', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3260,'Descoberto','312130','31', 3);
@@ -3309,7 +3309,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3303,'Ervália','312400','31', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3304,'Guiricema','312900','31', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3305,'Miraí','314220','31', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3306,'316443','316443','31', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3306,'São Sebastião da Vargem Alegre','316443','31', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3307,'São Miguel do Anta','316380','31', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3308,'Jequeri','313550','31', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3309,'Pedra do Anta','314880','31', 3);
@@ -3776,7 +3776,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3770,'Santa Cruz Cabrália','292770','29', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3771,'Santa Luzia','292805','29', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3772,'Una','293250','29', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3773,'290330','290330','29', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3773,'Barro Preto','290330','29', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3774,'Ibirapitanga','291270','29', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3775,'Ilhéus','291360','29', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (3776,'Jussari','291855','29', 3);
@@ -4209,7 +4209,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4203,'Geminiano','220435','22', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4204,'Itainópolis','220500','22', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4205,'Picos','220800','22', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4206,'220965','220965','22', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4206,'São Francisco de Assis do Piauí','220965','22', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4207,'Vera Mendes','221150','22', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4208,'América Dourada','290115','29', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4209,'Morro do Chapéu','292170','29', 3);
@@ -4856,7 +4856,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4850,'Casinhas','260415','26', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4851,'Vertente do Lério','261618','26', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4852,'Buenos Aires','260270','26', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4853,'260760','260760','26', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4853,'Ilha de Itamaracá','260760','26', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4854,'Itapissuma','260775','26', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4855,'Tracunhaém','261550','26', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4856,'Nazaré da Mata','260950','26', 3);
@@ -4979,7 +4979,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4973,'Alagoa Nova','250040','25', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4974,'Coremas','250480','25', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4975,'Montadas','250950','25', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4976,'251510','251510','25', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4976,'São Sebastião de Lagoa de Roça','251510','25', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4977,'Areial','250120','25', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4978,'Cachoeira dos Índios','250330','25', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (4979,'Cajazeiras','250370','25', 3);
@@ -5447,7 +5447,7 @@ INSERT INTO national_regions (id,name,national_region_code,parent_national_regio
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (5441,'Oiapoque','160050','16', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (5442,'Amapá','160010','16', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (5443,'Ferreira Gomes','160023','16', 3);
-INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (5444,'160027','160027','16', 3);
+INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (5444,'Laranjal do Jari','160027','16', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (5445,'Mazagão','160040','16', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (5446,'Porto Grande','160053','16', 3);
 INSERT INTO national_regions (id,name,national_region_code,parent_national_region_code, national_region_type_id) VALUES (5447,'Macapá','160030','16', 3);

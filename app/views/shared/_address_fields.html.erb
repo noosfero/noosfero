@@ -1,24 +1,11 @@
 <%= javascript_include_tag 'address_fields' %>
 
-<div id='location-support-fields'>
-  <div class='location-support-fields-row formfield'>
-    <%= select_profile_country(profile) %>
-    <%= select_profile_state(profile) %>
-  </div>
+<div class='address-fields formfield'>
+  <%= optional_field(profile, 'country', select_profile_country(f.object_name, profile)) %>
+  <%= optional_field(profile, 'state', select_profile_state(f.object_name, profile)) %>
+  <%= optional_field(profile, 'city', select_profile_city(f.object_name, profile)) %>
 
-  <div class='formfield'>
-    <%= select_profile_city(profile) %>
-  </div>
-
-  <div class='location-support-fields-row formfield'>
-    <%= text_field_tag('profile_data[district]', profile.district,
-                       id: 'profile_data_district', placeholder: _('District')) %>
-    <%= text_field_tag('profile_data[zip_code]', profile.zip_code,
-                       id: 'profile_data_zip_code', placeholder: _('ZIP code')) %>
-  </div>
-
-  <div class='formfield'>
-    <%= text_field_tag('profile_data[address]', profile.address,
-                       id: 'profile_data_address', placeholder: _('Address')) %>
-  </div>
+  <%= optional_field(profile, 'district', text_field(f.object_name, :district, placeholder: _('District'))) %>
+  <%= optional_field(profile, 'zip_code', text_field(f.object_name, :zip_code, placeholder: _('Zip code'))) %>
+  <%= optional_field(profile, 'address', text_field(f.object_name, :address, placeholder: _('Address'))) %>
 </div>

@@ -278,9 +278,8 @@ class Person < Profile
   organization_website
   contact_phone
   contact_information
-  full_address
   location
-  ]
+  ] + LOCATION_FIELDS
 
   validates_multiparameter_assignments
 
