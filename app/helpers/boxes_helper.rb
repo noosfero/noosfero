@@ -128,7 +128,7 @@ module BoxesHelper
     end
 
     options = {
-      :class => classes = ['block', block_css_classes(block) ].uniq.join(' '),
+      :class => classes = ['block', block.css, block_css_classes(block) ].uniq.join(' '),
       :id => "block-#{block.id}"
     }
     if ( block.respond_to? 'help' )

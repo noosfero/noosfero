@@ -110,6 +110,32 @@ class BoxesHelperTest < ActionView::TestCase
     assert block_css_classes(build(Block, :display => 'never')).split.any? { |item| item == 'invisible-block'}
   end
 
+  should 'add custom css class of block content' do
+    out= mock()
+    out.stubs(:output_buffer=).returns('')
+    out.stubs(:assign).returns('')
+    out.stubs(:render).returns('')
+    @controller.stubs(:params).returns('')
+    @controller.stubs(:view_context).returns(out)
+    block = fast_create(MainBlock)
+    block.css = 'custom-css-class'
+    output = display_block_content(block, nil).inspect
+    assert output.match(block.css)
+  end
+
+  should 'not include any csss class if block css parameter is nil' do
+    out= mock()
+    out.stubs(:output_buffer=).returns('')
+    out.stubs(:assign).returns('')
+    out.stubs(:render).returns('')
+    @controller.stubs(:params).returns('')
+    @controller.stubs(:view_context).returns(out)
+    block = fast_create(MainBlock)
+    block.css = nil
+    output = display_block_content(block, nil).inspect
+    assert output.match('block  main-block')
+  end
+
   should 'fill context with the article, request_path and locale' do
     request = mock()
     box = create(Box, :owner => fast_create(Profile))
