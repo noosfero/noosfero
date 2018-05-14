@@ -133,7 +133,7 @@ class BoxesHelperTest < ActionView::TestCase
     block = fast_create(MainBlock)
     block.css = nil
     output = display_block_content(block, nil).inspect
-    assert output.match('block  main-block')
+    assert output.match('block main-block')
   end
 
   should 'fill context with the article, request_path and locale' do
