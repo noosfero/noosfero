@@ -67,25 +67,25 @@ jobs:
       - image: alaxalves/noosfero-ci
     steps:
       - checkout
-      cache_directories:
+      - cache_directories:
         - "vendor/bundle"
         - "elasticsearch-2.4.3"
-      run:
-        name: preparing environment
-        command: |
-          sudo apt-get install po4a iso-codes libpq-dev libreadline-dev libxslt1-dev
-          mkdir -p tmp/{pids,cache} log cache
-      run:
-        name: post env preparation
-        command:  |
-          wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.4.3/elasticsearch-2.4.3.tar.gz
-          tar -xvf elasticsearch-2.4.3.tar.gz
-          elasticsearch-2.4.3/bin/elasticsearch: {background: true}
-          script/noosfero-plugins disableall
-          cp config/database.yml.circleci config/database.yml
-          bundle exec rake db:schema:load
-          ./script/quick-start
-          bundle exec rake db:migrate
+      - run:
+          name: preparing environment
+          command: |
+            sudo apt-get install po4a iso-codes libpq-dev libreadline-dev libxslt1-dev
+            mkdir -p tmp/{pids,cache} log cache
+      - run:
+          name: post env preparation
+          command:  |
+            wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.4.3/elasticsearch-2.4.3.tar.gz
+            tar -xvf elasticsearch-2.4.3.tar.gz
+            elasticsearch-2.4.3/bin/elasticsearch: {background: true}
+            script/noosfero-plugins disableall
+            cp config/database.yml.circleci config/database.yml
+            bundle exec rake db:schema:load
+            ./script/quick-start
+            bundle exec rake db:migrate
 
   specs-models:
     docker:
