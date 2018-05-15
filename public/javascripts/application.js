@@ -44,6 +44,7 @@
 *= require categories_selector.js
 *= require comments.js
 *= require offline_page.js
+*= require edit-in-place.js
 *
 * serviceworker
 *= require serviceworker-companion.js

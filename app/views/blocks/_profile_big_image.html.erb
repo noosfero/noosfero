@@ -1,0 +1,32 @@
+<% if !user.nil? and user.has_permission?('edit_profile', profile) %>
+  <div class='edit-in-place-container'>
+
+    <%= form_tag( {:action => 'remote_edit', :controller => 'profile_editor' },
+                  {:method => :post, :multipart => true, :remote => true,
+                      :class => 'edit-in-place' }) do %>
+
+      <div class='edit-in-place-info profile-image'>
+
+        <%=
+          if theme_option(:profile_list_bg_imgs)
+            link_to image_tag(profile_pic profile), profile.url
+          else
+            link_to profile_image(profile, :big) +"\n", profile.url
+          end
+        %>
+
+        <%= link_to_function(font_awesome(:edit), 'edit_in_place_image(this)', { class: 'edit-option' }) %>
+      </div>
+
+      <div class='edit-in-place-field file-fieldset'>
+        <%= file_field_tag("profile_data[image_builder][uploaded_data]", :class => 'image-input picture-input') %>
+        <%= render :partial => 'shared/crop_image_form', locals: { :for_attr => 'profile_data[image_builder]' }%>
+        <%= render :partial => 'shared/cropped_image_preview', :locals => { :image => nil, :type => 'profile' } %>
+        <%= render 'shared/crop_image' %>
+        <%= modal_inline_link_to '', '#', '#crop-image', id: "crop-image-button", style: "display: none" %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<%= javascript_include_tag 'cropped_image' %>
