@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2018-05-01 22:39+0000\n"
+"PO-Revision-Date: 2018-05-11 17:12+0000\n"
 "Last-Translator: Gabriel Silva <gabriel93.silva@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
@@ -8840,7 +8840,7 @@ msgstr "Telefone residencial"
 #: ../app/views/profile_editor/_person_form.html.erb:18
 #: ../app/views/profile_editor/_person_form.html.erb:19
 msgid "With area code, only numbers"
-msgstr "Com código de área, apenas números"
+msgstr "Com código de área, apenas números (Ex. 61999883344)"
 
 #: ../app/views/profile_editor/_person_form.html.erb:21
 msgid "Personal website"

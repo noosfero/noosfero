@@ -4,5 +4,5 @@
 
 <%= render partial: 'results_table', locals: { result: result } %>
 
-<%= pie_chart result["data"], donut: true, legend: 'left',
+<%= pie_chart result["data"], donut: true, legend: 'bottom',
               summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
