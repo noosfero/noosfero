@@ -43,6 +43,39 @@ class ProfileEditorController < MyProfileController
     end
   end
 
+  def remote_edit
+    if request.post?
+      if profile.update(params[:profile_data])
+        if params.has_key?(:field)
+          response = render_to_string(partial: 'profile_editor/edit_in_place_field',
+                                      locals: {:field => params[:field],
+                                               :type => params[:type],
+                                               :content => profile.send(params[:field])})
+        else
+          response = render_to_string(partial: 'blocks/profile_big_image')
+        end
+        respond_to do |format|
+          format.js do
+            render :json => {
+                :html => response,
+                :response => 'success'
+             }
+          end
+        end
+      else
+        key, error = profile.errors.first
+        respond_to do |format|
+          format.js do
+            render :json => {
+                :response => 'error',
+                :msg => "Sorry, #{key} #{error}"
+             }
+          end
+        end
+      end
+    end
+  end
+
   def enable
     @to_enable = profile
     if request.post? && params[:confirmation]

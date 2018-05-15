@@ -1238,4 +1238,41 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_no_tag 'input', attributes: { id: 'profile_data_state' }
     assert_no_tag 'input', attributes: { id: 'profile_data_city' }
   end
+
+  should 'update profile from remote form' do
+    assert_nil profile.nickname
+    post :remote_edit, :format => 'js', :profile => profile.identifier,
+            :profile_data => { :nickname => 'My Nickname' }, :field => 'nickname',
+            :type => 'text'
+
+    profile.reload
+    assert profile.nickname, 'My Nickname'
+  end
+
+  should 'update profile from remote form and reponse in js format' do
+    post :remote_edit, :format => 'js', :profile => profile.identifier,
+            :profile_data => { :nickname => 'My Nickname' }, :field => 'nickname',
+            :type => 'text'
+
+    assert_equal 'text/javascript', @response.content_type
+    assert_match /profile_data_nickname/, @response.body
+    assert_match /edit-in-place-container/, @response.body
+    assert_match /My Nickname/, @response.body
+  end
+
+  should 'update profile image from remote form' do
+    post :remote_edit, :format => 'js', :profile => profile.identifier,
+           :profile_data => { :image_builder => {
+            :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}}
+
+    assert_match /profile_data_image_builder_uploaded_data/, @response.body
+  end
+
+  should 'return error message if update profile from remote form fails' do
+    post :remote_edit, :format => 'js', :profile => profile.identifier,
+            :profile_data => { :name => '' }, :field => 'name',
+            :type => 'text'
+
+    assert_match /Sorry, name can't be blank/, @response.body
+  end
 end

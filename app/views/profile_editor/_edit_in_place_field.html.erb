@@ -1,0 +1,16 @@
+<div class='edit-in-place-container'>
+
+    <%= form_tag( {:action => 'remote_edit', :controller => 'profile_editor',
+                    field: field, type: type}, {:method => :post,
+                    :class => 'edit-in-place' }) do %>
+
+    <div class='edit-in-place-info'>
+      <%= content %>
+      <%= link_to_function(font_awesome(:edit), 'edit_in_place(this)', { class: 'edit-option' }) %>
+    </div>
+
+    <div class='edit-in-place-field'>
+      <%= self.send("#{type}_field_tag", "profile_data[#{field}]", content) %>
+    </div>
+  <% end %>
+</div>
