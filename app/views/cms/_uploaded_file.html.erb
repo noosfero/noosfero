@@ -1,4 +1,4 @@
-<%= labelled_form_field(_('Title'), text_field(:article, :title, :maxlength => 60)) %>
+<%= labelled_form_field(_('Title'), text_field(:article, :title)) %>
 
 <%= render :partial => 'upload_file', :locals => {:size => '45', :name => 'article', :single_file => true} %>
 
