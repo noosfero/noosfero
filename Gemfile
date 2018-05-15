@@ -39,6 +39,7 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 gem 'font-awesome-sass'
 gem 'rpush'
+gem 'http-cookie'
 
 # API dependencies
 gem 'grape'
