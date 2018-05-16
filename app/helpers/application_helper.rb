@@ -988,9 +988,9 @@ module ApplicationHelper
   end
 
   def usermenu_signup
-    signup_str = '<strong>' + _('Sign up') + '</strong>'
-    _or = "<span class='or'>" + _('or') +" </span>"
-    ret = _("%s <span class='signup'>%s</span>") % [_or, link_to(signup_str.html_safe, :controller => 'account', :action => 'signup')]
+    signup_str = content_tag('strong', _('Sign up'))
+    _or = content_tag('span', _('or'), class: 'or')
+    ret = _or + ' ' + content_tag('span', link_to(signup_str.html_safe, :controller => 'account', :action => 'signup'), class: 'signup')
     return ret.html_safe
   end
 
