@@ -601,10 +601,6 @@ class Person < Profile
     AbuseComplaint.finished.where(:requestor_id => self).count > 0
   end
 
-  def control_panel_settings_button
-    {:title => _('Edit Profile'), :icon => 'edit-profile'}
-  end
-
   def disable
     self.visible = false
     user.password = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{identifier}--")

@@ -13,13 +13,13 @@ class ProfileEditorControllerTest < ActionController::TestCase
   attr_accessor :profile
 
   should 'add extra fields to profile editor info and settings' do
-    get :edit, :profile => profile.identifier
+    get :informations, :profile => profile.identifier
     assert_tag_in_string @response.body, :tag => 'label', :content => /Google Analytics/,  :attributes => { :for => 'profile_data_google_analytics_profile_id' }
     assert_tag_in_string @response.body, :tag => 'input', :attributes => { :id => 'profile_data_google_analytics_profile_id' }
   end
 
   should 'save code filled in on field' do
-    post :edit, :profile => profile.identifier, :profile_data => {:google_analytics_profile_id => 12345678}
+    post :informations, :profile => profile.identifier, :profile_data => {:google_analytics_profile_id => 12345678}
     assert_equal '12345678', Person.find(profile.id).google_analytics_profile_id
   end
 

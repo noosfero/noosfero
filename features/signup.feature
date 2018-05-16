@@ -67,7 +67,7 @@ Feature: signup
       | joaosilva | Joao Silva |
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
-    And I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     And I fill in "Name" with ""
     When I press "Save"
     Then I should see "Name can't be blank"

@@ -39,7 +39,7 @@ class MarkCommentAsReadPlugin < Noosfero::Plugin
                                  :class => 'mark-comment-link mark-comment-read',
                                  :data => { :show => !read_comment },
                                  :id => "comment-action-mark-as-read-#{comment.id}")},
-      {:link => link_to(font_awesome('check-square-o'), '#!', :class => 'read-comment-icon'),
+      {:link => link_to(font_awesome('check-square'), '#!', :class => 'read-comment-icon'),
                         :title => _('Comment read'), :action_bar => true }] if user
     end
   end

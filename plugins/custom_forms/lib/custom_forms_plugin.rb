@@ -12,8 +12,12 @@ class CustomFormsPlugin < Noosfero::Plugin
     true
   end
 
-  def control_panel_buttons
-    {title: _('Manage Queries'), icon: 'custom-forms', url: {profile: profile.identifier, controller: 'custom_forms_plugin_myprofile'}}
+  def control_panel_entries
+    [CustomFormsPlugin::ControlPanel::AllQueries, CustomFormsPlugin::ControlPanel::NewPoll, CustomFormsPlugin::ControlPanel::NewSurvey]
+  end
+
+  def control_panel_sections
+    [{custom_form_plugin_queries: {name: _('Queries'), priority: 25}}]
   end
 
   def self.extra_blocks

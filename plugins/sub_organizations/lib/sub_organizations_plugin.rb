@@ -11,17 +11,15 @@ class SubOrganizationsPlugin < Noosfero::Plugin
   DISPLAY_LIMIT = 12
 
   def self.plugin_name
-    _("Sub-groups")
+    _("Subgroups")
   end
 
   def self.plugin_description
     _("Adds the ability for groups to have sub-groups.")
   end
 
-  def control_panel_buttons
-    if context.profile.organization? && Organization.parentz(context.profile).blank?
-      { title: _('Manage sub-groups'), icon: 'groups', url: {profile: profile.identifier, controller: :sub_organizations_plugin_myprofile} }
-    end
+  def control_panel_entries
+    [SubOrganizationsPlugin::ControlPanel::SubOrganizations]
   end
 
   def stylesheet?

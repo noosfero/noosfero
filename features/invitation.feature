@@ -95,9 +95,10 @@ Feature: invitation
     And I follow "Invite!"
     Given there are no pending jobs
     When I am logged in as "josesantos"
-    And I follow "menu-toggle"
-    And I should see "Community invitation"
-    Then I should see "26 Bsslines" within "span.task_target"
+    And I go to josesantos's control panel
+    And I follow "Tasks" within "#section-profile"
+    Then I should see "Community invitation" within ".task-title"
+    And I should see "26 Bsslines" within ".task-information"
 
   @selenium
   Scenario: noosfero user accepts to join community through tasks
@@ -110,7 +111,7 @@ Feature: invitation
     And I follow "Accept"
     Then I should not see "josesilva invited you to join 26 Bsslines."
     When I go to josesantos's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should see "26 Bsslines"
 
   @selenium
@@ -124,13 +125,13 @@ Feature: invitation
     And I follow "Reject"
     Then I should not see "josesilva invited you to join 26 Bsslines."
     And I go to josesantos's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should not see "26 Bsslines"
 
   @selenium
   Scenario: noosfero user receives a task when a user invites to be friend
     Given I am on josesilva's control panel
-    And I follow "Manage friends"
+    And I follow "Friends" within "#section-relationships"
     And I follow "Invite people"
     And I choose "Email"
     And I follow "Next"
@@ -160,7 +161,7 @@ Feature: invitation
     And I follow "Accept"
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
-    And I follow "Manage friends"
+    And I follow "Friends" within "#section-relationships"
     Then I should see "josesilva"
 
   @selenium
@@ -176,5 +177,5 @@ Feature: invitation
     And I follow "Reject"
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
-    And I follow "Manage friends"
+    And I follow "Friends" within "#section-relationships"
     Then I should not see "josesilva"

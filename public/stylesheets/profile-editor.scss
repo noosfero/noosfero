@@ -18,52 +18,69 @@
 .controller-profile_editor .control-panel {
   /*border: 1px solid red;*/
   padding: 0px 15px 0px 15px;
-  @media only screen and (max-width: 768px) { padding: 0; }
-}
-.controller-profile_editor .control-panel a {
-  display: inline-flex;
-  background-repeat: no-repeat;
-  background-position: 0px 50%;
-  height: 70px;
-  padding: 4px 5px 0px 55px;
-  margin-bottom: 30px;
-  margin-right: 10px;
-  text-align: left;
-  text-decoration: none;
-  font-weight: bold;
-  color: black;
-  /* default icon */
-  background-image: url(../images/control-panel/important.png);
-  flex-direction: column;
-  justify-content: center;
-  width: 33%;
-  @media only screen and (max-width: 960px) {
-    display: inline-flex;
-    background-repeat: no-repeat;
-    background-position: 0px 50%;
-    height: 50px;
-    padding: 0px 0px 0px 55px;
-    margin-bottom: 20px;
-    margin-right: 0;
-    /* margin-right: 10px; */
-    text-align: left;
-    text-decoration: none;
-    font-weight: bold;
-    color: black;
-    background-image: url(../images/control-panel/important.png);
-    flex-direction: column;
-    justify-content: center;
-    width: 30%;
-    vertical-align: top;
+  text-align: center;
+  @media only screen and (max-width: 768px) {
+    padding: 0;
+    border-right: none;
   }
 }
-.controller-profile_editor .msie6 .control-panel a {
-  background-image: url(../images/control-panel/important.gif);
+
+#control-panel-filter {
+  width: 100%;
+}
+
+.controller-profile_editor .control-panel .no-results {
+  display: none;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 1.3em;
+}
+
+.controller-profile_editor .control-panel h2 {
+  text-align: left;
+  text-align: center;
+  font-size: 20px;
+  background-color: #212e3c;
+  color: white;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.controller-profile_editor .control-panel a {
+  display: inline-flex;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: #212e3c;
+  width: 125px;
+  padding: 5px 0;
+  /* default icon */
+  flex-direction: column;
+  justify-content: center;
+  transition: background-color 0.5s, color 0.5s;
+  @media only screen and (max-width: 960px) {
+    width: 100px;
+    font-size: 12px;
+  }
 }
 .controller-profile_editor .control-panel a:hover {
+  color: #435d7a;
   background-color: #d2e0f0;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
+  transition: background-color 0.5s, color 0.5s;
+}
+.controller-profile_editor .control-panel a i.fa {
+  font-size: 4em !important;
+  color: #212e3c;
+  margin-right: 0;
+  transition: color 0.5s;
+}
+.controller-profile_editor .control-panel a:hover i.fa {
+  color: #435d7a;
+  transition: color 0.5s;
 }
 .controller-profile_editor #delete-profile {
   margin-top: 30px;
@@ -208,6 +225,11 @@
   width: auto;
 }
 
+.action-profile_editor-preferences .main-content .formlabel {
+  margin: 0;
+  padding: 0;
+}
+
 .field-with-privacy-selector {
   display: block;
 }
@@ -302,4 +324,8 @@
 #advanced_options {
   display: none;
   margin-top: 5px;
+}
+
+.action-profile_editor-location .location-title {
+  display: none;
 }

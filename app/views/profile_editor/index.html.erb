@@ -6,80 +6,22 @@
     <span class='control-panel-subtitle'><%= _('Control Panel') %></span>
   </h1>
 
-<% control_panel do %>
+  <%= text_field_tag(:filter, nil, id: 'control-panel-filter', placeholder: _('Filter options')) %>
 
-  <%= control_panel_button(profile.control_panel_settings_button[:title],
-                           profile.control_panel_settings_button[:icon],
-                           :controller => 'profile_editor', :action => 'edit') %>
-
-  <%= control_panel_button(_('Location and Regions of Interest'), 'edit-location', :controller => 'maps', :action => 'edit_location') %>
-
-  <%= control_panel_button(_('Mail settings'), 'mail', :controller => 'mailconf') if profile.person? && MailConf.enabled? %>
-
-  <%= control_panel_button(_('Tasks'), 'todo', :controller => 'tasks', :action => 'index') %>
-
-  <%= control_panel_button(_('Edit sideboxes'), 'blocks', :controller => 'profile_design', :action => 'index') %>
-
-  <%= control_panel_button(_('Edit Appearance'), 'design-editor', :controller => 'profile_themes', :action => 'index') if @show_appearance_option %>
-
-  <%= control_panel_button(_('Edit Header and Footer'), 'header-and-footer', :controller => 'profile_editor', :action => 'header_footer') if @show_header_footer_option %>
-
-  <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') %>
-
-  <%= control_panel_button(_('Manage Roles'), 'roles', :controller => 'profile_roles') if profile.organization? %>
-
-  <% unless profile.enterprise? %>
-    <%= case profile.blogs.count
-      when 0
-        control_panel_button(_('Create blog'), 'blog-disabled', :controller => 'cms', :action => 'new', :type => 'Blog')
-      when 1
-        control_panel_button(_('Configure blog'), 'blog', :controller => 'cms', :action => 'edit', :id => profile.blog)
-      else
-        control_panel_button(_('Configure blog'), 'blog', :controller => 'cms')
-    end %>
-  <% end %>
-
-  <%= control_panel_button(_('Change Password'), 'change-password', :controller => 'account', :action => 'change_password') if profile.person? %>
-
-  <%= control_panel_button(_('Manage friends'), 'friends', :controller => 'friends', :action => 'index') if profile.person? %>
-
-  <%= control_panel_button(_('Manage Members'), 'members', :controller => 'profile_members') if profile.organization? && user.has_permission?(:manage_memberships, profile) %>
-
-  <% if !environment.enabled?('disable_asset_enterprises') %>
-    <% if profile.is_validation_entity? %>
-      <%= control_panel_button(_('Enterprise Validation'), 'validation', :controller => 'enterprise_validation') %>
+  <% control_panel do %>
+    <% ControlPanel.ordered_sections(profile.environment).each do |section_identifier| %>
+      <% section_entries = ControlPanel.available_entries(section_identifier, user, profile, params) %>
+      <% if section_entries.present? %>
+        <div id='section-<%= section_identifier %>' class='section'>
+          <h2><%= ControlPanel.sections(profile.environment)[section_identifier][:name] %></h2>
+          <% section_entries.each do |entry| %>
+            <%= control_panel_button(entry, profile)%>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
-    <% if profile.person? %>
-      <%= control_panel_button(_('Favorite Enterprises'), 'favorites', :controller => 'favorite_enterprises') %>
-    <% end %>
+    <p class="no-results"><em><%= _('There are no entries matching this filter.') %></em></p>
   <% end %>
-
-  <% if profile.enterprise? %>
-    <% if profile.enabled? %>
-      <%= control_panel_button(_('Disable'), 'disable', :action => 'disable') %>
-    <% else %>
-      <%= control_panel_button(_('Enable'), 'enable', :action => 'enable') %>
-    <% end %>
-  <% end %>
-
-  <%= control_panel_button(_('Manage my groups'), 'groups', :controller => 'memberships') if profile.person? %>
-
-  <%= control_panel_button(_('Manage SPAM'), 'manage-spam', :controller => 'spam', :action => 'index') %>
-
-  <%= control_panel_button(_('Edit welcome page'), 'welcome-page', :action => 'welcome_page') if has_welcome_page %>
-
-  <%= control_panel_button(_('Email Templates'), 'email-templates', :controller => :profile_email_templates) if profile.organization? %>
-
-  <% if profile.person? %>
-    <%= control_panel_button(_('Manage followed profiles'), 'edit-profile', :controller => :followers) %>
-    <%= control_panel_button(_('Manage circles'), 'edit-profile-group', :controller => :circles) %>
-  <% end %>
-
-  <% @plugins.dispatch(:control_panel_buttons).each do |button| %>
-    <%= control_panel_button(button[:title], button[:icon], button[:url], button[:html_options]) %>
-  <% end %>
-
-<% end %>
 
   <% if profile.person? && environment.enabled?('enterprise_activation') %>
 
@@ -95,4 +37,9 @@
 
   <% end %>
 
+  <%= button_bar do %>
+    <%= button :back, _('Back to homepage'), profile.url %>
+  <% end %>
 </div>
+
+<%= javascript_include_tag 'cms' %>

@@ -19,7 +19,7 @@ Feature: profile advanced search
 
   @selenium
   Scenario: filters should be hidden by default in the profile page
-    Given I follow "Edit sideboxes"
+    Given I follow "Blocks" within "#section-design"
     And I move the cursor over ".profile-search-block"
     And I follow "Edit" within ".profile-search-block"
     And I check "Enable advanced search"
@@ -29,7 +29,7 @@ Feature: profile advanced search
 
   @selenium
   Scenario: filters should be collapsed by default in the profile search page
-    Given I follow "Edit sideboxes"
+    Given I follow "Blocks" within "#section-design"
     And I move the cursor over ".profile-search-block"
     And I follow "Edit" within ".profile-search-block"
     And I check "Enable advanced search"

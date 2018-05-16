@@ -1,0 +1,10 @@
+<h1><%= _('%s\' Tags of Interest').html_safe % profile.name %></h1>
+
+<%= labelled_form_for :profile_data, :html => { :id => 'profile-data'} do |f| %>
+  <%= render :partial => 'shared/tags_field', :locals => {:f => f, :value => @profile.tag_list} %>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+    <%= submit_button('save', _('Save')) %>
+  <% end %>
+<% end %>

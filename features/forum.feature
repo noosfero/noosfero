@@ -13,22 +13,20 @@ Feature: forum
   @selenium @ignore-hidden-elements
   Scenario: create a forum
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I should see "New content"
+    And I follow "Manage" within "#section-content"
     And I follow "New content"
-    And I should see "Forum"
-    When I follow "Forum"
+    And I follow "Forum"
     And I fill in "Title" with "My Forum"
     And I follow "Save"
-    And I follow "article-options"
+    When I follow "article-options"
     Then I should see "Configure forum"
 
   @selenium
   Scenario: redirect to forum after create forum from cms
     Given I go to joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "New content"
-    When I follow "Forum"
+    And I follow "Forum"
     And I fill in "Title" with "Forum from cms"
     And I follow "Save"
     Then I should be on /joaosilva/forum-from-cms
@@ -36,13 +34,13 @@ Feature: forum
   @selenium
   Scenario: create multiple forums
     Given I go to joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "New content"
     And I follow "Forum"
     And I fill in "Title" with "Title One"
     And I follow "Save"
     Then I go to joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "New content"
     And I follow "Forum"
     And I fill in "Title" with "Title Two"
@@ -50,19 +48,11 @@ Feature: forum
     Then I should not see "error"
     And I should be on /joaosilva/title-two
 
+
   @selenium
   Scenario: cancel button back to cms
     Given I go to joaosilva's control panel
-    And I follow "Manage Content"
-    And I follow "New content"
-    And I follow "Forum"
-    When I follow "Cancel" within ".main-block"
-    Then I should be on /myprofile/joaosilva/cms
-
-  @selenium
-  Scenario: cancel button back to myprofile
-    Given I go to joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "New content"
     And I follow "Forum"
     When I follow "Cancel" within ".main-block"

@@ -13,7 +13,7 @@
   <table id='selected-categories' class='actions'>
     <tr id='empty-row' <%= 'hidden' if categories_selected.present? %>>
       <td colspan=2>
-        <i><%= _('There are no categories selected yet.') %></i>
+        <i><%= _('There are no %s selected yet.') % _(kind.to_s) %></i>
       </td>
     </tr>
 
