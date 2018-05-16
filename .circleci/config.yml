@@ -1,65 +1,5 @@
 version: 2.0
 
-workflows:
-  version: 2.0
-  noosfero:
-    jobs:
-      - build
-      - specs-models:
-          requires:
-           - build
-      - api:
-          requires:
-           - build
-      - units:
-          requires:
-           - build
-      - functionals:
-          requires:
-           - build
-      - integration:
-          requires:
-           - build
-      - cucumber-1:
-          requires:
-           - build
-      - cucumber-2:
-          requires:
-           - build
-      - selenium-1:
-          requires:
-           - build
-      - selenium-2:
-          requires:
-           - build
-      - selenium-3:
-          requires:
-           - build
-      - selenium-4:
-          requires:
-           - build
-      - selenium-5:
-          requires:
-           - build
-      - selenium-6:
-          requires:
-           - build
-      - plugins-1:
-          requires:
-           - build
-      - plugins-2:
-          requires:
-           - build
-      - plugins-3:
-          requires:
-           - build
-      - plugins-4:
-          requires:
-           - build
-      - plugins-5:
-          requires:
-           - build
-
 jobs:
   build:
     machine: true
@@ -69,7 +9,7 @@ jobs:
       - checkout
       - cache_directories:
         - "vendor/bundle"
-        - "elasticsearch-2.4.3"
+        - "elasticsearch-1.7.6"
       - run:
           name: preparing environment
           command: |
@@ -79,7 +19,7 @@ jobs:
           name: post env preparation
           command:  |
             wget https://download.elastic.co/elasticsearch/release/org/elasticsearch/distribution/tar/elasticsearch/2.4.3/elasticsearch-2.4.3.tar.gz
-            tar -xvf elasticsearch-2.4.3.tar.gz
+            tar -xvf elasticsearch-1.7.6.tar.gz
             elasticsearch-2.4.3/bin/elasticsearch: {background: true}
             script/noosfero-plugins disableall
             cp config/database.yml.circleci config/database.yml
@@ -213,3 +153,63 @@ jobs:
     steps:
       - checkout
       - run: SLICE=5/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+
+workflows:
+  version: 2.0
+  noosfero:
+    jobs:
+      - build
+      - specs-models:
+          requires:
+           - build
+      - api:
+          requires:
+           - build
+      - units:
+          requires:
+           - build
+      - functionals:
+          requires:
+           - build
+      - integration:
+          requires:
+           - build
+      - cucumber-1:
+          requires:
+           - build
+      - cucumber-2:
+          requires:
+           - build
+      - selenium-1:
+          requires:
+           - build
+      - selenium-2:
+          requires:
+           - build
+      - selenium-3:
+          requires:
+           - build
+      - selenium-4:
+          requires:
+           - build
+      - selenium-5:
+          requires:
+           - build
+      - selenium-6:
+          requires:
+           - build
+      - plugins-1:
+          requires:
+           - build
+      - plugins-2:
+          requires:
+           - build
+      - plugins-3:
+          requires:
+           - build
+      - plugins-4:
+          requires:
+           - build
+      - plugins-5:
+          requires:
+           - build
