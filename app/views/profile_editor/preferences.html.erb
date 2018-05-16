@@ -26,7 +26,7 @@
 
   <% if environment.enabled?('allow_change_of_redirection_after_login') %>
     <%= content_tag('h2', _('Redirection after login')) %>
-    <%= render 'redirection_after_login', f: f %>
+    <%= f.select(:redirection_after_login, Environment.login_redirection_options.invert.to_a) %>
   <% end %>
 
   <%= button_bar do %>
