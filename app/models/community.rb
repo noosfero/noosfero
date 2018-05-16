@@ -85,10 +85,6 @@ class Community < Organization
     end
   end
 
-  def control_panel_settings_button
-    {:title => _('Community Info and settings'), :icon => 'edit-profile-group'}
-  end
-
   def exclude_verbs_on_activities
     %w[join_community leave_scrap]
   end

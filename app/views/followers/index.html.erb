@@ -12,7 +12,6 @@
   <% end %>
 
   <%= button_bar do %>
-    <%= button(:back, _('Back'), :controller => 'profile_editor') %>
     <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
   <% end %>
 
@@ -24,3 +23,8 @@
 <% end %>
 
 </div>
+
+
+<%= button_bar do %>
+  <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+<% end %>

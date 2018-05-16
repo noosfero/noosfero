@@ -1,4 +1,3 @@
-
 class AnalyticsPlugin::Base < Noosfero::Plugin
 
   def body_ending
@@ -37,13 +36,7 @@ class AnalyticsPlugin::Base < Noosfero::Plugin
     }]
   end
 
-  def control_panel_buttons
-    return unless user.is_admin? environment
-    {
-      title: I18n.t('analytics_plugin.lib.plugin.panel_button'),
-      icon: 'analytics-access',
-      url: {controller: 'analytics_plugin/stats', profile: profile.identifier, action: :index}
-    }
+  def control_panel_entries
+    [AnalyticsPlugin::ControlPanel::AccessTracking]
   end
-
 end

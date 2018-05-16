@@ -14,7 +14,7 @@
 
 <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
   <div class='admin-link'>
-    <%= link_to font_awesome(:gear, _('Control panel')), block.owner.admin_url %>
+    <%= link_to font_awesome(:cog, _('Control panel')), block.owner.admin_url %>
   </div>
 <% end %>
 

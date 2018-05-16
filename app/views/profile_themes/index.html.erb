@@ -41,8 +41,8 @@
 <br style="clear:both" />
 
 <%= button_bar do %>
+  <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
   <% if environment.enabled?('user_themes')  %>
     <%= modal_button :add, _('New theme ...'), :action => 'new' %>
   <% end %>
-  <%= button(:back, _('Back'), :controller => 'profile_editor', :action => 'index') %>
 <% end %>

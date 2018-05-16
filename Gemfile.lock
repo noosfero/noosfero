@@ -478,6 +478,7 @@ DEPENDENCIES
   grape_logging
   honeypot-captcha (> 0.0.0)!
   hpricot (~> 0.8.6)
+  http-cookie
   i18n_deprecation (= 0.0.0)!
   kandadaboggu-vote_fu (> 0.0.0)!
   launchy

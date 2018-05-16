@@ -12,7 +12,7 @@ Feature: create community
     Given I am logged in as "joaosilva"
     And feature "admin_must_approve_new_communities" is disabled on environment
     And I go to joaosilva's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     When I follow "Create a new community"
     And I fill in "Name" with "Fancy community"
     And I follow "Create"
@@ -23,7 +23,7 @@ Feature: create community
     Given I am logged in as "joaosilva"
     And feature "admin_must_approve_new_communities" is enabled on environment
     And I go to joaosilva's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     And I follow "Create a new community"
     And I fill in "Name" with "Community for moderation"
     And I follow "Create"
@@ -33,7 +33,7 @@ Feature: create community
     Given I am logged in as "joaosilva"
     And feature "admin_must_approve_new_communities" is disabled on environment
     And I go to joaosilva's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     When I follow "Create a new community"
     And I follow "Create"
     Then I should see "Creating new community"
@@ -55,12 +55,12 @@ Feature: create community
     Given "joaosilva" creates the community "Community for approval"
     Given I am logged in as admin
     And I go to admin_user's control panel
-    And I follow "Tasks"
+    And I follow "Tasks" within "#section-profile"
     And I should see "Joao Silva wants to create community Community for approval"
     And I follow "Accept" within "#task-1"
     Then I should not see "Joao Silva wants to create community Community for approval"
     And I go to joaosilva's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should see "Community for approval"
 
   @selenium
@@ -72,12 +72,12 @@ Feature: create community
     And I go to admin_user's control panel
     And I follow "menu-toggle"
     And I should see "Joao Silva wants to create community Community for approval"
-    And I follow "Manage tasks"
+    And I follow "Tasks" within "#section-profile"
     And I follow "Accept" within "#task-1"
     And I follow "menu-toggle"
     Then I should not see "Joao Silva wants to create community Community for approval"
     And I go to joaosilva's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should see "Community for approval"
 
   @selenium
@@ -87,14 +87,14 @@ Feature: create community
     Given "joaosilva" creates the community "Community for approval"
     Given I am logged in as admin
     And I go to admin_user's control panel
-    And I follow "Tasks"
+    And I follow "Tasks" within "#section-profile"
     And I should see "Joao Silva wants to create community Community for approval"
     And I follow "Reject"
     And I fill in "Rejection explanation" with "Short reject explanation" within ".task-reject-explanation"  
     And I follow "Reject" within "#task-1"
     Then I should not see "Joao Silva wants to create community Community for approval"
     And I go to joaosilva's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should not see "Community for approval"
 
   @selenium
@@ -113,7 +113,7 @@ Feature: create community
     And I follow "menu-toggle"
     Then I should not see "Joao Silva wants to create community Community for approval"
     And I go to joaosilva's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should not see "Community for approval"
 
   @selenium
@@ -123,7 +123,7 @@ Feature: create community
     Given "admin_user" creates the community "Community for approval"
     And I approve community "Community for approval"
     And I go to admin_user's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should see "Community for approval"
 
   @selenium
@@ -133,5 +133,5 @@ Feature: create community
     Given "admin_user" creates the community "Community for approval"
     And I reject community "Community for approval"
     And I go to admin_user's control panel
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     Then I should not see "Community for approval"

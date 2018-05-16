@@ -30,7 +30,7 @@ Feature: accept member
     And I am logged in as "mario"
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
-    When I follow "Manage tasks"
+    When I follow "Tasks" within "#section-profile"
     And I follow "Accept" within "#task-1"
     And I check "Profile Member"
     And I follow "Accept"
@@ -42,7 +42,7 @@ Feature: accept member
     And I am logged in as "mario"
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
-    When I follow "Manage tasks"
+    When I follow "Tasks" within "#section-profile"
     And I follow "Accept" within "#task-1"
     And I check "Profile Administrator"
     And I follow "Accept"
@@ -54,13 +54,13 @@ Feature: accept member
     And I am logged in as "mario"
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
-    When I follow "Manage tasks"
+    When I follow "Tasks" within "#section-profile"
     And I follow "Accept" within "#task-1"
     And I wait 1 seconds
     And I check "Profile Member"
     And I follow "Accept"
     Given I am on /myprofile/mycommunity
-    And I follow "Manage Members"
+    When I follow "Members" within "#section-relationships"
     And I fill in "Name or Email" with "Marie Curie"
     And I follow "Search" within ".filter_fields"
     And I should see "Marie Curie"
@@ -74,7 +74,7 @@ Feature: accept member
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I follow "menu-toggle"
-    And I follow "Manage tasks"
+    And I follow "Tasks" within "#section-profile"
     And I wait 1 seconds
     And I follow "Accept"
     And I wait 1 seconds
@@ -88,13 +88,13 @@ Feature: accept member
     And I am logged in as "mario"
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
-    When I follow "Manage tasks"
+    When I follow "Tasks" within "#section-profile"
     And I follow "Accept" within "#task-1"
     And I wait 1 seconds
     And I check "Profile Member"
     And I follow "Accept"
     Given I am on /myprofile/mycommunity
-    And I follow "Manage Members"
+    When I follow "Members" within "#section-relationships"
     And I fill in "Name or Email" with "Marie Curie"
     And I follow "Search" within ".filter_fields"
     And I should see "Marie Curie"

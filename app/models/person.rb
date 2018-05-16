@@ -409,7 +409,6 @@ class Person < Profile
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
     links = [
-      { name: _('Profile'),       address: '/profile/{profile}',        icon: 'menu-people' },
       { name: _('Image gallery'), address: '/{profile}/gallery',        icon: 'photos'      },
       { name: _('Agenda'),        address: '/profile/{profile}/events', icon: 'event'       },
       { name: _('Blog'),          address: '/{profile}/blog',           icon: 'blog'        }
@@ -602,10 +601,6 @@ class Person < Profile
 
   def abuser?
     AbuseComplaint.finished.where(:requestor_id => self).count > 0
-  end
-
-  def control_panel_settings_button
-    {:title => _('Edit Profile'), :icon => 'edit-profile'}
   end
 
   def disable

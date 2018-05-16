@@ -1,8 +1,4 @@
 <%= labelled_form_for :profile_data, :url => {:action => 'edit_location'}, :html => {:id => 'location-form'} do |f| %>
-  <div class="error">
-    <%= flash[:error] %>
-  </div>
-
   <%= render partial: 'shared/location_form', locals: { f: f, profile: @profile_data } %>
 
   <h1><%= _('Regions of Interest') %></h1>

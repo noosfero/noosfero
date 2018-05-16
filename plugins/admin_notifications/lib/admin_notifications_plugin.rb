@@ -29,17 +29,8 @@ class AdminNotificationsPlugin < Noosfero::Plugin
     {:title => _('Notification Manager'), :url => {:controller => 'admin_notifications_plugin_admin', :action => 'index'}}
   end
 
-  def control_panel_buttons
-    if context.profile.organization?
-      {
-        :title => _('Manage Notifications'),
-        :icon => 'important',
-        :url => {
-          :controller => 'admin_notifications_plugin_myprofile',
-          :action => 'index'
-        }
-      }
-    end
+  def control_panel_entries
+    [AdminNotificationsPlugin::ControlPanel::AdminNotifications]
   end
 
   def account_controller_filters

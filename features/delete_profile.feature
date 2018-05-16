@@ -17,7 +17,7 @@ Feature: delete profile
   Scenario: deleting profile
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
-    And I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
@@ -37,7 +37,7 @@ Feature: delete profile
   Scenario: giving up of deleting profile
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
-    And I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
@@ -49,7 +49,7 @@ Feature: delete profile
     Given "Joao Silva" is admin of "Sample Community"
     And I am logged in as "joaosilva"
     And I am on sample-community's control panel
-    When I follow "Community Info and settings"
+    And I follow "Informations" within "#section-profile"
     Then I should see "Delete profile"
 
   @selenium
@@ -57,7 +57,7 @@ Feature: delete profile
     Given "Joao Silva" is admin of "Sample Community"
     And I am logged in as "joaosilva"
     And I am on sample-community's control panel
-    And I follow "Community Info and settings"
+    And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
@@ -81,7 +81,7 @@ Feature: delete profile
     And "Joao Silva" is admin of "Sample Enterprise"
     And I am logged in as "joaosilva"
     And I am on sample-enterprise's control panel
-    When I follow "Enterprise Info and settings"
+    And I follow "Informations" within "#section-profile"
     Then I should see "Delete profile"
 
   @selenium
@@ -92,7 +92,7 @@ Feature: delete profile
     And "Joao Silva" is admin of "Sample Enterprise"
     And I am logged in as "joaosilva"
     And I am on sample-enterprise's control panel
-    When I follow "Enterprise Info and settings"
+    And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"
@@ -117,7 +117,7 @@ Feature: delete profile
   Scenario: environment admin deletes profile
     Given I am logged in as admin
     And I am on joaosilva's control panel
-    And I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to deactivate this profile?"

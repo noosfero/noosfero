@@ -12,18 +12,8 @@ class MailingListPlugin < Noosfero::Plugin
     true
   end
 
-  def control_panel_buttons
-    buttons = []
-
-    if context.profile.organization?
-      buttons << { :title => _('Mailing List'), :icon => 'mailing-list-icon', :url => {:controller => 'mailing_list_plugin_myprofile_organization', :action => 'edit'} }
-    end
-
-    if context.profile.person?
-      buttons << { :title => _('Mailing List'), :icon => 'mailing-list-icon', :url => {:controller => 'mailing_list_plugin_myprofile_person', :action => 'edit'} }
-    end
-
-    buttons
+  def control_panel_entries
+    [MailingListPlugin::ControlPanel::OrganizationList, MailingListPlugin::ControlPanel::PersonList]
   end
 
   def member_added(group, person)

@@ -19,8 +19,8 @@ class ToleranceTimePlugin < Noosfero::Plugin
     !person_article && expirable && publication.expired?
   end
 
-  def control_panel_buttons
-    {:title => _('Tolerance Adjustements'), :url => {:controller => 'tolerance_time_plugin_myprofile', :profile => context.profile.identifier}, :icon => 'tolerance-time'  }
+  def control_panel_entries
+    [ToleranceTimePlugin::ControlPanel::Tolerance]
   end
 
   def stylesheet?

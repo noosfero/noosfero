@@ -225,7 +225,7 @@ module ArticleHelper
     end
 
     if @page != profile.home_page && !@page.has_posts? && @page.allow_delete?(user) && !remove_content_button(:delete, @page)
-      content = font_awesome('trash-o', _('Delete'))
+      content = font_awesome('trash', _('Delete'))
       url = profile.admin_url.merge({ controller: 'cms', action: 'destroy', id: @page.id})
       options = { method: :post, 'data-confirm' => delete_article_message(@page) }
       actions << link_to(content, url, options)

@@ -552,7 +552,7 @@ end
 
 When /^I edit my profile$/ do
   visit "/myprofile/#{@current_user}"
-  click_link "Edit Profile"
+  click_link "Informations"
 end
 
 Given /^the following tags$/ do |table|

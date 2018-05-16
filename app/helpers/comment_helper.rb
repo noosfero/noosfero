@@ -104,7 +104,7 @@ module CommentHelper
 
   def link_for_remove(comment)
     if comment.can_be_destroyed_by?(user)
-      title = font_awesome('trash-o', _('Remove'))
+      title = font_awesome('trash', _('Remove'))
       { :link => link_to(title, '#!', :class => 'comment-action remove-children',
                          :data => { :message => _('Are you sure you want ' +
                                                   'to remove this comment ' +

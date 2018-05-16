@@ -51,6 +51,7 @@ gem 'contacts',                   '~> 1.2.4'
 gem 'responders',                 '~> 2.4.0'
 gem 'activemodel-serializers-xml','~> 1.0.2'
 gem 'hpricot',                    '~> 0.8.6' #This gem is deprecated, must use nokogiri instead
+gem 'http-cookie'
 
 # API dependencies
 gem 'grape'
