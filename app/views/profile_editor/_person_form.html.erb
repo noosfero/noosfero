@@ -4,7 +4,7 @@
 <% editing_profile ||= false %>
 
 <%= optional_field(@person, 'nickname') do %>
-  <%= f.text_field(:nickname, :maxlength => 16, :size => 30, :rel => _('Nickname')) %>
+  <%= f.text_field(:nickname, :size => 30, :rel => _('Nickname')) %>
   <div>
     <small><%= _('A short name by which you like to be known. Will be used in friends listings, community member listings etc.') %></small>
   </div>
