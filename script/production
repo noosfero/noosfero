@@ -98,12 +98,18 @@ environments_loop() {
       RAILS_ENV=$env bundle exec ./script/feed-updater "$action" -i $env
       ./script/whenever $action $env
       RAILS_ENV=$env ./script/noosfero-plugins services "$action"
+      if [ ! -f /usr/share/noosfero/cache/private_files.pag ] && [ "$action" = "start" ]; then
+        RAILS_ENV=$env rake cache:private_files
+      fi
     done
   else
     bundle exec ./script/delayed_job "$action"
     bundle exec ./script/feed-updater "$action"
     ./script/whenever $action
     ./script/noosfero-plugins services "$action"
+    if [ ! -f /usr/share/noosfero/cache/private_files.pag ] && [ "$action" = "start" ]; then
+      rake cache:private_files
+    fi
   fi
 }
 

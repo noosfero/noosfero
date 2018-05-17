@@ -19,3 +19,14 @@ Description: Noosfero needs a working e-mail setup
  Basically, your local MTA needs to deliver e-mail to the internet. Please
  check /usr/share/doc/noosfero/README.Debian for detailed instructions on
  setting this up.
+
+Template: noosfero/default_database_config
+Type: boolean
+Description: Do you want to use default local database configuration?
+ Noosfero provides a default database configurations in order to facilitate the
+ installation process. If you intend to use a local database or don't know how
+ to configure the database it's highly recommended that you answer "yes" on
+ this question.
+ .
+ If you want to use and external database or want a custom database configuration
+ answer "no" and configure your database manually.
