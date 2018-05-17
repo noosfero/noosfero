@@ -81,9 +81,12 @@ class NewsletterPlugin::Newsletter < ApplicationRecord
   def posts(data = {})
     limit = self.posts_per_blog.zero? ? nil : self.posts_per_blog
     posts = if self.last_send_at.nil?
-      self.blogs.flat_map{ |blog| blog.posts.limit limit }
+      self.blogs.flat_map { |blog| blog.posts.reorder(highlighted: :desc).limit limit }
     else
-      self.blogs.flat_map{ |blog| blog.posts.where("published_at >= :last_send_at", {last_send_at: self.last_send_at}).limit limit }
+      self.blogs.flat_map do |blog|
+        blog.posts.where("published_at >= :last_send_at", {last_send_at: self.last_send_at})
+          .reorder(highlighted: :desc).limit limit
+      end
     end
     data[:post_ids].nil? ? posts : posts.select{|post| data[:post_ids].include?(post.id.to_s)}
   end
