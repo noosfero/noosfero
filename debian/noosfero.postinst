@@ -18,7 +18,7 @@ if [ -r $thin_config ]; then
   if [ "$thin_sha1" != "$thin_orig_sha1" ]; then
     port=$(awk '{ if ($1 == "port:") { print($2) } }' $thin_config)
     servers=$(awk '{ if ($1 == "servers:") { print($2) } }' $thin_config)
-    if test -n "$port"  && test "$port" -ne 50000  || test -n "$servers" && test "$servers" -ne 1 ; then
+    if test -n "$port"	&& test "$port" -ne 50000  || test -n "$servers" && test "$servers" -ne 1 ; then
       # thin configuration was changed; update unicorn configuration
       # accordingly
       sed -i -e "s/listen.*/listen '127.0.0.1:$port'/" $unicorn_config
@@ -42,7 +42,13 @@ chown noosfero /var/log/noosfero 2>/dev/null ||
 # Install unavailable dependencies with RubyGems
 ##############################################################################
 
-cd /usr/share/noosfero && bundle
+cd /usr/share/noosfero && bundle > /dev/null
+
+# Avoid "Not a git repository" error messages
+# This happens due to gem dependencies that uses git on the gemspec file
+##############################################################################
+
+cd /usr/share/noosfero && git init > /dev/null
 
 # create noosfero dynamic data directories
 ##############################################################################
@@ -55,36 +61,34 @@ makedir $noosfero_data_dir/public/articles
 makedir $noosfero_data_dir/public/image_uploads
 makedir $noosfero_data_dir/public/thumbnails
 
-# Instruct dbconfig-common to generate database configuration file
-##############################################################################
-noosfero_database_yml="/etc/noosfero/database.yml"
-dbc_generate_include="template:$noosfero_database_yml"
-dbc_generate_include_args="-o template_infile=/usr/share/noosfero/config/database.yml.template"
-dbc_generate_include_owner="root:noosfero"
-dbc_generate_include_perms="640"
-
 . /usr/share/debconf/confmodule
 
-db_get noosfero/initial_domain
-if [ ! -z "$RET" ]; then
-  # this is going to be used by the db:data:minimal rake task, called by
-  # /usr/lib/noosfero/dbinstall
-  export NOOSFERO_DOMAIN="$RET"
+db_get noosfero/default_database_config
+if [ "$RET" = "true"	]; then
+  # Instruct dbconfig-common to generate database configuration file
+  ##############################################################################
+  noosfero_database_yml="/etc/noosfero/database.yml"
+  dbc_generate_include="template:$noosfero_database_yml"
+  dbc_generate_include_args="-o template_infile=/usr/share/noosfero/config/database.yml.template"
+  dbc_generate_include_owner="root:noosfero"
+  dbc_generate_include_perms="640"
+
+  db_get noosfero/initial_domain
+  if [ ! -z "$RET" ]; then
+    # this is going to be used by the db:data:minimal rake task, called by
+    # /usr/lib/noosfero/dbinstall
+    export NOOSFERO_DOMAIN="$RET"
+  fi
+
+  /etc/init.d/noosfero setup
+
+  # dbconfig-common magic
+  . /usr/share/dbconfig-common/dpkg/postinst
+  dbc_go noosfero $@
+
+  # stop debconf to avoid the problem with infinite hanging, cfe
+  # http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=295477
+  db_stop
 fi
-
-/etc/init.d/noosfero setup
-
-# dbconfig-common magic
-. /usr/share/dbconfig-common/dpkg/postinst
-dbc_go noosfero $@
-
-if [ ! -f /usr/share/noosfero/cache/private_files.pag ] && [ $1 = "configure" ] && [ -n  $2 ]; then
-  echo "Creating private files dbm map..."
-  cd /usr/share/noosfero && su noosfero -c "rake cache:private_files RAILS_ENV=production"
-fi
-
-# stop debconf to avoid the problem with infinite hanging, cfe
-# http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=295477
-db_stop
 
 #DEBHELPER#
