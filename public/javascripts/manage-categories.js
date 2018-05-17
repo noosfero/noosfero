@@ -8,9 +8,6 @@
       success: function(data, st, ajax){
         $(sub_items).append(data);
         $(".small-loading").remove();
-        $("#show-button-"+category).fadeOut(400, function(){
-          $("#hide-button-"+category).fadeIn();
-        });
         $(sub_items).slideDown();
       },
       error: function(ajax, st, errorThrown) {
@@ -22,10 +19,9 @@
   $(".hide-button").live('click', function(){
     var category = $(this).attr('data-category');
     var sub_items = $('#category-sub-items-'+category);
-    $(this).fadeOut(400, function(){
-      $("#show-button-"+category).fadeIn();
-    });
     $(sub_items).slideUp();
+    $(this).toggleClass("show-button");
+    $(this).removeClass("hide-button");
   });
 
   $(".show-button").live('click', function(){
@@ -36,11 +32,10 @@
       $(this).attr('data-fetched', true);
     }
     else{
-      $(this).fadeOut(400, function(){
-        $("#hide-button-"+category).fadeIn();
-      });
       $(sub_items).slideDown();
     }
+    $(this).toggleClass("hide-button");
+    $(this).removeClass("show-button");
   });
 })(jQuery);
 
