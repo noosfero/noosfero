@@ -1,5 +1,194 @@
-
  #agenda #events-of-the-day {
    width: 45%;
  }
+
+#content .main-block h1.title.event-title { border: none; }
+
+.event-invitations {
+  display: flex;
+  margin-bottom: 10px;
+
+  .invitations-modal-link { display: none; }
+
+  @media only screen and (max-width: 1060px) {
+    flex-direction: column;
+  }
+
+  .invitation {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15px;
+    width: 80px;
+    text-align: center;
+
+    .guest-name {
+      padding-top: 5px;
+
+      a {
+        text-decoration: none;
+        color: #333;
+      }
+    }
+
+    .guest-image {
+      position: relative;
+      .decision {
+        text-align: center;
+        color: #fff;
+        vertical-align: middle;
+        width: 15px;
+        height: 15px;
+        padding: 2px;
+        border-radius: 15px;
+        border: solid 3px #fff;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+
+        i.fa { font-size: 1em; }
+      }
+      img { border-radius: 64px; }
+    }
+
+    &.decision-accepted .decision {
+      background: #5cb85c;
+      i.fa {
+        margin-top: 3px;
+        margin-left: 1px;
+      }
+    }
+
+    &.decision-interested .decision {
+      i.fa {
+        margin-top: 2px;
+        margin-left: 1px;
+      }
+    }
+
+    &.decision-rejected .decision {
+      i.fa {
+        margin-top: 2px;
+        margin-left: 3px;
+      }
+    }
+
+    &.decision-unconfirmed .decision {
+      i.fa {
+        margin-top: 2px;
+        margin-left: 2px;
+      }
+    }
+
+  }
+
+  .invitations-container {
+    padding: 10px;
+    flex: 1;
+    text-align: center;
+    color: #fff;
+    cursor: pointer;
+
+    .invitations-count {
+      margin-left: 10px;
+      font-size: 14px;
+    }
+
+    @media only screen and (max-width: 1210px) and (min-width: 1060px) {
+      i.fa {
+        width: 100%;
+        margin-bottom: 5px;
+      }
+    }
+
+    &#current-invitation {
+      color: #212e3c;
+      border: solid 2px #aaa;
+      padding: 2px;
+      box-sizing: border-box;
+      position: relative;
+      margin-left: 5px;
+
+      .invitation { margin: 0 }
+
+      @media only screen and (max-width: 1060px) {
+        margin-left: 0;
+        margin-top: 5px;
+      }
+
+      form.invitation-form {
+        min-width: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .menu-toggle {
+        }
+
+        .noosfero-dropdown-menu {
+          margin-top: 27px;
+          right: 0;
+
+          a { text-decoration: none; }
+        }
+
+        .invitation-decision-checkbox {
+          display: none;
+        }
+      }
+
+      .invitation-response {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        font-weight: bold;
+        padding: 10px;
+      }
+
+    }
+  }
+
+  .accepted-invitations,
+  .decision-accepted .decision {
+    background: #5cb85c;
+  }
+
+  .interested-invitations,
+  .decision-interested .decision {
+    background: #346392;
+  }
+
+  .unconfirmed-invitations,
+  .decision-unconfirmed .decision {
+    background: #aaa;
+  }
+
+  .rejected-invitations,
+  .decision-rejected .decision {
+    background: #d9534f;
+  }
+}
+
+.invitations-header {
+  font-size: 16px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px #e8e8e8;
+
+  .invitations-title {
+    font-weight: bold;
+    color: #212e3c;
+  }
+
+  .invitations-count {
+    color: #90949c;
+  }
+
+}
+
+#accepted-invitations,
+#unconfirmed-invitations,
+#rejected-invitations,
+#interested-invitations {
+  display: none;
+}
 

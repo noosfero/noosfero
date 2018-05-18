@@ -58,6 +58,10 @@ module ApplicationHelper
 
   include CustomFieldsHelper
 
+  include ProfileSelectorHelper
+
+  include EventsHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -1284,6 +1288,14 @@ module ApplicationHelper
     else
       ''
     end
+  end
+
+  def toggle_switch name, message, value = 1, checked = false
+    checkbox = check_box_tag(name, value, checked)
+    toggle = content_tag(:span, '',:class => 'toggle-slider')
+    label = label_tag(name, checkbox + toggle, :id => name + '-label')
+    message = content_tag(:span, message)
+    content_tag(:div, label + message, :class => 'toggle-switch')
   end
 
   def labelled_colorpicker_field(human_name, object_name, method, options = {})

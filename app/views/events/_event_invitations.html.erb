@@ -1,0 +1,54 @@
+<%= render :partial => 'events/invitations_to', locals: { title: _('Going'),
+            invitations: EventInvitation.accepted_invitations(event), decision: 'accepted' } %>
+
+<%= render :partial => 'events/invitations_to', locals: { title: _('Interested'),
+            invitations: EventInvitation.maybe_accept_invitations(event), decision: 'interested'  } %>
+
+<%= render :partial => 'events/invitations_to', locals: { title: _('Unconfirmed'),
+            invitations: EventInvitation.unconfirmed_invitations(event), decision: 'unconfirmed' } %>
+
+<% if current_person && current_person != event.profile %>
+  <% current_invitation = EventInvitation.invitation_to(event, current_person) %>
+  <% current_invitation ||= EventInvitation.new %>
+
+  <div class='invitations-container current-invitation' id='current-invitation'>
+
+    <%= form_tag( {:action => 'change_invitation_decision',
+                   :controller => 'event_invitation',
+                   :event => event.id,
+                   :invitation => current_invitation
+                  }, {:method => :post, :class => 'invitation-form' }) do %>
+
+      <% EventInvitation::DECISIONS.each do |key, decision| %>
+        <%= radio_button("event_invitation", "decision", decision,
+                          class: "invitation-decision-#{key} invitation-decision-checkbox") %>
+      <% end %>
+
+      <div class='invitation-response'>
+        <%= invite_decision_message current_invitation %>
+      </div>
+
+      <div class='menu-container'>
+        <%= link_to font_awesome('caret-down'), '#!', class: 'menu-toggle', id: 'invitation-options' %>
+        <ul class="noosfero-dropdown-menu" id="invitation-options-dropdown">
+
+          <li>
+            <%= link_to_function font_awesome(:check, 'Yes, I will go!'),
+                    "invite_decision(this, '.invitation-decision-yes')" %>
+          </li>
+
+          <li>
+            <%= link_to_function font_awesome(:star, 'I\'m interested'),
+                    "invite_decision(this, '.invitation-decision-maybe')" %>
+          </li>
+
+          <li>
+            <%= link_to_function font_awesome(:times, 'I will not'),
+                    "invite_decision(this, '.invitation-decision-no')" %>
+          </li>
+        </ul>
+      </div>
+
+    <% end %>
+  </div>
+<% end %>

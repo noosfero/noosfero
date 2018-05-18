@@ -188,6 +188,10 @@ class Task < ApplicationRecord
     false
   end
 
+  def custom_action_bar
+    false
+  end
+
   def footer
     false
   end
