@@ -1,0 +1,15 @@
+<%= button_bar(class: 'task-actions') do %>
+  <% unless task.accept_disabled? %>
+
+    <%= link_to _("Yes, I will go!"), '#',
+            class: 'button btn-blue keep-when-hover invite-decision-yes' %>
+
+    <%= link_to _("I'm interested"), '#',
+            class: 'button btn-blue-reverse keep-when-hover invite-decision-maybe' %>
+
+    <%= link_to _("I will not, thank you"), '#',
+            class: 'button btn-blue-reverse keep-when-hover invite-decision-no' %>
+
+  <%end%>
+<% end %>
+

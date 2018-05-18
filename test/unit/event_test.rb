@@ -332,4 +332,17 @@ class EventTest < ActiveSupport::TestCase
   should 'have can_display_blocks with default false' do
     assert !Event.can_display_blocks?
   end
+
+  should 'confirm owner presence when create event' do
+    owner = fast_create(Person)
+
+    assert_difference 'EventInvitation.count', 1 do
+      create(Event, profile: owner)
+    end
+
+    invitation = EventInvitation.last
+    assert_equal owner, invitation.guest
+    assert_equal EventInvitation::DECISIONS['yes'], invitation.decision
+  end
+
 end

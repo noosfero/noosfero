@@ -18,10 +18,12 @@
     border: 1px solid #888;
     border-radius: 4px;
     max-height: 80vh;
-    width: 80%;
+    max-width: 80%;
+    min-width: 400px;
     overflow-y: auto;
     @media only screen and (max-width: 540px) {
       width: 80%;
+      min-width: 260px;
     }
 
     #close-modal {

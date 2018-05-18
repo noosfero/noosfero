@@ -1818,6 +1818,10 @@ table#recaptcha_table tr:hover td {
 
 /********************** Noosfero Dropdown Menu **********************/
 
+div.menu-container {
+  position: relative;
+}
+
 a.menu-toggle {
   color: #212e3c;
   float: right;

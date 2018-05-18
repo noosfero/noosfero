@@ -2,7 +2,11 @@ require 'builder'
 
 class Event < Article
 
+  has_many :invitations, :class_name => 'EventInvitation'
+
   attr_accessible :start_date, :end_date, :link, :address
+
+  after_create :confirm_owner_presence
 
   def self.type_name
     _('Event')
@@ -136,6 +140,17 @@ class Event < Article
 
   def icon
     'calendar'
+  end
+
+  def custom_title
+    true
+  end
+
+  def confirm_owner_presence
+    if profile.kind_of?(Person)
+      EventInvitation.create(event: self, guest: profile,
+                            decision: EventInvitation::DECISIONS['yes'])
+    end
   end
 
   include TranslatableContent
