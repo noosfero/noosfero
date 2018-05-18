@@ -41,7 +41,7 @@
 
         <% if !remove_content_button(:delete, article) %>
           <li>
-            <%= link_to font_awesome('trash-o', _('Delete')), { action: 'destroy', id: article.id }, method: :post, 'data-confirm' => delete_article_message(article) %>
+            <%= link_to font_awesome('trash', _('Delete')), { action: 'destroy', id: article.id }, method: :post, 'data-confirm' => delete_article_message(article) %>
           </li>
         <% end %>
       </ul>

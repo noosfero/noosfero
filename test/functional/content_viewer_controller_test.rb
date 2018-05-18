@@ -1032,7 +1032,7 @@ class ContentViewerControllerTest < ActionController::TestCase
                :attributes => { :class => 'noosfero-dropdown-menu' },
                :descendant => { :tag => 'a',
                                 :descendant => { :tag => 'i',
-                                                 :attributes => { :class => 'fa fa-trash-o' }}}
+                                                 :attributes => { :class => 'fa fa-trash-alt' }}}
   end
 
   should 'add meta tag to rss feed on view forum' do

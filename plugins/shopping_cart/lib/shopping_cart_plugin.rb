@@ -23,13 +23,12 @@ class ShoppingCartPlugin < Noosfero::Plugin
     end
   end
 
-  def control_panel_buttons
-    buttons = []
-    if context.profile.enterprise?
-      buttons << { :title => _('Shopping basket'), :icon => 'shopping-cart-icon', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'edit'} }
-    end
+  def control_panel_entries
+    [ShoppingCartPlugin::ControlPanel::ShoppingPreferences]
+  end
 
-    buttons
+  def control_panel_sections
+    [shopping: {name: _('Shopping'), priority: 71}]
   end
 
   def add_to_cart_button item, options = {}

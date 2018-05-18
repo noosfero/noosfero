@@ -14,13 +14,12 @@ Feature: edit article
 
   Scenario: create a folder
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
     And I go to joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     Then I should see "My Folder"
 
   @selenium
@@ -35,9 +34,7 @@ Feature: edit article
     And "Mario Souto" is a member of "Free Software"
     And "Maria Silva" is a member of "Free Software"
     And I am on freesoftware's control panel
-    And I follow "Manage Content"
-    And I should see "New content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     And I should see "Folder"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
@@ -60,9 +57,7 @@ Feature: edit article
     And "Mario Souto" is a member of "Free Software"
     And "Maria Silva" is a member of "Free Software"
     And I am on freesoftware's control panel
-    And I follow "Manage Content"
-    And I should see "New content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     And I should see "Folder"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
@@ -82,9 +77,7 @@ Feature: edit article
     And "Mario Souto" is a member of "Free Software"
     And "Maria Silva" is a member of "Free Software"
     And I am on freesoftware's control panel
-    And I follow "Manage Content"
-    And I should see "New content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     And I should see "Folder"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
@@ -118,8 +111,7 @@ Feature: edit article
 
   Scenario: redirect to the created folder
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
@@ -128,7 +120,7 @@ Feature: edit article
 
   Scenario: cancel button back to cms
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage" within "#section-content"
     And I follow "New content"
     And I follow "Folder"
     When I follow "Cancel" within ".main-block"
@@ -137,25 +129,21 @@ Feature: edit article
   @selenium
   Scenario: display tag list field when creating event
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I should see "New content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     And I should see "Event" within ".article-types"
     When I follow "Event" within ".article-types"
     Then I should see "Tag list"
 
   Scenario: display tag list field when creating folder
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     And I should see "Folder"
     When I follow "Folder"
     Then I should see "Tag list"
 
   Scenario: create new article with tags
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     When I follow "Text article"
     Then I should see "Tag list"
     When I fill in "Title" with "Article with tags"
@@ -167,8 +155,7 @@ Feature: edit article
 
   Scenario: redirect to the created article
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    When I follow "New content"
+    And I follow "New" within "#section-content"
     When I follow "Text article"
     And I fill in "Title" with "My Article"
     And I press "Save"
@@ -197,9 +184,7 @@ Feature: edit article
   @selenium
   Scenario: create an article inside a folder
     Given I am on joaosilva's control panel
-    When I follow "Manage Content"
-    And I should see "New content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     And I should see "Folder"
     And I follow "Folder"
     And I fill in "Title" with "My Folder"
@@ -217,9 +202,7 @@ Feature: edit article
   @selenium
   Scenario: cancel button back to folder after giving up creating
     Given I am on joaosilva's control panel
-    When I follow "Manage Content"
-    And I should see "New content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     And I should see "Folder"
     And I follow "Folder"
     And I fill in "Title" with "My Folder"
@@ -242,8 +225,7 @@ Feature: edit article
 
   Scenario: save and continue when creating a new article
     Given I am on joaosilva's control panel
-    When I follow "Manage Content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     And I should see "Text article"
     And I follow "Text article"
     And I fill in "Title" with "My new article"
@@ -298,8 +280,7 @@ Feature: edit article
   @selenium
   Scenario: create an article with time
     Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I follow "New content"
+    And I follow "New" within "#section-content"
     When I follow "Text article"
     And I fill in "Title" with "My time testing Article"
     And I fill in "Publish date" with "1980-11-15 20:37"

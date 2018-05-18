@@ -23,7 +23,7 @@ class GoogleAnalyticsPlugin < Noosfero::Plugin
     end
   end
 
-  def profile_editor_extras
+  def profile_editor_informations
     analytics_id = profile_id
     lambda {
       render :file => 'profile-editor-extras', :locals => { :profile_id => analytics_id }

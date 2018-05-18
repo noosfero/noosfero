@@ -11,7 +11,7 @@ Feature: edit profile
       | display_name |
       | birth_date |
     When I go to joao's control panel
-    And I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     And I fill in "Birth date" with "1980-11-15"
     And I press "Save"
     Then I should not see "Birth date is invalid"
@@ -22,7 +22,7 @@ Feature: edit profile
       | display_name |
       | birth_date |
     When I go to joao's control panel
-    And I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     And I fill in "Birth date" with "1980-11-15"
     And I press "Save"
     Then I should not see "Birth date is invalid"

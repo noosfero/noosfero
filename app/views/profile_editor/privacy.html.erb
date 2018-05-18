@@ -1,0 +1,46 @@
+  <h1><%= _('') %></h1>
+<h1><%= _('%s\'s Privacy options').html_safe % profile.name %></h1>
+
+<%= labelled_form_for :profile_data, :html => { :id => 'profile-data' } do |f| %>
+  <%= content_tag('h2', _('Visibility')) %>
+  <% if profile.person? %>
+    <div id="profile_allow_follows">
+      <%= labelled_radio_button _('Public &mdash; show my contents to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile? %>
+    </div>
+    <div>
+      <%= labelled_radio_button _('Private &mdash; show my contents only to friends').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile? %>
+    </div>
+  <% else %>
+    <div>
+      <%= labelled_check_box _("Secret &mdash; hide the community and all its contents for non members and other people can't join this community unless they are invited to.").html_safe, 'profile_data[secret]', true, profile.secret, :class => "profile-secret-box" %>
+    </div>
+    <div>
+      <%= labelled_radio_button _('Public &mdash; show content of this group to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile?, :class => "public-community-button" %>
+    </div>
+    <div>
+      <%= labelled_radio_button _('Private &mdash; show content of this group only to members').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile?, :class => "private-community-button" %>
+    </div>
+  <% end %>
+
+  <%= content_tag('h2', _('Wall access')) %>
+  <%= content_tag( 'small', _('Who will be able to see your wall?')) %>
+  <%= access_slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, @profile.wall_access, @profile.wall_access_levels) %>
+
+  <%= content_tag('h2', _('Followers')) %>
+  <div>
+    <%= labelled_check_box _("Allow other users to follow me"), 'profile_data[allow_followers]', true, @profile.allow_followers?, :class => "person-can-be-followed" %>
+  </div>
+
+  <% if @profile.person? %>
+    <%= render :partial => 'people_privacy' %>
+   <% else %>
+    <%= render :partial => 'organization_privacy' %>
+   <% end %>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
+    <%= submit_button('save', _('Save')) %>
+  <% end %>
+<% end %>
+
+<%= javascript_include_tag 'profile_editor_privacy' %>

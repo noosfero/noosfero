@@ -1,0 +1,224 @@
+var geocoder;
+var map;
+var marker;
+var mapZoom = <%= GoogleMaps.initial_zoom.to_json %>;
+var delay_autocomplete = 500;
+var previousMsg = '';
+
+function pointToAddress(latlng) {
+  if (latlng == null)
+    return;
+
+  jQuery('#location-support-fields').addClass("loading");
+
+  geocoder.geocode( {'latLng': latlng}, function(results, status) {
+    jQuery('#location-support-fields').removeClass("loading");
+
+    if (status != google.maps.GeocoderStatus.OK) {
+      alert("<%=_("Address not found, reason:")%>" + statusErrorMessage(status));
+      return;
+    }
+
+    var position = marker.getPosition();
+    jQuery('#profile_data_lat').val(position.lat());
+    jQuery('#profile_data_lng').val(position.lng());
+
+    var place = results[0];
+    var components_len = place.address_components.length;
+    if (components_len < 2)
+      return;
+
+    var location_values = {
+      country: '',
+      state: '',
+      city: '',
+      district: '',
+      zip_code: '',
+      route: '',
+      number: '',
+      address: ''
+    }
+
+    var location_fields = {
+      country: { field: 'country', type: 'short' },
+      administrative_area_level_1: { field: 'state', type: 'long' },
+      locality: { field: 'city', type: 'long' },
+      administrative_area_level_2: { field: 'city', type: 'long' },
+      sublocality: { field: 'district', type: 'long' },
+      administrative_area_level_4: { field: 'district', type: 'long' },
+      postal_code: { field: 'zip_code', type: 'short' },
+      route: { field: 'route', type: 'long' },
+      street_number: { fueld: 'number', type: 'short' }
+    }
+
+    for (var i = 0; i < components_len; i++) {
+      value = place.address_components[i];
+      types = value.types;
+
+      for (var j = 0; j < types.length; j++) {
+        location_field = location_fields[types[j]];
+        if (location_field) {
+          var content = value[location_field.type + '_name']
+          location_values[location_field.field] = content
+          break;
+        }
+      }
+    }
+
+    // Build address
+    if (location_values.route) {
+      location_values.address = location_values.route;
+      if (location_values.number)
+       location_values.address += ', ' + number;
+      if (location_values.sublocality &&
+          location_values.sublocality != location_values.city)
+       location_values.address += ', ' + location_values.sublocality;
+    }
+
+    jQuery.each(location_values, function(field, value) {
+      jQuery('#profile_data_' + field).val(value);
+    })
+  });
+}
+
+function addressToPoint() {
+  jQuery('#location-support-fields').addClass("loading");
+
+  var address_components = [
+    jQuery('#profile_data_address').val(),
+    jQuery('#profile_data_zip_code').val(),
+    jQuery('#profile_data_district').val(),
+    jQuery('#profile_data_city').val(),
+    jQuery('#profile_data_state').val(),
+    jQuery('#profile_data_country').val()
+  ];
+
+  var address = address_components.filter(function (el) {
+    return el != undefined
+  }).join(', ');
+
+  if (geocoder) {
+   geocoder.geocode({ 'address': address}, function(results, status) {
+     if (status == google.maps.GeocoderStatus.OK) {
+       map.setCenter(results[0].geometry.location);
+       marker.setPosition(results[0].geometry.location);
+       pointToAddress(marker.getPosition());
+
+       jQuery('#profile_data_lat').val(results[0].geometry.location.lat());
+       jQuery('#profile_data_lng').val(results[0].geometry.location.lng());
+       jQuery('#location-support-fields').removeClass("loading");
+       enable_save();
+     } else {
+       jQuery('#location-fields').removeClass("loading");
+       alert('<%=_("Address not found, reason:")%>' + statusErrorMessage(status));
+     }
+   });
+  }
+
+  return false;
+}
+
+function statusErrorMessage(status)
+{
+  var translated_status = '';
+
+  if (google.maps.GeocoderStatus.INVALID_REQUEST == status)
+    translated_status = '<%= _('Invalid address') %>';
+  else if (google.maps.GeocoderStatus.REQUEST_DENIED == status)
+    translated_status = '<%= _('Request denied') %>';
+  else if (google.maps.GeocoderStatus.OVER_QUERY_LIMIT == status)
+    translated_status = '<%= _('Over query limit') %>';
+  else if (google.maps.GeocoderStatus.ZERO_RESULTS == status)
+    translated_status = "<%= _('Address do not exist') %>";
+
+  return translated_status;
+}
+
+function initializeMap() {
+  <% if profile.required_fields.include?('location') && (profile.lat.nil? || profile.lng.nil?) %>
+    disable_save();
+  <% end %>
+
+  geocoder = new google.maps.Geocoder();
+
+  var lat = <%= profile.try(:lat) || '-15.793926031041158' %>;
+  var lng = <%= profile.try(:lng) || '-47.88270950317383' %>;
+
+  var center = new google.maps.LatLng(lat,lng);;
+  map = new google.maps.Map(document.getElementById("location-map"), {
+    zoom: mapZoom,
+    center: center
+  });
+
+  marker = new google.maps.Marker({
+    position: center,
+    map: map,
+    draggable: true
+  });
+
+  google.maps.event.addListener(marker, "dragend", function() {
+    pointToAddress(marker.getPosition());
+    map.setCenter(marker.getPosition());
+    enable_save();
+  });
+}
+
+jQuery(document).ready(function () {
+
+  initializeMap();
+
+  jQuery.widget("custom.catcomplete", jQuery.ui.autocomplete, {
+    _renderMenu: function( ul, items ) {
+      var self = this,
+      currentCategory = "";
+      jQuery.each( items, function( index, item ) {
+        if ( item.category != currentCategory ) {
+          ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+          currentCategory = item.category;
+        }
+        self._renderItem( ul, item );
+      });
+    }
+  });
+
+  jQuery("#profile_data_city").catcomplete({
+    source: "../maps/search_city",
+    minLength: 3,
+    delay: delay_autocomplete,
+    select: function( event, ui ) { jQuery('#profile_data_state').val( ui.item ? ui.item.category : this.value ); }
+  });
+
+  jQuery("#profile_data_state").autocomplete({
+    source: "../maps/search_state",
+    minLength: 3,
+    delay: delay_autocomplete
+  });
+
+  jQuery("#profile_data_city").keyup(function(){
+    disable_save();
+  });
+  jQuery("#profile_data_state").keyup(function(){
+    disable_save();
+  });
+  jQuery("#profile_data_country").change(function(){
+    disable_save();
+  });
+
+});
+
+function disable_save()
+{
+  var button = $('#location-map').closest('form').find('input[type="submit"]')
+  previousMsg = previousMsg ? previousMsg : button.val();
+  button.attr("disabled", "true");
+  button.val('<%=_("Localize before saving")%>');
+  button.addClass('disabled');
+}
+
+function enable_save()
+{
+  var button = $('#location-map').closest('form').find('input[type="submit"]')
+  button.removeAttr("disabled");
+  if (previousMsg != '') { button.val(previousMsg) };
+  button.removeClass('disabled');
+}

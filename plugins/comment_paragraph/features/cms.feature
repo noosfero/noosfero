@@ -14,8 +14,7 @@ Feature: Create a new Discussion Article
   @selenium
   Scenario: discussion article should save content body
   Given I am on joaosilva's control panel
-  And I follow "Manage Content"
-  And I follow "New content"
+  And I follow "New" within "#section-content"
   When I follow "Comments Discussion"
   And I fill in "Title" with "My discussion"
   And I fill in tinyMCE "article_body" with "My discussion body!!!"

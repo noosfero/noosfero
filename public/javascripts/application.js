@@ -45,6 +45,7 @@
 *= require comments.js
 *= require offline_page.js
 *= require upload-file.js
+*= require edit-in-place.js
 *
 * serviceworker
 *= require serviceworker-companion.js
@@ -1161,7 +1162,6 @@ function add_uploaded_file() {
   var input = template.find('input[type=file]')[0]
   var file_number = $('#uploaded_files .file-fieldset').length
 
-  template.removeClass('template')
   $(input).attr('name', 'uploaded_files[' + file_number  + '][file]')
   template.find('.crop_x').attr('name', 'uploaded_files[' + file_number  + '][crop_x]')
   template.find('.crop_y').attr('name', 'uploaded_files[' + file_number  + '][crop_y]')
@@ -1172,6 +1172,7 @@ function add_uploaded_file() {
   $(input).click()
   $(input).change(function() {
     let file = input.files[0];
+    template.first().removeClass('template')
     template.find('.file-name').text(file.name)
     template.find('.file-size').text(format_bytes(file.size))
   })
