@@ -11,11 +11,13 @@
   @media only screen and (max-width: 768px) { display: block; }
   .search-form {
     display: inline-flex;
+    align-items: center;
     flex-grow: 1;
     margin-right: 8px;
     margin-top: 0;
     width: 70%;
     @media only screen and (max-width: 768px) { width: 100%; }
+
     .formfield {
       flex-grow: 8;
       @media only screen and (max-width: 768px) { flex-grow: 1; }
@@ -24,6 +26,8 @@
     }
 
     a.button {
+      position: relative;
+      bottom: 5%;
       flex-grow: 2;
       @media only screen and (max-width: 768px) { flex-grow: 0; }
       min-width: 80px;
