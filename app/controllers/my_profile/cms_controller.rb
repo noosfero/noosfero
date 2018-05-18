@@ -422,6 +422,45 @@ class CmsController < MyProfileController
     end
   end
 
+  def invite_to_event
+    @article = profile.articles.find(params[:id])
+    @profiles = invite_event_to @article
+    record_coming
+    if request.post?
+      @back_to = params[:back_to]
+      @failed = {}
+
+      people_to_invite = @profiles.select { |profile|
+                           params[:profile_ids].include? profile.id.to_s }
+
+      if people_to_invite.empty?
+        render :action => 'invite_to_event'
+        return session[:notice] = _("Are not you going to invite anyone?")
+      end
+
+      people_to_invite.each do |person|
+        begin
+          task = InviteEvent.create!(:metadata => { :event_id => @article.id, :message => params[:data][:message]},
+                                     :target => person, :requestor => user)
+        rescue Exception => ex
+           @failed[ex.message] ? @failed[ex.message] << person.name : @failed[ex.message] = [person.name]
+        end
+      end
+
+      if @failed.blank?
+        session[:notice] = _("Your friends were invited successfully.")
+        if @back_to
+          redirect_to @back_to
+        else
+          redirect_to @article.view_url
+        end
+      else
+        session[:notice] = _("Some of your friends could not be invited.")
+        render :action => 'invite_to_event'
+      end
+    end
+  end
+
   protected
 
   include CmsHelper
@@ -442,7 +481,6 @@ class CmsController < MyProfileController
   def special_article_types
     [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed] + @plugins.dispatch(:content_types)
   end
-
 
   def record_coming
     if request.post?
@@ -557,4 +595,14 @@ class CmsController < MyProfileController
     end
     data
   end
+
+  def invite_event_to article
+    profiles = profile.kind_of?(Organization) ? profile.members : profile.friends
+    inviteds = article.invitations if article.event?
+    result = []
+    profiles.each do |profile|
+      result << profile unless inviteds.find_by(guest: profile)
+    end
+    result
+   end
 end

@@ -58,4 +58,40 @@ module EventsHelper
     calendar
   end
 
+  def invite_decision_message invitation
+    case invitation.decision
+      when EventInvitation::DECISIONS['yes']
+        _('Yes, I will go!')
+      when EventInvitation::DECISIONS['no']
+        _('I will not')
+      when EventInvitation::DECISIONS['maybe']
+        _('I\'m interested')
+      else
+        _('Will you go?')
+    end
+  end
+
+  def invite_decision_icon invitation
+    case invitation.decision
+      when EventInvitation::DECISIONS['yes']
+        font_awesome(:check)
+      when EventInvitation::DECISIONS['no']
+        font_awesome(:times)
+      when EventInvitation::DECISIONS['maybe']
+        font_awesome(:star)
+      else
+        font_awesome(:envelope)
+    end
+  end
+
+  def person_invitation person, decision, icon
+    content_tag(:div, class: 'invitation decision-' + decision) do
+      content_tag(:div, class: 'guest-image') do
+        link_to(image_tag(profile_icon(person, :minor), class: 'disable-zoom'), person.url) +
+        content_tag(:span, icon, class: 'decision')
+      end +
+      content_tag(:span, link_to(person.name, person.url), class: 'guest-name')
+    end
+  end
+
 end

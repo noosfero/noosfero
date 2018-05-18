@@ -1,4 +1,4 @@
-<div class="task-box gray-border-top" id="task-<%= task.id %>">
+<div class="task-box gray-border-top <%= task.class.name.underscore %>" id="task-<%= task.id %>">
 
   <div class="task-requestor-img">
     <%= render partial: 'tasks/task_icon', locals: { task: task } %>
@@ -60,7 +60,7 @@
 
     <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
       <% if task.custom_fields_moderate %>
-        <div id="custom-field-information-<%=task.id%>">
+        <div id="custom-field-information-<%=task.id%>" class='custom-field-information'>
           <%= render partial: "tasks/#{task.class.name.underscore}_custom_fields", locals: { task: task } %>
         </div>
       <% end %>
@@ -87,14 +87,18 @@
     <% end %>
 
     <% unless @view_only %>
-      <%= button_bar(class: 'task-actions') do %>
-        <% unless task.accept_disabled? %>
-          <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
-          <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
-          <%= link_to _("Cancel"), '#!', class: 'button btn-red-reverse keep-when-hover cancel-task hidden' %>
-        <% else %>
-          <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
-        <%end%>
+      <% if task.custom_action_bar %>
+          <%= render :partial => partial_for_class(task.class, nil, :action_bar), :locals => {:task => task} %>
+      <% else %>
+        <%= button_bar(class: 'task-actions') do %>
+          <% unless task.accept_disabled? %>
+            <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
+            <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
+            <%= link_to _("Cancel"), '#!', class: 'button btn-red-reverse keep-when-hover cancel-reject-task hidden' %>
+          <% else %>
+            <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
+          <%end%>
+        <% end %>
       <% end %>
     <% end %>
   </div>
