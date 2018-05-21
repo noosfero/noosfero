@@ -113,6 +113,7 @@ class Person < Profile
   has_many :friends, class_name:  'Person', through:  :friendships
   has_many :circles
   has_many :push_subscriptions, as: :owner
+  has_many :event_invitation
 
   scope :online, -> {
     joins(:user).where("users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes)

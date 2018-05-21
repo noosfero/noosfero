@@ -237,6 +237,12 @@ module ArticleHelper
       actions << link_to(content, url, { modal: true} ) if url
     end
 
+    if @page.allow_edit?(user) && @page.kind_of?(Event)
+      content = font_awesome('user-plus', _('Invite Friends'))
+      url = profile.admin_url.merge({controller: 'cms', action: 'invite_to_event', id: @page.id})
+      actions << link_to(content, url) if url
+    end
+
     if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user)))
       if @page.translatable? && !@page.native_translation.language.blank? && !remove_content_button(:locale, @page)
         content = font_awesome(:language, _('Add translation'))
