@@ -65,85 +65,109 @@ setup_rubygems_path() {
 cd "$(dirname $0)/../"
 
 force_install=false
-if test "$1" = '--force-install'; then
-  force_install=true
-fi
-if gem which system_timer >/dev/null 2>&1 && which xvfb-run >/dev/null 2>&1 && test "$force_install" = 'false'; then
-  say "Assuming dependencies are already installed. Pass --force-install to force their installation"
-else
-  if ! which lsb_release >/dev/null 2>&1; then
-    # special case Debian-based systems; in others people will have to install
-    # lsb-release by themselves
-    if which apt-get >/dev/null 2>&1; then
-      sudo apt-get update
-      sudo apt-get -y install lsb-release
+database_only=false
+dependencies_only=false
+
+while [ ! -z "$1" ] && [ "${1##-}" != "$1" ]; do
+  opt="$1"
+  shift
+  case "$opt" in
+    -f|--force-install)
+      force_install=true
+      ;;
+    -d|--db-setup)
+      db_setup=true
+      ;;
+    -i|--install-dependencies)
+      install_dependencies=true
+      ;;
+  esac
+done
+
+if ["$install_dependencies" = 'true'] || ["$db_setup" = 'false']; then
+  if gem which system_timer >/dev/null 2>&1 && which xvfb-run >/dev/null 2>&1 && test "$force_install" = 'false'; then
+    say "Assuming dependencies are already installed. Pass --force-install to force their installation"
+  else
+    if ! which lsb_release >/dev/null 2>&1; then
+      # special case Debian-based systems; in others people will have to install
+      # lsb-release by themselves
+      if which apt-get >/dev/null 2>&1; then
+        sudo apt-get update
+        sudo apt-get -y install lsb-release
+      else
+        complain "E: lsb_release not available! (Try installing the lsb-release package)"
+        exit 1
+      fi
+    fi
+    system=$(echo $(lsb_release -sic) | awk '{print(tolower($1) "-" tolower($2))}')
+    install_script="$(dirname $0)/install-dependencies/${system}.sh"
+    if test -f "$install_script"; then
+      . $install_script
+      say "I: All dependecies were installed."
     else
-      complain "E: lsb_release not available! (Try installing the lsb-release package)"
+      # FIXME the Ruby stuff could be installed with Rubygems
+      # FIXME but there is not generic way to install the non-Ruby stuff
+      complain "E: $install_script not found, cannot install dependencies."
       exit 1
     fi
   fi
-  system=$(echo $(lsb_release -sic) | awk '{print(tolower($1) "-" tolower($2))}')
-  install_script="$(dirname $0)/install-dependencies/${system}.sh"
-  if test -f "$install_script"; then
-    . $install_script
+fi
+
+if ["$db_setup" = 'true'] || ["$install_dependencies" = 'false']; then
+  # Ensure database is running
+  sudo service postgresql start
+  while ! sudo -u postgres psql < /dev/null >/dev/null 2>&1; do
+    sleep 5s
+  done
+
+  if test -e config/database.yml && test "$force_install" = 'false'; then
+    say 'Not updating existent database.yml.'
+    say 'If you wish to automatic reconfigure your database connection and'
+    say 'recreate the database, you can delete config/database.yml and run'
+    say 'this script again.'
   else
-    # FIXME the Ruby stuff could be installed with Rubygems
-    # FIXME but there is not generic way to install the non-Ruby stuff
-    complain "E: $install_script not found, cannot install dependencies."
-    exit 1
+    # create the database with sample data
+    say 'Configuring Noosfero to use PostgreSQL, with your user.'
+    run cp config/database.yml.pgsql config/database.yml
+    if [ -z "$USER" ]; then
+      USER=$(stat -c %U $0)
+    fi
+    sed -ri "s/username: noosfero/username: $USER/" config/database.yml
+
+    # Create database and users
+    sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole" || true
+    sudo su - postgres -c "createdb noosfero_development -O $USER" || true
+    sudo su - postgres -c "createdb noosfero_test -O $USER" || true
+
+    # Create table and sample data
+    run rake db:schema:load
+    run rake db:schema:load RAILS_ENV=test
+    run rake db:data:minimal
+    rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
+    say "I: Database setup finished."
+  fi
+
+  if [ ! -d locale ]; then
+    run quiet rake noosfero:translations:compile
   fi
 fi
 
-# Ensure database is running
-sudo service postgresql start
-while ! sudo -u postgres psql < /dev/null >/dev/null 2>&1; do
-  sleep 5s
-done
+if ["$db_setup" = 'false'] && ["$install_dependencies" = 'false']; then
+  # create needed directory
+  mkdir -p tmp/pids
+  mkdir -p tmp/cache
+  mkdir -p cache
 
-if test -e config/database.yml && test "$force_install" = 'false'; then
-  say 'Not updating existent database.yml.'
-  say 'If you wish to automatic reconfigure your database connection and'
-  say 'recreate the database, you can delete config/database.yml and run'
-  say 'this script again.'
-else
-  # create the database with sample data
-  say 'Configuring Noosfero to use PostgreSQL, with your user.'
-  run cp config/database.yml.pgsql config/database.yml
-  if [ -z "$USER" ]; then
-    USER=$(stat -c %U $0)
+  # use default gitignore rules
+  if [ ! -f .gitignore ]; then
+    ln -s gitignore.example .gitignore
   fi
-  sed -ri "s/username: noosfero/username: $USER/" config/database.yml
 
-  # Create database and users
-  sudo su - postgres -c "createuser $USER --no-superuser --createdb --no-createrole" || true
-  sudo su - postgres -c "createdb noosfero_development -O $USER" || true
-  sudo su - postgres -c "createdb noosfero_test -O $USER" || true
+  # remove obsolete symbolic link added by old versions
+  rm -f vendor/rails
 
-  # Create table and sample data
-  run rake db:schema:load
-  run rake db:schema:load RAILS_ENV=test
-  run rake db:data:minimal
-  rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
+  # you can now start the server
+  say "I: Congratulations, you are ready to run Noosfero."
+  say "I: To execute Noosfero in development mode, run \`./script/development\` and browse to http://localhost:3000"
+  say "I: To execute Noosfero tests, run \`rake\`."
 fi
-
-if [ ! -d locale ]; then
-  run quiet rake noosfero:translations:compile
-fi
-
-# create needed directory
-mkdir -p tmp/pids
-mkdir -p tmp/cache
-mkdir -p cache
-
-# use default gitignore rules
-if [ ! -f .gitignore ]; then
-  ln -s gitignore.example .gitignore
-fi
-
-# remove obsolete symbolic link added by old versions
-rm -f vendor/rails
-
-# you can now start the server
-say "I: Congratulations, you are ready to run Noosfero."
-say "I: To execute Noosfero in development mode, run \`./script/development\` and browse to http://localhost:3000"
-say "I: To execute Noosfero tests, run \`rake\`."
