@@ -7,9 +7,15 @@ jobs:
       - image: alaxalves/noosfero-ci
     steps:
       - checkout
-      - cache_directories:
-        - "vendor/bundle"
-        - "elasticsearch-1.7.6"
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "Gemfile.lock" }}
+          - v1-dependencies-
+      - save_cache:
+          paths:
+            - ./vendor/bundle
+            - ./elasticsearch-1.7.6
+          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
       - run:
           name: preparing environment
           command: |
