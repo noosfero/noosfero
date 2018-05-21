@@ -65,8 +65,8 @@ setup_rubygems_path() {
 cd "$(dirname $0)/../"
 
 force_install=false
-database_only=false
-dependencies_only=false
+db_setup=false
+install_dependencies=false
 
 while [ ! -z "$1" ] && [ "${1##-}" != "$1" ]; do
   opt="$1"
@@ -84,7 +84,7 @@ while [ ! -z "$1" ] && [ "${1##-}" != "$1" ]; do
   esac
 done
 
-if ["$install_dependencies" = 'true'] || ["$db_setup" = 'false']; then
+if [ "$install_dependencies" = 'true' ] || [ "$db_setup" = 'false' ]; then
   if gem which system_timer >/dev/null 2>&1 && which xvfb-run >/dev/null 2>&1 && test "$force_install" = 'false'; then
     say "Assuming dependencies are already installed. Pass --force-install to force their installation"
   else
@@ -113,7 +113,7 @@ if ["$install_dependencies" = 'true'] || ["$db_setup" = 'false']; then
   fi
 fi
 
-if ["$db_setup" = 'true'] || ["$install_dependencies" = 'false']; then
+if [ "$db_setup" = 'true' ] || [ "$install_dependencies" = 'false' ]; then
   # Ensure database is running
   sudo service postgresql start
   while ! sudo -u postgres psql < /dev/null >/dev/null 2>&1; do
@@ -152,7 +152,7 @@ if ["$db_setup" = 'true'] || ["$install_dependencies" = 'false']; then
   fi
 fi
 
-if ["$db_setup" = 'false'] && ["$install_dependencies" = 'false']; then
+if [ "$db_setup" = 'false' ] && [ "$install_dependencies" = 'false' ]; then
   # create needed directory
   mkdir -p tmp/pids
   mkdir -p tmp/cache
