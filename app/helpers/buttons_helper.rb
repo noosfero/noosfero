@@ -33,10 +33,9 @@ module ButtonsHelper
     remove:            'times',
     save_and_continue: 'cloud-upload-alt',
     spread:            'share-alt',
-    text:              'file-o',
     menu:              'align-justify',
     text:              'file',
-    trash:            'trash-alt'
+    trash:             'trash-alt'
   }
 
   def font_awesome type, label = ""
