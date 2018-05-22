@@ -53,4 +53,18 @@ class CustomFormsPluginAdminControllerTest < ActionController::TestCase
 
     assert_equal 3, num_of_files
   end
+
+  should 'include the requested profile fields in the downloaded files' do
+    profile = fast_create(Community)
+    profile.forms.create(name: 'Form', kind: 'poll')
+    post :download_files, profile_ids: [profile].map(&:id),
+                          fields: %w(name city cell_phone)
+
+    Zip::InputStream.open(StringIO.new(response.body)) do |stream|
+      while stream.get_next_entry
+        content = stream.read
+        assert_match /name,city,cell_phone/, content
+      end
+    end
+  end
 end

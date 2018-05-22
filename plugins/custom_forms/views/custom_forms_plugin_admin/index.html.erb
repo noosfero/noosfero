@@ -8,12 +8,17 @@
   <%= _('Export one file with several queries at once.') %>
 </p>
 
-<p>
-  <%= _('Select which profiles you want to export the queries from.') %>
-</p>
-
 <%= form_for :profile, url: { action: 'download_files' },
                        html: { class: 'profile-selector' } do |form| %>
+  <%= exportable_fields_selector('fields[]',
+                                 _('Select the user fields to be included '\
+                                   'in the submissions report'),
+                                 current_person, %w(name email)) %>
+
+  <p>
+    <%= _('Select which profiles you want to export the queries from.') %>
+  </p>
+
   <%= text_field_tag :profile_selector_search, nil,
                      placeholder: _('Filter profiles by name'),
                      id: 'profile-selector-search' %>
