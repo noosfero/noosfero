@@ -327,8 +327,16 @@ table.cms-articles .icon:hover {
   max-width: 100%;
 }
 
-.controller-cms .button-bar .icon-delete {
-  float: right;
+@media only screen and (max-width: 767px) {
+  .controller-cms .button-bar .icon-delete {
+    float: right;
+  }
+}
+
+@media only screen and (min-width: 767px) {
+  .controller-cms .button-bar .icon-delete {
+    margin-left: 5vh;
+  }
 }
 
 .quota-status {
