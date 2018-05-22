@@ -130,3 +130,21 @@ code input {
     }
   }
 }
+
+.exportable-fields-selector {
+  .exportable-fields {
+    display: flex;
+    margin: 10px 0 20px;
+    flex-wrap: wrap;
+
+    label {
+      padding: 5px 0;
+      width: calc(100% / 4);
+
+      &:hover, &:focus {
+        border-radius: 3px;
+        background-color: #eee;
+      }
+    }
+  }
+}
