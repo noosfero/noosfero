@@ -39,7 +39,7 @@ msgstr ""
 "Restringe visitantes não autenticados a acessar qualquer perfil público, "
 "exceto o portal."
 
-#: ../lib/public_access_restriction_plugin.rb:55
+#: ../lib/public_access_restriction_plugin/control_panel/welcome_page.rb:6
 #: ../views/public_access_restriction_plugin_page/index.html.erb:2
 msgid "Public Welcome Page"
 msgstr "Página Pública de Boas Vindas"

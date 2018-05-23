@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-10 12:34+0000\n"
-"PO-Revision-Date: 2018-04-10 12:34+0000\n"
+"POT-Creation-Date: 2018-05-23 22:21+0000\n"
+"PO-Revision-Date: 2018-05-23 22:21+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -26,8 +26,8 @@ msgstr ""
 msgid "Notification Manager"
 msgstr ""
 
-#: ../lib/admin_notifications_plugin.rb:35
-msgid "Manage Notifications"
+#: ../lib/admin_notifications_plugin/control_panel/admin_notifications.rb:6
+msgid "Admin Notifications"
 msgstr ""
 
 #: ../lib/admin_notifications_plugin/notification_manager.rb:14
@@ -81,11 +81,11 @@ msgid ""
 msgstr ""
 
 #: ../views/shared/_form.html.erb:16
-msgid "Active"
+msgid "Notifications Status"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:16
-msgid "Notifications Status"
+msgid "Active"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:16

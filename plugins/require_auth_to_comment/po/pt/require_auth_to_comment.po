@@ -23,23 +23,30 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.4-dev\n"
 
+#: ../lib/require_auth_to_comment_plugin.rb:12
 msgid "Requires users to authenticate in order to post comments."
 msgstr "Exige que os usuários se autentiquem antes de postar coentários."
 
+#: ../views/profile-editor-extras.html.erb:1
 msgid "Comments"
 msgstr "Comentários"
 
+#: ../views/profile-editor-extras.html.erb:3
 msgid "Accept comments from unauthenticated users"
 msgstr "Aceitar comentários de usuários não autenticados"
 
+#: ../views/require_auth_to_comment_plugin_admin/index.html.erb:1
 msgid "Require auth to comment Settings"
 msgstr "Configurações do plugin RequereAuthToComment"
 
+#: ../views/require_auth_to_comment_plugin_admin/index.html.erb:8
 msgid "Hide button"
 msgstr "Esconder botão"
 
+#: ../views/require_auth_to_comment_plugin_admin/index.html.erb:11
 msgid "Display login popup"
 msgstr "Mostrar popup de login"
 
+#: ../views/require_auth_to_comment_plugin_admin/index.html.erb:17
 msgid "Save"
 msgstr "Salvar"

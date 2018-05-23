@@ -23,51 +23,66 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.5\n"
 
+#: ../controllers/tolerance_time_plugin_myprofile_controller.rb:10
 msgid "Tolerance updated"
 msgstr "O tempo de tolerância foi atualizado"
 
+#: ../controllers/tolerance_time_plugin_myprofile_controller.rb:12
 msgid "Tolerance could not be updated"
 msgstr "O tempo de tolerância não pode ser atualizado"
 
+#: ../lib/tolerance_time_plugin.rb:8
 msgid "Adds a tolerance time for editing content after its publication"
 msgstr ""
 "Adiciona um tempo de tolerância para edição de conteúdo após sua publicação"
 
-msgid "Tolerance Adjustements"
-msgstr "Configurações de Tolerância"
-
+#: ../lib/tolerance_time_plugin.rb:34 ../lib/tolerance_time_plugin.rb:48
 msgid ""
 "This content can't be edited anymore because it expired the tolerance time"
 msgstr ""
 "Este conteúdo não pode mais ser editado porque seu tempo de tolerância "
 "expirou"
 
+#: ../lib/tolerance_time_plugin.rb:59
 msgid "editing"
 msgstr "edição"
 
+#: ../lib/tolerance_time_plugin.rb:63
 msgid "cloning"
 msgstr "clonagem"
 
+#: ../lib/tolerance_time_plugin.rb:70
 msgid "The tolerance time for %s this content is over."
 msgstr "O tempo de tolerância para %s deste conteúdo acabou."
 
+#: ../lib/tolerance_time_plugin/control_panel/tolerance.rb:6
+msgid "Tolerance Adjustements"
+msgstr "Configurações de Tolerância"
+
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:1
 msgid "Tolerance Adjustments"
 msgstr "Configurações de Tolerância"
 
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:7
 msgid "Seconds"
 msgstr "Segundos"
 
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:7
 msgid "Minutes"
 msgstr "Minutos"
 
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:7
 msgid "Hours"
 msgstr "Horas"
 
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:10
 msgid "Content edition tolerance time"
 msgstr "Tempo de tolerância para edição de conteúdo"
 
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:14
 msgid "Comment edition tolerance time"
 msgstr "Tempo de tolerância para edição de comentários"
 
+#: ../views/tolerance_time_plugin_myprofile/index.html.erb:18
 msgid "Empty means unlimited and zero means right away."
 msgstr "Campo vazio significa ilimitado e zero significa imediatamente."
