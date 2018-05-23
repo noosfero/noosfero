@@ -110,7 +110,7 @@ else
   say 'Configuring Noosfero to use PostgreSQL, with your user.'
   run cp config/database.yml.pgsql config/database.yml
   if [ -z "$USER" ]; then
-    USER=$(stat -c %U $0)
+    USER=$(whoami)
   fi
   sed -ri "s/username: noosfero/username: $USER/" config/database.yml
 
