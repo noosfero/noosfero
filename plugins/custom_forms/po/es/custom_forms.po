@@ -6,20 +6,19 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2017-02-25 13:04+0000\n"
-"Last-Translator: Carlos Duque Guasch <c.duqueguasch@gmx.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
-"custom-forms/es/>\n"
+"PO-Revision-Date: 2018-05-23 13:10+0000\n"
+"Last-Translator: Jesús Parrillas <jesusparrillas@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
+"plugin-custom-forms/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.12-dev\n"
+"X-Generator: Weblate 3.0-dev\n"
 
-#, fuzzy
 msgid "Remove field"
-msgstr "Eliminar bloque"
+msgstr "Eliminar campo"
 
 #, fuzzy
 msgid "Access"
@@ -109,7 +108,6 @@ msgstr "%{requestor} quiere ser tu amigo."
 msgid "Remove alternative"
 msgstr "Eliminar miembro"
 
-#, fuzzy
 msgid "Checkbox"
 msgstr "Checkbox"
 
@@ -475,7 +473,7 @@ msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:13
 msgid "Remove image"
-msgstr ""
+msgstr "Eliminar imagen"
 
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:21
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:4
@@ -542,7 +540,7 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:38
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:52
 msgid "Add option"
-msgstr ""
+msgstr "Agregar opción"
 
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:16
