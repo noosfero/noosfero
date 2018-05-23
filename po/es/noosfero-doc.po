@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2017-03-07 08:38+0000\n"
-"Last-Translator: Carlos Duque Guasch <c.duqueguasch@gmx.com>\n"
+"PO-Revision-Date: 2018-05-23 13:10+0000\n"
+"Last-Translator: Jesús Parrillas <jesusparrillas@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
 "documentation/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.12\n"
+"X-Generator: Weblate 3.0-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -393,9 +393,8 @@ msgstr ""
 # type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/index.en.xhtml:1
-#, fuzzy
 msgid "Plugins"
-msgstr "Características adicionales"
+msgstr "Complementos"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -1628,10 +1627,8 @@ msgstr ""
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:13
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:18
 #: doc/noosfero/quotas/index.en.xhtml:3
-#, fuzzy
-#| msgid "Manage Friends"
 msgid "Upload quotas"
-msgstr "Administrar amigos"
+msgstr "Cargar cuotas"
 
 #. type: Content of: <p>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:6
