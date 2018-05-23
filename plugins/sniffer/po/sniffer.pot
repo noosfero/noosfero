@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 15:45+0000\n"
-"PO-Revision-Date: 2017-05-09 15:45+0000\n"
+"POT-Creation-Date: 2018-05-23 22:22+0000\n"
+"PO-Revision-Date: 2018-05-23 22:22+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -26,11 +26,11 @@ msgstr ""
 msgid "Sniffs product suppliers and consumers near to your enterprise."
 msgstr ""
 
-#: ../lib/sniffer_plugin.rb:16
+#: ../lib/sniffer_plugin/control_panel/consumer_interests.rb:6
 msgid "Consumer Interests"
 msgstr ""
 
-#: ../lib/sniffer_plugin.rb:17
+#: ../lib/sniffer_plugin/control_panel/opportunities_sniffer.rb:6
 #: ../views/sniffer_plugin_myprofile/search.html.erb:9
 msgid "Opportunities Sniffer"
 msgstr ""

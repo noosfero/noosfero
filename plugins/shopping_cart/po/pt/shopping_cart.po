@@ -78,13 +78,17 @@ msgstr "Id errado do produto"
 msgid "A shopping basket feature for enterprises"
 msgstr "Funcionalidade de cesto de compras para empreendimentos"
 
-#: ../lib/shopping_cart_plugin.rb:29
-msgid "Shopping basket"
-msgstr "Cesto de compras"
+#: ../lib/shopping_cart_plugin.rb:31
+msgid "Shopping"
+msgstr "Compras"
 
 #: ../lib/shopping_cart_plugin/cart_helper.rb:11
 msgid "Add to basket"
 msgstr "Adicionar ao cesto"
+
+#: ../lib/shopping_cart_plugin/control_panel/shopping_preferences.rb:6
+msgid "Preferences"
+msgstr "Preferências"
 
 #: ../lib/shopping_cart_plugin/mailer.rb:20
 msgid "[%s] Your buy request was performed successfully."
@@ -295,3 +299,11 @@ msgstr "Habilitar cesto de compras"
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:13
 msgid "Deliveries or pickups"
 msgstr "Formas de retirada ou entrega"
+
+#: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
+msgid "Back to control panel"
+msgstr "Voltar para o painel de controle"
+
+#: ../lib/shopping_cart_plugin.rb:29
+#~ msgid "Shopping basket"
+#~ msgstr "Cesto de compras"

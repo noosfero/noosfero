@@ -90,11 +90,11 @@ msgid "Track List"
 msgstr ""
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Most Recent"
+msgid "Hits"
 msgstr ""
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Hits"
+msgid "Most Recent"
 msgstr ""
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
