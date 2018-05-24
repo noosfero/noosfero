@@ -755,7 +755,7 @@ class Environment < ApplicationRecord
   # environment has not associated domains, returns 'localhost'.
   def default_hostname(email_hostname = false)
     domain = 'localhost'
-    domains = self.domains(true).order(:id)
+    domains = self.domains.order(:id)
     unless domains.empty?
       domain = (domains.detect{ |d| d.is_default } || domains.first).name
       domain = email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
