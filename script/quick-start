@@ -61,14 +61,28 @@ setup_rubygems_path() {
   fi
 }
 
+_usage() {
+  echo "$program_name: basic setup for Noosfero"
+  echo
+  echo "Options:"
+  echo "  --force-install|-f"
+  echo "    Force installation"
+  echo "  --db-setup|-d"
+  echo "    Setup the database"
+  echo "  --install-dependencies|-i"
+  echo "    Install all Noosfero's dependecies"
+  echo
+}
+
 # change current directory to the noosfero's root
 cd "$(dirname $0)/../"
 
 force_install=false
 db_setup=false
 install_dependencies=false
+program_name=$(basename $0)
 
-while [ ! -z "$1" ] && [ "${1##-}" != "$1" ]; do
+while [ ! -z "$1" ]; do
   opt="$1"
   shift
   case "$opt" in
@@ -80,6 +94,15 @@ while [ ! -z "$1" ] && [ "${1##-}" != "$1" ]; do
       ;;
     -i|--install-dependencies)
       install_dependencies=true
+      ;;
+    -h|--help)
+      _usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $opt"
+      _usage
+      exit 1
       ;;
   esac
 done
