@@ -861,7 +861,7 @@ module ApplicationHelper
 
   def search_events_menu
     @search_events_url = content_tag(:a, content_tag(:i, "", :class => 'fa fa-calendar') + _('Events'), :class => 'icon-menu-events', :href => "/search/events", :id => 'submenu-events')
-    render :text => @search_events_url
+    render plain: @search_events_url
   end
   alias :browse_events_menu :search_events_menu
 

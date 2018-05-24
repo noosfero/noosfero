@@ -65,7 +65,7 @@ class ProfileController < PublicController
       :description => _("%s's contents tagged with \"%s\"").html_safe % [profile.name, @tag],
       :link => url_for(profile.url)
     )
-    render :text => data, :content_type => "text/xml"
+    render plain: data, :content_type => "text/xml"
   end
 
   def communities
@@ -127,12 +127,12 @@ class ProfileController < PublicController
 
       profile.add_member(user)
       if !profile.members.include?(user)
-        render :text => {:message => _('%s administrator still needs to accept you as member.').html_safe % profile.name}.to_json
+        render plain: {:message => _('%s administrator still needs to accept you as member.').html_safe % profile.name}.to_json
       else
-        render :text => {:message => _('You just became a member of %s.').html_safe % profile.name}.to_json
+        render plain: {:message => _('You just became a member of %s.').html_safe % profile.name}.to_json
       end
     else
-      render :text => {:message => _('You are already a member of %s.').html_safe % profile.name}.to_json
+      render plain: {:message => _('You are already a member of %s.').html_safe % profile.name}.to_json
     end
   end
 
@@ -149,24 +149,24 @@ class ProfileController < PublicController
   def leave
     if current_person.memberships.include?(profile)
       if current_person.is_last_admin?(profile)
-        render :text => {:redirect_to => url_for({:controller => 'profile_members', :action => 'last_admin', :person => current_person.id})}.to_json
+        render plain: {:redirect_to => url_for({:controller => 'profile_members', :action => 'last_admin', :person => current_person.id})}.to_json
       else
-        render :text => current_person.leave(profile, params[:reload])
+        render plain: current_person.leave(profile, params[:reload])
       end
     else
-      render :text => {:message => _('You are not a member of %s.').html_safe % profile.name}.to_json
+      render plain: {:message => _('You are not a member of %s.').html_safe % profile.name}.to_json
     end
   end
 
   def check_membership
     unless logged_in?
-      render :text => ''
+      render plain: ''
       return
     end
     if user.memberships.include?(profile)
-      render :text => 'true'
+      render plain: 'true'
     else
-      render :text => 'false'
+      render plain: 'false'
     end
   end
 
@@ -174,22 +174,22 @@ class ProfileController < PublicController
     # FIXME this shouldn't be in Person model?
     if !user.memberships.include?(profile)
       AddFriend.create!(:person => user, :friend => profile)
-      render :text => _('%s still needs to accept being your friend.').html_safe % profile.name
+      render plain: _('%s still needs to accept being your friend.').html_safe % profile.name
     else
-      render :text => _('You are already a friend of %s.').html_safe % profile.name
+      render plain: _('You are already a friend of %s.').html_safe % profile.name
     end
   end
 
   def follow
     if profile.followed_by?(current_person)
-      render :text => _("You are already following %s.") % profile.name, :status => 400
+      render plain: _("You are already following %s.") % profile.name, :status => 400
     else
       selected_circles = params[:circles].map{ |circle_name, circle_id| Circle.find_by(:id => circle_id) }.select{ |c| c.present? }
       if selected_circles.present?
         current_person.follow(profile, selected_circles)
-        render :text => _("You are now following %s") % profile.name, :status => 200
+        render plain: _("You are now following %s") % profile.name, :status => 200
       else
-        render :text => _("Select at least one circle to follow %s.") % profile.name, :status => 400
+        render plain: _("Select at least one circle to follow %s.") % profile.name, :status => 400
       end
     end
   end
@@ -211,13 +211,13 @@ class ProfileController < PublicController
 
   def check_friendship
     unless logged_in?
-      render :text => ''
+      render plain: ''
       return
     end
     if user == profile || user.already_request_friendship?(profile) || user.is_a_friend?(profile)
-      render :text => 'true'
+      render plain: 'true'
     else
-      render :text => 'false'
+      render plain: 'false'
     end
   end
 
@@ -278,7 +278,7 @@ class ProfileController < PublicController
     circles = find_by_contents(:circles, user, user.circles.where(:profile_type => 'Person'), params[:q])[:results]
     followed = find_by_contents(:followed, user, Profile.followed_by(user), params[:q])[:results]
     result = circles + followed
-    render :text => prepare_to_token_input_by_class(result).to_json
+    render plain: prepare_to_token_input_by_class(result).to_json
   end
 
   def loop_fetch_activities(base_activities, kind, page)
@@ -370,15 +370,15 @@ class ProfileController < PublicController
       raise if !can_edit_profile
       notification = ActionTrackerNotification.where(profile_id: profile.id, action_tracker_id: params[:activity_id]).first
       notification.destroy
-      render :text => _('Notification successfully removed.')
+      render plain: _('Notification successfully removed.')
     rescue
-      render :text => _('You could not remove this notification.')
+      render plain: _('You could not remove this notification.')
     end
   end
 
   def finish_successful_removal(msg)
     if request.xhr?
-      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => true}.to_json, :content_type => 'application/json'
     else
       session[:notice] = _(msg)
       redirect_to :action => :index
@@ -388,7 +388,7 @@ class ProfileController < PublicController
   def finish_unsuccessful_removal(msg)
     session[:notice] = _(msg)
     if request.xhr?
-      render :text => {'redirect' => url_for(:action => :index)}.to_json, :content_type => 'application/json'
+      render plain: {'redirect' => url_for(:action => :index)}.to_json, :content_type => 'application/json'
     else
       redirect_to :action => :index
     end
@@ -401,7 +401,7 @@ class ProfileController < PublicController
 
   def register_report
     unless verify_captcha(:report_abuse, nil, user, environment, profile)
-      render :text => {
+      render plain: {
         :ok => false,
         :error => {
           :code => 1,
@@ -423,13 +423,13 @@ class ProfileController < PublicController
           Delayed::Job.enqueue DownloadReportedImagesJob.new(abuse_report, article)
         end
 
-        render :text => {
+        render plain: {
           :ok => true,
           :message => _('Your abuse report was registered. The administrators are reviewing your report.'),
         }.to_json
       rescue Exception => exception
         logger.error(exception.to_s)
-        render :text => {
+        render plain: {
           :ok => false,
           :error => {
             :code => 2,

@@ -12,7 +12,7 @@ class ChatController < PublicController
       jid, sid, rid = RubyBOSH.initialize_session(login, password, "http://#{environment.default_hostname}/http-bind",
                                                   :wait => 30, :hold => 1, :window => 5)
       session_data = { :jid => jid, :sid => sid, :rid => rid }
-      render :text => session_data.to_json, :layout => false, :content_type => 'application/javascript'
+      render plain: session_data.to_json, :layout => false, :content_type => 'application/javascript'
     rescue
       render :action => 'start_session_error', :layout => false, :status => 500
     end
@@ -40,7 +40,7 @@ class ChatController < PublicController
   end
 
   def my_session
-    render :text => session[:chat].to_json, :layout => false
+    render plain: session[:chat].to_json, :layout => false
   end
 
   def avatar
@@ -51,7 +51,7 @@ class ChatController < PublicController
         redirect_to filename
       else
         data = File.read(File.join(Rails.root, 'public', filename))
-        render :text => data, :layout => false, :content_type => mimetype
+        render plain: data, :layout => false, :content_type => mimetype
         expires_in 24.hours
       end
     else
@@ -121,7 +121,7 @@ class ChatController < PublicController
     rooms = user.memberships.map {|m| {:jid => m.jid, :name => m.name}}
     friends = user.friends.map {|f| {:jid => f.jid, :name => f.name}}
     rosters = {:rooms => rooms, :friends => friends}
-    render :text => rosters.to_json
+    render plain: rosters.to_json
   end
 
   def availabilities
@@ -131,7 +131,7 @@ class ChatController < PublicController
       status = 'offline' if status.blank? || !friend.user.chat_alive?
       {:jid => friend.jid, :status => status}
     end
-    render :text => availabilities.to_json
+    render plain: availabilities.to_json
   end
 
   protected
@@ -151,6 +151,6 @@ class ChatController < PublicController
   end
 
   def render_json(result)
-    render :text => result.to_json
+    render plain: result.to_json
   end
 end

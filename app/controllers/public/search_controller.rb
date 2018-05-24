@@ -139,7 +139,7 @@ class SearchController < PublicController
   end
 
   def suggestions
-    render :text => find_suggestions(normalize_term(params[:term]), environment, params[:asset]).to_json
+    render plain: find_suggestions(normalize_term(params[:term]), environment, params[:asset]).to_json
   end
 
   #######################################################

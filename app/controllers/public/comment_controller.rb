@@ -93,10 +93,10 @@ class CommentController < ApplicationController
     comment = profile.comments_received.find(params[:id])
 
     if comment && comment.can_be_destroyed_by?(user) && comment.destroy
-      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => true}.to_json, :content_type => 'application/json'
     else
       session[:notice] = _("The comment was not removed.")
-      render :text => {'ok' => false}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => false}.to_json, :content_type => 'application/json'
     end
   end
 
@@ -104,10 +104,10 @@ class CommentController < ApplicationController
     comment = profile.comments_received.find(params[:id])
     if comment.can_be_marked_as_spam_by?(user)
       comment.spam!
-      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => true}.to_json, :content_type => 'application/json'
     else
       session[:notice] = _("You couldn't mark this comment as spam.")
-      render :text => {'ok' => false}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => false}.to_json, :content_type => 'application/json'
     end
   end
 

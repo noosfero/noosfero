@@ -47,7 +47,7 @@ class InviteController < PublicController
 
   def invitation_data
     contact_list = ContactList.find(params[:contact_list])
-    render :text => contact_list.data.to_json, :layout => false, :content_type => "application/javascript"
+    render plain: contact_list.data.to_json, :layout => false, :content_type => "application/javascript"
   end
 
   def add_contact_list
@@ -85,7 +85,7 @@ class InviteController < PublicController
     scope = scope.distinct(false).group("profiles.id")
 
     results = find_by_contents(:people, environment, scope, params['q'], {:page => 1}, {:joins => :user})[:results]
-    render :text => prepare_to_token_input(results).to_json
+    render plain: prepare_to_token_input(results).to_json
   end
 
   protected

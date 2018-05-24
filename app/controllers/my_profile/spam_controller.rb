@@ -41,7 +41,7 @@ class SpamController < MyProfileController
   protected
 
   def json_response(status)
-    render :text => {'ok' => status }.to_json, :content_type => 'application/json'
+    render plain: {'ok' => status }.to_json, :content_type => 'application/json'
   end
 
 end

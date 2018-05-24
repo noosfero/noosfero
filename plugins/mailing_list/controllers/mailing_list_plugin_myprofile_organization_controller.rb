@@ -16,7 +16,7 @@ class MailingListPluginMyprofileOrganizationController < MailingListPluginMyprof
     scope = profile.articles.where("articles.type = 'Blog' OR articles.type = 'Forum'")
     scope = scope.where("NOT(metadata ? 'mailing_list_plugin') OR NOT(metadata -> 'mailing_list_plugin' ? 'watched') OR (metadata #> '{mailing_list_plugin,watched}' = 'false')")
     result = find_by_contents(:articles, profile, scope, params[:q])[:results]
-    render :text => prepare_to_token_input(result).to_json
+    render plain: prepare_to_token_input(result).to_json
   end
 
   def subscribe

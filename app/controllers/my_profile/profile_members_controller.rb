@@ -140,7 +140,7 @@ class ProfileMembersController < MyProfileController
   def search_user
     role = Role.find(params[:role])
     q = params['q_'+role.key].try(:downcase)
-    render :text => environment.people.where('LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?', "%#{q}%", "%#{q}%").
+    render plain: environment.people.where('LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?', "%#{q}%", "%#{q}%").
       select { |person| !profile.members_by_role(role).include?(person) }.
       map {|person| {:id => person.id, :name => person.name} }.
       to_json

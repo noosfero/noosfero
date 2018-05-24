@@ -32,7 +32,7 @@ class SubOrganizationsPluginMyprofileController < MyProfileController
   end
 
   def search_organization
-    render :text => prepare_to_token_input(
+    render plain: prepare_to_token_input(
       environment.organizations.where(
         "(LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?)
         AND (identifier NOT LIKE ?) AND (id != ?)",

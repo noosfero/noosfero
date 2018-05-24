@@ -119,7 +119,7 @@ class AccountController < ApplicationController
 
   def signup_time
     key = set_signup_start_time_for_now
-    render :text => { :ok=>true, :key=>key }.to_json
+    render plain: { :ok=>true, :key=>key }.to_json
   end
 
   # action to register an user to the application
@@ -364,7 +364,7 @@ class AccountController < ApplicationController
       user_data.merge!(user_data_extras)
     end
 
-    render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
+    render plain: user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
 
   def search_cities

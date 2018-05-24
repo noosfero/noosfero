@@ -171,7 +171,7 @@ class CmsController < MyProfileController
         else
           respond_to do |format|
             format.html { success_redirect }
-            format.json { render :text => {:id => @article.id, :full_name => profile.identifier + '/' + @article.full_name}.to_json }
+            format.json { render plain: {:id => @article.id, :full_name => profile.identifier + '/' + @article.full_name}.to_json }
           end
         end
         return
@@ -261,7 +261,7 @@ class CmsController < MyProfileController
   def search_communities_to_publish
     scope = user.memberships.distinct(false)
     results = find_by_contents(:profiles, environment, scope, params['q'], {:page => 1}, {:fields => ['name']})[:results]
-    render :text => results.map {|community| {:id => community.id, :name => community.name} }
+    render plain: results.map {|community| {:id => community.id, :name => community.name} }
                            .uniq {|c| c[:id] }.to_json
   end
 
@@ -367,7 +367,7 @@ class CmsController < MyProfileController
   def search
     query = params[:q]
     results = find_by_contents(:uploaded_files, profile, profile.files.published, query)[:results]
-    render :text => article_list_to_json(results).html_safe, :content_type => 'application/json'
+    render plain: article_list_to_json(results).html_safe, :content_type => 'application/json'
   end
 
   def media_upload
