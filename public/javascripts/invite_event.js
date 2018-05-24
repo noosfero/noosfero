@@ -37,7 +37,7 @@ jQuery(function($) {
   });
 
   function submit_decision_with_details(button) {
-    let accept_details = $(button).closest('.task-description').find('.task-view-details')
+    var accept_details = $(button).closest('.task-description').find('.task-view-details')
 
     if(accept_details.length != 0 && accept_details.css('display') == 'none') {
       accept_details.show('slow')
