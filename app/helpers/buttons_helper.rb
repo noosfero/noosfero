@@ -55,6 +55,10 @@ module ButtonsHelper
     end
   end
 
+  #To do and remove on future
+  def link_to_function(content, url, options = {})
+  end
+
   def button(type, label, url, html_options = {})
     klass = 'with-text'
     if html_options.has_key?(:class)
