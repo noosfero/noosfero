@@ -1,5 +1,3 @@
-<% self.extend(CustomFormsPlugin::Helper) %>
-
 <%= error_messages_for :form %>
 <%= required labelled_form_field _('Name'), f.text_field(:name) %>
 <% address_field = content_tag('code', "/profile/#{profile.identifier}/query/".html_safe + f.text_field(:identifier)).html_safe %>
