@@ -61,6 +61,11 @@ makedir $noosfero_data_dir/public/articles
 makedir $noosfero_data_dir/public/image_uploads
 makedir $noosfero_data_dir/public/thumbnails
 
+# create noosfero tmp directory
+##############################################################################
+
+makedir /var/tmp/noosfero
+
 . /usr/share/debconf/confmodule
 
 db_get noosfero/default_database_config
