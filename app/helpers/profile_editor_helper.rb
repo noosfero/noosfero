@@ -116,8 +116,8 @@ module ProfileEditorHelper
     if profile.state.present? &&
        !states.find { |c| c[1] == profile.metadata['state'] }
       states.unshift [profile.state, profile.state]
-      options[:selected] = profile.metadata['state']
     end
+    options[:selected] = profile.metadata['state']
     select(object_name, :state, [[_('Select a state...'), nil]] + states, options, html_options)
   end
 
@@ -128,8 +128,8 @@ module ProfileEditorHelper
     if profile.city.present? &&
        !cities.find { |c| c[1] == profile.metadata['city'] }
       cities.unshift [profile.city, profile.city]
-      options[:selected] = profile.metadata['city']
     end
+    options[:selected] = profile.metadata['city']
     select(object_name, :city, [[_('Select a city...'), nil]] + cities, options, html_options)
   end
 
