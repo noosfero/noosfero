@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180327192120) do
+ActiveRecord::Schema.define(version: 20180416172522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -396,6 +396,13 @@ ActiveRecord::Schema.define(version: 20180327192120) do
     t.boolean "disable_feed_ssl", default: false
     t.jsonb "metadata", default: {}
     t.index ["metadata"], name: "index_environments_on_metadata", using: :gin
+  end
+
+  create_table "event_invitations", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "guest_id"
+    t.integer "requestor_id"
+    t.integer "decision"
   end
 
   create_table "external_feeds", force: :cascade do |t|
@@ -786,9 +793,16 @@ ActiveRecord::Schema.define(version: 20180327192120) do
     t.integer "tagger_id"
     t.string "tagger_type"
     t.string "context", limit: 128
+    t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
+    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
     t.index ["taggable_id", "taggable_type"], name: "index_taggings_on_taggable_id_and_taggable_type"
+    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
+    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
+    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
+    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
   create_table "tags", force: :cascade do |t|
