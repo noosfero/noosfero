@@ -73,7 +73,7 @@ function save_comment(button) {
       noosfero.modal.close();
       increment_comment_count(comment_div);
     } else {
-      let comment_order = comment_div.find("#form_order select#comment_order option:selected").val();
+      var comment_order = comment_div.find("#form_order select#comment_order option:selected").val();
       //New comment of article
       if(comment_order && comment_order.toLowerCase() == 'oldest') {
           comment_div.find('.article-comments-list').append(data.html);
