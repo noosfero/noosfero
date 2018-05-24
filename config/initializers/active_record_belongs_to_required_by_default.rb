@@ -1,3 +1,3 @@
 # Require `belongs_to` associations by default. Previous versions had false.
-# Se desejar tornar a relação `belongs_to` opcional, deverá adicionar na model a seguinte diretiva: `, optional: true`
+# If you want to make `belongs_to` realtion optional, you should add in its `optional: true` directive
 Rails.application.config.active_record.belongs_to_required_by_default = true
