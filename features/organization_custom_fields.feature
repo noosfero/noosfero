@@ -16,7 +16,7 @@ Feature: organization custom fields
       | display_name  |
       | contact_email |
       | location      |
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     When I follow <creation_button>
     Then I should not see "Display name"
     Then I should not see "Contact email"
@@ -35,19 +35,19 @@ Feature: organization custom fields
       | Organization  | organization  |
     And "Joao Silva" is admin of "Organization"
     And I am on organization's control panel
-    And I follow <information>
+    And I follow "Informations" within "#section-profile"
     Then I should see "Display name"
     Then I should see "Contact email"
   Examples:
-    | organization  | information                     |
-    | community     | "Community Info and settings"   |
-    | enterprise    | "Enterprise Info and settings"  |
+    | organization  |
+    | community     |
+    | enterprise    |
 
   Scenario Outline: organization required fields are displayed on creation
     Given the following <organization> fields are required fields
       | display_name  |
       | contact_email |
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     And I follow <creation_button>
     When I press <confirmation_button>
     Then I should see "Display name can't be blank"
@@ -66,7 +66,7 @@ Feature: organization custom fields
       | Organization  |  organization | organization | bla@bleee.com | city |
     And "Joao Silva" is admin of "Organization"
     And I am on organization's control panel
-    And I follow <information>
+    And I follow "Informations" within "#section-profile"
     And I fill in the following:
       | Display name  | |
       | Contact email | |
@@ -74,16 +74,16 @@ Feature: organization custom fields
     Then I should see "Display name can't be blank"
     Then I should see "Contact email can't be blank"
   Examples:
-    | organization  | information                     |
-    | community     | "Community Info and settings"   |
-    | enterprise    | "Enterprise Info and settings"  |
+    | organization  |
+    | community     |
+    | enterprise    |
 
   Scenario Outline: organization signup fields are displayed on creation
     Given the following <organization> fields are signup fields
       | display_name  |
       | contact_email |
       | location      |
-    And I follow "Manage my groups"
+    And I follow "Groups" within "#section-relationships"
     When I follow <creation_button>
     Then I should see "Display name"
     Then I should see "Contact email"
