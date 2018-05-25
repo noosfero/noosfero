@@ -65,6 +65,9 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
+
+gem 'sass-listen'
+
 group :production do
   gem 'dalli', '~> 2.7.0'
 end
