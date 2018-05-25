@@ -86,8 +86,8 @@ group :development, :test do
 end
 
 group :test do
-  gem 'mocha',                      '~> 1.1.0', :require => false
-  gem 'test-unit'                   if RUBY_VERSION >= '2.2.0'
+  gem 'mocha',                  '~> 1.1.0', :require => false
+  gem 'test-unit'
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'simplecov', :require => false

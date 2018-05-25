@@ -16,6 +16,10 @@ msgstr ""
 msgid "Manage orders"
 msgstr "Gerenciar pedidos"
 
+#: ../lib/orders_plugin/base.rb:15
+msgid "Shopping"
+msgstr "Compras"
+
 #: ../models/orders_plugin/order.rb:13
 msgid "Money"
 msgstr "Dinheiro"

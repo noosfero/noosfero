@@ -18,24 +18,24 @@ msgstr ""
 "X-Generator: Weblate 2.3-dev\n"
 
 #, fuzzy
-msgid "Deliveries or pickups"
-msgstr "Վերացնել անհատական էջը"
+msgid "Email"
+msgstr "Էլ. հասցե"
 
 #, fuzzy
 msgid "Basket displayed."
 msgstr "Մենյուի մեջ ցույց չտալ"
 
 #, fuzzy
-msgid "Basket options"
-msgstr "Կառավարման հատկություններ"
+msgid "Delivery or pickup method"
+msgstr "Վերացնել անհատական էջը"
 
 #, fuzzy
 msgid "Delivery option updated."
 msgstr "Վերացնել անհատական էջը"
 
 #, fuzzy
-msgid "Thanks for buying with us!"
-msgstr "Շնորհակալություն գրանցվելու համար:"
+msgid "Phone number"
+msgstr "Նոր անդամ"
 
 #, fuzzy
 msgid "There is no basket."
@@ -66,11 +66,15 @@ msgid "A shopping basket feature for enterprises"
 msgstr "Դիզակտիվացնել ձեռնարկությունների որոնումը"
 
 #, fuzzy
-msgid "Phone number"
-msgstr "Նոր անդամ"
+msgid "Thanks for buying with us!"
+msgstr "Շնորհակալություն գրանցվելու համար:"
 
 #, fuzzy
-msgid "Delivery or pickup method"
+msgid "Basket options"
+msgstr "Կառավարման հատկություններ"
+
+#, fuzzy
+msgid "Deliveries or pickups"
 msgstr "Վերացնել անհատական էջը"
 
 #, fuzzy
@@ -82,12 +86,20 @@ msgid "shopping_cart|Change"
 msgstr "Վերացնել անհատական էջը"
 
 #, fuzzy
-msgid "Email"
-msgstr "Էլ. հասցե"
+msgid "Are you sure you want to clean your basket?"
+msgstr "Վստա՞հ եք, որ ցանկանում եք դուրս գալ:"
 
 #, fuzzy
 msgid "Basket is empty"
 msgstr "Մենյուի մեջ ցույց չտալ"
+
+#, fuzzy
+msgid "Are you sure you want to remove this item?"
+msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
+
+#, fuzzy
+msgid "Show basket"
+msgstr "Որոնել"
 
 #, fuzzy
 msgid "Did you want to reload this page?"
@@ -96,18 +108,6 @@ msgstr "Ցանկանո՞ւմ եք արդյոք հեռացնել այս մեկն�
 #, fuzzy
 msgid "Clean basket"
 msgstr "Ստեղծված է"
-
-#, fuzzy
-msgid "Are you sure you want to clean your basket?"
-msgstr "Վստա՞հ եք, որ ցանկանում եք դուրս գալ:"
-
-#, fuzzy
-msgid "Show basket"
-msgstr "Որոնել"
-
-#, fuzzy
-msgid "Are you sure you want to remove this item?"
-msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
 
 #: ../controllers/shopping_cart_plugin_controller.rb:138
 msgid ""
@@ -129,12 +129,16 @@ msgstr ""
 msgid "Invalid quantity."
 msgstr ""
 
-#: ../lib/shopping_cart_plugin.rb:29
-msgid "Shopping basket"
+#: ../lib/shopping_cart_plugin.rb:31
+msgid "Shopping"
 msgstr ""
 
 #: ../lib/shopping_cart_plugin/cart_helper.rb:11
 msgid "Add to basket"
+msgstr ""
+
+#: ../lib/shopping_cart_plugin/control_panel/shopping_preferences.rb:6
+msgid "Preferences"
 msgstr ""
 
 #: ../lib/shopping_cart_plugin/mailer.rb:36
@@ -277,4 +281,8 @@ msgstr ""
 
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:7
 msgid "Enable shopping basket"
+msgstr ""
+
+#: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
+msgid "Back to control panel"
 msgstr ""

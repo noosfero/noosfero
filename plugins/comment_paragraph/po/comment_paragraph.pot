@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-10 12:34+0000\n"
-"PO-Revision-Date: 2018-04-10 12:34+0000\n"
+"POT-Creation-Date: 2018-05-23 22:22+0000\n"
+"PO-Revision-Date: 2018-05-23 22:22+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -27,11 +27,11 @@ msgid "A plugin that display comments divided by paragraphs."
 msgstr ""
 
 #: ../lib/comment_paragraph_plugin.rb:52
-msgid "Activate Comments"
+msgid "Deactivate Comments"
 msgstr ""
 
 #: ../lib/comment_paragraph_plugin.rb:52
-msgid "Deactivate Comments"
+msgid "Activate Comments"
 msgstr ""
 
 #: ../lib/comment_paragraph_plugin.rb:60
@@ -57,6 +57,10 @@ msgstr ""
 msgid "This block displays all profile's article discussion"
 msgstr ""
 
+#: ../lib/comment_paragraph_plugin/macros/select_all.rb:7
+msgid "Select/Deselect all sections as commentable"
+msgstr ""
+
 #: ../views/blocks/discussion.html.erb:20
 #: ../views/blocks/discussion.html.erb:29
 msgid "Read more"
@@ -67,15 +71,15 @@ msgid "Choose which blog should be displayed"
 msgstr ""
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
-msgid "Available Discussions"
-msgstr ""
-
-#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
 msgid "Closed Discussions"
 msgstr ""
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
 msgid "Not Opened Discussions"
+msgstr ""
+
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
+msgid "Available Discussions"
 msgstr ""
 
 #:

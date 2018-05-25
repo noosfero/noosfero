@@ -18,15 +18,15 @@ msgstr ""
 "X-Generator: Weblate 2.5-dev\n"
 
 #, fuzzy
-msgid "Deliveries or pickups"
-msgstr "Precio de entrega"
+msgid "shopping_cart|Change"
+msgstr "Nivel educativo"
 
 #, fuzzy
-msgid "Enable shopping basket"
-msgstr "Carrito de compras"
+msgid "Did you want to reload this page?"
+msgstr "¿Quiéres unirte a este grupo?"
 
 #, fuzzy
-msgid "Delivery or pickup"
+msgid "Delivery or pickup method"
 msgstr "Precio de entrega"
 
 #, fuzzy
@@ -34,8 +34,11 @@ msgid "Delivery option updated."
 msgstr "Precio de entrega"
 
 #, fuzzy
-msgid "If you have any doubts about your order, write to us at: %s."
-msgstr "Si tienes alguna duda, contáctanos en: %s"
+msgid ""
+"This is a notification e-mail about your buy request on the enterprise %s."
+msgstr ""
+"Esta es un correo electrónico de notificación sobre tu solicitud de compra "
+"en %s."
 
 #, fuzzy
 msgid ""
@@ -46,19 +49,16 @@ msgstr ""
 "contigo para confirmación."
 
 #, fuzzy
-msgid ""
-"This is a notification e-mail about your buy request on the enterprise %s."
-msgstr ""
-"Esta es un correo electrónico de notificación sobre tu solicitud de compra "
-"en %s."
+msgid "If you have any doubts about your order, write to us at: %s."
+msgstr "Si tienes alguna duda, contáctanos en: %s"
 
 #, fuzzy
-msgid "Delivery or pickup method"
+msgid "Delivery or pickup"
 msgstr "Precio de entrega"
 
 #, fuzzy
-msgid "shopping_cart|Change"
-msgstr "Nivel educativo"
+msgid "Enable shopping basket"
+msgstr "Carrito de compras"
 
 #, fuzzy
 msgid "Undefined product"
@@ -69,16 +69,16 @@ msgid "Wrong product id"
 msgstr "Ningún producto"
 
 #, fuzzy
-msgid "Total"
-msgstr "Total:"
-
-#, fuzzy
-msgid "Did you want to reload this page?"
-msgstr "¿Quiéres unirte a este grupo?"
-
-#, fuzzy
 msgid "Basket is empty"
 msgstr "Carrito mostrado."
+
+#, fuzzy
+msgid "Deliveries or pickups"
+msgstr "Precio de entrega"
+
+#, fuzzy
+msgid "Total"
+msgstr "Total:"
 
 #: ../controllers/shopping_cart_plugin_controller.rb:138
 msgid ""
@@ -120,13 +120,18 @@ msgstr "Cantidad no válida."
 msgid "A shopping basket feature for enterprises"
 msgstr "Una característica de carrito de compras para tu empresa"
 
-#: ../lib/shopping_cart_plugin.rb:29
-msgid "Shopping basket"
+#: ../lib/shopping_cart_plugin.rb:31
+#, fuzzy
+msgid "Shopping"
 msgstr "Carrito de compras"
 
 #: ../lib/shopping_cart_plugin/cart_helper.rb:11
 msgid "Add to basket"
 msgstr "Añadir al carrito"
+
+#: ../lib/shopping_cart_plugin/control_panel/shopping_preferences.rb:6
+msgid "Preferences"
+msgstr ""
 
 #: ../lib/shopping_cart_plugin/mailer.rb:20
 msgid "[%s] Your buy request was performed successfully."
@@ -286,3 +291,11 @@ msgstr ""
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:1
 msgid "Basket options"
 msgstr "Opciones de carrito"
+
+#: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
+msgid "Back to control panel"
+msgstr ""
+
+#: ../lib/shopping_cart_plugin.rb:29
+#~ msgid "Shopping basket"
+#~ msgstr "Carrito de compras"
