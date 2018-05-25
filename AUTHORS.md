@@ -31,6 +31,7 @@ Andrey Aleksanyants <aaleksanyants@yahoo.com>
 André Guedes <andrebsguedes@gmail.com>
 André de Sousa C.F <andre.filho001@outlook.com>
 André de Sousa C.F. <andre.filho001@outlook.com>
+Anna <annalarissa.martins@hotmail.com>
 Antonio Terceiro <terceiro@colivre.coop.br>
 Arthur Assis <arthur120496@gmail.com>
 Arthur Del Esposte <arthurmde@gmail.com>
@@ -59,6 +60,7 @@ Daniel Alves <danpaulalves@gmail.com>
 Daniel Bucher <daniel.bucher88@gmail.com>
 Daniel Cunha <daniel@colivre.coop.br>
 Daniel Henrique <danielhmarinho@gmail.com>
+Daniel Teles <danieelteles@gmail.com>
 Daniel Tygel <dtygel@eita.org.br>
 Daniela Soares Feitosa <danielafeitosa@colivre.coop.br>
 David Carlos <ddavidcarlos1392@gmail.com>
@@ -102,6 +104,7 @@ Italo Valcy <italo@dcc.ufba.br>
 Italo Valcy <italovalcy@ufba.br>
 Izharul Haq <atoz.chevara.2013@gmail.com>
 Jefferson Fernandes <jeffs.fernandes@gmail.com>
+Jesús Parrillas <jesusparrillas@gmail.com>
 Joenio Costa <joenio@colivre.coop.br>
 Joenio Costa <joenio@joenio.me>
 Josafá Souza Jr <josafa.souza@serpro.gov.br>
@@ -114,6 +117,7 @@ João Machini
 Junior Silva <juniorsilva1001@gmail.com>
 Jérôme Jutteau <j.jutteau@gmail.com>
 Jéssica Cristina <jessica.cris1127@gmail.com>
+KamillaCosta <kamillacostasouza@hotmail.com>
 Karine Valença <valenca.karine@gmail.com>
 Keilla Menezes <keilla@colivre.coop.br>
 LL <lu.lecocq@free.fr>
@@ -152,6 +156,7 @@ MartinsLucas <lucas465@hotmail.com>
 Martín Olivera <molivera@solar.org.ar>
 María Vecino <mariavecino@ecoalternative.net>
 Matheus Faria <matheus.sousa.faria@gmail.com>
+Matheus Joranhezon <mjoranhezon@gmail.com>
 Matheus Miranda <matheusmirandalacerda@gmail.com>
 Matheus Richard <matheusrichardt@gamil.com>
 Matheus Richard <matheusrichardt@gmail.com>
@@ -178,6 +183,8 @@ Pedro Leal
 Pedro de Lyra <pedrodelyra@gmail.com>
 Phillip Rohmberger <rohmberger@hotmail.de>
 Rafael Gomes <rafaelgomes@techfree.com.br>
+Rafael Makaha <rafael.makaha@gmail.com>
+Rafael Makaha Gomes Ferreira <rafael.makaha@gmail.com>
 Rafael Martins <rmmartins@gmail.com>
 Rafael Reggiani Manzo <rr.manzo@gmail.com>
 Rafael de Souza Queiroz <querafael@live.com>
@@ -196,6 +203,7 @@ Sabryna Sousa <sabryna.sousa1323@gmail.com>
 Samuel R. C. Vale <srcvale@holoscopio.com>
 Simião Carvalho <simiaosimis@gmail.com>
 Sires <ranearodrigo1@gmail.com>
+Stefania Bezerra da Silva <stefaniabezerra95@gmail.com>
 TWS <tablettws@gmail.com>
 Tallys Martins <tallysmartins@yahoo.com.br>
 Thalisson Melo <tallisonmelo46@gmail.com>
@@ -232,6 +240,7 @@ arthurbdiniz <arthurbdiniz@gmail.com>
 baronMidnight <andre.filho001@outlook.com>
 baronMidnight <dedaoskater@hotmail.com>
 caiomnt <monturil@mail.com>
+farfadet46 <farfadet46@gmail.com>
 jessicacris <jessica.cris1127@gmail.com>
 lioh <fl.araujo95@gmail.com>
 lucasssm <lucas50dx@hotmail.com>
@@ -239,6 +248,7 @@ lucasssm <lucas50xd@hotmail.com>
 matheuslacerda <matheusmirandalacerda@gmail.com>
 mendesiasmin <mendesiasmin96@gmail.com>
 shshshwhs <diogobeirao10@gmail.com>
+thiagorfm <t_moreira@outlook.com>
 tiagorc <tiagobrasil2005@yahoo.com.br>
 victorcmoura <victor_cmoura@hotmail.com>
 vinimlo <vinimelo@riseup.net>

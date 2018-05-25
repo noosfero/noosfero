@@ -1,5 +1,5 @@
 production:
-  adapter: _DBC_DBTYPE_
+  adapter: postgresql
   database: _DBC_DBNAME_
   encoding: unicode
   username: _DBC_DBUSER_

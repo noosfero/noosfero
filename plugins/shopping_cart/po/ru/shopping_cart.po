@@ -103,6 +103,10 @@ msgstr "Неправильная категория товара"
 msgid "Add to basket"
 msgstr "Добавить в корзину"
 
+#: ../lib/shopping_cart_plugin/control_panel/shopping_preferences.rb:6
+msgid "Preferences"
+msgstr ""
+
 #: ../lib/shopping_cart_plugin/mailer.rb:36
 msgid "[%s] You have a new buy request from %s."
 msgstr ""
@@ -285,3 +289,7 @@ msgstr "Опции корзины"
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:13
 msgid "Deliveries or pickups"
 msgstr "Доставка или получение на месте"
+
+#: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
+msgid "Back to control panel"
+msgstr ""

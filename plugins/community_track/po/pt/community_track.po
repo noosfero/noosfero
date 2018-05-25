@@ -95,12 +95,12 @@ msgid "Random"
 msgstr "Aleatório"
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Most Recent"
-msgstr "Mais Recentes"
-
-#: ../lib/community_track_plugin/track_list_block.rb:92
 msgid "Hits"
 msgstr "Acessos"
+
+#: ../lib/community_track_plugin/track_list_block.rb:92
+msgid "Most Recent"
+msgstr "Mais Recentes"
 
 #: ../views/blocks/_track.html.erb:12 ../views/content_viewer/track.html.erb:9
 msgid "Steps"

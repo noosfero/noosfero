@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
   $('.edit-in-place a.edit-image').on('click', function() {
-    let form = $(this).siblings('form')
-    let file_input = form.find('.image-input')
+    var form = $(this).siblings('form')
+    var file_input = form.find('.image-input')
 
     file_input.click()
 
@@ -15,10 +15,10 @@ $(document).ready(function() {
 })
 
 function edit_in_place(element) {
-  let form = $(element).closest('form.edit-in-place')
-  let container = $(element).closest('.edit-in-place-container')
-  let input = container.find('div.edit-in-place-field')
-  let actual = container.find('.edit-in-place-info')
+  var form = $(element).closest('form.edit-in-place')
+  var container = $(element).closest('.edit-in-place-container')
+  var input = container.find('div.edit-in-place-field')
+  var actual = container.find('.edit-in-place-info')
 
   actual.hide('slow')
   input.show('slow')
@@ -37,10 +37,10 @@ function edit_in_place(element) {
 }
 
 function edit_in_place_image(element) {
-  let form = $(element).closest('form.edit-in-place')
-  let container = $(element).closest('.edit-in-place-container')
-  let input = container.find('div.edit-in-place-field input[type=file]')
-  let actual = container.find('.edit-in-place-info')
+  var form = $(element).closest('form.edit-in-place')
+  var container = $(element).closest('.edit-in-place-container')
+  var input = container.find('div.edit-in-place-field input[type=file]')
+  var actual = container.find('.edit-in-place-info')
 
   $(form).submit(function(e){
     e.preventDefault();

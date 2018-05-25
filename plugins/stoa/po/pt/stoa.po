@@ -31,7 +31,7 @@ msgstr "O par usuário/senha está incorreto."
 msgid "Conection requires post method."
 msgstr "A conexão requer método 'post'."
 
-#: ../lib/ext/person.rb:6 ../lib/stoa_plugin.rb:122 ../lib/stoa_plugin.rb:126
+#: ../lib/ext/person.rb:6 ../lib/stoa_plugin.rb:119 ../lib/stoa_plugin.rb:123
 msgid "USP Number"
 msgstr "Número USP"
 
