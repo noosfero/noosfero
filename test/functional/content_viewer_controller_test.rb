@@ -1432,20 +1432,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_not_includes assigns(:comments), c3
   end
 
-  should 'display pagination links of comments' do
-    article = fast_create(Article, :profile_id => profile.id)
-    for n in 1..15
-      article.comments.create!(:author => profile, :title => "some title #{n}", :body => 'some body #{n}')
-    end
-    assert_equal 15, article.comments.count
-
-    get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
-
-    assert_tag :tag => 'a', :attributes => { :id => 'view-more-comments' },
-                                             :descendant => { :tag => 'i',
-                                                              :attributes => { :class => 'fa fa-chevron-down' }}
-  end
-
   should 'not escape acceptable HTML in list of blog posts' do
     login_as('testinguser')
     blog = Blog.create!(:name => 'A blog test', :profile => profile)
