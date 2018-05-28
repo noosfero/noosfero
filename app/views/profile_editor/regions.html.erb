@@ -1,0 +1,9 @@
+<h1><%= _('%s\' Regions of Interest').html_safe % profile.name %></h1>
+<%= labelled_form_for :profile_data, :html => { :id => 'profile-data'} do |f| %>
+  <%= select_categories(:profile_data, _('Select the regions in which you are interested'), 2, :regions) %>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
+    <%= submit_button('save', _('Save')) %>
+  <% end %>
+<% end %>

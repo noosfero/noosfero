@@ -14,7 +14,7 @@
           <% end %>
         </ul>
         <div class="all-tasks-button">
-          <%= link_to font_awesome('bell-o',_('Manage tasks')), url_for(:controller => 'tasks', :profile => user.identifier) %>
+          <%= link_to font_awesome(:bell, _('Manage tasks')), url_for(:controller => 'tasks', :profile => user.identifier) %>
         </div>
       </div>
     <% else %>

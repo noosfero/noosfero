@@ -107,11 +107,8 @@ class StoaPlugin < Noosfero::Plugin
       :block => proc {render_access_denied if !user || user.usp_id.blank?} }]
   end
 
-  def control_panel_buttons
-    { :title => c_('Invite friends'),
-      :icon => 'invite-friends',
-      :url => {:controller => 'invite',
-               :action => 'invite_friends'} } if context.send(:user) && context.send(:user).usp_id.present?
+  def control_panel_entries
+    [StoaPlugin::ControlPanel::InviteFriends]
   end
 
   def remove_invite_friends_button

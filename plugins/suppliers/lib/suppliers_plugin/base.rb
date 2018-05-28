@@ -45,13 +45,8 @@ class SuppliersPlugin::Base < Noosfero::Plugin
     tabs.values
   end
 
-  def control_panel_buttons
-    profile = context.profile
-    return unless profile.enterprise?
-    [
-      {title: I18n.t('suppliers_plugin.views.control_panel.suppliers'), icon: 'suppliers-manage-suppliers', url: {controller: :suppliers_plugin_myprofile, action: :index}},
-      {title: I18n.t('suppliers_plugin.views.control_panel.products'), icon: 'suppliers-manage-suppliers', url: {controller: 'suppliers_plugin/product', action: :index}},
-    ]
+  def control_panel_entries
+    [SupplierPlugin::ControlPanel::Suppliers, SupplierPlugin::ControlPanel::SuppliersProducts]
   end
 
 end

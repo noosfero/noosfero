@@ -222,16 +222,6 @@ class Noosfero::Plugin
     false
   end
 
-  # -> Adds buttons to the control panel
-  # returns        = { :title => title, :icon => icon, :url => url }
-  #   title        = name that will be displayed.
-  #   icon         = css class name (for customized icons include them in a css file).
-  #   url          = url or route to which the button will redirect.
-  #   html_options = aditional html options.
-  def control_panel_buttons
-    nil
-  end
-
   # -> Customize profile block design and behavior
   # (overwrites profile_image_link function)
   # returns = lambda block that creates html code.
@@ -294,7 +284,7 @@ class Noosfero::Plugin
   end
   # -> Adds content to profile editor info and settings
   # returns = lambda block that creates html code or raw rhtml/html.erb
-  def profile_editor_extras
+  def profile_editor_informations
     nil
   end
 
@@ -757,6 +747,17 @@ class Noosfero::Plugin
 
   # -> Returns a list of urls to be cached by the service worker
   def cache_urls
+  end
+
+  # -> Adds new entries to profile's control panel
+  # returns = [ControlPanel::Entry1, ControlPanel::Entry2, ...]
+  def control_panel_entries
+    nil
+  end
+
+  # -> Adds new sections to profile's control panel
+  # returns = {identifier1: {name: _('Name 1'), priority: 30}, identifier2: {name: _('Name 2'), priority: 40}}
+  def control_panel_sections
     nil
   end
 

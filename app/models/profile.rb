@@ -979,6 +979,8 @@ private :generate_url, :url_options
   settings_items :layout_template, :type => String, :default => 'default'
 
   has_many :blogs, :source => 'articles', :class_name => 'Blog'
+  has_many :forums, :source => 'articles', :class_name => 'Forum'
+  has_many :galleries, :source => 'articles', :class_name => 'Gallery'
 
   def blog
     self.has_blog? ? self.blogs.order(:id).first : nil
@@ -988,14 +990,20 @@ private :generate_url, :url_options
     self.blogs.count.nonzero?
   end
 
-  has_many :forums, :source => 'articles', :class_name => 'Forum'
-
   def forum
     self.has_forum? ? self.forums.order(:id).first : nil
   end
 
   def has_forum?
     self.forums.count.nonzero?
+  end
+
+  def gallery
+    self.has_blog? ? self.galleries.order(:id).first : nil
+  end
+
+  def has_gallery?
+    self.galleries.count.nonzero?
   end
 
   def admins
@@ -1150,10 +1158,6 @@ private :generate_url, :url_options
     self.save
   end
 
-  def control_panel_settings_button
-    {:title => _('Edit Profile'), :icon => 'edit-profile'}
-  end
-
   def self.identification
     name
   end
@@ -1204,10 +1208,6 @@ private :generate_url, :url_options
 
   def public_fields
     self.active_fields
-  end
-
-  def control_panel_settings_button
-    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
   end
 
   def followed_by?(person)

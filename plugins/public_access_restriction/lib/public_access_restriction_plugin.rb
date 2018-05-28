@@ -21,7 +21,8 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
       params['controller'] == 'account' ||
       params['controller'] == 'home' ||
       params['controller'] == 'public_access_restriction_plugin_public_page' ||
-      linked_on_portal_news(environment, params, profile)
+      linked_on_portal_news(environment, params, profile) ||
+      show_newsletter(environment, profile)
     )
   end
 
@@ -49,17 +50,8 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
     }
   end
 
-  def control_panel_buttons
-    if context.profile.organization?
-      {
-        title: _('Public Welcome Page'),
-        icon: 'welcome-page',
-        url: {
-          controller: 'public_access_restriction_plugin_page',
-          action: 'index'
-        }
-      }
-    end
+  def control_panel_entries
+    [PublicAccessRestrictionPlugin::ControlPanel::WelcomePage]
   end
 
   private
@@ -71,6 +63,13 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
     portal.articles.
       where(type: 'LinkArticle').
       where(reference_article_id: article.id).first.present?
+  end
+
+  def show_newsletter environment, profile
+    if environment.enabled_plugins.include?("NewsletterPlugin")
+      newsletter = NewsletterPlugin::Newsletter.find_by(environment: environment.id)
+      newsletter.blogs.find_by(profile: profile)
+    end
   end
 
 end

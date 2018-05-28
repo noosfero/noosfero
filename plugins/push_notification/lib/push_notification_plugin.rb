@@ -50,13 +50,7 @@ class PushNotificationPlugin < Noosfero::Plugin
     true
   end
 
-  def control_panel_buttons
-    if context.profile.person?
-      {
-        title: I18n.t("push_notification_plugin.lib.plugin.panel_button"),
-        icon: 'push-notifications',
-        url: {controller: 'push_notification_plugin_myprofile', action: 'index'}
-      }
-    end
+  def control_panel_entries
+    [PushNotificationPlugin::ControlPanel::PushNotifications]
   end
 end

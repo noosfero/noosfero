@@ -110,6 +110,7 @@ class Person < Profile
   has_many :friends, :class_name => 'Person', :through => :friendships
   has_many :circles
   has_many :push_subscriptions, as: :owner
+  has_many :event_invitation
 
   scope :online, -> {
     joins(:user).where("users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes)
@@ -406,7 +407,6 @@ class Person < Profile
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
     links = [
-      { name: _('Profile'),       address: '/profile/{profile}',        icon: 'menu-people' },
       { name: _('Image gallery'), address: '/{profile}/gallery',        icon: 'photos'      },
       { name: _('Agenda'),        address: '/profile/{profile}/events', icon: 'event'       },
       { name: _('Blog'),          address: '/{profile}/blog',           icon: 'blog'        }
@@ -599,10 +599,6 @@ class Person < Profile
 
   def abuser?
     AbuseComplaint.finished.where(:requestor_id => self).count > 0
-  end
-
-  def control_panel_settings_button
-    {:title => _('Edit Profile'), :icon => 'edit-profile'}
   end
 
   def disable

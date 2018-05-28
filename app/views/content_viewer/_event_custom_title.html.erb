@@ -1,0 +1,11 @@
+<h1 class="title event-title">
+  <%= h(@page.title) %>
+</h1>
+
+<div class='event-invitations'>
+  <%= render :partial => 'events/event_invitations', locals: { event: article } %>
+</div>
+
+<%= render :partial => "publishing_info", :locals => {:article => @page }%>
+
+

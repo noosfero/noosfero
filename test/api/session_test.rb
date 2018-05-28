@@ -7,6 +7,14 @@ class SessionTest < ActiveSupport::TestCase
     login_api
   end
 
+  should 'should reset session on logout without current_user' do
+    logout_api
+    post "/api/v1/logout?#{params.to_query}"
+    
+    json = JSON.parse(last_response.body)
+    assert_equal json["code"], Api::Status::LOGOUT
+  end
+
   should 'generate private token when login' do
     params = {:login => "testapi", :password => "testapi"}
     post "/api/v1/login?#{params.to_query}"

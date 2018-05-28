@@ -241,7 +241,7 @@ class UploadedFile < Article
       'todo' => 'clipboard',
       'chat' => 'comments',
       'enterprise' => 'building-o',
-      'blog' => 'newspaper-o',
+      'blog' => 'newspaper',
       'community' => 'users',
     }
 

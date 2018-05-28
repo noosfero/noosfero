@@ -72,14 +72,13 @@
       <% end %>
     </div>
 
-    <ul class="article-comments-list" id="article-comments-list">
+    <ul class="article-comments-list" id="article-comments-list" data-page="<%= @page.id %>" 
+        data-comment-page="<%= @curr_page %>" data-profile="<%= @profile.identifier %>"
+    >
       <% if @comments.present? %>
         <%= render :partial => 'comment/comment', :collection => @comments %>
       <% end %>
     </ul>
-    <% if @comments.present? && @curr_page < @total_pages %>
-      <%= render partial: 'comment/view_more_comments' %>
-    <% end %>
   </div><!-- end class="comments" -->
 <% end %>
 

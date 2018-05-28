@@ -9,7 +9,7 @@
   <%= f.hidden_field :lat, :id => 'profile_data_lat' %>
   <%= f.hidden_field :lng, :id => 'profile_data_lng' %>
 
-  <%= content_tag('script', '', :src => "https://maps.googleapis.com/maps/api/js?key=#{GoogleMaps.api_key}", :type => 'text/javascript') %>
+	<%= content_tag('script', '', :src => "https://maps.googleapis.com/maps/api/js?key=#{GoogleMaps.js_api_key}", :type => 'text/javascript') %>
   <%= content_tag('script', render(:partial => 'maps/google_map.js', :locals => { profile: profile }), :type => 'text/javascript') %>
 <% end %>
 

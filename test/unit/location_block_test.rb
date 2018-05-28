@@ -34,7 +34,6 @@ class LocationBlockTest < ActiveSupport::TestCase
     content = extract_block_content(render_block_content(@block))
 
     assert_match 'https://maps.google.com/maps/api/staticmap', content
-    assert_no_match /key=/, content
   end
 
 end

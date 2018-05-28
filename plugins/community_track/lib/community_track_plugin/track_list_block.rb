@@ -51,7 +51,7 @@ class CommunityTrackPlugin::TrackListBlock < Block
   end
 
   def categories
-    Category.find(category_ids)
+    environment.categories.where(id: category_ids)
   end
 
   def all_tracks

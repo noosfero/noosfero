@@ -145,9 +145,9 @@ module ProfileEditorHelper
     )
   end
 
-  def control_panel_button(title, icon, url, html_options = {})
-    html_options ||= {}
-    link_to title, url, html_options.merge(:class => 'control-panel-%s' % icon)
+  def control_panel_button(entry, profile)
+    klass = [entry.options[:class], "entry"].compact.join(' ')
+    link_to font_awesome(entry.icon, entry.name), entry.url(profile), entry.options.merge(id: "#{entry.identifier}-entry", class:  klass, 'data-keywords' => entry.keywords.join(' '))
   end
 
   def unchangeable_privacy_field(profile)

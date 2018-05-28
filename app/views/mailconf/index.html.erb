@@ -34,8 +34,8 @@
     <ul><%= safe_join(profile.email_addresses.map{|i| content_tag('li', i)}, "\n") %></ul>
     <blockquote><%= _("You'll be able to access a webmail from your user menu.") %></blockquote>
     <%= button_bar do %>
-      <%= button(:ok, _('Enable e-Mail'), { :action => 'enable' }, :method => 'post') %>
       <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+      <%= button(:ok, _('Enable e-Mail'), { :action => 'enable' }, :method => 'post') %>
     <% end %>
 
   <% end %>

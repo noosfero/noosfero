@@ -102,9 +102,6 @@ Depends: adduser,
          ruby-slim,
          unicorn (>= 4.8),
          pkg-config,
-         postgresql,
-         postgresql-client,
-         postgresql-contrib,
          zlib1g-dev,
          ${misc:Depends}
 Description: free web-based platform for social networks

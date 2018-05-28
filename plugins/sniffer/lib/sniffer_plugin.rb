@@ -12,10 +12,8 @@ class SnifferPlugin < Noosfero::Plugin
     true
   end
 
-  def control_panel_buttons
-    buttons = [{ :title => _("Consumer Interests"), :icon => 'consumer-interests', :url => {:controller => 'sniffer_plugin_myprofile', :action => 'edit'} }]
-    buttons.push( { :title => _("Opportunities Sniffer"), :icon => 'sniff-opportunities', :url => {:controller => 'sniffer_plugin_myprofile', :action => 'search'}, :html_options => { data: {'skip-pjax' => true} } } ) if context.profile.enterprise?
-    buttons
+  def control_panel_entries
+    [SnifferPlugin::ControlPanel::ConsumerInterests, SnifferPlugin::ControlPanel::OpportunitiesSniffer]
   end
 
   def self.extra_blocks

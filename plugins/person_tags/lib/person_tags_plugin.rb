@@ -12,7 +12,7 @@ class PersonTagsPlugin < Noosfero::Plugin
     _("People can define tags that describe their interests.")
   end
 
-  def profile_editor_extras
+  def profile_editor_informations
     expanded_template('profile-editor-extras.html.erb').html_safe
   end
 

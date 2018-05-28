@@ -15,9 +15,8 @@ class FbAppPlugin::Base < Noosfero::Plugin
     end
   end
 
-  def control_panel_buttons
-    return unless FbAppPlugin.config.present?
-    { title: FbAppPlugin.plugin_name, icon: 'fb-app', url: {host: FbAppPlugin.config[:app][:domain], profile: profile.identifier, controller: :fb_app_plugin_myprofile} }
+  def control_panel_entries
+    [FbAppPlugin::ControlPanel::FbApp]
   end
 
 end

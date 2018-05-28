@@ -91,21 +91,15 @@ class SubOrganizationsPluginTest < ActiveSupport::TestCase
     end
   end
 
-  should 'display control panel button only to organizations with no parent' do
+  should 'display control panel entry only to organizations with no parent' do
+    person = fast_create(Person)
     org1 = fast_create(Organization)
     org2 = fast_create(Organization)
     profile = fast_create(Profile)
     SubOrganizationsPlugin::Relation.add_children(org1,org2)
-    context = mock()
-    SubOrganizationsPlugin.any_instance.stubs(:context).returns(context)
 
-    context.stubs(:profile).returns(org1)
-    assert_not_nil plugin.control_panel_buttons
-
-    context.stubs(:profile).returns(org2)
-    assert_nil plugin.control_panel_buttons
-
-    context.stubs(:profile).returns(profile)
-    assert_nil plugin.control_panel_buttons
+    assert SubOrganizationsPlugin::ControlPanel::SubOrganizations.display?(person, org1)
+    refute SubOrganizationsPlugin::ControlPanel::SubOrganizations.display?(person, org2)
+    refute SubOrganizationsPlugin::ControlPanel::SubOrganizations.display?(person, profile)
   end
 end

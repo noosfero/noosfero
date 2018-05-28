@@ -3,7 +3,7 @@
 - if block.show_most_read
   = render partial: 'blocks/relevant_content/subcontent', locals: {docs: Article.most_accessed(block.owner, block.limit), title:  _("Most read articles"), html_class: 'mread', icon: 'file'}
 - if block.show_most_commented
-  = render partial: 'blocks/relevant_content/subcontent', locals: {docs: Article.most_commented_relevant_content(block.owner, block.limit), title: _("Most commented articles"), html_class: 'mcommented', icon: 'comment-o'}
+  = render partial: 'blocks/relevant_content/subcontent', locals: {docs: Article.most_commented_relevant_content(block.owner, block.limit), title: _("Most commented articles"), html_class: 'mcommented', icon: 'comment'}
 
 - if block.env.plugin_enabled?('VotePlugin')
   - if block.show_most_liked

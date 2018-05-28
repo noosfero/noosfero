@@ -19,19 +19,19 @@ Feature: delivery administration
 
   @selenium
   Scenario: enable delivery
-    Given I follow "Shopping basket"
+    Given I follow "Preferences" within "#section-shopping"
     When I check "Enable shopping basket"
     Then I should see "Deliveries or pickups"
 
   @selenium
   Scenario: disable delivery
-    Given I follow "Shopping basket"
+    Given I follow "Preferences" within "#section-shopping"
     When I uncheck "Enable shopping basket"
     Then I should not see "Deliveries or pickups"
 
   @selenium
   Scenario: create new deliver
-    Given I follow "Shopping basket"
+    Given I follow "Preferences" within "#section-shopping"
     And I check "Enable shopping basket"
     And I follow "New delivery or pickup"
     And I select "Deliver" from "Type"
@@ -43,7 +43,7 @@ Feature: delivery administration
 
   @selenium
   Scenario: create new pickup
-    Given I follow "Shopping basket"
+    Given I follow "Preferences" within "#section-shopping"
     And I check "Enable shopping basket"
     And I follow "New delivery or pickup"
     And I select "Pickup" from "Type"
@@ -54,7 +54,7 @@ Feature: delivery administration
 
   @selenium
   Scenario: remove delivery
-    Given I follow "Shopping basket"
+    Given I follow "Preferences" within "#section-shopping"
     And I check "Enable shopping basket"
     And I follow "New delivery or pickup"
     And I fill in "Name" with "Bike"
@@ -67,7 +67,7 @@ Feature: delivery administration
 
   @selenium
   Scenario: edit delivery
-    Given I follow "Shopping basket"
+    Given I follow "Preferences" within "#section-shopping"
     And I check "Enable shopping basket"
     And I follow "New delivery or pickup"
     And I fill in "Name" with "Bike"

@@ -24,7 +24,7 @@ Feature: related_organizations_block
     Given the following blocks
       | owner | type |
       | springfield | RelatedOrganizationsBlock |
-    When I follow "Edit sideboxes"
+    When I follow "Blocks" within "#section-design"
     Then I should see "Moe" within ".block.related-organizations-block"
     And I should see "Duff" within ".block.related-organizations-block"
 
@@ -32,7 +32,7 @@ Feature: related_organizations_block
     Given the following blocks
       | owner | type |
       | springfield | RelatedOrganizationsBlock |
-    When I follow "Edit sideboxes"
+    When I follow "Blocks" within "#section-design"
     And I follow "Edit" within ".block.related-organizations-block"
     And I select "Community" from "block_organization_type"
     And I press "Save"
@@ -48,7 +48,7 @@ Feature: related_organizations_block
     Given the following blocks
       | owner | type |
       | springfield | RelatedOrganizationsBlock |
-    When I follow "Edit sideboxes"
+    When I follow "Blocks" within "#section-design"
     And I follow "Edit" within ".block.related-organizations-block"
     And I select "Community" from "block_organization_type"
     And I press "Save"

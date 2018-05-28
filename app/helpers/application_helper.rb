@@ -58,6 +58,10 @@ module ApplicationHelper
 
   include CustomFieldsHelper
 
+  include ProfileSelectorHelper
+
+  include EventsHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -361,7 +365,7 @@ module ApplicationHelper
 
     @object = instance_variable_get("@#{object_name}")
     @categories = environment.send("top_level_#{kind}")
-    selected_categories = @object.send(kind)
+    selected_categories = @object.send(kind).where(type: kind.to_s.singularize.camelize)
 
     render :partial => 'shared/select_categories_top', :locals => { :object_name => object_name, :title => title, :title_size => title_size, :multiple => true, :categories_selected => selected_categories, :kind => kind }, :layout => false
   end
@@ -910,7 +914,7 @@ module ApplicationHelper
   end
 
   def admin_link
-    admin_icon = font_awesome(:shield, _('Administration'))
+    admin_icon = font_awesome('shield-alt', _('Administration'))
     user.is_admin?(environment) ? link_to(admin_icon, environment.admin_url, title: _("Configure the environment"), class: 'admin-link') : nil
   end
 
@@ -1284,6 +1288,14 @@ module ApplicationHelper
     else
       ''
     end
+  end
+
+  def toggle_switch name, message, value = 1, checked = false
+    checkbox = check_box_tag(name, value, checked)
+    toggle = content_tag(:span, '',:class => 'toggle-slider')
+    label = label_tag(name, checkbox + toggle, :id => name + '-label')
+    message = content_tag(:span, message)
+    content_tag(:div, label + message, :class => 'toggle-switch')
   end
 
   def labelled_colorpicker_field(human_name, object_name, method, options = {})

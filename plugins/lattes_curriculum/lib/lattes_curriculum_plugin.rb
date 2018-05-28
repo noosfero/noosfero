@@ -71,7 +71,7 @@ class LattesCurriculumPlugin < Noosfero::Plugin
 
           unless AcademicInfo.matches?(params[:academic_infos])
             @profile_data.errors.add(:lattes_url, _(' Invalid lattes url'))
-            render :action => :edit, :profile => profile.identifier
+            render :action => :informations, :profile => profile.identifier
           end
         end
       end
@@ -85,11 +85,11 @@ class LattesCurriculumPlugin < Noosfero::Plugin
 
     [{:type => 'before_filter',
       :method_name => 'validate_lattes_url',
-      :options => {:only => 'edit'},
+      :options => {:only => 'informations'},
       :block => validate_lattes_url_block },
     {:type => 'before_filter',
       :method_name => 'create_academic_info',
-      :options => {:only => 'edit'},
+      :options => {:only => 'informations'},
       :block => create_academic_info_block }]
   end
 
@@ -121,7 +121,7 @@ class LattesCurriculumPlugin < Noosfero::Plugin
       :block => validate_lattes_url_block },
     {:type => 'before_filter',
       :method_name => 'create_academic_info',
-      :options => {:only => 'edit'},
+      :options => {:only => 'informations'},
       :block => create_academic_info_block }]
   end
 

@@ -55,7 +55,7 @@ module Noosfero
     def session_secret
       require 'fileutils'
       target_dir = File.join(File.dirname(__FILE__), '../tmp')
-      FileUtils.mkdir_p(target_dir)
+      FileUtils.mkdir_p(target_dir) unless File.exist?(target_dir) || File.symlink?(target_dir)
       file = File.join(target_dir, 'session.secret')
       if !File.exists?(file)
         secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')

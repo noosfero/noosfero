@@ -11,7 +11,7 @@ Given /^I invite email "(.+)" to join community "(.+)"$/ do |email, community|
 end
 
 Given /^I invite email "(.+)" to be my friend$/ do |email|
-  click_link('Manage friends')
+  click_link('Friends')
   click_link('Invite people')
   choose("Email")
   click_link('Next')

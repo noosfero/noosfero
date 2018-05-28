@@ -60,7 +60,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     subcategory = fast_create(Category, :parent_id => category.id)
     Person['marley'].categories << subcategory
     login 'marley', 'test'
-    get "/myprofile/marley/profile_editor/edit"
+    get "/myprofile/marley/profile_editor/categories"
     assert_tag :tag => 'div', :content => /#{category.name} &rarr; #{subcategory.name}/,
                :ancestor => { :tag => 'div', :attributes => { :class => 'selected-category' }}
   end
@@ -206,7 +206,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     env.save!
     create_user('marley', :password => 'test', :password_confirmation => 'test').activate!
     login 'marley', 'test'
-    get "/myprofile/marley/profile_editor/edit"
+    get "/myprofile/marley/profile_editor/informations"
     assert_tag :tag => 'input', :attributes => { :id => "profile_data_sex_male" }
   end
 

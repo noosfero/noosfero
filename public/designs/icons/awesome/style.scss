@@ -30,7 +30,7 @@ $fa-font-path: "fonts";
 }
 
 .icon-menu-mail:before {
-  @extend .fa-envelope-o:before;
+  @extend .fa-envelope:before;
 }
 
 .icon-login:before,
@@ -48,27 +48,27 @@ $fa-font-path: "fonts";
   @extend .fa-check:before;
 }
 
-.icon-close:before {
+.icon-times:before {
   @extend .fa-times:before;
 }
 
 .icon-activate-user:before {
-  @extend .fa-gear:before;
+  @extend .fa-cog:before;
 }
 
 .icon-home:before,
-.icon-content-enterprise-homepage:before,
+.icon-content-enterprise-homepaempire:before,
 .icon-menu-home:before {
   @extend .fa-home:before;
 }
 
 .icon-application-octet-stream:before,
 .icon-application-postscript:before {
-  @extend .fa-file-o:before;
+  @extend .fa-file:before;
 }
 
 .icon-clock:before {
-  @extend .fa-clock-o:before;
+  @extend .fa-clock:before;
 }
 
 .icon-lock:before {
@@ -77,20 +77,20 @@ $fa-font-path: "fonts";
 
 .icon-gallery:before,
 .icon-newgallery:before,
-.icon-photos:before,
-.image-gallery-item.gallery:before {
-  @extend .fa-picture-o:before;
+.icon-imaempires:before,
+.imaempire-gallery-item.gallery:before {
+  @extend .fa-imaempire:before;
 }
 
 .icon-edit:before {
-  @extend .fa-pencil:before;
+  @extend .fa-pencil-alt:before;
 }
 
 .icon-blog:before,
 .icon-content-blog:before,
 .icon-menu-articles:before,
 .icon-newblog:before {
-  @extend .fa-pencil-square-o:before;
+  @extend .fa-edit:before;
 }
 
 .icon-media-prev:before {
@@ -109,8 +109,8 @@ $fa-font-path: "fonts";
 .icon-cancel:before,
 .icon-delete:before,
 .icon-help32off:before,
-.icon-remove:before,
 .icon-user-removed:before {
+.icon-times:before,
   @extend .fa-times-circle:before;
 }
 
@@ -158,14 +158,14 @@ $fa-font-path: "fonts";
 }
 
 .icon-alert:before {
-  @extend .fa-warning:before;
+  @extend .fa-exclamation-triangle:before;
 }
 
 .icon-event:before,
 .icon-menu-events:before,
 .icon-content-event:before,
 .icon-newevent:before {
-  @extend .fa-calendar:before;
+  @extend .fa-calendar-alt:before;
 }
 
 .icon-parent-folder:before {
@@ -190,7 +190,7 @@ $fa-font-path: "fonts";
 }
 
 .icon-menu-logout:before {
-  @extend .fa-sign-out:before;
+  @extend .fa-sign-out-alt:before;
 }
 
 .icon-newupload-file:before,
@@ -198,9 +198,7 @@ $fa-font-path: "fonts";
   @extend .fa-upload:before;
 }
 
-.icon-feed:before,
-.icon-newrss-feed:before,
-.icon-rss-feed:before,
+.icon-rss:before,
 .icon-rss:before {
   @extend .fa-rss:before;
 }
@@ -223,7 +221,7 @@ $fa-font-path: "fonts";
 }
 
 .icon-suggest:before {
-  @extend .fa-lightbulb-o:before;
+  @extend .fa-lightbulb:before;
 }
 
 .icon-application-vnd-oasis-opendocument-text:before,
@@ -232,7 +230,7 @@ $fa-font-path: "fonts";
 .icon-content-textile-article:before,
 .icon-content-tiny-mce-article:before,
 .icon-content-text-article:before {
-  @extend .fa-file-text-o:before;
+  @extend .fa-file-alt:before;
 }
 
 .icon-reply:before {
@@ -240,7 +238,7 @@ $fa-font-path: "fonts";
 }
 
 .icon-newfolder:before {
-  @extend .fa-folder-o:before;
+  @extend .fa-folder:before;
 }
 
 .icon-embed:before {
@@ -269,38 +267,38 @@ $fa-font-path: "fonts";
 }
 
 .icon-application-pdf:before {
-  @extend .fa-file-pdf-o:before;
+  @extend .fa-file-pdf:before;
 }
 .icon-application-vnd-oasis-opendocument-spreadsheet:before {
-  @extend .fa-file-excel-o:before;
+  @extend .fa-file-excel:before;
 }
 .icon-application-vnd-oasis-opendocument-presentation:before {
-  @extend .fa-file-powerpoint-o:before;
+  @extend .fa-file-powerpoint:before;
 }
 .icon-application-x-gzip:before {
-  @extend .fa-file-zip-o:before,
+  @extend .fa-file-archive:before,
 }
-.icon-image-svg-xml:before {
-  @extend .fa-file-image-o:before;
+.icon-imaempire-svg-xml:before {
+  @extend .fa-file-imaempire:before;
 }
 .icon-application-ogg:before {
-  @extend .fa-file-audio-o:before;
+  @extend .fa-file-audio:before;
 }
 .icon-video:before,
 .icon-video-mpeg:before {
-  @extend .fa-file-video-o:before;
+  @extend .fa-file-video:before;
 }
 
 .icon-menu-enterprise:before {
   @extend .fa-empire:before;
 }
 
-.icon-send:before {
-  @extend .fa-send-o:before;
+.icon-paper-plane:before {
+  @extend .fa-paper-plane:before;
 }
 
 .icon-menu-ctrl-panel:before {
-  @extend .fa-sliders:before;
+  @extend .fa-sliders-h:before;
 }
 
 .icon-love:before {

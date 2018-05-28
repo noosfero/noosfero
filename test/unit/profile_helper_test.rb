@@ -7,7 +7,7 @@ class ProfileHelperTest < ActiveSupport::TestCase
   include ActionView::Helpers::TagHelper
 
   def setup
-    @profile = mock
+    @profile = fast_create(Profile)
     @helper = mock
     helper.extend(ProfileHelper)
   end
@@ -40,13 +40,15 @@ class ProfileHelperTest < ActiveSupport::TestCase
 
   should 'display work info if at least one of the fields should be displayed' do
     self.stubs(:user).returns(nil)
-    profile.stubs(:may_display_field_to?).with(:organization, nil).returns(true)
-    profile.stubs(:may_display_field_to?).with(:organization_website, nil).returns(false)
-    profile.stubs(:may_display_field_to?).with(:professional_activity, nil).returns(false)
+    profile.stubs(:may_display_field_to?).with('organization', nil).returns(true)
+    profile.stubs(:may_display_field_to?).with('organization_website', nil).returns(false)
+    profile.stubs(:may_display_field_to?).with('professional_activity', nil).returns(false)
     profile.stubs(:kind_of?).with(Person).returns(:person)
+    profile.stubs(:organization).returns('Organization Name')
     profile.expects(:organization).returns('Organization Name')
     profile.expects(:organization_website).never
     profile.expects(:professional_activity).never
+
     assert_match /Work.*Organization Name/, display_work
   end
 

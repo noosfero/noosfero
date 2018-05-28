@@ -1,7 +1,7 @@
 <% extend CategoriesHelper %>
 
 <div class="category-helper-label">
-  <%= _('Select a category and click on the Add button') %>
+  <%= _('Select a %s and click on the Add button') % _(kind.to_s.singularize) %>
 </div>
 
 <div class="categories-chain">

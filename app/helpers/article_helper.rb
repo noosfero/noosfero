@@ -225,7 +225,7 @@ module ArticleHelper
     end
 
     if @page != profile.home_page && !@page.has_posts? && @page.allow_delete?(user) && !remove_content_button(:delete, @page)
-      content = font_awesome('trash-o', _('Delete'))
+      content = font_awesome('trash', _('Delete'))
       url = profile.admin_url.merge({ controller: 'cms', action: 'destroy', id: @page.id})
       options = { method: :post, 'data-confirm' => delete_article_message(@page) }
       actions << link_to(content, url, options)
@@ -235,6 +235,12 @@ module ArticleHelper
       content = font_awesome(:spread, _('Spread'))
       url = profile.admin_url.merge({ controller: 'cms', action: 'publish', id: @page.id })
       actions << link_to(content, url, { modal: true} ) if url
+    end
+
+    if @page.allow_edit?(user) && @page.kind_of?(Event)
+      content = font_awesome('user-plus', _('Invite Friends'))
+      url = profile.admin_url.merge({controller: 'cms', action: 'invite_to_event', id: @page.id})
+      actions << link_to(content, url) if url
     end
 
     if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user)))
