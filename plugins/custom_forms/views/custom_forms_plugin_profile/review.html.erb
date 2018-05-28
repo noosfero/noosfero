@@ -3,7 +3,7 @@
 
   <div class="query-header">
     <i class="fa fa-hourglass" aria-hidden="true"></i>
-      <span><%= @form.duration_in_days %></span>
+      <span><%= time_status(@form) %></span>
     <span class="bullet">•</span>
     <i class="fa fa-users" aria-hidden="true"></i>
     <span><%= _(pluralize(@form.submissions.count, 'participant')) %></span>
