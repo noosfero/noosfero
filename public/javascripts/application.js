@@ -44,6 +44,7 @@
 *= require categories_selector.js
 *= require comments.js
 *= require offline_page.js
+*= require upload-file.js
 *= require edit-in-place.js
 *= require invite_event.js
 *
