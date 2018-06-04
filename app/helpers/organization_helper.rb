@@ -6,7 +6,7 @@ module OrganizationHelper
       { name: _('Invite Friends'),       address: '/profile/{profile}/invite/friends', icon: 'send'      },
       { name: _('Agenda'),               address: '/profile/{profile}/events',         icon: 'event'     },
       { name: _('Image gallery'),        address: '/{profile}/gallery',                icon: 'photos'    },
-      { name: _('Blog'),                 address: '/{profile}/blog',                   icon: 'edit'      }
+      { name: _('Blog'),                 address: '/{profile}/blog',                   icon: 'blog'      }
     ]
   end
 
