@@ -28,6 +28,5 @@ Feature: manage categories
     And I should not see "Potatoes"
     When I follow "Show"
     And I wait 0.5 seconds for Services show animation to finish
-    And I follow "Show"
     Then I should see "Beans"
     And I should see "Potatoes"
