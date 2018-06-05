@@ -40,13 +40,15 @@ class Article
       updated = body_changed? ? body_change[1] : body
       doc =  Nokogiri::HTML(updated)
       (doc.css('li') + doc.css('body > div, body > span, body > p')).each do |paragraph|
-        next if paragraph.css('[data-macro="comment_paragraph_plugin/allow_comment"]').present? || paragraph.content.blank?
-
-        commentable = Nokogiri::XML::Node.new("span", doc)
+        next if (paragraph['class'] == 'is-not-commentable') || paragraph.css("span[id^='data-macro-uuid']").present? || paragraph.content.blank?
+        commentable = paragraph.at('span[data-macro-paragraph_uuid^=""]')
+        id = commentable.nil? ? nil : commentable['data-macro-paragraph_uuid']
+        commentable ||= Nokogiri::XML::Node.new("span", doc)
         commentable['class'] = "macro article_comments paragraph_comment #{paragraph['class']}"
         commentable['data-macro'] = 'comment_paragraph_plugin/allow_comment'
-        commentable['data-macro-paragraph_uuid'] = SecureRandom.uuid
-        commentable.inner_html = paragraph.inner_html
+        commentable.remove_attribute('data-macro-paragraph_uuid')
+        commentable['id'] = id ? 'data-macro-uuid-' + id : 'data-macro-uuid-' + SecureRandom.uuid
+        commentable.inner_html = paragraph.inner_text
         paragraph.inner_html = commentable
       end
       doc_body =  doc.at('body')

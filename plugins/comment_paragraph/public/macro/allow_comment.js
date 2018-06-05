@@ -1,63 +1,35 @@
-var TARGETS = 'p, ul, ol, table';
+$(window).load(function() {
+  function retrieveParagraphs() {
 
-// based on https://stackoverflow.com/a/8809472
-function generateUUID() {
-  var time = new Date().getTime();
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var random = (time + Math.random() * 16) % 16 | 0
-    time = Math.floor(time / 16)
-    var val = (c === 'x') ? random : (random & 0x3 | 0x8);
-    return val.toString(16);
-  })
-}
-
-function makeCommentable() {
-  tinyMCE.activeEditor.focus();
-  var startNode = tinyMCE.activeEditor.selection.getStart()
-  var start = $(tinyMCE.activeEditor.selection.getStart()).closest(TARGETS);
-  var end = $(tinyMCE.activeEditor.selection.getEnd()).closest(TARGETS);
-
-  var text = $('#article_body_ifr').contents().find('*');
-  var selection = text.slice(text.index(start), text.index(end) + 1);
-  var wasWrapped = unwrapSelection(selection)
-
-  if (!wasWrapped) {
-    var tags = start.siblings().add(start);
-    var endIndex = tags.index(end) >= 0 ? tags.index(end) : tags.index(start);
-    tags = tags.slice(tags.index(start), endIndex + 1);
-    wrapSelection(tags);
-    tinyMCE.activeEditor.selection.setCursorLocation(startNode)
-  }
-}
-
-function makeAllCommentable() {
-  var text = $('#article_body_ifr').contents().find('*');
-  var selection = text.find(TARGETS);
-
-  var wasWrapped = unwrapSelection(selection);
-  if (!wasWrapped) {
+  var selection = $('#article_body_ifr').contents().find('span.macro').closest('p');
     selection.each(function(index, element) {
       if ($(element).html() !== '&nbsp;') {
-        wrapSelection($(element));
+        wrapCommentable($(element));
       }
     })
   }
+
+  var newParagraphs = retrieveParagraphs();
+
+})
+
+function wrapCommentable(element) {
+  if(!element.hasClass('is-not-commentable')){
+    element.addClass('is-commentable');
+  }
 }
 
-function unwrapSelection(selection) {
-  var hasTag = false;
-  selection.each(function(index, element) {
-    commentTag = $(element).closest('.article_comments');
-    if (commentTag.length) {
-      commentTag.children().unwrap('<div class=\"article_comments\"/>');
-      hasTag = true;
-    }
-  });
-  return hasTag;
-}
+function toggleCommentable() {
+  selection = jQuery(tinyMCE.activeEditor.selection.getStart()).closest('p');
 
-function wrapSelection(tags) {
-  tags.wrapAll('<div class="macro article_comments paragraph_comment" ' +
-                           'data-macro="comment_paragraph_plugin/allow_comment" '+
-                           'data-macro-paragraph_uuid="' + generateUUID() + '"/>');
+  if(selection.hasClass('is-commentable')){
+    selection.removeClass('is-commentable').addClass('is-not-commentable');
+    var span = jQuery(tinyMCE.activeEditor.selection.getStart()).closest('span');
+    span.removeAttr('class')
+    span.removeAttr('id')
+    span.removeAttr('data-macro')
+  } else {
+    selection.removeClass('is-not-commentable').addClass('is-commentable');
+  }
+
 }
