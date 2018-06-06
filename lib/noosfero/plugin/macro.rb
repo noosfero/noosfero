@@ -35,8 +35,9 @@ class Noosfero::Plugin
 
     def attributes(macro)
       macro.attributes.to_hash.
-        select {|key, value| key[0..10] == 'data-macro-'}.
-        inject({}){|result, a| result.merge({a[0][11..-1] => a[1].to_s})}.
+        select {|key, value| key[0..10] == 'data-macro-' || value.value[0..10] == 'data-macro-' }.
+        inject({}){|result, a|
+        result.merge({(a[0][11..-1] || a[0] )  => a[1].to_s})}.
         with_indifferent_access
     end
 
