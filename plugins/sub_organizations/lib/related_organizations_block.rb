@@ -27,7 +27,7 @@ class RelatedOrganizationsBlock < ProfileListBlock
     _("This block displays %s organizations of this organization") % display_type[:title]
   end
 
-  def profiles
+  def base_profiles
     organizations = related_organizations
     case organization_type
     when 'enterprise'

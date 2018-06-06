@@ -68,6 +68,15 @@ When /^(?:|I )fill in "([^"]*)" for "([^"]*)"(?: within "([^"]*)")?$/ do |value,
   end
 end
 
+When /^(?:|I )fill in post-access hidden field with "([^"]*)"/ do |value|
+  execute_script("
+                 if (#{value.to_s} == '3') {
+                  show_custom_privacy_option = true;
+                 }
+                 $('#post-access').val(#{value.to_s}).trigger('change');
+                 ")
+end
+
 When /^(?:|I )move the cursor over "([^"]*)"/ do |selector|
   find(selector).hover if Capybara.default_driver == :selenium
 end

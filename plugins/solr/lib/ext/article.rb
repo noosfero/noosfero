@@ -88,7 +88,7 @@ class Article
   end
 
   def solr_plugin_public
-    self.public?
+    display_to?
   end
 
   def solr_plugin_category_filter

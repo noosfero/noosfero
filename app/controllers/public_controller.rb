@@ -22,11 +22,11 @@ class PublicController < ApplicationController
   protected
 
   def allow_access_to_page
-    unless profile.display_info_to?(user)
-      if profile.visible? && !profile.secret
-        private_profile
-      else
+    unless profile.display_to?(user)
+      if profile.secret
         invisible_profile
+      else
+        private_profile
       end
     end
   end

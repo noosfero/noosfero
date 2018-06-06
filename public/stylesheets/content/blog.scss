@@ -96,10 +96,10 @@ div.article-body p img {
   word-wrap: break-word;
 }
 
-/* NOT PUBLISHED BLOG POSTS */
+/* PRIVATE BLOG POSTS */
 
 div.blog-post {
-  div.not-published {
+  div.private {
     position: relative;
 
     span.alert-message {

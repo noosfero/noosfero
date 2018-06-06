@@ -93,7 +93,7 @@ class BoxesTest < ActiveSupport::TestCase
   end
 
   should 'not list boxes for user without permission' do
-    profile = fast_create(Profile, public_profile: false)
+    profile = fast_create(Profile, access: Entitlement::Levels.levels[:self])
     box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/profiles/#{profile.id}/boxes?#{params.to_query}"

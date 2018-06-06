@@ -181,7 +181,7 @@ class ProfileMembersController < MyProfileController
     field = 'email' if params[:filter_name] =~ /\@/
 
     result = profile.members_like field, params[:filter_name]
-    result = result.select{|member| member.can_view_field?(current_person, "email") } if field=="email"
+    result = result.select{|member| member.public_fields.include?('email') } if field=='email'
     render :json => result.map { |member| {:label => "#{member.name}#{member.can_view_field?(current_person, "email") ? " <#{member.email}>" : ""}", :value => member.name }}
   end
 

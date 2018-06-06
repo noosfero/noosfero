@@ -1,6 +1,7 @@
 module FormsHelper
 
   include ButtonsHelper
+  include Entitlement::SliderHelper
 
   def labelled_radio_button( human_name, name, value, checked = false, options = {} )
     options[:id] ||= 'radio-' + FormsHelper.next_id_number
@@ -292,20 +293,16 @@ module FormsHelper
     return result
   end
 
-  def access_slider_field_tag(id, field_name, profile, value=AccessLevels.levels[:self], levels=AccessLevels.options, html_options={})
-    keys = AccessLevels.levels
-    labels = AccessLevels.labels(profile)
+  def access_slider_field_tag(id, field_name, profile, value=slider_levels[:self], levels=Entitlement::Levels.range_options, html_options={})
+    keys = slider_levels
+    labels = Entitlement::Levels.labels(profile)
     range = 'max'
 
     slider_field_tag(id, field_name, value, keys, labels, levels, range, html_options={})
   end
 
-  def restriction_slider_field_tag(id, field_name, profile, value=RestrictionLevels.levels[:self], levels=RestrictionLevels.options, html_options={})
-    keys = RestrictionLevels.levels
-    labels = RestrictionLevels.labels(profile)
-    range = 'min'
-
-    slider_field_tag(id, field_name, value, keys, labels, levels, range, html_options={})
+  def restriction_slider_field_tag(id, field_name, profile, value=slider_levels[:self], levels=Entitlement::Levels.range_options, html_options={})
+    access_slider_field_tag(id, field_name, profile, value, levels, html_options)
   end
 
   def slider_field_tag(id, field_name, value, keys, labels, levels, range, html_options={})

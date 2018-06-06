@@ -215,30 +215,6 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'profile_editor', :action => 'index'
   end
 
-  should 'display profile publication option in edit profile screen' do
-    get :privacy, :profile => profile.identifier
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'true' }
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_profile]', :value => 'false' }
-  end
-
-  should 'display properly that the profile is non-public' do
-    profile.update!(:public_profile => false)
-    get :privacy, :profile => profile.identifier
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :checked => 'checked', :name => 'profile_data[public_profile]', :value => 'false' }
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[public_profile]', :value => 'true' }
-  end
-
-  should 'save profile publication option set to true' do
-    post :privacy, :profile => profile.identifier, :profile_data => { :public_profile => 'true' }
-    assert_equal true, profile.public_profile
-  end
-
-  should 'save profile publication option set to false' do
-    post :privacy, :profile => profile.identifier, :profile_data => { :public_profile => 'false' }
-    profile = Person.find(@profile.id)
-    assert_equal false, profile.public_profile
-  end
-
   should 'show error messages for invalid foundation_year' do
     org = fast_create(Community)
     post :informations, :profile => org.identifier, :profile_data => { :foundation_year => 'aaa' }

@@ -16,11 +16,13 @@ class MembersBlock < PeopleBlockBase
     _('{#} %s') % title
   end
 
-  def profiles
-    profiles = role ? owner.members.with_role(role.id) : owner.members.no_templates
-    seed = rand(profiles.count)
-    random_profiles = profiles.offset((seed - self.limit) < 0 ? 0 : (seed - self.limit))
-    random_profiles
+  def base_profiles
+    role ? owner.members.with_role(role.id) : owner.members
+  end
+
+  def profiles(user=nil)
+    profiles = super
+    Profile.from(profiles, :profiles).order('RANDOM()')
   end
 
   def role

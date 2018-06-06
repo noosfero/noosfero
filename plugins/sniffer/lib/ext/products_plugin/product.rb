@@ -18,7 +18,7 @@ class ProductsPlugin::Product
       .joins('INNER JOIN products products_2 ON categories.id = products_2.product_category_id')
       .joins('INNER JOIN profiles ON profiles.id = products_2.profile_id')
       .where("products.profile_id = #{enterprise.id}")
-      .where('profiles.public_profile = true AND profiles.visible = true')
+      .where('profiles.visible = true')
       .where('profiles.enabled = true')
       .where("profiles.id <> #{enterprise.id}")
   }
@@ -38,7 +38,7 @@ class ProductsPlugin::Product
       .joins('INNER JOIN products products_2 ON categories.id = products_2.product_category_id')
       .joins('INNER JOIN profiles ON profiles.id = products.profile_id')
       .where("products_2.profile_id = #{enterprise.id}")
-      .where('profiles.public_profile = true AND profiles.visible = true')
+      .where('profiles.visible = true')
       .where('profiles.enabled = true')
       .where("profiles.id <> #{enterprise.id}")
   }
@@ -58,7 +58,7 @@ class ProductsPlugin::Product
       .joins('INNER JOIN products ON products.product_category_id = categories.id')
       .joins('INNER JOIN profiles ON products.profile_id = profiles.id')
       .where("sniffer.id = #{profile.id} AND products.profile_id <> #{profile.id}")
-      .where('profiles.public_profile = true AND profiles.visible = true')
+      .where('profiles.visible = true')
       .where('profiles.enabled = true')
       .where("profiles.id <> #{profile.id}")
   }
@@ -77,7 +77,7 @@ class ProductsPlugin::Product
       .joins("INNER JOIN sniffer_plugin_opportunities as op ON categories.id = op.opportunity_id AND op.opportunity_type = 'ProductCategory'")
       .joins('INNER JOIN profiles ON op.profile_id = profiles.id')
       .where("products.profile_id = #{profile.id}")
-      .where('profiles.public_profile = true AND profiles.visible = true')
+      .where('profiles.visible = true')
       .where('profiles.enabled = true')
       .where("profiles.id <> #{profile.id}")
   }
@@ -114,7 +114,6 @@ class ProductsPlugin::Product
       .joins("INNER JOIN sniffer_plugin_opportunities as op ON article_resources.resource_id = op.opportunity_id AND op.opportunity_type = 'ProductCategory' AND article_resources.resource_type = 'ProductCategory'")
       .joins('INNER JOIN profiles ON op.profile_id = profiles.id')
       .where("articles.profile_id = #{profile.id}")
-      .where('profiles.public_profile = true')
       .where('profiles.visible = true')
       .where('profiles.enabled = true')
       .where("profiles.id <> #{profile.id}")
@@ -128,7 +127,6 @@ class ProductsPlugin::Product
       .joins("INNER JOIN sniffer_plugin_opportunities as op ON article_resources.resource_id = op.opportunity_id AND op.opportunity_type = 'ProductCategory' AND article_resources.resource_type = 'ProductCategory'")
       .joins('INNER JOIN profiles ON articles.profile_id = profiles.id')
       .where("articles.profile_id <> #{profile.id}")
-      .where('profiles.public_profile = true')
       .where('profiles.visible = true')
       .where('profiles.enabled = true')
       .where("profiles.id = #{profile.id}")

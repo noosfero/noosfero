@@ -6,7 +6,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     @target = mock
     @owner = mock
 
-    @target.stubs(:wall_access).returns(AccessLevels.levels[:users])
+    @target.stubs(:wall_access).returns(Entitlement::Levels.levels[:users])
   end
 
   should 'be available for ActionTracker::Record' do
@@ -47,17 +47,18 @@ class ActivityPresenterTest < ActiveSupport::TestCase
 
   should 'not be hidden for user if target does not respond to display_to' do
     presenter = ActivityPresenter.new(@target)
+    profile = fast_create(Profile)
 
-    AccessLevels.stubs(:can_access?).returns(true)
-    @target.stubs(:is_a?).with(Profile).returns(true)
-    @target.stubs(:allow_followers?).returns(true)
+    @target.stubs(:user).returns(profile)
+    profile.stubs(:allow_followers?).returns(true)
+    profile.stubs(:display_to?).returns(true)
 
     refute presenter.hidden_for?(@user)
   end
 
   should 'be hidden for user based on target display_to' do
     presenter = ActivityPresenter.new(@target)
-    AccessLevels.stubs(:can_access?).returns(true)
+    @target.stubs(:display_to?).returns(true)
     @target.stubs(:is_a?).with(Profile).returns(true)
     @target.stubs(:allow_followers?).returns(true)
 
@@ -70,7 +71,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
 
   should 'be hidden if user disabled the followers feature' do
     presenter = ActivityPresenter.new(@target)
-    AccessLevels.stubs(:can_access?).returns(true)
+    @target.stubs(:display_to?).returns(true)
     @target.stubs(:is_a?).with(Profile).returns(true)
     @target.stubs(:display_to?).with(@user).returns(true)
 
@@ -109,7 +110,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     target = create_user.person
     presenter = ActivityPresenter.new(target)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:related])
+    Person.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:related])
     assert presenter.hidden_for?(@user)
   end
 
@@ -117,7 +118,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     target = create_user.person
     presenter = ActivityPresenter.new(target)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
+    Person.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:users])
     refute presenter.hidden_for?(@user)
   end
 
@@ -126,7 +127,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     article = fast_create(Article, profile_id: profile.id)
     presenter = ActivityPresenter.new(article)
 
-    Community.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:related])
+    Community.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:related])
     assert presenter.hidden_for?(@user)
   end
 
@@ -135,7 +136,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     article = fast_create(Article, profile_id: profile.id)
     presenter = ActivityPresenter.new(article)
 
-    Community.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
+    Community.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:users])
     refute presenter.hidden_for?(@user)
   end
 
@@ -144,7 +145,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     scrap = fast_create(Scrap, receiver_id: receiver.id)
     presenter = ActivityPresenter.new(scrap)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:related])
+    Person.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:related])
     assert presenter.hidden_for?(@user)
   end
 
@@ -153,7 +154,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     scrap = fast_create(Scrap, receiver_id: receiver.id)
     presenter = ActivityPresenter.new(scrap)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
+    Person.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:users])
     refute presenter.hidden_for?(@user)
   end
 
@@ -162,8 +163,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     presenter = ActivityPresenter.new(target)
 
     presenter.expects(:owner).at_least(1).returns(@owner)
-    @owner.expects(:wall_access).returns(AccessLevels.levels[:users])
-    AccessLevels.expects(:can_access?).returns(false)
+    @owner.expects(:display_to?).with(@user, :wall).returns(false)
     presenter.hidden_for?(@user)
   end
 end

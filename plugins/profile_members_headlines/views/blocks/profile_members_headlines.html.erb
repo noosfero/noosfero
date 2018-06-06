@@ -1,5 +1,5 @@
 <%= block_title(block.title, block.subtitle) %>
-<% members = block.authors_list %>
+<% members = block.authors_list(user) %>
 
 <% unless members.empty? %>
   <div class='headlines-container'>

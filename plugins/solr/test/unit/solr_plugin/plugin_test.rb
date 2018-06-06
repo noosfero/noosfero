@@ -9,8 +9,8 @@ class SolrPlugin::PluginTest < ActiveSupport::TestCase
 
   should 'convert scopes to solr filters' do
     person = create_user('test').person
-    result = plugin.send :scopes_to_solr_filters, person.files.is_public.published
-    assert_equal result, ["profile_id:#{person.id}", "published:'true'", "solr_plugin_public:true"]
+    result = plugin.send :scopes_to_solr_filters, person.files.published
+    assert_equal result, ["profile_id:#{person.id}", "published:'true'"]
   end
 
 end

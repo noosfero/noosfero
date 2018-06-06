@@ -1,11 +1,11 @@
 <% extend PeopleBlockHelper %>
 
-<%= block_title(block.view_title, block.subtitle) %>
+<%= block_title(block.view_title(user), block.subtitle) %>
 
 <div>
-  <% unless block.profile_count == 0 %>
+  <% unless block.profile_count(user) == 0 %>
     <ul class='common-profile-list-block'>
-      <%= profiles_images_list(block.profile_list) %>
+      <%= profiles_images_list(block.profile_list(user)) %>
 
       <% unless block.name.blank? || block.address.blank? %>
         <div class="common-profile-list-block">

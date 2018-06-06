@@ -25,7 +25,7 @@ class ProfileController < PublicController
     @offsets = {:wall => 0, :network => 0}
     page = (params[:page] || 1).to_i
     if logged_in?
-      @activities = loop_fetch_activities(@profile.activities, :wall, page) if AccessLevels.can_access?(@profile.wall_access, user, @profile)
+      @activities = loop_fetch_activities(@profile.activities, :wall, page) if @profile.display_to?(user, :wall)
       @network_activities = loop_fetch_activities(@profile.tracked_notifications, :network, page) if @profile == user
     end
     allow_access_to_page
@@ -37,7 +37,7 @@ class ProfileController < PublicController
   def activities
     @offsets = {:wall => 0, :network => 0}
     page = (params[:page] || 1).to_i
-    @activities = loop_fetch_activities(@profile.activities, :wall, page) if AccessLevels.can_access?(@profile.wall_access, user, @profile)
+    @activities = loop_fetch_activities(@profile.activities, :wall, page) if @profile.display_to?(user, :wall)
   end
 
   def tags
@@ -470,7 +470,7 @@ class ProfileController < PublicController
   protected
 
   def check_access_to_profile
-    unless profile.display_info_to?(user)
+    unless profile.display_to?(user)
       redirect_to :action => 'index'
     end
   end

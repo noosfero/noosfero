@@ -617,7 +617,6 @@ module ApplicationHelper
   end
 
   def profile_field_privacy_selector(profile, name)
-    return '' unless profile.public?
     content_tag('div', labelled_check_box(_('Public'), 'profile_data[fields_privacy]['+name+']', 'public', profile.public_fields.include?(name)), :class => 'field-privacy-selector')
   end
 
@@ -1145,7 +1144,7 @@ module ApplicationHelper
   end
 
   def content_remove_spread(content)
-    !content.public? || content.folder? || (profile == user && user.communities.blank? && !environment.portal_enabled)
+    content.folder? || (profile == user && user.communities.blank? && !environment.portal_enabled)
   end
 
   def remove_content_button(action, content)

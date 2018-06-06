@@ -77,8 +77,8 @@ class FriendsBlockTest < ActionView::TestCase
 
   should 'count number of public and private friends' do
     owner = fast_create(Person)
-    private_p = fast_create(Person, {:public_profile => false})
-    public_p = fast_create(Person, {:public_profile => true})
+    private_p = fast_create(Person, access: Entitlement::Levels.levels[:related])
+    public_p = fast_create(Person)
 
     owner.add_friend(private_p)
     owner.add_friend(public_p)
@@ -86,7 +86,8 @@ class FriendsBlockTest < ActionView::TestCase
     block = FriendsBlock.new
     block.expects(:owner).returns(owner).at_least_once
 
-    assert_equal 2, block.profile_count
+    assert_equal 1, block.profile_count
+    assert_equal 2, block.profile_count(owner)
   end
 
   should 'not count number of invisible friends' do
@@ -135,6 +136,10 @@ require 'boxes_helper'
 class FriendsBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
+  def setup
+    view.stubs(:user).returns(nil)
+  end
+
   should 'list friends from person' do
     owner = fast_create(Person)
     u = create_user
@@ -165,8 +170,8 @@ class FriendsBlockViewTest < ActionView::TestCase
 
   should 'link to "all friends"' do
     env = fast_create(Environment)
-    person1 = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    friend = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person1 = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    friend = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     person1.add_friend(friend)
     person1.save!
 
@@ -252,7 +257,8 @@ class FriendsBlockViewTest < ActionView::TestCase
     json_response_1 = block.api_content
     json_response_2 = block.api_content
     json_response_3 = block.api_content
-    assert !(json_response_1 == json_response_2 && json_response_2 == json_response_3)
+    assert_not_equal json_response_1, json_response_2
+    assert_not_equal json_response_2, json_response_3
   end
 
   should 'return friends in order of name in api content' do

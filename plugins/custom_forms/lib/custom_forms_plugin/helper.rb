@@ -11,7 +11,7 @@ module CustomFormsPlugin::Helper
   end
 
   def access_text(form)
-    AccessLevels.label(form.access, form.profile)
+    Entitlement::Levels.label(form.access, form.profile)
   end
 
   def period_range(form)

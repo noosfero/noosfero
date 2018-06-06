@@ -36,57 +36,18 @@ class FolderHelperTest < ActionView::TestCase
     assert_match /icon-newarticle/, icon_for_new_article(Article)
   end
 
-  should 'list all the folder\'s children to the owner' do
+  should 'list all the folder\'s children' do
     profile = create_user('Folder Owner').person
     folder = fast_create(Folder, :profile_id => profile.id)
     sub_folder = fast_create(Folder, {:parent_id => folder.id, :profile_id => profile.id})
     sub_blog = fast_create(Blog, {:parent_id => folder.id, :profile_id => profile.id})
-    sub_article = fast_create(Article, {:parent_id => folder.id, :profile_id => profile.id, :published => false})
+    sub_article = fast_create(Article, :parent_id => folder.id, :profile_id => profile.id)
 
     result = available_articles(folder.children, profile)
 
     assert_includes result, sub_folder
     assert_includes result, sub_article
     assert_includes result, sub_blog
-  end
-
-  should 'list the folder\'s children that are public to the user' do
-    profile = create_user('Folder Owner').person
-    profile2 = create_user('Folder Viwer').person
-    folder = fast_create(Folder, :profile_id => profile.id)
-    public_article = fast_create(Article, {:parent_id => folder.id, :profile_id => profile.id, :published => true})
-    not_public_article = fast_create(Article, {:parent_id => folder.id, :profile_id => profile.id, :published => false})
-
-    result = available_articles(folder.children, profile2)
-
-    assert_includes result, public_article
-    assert_not_includes result, not_public_article
-  end
-
-  should ' not list the folder\'s children to the user because the owner\'s profile is not public' do
-    profile = create_user('folder-owner').person
-    profile.public_profile = false
-    profile.save!
-    profile2 = create_user('Folder Viwer').person
-    folder = fast_create(Folder, :profile_id => profile.id, :published => false)
-    article = fast_create(Article, {:parent_id => folder.id, :profile_id => profile.id})
-
-    result = available_articles(folder.children, profile2)
-
-    assert_not_includes result, article
-  end
-
-  should ' not list the folder\'s children to the user because the owner\'s profile is not visible' do
-    profile = create_user('folder-owner').person
-    profile.visible = false
-    profile.save!
-    profile2 = create_user('Folder Viwer').person
-    folder = fast_create(Folder, :profile_id => profile.id)
-    article = fast_create(Article, {:parent_id => folder.id, :profile_id => profile.id})
-
-    result = available_articles(folder.children, profile2)
-
-    assert_not_includes result, article
   end
 
   should 'display the proper content icon' do

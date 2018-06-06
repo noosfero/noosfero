@@ -3,7 +3,7 @@
 <%= _('Define who is obliged to answer the captcha verification for each action.') %>
 
 <%= form_tag do %>
-  <% Environment::CAPTCHA.each do |action, settings| %>
+  <% environment.captcha_requirements.each do |action, settings| %>
     <div class='captcha-sliders'>
       <%= content_tag('h4', settings[:label]) %>
       <%= restriction_slider_field_tag(action, "captcha[#{action}]", nil, environment.get_captcha_level(action), settings[:options]) %>

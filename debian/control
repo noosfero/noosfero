@@ -106,6 +106,7 @@ Depends: adduser,
          libgconf2-dev,
          libnss3-dev,
          libxss-dev,
+         ruby-scenic,
          ${misc:Depends}
 Description: free web-based platform for social networks
  Noosfero is a web platform for social and solidarity economy networks with

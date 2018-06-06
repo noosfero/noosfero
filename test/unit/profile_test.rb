@@ -144,8 +144,7 @@ class ProfileTest < ActiveSupport::TestCase
     second = fast_create(Article, { :profile_id => profile.id }, :timestamps => true)
     third  = fast_create(Article, { :profile_id => profile.id }, :timestamps => true)
 
-    assert_equal [third, second], profile.recent_documents(2)
-    assert_equal [third, second, first], profile.recent_documents
+    assert_equal [third, second, first], profile.articles.more_recent
   end
 
   should 'affiliate and provide a list of the affiliated users' do
@@ -458,34 +457,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert article.advertise?
   end
 
-  should 'have a public profile by default' do
-    assert_equal true, Profile.new.public_profile
-  end
-
-  should 'be able to turn profile private' do
-    p = Profile.new
-    p.public_profile = false
-    assert_equal false, p.public_profile
-  end
-
-  should 'be able to find the public profiles but not private ones' do
-    p1 = create(Profile, :public_profile => true)
-    p2 = create(Profile, :public_profile => false)
-
-    result = Profile.where(public_profile: true).all
-    assert_includes result, p1
-    assert_not_includes result, p2
-  end
-
-  should 'be able to find the public profiles but not secret ones' do
-    p1 = create(Profile, :public_profile => true)
-    p2 = create(Profile, :public_profile => true, :secret => true)
-
-    result = Profile.is_public
-    assert_includes result, p1
-    assert_not_includes result, p2
-  end
-
   should 'be able to find visible profiles but not secret ones' do
     p1 = create(Profile, :visible => true)
     p2 = create(Profile, :visible => true, :secret => true)
@@ -493,40 +464,6 @@ class ProfileTest < ActiveSupport::TestCase
     result = Profile.visible
     assert_includes result, p1
     assert_not_includes result, p2
-  end
-
-  should 'have public content by default' do
-    assert_equal true, Profile.new.public_content
-  end
-
-  should 'be able to turn content private' do
-    p = Profile.new
-    p.public_content = false
-    assert_equal false, p.public_content
-  end
-
-  should 'not display private profile to unauthenticated user' do
-    refute Profile.new(:public_profile => false).display_info_to?(nil)
-  end
-
-  should 'display private profile for its owner' do
-    p = Profile.new(:public_profile => false)
-    assert p.display_info_to?(p)
-  end
-
-  should 'display private profile for members' do
-    p = fast_create(Person)
-    c = fast_create(Community, :public_profile => false)
-    c.expects(:closed).returns(false)
-    c.add_member(p)
-    assert c.display_info_to?(p)
-  end
-
-  should 'display profile for administrators' do
-    p = create_user('testuser').person
-    p.update_attribute('public_profile', false)
-    admin = Person[create_admin_user(p.environment)]
-    assert p.display_info_to?(admin)
   end
 
   should 'enabled by default on creation' do
@@ -925,14 +862,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 'my-shiny-theme', p.theme
   end
 
-  should 'respond to public? as public_profile' do
-    p1 = fast_create(Profile)
-    p2 = fast_create(Profile, :public_profile => false)
-
-    assert p1.public?
-    refute p2.public?
-  end
-
   should 'remove member with many roles' do
     person = create_user('test_user').person
     community = fast_create(Community)
@@ -1270,13 +1199,6 @@ class ProfileTest < ActiveSupport::TestCase
     LayoutTemplate.expects(:find).with('mylayout').returns(layout)
 
     assert_equal 6, p.boxes_limit
-  end
-
-  should 'copy public/private setting from template' do
-    template = fast_create(Profile, :public_profile => false, :is_template => true)
-    p = fast_create(Profile)
-    p.apply_template(template)
-    assert_equal false, p.public_profile
   end
 
   should 'not apply a template that is not a template' do
@@ -2185,35 +2107,12 @@ class ProfileTest < ActiveSupport::TestCase
     assert profile.may_display_field_to?('field', user)
   end
 
-  should 'call may_display on field name if the field is not active' do
-    user = fast_create(Person)
-    profile = fast_create(Profile)
-    profile.stubs(:active_fields).returns(['humble'])
-    profile.expects(:may_display_humble_to?).never
-    profile.expects(:may_display_bundle_to?).once
-
-    profile.may_display_field_to?('humble', user)
-    profile.may_display_field_to?('bundle', user)
-  end
-
   should 'destroy profile if its environment is destroyed' do
     environment = fast_create(Environment)
     profile = fast_create(Profile, :environment_id => environment.id)
 
     environment.destroy
     assert_raise(ActiveRecord::RecordNotFound) {profile.reload}
-  end
-
-  should 'list only public profiles' do
-    p1 = fast_create(Profile)
-    p2 = fast_create(Profile, :visible => false)
-    p3 = fast_create(Profile, :public_profile => false)
-    p4 = fast_create(Profile, :visible => false, :public_profile => false)
-
-    assert_includes Profile.is_public, p1
-    assert_not_includes Profile.is_public, p2
-    assert_not_includes Profile.is_public, p3
-    assert_not_includes Profile.is_public, p4
   end
 
   should 'folder_types search for folders in the plugins' do
@@ -2249,18 +2148,18 @@ class ProfileTest < ActiveSupport::TestCase
     assert_nil template.welcome_page_content
   end
 
-  should 'return nil on welcome_page_content if content is not published' do
+  should 'return nil on welcome_page_content if content is private' do
     template = fast_create(Profile, :is_template => true)
-    welcome_page = fast_create(TextArticle, :slug => 'welcome-page', :profile_id => template.id, :body => 'Template welcome page', :published => false)
+    welcome_page = fast_create(TextArticle, :slug => 'welcome-page', :profile_id => template.id, :body => 'Template welcome page', :access => Entitlement::Levels.levels[:self])
     template.welcome_page = welcome_page
     template.save!
     assert_nil template.welcome_page_content
   end
 
-  should 'return template welcome page content on welcome_page_content if content is published' do
+  should 'return template welcome page content on welcome_page_content if content is public' do
     template = fast_create(Profile, :is_template => true)
     body = 'Template welcome page'
-    welcome_page = fast_create(TextArticle, :slug => 'welcome-page', :profile_id => template.id, :body => body, :published => true)
+    welcome_page = fast_create(TextArticle, :slug => 'welcome-page', :profile_id => template.id, :body => body)
     template.welcome_page = welcome_page
     template.save!
     assert_equal body, template.welcome_page_content
@@ -2567,4 +2466,97 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equivalent [], Profile.with_kind(k3)
   end
 
+  should 'filter profiles for visitor' do
+    visitors = fast_create(Profile, access: Entitlement::Levels.levels[:visitors])
+    users    = fast_create(Profile, access: Entitlement::Levels.levels[:users])
+    related  = fast_create(Profile, access: Entitlement::Levels.levels[:related])
+    selfie   = fast_create(Profile, access: Entitlement::Levels.levels[:self])
+
+    user = nil
+
+    assert_includes Profile.accessible_to(user), visitors
+    assert_not_includes Profile.accessible_to(user), users
+    assert_not_includes Profile.accessible_to(user), related
+    assert_not_includes Profile.accessible_to(user), selfie
+  end
+
+  should 'filter profiles for user' do
+    visitors = fast_create(Profile, access: Entitlement::Levels.levels[:visitors])
+    users    = fast_create(Profile, access: Entitlement::Levels.levels[:users])
+    related  = fast_create(Profile, access: Entitlement::Levels.levels[:related])
+    selfie   = fast_create(Profile, access: Entitlement::Levels.levels[:self])
+
+    user = fast_create(Person)
+
+    assert_includes Profile.accessible_to(user), visitors
+    assert_includes Profile.accessible_to(user), users
+    assert_not_includes Profile.accessible_to(user), related
+    assert_not_includes Profile.accessible_to(user), selfie
+  end
+
+  should 'filter profiles for friend' do
+    person  = fast_create(Person, access: Entitlement::Levels.levels[:related])
+
+    not_friend = fast_create(Person)
+    friend = fast_create(Person)
+    person.add_friend(friend)
+
+    assert_includes Profile.accessible_to(friend), person
+    assert_not_includes Profile.accessible_to(not_friend), person
+  end
+
+  should 'filter profiles for member' do
+    group  = fast_create(Organization, access: Entitlement::Levels.levels[:related])
+
+    not_member = fast_create(Person)
+    member = fast_create(Person)
+    group.add_member(member)
+
+    assert_includes Profile.accessible_to(member), group
+    assert_not_includes Profile.accessible_to(not_member), group
+  end
+
+  should 'filter profiles for user himself' do
+    person = fast_create(Person, access: Entitlement::Levels.levels[:self])
+
+    not_owner = fast_create(Person)
+    owner = person
+
+    assert_includes Profile.accessible_to(owner), person
+    assert_not_includes Profile.accessible_to(not_owner), person
+  end
+
+  should 'filter profiles for profile administrator' do
+    profile  = fast_create(Profile, access: Entitlement::Levels.levels[:self])
+
+    not_admin = fast_create(Person)
+    admin = fast_create(Person)
+    profile.add_admin(admin)
+
+    assert_includes Profile.accessible_to(admin), profile
+    assert_not_includes Profile.accessible_to(not_admin), profile
+  end
+
+  should 'filter profiles for environment administrator' do
+    profile = fast_create(Profile, access: Entitlement::Levels.levels[:self])
+
+    not_admin = fast_create(Person)
+    admin = fast_create(Person)
+    Environment.any_instance.stubs(:admins).returns([admin])
+
+    assert_includes Profile.accessible_to(admin), profile
+    assert_not_includes Profile.accessible_to(not_admin), profile
+  end
+
+  should 'filter profiles for user with view_private_content permission' do
+    profile = fast_create(Profile, access: Entitlement::Levels.levels[:self])
+
+    without_permission = fast_create(Person)
+    with_permission = fast_create(Person)
+    role = Role.create!(:name => 'role1', key: "test_role", permissions: ['view_private_content'])
+    profile.affiliate(with_permission, role)
+
+    assert_includes Profile.accessible_to(with_permission), profile
+    assert_not_includes Profile.accessible_to(without_permission), profile
+  end
 end

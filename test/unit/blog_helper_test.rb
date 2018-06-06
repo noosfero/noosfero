@@ -22,15 +22,16 @@ class BlogHelperTest < ActionView::TestCase
   def _(s); s; end
   def h(s); s; end
 
+  #TODO: non published article test.
   should 'list blog posts with identifiers and classes' do
     blog.children << older_post = create(TextArticle, :name => 'First post',
-                     :profile => profile, :parent => blog, :published => true)
+                     :profile => profile, :parent => blog)
     blog.children << some_post = create(TextArticle, :name => 'Some post',
-                     :profile => profile, :parent => blog, :published => true)
+                     :profile => profile, :parent => blog)
     blog.children << hidden_post = create(TextArticle, :name => 'Hidden post',
-                     :profile => profile, :parent => blog, :published => false)
+                     :profile => profile, :parent => blog, :access => Entitlement::Levels.levels[:self])
     blog.children << newer_post = create(TextArticle, :name => 'Last post',
-                     :profile => profile, :parent => blog, :published => true)
+                     :profile => profile, :parent => blog)
 
     html = Nokogiri::HTML list_posts(blog.posts).html_safe
 
@@ -39,7 +40,7 @@ class BlogHelperTest < ActionView::TestCase
     assert_select html, "div#post-#{hidden_post.id}.blog-post.position-2.even-post" +
                         " > div.even-post-inner.blog-post-inner > .title", 'Hidden post'
     assert_select html, "div#post-#{hidden_post.id}.blog-post.position-2.even-post" +
-                        " > div.even-post-inner.blog-post-inner > .not-published", true
+                        " > div.even-post-inner.blog-post-inner > .private", true
     assert_select html, "div#post-#{some_post.id}.blog-post.position-3.odd-post" +
                         " > div.odd-post-inner.blog-post-inner > .title", 'Some post'
     assert_select html, "div#post-#{older_post.id}.blog-post.position-4.last.even-post" +

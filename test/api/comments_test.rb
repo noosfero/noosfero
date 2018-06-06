@@ -9,7 +9,7 @@ class CommentsTest < ActiveSupport::TestCase
 
   should 'logged user not list comments if user has no permission to view the source article' do
     login_api
-    article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     assert !article.published?
 
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
@@ -18,7 +18,7 @@ class CommentsTest < ActiveSupport::TestCase
 
   should 'logged user not return comment if user has no permission to view the source article' do
     login_api
-    article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     comment = article.comments.create!(:body => "another comment", :author => @local_person)
     assert !article.published?
 
@@ -28,7 +28,7 @@ class CommentsTest < ActiveSupport::TestCase
 
   should 'logged user not comment an article if user has no permission to view it' do
     login_api
-    article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => @local_person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     assert !article.published?
 
     post "/api/v1/articles/#{article.id}/comments?#{params.to_query}"
@@ -131,7 +131,7 @@ class CommentsTest < ActiveSupport::TestCase
   end
 
   should 'not list comments if anonymous has no permission to view the source article' do
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     assert !article.published?
 
     get "/api/v1/articles/#{article.id}/comments?#{params.to_query}"

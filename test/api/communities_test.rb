@@ -20,7 +20,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
   should 'list all communities to logged user' do
     login_api
-    community1 = fast_create(Community, :environment_id => environment.id, :public_profile => true)
+    community1 = fast_create(Community, :environment_id => environment.id)
     community2 = fast_create(Community, :environment_id => environment.id)
 
     get "/api/v1/communities?#{params.to_query}"
@@ -41,7 +41,8 @@ class CommunitiesTest < ActiveSupport::TestCase
   should 'list private communities to logged user' do
     login_api
     community1 = fast_create(Community, :environment_id => environment.id)
-    community2 = fast_create(Community, :environment_id => environment.id, :public_profile => false)
+    community2 = fast_create(Community, :environment_id => environment.id,
+                                        :access => Entitlement::Levels.levels[:users])
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -51,7 +52,8 @@ class CommunitiesTest < ActiveSupport::TestCase
   should 'list private communities to logged members' do
     login_api
     community1 = fast_create(Community, :environment_id => environment.id)
-    community2 = fast_create(Community, :environment_id => environment.id, :public_profile => false)
+    community2 = fast_create(Community, :environment_id => environment.id,
+                                        :access => Entitlement::Levels.levels[:related])
     community2.add_member(person)
 
     get "/api/v1/communities?#{params.to_query}"
@@ -113,12 +115,10 @@ class CommunitiesTest < ActiveSupport::TestCase
 
   should 'not get private community content to non member' do
     login_api
-    community = fast_create(Community, :environment_id => environment.id, :public_profile => false)
+    community = fast_create(Community, :environment_id => environment.id, :access => Entitlement::Levels.levels[:self])
 
     get "/api/v1/communities/#{community.id}?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equal community.id, json['id']
-    assert_nil json['admins']
+    assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
   should 'display admins community if optional_fields is passed as parameter' do
@@ -143,7 +143,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
   should 'get private community to logged member' do
     login_api
-    community = fast_create(Community, :environment_id => environment.id, :public_profile => false, :visible => true)
+    community = fast_create(Community, :environment_id => environment.id, :access => Entitlement::Levels.levels[:self], :visible => true)
     community.add_member(person)
 
     params[:optional_fields] = ['members']
@@ -178,7 +178,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
   should 'logged user list communities with pagination' do
     login_api
-    community1 = fast_create(Community, :public_profile => true, :created_at => 1.day.ago)
+    community1 = fast_create(Community, :created_at => 1.day.ago)
     community2 = fast_create(Community, :created_at => 2.days.ago)
 
     params[:page] = 2
@@ -200,7 +200,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
   should 'list communities with timestamp to logged user' do
     login_api
-    community1 = fast_create(Community, :public_profile => true)
+    community1 = fast_create(Community)
     community2 = fast_create(Community)
 
     community1.updated_at = Time.now.in_time_zone + 3.hours
@@ -225,7 +225,7 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list all communities' do
-    community1 = fast_create(Community, :environment_id => environment.id, :public_profile => true)
+    community1 = fast_create(Community, :environment_id => environment.id)
     community2 = fast_create(Community, :environment_id => environment.id)
 
     get "/api/v1/communities?#{params.to_query}"
@@ -242,23 +242,15 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal [community1.id], json.map {|c| c['id']}
   end
 
-  should 'list all visible communities except secret ones to anonymous' do
+  should 'not list secret and private communities to anonymous' do
     community = fast_create(Community, :environment_id => environment.id)
-    private_community = fast_create(Community, :environment_id => environment.id, :public_profile => false)
-    secret_community = fast_create(Community, :environment_id => environment.id, :public_profile => false, :secret => true)
+    fast_create(Community, :environment_id => environment.id, :secret => true)
+    fast_create(Community, :environment_id => environment.id,
+                           :access => Entitlement::Levels.levels[:self])
 
     get "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equivalent [community.id, private_community.id], json.map {|c| c['id']}
-  end
-
-  should 'list private communities to anonymous' do
-    community1 = fast_create(Community, :environment_id => environment.id)
-    community2 = fast_create(Community, :environment_id => environment.id, :public_profile => false)
-
-    get "/api/v1/communities?#{params.to_query}"
-    json = JSON.parse(last_response.body)
-    assert_equivalent [community1.id, community2.id], json.map {|c| c['id']}
+    assert_equivalent [community.id], json.map {|c| c['id']}
   end
 
   should 'not create a community as an anonymous user' do
@@ -282,15 +274,6 @@ class CommunitiesTest < ActiveSupport::TestCase
     assert_equal Api::Status::Http::NOT_FOUND, last_response.status
   end
 
-  should 'get private community to anonymous user' do
-    community = fast_create(Community, :environment_id => environment.id, :public_profile => false)
-
-    get "/api/v1/communities/#{community.id}"
-    json = JSON.parse(last_response.body)
-    assert_equal community.id, json['id']
-    assert_nil json['members']
-  end
-
   should 'list public person communities to anonymous' do
     community = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id)
@@ -304,7 +287,7 @@ class CommunitiesTest < ActiveSupport::TestCase
   should 'not list private person communities to anonymous' do
     community = fast_create(Community, :environment_id => environment.id)
     fast_create(Community, :environment_id => environment.id)
-    person.public_profile = false
+    person.access = Entitlement::Levels.levels[:self]
     person.save
     community.add_member(person)
 
@@ -313,7 +296,7 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'list communities with pagination to anonymous' do
-    community1 = fast_create(Community, :public_profile => true, :created_at => 1.day.ago)
+    community1 = fast_create(Community, :created_at => 1.day.ago)
     community2 = fast_create(Community, :created_at => 2.days.ago)
 
     params[:page] = 2
@@ -334,7 +317,7 @@ class CommunitiesTest < ActiveSupport::TestCase
   end
 
   should 'list communities with timestamp to anonymous ' do
-    community1 = fast_create(Community, :public_profile => true)
+    community1 = fast_create(Community)
     community2 = fast_create(Community)
 
     community1.updated_at = Time.now.in_time_zone + 3.hours
@@ -403,7 +386,7 @@ class CommunitiesTest < ActiveSupport::TestCase
 
   should 'not display members value by default' do
     login_api
-    community = fast_create(Community, :environment_id => environment.id, :public_profile => false, :visible => true)
+    community = fast_create(Community, :environment_id => environment.id, :access => Entitlement::Levels.levels[:self], :visible => true)
     community.add_member(person)
 
     get "/api/v1/communities/#{community.id}?#{params.to_query}"

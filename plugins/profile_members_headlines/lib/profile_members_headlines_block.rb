@@ -25,10 +25,10 @@ class ProfileMembersHeadlinesBlock < Block
     self.settings[:filtered_roles] = array.map(&:to_i).select { |r| !r.to_i.zero? }
   end
 
-  def authors_list
+  def authors_list(user)
     result = owner
       .members_by_role(filtered_roles)
-      .is_public
+      .accessible_to(user)
       .includes([:image,:domains,:preferred_domain,:environment]).order('updated_at DESC')
       .limit(limit * 5)
 

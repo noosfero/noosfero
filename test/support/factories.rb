@@ -214,7 +214,7 @@ module Noosfero::Factory
 
   def defaults_for_profile
     n = factory_num_seq.to_s
-    { :public_profile => true, :identifier => 'profile-' + n, :name => 'Profile ' + n, :environment_id => 1 }
+    { :identifier => 'profile-' + n, :name => 'Profile ' + n, :environment_id => 1 }
   end
 
   ###############################################

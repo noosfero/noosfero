@@ -66,7 +66,7 @@ class SearchController < PublicController
   end
 
   def articles
-    @scope = @environment.articles.is_public
+    @scope = @environment.articles.accessible_to(user)
     full_text_search
   end
 
@@ -248,11 +248,7 @@ class SearchController < PublicController
   def visible_profiles(klass, *extra_relations)
     relations = [:image, :domains, :environment, :preferred_domain]
     relations += extra_relations
-    if current_user && current_user.person.is_admin?
-      @environment.send(klass.name.underscore.pluralize).includes(relations)
-    else
-      @environment.send(klass.name.underscore.pluralize).visible.includes(relations)
-    end
+    @environment.send(klass.name.underscore.pluralize).accessible_to(user).visible.includes(relations)
   end
 
   def per_page

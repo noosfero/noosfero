@@ -64,15 +64,16 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
     organization.add_member(author)
     work_assignment ||= WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
     author_folder = work_assignment.find_or_create_author_folder(author)
-    content = UploadedFile.create(
-            {
-              :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
-              :profile => organization,
-              :parent => author_folder,
-              :last_changed_by => author,
-              :author => author,
-            },
-            :without_protection => true
-          )
+    UploadedFile.create(
+      {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
+        :profile => organization,
+        :parent => author_folder,
+        :last_changed_by => author,
+        :author => author,
+        :access => Entitlement::Levels.levels[:self]
+      },
+      :without_protection => true
+    )
   end
 end

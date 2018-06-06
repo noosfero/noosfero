@@ -89,13 +89,17 @@ class PeopleBlockTest < ActionView::TestCase
   should 'count number of public and private people' do
     owner = fast_create(Environment)
 
-    private_p = fast_create(Person, :public_profile => false, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    public_p = fast_create(Person, :public_profile => true, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    private_p = fast_create(Person, :access => Entitlement::Levels.levels[:related], :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    public_p = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+
+    friend = fast_create(Person)
+    friend.add_friend(private_p)
 
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
 
-    assert_equal 2, block.profile_count
+    assert_equal 1, block.profile_count
+    assert_equal 2, block.profile_count(friend)
   end
 
 
@@ -120,6 +124,10 @@ require 'boxes_helper'
 class PeopleBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
+  def setup
+    view.stubs(:user).returns(nil)
+  end
+
   should 'list people from environment' do
     owner = fast_create(Environment)
     person1 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
@@ -141,9 +149,9 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'link to "all people" on people block' do
     env = fast_create(Environment)
-    fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     block = PeopleBlock.new
     block.expects(:owner).returns(env).at_least_once
 
@@ -156,8 +164,8 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'link to "all people" on friends block' do
     env = fast_create(Environment)
-    profile = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    friend = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    friend = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     profile.add_friend(friend)
     profile.save!
     block = FriendsBlock.new
@@ -172,8 +180,8 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'link to "all people" on members block' do
     env = fast_create(Environment)
-    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    member = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     relation = RoleAssignment.new(:resource_id => profile.id, :resource_type => 'Profile', :role_id => 3)
     relation.accessor = member
     relation.save
@@ -199,7 +207,7 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'Not show link to "all members" if the members block is empty' do
     env = fast_create(Community)
-    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     block = MembersBlock.new
     block.expects(:owner).returns(profile).at_least_once
 
@@ -299,8 +307,8 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'return people in order of name in api content' do
     owner = fast_create(Environment)
-    10.times do
-      fast_create(Person, :environment_id => owner.id)
+    3.times do
+      fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     end
     block = PeopleBlock.new(limit: 3)
     block.expects(:owner).returns(owner.reload).at_least_once

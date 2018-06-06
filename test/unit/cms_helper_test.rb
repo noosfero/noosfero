@@ -9,15 +9,16 @@ class CmsHelperTest < ActionView::TestCase
   include Noosfero::Plugin::HotSpot
 
   should 'show default options for article' do
-    result = options_for_article(build(RssFeed, :profile => Profile.new))
-    assert_tag_in_string result, tag: 'input', attributes: {id: 'article_published_true',  name:'article[published]', type: 'radio', value: 'true'}
-    assert_tag_in_string result, tag: 'input', attributes: {id: 'article_published_false', name:'article[published]', type: 'radio', value: 'false'}
+    profile = Profile.new
+    result = options_for_article(RssFeed.new profile: profile)
+    assert_tag_in_string result, tag: 'input', attributes: {id: 'post-access',  name:'article[access]', type: 'hidden', value: profile.access}
     assert_tag_in_string result, tag: 'input', attributes: {id: 'article_accept_comments', name:'article[accept_comments]', type: 'checkbox', value: '1'}
   end
 
   should 'show custom options for blog' do
-    result = options_for_article(Blog.new(:profile => fast_create(Profile)))
-    assert_tag_in_string result, :tag => 'input', :attributes => { :name => 'article[published]' , :type => "hidden", :value => "1" }
+    profile = fast_create(Profile)
+    result = options_for_article(Blog.new(:profile => profile))
+    assert_tag_in_string result, tag: 'input', attributes: {id: 'post-access',  name:'article[access]', type: 'hidden', value: profile.access}
     assert_tag_in_string result, :tag => 'input', :attributes => { :name => "article[accept_comments]", :type => "hidden", :value => "0" }
   end
 

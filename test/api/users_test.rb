@@ -7,21 +7,27 @@ class UsersTest < ActiveSupport::TestCase
     create_and_activate_user
   end
 
-  should 'logger user list users' do
+  should 'logged user list visible users' do
+    person = create_user.person
+    person.update(access: Entitlement::Levels.levels[:self])
+
     login_api
     get "/api/v1/users/?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_includes json.map { |a| a["login"] }, user.login
+
+    logins = json.map { |a| a["login"] }
+    assert_includes logins, user.login
+    assert_not_includes logins, person.user.login
   end
 
-  should 'logger user get user info' do
+  should 'logged user get user info' do
     login_api
     get "/api/v1/users/#{user.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal user.id, json['id']
   end
 
-  should 'logger user list user permissions' do
+  should 'logged user list user permissions' do
     login_api
     community = fast_create(Community)
     community.add_admin(person)
@@ -39,7 +45,7 @@ class UsersTest < ActiveSupport::TestCase
 
   should 'not show permissions to logged user' do
     login_api
-    target_user = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment)
+    target_user = create_user
     get "/api/v1/users/#{target_user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
     refute json.has_key?("permissions")
@@ -54,8 +60,7 @@ class UsersTest < ActiveSupport::TestCase
 
   should 'not show permissions to friend' do
     login_api
-    target_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
-
+    target_person = create_user.person
     target_person.add_friend(person)
     person.add_friend(target_person)
 
@@ -66,7 +71,8 @@ class UsersTest < ActiveSupport::TestCase
 
   should 'not show private attribute to logged user' do
     login_api
-    target_user = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment)
+    target_user = create_user
+    target_user.person.update(access: Entitlement::Levels.levels[:self])
 
     get "/api/v1/users/#{target_user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -77,9 +83,8 @@ class UsersTest < ActiveSupport::TestCase
 
   should 'show private attr to friend' do
     login_api
-    target_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+    target_person = create_user.person
     target_person.add_friend(person)
-    person.add_friend(target_person)
 
     get "/api/v1/users/#{target_person.user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -89,8 +94,7 @@ class UsersTest < ActiveSupport::TestCase
 
   should 'show public attribute to logged user' do
     login_api
-    target_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
-    target_person.public_profile = true
+    target_person = create_user.person
     target_person.visible = true
     target_person.fields_privacy={:email=> 'public'}
     target_person.save!
@@ -105,7 +109,7 @@ class UsersTest < ActiveSupport::TestCase
     login_api
     Environment.default.add_admin(person)
 
-    target_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+    target_person = create_user.person
     target_person.fields_privacy={:email=> 'public'}
     target_person.save!
 
@@ -117,9 +121,8 @@ class UsersTest < ActiveSupport::TestCase
   end
 
   should 'show public fields to anonymous' do
-    target_person = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment).person
+    target_person = create_user.person
     target_person.fields_privacy={:email=> 'public'}
-    target_person.public_profile = true
     target_person.visible = true
     target_person.save!
 
@@ -129,7 +132,7 @@ class UsersTest < ActiveSupport::TestCase
   end
 
   should 'hide private fields to anonymous' do
-    target_user = User.create!(:login => 'user1', :password => 'USER_PASSWORD', :password_confirmation => 'USER_PASSWORD', :email => 'test2@test.org', :environment => environment)
+    target_user = create_user
 
     get "/api/v1/users/#{target_user.id}/?#{params.to_query}"
     json = JSON.parse(last_response.body)

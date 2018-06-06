@@ -170,6 +170,7 @@ ActiveRecord::Schema.define(version: 20180604140454) do
     t.boolean  "archived",             default: false
     t.string   "editor",               default: "tiny_mce", null: false
     t.jsonb    "metadata",             default: {}
+    t.integer  "access",       default: 0
   end
 
   add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree
@@ -656,7 +657,6 @@ ActiveRecord::Schema.define(version: 20180604140454) do
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
-    t.boolean  "public_profile",                     default: true
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
@@ -683,6 +683,7 @@ ActiveRecord::Schema.define(version: 20180604140454) do
     t.string   "upload_quota"
     t.float    "disk_usage"
     t.string   "cropped_image"
+    t.integer  "access",                             default: 0
   end
 
   add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
@@ -1005,4 +1006,54 @@ ActiveRecord::Schema.define(version: 20180604140454) do
   add_index "votes", ["voter_id", "voter_type"], name: "fk_voters", using: :btree
 
   add_foreign_key "profiles_circles", "circles", on_delete: :cascade
+
+  profile_friendships_table = <<-SQL
+    SELECT profiles.id, profiles.access,
+    friendships.friend_id AS friend_id, friendships.person_id AS person_id
+    FROM profiles LEFT JOIN friendships
+    ON profiles.id = friendships.person_id OR profiles.id = friendships.friend_id
+    WHERE profiles.access > #{Entitlement::Levels.levels[:users]};
+  SQL
+
+  profile_memberships_table = <<-SQL
+    SELECT profiles.id, profiles.access,
+    role_assignments.accessor_id AS member_id, roles.permissions, roles.key
+    FROM profiles LEFT JOIN role_assignments
+    ON profiles.id = role_assignments.resource_id
+    LEFT JOIN roles ON role_assignments.role_id = roles.id
+    WHERE profiles.access > #{Entitlement::Levels.levels[:users]};
+  SQL
+
+  article_friendships_table = <<-SQL
+    SELECT articles.id, articles.profile_id, articles.access,
+    friendships.friend_id AS friend_id, friendships.person_id AS person_id
+    FROM articles JOIN profiles ON profiles.id = articles.profile_id
+    LEFT JOIN friendships
+    ON articles.profile_id = friendships.person_id OR articles.profile_id = friendships.friend_id
+    WHERE articles.access > #{Entitlement::Levels.levels[:users]};
+  SQL
+
+  article_memberships_table = <<-SQL
+    SELECT articles.id, articles.profile_id, articles.access,
+    role_assignments.accessor_id AS member_id, roles.permissions, roles.key
+    FROM articles LEFT JOIN role_assignments
+    ON articles.profile_id = role_assignments.resource_id
+    LEFT JOIN roles ON role_assignments.role_id = roles.id
+    WHERE articles.access > #{Entitlement::Levels.levels[:users]};
+  SQL
+
+  noosfero_env = ENV['RAILS_ENV']
+  if noosfero_env != 'production'
+    create_view "profile_access_friendships", sql_definition: profile_friendships_table
+    create_view "profile_access_memberships", sql_definition: profile_memberships_table
+    create_view "article_access_friendships", sql_definition: article_friendships_table
+    create_view "article_access_memberships", sql_definition: article_memberships_table
+  else
+    create_view "profile_access_friendships", materialized: true, sql_definition: profile_friendships_table
+    create_view "profile_access_memberships", materialized: true, sql_definition: profile_memberships_table
+    create_view "article_access_friendships", materialized: true, sql_definition: article_friendships_table
+    create_view "article_access_memberships", materialized: true, sql_definition: article_memberships_table
+    ArticleAccessFriendship.refresh()
+    ArticleAccessMembership.refresh()
+  end
 end

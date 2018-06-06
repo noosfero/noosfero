@@ -220,24 +220,6 @@ class RssFeedTest < ActiveSupport::TestCase
     assert_match "This is the content of the Sample Article", feed.data
   end
 
-  should 'display articles even within a private profile' do
-    profile = create_user('testuser').person
-    profile.public_profile = false
-    profile.save!
-    a1 = profile.articles.build(:name => 'article 1'); a1.save!
-    a2 = profile.articles.build(:name => 'article 2'); a2.save!
-    a3 = profile.articles.build(:name => 'article 3'); a3.save!
-
-    feed = build(RssFeed, :name => 'testfeed')
-    feed.profile = profile
-    feed.save!
-
-    rss = feed.data
-    assert_match /<item><title>article 1<\/title>/, rss
-    assert_match /<item><title>article 2<\/title>/, rss
-    assert_match /<item><title>article 3<\/title>/, rss
-  end
-
   should 'provide a non-nil to_html' do
     assert_not_nil RssFeed.new.to_html
   end

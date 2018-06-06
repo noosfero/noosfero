@@ -17,11 +17,9 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
     box.owner = profile
     box.save!
 
-
     @block = RecentDocumentsBlock.new
     @block.box_id = box.id
     @block.save!
-
   end
   attr_reader :block, :profile, :articles
 
@@ -146,5 +144,30 @@ class RecentDocumentsBlockViewTest < ActionView::TestCase
     block = RecentDocumentsBlock.new
     block.stubs(:owner).returns(profile)
     assert_equal [article.id], block.api_content['articles'].map {|a| a[:id]}
+  end
+
+  should 'not include link articles if owner is an environment' do
+    environment = fast_create(Environment)
+
+    p1 = fast_create(Profile, environment_id: environment.id)
+    p2 = fast_create(Profile, environment_id: environment.id)
+
+    doc1 = fast_create(Article, profile_id: p1.id)
+    doc2 = fast_create(Article, profile_id: p2.id)
+    link = LinkArticle.create!(reference_article: doc1, profile: p2)
+
+    box = Box.new
+    box.owner = environment
+    box.save!
+
+    block = RecentDocumentsBlock.new
+    block.box = box
+
+    all_recent = block.docs
+    [doc1, doc2].each do |item|
+      assert_includes all_recent, item
+    end
+
+    assert_not_includes all_recent, link
   end
 end
