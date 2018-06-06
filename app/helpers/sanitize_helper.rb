@@ -53,8 +53,10 @@ protected
   end
 
   def sanitizer type = :full_sanitize
-    return HTML::WhiteListSanitizer.new if type == :white_list
-    HTML::FullSanitizer.new
+    white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
+    full_sanitizer = Rails::Html::FullSanitizer.new
+    return white_list_sanitizer if type == :white_list
+    full_sanitizer
   end
 
   def article_string_params
