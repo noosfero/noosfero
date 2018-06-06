@@ -9,14 +9,8 @@ class Article
 
   before_save :comment_paragraph_plugin_parse_html
 
-  settings_items :comment_paragraph_plugin_activate, :type => :boolean, :default => false
-
   def comment_paragraph_plugin_enabled?
-    environment.plugin_enabled?(CommentParagraphPlugin) && (self.kind_of?(TextArticle) || self.kind_of?(CommentParagraphPlugin::Discussion))
-  end
-
-  def comment_paragraph_plugin_activated?
-    comment_paragraph_plugin_activate && comment_paragraph_plugin_enabled?
+    environment.plugin_enabled?(CommentParagraphPlugin) && self.kind_of?(CommentParagraphPlugin::Discussion)
   end
 
   def cache_key_with_comment_paragraph(params = {}, user = nil, language = 'en')
@@ -34,9 +28,8 @@ class Article
   protected
 
   def comment_paragraph_plugin_parse_html
-    comment_paragraph_plugin_set_initial_value unless persisted?
-    return unless comment_paragraph_plugin_activated?
-    if body && (body_changed? || setting_changed?(:comment_paragraph_plugin_activate))
+    return unless comment_paragraph_plugin_enabled?
+    if body && body_changed?
       updated = body_changed? ? body_change[1] : body
       doc =  Nokogiri::HTML(updated)
       (doc.css('li') + doc.css('body > div, body > span, body > p')).each do |paragraph|
@@ -54,15 +47,6 @@ class Article
       doc_body =  doc.at('body')
       self.body = doc_body.inner_html if doc_body
     end
-  end
-
-  def comment_paragraph_plugin_set_initial_value
-    self.comment_paragraph_plugin_activate = comment_paragraph_plugin_enabled? &&
-      comment_paragraph_plugin_activation_mode == 'auto'
-  end
-
-  def comment_paragraph_plugin_activation_mode
-    comment_paragraph_plugin_settings.activation_mode
   end
 
   def comment_paragraph_plugin_settings

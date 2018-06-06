@@ -19,12 +19,4 @@ class CommentParagraphPlugin::Discussion < Event
       (end_date.nil? || current_time <= end_date)
   end
 
-  def comment_paragraph_plugin_activated?
-    environment.plugin_enabled?(CommentParagraphPlugin)
-  end
-
-  def comment_paragraph_plugin_activation_mode
-    "auto"
-  end
-
 end

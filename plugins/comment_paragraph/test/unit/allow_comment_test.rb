@@ -9,9 +9,7 @@ class AllowCommentTest < ActiveSupport::TestCase
 
     @profile = fast_create(Community)
 
-    @article = fast_create(TextArticle, :profile_id => profile.id, :body => 'inner')
-    @article.comment_paragraph_plugin_activate = true
-    @article.save!
+    @article = create(CommentParagraphPlugin::Discussion, :profile_id => profile.id, :name => 'some title', :start_date => DateTime.now)
 
     @comment = fast_create(Comment, :paragraph_uuid => 1, :source_id => article.id)
     @controller = mock
@@ -24,7 +22,7 @@ class AllowCommentTest < ActiveSupport::TestCase
   end
 
   should 'parse contents to include comment paragraph view' do
-    attrs = { paragraph_uuid: comment.paragraph_uuid, classes: 'custom-class' }
+    attrs = { id: comment.paragraph_uuid, classes: 'custom-class' }
     content = macro.parse(attrs, article.body, article)
     controller.expects(:kind_of?).with(ContentViewerController).returns(true)
 
@@ -41,7 +39,6 @@ class AllowCommentTest < ActiveSupport::TestCase
 
   should 'not parse contents if comment_paragraph is not activated' do
     article = fast_create(TextArticle, :profile_id => profile.id, :body => 'inner')
-    article.expects(:comment_paragraph_plugin_activated?).returns(false)
     content = macro.parse({:paragraph_uuid => comment.paragraph_uuid}, article.body, article)
     controller.expects(:kind_of?).with(ContentViewerController).returns(true)
     assert_equal 'inner', instance_eval(&content)
