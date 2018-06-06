@@ -96,6 +96,13 @@ class EventInvitationTest < ActiveSupport::TestCase
     assert_equal invitation, EventInvitation.invitation_to(event, guest)
   end
 
+  should 'return nil if there is no invitation for person' do
+    event = fast_create(Event)
+    guest = fast_create(Person)
+
+    assert_equal nil, EventInvitation.invitation_to(event, guest)
+  end
+
   should 'return confirmed invitations to event' do
     event = fast_create(Event)
 

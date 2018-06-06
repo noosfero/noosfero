@@ -31,10 +31,6 @@ class EventInvitation < ApplicationRecord
           where "event_id = '?' AND decision = '?'",
           event, EventInvitation::DECISIONS['unconfirmed']  if event }
 
-  scope :invitation_to, -> event, person {
-          find_by "event_id = '?' AND guest_id = '?'",
-          event, person  if event && person }
-
   def valid_decision?
     unless EventInvitation::DECISIONS.has_value? decision
       errors.add(:decision, :invalid)
@@ -51,4 +47,7 @@ class EventInvitation < ApplicationRecord
     EventInvitation::DECISIONS.key(decision)
   end
 
+  def self.invitation_to event, person
+    event.invitations.find_by(guest: person)
+  end
 end

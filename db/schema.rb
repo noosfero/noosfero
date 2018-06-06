@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180220140808) do
+ActiveRecord::Schema.define(version: 20180416172522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -417,6 +417,13 @@ ActiveRecord::Schema.define(version: 20180220140808) do
 
   add_index "environments", ["metadata"], name: "index_environments_on_metadata", using: :gin
 
+  create_table "event_invitations", force: :cascade do |t|
+    t.integer "event_id"
+    t.integer "guest_id"
+    t.integer "requestor_id"
+    t.integer "decision"
+  end
+
   create_table "external_feeds", force: :cascade do |t|
     t.string   "feed_title"
     t.datetime "fetched_at"
@@ -675,6 +682,7 @@ ActiveRecord::Schema.define(version: 20180220140808) do
     t.jsonb    "metadata",                           default: {}
     t.string   "upload_quota"
     t.float    "disk_usage"
+    t.string   "cropped_image"
   end
 
   add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
