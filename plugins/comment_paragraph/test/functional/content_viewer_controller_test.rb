@@ -13,9 +13,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @environment = Environment.default
     @environment.enable_plugin(CommentParagraphPlugin)
     @profile = fast_create(Community)
-    @page = fast_create(TextArticle, :profile_id => @profile.id, :body => "<p>inner text</p>")
-    @page.comment_paragraph_plugin_activate = true
-    @page.save!
+    @page = create(CommentParagraphPlugin::Discussion, :profile_id => @profile.id, :body => "<p>inner text</p>", :name => 'some content')
   end
 
   attr_reader :page
