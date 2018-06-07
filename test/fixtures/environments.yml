@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 colivre_net:
   id: 1
-  name: 'Colivre.net'
+  name: 'localhost'
   contact_email: 'colivre@localhost.localdomain'
   noreply_email: 'noreply@localhost.localdomain'
   is_default: true
