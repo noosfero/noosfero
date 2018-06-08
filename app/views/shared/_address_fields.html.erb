@@ -1,9 +1,9 @@
 <%= javascript_include_tag 'address_fields' %>
 
 <div class='address-fields formfield'>
-  <%= optional_field(profile, 'country', select_profile_country(f.object_name, profile)) %>
-  <%= optional_field(profile, 'state', select_profile_state(f.object_name, profile)) %>
-  <%= optional_field(profile, 'city', select_profile_city(f.object_name, profile)) %>
+  <%= optional_field(profile, 'country', select_profile_country(f.object_name, profile, class: 'profile-country')) %>
+  <%= optional_field(profile, 'state', select_profile_state(f.object_name, profile, class: 'profile-state')) %>
+  <%= optional_field(profile, 'city', select_profile_city(f.object_name, profile, class: 'profile-city')) %>
 
   <%= optional_field(profile, 'district', text_field(f.object_name, :district, placeholder: _('District'))) %>
   <%= optional_field(profile, 'zip_code', text_field(f.object_name, :zip_code, placeholder: _('Zip code'))) %>
