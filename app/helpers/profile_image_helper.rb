@@ -49,6 +49,7 @@ module ProfileImageHelper
       filename = profile.image.public_filename(size)
       mimetype = profile.image.content_type
     else
+      size = :big if size.blank?
       icon =
         if profile.organization?
           if profile.kind_of?(Community)
