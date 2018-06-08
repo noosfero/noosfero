@@ -17,7 +17,7 @@ function makeCommentable() {
   var start = $(tinyMCE.activeEditor.selection.getStart()).closest(TARGETS);
   var end = $(tinyMCE.activeEditor.selection.getEnd()).closest(TARGETS);
 
-  var text = $('#article_body_ifr').contents().find('*');
+  var text = $('.mce-tinymce iframe').contents().find('*');
   var selection = text.slice(text.index(start), text.index(end) + 1);
   var wasWrapped = unwrapSelection(selection)
 
@@ -31,7 +31,7 @@ function makeCommentable() {
 }
 
 function makeAllCommentable() {
-  var text = $('#article_body_ifr').contents().find('*');
+  var text = $('.mce-tinymce iframe').contents().find('*');
   var selection = text.find(TARGETS);
 
   var wasWrapped = unwrapSelection(selection);
