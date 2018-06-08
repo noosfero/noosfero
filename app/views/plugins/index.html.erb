@@ -6,11 +6,11 @@
 
 <%= labelled_form_for(:environment, :url => {:action => 'update'}) do |f| %>
 
-  <table>
+<table>
     <% @active_plugins.sort_by(&:plugin_name).each do |plugin|   %>
       <tr>
-        <td style='vertical-align: top'><%= check_box_tag "environment[enabled_plugins][]", plugin, @environment.enabled_plugins.include?(plugin.to_s), :id => plugin.plugin_name %></td>
-        <td>
+        <td class="plugin-checkbox"><%= check_box_tag "environment[enabled_plugins][]", plugin, @environment.enabled_plugins.include?(plugin.to_s), :id => plugin.plugin_name %></td>
+        <td class="plugin-info">
           <%= hidden_field_tag('environment[enabled_plugins][]', '') %>
           <strong><%= plugin.plugin_name %></strong>
           <br/>
