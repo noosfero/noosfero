@@ -8,7 +8,7 @@ class ProfileEditorController < MyProfileController
   before_filter :back_to
   before_filter :forbid_destroy_profile, :only => [:destroy_profile]
   before_filter :check_user_can_edit_header_footer, :only => [:header_footer]
-  before_filter :location_active, :only => [:location]
+  before_filter :location_active, :only => [:locality]
 
   helper_method :has_welcome_page
   helper CustomFieldsHelper
@@ -100,7 +100,7 @@ class ProfileEditorController < MyProfileController
     update_profile_data
   end
 
-  def location
+  def locality
     @profile_data = profile
     if request.post?
       begin
