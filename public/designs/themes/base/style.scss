@@ -1331,6 +1331,11 @@ hr.pre-posts, hr.sep-posts {
       font-weight: 700;
       letter-spacing: -.02rem;
       .author a { font-size: 12px !important; }
+      .bullet-separator,
+      .parent-folder {
+       font-weight: normal;
+      }
+
     }
     .bullet-separator {
       padding: 0 2px;
