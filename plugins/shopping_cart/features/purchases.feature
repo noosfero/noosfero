@@ -113,7 +113,7 @@ Feature: purchases
     Then I should see "Moes Tavern" within any ".actor-name"
     And I should not see "First Church of Springfield" within any ".actor-name"
 
-  @selenium
+  @selenium-fixme
   Scenario: products checkout
     Given "moes-tavern" has the following delivery methods
       | delivery_type    | name | description                  | fixed_cost   | free_over_price |

@@ -1,0 +1,54 @@
+.help-tooltip {
+  color: #346392;
+  font-size: 16px;
+  margin: 0 5px;
+  display: inline-block;
+  background-size: 13px;
+  width: 13px;
+  height: 13px;
+  position: relative;
+  cursor: help;
+
+  .tooltip-msg {
+    display: none;
+    position: absolute;
+    width: 170px;
+    padding: 5px;
+    color: #eee;
+    background-color: #777;
+    border-radius: 3px;
+    top: 25px;
+    left: -27px;
+    z-index: 10;
+    font-family: Verdana, sans-serif;
+    font-size: 10px;
+    font-weight: normal;
+
+    &::before {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid #777;
+      position: absolute;
+      top: -5px;
+      left: 30px;
+    }
+
+    &.large {
+      width: 340px;
+      padding: 10px;
+      left: -59px;
+      font-size: 14px;
+
+      &::before {
+        left: 62px;
+      }
+    }
+  }
+
+  &:hover .tooltip-msg, {
+    display: block;
+  }
+}
