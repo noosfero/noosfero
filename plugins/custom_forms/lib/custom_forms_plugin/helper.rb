@@ -123,13 +123,12 @@ module CustomFormsPlugin::Helper
                   else
                     alternative.selected_by_default
                   end
-
         content_tag(:div, (labelled_check_box alternative.label,
                            form.to_s + "[#{field.id}][#{alternative.id}]",
                            '1',
                            default,
                            :disabled => display_disabled?(field, answer)),
-                    :class => 'labelled-check')
+                    :class => 'labelled-check field-alternative-row')
       end.join("\n")
     when 'radio'
       field.alternatives.map do |alternative|
@@ -144,7 +143,7 @@ module CustomFormsPlugin::Helper
                            alternative.id,
                            default,
                            :disabled => display_disabled?(field, answer)),
-                    :class => 'labelled-check')
+                    :class => 'labelled-check field-alternative-row')
       end.join("\n")
     end
   end

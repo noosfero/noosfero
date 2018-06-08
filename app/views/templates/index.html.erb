@@ -29,10 +29,10 @@
           </td>
           <td>
             <%= button_without_text 'edit', _('Edit settings'), {:controller => 'profile_editor', :profile => template.identifier, :action => 'edit'} %>
-            <%= button_without_text 'welcome-page', _('Edit welcome page'), {:controller => 'profile_editor', :profile => template.identifier, :action => 'welcome_page'} %>
+            <%= button_without_text 'welcome_page', _('Edit welcome page'), {:controller => 'profile_editor', :profile => template.identifier, :action => 'welcome_page'} %>
             <%= button_without_text 'blocks', _('Edit sideblocks'), {:controller => 'profile_design', :profile => template.identifier, :action => 'index'} %>
             <%= button_without_text 'appearance', _('Edit appearance'), {:controller => 'profile_themes', :profile => template.identifier, :action => 'index'} %>
-            <%= button_without_text 'header-footer', _('Edit header/footer'), {:controller => 'profile_editor', :profile => template.identifier, :action => 'header_footer'} %>
+            <%= button_without_text 'header_footer', _('Edit header/footer'), {:controller => 'profile_editor', :profile => template.identifier, :action => 'header_footer'} %>
           </td>
         </tr>
       <% end %>
