@@ -16,8 +16,8 @@ class ControlPanel::WelcomePage < ControlPanel::Entry
       10
     end
 
-    def url
-     {:controller => 'profile_editor', :action => 'welcome_page'}
+    def url(profile)
+      {:controller => 'profile_editor', :action => 'welcome_page'}
     end
 
     def display?(user, profile, context={})

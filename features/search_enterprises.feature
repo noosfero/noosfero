@@ -4,19 +4,6 @@ Feature: search enterprises
   In order to find ones that interest me
 
   @selenium
-  Scenario: show recent enterprises on index
-    Given the following enterprises
-      | identifier | name        | img    |
-      | shop1      | Shoes shop  | shoes  |
-      | shop2      | Fruits shop | fruits |
-    And there are no pending jobs
-    When I go to the search enterprises page
-    Then I should see "Shoes shop" within "#search-results"
-    And I should see Shoes shop's profile image
-    And I should see "Fruits shop" within "#search-results"
-    And I should see Fruits shop's profile image
-
-  @selenium
   Scenario: show empty search results
     Given the following enterprises
       | identifier | name        |
@@ -41,21 +28,6 @@ Feature: search enterprises
     And I should see Shoes shop's profile image
     And I should not see "Fruits shop"
     And I should not see Fruits shop's profile image
-
-  @selenium
-  Scenario: link to enterprise homepage on search results
-    Given the following enterprises
-      | identifier | name        |
-      | shop1      | Shoes shop  |
-    And the following articles
-      | owner | name | body | homepage |
-      | shop1 | Shoes home | This is the <i>homepage</i> of Shoes shop! It has a very long and pretty vague description, just so we can test wether the system will correctly create an excerpt of this text. We should probably talk about shoes. | true |
-    And I go to the search enterprises page
-    And I fill in "search-input" with "shoes"
-    And I follow "Search" within ".search-form"
-    And I wait for 1 seconds
-    When I follow "Shoes shop"
-    Then I should be on shop1's homepage
 
   @selenium
   Scenario: show clean enterprise homepage on search results
