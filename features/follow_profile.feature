@@ -23,7 +23,6 @@ Feature: follow profile
     And I follow "Follow"
     And I check "Work"
     And I follow "Follow"
-    And I wait for 3 seconds
     Then I should see "You are now following Nights Watch"
 
   @selenium
