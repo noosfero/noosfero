@@ -13,7 +13,7 @@ services:
   noosfero:
     build:
       context: .
-      dockerfile: ./config/docker/dev/osx/Dockerfile
+      dockerfile: ./config/docker/dev/Dockerfile
     ports:
       - 3000:3000
     depends_on:
