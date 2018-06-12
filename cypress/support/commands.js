@@ -11,8 +11,8 @@
 //
 // -- This is a parent command --
 
-Cypress.Commands.add("login", (url, user) => {
-  cy.visit(`${url}/account/login`);
+Cypress.Commands.add("login", (user) => {
+  cy.visit("/account/login");
   cy.get("#content input[type=text]#main_user_login").type(user.login, {force: true});
   cy.get("#content input#user_password").type(user.password);
   cy.get("#content a.button.with-text.icon-login").click();
