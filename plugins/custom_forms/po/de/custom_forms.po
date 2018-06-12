@@ -118,8 +118,8 @@ msgid "Opened"
 msgstr ""
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:73
-#: ../lib/custom_forms_plugin/helper.rb:175
-#: ../lib/custom_forms_plugin/helper.rb:187
+#: ../lib/custom_forms_plugin/helper.rb:174
+#: ../lib/custom_forms_plugin/helper.rb:186
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
 msgstr ""
@@ -346,13 +346,13 @@ msgstr "Feld auswählen"
 msgid "Hold down Ctrl to select options"
 msgstr "Halte Strg, um Optionen auszuwählen"
 
-#: ../lib/custom_forms_plugin/helper.rb:171
-#: ../lib/custom_forms_plugin/helper.rb:179
+#: ../lib/custom_forms_plugin/helper.rb:170
+#: ../lib/custom_forms_plugin/helper.rb:178
 msgid "%s left to open"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/helper.rb:173
-#: ../lib/custom_forms_plugin/helper.rb:185
+#: ../lib/custom_forms_plugin/helper.rb:172
+#: ../lib/custom_forms_plugin/helper.rb:184
 msgid "%s left to close"
 msgstr ""
 
@@ -838,12 +838,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:22
+#: ../views/custom_forms_plugin_profile/show.html.erb:24
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr "Entschuldigung, Sie können dieses Formular momentan nicht ausfüllen"
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:24
+#: ../views/custom_forms_plugin_profile/show.html.erb:26
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr "Entschuldigung, Sie können dieses Formular nicht mehr ausfüllen"
@@ -868,7 +868,7 @@ msgstr ""
 msgid "Find queries by name"
 msgstr ""
 
-#: ../views/shared/_form.html.erb:21
+#: ../views/shared/_form.html.erb:13
 msgid "Your e-mail will be visible to this form's owners."
 msgstr "Ihre E-Mail-Adresse wird für den Besitzer des Formulars sichtbar sein."
 
