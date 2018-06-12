@@ -5,6 +5,9 @@ before_script:
   - ./script/set-apt-proxy
   - ./script/silent-quick-start
   - bundle exec rake db:migrate RAILS_ENV=test
+  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+  - apt install -y nodejs
+  - npm install cypress
 
 stages:
   #FIXME Selenium tests are randomly failing and this avoid other tests to run.
@@ -99,3 +102,9 @@ plugins-5:
   <<: *retriable
   script: SLICE=5/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
+
+cypress:
+  <<: *retriable
+  script: bundle exec rake cypress:run
+  stage: all-tests
+
