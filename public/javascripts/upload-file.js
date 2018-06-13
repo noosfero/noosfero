@@ -1,10 +1,10 @@
 function loadMoreComments() {
-  let commentList = $('#article-comments-list');
-  let pageId = commentList.data('page');
-  let profile = commentList.data('profile');
-  let nextCommentPage = commentList.data('comment-page') + 1;
+  var commentList = $('#article-comments-list');
+  var pageId = commentList.data('page');
+  var profile = commentList.data('profile');
+  var nextCommentPage = commentList.data('comment-page') + 1;
 
-  $.get(`/${profile}/${pageId}/view_more_comments`, {
+  $.get('/' + profile + '/' + pageId + '/view_more_comments', {
     comment_page: nextCommentPage,
     id: pageId, 
     dataType: 'json'
@@ -16,7 +16,7 @@ function loadMoreComments() {
 }
 
 function bindScroll() {
-  let loadingPoint = $(document).height() - 300;
+  var loadingPoint = $(document).height() - 300;
   if ($(window).scrollTop() + $(window).height() > loadingPoint) {
     $(window).unbind('scroll');
     loadMoreComments();
