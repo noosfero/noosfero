@@ -49,13 +49,11 @@ class UsersController < AdminController
     date = Time.current.strftime('%Y-%m-%d %Hh%Mm')
     filename = _('%s people list - %s') % [environment.name, date]
 
-    respond_to do |format|
-      format.xml do
-        send_data exporter.to_xml, type: 'text/xml', filename: "#{filename}.xml"
-      end
-      format.csv do
-        send_data exporter.to_csv, type: 'text/csv', filename: "#{filename}.csv"
-      end
+    case params[:format]
+    when 'csv'
+      send_data exporter.to_csv, type: 'text/csv', filename: "#{filename}.csv"
+    when 'xml'
+      send_data exporter.to_xml, type: 'text/xml', filename: "#{filename}.xml"
     end
   end
 
