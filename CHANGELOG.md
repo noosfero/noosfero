@@ -1,3 +1,16 @@
+# 1.14.0
+  * Bumping version 1.14.0 (Rodrigo Souto) [49b6880]
+  * Update translations (Rodrigo Souto) [53359de]
+  * install-dependencies: set repo using new jessie-1.x tag (Rodrigo Souto) [f197ba1]
+  * [CommentParagraph] Changes iframe selector (Gabriel Silva) [5905a8f]
+  * Uses a custom class on address fields (Gabriel Silva) [629e482]
+  * custom-forms: fix alert string text (Rodrigo Souto) [759fc02]
+  * [CustomForms] Uses date helper on query views (Gabriel Silva) [ec5e956]
+  * Fixes selected value on city and state fields (Gabriel Silva) [efca0fc]
+  * google-maps: split js and static api keys (Rodrigo Souto) [6f94183]
+  * [CustomForms] Adds field selector to export page (Gabriel Silva) [4815b51]
+  * Adds exportable fields and a related hotspost (Gabriel Silva) [0a42064]
+
 # 1.13.0
   * Bumping version 1.13.0 (Rodrigo Souto) [e2fdb5e]
   * debian-package: fix package install (Rodrigo Souto) [4863fa7]
