@@ -220,6 +220,8 @@ class Profile < ApplicationRecord
   store_accessor :metadata
   include MetadataScopes
 
+  metadata_items :allow_single_file
+
   def settings
     data
   end
@@ -414,7 +416,8 @@ class Profile < ApplicationRecord
 
   belongs_to :region, optional: true
 
-  LOCATION_FIELDS = %w[address district city state country_name zip_code]
+  LOCATION_FIELDS = %w[address address_reference district city state country zip_code]
+  metadata_items *(LOCATION_FIELDS - %w[address])
 
   before_save :save_old_region
   def save_old_region
@@ -426,8 +429,26 @@ class Profile < ApplicationRecord
     if myregion
       myregion.hierarchy.reverse.first(2).map(&:name).join(separator)
     else
-      LOCATION_FIELDS.map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
+      full_address(separator)
     end
+  end
+
+  def full_address(separator = ' - ')
+    LOCATION_FIELDS.map do |item|
+      (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil
+    end.compact.join(separator)
+  end
+
+  def city
+    NationalRegion.name_or_default(metadata['city'])
+  end
+
+  def state
+    NationalRegion.name_or_default(metadata['state'])
+  end
+
+  def country
+    NationalRegion.name_or_default(metadata['country'])
   end
 
   def geolocation

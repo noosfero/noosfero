@@ -1,5 +1,6 @@
 Noosfero::Application.routes.draw do
 
-  mount Api::App => '/api'
-
+  unless ( File.basename($0) == "rake" && ARGV.include?("db:schema:load") )
+    mount Api::App => '/api'
+  end
 end

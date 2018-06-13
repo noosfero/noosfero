@@ -3,16 +3,11 @@
 <h1>
   <%= _('Content management') %>
 </h1>
+<% if @article %>
+  <%= path_to_parents @article %>
+<% end %>
 
 <div class="cms-header">
-  <div id='article-full-path'>
-    <% if @article %>
-      <%= link_to profile.identifier, :action => 'index' %>
-      <% @article.hierarchy.each do |item| %>
-        <%= font_awesome('long-arrow-alt-right') + ((item == @article) ? item.name.html_safe : link_to(item.slug, :id => item.id).html_safe) %>
-      <% end %>
-    <% end %>
-  </div>
 
   <%= button_bar do %>
     <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>

@@ -17,119 +17,17 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
 
-msgid "Search and destroy spams and spammers."
-msgstr ""
+#, fuzzy
+msgid "No Report"
+msgstr "Reportador"
 
 #, fuzzy
 msgid "[%s] You must reactivate your account."
 msgstr "[%s] Activa tu cuenta"
 
-msgid "Hi %s!"
-msgstr "¡Hola %s!"
-
-msgid ""
-"Due to the recent increase in the number of spams on %s, we decided to "
-"deactivate all inactive users on the network. It just happens that you are "
-"one of them! But there is no need to worry. Your account is completely "
-"preserved and if you want to reactivate it you just need to click on the "
-"following link and recover your password (since it was changed to a huge "
-"scramble of random characters):"
-msgstr ""
-
-msgid ""
-"We are sorry that this procedure might bother you a lot, but it's necessary "
-"for the healthy of our network."
-msgstr ""
-
-msgid "We hope to see you back soon!"
-msgstr ""
-
-msgid "Best Regards,"
-msgstr ""
-
-#, fuzzy
-msgid "Spaminator settings"
-msgstr "Configuración del correo"
-
-msgid "Period (days) for scanning spammers"
-msgstr ""
-
-msgid ""
-"Spaminator was never deployed. While deployed, Spaminator will periodically "
-"scan your social network for spams. Do it now!"
-msgstr ""
-
-msgid "Spaminator is deployed."
-msgstr ""
-
-msgid "Spaminator is withhold."
-msgstr ""
-
-msgid "Spaminator is scanning..."
-msgstr ""
-
-msgid "Next scan on %s days."
-msgstr ""
-
-#, fuzzy
-msgid "Scanning..."
-msgstr "Buscando..."
-
-msgid "Scan now!"
-msgstr ""
-
-msgid "Deploy"
-msgstr ""
-
-msgid "Schedule next scan for the period defined"
-msgstr ""
-
-msgid "Withhold"
-msgstr ""
-
-msgid "Cancel next scheduled scans"
-msgstr ""
-
-msgid "Date"
-msgstr "Fecha"
-
-#, fuzzy
-msgid "Spams"
-msgstr "Spam"
-
-#, fuzzy
-msgid "Spammers"
-msgstr "Spam"
-
-msgid "Spam comments found / number of comments verified"
-msgstr ""
-
-msgid "Spammers found / number of users verified"
-msgstr ""
-
-msgid "SEE FULL REPORTS (%s)"
-msgstr ""
-
-#, fuzzy
-msgid "No Report"
-msgstr "Reportador"
-
-msgid "Spaminator reports"
-msgstr ""
-
-#, fuzzy
-msgid "Spams on comments"
-msgstr "sin comentarios"
-
 #, fuzzy
 msgid "On content"
 msgstr "Contenido principal"
-
-msgid "From spammers"
-msgstr ""
-
-msgid "Total"
-msgstr "Total"
 
 #, fuzzy
 msgid "With spam comments"
@@ -139,22 +37,156 @@ msgstr "%s comentarios"
 msgid "With no network"
 msgstr "Mi red"
 
+#, fuzzy
+msgid "Spammers"
+msgstr "Spam"
+
+#, fuzzy
+msgid "Spams"
+msgstr "Spam"
+
+#, fuzzy
+msgid "Spaminator settings"
+msgstr "Configuración del correo"
+
+#, fuzzy
+msgid "Spams on comments"
+msgstr "sin comentarios"
+
+#, fuzzy
+msgid "Scanning..."
+msgstr "Buscando..."
+
+#: ../lib/spaminator_plugin.rb:8
+msgid "Search and destroy spams and spammers."
+msgstr ""
+
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
+msgid "Hi %s!"
+msgstr "¡Hola %s!"
+
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:10
+msgid ""
+"Due to the recent increase in the number of spams on %s, we decided to "
+"deactivate all inactive users on the network. It just happens that you are "
+"one of them! But there is no need to worry. Your account is completely "
+"preserved and if you want to reactivate it you just need to click on the "
+"following link and recover your password (since it was changed to a huge "
+"scramble of random characters):"
+msgstr ""
+
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:16
+msgid ""
+"We are sorry that this procedure might bother you a lot, but it's necessary "
+"for the healthy of our network."
+msgstr ""
+
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:17
+msgid "We hope to see you back soon!"
+msgstr ""
+
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:22
+msgid "Best Regards,"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:6
+msgid "Period (days) for scanning spammers"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:10
+msgid ""
+"Spaminator was never deployed. While deployed, Spaminator will periodically "
+"scan your social network for spams. Do it now!"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:12
+msgid "Spaminator is deployed."
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:14
+msgid "Spaminator is withhold."
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:19
+msgid "Spaminator is scanning..."
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:21
+msgid "Next scan on %s days."
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:25
+msgid "Scan now!"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:29
+msgid "Schedule next scan for the period defined"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:29
+msgid "Deploy"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:30
+msgid "Withhold"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:30
+msgid "Cancel next scheduled scans"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:40
+#: ../views/spaminator_plugin_admin/reports.html.erb:5
+msgid "Date"
+msgstr "Fecha"
+
+#: ../views/spaminator_plugin_admin/index.html.erb:47
+msgid "Spam comments found / number of comments verified"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:48
+msgid "Spammers found / number of users verified"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/index.html.erb:52
+msgid "SEE FULL REPORTS (%s)"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/reports.html.erb:1
+msgid "Spaminator reports"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/reports.html.erb:11
+msgid "From spammers"
+msgstr ""
+
+#: ../views/spaminator_plugin_admin/reports.html.erb:12
+#: ../views/spaminator_plugin_admin/reports.html.erb:15
+msgid "Total"
+msgstr "Total"
+
+#: ../views/spaminator_plugin_admin/reports.html.erb:20
 msgid "Content of comments checked as spam / number of comments verified"
 msgstr ""
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:21
 msgid "Comments from spammers / number of comments verified"
 msgstr ""
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:22
 msgid "Spam comments / total number of comments"
 msgstr ""
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:23
 msgid "People with more than 2 spam comments / number of people verified"
 msgstr ""
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:24
 msgid ""
 "People who signed up more than one month ago, have no network / number of "
 "people verified"
 msgstr ""
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:25
 msgid "Spammers / total number of people"
 msgstr ""

@@ -21,7 +21,7 @@ class ControlPanel::Location < ControlPanel::Entry
     end
 
     def url(profile)
-      {:controller => 'profile_editor', :action => 'location'}
+      {:controller => 'profile_editor', :action => 'locality'}
     end
 
     def display?(user, profile, context={})

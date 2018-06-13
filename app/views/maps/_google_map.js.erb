@@ -75,10 +75,33 @@ function pointToAddress(latlng) {
        location_values.address += ', ' + location_values.sublocality;
     }
 
-    jQuery.each(location_values, function(field, value) {
-      jQuery('#profile_data_' + field).val(value);
-    })
+    $('#profile_data_address').val(location_values.address)
+    $('#profile_data_zip_code').val(location_values.zip_code)
+    $('#profile_data_district').val(location_values.district)
+    selectOrSetOption('#profile_data_city', location_values.city)
+    selectOrSetOption('#profile_data_state', location_values.state)
+    selectOrSetOption('#profile_data_country', location_values.country)
   });
+}
+
+function selectOrSetOption(element, value) {
+  var $select = $(element)
+  var option = $select.find('option').filter(function() {
+    return (($(this).text() === value) || ($(this).val() === value))
+  });
+
+  if (option.length > 0) {
+    option.attr('selected', 'selected')
+  } else {
+    var option = $('<option></option>').text(value).attr('value', value)
+    option.attr('selected', 'selected')
+    $select.append(option)
+  }
+}
+
+function valueForSelect(element) {
+  var $select = $(element)
+  return ($select.val() ? $select.find('option:selected').text() : '')
 }
 
 function addressToPoint() {
@@ -88,9 +111,9 @@ function addressToPoint() {
     jQuery('#profile_data_address').val(),
     jQuery('#profile_data_zip_code').val(),
     jQuery('#profile_data_district').val(),
-    jQuery('#profile_data_city').val(),
-    jQuery('#profile_data_state').val(),
-    jQuery('#profile_data_country').val()
+    valueForSelect('#profile_data_city'),
+    valueForSelect('#profile_data_state'),
+    valueForSelect('#profile_data_country')
   ];
 
   var address = address_components.filter(function (el) {
@@ -102,7 +125,6 @@ function addressToPoint() {
      if (status == google.maps.GeocoderStatus.OK) {
        map.setCenter(results[0].geometry.location);
        marker.setPosition(results[0].geometry.location);
-       pointToAddress(marker.getPosition());
 
        jQuery('#profile_data_lat').val(results[0].geometry.location.lat());
        jQuery('#profile_data_lng').val(results[0].geometry.location.lng());

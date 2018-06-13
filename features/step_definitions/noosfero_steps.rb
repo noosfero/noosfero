@@ -241,15 +241,16 @@ Given /^"([^"]*)" is environment admin$/ do |person|
 end
 
 Given /^I am logged in as admin$/ do
-  visit('/account/logout')
   user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
   user.activate!
   e = Environment.default
   e.add_admin(user.person)
-  visit('/account/login')
-  fill_in("Username", :with => user.login)
-  fill_in("Password", :with => '123456')
-  click_link("Log in")
+
+  step %{I go to logout page}
+  step %{I go to login page}
+  step %{I fill in "main_user_login" with "admin_user"}
+  step %{I fill in "user_password" with "123456"}
+  step %{I follow "Log in"}
 end
 
 Given /^I am not logged in$/ do

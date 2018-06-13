@@ -92,6 +92,14 @@ class ProfileImageHelperTest < ActionView::TestCase
     assert_not_nil mime
   end
 
+  should 'get big gravatar when user force get original profile icon' do
+    stubs(:profile).returns(Person.new)
+    stubs(:current_theme).returns('default')
+
+    filename = profile_icon(Person.new, '')
+    assert_match /gravatar\.com\/.*\bsize=150\b/, filename
+  end
+
   should 'provide sex icon for males' do
     stubs(:environment).returns(Environment.default)
     expects(:content_tag).with(anything, 'male').returns('MALE!!')

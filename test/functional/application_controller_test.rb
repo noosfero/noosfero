@@ -602,4 +602,18 @@ class ApplicationControllerTest < ActionController::TestCase
     get :index, :theme => 'another_theme'
     assert_nil @request.session[:theme]
   end
+
+  should 'allow plugins to customize redirection' do
+    class Plugin1 < Noosfero::Plugin
+      def custom_redirect(user, params, options, response_status)
+        {options: '/plugin/custom_redirect', response_status: {}}
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new])
+
+    @controller.stubs(:session).returns({})
+    @controller.stubs(:params).returns({})
+    @controller.expects(:redirect_to_without_plugins).with('/plugin/custom_redirect', {})
+    @controller.redirect_to
+  end
 end

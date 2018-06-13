@@ -7,8 +7,8 @@ module CommentParagraphPlugin::CommentsReport
     @export = []
     doc =  Nokogiri::HTML(article.body)
     paragraph_id = 1
-    doc.css("[data-macro-paragraph_uuid]").map do |paragraph|
-      uuid = paragraph.attributes['data-macro-paragraph_uuid'].value
+    doc.css("span[id^='data-macro-uuid']").map do |paragraph|
+      uuid = paragraph.attributes['id'].value
       comments_for_paragraph = comments_map[uuid]
       if comments_for_paragraph
         # Put comments for the paragraph

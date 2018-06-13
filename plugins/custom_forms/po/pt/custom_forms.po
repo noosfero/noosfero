@@ -83,8 +83,8 @@ msgid "Opened"
 msgstr "Abertos"
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:73
-#: ../lib/custom_forms_plugin/helper.rb:175
-#: ../lib/custom_forms_plugin/helper.rb:187
+#: ../lib/custom_forms_plugin/helper.rb:174
+#: ../lib/custom_forms_plugin/helper.rb:186
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
 msgstr "Fechados"
@@ -308,18 +308,18 @@ msgstr "Campo de seleção"
 msgid "Hold down Ctrl to select options"
 msgstr "Segure Ctrl para selecionar as opções"
 
-#: ../lib/custom_forms_plugin/helper.rb:171
-#: ../lib/custom_forms_plugin/helper.rb:179
+#: ../lib/custom_forms_plugin/helper.rb:170
+#: ../lib/custom_forms_plugin/helper.rb:178
 msgid "%s left to open"
 msgstr "%s até abrir"
 
-#: ../lib/custom_forms_plugin/helper.rb:173
-#: ../lib/custom_forms_plugin/helper.rb:185
+#: ../lib/custom_forms_plugin/helper.rb:172
+#: ../lib/custom_forms_plugin/helper.rb:184
 msgid "%s left to close"
 msgstr "%s até fechar"
 
-#: ../lib/custom_forms_plugin/helper.rb:181
-#: ../lib/custom_forms_plugin/helper.rb:190
+#: ../lib/custom_forms_plugin/helper.rb:180
+#: ../lib/custom_forms_plugin/helper.rb:189
 msgid "Always open"
 msgstr "Sempre aberta"
 
@@ -865,12 +865,12 @@ msgstr "Ver todas as consultas"
 msgid "Edit"
 msgstr "Editar"
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:22
+#: ../views/custom_forms_plugin_profile/show.html.erb:24
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr "Desculpe, você não pode preencher esse formulário ainda"
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:24
+#: ../views/custom_forms_plugin_profile/show.html.erb:26
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr "Desculpe, você não pode mais preencher esse formulário"
@@ -896,7 +896,7 @@ msgstr ""
 msgid "Find queries by name"
 msgstr "Procurar consultas por nome"
 
-#: ../views/shared/_form.html.erb:21
+#: ../views/shared/_form.html.erb:13
 msgid "Your e-mail will be visible to this form's owners."
 msgstr "Seu e-mail ficará visível para o dono deste formulário."
 

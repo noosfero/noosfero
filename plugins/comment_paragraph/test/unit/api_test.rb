@@ -36,28 +36,6 @@ class APITest <  ActiveSupport::TestCase
     assert_equivalent [comment1.id], json.map {|c| c['id']}
   end
 
-  {activate: true, deactivate: false}.each do |method, value|
-    should "#{method} paragraph comment in an article" do
-      article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :author_id => person.id)
-      post "/api/v1/articles/#{article.id}/comment_paragraph_plugin/#{method}?#{params.to_query}"
-      json = JSON.parse(last_response.body)
-      assert_equal value, json["setting"]["comment_paragraph_plugin_activate"]
-    end
-
-    should "not allow #{method} paragraph comment when not logged in" do
-      article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing")
-      post "/api/v1/articles/#{article.id}/comment_paragraph_plugin/#{method}"
-      assert_equal 401, last_response.status
-    end
-
-    should "not allow #{method} paragraph comment when user does not have permission to edit article" do
-      author = create_user.person
-      article = fast_create(TextArticle, :profile_id => author.id, :name => "Some thing", :author_id => author.id)
-      post "/api/v1/articles/#{article.id}/comment_paragraph_plugin/#{method}?#{params.to_query}"
-      assert_equal 403, last_response.status
-    end
-  end
-
   should 'return comment counts grouped by paragraph' do
     article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => false)
     fast_create(Comment, :paragraph_uuid => '1', :source_id => article.id)
@@ -88,7 +66,6 @@ class APITest <  ActiveSupport::TestCase
     post "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_equal "CommentParagraphPlugin::Discussion", json["type"]
-    assert json["setting"]["comment_paragraph_plugin_activate"]
   end
 
   should 'export comments' do

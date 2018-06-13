@@ -1,5 +1,5 @@
-FROM ruby:2.4.4-jessie
-MAINTAINER Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>
+FROM debian:jessie
+LABEL Maintainer="Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>"
 
 RUN apt-get update \
     && apt-get install -y git sudo \

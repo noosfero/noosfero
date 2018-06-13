@@ -1094,36 +1094,6 @@ class AccountControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  should 'override the redirection url with plugin returned hash' do
-    url = { controller: 'profile', action: 'index', profile: 'ze' }
-    Noosfero::Plugin::Manager.any_instance
-                             .expects(:dispatch_first)
-                             .with(:custom_redirection_after_login, anything)
-                             .returns(url)
-    post :login, user: { login: 'johndoe', password: 'test' }
-    assert_redirected_to url
-  end
-
-  should 'override the redirection url with plugin returned string' do
-    url = { controller: 'profile', action: 'index', profile: 'ze' }
-    Noosfero::Plugin::Manager.any_instance
-                             .expects(:dispatch_first)
-                             .with(:custom_redirection_after_login, anything)
-                             .returns('/profile/ze')
-    post :login, user: { login: 'johndoe', password: 'test' }
-    assert_redirected_to url
-  end
-
-  should 'not use plugin url when there is a return_to param' do
-    url = { controller: 'home', action: 'index' }
-    Noosfero::Plugin::Manager.any_instance
-                             .expects(:dispatch_first)
-                             .with(:custom_redirection_after_login, anything)
-                             .returns('/profile/ze')
-    post :login, user: { login: 'johndoe', password: 'test' }, return_to: url
-    assert_redirected_to url
-  end
-
   should 'generate new activation codes when requesting new codes' do
     user = create_user_full
     old_token = user.activation_code

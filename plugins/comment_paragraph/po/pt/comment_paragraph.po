@@ -17,23 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.17-dev\n"
 
-#: ../controllers/comment_paragraph_plugin_admin_controller.rb:8
-msgid "Settings successfuly saved"
-msgstr "Configurações gravadas com sucesso"
-
 #: ../lib/comment_paragraph_plugin.rb:8
 msgid "A plugin that display comments divided by paragraphs."
 msgstr "Um plugin que mostra os comentários dividos por paragráfos."
 
-#: ../lib/comment_paragraph_plugin.rb:52
-msgid "Deactivate Comments"
-msgstr "Desativar Comentários"
-
-#: ../lib/comment_paragraph_plugin.rb:52
-msgid "Activate Comments"
-msgstr "Ativar Comentários"
-
-#: ../lib/comment_paragraph_plugin.rb:60
+#: ../lib/comment_paragraph_plugin.rb:53
 msgid "Export Comments"
 msgstr "Exportar Comentários"
 
@@ -58,7 +46,7 @@ msgstr "Artigo com parágrafos comentados"
 msgid "This block displays all profile's article discussion"
 msgstr "Este bloco mostra todos os debates neste perfil"
 
-#: ../lib/comment_paragraph_plugin/macros/select_all.rb:7
+#: ../lib/comment_paragraph_plugin/macros/allow_comment.rb:8
 msgid "Select/Deselect all sections as commentable"
 msgstr "Selectionar/Desselecionar todas as seções como comentáveis"
 
@@ -72,16 +60,16 @@ msgid "Choose which blog should be displayed"
 msgstr "Escolha qual blog deve ser mostrado"
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
+msgid "Available Discussions"
+msgstr "Discussões Disponíveis"
+
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
 msgid "Closed Discussions"
 msgstr "Discussões Fechadas"
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
 msgid "Not Opened Discussions"
 msgstr "Discussões Não Abertas"
-
-#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
-msgid "Available Discussions"
-msgstr "Discussões Disponíveis"
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:10
 msgid "Choose how the content should be displayed"
@@ -146,3 +134,15 @@ msgstr "Título: "
 #: ../views/tasks/_approve_comment_accept_details.html.erb:11
 msgid "Paragraph: "
 msgstr "Parágrafo: "
+
+#: ../controllers/comment_paragraph_plugin_admin_controller.rb:8
+#~ msgid "Settings successfuly saved"
+#~ msgstr "Configurações gravadas com sucesso"
+
+#: ../lib/comment_paragraph_plugin.rb:52
+#~ msgid "Deactivate Comments"
+#~ msgstr "Desativar Comentários"
+
+#: ../lib/comment_paragraph_plugin.rb:52
+#~ msgid "Activate Comments"
+#~ msgstr "Ativar Comentários"

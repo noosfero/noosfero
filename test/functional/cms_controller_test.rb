@@ -717,7 +717,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'display OK (close) button on why_categorize popup' do
     get :why_categorize, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => {  :class => 'button icon-close with-text  modal-close',
+    assert_tag :tag => 'a', :attributes => {  :class => 'button with-text  modal-close',
                                               :title => 'Close' } # modal close button
   end
 

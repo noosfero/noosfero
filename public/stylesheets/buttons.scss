@@ -25,7 +25,7 @@
   background-image: none !important;
   border: 0.063em solid;
   border-radius: 0.250em;
-  &:not(:last-child) { margin-right: 8px !important; }
+  &:not(:last-child) { margin-right: 3px; }
   font-size: 14px !important;
   padding: 0.313em 0.750em;
   margin-top: 0.250em;
@@ -36,8 +36,17 @@
   line-height: 16px !important;
   text-align: center;
   text-decoration: none !important;
+
   &:hover, &:visited {
     text-decoration: none !important;
+  }
+}
+
+.button.without-text {
+  padding: 0.313em 0.3em;
+
+  i.fa {
+    margin: 0;
   }
 }
 
@@ -78,16 +87,19 @@ $default_blue: #6496c8;
 $hover_blue: #346392;
 $active_blue: #27496d;
 
-.button, a.btn-blue-reverse, a.btn-blue-reverse-icon-cancel,
-a.lead-button, a.icon-add, a.icon-help, a.icon-logout, a.icon-new_user, a.icon-back,
-a.icon-save_and_continue, a.icon-cancel {
-  color: $hover_blue !important;
-  background-color: #fff !important;
-  border-color: $hover_blue !important;
-  &:not(.keep-when-hover):hover {
-    color: #fff;
-    background-color: $hover_blue;
-    border-color: #e8e8e8;
+#content {
+  a.button, a.btn-blue-reverse, a.btn-blue-reverse-icon-cancel,
+  a.lead-button, a.icon-add, a.icon-help, a.icon-logout, a.icon-new_user, a.icon-back,
+  a.icon-save_and_continue, a.icon-cancel {
+    color: $hover_blue;
+    background-color: #fff;
+    border-color: $hover_blue;
+
+    &:not(.keep-when-hover):hover {
+      color: #fff;
+      background-color: $hover_blue;
+      border-color: #e8e8e8;
+    }
   }
 }
 

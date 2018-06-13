@@ -761,11 +761,11 @@ class Noosfero::Plugin
     nil
   end
 
-  # -> Redirects to a custom URL after login
-  # (overrides any environment configuration)
-  # returns = a location string or a options hash for an URL
-  def custom_redirection_after_login(current_person)
-    nil
+  # -> Overrides default redirection to a custom redirection
+  # returns = {options: options, response_status: response_status}
+  # Check #redirect_to method doc for further informations about the parameters
+  def custom_redirect(user, params, options, response_status)
+    {}
   end
 
   def method_missing(method, *args, &block)

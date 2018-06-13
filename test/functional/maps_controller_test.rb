@@ -46,10 +46,10 @@ class MapsControllerTest < ActionController::TestCase
     assert_equal national_region_code, Profile['test_profile'].national_region_code
   end
 
-  should 'back when update address fail' do
-    Profile.any_instance.stubs(:update!).returns(false)
+  should 'go back when update address fail' do
+    Profile.any_instance.stubs(:save!).returns(false)
     post :edit_location, :profile => profile.identifier, :profile_data => { 'address' => 'new address' }
-    assert_nil profile.address
+    assert_equal nil, profile.address
     assert_template 'edit_location'
   end
 
@@ -64,7 +64,7 @@ class MapsControllerTest < ActionController::TestCase
     env.save!
 
     get :edit_location, :profile => profile.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[city]' }
+    assert_tag :tag => 'select', :attributes => { :name => 'profile_data[city]' }
   end
 
   should 'display only region categories for selection' do
@@ -140,8 +140,8 @@ class MapsControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:custom_person_fields).returns({ 'location' => { 'active' => 'true' } })
     get :edit_location, :profile => profile.identifier
 
-    assert_tag 'input', attributes: { id: 'profile_data_state' }
-    assert_tag 'input', attributes: { id: 'profile_data_city' }
+    assert_tag 'select', attributes: { id: 'profile_data_state' }
+    assert_tag 'select', attributes: { id: 'profile_data_city' }
   end
 
   should 'accept blank address with lat and lng' do

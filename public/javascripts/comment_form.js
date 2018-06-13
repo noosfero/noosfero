@@ -8,7 +8,7 @@ $('.comment_form textarea').on('keypress', function(e) {
     }
 });
 
-$('#comments_list').on('click', '#submit_form_button', function(e) {
+$('#submit_form_button').on('click', function(e) {
     $('#submit_form_button').bind('click', false);
     e.stopPropagation()
     save_comment($(this));
@@ -26,7 +26,7 @@ jQuery('.display-comment-form').click(function(){
   return false;
 });
 
-jQuery('#cancel-comment').die();
+//jQuery('#cancel-comment').die();
 jQuery('#cancel-comment').live("click", function(){
   var $button = jQuery(this);
   toggleBox($button.parents('.post_comment_box'));
@@ -37,12 +37,12 @@ jQuery('#cancel-comment').live("click", function(){
 });
 
 function toggleBox(div){
-  if(div.hasClass('opened')) {
-    div.removeClass('opened');
-    div.addClass('closed');
-  } else {
+  if(div.hasClass('closed')) {
     div.removeClass('closed');
     div.addClass('opened');
+  } else {
+    div.removeClass('opened');
+    div.addClass('closed');
   }
 }
 

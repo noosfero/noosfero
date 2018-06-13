@@ -9,6 +9,7 @@ class MetadataScopesTest < ActiveSupport::TestCase
     @profile1 = create_user.person
     @profile2 = fast_create(Community)
     @profile3 = fast_create(Enterprise)
+    Foo.stubs(:attr_accessible)
   end
 
   should 'return all profiles that defined a metadata' do

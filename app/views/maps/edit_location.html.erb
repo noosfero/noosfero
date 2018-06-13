@@ -1,5 +1,12 @@
 <%= labelled_form_for :profile_data, :url => {:action => 'edit_location'}, :html => {:id => 'location-form'} do |f| %>
-  <%= render partial: 'shared/location_form', locals: { f: f, profile: @profile_data } %>
+  <div class="error">
+    <%= flash[:error] %>
+  </div>
+
+  <% if @profile_data.active_fields.include? 'location' %>
+    <h1><%= _('Location') %></h1>
+    <%= render partial: 'shared/location_form', locals: { f: f, profile: @profile_data } %>
+  <% end %>
 
   <h1><%= _('Regions of Interest') %></h1>
   <%= select_categories(:profile_data, _('Select the regions in which you are inserted'), 4, :regions) %>

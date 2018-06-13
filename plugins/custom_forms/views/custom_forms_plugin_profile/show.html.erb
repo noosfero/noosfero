@@ -14,7 +14,9 @@
     </div>
   <% end %>
 
-  <%= (@form.description || "").html_safe %>
+  <div class='form-description'>
+    <%= (@form.description || "").html_safe %>
+  </div>
 
   <% if @submission.id.nil? %>
     <% if @form.expired? %>

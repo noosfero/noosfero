@@ -187,5 +187,32 @@ class TemplatesControllerTest < ActionController::TestCase
     assert_no_tag :a, '', :attributes => {:href => "/admin/templates/set_community_as_default?template_id=#{c1.id}"}
   end
 
+  should 'display a link for manage person template' do
+    p1 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+    p2 = fast_create(Person, :is_template => true, :environment_id => environment.id)
+
+    get :index
+    assert_tag :tag => 'td', :child => {:tag => 'a', :attributes => {:href => /myprofile\/#{p1.identifier}/}}
+    assert_tag :tag => 'td', :child => {:tag => 'a', :attributes => {:href => /myprofile\/#{p2.identifier}/}}
+  end
+
+  should 'display a link for manage enterprise template' do
+    e1 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+    e2 = fast_create(Enterprise, :is_template => true, :environment_id => environment.id)
+
+    get :index
+    assert_tag :tag => 'td', :child => {:tag => 'a', :attributes => {:href => /myprofile\/#{e1.identifier}/}}
+    assert_tag :tag => 'td', :child => {:tag => 'a', :attributes => {:href => /myprofile\/#{e2.identifier}/}}
+  end
+
+  should 'display a link for manage community template' do
+    c1 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+    c2 = fast_create(Community, :is_template => true, :environment_id => environment.id)
+
+    get :index
+    assert_tag :tag => 'td', :child => {:tag => 'a', :attributes => {:href => /myprofile\/#{c1.identifier}/}}
+    assert_tag :tag => 'td', :child => {:tag => 'a', :attributes => {:href => /myprofile\/#{c2.identifier}/}}
+  end
+
 end
 
