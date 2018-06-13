@@ -47,6 +47,26 @@
   &:visited {
     text-decoration: none !important;
   }
+
+  &.without-text {
+    padding: 0.313em;
+    border: none;
+    background-color: transparent !important;
+      color: #346392 !important;
+    i.fa {
+      margin-right: 0;
+    }
+
+    &:hover {
+      color: #fff !important;
+      background-color: #346392 !important;
+
+      &.icon-ok {
+        background-color: #346392 !important;
+        color: #fff !important;
+      }
+    }
+  }
 }
 
 .button.without-text {

@@ -13,8 +13,8 @@
       <td>
         <div style="text-align: center;">
           <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => role %>
-          <%= button_without_text :delete, _('Delete'), :action => 'destroy', :id => role %>
-          <%= button_without_text 'vertical-toggle', _('Assign'), :action => 'assign', :id => role %>
+          <%= button_without_text :trash, _('Delete'), :action => 'destroy', :id => role %>
+          <%= button_without_text :add_user, _('Assign'), :action => 'assign', :id => role %>
         </div>
       </td>
     </tr>
