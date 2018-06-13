@@ -10628,15 +10628,12 @@ msgstr ""
 "Esta página utiliza %{noosfero_url}, desarrollada por %{colivre_url} y "
 "licenciada bajo %{agpl_url} versión 3 o cualquier versión posterior."
 
-#: ../app/helpers/application_helper.rb:992
 #~ msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
 #~ msgstr "<span class='or'>o</span> <span class='signup'>%s</span>"
 
-#: ../app/models/user.rb:143
 #~ msgid "{fn} must be checked in order to signup."
 #~ msgstr "%{fn} debe estar seleccionado para registrarse."
 
-#: ../app/views/shared/_location_form.html.erb:23
 #~ msgid "Drag the balloon to find the exact location."
 #~ msgstr "Arrastra el globo para encontrar la localización exacta."
 

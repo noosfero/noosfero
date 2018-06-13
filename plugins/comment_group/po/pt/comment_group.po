@@ -23,8 +23,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-msgid "A plugin that display comment groups."
-msgstr "Um plugin que mostra grupos de comentários."
+#: ../lib/comment_group_plugin.rb:8
+msgid "Deprecated. Use the Comment Paragraph plugin instead."
+msgstr "Obsoleto. Use o plugin Comment Paragraph no lugar."
 
+#: ../lib/ext/article.rb:15
 msgid "Not empty group comment cannot be removed"
 msgstr "Grupo de comentário vazio não pode ser removido"
+
+#~ msgid "A plugin that display comment groups."
+#~ msgstr "Um plugin que mostra grupos de comentários."

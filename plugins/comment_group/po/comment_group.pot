@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-12 13:14-0300\n"
-"PO-Revision-Date: 2016-09-12 13:14-0300\n"
+"POT-Creation-Date: 2018-06-13 03:35+0000\n"
+"PO-Revision-Date: 2018-06-13 03:35+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: ../lib/comment_group_plugin.rb:8
-msgid "A plugin that display comment groups."
+msgid "Deprecated. Use the Comment Paragraph plugin instead."
 msgstr ""
 
 #: ../lib/ext/article.rb:15

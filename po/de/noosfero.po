@@ -10712,17 +10712,14 @@ msgid ""
 "under the %{agpl_url} version 3 or any later version."
 msgstr ""
 
-#: ../app/helpers/application_helper.rb:992
 #~ msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
 #~ msgstr "<span class='or'>oder</span> <span class='signup'>%s</span>"
 
-#: ../app/models/user.rb:143
 #~ msgid "{fn} must be checked in order to signup."
 #~ msgstr ""
 #~ "{fn} muss ausgewählt sein, damit die Registrierung durchgeführt werden "
 #~ "kann."
 
-#: ../app/views/shared/_location_form.html.erb:23
 #~ msgid "Drag the balloon to find the exact location."
 #~ msgstr "Ziehen Sie den Ballon, um den exakten Ort zu finden."
 
