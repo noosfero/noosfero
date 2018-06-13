@@ -105,4 +105,18 @@ module ButtonsHelper
     html_options[:class] << " button icon-#{type}"
     link_to_remote(content_tag('span', label), options, html_options.merge(:title => label))
   end
+
+  def generate_button(type, label, url, html_options = {})
+    klass = "button icon-#{type}"
+    if html_options.has_key?(:class)
+      klass << ' ' << html_options[:class]
+    end
+    title = html_options[:title] || label
+    label = font_awesome(type, label)
+    if html_options[:disabled]
+      content_tag('a', label, html_options.merge(class: klass, title: title))
+    else
+      link_to(label, url, html_options.merge(class: klass, title: title))
+    end
+  end
 end
