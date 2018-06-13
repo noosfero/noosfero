@@ -4,13 +4,13 @@ ul.token-input-list {
     height: auto !important;
     height: 1%;
     width: 100%;
-    border: 1px solid #999;
     cursor: text;
     font-size: 12px;
     z-index: 999;
     margin: 0;
     padding: 0;
     background-color: #fff;
+    margin-bottom: 5px;
     list-style-type: none;
     clear: left;
 }

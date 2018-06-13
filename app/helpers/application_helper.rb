@@ -57,6 +57,11 @@ module ApplicationHelper
   include StyleHelper
 
   include CustomFieldsHelper
+  include TooltipHelper
+
+  include ProfileSelectorHelper
+
+  include EventsHelper
 
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
@@ -361,7 +366,7 @@ module ApplicationHelper
 
     @object = instance_variable_get("@#{object_name}")
     @categories = environment.send("top_level_#{kind}")
-    selected_categories = @object.send(kind)
+    selected_categories = @object.send(kind).where(type: kind.to_s.singularize.camelize)
 
     render :partial => 'shared/select_categories_top', :locals => { :object_name => object_name, :title => title, :title_size => title_size, :multiple => true, :categories_selected => selected_categories, :kind => kind }, :layout => false
   end
@@ -592,6 +597,10 @@ module ApplicationHelper
       field_html   = [field_html, capture(&block)].safe_join
     end
 
+    if is_required
+      field_html = required(field_html)
+    end
+
     if controller.action_name == 'signup' || controller.action_name == 'new_community' || (controller.controller_name == "enterprise_registration" && controller.action_name == 'index') || (controller.controller_name == 'home' && controller.action_name == 'index' && user.nil?)
       if profile.signup_fields.include?(name)
         result = field_html
@@ -602,10 +611,6 @@ module ApplicationHelper
           [field_html, profile_field_privacy_selector(profile, name)].safe_join
         end
       end
-    end
-
-    if is_required
-      result = required(result)
     end
 
     result
@@ -826,33 +831,31 @@ module ApplicationHelper
   alias :browse_contents_menu :search_contents_menu
 
   def search_people_menu
-    host = environment.default_hostname
-     links = {
-       s_('people|More recent') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_recent'})},
-       s_('people|More active') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_active'})},
-       s_('people|More popular') => {href: url_for({host: host, controller: 'search', action: 'people', filter: 'more_popular'})}
-     }
-     if logged_in?
-       links.merge!(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
-       links.merge!(_('Invite friends') => {:href => url_for({:profile => current_user.login, :controller => 'invite', :action => 'friends'})})
-     end
-
+    return '' if user && !user.environment.enabled?(:search_people)
     link_to(font_awesome(:user, _('People')), { controller: "search", action: 'people', category_path: ''}, { id: 'submenu-people', class: 'icon-menu-people' })
   end
   alias :browse_people_menu :search_people_menu
 
-  def search_communities_menu
+  def search_people_options
     host = environment.default_hostname
-     links = {
-       s_('communities|More recent') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_recent'})},
-       s_('communities|More active') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_active'})},
-       s_('communities|More popular') => {href: url_for({host: host, controller: 'search', action: 'communities', filter: 'more_popular'})}
-     }
-     if logged_in?
-       links.merge!(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
-       links.merge!(_('New community') => {:href => url_for({:profile => current_user.login, :controller => 'memberships', :action => 'new_community'})})
-     end
+    [
+      (link_to s_('people|More recent'), controller: 'search', action: 'people', filter: 'more_recent'),
+      (link_to s_('people|More active'), controller: 'search', action: 'people', filter: 'more_active'),
+      (link_to s_('people|More popular'), controller: 'search', action: 'people', filter: 'more_popular')
+    ]
+  end
 
+  def search_community_options
+    host = environment.default_hostname
+    [
+      (link_to s_('communities|More recent'), controller: 'search', action: 'communities', filter: 'more_recent'),
+      (link_to s_('communities|More active'), controller: 'search', action: 'communities', filter: 'more_active'),
+      (link_to s_('communities|More popular'), controller: 'search', action: 'communities', filter: 'more_popular')
+    ]
+  end
+
+  def search_communities_menu
+    return '' if user && !user.environment.enabled?(:search_communities)
     link_to(font_awesome(:users, _('Communities')), { controller: "search", action: 'communities' }, { id: 'submenu-communities', class: 'icon-menu-community' })
   end
   alias :browse_communities_menu :search_communities_menu
@@ -912,7 +915,7 @@ module ApplicationHelper
   end
 
   def admin_link
-    admin_icon = font_awesome(:shield, _('Administration'))
+    admin_icon = font_awesome('shield-alt', _('Administration'))
     user.is_admin?(environment) ? link_to(admin_icon, environment.admin_url, title: _("Configure the environment"), class: 'admin-link') : nil
   end
 
@@ -940,6 +943,7 @@ module ApplicationHelper
     ]
   end
 
+
   def user_menu_items
     [
       search_contents_menu,
@@ -952,8 +956,13 @@ module ApplicationHelper
       manage_communities,
       ctrl_panel_link,
       *plugins_items,
-      logout_link
+      logout_link,
+      angular_logout_script
     ]
+  end
+
+  def angular_logout_script
+    javascript_include_tag('clear-localstorage.js')
   end
 
   def logout_link
@@ -977,8 +986,7 @@ module ApplicationHelper
         user.url,
         :id => "homepage-link",
         :title => _('Go to your homepage'))
-    welcome_span = _("<span class='welcome'>Welcome,</span> %s") % welcome_link.html_safe
-    welcome_span
+    welcome_link.html_safe
   end
 
   def ctrl_panel_link
@@ -1281,6 +1289,14 @@ module ApplicationHelper
     else
       ''
     end
+  end
+
+  def toggle_switch name, message, value = 1, checked = false
+    checkbox = check_box_tag(name, value, checked)
+    toggle = content_tag(:span, '',:class => 'toggle-slider')
+    label = label_tag(name, checkbox + toggle, :id => name + '-label')
+    message = content_tag(:span, message)
+    content_tag(:div, label + message, :class => 'toggle-switch')
   end
 
   def labelled_colorpicker_field(human_name, object_name, method, options = {})

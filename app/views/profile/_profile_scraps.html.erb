@@ -10,7 +10,7 @@
     <p class='profile-activity-text'><%= txt2html scrap.content %></p>
     <% if logged_in? && current_person.follows?(scrap.sender) %>
       <span class='profile-activity-send-reply'>
-        <%= link_to_function s_("profile|#{font_awesome(:reply, 'Comment')}").html_safe, 'show_scrap_reply_form(this)', { :class => "profile-send-reply", "data-scrap-id" => "#{scrap.id}" } %>
+        <%= link_to_function font_awesome(:reply, s_('profile|Comment')).html_safe, 'show_scrap_reply_form(this)', { :class => "profile-send-reply", "data-scrap-id" => "#{scrap.id}" } %>
       </span>
     <% end %>
     <% if scrap.replies.count > 0 %>

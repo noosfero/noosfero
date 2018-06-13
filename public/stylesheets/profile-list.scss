@@ -231,6 +231,10 @@
   text-decoration: none;
 }
 
+.common-profile-list-block {
+  display: inline-block;
+}
+
 .common-profile-list-block .profiles-suggestions .profile-list li {
   width: 100%;
   max-width: 100%;
@@ -394,4 +398,11 @@
 }
 .set-category-modal #actions-container {
   margin-top: 20px
+}
+
+.common-profile-list-block-none {
+  font-style: italic;
+  text-align: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }

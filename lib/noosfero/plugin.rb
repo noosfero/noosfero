@@ -222,16 +222,6 @@ class Noosfero::Plugin
     false
   end
 
-  # -> Adds buttons to the control panel
-  # returns        = { :title => title, :icon => icon, :url => url }
-  #   title        = name that will be displayed.
-  #   icon         = css class name (for customized icons include them in a css file).
-  #   url          = url or route to which the button will redirect.
-  #   html_options = aditional html options.
-  def control_panel_buttons
-    nil
-  end
-
   # -> Customize profile block design and behavior
   # (overwrites profile_image_link function)
   # returns = lambda block that creates html code.
@@ -294,7 +284,7 @@ class Noosfero::Plugin
   end
   # -> Adds content to profile editor info and settings
   # returns = lambda block that creates html code or raw rhtml/html.erb
-  def profile_editor_extras
+  def profile_editor_informations
     nil
   end
 
@@ -488,6 +478,13 @@ class Noosfero::Plugin
   # returns = An instance of ActiveRecord::NamedScope::Scope retrieved through
   # Person.members_of method.
   def organization_members(organization)
+    nil
+  end
+
+  # -> Extends person list of friends
+  # returns = An instance of ActiveRecord::NamedScope::Scope retrieved through
+  # friends relationship.
+  def person_friends(person)
     nil
   end
 
@@ -733,6 +730,12 @@ class Noosfero::Plugin
     {}
   end
 
+  # -> Adds extra options to CMS forms
+  # returns = lambda block that creates html code or raw rhtml/html.erb
+  def cms_extra_options
+    nil
+  end
+
   def api_custom_login request
     nil
   end
@@ -744,14 +747,25 @@ class Noosfero::Plugin
 
   # -> Returns a list of urls to be cached by the service worker
   def cache_urls
+  end
+
+  # -> Adds new entries to profile's control panel
+  # returns = [ControlPanel::Entry1, ControlPanel::Entry2, ...]
+  def control_panel_entries
     nil
   end
 
-  # -> Redirects to a custom URL after login
-  # (overrides any environment configuration)
-  # returns = a location string or a options hash for an URL
-  def custom_redirection_after_login(current_person)
+  # -> Adds new sections to profile's control panel
+  # returns = {identifier1: {name: _('Name 1'), priority: 30}, identifier2: {name: _('Name 2'), priority: 40}}
+  def control_panel_sections
     nil
+  end
+
+  # -> Overrides default redirection to a custom redirection
+  # returns = {options: options, response_status: response_status}
+  # Check #redirect_to method doc for further informations about the parameters
+  def custom_redirect(user, params, options, response_status)
+    {}
   end
 
   def method_missing(method, *args, &block)

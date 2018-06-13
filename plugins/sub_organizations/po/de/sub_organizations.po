@@ -53,17 +53,14 @@ msgid "This block displays %s organizations of this organization"
 msgstr "Dieser Block zeigt %s Organisationen von dieser Organisation"
 
 #: ../lib/sub_organizations_plugin.rb:14
-msgid "Sub-groups"
+#: ../lib/sub_organizations_plugin/control_panel/sub_organizations.rb:5
+#, fuzzy
+msgid "Subgroups"
 msgstr "Untergruppen"
 
 #: ../lib/sub_organizations_plugin.rb:18
 msgid "Adds the ability for groups to have sub-groups."
 msgstr "Fügt Gruppen die Fähigkeit hinzu, Untergruppen zu haben."
-
-#: ../lib/sub_organizations_plugin.rb:23
-#: ../views/sub_organizations_plugin_myprofile/index.html.erb:1
-msgid "Manage sub-groups"
-msgstr "Untergruppen verwalten"
 
 #: ../lib/sub_organizations_plugin/approve_paternity.rb:20
 msgid "Paternity request"
@@ -88,6 +85,10 @@ msgstr "Der Typ der Organisationen konnte nicht angezeigt werden"
 #: ../views/box_organizer/_related_organizations_block.html.erb:3
 msgid "Both"
 msgstr "Beide"
+
+#: ../views/sub_organizations_plugin_myprofile/index.html.erb:1
+msgid "Manage sub-groups"
+msgstr "Untergruppen verwalten"
 
 #: ../views/sub_organizations_plugin_myprofile/index.html.erb:4
 msgid "Sub-groups awaiting approval:"
@@ -126,3 +127,7 @@ msgstr "%s hinzufügen"
 #: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
 msgid "There are no sub-%s yet."
 msgstr "Es sind noch keine Unter-%s vorhanden."
+
+#: ../lib/sub_organizations_plugin.rb:14
+#~ msgid "Sub-groups"
+#~ msgstr "Untergruppen"

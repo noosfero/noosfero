@@ -23,15 +23,15 @@ class FooPlugin < Noosfero::Plugin
     end
   end
 
-  def control_panel_buttons
-    {:title => 'Foo plugin button', :icon => '', :url => ''}
-  end
-
   def profile_tabs
     title = plugins.dispatch_first(:foo_plugin_tab_title)
     title = 'Foo plugin tab' unless title
 
     {:title => title, :id => 'foo_plugin', :content => lambda {'Foo plugin random content'} }
+  end
+
+  def control_panel_entries
+    [FooPlugin::Button]
   end
 
 end

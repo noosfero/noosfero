@@ -1,7 +1,7 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
-  attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone, :comercial_phone, :jabber_id, :personal_website, :nationality, :address_reference, :address_line2, :district, :schooling, :schooling_status, :formation, :custom_formation, :area_of_study, :custom_area_of_study, :professional_activity, :organization_website, :following_articles, :editor
+  attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone, :comercial_phone, :jabber_id, :personal_website, :nationality, :schooling, :schooling_status, :formation, :custom_formation, :area_of_study, :custom_area_of_study, :professional_activity, :organization_website, :following_articles, :editor
 
   SEARCH_FILTERS = {
     :order => %w[more_recent more_popular more_active],
@@ -20,8 +20,8 @@ class Person < Profile
       _('Latitude')
     when :lng
       _('Longitude')
-    when :address
-      _('Address (street and number)')
+    when :full_address
+      _('Full address')
     else
       _(self.human_attribute_name_without_customization(attrib))
     end
@@ -93,7 +93,7 @@ class Person < Profile
   def memberships
     scopes = []
     plugins_scopes = plugins.dispatch_scopes(:person_memberships, self)
-    scopes = plugins_scopes unless plugins_scopes.first.blank?
+    scopes = plugins_scopes
     scopes << Profile.memberships_of(self)
     return scopes.first if scopes.size == 1
     ScopeTool.union *scopes
@@ -110,6 +110,7 @@ class Person < Profile
   has_many :friends, :class_name => 'Person', :through => :friendships
   has_many :circles
   has_many :push_subscriptions, as: :owner
+  has_many :event_invitation
 
   scope :online, -> {
     joins(:user).where("users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes)
@@ -277,6 +278,7 @@ class Person < Profile
   organization_website
   contact_phone
   contact_information
+  full_address
   location
   ]
 
@@ -344,8 +346,6 @@ class Person < Profile
 
   N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code'); N_('District'); N_('Address reference')
   settings_items :photo, :contact_information, :sex
-  metadata_items :city, :state, :country, :zip_code, :district, :address_line2,
-                 :address_reference
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state
@@ -406,7 +406,6 @@ class Person < Profile
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
     links = [
-      { name: _('Profile'),       address: '/profile/{profile}',        icon: 'menu-people' },
       { name: _('Image gallery'), address: '/{profile}/gallery',        icon: 'photos'      },
       { name: _('Agenda'),        address: '/profile/{profile}/events', icon: 'event'       },
       { name: _('Blog'),          address: '/{profile}/blog',           icon: 'blog'        }
@@ -599,10 +598,6 @@ class Person < Profile
 
   def abuser?
     AbuseComplaint.finished.where(:requestor_id => self).count > 0
-  end
-
-  def control_panel_settings_button
-    {:title => _('Edit Profile'), :icon => 'edit-profile'}
   end
 
   def disable

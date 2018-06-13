@@ -24,8 +24,8 @@ msgstr "Plugin para notificações."
 msgid "Notification Manager"
 msgstr "Gerenciador de Notificações"
 
-#: ../lib/admin_notifications_plugin.rb:35
-msgid "Manage Notifications"
+#: ../lib/admin_notifications_plugin/control_panel/admin_notifications.rb:6
+msgid "Admin Notifications"
 msgstr "Gerenciar Notificações"
 
 #: ../lib/admin_notifications_plugin/notification_manager.rb:14
@@ -81,12 +81,12 @@ msgstr ""
 "email do usuário logado na mensagem."
 
 #: ../views/shared/_form.html.erb:16
-msgid "Active"
-msgstr "Ativa"
-
-#: ../views/shared/_form.html.erb:16
 msgid "Notifications Status"
 msgstr "Status da Notificação"
+
+#: ../views/shared/_form.html.erb:16
+msgid "Active"
+msgstr "Ativa"
 
 #: ../views/shared/_form.html.erb:16
 msgid "Inactive"
@@ -189,3 +189,7 @@ msgstr "Não mostrar mais"
 #: ../views/shared/show_notification.html.erb:35
 msgid "Hide for now"
 msgstr "Ocultar momentaneamente"
+
+#: ../lib/admin_notifications_plugin.rb:35
+#~ msgid "Manage Notifications"
+#~ msgstr "Gerenciar Notificações"

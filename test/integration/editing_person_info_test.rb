@@ -15,12 +15,12 @@ class EditingPersonInfoTest < ActionDispatch::IntegrationTest
     get "/myprofile/#{profile.identifier}"
     assert_response :success
 
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/profile_editor/edit" }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/profile_editor/informations" }
 
-    get "/myprofile/#{profile.identifier}/profile_editor/edit"
+    get "/myprofile/#{profile.identifier}/profile_editor/informations"
     assert_response :success
 
-    post "/myprofile/#{profile.identifier}/profile_editor/edit", :profile_data => { :address => 'a new address', :contact_information => 'a new contact information' }
+    post "/myprofile/#{profile.identifier}/profile_editor/informations", :profile_data => { :address => 'a new address', :contact_information => 'a new contact information' }
     assert_response :redirect
 
   end

@@ -5,7 +5,6 @@
 <%= button_bar do %>
   <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
   <%= button :add, _('Register a new enterprise'), :controller => 'enterprise_registration' if environment.enabled?('enterprise_registration') %>
-  <%= button :back, _('Go back'), :controller => 'profile_editor' %>
 <% end %>
 
 <% type_collection = [[0, _('All')]] %>
@@ -27,3 +26,7 @@
 <% end %>
 
 </div>
+
+<%= button_bar do %>
+  <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+<% end %>

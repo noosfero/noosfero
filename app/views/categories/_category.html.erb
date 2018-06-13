@@ -20,14 +20,10 @@
     </div>
     
     <div class='button' id="category-loading-<%= category.id %>" style="position: relative;">
-      <a href="#" id="show-button-<%= category.id %>" class="show-button" onclick="return false;" data-category="<%= category.id %>"><%= _('Show subcategories') %></a>
+      <a href="#" id="show-hide-button-<%= category.id %>" class="show-button" onclick="return false;" data-category="<%= category.id %>"><%= _('Show/Hide subcategories') %></a>
     </div>
-    <div class='button' id="category-loading-<%= category.id %>" style="position: relative;">    
-      <a href="#" id="hide-button-<%= category.id %>" class="hide-button" onclick="return false;" data-category="<%= category.id %>"><%= _('Hide subcategories') %></a>
-    </div>
-    
+  </div>  
   <% end %>
-  </div>
 </div>
 
 <ul id="category-sub-items-<%= category.id %>" class="tree" style="display:none;"></ul>

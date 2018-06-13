@@ -101,7 +101,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
 
   should 'point back to control panel' do
     get :index, :profile => 'testinguser'
-    assert_tag :tag => 'a', :attributes => { :href =>  '/myprofile/testinguser' }, :content => 'Back'
+    assert_tag :tag => 'a', :attributes => { :href =>  '/myprofile/testinguser' }, :content => 'Back to control panel'
   end
 
   should 'display screen for creating new theme' do

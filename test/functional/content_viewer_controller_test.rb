@@ -1032,7 +1032,7 @@ class ContentViewerControllerTest < ActionController::TestCase
                :attributes => { :class => 'noosfero-dropdown-menu' },
                :descendant => { :tag => 'a',
                                 :descendant => { :tag => 'i',
-                                                 :attributes => { :class => 'fa fa-trash-o' }}}
+                                                 :attributes => { :class => 'fa fa-trash-alt' }}}
   end
 
   should 'add meta tag to rss feed on view forum' do
@@ -1430,20 +1430,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_includes assigns(:comments), c1
     assert_not_includes assigns(:comments), c2
     assert_not_includes assigns(:comments), c3
-  end
-
-  should 'display pagination links of comments' do
-    article = fast_create(Article, :profile_id => profile.id)
-    for n in 1..15
-      article.comments.create!(:author => profile, :title => "some title #{n}", :body => 'some body #{n}')
-    end
-    assert_equal 15, article.comments.count
-
-    get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
-
-    assert_tag :tag => 'a', :attributes => { :id => 'view-more-comments' },
-                                             :descendant => { :tag => 'i',
-                                                              :attributes => { :class => 'fa fa-chevron-down' }}
   end
 
   should 'not escape acceptable HTML in list of blog posts' do

@@ -9,11 +9,11 @@ Feature: signup
     When I follow "Login"
     And I follow "New user"
     And I fill in the following within ".no-boxes":
-      | E-mail                | josesilva@example.com |
-      | Username              | josesilva             |
-      | Password              | secret                |
-      | Password confirmation | secret                |
-      | Full name             | José da Silva         |
+      | Email Address            | josesilva@example.com |
+      | Username                 | josesilva             |
+      | Password                 | secret                |
+      | Type your password again | secret                |
+      | Full name                | José da Silva         |
     And wait for the captcha signup time
     And I follow "Create my account"
     And there are no pending jobs
@@ -37,7 +37,7 @@ Feature: signup
       | josesilva |
     When I go to signup page
     And I fill in "Username" with "josesilva"
-    And I fill in "E-mail" with "josesilva1"
+    And I fill in "Email Address" with "josesilva1"
     Then I should see "This login name is unavailable"
 
   Scenario: be redirected if user goes to signup page and is logged
@@ -53,10 +53,10 @@ Feature: signup
     Given I am on the homepage
     And I follow "Login"
     And I follow "New user"
-    And I fill in "E-mail" with "josesilva@example.com"
+    And I fill in "Email Address" with "josesilva@example.com"
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
-    And I fill in "Password confirmation" with "secret"
+    And I fill in "Type your password again" with "secret"
     And wait for the captcha signup time
     And I follow "Create my account"
     Then I should see "Name can't be blank"
@@ -67,7 +67,7 @@ Feature: signup
       | joaosilva | Joao Silva |
     Given I am logged in as "joaosilva"
     And I am on joaosilva's control panel
-    And I follow "Edit Profile"
+    And I follow "Informations" within "#section-profile"
     And I fill in "Name" with ""
     When I press "Save"
     Then I should see "Name can't be blank"

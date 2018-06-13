@@ -1,5 +1,5 @@
 FROM ruby:2.4.2-jessie
-MAINTAINER Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>
+LABEL Maintainer="Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>"
 
 LABEL Description="This dockerfile builds a noosfero development environment."
 

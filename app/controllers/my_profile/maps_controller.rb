@@ -9,16 +9,15 @@ class MapsController < MyProfileController
     @profile_data = profile
     if request.post?
       begin
-        country = params[:profile_data][:country]
-        city = params[:profile_data][:city]
-        state = params[:profile_data][:state]
-        nregion = NationalRegion.validate!(city, state, country)
+        profile.assign_attributes(params[:profile_data])
+        nregion = NationalRegion.validate!(profile.city, profile.state,
+                                           profile.metadata['country'])
         unless nregion.blank?
-          params[:profile_data][:national_region_code] = nregion.national_region_code
+          profile.national_region_code = nregion.national_region_code
         end
 
         Profile.transaction do
-          if profile.update!(params[:profile_data])
+          if profile.save!
             BlockSweeper.expire_blocks profile.blocks.select{ |b| b.class == LocationBlock }
             session[:notice] = _('Address was updated successfully!')
             redirect_to :action => 'edit_location'

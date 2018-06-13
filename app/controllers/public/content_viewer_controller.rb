@@ -97,9 +97,6 @@ class ContentViewerController < ApplicationController
                        partial: 'comment/comment', collection: @comments, as: :comment
 
       page.remove "view-more-comments"
-
-      page.insert_html :after, "article-comments-list",
-                       partial: 'comment/view_more_comments' if @curr_page < @total_pages
     end
   end
 

@@ -902,6 +902,10 @@ class Article < ApplicationRecord
     'file'
   end
 
+  def custom_title
+    false
+  end
+
   private
 
   def parent_archived?

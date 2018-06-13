@@ -86,7 +86,7 @@ class MembershipsControllerTest < ActionController::TestCase
     community = Community.create!(:name => 'my test community', :description => 'description test')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave?reload=true" }, :content => 'Leave community'
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave?reload=true" }, :content => 'Leave'
   end
 
   should 'current user is added as admin after create new community' do
@@ -253,7 +253,7 @@ class MembershipsControllerTest < ActionController::TestCase
   should 'cancel button redirect to back_to parameter' do
     back_to = '/'
     get :new_community, :profile => profile.identifier, :back_to => back_to
-    assert_tag :tag => 'a', :attributes => { :class => 'button icon-cancel with-text', :href => back_to }
+    assert_tag :tag => 'a', :attributes => { :class => 'button with-text', :href => back_to }
   end
 
   should 'only display control panel link to members with permission' do

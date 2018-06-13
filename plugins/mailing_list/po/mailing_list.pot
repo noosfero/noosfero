@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-07 17:21-0200\n"
-"PO-Revision-Date: 2017-11-07 17:21-0200\n"
+"POT-Creation-Date: 2018-05-23 22:22+0000\n"
+"PO-Revision-Date: 2018-05-23 22:22+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -125,8 +125,9 @@ msgstr ""
 msgid "The operation was scheduled, you will be unsubscribed from all lists shortly"
 msgstr ""
 
-#: ../lib/mailing_list_plugin.rb:4 ../lib/mailing_list_plugin.rb:19
-#: ../lib/mailing_list_plugin.rb:23
+#: ../lib/mailing_list_plugin.rb:4
+#: ../lib/mailing_list_plugin/control_panel/organization_list.rb:6
+#: ../lib/mailing_list_plugin/control_panel/person_list.rb:6
 msgid "Mailing List"
 msgstr ""
 
@@ -214,12 +215,12 @@ msgstr ""
 
 #: ../views/mailing_list_plugin_admin/_groups_list.html.erb:18
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:34
-msgid "Yes"
+msgid "No"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/_groups_list.html.erb:18
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:34
-msgid "No"
+msgid "Yes"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/_groups_list.html.erb:23
@@ -320,16 +321,16 @@ msgstr ""
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:17
 #: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:17
 #: ../views/mailing_list_plugin_admin/manage_groups.html.erb:17
-msgid "Deploy all"
+msgid ""
+"This will create a mailing list for every %s on this network. It might take se"
+"veral minutes. This action isn't reversible. Are you sure you want to deploy t"
+"he mailing list on ALL %s?"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:17
 #: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:17
 #: ../views/mailing_list_plugin_admin/manage_groups.html.erb:17
-msgid ""
-"This will create a mailing list for every %s on this network. It might take se"
-"veral minutes. This action isn't reversible. Are you sure you want to deploy t"
-"he mailing list on ALL %s?"
+msgid "Deploy all"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
@@ -381,11 +382,11 @@ msgid "Subscribe"
 msgstr ""
 
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:37
-msgid "Unsubscribe"
+msgid "Do you really want to unsubscribe?"
 msgstr ""
 
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:37
-msgid "Do you really want to unsubscribe?"
+msgid "Unsubscribe"
 msgstr ""
 
 #:

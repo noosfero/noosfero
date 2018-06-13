@@ -11,11 +11,11 @@ Feature: Change appearance
   Scenario: Change appearance from default(3 boxes) to Left Top and Right(4 boxes)
     Given I am logged in as "joaosilva"
     And I go to joaosilva's control panel
-    And I follow "Edit sideboxes"
+    And I follow "Blocks" within "#section-design"
     And I should not see an element ".box-4"
     And I go to joaosilva's control panel
-    And I follow "Edit Appearance"
+    And I follow "Appearance" within "#section-design"
     And I follow "Top and Side Bars"
     And I go to joaosilva's control panel
-    And I follow "Edit sideboxes"
+    And I follow "Blocks" within "#section-design"
     And I should see an element ".box-4"

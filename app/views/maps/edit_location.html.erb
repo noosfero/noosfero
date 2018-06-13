@@ -3,7 +3,10 @@
     <%= flash[:error] %>
   </div>
 
-  <%= render partial: 'shared/location_form', locals: { f: f, profile: @profile_data } %>
+  <% if @profile_data.active_fields.include? 'location' %>
+    <h1><%= _('Location') %></h1>
+    <%= render partial: 'shared/location_form', locals: { f: f, profile: @profile_data } %>
+  <% end %>
 
   <h1><%= _('Regions of Interest') %></h1>
   <%= select_categories(:profile_data, _('Select the regions in which you are inserted'), 4, :regions) %>

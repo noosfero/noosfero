@@ -38,11 +38,11 @@ module Api
             community = Community.create_after_moderation(current_person, params[:community].merge({:environment => environment}))
           rescue
             community = Community.new(params[:community])
+            if !community.save
+              render_model_errors!(community.errors)
+            end
           end
 
-          if !community.save
-            render_model_errors!(community.errors)
-          end
 
           present_partial community, :with => Entities::Community, :current_person => current_person
         end

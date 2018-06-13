@@ -2,6 +2,7 @@
   float: left;
   background: transparent;
   text-align: center;
+  z-index: 1;
 
   a, a:visited {
     text-decoration: none;
@@ -18,6 +19,7 @@
       background-repeat: no-repeat;
       background-position: 50% 50%;
     }
+
     .highlights-img1 {
       position: absolute;
       top: 0;
@@ -25,7 +27,9 @@
       background-size: cover;
       filter: blur(3px);
       opacity: 0.5;
+
     }
+
     .highlights-img2 {
       position: relative;
       z-index: 2;

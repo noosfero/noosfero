@@ -1,0 +1,35 @@
+<% unless invitations.empty? %>
+
+    <%= modal_inline_link_to(decision, '#', "##{decision}-invitations",
+                             class: 'invitations-modal-link') %>
+
+    <div class='<%= "invitations-container #{decision}-invitations" %>'>
+
+    <% decision_icon = invite_decision_icon invitations.first %>
+    <%= decision_icon %>
+    <span class='invitations-count'><%= invitations.count.to_s + ' ' + title.downcase %></span>
+
+    <div id='<%= "#{decision}-invitations" %>'>
+      <div class='invitations-header'>
+        <span class='invitations-title'><%= title %></span>
+        <span class='invitations-count'>
+          <span class="bullet-separator">•</span>
+          <%= invitations.count %>
+        </span>
+      </div>
+
+      <div class='event-invitations'>
+        <% if invitations.first.kind_of?(EventInvitation) %>
+          <% invitations.each do |invitation| %>
+            <%= person_invitation invitation.guest, decision, decision_icon %>
+          <% end %>
+        <% else %>
+          <% invitations.each do |invitation| %>
+            <%= person_invitation invitation.target, decision, decision_icon %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+

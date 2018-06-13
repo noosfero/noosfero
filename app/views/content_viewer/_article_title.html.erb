@@ -12,9 +12,13 @@
       <%= @page.lead.html_safe %>
     </div>
   <% end %>
+<% elsif @page.custom_title %>
+  <%= render :partial => "content_viewer/#{@page.type.demodulize.underscore}_custom_title",
+               :locals => {:article => @page }%>
 <% else %>
   <h1 class="title">
     <%= h(@page.title) %>
   </h1>
+  <%= path_to_parents @page %>
   <%= render :partial => "publishing_info", :locals => {:article => @page }%>
 <% end %>

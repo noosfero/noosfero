@@ -7,6 +7,7 @@
 @import 'stylesheets/profile-editor';
 @import 'stylesheets/profile';
 @import 'stylesheets/cropped_image';
+@import 'stylesheets/edit-in-place';
 
 @import 'stylesheets/content';
 
@@ -26,6 +27,7 @@ p {
 
 input, textarea {
   background-color: white;
+  &:disabled { background-color: rgb(235, 235, 228); }
 }
 
 /* ==> button.css <== */
@@ -1329,6 +1331,11 @@ hr.pre-posts, hr.sep-posts {
       font-weight: 700;
       letter-spacing: -.02rem;
       .author a { font-size: 12px !important; }
+      .bullet-separator,
+      .parent-folder {
+       font-weight: normal;
+      }
+
     }
     .bullet-separator {
       padding: 0 2px;
@@ -1815,6 +1822,10 @@ table#recaptcha_table tr:hover td {
 }
 
 /********************** Noosfero Dropdown Menu **********************/
+
+div.menu-container {
+  position: relative;
+}
 
 a.menu-toggle {
   color: #212e3c;

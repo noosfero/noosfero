@@ -21,10 +21,16 @@
 .controller-profile_members .draggable-user {
   cursor: move;
 }
-.controller-profile_members #members-list.add-members {
-  float: right;
-  width: 30%;
-  text-align: center;
+.controller-profile_members #members-list {
+  table th:first-child {
+    width: 10px;
+  }
+
+  .add-members {
+    float: right;
+    width: 30%;
+    text-align: center;
+  }
 }
 .controller-profile_members .members-buttons-cell {
   width: 60px;

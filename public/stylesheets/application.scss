@@ -13,6 +13,8 @@
 @import 'fields';
 @import 'buttons';
 @import 'notice';
+@import 'tooltip';
+@import 'separator';
 @import 'loading';
 @import 'loading-overlay';
 @import 'table';
@@ -56,6 +58,7 @@
 @import 'profile-activity';
 // admin
 @import 'admin-panel';
+@import 'manage-plugins';
 @import 'manage-fields';
 @import 'environment-users';
 @import 'quotas';

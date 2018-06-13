@@ -350,7 +350,7 @@ class SearchControllerTest < ActionController::TestCase
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     get 'enterprises', :query => 'enterprise', :display => 'map'
 
-    assert_tag :tag => 'script', :attributes => { :src => 'https://maps.google.com/maps/api/js?sensor=true'}
+    assert_tag :tag => 'script', :attributes => { :src => "https://maps.google.com/maps/api/js?sensor=true&amp;key=#{GoogleMaps.js_api_key}"}
   end
 
   should 'show events of specific day' do

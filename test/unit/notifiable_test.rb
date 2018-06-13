@@ -48,6 +48,23 @@ class NotifiableTest < ActiveSupport::TestCase
     Foo.any_instance.expects(:notify_by_push).once
     Foo.any_instance.expects(:notify_by_plugins).once
     Foo.new.notify(:new_things)
+    process_delayed_job_queue
+  end
+
+  should 'use environment default locale' do
+    Environment.any_instance.expects(:default_language).returns('pt')
+    Noosfero.expects(:with_locale).with('pt')
+    Foo.will_notify :new_things
+    Foo.new.notify(:new_things)
+    process_delayed_job_queue
+  end
+
+  should 'use english locale if there is no default' do
+    Environment.any_instance.expects(:default_language).returns(nil)
+    Noosfero.expects(:with_locale).with('en')
+    Foo.will_notify :new_things
+    Foo.new.notify(:new_things)
+    process_delayed_job_queue
   end
 
   should 'deliver message when notifying by mail and mailer is defined' do
@@ -68,40 +85,42 @@ class NotifiableTest < ActiveSupport::TestCase
                     .returns({ recipients: [mock], title: 't', body: 'm' })
     WebPush.expects(:notify_users).once
     Foo.new.send(:notify_by_push, :new_things)
-    process_delayed_job_queue
   end
 
   should 'not push notification when push is enabled but data not defined' do
     Foo.will_notify :new_things, push: true
     WebPush.expects(:notify_users).never
     Foo.new.send(:notify_by_push, :new_things)
-    process_delayed_job_queue
   end
 
   should 'not push notification if recipients are invalid' do
     Foo.will_notify :new_things, push: true
     Foo.any_instance.stubs(:new_things_notification)
                     .returns({ title: 't', body: 'm' })
-    Foo.new.send(:notify_by_push, :new_things)
+
     WebPush.expects(:notify_users).never
-    process_delayed_job_queue
+    assert_raise Notifiable::InvalidPushRecipients do
+      Foo.new.send(:notify_by_push, :new_things)
+    end
   end
 
   should 'not push notification if recipients are empty' do
     Foo.will_notify :new_things, push: true
     Foo.any_instance.stubs(:new_things_notification)
                     .returns({ title: 't', body: 'm', recipients: [] })
-    Foo.new.send(:notify_by_push, :new_things)
     WebPush.expects(:notify_users).never
-    process_delayed_job_queue
+    assert_raise Notifiable::InvalidPushRecipients do
+      Foo.new.send(:notify_by_push, :new_things)
+    end
   end
 
   should 'not push notification if data is incomplete' do
     Foo.will_notify :new_things, push: true
     Foo.any_instance.stubs(:new_things_notification)
                     .returns({ recipients: [mock], title: nil })
-    Foo.new.send(:notify_by_push, :new_things)
     WebPush.expects(:notify_users).never
-    process_delayed_job_queue
+    assert_raise Notifiable::InvalidPushMessage do
+      Foo.new.send(:notify_by_push, :new_things)
+    end
   end
 end

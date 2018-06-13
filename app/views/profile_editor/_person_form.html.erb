@@ -4,7 +4,7 @@
 <% editing_profile ||= false %>
 
 <%= optional_field(@person, 'nickname') do %>
-  <%= f.text_field(:nickname, :maxlength => 16, :size => 30, :rel => _('Nickname')) %>
+  <%= f.text_field(:nickname, :size => 30, :rel => _('Nickname')) %>
   <div>
     <small><%= _('A short name by which you like to be known. Will be used in friends listings, community member listings etc.') %></small>
   </div>
@@ -24,6 +24,7 @@
 <%= optional_field(@person, 'nationality', f.text_field(:nationality, :rel => _('Nationality'))) %>
 <%= optional_field(@person, 'image', labelled_form_field(_('Image'), file_field(:file, :image, :rel => _('Image')))) %>
 
+<%= render partial: 'shared/address_form', locals: { f: f, profile: @person } %>
 <%= render partial: 'shared/location_form', locals: { f: f, profile: @person } unless editing_profile %>
 
 <% @plugins.dispatch(:extra_optional_fields).each do |field| %>

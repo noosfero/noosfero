@@ -1,0 +1,48 @@
+form div.profile-selector {
+  > input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .profile-selector-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    max-height: 250px;
+    overflow-y: auto;
+
+    .profile-selector-entry {
+      width: 50%;
+      display: flex;
+      align-items: center;
+
+      &:hover {
+        border-radius: 3px;
+        background-color: #eee;
+        box-shadow: 0px 1px 2px #ccc;
+      }
+
+      img {
+        margin: 10px;
+        width: 50px;
+        height: 50px;
+      }
+
+      span.profile-forms-count {
+        color: #777;
+      }
+    }
+
+    .profile-selector-entry-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .profile-identifier {
+      padding: 5px 0 0 5px;
+      color: #888;
+    }
+  }
+}
+

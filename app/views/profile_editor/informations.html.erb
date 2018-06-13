@@ -1,0 +1,62 @@
+<h1><%= _('%s\' Informations').html_safe % profile.name %></h1>
+
+<%= error_messages_for :profile_data %>
+
+<%= labelled_form_for :profile_data, :html => { :id => 'profile-data', :multipart => true } do |f| %>
+  <%= labelled_check_box(_('This profile is a template'), 'profile_data[is_template]', true, @profile.is_template) %>
+
+  <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
+
+  <hr>
+
+  <div id="profile_change_picture_title">
+    <h2><%= _('Change picture') %></h2>
+    <span><%= unchangeable_privacy_field @profile %></span>
+  </div>
+  <div id="profile_change_picture">
+    <%= file_field_or_thumbnail(_('Image:'), @profile.image, 'profile_data[image_builder]', 'profile') %>
+    <%= _("Max size: %s (.jpg, .gif, .png)").html_safe % Image.max_size.to_humanreadable %>
+  </div>
+
+  <%=
+    safe_join(@plugins.dispatch(:profile_editor_informations).map do |content|
+      content.kind_of?(Proc) ? self.instance_exec(&content) : content
+    end, "\n")
+  %>
+
+  <hr>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
+    <%= submit_button('save', _('Save')) %>
+  <% end %>
+
+  <a id="advanced_options_button" class="button with-text icon-ban" href="#advanced_options"><%= _('Advanced Options') %></a>
+  <div id="advanced_options">
+    <%= button_bar do %>
+      <% if user && user.has_permission?('destroy_profile', profile) %>
+        <% if user.is_admin?(environment) %>
+          <% if profile.visible? %>
+            <%= button(:ban,
+                       _('Deactivate profile'),
+                       { action: :deactivate_profile, id: profile.id },
+                       id: 'deactivate_profile_button', data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
+          <% else %>
+            <%= button(:'toggle-on',
+                       _('Activate profile'),
+                       { action: :activate_profile, id: profile.id },
+                       data: { confirm: _("Are you sure you want to activate this profile?") }) %>
+          <% end %>
+        <% end %>
+
+        <% if !environment.enabled?('forbid_destroy_profile') || user.is_admin?(environment) %>
+          <%= button(:delete,
+                     _('Delete profile'),
+                     { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= javascript_include_tag 'profile_editor_informations' %>

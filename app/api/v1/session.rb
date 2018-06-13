@@ -33,8 +33,10 @@ module Api
       # Example Request:
       #  POST http://localhost:3000/api/v1/logout
       post "/logout" do
-	current_user.forget_me
-	current_user.update({:chat_status_at => DateTime.now}.merge({:last_chat_status => current_user.chat_status, :chat_status => 'offline'}))
+        if current_user
+          current_user.forget_me
+          current_user.update({:chat_status_at => DateTime.now}.merge({:last_chat_status => current_user.chat_status, :chat_status => 'offline'}))
+        end
 	reset_session
         output = {:success => true}
 	output[:message] = _('Logout successfully.')
@@ -43,8 +45,8 @@ module Api
       end
 
       post "/login_from_cookie" do
-        return unauthorized! if cookies[:auth_token].blank?
-        user = User.where(remember_token: cookies[:auth_token]).first
+        return unauthorized! if (!session.present? || session[:user_id].blank?)
+        user = session.user
         return unauthorized! unless user && user.activated?
         @current_user = user
         present user, :with => Entities::UserLogin, :current_person => current_person

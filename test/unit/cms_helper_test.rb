@@ -55,7 +55,7 @@ class CmsHelperTest < ActionView::TestCase
     plugins.stubs(:dispatch).returns([])
     profile = fast_create(Person)
     article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with('Spread this', {:action => 'publish', :id => article.id}, :modal => true, :class => 'button icon-spread', :title => 'Spread this')
+    expects(:link_to).with({:action => 'publish', :id => article.id}, :modal => true, :class => 'button without-text', :title => 'Spread this')
 
     result = display_spread_button(article)
   end
@@ -66,7 +66,7 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My folder'
     folder = fast_create(Folder, :name => name, :profile_id => profile.id)
     confirm_message = "Are you sure that you want to remove the folder \"#{name}\"? Note that all the items inside it will also be removed!"
-    expects(:link_to).with('Delete', {action: 'destroy', id: folder.id}, method: :post, 'data-confirm' => confirm_message, class: 'button icon-delete', title: 'Delete')
+    expects(:link_to).with({action: 'destroy', id: folder.id}, method: :post, 'data-confirm' => confirm_message, class: 'button without-text', title: 'Delete')
 
     result = display_delete_button(folder)
   end
@@ -77,7 +77,7 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My article'
     article = fast_create(TextArticle, :name => name, :profile_id => profile.id)
     confirm_message = "Are you sure that you want to remove the item \"#{name}\"?"
-    expects(:link_to).with('Delete', {action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button icon-delete', title: 'Delete')
+    expects(:link_to).with({action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button without-text', title: 'Delete')
 
     result = display_delete_button(article)
   end

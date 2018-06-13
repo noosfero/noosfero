@@ -1,0 +1,72 @@
+<h1><%= @article.title %></h1>
+
+<div class='event-invitations'>
+  <%= render :partial => 'events/invitations_to', locals: { title: _('Going'),
+                invitations: EventInvitation.accepted_invitations(@article), decision: 'accepted' } %>
+
+  <%= render :partial => 'events/invitations_to', locals: { title: _('Interested'),
+                invitations: EventInvitation.maybe_accept_invitations(@article), decision: 'interested'  } %>
+
+  <%= render :partial => 'events/invitations_to', locals: { title: _('Not interested'),
+              invitations: EventInvitation.rejected_invitations(@article), decision: 'rejected' } %>
+
+  <%= render :partial => 'events/invitations_to', locals: { title: _('Unconfirmed'),
+              invitations: EventInvitation.unconfirmed_invitations(@article), decision: 'unconfirmed' } %>
+</div>
+
+<% if @article.end_date.nil? || @article.end_date >= DateTime.now %>
+
+  <% if !@failed.blank? %>
+    <div id="errorExplanation">
+      <% @failed.each do |error, tasks_descriptions|%>
+        <h2> <%= error %></h2>
+        <p><%=_("This error happened with the following persons: ")%></p>
+        <ul>
+          <% tasks_descriptions.each do |description| %>
+              <li> <%= description %> </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @article.profile.kind_of?(Organization) %>
+    <% title = _('Invite community members to the event') %>
+    <% placeholder = _('Find members') %>
+    <% invite_all = _('Invite all members') %>
+    <% scope = @article.profile.members %>
+  <% else %>
+    <% title = _('Invite friends to your event') %>
+    <% placeholder = _('Find your friends') %>
+    <% invite_all = _('Invite all friends') %>
+    <% scope = @article.profile.friends %>
+  <% end %>
+
+  <h2><%= title %></h2>
+
+  <% if scope.present? %>
+    <%= form_for :event, url: { action: 'invite_to_event' },
+                         html: { class: 'profile-selector' } do |form| %>
+
+      <%= hidden_field_tag :back_to, @back_to %>
+
+      <%= profile_selector @profiles %>
+
+      <%= labelled_form_field _('Message'), text_area(:data, :message,
+            value: (_("Hello, come and join the ") + @article.title + ".")) %>
+
+      <%= button_bar do %>
+        <%= submit_button 'invite', font_awesome(:envelope, _('Invite')) %>
+        <%= button(:back, _('Back to Event'), @article.url) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= _('Sorry, this event is over.') %>
+  <%= button_bar do %>
+    <%= button(:back, _('Back to Event'), @article.url) %>
+  <% end %>
+<% end %>
+
+<%= javascript_include_tag 'profile_selector' %>
+<%= javascript_include_tag 'events' %>

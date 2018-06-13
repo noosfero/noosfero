@@ -50,7 +50,7 @@ module Noosfero::GeoRef
       ll = Rails.cache.read key
       return ll + [:CACHE] if ll.kind_of? Array
       resp = RestClient.get 'https://maps.googleapis.com/maps/api/geocode/json?' +
-                            'sensor=false&address=' + url_encode(location)
+        "key=#{GoogleMaps.js_api_key}&sensor=false&address=" + url_encode(location)
       if resp.nil? || resp.code.to_i != 200
         if ENV['RAILS_ENV'] == 'test'
           print " Google Maps API fail (code #{resp ? resp.code : :nil}) "

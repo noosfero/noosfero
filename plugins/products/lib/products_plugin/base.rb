@@ -15,12 +15,8 @@ module ProductsPlugin
       }
     end
 
-    def control_panel_buttons
-      {
-        title: _('Manage Products/Services'),
-        icon:  'suppliers-manage-suppliers',
-        url:   {controller: 'products_plugin/page'},
-      } if profile.enterprise?
+    def control_panel_entries
+      [ProductsPlugin::ControlPanel::Products]
     end
 
     def profile_info_extra_contents

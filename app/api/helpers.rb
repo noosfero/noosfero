@@ -23,24 +23,32 @@ module Api
     end
 
     def session
-      Session.find_by(session_id: cookies[:_noosfero_session])
+      @session ||= Session.find_by(session_id: cookies[:_noosfero_session])
+      @session
     end
 
     def reset_session
+      cookies.delete('_noosfero_api_session')
+      cookies.delete(:auth_token)
       session.destroy unless session.nil?
       logout
     end
 
-    def current_user
+    def set_current_user
       private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
-      @current_user ||= User.find_by private_token: private_token
+      @current_user ||= User.where(private_token: private_token).includes(:person).first unless private_token.blank?
       @current_user ||= plugins.dispatch("api_custom_login", request).first
       @current_user = session.user if @current_user.blank? && session.present?
       @current_user
     end
 
+    def current_user
+      @current_user
+    end
+
     def current_person
-      current_user.person unless current_user.nil?
+      @person ||= current_user.person unless current_user.nil?
+      @person
     end
 
     def is_admin?(environment)
@@ -465,7 +473,10 @@ module Api
     protected
 
     def set_session_cookie
-      cookies['_noosfero_api_session'] = { value: @current_user.private_token, httponly: true } if @current_user.present?
+      if @current_user.present? && session.present?
+        session.data['user'] = @current_user.id
+	session.save!
+      end
     end
 
     def setup_multitenancy
@@ -473,15 +484,19 @@ module Api
     end
 
     def detect_stuff_by_domain
-      @domain = Domain.by_name(request.host)
+      @domain_hash ||= {}
+      @domain_hash[request.host] ||= { domain: Domain.by_name(request.host)}
+      @domain = @domain_hash[request.host][:domain]
       if @domain.nil?
-        @environment = Environment.default
+        @domain_hash[request.host][:environment] ||= Environment.default
+	@environment = @domain_hash[request.host][:environment]
         if @environment.nil? && Rails.env.development?
           # This should only happen in development ...
           @environment = Environment.create!(:name => "Noosfero", :is_default => true)
         end
       else
-        @environment = @domain.environment
+        @domain_hash[request.host][:environment] ||= @domain.environment
+	@environment = @domain_hash[request.host][:environment]
       end
     end
 

@@ -93,5 +93,4 @@ module ContentViewerHelper
       image_tag("/images/bt-bookmark.gif", :width => 53, :height => 16, :border => 0, :alt => '')
     end
   end
-
 end

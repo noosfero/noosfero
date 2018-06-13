@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require_relative '../config/environment'
+require_relative '../lib/sample_data'
+include SampleData
+
+profiles = $environment.profiles.find_each
+
+def icon_to type
+  case type
+  when "Profile", "Perfil"
+    return "menu-people"
+  when "Image gallery", "Galeria"
+    return "photos"
+  when "Agenda"
+    return "event"
+  when "Blog"
+    return "blog"
+  else
+    'no-icon'
+  end
+end
+
+print "Update icons in profiles: "
+for person in profiles
+  link_blocks = person.blocks.select do |block|
+                block.kind_of?(LinkListBlock)
+              end
+
+  for block in link_blocks
+    for link in block.links
+      link[:icon] = icon_to link[:name]
+    end
+    block.save
+  end
+  print "."
+end
+done

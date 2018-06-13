@@ -3,7 +3,7 @@
 
   <%= form_tag(:action => 'save', :id => @block.id) do %>
 
-    <%= labelled_form_field(_('Custom title for this block: '), text_field(:block, :title, :maxlength => 20)) %>
+    <%= labelled_form_field(_('Custom title for this block: '), text_field(:block, :title)) %>
     <%= labelled_form_field(_('Custom subtitle for this block: '), text_field(:block, :subtitle)) %>
 
     <%= render_partial_for_class @block.class %>
@@ -34,6 +34,8 @@
         <%= labelled_check_box(_("Mirror"), "block[mirror]", value = "1", checked = @block.mirror) %>
       </div>
     <% end %>
+
+    <%= labelled_form_field(_('Custom css class for this block: '), text_field(:block, :css)) %>
 
     <%= button_bar do %>
       <%= submit_button(:save, _('Save')) %>

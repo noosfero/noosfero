@@ -220,6 +220,8 @@ class Profile < ApplicationRecord
   store_accessor :metadata
   include MetadataScopes
 
+  metadata_items :allow_single_file
+
   def settings
     data
   end
@@ -265,7 +267,7 @@ class Profile < ApplicationRecord
   scope :disabled, -> { where visible: false }
   scope :is_public, -> { where visible: true, public_profile: true, secret: false }
   scope :enabled, -> { where enabled: true }
-
+  
   scope :higher_disk_usage, -> { order("metadata->>'disk_usage' DESC NULLS LAST") }
   scope :lower_disk_usage, -> { order("metadata->>'disk_usage' ASC NULLS LAST") }
 
@@ -414,7 +416,8 @@ class Profile < ApplicationRecord
 
   belongs_to :region
 
-  LOCATION_FIELDS = %w[address district city state country_name zip_code]
+  LOCATION_FIELDS = %w[address address_reference district city state country zip_code]
+  metadata_items *(LOCATION_FIELDS - %w[address])
 
   before_save :save_old_region
   def save_old_region
@@ -426,8 +429,26 @@ class Profile < ApplicationRecord
     if myregion
       myregion.hierarchy.reverse.first(2).map(&:name).join(separator)
     else
-      LOCATION_FIELDS.map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
+      full_address(separator)
     end
+  end
+
+  def full_address(separator = ' - ')
+    LOCATION_FIELDS.map do |item|
+      (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil
+    end.compact.join(separator)
+  end
+
+  def city
+    NationalRegion.name_or_default(metadata['city'])
+  end
+
+  def state
+    NationalRegion.name_or_default(metadata['state'])
+  end
+
+  def country
+    NationalRegion.name_or_default(metadata['country'])
   end
 
   def geolocation
@@ -979,6 +1000,8 @@ private :generate_url, :url_options
   settings_items :layout_template, :type => String, :default => 'default'
 
   has_many :blogs, :source => 'articles', :class_name => 'Blog'
+  has_many :forums, :source => 'articles', :class_name => 'Forum'
+  has_many :galleries, :source => 'articles', :class_name => 'Gallery'
 
   def blog
     self.has_blog? ? self.blogs.order(:id).first : nil
@@ -988,14 +1011,20 @@ private :generate_url, :url_options
     self.blogs.count.nonzero?
   end
 
-  has_many :forums, :source => 'articles', :class_name => 'Forum'
-
   def forum
     self.has_forum? ? self.forums.order(:id).first : nil
   end
 
   def has_forum?
     self.forums.count.nonzero?
+  end
+
+  def gallery
+    self.has_blog? ? self.galleries.order(:id).first : nil
+  end
+
+  def has_gallery?
+    self.galleries.count.nonzero?
   end
 
   def admins
@@ -1150,10 +1179,6 @@ private :generate_url, :url_options
     self.save
   end
 
-  def control_panel_settings_button
-    {:title => _('Edit Profile'), :icon => 'edit-profile'}
-  end
-
   def self.identification
     name
   end
@@ -1204,10 +1229,6 @@ private :generate_url, :url_options
 
   def public_fields
     self.active_fields
-  end
-
-  def control_panel_settings_button
-    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
   end
 
   def followed_by?(person)
@@ -1290,6 +1311,11 @@ private :generate_url, :url_options
 
   def allow_single_file?
     self.metadata["allow_single_file"] == "1"
+  end
+
+  #FIXME make this test
+  def boxes_with_blocks
+    self.boxes.with_blocks
   end
 
   private

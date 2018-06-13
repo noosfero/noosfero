@@ -4,35 +4,44 @@ module ButtonsHelper
     add:               'plus',
     add_user:          'user-plus',
     alert:             'exclamation-triangle',
+    appearance:        'paint-brush',
     application:       'file',
-    article:           'file-text',
+    article:           'file-alt',
     audio:             'volume-up',
     back:              'arrow-left',
-    blog:              'newspaper-o',
+    blocks:            'th',
+    blog:              'newspaper',
     cancel:            'arrow-left',
-    clock:             'clock-o',
+    clear:             'eraser',
+    clock:             'clock',
     delete:            'exclamation-triangle',
     down_arrow:        'chevron-down',
     ellipsis:          'ellipsis-h',
-    email:             'envelope-o',
-    event:             'calendar',
-    file:              'file-text-o',
-    fullscreen:        'arrows-alt',
+    email:             'envelope',
+    event:             'calendar-alt',
+    file:              'file-alt',
+    fullscreen:        'expand-arrows-alt',
+    header_footer:     'window-maximize',
     help:              'question-circle',
-    leave:             'sign-out',
-    lightbulb:         'lightbulb-o',
-    login:             'sign-in',
-    logout:            'sign-out',
-    network:           'code-fork',
+    leave:             'sign-out-alt',
+    lightbulb:         'lightbulb',
+    login:             'sign-in-alt',
+    logout:            'sign-out-alt',
+    network:           'code-branch',
     new:               'plus',
     new_user:          'user',
     next:              'arrow-right',
     ok:                'check',
-    pdf:               'file-pdf-o',
+    pdf:               'file-pdf',
     people:            'user',
-    save_and_continue: 'cloud-upload',
+    remove:            'times',
+    save_and_continue: 'cloud-upload-alt',
     spread:            'share-alt',
-    text:              'file-o'
+    text:              'file-alt',
+    menu:              'align-justify',
+    text:              'file',
+    trash:             'trash-alt',
+    welcome_page:      'home'
   }
 
   def font_awesome type, label = ""
@@ -52,25 +61,26 @@ module ButtonsHelper
     end
   end
 
-  def button(type, label, url, html_options = {})
-    klass = 'with-text'
-    if html_options.has_key?(:class)
-      klass << ' ' << html_options[:class]
+  def generic_button(type, label, url, html_options = {})
+    classes = 'button'
+    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
+    html_options[:title] ||= label
+    link_to(url, html_options.merge(class: classes)) do
+      font_awesome(type, label)
     end
-    button_without_text type, font_awesome(type, label), url, html_options.merge(class: klass, title: label)
+  end
+
+  def button(type, label, url, html_options = {})
+    classes = 'with-text'
+    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
+    generic_button(type, label, url, html_options.merge(class: classes))
   end
 
   def button_without_text(type, label, url, html_options = {})
-    klass = "button icon-#{type}"
-    if html_options.has_key?(:class)
-      klass << ' ' << html_options[:class]
-    end
-    title = html_options[:title] || label
-    if html_options[:disabled]
-      content_tag('a', label, html_options.merge(class: klass, title: title))
-    else
-      link_to(label, url, html_options.merge(class: klass, title: title))
-    end
+    classes = 'without-text'
+    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
+    html_options[:title] = label
+    generic_button(type, '', url, html_options.merge(class: classes))
   end
 
   def button_to_function(type, label, js_code, html_options = {}, &block)

@@ -103,19 +103,47 @@ module CustomFormsPlugin::Helper
     case field.show_as
     when 'select'
       selected = default_selected(field, answer)
-      select_tag form.to_s + "[#{field.id}]", options_for_select([['','']] + field.alternatives.map {|a| [a.label, a.id.to_s]}, selected), :disabled => display_disabled?(field, answer)
+      select_tag form.to_s + "[#{field.id}]",
+                 options_for_select([['','']] +
+                   field.alternatives.map {|a| [a.label, a.id.to_s]}, selected),
+                 :disabled => display_disabled?(field, answer)
+
     when 'multiple_select'
       selected = default_selected(field, answer)
-      select_tag form.to_s + "[#{field.id}]", options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected), :multiple => true, :title => _('Hold down Ctrl to select options'), :size => field.alternatives.size, :disabled => display_disabled?(field, answer)
+      select_tag form.to_s + "[#{field.id}]",
+                 options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected),
+                 :multiple => true, :title => _('Hold down Ctrl to select options'),
+                 :size => field.alternatives.size,
+                 :disabled => display_disabled?(field, answer)
+
     when 'check_box'
       field.alternatives.map do |alternative|
-        default = answer.present? ? answer.value.split(',').include?(alternative.id.to_s) : alternative.selected_by_default
-        labelled_check_box alternative.label, form.to_s + "[#{field.id}][#{alternative.id}]", '1', default, :disabled => display_disabled?(field, answer)
+        default = if answer.present?
+                    answer.value.split(',').include?(alternative.id.to_s)
+                  else
+                    alternative.selected_by_default
+                  end
+        content_tag(:div, (labelled_check_box alternative.label,
+                           form.to_s + "[#{field.id}][#{alternative.id}]",
+                           '1',
+                           default,
+                           :disabled => display_disabled?(field, answer)),
+                    :class => 'labelled-check field-alternative-row')
       end.join("\n")
     when 'radio'
       field.alternatives.map do |alternative|
-        default = answer.present? ? answer.value == alternative.id.to_s : alternative.selected_by_default
-        labelled_radio_button alternative.label, form.to_s + "[#{field.id}]", alternative.id, default, :disabled => display_disabled?(field, answer)
+        default = if answer.present?
+                    answer.value == alternative.id.to_s
+                  else
+                    alternative.selected_by_default
+                  end
+
+        content_tag(:div, (labelled_radio_button alternative.label,
+                           form.to_s + "[#{field.id}]",
+                           alternative.id,
+                           default,
+                           :disabled => display_disabled?(field, answer)),
+                    :class => 'labelled-check field-alternative-row')
       end.join("\n")
     end
   end

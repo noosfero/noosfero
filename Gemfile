@@ -25,6 +25,7 @@ gem 'pothoven-attachment_fu'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'rake', :require => false
+gem 'netrc'
 gem 'rest-client'
 gem 'exception_notification'
 gem 'gettext', :require => false
@@ -37,6 +38,8 @@ gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 gem 'font-awesome-sass'
+gem 'rpush'
+gem 'http-cookie'
 
 # API dependencies
 gem 'grape'
@@ -62,6 +65,9 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
+
+gem 'sass-listen'
+
 group :production do
   gem 'dalli', '~> 2.7.0'
 end
@@ -72,7 +78,7 @@ end
 
 group :test do
   gem 'mocha',                  '~> 1.1.0', :require => false
-  gem 'test-unit' if RUBY_VERSION >= '2.2.0'
+  gem 'test-unit'
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'simplecov', :require => false
