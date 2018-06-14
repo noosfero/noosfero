@@ -34,7 +34,7 @@ gem 'whenever', :require => false
 gem 'eita-jrails', require: 'jrails'
 gem 'diffy'
 gem 'slim'
-gem 'activerecord-session_store',
+gem 'activerecord-session_store'
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 gem 'font-awesome-sass'
