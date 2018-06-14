@@ -18,7 +18,7 @@ gem 'acts-as-taggable-on'
 gem 'rails_autolink'
 gem 'ruby-feedparser'
 gem 'daemons'
-gem 'nokogiri',                 (if RUBY_VERSION >= '2.4.0' then '~> 1.7.0' else '~> 1.6.0' end)
+gem 'nokogiri',                 '~> 1.6.0'
 gem 'mini_portile2'
 gem 'will_paginate'
 gem 'pothoven-attachment_fu'
@@ -34,7 +34,7 @@ gem 'whenever', :require => false
 gem 'eita-jrails', require: 'jrails'
 gem 'diffy'
 gem 'slim'
-gem 'activerecord-session_store', ('1.0.0.pre' if RUBY_VERSION >= '2.3.0')
+gem 'activerecord-session_store',
 gem 'recaptcha', require: 'recaptcha/rails'
 gem 'honeypot-captcha'
 gem 'font-awesome-sass'
