@@ -215,6 +215,7 @@ module Api
       expose :abstract, documentation: {type: 'String', desc: 'Teaser of the body'}
       expose :created_at
       expose :updated_at
+      expose :url
       expose :title, :documentation => {:type => "String", :desc => "Title of the article"}
       expose :created_by, :as => :author, :using => Profile, :documentation => {type: 'Profile', desc: 'The profile author that create the article'}
       expose :profile, :using => Profile, :documentation => {type: 'Profile', desc: 'The profile associated with the article'}
