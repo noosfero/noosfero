@@ -6,7 +6,7 @@
 
 <div class="export-people-field" >
   <%= form_tag({action: 'download', controller: 'users'}) do %>
-    <label>Select the download format</label>
+    <label>Select the file format</label>
     <div class="download-format">
       <label><%= radio_button_tag('format', 'xml', true) %> XML </label>
       <label><%= radio_button_tag('format', 'csv', false) %> CSV </label>

@@ -44,8 +44,9 @@ class UsersController < AdminController
   end
 
   def download
+    fields = { base: params[:fields], user: %w[last_login_at] }
     users = filter_users(per_page: environment.users.count, page: nil)
-    exporter = Exporter.new(users, Person.exportable_fields(environment))
+    exporter = Exporter.new(users, fields)
     date = Time.current.strftime('%Y-%m-%d %Hh%Mm')
     filename = _('%s people list - %s') % [environment.name, date]
 
