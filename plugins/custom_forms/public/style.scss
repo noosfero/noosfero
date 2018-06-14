@@ -612,3 +612,104 @@ div.import-submissions, div.import-report {
 div.labelled-check {
   margin-bottom: 5px;
 }
+
+#content .CustomFormsPlugin-query-form,
+#content #custom-forms-plugin_confirmation,
+#content #custom-forms-plugin_submission,
+#content .custom-forms-plugin_polls-block {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .form-submission {
+    margin-top: 5px;
+    overflow-y: auto;
+    text-align: justify;
+
+    .field-alternative-row {
+      display: block;
+
+      mark {
+        background: transparent;
+        padding: 0 0.2em;
+        border-radius: 2px;
+      }
+
+      &.checked mark {
+        background: rgba(200, 200, 200, 0.5);
+      }
+    }
+  }
+
+  &.query-kind-survey {
+    .formfield.type-radio, .formfield.type-hidden {
+      columns: 2;
+      column-gap: 1em;
+    }
+  }
+
+  .no-results {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-style: italic;
+    height: 100%;
+    text-align: center;
+  }
+
+  .formlabel {
+    font-size: 14px;
+    margin-bottom: 3px;
+  }
+
+  .required-field {
+    .formlabel {
+      font-size: 12px;
+      margin-bottom: 0;
+    }
+
+    .formfield.type-text {
+      padding: 0;
+    }
+  }
+
+  .button-bar {
+    padding-top: 0;
+    margin-bottom: 0;
+    flex-grow: 1;
+    align-items: flex-end;
+    display: flex;
+
+    .icon-cancel, br {
+      display: none;
+    }
+
+    .button {
+      height: 30px;
+      line-height: 30px;
+      max-height: none;
+    }
+
+    input.button.submit {
+      height: 32px;
+      line-height: 32px;
+      padding: 0;
+      background-image: none;
+      width: 100%;
+    }
+
+    div.notify {
+      display: none;
+    }
+  }
+}
+
+#content .custom-forms-plugin_polls-block {
+  a.button.icon-back {
+    display: none;
+  }
+}
+
+#custom-forms-plugin_submission .form-submission {
+  margin-bottom: 20px;
+}
