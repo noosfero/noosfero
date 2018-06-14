@@ -222,7 +222,7 @@ class ArticlesTest < ActiveSupport::TestCase
       article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
       get "/api/v1/articles/?#{params.to_query}"
       json = JSON.parse(last_response.body)
-     assert json.last.has_key?(attr)
+      assert json.last.has_key?(attr)
     end
   end
 

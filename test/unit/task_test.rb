@@ -556,4 +556,14 @@ class TaskTest < ActiveSupport::TestCase
     assert_equivalent [t1,t3,t4], Task.to(person)
   end
 
+  should 'api_content return nil by default' do
+    task = Task.new
+    assert_nil task.api_content
+  end
+
+  should 'display_api_content_by_default? be false by default' do
+    task = Task.new
+    assert !task.display_api_content_by_default?
+  end
+
 end

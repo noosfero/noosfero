@@ -56,6 +56,10 @@ class AbuseComplaint < Task
     reported.disable
   end
 
+  def api_content(params = {})
+    { abuse_reports: self.abuse_reports }
+  end
+
   def task_activated_message
     _('Your profile was reported by the users of %s due to inappropriate behavior. The administrators of the environment are now reviewing the report. To solve this misunderstanding, please contact the administrators.').html_safe % environment.name
   end

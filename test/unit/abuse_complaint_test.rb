@@ -56,4 +56,12 @@ class AbuseComplaintTest < ActiveSupport::TestCase
 
     refute AbuseComplaint.find_by(requestor_id: reported_id), "AbuseComplaint still exist!"
   end
+
+  should 'api_content return abuse_reports' do
+    abuse_complaint = AbuseComplaint.create(reported: fast_create(Community))
+    abuse1 = create(AbuseReport, reporter: fast_create(Person), abuse_complaint: abuse_complaint, reason: 'some reason')
+    abuse2 = create(AbuseReport, reporter: fast_create(Person), abuse_complaint: abuse_complaint, reason: 'some reason')
+    assert_equivalent abuse_complaint.api_content[:abuse_reports], [abuse1, abuse2]
+  end
+
 end
