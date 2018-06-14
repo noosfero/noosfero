@@ -265,8 +265,8 @@ class Article < ApplicationRecord
     pending_categorizations.each do |item|
       ArticleCategorization.add_category_to_article(item, self)
     end
-    # self.categories(true)
-    # pending_categorizations.clear
+    self.categories
+    pending_categorizations.clear
   end
 
   acts_as_taggable

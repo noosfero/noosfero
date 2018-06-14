@@ -181,7 +181,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
-  should 'not display result chart or results link if the results are not avaiable' do
+  should 'not display result chart or results link if the results are not available' do
     login('jose', 'jose')
     @form1.update_attributes(access_result_options: 'private',
                              ending: 1.day.ago)

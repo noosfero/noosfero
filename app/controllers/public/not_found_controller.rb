@@ -4,6 +4,6 @@ class NotFoundController < ApplicationController
   end
 
   def nothing
-    head :ok, :status => 404
+    head :not_found
   end
 end

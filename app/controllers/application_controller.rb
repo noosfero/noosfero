@@ -220,5 +220,6 @@ class ApplicationController < ActionController::Base
       redirect_to_without_plugins(options, response_status)
     end
   end
-  alias_method_chain :redirect_to, :plugins
+  alias_method :redirect_to_without_plugins, :redirect_to
+  alias_method :redirect_to, :redirect_to_with_plugins
 end
