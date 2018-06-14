@@ -13,7 +13,5 @@ RUN ./script/quick-start -i
 
 RUN bundle install
 
-COPY ./config/docker/dev/entrypoint.sh /
-ENTRYPOINT ["/entrypoint.sh"]
-
+ENTRYPOINT ["/noosfero/config/docker/dev/entrypoint.sh"]
 CMD ["bundle", "exec", "rails", "s", "-b", "0.0.0.0"]
