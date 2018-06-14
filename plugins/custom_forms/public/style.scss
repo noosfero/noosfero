@@ -600,7 +600,10 @@ div.import-submissions, div.import-report {
   }
 }
 
-.CustomFormsPlugin-query-form, #custom-forms-plugin_submission, .custom-forms-plugin_polls-block {
+#content .CustomFormsPlugin-query-form,
+#content #custom-forms-plugin_confirmation,
+#content #custom-forms-plugin_submission,
+#content .custom-forms-plugin_polls-block {
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -609,15 +612,18 @@ div.import-submissions, div.import-report {
     margin-top: 5px;
     overflow-y: auto;
     text-align: justify;
+
     .field-alternative-row {
       display: block;
+
       mark {
         background: transparent;
         padding: 0 0.2em;
         border-radius: 2px;
       }
+
       &.checked mark {
-        background: rgba(255,240,0,0.5);
+        background: rgba(200, 200, 200, 0.5);
       }
     }
   }
@@ -665,16 +671,32 @@ div.import-submissions, div.import-report {
       display: none;
     }
 
-    input.button {
+    .button {
+      height: 30px;
+      line-height: 30px;
+      max-height: none;
+    }
+
+    input.button.submit {
+      height: 32px;
+      line-height: 32px;
+      padding: 0;
       background-image: none;
       width: 100%;
-      padding: 2px;
-      height: auto;
-      max-height: none;
     }
 
     div.notify {
       display: none;
     }
   }
+}
+
+#content .custom-forms-plugin_polls-block {
+  a.button.icon-back {
+    display: none;
+  }
+}
+
+#custom-forms-plugin_submission .form-submission {
+  margin-bottom: 20px;
 }
