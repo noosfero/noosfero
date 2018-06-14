@@ -57,7 +57,8 @@ class AbuseComplaint < Task
   end
 
   def api_content(params = {})
-    { abuse_reports: self.abuse_reports }
+    {:abuse_reports => Api::Entities::AbuseReport.represent(self.abuse_reports)}.as_json
+
   end
 
   def task_activated_message
