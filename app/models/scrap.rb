@@ -15,7 +15,7 @@ class Scrap < ApplicationRecord
   belongs_to :receiver, class_name: 'Profile', foreign_key: 'receiver_id'
   belongs_to :sender, class_name: 'Person', foreign_key: 'sender_id'
   has_many :replies, class_name: 'Scrap', foreign_key: 'scrap_id', dependent: :destroy
-  belongs_to :root, class_name: 'Scrap', foreign_key: 'scrap_id'
+  belongs_to :root, class_name: 'Scrap', foreign_key: 'scrap_id', optional:true
 
   has_many :profile_activities, -> {
     where profile_activities: {activity_type: 'Scrap'}

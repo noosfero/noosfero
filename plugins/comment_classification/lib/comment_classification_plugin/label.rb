@@ -1,6 +1,6 @@
 class CommentClassificationPlugin::Label < ApplicationRecord
 
-  belongs_to :owner, polymorphic: true
+  belongs_to :owner, polymorphic: true, optional: true
 
   validates_presence_of :name
 

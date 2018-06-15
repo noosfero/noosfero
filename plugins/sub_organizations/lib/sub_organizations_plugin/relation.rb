@@ -1,6 +1,6 @@
 class SubOrganizationsPlugin::Relation < ApplicationRecord
 
-  belongs_to :parent, polymorphic: true
+  belongs_to :parent, polymorphic: true, optional: true
   belongs_to :child, polymorphic: true
 
   validates_presence_of :parent, :child

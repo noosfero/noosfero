@@ -7,7 +7,7 @@ class Domain < ApplicationRecord
   # relationships
   ###############
 
-  belongs_to :owner, polymorphic: true
+  belongs_to :owner, polymorphic: true, optional: true
 
   # validations
   #############

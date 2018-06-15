@@ -1,8 +1,8 @@
 class EventInvitation < ApplicationRecord
 
   belongs_to :event
-  belongs_to :guest, :class_name => 'Person'
-  belongs_to :requestor, :class_name => 'Person'
+  belongs_to :guest, class_name: 'Person'
+  belongs_to :requestor, class_name: 'Person', optional: true
 
   validates_presence_of :event, :guest, :decision
   validates_uniqueness_of :guest, :scope => [:event]

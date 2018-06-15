@@ -7,7 +7,7 @@ class License < ApplicationRecord
     :url => {:label => _('URL'), :weight => 5},
   }
 
-  belongs_to :environment
+  belongs_to :environment, optional: true
   has_many :content, class_name: 'Article', foreign_key:'license_id'
 
   validates_presence_of :name, :environment

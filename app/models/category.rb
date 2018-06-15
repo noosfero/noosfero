@@ -12,7 +12,7 @@ class Category < ApplicationRecord
   validates_exclusion_of :slug, :in => [ 'index' ], :message => N_('{fn} cannot be like that.').fix_i18n
   validates_presence_of :name, :environment_id
   validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('{fn} is already being used by another category.').fix_i18n
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   # Finds all top level categories for a given environment.
   scope :top_level_for, -> environment {

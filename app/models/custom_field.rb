@@ -4,7 +4,7 @@ class CustomField < ApplicationRecord
   serialize :customized_type
   serialize :extras
   has_many :custom_field_values, dependent:  :delete_all
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   validates_presence_of :name, :format, :customized_type, :environment
   validate :related_to_other?

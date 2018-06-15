@@ -359,7 +359,7 @@ class Profile < ApplicationRecord
 
   has_many :domains, :as => :owner
   belongs_to :preferred_domain, class_name: 'Domain', foreign_key: 'preferred_domain_id', optional: true
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   has_many :articles, dependent: :destroy
   belongs_to :home_page, class_name: Article.name, foreign_key: 'home_page_id', optional: true

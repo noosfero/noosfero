@@ -7,7 +7,7 @@ class Image < ApplicationRecord
 
   attr_accessor :remove_image
 
-  belongs_to :owner, polymorphic: true
+  belongs_to :owner, polymorphic: true, optional: true
 
   def self.max_size
     Image.attachment_options[:max_size]

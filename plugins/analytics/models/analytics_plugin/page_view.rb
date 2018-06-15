@@ -16,7 +16,7 @@ class AnalyticsPlugin::PageView < ApplicationRecord
 
   belongs_to :referer_page_view, class_name: 'AnalyticsPlugin::PageView', validate: false
 
-  belongs_to :user, class_name: 'Person', validate: false
+  belongs_to :user, class_name: 'Person', validate: false, optional: true
   belongs_to :session, primary_key: :session_id, foreign_key: :session_id, class_name: 'Session', validate: false
 
   validates :request, presence: true, on: :create

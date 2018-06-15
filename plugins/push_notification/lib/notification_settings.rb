@@ -13,7 +13,7 @@ class PushNotificationPlugin::NotificationSettings < ApplicationRecord
     "suggest_article_result" => 0x200
   }
 
-  belongs_to :user
+  belongs_to :user, optional: true
   attr_accessible :user, :notifications
 
   def self.default_hash_flags

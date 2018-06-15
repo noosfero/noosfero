@@ -12,7 +12,7 @@ end
 
 class Secret < ActiveRecord::Base
 	encrypt :name,:email, :key=>:user, :base64=>true
-	belongs_to :user
+	belongs_to :user, optional: true
 	has_many :children
 end
 
@@ -84,7 +84,7 @@ class Cap < ActiveRecord::Base
 end
 
 class Group < ActiveRecord::Base
-	belongs_to :user
+	belongs_to :user, optional: true
 	has_many :group_secrets
 
 	encrypt :name,:group_key, :key=>:user	, :base64=>true

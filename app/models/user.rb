@@ -116,7 +116,7 @@ class User < ApplicationRecord
 
   # set autosave to false as we do manually when needed and Person syncs with us
   has_one :person, dependent: :destroy, autosave: false
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   has_many :sessions, dependent: :destroy
   # holds the current session, see lib/authenticated_system.rb

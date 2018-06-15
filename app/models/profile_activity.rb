@@ -2,19 +2,19 @@ class ProfileActivity < ApplicationRecord
 
   self.record_timestamps = false
 
-  attr_accessible :profile_id,
-    :profile, :activity
+  attr_accessible :profile_id, :profile, :activity
 
   belongs_to :profile
   belongs_to :activity, polymorphic: true
 
   # non polymorphic versions
   belongs_to :scrap, -> {
-    where profile_activities: {activity_type: 'Scrap'}
-  }, foreign_key: :activity_id, class_name: 'Scrap'
+    joins(:profile_activities).where profile_activities: { activity_type: 'Scrap' }
+  }, foreign_key: :activity_id, class_name: 'Scrap', optional: true
+
   belongs_to :action_tracker, -> {
-    where profile_activities: {activity_type: 'ActionTracker::Record'}
-  }, foreign_key: :activity_id, class_name: 'ActionTracker::Record'
+    joins(:profile_activities).where profile_activities: { activity_type: 'ActionTracker::Record' }
+  }, foreign_key: :activity_id, class_name: 'ActionTracker::Record', optional: true
 
   before_validation :copy_timestamps
 
