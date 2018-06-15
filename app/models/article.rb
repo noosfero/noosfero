@@ -243,12 +243,12 @@ class Article < ApplicationRecord
     @pending_categorizations ||= []
   end
 
-  def add_category(c, reload=false)
+  def add_category(c)
     if new_record?
       pending_categorizations << c
     else
       ArticleCategorization.add_category_to_article(c, self)
-      self.categories(reload)
+      self.categories
     end
   end
 

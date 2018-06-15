@@ -11,7 +11,7 @@ module SampleData
 
   def save(obj, &block)
     begin
-     if obj.save
+     if obj.save!
        print '.'
        instance_eval &block if block
        return obj

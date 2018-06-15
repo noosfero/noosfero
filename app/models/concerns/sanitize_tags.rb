@@ -10,7 +10,7 @@ module SanitizeTags
   private
 
   def sanitize_tag_list
-    self.tag_list.map!{|i| strip_tag_name (Rails::HTML::FullSanitizer.new).sanitize(i) }
+    self.tag_list.map!{|i| strip_tag_name (Rails::Html::FullSanitizer.new).sanitize(i) }
   end
 
   def strip_tag_name(tag_name)

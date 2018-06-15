@@ -470,14 +470,14 @@ class Profile < ApplicationRecord
     @pending_categorizations ||= []
   end
 
-  def add_category(c, reload=false)
+  def add_category(c)
     if new_record?
       pending_categorizations << c
     else
       ProfileCategorization.add_category_to_profile(c, self)
-      self.categories(true)
+      self.categories
     end
-    self.categories(reload)
+    self.categories
   end
 
   def category_ids=(ids)
