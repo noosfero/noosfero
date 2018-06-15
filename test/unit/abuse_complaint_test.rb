@@ -61,7 +61,7 @@ class AbuseComplaintTest < ActiveSupport::TestCase
     abuse_complaint = AbuseComplaint.create(reported: fast_create(Community))
     abuse1 = create(AbuseReport, reporter: fast_create(Person), abuse_complaint: abuse_complaint, reason: 'some reason')
     abuse2 = create(AbuseReport, reporter: fast_create(Person), abuse_complaint: abuse_complaint, reason: 'some reason')
-    assert_equivalent abuse_complaint.api_content[:abuse_reports], [abuse1, abuse2]
+    assert_equivalent abuse_complaint.api_content['abuse_reports'].map{|r| r[:id]  }, [abuse1.id, abuse2.id]
   end
 
 end
