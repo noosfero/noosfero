@@ -165,12 +165,9 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   def show_results_for(person)
     result_access.blank? ||
-    (result_access == 'public') ||
-    ((result_access == 'public_after_ends') && ending.present? &&
-                                              (ending < DateTime.now)) ||
-    ((result_access == 'private') && (person == profile ||
-                                      person.in?(profile.admins) ||
-                                      person.in?(profile.environment.admins)))
+    profile.display_to?(person) ||
+    (result_access == 'public_after_ends' && ending < Time. now) ||
+    result_access == 'public'
   end
 
   private
