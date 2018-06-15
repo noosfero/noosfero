@@ -1,5 +1,4 @@
 source "https://rubygems.org"
-ruby "2.4.4"
 
 git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
@@ -26,7 +25,7 @@ gem 'rails_autolink'
 gem 'ruby-feedparser'
 gem 'daemons'
 gem 'nokogiri',                   (if RUBY_VERSION >= '2.4.0' then '~> 1.8.2' else '~> 1.6.0' end)
-gem 'mini_portile2',		          '~> 2.3.0'
+gem 'mini_portile2'
 gem 'will_paginate'
 gem 'pothoven-attachment_fu'
 gem 'delayed_job'

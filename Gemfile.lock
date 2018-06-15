@@ -169,7 +169,7 @@ GEM
       backports (>= 3.8.0)
       cucumber-tag_expressions (~> 1.1.0)
       gherkin (>= 5.0.0)
-    cucumber-expressions (6.0.0)
+    cucumber-expressions (6.0.1)
     cucumber-rails (1.6.0)
       capybara (>= 1.1.2, < 4)
       cucumber (>= 3.0.2, < 4)
@@ -485,7 +485,7 @@ DEPENDENCIES
   launchy
   liquid
   locale
-  mini_portile2 (~> 2.3.0)
+  mini_portile2
   minitest
   minitest-reporters
   mocha (~> 1.1.0)
@@ -531,9 +531,6 @@ DEPENDENCIES
   whenever
   will_paginate
   xss_terminate (= 0.0.0)!
-
-RUBY VERSION
-   ruby 2.4.4p296
 
 BUNDLED WITH
    1.16.2
