@@ -10,10 +10,9 @@ notifications:
 # See https://docs.travis-ci.com/user/ci-environment/#Virtualization-environments
 sudo: required
 
-##
-# Stick with precise as trusty is at least 50% slower.
-#
-#dist: trusty
+os: debian
+
+dist: jessie
 
 jdk:
   # openjdk8 isn't available on precise
@@ -47,7 +46,6 @@ before_script:
   #- bundle exec rake makemo &>/dev/null
   # database
   - psql -c 'create database myapp_test;' -U postgres
-  - touch ./script/install-dependencies/ubuntu-trusty.sh
   - ./script/quick-start
 
 env:
@@ -56,6 +54,7 @@ env:
     - ES_DOWNLOAD_URL=https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-${ES_VERSION}.tar.gz
     - LANG=en
   matrix:
+    - os=debian DIST=jessie
     - TASK=spec SPEC=spec/models
     - TASK=test:api
     - TASK=test:units
