@@ -42,8 +42,6 @@ class ClassifyMembersPlugin < Noosfero::Plugin
           });"
           end.join("\n")
         )
-      else
-        '<!-- ClassCommunityPlugin not in a profile -->'
       end
     end
   end
