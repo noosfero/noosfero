@@ -5,9 +5,6 @@ before_script:
   - ./script/set-apt-proxy
   - ./script/silent-quick-start
   - bundle exec rake db:migrate RAILS_ENV=test
-  - curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-  - apt install -y nodejs
-  - npm install cypress
 
 stages:
   #FIXME Selenium tests are randomly failing and this avoid other tests to run.
