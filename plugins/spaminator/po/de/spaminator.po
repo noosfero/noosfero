@@ -18,15 +18,27 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
+#, fuzzy
+msgid ""
+"People who signed up more than one month ago, have no network / number of "
+"people verified"
+msgstr ""
+"Leute, die vor mehr als einem Monat die Anmeldung durchgeführt und noch kein "
+"Netzwerk und keine nachprüfbaren Kommentare haben"
+
+#: ../lib/spaminator_plugin.rb:8
 msgid "Search and destroy spams and spammers."
 msgstr "Suchen und zerstören Sie Spam und Spammer."
 
+#: ../lib/spaminator_plugin/mailer.rb:11
 msgid "[%s] You must reactivate your account."
 msgstr "[%s] Sie müssen Ihren Zugang erneut aktivieren."
 
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:7
 msgid "Hi %s!"
 msgstr "Hallo %s!"
 
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:10
 msgid ""
 "Due to the recent increase in the number of spams on %s, we decided to "
 "deactivate all inactive users on the network. It just happens that you are "
@@ -42,6 +54,7 @@ msgstr ""
 "Link klicken, um dein Passwort wiederherzustellen (da es in einen großen "
 "Haufen von zufälligen Zeichen geändert wurde):"
 
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:16
 msgid ""
 "We are sorry that this procedure might bother you a lot, but it's necessary "
 "for the healthy of our network."
@@ -49,18 +62,23 @@ msgstr ""
 "Es tut uns leid, wenn Sie dieser Ablauf beeinträchtigt, aber er ist für den "
 "Gesundheitszustand des Netzwerks notwendig."
 
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:17
 msgid "We hope to see you back soon!"
 msgstr "Wir hoffen, Sie bald wieder zu sehen!"
 
+#: ../views/spaminator_plugin/mailer/inactive_person_notification.html.erb:22
 msgid "Best Regards,"
 msgstr "Mit freundlichen Grüßen,"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:1
 msgid "Spaminator settings"
 msgstr "Spaminator-Einstellungen"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:6
 msgid "Period (days) for scanning spammers"
 msgstr "Intervall in Tagen, um Spammer zu suchen"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:10
 msgid ""
 "Spaminator was never deployed. While deployed, Spaminator will periodically "
 "scan your social network for spams. Do it now!"
@@ -69,99 +87,123 @@ msgstr ""
 "Spaminator regelmäßig das soziale Netzwerk nach Spam durchsuchen. "
 "Installieren Sie es jetzt!"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:12
 msgid "Spaminator is deployed."
 msgstr "Spaminator ist installiert."
 
+#: ../views/spaminator_plugin_admin/index.html.erb:14
 msgid "Spaminator is withhold."
 msgstr "Spaminator wird zurückgehalten."
 
+#: ../views/spaminator_plugin_admin/index.html.erb:19
 msgid "Spaminator is scanning..."
 msgstr "Spaminator durchsucht..."
 
+#: ../views/spaminator_plugin_admin/index.html.erb:21
 msgid "Next scan on %s days."
 msgstr "Nächste Durchsuchung in %s Tagen."
 
-msgid "Scanning..."
-msgstr "Durchsuche..."
-
+#: ../views/spaminator_plugin_admin/index.html.erb:25
 msgid "Scan now!"
 msgstr "Jetzt durchsuchen!"
 
-msgid "Deploy"
-msgstr "Installieren"
+#: ../views/spaminator_plugin_admin/index.html.erb:25
+msgid "Scanning..."
+msgstr "Durchsuche..."
 
+#: ../views/spaminator_plugin_admin/index.html.erb:29
 msgid "Schedule next scan for the period defined"
 msgstr "Nächste Durchsuchung für die angegebene Periode ansetzen"
 
-msgid "Withhold"
-msgstr "Zurückhalten"
+#: ../views/spaminator_plugin_admin/index.html.erb:29
+msgid "Deploy"
+msgstr "Installieren"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:30
 msgid "Cancel next scheduled scans"
 msgstr "Nächste Durchsuchungen stornieren"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:30
+msgid "Withhold"
+msgstr "Zurückhalten"
+
+#: ../views/spaminator_plugin_admin/index.html.erb:40
+#: ../views/spaminator_plugin_admin/reports.html.erb:5
 msgid "Date"
 msgstr "Datum"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:41
 msgid "Spams"
 msgstr "Spam (ungewünschte Nachrichten)"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:42
+#: ../views/spaminator_plugin_admin/reports.html.erb:7
 msgid "Spammers"
 msgstr "Spammer"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:47
 msgid "Spam comments found / number of comments verified"
 msgstr "Spam-Kommentare gefunden / Zahl der nachprüfbaren Kommentare"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:48
 msgid "Spammers found / number of users verified"
 msgstr "Spammer gefunden / Zahl der nachprüfbaren Nutzer"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:52
 msgid "SEE FULL REPORTS (%s)"
 msgstr "VOLLSTÄNDIGE BERICHTE ANSEHEN (%s)"
 
+#: ../views/spaminator_plugin_admin/index.html.erb:52
 msgid "No Report"
 msgstr "Kein Bericht"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:1
 msgid "Spaminator reports"
 msgstr "Spaminator-Berichte"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:6
 msgid "Spams on comments"
 msgstr "Spam auf Kommentaren"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:10
 msgid "On content"
 msgstr "Auf dem Inhalt"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:11
 msgid "From spammers"
 msgstr "Von Spammern"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:12
+#: ../views/spaminator_plugin_admin/reports.html.erb:15
 msgid "Total"
 msgstr "Gesamt"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:13
 msgid "With spam comments"
 msgstr "Mit Spam-Kommentaren"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:14
 msgid "With no network"
 msgstr "Ohne Netzwerk"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:20
 msgid "Content of comments checked as spam / number of comments verified"
 msgstr ""
 "Inhalt der Kommentare auf Spam überprüft / Zahl der nachprüfbaren Kommentare"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:21
 msgid "Comments from spammers / number of comments verified"
 msgstr "Kommentare von Spammern / Zahl der nachprüfbaren Kommentare"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:22
 msgid "Spam comments / total number of comments"
 msgstr "Spam-Kommentare / Gesamtzahl Kommentare"
 
+#: ../views/spaminator_plugin_admin/reports.html.erb:23
 msgid "People with more than 2 spam comments / number of people verified"
 msgstr ""
 "Leute mit mehr als zwei Spam-Kommentaren / Zahl der nachprüfbaren Leute"
 
-#, fuzzy
-msgid ""
-"People who signed up more than one month ago, have no network / number of "
-"people verified"
-msgstr ""
-"Leute, die vor mehr als einem Monat die Anmeldung durchgeführt und noch kein "
-"Netzwerk und keine nachprüfbaren Kommentare haben"
-
+#: ../views/spaminator_plugin_admin/reports.html.erb:25
 msgid "Spammers / total number of people"
 msgstr "Spammers / Gesamtzahl an Leuten"

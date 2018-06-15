@@ -4,4 +4,4 @@ options:
 syncs:
   noosfero-code-sync:
     src: '.'
-    sync_excludes: ['tmp/cache']
+    sync_excludes: ['.git', 'tmp/cache']

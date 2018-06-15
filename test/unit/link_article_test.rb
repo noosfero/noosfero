@@ -4,26 +4,19 @@ class LinkArticleTest < ActiveSupport::TestCase
 
   def setup
     @profile = create_user('testing').person
+    @article = fast_create(Article, :profile_id => profile.id, 
+                name: 'some name', body: 'some content', abstract: 'some abstract', 
+                author_id: @profile.id, created_by_id: @profile.id )
   end
-  attr_reader :profile
+  attr_reader :profile, :article
 
-  should 'url of article link redirects to referenced article' do
-    article = fast_create(Article, :profile_id => profile.id)
-    link = LinkArticle.new(:reference_article => article)
-    assert_equal article.url, link.url
-  end
+  ORIGINAL_ARTICLE_FIELDS = %w(name body abstract url author created_by)
 
-  should 'name of article link is the same as the name of referenced article' do
-    article = fast_create(Article, :profile_id => profile.id)
-    link = LinkArticle.new(:reference_article => article)
-    assert_equal article.name, link.name
-  end
-
-  should 'author of article link is the same as the name of referenced article' do
-    author = fast_create(Person)
-    article = fast_create(Article, :profile_id => profile.id, :author_id => author.id)
-    link = LinkArticle.new(:reference_article => article)
-    assert_equal article.author, link.author
+  ORIGINAL_ARTICLE_FIELDS.map do |field|
+    should "#{field} of article link redirects to referenced article" do
+      link = LinkArticle.new(:reference_article => article)
+      assert_equal article.send(field), link.send(field)
+    end
   end
 
   should 'destroy link article when reference article is removed' do

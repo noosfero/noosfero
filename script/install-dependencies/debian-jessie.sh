@@ -1,4 +1,4 @@
-binary_packages='deb http://download.noosfero.org/debian/jessie-test ./'
+binary_packages='deb http://download.noosfero.org/debian/jessie-2.x ./'
 source_packages=$(echo "$binary_packages" | sed -e 's/^deb/deb-src/')
 ci_binary_packages='deb http://download.noosfero.org/debian/ci ./'
 ci_source_packages=$(echo "$binary_packages" | sed -e 's/^deb/deb-src/')

@@ -39,7 +39,6 @@ module ButtonsHelper
     spread:            'share-alt',
     text:              'file-alt',
     menu:              'align-justify',
-    text:              'file',
     trash:             'trash-alt',
     welcome_page:      'home'
   }

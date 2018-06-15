@@ -32,6 +32,7 @@ André Guedes <andrebsguedes@gmail.com>
 André de Sousa C.F <andre.filho001@outlook.com>
 André de Sousa C.F. <andre.filho001@outlook.com>
 Anna <annalarissa.martins@hotmail.com>
+Anna Larissa Medeiros de Melo Martins <annalarissa.martins@hotmail.com>
 Antonio Terceiro <terceiro@colivre.coop.br>
 Arthur Assis <arthur120496@gmail.com>
 Arthur Del Esposte <arthurmde@gmail.com>
@@ -126,6 +127,7 @@ Leandro Alves <leandrosustenido@gmail.com>
 Leandro Nunes <leandronunes@gmail.com>
 Leandro Nunes dos Santos <leandro.santos@serpro.gov.br>
 Leandro Veloso <leandrovelosorodrigues@gmail.com>
+Leonardo Ribeiro Soares - SUPDE/DESDR/DE507 <leonardo.ribeiro@serpro.gov.br>
 Leonardo Soares <leors75@gmail.com>
 LinguÁgil 2010 <linguagil.bahia@gmail.com>
 Luan Guimarães <guimaraesluan@me.com>
