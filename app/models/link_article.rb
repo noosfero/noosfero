@@ -11,5 +11,6 @@ class LinkArticle < Article
   delegate :abstract, :to => :reference_article
   delegate :url, :to => :reference_article
   delegate :author, :to => :reference_article
+  delegate :created_by, :to => :reference_article
 
 end
