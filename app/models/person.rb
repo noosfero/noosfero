@@ -190,7 +190,7 @@ class Person < Profile
   end
 
   def can_control_activity?(activity)
-    self.tracked_notifications.exists?(activity)
+    self.tracked_notifications.exists?(activity.id)
   end
 
   def can_post_content?(profile, parent=nil)
