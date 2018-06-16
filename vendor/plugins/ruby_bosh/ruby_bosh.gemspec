@@ -10,7 +10,6 @@ Gem::Specification.new do |s|
   s.description = %q{An XMPP BOSH session pre-initializer for Ruby web applications}
   s.email = %q{pradeep@intridea.com}
   s.files = ["VERSION.yml", "lib/ruby_bosh.rb", "spec/ruby_bosh_spec.rb", "spec/spec_helper.rb"]
-  s.has_rdoc = true
   s.homepage = %q{http://github.com/skyfallsin/ruby_bosh}
   s.rdoc_options = ["--inline-source", "--charset=UTF-8"]
   s.require_paths = ["lib"]
