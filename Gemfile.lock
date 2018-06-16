@@ -491,7 +491,7 @@ DEPENDENCIES
   mocha (~> 1.1.0)
   monkey_patches (= 0.0.0)!
   netrc
-  nokogiri (~> 1.8.2)
+  nokogiri
   pg (~> 1.0.0)
   pothoven-attachment_fu
   protected_attributes_continued

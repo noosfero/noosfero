@@ -1,8 +1,11 @@
-version: "3"
+version: "3.5"
 
 services:
   postgres:
+    container_name: postgres
     image: postgres:9.4
+    networks:
+      - noosfero
     environment:
       POSTGRES_USER: noosfero
       POSTGRES_PASSWORD: noosfero
@@ -11,6 +14,7 @@ services:
       - pg-data:/var/lib/postgresql/data
 
   noosfero:
+    container_name: noosfero
     build:
       context: .
       dockerfile: ./config/docker/dev/Dockerfile
@@ -20,6 +24,8 @@ services:
       - postgres
     volumes:
       - .:/noosfero
+    networks:
+      - noosfero
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_USER: noosfero
@@ -28,3 +34,7 @@ services:
 
 volumes:
   pg-data: {}
+
+networks:
+  noosfero:
+    name: noosfero-network
