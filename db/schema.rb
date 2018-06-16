@@ -405,13 +405,6 @@ ActiveRecord::Schema.define(version: 20180416172522) do
     t.integer "decision"
   end
 
-  create_table "event_invitations", force: :cascade do |t|
-    t.integer "event_id"
-    t.integer "guest_id"
-    t.integer "requestor_id"
-    t.integer "decision"
-  end
-
   create_table "external_feeds", force: :cascade do |t|
     t.string "feed_title"
     t.datetime "fetched_at"
@@ -614,65 +607,64 @@ ActiveRecord::Schema.define(version: 20180416172522) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string   "name"
-    t.string   "type"
-    t.string   "identifier"
-    t.integer  "environment_id"
-    t.boolean  "active",                             default: true
-    t.string   "address"
-    t.string   "contact_phone"
-    t.integer  "home_page_id"
-    t.integer  "user_id"
-    t.integer  "region_id"
-    t.text     "data"
+    t.string "name"
+    t.string "type"
+    t.string "identifier"
+    t.integer "environment_id"
+    t.boolean "active", default: true
+    t.string "address"
+    t.string "contact_phone"
+    t.integer "home_page_id"
+    t.integer "user_id"
+    t.integer "region_id"
+    t.text "data"
     t.datetime "created_at"
-    t.float    "lat"
-    t.float    "lng"
-    t.integer  "geocode_precision"
-    t.boolean  "enabled",                            default: true
-    t.string   "nickname",                limit: 16
-    t.text     "custom_header"
-    t.text     "custom_footer"
-    t.string   "theme"
-    t.boolean  "public_profile",                     default: true
-    t.date     "birth_date"
-    t.integer  "preferred_domain_id"
+    t.float "lat"
+    t.float "lng"
+    t.integer "geocode_precision"
+    t.boolean "enabled", default: true
+    t.string "nickname", limit: 16
+    t.text "custom_header"
+    t.text "custom_footer"
+    t.string "theme"
+    t.boolean "public_profile", default: true
+    t.date "birth_date"
+    t.integer "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                            default: true
-    t.integer  "image_id"
-    t.boolean  "validated",                          default: true
-    t.string   "cnpj"
-    t.string   "national_region_code"
-    t.boolean  "is_template",                        default: false
-    t.integer  "template_id"
-    t.string   "redirection_after_login"
-    t.integer  "friends_count",                      default: 0,          null: false
-    t.integer  "members_count",                      default: 0,          null: false
-    t.integer  "activities_count",                   default: 0,          null: false
-    t.string   "personal_website"
-    t.string   "jabber_id"
-    t.integer  "welcome_page_id"
-    t.boolean  "allow_members_to_invite",            default: true
-    t.boolean  "invite_friends_only",                default: false
-    t.boolean  "secret",                             default: false
-    t.string   "editor",                             default: "tiny_mce", null: false
-    t.integer  "top_image_id"
-    t.jsonb    "metadata",                           default: {}
-    t.string   "upload_quota"
-    t.float    "disk_usage"
-    t.string   "cropped_image"
+    t.boolean "visible", default: true
+    t.integer "image_id"
+    t.boolean "validated", default: true
+    t.string "cnpj"
+    t.string "national_region_code"
+    t.boolean "is_template", default: false
+    t.integer "template_id"
+    t.string "redirection_after_login"
+    t.integer "friends_count", default: 0, null: false
+    t.integer "members_count", default: 0, null: false
+    t.integer "activities_count", default: 0, null: false
+    t.string "personal_website"
+    t.string "jabber_id"
+    t.integer "welcome_page_id"
+    t.boolean "allow_members_to_invite", default: true
+    t.boolean "invite_friends_only", default: false
+    t.boolean "secret", default: false
+    t.string "editor", default: "tiny_mce", null: false
+    t.integer "top_image_id"
+    t.jsonb "metadata", default: {}
+    t.string "upload_quota"
+    t.float "disk_usage"
+    t.string "cropped_image"
+    t.index ["activities_count"], name: "index_profiles_on_activities_count"
+    t.index ["created_at"], name: "index_profiles_on_created_at"
+    t.index ["environment_id"], name: "index_profiles_on_environment_id"
+    t.index ["friends_count"], name: "index_profiles_on_friends_count"
+    t.index ["identifier"], name: "index_profiles_on_identifier"
+    t.index ["members_count"], name: "index_profiles_on_members_count"
+    t.index ["metadata"], name: "index_profiles_on_metadata", using: :gin
+    t.index ["region_id"], name: "index_profiles_on_region_id"
+    t.index ["user_id", "type"], name: "index_profiles_on_user_id_and_type"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
-
-  add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
-  add_index "profiles", ["created_at"], name: "index_profiles_on_created_at", using: :btree
-  add_index "profiles", ["environment_id"], name: "index_profiles_on_environment_id", using: :btree
-  add_index "profiles", ["friends_count"], name: "index_profiles_on_friends_count", using: :btree
-  add_index "profiles", ["identifier"], name: "index_profiles_on_identifier", using: :btree
-  add_index "profiles", ["members_count"], name: "index_profiles_on_members_count", using: :btree
-  add_index "profiles", ["metadata"], name: "index_profiles_on_metadata", using: :gin
-  add_index "profiles", ["region_id"], name: "index_profiles_on_region_id", using: :btree
-  add_index "profiles", ["user_id", "type"], name: "index_profiles_on_user_id_and_type", using: :btree
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "profiles_circles", force: :cascade do |t|
     t.integer "profile_id"
