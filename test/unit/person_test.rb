@@ -2102,16 +2102,4 @@ class PersonTest < ActiveSupport::TestCase
     person = create_user('mytestuser').person
     assert_includes profile.available_blocks(person), CommunitiesBlock
   end
-
-  should 'return field as exportable if it is enabled in the environment' do
-    env = Environment.default
-    env.stubs(:active_person_fields).returns(%w[location])
-    assert_includes Person.exportable_fields(env)[:base], 'location'
-  end
-
-  should 'not return field as exportable if it is disabled in the environment' do
-    env = Environment.default
-    env.stubs(:active_person_fields).returns([])
-    assert_not_includes Person.exportable_fields(env)[:base], 'location'
-  end
 end
