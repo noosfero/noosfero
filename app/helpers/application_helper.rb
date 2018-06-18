@@ -1341,4 +1341,24 @@ module ApplicationHelper
                   class: 'recaptcha-wrapper')
     end
   end
+
+  def silence_stream(stream)
+    old_stream = stream.dup
+    stream.reopen(RbConfig::CONFIG['host_os'] =~ /mswin|mingw/ ? 'NUL:' : '/dev/null')
+    stream.sync = true
+    yield
+  ensure
+    stream.reopen(old_stream)
+  end
+
+  def xml_http_request(request_method, action, parameters = nil, session = nil, flash = nil)
+    @request.env['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
+    @request.env['HTTP_ACCEPT'] ||=  [Mime::JS, Mime::HTML, Mime::XML, 'text/xml', Mime::ALL].join(', ')
+    __send__(request_method, action, parameters, session, flash).tap do
+      @request.env.delete 'HTTP_X_REQUESTED_WITH'
+      @request.env.delete 'HTTP_ACCEPT'
+    end
+  end
+  alias xhr :xml_http_request
+
 end
