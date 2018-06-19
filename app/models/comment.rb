@@ -12,7 +12,7 @@ class Comment < ApplicationRecord
 
   validates_presence_of :body
 
-  belongs_to :source, counter_cache: true, polymorphic: true
+  belongs_to :source, counter_cache: true, polymorphic: true, optional: true
   alias :article :source
   alias :article= :source=
   attr_accessor :follow_article

@@ -1,7 +1,7 @@
 class CustomFieldValue < ApplicationRecord
 
-  belongs_to :custom_field
-  belongs_to :customized, polymorphic: true
+  belongs_to :custom_field, optional: true
+  belongs_to :customized, polymorphic: true, optional: true
   attr_accessible :value, :public, :customized, :custom_field, :customized_type
   validate :can_save?
 

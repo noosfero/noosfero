@@ -1,8 +1,8 @@
 class ArticleCategorization < ApplicationRecord
   self.table_name = :articles_categories
 
-  belongs_to :article
-  belongs_to :category
+  belongs_to :article, optional: true
+  belongs_to :category, optional: true
 
   extend Categorization
 

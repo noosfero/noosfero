@@ -4,7 +4,7 @@ class FavoriteEnterprisePerson < ApplicationRecord
 
   track_actions :favorite_enterprise, :after_create, keep_params: [:enterprise_name, :enterprise_url], if: proc{ |f| f.notifiable? }
 
-  belongs_to :enterprise
+  belongs_to :enterprise, optional: true
   belongs_to :person, optional: true
 
   after_create do |favorite|

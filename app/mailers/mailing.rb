@@ -8,7 +8,7 @@ class Mailing < ApplicationRecord
   attr_accessible :subject, :body, :data
 
   validates_presence_of :source_id, :subject, :body
-  belongs_to :source, foreign_key: :source_id, polymorphic: true
+  belongs_to :source, foreign_key: :source_id, polymorphic: true, optional: true
   belongs_to :person, optional: true
 
   has_many :mailing_sents

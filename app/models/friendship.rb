@@ -5,7 +5,7 @@ class Friendship < ApplicationRecord
   extend CacheCounter
 
   belongs_to :person, foreign_key: :person_id, optional: true
-  belongs_to :friend, class_name: 'Person', foreign_key: 'friend_id'
+  belongs_to :friend, class_name: 'Person', foreign_key: 'friend_id', optional: true
 
   after_create do |friendship|
     Friendship.update_cache_counter(:friends_count, friendship.person, 1)
