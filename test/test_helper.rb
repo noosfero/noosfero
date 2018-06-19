@@ -63,6 +63,7 @@ class ActiveSupport::TestCase
   include Noosfero::Factory
   include AuthenticatedTestHelper
   include PerformanceHelper
+  include ApplicationHelper
 
   fixtures :environments, :roles
 
@@ -116,7 +117,6 @@ class ActiveSupport::TestCase
     assert !text.index('<'), "Text '#{text}' expected to be sanitized"
   end
 
-  # TODO: HTML::Document is deprecated, port to Nokogiri::HTML
   def assert_tag_in_string(text, options)
     doc = Nokogiri::HTML(text)
     tag = doc.find(options)
