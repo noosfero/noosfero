@@ -388,6 +388,8 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.add_member(p3)
     assert p3.is_member_of?(e)
 
+    refute p2.is_member_of?(e)
+
     assert_equal true, e.send(:followed_by?,p1)
     assert_equal true, e.send(:followed_by?,p3)
     assert_equal false, e.send(:followed_by?,p2)
