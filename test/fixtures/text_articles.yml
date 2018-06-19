@@ -3,9 +3,10 @@ article_1:
   id: 1
   name: 'blog'
   body: 'This is an blog'
+  slug: 'blog'
   type: 'Blog'
   path: 'blog'
-  profile_id: 1
+  profile_id: 7
 
 article_2:
   id: 2
@@ -14,5 +15,5 @@ article_2:
   path: 'blog/sample-article'
   body: 'This is an article'
   type: 'TextArticle'
-  profile_id: 1
+  profile_id: 7
   parent_id: 1
