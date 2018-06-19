@@ -49,7 +49,7 @@ class MapsControllerTest < ActionController::TestCase
   should 'go back when update address fail' do
     Profile.any_instance.stubs(:save!).returns(false)
     post :edit_location, :profile => profile.identifier, :profile_data => { 'address' => 'new address' }
-    assert_equal nil, profile.address
+    assert_nil profile.address
     assert_template 'edit_location'
   end
 

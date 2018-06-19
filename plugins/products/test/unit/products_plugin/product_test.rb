@@ -40,7 +40,7 @@ class ProductsPlugin::ProductTest < ActiveSupport::TestCase
     product.name = 'Software'
     product.save
     assert_equal 'Software', product.name
-    assert_equal nil, product[:name]
+    assert_nil product[:name]
   end
 
   should 'list recent products' do

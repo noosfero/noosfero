@@ -116,7 +116,7 @@ class FfmpegTest < ActiveSupport::TestCase
     assert_equal 30, ffmpeg.timestr_to_secs('00:00:30')
     assert_equal 630, ffmpeg.timestr_to_secs('00:10:30')
     assert_equal 7830, ffmpeg.timestr_to_secs('02:10:30')
-    assert_equal nil, ffmpeg.timestr_to_secs('invalid time string')
+    assert_nil ffmpeg.timestr_to_secs('invalid time string')
   end
 
   should 'parse video stream info' do

@@ -100,7 +100,7 @@ class EventInvitationTest < ActiveSupport::TestCase
     event = fast_create(Event)
     guest = fast_create(Person)
 
-    assert_equal nil, EventInvitation.invitation_to(event, guest)
+    assert_nil EventInvitation.invitation_to(event, guest)
   end
 
   should 'return confirmed invitations to event' do

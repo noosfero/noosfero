@@ -134,7 +134,7 @@ class MembersBlockTest < ActionView::TestCase
     env = fast_create(Environment)
     env.boxes << Box.new
     block = MembersBlock.new
-    assert_equal nil, block.visible_role
+    assert_nil block.visible_role
     env.boxes.first.blocks << block
     block.visible_role = 'profile_member'
     block.save!

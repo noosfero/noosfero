@@ -21,14 +21,14 @@ class PiwikPluginTest < ActiveSupport::TestCase
     @environment.piwik_domain = nil
     @environment.piwik_site_id = 5
     @plugin.stubs(:expanded_template).returns('content')
-    assert_equal nil, @plugin.body_ending
+    assert_nil @plugin.body_ending
   end
 
   should 'not add any content at the body ending if site_id is blank' do
     @environment.piwik_domain = 'piwik.domain.example.com'
     @environment.piwik_site_id = nil
     @plugin.stubs(:expanded_template).returns('content')
-    assert_equal nil, @plugin.body_ending
+    assert_nil @plugin.body_ending
   end
 
   should 'extends Environment with attr piwik_domain' do

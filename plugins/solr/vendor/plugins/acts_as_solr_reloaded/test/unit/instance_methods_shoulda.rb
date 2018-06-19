@@ -199,7 +199,7 @@ class InstanceMethodsTest < Test::Unit::TestCase
           @instance.stubs(:local).returns(nil)
           @instance.configuration[:spatial] = true
           fields = @instance.to_solr_doc.fields
-          assert_equal nil, fields.find { |field| field.name.eql? 'lng_f' }
+          assert_nil fields.find { |field| field.name.eql? 'lng_f' }
         end
       end
       
