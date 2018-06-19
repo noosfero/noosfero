@@ -1,6 +1,6 @@
 class ProfileCategorization < ApplicationRecord
   self.table_name = :categories_profiles
-  belongs_to :profile
+  belongs_to :profile, optional: true
   belongs_to :category
   belongs_to :region, foreign_key: 'category_id', optional: true
 

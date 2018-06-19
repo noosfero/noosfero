@@ -1,6 +1,6 @@
 class ProfileSuggestion < ApplicationRecord
 
-  belongs_to :person
+  belongs_to :person, optional: true
   belongs_to :suggestion, class_name: 'Profile', foreign_key: :suggestion_id
 
   attr_accessible :person, :suggestion, :suggestion_type, :categories, :enabled

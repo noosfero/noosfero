@@ -4,7 +4,7 @@ class ProfileFollower < ApplicationRecord
 
   attr_accessible :profile, :circle
 
-  belongs_to :profile, touch: true
+  belongs_to :profile, touch: true, optional: true
   belongs_to :circle, touch: true
 
   has_one :person, through: :circle
