@@ -87,6 +87,17 @@ class Task < ApplicationRecord
     end
   end
 
+  def display_api_content_by_default?
+    false
+  end
+
+  def api_content(options = {})
+    nil
+  end
+
+  def api_content=(values = {})
+  end
+
   def target_profile_accepts_notification?(task)
     if task.target.kind_of? Organization
       return task.target.profile_admin_mail_notification

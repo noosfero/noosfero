@@ -302,6 +302,9 @@ module Api
         type_map = {Profile => ::Profile, Environment => ::Environment}.find {|h| task.target.kind_of?(h.last)}
         type_map.first.represent(task.target) unless type_map.nil?
       end
+      expose :api_content, if: lambda { |object, options| options[:display_api_content] || object.display_api_content_by_default? } do |task, options|
+        task.api_content({:current_person => options[:current_person]}.merge(options[:api_content_params] || {}))
+      end
     end
 
     class Environment < Entity
