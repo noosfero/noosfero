@@ -22,9 +22,9 @@
     <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => current_editor)) %>
   </div>
 
-  <div class="actions">
-    <%= submit_button(:save, _('Save')) %>
+  <%= button_bar do %>
     <%= button(:back, _('Back'), :action => :index) %>
-  </div>
+    <%= submit_button(:save, _('Save')) %>
+  <% end %>
 
 <% end %>

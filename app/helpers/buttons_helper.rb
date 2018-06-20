@@ -3,6 +3,9 @@ module ButtonsHelper
   NOOSFERO_TO_FONTAWESOME = {
     add:               'plus',
     add_user:          'user-plus',
+    admin_user:        'user-shield',
+    admin:             'shield-alt',
+    control_panel:     'cog',
     alert:             'exclamation-triangle',
     appearance:        'paint-brush',
     application:       'file',
@@ -12,36 +15,60 @@ module ButtonsHelper
     ban:               'ban',
     blocks:            'th',
     blog:              'newspaper',
-    cancel:            'arrow-left',
+    cancel:            'times',
     clear:             'eraser',
     clock:             'clock',
+    clone:             'clone',
+    comments:          'comments',
+    cut:               'cut',
     delete:            'exclamation-triangle',
+    down:              'arrow-circle-down',
     down_arrow:        'chevron-down',
+    download:          'download',
     ellipsis:          'ellipsis-h',
     email:             'envelope',
+    enterprise:        'suitcase',
     event:             'calendar-alt',
     file:              'file-alt',
+    file_code:         'file-code',
+    folder:            'folder',
+    forward:           'forward',
     fullscreen:        'expand-arrows-alt',
     header_footer:     'object-group',
     help:              'question-circle',
+    home:              'home',
+    image:             'image',
     leave:             'sign-out-alt',
+    left:              'arrow-circle-left',
     lightbulb:         'lightbulb',
+    lock:              'lock',
     login:             'sign-in-alt',
     logout:            'sign-out-alt',
+    menu:              'align-justify',
     network:           'code-branch',
     new:               'plus',
-    new_user:          'user',
     next:              'arrow-right',
+    none:              '',
     ok:                'check',
     pdf:               'file-pdf',
     people:            'user',
+    reload:            'redo',
     remove:            'times',
+    right:             'arrow-circle-right',
+    save:              'save',
     save_and_continue: 'cloud-upload-alt',
+    search:            'search',
+    slideshow:         'tv',
     spread:            'share-alt',
     text:              'file-alt',
-    menu:              'align-justify',
+    task:              'tasks',
     trash:             'trash-alt',
-    welcome_page:      'home'
+    undo:              'undo',
+    upload:            'upload',
+    up:                'arrow-circle-up',
+    welcome_page:      'home',
+    zoom:              'search-plus',
+    zoom_out:          'search-minus',
   }
 
   def font_awesome type, label = ""
@@ -71,16 +98,12 @@ module ButtonsHelper
   end
 
   def button(type, label, url, html_options = {})
-    classes = 'with-text'
-    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
-    generic_button(type, label, url, html_options.merge(class: classes))
+    generic_button(type, label, url, merge_class('with-text', html_options))
   end
 
   def button_without_text(type, label, url, html_options = {})
-    classes = 'without-text'
-    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
     html_options[:title] = label
-    generic_button(type, '', url, html_options.merge(class: classes))
+    generic_button(type, '', url, merge_class('without-text', html_options))
   end
 
   def button_to_function(type, label, js_code, html_options = {}, &block)
@@ -90,9 +113,9 @@ module ButtonsHelper
   end
 
   def button_to_function_without_text(type, label, js_code, html_options = {}, &block)
-    html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button icon-#{type}"
-    link_to_function(content_tag('span', label), js_code, html_options, &block)
+    html_options[:title] = label
+    html_options = merge_class("button without-text icon-#{type}")
+    link_to_function(font_awesome(type), js_code, html_options, &block)
   end
 
   def button_to_remote(type, label, options, html_options = {})
@@ -103,8 +126,8 @@ module ButtonsHelper
 
   def button_to_remote_without_text(type, label, options, html_options = {})
     html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button icon-#{type}"
-    link_to_remote(content_tag('span', label), options, html_options.merge(:title => label))
+    html_options[:class] << " button without-text"
+    link_to_remote(font_awesome(type), options, html_options.merge(:title => label))
   end
 
   def generate_button(type, label, url, html_options = {})
@@ -119,5 +142,13 @@ module ButtonsHelper
     else
       link_to(label, url, html_options.merge(class: klass, title: title))
     end
+  end
+
+  private
+
+  def merge_class klass, html_options = {}
+    classes = klass
+    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
+    html_options.merge(class: classes)
   end
 end

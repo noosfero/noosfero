@@ -5,6 +5,6 @@
     <%= category_humane_path(category) %>
   </div>
   <div style="text-align: center; width: 30%;">
-    <%= button_to_function_without_text(:remove, _('Remove'), "remove_category(#{category.id})") %>
+    <%= button_to_function_without_text(:trash, _('Remove'), "remove_category(#{category.id})") %>
   </div>
 </div>

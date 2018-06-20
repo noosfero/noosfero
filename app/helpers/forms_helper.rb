@@ -30,7 +30,7 @@ module FormsHelper
   end
 
   def submit_button(type, label, html_options = {})
-    bt_cancel = html_options[:cancel] ? button("ban" , _('Cancel'), html_options[:cancel], class: 'btn-red') : ''
+    bt_cancel = html_options[:cancel] ? button(:cancel, _('Cancel'), html_options[:cancel], class: 'btn-red') : ''
 
     html_options[:class] = [html_options[:class], 'submit'].compact.join(' ')
 

@@ -61,7 +61,7 @@
       <% end %>
 
       <% unless @article.new_record? %>
-        <%= button :delete, _('Delete'), {:controller => :cms, :action => :destroy, :id => @article},
+        <%= button :trash, _('Delete'), {:controller => :cms, :action => :destroy, :id => @article},
           :method => :post, data: {confirm: delete_article_message(@article)} %>
       <% end %>
     <% end %>

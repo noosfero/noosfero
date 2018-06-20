@@ -26,7 +26,7 @@
         <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
 
         <%= button_bar do %>
-          <%= submit_button 'spread', _('Spread this') %>
+          <%= submit_button :spread, _('Spread this') %>
         <% end %>
       <% end %>
     </li>
@@ -42,7 +42,7 @@
         <%= token_input_field_tag(:q, 'search-communities-to-publish', search_action, { :hint_text => _('Type in a search for your community'), :zindex => 10000, :focus => false }) %>
         <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
         <%= button_bar do %>
-          <%= submit_button 'spread', _('Spread this') %>
+          <%= submit_button :spread, _('Spread this') %>
         <% end %>
       <% end %>
     </li>
@@ -59,7 +59,7 @@
         <%= labelled_form_field _('Title'), text_field_tag('name', @article.name) %>
 
         <%= button_bar do %>
-          <%= submit_button 'spread', _('Spread this') %>
+          <%= submit_button :spread, _('Spread this') %>
         <% end %>
       <% end %>
     </li>

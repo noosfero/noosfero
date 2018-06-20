@@ -7,6 +7,7 @@
   display: block;
   margin-top: 1em;
   margin-bottom: 1em;
+  text-align: right;
 }
 
 .box-2,
@@ -71,6 +72,8 @@
 
 .button.without-text {
   padding: 0.313em 0.3em;
+  border: none;
+  min-width: 15px;
   i.fa {
     margin: 0;
   }

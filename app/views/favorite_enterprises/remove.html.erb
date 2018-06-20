@@ -11,8 +11,7 @@
 <%= form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
 
-  <%= submit_button(:ok, _("Yes, I want to remove %s from my favorite enterprise list") % @favorite_enterprise.name) %>
-  <%= button(:cancel, _("No, I don't want"), :action => 'index') %>
+  <%= submit_button(:ok, _("Yes, I'm sure"), :cancel => {:action => 'index'}) %>
 <% end %>
 
 </div><!-- end id="remove_favorite_enterprise" -->

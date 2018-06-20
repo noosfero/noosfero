@@ -14,7 +14,7 @@
   <%= hidden_field_tag('back_to', back_to) %>
 
   <%= button_bar do %>
-    <%= button_to_function :plus, _('Add files...'), "add_uploaded_file()", class: "button with-text btn-green" %>
+    <%= button_to_function :add, _('Add files...'), "add_uploaded_file()", class: "button with-text btn-green" %>
     <% if defined?(back_to) && back_to.present? %>
       <%= submit_button :upload, _('Upload'), :cancel => back_to %>
     <% else %>

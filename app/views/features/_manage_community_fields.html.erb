@@ -56,8 +56,8 @@
 
 <div>
   <%= button_bar do %>
-    <%= submit_button('save', _('Save changes'), :id=>"save_community_fields") %>
     <%= button :back, _('Back to admin panel'), :controller => 'admin_panel', :action => 'index' %>
+    <%= submit_button(:save, _('Save changes'), :id=>"save_community_fields") %>
   <% end %>
 </div>
 

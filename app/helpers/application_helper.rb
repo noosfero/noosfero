@@ -106,7 +106,7 @@ module ApplicationHelper
   #
   # TODO: implement correcly the 'Help' button click
   def help(content = nil, link_name = nil, options = {}, &block)
-    link_name ||= _('Help')
+    link_name ||= font_awesome(:help, _('Help'))
 
     @help_message_id ||= 1
     help_id = "help_message_#{@help_message_id}"
@@ -905,7 +905,7 @@ module ApplicationHelper
 
   def manage_enterprises
     return '' unless user && user.environment.enabled?(:display_my_enterprises_on_user_menu)
-    manage_link(user.enterprises, :enterprises, _('My enterprises'), 'suitcase').to_s
+    manage_link(user.enterprises, :enterprises, _('My enterprises'), :enterprise).to_s
   end
 
   def manage_communities
@@ -915,7 +915,7 @@ module ApplicationHelper
   end
 
   def admin_link
-    admin_icon = font_awesome('shield-alt', _('Administration'))
+    admin_icon = font_awesome(:admin, _('Administration'))
     user.is_admin?(environment) ? link_to(admin_icon, environment.admin_url, title: _("Configure the environment"), class: 'admin-link') : nil
   end
 
@@ -990,7 +990,7 @@ module ApplicationHelper
   end
 
   def ctrl_panel_link
-    link_to(font_awesome(:cog, _('Control panel')), user.admin_url,
+    link_to(font_awesome(:control_panel, _('Control panel')), user.admin_url,
                           class: 'ctrl-panel', title: _("Configure your personal account and content"))
   end
 

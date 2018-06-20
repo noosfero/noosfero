@@ -6,8 +6,7 @@
 
     <div id="circle-actions">
       <div id="actions-container">
-        <%= submit_button('save', _('Save')) %>
-        <%= modal_close_button  _("Cancel") %>
+        <%= submit_button('save', _('Save'), :cancle => { :action => 'index'}) %>
       </div>
     </div>
   <% end %>
