@@ -158,7 +158,7 @@
     return false;
   });
 
-  $('.icon-vertical-toggle').click(function(){
+  $('#media-panel-button').click(function(){
     $('#content').toggleClass('show-media-panel');
     return false;
   });
