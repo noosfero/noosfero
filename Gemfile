@@ -40,6 +40,7 @@ gem 'honeypot-captcha'
 gem 'font-awesome-sass'
 gem 'rpush'
 gem 'http-cookie'
+gem 'acts_as_list'
 
 # API dependencies
 gem 'grape'
