@@ -3,7 +3,7 @@ FROM ruby:2.4.4-jessie
 LABEL Maintainer="Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>"
 
 RUN apt-get update \
-    && apt-get install -y git sudo postgresql-client \
+    && apt-get install -y git sudo postgresql-9.4 \
     && bash -c "echo 'LANG=C.UTF-8' > /etc/default/locale" \
     && git clone --depth 1 https://gitlab.com/alaxalves/noosfero.git /noosfero
 
