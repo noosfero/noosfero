@@ -10,7 +10,6 @@
 .action-maps-edit_location .field-with-privacy-selector {
   display: flex;
   justify-content: space-between;
-
   .field-privacy-selector {
     width: auto;
   }
@@ -26,21 +25,17 @@ p.help-message {
   display: table;
   width: 100%;
   margin-bottom: 25px;
-
   #location-map {
     width: 100%;
     height: 320px;
   }
-
   #map {
     height: 500px;
     margin-top: 10px;
   }
-
   .map {
     clear: both;
   }
-
   p.help-message {
     margin-top: 10px;
   }
@@ -48,7 +43,6 @@ p.help-message {
 
 #content .location-bar {
   display: flex;
-
   a.button.with-text {
     width: 220px;
     height: 30px;

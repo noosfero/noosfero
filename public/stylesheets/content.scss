@@ -1,26 +1,21 @@
 @import 'zoomable-image';
-
 @import 'content/blog';
 @import 'content/event';
 @import 'content/folder';
 @import 'content/image-gallery';
 @import 'content/forum';
 @import 'content/versions';
-
 #article {
   a.menu-toggle {
     color: #212e3c;
   }
-
   .article-body-text-article {
     color: #333;
     font-size: 14px;
     line-height: 1.5;
-
     div {
       word-wrap: break-word;
     }
-
     a {
       font-size: 1em;
       &:hover {
@@ -49,7 +44,7 @@
   margin-bottom: 5px;
 }
 
-#article-header .blog-cover img{
+#article-header .blog-cover img {
   width: 100%;
 }
 
@@ -73,9 +68,9 @@
     -moz-border-radius: 2px;
     border-radius: 2px;
     color: #5b9bcd;
-    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.75) inset;
-    -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.75) inset;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.75) inset;
+    -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.75) inset;
     line-height: 20px;
   }
 }
@@ -116,16 +111,20 @@
     }
   }
 }
+
 #article-source {
   color: #999;
   font-size: 11px;
   text-align: right;
   font-weight: bold;
 }
+
 #article-source a {
   font-weight: normal;
 }
-.article-lead, #article-body-field {
+
+.article-lead,
+#article-body-field {
   margin-top: 10px;
   display: none;
 }
@@ -142,25 +141,28 @@
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
-#article pre, #article code {
+
+#article pre,
+#article code {
   background: #eeeeec;
   color: #2e3436;
 }
+
 #article .article-body a.icon {
   padding: 0px 0px 3px 20px;
   border: none;
   background-repeat: no-repeat;
 }
+
 #article .article-body a.icon:hover {
   background-color: transparent;
 }
+
 #article #article-field-values {
   margin: 10px 0 15px;
-
   .custom-field-value {
     color: #aaa;
     font-size: 10px;
-
     span.field-name {
       margin-right: 5px;
       font-weight: 600;
@@ -179,12 +181,10 @@
     text-decoration: none;
     color: #212e3c;
     word-spacing: 0.9px;
-
     &:hover {
       font-weight: bold;
       word-spacing: normal;
     }
-
     i.fa {
       margin-right: 7px;
     }
@@ -193,8 +193,7 @@
 
 #content #article #article-header,
 html.controller-cms #content .main-content {
-  > h1 {
+  >h1 {
     margin-bottom: 0;
   }
 }
-

@@ -1,13 +1,9 @@
 @import 'blocks/main';
-
 @import 'blocks/location';
-
 @import 'blocks/categories';
-
 @import 'blocks/communities';
 @import 'blocks/suggestions';
 @import 'blocks/my-network';
-
 @import 'blocks/link-list';
 @import 'blocks/tags';
 @import 'blocks/interest-tags';
@@ -17,31 +13,33 @@
 @import 'blocks/slideshow';
 @import 'blocks/feed-reader';
 @import 'blocks/highlights';
-
 @import 'blocks/profile-info';
 @import 'blocks/profile-list';
 @import 'blocks/profile-image';
 @import 'blocks/profile-search';
-
 @import 'blocks/disabled-enterprise-message';
 @import 'blocks/sellers-search';
 @import 'blocks/menu';
 @import 'blocks/profiles-list-block';
-
 .msie7 .block .menu-submenu {
   z-index: 4;
 }
+
 .msie7 .common-profile-list-block .vcard {
   z-index: 3;
 }
+
 .msie7 .box-1 {
   z-index: 0;
   position: relative;
 }
-.msie7 .box-2, .msie7 .box-3 {
+
+.msie7 .box-2,
+.msie7 .box-3 {
   z-index: 5;
   position: relative;
 }
+
 .block iframe {
   border: none;
 }
@@ -50,18 +48,23 @@
 .block embed {
   max-width: 100%;
 }
+
 .block-title.empty {
   display: none;
 }
+
 .invisible-block {
   background: url(../images/hachure.png);
   opacity: 0.25;
 }
+
 .msie .invisible-block {
   filter: alpha(opacity=25);
   zoom: 1;
 }
+
 /* ie6 hack */
+
 .invisible-block a.icon-button {
   position: relative;
 }
@@ -73,6 +76,7 @@
   opacity: 0.8;
   filter: alpha(opacity=80);
 }
+
 .block-target-hover {
   background: #ffd;
   border: 1px solid #000;
@@ -84,27 +88,32 @@
   background-repeat: no-repeat;
   background-position: top right;
 }
+
 #box-organizer div.box-1 {
   background-image: url(../images/blocks/1.png);
 }
+
 #box-organizer div.box-2 {
   background-image: url(../images/blocks/2.png);
 }
+
 #box-organizer div.box-3 {
   background-image: url(../images/blocks/3.png);
 }
+
 #box-organizer div.box-4 {
   background-image: url(../images/blocks/4.png);
 }
+
 #box-organizer .block {
   cursor: move;
 }
+
 #box-organizer .block:hover {
-    box-shadow: 0px 0px 0px 2px #FFF,
-                0px 0px 0px 2px #FFF,
-                0px 0px 10px rgba(0, 0, 0, 0.6);
-    outline: none;
+  box-shadow: 0px 0px 0px 2px #FFF, 0px 0px 0px 2px #FFF, 0px 0px 10px rgba(0, 0, 0, 0.6);
+  outline: none;
 }
+
 #box-organizer .block {
   cursor: move;
   position: relative;
@@ -128,7 +137,9 @@
     height: 16px;
     padding: 0px 1px;
     vertical-align: top;
-    span { display: none; }
+    span {
+      display: none;
+    }
   }
 }
 
@@ -140,15 +151,19 @@
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed green;
 }
+
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed red;
 }
+
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed blue;
 }
+
 /************************************************************
  * custom interation blocks on drag n drop                  *
  ***********************************************************/
+
 #box-organizer .main-block {
   font-size: 24px;
   text-align: center;
@@ -158,6 +173,7 @@
   height: 150px;
   line-height: 120px;
 }
+
 #box-organizer .main-block:hover {
   border: 0px;
   border-style: none;
@@ -166,6 +182,7 @@
 }
 
 /* FIX Error show option buttons on blocks */
+
 #box-organizer .block {
   overflow: visible !important;
 }
@@ -187,22 +204,21 @@
   max-width: 600px;
 }
 
-#add-block-dialog .block-types {
-}
+#add-block-dialog .block-types {}
 
-#add-block-dialog .block-types input{
+#add-block-dialog .block-types input {
   vertical-align: middle;
   display: inline-block;
 }
 
-#add-block-dialog .block-types label{
+#add-block-dialog .block-types label {
   vertical-align: middle;
   display: inline-block;
   width: 85%;
   padding-top: 4px;
 }
 
-#add-block-dialog .block-type{
+#add-block-dialog .block-type {
   margin: 3px 0px;
   display: inline-block;
   width: 49%;

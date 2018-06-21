@@ -8,7 +8,6 @@
   height: 13px;
   position: relative;
   cursor: help;
-
   .tooltip-msg {
     display: none;
     position: absolute;
@@ -23,7 +22,6 @@
     font-family: Verdana, sans-serif;
     font-size: 10px;
     font-weight: normal;
-
     &::before {
       content: '';
       width: 0;
@@ -35,20 +33,18 @@
       top: -5px;
       left: 30px;
     }
-
     &.large {
       width: 340px;
       padding: 10px;
       left: -59px;
       font-size: 14px;
-
       &::before {
         left: 62px;
       }
     }
   }
-
-  &:hover .tooltip-msg, {
+  &:hover .tooltip-msg,
+    {
     display: block;
   }
 }

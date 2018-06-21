@@ -2,13 +2,16 @@ div.fieldWithErrors {
   display: inline;
   background: yellow;
 }
+
 div.fieldWithErrors input {
   border: 1px solid red;
   background: #fee;
 }
+
 div#errorExplanation {
   padding: 5px;
 }
+
 div#errorExplanation h2 {
   margin-top: -5px;
   margin-left: -5px;
@@ -18,6 +21,7 @@ div#errorExplanation h2 {
   color: white;
   text-align: center;
 }
+
 .error {
   color: red;
 }
@@ -31,10 +35,13 @@ code input {
   margin-bottom: 5px;
 }
 
-label, .pseudoformlabel, .formlabel {
+label,
+.pseudoformlabel,
+.formlabel {
   color: #444;
   margin-bottom: 4px;
 }
+
 .formlabel {
   font-size: 1.1em;
   display: block;
@@ -56,9 +63,12 @@ label, .pseudoformlabel, .formlabel {
   text-indent: 5px;
   padding: 2px 0px;
 }
-.msie5 .formfield input, .msie6 .formfield input {
+
+.msie5 .formfield input,
+.msie6 .formfield input {
   background-attachment: fixed;
 }
+
 .msie .formfield input {
   padding-left: 2px;
 }
@@ -67,43 +77,55 @@ label, .pseudoformlabel, .formlabel {
   width: 99%;
 }
 
-.checkbox, .radio-button {
+.checkbox,
+.radio-button {
   label {
-    input[type=checkbox], input[type=radio], span {
+    input[type=checkbox],
+    input[type=radio],
+    span {
       display: inline-block;
       vertical-align: middle;
     }
   }
 }
 
-.formfield.type-radio input, .formfield.type-checkbox input {
+.formfield.type-radio input,
+.formfield.type-checkbox input {
   background: none;
   border: none;
   display: inline-block;
   vertical-align: middle;
 }
+
 .formfield.type-select select {
   max-width: 100%;
 }
+
 .submitline {
   text-align: center;
 }
+
 .fieldgroup span {
   display: block;
   float: left;
 }
+
 .fieldgroup br {
   clear: left;
 }
+
 .linesize0 span {
   padding-right: 15px
 }
+
 .linesize1 span {
   width: 99%
 }
+
 .linesize2 span {
   width: 49%
 }
+
 .linesize3 span {
   width: 33%
 }
@@ -141,28 +163,24 @@ input[type=password] {
 
 #content #location-support-fields {
   margin: 5px 0 25px;
-
   .formfield {
     margin-bottom: 10px;
-
-    input, select {
+    input,
+    select {
       width: 100%;
     }
   }
-
   .location-support-fields-row {
     display: flex;
     justify-content: space-between;
-
-    select, input {
+    select,
+    input {
       width: 49%;
     }
   }
-
   input {
     padding: 2px 0;
   }
-
   &.loading {
     cursor: progress;
     pointer-events: none;
