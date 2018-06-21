@@ -3,19 +3,17 @@
   font-size: 11px;
   display: flex;
   align-items: center;
-
-  &::before, &::after {
+  &::before,
+  &::after {
     content: '';
     height: 1px;
     background-color: #444;
     display: block;
     flex: 1;
   }
-
   &::before {
     margin-right: 5px;
   }
-
   &::after {
     margin-left: 5px;
   }

@@ -2,14 +2,14 @@
 @import 'cms/media-panel';
 @import 'cms/access-options';
 @import 'cms/article-fields';
-
 .cms-header {
   display: flex;
   justify-content: flex-end;
-  @media only screen and (max-width: 960px) { display: block; }
+  @media only screen and (max-width: 960px) {
+    display: block;
+  }
   padding: 0px 4px 0px 10px;
   margin-bottom: 1em;
-
   #article-full-path {
     display: flex;
     align-items: center;
@@ -22,7 +22,6 @@
       margin: 0 6px;
     }
   }
-
   .button-bar {
     margin: 0em;
     @media only screen and (max-width: 960px) {
@@ -37,56 +36,54 @@
 table.cms-articles {
   table-layout: fixed;
   width: 100%;
-
   tbody {
     tr {
       border-bottom: 1px solid #e8e8e8;
     }
   }
-
   tr {
     &:hover {
       td {
         a {
           color: #333;
         }
-     }
+      }
     }
   }
-
   th {
     color: #666;
     font-weight: 700;
     font-size: 1em;
     border: none;
   }
-
-  tr, th, td {
+  tr,
+  th,
+  td {
     box-sizing: border-box;
     letter-spacing: 0.3px;
   }
-
   td {
     color: #90949c;
     height: 60px;
-
     &:first-child {
       font-size: 14px;
-      @media only screen and (max-width: 540px) { font-size: 12px; }
+      @media only screen and (max-width: 540px) {
+        font-size: 12px;
+      }
       span {
         display: inline-block;
         vertical-align: middle;
       }
     }
-
     img {
       display: inline-block;
       margin-right: 5px;
       vertical-align: middle;
       width: 32px;
-      @media only screen and (max-width: 540px) { width: 20px; }
+      @media only screen and (max-width: 540px) {
+        width: 20px;
+      }
     }
-
     a {
       color: #90949c;
       display: inline-block;
@@ -98,8 +95,8 @@ table.cms-articles {
       }
     }
   }
-
-  td:first-child, th:first-child {
+  td:first-child,
+  th:first-child {
     width: 55%;
     a {
       max-width: 80%;
@@ -107,8 +104,8 @@ table.cms-articles {
       overflow: hidden;
     }
   }
-
-  td:nth-child(2), th:nth-child(2) {
+  td:nth-child(2),
+  th:nth-child(2) {
     text-align: center;
     width: 40px;
     i {
@@ -116,20 +113,24 @@ table.cms-articles {
       margin: 0;
     }
   }
-
-  td:nth-child(3), th:nth-child(3) {
+  td:nth-child(3),
+  th:nth-child(3) {
     text-align: center;
     width: 25%;
-    @media only screen and (max-width: 768px) { display: none; }
+    @media only screen and (max-width: 768px) {
+      display: none;
+    }
   }
-
-  td:nth-child(4), th:nth-child(4) {
+  td:nth-child(4),
+  th:nth-child(4) {
     text-align: center;
     width: 20%;
-    @media only screen and (max-width: 540px) { display: none; }
+    @media only screen and (max-width: 540px) {
+      display: none;
+    }
   }
-
-  td:last-child, th:last-child {
+  td:last-child,
+  th:last-child {
     text-align: center;
     width: 70px;
     a.menu-toggle {
@@ -138,7 +139,9 @@ table.cms-articles {
     ul.noosfero-dropdown-menu {
       margin-top: 0;
       right: 50px;
-      @media only screen and (max-width: 540px) { right: 33px; }
+      @media only screen and (max-width: 540px) {
+        right: 33px;
+      }
     }
   }
 }
@@ -151,10 +154,13 @@ table.cms-articles a.icon {
   text-overflow: ellipsis;
 }
 
-table.cms-articles a.icon, table.cms-articles a.icon-parent-folder, .cms-homepage a.icon {
+table.cms-articles a.icon,
+table.cms-articles a.icon-parent-folder,
+.cms-homepage a.icon {
   padding: 0px 0px 3px 20px;
   background-repeat: no-repeat;
 }
+
 table.cms-articles .icon:hover {
   background-color: transparent;
 }
@@ -196,7 +202,8 @@ table.cms-articles .icon:hover {
   background-color: #eeeeec;
 }
 
-.publish-targets div.publish-article-title, .publish-targets .description {
+.publish-targets div.publish-article-title,
+.publish-targets .description {
   width: 100%;
   margin-bottom: 10px;
   margin-top: 2px;
@@ -227,7 +234,9 @@ table.cms-articles .icon:hover {
 
 .select-article-type {
   padding: 0px;
-  @media only screen and (max-width: 540px) { width: 90%; }
+  @media only screen and (max-width: 540px) {
+    width: 90%;
+  }
   h2 {
     font-size: 20px;
   }
@@ -247,7 +256,9 @@ table.cms-articles .icon:hover {
     text-decoration: none;
     font-weight: bold;
     width: 45%;
-    @media only screen and (max-width: 540px) { width: 100%; }
+    @media only screen and (max-width: 540px) {
+      width: 100%;
+    }
     text-decoration: none;
     &:nth-child(odd) {
       margin-right: 15px;
@@ -273,23 +284,28 @@ table.cms-articles .icon:hover {
   font-size: 11px;
   font-weight: 500;
 }
+
 .article-types li.mouseover {
   background-color: #eeeeec;
 }
+
 .controller-cms #article-subitems-hide.hide-button {
   float: right;
   color: white;
 }
+
 .controller-cms #article-subitems-show.show-button {
   float: right;
 }
+
 .controller-cms #article-subitems-hide.hide-button:hover {
   background-color: transparent;
   color: black;
 }
 
 .controller-cms {
-  .article-mime, .last-update {
+  .article-mime,
+  .last-update {
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -309,17 +325,22 @@ table.cms-articles .icon:hover {
   white-space: nowrap;
   padding: 0 5px;
 }
+
 .controller-cms .categorie_box .button {
   float: left;
 }
+
 .controller-cms .categorie_box h5 {
   line-height: 24px;
 }
-.controller-cms #content ul.categories, .controller-cms #content ul.categories li {
+
+.controller-cms #content ul.categories,
+.controller-cms #content ul.categories li {
   margin: 0px;
   padding: 1px 0px 1px 4px;
   list-style: none;
 }
+
 .controller-cms ul.categories li.cat_checked {
   background: #B8CFE7;
 }
@@ -344,15 +365,12 @@ table.cms-articles .icon:hover {
   display: flex;
   margin: 20px 0;
   align-items: center;
-
   span {
     margin-right: 5px;
   }
-
   .progressbar {
     flex: 1;
     height: 10px;
-
     .ui-corner-right {
       background: #f44336;
     }
@@ -365,23 +383,19 @@ table.cms-articles .icon:hover {
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
-
     a.button {
       padding-top: 0;
       padding-bottom: 0;
     }
   }
-
   table.cms-articles td:last-child,
   table.cms-articles th:last-child {
     width: 40px;
   }
-
   table.cms-articles td.file-type {
     overflow: hidden;
     text-overflow: ellipsis;
   }
-
   table.cms-articles td.no-entries {
     font-style: italic;
     text-align: center;
@@ -392,7 +406,6 @@ form.text-article {
   h4 {
     font-size: 15px;
   }
-
   label[for='tag-list'] {
     font-size: 15px;
     font-weight: 700;
@@ -405,7 +418,8 @@ h4.why-categorize {
   a {
     color: #346392;
     margin-left: 2px;
-    &:hover, &:visited {
+    &:hover,
+    &:visited {
       color: #346392;
     }
   }

@@ -1,10 +1,11 @@
-
 .menu-submenu-trigger span {
   display: none;
 }
+
 .common-profile-list-block .vcard:hover .menu-submenu-trigger {
   display: block;
 }
+
 .menu-submenu {
   position: absolute;
   bottom: 115px;
@@ -14,20 +15,24 @@
   padding: 0;
   text-align: left;
 }
+
 .comment-details .menu-submenu {
   bottom: 0px;
   right: -134px;
 }
+
 .menu-submenu-footer {
   background: transparent url(../images/balloon-footer.png) center center no-repeat;
   height: 29px;
   margin: 0;
 }
+
 .menu-submenu-header {
   background: transparent url(../images/balloon-header.png) center center no-repeat;
   height: 17px;
   margin: 0;
 }
+
 .menu-submenu-content {
   background: transparent url(../images/balloon-middle.png) top left repeat-y;
   margin: 0;
@@ -35,16 +40,19 @@
   width: 100%;
   height: auto;
 }
+
 #content .menu-submenu-content ul {
   margin: 0;
   padding: 0;
   width: 100%;
   min-width: 100%;
 }
+
 #content .menu-submenu-content ul a {
   text-align: left;
   padding-left: 12px;
 }
+
 .msie7 .block .menu-submenu-trigger,
 .msie7 #search-results .menu-submenu-trigger {
   width: 20px !important;
@@ -55,12 +63,15 @@
   height: 16px;
   padding: 4px 0;
 }
+
 .simplemenu-item:hover {
   background: #DDD;
 }
+
 .simplemenu-submenu a {
   text-decoration: none;
 }
+
 .simplemenu-submenu {
   padding: 5px;
   position: absolute;
@@ -71,24 +82,30 @@
   display: none;
   z-index: 100;
 }
+
 .msie8 .simplemenu-submenu {
   top: 8px;
 }
+
 .msie7 .simplemenu-submenu {
   top: 23px;
 }
+
 .webkit .simplemenu-submenu.opened {
   top: 6px;
   left: -10px;
 }
+
 .simplemenu-trigger {
   text-decoration: none;
   height: 20px;
   position: relative;
 }
+
 .user-status .simplemenu-trigger {
   padding: 1px 7px 1px 18px;
 }
+
 .user-status .simplemenu-item a {
   display: block;
   height: 16px;

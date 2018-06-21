@@ -1,50 +1,55 @@
-
-#view-category { /* none */
+#view-category {
+  /* none */
 }
+
 #category-image {
   text-align: center;
 }
+
 #categiry-name {
   margin: 0px;
   position: relative;
   top: -5px;
 }
+
 #category-ancestors {
   padding-top: 25px;
   font-weight: bold;
 }
+
 #content #category-ancestors a {
   color: #000;
   text-decoration: none;
 }
+
 #content #category-ancestors a:hover {
   color: #07F;
   text-decoration: underline;
 }
+
 #cat-no-child {
   color: #AAA;
 }
+
 #cat_menu {
   padding: 0px;
   margin: 0px;
 }
+
 .msie6 #cat_menu {
   width: 100%;
   margin-top: -22px;
 }
 
 div#category-ajax-selector {
-
   #select-categories {
     margin-top: 10px;
     border-top: 1px solid #ccc;
     padding-top: 5px;
-
     .toplevel-categories {
       .category-helper-label {
         margin-bottom: 5px;
       }
-
       a.select-subcategory-link {
         border: #e8e8e8 solid 1px;
         background-color: #346392;
@@ -56,21 +61,16 @@ div#category-ajax-selector {
         text-decoration: none;
         border-radius: 4px;
         font-weight: 700;
-
-        &:hover {
-        }
+        &:hover {}
       }
     }
-
     .categories-chain {
       margin: 7px 0px;
       display: flex;
       align-items: center;
-
       a {
         margin: 0 2px;
       }
-
       #cancel-category-button {
         display: inline-block;
         width: 13px;
@@ -79,7 +79,6 @@ div#category-ajax-selector {
         margin-left: 0;
         margin-right: 10px;
       }
-
       #save-category-button {
         display: inline-block;
         max-width: 20%;
@@ -99,25 +98,20 @@ div#category-ajax-selector {
 .categories-wrapper {
   ul {
     list-style: none;
-
     &.categories-list {
       padding-left: 0;
       margin-bottom: 0;
     }
-
     li {
       padding: 10px 0 10px 15px;
       background-color: #f5f5f5;
-
       &:nth-child(odd) {
         background-color: #f0f0f0;
       }
-
       &:hover {
         border-left: 5px solid #ccc;
         padding-left: 10px;
       }
-
       .category-name {
         display: inline-flex;
         align-items: center;
@@ -127,33 +121,27 @@ div#category-ajax-selector {
         font-style: normal;
         color: white;
         text-transform: capitalize;
-
         .color_marker {
           border: none;
           width: 0.188em;
         }
       }
-
-      .show-button, .hide-button {
+      .show-button,
+      .hide-button {
         margin-left: 5px;
       }
-
       .category-actions {
         margin-top: 3px;
-
         a {
           font-size: 11px;
-
           &:hover {
             text-decoration: underline;
           }
         }
       }
-
       li {
         border-left: 1px solid #aaa;
         padding-top: 15px;
-
         &:hover {
           border-left: 1px solid #aaa;
           padding-left: 15px;

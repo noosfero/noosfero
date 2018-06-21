@@ -1,4 +1,6 @@
-#public-profile-search, #profile-search-results form, .profile-search-block form {
+#public-profile-search,
+#profile-search-results form,
+.profile-search-block form {
   padding: 10px;
   margin-bottom: 15px;
   -moz-border-radius: 5px;
@@ -24,39 +26,48 @@
   margin-bottom: 20px;
   clear: left;
 }
+
 #profile-search-results li.result-image {
   float: left;
   clear: none;
   height: 130px;
   margin-right: 20px;
 }
+
 #profile-search-results .result-title {
   font-size: 18px;
 }
+
 #profile-search-results p {
   margin-top: 5px;
   margin-bottom: 0px;
 }
+
 #profile-search-results .article-details {
   color: #000;
   text-decoration: none;
 }
+
 #profile-search-results a.article-url {
   text-decoration: none;
   color: #77AA44;
 }
+
 #profile-search-results a.article-url:hover {
   text-decoration: underline;
 }
+
 #profile-search-results .results-list .icon {
   background-repeat: no-repeat;
   background-position: left 5px;
   padding: 0px 0px 3px 20px;
   border: none;
 }
+
 #profile-search-results .results-list .icon:hover {
   background-color: transparent;
 }
+
 #profile-search-results .results-found-message {
   margin-top: 10px;
   font-style: italic;

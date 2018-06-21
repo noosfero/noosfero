@@ -39,7 +39,7 @@ p#password-rate {
 
 #email-check p,
 #password-rate p,
-#url-check p ,
+#url-check p,
 #signup-form span.invalid,
 #signup-form span.validated,
 #url-check .suggested_usernames {
@@ -92,7 +92,6 @@ p#password-rate {
   -webkit-border-radius: 7px;
   max-height: none;
   height: 39px;
-
   &:disabled {
     opacity: 0.5;
     pointer-events: none;
@@ -156,7 +155,9 @@ p#password-rate {
   width: 550px;
   float: right;
   margin-right: 40px;
-  @media only screen and (max-width: 1260px) { display: none; }
+  @media only screen and (max-width: 1260px) {
+    display: none;
+  }
   h2 {
     font-size: 28px;
     line-height: 36px;
