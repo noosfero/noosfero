@@ -542,6 +542,6 @@ class AccountController < ApplicationController
   end
 
   def check_activation_token
-    render_not_found unless params[:activation_token]
+    redirect_to action: :login unless params[:activation_token].present?
   end
 end

@@ -719,9 +719,9 @@ class AccountControllerTest < ActionController::TestCase
     assert_redirected_to action: :login
   end
 
-  should 'respond with 404 when activation token is not sent' do
+  should 'redirect to login when activation token is not sent' do
     get :activate, activation_token: nil
-    assert_response 404
+    assert_redirected_to action: :login
   end
 
   should 'activate user when activation code is present and correct' do
@@ -1109,7 +1109,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'render 404 if activation token is not sent when requesting new codes' do
     get :resend_activation_codes
-    assert_response 404
+    assert_redirected_to action: :login
   end
 
   should 'redirect to login if user was activated when requesting new codes' do
