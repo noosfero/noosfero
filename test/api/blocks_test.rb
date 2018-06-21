@@ -10,6 +10,16 @@ class BlocksTest < ActiveSupport::TestCase
   end
 
   attr_accessor :environment, :profile
+  expose_attributes = %w(id type settings position enabled box_id)
+
+  expose_attributes.each do |attr|
+    should "expose block #{attr} attribute by default" do
+      block = fast_create(Block, :box_id => user.person.boxes.first.id)
+      get "/api/v1/blocks/#{block.id}?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert json.has_key?(attr)
+    end
+  end
 
   should 'get an environment block' do
     box = fast_create(Box, :owner_id => environment.id, :owner_type => Environment.name)
