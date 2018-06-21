@@ -92,15 +92,13 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_same result, link_to_category(cat)
   end
 
-  should 'nil theme option when no exists theme' do
-    stubs(:current_theme).returns('something-very-unlikely')
-    File.expects(:exists?).returns(false)
+  should 'return nil theme option when theme does not exist' do
+    stubs(:theme_path).returns('/something/very/unlikely')
     assert_nil theme_option()
   end
 
-  should 'nil javascript theme when no exists theme' do
-    stubs(:current_theme).returns('something-very-unlikely')
-    File.expects(:exists?).returns(false)
+  should 'return nil javascript theme when theme does not exist' do
+    stubs(:theme_path).returns('/something/very/unlikely')
     assert_nil theme_javascript
   end
 
