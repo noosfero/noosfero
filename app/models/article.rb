@@ -23,6 +23,7 @@ class Article < ApplicationRecord
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
+  acts_as_list scope: :profile
 
   include Noosfero::Plugin::HotSpot
 
