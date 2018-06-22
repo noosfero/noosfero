@@ -22,7 +22,8 @@ class CustomFormsPlugin::CsvHandler
 
   def generate_csv
     CSV.generate do |csv|
-      csv << ([_('Timestamp')] + profile_fields + @fields.map(&:name))
+      field_names = ([_('Timestamp')] + profile_fields + @fields.map(&:name))
+      csv << field_names.map(&:capitalize)
       @form.submissions.each do |submission|
         csv << submission_row(submission)
       end

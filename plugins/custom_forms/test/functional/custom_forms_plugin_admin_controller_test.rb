@@ -63,7 +63,7 @@ class CustomFormsPluginAdminControllerTest < ActionController::TestCase
     Zip::InputStream.open(StringIO.new(response.body)) do |stream|
       while stream.get_next_entry
         content = stream.read
-        assert_match /name,city,cell_phone/, content
+        assert_match /Name,City,Cell_phone/, content
       end
     end
   end
