@@ -6,7 +6,7 @@ class ProductsPlugin::Unit < ApplicationRecord
 
   attr_accessible :name, :singular, :plural, :environment
 
-  belongs_to :environment_id
+  belongs_to :environment
 
   validates_presence_of :environment_id
   validates_presence_of :singular
