@@ -78,8 +78,6 @@ class Article < ApplicationRecord
     end
   end
 
-  before_create :set_article_position
-
   belongs_to :profile
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
@@ -950,7 +948,4 @@ class Article < ApplicationRecord
     end.to_h
   end
 
-  def set_article_position
-    self.position = profile.articles.maximum(:position).to_i + 1
-  end
 end

@@ -7,8 +7,7 @@ class CommunityTrackPlugin::Step < Folder
 
   alias :tools :children
 
-  acts_as_list scope: :step_position
-  alias_attribute :position, :step_position
+  acts_as_list scope: :parent_id, add_new_at: :bottom
 
   def belong_to_track
     errors.add(:parent, _("Step not allowed at this parent.")) unless parent.kind_of?(CommunityTrackPlugin::Track)
