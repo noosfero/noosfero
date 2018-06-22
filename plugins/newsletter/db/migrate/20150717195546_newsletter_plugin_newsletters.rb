@@ -1,4 +1,4 @@
-class NewsletterPluginNewsletters < ActiveRecord::Migration
+class NewsletterPluginNewsletters < ActiveRecord::Migration[5.1]
   def up
     create_table :newsletter_plugin_newsletters do |t|
       t.references :environment, :null => false

@@ -1,4 +1,4 @@
-class CreateRoute < ActiveRecord::Migration
+class CreateRoute < ActiveRecord::Migration[5.1]
   def change
     create_table :custom_routes_plugin_routes do |t|
       t.integer :environment_id, null: false

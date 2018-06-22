@@ -1,4 +1,4 @@
-class CreateDeliveryPluginTables < ActiveRecord::Migration
+class CreateDeliveryPluginTables < ActiveRecord::Migration[5.1]
   def self.up
     # check if distribution plugin already moved tables
     return if ApplicationRecord.connection.table_exists? :delivery_plugin_methods

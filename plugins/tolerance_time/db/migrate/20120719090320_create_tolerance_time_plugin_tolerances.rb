@@ -1,4 +1,4 @@
-class CreateToleranceTimePluginTolerances < ActiveRecord::Migration
+class CreateToleranceTimePluginTolerances < ActiveRecord::Migration[5.1]
   def self.up
     create_table :tolerance_time_plugin_tolerances do |t|
       t.references  :profile

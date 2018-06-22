@@ -64,6 +64,9 @@ gem 'sprockets-rails',            '~> 2.3.3'
 
 gem 'serviceworker-rails'
 gem 'webpush'
+gem 'rspec'
+gem 'rspec-rails'
+gem 'rails-controller-testing'
 
 # gems to enable rails3 behaviour
 gem 'protected_attributes_continued'
@@ -86,9 +89,6 @@ group :test do
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'simplecov',                 require: false
-  gem 'rspec'
-  gem 'rspec-rails'
-  gem 'rails-controller-testing'
 end
 
 group :cucumber, :test do
