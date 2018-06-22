@@ -20,7 +20,7 @@ stages:
 
 specs-models:
   <<: *retriable
-  script: bundle exec rake spec SPEC=spec/models
+  script: bundle exec rake test:specs
   stage: all-tests
 
 api:
