@@ -181,18 +181,16 @@ class CommunityTest < ActiveSupport::TestCase
     assert_equal [highlighted_t].map(&:slug), c.news(2, true).map(&:slug)
   end
 
-  should 'use metadata field to order results' do
+  should 'use order field to order news' do
     community = fast_create(Community)
-    article1 = fast_create(TextArticle, profile_id: community.id, highlighted: true)
-    article2 = fast_create(TextArticle, profile_id: community.id, highlighted: true)
-    article3 = fast_create(TextArticle, profile_id: community.id, highlighted: true)
+    article1 = fast_create(TextArticle, profile_id: community.id,
+                                        position: 1, highlighted: true)
+    article2 = fast_create(TextArticle, profile_id: community.id,
+                                        position: 2, highlighted: true)
+    article3 = fast_create(TextArticle, profile_id: community.id,
+                                        position: 0, highlighted: true)
 
-    article1.metadata['order'] = 0
-    article1.save
-    article2.metadata['order'] = 1
-    article2.save
-
-    assert_equal community.news(3, true), [article3, article1, article2]
+    assert_equal community.news(3, true), [article2, article1, article3]
   end
 
   should 'sanitize description' do

@@ -37,28 +37,26 @@ div.pending-tasks {
   .task-requestor-img {
     a {
       display: inline-block;
-      img { border-radius: 50%; }
+      img {
+        border-radius: 50%;
+      }
     }
   }
-
   .task-description {
     flex-grow: 1;
     h3.task-title {
       display: inline-block;
       margin: 0px;
     }
-
     .task-date {
       color: #90949c;
       display: inline-block;
       font-size: 12px;
     }
-
     .bullet-separator {
       color: #90949c;
       padding: 0px 2px;
     }
-
     .task-information {
       font-size: 13px;
       line-height: 18px;
@@ -68,7 +66,6 @@ div.pending-tasks {
         font-weight: 500;
       }
     }
-
     .task-actions {
       margin-top: 5px;
       a.button {
@@ -171,22 +168,19 @@ div.pending-tasks {
 }
 
 .task-reject-explanation {
-
-  textarea{
+  textarea {
     border-radius: 5px;
     width: 60%;
     margin: 5px 0;
   }
-
   .reject-explanation-info {
     color: red;
   }
 }
 
 .task-description .task-header {
-  display:flex;
-  justify-content:space-between;
-
+  display: flex;
+  justify-content: space-between;
   .task-view-datails-link {
     color: #90949c;
   }
@@ -200,10 +194,8 @@ div.pending-tasks {
   .task-toolbar {
     display: flex;
     align-items: center;
-
     .task-responsible {
       margin-right: 20px;
-
       span {
         font-style: italic;
       }
@@ -213,11 +205,12 @@ div.pending-tasks {
 
 .task-community-custom-fields {
   margin-top: 10px;
-
   div.task-community-field {
     margin-top: 5px;
     margin-left: 10px;
-    span.field { font-weight: 500 }
+    span.field {
+      font-weight: 500
+    }
   }
 }
 

@@ -14,9 +14,11 @@
 .controller-admin_panel #available-folders select {
   width: 50%;
 }
+
 .controller-admin_panel #selection-buttons {
   display: block;
 }
+
 .controller-admin_panel #portal-folders select {
   width: 50%;
 }
@@ -27,12 +29,14 @@
   padding: 10px 5px;
   margin-top: 10px;
 }
+
 .alert-text {
   display: block;
   padding: 5px;
   background-color: #ffe78e;
   border-radius: 2px;
 }
+
 table.macros {
   .macro-key {
     font-style: italic;

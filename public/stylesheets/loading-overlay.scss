@@ -1,7 +1,7 @@
-
 .loading-overlay {
   position: absolute;
-  background-color: #eee; /* while the image don't load */
+  background-color: #eee;
+  /* while the image don't load */
   background-image: url(/images/loading-overlay.gif);
   opacity: 0.40;
   z-index: 10;

@@ -26,7 +26,7 @@ Feature: manage categories
   Scenario: load subcategories only after following parent
     Then I should not see "Beans"
     And I should not see "Potatoes"
-    When I follow "Show"
+    When I follow "Show/Hide subcategories" within "#category-loading-1"
     And I wait 0.5 seconds for Services show animation to finish
     Then I should see "Beans"
     And I should see "Potatoes"

@@ -34,7 +34,7 @@ FastGettext.default_text_domain = 'noosfero'
 # Adds custom locales for specific domains; Domains are identified by the
 # sequence before the first dot, while tenants are identified by schema name
 hosted_environments = Noosfero::MultiTenancy.mapping.values
-hosted_environments += Domain.all.map { |domain| domain.name[/(.*?)\./,1] } if Domain.table_exists?
+hosted_environments += Domain.all.map { |domain| domain.name[/(.*?)\./,1] }.compact if Domain.table_exists?
 
 hosted_environments.uniq.each do |env|
   custom_locale_dir = Rails.root.join('config', 'custom_locales', env)
