@@ -164,16 +164,21 @@ class CustomFormsPlugin::Form < ApplicationRecord
   alias_attribute :result_access, :access_result_options
 
   def show_results_for(person)
-    result_access.blank? ||
+    (result_access.blank?) ||
     (result_access == 'public') ||
-    ((result_access == 'public_after_ends') && ending.present? &&
-                                              (ending < DateTime.now)) ||
-    ((result_access == 'private') && (person == profile ||
-                                      person.in?(profile.admins) ||
-                                      person.in?(profile.environment.admins)))
+    (
+      result_access == 'public_after_ends' && 
+      ((ending.present? && (ending < DateTime.now)) || can_view?(person))
+    ) ||
+    ((result_access == 'private') && can_view?(person))
   end
 
   private
+  def can_view?(person)
+    (person == profile ||
+    person.in?(profile.admins) ||
+    person.in?(profile.environment.admins))
+  end
 
   def period_range
     errors.add(:base, _('The time range selected is invalid.')) if ending < begining
