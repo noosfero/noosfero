@@ -146,7 +146,7 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'set position on save' do
-    refute @step.position
+    assert_equal 0, @step.position
     @step.save!
     assert_equal 1, @step.position
     step2 = CommunityTrackPlugin::Step.new(:name => 'Step2', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day)
