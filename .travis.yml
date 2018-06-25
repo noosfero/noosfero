@@ -1,60 +1,33 @@
-notifications:
-  irc:
-    channels:
-      - "chat.freenode.net#noosfero"
-      - "chat.freenode.net#noosfero-br"
-    template:
-      - "%{repository_slug} %{branch} %{commit} %{commit_subject} - %{result} %{build_url}"
-
-# Ensure Container-based environment for faster boot times.
-# See https://docs.travis-ci.com/user/ci-environment/#Virtualization-environments
 sudo: required
+
+services:
+  - docker
 
 os: debian
 
 dist: jessie
 
-jdk:
-  # openjdk8 isn't available on precise
-  - oraclejdk8
-
 language: ruby
 rvm:
   - 2.4.4
 
-cache: bundler
+before_script:
+  - docker-compose -f dev.yml up -d --build
+  - >
+    while ! docker logs noosfero | grep "Listening on tcp://0.0.0.0:3000"; do
+        echo "Waiting for start script to finish...";
+        sleep 5;
+    done;
 
 addons:
-  postgresql: '9.4'
-  # same as in docker ci image
-  #firefox: '45.7.0'
-  artifacts:
-    paths:
-      - $(ls tmp/artifact* | tr "\n" ":")
-
-before_install:
-  - gem update --system
-  - bundle update
-  # elasticsearch 2
-  - wget ${ES_DOWNLOAD_URL}
-  - tar -xzf elasticsearch-${ES_VERSION}.tar.gz
-  - ./elasticsearch-${ES_VERSION}/bin/elasticsearch &
+  postgresql: "9.4"
 
 before_script:
-  - mkdir -p tmp/{pids,cache} log cache
-  - script/noosfero-plugins disableall
-  #- bundle exec rake makemo &>/dev/null
-  # database
-  - psql -c 'create database myapp_test;' -U postgres
-  - ./script/quick-start
 
 env:
-  global:
-    - ES_VERSION=1.7.6
-    - ES_DOWNLOAD_URL=https://download.elastic.co/elasticsearch/elasticsearch/elasticsearch-${ES_VERSION}.tar.gz
-    - LANG=en
   matrix:
     - os=debian DIST=jessie
+    - TASK=cypress:run
     - TASK=spec SPEC=spec/models
     - TASK=test:api
     - TASK=test:units
@@ -71,19 +44,6 @@ env:
     - SLICE=3/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
     - SLICE=4/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
     - SLICE=5/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-    # chrome hanging on travis
-    #- SLICE=1/4 TASK=selenium SELENIUM_DRIVER=chrome
-    #- SLICE=2/4 TASK=selenium SELENIUM_DRIVER=chrome
-    #- SLICE=3/4 TASK=selenium SELENIUM_DRIVER=chrome
-    #- SLICE=4/4 TASK=selenium SELENIUM_DRIVER=chrome
-
-matrix:
-  allow_failures:
-    - env: SLICE=1/4 TASK=selenium SELENIUM_DRIVER=chrome
-    - env: SLICE=2/4 TASK=selenium SELENIUM_DRIVER=chrome
-    - env: SLICE=3/4 TASK=selenium SELENIUM_DRIVER=chrome
-    - env: SLICE=4/4 TASK=selenium SELENIUM_DRIVER=chrome
 
 script:
-  - bundle exec rake $TASK
-
+  - docker-compose exec noosfero bundle exec rake $TASK
