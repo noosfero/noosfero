@@ -1,32 +1,20 @@
 sudo: required
 
+language: generic
+
 services:
   - docker
-
-os: debian
-
-dist: jessie
-
-language: ruby
-rvm:
-  - 2.4.4
 
 before_script:
   - docker-compose -f dev.yml up -d --build
   - >
-    while ! docker logs noosfero | grep "Listening on tcp://0.0.0.0:3000"; do
-        echo "Waiting for start script to finish...";
-        sleep 5;
+    while ! docker logs noosfero | grep "RUNNING MIGRATIONS"; do
+        echo "Waiting for entrypoint script to finish..."
+        sleep 10
     done;
-
-addons:
-  postgresql: "9.4"
-
-before_script:
 
 env:
   matrix:
-    - os=debian DIST=jessie
     - TASK=cypress:run
     - TASK=spec SPEC=spec/models
     - TASK=test:api
@@ -46,4 +34,4 @@ env:
     - SLICE=5/5 TASK=test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
 
 script:
-  - docker-compose exec noosfero bundle exec rake $TASK
+  - docker-compose -f dev.yml exec noosfero bundle exec rake $TASK

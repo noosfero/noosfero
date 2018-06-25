@@ -1,11 +1,9 @@
-version: "3.5"
+version: "3"
 
 services:
   postgres:
     container_name: postgres
     image: postgres:9.4
-    networks:
-      - noosfero
     environment:
       POSTGRES_USER: noosfero
       POSTGRES_PASSWORD: noosfero
@@ -24,8 +22,6 @@ services:
       - postgres
     volumes:
       - .:/noosfero
-    networks:
-      - noosfero
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_USER: noosfero
@@ -34,7 +30,3 @@ services:
 
 volumes:
   pg-data: {}
-
-networks:
-  noosfero:
-    name: noosfero-network
