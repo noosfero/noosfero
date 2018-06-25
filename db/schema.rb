@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180416172522) do
+ActiveRecord::Schema.define(version: 20180604140454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,41 +146,42 @@ ActiveRecord::Schema.define(version: 20180416172522) do
     t.boolean "notify_comments", default: true
     t.integer "hits", default: 0
     t.datetime "published_at"
-    t.string "source"
-    t.boolean "highlighted", default: false
-    t.string "external_link"
-    t.boolean "thumbnails_processed", default: false
-    t.boolean "is_image", default: false
-    t.integer "translation_of_id"
-    t.string "language"
-    t.string "source_name"
-    t.integer "license_id"
-    t.integer "image_id"
-    t.integer "position"
-    t.integer "spam_comments_count", default: 0
-    t.integer "author_id"
-    t.integer "created_by_id"
-    t.boolean "show_to_followers", default: true
-    t.integer "followers_count", default: 0
-    t.boolean "archived", default: false
-    t.string "editor", default: "tiny_mce", null: false
-    t.jsonb "metadata", default: {}
-    t.index ["comments_count"], name: "index_articles_on_comments_count"
-    t.index ["created_at"], name: "index_articles_on_created_at"
-    t.index ["hits"], name: "index_articles_on_hits"
-    t.index ["metadata"], name: "index_articles_on_metadata", using: :gin
-    t.index ["name"], name: "index_articles_on_name"
-    t.index ["parent_id"], name: "index_articles_on_parent_id"
-    t.index ["path", "profile_id"], name: "index_articles_on_path_and_profile_id"
-    t.index ["path"], name: "index_articles_on_path"
-    t.index ["profile_id"], name: "index_articles_on_profile_id"
-    t.index ["published_at", "id"], name: "index_articles_on_published_at_and_id"
-    t.index ["slug"], name: "index_articles_on_slug"
-    t.index ["translation_of_id"], name: "index_articles_on_translation_of_id"
-    t.index ["type", "parent_id"], name: "index_articles_on_type_and_parent_id"
-    t.index ["type", "profile_id"], name: "index_articles_on_type_and_profile_id"
-    t.index ["type"], name: "index_articles_on_type"
+    t.string   "source"
+    t.boolean  "highlighted",          default: false
+    t.string   "external_link"
+    t.boolean  "thumbnails_processed", default: false
+    t.boolean  "is_image",             default: false
+    t.integer  "translation_of_id"
+    t.string   "language"
+    t.string   "source_name"
+    t.integer  "license_id"
+    t.integer  "image_id"
+    t.integer  "position",             default: 0
+    t.integer  "spam_comments_count",  default: 0
+    t.integer  "author_id"
+    t.integer  "created_by_id"
+    t.boolean  "show_to_followers",    default: true
+    t.integer  "followers_count",      default: 0
+    t.boolean  "archived",             default: false
+    t.string   "editor",               default: "tiny_mce", null: false
+    t.jsonb    "metadata",             default: {}
   end
+
+  add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree
+  add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
+  add_index "articles", ["hits"], name: "index_articles_on_hits", using: :btree
+  add_index "articles", ["metadata"], name: "index_articles_on_metadata", using: :gin
+  add_index "articles", ["name"], name: "index_articles_on_name", using: :btree
+  add_index "articles", ["parent_id"], name: "index_articles_on_parent_id", using: :btree
+  add_index "articles", ["path", "profile_id"], name: "index_articles_on_path_and_profile_id", using: :btree
+  add_index "articles", ["path"], name: "index_articles_on_path", using: :btree
+  add_index "articles", ["profile_id"], name: "index_articles_on_profile_id", using: :btree
+  add_index "articles", ["published_at", "id"], name: "index_articles_on_published_at_and_id", using: :btree
+  add_index "articles", ["slug"], name: "index_articles_on_slug", using: :btree
+  add_index "articles", ["translation_of_id"], name: "index_articles_on_translation_of_id", using: :btree
+  add_index "articles", ["type", "parent_id"], name: "index_articles_on_type_and_parent_id", using: :btree
+  add_index "articles", ["type", "profile_id"], name: "index_articles_on_type_and_profile_id", using: :btree
+  add_index "articles", ["type"], name: "index_articles_on_type", using: :btree
 
   create_table "articles_categories", id: false, force: :cascade do |t|
     t.integer "article_id"

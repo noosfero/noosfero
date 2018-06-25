@@ -16,7 +16,8 @@
   margin-bottom: 5px;
 }
 
-#online-doc-navigation h1, #online-doc h1 {
+#online-doc-navigation h1,
+#online-doc h1 {
   text-align: left;
 }
 
@@ -43,19 +44,15 @@ p img {
     display: flex;
     flex-direction: column;
   }
-
   #online-doc {
     margin-left: 0;
   }
-
   #online-doc-text {
     background: none !important;
   }
-
   #online-doc-path {
     display: none;
   }
-
   #online-doc-navigation {
     align-self: center;
     width: 97% !important;

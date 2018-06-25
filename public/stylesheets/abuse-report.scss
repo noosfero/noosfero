@@ -8,10 +8,9 @@
 }
 
 .abuse-report-header {
-  display:flex;
+  display: flex;
   justify-content: space-between;
   margin-top: 5px;
-
   a.abuse-reporter-name {
     color: #000;
     font-weight: bold;
@@ -29,5 +28,5 @@
 
 a.report-abuse-action {
   border: none;
-  background:none;
+  background: none;
 }

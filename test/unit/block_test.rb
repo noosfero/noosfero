@@ -541,4 +541,15 @@ class BlockTest < ActiveSupport::TestCase
 
     assert_nil RecentDocumentsBlock.find_by_id mirrored_block.id
   end
+
+  should 'api_content return nil by default' do
+    block = Block.new
+    assert_nil block.api_content
+  end
+
+  should 'display_api_content_by_default? be false by default' do
+    block = Block.new
+    assert !block.display_api_content_by_default?
+  end
+
 end

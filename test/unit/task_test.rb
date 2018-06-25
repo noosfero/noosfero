@@ -31,7 +31,7 @@ class TaskTest < ActiveSupport::TestCase
   def test_should_call_perform_in_finish
     TaskMailer.expects(:generic_message).with('task_finished', anything)
     t = Task.create
-    t.requestor = sample_user
+    t.requestor = create_user.person
     t.expects(:perform)
     t.finish
     assert_equal Task::Status::FINISHED, t.status
@@ -41,7 +41,7 @@ class TaskTest < ActiveSupport::TestCase
   def test_should_have_cancelled_status_after_cancel
     TaskMailer.expects(:generic_message).with('task_cancelled', anything)
     t = Task.create
-    t.requestor = sample_user
+    t.requestor = create_user.person
     t.cancel
     assert_equal Task::Status::CANCELLED, t.status
     process_delayed_job_queue
@@ -54,7 +54,7 @@ class TaskTest < ActiveSupport::TestCase
 
   def test_should_notify_finish
     t = Task.create
-    t.requestor = sample_user
+    t.requestor = create_user.person
 
     TaskMailer.expects(:generic_message).with('task_finished', t)
 
@@ -64,7 +64,7 @@ class TaskTest < ActiveSupport::TestCase
 
   def test_should_notify_cancel
     t = Task.create
-    t.requestor = sample_user
+    t.requestor = create_user.person
 
     TaskMailer.expects(:generic_message).with('task_cancelled', t)
 
@@ -95,7 +95,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'notify just after the task is created' do
     task = Task.new
-    task.requestor = sample_user
+    task.requestor = create_user.person
 
     TaskMailer.expects(:generic_message).with('task_created', task)
     task.save!
@@ -104,7 +104,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'not notify if the task is hidden' do
     task = build(Task, :status => Task::Status::HIDDEN)
-    task.requestor = sample_user
+    task.requestor = create_user.person
 
     TaskMailer.expects(:generic_message).with('task_created', anything).never
     task.save!
@@ -132,7 +132,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'find only in active tasks' do
     task = Task.new
-    task.requestor = sample_user
+    task.requestor = create_user.person
     task.save!
 
     task.cancel
@@ -142,7 +142,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'be able to find active tasks' do
     task = Task.new
-    task.requestor = sample_user
+    task.requestor = create_user.person
     task.save!
 
     assert_not_nil Task.from_code(task.code)
@@ -315,7 +315,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'notify just after the task is activated' do
     task = build(Task, :status => Task::Status::HIDDEN)
-    task.requestor = sample_user
+    task.requestor = create_user.person
     task.save!
 
     TaskMailer.expects(:generic_message).with('task_activated', task)
@@ -556,13 +556,14 @@ class TaskTest < ActiveSupport::TestCase
     assert_equivalent [t1,t3,t4], Task.to(person)
   end
 
-  protected
+  should 'api_content return nil by default' do
+    task = Task.new
+    assert_nil task.api_content
+  end
 
-  def sample_user
-    user = build(User, :login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain')
-    user.build_person(person_data)
-    user.save
-    user.person
+  should 'display_api_content_by_default? be false by default' do
+    task = Task.new
+    assert !task.display_api_content_by_default?
   end
 
 end

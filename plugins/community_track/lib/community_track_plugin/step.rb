@@ -7,7 +7,10 @@ class CommunityTrackPlugin::Step < Folder
 
   alias :tools :children
 
-  acts_as_list scope: -> step { where parent_id: step.parent_id }
+  acts_as_list scope: -> step { where parent_id: step.parent_id },
+               column: :step_position
+
+  alias_attribute :position, :step_position
 
   def belong_to_track
     errors.add(:parent, _("Step not allowed at this parent.")) unless parent.kind_of?(CommunityTrackPlugin::Track)
@@ -36,7 +39,7 @@ class CommunityTrackPlugin::Step < Folder
   def set_hidden_position
     if hidden
       decrement_positions_on_lower_items
-      self[:position] = 0
+      self[:step_position] = 0
     elsif position == 0
       add_to_list_bottom
     end

@@ -2,25 +2,29 @@
   margin: 20px 0px;
   padding: 1em 0em;
   text-align: center;
-  em, a {
+  em,
+  a {
     font-style: normal;
     font-weight: 700;
     font-size: 1em !important;
     margin: 0px 8px;
-    @media only screen and (max-width: 960px) { margin: 0; }
+    @media only screen and (max-width: 960px) {
+      margin: 0;
+    }
     text-decoration: none !important;
   }
-
-  > * {
+  >* {
     padding: 2px 8px;
-    @media only screen and (max-width: 960px) { padding: 2px 6px; }
-    @media only screen and (max-width: 540px) { padding: 2px 8px; }
+    @media only screen and (max-width: 960px) {
+      padding: 2px 6px;
+    }
+    @media only screen and (max-width: 540px) {
+      padding: 2px 8px;
+    }
   }
-
   a:not(.next_page):not(.previous_page):hover {
     border-bottom: 2px solid #212e3c;
   }
-
   .current {
     padding: 2px 8px;
     color: #fff;
@@ -28,14 +32,12 @@
     border-radius: 4px;
     font-weight: 700;
   }
-
   a:first-child {
     padding-left: 0px;
     i {
       margin: 0 4px 0 0;
     }
   }
-
   a:last-child {
     padding-right: 0px;
     i {

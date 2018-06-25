@@ -20,6 +20,7 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
       (profile && environment.is_portal_community?(profile)) ||
       params['controller'] == 'account' ||
       params['controller'] == 'home' ||
+      params['controller'] == 'national_regions' ||
       params['controller'] == 'public_access_restriction_plugin_public_page' ||
       linked_on_portal_news(environment, params, profile) ||
       show_newsletter(environment, profile)

@@ -91,7 +91,7 @@ module Api
     end
 
     class Block < Entity
-      expose :id, :type, :settings, :position, :enabled
+      expose :id, :type, :settings, :position, :enabled, :box_id
       expose :mirror, :mirror_block_id, :title
       expose :api_content, if: lambda { |object, options| options[:display_api_content] || object.display_api_content_by_default? } do |block, options|
         block.api_content({:current_person => options[:current_person]}.merge(options[:api_content_params] || {}))
@@ -301,6 +301,9 @@ module Api
       expose :target do |task, options|
         type_map = {Profile => ::Profile, Environment => ::Environment}.find {|h| task.target.kind_of?(h.last)}
         type_map.first.represent(task.target) unless type_map.nil?
+      end
+      expose :api_content, if: lambda { |object, options| options[:display_api_content] || object.display_api_content_by_default? } do |task, options|
+        task.api_content({:current_person => options[:current_person]}.merge(options[:api_content_params] || {}))
       end
     end
 

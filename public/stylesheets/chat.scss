@@ -9,12 +9,10 @@
   box-shadow: -3px 0px 5px #888;
   transition: width 0.3s ease-in;
   z-index: 200;
-
   &.opened {
     width: 350px;
     transition: width 0.3s ease-in;
   }
-
   #chat-window {
     height: 100%;
     position: relative;
@@ -38,21 +36,22 @@
           text-align: right;
           margin-bottom: 5px;
         }
-        h5, p {
+        h5,
+        p {
           margin: 0;
         }
         p {
           margin-left: 40px;
           word-wrap: break-word;
         }
-
         &.self p {
           margin-left: 1px;
           margin-right: 40px;
         }
         .content {
           background-color: #BBB;
-          color: white;;
+          color: white;
+          ;
           padding: 8px;
           border-radius: 5px;
           display: inline-block;
@@ -91,14 +90,12 @@
       margin-left: 0;
     }
   }
-
   .avatar {
     border-radius: 5px;
     width: 32px;
     max-height: 35px;
     vertical-align: middle;
   }
-
   &.opened #buddy-list {
     width: 70px;
     transition: width 0.3s ease-in;
@@ -108,16 +105,14 @@
     transition: width 0.3s ease-in;
     @import "chat/buddy-list";
   }
-
   .occupant-list li a:hover {
     background-color: black;
   }
-
   .occupant-list .icon-menu-chat-11 {
     background-image: none;
   }
-
-  #buddy-list .buddies, .occupant-list {
+  #buddy-list .buddies,
+  .occupant-list {
     li a {
       text-decoration: none;
       background-position: 0% 50%;
@@ -138,7 +133,7 @@
         right: 0;
         padding-left: 55px;
         line-height: 32px;
-        color: rgba(127,127,127,0);
+        color: rgba(127, 127, 127, 0);
         transition: 0.5s;
       }
       img {
@@ -149,7 +144,6 @@
   #buddy-list:hover .buddies li a .name {
     color: #666;
   }
-
   #unread-messages {
     padding: 3px 5px;
     background-color: #F57900;
@@ -159,13 +153,12 @@
     position: absolute;
     z-index: 1;
   }
-
   .unread-messages {
     width: 32px;
     height: 32px;
     line-height: 32px;
     text-align: center;
-    background-color: rgba(0,0,0,0.3);
+    background-color: rgba(0, 0, 0, 0.3);
     text-shadow: 0 0 2px #000;
     border-radius: 5px;
     color: white;
@@ -177,7 +170,6 @@
       display: none;
     }
   }
-
   div.occupants ul.occupant-list {
     padding: 0;
     margin: 0;
@@ -190,8 +182,7 @@
   div.occupants ul.occupant-list {
     text-align: left;
   }
-
-  div.occupants > a {
+  div.occupants>a {
     color: rgb(168, 168, 168);
     text-align: center;
     width: 100%;
@@ -203,10 +194,9 @@
     font-size: 10px;
     font-weight: bold;
   }
-  div.occupants > a.up {
+  div.occupants>a.up {
     background-image: url(/images/top-arrow.png);
   }
-
   .title-bar {
     height: 34px;
     background: #ccc url(/images/icons-app/chat-22x22.png) 3px 5px no-repeat;
@@ -217,11 +207,9 @@
   .title-bar a {
     text-decoration: none;
   }
-
   #user-status .avatar {
     margin-left: 8px;
   }
-
   .title-bar .title {
     margin: 0;
     font-size: 12px;
@@ -243,7 +231,10 @@
     font-weight: bold;
     color: white;
   }
-  #chat-window .other-name, #chat-window .history .self-name, #chat-window .history h5, .toolbar #user-status span.other-name {
+  #chat-window .other-name,
+  #chat-window .history .self-name,
+  #chat-window .history h5,
+  .toolbar #user-status span.other-name {
     color: white;
     overflow: hidden;
     max-width: 140px;
@@ -275,21 +266,18 @@
     left: auto;
     right: 0;
   }
-
   .simplemenu-item:hover {
     background: none;
   }
-
   #buddy-list #user-status {
     display: table-cell;
     vertical-align: middle;
     padding: 0;
     white-space: nowrap;
     transition: padding 0.3s ease-in;
-
     .user-status {
       vertical-align: middle;
-      > a {
+      >a {
         background-color: #BBB;
         width: 100%;
         transition: 1s;
@@ -320,7 +308,6 @@
       }
     }
   }
-
   .header {
     border: 0;
     height: 50px;
@@ -330,7 +317,6 @@
     font-size: 19px;
     background-image: linear-gradient(to left, #E3E3E3 25%, #BABDB6 100%, #FFFFFF 100%);
   }
-
 }
 
 /******************************************************************************/
@@ -346,7 +332,6 @@
   text-align: center;
   z-index: 11;
   transition: background-color 0.2s linear, right 0.3s ease-in;
-
   &.opened {
     width: 20px;
     height: 90px;
@@ -356,21 +341,17 @@
     font-size: 14px;
     transition: background-color 0.2s linear, right 0.3s ease-in;
   }
-
   &.opened:hover {
     background-color: #2E3436;
     transition: background-color 0.2s linear, right 0.3s ease-in;
   }
-
   &.opened #unread-messages,
   #unread-messages:empty {
     display: none;
   }
-
   span {
     color: white;
   }
-
   span.title {
     font-size: 16px;
     position: absolute;
@@ -384,39 +365,31 @@
     text-shadow: 1px -1px 0 #666;
     transition: background-color 0.2s linear, right 0.3s ease-in;
   }
-
   &:hover span.title {
     background-color: #2E3436;
     transition: background-color 0.2s linear, right 0.3s ease-in;
   }
-
   span.right-arrow {
     font-size: 12px;
     line-height: 87px;
   }
-
   .title {
     display: inline;
   }
-
   &.opened .title {
     display: none;
   }
-
   .right-arrow {
     display: none;
   }
-
   &.opened .right-arrow {
     display: inline;
   }
-
   div {
     width: 64px;
     height: 64px;
     display: none;
   }
-
   &.opened div {
     display: inline-block;
   }

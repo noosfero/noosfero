@@ -33,7 +33,6 @@ class HomeController < PublicController
 
     amount = environment.highlighted_news_amount + environment.portal_news_amount
     news = environment.portal_community.news(amount, true)
-    normalize_orders!(news)
 
     case params[:direction]
     when 'up'
@@ -47,39 +46,18 @@ class HomeController < PublicController
 
   private
 
-  def normalize_orders!(news)
-    return unless news.any? { |n| n.metadata['order'].nil? }
-    news.each_with_index do |article, index|
-      article.metadata['order'] = index
-      article.save
-    end
-  end
-
   def move_article_up(news, index)
-    if index > 0 && index < news.size
-      article = news[index]
-      previous_article = news[index - 1]
-      switch_orders(article, previous_article)
-    end
+    return unless index > 0 && index < news.size
+    article = news[index]
+    next_article = news[index - 1]
+    Article.switch_orders(next_article, article)
   end
 
   def move_article_down(news, index)
-    if index >= 0 && index < (news.size - 1)
-      article = news[index]
-      next_article = news[index + 1]
-      switch_orders(article, next_article)
-    end
-  end
-
-  def switch_orders(first_article, second_article)
-    first_order = first_article.metadata['order']
-    second_order = second_article.metadata['order']
-
-    first_article.metadata['order'] = second_order
-    second_article.metadata['order'] = first_order
-
-    first_article.save
-    second_article.save
+    return unless index >= 0 && index < (news.size - 1)
+    article = news[index]
+    previous_article = news[index + 1]
+    Article.switch_orders(article, previous_article)
   end
 
   def require_admin

@@ -3,7 +3,6 @@
     opacity: 0.5;
     pointer-events: none;
   }
-
   input[type=text].invalid {
     box-shadow: 0px 0px 3px red;
   }
@@ -12,9 +11,12 @@
 .controller-profile_editor .categorie_box .button {
   float: left;
 }
-.controller-profile_editor #content ul.categories, .controller-profile_editor #content ul.categories li {
+
+.controller-profile_editor #content ul.categories,
+.controller-profile_editor #content ul.categories li {
   list-style: none;
 }
+
 .controller-profile_editor .control-panel {
   /*border: 1px solid red;*/
   padding: 0px 15px 0px 15px;
@@ -65,6 +67,7 @@
     font-size: 12px;
   }
 }
+
 .controller-profile_editor .control-panel a:hover {
   color: #435d7a;
   background-color: #d2e0f0;
@@ -72,151 +75,199 @@
   -webkit-border-radius: 3px;
   transition: background-color 0.5s, color 0.5s;
 }
+
 .controller-profile_editor .control-panel a i.fa {
   font-size: 4em !important;
   color: #212e3c;
   margin-right: 0;
   transition: color 0.5s;
 }
+
 .controller-profile_editor .control-panel a:hover i.fa {
   color: #435d7a;
   transition: color 0.5s;
 }
+
 .controller-profile_editor #delete-profile {
   margin-top: 30px;
 }
+
 .controller-profile_editor a.control-panel-groups {
   background-image: url(../images/control-panel/system-users.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-groups {
   background-image: url(../images/control-panel/system-users.gif)
 }
+
 .controller-profile_editor a.control-panel-design-editor {
   background-image: url(../images/control-panel/preferences-desktop-wallpaper.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-design-editor {
   background-image: url(../images/control-panel/preferences-desktop-wallpaper.gif)
 }
+
 .controller-profile_editor a.control-panel-blog-disabled {
   background-image: url(../images/control-panel/text-editor-disabled.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-blog-disabled {
   background-image: url(../images/control-panel/text-disabled.gif)
 }
+
 .controller-profile_editor a.control-panel-blog {
   background-image: url(../images/control-panel/text-editor.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-blog {
   background-image: url(../images/control-panel/text-editor.gif)
 }
+
 .controller-profile_editor a.control-panel-change-password {
   background-image: url(../images/control-panel/password.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-change-password {
   background-image: url(../images/control-panel/password.gif)
 }
+
 .controller-profile_editor a.control-panel-cms {
   background-image: url(../images/control-panel/system-file-manager.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-cms {
   background-image: url(../images/control-panel/system-file-manager.gif)
 }
+
 .controller-profile_editor a.control-panel-favorites {
   background-image: url(../images/control-panel/emblem-favorite.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-favorites {
   background-image: url(../images/control-panel/emblem-favorite.gif)
 }
+
 .controller-profile_editor a.control-panel-todo {
   background-image: url(../images/control-panel/editpaste.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-todo {
   background-image: url(../images/control-panel/editpaste.gif)
 }
+
 .controller-profile_editor a.control-panel-blocks {
   background-image: url(../images/control-panel/blocks.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-blocks {
   background-image: url(../images/control-panel/blocks.gif)
 }
+
 .controller-profile_editor a.control-panel-header-and-footer {
   background-image: url(../images/control-panel/header-footer.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-header-and-footer {
   background-image: url(../images/control-panel/header-footer.gif)
 }
+
 .controller-profile_editor a.control-panel-friends {
   background-image: url(../images/control-panel/contact.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-friends {
   background-image: url(../images/control-panel/contact.gif)
 }
+
 .controller-profile_editor a.control-panel-edit-profile {
   background-image: url(../images/control-panel/edit-profile.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-edit-profile {
   background-image: url(../images/control-panel/edit-profile.gif)
 }
+
 .controller-profile_editor a.control-panel-edit-profile-group {
   background-image: url(../images/control-panel/edit-profile-group.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-edit-profile-group {
   background-image: url(../images/control-panel/edit-profile-group.gif)
 }
+
 .controller-profile_editor a.control-panel-edit-profile-enterprise {
   background-image: url(../images/control-panel/edit-profile-enterprise.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-edit-profile-enterprise {
   background-image: url(../images/control-panel/edit-profile-enterprise.gif)
 }
+
 .controller-profile_editor a.control-panel-members {
   background-image: url(../images/control-panel/contact.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-members {
   background-image: url(../images/control-panel/contact.gif)
 }
+
 .controller-profile_editor a.control-panel-products {
   background-image: url(../images/control-panel/package.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-products {
   background-image: url(../images/control-panel/package.gif)
 }
+
 .controller-profile_editor a.control-panel-disable {
   background-image: url(../images/control-panel/stop.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-disable {
   background-image: url(../images/control-panel/stop.gif)
 }
+
 .controller-profile_editor a.control-panel-validation {
   background-image: url(../images/control-panel/application-certificate.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-validation {
   background-image: url(../images/control-panel/application-certificate.gif)
 }
+
 .controller-profile_editor a.control-panel-mail {
   background-image: url(../images/control-panel/email.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-mail {
   background-image: url(../images/control-panel/email.gif)
 }
+
 .controller-profile_editor a.control-panel-edit-location {
   background-image: url(../images/control-panel/set-geolocation.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-edit-location {
   background-image: url(../images/control-panel/set-geolocation.gif)
 }
+
 .controller-profile_editor a.control-panel-manage-spam {
   background-image: url(../images/control-panel/mail-mark-junk.png)
 }
+
 .controller-profile_editor a.control-panel-welcome-page {
   background-image: url(../images/control-panel/welcome-page.png)
 }
+
 .controller-profile_editor a.control-panel-roles {
   background-image: url(../images/control-panel/role-management.png)
 }
+
 .controller-profile_editor .msie6 a.control-panel-roles {
   background-image: url(../images/control-panel/role-management.gif)
 }
+
 .controller-profile_editor .control-panel .control-panel-email-templates {
   background-image: url(../images/control-panel/email.png)
 }
@@ -241,7 +292,9 @@
 .controller-profile_editor #profile-data .field-with-privacy-selector .formfieldline {
   display: inline-block;
   width: 60%;
-  @media only screen and (max-width: 768px) { width: 75%; }
+  @media only screen and (max-width: 768px) {
+    width: 75%;
+  }
   input {
     width: 99%;
   }
@@ -288,6 +341,7 @@
   padding: 20px;
   margin: 5px 30px 10px 30px;
 }
+
 .change-confirmation div {
   text-align: right;
   padding: 20px 10px 0px 0px;
@@ -297,13 +351,15 @@
   float: left;
   margin-right: 10px;
 }
+
 .type-img br {
   clear: left;
 }
 
-#profile_change_picture #image-builder-remove-checkbox > .formfieldline > label {
+#profile_change_picture #image-builder-remove-checkbox>.formfieldline>label {
   display: block;
 }
+
 #profile_change_picture img {
   margin-left: 10px;
 }

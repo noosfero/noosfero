@@ -19,7 +19,7 @@
                   <%= _('move up') %> <i class='fa fa-angle-up'></i>
                 <% end %>
                 <%= link_to({ action: :reorder, index: index, direction: 'down' },
-                              class: (@portal_news.size == 0 ? 'disabled' : '')) do %>
+                              class: (index == (@portal_news.size - 1) ? 'disabled' : '')) do %>
                   <%= _('move down') %> <i class='fa fa-angle-down'></i>
                 <% end %>
                 </a>

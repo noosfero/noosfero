@@ -1,11 +1,9 @@
-
 /* sitemap and agenda */
 
 ul.sitemap-content {
   list-style: none;
   margin-top: -10px;
   padding: 0 1em;
-
   .item-info {
     border: none;
     border-bottom: 1px solid #ccc;
@@ -17,12 +15,18 @@ ul.sitemap-content {
   line-height: 150%;
 }
 
-.agenda-item:hover, .sitemap-item:hover, .sitemap-item:hover a {
+.agenda-item:hover,
+.sitemap-item:hover,
+.sitemap-item:hover a {
   background-color: transparent;
   text-decoration: underline;
 }
 
-.sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited, .agenda a:hover {
+.sitemap-item a:link,
+.agenda-item a:link,
+.sitemap-item a:visited,
+.agenda-item a:visited,
+.agenda a:hover {
   border: none;
   text-decoration: none;
 }
@@ -35,6 +39,7 @@ ul.sitemap-content {
   line-height: 16px;
 }
 
-.sitemap-item img, .agenda-item img {
+.sitemap-item img,
+.agenda-item img {
   border: none;
 }
