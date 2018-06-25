@@ -35,7 +35,8 @@ Feature: Use a secret community
   Scenario: Non members shouldn't see secret communit's content
     Given I am logged in as "maria"
     And I go to mycommunity's homepage
-    And I should see "Oops ... You Cannot Go Ahead Here This profile is inaccessible. You don't have the permission to view the content here. Go back Go to the home page Manual This social network uses Noosfero, developed by Colivre and licensed under the GNU Affero General Public License version 3 or any later version."
+    And I should see "Oops ... you cannot go ahead here"
+    And I should see "This profile is inaccessible. You don't have the permission to view the content here."
     And I go to /search/communities
     Then I should not see "My Community"
 
