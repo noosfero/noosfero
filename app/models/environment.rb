@@ -180,6 +180,7 @@ class Environment < ApplicationRecord
     {
       'keep_on_same_page' => _('Stays on the same page the user was before login.'),
       'site_homepage' => _('Redirects the user to the environment homepage.'),
+      'domain_root' => _('Redirects the user to the current domain root.'),
       'user_profile_page' => _('Redirects the user to his profile page.'),
       'user_homepage' => _('Redirects the user to his homepage.'),
       'user_control_panel' => _('Redirects the user to his control panel.'),
@@ -192,6 +193,7 @@ class Environment < ApplicationRecord
     {
       'keep_on_same_page' => _('Stays on the same page the user was before signup.'),
       'site_homepage' => _('Redirects the user to the environment homepage.'),
+      'domain_root' => _('Redirects the user to the current domain root.'),
       'user_profile_page' => _('Redirects the user to his profile page.'),
       'user_homepage' => _('Redirects the user to his homepage.'),
       'user_control_panel' => _('Redirects the user to his control panel.'),
