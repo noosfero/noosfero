@@ -16,7 +16,7 @@ class SocialStatisticsPlugin < Noosfero::Plugin
     if user.is_admin?
       proc do
         { :title => _('Stats'),
-          :icon => 'pie-chart',
+          :icon => 'chart-pie',
           :url => '/stats',
           :html_options =>
             { :title => _("Manage the environment statistics."),

@@ -68,7 +68,7 @@ Feature: article versioning
   @selenium
   Scenario: try to access versions of unexistent article
     Given I go to /joaosilva/unexistent-article/versions
-    Then I should see "There Is No Such Page:"
+    Then I should see "There is no such page:"
 
   @selenium
   Scenario: deny access to versions when disabled on article
@@ -76,7 +76,7 @@ Feature: article versioning
       | owner     | name              | body                        | display_versions |
       | joaosilva | Versions disabled | Versions can't be displayed | false            |
     And I go to /joaosilva/versions-disabled/versions
-    Then I should see "Access Denied"
+    Then I should see "Access denied"
 
   @selenium
   Scenario: deny access to specific version when disabled on article and not logged
@@ -85,7 +85,7 @@ Feature: article versioning
       | false            |
     And I am not logged in
     And I go to /joaosilva/edited-article?version=1
-    Then I should see "Access Denied"
+    Then I should see "Access denied"
 
   @selenium
   Scenario: deny access to specific version when disabled, private and not logged
@@ -94,4 +94,4 @@ Feature: article versioning
       | false            | false     | false             |
     And I am not logged in
     And I go to /joaosilva/edited-article?version=1
-    Then I should see "Access Denied"
+    Then I should see "Access denied"
