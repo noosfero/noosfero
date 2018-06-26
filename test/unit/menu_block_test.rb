@@ -54,4 +54,35 @@ class MenuBlockTest < ActiveSupport::TestCase
     links = block.enabled_links_for(person)
     assert_equal ['Activities', 'About', 'Communities', 'People', 'Control Panel'], links.map { |l| l[:title] }
   end
+
+  should 'api_content= set display settings values' do
+    block = MenuBlock.new
+    assert_nil block.settings[:display]
+    block.api_content= { display: 'always' }
+    assert_equal 'always', block.settings[:display]
+  end
+
+  should 'api_content= set display_user settings values' do
+    block = MenuBlock.new
+    assert_nil block.settings[:display_user]
+    block.api_content= { display_user: 'all' }
+    block.valid?
+    assert_equal 'all', block.settings[:display_user]
+  end
+
+  should 'api_content= set enabled_links to settings' do
+    block = MenuBlock.new
+    assert_nil block.settings[:enabled_links]
+    value = { controller: 'SomeController'}
+    block.api_content= { enabled_items: value }
+    assert_equal value, block.settings[:enabled_links]
+  end
+
+  should 'api_content= set display_user settings if exist display value at the same time' do
+    block = MenuBlock.new
+    assert_nil block.settings[:display_user]
+    block.api_content= { display_user: 'all', display: 'always' }
+    assert_equal 'all', block.settings[:display_user]
+  end
+
 end

@@ -28,7 +28,7 @@ module Api
           return forbidden! unless is_admin?(environment)
           begin
             environment.update_attributes!(params[:environment])
-            present_partial environment, with: Entities::Environment, is_admin: is_admin?(environment), current_person: current_person
+            present_partial environment, with: Entities::Environment, is_admin: is_admin?(environment), current_person: current_person, params: params
           rescue ActiveRecord::RecordInvalid
             render_model_errors!(environment.errors)
           end
