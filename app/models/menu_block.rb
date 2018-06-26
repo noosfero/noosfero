@@ -40,6 +40,7 @@ class MenuBlock < Block
   end
 
   def api_content=(values = {})
+    super
     settings[:enabled_links] = values[:enabled_items]
   end
 

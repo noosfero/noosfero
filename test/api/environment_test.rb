@@ -133,6 +133,15 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal "leftbar", environment.reload.layout_template
   end
 
+  should "update environment accept optional fields" do
+    login_api
+    environment = Environment.default
+    environment.add_admin(person)
+    post "/api/v1/environments/#{environment.id}?#{params.merge({:optional_fields => [:boxes]}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert json.has_key?('boxes')
+  end
+
   should "test_should_forbid_update_for_non_admin_users_for_environments" do
     login_api
     environment = Environment.default

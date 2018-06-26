@@ -51,7 +51,7 @@ module Api
           begin
             profile_params = asset_with_image(params[:profile])
             profile.update_attributes!(asset_with_custom_image(:top_image, profile_params))
-            present profile, :with => Entities::Profile, :current_person => current_person
+            present profile, :with => Entities::Profile, :current_person => current_person, :params => params
           rescue ActiveRecord::RecordInvalid
             render_model_errors!(profile.errors)
           end
