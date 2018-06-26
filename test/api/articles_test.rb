@@ -7,6 +7,18 @@ class ArticlesTest < ActiveSupport::TestCase
     login_api
   end
 
+  expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count url)
+
+  expose_attributes.each do |attr|
+    should "expose article #{attr} attribute by default" do
+      article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
+      get "/api/v1/articles/?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert json.last.has_key?(attr)
+    end
+  end
+
+
   should 'remove article return 200 http status' do
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     delete "/api/v1/articles/#{article.id}?#{params.to_query}"
@@ -213,17 +225,6 @@ class ArticlesTest < ActiveSupport::TestCase
 
     assert_not_equal 401, last_response.status
     assert_equal true, json['success']
-  end
-
-  expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count url)
-
-  expose_attributes.each do |attr|
-    should "expose article #{attr} attribute by default" do
-      article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
-      get "/api/v1/articles/?#{params.to_query}"
-      json = JSON.parse(last_response.body)
-     assert json.last.has_key?(attr)
-    end
   end
 
   should 'not perform a vote twice in same article' do

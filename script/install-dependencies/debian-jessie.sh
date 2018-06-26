@@ -82,5 +82,6 @@ run sudo apt-get -y install dctrl-tools
 packages=$(grep-dctrl -n -s Build-Depends,Depends,Recommends -S -X noosfero debian/control | sed -e '/^\s*#/d; s/([^)]*)//g; s/,\s*/\n/g' | grep -v 'memcached\|debconf\|dbconfig-common\|misc:Depends\|adduser\|mail-transport-agent')
 run sudo apt-get -y install $packages
 sudo apt-get -y install iceweasel || sudo apt-get -y install firefox
-
 run bundle
+
+. "$(dirname $0)/install-dependencies/npm-dependencies.sh"

@@ -1,5 +1,5 @@
-
-#profile-header, #profile-footer {
+#profile-header,
+#profile-footer {
   clear: both;
   max-height: 150px;
   max-width: 100%;
@@ -9,18 +9,23 @@
 .controller-profile #pagination-profiles .pagination span {
   display: inline;
 }
+
 .no-boxes {
   margin: 0px;
 }
-.controller-profile #content .no-boxes h1, .controller-profile #content .no-boxes table th {
+
+.controller-profile #content .no-boxes h1,
+.controller-profile #content .no-boxes table th {
   text-align: left;
 }
+
 .controller-profile .private-profile-message {
   font-style: italic;
   border: 1px solid #ddd;
   background: #ffd;
   padding: 10px;
 }
+
 .controller-profile .public-profile-description {
   font-style: italic;
   border: 0;
@@ -28,12 +33,21 @@
   color: black;
   padding: 10px;
 }
-.controller-profile .private-profile-message, .controller-profile .private-profile-description {
+
+.controller-profile .private-profile-message,
+.controller-profile .private-profile-description {
   margin: 5px 0px 5px 160px;
 }
-.controller-profile_design .article-block-edition option, .controller-environment_design .article-block-edition option {
+
+.controller-profile_design .article-block-edition option,
+.controller-environment_design .article-block-edition option {
   width: 470px;
   overflow-x: hidden;
+}
+
+.controller-environment_design #content > .button-bar {
+  margin-right: 5%;
+  text-align: right;
 }
 
 #circles-checkboxes {
@@ -47,10 +61,13 @@
 
 .profile {
   padding: 0px 10px;
-  @media only screen and (max-width: 540px) { padding: 0px; }
+  @media only screen and (max-width: 540px) {
+    padding: 0px;
+  }
 }
 
-.ui-tabs, .ui-tabs-nav {
+.ui-tabs,
+.ui-tabs-nav {
   background: none !important;
   border: none !important;
   border-radius: 0 !important;
@@ -70,13 +87,19 @@
       float: none !important;
       outline: none !important;
       padding: 0.8em 1.5em !important;
-      @media only screen and (max-width: 960px) { padding: 0.5em 0.8em !important; }
+      @media only screen and (max-width: 960px) {
+        padding: 0.5em 0.8em !important;
+      }
     }
     &.ui-state-default {
-      a { color: #bbb !important; }
+      a {
+        color: #bbb !important;
+      }
     }
     &.ui-state-active {
-      a { color: #555 !important; }
+      a {
+        color: #555 !important;
+      }
       border: 1px solid #ddd !important;
       border-top: 2px solid #f0ad4e !important;
       border-bottom: 1px solid #fff !important;

@@ -25,7 +25,7 @@ module Api
         desc "Return the task id"
         get ':id' do
           task = find_task(current_person, Task.to(current_person), params[:id])
-          present_partial task, :with => Entities::Task
+          present_partial task, :with => Entities::Task, display_api_content: true, current_person: current_person, api_content_params: params.except("id"), :params => params
         end
 
         %w[finish cancel].each do |action|

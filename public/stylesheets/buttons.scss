@@ -9,7 +9,8 @@
   margin-bottom: 1em;
 }
 
-.box-2, .box-3 {
+.box-2,
+.box-3 {
   .button-bar {
     display: flex;
     .button {
@@ -25,26 +26,31 @@
   background-image: none !important;
   border: 0.063em solid;
   border-radius: 0.250em;
-  &:not(:last-child) { margin-right: 3px; }
+  &:not(:last-child) {
+    margin-right: 3px;
+  }
   font-size: 14px !important;
   padding: 0.313em 0.750em;
   margin-top: 0.250em;
   margin-bottom: 0.125em;
-  @media only screen and (max-width: 768px) { margin-bottom: 5px; }
-  @media only screen and (max-width: 540px) { padding: 6px 8px !important; }
+  @media only screen and (max-width: 768px) {
+    margin-bottom: 5px;
+  }
+  @media only screen and (max-width: 540px) {
+    padding: 6px 8px !important;
+  }
   height: auto;
   line-height: 16px !important;
   text-align: center;
   text-decoration: none !important;
-
-  &:hover, &:visited {
+  &:hover,
+  &:visited {
     text-decoration: none !important;
   }
 }
 
 .button.without-text {
   padding: 0.313em 0.3em;
-
   i.fa {
     margin: 0;
   }
@@ -76,25 +82,34 @@
 .icon-button {
   border: none;
 }
+
 .icon-button:hover {
   border: none;
 }
-body.noosfero a.button.with-text.icon-none, body.noosfero input.button.with-text.icon-none {
+
+body.noosfero a.button.with-text.icon-none,
+body.noosfero input.button.with-text.icon-none {
   padding-left: 2px;
 }
 
 $default_blue: #6496c8;
 $hover_blue: #346392;
 $active_blue: #27496d;
-
 #content {
-  a.button, a.btn-blue-reverse, a.btn-blue-reverse-icon-cancel,
-  a.lead-button, a.icon-add, a.icon-help, a.icon-logout, a.icon-new_user, a.icon-back,
-  a.icon-save_and_continue, a.icon-cancel {
+  a.button,
+  a.btn-blue-reverse,
+  a.btn-blue-reverse-icon-cancel,
+  a.lead-button,
+  a.icon-add,
+  a.icon-help,
+  a.icon-logout,
+  a.icon-new_user,
+  a.icon-back,
+  a.icon-save_and_continue,
+  a.icon-cancel {
     color: $hover_blue;
     background-color: #fff;
     border-color: $hover_blue;
-
     &:not(.keep-when-hover):hover {
       color: #fff;
       background-color: $hover_blue;
@@ -103,7 +118,10 @@ $active_blue: #27496d;
   }
 }
 
-a.btn-green, a.icon-search, a.icon-plus, a.icon-toggle-on {
+a.btn-green,
+a.icon-search,
+a.icon-plus,
+a.icon-toggle-on {
   color: #fff !important;
   background-color: #5cb85c !important;
   border-color: #4cae4c !important;
@@ -113,7 +131,9 @@ a.btn-green, a.icon-search, a.icon-plus, a.icon-toggle-on {
   }
 }
 
-a.btn-red, a.icon-delete.with-text, a.icon-ban.with-text {
+a.btn-red,
+a.icon-delete.with-text,
+a.icon-ban.with-text {
   color: #fff !important;
   background-color: #d9534f !important;
   border-color: #d43f3a !important;
@@ -123,7 +143,8 @@ a.btn-red, a.icon-delete.with-text, a.icon-ban.with-text {
   }
 }
 
-a.btn-red-reverse, a.icon-close {
+a.btn-red-reverse,
+a.icon-close {
   color: #d9534f !important;
   background-color: transparent !important;
   border-color: #d43f3a !important;
@@ -134,7 +155,14 @@ a.btn-red-reverse, a.icon-close {
   }
 }
 
-a.btn-blue, a.icon-new, a.icon-save, a.icon-upload, a.icon-login, a.icon-none, a.icon-user-plus, a.icon-ok {
+a.btn-blue,
+a.icon-new,
+a.icon-save,
+a.icon-upload,
+a.icon-login,
+a.icon-none,
+a.icon-user-plus,
+a.icon-ok {
   color: #fff !important;
   background-color: $hover_blue !important;
   border-color: #e8e8e8 !important;

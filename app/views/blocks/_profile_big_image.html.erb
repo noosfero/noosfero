@@ -27,6 +27,18 @@
       </div>
     <% end %>
   </div>
+<% else %>
+  <div class='profile-image'>
+
+    <%=
+      if theme_option(:profile_list_bg_imgs)
+        link_to image_tag(profile_pic profile), profile.url
+      else
+        link_to profile_image(profile, :big) +"\n", profile.url
+      end
+    %>
+  </div>
+
 <% end %>
 
 <%= javascript_include_tag 'cropped_image' %>

@@ -7,7 +7,8 @@ class ControlPanel
       "ControlPanel::#{File.basename(entry_path, '.rb').camelize}".constantize
     end.reject {|entry| entry == ControlPanel::Entry}.sort_by {|entry| entry.priority}
 
-    @@core_sections = {
+    def core_sections
+      {
         profile: {name: _('Profile'), priority: 10},
         content: {name: _('Content'), priority: 20},
         design: {name: _('Design'), priority: 30},
@@ -18,6 +19,7 @@ class ControlPanel
         mail: {name: _('E-mail'), priority: 80},
         others: {name: _('Others'), priority: 100},
       }
+    end
 
     def entries(environment)
       plugins = Noosfero::Plugin::Manager.new(environment, self)
@@ -32,7 +34,7 @@ class ControlPanel
     end
 
     def sections(environment)
-      current_sections = @@core_sections.clone
+      current_sections = core_sections
       plugins = Noosfero::Plugin::Manager.new(environment, self)
       plugins.dispatch(:control_panel_sections).each do |section|
         section.each do |identifier, attributes|

@@ -6,7 +6,6 @@
 @import 'vendor/token-input-mac.css';
 @import 'vendor/token-input-facet.css';
 @import 'vendor/jquery.Jcrop.css';
-
 // noosfero libraries
 @import 'iepngfix/iepngfix.css';
 @import 'browser-fixes';
@@ -26,15 +25,12 @@
 @import 'assets-menu';
 @import 'slider';
 @import 'modal';
-
 @import 'layouts';
 @import 'user';
 @import 'profile';
 @import 'profile-list';
-
 @import "font-awesome-sprockets";
 @import "font-awesome";
-
 // views specifics. TODO: load them locally with `content_for :head`
 @import 'themes';
 @import 'tasks';
@@ -64,27 +60,19 @@
 @import 'environment-users';
 @import 'quotas';
 @import 'features';
-
 @import 'content';
 @import 'comments';
-
 @import 'chat';
 @import 'search';
-
 @import 'blocks';
 // FIXME: if this goes before 'blocks', some styles breaks,
 // but this is a library and should be loaded on the libraries section
 @import 'menu-submenu';
-
 @import 'category';
-
 @import 'enterprises';
-
 @import 'site-map';
 @import 'portal-news';
 @import 'online-doc';
-
 @import 'api-playground';
-
 // Also avoid generic and prefer class over id selectors
 @import 'block-store';

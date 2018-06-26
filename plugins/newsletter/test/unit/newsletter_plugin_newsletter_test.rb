@@ -350,15 +350,11 @@ EOS
     blog = fast_create(Blog, :profile_id => community.id)
 
     post1 = fast_create(TextArticle, :parent_id => blog.id, :name => 'the last news 1',
-                :published_at => DateTime.parse("2015-01-09"), :highlighted => false)
+                :published_at => DateTime.parse("2015-01-09"), :highlighted => false,
+                :position => 0)
     post2 = fast_create(TextArticle, :parent_id => blog.id, :name => 'the last news 2',
-                :published_at => DateTime.parse("2015-01-02"), :highlighted => true)
-
-    post1.metadata['order'] = 1
-    post1.save!
-
-    post2.metadata['order'] = 0
-    post2.save!
+                :published_at => DateTime.parse("2015-01-02"), :highlighted => true,
+                :position => 1)
 
     Date.stubs(:today).returns(DateTime.parse("2015-01-10").to_date)
 
@@ -368,10 +364,7 @@ EOS
       :person => fast_create(Person))
     newsletter.stubs(:last_send_at).returns(DateTime.parse("2015-01-01"))
 
-    newsletter_posts = newsletter.posts
-    assert_includes newsletter_posts, post1
-    assert_includes newsletter_posts, post2
-    assert newsletter_posts.first == post2
+    assert_equal [post2, post1], newsletter.posts
   end
 
   should 'sanitize tags <p> from news lead' do

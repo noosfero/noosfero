@@ -99,3 +99,9 @@ plugins-5:
   <<: *retriable
   script: SLICE=5/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
+
+cypress:
+  <<: *retriable
+  script: bundle exec rake cypress:run
+  stage: all-tests
+

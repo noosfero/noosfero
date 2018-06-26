@@ -89,18 +89,11 @@
   display: flex;
   align-items: center;
   margin: 0 0 10px 0;
-  padding: 10px;
+  padding: 5px 15px;
   font-weight: bold;
   border: 1px solid #d3d7cf;
   background-color: #eeeeec;
-  background-repeat: no-repeat;
-  background-position: 98% 10px;
-  position: relative;
-}
-
-.text-editor-sidebar .header .icon-vertical-toggle {
-  position: absolute;
-  right: 6px;
+  justify-content: space-between
 }
 
 .text-editor-sidebar code,

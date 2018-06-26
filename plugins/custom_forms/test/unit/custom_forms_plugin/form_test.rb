@@ -436,15 +436,20 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     form = CustomFormsPlugin::Form.new(profile: profile, name: 'Form 1')
 
     form.access_result_options = nil
+    form.save!
+
     assert form.show_results_for(nil)
 
     form.access_result_options = 'public'
+    form.save!
+
     assert form.show_results_for(nil)
   end
 
   should 'only show results if it is public and form is closed' do
     form = CustomFormsPlugin::Form.new(profile: profile, name: 'Form 1')
     form.access_result_options = 'public_after_ends'
+    form.save!
 
     form.ending = nil
     refute form.show_results_for(nil)
@@ -461,6 +466,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     random = create_user('random').person
     form = CustomFormsPlugin::Form.new(profile: person, name: 'Form 1')
     form.access_result_options = 'private'
+    form.save!
 
     assert form.show_results_for(person)
     refute form.show_results_for(random)
@@ -471,6 +477,7 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     person2 = create_user('admin').person
     form = CustomFormsPlugin::Form.new(profile: profile, name: 'Form 1')
     form.access_result_options = 'private'
+    form.save!
 
     refute form.show_results_for(person1)
     refute form.show_results_for(person2)
@@ -542,6 +549,4 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_includes scope, f2
     assert_includes scope, f3
   end
-
-
 end

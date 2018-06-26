@@ -11,6 +11,18 @@ class TasksTest < ActiveSupport::TestCase
 
   attr_accessor :person, :community, :environment
 
+  expose_attributes = %w(id type requestor status created_at data accept_details reject_details accept_disabled reject_disabled target api_content)
+
+  expose_attributes.each do |attr|
+    should "expose task #{attr} attribute by default" do
+      environment.add_admin(person)
+      task = create(Task, :requestor => person, :target => environment)
+      get "/api/v1/tasks/#{task.id}?#{params.to_query}"
+      json = JSON.parse(last_response.body)
+      assert json.has_key?(attr)
+    end
+  end
+
   should 'list environment tasks for admin user' do
     environment.add_admin(person)
     task = create(Task, :requestor => person, :target => environment)
@@ -354,6 +366,50 @@ class TasksTest < ActiveSupport::TestCase
     get "/api/v1/people/#{person.id}/tasks?#{params.merge(:status => Task::Status::ACTIVE).to_query}"
     json = JSON.parse(last_response.body)
     assert_equivalent [t1.id, t3.id, t5.id], json.map { |a| a["id"] }
+  end
+
+  should 'display api content by default' do
+    environment.add_admin(person)
+    task = create(Task, :requestor => person, :target => environment)
+    get "/api/v1/tasks/#{task.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert json.key?('api_content')
+  end
+
+  should 'display api content of a specific task' do
+    class SomeTask < Task
+      def api_content(params = {})
+        {some_content: { name: 'test'} }
+      end
+    end
+    environment.add_admin(person)
+    task = create(SomeTask, :requestor => person, :target => environment)
+    get "/api/v1/tasks/#{task.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal "test", json["api_content"]["some_content"]["name"]
+  end
+
+  should 'display api content of abuse complaint task' do
+    environment.add_admin(person)
+    task = create(AbuseComplaint, :requestor => person, :target => environment)
+    abuse = create(AbuseReport, reporter: fast_create(Person), abuse_complaint: task, reason: 'some reason')
+    get "/api/v1/tasks/#{task.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal abuse.id, json["api_content"]["abuse_reports"].first['id']
+  end
+
+  should 'get a task with params passed to api content' do
+    class MyTestTask < Task
+      def api_content(params = {})
+        params
+      end
+    end
+    environment.add_admin(person)
+    task = create(MyTestTask, :requestor => person, :target => environment)
+    params["custom_param"] = "custom_value"
+    get "/api/v1/tasks/#{task.id}?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal "custom_value", json["api_content"]["custom_param"]
   end
 
 end

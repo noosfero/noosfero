@@ -1,9 +1,12 @@
 .login-box {
   padding: 3px 20px 8px 20px;
 }
+
 .login-block {
   min-height: 100px;
-  .button { padding: 8px 16px !important; }
+  .button {
+    padding: 8px 16px !important;
+  }
 }
 
 .login-box-content {
@@ -11,48 +14,60 @@
   border: 2px solid #729FCF;
   background: #B8CFE7;
   padding: 0px 20px 5px 20px;
-  input[type=text], input[type=password] {
+  input[type=text],
+  input[type=password] {
     max-width: 97.5%;
   }
-
   .button-bar .button {
     margin-right: 6px !important;
     margin-bottom: 4px;
-    @media only screen and (max-width: 540px) { width: auto; }
+    @media only screen and (max-width: 540px) {
+      width: auto;
+    }
   }
 }
+
 .login-box .formfieldline input {
   width: 99%;
 }
+
 .login-box form {
   margin: 0px;
   padding: 0px;
 }
+
 .msie7 .login-box form {
   padding: 0px 10px 10px 0px;
 }
+
 #content .login-block h2 {
   font-size: 20px;
   text-align: left;
   margin: 0px;
 }
+
 .login-box p {
   text-align: center;
   margin: 0px;
   padding: 0px;
 }
+
 .login-box p.forgot-passwd {
   padding-bottom: 6px;
 }
+
 .want-to-be-an-user {
   font-size: 13px;
 }
+
 #content .logged-user-info h2 {
   font-size: 16px;
 }
+
 .logged-user-info ul {
   margin-top: 5px;
 }
+
 .logged-user-info .user-actions {
   padding-left: 50px;
 }
@@ -73,24 +88,20 @@ form.change-password {
 #content div.account-activation {
   form {
     margin: 30px 0 50px;
-
     p {
       text-align: center;
       font-size: 11px;
     }
   }
-
   form div.inline-form {
     display: flex;
     justify-content: center;
-
     input[type=text] {
       width: 250px;
       height: 30px;
       padding: 0 5px;
       text-transform: uppercase;
     }
-
     input[type=submit] {
       max-height: unset;
       height: 34px;
@@ -98,7 +109,6 @@ form.change-password {
       width: 100px;
     }
   }
-
   a.button {
     display: inline-block;
   }
