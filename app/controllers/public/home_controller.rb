@@ -26,19 +26,18 @@ class HomeController < PublicController
   end
 
   def reorder
-    if params[:index].nil? || !params[:direction].in?(['up', 'down'])
+    if params[:article_id].nil? || !params[:direction].in?(['up', 'down'])
       head :bad_request
       return
     end
 
-    amount = environment.highlighted_news_amount + environment.portal_news_amount
-    news = environment.portal_community.news(amount, true)
+    article = environment.portal_community.articles.find(params[:article_id])
 
     case params[:direction]
     when 'up'
-      move_article_up(news, params[:index].to_i)
+      move_article_up(article)
     when 'down'
-      move_article_down(news, params[:index].to_i)
+      move_article_down(article)
     end
 
     redirect_to action: :index
@@ -46,18 +45,12 @@ class HomeController < PublicController
 
   private
 
-  def move_article_up(news, index)
-    return unless index > 0 && index < news.size
-    article = news[index]
-    next_article = news[index - 1]
-    Article.switch_orders(next_article, article)
+  def move_article_up(article)
+    article.move_lower
   end
 
-  def move_article_down(news, index)
-    return unless index >= 0 && index < (news.size - 1)
-    article = news[index]
-    previous_article = news[index + 1]
-    Article.switch_orders(article, previous_article)
+  def move_article_down(article)
+    article.move_higher
   end
 
   def require_admin

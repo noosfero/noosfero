@@ -14,11 +14,11 @@
             </span>
             <% if environment.admins.include? current_person %>
               <div class='order-options'>
-                <%= link_to({ action: :reorder, index: index, direction: 'up' },
+                <%= link_to({ action: :reorder, article_id: highlighted.id, direction: 'up' },
                             class: (index == 0 ? 'disabled' : '')) do %>
                   <%= _('move up') %> <i class='fa fa-angle-up'></i>
                 <% end %>
-                <%= link_to({ action: :reorder, index: index, direction: 'down' },
+                <%= link_to({ action: :reorder, article_id: highlighted.id, direction: 'down' },
                               class: (index == (@portal_news.size - 1) ? 'disabled' : '')) do %>
                   <%= _('move down') %> <i class='fa fa-angle-down'></i>
                 <% end %>
@@ -44,12 +44,12 @@
             <% if environment.admins.include? current_person %>
               <div class='order-options'>
                 <%= link_to({ action: :reorder, direction: 'up',
-                              index: index + @highlighted_news.size },
+                              article_id: news.id},
                             class: (@highlighted_news.size == 0 ? 'disabled' : '')) do %>
                   <%= _('move up') %> <i class='fa fa-angle-up'></i>
                 <% end %>
                 <%= link_to({ action: :reorder, direction: 'down',
-                              index: index + @highlighted_news.size },
+                              article_id: news.id },
                             class: (index == (@portal_news.size - 1) ? 'disabled' : '')) do %>
                   <%= _('move down') %> <i class='fa fa-angle-down'></i>
                 <% end %>
