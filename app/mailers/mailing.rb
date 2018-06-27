@@ -60,7 +60,7 @@ class Mailing < ApplicationRecord
         :content_type => 'text/html',
         :to => recipient,
         :from => mailing.generate_from,
-        :reply_to => mailing.person.email,
+        :reply_to => mailing.person.environment.noreply_email,
         :subject => mailing.generate_subject
       )
     end
