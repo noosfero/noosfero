@@ -504,6 +504,8 @@ class AccountController < ApplicationController
         redirect_back_or_default(user.admin_url)
       when 'site_homepage'
         redirect_to :controller => :home
+      when 'domain_root'
+        redirect_to '/'
       when 'user_profile_page'
         redirect_to user.public_profile_url
       when 'user_homepage'
