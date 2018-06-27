@@ -1,4 +1,7 @@
 form.profile-selector {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+
   > input {
     width: 100%;
     margin-bottom: 10px;
@@ -8,6 +11,7 @@ form.profile-selector {
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 20px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #ccc;
     max-height: 250px;
     overflow: scroll;

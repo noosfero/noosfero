@@ -322,7 +322,22 @@ module FormsHelper
     hidden_field_tag(field_name, value, :id => id)
   end
 
-protected
+  def exportable_fields_selector(name, title, profile, selected_fields = [])
+    label = content_tag('label', title)
+    fields = content_tag('div', { class: 'exportable-fields' }) do
+      profile.exportable_fields.map do |field|
+        checked = field.in? selected_fields
+        content = check_box_tag(name, field, checked) +
+                  _(field.humanize(capitalize: false)).capitalize
+        content_tag('label', content.html_safe)
+      end.join("\n").html_safe
+    end
+
+    content_tag('div', label + fields, { class: 'exportable-fields-selector' })
+  end
+
+  protected
+
   def self.next_id_number
     if defined? @@id_num
       @@id_num.next!
