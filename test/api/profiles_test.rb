@@ -312,6 +312,15 @@ class ProfilesTest < ActiveSupport::TestCase
       assert_equal "Another Header", profile.reload.custom_header
     end
 
+    should "update #{klass.name} accept optional_fields" do
+      login_api
+      profile = fast_create(klass)
+      profile.add_admin(person)
+      post "/api/v1/profiles/#{profile.id}?#{params.merge({:optional_fields => [:boxes]}).to_query}"
+      json = JSON.parse(last_response.body)
+      assert json.has_key?('boxes')
+    end
+
     should "not update a #{klass.name} if user does not have permission" do
       login_api
       profile = fast_create(klass)
@@ -336,6 +345,13 @@ class ProfilesTest < ActiveSupport::TestCase
     params[:profile][:custom_header] = "Another Header"
     post "/api/v1/profiles/#{person.id}?#{params.to_query}"
     assert_equal "Another Header", person.reload.custom_header
+  end
+
+  should "update person accept optional_fields" do
+    login_api
+    post "/api/v1/profiles/#{person.id}?#{params.merge({:optional_fields => [:boxes]}).to_query}"
+    json = JSON.parse(last_response.body)
+    assert json.has_key?('boxes')
   end
 
   should 'not update person information if user does not have permission' do
