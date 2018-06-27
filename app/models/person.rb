@@ -672,10 +672,4 @@ class Person < Profile
   def pending_tasks
     Task.to(self).pending
   end
-
-  def self.exportable_fields(environment)
-    active_fields = environment.active_person_fields
-    { base: %w[name updated_at created_at identifier lat lng] + active_fields,
-      user: %w[email last_login_at] }
-  end
 end

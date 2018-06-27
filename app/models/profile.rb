@@ -1325,7 +1325,11 @@ private :generate_url, :url_options
 
   def exportable_fields
     plugin_extra_fields = plugins.dispatch(:extra_exportable_fields, self)
-    active_fields + DEFAULT_EXPORTABLE_FIELDS + plugin_extra_fields
+    fields = active_fields + DEFAULT_EXPORTABLE_FIELDS + plugin_extra_fields
+    first_fields = %w(id name email)
+    fields -= first_fields
+    fields.sort!
+    ordered_fields = first_fields + fields
   end
 
   private

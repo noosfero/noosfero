@@ -1,10 +1,25 @@
 <%= button_bar do %>
-  <%= button 'file-alt', _('People list [CSV]'),
-             { action: 'download.csv', filter: @filter, q: @q },
-             { id: "convert-csv" } %>
-  <%= button 'file-code', _('People list [XML]'),
-             { action: 'download.xml', filter: @filter, q: @q },
-             { :id => "convert-xml" }  %>
+  <%= button 'sort-amount-down', _('Export People list'), '#!', {class: 'export-people-list'} %>
   <%= button :send, _('Send e-mail to users'), :action => 'send_mail' %>
   <%= button :back, _('Back'), :controller => 'admin_panel' %>
 <% end %>
+
+<div class="export-people-field" >
+  <%= form_tag({action: 'download', controller: 'users'}) do %>
+    <label>Select the file format</label>
+    <div class="download-format">
+      <label><%= radio_button_tag('format', 'xml', true) %> XML </label>
+      <label><%= radio_button_tag('format', 'csv', false) %> CSV </label>
+    </div>
+
+    <%= exportable_fields_selector(
+          "fields[]",
+          _('Select the fields to be included in the people list'),
+          current_person,
+          %w(name email)
+        ) %>
+
+    <%= submit_button 'download', _('Download') %>
+    <%= button('ban', _('Cancel'), '#!', {id: 'cancel-exportation'}) %>
+  <% end %>
+</div>
