@@ -79,7 +79,6 @@ class Article < ApplicationRecord
     end
   end
 
-  before_create :set_article_position
 
   belongs_to :profile, optional: true
   validates_presence_of :profile_id, :name
