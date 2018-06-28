@@ -31,7 +31,7 @@
     <%= submit_button(:save, _('Save')) %>
   <% end %>
 
-  <a id="advanced_options_button" class="button with-text icon-ban" href="#advanced_options"><%= _('Advanced Options') %></a>
+  <%= button :alert, _('Advanced Options'), '#advanced_options', :id => 'advanced_options_button' %>
   <div id="advanced_options">
     <%= button_bar do %>
       <% if user && user.has_permission?('destroy_profile', profile) %>
@@ -50,7 +50,7 @@
         <% end %>
 
         <% if !environment.enabled?('forbid_destroy_profile') || user.is_admin?(environment) %>
-          <%= button(:alert,
+          <%= button(:delete,
                      _('Delete profile'),
                      { action: :destroy_profile }, data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
         <% end %>

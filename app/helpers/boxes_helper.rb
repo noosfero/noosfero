@@ -306,6 +306,22 @@ module BoxesHelper
                    { :method => 'post' })
     end
 
+    if block.embedable?
+      embed_code = block.embed_code
+      embed_code = instance_exec(&embed_code) if embed_code.respond_to?(:call)
+      html = content_tag('div',
+              content_tag('h2', _('Embed block code')) +
+              content_tag('div', _('Below, you''ll see a field containing ' +
+                  'embed code for the block. Just copy the code and paste ' +
+                  'it into your website or blogging software.'),
+                :style => 'margin-bottom: 1em;') +
+              content_tag('textarea', embed_code, :readonly => 'readonly') +
+              modal_close_button(_('Close')), :style => 'display: none;',
+                :id => "embed-code-box-#{block.id}")
+      buttons << modal_inline_icon(:code, _('Embed code'), "#!", "#embed-code-box-#{block.id}")
+      buttons << html
+    end
+
     if block.respond_to?(:help)
 
       buttons << modal_inline_icon(:help, _('Help on this block'), '#!',
@@ -315,16 +331,6 @@ module BoxesHelper
                    :style => 'display: none;', :id => "help-on-box-#{block.id}")
     end
 
-    if block.embedable?
-      embed_code = block.embed_code
-      embed_code = instance_exec(&embed_code) if embed_code.respond_to?(:call)
-      html = content_tag('div',
-              content_tag('h2', _('Embed block code')) +
-              content_tag('div', _('Below, you''ll see a field containing embed code for the block. Just copy the code and paste it into your website or blogging software.'), :style => 'margin-bottom: 1em;') +
-              content_tag('textarea', embed_code, :style => 'margin-bottom: 1em; width:100%; height:40%;', :readonly => 'readonly') +
-              modal_close_button(_('Close')), :style => 'display: none;', :id => "embed-code-box-#{block.id}")
-      buttons << modal_inline_icon(:embed, _('Embed code'), "#!", "#embed-code-box-#{block.id}") << html
-    end
 
     content_tag('div', buttons.join("\n").html_safe + tag('br', :style => 'clear: left'), :class => 'button-bar button-bar-boxes')
   end
