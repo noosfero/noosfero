@@ -516,12 +516,12 @@ DEPENDENCIES
   sass
   sass-listen
   sass-rails
-  selenium-webdriver (~> 3.11)
+  selenium-webdriver
   serviceworker-rails
   simplecov
   slim
   spring
-  sprockets-rails (~> 2.3.3)
+  sprockets-rails
   test-unit
   uglifier
   unicorn (~> 5.4)

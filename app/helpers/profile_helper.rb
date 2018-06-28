@@ -272,8 +272,7 @@ module ProfileHelper
         ''
       end
     else
-      # TODO Uncomment this later
-      # super
+      super
     end
   end
 

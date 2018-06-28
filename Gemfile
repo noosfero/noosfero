@@ -60,7 +60,7 @@ gem 'api-pagination'
 gem 'uglifier'
 gem 'sass-rails'
 gem 'sass'
-gem 'sprockets-rails',            '~> 2.3.3'
+gem 'sprockets-rails'
 
 gem 'serviceworker-rails'
 gem 'webpush'
@@ -98,9 +98,9 @@ group :cucumber, :test do
   gem 'cucumber-rails',		          require: false
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
-  gem 'selenium-webdriver', 		  '~> 3.11'
+  gem 'selenium-webdriver'
   gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
-  gem 'geckodriver-helper', '~> 0.0.5' if ENV['SELENIUM_DRIVER'] == 'firefox'
+  gem 'geckodriver-helper'  if ENV['SELENIUM_DRIVER'] == 'firefox'
 end
 
 # Requires custom dependencies

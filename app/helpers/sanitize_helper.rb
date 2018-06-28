@@ -54,8 +54,8 @@ protected
 
   def sanitizer type = :full_sanitize
     white_list_sanitizer = Rails::Html::WhiteListSanitizer.new
-    full_sanitizer = Rails::Html::FullSanitizer.new
     return white_list_sanitizer if type == :white_list
+    full_sanitizer = Rails::Html::FullSanitizer.new
     full_sanitizer
   end
 
