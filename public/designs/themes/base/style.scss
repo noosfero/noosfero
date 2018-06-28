@@ -34,6 +34,8 @@ input, textarea {
 
 .button {
   border-radius: 4px;
+  color: #346392;
+  border-color: #346392;
 }
 
 /* ==> layout.css <== */
@@ -623,6 +625,8 @@ div#notice {
     display: flex;
     a.button {
       flex-grow: 1;
+      border-color: #346392;
+      color: #346392;
     }
   }
 }
