@@ -2,16 +2,14 @@
     <% if !user.follows? profile %>
       <li>
         <%= link_to(font_awesome(:rss, _('Follow')), {:profile => profile.identifier, :controller => 'profile', :action => 'find_profile_circles'}, :id => 'action-follow', :title => _("Follow")) %>
+        <div id="circles-container" style="display: none;">
+        </div>
       </li>
     <% elsif !profile.in_social_circle?(user) %>
       <li>
         <%= link_to(font_awesome(:undo, _('Unfollow')), {:profile => profile.identifier, :controller => 'profile', :action => 'unfollow'}, :method => :post, :id => 'action-unfollow', :title => _("Unfollow")) %>
       </li>
     <% end %>
-  <li>
-    <div id="circles-container" style="display: none;">
-    </div>
-  </li>
 <% end %>
 <li><%= report_abuse(profile, :link) %></li>
 <%= render_environment_features(:profile_actions) %>
