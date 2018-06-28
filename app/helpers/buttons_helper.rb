@@ -55,6 +55,7 @@ module ButtonsHelper
     reload:            'redo',
     remove:            'times',
     right:             'arrow-circle-right',
+    rss:               'rss',
     save:              'save',
     save_and_continue: 'cloud-upload-alt',
     search:            'search',
@@ -89,8 +90,8 @@ module ButtonsHelper
   end
 
   def generic_button(type, label, url, html_options = {})
-    classes = 'button'
-    classes << ' ' << html_options[:class] if html_options.has_key?(:class)
+    classes = "button icon-#{type}"
+    html_options = merge_class(classes, html_options)
     html_options[:title] ||= label
     link_to(url, html_options.merge(class: classes)) do
       font_awesome(type, label)
