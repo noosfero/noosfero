@@ -1319,6 +1319,20 @@ private :generate_url, :url_options
     self.boxes.with_blocks
   end
 
+  DEFAULT_EXPORTABLE_FIELDS = %w(id name)
+
+  N_('id')
+  N_('name')
+
+  def exportable_fields
+    plugin_extra_fields = plugins.dispatch(:extra_exportable_fields, self)
+    fields = active_fields + DEFAULT_EXPORTABLE_FIELDS + plugin_extra_fields
+    first_fields = %w(id name email)
+    fields -= first_fields
+    fields.sort!
+    ordered_fields = first_fields + fields
+  end
+
   private
 
   def super_upload_quota

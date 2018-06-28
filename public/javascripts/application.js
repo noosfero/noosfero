@@ -37,6 +37,7 @@
 *= require add-and-join.js
 *= require followers.js
 *= require manage-followers.js
+*= require manage-users.js
 *= require report-abuse.js
 *= require require_login.js
 *= require block-store.js

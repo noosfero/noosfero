@@ -12,7 +12,7 @@ class Block < ApplicationRecord
 
   delegate :environment, :to => :box, :allow_nil => true
 
-  acts_as_list scope: :box
+  acts_as_list scope: :box_id
 
   belongs_to :box, optional: true
   belongs_to :mirror_block, class_name: "Block", optional: true
@@ -322,6 +322,8 @@ class Block < ApplicationRecord
   end
 
   def api_content=(values = {})
+    settings[:display] = values[:display]
+    settings[:display_user] = values[:display_user]
   end
 
   def display_api_content_by_default?

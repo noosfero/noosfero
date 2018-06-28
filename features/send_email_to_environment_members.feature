@@ -15,7 +15,7 @@ Feature: send emails to environment members users
       | ultraje |
     And I am logged in as "ultraje"
     When I go to /admin/users/send_mail
-    Then I should see "Access Denied"
+    Then I should see "Access denied"
 
   @selenium
   Scenario: Send e-mail to members

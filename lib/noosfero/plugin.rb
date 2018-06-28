@@ -768,6 +768,11 @@ class Noosfero::Plugin
     {}
   end
 
+  # -> Returns a list of profile fields to be marked as exportable
+  def extra_exportable_fields(profile)
+    []
+  end
+
   def method_missing(method, *args, &block)
     # This is a generic hotspot for all controllers on Noosfero.
     # If any plugin wants to define filters to run on any controller, the name of

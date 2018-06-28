@@ -85,7 +85,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
   def submissions
     @form = CustomFormsPlugin::Form.find(params[:id])
     @sort_by = params[:sort_by] == 'author_name' ? 'author_name' : 'created_at'
-    @submissions = @form.submissions.order(@sort_by)
+    @submissions = @form.submissions.order(@sort_by).paginate(page: params[:npage], per_page: per_page)
 
     respond_to do |format|
       format.html
@@ -220,6 +220,10 @@ class CustomFormsPluginMyprofileController < MyProfileController
     scope = profile.forms.where(kind: kind).order(:name)
     forms = find_by_contents(:forms, profile, scope, query)[:results]
     forms.map{ |f| { id: f.id, name: f.name } }
+  end
+
+  def per_page
+    20
   end
 
 end

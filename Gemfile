@@ -46,6 +46,7 @@ gem 'responders'
 gem 'activemodel-serializers-xml'
 gem 'hpricot'
 gem 'http-cookie'
+gem 'acts_as_list'
 
 # API dependencies
 gem 'grape'

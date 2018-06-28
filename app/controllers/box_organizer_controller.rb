@@ -12,7 +12,7 @@ class BoxOrganizerController < ApplicationController
     @block = params[:id] ? boxes_holder.blocks.find(params[:id].gsub(/^block-/, '')) : nil
 
     target_position = nil
-
+#raise @block.inspect
     if (params[:target] =~ /before-block-([0-9]+)/)
       block_before = boxes_holder.blocks.find($1)
       target_position = block_before.position
@@ -22,13 +22,12 @@ class BoxOrganizerController < ApplicationController
 
       @target_box = boxes_holder.boxes.find_by id: $1
     end
-
     @block = new_block(params[:type], @target_box) if @block.nil?
     @source_box = @block.box
 
     if (@source_box != @target_box)
       @block.remove_from_list
-      @block.box = @target_box
+      @target_box.blocks << @block
     end
 
     if target_position.nil?
@@ -39,10 +38,6 @@ class BoxOrganizerController < ApplicationController
       new_position = if @block.position and @block.position < target_position then target_position - 1 else target_position end
       @block.insert_at new_position
     end
-
-    @block.save!
-
-    @target_box.reload
 
     unless request.xhr?
       redirect_to :action => 'index'

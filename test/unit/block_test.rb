@@ -2,9 +2,34 @@ require_relative "../test_helper"
 
 class BlockTest < ActiveSupport::TestCase
 
+  ALL_BLOCKS = Block.descendants
 
-  should 'describe itself' do
-    assert_kind_of String, Block.description
+  ALL_BLOCKS.map do |block_type|
+    should "#{block_type.name} describe itself" do
+      assert_kind_of String, block_type.description
+    end
+
+    should "#{block_type.name} api_content= set display settings values" do
+      block = block_type.new
+      assert_nil block.settings[:display]
+      block.api_content= { display: 'always' }
+      assert_equal 'always', block.settings[:display]
+    end
+  
+    should "#{block_type.name} api_content= set display_user settings values" do
+      block = block_type.new
+      assert_nil block.settings[:display_user]
+      block.api_content= { display_user: 'all' }
+      assert_equal 'all', block.settings[:display_user]
+    end
+  
+    should "#{block_type.name} api_content= set display_user settings if exist display value at the same time" do
+      block = block_type.new
+      assert_nil block.settings[:display_user]
+      block.api_content= { display_user: 'all', display: 'always' }
+      assert_equal 'all', block.settings[:display_user]
+    end
+
   end
 
   should 'access owner through box' do

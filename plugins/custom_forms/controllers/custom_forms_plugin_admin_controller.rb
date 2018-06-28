@@ -17,8 +17,7 @@ class CustomFormsPluginAdminController < AdminController
     zip_data = ::Zip::OutputStream.write_buffer do |stream|
       profiles.each do |profile|
         profile.forms.map do |form|
-          handler = CustomFormsPlugin::CsvHandler.new(form)
-          # TODO: add additional fields
+          handler = CustomFormsPlugin::CsvHandler.new(form, params[:fields])
           csv_content = handler.generate_csv
           type = _(form.kind).capitalize
 

@@ -1,6 +1,6 @@
 class Box < ApplicationRecord
 
-  acts_as_list scope: :owner
+  acts_as_list scope: [:owner_id, :owner_type]
 
   belongs_to :owner, polymorphic: true, optional: true
   has_many :blocks, -> { order 'position' }, dependent: :destroy
