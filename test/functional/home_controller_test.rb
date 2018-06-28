@@ -277,7 +277,7 @@ class HomeControllerTest < ActionController::TestCase
     env.portal_community = community
     env.save!
 
-    get :reorder, article_id: article1.id, direction: 'up'
+    get :reorder, index: 2, direction: 'up'
     news = community.news(3, true)
     assert_equal [article3, article1, article2], news
   end
@@ -296,7 +296,7 @@ class HomeControllerTest < ActionController::TestCase
     env.portal_community = community
     env.save!
 
-    get :reorder, article_id: article3.id, direction: 'down'
+    get :reorder, index: 0, direction: 'down'
     news = community.news(3, true)
     assert_equal [article2, article3, article1], news
   end

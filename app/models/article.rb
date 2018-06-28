@@ -907,6 +907,22 @@ class Article < ApplicationRecord
     false
   end
 
+  def self.switch_orders(first_article, second_article)
+    return unless first_article.profile == second_article.profile &&
+                  first_article.position >= second_article.position
+
+    ActiveRecord::Base.transaction do
+      first_order = first_article.position
+      where('profile_id = ?', first_article.profile_id)
+        .where('position > ? OR (position = ? AND published_at > ?)',
+            first_order, first_order, first_article.published_at)
+        .update_all('position = (position + 1)')
+
+      first_article.update!(position: first_order)
+      second_article.update!(position: first_order + 1)
+    end
+  end
+
   private
 
   def parent_archived?
