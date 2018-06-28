@@ -512,7 +512,7 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'order articles by more recent' do
-    Article.destroy_all
+    Article.delete_all
     art1 = create(Article, :name => 'review C', :profile_id => fast_create(Person).id, :created_at => Time.now-1.days)
     art2 = create(Article, :name => 'review A', :profile_id => fast_create(Person).id, :created_at => Time.now)
     art3 = create(Article, :name => 'review B', :profile_id => fast_create(Person).id, :created_at => Time.now-2.days)

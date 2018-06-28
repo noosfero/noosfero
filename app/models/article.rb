@@ -23,6 +23,7 @@ class Article < ApplicationRecord
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
+  acts_as_list scope: :profile
 
   include Noosfero::Plugin::HotSpot
 
@@ -77,8 +78,6 @@ class Article < ApplicationRecord
       article.author_name = article.author.name
     end
   end
-
-  before_create :set_article_position
 
   belongs_to :profile
   validates_presence_of :profile_id, :name
@@ -950,7 +949,4 @@ class Article < ApplicationRecord
     end.to_h
   end
 
-  def set_article_position
-    self.position = profile.articles.maximum(:position).to_i + 1
-  end
 end

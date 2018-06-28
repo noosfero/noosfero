@@ -146,7 +146,7 @@ class StepTest < ActiveSupport::TestCase
   end
 
   should 'set position on save' do
-    refute @step.position
+    assert_equal 0, @step.position
     @step.save!
     assert_equal 1, @step.position
     step2 = CommunityTrackPlugin::Step.new(:name => 'Step2', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day)
@@ -186,42 +186,6 @@ class StepTest < ActiveSupport::TestCase
     @step.toggle_activation
     @step.reload
     refute @step.accept_comments
-  end
-
-  should 'set position to zero if step is hidden' do
-    @step.hidden = true
-    @step.save!
-    assert_equal 0, @step.position
-  end
-
-  should 'change position to zero if step becomes hidden' do
-    @step.save!
-    assert_equal 1, @step.position
-    @step.hidden = true
-    @step.save!
-    assert_equal 0, @step.position
-  end
-
-  should 'change position to botton if a hidden step becomes visible' do
-    step1 = CommunityTrackPlugin::Step.new(:name => 'Step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day)
-    step1.save!
-    @step.hidden = true
-    @step.save!
-    assert_equal 0, @step.position
-    @step.hidden = false
-    @step.save!
-    assert_equal 2, @step.position
-  end
-
-  should 'decrement lower items positions if a step becomes hidden' do
-    @step.save!
-    step1 = CommunityTrackPlugin::Step.new(:name => 'Step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => DateTime.now.end_of_day, :start_date => DateTime.now.beginning_of_day)
-    step1.save!
-    assert_equal 2, step1.position
-    @step.hidden = true
-    @step.save!
-    step1.reload
-    assert_equal 1, step1.position
   end
 
   should 'do not publish a hidden step' do

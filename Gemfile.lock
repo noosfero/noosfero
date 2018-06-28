@@ -33,11 +33,6 @@ PATH
       activesupport
 
 PATH
-  remote: vendor/plugins/acts_as_list
-  specs:
-    acts_as_list (0.0.0)
-
-PATH
   remote: vendor/plugins/acts_as_tree
   specs:
     acts_as_tree (0.0.0)
@@ -134,6 +129,8 @@ GEM
       tzinfo (~> 1.1)
     acts-as-taggable-on (3.5.0)
       activerecord (>= 3.2, < 5)
+    acts_as_list (0.9.15)
+      activerecord (>= 3.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     ansi (1.4.3)
@@ -421,7 +418,7 @@ DEPENDENCIES
   activerecord-jdbcpostgresql-adapter
   activerecord-session_store
   acts-as-taggable-on
-  acts_as_list (= 0.0.0)!
+  acts_as_list
   acts_as_tree (= 0.0.0)!
   acts_as_versioned (> 0.0.0)!
   api-pagination

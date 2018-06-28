@@ -12,7 +12,7 @@ module ProductsPlugin
     validates_presence_of :product
     validates_presence_of :product_category
 
-    acts_as_list scope: -> input { where product_id: input.product_id }
+    acts_as_list scope: :product_id
 
     belongs_to :unit
 

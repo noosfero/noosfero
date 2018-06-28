@@ -1,6 +1,6 @@
 class Box < ApplicationRecord
 
-  acts_as_list scope: -> box { where owner_id: box.owner_id, owner_type: box.owner_type }
+  acts_as_list scope: [:owner_id, :owner_type]
 
   belongs_to :owner, :polymorphic => true
   has_many :blocks, -> { order 'position' }, dependent: :destroy

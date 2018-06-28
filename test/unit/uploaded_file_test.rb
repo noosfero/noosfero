@@ -442,6 +442,7 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal (file1.size + file2.size), profile.metadata['disk_usage']
 
     file1.destroy
+    profile.reload
     assert_equal file2.size, profile.metadata['disk_usage']
   end
 
