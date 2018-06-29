@@ -169,7 +169,7 @@ class Person < Profile
     Friendship.where(friend_id: person.id).each{ |friendship| friendship.destroy }
   end
 
-  belongs_to :user, dependent:  :delete, optional: true
+  belongs_to :user, dependent: :delete, optional: true
 
   acts_as_voter
 

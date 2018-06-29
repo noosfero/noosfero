@@ -79,7 +79,6 @@ class Article < ApplicationRecord
     end
   end
 
-
   belongs_to :profile, optional: true
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
