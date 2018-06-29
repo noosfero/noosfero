@@ -763,7 +763,8 @@ div#notice {
   }
   p {
     color: #212e3c;
-    font-size: 1.8em;
+    font-size: 1.3em;
+    text-align: center;
   }
   ul {
     margin: 10px 0px 0px 0px;
@@ -832,7 +833,6 @@ div#notice {
   a {
     background: none;
     box-sizing: border-box;
-    color: #212e3c;
     display: inline-block;
     font-size: 1.2em;
     line-height: 28px;
@@ -1884,9 +1884,7 @@ a.menu-toggle {
     &:nth-child(n + 2) { border-top: 1px solid #e8e8e8; }
     &:hover { background-color: #e9ebee; }
     > a {
-      background: none;
       box-sizing: border-box;
-      color: #212e3c !important;
       display: inline-block;
       font-size: 1em;
       height: 100%;
