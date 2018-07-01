@@ -34,12 +34,12 @@ class EnterpriseRegistrationTest < ActionDispatch::IntegrationTest
     }
     Person.any_instance.stubs(:is_admin?).returns(false)
 
-    post '/enterprise_registration', :create_enterprise => data
+    post '/enterprise_registration', params: {create_enterprise: data}
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/enterprise_registration', :method => 'post' }, :descendant => { :tag => 'input', :attributes => { :type => 'radio', :name => 'create_enterprise[target_id]', :value => org.id } }
 
     assert_difference 'CreateEnterprise.count' do
-      post '/enterprise_registration', :create_enterprise => data.merge(:target_id => org.id)
+      post '/enterprise_registration', params: {create_enterprise: data.merge(:target_id => org.id)}
     end
 
     assert_template 'confirmation'
@@ -63,7 +63,9 @@ class EnterpriseRegistrationTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_tag :form, :attributes => { :action => "/myprofile/myorg/enterprise_validation/approve/#{code}" }
 
-    post_via_redirect "/myprofile/myorg/enterprise_validation/approve/#{code}"
+    post "/myprofile/myorg/enterprise_validation/approve/#{code}"
+
+    follow_redirect!
     assert_response :success
 
     assert_equal "/myprofile/myorg/enterprise_validation/view_processed/#{code}", path
@@ -99,12 +101,12 @@ class EnterpriseRegistrationTest < ActionDispatch::IntegrationTest
       :region_id => region1.id,
     }
 
-    post '/enterprise_registration', :create_enterprise => data
+    post '/enterprise_registration', params: {create_enterprise: data}
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/enterprise_registration', :method => 'post' }, :descendant => { :tag => 'input', :attributes => { :type => 'radio', :name => 'create_enterprise[target_id]', :value => org.id } }
 
     assert_difference 'CreateEnterprise.count' do
-      post '/enterprise_registration', :create_enterprise => data.merge(:target_id => org.id)
+      post '/enterprise_registration', params: {create_enterprise: data.merge(target_id: org.id)}
     end
 
     # Status 3 means finished

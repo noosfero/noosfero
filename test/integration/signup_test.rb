@@ -34,7 +34,12 @@ class SignupTest < ActionDispatch::IntegrationTest
     @env.save!
 
     assert_no_difference 'User.count' do
-      post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com'  }
+      post '/account/signup', params: {user: { login: 'shouldaccepterms',
+                                               password: 'test',
+                                               password_confirmation: 'test',
+                                               email: 'shouldaccepterms@example.com'
+                                             }
+                                      }
       assert_response :success
     end
   end
@@ -46,7 +51,14 @@ class SignupTest < ActionDispatch::IntegrationTest
     @env.save!
 
     assert_difference 'User.count' do
-      post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
+      post '/account/signup', params: {user: { login: 'shouldaccepterms',
+                                               password: 'test',
+                                               password_confirmation: 'test',
+                                               email: 'shouldaccepterms@example.com',
+                                               terms_accepted: '1'
+                                             },
+                                       profile_data: person_data
+                                      }
       user = User.last
       assert_redirected_to action: :activate,
                            activation_token: user.activation_code,
@@ -70,7 +82,13 @@ class SignupTest < ActionDispatch::IntegrationTest
     assert_response :success
     data = ActiveSupport::JSON.decode @response.body
     sleep sleep_secs
-    post '/account/signup', :user => { :login => 'someone', :password => 'test', :password_confirmation => 'test', :email => 'someone@example.com' }, :signup_time_key => data['key']
+    post '/account/signup', params: {user: { login: 'someone',
+                                             password: 'test',
+                                             password_confirmation: 'test',
+                                             email: 'someone@example.com'
+                                           },
+                                     signup_time_key: data['key']
+                                    }
     if sleep_secs > min_signup_delay
       user = User.last
       assert_redirected_to action: :activate,

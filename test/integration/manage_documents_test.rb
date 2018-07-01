@@ -24,7 +24,13 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/myuser/cms/new', :method => /post/i }
 
     assert_difference 'Article.count' do
-      post_via_redirect '/myprofile/myuser/cms/new', :type => 'TextArticle', :article => { :name => 'my article', :body => 'this is the body of ther article'}
+      post '/myprofile/myuser/cms/new',
+          params: {type: 'TextArticle',
+                   article: { name: 'my article',
+                              body: 'this is the body of ther article'
+                            }
+          }
+      follow_redirect!
     end
 
     assert_response :success
@@ -54,7 +60,11 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'form', :attributes => { :action => "/myprofile/myuser/cms/edit/#{article.id}", :method => /post/i }
 
     assert_no_difference 'Article.count' do
-      post_via_redirect "/myprofile/myuser/cms/edit/#{article.id}", :article => { :name => 'my article', :body => 'this is the body of the article'}
+      post "/myprofile/myuser/cms/edit/#{article.id}", params: {article: { name: 'my article',
+                                                                           body: 'this is the body of the article'
+                                                                         }
+                                                               }
+      follow_redirect!
     end
 
     article.reload
@@ -82,7 +92,8 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_tag tag: 'a', attributes: { href: "/myprofile/myuser/cms/destroy/#{article.id}", 'data-confirm' => /Are you sure/ }
-    post_via_redirect "/myprofile/myuser/cms/destroy/#{article.id}"
+    post "/myprofile/myuser/cms/destroy/#{article.id}"
+    follow_redirect!
 
     assert_response :success
     assert_equal "/myuser", path
@@ -96,10 +107,10 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
   protected
 
   def create_article(profile, options)
-    a = TextArticle.new(options)
-    a.profile = profile
-    a.save!
-    a
+    article = TextArticle.new(options)
+    article.profile = profile
+    article.save!
+    article
   end
 
 end

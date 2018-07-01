@@ -19,13 +19,13 @@ class HttpCachingTest < ActionDispatch::IntegrationTest
   end
 
   test 'search results, default config' do
-    get '/search', query: 'anything'
+    get '/search', params: {query: 'anything'}
     assert_cache(15.minutes)
   end
 
   test 'search results, custom config' do
     set_env_config(general_cache_in_minutes: 30)
-    get '/search', query: 'anything'
+    get '/search', params: {query: 'anything'}
     assert_cache(30.minutes)
   end
 
@@ -93,7 +93,7 @@ class HttpCachingTest < ActionDispatch::IntegrationTest
   end
 
   test 'user data, not logged in' do
-    get '/account/user_data', {}, { 'X-Requested-With' => 'XMLHttpRequest'}
+    get '/account/user_data'
     assert_no_cookies
   end
 

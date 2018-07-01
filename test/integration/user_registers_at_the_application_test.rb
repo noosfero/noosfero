@@ -12,7 +12,11 @@ class UserRegistersAtTheApplicationTest < ActionDispatch::IntegrationTest
 
     assert_response :success
 
-    post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
+    post '/account/signup', params: {user: { login: 'mylogin',
+                                             password: 'mypassword',
+                                             password_confirmation: 'mypassword',
+                                             email: 'mylogin@example.com' }
+                                    }
     assert_response :success
 
     assert_tag :tag => 'a', :attributes => { :href => "#" }
@@ -33,7 +37,11 @@ class UserRegistersAtTheApplicationTest < ActionDispatch::IntegrationTest
 
     assert_response :success
 
-    post '/account/signup', :user => { :login => 'ze', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
+    post '/account/signup', params: { user: { login: 'ze',
+                                             password: 'mypassword',
+                                             password_confirmation: 'mypassword',
+                                             email: 'mylogin@example.com' }
+                                    }
     assert_response :success
     assert_tag :tag => 'div', :attributes => { :id => 'errorExplanation', :class => 'errorExplanation' }
 

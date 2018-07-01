@@ -19,7 +19,7 @@ class MultiTenancyTest < ActionDispatch::IntegrationTest
     host! 'schema1.com'
     Noosfero::MultiTenancy.stubs(:on?).returns(false)
     Noosfero::MultiTenancy.stubs(:mapping).returns({ 'schema1.com' => 'schema1' })
-    assert_nothing_raised(ActiveRecord::StatementInvalid) { get '/' }
+    assert_nothing_raised { get '/' }
   end
 
   should 'find session from the correct database schema' do
