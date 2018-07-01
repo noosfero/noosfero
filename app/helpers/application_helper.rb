@@ -1364,4 +1364,23 @@ module ApplicationHelper
   end
   alias xhr :xml_http_request
 
+  def clean_backtrace(&block)
+    yield
+  rescue ActiveModel::Errors => e
+    path = File.expand_path(__FILE__)
+    raise ActiveModel::Errors, e.message, e.backtrace.reject { |line| File.expand_path(line) =~ /#{path}/ }
+  end
+
+  def find_tag(conditions)
+    html_document.find(conditions)
+  end
+
+  def assert_tag(*opts)
+    clean_backtrace do
+      opts = opts.size > 1 ? opts.last.merge({ :tag => opts.first.to_s }) : opts.first
+      tag = find_tag(opts)
+      assert tag, "expected tag, but no tag found matching #{opts.inspect} in:\n#{@response.body.inspect}"
+    end
+  end
+
 end

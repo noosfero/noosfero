@@ -1,6 +1,7 @@
 module FormsHelper
 
   include ButtonsHelper
+  include PrototypeHelper
 
   def labelled_radio_button( human_name, name, value, checked = false, options = {} )
     options[:id] ||= 'radio-' + FormsHelper.next_id_number

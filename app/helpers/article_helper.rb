@@ -2,6 +2,7 @@ module ArticleHelper
 
   include TokenHelper
   include FormsHelper
+  include PrototypeHelper
 
   def article_reported_version(article)
     search_path = Rails.root.join('app', 'views', 'shared', 'reported_versions')
