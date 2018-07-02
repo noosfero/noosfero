@@ -1884,6 +1884,7 @@ a.menu-toggle {
     &:nth-child(n + 2) { border-top: 1px solid #e8e8e8; }
     &:hover { background-color: #e9ebee; }
     > a {
+      color: #212e3c !important;
       box-sizing: border-box;
       display: inline-block;
       font-size: 1em;
