@@ -17,7 +17,7 @@ Feature: publish article
       | owner | name | body |
       | joaosilva | Sample Article | This is the first published article |
 
-  @selenium
+  @selenium-fixme
   Scenario: publishing an article that doesn't exists in the community
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
@@ -30,7 +30,7 @@ Feature: publish article
     When I go to sample-community's sitemap
     Then I should see "Sample Article"
 
-  @selenium
+  @selenium-fixme
   Scenario: publishing an article with a different name
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
@@ -47,7 +47,7 @@ Feature: publish article
     Then I should see "Another name"
     And I should not see "Sample Article"
 
-  @selenium @ignore-hidden-elements
+  @selenium-fixme @ignore-hidden-elements
   Scenario: getting an error message when publishing article with same name
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
@@ -74,7 +74,7 @@ Feature: publish article
     When I follow "Spread this"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
-  @selenium
+  @selenium-fixme
   Scenario: publishing an article in many communities and listing the communities that couldn't publish the article again,
             stills publishing the article in the other communities.
     Given the following communities
@@ -106,7 +106,7 @@ Feature: publish article
     When I go to another-community2's sitemap
     Then I should see "Sample Article"
 
-  @selenium
+  @selenium-fixme
   Scenario: publishing articles with the same name in a moderated community
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"

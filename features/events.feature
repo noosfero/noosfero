@@ -161,7 +161,7 @@ Feature: events
     Then I should see "Colivre.net's Events"
 
 
-  @selenium
+  @selenium-fixme
   Scenario: published events should be listed in the agenda too
     Given the following community
       | identifier | name |

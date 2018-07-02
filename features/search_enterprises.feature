@@ -15,7 +15,7 @@ Feature: search enterprises
     And I follow "Search" within ".search-form"
     Then I should see "None" within ".search-results-type-empty"
 
-  @selenium
+  @selenium-fixme
   Scenario: simple search for enterprise
     Given the following enterprises
       | identifier | name        | img    |
