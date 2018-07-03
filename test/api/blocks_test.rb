@@ -180,6 +180,22 @@ class BlocksTest < ActiveSupport::TestCase
     assert_equal 1, block.images.size
   end
 
+  should 'be able to update image not remove existing images' do
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
+    block = fast_create(RawHTMLBlock, box_id: box.id)
+    Environment.default.add_admin(person)
+    base64_image = create_base64_image
+    params[:block] = {images_builder: [base64_image]}
+    post "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    assert_equal 1, block.images.size
+
+
+    base64_image = create_base64_image
+    params[:block] = {images_builder: [base64_image]}
+    post "/api/v1/blocks/#{block.id}?#{params.to_query}"
+    assert_equal 2, block.images.size
+  end
+
   should 'be able to remove images when updating a block' do
     box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
     Environment.default.add_admin(person)
@@ -359,6 +375,7 @@ class BlocksTest < ActiveSupport::TestCase
   end
 
   define_method "test_should_be_able_to_get_preview_of_RecentDocumentsBlock_on_environment_with_#{env_id}" do
+    Article.delete_all
     article1 = fast_create(Article, :profile_id => user.person.id, :name => "Article 1")
     article2 = fast_create(Article, :profile_id => user.person.id, :name => "Article 2")
     params[:block_type] = 'RecentDocumentsBlock'
