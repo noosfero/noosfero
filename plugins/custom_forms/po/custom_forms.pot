@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-12 14:04+0000\n"
-"PO-Revision-Date: 2018-06-12 14:04+0000\n"
+"POT-Creation-Date: 2018-07-03 15:02+0000\n"
+"PO-Revision-Date: 2018-07-03 15:02+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -142,38 +142,19 @@ msgstr ""
 msgid "New Survey"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../lib/custom_forms_plugin/form.rb:46
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
-#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
-#: ../views/shared/_form.html.erb:6
-msgid "Name"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
-msgid "City"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:29
+#: ../lib/custom_forms_plugin/csv_handler.rb:25
 msgid "Timestamp"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:39
+#: ../lib/custom_forms_plugin/csv_handler.rb:36
 msgid " or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:40
+#: ../lib/custom_forms_plugin/csv_handler.rb:37
 msgid ", or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:123
+#: ../lib/custom_forms_plugin/csv_handler.rb:116
 msgid "Invalid alternative"
 msgstr ""
 
@@ -217,6 +198,14 @@ msgstr ""
 msgid "%{value} is not a valid kind."
 msgstr ""
 
+#: ../lib/custom_forms_plugin/form.rb:46
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
+#: ../views/shared/_form.html.erb:6
+msgid "Name"
+msgstr ""
+
 #: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
 msgstr ""
@@ -250,11 +239,11 @@ msgstr ""
 msgid "%s days left"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:179
+#: ../lib/custom_forms_plugin/form.rb:184
 msgid "The time range selected is invalid."
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "can't be less than 2"
 msgstr ""
 
@@ -417,29 +406,33 @@ msgstr ""
 msgid "Export one file with several queries at once."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:12
+#: ../views/custom_forms_plugin_admin/index.html.erb:14
+msgid "Select the user fields to be included in the submissions report"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:18
+#: ../views/custom_forms_plugin_admin/index.html.erb:23
 msgid "Filter profiles by name"
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:29
+#: ../views/custom_forms_plugin_admin/index.html.erb:34
 msgid "%s form"
 msgid_plural "%s forms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:42
+#: ../views/custom_forms_plugin_admin/index.html.erb:47
 msgid "Deselect all"
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:45
+#: ../views/custom_forms_plugin_admin/index.html.erb:50
 msgid "Select all"
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:50
+#: ../views/custom_forms_plugin_admin/index.html.erb:55
 msgid "Generate CSV"
 msgstr ""
 
@@ -548,11 +541,11 @@ msgid "Type in your question"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Checkboxes"
+msgid "Multiple choice"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Multiple choice"
+msgid "Checkboxes"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
@@ -579,6 +572,11 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:16
 msgid "This field will be added automatically to your survey"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:33
@@ -741,7 +739,7 @@ msgid "Time"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:44
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:47
 msgid "Back to forms"
 msgstr ""
 
@@ -807,7 +805,7 @@ msgstr ""
 msgid "There are no submissions for this form."
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:40
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:41
 #: ../views/custom_forms_plugin_profile/_text.html.erb:30
 msgid "imported submissions"
 msgstr ""

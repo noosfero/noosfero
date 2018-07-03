@@ -34,16 +34,16 @@ msgid "The %s could not be updated"
 msgstr "%s no pudo ser actualizado"
 
 #, fuzzy
-msgid "Submissions"
-msgstr "Permisos"
+msgid "Access"
+msgstr "Accesor"
 
 #, fuzzy
 msgid "The %s could not be removed"
 msgstr "El contrato no puede ser eliminado. ¡Perdón! ^^"
 
 #, fuzzy
-msgid "Access"
-msgstr "Accesor"
+msgid "Submissions"
+msgstr "Permisos"
 
 #, fuzzy
 msgid "Membership survey"
@@ -70,16 +70,20 @@ msgid "Checkboxes"
 msgstr "Checkbox"
 
 #, fuzzy
-msgid "%{requestor} wants to fill in some further information."
-msgstr "%{requestor} quiere ser tu amigo."
-
-#, fuzzy
 msgid "Option"
 msgstr "Acciones"
 
 #, fuzzy
-msgid "%{requestor} wants you to fill in some information."
+msgid "Preselected"
+msgstr "Rechazado"
+
+#, fuzzy
+msgid "%{requestor} wants to fill in some further information."
 msgstr "%{requestor} quiere ser tu amigo."
+
+#, fuzzy
+msgid "Add a new text field"
+msgstr "Agregar un archivo CSS"
 
 #, fuzzy
 msgid "Admission survey"
@@ -102,12 +106,8 @@ msgid "is mandatory."
 msgstr "%{fn} es obligatorio"
 
 #, fuzzy
-msgid "Preselected"
-msgstr "Rechazado"
-
-#, fuzzy
-msgid "Add a new text field"
-msgstr "Agregar un archivo CSS"
+msgid "%{requestor} wants you to fill in some information."
+msgstr "%{requestor} quiere ser tu amigo."
 
 #, fuzzy
 msgid "Add a new select field"
@@ -138,12 +138,12 @@ msgid "Back to forms"
 msgstr "Regresar a %s"
 
 #, fuzzy
-msgid "From %s until %s"
-msgstr "desde %s hasta %s"
-
-#, fuzzy
 msgid "Submission date"
 msgstr "Permisos"
+
+#, fuzzy
+msgid "From %s until %s"
+msgstr "desde %s hasta %s"
 
 #, fuzzy
 msgid "Author"
@@ -253,34 +253,15 @@ msgstr ""
 msgid "New Survey"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr "Correo electrónico"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../lib/custom_forms_plugin/form.rb:46
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
-#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
-#: ../views/shared/_form.html.erb:6
-msgid "Name"
-msgstr "Nombre"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
-msgid "City"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:29
+#: ../lib/custom_forms_plugin/csv_handler.rb:25
 msgid "Timestamp"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:39
+#: ../lib/custom_forms_plugin/csv_handler.rb:36
 msgid " or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:40
+#: ../lib/custom_forms_plugin/csv_handler.rb:37
 msgid ", or "
 msgstr ""
 
@@ -324,6 +305,14 @@ msgstr ""
 msgid "%{value} is not a valid kind."
 msgstr ""
 
+#: ../lib/custom_forms_plugin/form.rb:46
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
+#: ../views/shared/_form.html.erb:6
+msgid "Name"
+msgstr "Nombre"
+
 #: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
 msgstr ""
@@ -357,11 +346,11 @@ msgstr ""
 msgid "%s days left"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:179
+#: ../lib/custom_forms_plugin/form.rb:184
 msgid "The time range selected is invalid."
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "can't be less than 2"
 msgstr ""
 
@@ -436,11 +425,11 @@ msgid "This block show last polls performed in profile."
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Multiple Choice"
+msgid "Single Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Single Choice"
+msgid "Multiple Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/survey_block.rb:12
@@ -493,19 +482,23 @@ msgstr ""
 msgid "Export one file with several queries at once."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:12
+#: ../views/custom_forms_plugin_admin/index.html.erb:14
+msgid "Select the user fields to be included in the submissions report"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:18
+#: ../views/custom_forms_plugin_admin/index.html.erb:23
 msgid "Filter profiles by name"
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:42
+#: ../views/custom_forms_plugin_admin/index.html.erb:47
 msgid "Deselect all"
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:50
+#: ../views/custom_forms_plugin_admin/index.html.erb:55
 msgid "Generate CSV"
 msgstr ""
 
@@ -588,6 +581,11 @@ msgstr "Agregar opción"
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:16
 msgid "This field will be added automatically to your survey"
 msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
+msgstr "Correo electrónico"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:3

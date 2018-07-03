@@ -42,15 +42,15 @@ msgstr "Neue Art von Inhalt für Communities."
 msgid "Step not allowed at this parent."
 msgstr "Schritt an diesem Parent nicht erlaubt."
 
-#: ../lib/community_track_plugin/step.rb:47
+#: ../lib/community_track_plugin/step.rb:35
 msgid "must be equal or after start date."
 msgstr ""
 
-#: ../lib/community_track_plugin/step.rb:52
+#: ../lib/community_track_plugin/step.rb:40
 msgid "Step"
 msgstr ""
 
-#: ../lib/community_track_plugin/step.rb:56
+#: ../lib/community_track_plugin/step.rb:44
 msgid "Defines a step."
 msgstr ""
 
