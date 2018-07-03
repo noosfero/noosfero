@@ -50,15 +50,17 @@ end
 #   end
 #
 
+Capybara.server = :webrick
 Cucumber::Rails::World.use_transactional_tests = true
 # How to clean your database when transactions are turned off. See
 # http://github.com/bmabey/database_cleaner for more info.
 
 Before do
-  ActiveRecord::Fixtures.reset_cache
+  fixture_set = ActiveRecord::FixtureSet
+  fixture_set.reset_cache
   fixtures_folder = Rails.root.join('test', 'fixtures')
   fixtures = ['environments', 'roles']
-  ActiveRecord::Fixtures.create_fixtures(fixtures_folder, fixtures)
+  fixture_set.create_fixtures(fixtures_folder, fixtures)
 
   # The same browser session is used across tests, so expire caching
   # can create changes from scenario to another.

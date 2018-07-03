@@ -19,7 +19,7 @@ gem 'acts-as-taggable-on'
 gem 'rails_autolink'
 gem 'ruby-feedparser'
 gem 'daemons'
-gem 'nokogiri',                   '~> 1.8.2'
+gem 'nokogiri'
 gem 'mini_portile2'
 gem 'will_paginate'
 gem 'pothoven-attachment_fu'
@@ -84,7 +84,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'mocha',                     '~> 1.1.0', :require => false
+  gem 'mocha',                     :require => false
   gem 'test-unit'
   gem 'minitest'
   gem 'minitest-reporters'
@@ -99,8 +99,8 @@ group :cucumber, :test do
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver'
-  gem 'chromedriver-helper' if ENV['SELENIUM_DRIVER'] == 'chrome'
-  gem 'geckodriver-helper'  if ENV['SELENIUM_DRIVER'] == 'firefox'
+  gem 'geckodriver-helper'
+  gem 'chromedriver-helper'
 end
 
 # Requires custom dependencies

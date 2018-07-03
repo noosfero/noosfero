@@ -10,12 +10,12 @@ class Forum < Folder
   settings_items :terms_of_use, :type => :string, :default => ""
   settings_items :has_terms_of_use, :type => :boolean, :default => false
   settings_items :topic_creation, :type => :integer, :default => AccessLevels.levels[:self]
-  has_and_belongs_to_many :users_with_agreement, class_name:  'Person', :join_table => 'terms_forum_people'
+  has_and_belongs_to_many :users_with_agreement, class_name:  'Person', :join_table => 'terms_forum_people', optional: true
 
   before_save do |forum|
     if forum.has_terms_of_use
       last_editor = forum.profile.environment.people.find_by(id: forum.last_changed_by_id)
-      if last_editor && !forum.users_with_agreement.exists?(last_editor)
+      if last_editor && !forum.users_with_agreement.exists?(last_editor.id)
         forum.users_with_agreement << last_editor
       end
     else
