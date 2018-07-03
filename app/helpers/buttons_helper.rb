@@ -5,6 +5,7 @@ module ButtonsHelper
     add_user:          'user-plus',
     admin_user:        'user-shield',
     admin:             'shield-alt',
+    angle_right:       'angle-right',
     control_panel:     'cog',
     alert:             'exclamation-triangle',
     appearance:        'paint-brush',
@@ -15,7 +16,9 @@ module ButtonsHelper
     ban:               'ban',
     blocks:            'th',
     blog:              'newspaper',
+    bug:               'bug',
     cancel:            'times',
+    caret_down:        'caret-down',
     clear:             'eraser',
     clock:             'clock',
     clone:             'clone',
@@ -34,10 +37,15 @@ module ButtonsHelper
     folder:            'folder',
     forward:           'forward',
     fullscreen:        'expand-arrows-alt',
+    fullscreen_out:    'compress',
+    goble:             'goble',
     header_footer:     'object-group',
+    heart:             'heart',
     help:              'question-circle',
     home:              'home',
     image:             'image',
+    info:              'info',
+    language:          'language',
     leave:             'sign-out-alt',
     left:              'arrow-circle-left',
     lightbulb:         'lightbulb',
@@ -45,6 +53,8 @@ module ButtonsHelper
     login:             'sign-in-alt',
     logout:            'sign-out-alt',
     menu:              'align-justify',
+    minus:             'minus',
+    more_right:        'angle-double-right',
     network:           'code-branch',
     new:               'plus',
     next:              'arrow-right',
@@ -54,15 +64,20 @@ module ButtonsHelper
     people:            'user',
     reload:            'redo',
     remove:            'times',
+    remove_user:       'user-times',
+    reply:             'reply',
     right:             'arrow-circle-right',
     rss:               'rss',
     save:              'save',
     save_and_continue: 'cloud-upload-alt',
     search:            'search',
+    see_more:          'plus-circle',
     slideshow:         'tv',
     spread:            'share-alt',
-    text:              'file-alt',
+    star:              'star',
+    tag:               'tag',
     task:              'tasks',
+    text:              'file-alt',
     trash:             'trash-alt',
     undo:              'undo',
     upload:            'upload',
@@ -93,9 +108,7 @@ module ButtonsHelper
     classes = "button icon-#{type}"
     html_options = merge_class(classes, html_options)
     html_options[:title] ||= label
-    link_to(url, html_options.merge(class: classes)) do
-      font_awesome(type, label)
-    end
+    link_to(font_awesome(type, label), url, html_options.merge(class: classes))
   end
 
   def button(type, label, url, html_options = {})
@@ -127,7 +140,7 @@ module ButtonsHelper
 
   def button_to_remote_without_text(type, label, options, html_options = {})
     html_options[:class] = "" unless html_options[:class]
-    html_options[:class] << " button without-text"
+    html_options[:class] << " button without-text icon-#{type}"
     link_to_remote(font_awesome(type), options, html_options.merge(:title => label))
   end
 

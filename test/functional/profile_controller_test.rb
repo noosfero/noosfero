@@ -168,7 +168,8 @@ class ProfileControllerTest < ActionController::TestCase
   should 'show create community in own profile' do
     login_as(@profile.identifier)
     get :communities, :profile => @profile.identifier
-    assert_tag :tag => 'a',  :attributes => {:class => 'button with-text', :title => 'Create a new community' }
+    assert_tag :tag => 'a',  :attributes => {:class => 'button icon-add with-text',
+      :title => 'Create a new community' }
   end
 
   should 'not show create community on profile of other users' do

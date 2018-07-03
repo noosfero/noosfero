@@ -203,22 +203,6 @@ class TasksControllerTest < ActionController::TestCase
     assert_equal profile, assigns(:ticket).requestor
   end
 
-  should 'list tasks that this profile created' do
-    task = Ticket.create!(:name => 'test', :requestor => profile)
-    get :list_requested, :profile => profile.identifier
-
-    assert_includes assigns(:tasks), task
-  end
-
-  should 'list tasks that this profile created without spam' do
-    task_spam = Ticket.create!(:name => 'test', :requestor => profile, :spam => true)
-    task_ham = Ticket.create!(:name => 'test', :requestor => profile, :spam => false)
-    get :list_requested, :profile => profile.identifier
-
-    assert_includes assigns(:tasks), task_ham
-    assert_not_includes assigns(:tasks), task_spam
-  end
-
   should 'set target of ticket when creating it' do
      f = create_user('friend').person
      profile.add_friend f

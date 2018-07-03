@@ -33,7 +33,7 @@ Feature: comment
   Scenario: post comment while authenticated
     Given I am on /booking/article-to-comment
     And I fill in "comment-field" with "Hey ho, let's go!"
-    And I click "#submit_form_button"
+    And I follow "Send"
     And I wait 1 seconds
     Then I should see "Hey ho, let"
 

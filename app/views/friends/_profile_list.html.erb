@@ -4,11 +4,11 @@
       <%= link_to_profile profile_image(profile) + profile.short_name,
                           profile.identifier, class: 'profile-link' %>
       <div class="controll">
-        <%= link_to font_awesome(:envelope),
+        <%= link_to font_awesome(:email),
                     profile.url.merge(controller: 'contact', action: 'new', profile: profile.identifier),
                     title: _('contact') %>
 
-        <%= link_to font_awesome("user-times"),
+        <%= link_to font_awesome(:remove_user),
                     { action: 'remove', id: profile.id },
                     title: _('remove') %>
       </div>

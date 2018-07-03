@@ -1,5 +1,7 @@
 module ModalHelper
 
+  include ButtonsHelper
+
   def modal_inline_link_to title, url, selector, options = {}
     link_to title, url, modal_options(options.merge(:inline => selector))
   end

@@ -866,8 +866,8 @@ module ApplicationHelper
   alias :browse_events_menu :search_events_menu
 
   def pagination_links(collection, options={})
-    options = { previous_label: content_tag(:span, font_awesome('long-arrow-left', _('Previous'))),
-                next_label:     content_tag(:span, "#{_('Next')} #{font_awesome('long-arrow-right')}".html_safe),
+    options = { previous_label: content_tag(:span, font_awesome(:back, _('Previous'))),
+                next_label:     content_tag(:span, "#{_('Next')} #{font_awesome(:next)}".html_safe),
                 inner_window: 1,
                 outer_window: 0,
                 params: @filters }.merge(options)
@@ -890,7 +890,7 @@ module ApplicationHelper
       link_to_all = nil
       if list.count > 5
         list = list.first(5)
-        link_to_all = link_to( font_awesome('plus-circle', _('See all')), :controller => 'memberships', :profile => user.identifier)
+        link_to_all = link_to( font_awesome(:see_more, _('See all')), :controller => 'memberships', :profile => user.identifier)
       end
       link = list.map do |element|
         link_to( font_awesome( icon, _('Manage %s').html_safe % element.short_name(25)),
@@ -1316,7 +1316,7 @@ module ApplicationHelper
                                                     href: "#",
                                                     title: _("Go to full screen mode") })
 
-    content += content_tag('a', font_awesome(:compress, _("Exit full screen")), { id: "exit-fullscreen-btn",
+    content += content_tag('a', font_awesome(:fullscreen_out, _("Exit full screen")), { id: "exit-fullscreen-btn",
                                                          onclick: "toggle_fullwidth('#{item_id}')",
                                                          href: "#",
                                                          title: _("Exit full screen mode"),

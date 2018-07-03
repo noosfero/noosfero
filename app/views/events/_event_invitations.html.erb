@@ -29,11 +29,11 @@
       </div>
 
       <div class='menu-container'>
-        <%= link_to font_awesome('caret-down'), '#!', class: 'menu-toggle', id: 'invitation-options' %>
+        <%= link_to font_awesome(:caret_down), '#!', class: 'menu-toggle', id: 'invitation-options' %>
         <ul class="noosfero-dropdown-menu" id="invitation-options-dropdown">
 
           <li>
-            <%= link_to_function font_awesome(:check, 'Yes, I will go!'),
+            <%= link_to_function font_awesome(:ok, 'Yes, I will go!'),
                     "invite_decision(this, '.invitation-decision-yes')" %>
           </li>
 
@@ -43,7 +43,7 @@
           </li>
 
           <li>
-            <%= link_to_function font_awesome(:times, 'I will not'),
+            <%= link_to_function font_awesome(:cancel, 'I will not'),
                     "invite_decision(this, '.invitation-decision-no')" %>
           </li>
         </ul>

@@ -124,7 +124,7 @@ table.cms-articles {
   td:nth-child(4),
   th:nth-child(4) {
     text-align: center;
-    width: 20%;
+    // width: 20%;
     @media only screen and (max-width: 540px) {
       display: none;
     }
@@ -132,7 +132,7 @@ table.cms-articles {
   td:last-child,
   th:last-child {
     text-align: center;
-    width: 70px;
+    // width: 70px;
     a.menu-toggle {
       float: none;
     }
@@ -163,17 +163,6 @@ table.cms-articles a.icon-parent-folder,
 
 table.cms-articles .icon:hover {
   background-color: transparent;
-}
-
-#content table.cms-articles .button:hover,
-#content table.cms-articles .button {
-  margin: 0;
-  float: left;
-  border-right: none;
-}
-
-#content table.cms-articles .button:last-child {
-  border-right: 1px solid #ccc;
 }
 
 .cms-homepage a.icon {
@@ -321,15 +310,6 @@ table.cms-articles .icon:hover {
   white-space: nowrap;
 }
 
-.controller-cms .article-controls {
-  white-space: nowrap;
-  padding: 0 5px;
-}
-
-.controller-cms .categorie_box .button {
-  float: left;
-}
-
 .controller-cms .categorie_box h5 {
   line-height: 24px;
 }
@@ -347,12 +327,6 @@ table.cms-articles .icon:hover {
 
 .controller-cms select#article_license_id {
   max-width: 100%;
-}
-
-@media only screen and (max-width: 767px) {
-  .controller-cms .button-bar .icon-delete {
-    float: right;
-  }
 }
 
 @media only screen and (min-width: 767px) {
