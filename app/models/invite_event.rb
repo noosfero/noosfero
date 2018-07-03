@@ -95,7 +95,7 @@ class InviteEvent < Task
     true
   end
 
-  def custom_fields_moderate
+  def reject_disabled?
     true
   end
 end

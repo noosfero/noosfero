@@ -1,62 +1,19 @@
 (function($) {
 
-  $("input.task_accept_radio").click(function(){
-    task_id = this.getAttribute("task_id");
-    var accept_container = $('#on-accept-information-' + task_id);
-    var reject_container = $('#on-reject-information-' + task_id);
-
-    accept_container.show('fast');
-    reject_container.hide('fast');
-    $('#on-skip-information-'   + task_id).hide('fast');
-    $('#custom-field-information-' + task_id).show('fast');
-    reject_container.find('input, select, textarea').prop('disabled', true);
-    accept_container.find('input, select, textarea').prop('disabled', false);
+  $('#set-all-tasks-to').change(function(){
+    var form = $(this).closest("form")
+    switch($(this).selected().val()) {
+      case 'accept':
+        accept_all_tasks(form)
+        break
+      case 'reject':
+        reject_all_tasks(form)
+        break
+      case 'skip':
+        skip_all_tasks(form)
+        break
+    }
   })
-
-  $("input.task_reject_radio").click(function(){
-    task_id = this.getAttribute("task_id");
-    var accept_container = $('#on-accept-information-' + task_id);
-    var reject_container = $('#on-reject-information-' + task_id);
-
-    accept_container.hide('fast');
-    reject_container.show('fast');
-    $('#on-skip-information-'   + task_id).hide('fast');
-    $('#custom-field-information-' + task_id).show('fast');
-    reject_container.find('input, select, textarea').prop('disabled', false);
-    accept_container.find('input, select, textarea').prop('disabled', true);
-  })
-
-  $("input.task_skip_radio").click(function(){
-    task_id = this.getAttribute("task_id");
-    $('#on-accept-information-' + task_id).hide('fast');
-    $('#on-reject-information-' + task_id).hide('fast');
-    $('#on-skip-information-'   + task_id).show('fast');
-    $('#custom-field-information-' + task_id).hide('fast');
-  })
-
-  // There is probably an elegant way to do this...
-  $('#up-set-all-tasks-to').selectedIndex = 0;
-  $('#down-set-all-tasks-to').selectedIndex = 0;
-
-  $('#down-set-all-tasks-to').change(function(){
-    value = $('#down-set-all-tasks-to').selected().val();
-    up = $('#up-set-all-tasks-to')
-    up.attr('value', value).change();
-  })
-
-  $('#up-set-all-tasks-to').change(function(){
-    value = $('#up-set-all-tasks-to').selected().val();
-    down = $('#down-set-all-tasks-to')
-    down.attr('value', value);
-    $('.task_'+value+'_radio').each( function(){
-      if(!this.disabled){
-        $(this).attr('checked', 'checked').click();
-      }
-    })
-  })
-
-  $('.task_title').css('margin-right', $('.task_decisions').width()+'px');
-  $('.task_title').css('margin-left', $('.task_arrow').width()+'px');
 
   //Autocomplete tasks by type
   $('#filter-text-autocomplete').autocomplete({
@@ -73,6 +30,42 @@
     },
     minLength:2
   });
+
+  $('.task-view-datails-link.show-details').click(function() {
+    $(this).hide()
+    $(this).siblings('.task-view-datails-link.hidden-details').show()
+  })
+
+  $('.task-view-datails-link.hidden-details').click(function() {
+    $(this).hide()
+    $(this).siblings('.task-view-datails-link.show-details').show()
+  })
+
+  $('.task-view-datails-link.hidden-details').hide()
+
+  $('.task-accept-radio').on('click', function() {
+    var task = $(this).closest('.task-box')
+    task.find('.task-view-details').show('slow')
+    task.find('.task-reject-explanation').hide('slow')
+    task.find('.task-view-datails-link.show-details').hide()
+    task.find('.task-view-datails-link.hidden-details').show()
+  })
+
+  $('.task-reject-radio').on('click', function() {
+    var task = $(this).closest('.task-box')
+    task.find('.task-view-details').hide('slow')
+    task.find('.task-reject-explanation').show('slow')
+    task.find('.task-view-datails-link.show-details').show()
+    task.find('.task-view-datails-link.hidden-details').hide()
+  })
+
+  $('.task-skip-radio').on('click', function() {
+    var task = $(this).closest('.task-box')
+    task.find('.task-view-details').hide('slow')
+    task.find('.task-reject-explanation').hide('slow')
+    task.find('.task-view-datails-link.show-details').show()
+    task.find('.task-view-datails-link.hidden-details').hide()
+  })
 
 })(jQuery)
 
@@ -92,3 +85,23 @@ function change_task_responsible(el) {
   });
 }
 
+function accept_all_tasks(form) {
+  form.find('.task-reject-explanation').hide('slow')
+  form.find('.task-decisions .task-accept-radio').attr('checked', true)
+}
+
+function reject_all_tasks(form) {
+  form.find('.task-view-details').hide('slow')
+  form.find('.task-reject-explanation').show('slow')
+  form.find('.task-view-datails-link.show-details').show()
+  form.find('.task-view-datails-link.hidden-details').hide()
+  form.find('.task-decisions .task-reject-radio').attr('checked', true)
+}
+
+function skip_all_tasks(form) {
+  form.find('.task-view-details').hide('slow')
+  form.find('.task-reject-explanation').hide('slow')
+  form.find('.task-view-datails-link.show-details').show()
+  form.find('.task-view-datails-link.hidden-details').hide()
+  form.find('.task-decisions .task-skip-radio').attr('checked', true)
+}

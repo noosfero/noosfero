@@ -1,7 +1,0 @@
-<% unless @view_only %>
-  <% EventInvitation::DECISIONS.each do |key, decision| %>
-    <%= radio_button("tasks[#{task.id}][task]", "decision", decision,
-                      class: "task-invite-event-decision-#{key}",
-                      task_id: "#{task.id}") %>
-  <% end %>
-<% end %>
