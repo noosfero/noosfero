@@ -4,5 +4,9 @@
 
 <%= render partial: 'results_table', locals: { result: result } %>
 
-<%= pie_chart result["data"], donut: true, legend: 'bottom',
-              summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
+<div style="display: flex;">
+  <%= pie_chart result["data"], donut: false, legend: false,
+                summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
+  
+  <div id="legend" style="display: flex; flex-wrap: wrap;"></div>
+</div>

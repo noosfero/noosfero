@@ -18,6 +18,17 @@ function summaryFor(chartId, label) {
   }
 }
 
+function legend(chart) {
+  var legendItems = chart.chart.legend.legendItems;
+  let html = ``;
+  for (item in legendItems) {
+    var legend_text = `<div style="display: flex; margin: unset; margin-right: 5px; margin-bottom: 5px;"><div style="width: 10px; height: 10px; background: ${legendItems[item].fillStyle}; margin-right: 5px;"></div><span style="width: 130px; display: inline-block; font-size: 11px;">${legendItems[item].text} </span></div>`
+    html += legend_text;
+  }
+  document.getElementById("legend").innerHTML = html;
+  document.querySelector("#chart-1").setAttribute("style", "width: 50%");
+}
+
 $( document ).ready(function() {
   const charts = Chartkick.charts;
   const chartPrefix = "chart-";
@@ -25,6 +36,7 @@ $( document ).ready(function() {
 
   while (true){
     var chart = charts[chartPrefix + chartIndex];
+    legend(chart);
     if (typeof chart == "undefined")
       break;
 
@@ -38,10 +50,8 @@ $( document ).ready(function() {
           total += allData[i];
         }
 
-        var summary = summaryFor(this._chart.id + 1, tooltipLabel);
         var tooltipPercentage = Math.round((tooltipData / total) * 100);
-        return tooltipLabel + ': ' + tooltipData +
-               ' (' + tooltipPercentage + '%)' + summary;
+        return `${tooltipLabel}: ${tooltipData} (${tooltipPercentage}%}`;
       };
       graph.update();
     }
