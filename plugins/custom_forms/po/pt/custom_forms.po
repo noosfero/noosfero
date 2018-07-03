@@ -151,38 +151,19 @@ msgstr "Nova Enquete"
 msgid "New Survey"
 msgstr "Novo Questionário"
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr "E-mail"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../lib/custom_forms_plugin/form.rb:46
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
-#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
-#: ../views/shared/_form.html.erb:6
-msgid "Name"
-msgstr "Nome"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
-msgid "City"
-msgstr "Cidade"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:29
+#: ../lib/custom_forms_plugin/csv_handler.rb:25
 msgid "Timestamp"
 msgstr "Data de criação"
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:39
+#: ../lib/custom_forms_plugin/csv_handler.rb:36
 msgid " or "
 msgstr " ou "
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:40
+#: ../lib/custom_forms_plugin/csv_handler.rb:37
 msgid ", or "
 msgstr ", ou "
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:123
+#: ../lib/custom_forms_plugin/csv_handler.rb:116
 msgid "Invalid alternative"
 msgstr "Alternativa inválida"
 
@@ -226,6 +207,14 @@ msgstr "enquetes"
 msgid "%{value} is not a valid kind."
 msgstr "%{value} não é um tipo válido."
 
+#: ../lib/custom_forms_plugin/form.rb:46
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
+#: ../views/shared/_form.html.erb:6
+msgid "Name"
+msgstr "Nome"
+
 #: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
 msgstr "Slug"
@@ -259,11 +248,11 @@ msgstr "Finalizada"
 msgid "%s days left"
 msgstr "%s dias restantes"
 
-#: ../lib/custom_forms_plugin/form.rb:179
+#: ../lib/custom_forms_plugin/form.rb:184
 msgid "The time range selected is invalid."
 msgstr "A faixa de tempo selecionada é inválida."
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "can't be less than 2"
 msgstr "não pode ser menor que 2"
 
@@ -428,29 +417,33 @@ msgstr "Exportar consultas do ambiente"
 msgid "Export one file with several queries at once."
 msgstr "Exportar um arquivo com várias consultas de uma vez."
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:12
+#: ../views/custom_forms_plugin_admin/index.html.erb:14
+msgid "Select the user fields to be included in the submissions report"
+msgstr "Selecione os campos de usuário a serem incluídos no relatório de submissões"
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
 msgstr "Selecione de quais perfis você quer exportar as consultas."
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:18
+#: ../views/custom_forms_plugin_admin/index.html.erb:23
 msgid "Filter profiles by name"
 msgstr "Filtrar perfis por nome"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:29
+#: ../views/custom_forms_plugin_admin/index.html.erb:34
 msgid "%s form"
 msgid_plural "%s forms"
 msgstr[0] "%s consulta"
 msgstr[1] "%s consultas"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:42
+#: ../views/custom_forms_plugin_admin/index.html.erb:47
 msgid "Deselect all"
 msgstr "Desselecionar todos"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:45
+#: ../views/custom_forms_plugin_admin/index.html.erb:50
 msgid "Select all"
 msgstr "Selectionar todos"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:50
+#: ../views/custom_forms_plugin_admin/index.html.erb:55
 msgid "Generate CSV"
 msgstr "Gerar CSV"
 
@@ -559,12 +552,12 @@ msgid "Type in your question"
 msgstr "Digite a sua pergunta"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Checkboxes"
-msgstr "Checkboxes"
-
-#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
 msgid "Multiple choice"
 msgstr "Múltipla escolha"
+
+#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
+msgid "Checkboxes"
+msgstr "Checkboxes"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:39
@@ -591,6 +584,11 @@ msgstr "Adicionar opção"
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:16
 msgid "This field will be added automatically to your survey"
 msgstr "Esse campo será adicionado automaticamente no seu questionário"
+
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
+msgstr "E-mail"
 
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:33
 msgid "Add a new text field"
@@ -666,7 +664,7 @@ msgid ""
 msgstr ""
 "Você deve escolher um arquivo CSV que siga uma estrutura específica. É "
 "recomendado que você siga o modelo gerado. Note que um arquivo com "
-"cabeçadlho é experado."
+"cabeçalho é experado."
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:11
 msgid "Download Template"
@@ -748,7 +746,7 @@ msgid "Time"
 msgstr "Tempo"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:44
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:47
 msgid "Back to forms"
 msgstr "Voltar para os formulários"
 
@@ -816,7 +814,7 @@ msgstr "Submissões para %s"
 msgid "There are no submissions for this form."
 msgstr "Não há submissões para este formulário."
 
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:40
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:41
 #: ../views/custom_forms_plugin_profile/_text.html.erb:30
 msgid "imported submissions"
 msgstr "submissões importadas"
@@ -903,6 +901,10 @@ msgstr "Seu e-mail ficará visível para o dono deste formulário."
 #: ../views/shared/_form_submission.html.erb:9
 msgid "This was your answer."
 msgstr "Essa foi a sua resposta."
+
+#: ../lib/custom_forms_plugin/csv_handler.rb:6
+#~ msgid "City"
+#~ msgstr "Cidade"
 
 #~ msgid "Manage Queries"
 #~ msgstr "Gerenciar Consultas"

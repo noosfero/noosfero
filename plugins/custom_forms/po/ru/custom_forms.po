@@ -47,20 +47,20 @@ msgid "Triggered after membership"
 msgstr "Управление членствами"
 
 #, fuzzy
-msgid "There are no submissions for this form."
-msgstr "Нет подкатегорий %s."
+msgid "Submissions"
+msgstr "Разрешения"
 
 #, fuzzy
 msgid "Submission could not be saved"
 msgstr "Блок персональной информации"
 
 #, fuzzy
-msgid "Submissions"
-msgstr "Разрешения"
-
-#, fuzzy
 msgid "Are you sure you want to remove this query?"
 msgstr "Вы уверены что хотите удалить этот элемент?"
+
+#, fuzzy
+msgid "There are no submissions for this form."
+msgstr "Нет подкатегорий %s."
 
 #, fuzzy
 msgid "Type"
@@ -109,36 +109,36 @@ msgid "Manage queries"
 msgstr "Управлять%s"
 
 #, fuzzy
-msgid "%{requestor} wants to fill in some further information."
-msgstr "%s хочет быть вашим другом"
-
-#, fuzzy
 msgid "Checkbox"
 msgstr "Выбрать все"
-
-#, fuzzy
-msgid "%{requestor} wants you to fill in some information."
-msgstr "%s хочет быть вашим другом"
 
 #, fuzzy
 msgid "Add a new alternative"
 msgstr "Одна компания"
 
 #, fuzzy
+msgid "%{requestor} wants to fill in some further information."
+msgstr "%s хочет быть вашим другом"
+
+#, fuzzy
 msgid "Default text:"
 msgstr "Языки"
+
+#, fuzzy
+msgid "%{requestor} wants you to fill in some information."
+msgstr "%s хочет быть вашим другом"
 
 #, fuzzy
 msgid "Edit form"
 msgstr "Редактировать папку"
 
 #, fuzzy
-msgid "Always open"
-msgstr "Всегда"
-
-#, fuzzy
 msgid "Pending submissions for %s"
 msgstr "Статистика для %s"
+
+#, fuzzy
+msgid "Always open"
+msgstr "Всегда"
 
 #, fuzzy
 msgid "There are no pending submissions for this form."
@@ -149,20 +149,12 @@ msgid "Sort by"
 msgstr "Отправлено %s."
 
 #, fuzzy
-msgid "Select"
-msgstr "Выбрать..."
-
-#, fuzzy
 msgid "Back to forms"
 msgstr "Назад к %s"
 
 #, fuzzy
-msgid "Logged users"
-msgstr "В системе как %s"
-
-#, fuzzy
-msgid "From %s until %s"
-msgstr "с %s по %s"
+msgid "Select"
+msgstr "Выбрать..."
 
 #, fuzzy
 msgid "Submission date"
@@ -171,6 +163,14 @@ msgstr "Разрешения"
 #, fuzzy
 msgid "Author"
 msgstr "Автор"
+
+#, fuzzy
+msgid "Logged users"
+msgstr "В системе как %s"
+
+#, fuzzy
+msgid "From %s until %s"
+msgstr "с %s по %s"
 
 #, fuzzy
 msgid "Back to submissions"
@@ -278,34 +278,15 @@ msgstr ""
 msgid "New Survey"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../lib/custom_forms_plugin/form.rb:46
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
-#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
-#: ../views/shared/_form.html.erb:6
-msgid "Name"
-msgstr "Имя"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
-msgid "City"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:29
+#: ../lib/custom_forms_plugin/csv_handler.rb:25
 msgid "Timestamp"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:39
+#: ../lib/custom_forms_plugin/csv_handler.rb:36
 msgid " or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:40
+#: ../lib/custom_forms_plugin/csv_handler.rb:37
 msgid ", or "
 msgstr ""
 
@@ -349,6 +330,14 @@ msgstr ""
 msgid "%{value} is not a valid kind."
 msgstr ""
 
+#: ../lib/custom_forms_plugin/form.rb:46
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
+#: ../views/shared/_form.html.erb:6
+msgid "Name"
+msgstr "Имя"
+
 #: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
 msgstr ""
@@ -382,11 +371,11 @@ msgstr ""
 msgid "%s days left"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:179
+#: ../lib/custom_forms_plugin/form.rb:184
 msgid "The time range selected is invalid."
 msgstr "Диапазон времени выбран неверно."
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "can't be less than 2"
 msgstr ""
 
@@ -456,11 +445,11 @@ msgid "This block show last polls performed in profile."
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Multiple Choice"
+msgid "Single Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Single Choice"
+msgid "Multiple Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/survey_block.rb:12
@@ -509,16 +498,16 @@ msgstr ""
 msgid "Export one file with several queries at once."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:12
+#: ../views/custom_forms_plugin_admin/index.html.erb:14
+msgid "Select the user fields to be included in the submissions report"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:18
+#: ../views/custom_forms_plugin_admin/index.html.erb:23
 msgid "Filter profiles by name"
-msgstr ""
-
-#: ../views/custom_forms_plugin_admin/index.html.erb:42
-msgid "Deselect all"
 msgstr ""
 
 #: ../views/custom_forms_plugin_admin/index.html.erb:45
@@ -526,7 +515,11 @@ msgstr ""
 msgid "Select all"
 msgstr "Выбрать поле"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:50
+#: ../views/custom_forms_plugin_admin/index.html.erb:47
+msgid "Deselect all"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:55
 msgid "Generate CSV"
 msgstr ""
 
@@ -608,6 +601,11 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:16
 msgid "This field will be added automatically to your survey"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:3
@@ -697,17 +695,17 @@ msgid "New %s"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Пользователь"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:14
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:22
 msgid "Time"
 msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Пользователь"
 
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:4
 msgid "Report for submissions import"

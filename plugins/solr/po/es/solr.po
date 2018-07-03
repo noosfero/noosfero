@@ -27,12 +27,16 @@ msgid "facets|Enabled"
 msgstr "Habilitado"
 
 #: ../lib/ext/article.rb:13
+msgid "Older than one year"
+msgstr "Más de un año"
+
+#: ../lib/ext/article.rb:13
 msgid "Published date"
 msgstr "Fecha de publicación"
 
-#: ../lib/ext/article.rb:13
-msgid "Older than one year"
-msgstr "Más de un año"
+#: ../lib/ext/article.rb:14
+msgid "In the last month"
+msgstr "En el mes pasado"
 
 #: ../lib/ext/article.rb:14
 msgid "In the last week"
@@ -45,10 +49,6 @@ msgstr "En el año pasado"
 #: ../lib/ext/article.rb:14
 msgid "In the last day"
 msgstr "Ayer"
-
-#: ../lib/ext/article.rb:14
-msgid "In the last month"
-msgstr "En el mes pasado"
 
 #: ../lib/ext/product.rb:7
 msgid "Related products"

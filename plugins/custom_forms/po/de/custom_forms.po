@@ -23,12 +23,12 @@ msgid "Type"
 msgstr "Typ:"
 
 #, fuzzy
-msgid "Checkboxes"
-msgstr "Checkbox"
-
-#, fuzzy
 msgid "Multiple choice"
 msgstr "Mehrfachauswahl"
+
+#, fuzzy
+msgid "Checkboxes"
+msgstr "Checkbox"
 
 #, fuzzy
 msgid "The %s could not be updated"
@@ -43,12 +43,12 @@ msgid "The %s could not be removed"
 msgstr "Das Formular konnte nicht entfernt werden"
 
 #, fuzzy
-msgid "What is the time limit for this %s to be filled?"
-msgstr "Bis wann kann dieses Formular ausgefüllt werden?"
-
-#, fuzzy
 msgid "This field will be added automatically to your survey"
 msgstr "Dieses Feld wird automatisch zu Ihrem Formular hinzugefügt werden"
+
+#, fuzzy
+msgid "What is the time limit for this %s to be filled?"
+msgstr "Bis wann kann dieses Formular ausgefüllt werden?"
 
 #, fuzzy
 msgid "Multiline text"
@@ -188,34 +188,15 @@ msgstr ""
 msgid "New Survey"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../lib/custom_forms_plugin/form.rb:46
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
-#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
-#: ../views/shared/_form.html.erb:6
-msgid "Name"
-msgstr "Name"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr "E-Mail"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
-msgid "City"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:29
+#: ../lib/custom_forms_plugin/csv_handler.rb:25
 msgid "Timestamp"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:39
+#: ../lib/custom_forms_plugin/csv_handler.rb:36
 msgid " or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:40
+#: ../lib/custom_forms_plugin/csv_handler.rb:37
 msgid ", or "
 msgstr ""
 
@@ -264,6 +245,14 @@ msgstr ""
 msgid "%{value} is not a valid kind."
 msgstr ""
 
+#: ../lib/custom_forms_plugin/form.rb:46
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
+#: ../views/shared/_form.html.erb:6
+msgid "Name"
+msgstr "Name"
+
 #: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
 msgstr ""
@@ -297,11 +286,11 @@ msgstr ""
 msgid "%s days left"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:179
+#: ../lib/custom_forms_plugin/form.rb:184
 msgid "The time range selected is invalid."
 msgstr "Die ausgewählte Zeitspanne ist ungültig."
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "can't be less than 2"
 msgstr ""
 
@@ -455,11 +444,15 @@ msgstr ""
 msgid "Export one file with several queries at once."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:12
+#: ../views/custom_forms_plugin_admin/index.html.erb:14
+msgid "Select the user fields to be included in the submissions report"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:18
+#: ../views/custom_forms_plugin_admin/index.html.erb:23
 msgid "Filter profiles by name"
 msgstr ""
 
@@ -469,16 +462,16 @@ msgid "%s form"
 msgid_plural "%s forms"
 msgstr[0] "Formular editieren"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:42
-msgid "Deselect all"
-msgstr ""
-
 #: ../views/custom_forms_plugin_admin/index.html.erb:45
 #, fuzzy
 msgid "Select all"
 msgstr "Feld auswählen"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:50
+#: ../views/custom_forms_plugin_admin/index.html.erb:47
+msgid "Deselect all"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:55
 msgid "Generate CSV"
 msgstr ""
 
@@ -589,6 +582,11 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:56
 msgid "Add option"
 msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
+msgstr "E-Mail"
 
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:33
 msgid "Add a new text field"
@@ -732,7 +730,7 @@ msgid "User"
 msgstr "Nutzer"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:44
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:47
 msgid "Back to forms"
 msgstr "Zurück zu den Formularen"
 
