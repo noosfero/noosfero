@@ -783,7 +783,7 @@ class Environment < ApplicationRecord
 
   has_many :articles, through:  :profiles
   def recent_documents(limit = 10, options = {}, pagination = true)
-    self.articles.recent(limit, options, pagination)
+    self.articles.where.not(type: 'LinkArticle').recent(limit, options, pagination)
   end
 
   has_many :events, through:  :profiles, source:  :articles, class_name:  'Event'

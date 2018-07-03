@@ -335,6 +335,28 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   end
 
+  should 'not include link articles on recent_documents' do
+    environment = fast_create(Environment)
+
+    p1 = fast_create(Profile, environment_id: environment.id)
+    p2 = fast_create(Profile, environment_id: environment.id)
+
+    Article.destroy_all
+    
+    doc1 = fast_create(Article, profile_id: p1.id)
+    doc2 = fast_create(Article, profile_id: p2.id)
+    link = LinkArticle.create!(
+      reference_article: doc1, profile: p2
+    )
+
+    all_recent = environment.recent_documents
+    [doc1, doc2].each do |item|
+      assert_includes all_recent, item
+    end
+
+    assert_not_includes all_recent, link
+  end
+
   should 'have a description attribute' do
     env = Environment.new
 
