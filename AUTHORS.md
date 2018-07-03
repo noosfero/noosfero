@@ -8,6 +8,7 @@ noosfero, that's not a problem).
 Developers
 ==========
 
+Aaron <aaron@kimmigs.de>
 Alan Freihof Tygel <alantygel@gmail.com>
 Alax Alves <alaxallves@gmail.com>
 AlaxAlves <alaxallves@gmail.com>
@@ -22,6 +23,7 @@ Alipio muñiz <alipio@ecoalternative.net>
 Ana Losnak <analosnak@gmail.com>
 Ana Paula Vargas <anapaulavnoronha@gmail.com>
 Andre Bedran <bedran.fleck@gmail.com>
+Andre Filho <andre.filho001@outlook.com>
 Andre de Sousa <andre.filho001@outlook.com>
 Andre de Sousa C.F. <andre.filho001@outlook.com>
 Andre de Sousa Costa Filho <andre.filho001@outlook.com>
@@ -118,6 +120,7 @@ João Machini
 Junior Silva <juniorsilva1001@gmail.com>
 Jérôme Jutteau <j.jutteau@gmail.com>
 Jéssica Cristina <jessica.cris1127@gmail.com>
+KahCosta <kamillacosta.unb@gmail.com>
 KamillaCosta <kamillacostasouza@hotmail.com>
 Karine Valença <valenca.karine@gmail.com>
 Keilla Menezes <keilla@colivre.coop.br>
@@ -249,6 +252,7 @@ lucasssm <lucas50dx@hotmail.com>
 lucasssm <lucas50xd@hotmail.com>
 matheuslacerda <matheusmirandalacerda@gmail.com>
 mendesiasmin <mendesiasmin96@gmail.com>
+nimradium <nimra242001@gmail.com>
 shshshwhs <diogobeirao10@gmail.com>
 thiagorfm <t_moreira@outlook.com>
 tiagorc <tiagobrasil2005@yahoo.com.br>
