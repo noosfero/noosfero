@@ -9,12 +9,6 @@ module ActiveRecordExtension
       reflection
     end
 
-    def add_on_blank(attributes, custom_message = nil)
-      for attr in [attributes].flatten
-        value = @base.respond_to?(attr.to_s) ? @base.send(attr.to_s) : @base[attr.to_s]
-        add(attr, :blank, :default => custom_message) if value.blank?
-      end
-    end
   end
 end
 

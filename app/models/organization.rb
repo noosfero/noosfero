@@ -78,7 +78,7 @@ include OrganizationHelper
   def presence_of_required_fieds
     self.required_fields.each do |field|
       if self.send(field).blank?
-        self.errors.add_on_blank(field)
+        self.errors.add(field, :blank)
       end
     end
   end
