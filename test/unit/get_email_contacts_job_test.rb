@@ -9,8 +9,8 @@ class GetEmailContactsJobTest < ActiveSupport::TestCase
     job = GetEmailContactsJob.new('from-email', 'mylogin', 'mypassword', contact_list.id)
     job.perform
 
-    assert ContactList.find(contact_list).fetched
-    assert_equal 'There was an error while looking for your contact list. Please, try again', ContactList.find(contact_list).error_fetching
+    assert ContactList.find(contact_list.id).fetched
+    assert_equal 'There was an error while looking for your contact list. Please, try again', ContactList.find(contact_list.id).error_fetching
   end
 
   should 'register auth error' do
@@ -20,8 +20,8 @@ class GetEmailContactsJobTest < ActiveSupport::TestCase
     job = GetEmailContactsJob.new('from-email', 'mylogin', 'wrongpassword', contact_list.id)
     job.perform
 
-    assert ContactList.find(contact_list).fetched
-    assert_equal 'There was an error while authenticating. Did you enter correct login and password?', ContactList.find(contact_list).error_fetching
+    assert ContactList.find(contact_list.id).fetched
+    assert_equal 'There was an error while authenticating. Did you enter correct login and password?', ContactList.find(contact_list.id).error_fetching
   end
 
   should 'not try to register error if has no contact list' do
