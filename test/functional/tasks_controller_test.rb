@@ -624,7 +624,7 @@ class TasksControllerTest < ActionController::TestCase
     Task.create!(:requestor => person, :target => community)
     get :index
 
-    assert_select '.task-actions', 2
+    assert_select '.task-actions', 1
   end
 
   should 'hide decision selector when user has only view_tasks permission' do
@@ -636,11 +636,10 @@ class TasksControllerTest < ActionController::TestCase
     Task.create!(:requestor => person, :target => community)
     get :index
 
-    assert_select '#up-set-all-tasks-to', 0
-    assert_select '#down-set-all-tasks-to', 0
+    assert_select '#set-all-tasks-to', 0
   end
 
-  should 'display accept all tasks button when user has perform_task permission' do
+  should 'display decision selector when user has perform_task permission' do
     community = fast_create(Community)
     @controller.stubs(:profile).returns(community)
     person = create_user_with_permission('taskperformer', 'perform_task', community)
@@ -649,7 +648,7 @@ class TasksControllerTest < ActionController::TestCase
     Task.create!(:requestor => person, :target => community)
     get :index
 
-    assert_select '#save-all-tasks'
+    assert_select '#set-all-tasks-to'
   end
 
   should 'hide decision buttons when user has only view_tasks permission' do

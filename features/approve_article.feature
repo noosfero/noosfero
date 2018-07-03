@@ -49,9 +49,9 @@ Feature: approve article
     And I am logged in as "joaosilva"
     And I go to sample-community's control panel
     And I follow "Tasks"
-    And I follow "Reject"
+    And I choose "Reject"
     And I fill in "tasks_1_task_reject_explanation" with "Rejected"
-    And I follow "Reject"
+    And I follow "Save tasks"
     When I go to sample-community's sitemap
     Then I should not see "Sample Article"
 
@@ -72,8 +72,8 @@ Feature: approve article
     And I am logged in as "joaosilva"
     And I go to sample-community's control panel
     And I follow "Tasks"
-    And I follow "Reject"
+    And I choose "Reject"
     And I fill in "tasks_1_task_reject_explanation" with "Article was removed."
-    And I follow "Reject"
+    And I follow "Save tasks"
     Then I should see "No pending tasks"
     And I should not see "You have a nil object when you didn't expect it"

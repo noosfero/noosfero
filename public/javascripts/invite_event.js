@@ -6,45 +6,45 @@ jQuery(function($) {
     $('.token-input-token').toggle('slow')
   })
 
-  $(".task-actions .invite-decision-yes").click(function(){
-
-    $(this).closest('.task-description').find('.custom-field-information')
-           .find('.task-invite-event-decision-yes').attr('checked', true)
-
-    submit_decision_with_details(this)
-
-    return false
-  });
-
-  $(".task-actions .invite-decision-no").click(function(){
-    $(this).closest('.task-description').find('.custom-field-information')
-           .find('.task-invite-event-decision-no').click()
-
-    $(this).closest('.task-description').find(".task-decisions")
-           .children(".task-accept-radio").attr("checked", "checked");
-
-    $(this).closest("form").submit();
-    return false
-  });
-
-  $(".task-actions .invite-decision-maybe").click(function(){
-    $(this).closest('.task-description').find('.custom-field-information')
-           .find('.task-invite-event-decision-maybe').attr('checked', true)
-
-    submit_decision_with_details(this)
-
-    return false
-  });
-
-  function submit_decision_with_details(button) {
-    var accept_details = $(button).closest('.task-description').find('.task-view-details')
-
-    if(accept_details.length != 0 && accept_details.css('display') == 'none') {
-      accept_details.show('slow')
-    } else {
-      $(button).closest('.task-description').find(".task-decisions")
-             .children(".task-accept-radio").attr("checked", "checked");
-      $(button).closest("form").submit();
+  $('#set-all-tasks-to').change(function(){
+    var form = $(this).closest("form")
+    switch($(this).selected().val()) {
+      case 'accept':
+        accept_all_invite_event_tasks(form)
+        break
+      case 'reject':
+        reject_all_invite_event_tasks(form)
+        break
+      case 'skip':
+        skip_all_invite_event_tasks(form)
+        break
     }
+  })
+
+  $('.task-box.invite_event .task-invite-event-decision-yes,' +
+    '.task-box.invite_event .task-invite-event-decision-maybe,' +
+    '.task-box.invite_event .task-invite-event-decision-no').click(function() {
+    var task = $(this).closest(".task-box")
+    task.find('.task-accept-radio').attr('checked', true)
+  })
+
+  $('.task-box.invite_event .task-invite-event-decision-unconfirmed').click(function() {
+    var task = $(this).closest(".task-box")
+    task.find('.task-skip-radio').attr('checked', true)
+  })
+
+  function accept_all_invite_event_tasks(form) {
+    form.find('.task-box.invite_event .task-accept-radio').attr('checked', true)
+    form.find('.task-box.invite_event .task-invite-event-decision-yes').attr('checked', true)
+  }
+
+  function reject_all_invite_event_tasks(form) {
+    form.find('.task-box.invite_event .task-accept-radio').attr('checked', true)
+    form.find('.task-box.invite_event .task-invite-event-decision-no').attr('checked', true)
+  }
+
+  function skip_all_invite_event_tasks(form) {
+    form.find('.task-box.invite_event .task-skip-radio').attr('checked', true)
+    form.find('.task-box.invite_event .task-invite-event-decision-unconfirmed').attr('checked', true)
   }
 })

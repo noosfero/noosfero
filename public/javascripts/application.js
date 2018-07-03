@@ -1279,61 +1279,6 @@ $(document).ready(function() {
     $(this).siblings(".menu-toggle").click();
   });
 
-  $(".task-actions .accept-task").click(function(){
-    var accept_details = $(this).closest('.task-description').find('.task-view-details')
-    var reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
-    var reject_btn = $(this).closest('.task-description').find('.reject-task')
-    var cancel_btn = $(this).closest('.task-description').find('.cancel-reject-task')
-
-    if(accept_details.length != 0 && accept_details.css('display') == 'none') {
-      reject_explanation.hide('slow')
-      accept_details.show('slow')
-    } else {
-      var targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-accept-radio");
-      targetRadioBtn.attr("checked", "checked");
-      $(this).closest("form").submit();
-    }
-  });
-
-  $(".task-actions .reject-task").click(function(){
-    var accept_details = $(this).closest('.task-description').find('.task-view-details')
-    var reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
-    var cancel_btn = $(this).closest('.task-description').find('.cancel-reject-task')
-    var accept_btn = $(this).closest('.task-description').find('.accept-task')
-
-    if(reject_explanation.length != 0 && reject_explanation.css('display') == 'none') {
-      accept_btn.addClass('hidden')
-      cancel_btn.removeClass('hidden')
-      accept_details.hide('slow')
-      reject_explanation.show('slow')
-    } else {
-      var targetRadioBtn = $(this).parent().siblings(".task-decisions").children(".task-reject-radio");
-      targetRadioBtn.attr("checked", "checked");
-      $(this).closest("form").submit()
-    }
-  });
-
-  $(".task-actions .cancel-reject-task").click(function(){
-    var accept_details = $(this).closest('.task-description').find('.task-view-details')
-    var reject_explanation = $(this).closest('.task-description').find('.task-reject-explanation')
-    var accept_btn = $(this).closest('.task-description').find('.accept-task')
-    var reject_btn = $(this).closest('.task-description').find('.reject-task')
-    var cancel_btn = $(this)
-
-    reject_btn.removeClass('hidden')
-    accept_btn.removeClass('hidden')
-    cancel_btn.addClass('hidden')
-
-    reject_explanation.hide('slow')
-  });
-
-  $(".task-actions #save-all-tasks").click('click', function(){
-    var form = $(this).closest("form")
-    form.find('.task-decisions input[type=radio]').attr('checked', false)
-    form.find('.task-decisions .task-accept-radio').attr('checked', true)
-    form.submit()
-  });
-
   $('.toggle-link').click(function() {
     var element = '#' + $(this).data('element')
     $(element).toggle('display')

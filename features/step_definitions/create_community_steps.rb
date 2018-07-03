@@ -20,14 +20,16 @@ Given /^I approve community "(.+)"$/ do |community|
   task = CreateCommunity.all.select {|c| c.name == community}.first
   step %{I go to admin_user's control panel}
   click_link('Tasks')
-  click_link("Accept")
+  choose("decision-finish-#{task.id}")
+  click_link('Save tasks')
 end
 
 Given /^I reject community "(.+)"$/ do |community|
   task = CreateCommunity.all.select {|c| c.name == community}.first
   step %{I go to admin_user's control panel}
   click_link('Tasks')
-  click_link("Reject")
+  choose("decision-cancel-#{task.id}")
+  click_link('Save tasks')
 end
 
 Then /^I should see "([^\"]*)"'s creation date$/ do |community|

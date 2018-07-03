@@ -129,11 +129,11 @@ Feature: publish article
     And I follow "Spread this"
     And I am on sample-community's control panel
     And I follow "Tasks"
-    And I follow "Accept" within "#task-1"
-    And I follow "Accept"
+    And I choose "Accept" within "#task-1"
+    And I follow "Save tasks"
     And I should not see "The title (article name) is already being used by another article, please use another title."
-    And I follow "Accept" within "#task-2"
-    And I follow "Accept"
+    And I choose "Accept" within "#task-2"
+    And I follow "Save tasks"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
@@ -155,6 +155,6 @@ Feature: publish article
     And I am on sample-community's control panel
     When I follow "Tasks"
     Then I should see "The article was removed."
-    And I follow "Accept"
-    And I follow "Accept"z
+    And I choose "Accept"
+    And I follow "Save tasks"
     Then I should not see "The article was removed."
