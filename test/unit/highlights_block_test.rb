@@ -190,6 +190,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     }])
     assert_equal 1, block.images.size
     block.save!
+    block.reload
     assert_equal 0, block.images.size
   end
 
