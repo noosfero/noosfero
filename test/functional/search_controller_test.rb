@@ -144,6 +144,7 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'return pagination links with filters' do
+    Enterprise.destroy_all
     @controller.expects(:limit).returns(2).at_least_once
     ent1 = create_profile_with_optional_category(Enterprise, 'teste 1')
     ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
@@ -152,7 +153,7 @@ class SearchControllerTest < ActionController::TestCase
     get :enterprises, :page => '1', :order => 'more_active'
 
     assert_equal 2, assigns(:searches)[:enterprises][:results].size
-    assert_tag :tag => 'a', :attributes => {
+    assert_tag :tag => 'a', :attributes => { :rel => 'next',
                  :href => '/search/enterprises?order=more_active&amp;page=2'}
 
     get :enterprises, :page => '2', :order => 'more_active'

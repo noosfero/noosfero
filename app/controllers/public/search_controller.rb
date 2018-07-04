@@ -15,7 +15,6 @@ class SearchController < PublicController
   before_filter :load_order, :except => :suggestions
   before_filter :load_templates, :except => :suggestions
   before_filter :load_kind, :only => [:people, :enterprises, :communities]
-  before_filter :load_filters
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -239,9 +238,13 @@ class SearchController < PublicController
   end
 
   def full_text_search
-    @searches[@asset] = find_by_contents(@asset, environment, @scope, @query, paginate_options,
-      {:category => @category, :tag => @tag, :filter => @order, :template_id => params[:template_id],
-       :facets => params[:facets], :periods => params[:periods]})
+    options = {:category => @category, :tag => @tag, :order => @order,
+               :display => params[:display], :template_id => params[:template_id],
+               :facets => params[:facets], :periods => params[:periods]}
+
+    @filters = load_filters options
+    @searches[@asset] = find_by_contents(@asset, environment, @scope, @query,
+                          paginate_options, options)
   end
 
   private
@@ -280,22 +283,6 @@ class SearchController < PublicController
       @events = environment.events.by_day(@date)
     else
       @events = environment.events.by_month(@date)
-    end
-  end
-
-  def load_filters
-    @filters = {} if @filters.nil?
-
-    if params[:display].present?
-      @filters[:display] = params[:display]
-    end
-
-    if params[:template_id].present?
-      @filters[:template_id] = params[:template_id]
-    end
-
-    if params[:order].present?
-      @filters[:order] = params[:order]
     end
   end
 end
