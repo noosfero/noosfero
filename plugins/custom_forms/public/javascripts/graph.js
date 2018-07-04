@@ -30,6 +30,17 @@ function legend(chart) {
 }
 
 $( document ).ready(function() {
+  Chart.defaults.global.plugins.datalabels.color = "white";
+  Chart.defaults.global.plugins.datalabels.formatter = function(value, context) {
+    var total = 0;
+    for (var i in context.dataset.data) {
+      total += context.dataset.data[i];
+    }
+
+    var tooltipPercentage = Math.round((value / total) * 100);
+    return `${tooltipPercentage}%`;
+  };
+
   const charts = Chartkick.charts;
   const chartPrefix = "chart-";
   var chartIndex = 1;
@@ -42,18 +53,7 @@ $( document ).ready(function() {
 
     var graph = chart.getChartObject();
     if (graph.config.type == 'pie' || graph.config.type == 'bar') {
-      graph.options.tooltips.callbacks.label = function(tooltipItem, data) {
-        var allData = data.datasets[tooltipItem.datasetIndex].data;
-        var tooltipLabel = data.labels[tooltipItem.index];
-        var tooltipData = allData[tooltipItem.index];
-        var total = 0; for (var i in allData) {
-          total += allData[i];
-        }
-
-        var tooltipPercentage = Math.round((tooltipData / total) * 100);
-        return `${tooltipLabel}: ${tooltipData} (${tooltipPercentage}%}`;
-      };
-      graph.update();
+      chart.redraw();
     }
     chartIndex += 1;
   }
