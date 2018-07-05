@@ -117,9 +117,11 @@ module CustomFormsPlugin::Helper
                  :disabled => display_disabled?(field, answer)
 
     when 'check_box'
+      answers = answer.alternatives.map { |alt| alt.id } if (answer.present?)
+
       field.alternatives.map do |alternative|
         default = if answer.present?
-                    answer.value.split(',').include?(alternative.id.to_s)
+                    answers.include?(alternative.id)
                   else
                     alternative.selected_by_default
                   end
@@ -133,7 +135,7 @@ module CustomFormsPlugin::Helper
     when 'radio'
       field.alternatives.map do |alternative|
         default = if answer.present?
-                    answer.value == alternative.id.to_s
+                    answer.alternatives.first.id.to_s == alternative.id.to_s
                   else
                     alternative.selected_by_default
                   end

@@ -2,12 +2,13 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   self.table_name = :custom_forms_plugin_answers
   belongs_to :field, :class_name => 'CustomFormsPlugin::Field'
   belongs_to :submission, :class_name => 'CustomFormsPlugin::Submission'
-
+  has_many :form_answers, :class_name => 'CustomFormsPlugin::FormAnswer'
+  has_many :alternatives, :through => :form_answers
   validates_presence_of :field
-  validate :value_is_mandatory, :if => 'field.present?'
-  validate :value_is_valid, :if => 'field.try(:alternatives).present?'
+  #validate :value_is_mandatory, :if => 'field.present?'
+  #validate :value_is_valid, :if => 'field.try(:alternatives).present?'
 
-  attr_accessible :field, :value, :submission, :imported
+  attr_accessible :field, :value, :submission, :imported, :alternatives
 
   def to_text_list
     return [value] if value.blank? || field.alternatives.blank?

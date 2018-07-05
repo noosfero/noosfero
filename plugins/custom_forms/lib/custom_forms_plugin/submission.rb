@@ -34,20 +34,25 @@ class CustomFormsPlugin::Submission < ApplicationRecord
   def build_answers submission
     self.form.fields.each do |field|
       next unless value = submission[field.id.to_s]
-
-      final_value = ''
-      if value.kind_of?(String)
-        final_value = value
-      elsif value.kind_of?(Array)
-        final_value = value.join(',')
-      elsif value.kind_of?(Hash)
-        final_value = value.map {|option, present| present == '1' ? option : nil}.compact.join(',')
-      end
-
-      self.answers.build :field => field, :value => final_value
+      chosen_alternatives = chosen_alternatives_from_value(value)
+      answer = self.answers.build :field => field
+      answer.alternatives << chosen_alternatives
+      answer.save!
     end
-
     self.answers
+  end
+
+  def chosen_alternatives_from_value(value)
+    if value.kind_of?(String)
+      return CustomFormsPlugin::Alternative.find(value)
+    end
+    if value.kind_of?(Hash)
+      alternatives = []
+      value.each do |key, value|
+        alternatives << CustomFormsPlugin::Alternative.find(key)  if (value.to_i > 0)
+      end
+      return alternatives
+    end
   end
 
   def answer_for(field)
@@ -74,5 +79,4 @@ class CustomFormsPlugin::Submission < ApplicationRecord
       end
     end
   end
-
 end

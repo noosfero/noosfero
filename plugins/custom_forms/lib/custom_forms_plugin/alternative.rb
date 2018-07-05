@@ -4,6 +4,8 @@ class CustomFormsPlugin::Alternative < ApplicationRecord
   validates_presence_of :label
 
   belongs_to :field, :class_name => 'CustomFormsPlugin::Field'
+  has_many :form_answers, :class_name => 'CustomFormsPlugin::FormAnswer'
+  has_many :answers, :through => :form_answers
 
   attr_accessible :label, :field, :position, :selected_by_default
 end
