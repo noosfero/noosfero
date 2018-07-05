@@ -37,7 +37,7 @@ Feature: approve article
     And I follow "Sample Article"
     Then I should see "This is an article edited"
 
-  @selenium
+  @selenium-fixme
   Scenario: reject an article with explanation
     Given I am logged in as "mariasilva"
     And I go to mariasilva's cms
@@ -56,7 +56,7 @@ Feature: approve article
     Then I should not see "Sample Article"
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
-  @selenium
+  @selenium-fixme
   Scenario: reject an article that was removed
     Given I am logged in as "mariasilva"
     And I follow "Dub Wars"

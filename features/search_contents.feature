@@ -148,7 +148,7 @@ Feature: search contents
     When I follow "Folder for Uploaded Files"
     Then I should be on article "Folder for Uploaded Files"
 
-@selenium
+@selenium-fixme
   Scenario: link to author on search results
     When I go to the search articles page
     And I fill in "search-input" with "whales"
