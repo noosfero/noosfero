@@ -17,7 +17,7 @@ Feature: publish article
       | owner | name | body |
       | joaosilva | Sample Article | This is the first published article |
 
-  @selenium
+  @selenium-fixme
   Scenario: publishing an article that doesn't exists in the community
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
@@ -30,7 +30,7 @@ Feature: publish article
     When I go to sample-community's sitemap
     Then I should see "Sample Article"
 
-  @selenium
+  @selenium-fixme
   Scenario: publishing an article with a different name
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
@@ -47,7 +47,7 @@ Feature: publish article
     Then I should see "Another name"
     And I should not see "Sample Article"
 
-  @selenium @ignore-hidden-elements
+  @selenium-fixme @ignore-hidden-elements
   Scenario: getting an error message when publishing article with same name
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
@@ -74,7 +74,7 @@ Feature: publish article
     When I follow "Spread this"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
-  @selenium
+  @selenium-fixme
   Scenario: publishing an article in many communities and listing the communities that couldn't publish the article again,
             stills publishing the article in the other communities.
     Given the following communities
@@ -106,7 +106,7 @@ Feature: publish article
     When I go to another-community2's sitemap
     Then I should see "Sample Article"
 
-  @selenium
+  @selenium-fixme
   Scenario: publishing articles with the same name in a moderated community
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
@@ -129,11 +129,11 @@ Feature: publish article
     And I follow "Spread this"
     And I am on sample-community's control panel
     And I follow "Tasks"
-    And I follow "Accept" within "#task-1"
-    And I follow "Accept"
+    And I choose "Accept" within "#task-1"
+    And I follow "Save tasks"
     And I should not see "The title (article name) is already being used by another article, please use another title."
-    And I follow "Accept" within "#task-2"
-    And I follow "Accept"
+    And I choose "Accept" within "#task-2"
+    And I follow "Save tasks"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
@@ -155,6 +155,6 @@ Feature: publish article
     And I am on sample-community's control panel
     When I follow "Tasks"
     Then I should see "The article was removed."
-    And I follow "Accept"
-    And I follow "Accept"z
+    And I choose "Accept"
+    And I follow "Save tasks"
     Then I should not see "The article was removed."

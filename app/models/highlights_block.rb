@@ -24,6 +24,24 @@ class HighlightsBlock < Block
     end
   end
 
+  after_save do |block|
+    existing_images = block.block_images.map { |i| i[:image_id] }
+    update_image = false
+    self.images.select { |i| !existing_images.include?(i.id) }.map do |image|
+       temp_image = block.block_images.detect { |i| !i.image_id || i.image_id.to_s === '0' }
+       next if temp_image.nil?
+       temp_image.image_id = image.id
+       temp_image.address = self.full_image_path(image)
+       temp_image.image_src = image.public_filename
+       update_image = true
+    end
+    self.save if update_image
+  end
+
+  def full_image_path(image)
+    self.owner.hostname.blank? ? "/#{self.owner.identifier}#{image.public_filename}" : "/#{image.public_filename}"
+  end
+
   def self.description
     _('Creates image slideshow')
   end
@@ -49,6 +67,10 @@ class HighlightsBlock < Block
     true
   end
 
+  def slides= values
+    self.block_images = values
+  end
+
   def api_content(params = {})
     slides = self.block_images
     slides.each do |slide|
@@ -60,6 +82,12 @@ class HighlightsBlock < Block
       end
     end
     { slides: slides }
+  end
+
+  def api_content= params
+    super
+    self.slides= params[:slides]
+    self.interval= params[:interval]
   end
 
   def remove_unused_images

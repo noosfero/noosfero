@@ -24,20 +24,12 @@ msgstr ""
 "X-Generator: Weblate 2.3-dev\n"
 
 #: ../lib/ext/article.rb:13
-msgid "Older than one year"
-msgstr "Mais de um ano"
-
-#: ../lib/ext/article.rb:13
 msgid "Published date"
 msgstr "Data de publicação"
 
-#: ../lib/ext/article.rb:14
-msgid "In the last week"
-msgstr "Na última semana"
-
-#: ../lib/ext/article.rb:14
-msgid "In the last day"
-msgstr "No último dia"
+#: ../lib/ext/article.rb:13
+msgid "Older than one year"
+msgstr "Mais de um ano"
 
 #: ../lib/ext/article.rb:14
 msgid "In the last month"
@@ -46,6 +38,14 @@ msgstr "No último mês"
 #: ../lib/ext/article.rb:14
 msgid "In the last year"
 msgstr "No último ano"
+
+#: ../lib/ext/article.rb:14
+msgid "In the last day"
+msgstr "No último dia"
+
+#: ../lib/ext/article.rb:14
+msgid "In the last week"
+msgstr "Na última semana"
 
 #: ../lib/ext/product.rb:7
 msgid "Related products"

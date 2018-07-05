@@ -133,4 +133,34 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_match /Please, edit this block to add links/, render_block_content(l)
   end
 
+  should 'api_content= set display settings values' do
+    block = LinkListBlock.new
+    assert_nil block.settings[:display]
+    block.api_content= { display: 'always' }
+    assert_equal 'always', block.settings[:display]
+  end
+
+  should 'api_content= set display_user settings values' do
+    block = LinkListBlock.new
+    assert_nil block.settings[:display_user]
+    block.api_content= { display_user: 'all' }
+    block.valid?
+    assert_equal 'all', block.settings[:display_user]
+  end
+
+  should 'api_content= set links to settings' do
+    block = LinkListBlock.new
+    assert_nil block.settings[:links]
+    value = { "name"=>"Google", "address"=>"http://www.google.com.br" }
+    block.api_content= { links: value }
+    assert_equal value, block.settings[:links]
+  end
+
+  should 'api_content= set display_user settings if exist display value at the same time' do
+    block = LinkListBlock.new
+    assert_nil block.settings[:display_user]
+    block.api_content= { display_user: 'all', display: 'always' }
+    assert_equal 'all', block.settings[:display_user]
+  end
+
 end

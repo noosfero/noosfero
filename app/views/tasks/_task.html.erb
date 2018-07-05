@@ -33,30 +33,22 @@
           </div>
 
         <% end %>
-
-        <%= link_to font_awesome('info'), '#!', :title => _('View task details'),
-                    :class => 'toggle-link task-view-datails-link',
-                    :data => { :element => "task-view-details-#{task.id}" } if task.accept_details %>
       </div>
     </div>
-
 
     <div class="task-information">
       <%= task_information(task, params) %>
     </div>
 
-    <div class="task-decisions">
-      <% unless @view_only %>
+    <% if task.accept_details %>
+      <%= link_to font_awesome('plus-circle', _('View task details')), '#!',
+                  :class => 'toggle-link task-view-datails-link show-details',
+                  :data => { :element => "task-view-details-#{task.id}" } %>
 
-        <% [["accept", "finish", task.accept_disabled?], ["reject", "cancel", task.reject_disabled?], ["skip", "skip", task.skip_disabled?]].each do |task_name, task_action, is_disabled| %>
-          <%= labelled_radio_button(_(task_name.capitalize), "tasks[#{task.id}][decision]", task_action, task.default_decision == task_name,
-                                    id: "decision-#{task_action}-#{task.id}",
-                                    class: "task-#{task_name}-radio",
-                                    disabled: is_disabled,
-                                    task_id: "#{task.id}") %>
-        <% end %>
-      <% end %>
-    </div>
+      <%= link_to font_awesome('minus-circle', _('Hidden task details')), '#!',
+                  :class => 'toggle-link task-view-datails-link hidden-details',
+                  :data => { :element => "task-view-details-#{task.id}" } %>
+    <% end %>
 
     <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
       <% if task.custom_fields_moderate %>
@@ -90,15 +82,16 @@
       <% if task.custom_action_bar %>
           <%= render :partial => partial_for_class(task.class, nil, :action_bar), :locals => {:task => task} %>
       <% else %>
-        <%= button_bar(class: 'task-actions') do %>
-          <% unless task.accept_disabled? %>
-            <%= link_to _("Accept"), '#!', class: 'button btn-blue keep-when-hover accept-task' %>
-            <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
-            <%= link_to _("Cancel"), '#!', class: 'button btn-red-reverse keep-when-hover cancel-reject-task hidden' %>
-          <% else %>
-            <%= link_to _("Reject"), '#!', class: 'button btn-blue-reverse keep-when-hover reject-task' %>
-          <%end%>
-        <% end %>
+        <div class="task-decisions">
+          <% [["accept", "finish", task.accept_disabled?],
+              ["reject", "cancel", task.reject_disabled?],
+              ["skip", "skip", task.skip_disabled?]].each do |task_name, task_action, is_disabled| %>
+
+              <%= labelled_radio_button(_(task_name.capitalize), "tasks[#{task.id}][decision]",
+                    task_action, task.default_decision == task_name, id: "decision-#{task_action}-#{task.id}",
+                    class: "task-#{task_name}-radio", disabled: is_disabled, task_id: "#{task.id}") %>
+          <% end %>
+        </div>
       <% end %>
     <% end %>
   </div>

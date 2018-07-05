@@ -39,6 +39,7 @@ Feature: manage tasks
     And I follow "Search" within ".filter_fields"
     And I should see "wants to be a member of 'My Community'"
     And I should not see "suggested the publication of the article:"
-    And I follow "Accept"
+    And I choose "Accept"
+    And I follow "Save tasks"
     And I should see "wants to be a member of 'My Community'"
     Then I should not see "suggested the publication of the article:"

@@ -21,6 +21,19 @@ class LinkListBlock < Block
     _('Links (static menu)')
   end
 
+  def display_api_content_by_default?
+    true
+  end
+
+  def api_content(params = {})
+    { links: settings[:links] }
+  end
+
+  def api_content= params
+    super
+    settings[:links] = params[:links]
+  end
+
   def help
     _('This block can be used to create a menu of links. You can add, remove and update the links as you wish.')
   end
