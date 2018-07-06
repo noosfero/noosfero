@@ -17,17 +17,8 @@ class CustomFormsPlugin::Graph
   end
 
   def compute_results
-    results = report()
-    field = results[0]["field"]
-    show_as = chart_to_show_data(results[0]["show_as"])
-    graph_data = {"summary" => {}, "data" => {},
-                  "show_as" => show_as , "field" => field}
-    results.each do |r|
-      r.delete("field")
-      r.delete("show_as")
-      graph_data["data"].merge! r
-    end
-    @query_results = [graph_data]
+    @query_results = report()
+    @query_results
   end
 
 
@@ -41,9 +32,9 @@ class CustomFormsPlugin::Graph
     @query_results
   end
 
-  private
-
   def report()
+    computed_fields = []
+    computed_data = []
     @form.submissions
       .joins(answers: :field)
       .joins('inner join custom_forms_plugin_alternatives ON '\
@@ -55,7 +46,23 @@ class CustomFormsPlugin::Graph
               'custom_forms_plugin_alternatives.label as label, '\
               'custom_forms_plugin_fields.name as field_name,
               custom_forms_plugin_fields.show_as as show_as')
-      .map { |r| { r.label => r.answer_count,
-                   "field" => r.field_name, "show_as" => r.show_as } }
+      .map do |r|
+      if computed_fields.include?(r.field_name)
+        computed_data.each do |c|
+          if c["field"] == r.field_name
+            c["data"][r.label] = r.answer_count
+            break
+          end
+        end
+      else
+        computed_fields << r.field_name
+        data = { "data" => { r.label => r.answer_count},
+                 "field" => r.field_name,
+                 "show_as" => chart_to_show_data(r.show_as),
+                 "summary" => {}}
+        computed_data << data
+      end
+    end
+    computed_data
   end
 end
