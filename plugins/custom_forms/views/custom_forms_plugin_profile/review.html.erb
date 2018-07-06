@@ -32,7 +32,7 @@
         </div>
       <% else %>
         <div>
-          <%= render partial: @graph.exibition_method(result['show_as']),
+          <%= render partial: result['show_as'],
                      locals: { graph: @graph, result: result, index: index } %>
 
           <% if index < @query_results.size - 1 %>
