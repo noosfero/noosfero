@@ -3,8 +3,8 @@ class OauthClientPlugin::Auth < ApplicationRecord
   attr_accessible :profile, :provider, :enabled,
     :access_token, :expires_in
 
-  belongs_to :profile, class_name: 'Profile'
-  belongs_to :provider, class_name: 'OauthClientPlugin::Provider'
+  belongs_to :profile, class_name: 'Profile', optional: true
+  belongs_to :provider, class_name: 'OauthClientPlugin::Provider', optional: true
 
   validates_presence_of :profile
   validates_presence_of :provider

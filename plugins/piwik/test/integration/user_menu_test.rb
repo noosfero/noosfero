@@ -14,7 +14,7 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
     @environment.add_admin @person
 
     get '/'
-    assert_no_tag 'a', attributes: { href: /piwik.org/ },
+    !assert_tag 'a', attributes: { href: /piwik.org/ },
                        ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 
@@ -23,7 +23,7 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
     @environment.save
 
     get '/'
-    assert_no_tag 'a', attributes: { href: /piwik.org/ },
+    !assert_tag 'a', attributes: { href: /piwik.org/ },
                        ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 

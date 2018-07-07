@@ -40,7 +40,7 @@ class HomeControllerTest < ActionController::TestCase
     @block.save!
     get :index
 
-    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'users'} }
+    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'users'} }
   end
 
   should 'display communities class in statistics-block block' do
@@ -54,7 +54,7 @@ class HomeControllerTest < ActionController::TestCase
   should 'not display communities class in statistics-block block' do
     get :index
 
-    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'communities'} }
+    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'communities'} }
   end
 
   should 'display enterprises class in statistics-block block' do
@@ -68,7 +68,7 @@ class HomeControllerTest < ActionController::TestCase
   should 'not display enterprises class in statistics-block block' do
     get :index
 
-    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'enterprises'} }
+    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'enterprises'} }
   end
 
   should 'display products class in statistics-block block' do
@@ -86,7 +86,7 @@ class HomeControllerTest < ActionController::TestCase
     @block.save!
     get :index
 
-    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'products'} }
+    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'products'} }
   end
 
   should 'display categories class in statistics-block block' do
@@ -100,7 +100,7 @@ class HomeControllerTest < ActionController::TestCase
   should 'not display categories class in statistics-block block' do
     get :index
 
-    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'categories'} }
+    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'categories'} }
   end
 
   should 'display tags class in statistics-block block' do
@@ -114,7 +114,7 @@ class HomeControllerTest < ActionController::TestCase
     @block.save!
     get :index
 
-    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'tags'} }
+    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'tags'} }
   end
 
   should 'display comments class in statistics-block block' do
@@ -128,7 +128,7 @@ class HomeControllerTest < ActionController::TestCase
     @block.save!
     get :index
 
-    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'comments'} }
+    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'comments'} }
   end
 
   should 'display hits class in statistics-block block' do
@@ -142,7 +142,7 @@ class HomeControllerTest < ActionController::TestCase
   should 'not display hits class in statistics-block block' do
     get :index
 
-    assert_no_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'hits'} }
+    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'hits'} }
   end
 
   should 'display template name in class in statistics-block block' do

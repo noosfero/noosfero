@@ -35,11 +35,11 @@ class OrdersPlugin::Item < ApplicationRecord
 
   serialize :data
 
-  belongs_to :order, class_name: '::OrdersPlugin::Order', foreign_key: :order_id, touch: true
-  belongs_to :sale, class_name: '::OrdersPlugin::Sale', foreign_key: :order_id, touch: true
-  belongs_to :purchase, class_name: '::OrdersPlugin::Purchase', foreign_key: :order_id, touch: true
+  belongs_to :order, class_name: '::OrdersPlugin::Order', foreign_key: :order_id, touch: true, optional: true
+  belongs_to :sale, class_name: '::OrdersPlugin::Sale', foreign_key: :order_id, touch: true, optional: true
+  belongs_to :purchase, class_name: '::OrdersPlugin::Purchase', foreign_key: :order_id, touch: true, optional: true
 
-  belongs_to :product, class_name: '::ProductsPlugin::Product'
+  belongs_to :product, class_name: '::ProductsPlugin::Product', optional: true
   has_one :supplier, through: :product
 
   has_one :profile, through: :order

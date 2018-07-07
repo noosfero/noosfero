@@ -1,6 +1,6 @@
 class CustomFormsPlugin::Form < ApplicationRecord
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
 
   has_many :fields, -> { order 'position' },
     class_name: 'CustomFormsPlugin::Field', dependent: :destroy
@@ -19,7 +19,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
   # We are using a belongs_to relation, to avoid change the UploadedFile schema.
   # With the belongs_to instead of the has_one, we keep the change only on the
   # CustomFormsPlugin::Form schema.
-  belongs_to :article, class_name: 'UploadedFile', dependent: :destroy
+  belongs_to :article, class_name: 'UploadedFile', dependent: :destroy, optional: true
 
   attr_accessible :name, :profile, :for_admission, :access, :begining, :kind,
                   :ending, :description, :fields_attributes, :profile_id,

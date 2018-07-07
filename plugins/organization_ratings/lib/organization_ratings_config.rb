@@ -1,6 +1,6 @@
 class OrganizationRatingsConfig < ApplicationRecord
 
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   attr_accessible :cooldown, :default_rating, :order, :per_page
   attr_accessible :vote_once, :are_moderated, :environment_id

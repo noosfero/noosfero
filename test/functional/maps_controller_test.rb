@@ -77,7 +77,7 @@ class MapsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'Region'
     assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'City'
     assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'State'
-    assert_no_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'Not a Region'
+    !assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link' }, :content => 'Not a Region'
   end
 
   should 'display only regions in the selected categories list' do
@@ -88,7 +88,7 @@ class MapsControllerTest < ActionController::TestCase
     get :edit_location, profile: profile.identifier
     assert_tag :tag => 'div', :content => region.name,
                 :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
-    assert_no_tag :tag => 'div', :content => category.name,
+    !assert_tag :tag => 'div', :content => category.name,
                 :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
   end
 

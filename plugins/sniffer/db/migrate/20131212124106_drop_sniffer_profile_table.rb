@@ -1,10 +1,10 @@
 SnifferPlugin.send :remove_const, :Opportunity if defined? SnifferPlugin::Opportunity
 
 class SnifferPlugin::Profile < ApplicationRecord
-  belongs_to :profile
+  belongs_to :profile, optional: true
 end
 class SnifferPlugin::Opportunity < ApplicationRecord
-  belongs_to :sniffer_profile, class_name: 'SnifferPlugin::Profile', foreign_key: :profile_id
+  belongs_to :sniffer_profile, class_name: 'SnifferPlugin::Profile', foreign_key: :profile_id, optional: true
 end
 
 class DropSnifferProfileTable < ActiveRecord::Migration

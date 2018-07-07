@@ -103,8 +103,8 @@ class CmsControllerTest < ActionController::TestCase
     Article.stubs(:short_description).returns('bli')
     env = Environment.default; env.enable('cant_change_homepage'); env.save!
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{article.id}" }
-    assert_no_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{folder.id}" }
+    !assert_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{article.id}" }
+    !assert_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{folder.id}" }
   end
 
   should 'display the profile homepage if can change homepage' do
@@ -123,7 +123,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'not display the profile homepage if cannot change homepage' do
     env = Environment.default; env.enable('cant_change_homepage')
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'i', :attributes => { :class => "fa fa-undo"}
+    !assert_tag :tag => 'i', :attributes => { :class => "fa fa-undo"}
   end
 
   should 'not allow profile homepage changes if cannot change homepage' do
@@ -411,7 +411,7 @@ class CmsControllerTest < ActionController::TestCase
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     get :upload_files, :profile => profile.identifier, :parent_id => f.id
 
-    assert_no_tag :tag => 'select', :descendant => { :tag => 'option', :content => /#{profile.identifier}/ }
+    !assert_tag :tag => 'select', :descendant => { :tag => 'option', :content => /#{profile.identifier}/ }
   end
 
   should 'not crash on empty file' do
@@ -458,7 +458,7 @@ class CmsControllerTest < ActionController::TestCase
     post :upload_files, :profile => profile.identifier,
          :uploaded_files => { "0" => { :file => fixture_file_upload('/files/rails.png', 'image/png')}}
 
-    assert_no_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+    !assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
   end
 
   should 'not redirect when some file has errors' do
@@ -505,7 +505,7 @@ class CmsControllerTest < ActionController::TestCase
     get :view, :profile => profile.identifier, :id => article.id
     assert_response :success
     assert_template 'view'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}"}
   end
 
   should 'refuse to create children of non-child articles' do
@@ -712,7 +712,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'present popup' do
     get :why_categorize, :profile => profile.identifier
     assert_template 'why_categorize'
-    assert_no_tag :tag => 'body'
+    !assert_tag :tag => 'body'
   end
 
   should 'display OK (close) button on why_categorize popup' do
@@ -949,7 +949,7 @@ class CmsControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
     a = profile.articles.create!(:name => 'test')
     get :edit, :profile => profile.identifier, :id => a.id
-    assert_no_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article' }
+    !assert_tag :tag => 'div', :descendant => { :tag => 'h4', :content => 'Categorize your article' }
   end
 
   should 'display posts per page input with default value on edit blog' do
@@ -976,8 +976,8 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not offer to create special article types' do
     get :new, :profile => profile.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Forum"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Forum"}
   end
 
   should 'not offer folders if in a blog' do
@@ -1007,7 +1007,7 @@ class CmsControllerTest < ActionController::TestCase
     assert profile.has_blog?
 
     get :view, :profile => profile.identifier, :id => profile.blog.id
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{profile.blog.id}&amp;type=Folder"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{profile.blog.id}&amp;type=Folder"}
   end
 
   should 'not show feed subitem for blog' do
@@ -1018,7 +1018,7 @@ class CmsControllerTest < ActionController::TestCase
 
     get :view, :profile => profile.identifier, :id => profile.blog.id
 
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.blog.feed.id}" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.blog.feed.id}" }
   end
 
   should 'remove the image of a blog' do
@@ -1268,7 +1268,7 @@ class CmsControllerTest < ActionController::TestCase
     file = UploadedFile.create!(:profile => profile, :parent => non_image_folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
 
     get :new, :profile => profile.identifier, :type => 'Folder'
-    assert_no_tag :div, :attributes => { :id => "text-editor-sidebar" }
+    !assert_tag :div, :attributes => { :id => "text-editor-sidebar" }
   end
 
   should "display 'Publish' when profile is a person and is member of communities" do
@@ -1307,7 +1307,7 @@ class CmsControllerTest < ActionController::TestCase
     assert profile.has_blog?
 
     get :view, :profile => profile.identifier, :id => profile.blog.id
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.blog.id}"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.blog.id}"}
   end
 
   should 'not allow user without permission create an article in community' do
@@ -1429,7 +1429,7 @@ class CmsControllerTest < ActionController::TestCase
     assert profile.has_forum?
 
     get :view, :profile => profile.identifier, :id => profile.forum.id
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{profile.forum.id}&amp;type=Folder"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{profile.forum.id}&amp;type=Folder"}
   end
 
   should 'not show feed subitem for forum' do
@@ -1440,7 +1440,7 @@ class CmsControllerTest < ActionController::TestCase
 
     get :view, :profile => profile.identifier, :id => profile.forum.id
 
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.forum.feed.id}" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.forum.feed.id}" }
   end
 
   should 'update feed options by edit forum form' do
@@ -1507,7 +1507,7 @@ class CmsControllerTest < ActionController::TestCase
     assert profile.has_forum?
 
     get :view, :profile => profile.identifier, :id => profile.forum.id
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.forum.id}"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/upload_files?parent_id=#{profile.forum.id}"}
   end
 
   should 'not logged in to suggest an article' do
@@ -1601,7 +1601,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'not display language selection if article is not translatable' do
     blog = fast_create(Blog, :name => 'blog', :profile_id => @profile.id)
     get :edit, :profile => @profile.identifier, :id => blog.id
-    assert_no_tag :select, :attributes => { :id => 'article_language'}
+    !assert_tag :select, :attributes => { :id => 'article_language'}
   end
 
   should 'display display posts in current language input checked when editing blog' do
@@ -1617,7 +1617,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'display display posts in current language input not checked on new blog' do
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+    !assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
   end
 
   should 'update to false blog display posts in current language setting' do
@@ -1649,19 +1649,19 @@ class CmsControllerTest < ActionController::TestCase
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => false)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]' }
-    assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+    !assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
   end
 
   should 'display accept comments option when creating forum post' do
     profile.articles << f = Forum.new(:name => 'Forum for test')
     get :new, :profile => profile.identifier, :type => 'TextArticle', :parent_id => f.id
-    assert_no_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
+    !assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
     assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
   end
 
   should 'display accept comments option when creating an article that is not a forum post' do
     get :new, :profile => profile.identifier, :type => 'TextArticle'
-    assert_no_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
+    !assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
     assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
   end
 
@@ -1669,7 +1669,7 @@ class CmsControllerTest < ActionController::TestCase
     profile.articles << f = Forum.new(:name => 'Forum for test')
     profile.articles << a = TextArticle.new(:name => 'Forum post for test', :parent => f)
     get :edit, :profile => profile.identifier, :id => a.id
-    assert_no_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
+    !assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'hidden'}
     assert_tag :tag => 'input', :attributes => {:name => 'article[accept_comments]', :value => 1, :type => 'checkbox'}
   end
 
@@ -1854,7 +1854,7 @@ class CmsControllerTest < ActionController::TestCase
     login_as(profile.identifier)
 
     get :new, :profile => profile.identifier, :type => 'TextArticle'
-    assert_no_tag :tag => 'select', :attributes => {:id => 'article_license_id'}
+    !assert_tag :tag => 'select', :attributes => {:id => 'article_license_id'}
   end
 
   should 'list folders options to move content' do
@@ -1921,10 +1921,10 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'select', :attributes => { :name => "parent_id" },
                :descendant => { :tag => "option",
                  :attributes => { :selected => 'selected', :value => gallery.id.to_s }}
-    assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
+    !assert_tag :tag => 'select', :attributes => { :name => "parent_id" },
                   :descendant => { :tag => "option",
                     :attributes => { :value => blog.id.to_s }}
-    assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
+    !assert_tag :tag => 'select', :attributes => { :name => "parent_id" },
                   :descendant => { :tag => "option",
                     :attributes => { :value => article.id.to_s }}
   end
@@ -2104,7 +2104,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'not display a progress bar if profile upload quota is unlimited' do
     @profile.update_attributes(upload_quota: '')
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :attributes => { :class => 'quota-status' }
+    !assert_tag :tag => 'div', :attributes => { :class => 'quota-status' }
   end
 
   should 'display all profile files' do

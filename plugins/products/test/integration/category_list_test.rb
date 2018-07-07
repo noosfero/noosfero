@@ -27,7 +27,7 @@ class CategoryListTest < ActionDispatch::IntegrationTest
 		login 'ze', 'test'
 		get "/admin/categories", :profile => 'ze'
 
-		assert_no_tag :tag => 'a', :attributes => { :href =>	'/admin/categories/new?type=ProductCategory'}
+		!assert_tag :tag => 'a', :attributes => { :href =>	'/admin/categories/new?type=ProductCategory'}
 	end
 
 	should 'list products categories correctely' do

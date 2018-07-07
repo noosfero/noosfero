@@ -111,7 +111,7 @@ class EnterpriseRegistrationTest < ActionDispatch::IntegrationTest
 
     # Status 3 means finished
     assert_template 'confirmation'
-    assert_no_tag :tag => 'h1', :content => "Enterprise registration completed"
+    !assert_tag :tag => 'h1', :content => "Enterprise registration completed"
     assert_tag :tag => 'h1', :content => "Enterprise was created"
     assert_tag :tag => 'p', :content => /Your new enterprise has been created./
     assert_tag :tag => 'a', :attributes => { :href => '/' }

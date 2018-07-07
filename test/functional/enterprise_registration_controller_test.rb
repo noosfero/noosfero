@@ -171,7 +171,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
 
     assert_includes assigns(:regions), [reg1.name, reg1.id]
     assert_tag :tag => 'option', :content => "Region with validator"
-    assert_no_tag :tag => 'option', :content => "Region without validator"
+    !assert_tag :tag => 'option', :content => "Region without validator"
   end
 
   should 'set current environment as the task target if approval method is admin' do

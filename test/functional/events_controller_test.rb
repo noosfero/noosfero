@@ -55,7 +55,7 @@ class EventsControllerTest < ActionController::TestCase
     get :events, :profile => profile.identifier, year: 2018, month: 03
 
     assert_tag :tag =>'a', :content => /Maria Birthday/
-    assert_no_tag :tag =>'a', :content => /Joao Birthday/
+    !assert_tag :tag =>'a', :content => /Joao Birthday/
   end
 
   should 'show events of specific day' do
@@ -65,7 +65,7 @@ class EventsControllerTest < ActionController::TestCase
     get :events_by_date, :profile => profile.identifier, :year => 2009, :month => 10, :day => 28
 
     assert_tag :tag => 'a', :content => /Joao Birthday/
-    assert_no_tag :tag => 'a', :content => /Jose Birthday/
+    !assert_tag :tag => 'a', :content => /Jose Birthday/
   end
 
   should 'show events for month if day param is not present' do

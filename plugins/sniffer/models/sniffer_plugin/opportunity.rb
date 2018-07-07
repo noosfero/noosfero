@@ -2,14 +2,14 @@ class SnifferPlugin::Opportunity < ApplicationRecord
 
   self.table_name = :sniffer_plugin_opportunities
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
 
-  belongs_to :opportunity, polymorphic: true
+  belongs_to :opportunity, polymorphic: true, optional: true
 
   # for has_many :through
   belongs_to :product_category, -> {
     where 'sniffer_plugin_opportunities.opportunity_type = ?', 'ProductCategory'
-  }, class_name: '::ProductsPlugin::ProductCategory', foreign_key: :opportunity_id
+  }, class_name: '::ProductsPlugin::ProductCategory', foreign_key: :opportunity_id, optional: true
   # getter
   def product_category
     opportunity_type == 'ProductCategory' ? opportunity : nil

@@ -69,7 +69,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'not display *arrow* button when the user is not logged in' do
     logout
     get :index, :profile => @community.identifier
-    assert_no_tag :span, :attributes => {:class => 'community-block-button icon-arrow'}
+    !assert_tag :span, :attributes => {:class => 'community-block-button icon-arrow'}
   end
 
 end

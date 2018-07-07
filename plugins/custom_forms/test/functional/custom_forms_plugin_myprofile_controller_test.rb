@@ -454,7 +454,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
                                               .returns(report)
 
     post :import, profile: profile.identifier, id: form.id
-    assert_no_tag tag: 'div', attributes: { class: 'error-msgs' }
+    !assert_tag tag: 'div', attributes: { class: 'error-msgs' }
   end
 
   should 'display errors if there were failures' do

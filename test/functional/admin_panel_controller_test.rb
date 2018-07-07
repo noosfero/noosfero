@@ -220,7 +220,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
 
     [local, tech].each do |folder|
-      assert_no_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
+      !assert_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
     end
 
   end
@@ -281,7 +281,7 @@ class AdminPanelControllerTest < ActionController::TestCase
 
     get :set_portal_folders
     [local, tech, politics].each do |folder|
-      assert_no_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
+      !assert_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
     end
   end
 
@@ -301,7 +301,7 @@ class AdminPanelControllerTest < ActionController::TestCase
       assert_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
     end
 
-    assert_no_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
+    !assert_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
   end
 
   should 'save a list of folders as portal folders for the environment' do

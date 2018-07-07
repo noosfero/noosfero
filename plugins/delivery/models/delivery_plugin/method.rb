@@ -10,7 +10,7 @@ class DeliveryPlugin::Method < ApplicationRecord
   attr_accessible :profile, :delivery_type, :name, :description,
     :fixed_cost, :free_over_price, :distribution_margin_percentage, :distribution_margin_fixed
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
 
   has_many :delivery_options, class_name: 'DeliveryPlugin::Option', foreign_key: :delivery_method_id, dependent: :destroy
 

@@ -4,8 +4,8 @@ class ProductsPlugin::ProductQualifier < ApplicationRecord
 
   attr_accessible :qualifier, :product, :certifier
 
-  belongs_to :qualifier
-  belongs_to :product
-  belongs_to :certifier
+  belongs_to :qualifier, optional: true
+  belongs_to :product, optional: true
+  belongs_to :certifier, optional: true
 
 end

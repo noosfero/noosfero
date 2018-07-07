@@ -54,7 +54,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => /user5/}}
     (1..4).each {|i|
       u = 'user'+i.to_s
-      assert_no_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => u}}
+      !assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => u}}
     }
   end
 

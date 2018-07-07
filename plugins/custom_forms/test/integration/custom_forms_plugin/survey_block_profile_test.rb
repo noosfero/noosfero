@@ -26,7 +26,7 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: survey.name,
+    !assert_tag tag: 'span', content: survey.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -34,9 +34,9 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form2.name,
+    !assert_tag tag: 'span', content: @form2.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form3.name,
+    !assert_tag tag: 'span', content: @form3.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -47,7 +47,7 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: @form2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form3.name,
+    !assert_tag tag: 'span', content: @form3.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -81,9 +81,9 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: open_survey_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: closed_survey.name,
+    !assert_tag tag: 'span', content: closed_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: not_open_yet_survey.name,
+    !assert_tag tag: 'span', content: not_open_yet_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -104,9 +104,9 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: closed_survey_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: open_survey.name,
+    !assert_tag tag: 'span', content: open_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: not_open_yet_survey.name,
+    !assert_tag tag: 'span', content: not_open_yet_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -129,9 +129,9 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: not_open_yet_survey_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: open_survey.name,
+    !assert_tag tag: 'span', content: open_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: closed_survey.name,
+    !assert_tag tag: 'span', content: closed_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 

@@ -11,13 +11,13 @@ class AnalyticsPlugin::PageView < ApplicationRecord
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :options
 
-  belongs_to :profile, validate: true
-  belongs_to :visit, class_name: 'AnalyticsPlugin::Visit', touch: true, validate: true
+  belongs_to :profile, validate: true, optional: true
+  belongs_to :visit, class_name: 'AnalyticsPlugin::Visit', touch: true, validate: true, optional: true
 
-  belongs_to :referer_page_view, class_name: 'AnalyticsPlugin::PageView', validate: false
+  belongs_to :referer_page_view, class_name: 'AnalyticsPlugin::PageView', validate: false, optional: true
 
   belongs_to :user, class_name: 'Person', validate: false, optional: true
-  belongs_to :session, primary_key: :session_id, foreign_key: :session_id, class_name: 'Session', validate: false
+  belongs_to :session, primary_key: :session_id, foreign_key: :session_id, class_name: 'Session', validate: false, optional: true
 
   validates :request, presence: true, on: :create
   validates :url, presence: true

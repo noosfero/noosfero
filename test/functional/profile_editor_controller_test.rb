@@ -86,9 +86,9 @@ class ProfileEditorControllerTest < ActionController::TestCase
     profile.update_attributes(category_ids: [region.id, category.id])
 
     get :categories, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :content => profile_region.name,
+    !assert_tag :tag => 'div', :content => profile_region.name,
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
-    assert_no_tag :tag => 'div', :content => region.name,
+    !assert_tag :tag => 'div', :content => region.name,
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
     assert_tag :tag => 'div', :content => category.name,
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
@@ -107,7 +107,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
     assert_tag :tag => 'div', :content => region.name,
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
-    assert_no_tag :tag => 'div', :content => category.name,
+    !assert_tag :tag => 'div', :content => category.name,
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
   end
 
@@ -164,7 +164,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'not show enterprise description' do
     org = fast_create(Enterprise)
     get :informations, :profile => org.identifier
-    assert_no_tag :tag => 'textarea', :attributes => { :name => 'profile_data[description]' }
+    !assert_tag :tag => 'textarea', :attributes => { :name => 'profile_data[description]' }
   end
 
   should 'save organization contact_person' do
@@ -297,7 +297,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :informations, :profile => profile.identifier
 
     assert_tag :tag => 'input', :attributes => { :name => "profile_data[cell_phone]" }
-    assert_no_tag :tag => 'input', :attributes => { :name => "profile_data[comercial_phone]" }
+    !assert_tag :tag => 'input', :attributes => { :name => "profile_data[comercial_phone]" }
   end
 
   should 'be able to upload an image' do
@@ -314,7 +314,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :privacy, :profile => org.identifier
 
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
-    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked =>  'checked' }
+    !assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked =>  'checked' }
   end
 
   should 'display closed attribute for communities when it is set to false' do
@@ -324,7 +324,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
       org.closed = value
       org.save!
       get :privacy, :profile => org.identifier
-      assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
+      !assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true', :checked => 'checked' }
       assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false', :checked => 'checked' }
     end
   end
@@ -353,8 +353,8 @@ class ProfileEditorControllerTest < ActionController::TestCase
     org = fast_create(Enterprise)
     get :privacy, :profile => org.identifier
 
-    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true' }
-    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false' }
+    !assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'true' }
+    !assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'profile_data[closed]', :value => 'false' }
   end
 
   should 'display option to close when it is community' do
@@ -402,7 +402,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     give_permission(user2, 'invite_members', community)
     login_as('usertwo')
     get :index, :profile => 'usertwo'
-    assert_no_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
+    !assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
   end
 
   should 'limit task list' do
@@ -440,7 +440,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'not show favorite enterprises button for organization' do
     org = fast_create(Organization)
     get :index, :profile => org.identifier
-    assert_no_tag :tag => 'a', :content => 'Favorite Enterprises'
+    !assert_tag :tag => 'a', :content => 'Favorite Enterprises'
   end
 
   should 'link to mailconf' do
@@ -453,13 +453,13 @@ class ProfileEditorControllerTest < ActionController::TestCase
     MailConf.stubs(:enabled?).returns(true)
     org = fast_create(Organization)
     get :index, :profile => org.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{org.identifier}/mailconf" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{org.identifier}/mailconf" }
   end
 
   should 'not link to mailconf if mail not enabled' do
     MailConf.expects(:enabled?).returns(false).at_least_once
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/mailconf" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/mailconf" }
   end
 
   should 'link to enable enterprise' do
@@ -477,7 +477,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'not link to enable/disable for non enterprises' do
     ent = fast_create(Organization, :enabled => true)
     get :index, :profile => ent.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{ent.identifier}/profile_editor/disable" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{ent.identifier}/profile_editor/disable" }
   end
 
   should 'request enable enterprise confirmation' do
@@ -579,7 +579,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     login_as('test_user')
 
     get :index, :profile => enterprise.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{enterprise.identifier}/profile_editor/header_footer" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{enterprise.identifier}/profile_editor/header_footer" }
   end
 
   should 'display header/footer button to enterprises if the environment disabled it but user is admin' do
@@ -627,7 +627,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not display email template link in control panel for person' do
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/email_templates" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/email_templates" }
   end
 
   should 'offer to create blog in control panel' do
@@ -645,7 +645,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     profile.environment.custom_person_fields = {}; profile.environment.save!
 
     get :informations, :profile => profile.identifier
-    assert_no_tag :tag => 'select', :attributes => { :name => 'profile_data[preferred_domain_id]' }
+    !assert_tag :tag => 'select', :attributes => { :name => 'profile_data[preferred_domain_id]' }
   end
 
   should 'be able to choose preferred domain' do
@@ -697,7 +697,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'not display error message when image has less than max size' do
     Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] - 1024)
     post :informations, :profile => profile.identifier, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }
-    assert_no_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+    !assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
   end
 
   should 'not redirect when some file has errors' do
@@ -713,7 +713,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     env.save!
 
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+    !assert_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
   end
 
   should 'display form for enterprise activation if enabled on environment' do
@@ -734,7 +734,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     enterprise.add_admin(profile)
 
     get :index, :profile => enterprise.identifier
-    assert_no_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
+    !assert_tag :tag => 'div', :attributes => { :id => 'activation_enterprise' }, :descendant => {:tag => 'form', :attributes => {:action => '/account/activation_question'}}
   end
 
   should 'have url field for identifier when environment allows' do
@@ -757,7 +757,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     env.save!
 
     get :informations, :profile => c.identifier
-    assert_no_tag :tag => 'div',
+    !assert_tag :tag => 'div',
                :attributes => { :class => 'formfield type-text' },
                :content => /https?:\/\/#{c.environment.default_hostname}\//,
                :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_identifier'} }
@@ -805,7 +805,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :informations, :profile => community.identifier
 
     (Community.fields - community.active_fields).each do |field|
-      assert_no_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
+      !assert_tag :tag => 'input', :attributes => { :name => "profile_data[#{field}]" }
     end
   end
 
@@ -859,7 +859,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     community = fast_create(Community)
     community.add_admin(user)
     get :informations, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
   end
 
   should 'be able to destroy a person' do
@@ -1120,7 +1120,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     another_user = create_user('another_user').person
     login_as('another_user')
     get :informations, :profile => profile.identifier
-    assert_no_tag :tag => 'input', :attributes => {:name => 'profile_data[is_template]'}
+    !assert_tag :tag => 'input', :attributes => {:name => 'profile_data[is_template]'}
   end
 
   should 'display select to change redirection after login if enabled' do
@@ -1138,7 +1138,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     e.save
 
     get :preferences, :profile => profile.identifier
-    assert_no_tag :tag => 'select', :attributes => {:id => 'profile_data_redirection_after_login'}
+    !assert_tag :tag => 'select', :attributes => {:id => 'profile_data_redirection_after_login'}
   end
 
   should 'uncheck all field privacy fields' do
@@ -1169,7 +1169,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     login_as('user')
     profile.environment.enable('disable_header_and_footer')
     get :index, :profile => user.identifier
-    assert_no_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Header and Footer' }
+    !assert_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Header and Footer' }
   end
 
   should 'display header and footer for user when feature is disabled ' do
@@ -1208,7 +1208,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not display button to manage roles on control panel of person' do
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/profile_roles" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/profile_roles" }
   end
 
   should 'save profile admin option to receive email for every task' do
@@ -1250,8 +1250,8 @@ class ProfileEditorControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:custom_person_fields).returns({ 'location' => { 'active' => 'true' } })
     get :informations, :profile => profile.identifier
 
-    assert_no_tag 'input', attributes: { id: 'profile_data_state' }
-    assert_no_tag 'input', attributes: { id: 'profile_data_city' }
+    !assert_tag 'input', attributes: { id: 'profile_data_state' }
+    !assert_tag 'input', attributes: { id: 'profile_data_city' }
   end
 
   should 'update profile from remote form' do

@@ -1,11 +1,11 @@
 class Role < ApplicationRecord
 class RoleWithEnvironment < ApplicationRecord
   self.table_name = 'roles'
-  belongs_to :environment
+  belongs_to :environment, optional: true
 end
 class RoleAssignment < ApplicationRecord
-  belongs_to :accessor, :polymorphic => true
-  belongs_to :resource, :polymorphic => true
+  belongs_to :accessor, polymorphic: true, optional: true
+  belongs_to :resource, polymorphic: true, optional: true
 end
 
 class AddEnviromentIdToRole < ActiveRecord::Migration

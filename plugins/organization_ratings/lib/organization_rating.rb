@@ -1,7 +1,7 @@
 class OrganizationRating < ApplicationRecord
-  belongs_to :person
-  belongs_to :organization
-  belongs_to :comment
+  belongs_to :person, optional: true
+  belongs_to :organization, optional: true
+  belongs_to :comment, optional: true
 
   attr_accessible :value, :person, :organization, :comment
 

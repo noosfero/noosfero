@@ -169,7 +169,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     login_as :test_user
 
     get :index, :profile => com.identifier
-    assert_no_tag :tag => 'a', :attributes => {:href => /add_members/}
+    !assert_tag :tag => 'a', :attributes => {:href => /add_members/}
   end
 
   should 'not display remove button if the member is the current user' do
@@ -183,7 +183,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     get :index, :profile => com.identifier
 
     assert_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{member.identifier}/} }
-    assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{admin.identifier}/} }
+    !assert_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{admin.identifier}/} }
   end
 
   should 'display send email to members that have the permission' do
@@ -202,7 +202,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     login_as :test_user
 
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => {:href => /send_mail/}
+    !assert_tag :tag => 'a', :attributes => {:href => /send_mail/}
   end
 
   should 'have a add_members page' do

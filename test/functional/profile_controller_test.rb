@@ -45,7 +45,7 @@ class ProfileControllerTest < ActionController::TestCase
     create_user('ze')
     login_as('ze')
     get :friends
-    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/friends' }
+    !assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/friends' }
   end
 
   should 'list communities' do
@@ -88,7 +88,7 @@ class ProfileControllerTest < ActionController::TestCase
     get :join, :profile => community.identifier
     assert_response :success
     assert_template nil
-    assert_no_tag :tag => 'html'
+    !assert_tag :tag => 'html'
   end
 
   should 'actually add friend' do
@@ -102,13 +102,13 @@ class ProfileControllerTest < ActionController::TestCase
   should 'not show enterprises link to enterprise' do
     ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enterprise1')
     get :index, :profile => ent.identifier
-    assert_no_tag :tag => 'a', :content => 'Enterprises', :attributes => { :href => /profile\/#{ent.identifier}\/enterprises$/ }
+    !assert_tag :tag => 'a', :content => 'Enterprises', :attributes => { :href => /profile\/#{ent.identifier}\/enterprises$/ }
   end
 
   should 'not show members link to person' do
     person = create_user('person_1').person
     get :index, :profile => person.identifier
-    assert_no_tag :tag => 'a', :content => 'Members', :attributes => { :href => /profile\/#{person.identifier}\/members$/ }
+    !assert_tag :tag => 'a', :content => 'Members', :attributes => { :href => /profile\/#{person.identifier}\/members$/ }
   end
 
   should 'show friends link to person' do
@@ -154,7 +154,7 @@ class ProfileControllerTest < ActionController::TestCase
     other.blocks.each{|i| i.destroy}
     other.boxes[0].blocks << ProfileInfoBlock.new
     get :index, :profile => other.identifier
-    assert_no_tag :tag => 'ul', :attributes => { :class => 'profile-info-data' }, :descendant => { :tag => 'a', :content => 'Control panel' }
+    !assert_tag :tag => 'ul', :attributes => { :class => 'profile-info-data' }, :descendant => { :tag => 'a', :content => 'Control panel' }
   end
 
   should 'show a link to control panel if user has profile_editor permission and is a group' do
@@ -175,7 +175,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(@profile.identifier)
     person = create_user('person_1').person
     get :communities, :profile => person.identifier
-    assert_no_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
+    !assert_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
   end
 
   should 'not show Leave This Community button for non-registered users' do
@@ -254,7 +254,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as 'tusr1'
 
     get :index, :profile => 'tusr2'
-    assert_no_tag :content => /t2@t2.com/
+    !assert_tag :content => /t2@t2.com/
   end
 
   should 'display contact us for enterprises' do
@@ -394,8 +394,8 @@ class ProfileControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:public_fields).returns(["email"])
     login_as(@profile.identifier)
 
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+    get :index, profile: community.identifier
+    !assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
   end
 
   should 'show join modal for person with private email' do
@@ -413,7 +413,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(@profile.identifier)
 
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+    !assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
   end
 
   should 'show regular join button for community without email visibility requirement and person with public email' do
@@ -422,7 +422,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(@profile.identifier)
 
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
+    !assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
   end
 
   should 'render join modal for community with email visibility requirement and person with private email' do
@@ -570,13 +570,13 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(@profile.identifier)
     ent = fast_create(Enterprise)
     get :index, :profile => ent.identifier
-    assert_no_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
+    !assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
   end
 
   should 'not show description of person if not filled' do
     login_as(@profile.identifier)
     get :index, :profile => @profile.identifier
-    assert_no_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
+    !assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
   end
 
   should 'ask for login if user not logged' do
@@ -602,7 +602,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'escape xss attack in tag feed' do
     get :content_tagged, :profile => profile.identifier, :id => "<wslite>"
-    assert_no_tag :tag => 'wslite'
+    !assert_tag :tag => 'wslite'
   end
 
   should 'reverse the order of posts in tag feed' do
@@ -743,7 +743,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     another_person.destroy
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'p', :content => 'A scrap'
+    !assert_tag :tag => 'p', :content => 'A scrap'
   end
 
   should 'see the activities_items paginated' do
@@ -962,7 +962,7 @@ class ProfileControllerTest < ActionController::TestCase
     at = fast_create(ActionTracker::Record, :user_id => person.id)
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => person.identifier
-    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+    !assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
   should "not show the scrap button on network activity if the user is himself" do
@@ -970,19 +970,19 @@ class ProfileControllerTest < ActionController::TestCase
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+    !assert_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
   end
 
   should "not show the scrap area on wall for visitor" do
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+    !assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
   end
 
   should "not show the scrap area on wall for stranger" do
     person = create_user('stranger').person
     login_as(person.identifier)
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
+    !assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
   end
 
   should "show the scrap area on wall for the user" do
@@ -1014,7 +1014,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+    !assert_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
   end
 
   should "not show the activities to offline users if the profile is private" do
@@ -1024,7 +1024,7 @@ class ProfileControllerTest < ActionController::TestCase
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => profile.identifier
     assert_equal [at], profile.tracked_actions
-    assert_no_tag :tag => 'li', :attributes => {:id => "profile-activity-item-#{atn.id}"}
+    !assert_tag :tag => 'li', :attributes => {:id => "profile-activity-item-#{atn.id}"}
   end
 
   should "view more activities paginated" do
@@ -1463,8 +1463,8 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_no_tag :tag => 'td', :content => 'Date of birth'
-    assert_no_tag :tag => 'td', :content => 'August 26, 1990'
+    !assert_tag :tag => 'td', :content => 'Date of birth'
+    !assert_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
   should 'show some fields to non friend' do
@@ -1479,8 +1479,8 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
-    assert_no_tag :tag => 'td', :content => 'Date of birth'
-    assert_no_tag :tag => 'td', :content => 'August 26, 1990'
+    !assert_tag :tag => 'td', :content => 'Date of birth'
+    !assert_tag :tag => 'td', :content => 'August 26, 1990'
   end
 
   should 'show all fields to friend' do
@@ -1559,8 +1559,8 @@ class ProfileControllerTest < ActionController::TestCase
     strange = create_user('person_2').person
     login_as(strange.identifier)
     get :index, :profile => viewed.identifier
-    assert_no_tag :tag => 'th', :content => 'Contact'
-    assert_no_tag :tag => 'td', :content => 'e-Mail'
+    !assert_tag :tag => 'th', :content => 'Contact'
+    !assert_tag :tag => 'td', :content => 'e-Mail'
   end
 
   should 'show contact to friend even if private' do
@@ -1594,7 +1594,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     login_as(user.identifier)
     get :index
-    assert_no_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
+    !assert_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
   end
 
   should 'display list of communities to manage on menu if enabled' do
@@ -1689,7 +1689,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     login_as(user.identifier)
     get :index
-    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
+    !assert_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
   end
 
   should 'show enterprises field if enterprises are enabled on environment' do
@@ -1714,8 +1714,8 @@ class ProfileControllerTest < ActionController::TestCase
     environment.save!
 
     get :index, :profile => person.identifier
-    assert_no_tag :tag => 'td', :content => 'Enterprises'
-    assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :content => /#{person.enterprises.count}/, :attributes => { :href => /profile\/#{person.identifier}\/enterprises$/ }}
+    !assert_tag :tag => 'td', :content => 'Enterprises'
+    !assert_tag :tag => 'td', :descendant => { :tag => 'a', :content => /#{person.enterprises.count}/, :attributes => { :href => /profile\/#{person.identifier}\/enterprises$/ }}
   end
 
   should 'admins from a community be present in admin users div and members div' do
@@ -1750,7 +1750,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'ul', :attributes => { :class => /profile-list-members/},
       :descendant => { :tag => 'a', :attributes => { :title => "another_user" } }
 
-    assert_no_tag :tag => 'ul', :attributes => { :class => /profile-list-admins/},
+    !assert_tag :tag => 'ul', :attributes => { :class => /profile-list-admins/},
     :descendant => { :tag => 'a', :attributes => { :title => "another_user" } }
   end
 
@@ -1889,7 +1889,7 @@ class ProfileControllerTest < ActionController::TestCase
     community.add_member(@profile)
 
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => {:id => 'action-unfollow'}
+    !assert_tag :tag => 'a', :attributes => {:id => 'action-unfollow'}
   end
 
   should "redirect to page after unfollow" do
@@ -2055,7 +2055,7 @@ class ProfileControllerTest < ActionController::TestCase
     AccessLevels.stubs(:can_access?).returns(false)
     get :index, :profile => @profile.identifier
     assert_nil assigns(:activities)
-    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-wall'}
+    !assert_tag :tag => 'div', :attributes => {:id => 'profile-wall'}
   end
 
   should 'fetch and show wall activities if user has wall access' do
@@ -2070,7 +2070,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'not fetch or show network activities for visitor' do
     get :index, :profile => @profile.identifier
     assert_nil assigns(:network_activities)
-    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+    !assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
   should 'not fetch or show network activities for logged users' do
@@ -2078,7 +2078,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(sample_user.identifier)
     get :index, :profile => @profile.identifier
     assert_nil assigns(:network_activities)
-    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+    !assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
   should 'not fetch or show network activities for friends' do
@@ -2087,7 +2087,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(friend.identifier)
     get :index, :profile => @profile.identifier
     assert_nil assigns(:network_activities)
-    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
+    !assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
   should 'fetch and show network activities for the user' do

@@ -30,8 +30,8 @@ class MailingListPluginAdminControllerTest < ActionController::TestCase
 
   should 'enable manage buttons if connection is up' do
     get :index
-    assert_no_tag tag: 'a', attributes: { class: /.*button icon-menu-community.*disabled.*/ }
-    assert_no_tag tag: 'a', attributes: { class: /.*button icon-menu-enterprise.*disabled.*/ }
+    !assert_tag tag: 'a', attributes: { class: /.*button icon-menu-community.*disabled.*/ }
+    !assert_tag tag: 'a', attributes: { class: /.*button icon-menu-enterprise.*disabled.*/ }
   end
 
   should 'not enable manage buttons if connection is down' do
@@ -58,7 +58,7 @@ class MailingListPluginAdminControllerTest < ActionController::TestCase
     community3 = fast_create(Community)
 
     get :manage_communities
-    assert_no_tag  'a', content: community1.name
+    !assert_tag  'a', content: community1.name
     assert_tag  'a', content: community2.name
     assert_tag  'a', content: community3.name
   end
@@ -70,7 +70,7 @@ class MailingListPluginAdminControllerTest < ActionController::TestCase
     enterprise3 = fast_create(Enterprise)
 
     get :manage_enterprises
-    assert_no_tag  'a', content: enterprise1.name
+    !assert_tag  'a', content: enterprise1.name
     assert_tag  'a', content: enterprise2.name
     assert_tag  'a', content: enterprise3.name
   end

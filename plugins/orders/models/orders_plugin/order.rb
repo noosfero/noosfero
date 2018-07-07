@@ -43,18 +43,18 @@ class OrdersPlugin::Order < ApplicationRecord
   attr_accessible :status, :consumer, :profile,
     :supplier_delivery_id, :consumer_delivery_id, :supplier_delivery_data, :consumer_delivery_data
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
   # may be override by subclasses
-  belongs_to :supplier, foreign_key: :profile_id, class_name: 'Profile'
-  belongs_to :consumer, class_name: 'Profile'
+  belongs_to :supplier, foreign_key: :profile_id, class_name: 'Profile', optional: true
+  belongs_to :consumer, class_name: 'Profile', optional: true
 
-  belongs_to :session, primary_key: :session_id, foreign_key: :session_id, class_name: 'Session'
+  belongs_to :session, primary_key: :session_id, foreign_key: :session_id, class_name: 'Session', optional: true
 
   has_many :items, -> { order 'name ASC' }, class_name: 'OrdersPlugin::Item', foreign_key: :order_id, dependent: :destroy
   has_many :products, through: :items
 
-  belongs_to :supplier_delivery, class_name: 'DeliveryPlugin::Method'
-  belongs_to :consumer_delivery, class_name: 'DeliveryPlugin::Method'
+  belongs_to :supplier_delivery, class_name: 'DeliveryPlugin::Method', optional: true
+  belongs_to :consumer_delivery, class_name: 'DeliveryPlugin::Method', optional: true
 
   scope :alphabetical, -> { joins(:consumer).reorder 'profiles.name ASC' }
   scope :latest, -> { reorder 'code ASC' }

@@ -317,7 +317,7 @@ class CommentControllerTest < ActionController::TestCase
     xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'html comment', :body => "this is a <strong id='html_test_comment'>html comment</strong>"}
 
     assert Comment.last.body.match(/this is a html comment/)
-    assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
+    !assert_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
   end
 
   should 'filter html content from title' do
@@ -325,7 +325,7 @@ class CommentControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => "html <strong id='html_test_comment'>comment</strong>", :body => "this is a comment"}
     assert Comment.last.title.match(/html comment/)
-    assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
+    !assert_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
   end
 
   should 'touch article after adding a comment' do

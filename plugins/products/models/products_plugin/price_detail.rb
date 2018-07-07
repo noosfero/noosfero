@@ -5,10 +5,10 @@ class ProductsPlugin::PriceDetail < ApplicationRecord
   attr_accessible :price, :production_cost_id
   attr_accessible :production_cost
 
-  belongs_to :product
+  belongs_to :product, optional: true
   validates_presence_of :product_id
 
-  belongs_to :production_cost
+  belongs_to :production_cost, optional: true
   # Do not validates_presence_of production_cost. We may have undefined other costs.
   validates_uniqueness_of :production_cost_id, scope: :product_id
 

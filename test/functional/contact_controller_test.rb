@@ -36,7 +36,7 @@ class ContactControllerTest < ActionController::TestCase
 
   should 'not display tooltip if profile is a person' do
     get :new, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :attributes => {:class => 'tooltip'}
+    !assert_tag :tag => 'div', :attributes => {:class => 'tooltip'}
   end
 
   should 'add form to create contact via post' do
@@ -80,7 +80,7 @@ class ContactControllerTest < ActionController::TestCase
     env.enable('disable_select_city_for_contact')
     env.save!
     get :new, :profile => profile.identifier
-    assert_no_tag :tag => 'select', :attributes => {:name => 'state'}
+    !assert_tag :tag => 'select', :attributes => {:name => 'state'}
   end
 
   should 'identify sender' do

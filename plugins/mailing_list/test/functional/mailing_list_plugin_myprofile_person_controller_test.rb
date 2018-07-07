@@ -27,7 +27,7 @@ class MailingListPluginMyprofilePersonControllerTest < ActionController::TestCas
     get :edit, profile: @person.identifier
     assert_tag 'a', content: @community1.name
     assert_tag 'a', content: @community2.name
-    assert_no_tag 'a', content: template.name
+    !assert_tag 'a', content: template.name
   end
 
   should 'not open page if the mail lists server is offline' do

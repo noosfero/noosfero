@@ -6,7 +6,7 @@ require_relative '../config/environment'
 require 'rails/test_help'
 
 require 'mocha'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 require 'minitest/spec'
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter

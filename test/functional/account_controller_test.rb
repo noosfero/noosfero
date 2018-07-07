@@ -300,13 +300,13 @@ class AccountControllerTest < ActionController::TestCase
   should 'display login popup' do
     get :login_popup
     assert_template 'login'
-    assert_no_tag :tag => "body" # e.g. no layout
+    !assert_tag :tag => "body" # e.g. no layout
   end
 
   should 'display logout popup' do
     get :logout_popup
     assert_template 'logout_popup'
-    assert_no_tag :tag => "body" # e.g. no layout
+    !assert_tag :tag => "body" # e.g. no layout
   end
 
   should 'restrict multiple users with the same e-mail' do
@@ -797,7 +797,7 @@ class AccountControllerTest < ActionController::TestCase
   should 'not display error message when image has less than max size' do
     Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] - 1024)
     new_user({}, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } })
-    assert_no_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+    !assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
   end
 
   should 'not redirect when some file has errors' do
@@ -898,7 +898,7 @@ class AccountControllerTest < ActionController::TestCase
 
     get :login
 
-    assert_no_tag :tag => 'a', :attributes => {:href => '/account/signup'}
+    !assert_tag :tag => 'a', :attributes => {:href => '/account/signup'}
   end
 
   should "redirect user on forgot_password action if a plugin doesn't allow user to recover its password" do
@@ -936,7 +936,7 @@ class AccountControllerTest < ActionController::TestCase
 
     get :login
 
-    assert_no_tag :tag => 'a', :attributes => {:href => '/account/forgot_password'}
+    !assert_tag :tag => 'a', :attributes => {:href => '/account/forgot_password'}
   end
 
   should 'add extra content on login form from plugins' do

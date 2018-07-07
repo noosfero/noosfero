@@ -272,6 +272,6 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     form = community.forms.create!(name: 'Free Software')
 
     get :show, :profile => community.identifier, :id => form.identifier
-    assert_no_tag tag: 'div', attributes: { class: 'custom-form-options' }
+    !assert_tag tag: 'div', attributes: { class: 'custom-form-options' }
   end
 end

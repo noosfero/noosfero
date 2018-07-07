@@ -1,6 +1,6 @@
 class PgSearchPlugin::SearchFacetOccurrence < ApplicationRecord
-  belongs_to :environment
-  belongs_to :target, polymorphic: true
+  belongs_to :environment, optional: true
+  belongs_to :target, polymorphic: true, optional: true
 
   validates_presence_of :environment, :asset
 

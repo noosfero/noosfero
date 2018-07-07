@@ -133,7 +133,7 @@ module ProductsPlugin
       enterprise = fast_create(Enterprise)
       product = create(Product, name: 'Holier Than Thou', profile_id: enterprise.id, product_category_id: @product_category.id, highlighted: false)
       get :products
-      assert_no_tag tag: 'li', attributes: { class: 'search-product-item highlighted' }, content: /Holier Than Thou/
+      !assert_tag tag: 'li', attributes: { class: 'search-product-item highlighted' }, content: /Holier Than Thou/
     end
 
     protected

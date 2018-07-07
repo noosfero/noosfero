@@ -1,9 +1,9 @@
 class CommentClassificationPlugin::CommentStatusUser < ApplicationRecord
   self.table_name = :comment_classification_plugin_comment_status_user
 
-  belongs_to :profile
-  belongs_to :comment
-  belongs_to :status, class_name: 'CommentClassificationPlugin::Status'
+  belongs_to :profile, optional: true
+  belongs_to :comment, optional: true
+  belongs_to :status, class_name: 'CommentClassificationPlugin::Status', optional: true
 
   attr_accessible :name, :enabled, :profile, :comment, :status_id, :reason
 

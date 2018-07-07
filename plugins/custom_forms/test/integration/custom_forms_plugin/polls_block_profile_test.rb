@@ -26,7 +26,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: another_poll.name,
+    !assert_tag tag: 'span', content: another_poll.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -34,9 +34,9 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form2.name,
+    !assert_tag tag: 'span', content: @form2.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form3.name,
+    !assert_tag tag: 'span', content: @form3.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -47,7 +47,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: @form2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form3.name,
+    !assert_tag tag: 'span', content: @form3.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -93,7 +93,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'input', attributes: { name: /block_submission\[/ },
                ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
-    assert_no_tag tag: 'input', attributes: { type: "submit" },
+    !assert_tag tag: 'input', attributes: { type: "submit" },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -112,7 +112,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     @form1.update_attributes(ending: 1.day.ago)
 
     get "/profile/#{@profile.identifier}"
-    assert_no_tag tag: 'div', attributes: { class: 'chart-wrapper' },
+    !assert_tag tag: 'div', attributes: { class: 'chart-wrapper' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -127,7 +127,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     @form1.update_attributes(access_result_options: 'public',
                              ending: 1.day.ago)
     get "/profile/#{@profile.identifier}"
-    assert_no_tag tag: 'a', attributes: { class: 'partial-results-link' },
+    !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -138,7 +138,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     submission.save!
 
     get "/profile/#{@profile.identifier}"
-    assert_no_tag tag: 'a', attributes: { class: 'partial-results-link' },
+    !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -157,7 +157,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   should 'not display partial results link if poll results are private' do
     login('jose', 'jose')
     @form1.update_attributes(access_result_options: 'private')
-    assert_no_tag tag: 'a', attributes: { class: 'partial-results-link' },
+    !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                    ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -190,9 +190,9 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     submission.save!
 
     get "/profile/#{@profile.identifier}"
-    assert_no_tag tag: 'div', attributes: { class: 'chart-wrapper' },
+    !assert_tag tag: 'div', attributes: { class: 'chart-wrapper' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
-    assert_no_tag tag: 'a', attributes: { class: 'partial-results-link' },
+    !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -213,9 +213,9 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: open_poll_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: closed_poll.name,
+    !assert_tag tag: 'span', content: closed_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: not_open_yet_poll.name,
+    !assert_tag tag: 'span', content: not_open_yet_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -236,9 +236,9 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: closed_poll_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: open_poll.name,
+    !assert_tag tag: 'span', content: open_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: not_open_yet_poll.name,
+    !assert_tag tag: 'span', content: not_open_yet_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -261,9 +261,9 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: not_open_yet_poll_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: open_poll.name,
+    !assert_tag tag: 'span', content: open_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: closed_poll.name,
+    !assert_tag tag: 'span', content: closed_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 

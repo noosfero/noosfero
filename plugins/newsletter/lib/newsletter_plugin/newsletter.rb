@@ -2,8 +2,8 @@ require 'csv'
 
 class NewsletterPlugin::Newsletter < ApplicationRecord
 
-  belongs_to :environment
-  belongs_to :person
+  belongs_to :environment, optional: true
+  belongs_to :person, optional: true
   validates_presence_of :environment, :person
   validates_uniqueness_of :environment_id
   validates_numericality_of :periodicity, only_integer: true, greater_than: -1, message: _('must be a positive number')

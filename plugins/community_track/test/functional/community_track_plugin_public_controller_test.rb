@@ -79,7 +79,7 @@ class CommunityTrackPluginPublicControllerTest < ActionController::TestCase
     user = create_user('testinguser')
     login_as(user.login)
     get :select_community
-    assert_no_tag :tag => 'input', :attributes => {:id => "community_identifier_#{@community.identifier}"}
+    !assert_tag :tag => 'input', :attributes => {:id => "community_identifier_#{@community.identifier}"}
   end
 
   should 'redirect to new content with track content type' do

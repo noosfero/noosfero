@@ -18,7 +18,7 @@ end
 
 class Child < ActiveRecord::Base
 	encrypt :email, :key=>:secret, :base64=>true
-	belongs_to :secret
+	belongs_to :secret, optional: true
 end
 
 class Asset<ActiveRecord::Base
@@ -47,7 +47,7 @@ class AssetRaw<ActiveRecord::Base
 end
 
 class Cap < ActiveRecord::Base
-  belongs_to :asset
+  belongs_to :asset, optional: true
   encrypt :shared_key, :base64=>true
 
   def self.find_by_key(cap_key)
@@ -91,7 +91,7 @@ class Group < ActiveRecord::Base
 end
 
 class GroupSecret < ActiveRecord::Base
-	belongs_to :group
+	belongs_to :group, optional: true
 
 	encrypt :title,:body, :key=>:group, :base64=>true
 

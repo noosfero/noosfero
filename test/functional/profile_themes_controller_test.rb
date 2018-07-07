@@ -38,7 +38,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
       assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/#{item}" }
     end
 
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/t3" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/t3" }
   end
 
   should 'highlight current theme' do
@@ -53,7 +53,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
     get :index, :profile => 'testinguser'
 
     assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/one" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/one" }
   end
 
   should 'display list of my themes for edition' do
@@ -271,7 +271,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
 
     get :index, :profile => 'testinguser'
     assert_tag :attributes => { :class => 'template-opt list-opt selected' }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set_layout_template/default"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set_layout_template/default"}
   end
 
   should 'set template' do
@@ -296,14 +296,14 @@ class ProfileThemesControllerTest < ActionController::TestCase
     env.disable('user_themes')
     env.save!
     get :index, :profile => 'testinguser'
-    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/new' }
+    !assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/new' }
   end
 
   should 'not display the "Select themes" section if there are no themes to choose from' do
     env.themes = []; env.save!
     Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR) # an empty dir
     get :index, :profile => "testinguser"
-    assert_no_tag :content => "Select theme"
+    !assert_tag :content => "Select theme"
   end
 
   should 'not duplicate themes that are included by the user and by the environment' do

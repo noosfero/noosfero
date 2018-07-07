@@ -16,7 +16,7 @@ class ProfileQuotasControllerTest < ActionController::TestCase
   should 'filter profiles by type' do
     get :index, asset: 'people'
     assert_tag tag: 'td', content: @person.name
-    assert_no_tag tag: 'td', content: @community.name
+    !assert_tag tag: 'td', content: @community.name
   end
 
   should 'return all profiles when asset is invalid' do
@@ -27,7 +27,7 @@ class ProfileQuotasControllerTest < ActionController::TestCase
 
   should 'filter profiles by name' do
     get :index, q: @community.name
-    assert_no_tag tag: 'td', content: @person.name
+    !assert_tag tag: 'td', content: @person.name
     assert_tag tag: 'td', content: @community.name
   end
 

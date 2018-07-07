@@ -121,7 +121,7 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     @controller.stubs(:current_user).returns(@person.user)
     get :new_rating, profile: @community.identifier
     assert_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
-    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+    !assert_tag :tag => 'p', :attributes => {:class =>/comment-body/}
   end
 
   test "display moderation report message to owner" do
@@ -133,7 +133,7 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     post :new_rating, profile: @community.identifier, :comments => {:body => "comment"}, :organization_rating_value => 3
     get :new_rating, profile: @community.identifier
     assert_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
-    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+    !assert_tag :tag => 'p', :attributes => {:class =>/comment-body/}
   end
 
   test "display moderation report message comment to env admin" do
@@ -171,14 +171,14 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     post :new_rating, profile: @community.identifier, :comments => {:body => "rejected comment"}, :organization_rating_value => 3
     CreateOrganizationRatingComment.last.cancel
     get :new_rating, profile: @community.identifier
-    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+    !assert_tag :tag => 'p', :attributes => {:class =>/comment-body/}
   end
 
   test "not display rejected comment to community admin" do
     post :new_rating, profile: @community.identifier, :comments => {:body => "rejected comment"}, :organization_rating_value => 3
     CreateOrganizationRatingComment.last.cancel
     get :new_rating, profile: @community.identifier
-    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+    !assert_tag :tag => 'p', :attributes => {:class =>/comment-body/}
   end
 
   test "not display moderation report message to regular user" do
@@ -192,8 +192,8 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     @controller.stubs(:current_user).returns(@member)
 
     get :new_rating, profile: @community.identifier
-    assert_no_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
-    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+    !assert_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/moderation-msg/}
+    !assert_tag :tag => 'p', :attributes => {:class =>/comment-body/}
   end
 
   test "not display rejected comment message to not logged user" do
@@ -205,8 +205,8 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     @controller.stubs(:logged_in?).returns(false)
 
     get :new_rating, profile: @community.identifier
-    assert_no_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/comment-rejected-msg/}
-    assert_no_tag :tag => 'p', :attributes => {:class =>/comment-body/}
+    !assert_tag :tag => 'p', :content => /Report waiting for approval/, :attributes => {:class =>/comment-rejected-msg/}
+    !assert_tag :tag => 'p', :attributes => {:class =>/comment-body/}
   end
 
   test "display report when Task accepted" do
@@ -215,7 +215,7 @@ class OrganizationRatingsPluginProfileControllerTest < ActionController::TestCas
     rating_task.finish
 
     get :new_rating, profile: @community.identifier
-    assert_no_tag :tag => 'p', :content => /Report waiting for approva/, :attributes => {:class =>/comment-rejected-msg/}
+    !assert_tag :tag => 'p', :content => /Report waiting for approva/, :attributes => {:class =>/comment-rejected-msg/}
     assert_tag :tag => 'p', :content => /comment accepted/, :attributes => {:class =>/comment-body/}
   end
 

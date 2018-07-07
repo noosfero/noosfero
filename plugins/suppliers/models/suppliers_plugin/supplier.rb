@@ -4,8 +4,8 @@ class SuppliersPlugin::Supplier < ApplicationRecord
 
   attr_accessible :profile_id, :profile, :consumer, :consumer_id, :name, :name_abbreviation, :description
 
-  belongs_to :profile
-  belongs_to :consumer, class_name: 'Profile'
+  belongs_to :profile, optional: true
+  belongs_to :consumer, class_name: 'Profile', optional: true
   alias_method :supplier, :profile
 
   validates_presence_of :name, if: :dummy?

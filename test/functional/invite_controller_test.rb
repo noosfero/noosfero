@@ -199,7 +199,7 @@ class InviteControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template '_contact_list'
-    assert_no_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => 'webmail_import_addresses[]'})
+    !assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => 'webmail_import_addresses[]'})
   end
 
   should 'render list of contacts' do

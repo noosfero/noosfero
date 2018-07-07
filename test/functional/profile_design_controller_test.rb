@@ -217,18 +217,18 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_response :success
 
     [1, 5].each {|i| assert_tag :tag => 'div', :attributes => { 'data-block-type' => "ProfileDesignControllerTest::CustomBlock#{i}" }}
-    [2, 3, 4, 6, 7, 8].each {|i| assert_no_tag :tag => 'div', :attributes => { 'data-block-type' => "ProfileDesignControllerTest::CustomBlock#{i}" }}
+    [2, 3, 4, 6, 7, 8].each {|i| !assert_tag :tag => 'div', :attributes => { 'data-block-type' => "ProfileDesignControllerTest::CustomBlock#{i}" }}
   end
 
   should 'not edit main block with never option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_no_tag :select, :attributes => {:name => 'block[display]'},
+    !assert_tag :select, :attributes => {:name => 'block[display]'},
       :descendant => {:tag => 'option', :attributes => {:value => 'never'}}
   end
 
   should 'not edit main block with home_page_only option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_no_tag :select, :attributes => {:name => 'block[display]'},
+    !assert_tag :select, :attributes => {:name => 'block[display]'},
      :descendant => {:tag => 'option', :attributes => {:value => 'home_page_only'}}
   end
 
@@ -285,7 +285,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'provide edit screen for blocks' do
     get :edit, :profile => 'designtestuser', :id => @b1.id
     assert_template 'edit'
-    assert_no_tag :tag => 'body' # e.g. no layout
+    !assert_tag :tag => 'body' # e.g. no layout
   end
 
   should 'be able to save a block' do
@@ -331,7 +331,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   should 'not offer to create blog archives block if user dont have blog' do
     get :index, :profile => 'designtestuser'
-    assert_no_tag :tag => 'div', :attributes => { 'data-block-type' => 'BlogArchivesBlock' }
+    !assert_tag :tag => 'div', :attributes => { 'data-block-type' => 'BlogArchivesBlock' }
   end
 
   should 'offer to create feed reader block' do
@@ -429,7 +429,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     profile.stubs(:is_admin?).returns(false)
     @controller.stubs(:user).returns(profile)
     get :index, :profile => 'designtestuser'
-    assert_no_tag :tag => 'div', :attributes => { 'data-block-type' => 'RawHTMLBlock' }
+    !assert_tag :tag => 'div', :attributes => { 'data-block-type' => 'RawHTMLBlock' }
   end
 
   should 'editing article block displays right selected article' do
@@ -594,7 +594,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'guarantee main block is always visible to everybody' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
     %w[logged not_logged followers].each do |option|
-      assert_no_tag :select, :attributes => {:name => 'block[display_user]'},
+      !assert_tag :select, :attributes => {:name => 'block[display_user]'},
         :descendant => {:tag => 'option', :attributes => {:value => option}}
     end
   end

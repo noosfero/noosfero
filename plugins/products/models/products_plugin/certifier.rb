@@ -10,7 +10,7 @@ class ProductsPlugin::Certifier < ApplicationRecord
     :link => {:label => _('Link'), :weight => 1},
   }
 
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   has_many :qualifier_certifiers, dependent:  :destroy
   has_many :qualifiers, through:  :qualifier_certifiers

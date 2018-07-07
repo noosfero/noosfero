@@ -22,7 +22,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     logout
     login_as(user.login)
     get :view_page, @track.url
-    assert_no_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'track actions' } }
+    !assert_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'track actions' } }
   end
 
   should 'do not show new button at article toolbar for tracks' do
@@ -30,7 +30,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     logout
     login_as(user.login)
     get :view_page, @track.url
-    assert_no_tag :tag => 'div', :attributes => {:id => 'article-actions'}, :descendant => { :tag => 'div', :attributes => { :id => 'icon-new' } }
+    !assert_tag :tag => 'div', :attributes => {:id => 'article-actions'}, :descendant => { :tag => 'div', :attributes => { :id => 'icon-new' } }
   end
 
   should 'display steps for tracks' do
@@ -76,7 +76,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     logout
     login_as(user.login)
     get :view_page, @step.url
-    assert_no_tag :tag => 'div', :attributes => {:id => 'step' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
+    !assert_tag :tag => 'div', :attributes => {:id => 'step' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
   end
 
   should 'render a div with block id for track list block' do

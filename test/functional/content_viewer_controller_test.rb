@@ -151,8 +151,8 @@ class ContentViewerControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'test article')
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_no_tag :tag => 'div', :attributes => { :id => 'article-tags' }
-    assert_no_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
+    !assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }
+    !assert_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
   end
 
   should 'not display forbidden articles' do
@@ -247,13 +247,13 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
   should 'not give link to edit the article for non-logged-in people' do
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    !assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
   should 'not give link to edit article for other people' do
     login_as(create_user('anotheruser').login)
 
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    !assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
 
   should 'give link to create new article' do
@@ -263,12 +263,12 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
   should 'give no link to create new article for non-logged in people ' do
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_no_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+    !assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
   should 'give no link to create new article for other people' do
     login_as(create_user('anotheruser').login)
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_no_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+    !assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
 
   should 'give link to create new article inside folder' do
@@ -351,14 +351,14 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     for i in 1..12
       assert_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i+12}"
-      assert_no_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i}"
+      !assert_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i}"
     end
 
     xhr :get, :view_page, :profile => profile.identifier, :page => article.path.split('/'), :comment_page => 1, :comment_order => 'oldest'
 
     for i in 1..12
       assert_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i}"
-      assert_no_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i+12}"
+      !assert_tag :tag => 'p', :attributes => {:class => 'comment-text'}, :content => "some body #{i+12}"
     end
   end
 
@@ -494,11 +494,12 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'not list unpublished posts to a not logged person' do
-    blog = Blog.create!(:name => 'A blog test', :profile => profile)
-    blog.posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false)
+    blog = Blog.create!(name: 'A blog test', profile: profile)
+    blog_posts = blog.posts
+    blog_posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false)
 
     get :view_page, :profile => profile.identifier, :page => [blog.path]
-    assert_no_tag :tag => 'a', :content => "Post"
+    !assert_tag :tag => 'a', :content => "Post"
   end
 
   should 'display pagination links of blog' do
@@ -521,7 +522,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => [blog.path]
     for n in 1..5
-      assert_no_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+      !assert_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
     end
     for n in 6..10
       assert_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
@@ -540,7 +541,7 @@ class ContentViewerControllerTest < ActionController::TestCase
       assert_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
     end
     for n in 6..10
-      assert_no_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+      !assert_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
     end
   end
 
@@ -557,7 +558,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => [profile.blog.path], :year => year, :month => month
 
-    assert_no_tag :tag => 'a', :content => past_post.title
+    !assert_tag :tag => 'a', :content => past_post.title
     assert_tag :tag => 'a', :content => current_post.title
   end
 
@@ -605,7 +606,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     page = profile.home_page
     xhr :get, :view_page, :profile => profile.identifier, :page => page.path, :toolbar => true
-    assert_no_tag :tag => 'a', :content => 'Delete', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/destroy/#{page.id}" }
+    !assert_tag :tag => 'a', :content => 'Delete', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/destroy/#{page.id}" }
   end
 
   should 'add meta tag to rss feed on view blog' do
@@ -651,7 +652,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     gallery = Gallery.create!(:name => 'gallery1', :profile => profile, :allow_download => false)
     image = UploadedFile.create!(:profile => profile, :parent => gallery, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     get :view_page, :profile => profile.identifier, :page => image.path, :view => true
-    assert_no_tag :tag => 'a', :content => 'Download image', :attributes => { :id => 'download-image-id' }
+    !assert_tag :tag => 'a', :content => 'Download image', :attributes => { :id => 'download-image-id' }
   end
 
   should "display 'Upload files' when create children of image gallery" do
@@ -799,7 +800,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not display source if article has no source' do
     profile.articles << TextArticle.new(:name => "Article one", :profile => profile)
     get :view_page, :profile => profile.identifier, :page => ['article-one']
-    assert_no_tag :tag => 'div', :attributes => { :id => 'article-source' }
+    !assert_tag :tag => 'div', :attributes => { :id => 'article-source' }
   end
 
   should 'redirect to profile controller when there is no homepage' do
@@ -862,7 +863,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => profile.identifier, :page => blog.path
 
     assert_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Content to be displayed./
-    assert_no_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Anything/
+    !assert_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Anything/
   end
 
   should 'show only first paragraph with picture of posts if visualization_format is short+pic' do
@@ -909,7 +910,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     forum.posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => forum, :published => false)
 
     get :view_page, :profile => profile.identifier, :page => [forum.path]
-    assert_no_tag :tag => 'a', :content => "Post"
+    !assert_tag :tag => 'a', :content => "Post"
   end
 
   should 'display pagination links of forum' do
@@ -935,7 +936,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => [forum.path]
     for n in 1..5
-      assert_no_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+      !assert_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
     end
     for n in 6..10
       assert_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
@@ -956,7 +957,7 @@ class ContentViewerControllerTest < ActionController::TestCase
       assert_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
     end
     for n in 6..10
-      assert_no_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+      !assert_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
     end
   end
 
@@ -973,7 +974,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => [profile.forum.path], :year => year, :month => month
 
-    assert_no_tag :tag => 'a', :content => past_post.title
+    !assert_tag :tag => 'a', :content => past_post.title
     assert_tag :tag => 'a', :content => current_post.title
   end
 
@@ -1057,7 +1058,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     b = Forum.create!(:name => 'article folder', :profile => profile)
     xhr :get, :view_page, :profile => profile.identifier, :page => b.path, :toolbar => true
-    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
+    !assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
   should "not display 'Upload files' when viewing post from a forum" do
@@ -1065,7 +1066,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     b = Forum.create!(:name => 'article folder', :profile => profile)
     forum_post = TextArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
     xhr :get, :view_page, :profile => profile.identifier, :page => forum_post.path, :toolbar => true
-    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
+    !assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
   should 'display link to edit forum for allowed' do
@@ -1095,14 +1096,14 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as @profile.identifier
     blog = fast_create(Blog, :profile_id => @profile.id, :path => 'blog')
     xhr :get, :view_page, :profile => @profile.identifier, :page => blog.path, :toolbar => true
-    assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
+    !assert_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
   end
 
   should 'not display add translation link if article hasnt a language defined' do
     login_as @profile.identifier
     textile = fast_create(TextArticle, :profile_id => @profile.id, :path => 'textile')
     xhr :get, :view_page, :profile => @profile.identifier, :page => textile.path, :toolbar => true
-    assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
+    !assert_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
   end
 
   should 'display translations link if article has translations' do
@@ -1171,7 +1172,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => @profile.identifier, :page => blog.path
     assert_tag :div, :attributes => { :id => "post-#{es_article.id}" }
-    assert_no_tag :div, :attributes => { :id => "post-#{en_article.id}" }
+    !assert_tag :div, :attributes => { :id => "post-#{en_article.id}" }
   end
 
   should 'not display article at blog listing if blog option is enabled and there is no translation for the language' do
@@ -1256,7 +1257,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_no_tag :tag => 'ul', :attributes => { :class => 'comment-replies' }
+    !assert_tag :tag => 'ul', :attributes => { :class => 'comment-replies' }
   end
 
   should 'add an zero width space every 4 caracters of comment urls' do
@@ -1275,7 +1276,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
+    !assert_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'not show a post comment button on top if there are no comments' do
@@ -1284,7 +1285,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     Comment.destroy_all
     article.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
+    !assert_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'not show a post comment button on top if there are one comment and one reply' do
@@ -1297,7 +1298,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
     comment2.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
+    !assert_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'suggest article link displayed into article-actions div' do
@@ -1327,7 +1328,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     profile = fast_create(Profile)
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     get :view_page, :profile => profile.identifier, :page => ['blog']
-    assert_no_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
+    !assert_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
   end
 
   should 'not display article actions button if any plugins says so' do
@@ -1344,7 +1345,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as('testinguser')
     xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
-    assert_no_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
+    !assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
   end
 
   should 'expire article actions button if any plugins says so' do
@@ -1372,7 +1373,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true, :title => 'this is a spam')
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
-    assert_no_tag :tag => 'h4', :content => /spam/
+    !assert_tag :tag => 'h4', :content => /spam/
   end
 
   should 'add extra content on comment form from plugins' do
@@ -1525,7 +1526,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => community.identifier, "page" => 'blog'
 
-    assert_no_tag :tag => 'h1', :attributes => { :class => /title/ }, :content => article.name
+    !assert_tag :tag => 'h1', :attributes => { :class => /title/ }, :content => article.name
   end
 
   should 'add extra toolbar actions on article from plugins' do

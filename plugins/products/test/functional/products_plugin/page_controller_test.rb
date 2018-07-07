@@ -247,7 +247,7 @@ class PageControllerTest < ActionController::TestCase
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
     get :show, id: product.id, profile: @enterprise.identifier
 
-    assert_no_tag tag: 'span', attributes: { class: 'product_price' }, content: /Price:/
+    !assert_tag tag: 'span', attributes: { class: 'product_price' }, content: /Price:/
   end
 
   should 'show product price when showing product if unit was informed' do
@@ -355,7 +355,7 @@ class PageControllerTest < ActionController::TestCase
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
     get :show, id: product.id, profile: @enterprise.identifier
 
-    assert_no_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }
+    !assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }
   end
 
   should 'not display tabs if description and inputs are empty and user is not logged in' do
@@ -364,7 +364,7 @@ class PageControllerTest < ActionController::TestCase
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
     get :show, id: product.id, profile: @enterprise.identifier
 
-    assert_no_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }
+    !assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }
   end
 
   should 'display only description tab if inputs are empty and user is not allowed' do
@@ -374,7 +374,7 @@ class PageControllerTest < ActionController::TestCase
     product = fast_create(Product, description: 'This product is very good', profile_id: @enterprise.id, product_category_id: @product_category.id)
     get :show, id: product.id, profile: @enterprise.identifier
     assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-description'}, content: 'Description'}
-    assert_no_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#inputs'}, content: 'Inputs and raw material'}
+    !assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#inputs'}, content: 'Inputs and raw material'}
   end
 
   should 'display only inputs tab if description is empty and user is not allowed' do
@@ -385,7 +385,7 @@ class PageControllerTest < ActionController::TestCase
     input = fast_create(Input, product_id: product.id, product_category_id: @product_category.id)
 
     get :show, id: product.id, profile: @enterprise.identifier
-    assert_no_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-description'}, content: 'Description'}
+    !assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-description'}, content: 'Description'}
     assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-inputs'}, content: 'Inputs and raw material'}
   end
 

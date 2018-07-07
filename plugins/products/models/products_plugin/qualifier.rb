@@ -8,7 +8,7 @@ class ProductsPlugin::Qualifier < ApplicationRecord
     :name => {:label => _('Name'), :weight => 1},
   }
 
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   has_many :qualifier_certifiers, dependent:  :destroy
   has_many :certifiers, through:  :qualifier_certifiers

@@ -11,7 +11,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
   should 'espape xss attack' do
     @controller.expects(:profile).returns(person).at_least_once
     get 'index', :profile => person.identifier, :q => '<wslite>'
-    assert_no_tag :tag => 'wslite'
+    !assert_tag :tag => 'wslite'
   end
 
   should 'render success in search' do
@@ -64,7 +64,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
     get 'index', :profile => person.identifier, :q => 'article to test'
 
     assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => article1.abstract, :attributes => { :class => /article-details/ }}
-    assert_no_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Article to test profile search', :attributes => { :class => /article-details/ }}
+    !assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Article to test profile search', :attributes => { :class => /article-details/ }}
 
     assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Another article to test profile search', :attributes => { :class => /article-details/ }}
   end
@@ -75,7 +75,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
 
     get 'index', :profile => person.identifier, :q => ''
 
-    assert_no_tag :tag => 'ul', :attributes => { :id => 'profile-search-results'}, :descendant => { :tag => 'li' }
+    !assert_tag :tag => 'ul', :attributes => { :id => 'profile-search-results'}, :descendant => { :tag => 'li' }
   end
 
   should 'not display private articles' do
@@ -84,7 +84,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
 
     get 'index', :profile => person.identifier, :q => 'article to test'
 
-    assert_no_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Article to test profile search', :attributes => { :class => /article-details/ }}
+    !assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Article to test profile search', :attributes => { :class => /article-details/ }}
 
     assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Another article to test profile search', :attributes => { :class => /article-details/ }}
   end

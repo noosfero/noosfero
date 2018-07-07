@@ -261,7 +261,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert_response :success
 
     [4, 8].each {|i| assert_tag :tag => 'div', :attributes => { 'data-block-type' => "EnvironmentDesignControllerTest::CustomBlock#{i}" }}
-    [1, 2, 3, 5, 6, 7].each {|i| assert_no_tag :tag => 'div', :attributes => { 'data-block-type' => "EnvironmentDesignControllerTest::CustomBlock#{i}" }}
+    [1, 2, 3, 5, 6, 7].each {|i| !assert_tag :tag => 'div', :attributes => { 'data-block-type' => "EnvironmentDesignControllerTest::CustomBlock#{i}" }}
   end
 
   should 'clone a block' do

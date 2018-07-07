@@ -35,7 +35,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
       assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/#{item}" }
     end
 
-    assert_no_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/t3" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/t3" }
   end
 
   should 'highlight current theme' do
@@ -50,7 +50,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     get :index
 
     assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/one" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/one" }
   end
 
   should 'save selection of theme' do
@@ -114,7 +114,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
     get :index
     assert_tag :attributes => { :class => 'template-opt list-opt selected' }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set_layout_template/default"}
+    !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set_layout_template/default"}
   end
 
   should 'set template' do
@@ -130,7 +130,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     env.themes = []; env.save!
     Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR) # an empty dir
     get :index
-    assert_no_tag :content => "Select theme"
+    !assert_tag :content => "Select theme"
   end
 
 end
