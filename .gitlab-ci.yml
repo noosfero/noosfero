@@ -26,14 +26,16 @@ api:
   script: bundle exec rake test:api
   stage: all-tests
 
+# TODO: Unforce-passing the path to execute rake task
 units:
   <<: *retriable
-  script: bundle exec rake test:units
+  script: bundle exec rake test TEST=test/unit/*.rb
   stage: all-tests
 
+# TODO: Unforce-passing the path to execute rake task
 functionals:
   <<: *retriable
-  script: bundle exec rake test:functionals
+  script: bundle exec rake test TEST=test/functional/*.rb
   stage: all-tests
 
 integration:
