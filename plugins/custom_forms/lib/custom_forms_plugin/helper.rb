@@ -96,7 +96,7 @@ module CustomFormsPlugin::Helper
   end
 
   def default_selected(field, answer)
-    answer.present? ? answer.value.split(',') : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
+    answer.present? ? answer.alternatives.map {|m| m.id.to_s} : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
   end
 
   def display_select_field(field, answer, form)

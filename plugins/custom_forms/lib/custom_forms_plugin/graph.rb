@@ -18,7 +18,6 @@ class CustomFormsPlugin::Graph
 
   def compute_results
     @query_results = report()
-    @query_results
   end
 
 
