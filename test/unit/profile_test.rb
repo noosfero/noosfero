@@ -1081,6 +1081,16 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 'Profile address', p.custom_footer_expanded
   end
 
+  should 'copy privacy fields when applying template' do
+    template = create(Profile, :data => { :fields_privacy => { :email => "public" }},
+                       :is_template => true)
+
+    profile = create(Profile)
+    profile.apply_template(template)
+
+    assert_equal template.fields_privacy, profile.fields_privacy
+  end
+
   should 'ignore failing validation when applying template' do
     template = create(Profile, :layout_template => 'leftbar', :custom_footer => 'my custom footer', :custom_header => 'my custom header', :is_template => true)
 
