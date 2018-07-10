@@ -33,6 +33,17 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_redirected_to :action => 'show'
   end
 
+  should 'not save empty submission' do
+    form = CustomFormsPlugin::Form.create!(profile: profile, name: 'Free Software', identifier: 'free-software', kind: 'poll')
+    field1 = CustomFormsPlugin::TextField.create(name: 'Name', form: form)
+
+    assert_no_difference 'CustomFormsPlugin::Submission.count' do
+      post :show, :profile => profile.identifier, :id => form.identifier, :submission => {field1.id.to_s => ''}
+    end
+
+    assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+  end
+
   should 'display errors if user is not logged in and author_name is not uniq' do
     logout
     form = CustomFormsPlugin::Form.create(:profile => profile, :name => 'Free Software', :identifier => 'free-software')
