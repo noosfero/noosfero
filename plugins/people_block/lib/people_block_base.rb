@@ -30,7 +30,7 @@ class PeopleBlockBase < Block
     visible_profiles = profiles.visible.activated.includes([:image,:domains,:preferred_domain,:environment])
     if !prioritize_profiles_with_image
       result = visible_profiles.limit(limit).order('profiles.updated_at DESC').sort_by{ rand }
-    elsif profiles.visible.with_image.count >= limit
+    elsif profiles.visible.with_image.count(:id) >= limit
       result = visible_profiles.with_image.limit(limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
     else
       result = visible_profiles.with_image.sort_by{ rand } + visible_profiles.without_image.limit(limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
@@ -39,7 +39,7 @@ class PeopleBlockBase < Block
   end
 
   def profile_count
-    profiles.visible.count
+    profiles.visible.count(:id)
   end
 
   def extra_option

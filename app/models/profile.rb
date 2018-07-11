@@ -105,6 +105,7 @@ class Profile < ApplicationRecord
 
   acts_as_accessible
 
+  prepend SetProfileRegionFromCityState
   include Customizable
   acts_as_customizable
 

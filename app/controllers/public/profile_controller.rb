@@ -532,14 +532,12 @@ class ProfileController < PublicController
   def filter_activities(activities, kind)
     @offsets ||= {:wall => 0, :network => 0}
     return activities if environment.admins.include?(user)
-    activities = Array(activities)
+    activities = activities.to_a
     initial_count = activities.count
-    if activities.frozen? != true 
     activities.delete_if do |activity|
       activity = ActivityPresenter.for(activity)
       next if activity.involved?(user)
       activity.hidden_for?(user)
-    end
     end
     @offsets[kind] = @offsets[kind].to_i
     @offsets[kind] += initial_count - activities.count
