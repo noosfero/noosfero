@@ -21,7 +21,8 @@ class CustomFormsPlugin::Field < ApplicationRecord
   end
 
   before_save do |field|
-    if form.kind == 'poll'
+
+    if form != nil && form.kind == 'poll'
       field.mandatory = true
     end
   end
