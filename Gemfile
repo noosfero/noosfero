@@ -99,8 +99,6 @@ group :cucumber, :test do
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver'
-  gem 'geckodriver-helper'
-  gem 'chromedriver-helper'
 end
 
 # Requires custom dependencies

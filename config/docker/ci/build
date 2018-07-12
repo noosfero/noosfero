@@ -1,0 +1,24 @@
+#!/bin/sh
+
+set -ex
+
+# system-wide setup
+echo 'LANG=C.UTF-8' > /etc/default/locale
+
+# get code
+apt-get update
+apt-get install -y sudo git
+git clone --depth 1 https://gitlab.com/noosfero/noosfero.git /var/tmp/noosfero
+
+# install everything
+cd /var/tmp/noosfero
+./script/set-apt-proxy
+mkdir -p locale
+./script/quick-start
+
+# cleanup
+cd /
+rm -rf /var/tmp/noosfero
+apt-get clean
+rm -f /etc/apt/apt.conf.d/01proxy
+rm -rf /var/lib/apt/lists/*
