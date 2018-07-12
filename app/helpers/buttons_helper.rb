@@ -2,6 +2,7 @@ module ButtonsHelper
 
   NOOSFERO_TO_FONTAWESOME = {
     add:               'plus',
+    add_admin:         'shield-alt',
     add_user:          'user-plus',
     admin_user:        'user-shield',
     admin:             'shield-alt',
