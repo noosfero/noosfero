@@ -133,7 +133,7 @@ class BlogTest < ActiveSupport::TestCase
   should 'profile has more then one blog' do
     p = create_user('testuser').person
     fast_create(Blog, :name => 'Blog test', :profile_id => p.id)
-    assert_nothing_raised ActiveRecord::RecordInvalid do
+    assert_nothing_raised do
       create(Blog, :name => 'Another Blog', :profile => p)
     end
   end

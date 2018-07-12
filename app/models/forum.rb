@@ -82,7 +82,7 @@ class Forum < Folder
   def agrees_with_terms?(user)
     return true unless self.has_terms_of_use
     return false unless user
-    self.users_with_agreement.exists? user
+    self.users_with_agreement.exists? user.id
   end
 
   def topic_creation_access

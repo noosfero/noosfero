@@ -594,7 +594,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'redirect to login when unlogged user tries to logout' do
     logout
-    assert_nothing_raised NoMethodError do
+    assert_nothing_raised do
       get :logout
       assert_redirected_to :action => 'index', :controller => 'home'
     end

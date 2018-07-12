@@ -319,7 +319,7 @@ class ArticleTest < ActiveSupport::TestCase
     article.add_category c1
     article.add_category c2
 
-    assert_equivalent [c1,c2], article.categories(true)
+    assert_equivalent [c1,c2], article.categories
     assert_equivalent [c1, parent_cat, c2], article.categories_including_virtual(true)
   end
 
@@ -401,7 +401,7 @@ class ArticleTest < ActiveSupport::TestCase
 
     art.add_category(c3)
 
-    assert_equal [c3], art.categories(true)
+    assert_equal [c3], art.categories
     assert_equal [art], c2.articles(true)
 
     assert_includes c3.articles(true), art
@@ -424,7 +424,7 @@ class ArticleTest < ActiveSupport::TestCase
 
     art.category_ids = [c2,c3].map(&:id)
 
-    assert_equivalent [c2, c3], art.categories(true)
+    assert_equivalent [c2, c3], art.categories
     assert_includes art.categories_including_virtual(true), c1
     refute art.categories_including_virtual(true).include?(c4)
   end
@@ -437,7 +437,7 @@ class ArticleTest < ActiveSupport::TestCase
     p = create_user('testinguser').person
     a = create(Article, :name => 'test', :category_ids => [c1.id, c2.id], :profile_id => p.id)
 
-    assert_equivalent [c1, c2], a.categories(true)
+    assert_equivalent [c1, c2], a.categories
     assert_includes a.categories_including_virtual(true), parent1
   end
 
@@ -449,7 +449,7 @@ class ArticleTest < ActiveSupport::TestCase
     art = create(Article, :name => 'ytest', :profile_id => owner.id)
     art.category_ids = [c2,c3,c3].map(&:id)
 
-    categories = art.categories(true)
+    categories = art.categories
     categories_including_virtual = art.categories_including_virtual(true)
     assert_not_includes categories, c1
     assert_includes categories, c2
@@ -854,7 +854,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'has external_link attr' do
-    assert_nothing_raised NoMethodError do
+    assert_nothing_raised do
       build(Article, :external_link => 'http://some.external.link')
     end
   end
@@ -1499,7 +1499,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'survive to a invalid src attribute while looking for images in body' do
     domain = Environment.default.domains.first || build(Domain, :name => 'localhost')
     article = build(Article, :body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
-    assert_nothing_raised URI::InvalidURIError do
+    assert_nothing_raised do
       assert_equal ["http://#{profile.environment.default_hostname}/path%20with%20spaces.png"], article.body_images_paths
     end
   end

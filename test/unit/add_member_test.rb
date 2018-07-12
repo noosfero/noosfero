@@ -101,7 +101,7 @@ class AddMemberTest < ActiveSupport::TestCase
 
   should 'override target notification message method from Task' do
     task = AddMember.new(:person => person, :organization => community)
-    assert_nothing_raised NotImplementedError do
+    assert_nothing_raised do
       task.target_notification_message
     end
   end

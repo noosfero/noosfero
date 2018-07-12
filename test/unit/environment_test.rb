@@ -310,7 +310,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     p2 = fast_create(Profile, :environment_id => environment.id)
 
     # clear the articles
-    Article.destroy_all
+    Article.delete_all
 
     # p1 creates one article
     doc1 = fast_create(Article, :profile_id => p1.id)
@@ -341,7 +341,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     p1 = fast_create(Profile, environment_id: environment.id)
     p2 = fast_create(Profile, environment_id: environment.id)
 
-    Article.destroy_all
+    Article.delete_all
     
     doc1 = fast_create(Article, profile_id: p1.id)
     doc2 = fast_create(Article, profile_id: p2.id)
@@ -1419,7 +1419,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'activate on database all available plugins' do
     plugins_enable = ["Statistics", "Foo", "PeopleBlock"]
-    Noosfero::Plugins.stubs(:available_plugin_names).returns(plugins_enable)
+    Noosfero::Plugin.stubs(:available_plugin_names).returns(plugins_enable)
     env1 = Environment.create(:name => "Test")
     env2 = Environment.create(:name => "Test 2")
 

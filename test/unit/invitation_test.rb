@@ -80,7 +80,7 @@ class InvitationTest < ActiveSupport::TestCase
 
     invited_friend.add_friend(person)
 
-    assert_nothing_raised NoMethodError do
+    assert_nothing_raised do
       Invitation.invite( person, [invited_friend.user.email], "", community )
     end
   end

@@ -109,7 +109,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
 
    should 'override target notification message method from Task' do
     task = ApproveComment.new(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-    assert_nothing_raised NotImplementedError do
+    assert_nothing_raised do
       task.target_notification_message
     end
   end

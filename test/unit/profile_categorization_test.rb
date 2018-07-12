@@ -72,7 +72,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
 
       ProfileCategorization.remove_region(p)
 
-      assert_equal [], p.categories(true)
+      assert_equal [], p.categories
     end
   end
 

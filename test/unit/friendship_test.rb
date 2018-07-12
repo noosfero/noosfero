@@ -68,8 +68,8 @@ class FriendshipTest < ActiveSupport::TestCase
       Friendship.remove_friendship(p1, p2)
     end
 
-    assert_not_includes p1.friends(true), p2
-    assert_not_includes p2.friends(true), p1
+    assert_not_includes p1.friends, p2
+    assert_not_includes p2.friends, p1
   end
 
   should 'add follower when adding friend' do
@@ -81,8 +81,8 @@ class FriendshipTest < ActiveSupport::TestCase
       p2.add_friend(p1, 'friends')
     end
 
-    assert_includes p1.followers(true), p2
-    assert_includes p2.followers(true), p1
+    assert_includes p1.followers, p2
+    assert_includes p2.followers, p1
   end
 
   should 'remove follower when a friend removal occurs' do
@@ -94,8 +94,8 @@ class FriendshipTest < ActiveSupport::TestCase
 
     Friendship.remove_friendship(p1, p2)
 
-    assert_not_includes p1.followers(true), p2
-    assert_not_includes p2.followers(true), p1
+    assert_not_includes p1.followers, p2
+    assert_not_includes p2.followers, p1
   end
 
   should 'keep friendship intact when stop following' do
@@ -104,11 +104,13 @@ class FriendshipTest < ActiveSupport::TestCase
 
     p1.add_friend(p2, 'friends')
     p2.add_friend(p1, 'friends')
+    p1.friends.reload
+    p2.friends.reload
 
     p1.unfollow(p2)
 
-    assert_includes p1.friends(true), p2
-    assert_includes p2.friends(true), p1
+    assert_includes p1.friends, p2
+    assert_includes p2.friends, p1
   end
 
   should 'do not add friendship when start following' do
@@ -119,8 +121,10 @@ class FriendshipTest < ActiveSupport::TestCase
     circle2 = Circle.create!(:person=> p2, :name => "Zombies", :profile_type => 'Person')
     p1.follow(p2, circle1)
     p2.follow(p1, circle2)
+    p1.friends.reload
+    p2.friends.reload
 
-    assert_not_includes p1.friends(true), p2
-    assert_not_includes p2.friends(true), p1
+    assert_not_includes p1.friends, p2
+    assert_not_includes p2.friends, p1
   end
 end

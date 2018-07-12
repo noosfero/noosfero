@@ -39,7 +39,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     p1 = profile
     p2 = create_user('testuser2').person
     task = build(AddFriend, :person => p1, :friend => p2)
-    assert_nothing_raised NotImplementedError do
+    assert_nothing_raised do
       task.target_notification_message
     end
   end

@@ -11,8 +11,8 @@ class ProfileFollowersTest < ActiveSupport::TestCase
       p1.follow(p2, circle)
     end
 
-    assert_includes p2.followers(true), p1
-    assert_not_includes p1.followers(true), p2
+    assert_includes p2.followers, p1
+    assert_not_includes p1.followers, p2
   end
 
   should 'a person unfollow another person' do
@@ -26,7 +26,7 @@ class ProfileFollowersTest < ActiveSupport::TestCase
       p1.unfollow(p2)
     end
 
-    assert_not_includes p2.followers(true), p1
+    assert_not_includes p2.followers, p1
   end
 
   should 'get the followed persons for a profile' do

@@ -542,7 +542,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     profile.add_category(c3)
 
-    assert_equal [c3], profile.categories(true)
+    assert_equal [c3], profile.categories
     assert_equal [profile], c2.people(true)
 
     assert_includes c3.people(true), profile
@@ -564,7 +564,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     profile.category_ids = [c2,c3].map(&:id)
 
-    assert_equivalent [c2, c3], profile.categories(true)
+    assert_equivalent [c2, c3], profile.categories
     assert_equivalent [c2, c1, c3], profile.categories_including_virtual(true)
   end
 
@@ -575,7 +575,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     profile = create(Profile, :category_ids => [c1.id, c2.id])
 
-    assert_equivalent [c1, c2], profile.categories(true)
+    assert_equivalent [c1, c2], profile.categories
     assert_equivalent [c1, pcat, c2], profile.categories_including_virtual(true)
   end
 
@@ -590,7 +590,7 @@ class ProfileTest < ActiveSupport::TestCase
     region = fast_create(Region)
     profile = create(Profile, :region => region)
 
-    assert_equal [region], profile.categories(true)
+    assert_equal [region], profile.categories
   end
 
   should 'change categorization when changing region' do
@@ -602,7 +602,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile.region = region2
     profile.save!
 
-    assert_equal [region2], profile.categories(true)
+    assert_equal [region2], profile.categories
   end
 
   should 'remove categorization when removing region' do
@@ -612,7 +612,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile.region = nil
     profile.save!
 
-    assert_equal [], profile.categories(true)
+    assert_equal [], profile.categories
   end
 
   should 'not remove region, only dissasociate from it' do
@@ -634,7 +634,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
     assert_equal region, profile.region
-    assert_equivalent [region, category], profile.categories(true)
+    assert_equivalent [region, category], profile.categories
     assert_equivalent [region, category, pcat], profile.categories_including_virtual(true)
   end
 
@@ -647,7 +647,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     profile.update_attribute(:category_ids, [category2.id])
 
-    assert_includes profile.categories(true), region
+    assert_includes profile.categories, region
     assert_includes profile.categories_including_virtual(true), pcat
   end
 
@@ -660,7 +660,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     profile.update_attribute(:region, region2)
 
-    assert_includes profile.categories(true), category
+    assert_includes profile.categories, category
     assert_includes profile.categories_including_virtual(true), pcat
   end
 
@@ -677,7 +677,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile.add_category(region1)
     profile.add_category(region2)
 
-    assert_equivalent [profile_region, region1, region2], profile.categories(true)
+    assert_equivalent [profile_region, region1, region2], profile.categories
   end
 
   should 'not remove region categories if profile region is updated' do
@@ -688,7 +688,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile = create(Profile, region: profile_region1, category_ids: [region1.id, region2.id])
 
     profile.update_attribute(:region, profile_region2)
-    assert_equivalent [profile_region2, region1, region2], profile.categories(true)
+    assert_equivalent [profile_region2, region1, region2], profile.categories
   end
 
   should 'query region for location' do
@@ -786,7 +786,7 @@ class ProfileTest < ActiveSupport::TestCase
     c3 = fast_create(Category, :parent_id => c1.id)
     profile = fast_create(Profile)
     profile.category_ids = [c2,c3,c3].map(&:id)
-    assert_equivalent [c2, c3], profile.categories(true)
+    assert_equivalent [c2, c3], profile.categories
     assert_equivalent [c1, c2, c3], profile.categories_including_virtual(true)
   end
 

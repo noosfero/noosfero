@@ -135,7 +135,7 @@ class MacrosHelperTest < ActionView::TestCase
         { :params => [] }
       end
     end
-    assert_nothing_raised NoMethodError do
+    assert_nothing_raised do
       assert macro_generator(Plugin1::Macro)
     end
   end
