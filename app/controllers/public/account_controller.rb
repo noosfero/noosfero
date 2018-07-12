@@ -117,11 +117,6 @@ class AccountController < ApplicationController
     render :action => 'login', :layout => false
   end
 
-  def signup_time
-    key = set_signup_start_time_for_now
-    render :text => { :ok=>true, :key=>key }.to_json
-  end
-
   # action to register an user to the application
   def signup
     if @plugins.dispatch(:allow_user_registration).include?(false)
@@ -143,7 +138,7 @@ class AccountController < ApplicationController
       @kinds = environment.kinds.where(:type => 'Person')
 
       if request.post?
-        if bot_by_signup_time || !verify_captcha(:signup, @user, nil, environment)
+        unless verify_captcha(:signup, @user, nil, environment)
           session[:bot_failures] = (session[:bot_failures] || 0) + 1
           if session[:bot_failures] > 3
             environment.add_to_signup_blacklist(request.remote_ip)
@@ -182,7 +177,6 @@ class AccountController < ApplicationController
       @person.errors.delete(:user_id)
       render :action => 'signup'
     end
-    clear_signup_start_time
   end
 
   # action to perform logout from the application
@@ -392,32 +386,6 @@ class AccountController < ApplicationController
 
   def no_redirect
     @cannot_redirect = true
-  end
-
-  def set_signup_start_time_for_now
-    key = 'signup_start_time_' + rand.to_s.split('.')[1]
-    Rails.cache.write key, Time.now
-    key
-  end
-
-  def get_signup_start_time
-    Rails.cache.read params[:signup_time_key]
-  end
-
-  def clear_signup_start_time
-    Rails.cache.delete params[:signup_time_key] if params[:signup_time_key]
-  end
-
-  def bot_by_signup_time
-    # No minimum signup delay, no bot test.
-    return false if environment.min_signup_delay == 0
-
-    # never set signup_time, hi wget!
-    signup_start_time = get_signup_start_time
-    return true if signup_start_time.nil?
-
-    # so fast, so bot.
-    signup_start_time > ( Time.now - environment.min_signup_delay.seconds )
   end
 
   def check_answer
