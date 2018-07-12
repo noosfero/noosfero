@@ -22,10 +22,10 @@ module CustomFormsPlugin::ListBlock
 
   def list_forms(user)
     forms = owner.forms.accessible_to(user, owner)
-                       .send(status)
-                       .by_kind(self.type)
+    forms = forms.send(status) unless status == 'all'
+    forms = forms.by_kind(self.type)
     forms = filtered_ids.present? ? forms.where(id: filtered_ids) : forms
-    forms.order(:ending).first(limit)
+    forms.order(:ending).first(limit.to_i)
   end
 
   def valid_status
