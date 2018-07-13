@@ -22,5 +22,20 @@ module FindByContents
     {:results => scope.paginate(paginate_options)}
   end
 
+  def load_filters filters
+    selected_filters = {}
+    filters.each do |key, value|
+      if value.is_a?(Hash)
+        result = load_filters value
+        selected_filters[key] = result unless result.empty?
+      else
+        if value.present? && value != "0" && value != ""
+          selected_filters[key] = value
+        end
+      end
+    end
+    selected_filters
+  end
+
 end
 

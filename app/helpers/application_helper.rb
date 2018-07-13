@@ -870,7 +870,8 @@ module ApplicationHelper
     options = { previous_label: content_tag(:span, font_awesome('long-arrow-left', _('Previous'))),
                 next_label:     content_tag(:span, "#{_('Next')} #{font_awesome('long-arrow-right')}".html_safe),
                 inner_window: 1,
-                outer_window: 0 }.merge(options)
+                outer_window: 0,
+                params: @filters }.merge(options)
     will_paginate(collection, options)
   end
 
