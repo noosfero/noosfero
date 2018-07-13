@@ -6,7 +6,7 @@
   <table class='actions'>
     <tr>
       <th class='poll-question'>
-        <%= content_tag('span', content_tag('label', _('Question'), class: 'formlabel'), class: 'required-field') %>
+        <%= required content_tag('label', _('Question'), class: 'formlabel') %>
       </th>
       <th class='poll-select-type'><%= _('Type') %></th>
     </tr>
@@ -60,7 +60,7 @@
           <%= check_box_tag("form[fields_attributes][0][alternatives_attributes][#{field.alternatives.size}][selected_by_default]", '1', false) %>
         </td>
         <td class="poll-remove">
-          <%= button_without_text :remove, _('Remove field'), '#', class: 'remove-poll-option' %>
+          <%= button_without_text :remove, nil, '#', class: 'remove-poll-option' %>
         </td>
       </tr>
     </tbody>
