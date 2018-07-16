@@ -84,7 +84,7 @@ class Product
   end
 
   def solr_plugin_public
-    self.public?
+    display_to?
   end
 
   def solr_plugin_name_sortable # give a different name for solr

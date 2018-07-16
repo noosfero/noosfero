@@ -10,7 +10,7 @@ class EnterprisesTest < ActiveSupport::TestCase
   should 'logger user list only enterprises' do
     login_api
     community = fast_create(Community, :environment_id => environment.id) # should not list this community
-    enterprise = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
+    enterprise = fast_create(Enterprise, :environment_id => environment.id)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_includes json.map {|c| c['id']}, enterprise.id
@@ -19,7 +19,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
   should 'anonymous list only enterprises' do
     community = fast_create(Community, :environment_id => environment.id) # should not list this community
-    enterprise = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
+    enterprise = fast_create(Enterprise, :environment_id => environment.id)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_includes json.map {|c| c['id']}, enterprise.id
@@ -27,7 +27,7 @@ class EnterprisesTest < ActiveSupport::TestCase
   end
 
   should 'anonymous list all enterprises' do
-    enterprise1 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
+    enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
     enterprise2 = fast_create(Enterprise, :environment_id => environment.id)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -36,7 +36,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
   should 'logger user list all enterprises' do
     login_api
-    enterprise1 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => true)
+    enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
     enterprise2 = fast_create(Enterprise, :environment_id => environment.id)
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -74,7 +74,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
   should 'anonymous list private enterprises' do
     enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
-    enterprise2 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
+    enterprise2 = fast_create(Enterprise, :environment_id => environment.id, :access => Entitlement::Levels.levels[:self])
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -84,7 +84,7 @@ class EnterprisesTest < ActiveSupport::TestCase
   should 'logged user list private enterprises' do
     login_api
     enterprise1 = fast_create(Enterprise, :environment_id => environment.id)
-    enterprise2 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
+    enterprise2 = fast_create(Enterprise, :environment_id => environment.id, :access => Entitlement::Levels.levels[:self])
 
     get "/api/v1/enterprises?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -94,7 +94,7 @@ class EnterprisesTest < ActiveSupport::TestCase
   should 'logged user list private enterprise for members' do
     login_api
     c1 = fast_create(Enterprise, :environment_id => environment.id)
-    c2 = fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
+    c2 = fast_create(Enterprise, :environment_id => environment.id, :access => Entitlement::Levels.levels[:self])
     c2.add_member(person)
 
     get "/api/v1/enterprises?#{params.to_query}"
@@ -137,7 +137,7 @@ class EnterprisesTest < ActiveSupport::TestCase
   should 'not get private enterprises without permission' do
     login_api
     enterprise = fast_create(Enterprise, :environment_id => environment.id)
-    fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
+    fast_create(Enterprise, :environment_id => environment.id, :access => Entitlement::Levels.levels[:self])
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -146,7 +146,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
   should 'not, anonymous get private enterprises' do
     enterprise = fast_create(Enterprise, :environment_id => environment.id)
-    fast_create(Enterprise, :environment_id => environment.id, :public_profile => false)
+    fast_create(Enterprise, :environment_id => environment.id, :access => Entitlement::Levels.levels[:self])
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -155,7 +155,7 @@ class EnterprisesTest < ActiveSupport::TestCase
 
   should 'get private enterprise for members' do
     login_api
-    enterprise = fast_create(Enterprise, :public_profile => false)
+    enterprise = fast_create(Enterprise, :access => Entitlement::Levels.levels[:self])
     enterprise.add_member(person)
 
     get "/api/v1/enterprises/#{enterprise.id}?#{params.to_query}"

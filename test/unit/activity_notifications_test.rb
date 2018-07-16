@@ -22,11 +22,11 @@ class ActivityNotificationsTest < ActiveSupport::TestCase
 
     notification = @follower.tracked_notifications.last
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
-    refute ActivityPresenter.for(notification).hidden_for?(@follower.user)
+    Person.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:users])
+    refute ActivityPresenter.for(notification).hidden_for?(@follower.user.person)
 
-    Person.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:related])
-    assert ActivityPresenter.for(notification).hidden_for?(@follower.user)
+    Person.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:related])
+    assert ActivityPresenter.for(notification).hidden_for?(@follower.user.person)
   end
 
   should 'create notifications for followers of the activity target and display properly' do
@@ -40,11 +40,11 @@ class ActivityNotificationsTest < ActiveSupport::TestCase
 
     notification = @follower.tracked_notifications.last
 
-    Community.any_instance.stubs(:wall_access).returns(AccessLevels.levels[:users])
-    refute ActivityPresenter.for(notification).hidden_for?(@follower.user)
+    Community.any_instance.stubs(:wall_access).returns(Entitlement::Levels.levels[:users])
+    refute ActivityPresenter.for(notification).hidden_for?(@follower.user.person)
 
-    Community.any_instance.stubs(:wall_access).returns(AccessLevels::levels[:related])
-    assert ActivityPresenter.for(notification).hidden_for?(@follower.user)
+    Community.any_instance.stubs(:wall_access).returns(Entitlement::Levels::levels[:related])
+    assert ActivityPresenter.for(notification).hidden_for?(@follower.user.person)
   end
 
   should 'create notifications and not display if the target disabled the followers feature' do
@@ -58,7 +58,7 @@ class ActivityNotificationsTest < ActiveSupport::TestCase
     end
 
     notification = @follower.tracked_notifications.last
-    assert ActivityPresenter.for(notification).hidden_for?(@follower.user)
+    assert ActivityPresenter.for(notification).hidden_for?(@follower.user.person)
   end
 
   should 'notify community members just once' do

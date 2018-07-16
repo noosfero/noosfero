@@ -264,8 +264,12 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'return events of today when no date specified' do
     person = create_user('someone').person
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => DateTime.now)
-    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => DateTime.now - 2.month)
+    ev1 = create_event(person, :name => 'event 1',
+                       :category_ids => [@category.id],
+                       :start_date => DateTime.now)
+    ev2 = create_event(person, :name => 'event 2',
+                       :category_ids => [@category.id],
+                       :start_date => DateTime.now - 2.month)
 
     get :events
 
@@ -450,16 +454,6 @@ class SearchControllerTest < ActionController::TestCase
     create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     get :communities, :order => 'more_active'
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
-  end
-
-  should "only admin can view invisible people" do
-    # assuming that all filters behave the same!
-    p1 = fast_create(Person, :visible => false)
-    admin = create_user('admin').person;
-    Environment.default.add_admin admin
-    login_as("admin")
-    get :people, :order => 'more_recent'
-    assert_includes assigns(:searches)[:people][:results], p1
   end
 
   should "only include visible people in more_recent filter" do

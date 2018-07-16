@@ -280,7 +280,7 @@ class ProfilesTest < ActiveSupport::TestCase
     login_api
 
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
-    some_profile = fast_create(Community, public_profile: false)
+    some_profile = fast_create(Community, access: Entitlement::Levels.levels[:self])
     some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "false"} }
     some_profile.save!
 

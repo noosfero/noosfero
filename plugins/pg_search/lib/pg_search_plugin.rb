@@ -234,7 +234,7 @@ class PgSearchPlugin < Noosfero::Plugin
   end
 
   def attribute_results(klass, scope, params)
-    results = klass.pg_search_plugin_attribute_facets(scope, params[:attribute]).count
+    results = klass.pg_search_plugin_attribute_facets(scope, params[:attribute]).count(:id)
     results.map do |name, count|
       {:name => name, :value => name, :count => count}
     end

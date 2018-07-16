@@ -665,7 +665,8 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'redirect back to article after editing top-level article' do
     f = Folder.new(:name => 'top-level-article'); profile.articles << f; f.save!
-    post :edit, :profile => profile.identifier, :id => f.id
+    post :edit, :profile => profile.identifier, :id => f.id,
+    :article => {:access => '0' }
     assert_redirected_to @profile.articles.find_by(name: 'top-level-article').url
   end
 
@@ -673,7 +674,8 @@ class CmsControllerTest < ActionController::TestCase
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     a = create(TextArticle, :parent => f, :name => 'article-inside-folder', :profile_id => profile.id)
 
-    post :edit, :profile => profile.identifier, :id => a.id
+    post :edit, :profile => profile.identifier, :id => a.id,
+    :article => {:access => '0' }
     assert_redirected_to @profile.articles.find_by(name: 'article-inside-folder').url
   end
 
@@ -721,24 +723,23 @@ class CmsControllerTest < ActionController::TestCase
                                               :title => 'Close' } # modal close button
   end
 
-  should 'display published option' do
+  should 'display slider options' do
     get :edit, :profile => profile.identifier, :id => profile.home_page.id
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_true', :checked => 'checked' }
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_false' }
+    assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'article[access]', :id => 'post-access', :value => '0'}
   end
 
-  should "display properly a non-published articles' status" do
-    article = create(Article, :profile => profile, :name => 'test', :published => false)
+ #should "display properly a private articles' status" do
+ #  article = create(Article, :profile => profile, :name => 'test', :published => true)
 
-    get :edit, :profile => profile.identifier, :id => article.id
-    assert_select 'input#article_published_true[name=?][type="radio"]', 'article[published]'
-    assert_select 'input#article_published_false[name=?][type="radio"]', 'article[published]' do |elements|
-      assert elements.length > 0
-      elements.each do |element|
-        assert element["checked"]
-      end
-    end
-  end
+ #  get :edit, :profile => profile.identifier, :id => article.id
+ #  assert_select 'input#article_published_true[name=?][type="radio"]', 'article[published]'
+ #  assert_select 'input#article_published_false[name=?][type="radio"]', 'article[published]' do |elements|
+ #    assert elements.length > 0
+ #    elements.each do |element|
+ #      assert element["checked"]
+ #    end
+ #  end
+ #end
 
   should "marks a article like archived" do
     article = create(Article, :profile => profile, :name => 'test', :published => true, :archived => false)
@@ -818,7 +819,9 @@ class CmsControllerTest < ActionController::TestCase
   should 'go back to public view when saving coming from there' do
     article = @profile.articles.create!(:name => 'myarticle')
 
-    post :edit, :profile => 'testinguser', :id => article.id, :back_to => 'public_view'
+    post :edit, :profile => 'testinguser', :id => article.id,
+      :back_to => 'public_view',
+      :article => {:access => 1}
     assert_redirected_to article.url
   end
 
@@ -1100,8 +1103,10 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'back to blog after config blog' do
-    profile.articles << Blog.new(:name => 'my-blog', :profile => profile)
-    post :edit, :profile => profile.identifier, :id => profile.blog.id
+    profile.articles << Blog.new(:name => 'my-blog',
+                                 :profile => profile)
+    post :edit, :profile => profile.identifier, :id => profile.blog.id,
+      :article => {:access => '0' }
 
     assert_redirected_to @profile.articles.find_by(name: 'my-blog').view_url
   end
@@ -1677,7 +1682,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => AccessLevels.levels[:self],
+                                      :topic_creation => Entitlement::Levels.levels[:self],
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',
@@ -1692,7 +1697,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => AccessLevels.levels[:related],
+                                      :topic_creation => Entitlement::Levels.levels[:related],
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',
@@ -1707,7 +1712,7 @@ class CmsControllerTest < ActionController::TestCase
     u = create_user('linux')
     login_as :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
-                                      :topic_creation => AccessLevels.levels[:users],
+                                      :topic_creation => '0',
                                       :body => 'Forum Body')
 
     post :new, :profile => profile.identifier, :type => 'TextArticle',
@@ -1940,13 +1945,19 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'go back to specified url when saving with success' do
-    post :new, :type => 'TextArticle', :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }, :success_back_to => '/'
+    post :new, :type => 'TextArticle', :profile => profile.identifier,
+      :article => { :name => 'changed by me',
+                    :body => 'content ...',
+                    :access => '0'},
+      :success_back_to => '/'
     assert_redirected_to '/'
   end
 
   should 'redirect back to specified url when edit with success' do
     article = @profile.articles.create!(:name => 'myarticle')
-    post :edit, :profile => 'testinguser', :id => article.id, :success_back_to => '/'
+    post :edit, :profile => 'testinguser', :id => article.id,
+      :success_back_to => '/',
+      :article => {:access => '0' }
     assert_redirected_to '/'
   end
 
@@ -1963,7 +1974,9 @@ class CmsControllerTest < ActionController::TestCase
     article = profile.articles.create(:name => 'first version')
     article.name = 'second version'; article.save
 
-    post :edit, :profile => profile.identifier, :id => article.id, :version => 1
+    post :edit, :profile => profile.identifier,
+      :id => article.id, :version => 1,
+      :article => {:access => '0' }
     assert_equal 'first version', Article.find(article.id).name
   end
 

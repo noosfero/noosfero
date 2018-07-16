@@ -13,7 +13,7 @@
   </div>
 <% end %>
 
-<% if @profile.public? || (logged_in? && current_person.follows?(@profile)) %>
+<% if @profile.display_to?(user) %>
   <div class='profile'>
     <% plugins_tabs = @plugins.dispatch(:profile_tabs).map do |tab| %>
           <% title = tab.has_key?(:icon) ? font_awesome(tab[:icon], tab[:title]) : tab[:title] %>
@@ -30,7 +30,7 @@
     end %>
 
     <% if logged_in? %>
-      <% tabs << { title: font_awesome(:rss, _('Wall')), id: 'profile-wall', content: (render partial: 'profile_wall') } if AccessLevels.can_access?(@profile.wall_access, user, @profile) %>
+      <% tabs << { title: font_awesome(:rss, _('Wall')), id: 'profile-wall', content: (render partial: 'profile_wall') } if @profile.display_to?(user, :wall) %>
       <% tabs << { title: font_awesome(:network, _('Network')), id: 'profile-network', content: (render partial: 'profile_network') } if @profile == user %>
     <% end %>
     <% profile_type = @profile.type == 'Person' ? 'User' : @profile.type %>

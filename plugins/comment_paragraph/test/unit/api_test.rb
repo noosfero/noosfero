@@ -10,7 +10,7 @@ class APITest <  ActiveSupport::TestCase
   end
 
   should 'return custom parameters for each comment' do
-    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => true)
     comment = fast_create(Comment, paragraph_uuid: '1', source_id: article.id, author_id: fast_create(Person).id)
     comment.comment_paragraph_selected_area = 'area'
     comment.comment_paragraph_selected_content = 'content'
@@ -25,7 +25,7 @@ class APITest <  ActiveSupport::TestCase
   end
 
   should 'return comments that belongs to a paragraph' do
-    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => true)
     comment1 = fast_create(Comment, :paragraph_uuid => '1', :source_id => article.id)
     comment2 = fast_create(Comment, :paragraph_uuid => nil, :source_id => article.id)
     comment3 = fast_create(Comment, :paragraph_uuid => '2', :source_id => article.id)
@@ -37,7 +37,7 @@ class APITest <  ActiveSupport::TestCase
   end
 
   should 'return comment counts grouped by paragraph' do
-    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => true)
     fast_create(Comment, :paragraph_uuid => '1', :source_id => article.id)
     fast_create(Comment, :paragraph_uuid => nil, :source_id => article.id)
     fast_create(Comment, :paragraph_uuid => '2', :source_id => article.id)
@@ -49,7 +49,10 @@ class APITest <  ActiveSupport::TestCase
   end
 
   should 'filter comments marked as spam' do
-    article = fast_create(TextArticle, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(TextArticle,
+                          :profile_id => person.id,
+                          :name => "Some thing",
+                          :published => true)
     comment1 = fast_create(Comment, :paragraph_uuid => '1', :source_id => article.id)
     comment2 = fast_create(Comment, :paragraph_uuid => nil, :source_id => article.id, spam: true)
     comment3 = fast_create(Comment, :paragraph_uuid => '2', :source_id => article.id, spam: true)

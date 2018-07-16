@@ -11,26 +11,30 @@ class ProfileListBlock < Block
   end
 
   # override in subclasses!
-  def profiles
+  def base_profiles
     owner.profiles
   end
 
-  def profile_list
-    result = nil
-    public_profiles = profiles.is_public.includes([:image,:domains,:preferred_domain,:environment])
-    public_profiles = filter_by_kind(public_profiles)
+  def profiles(user=nil)
+    filtered_profiles = base_profiles.visible.no_templates.accessible_to(user)
+    filtered_profiles = filtered_profiles.with_kind(kind) if kind.present?
+    filtered_profiles
+  end
+
+  def profile_list(user=nil)
+    result = profiles(user).includes([:image,:domains,:preferred_domain,:environment])
     if !prioritize_profiles_with_image
-      result = public_profiles.limit(get_limit).order('profiles.updated_at DESC').sort_by{ rand }
-    elsif profiles.visible.with_image.count >= get_limit
-      result = public_profiles.with_image.limit(get_limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
+      result = result.limit(get_limit).order('profiles.updated_at DESC').sort_by{ rand }
+    elsif result.with_image.count >= get_limit
+      result = result.with_image.limit(get_limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
     else
-      result = public_profiles.with_image.sort_by{ rand } + public_profiles.without_image.limit(get_limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
+      result = result.with_image.sort_by{ rand } + result.without_image.limit(get_limit * 5).order('profiles.updated_at DESC').sort_by{ rand }
     end
     result.slice(0..get_limit-1)
   end
 
-  def profile_count
-    filter_by_kind(profiles.is_public).length
+  def profile_count(user=nil)
+    profiles(user).count
   end
 
   # the title of the block. Probably will be overriden in subclasses.
@@ -42,8 +46,8 @@ class ProfileListBlock < Block
     _('Clicking on the people or groups will take you to their home page.')
   end
 
-  def view_title
-    title.gsub('{#}', profile_count.to_s)
+  def view_title(user=nil)
+    title.gsub('{#}', profile_count(user).to_s)
   end
 
   # override in subclasses! See MembersBlock for example
@@ -64,9 +68,5 @@ class ProfileListBlock < Block
 
   def base_class
     nil
-  end
-
-  def filter_by_kind(filtered_profiles)
-    kind.present? ? filtered_profiles.with_kind(kind) : filtered_profiles
   end
 end

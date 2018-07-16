@@ -48,7 +48,7 @@ class BlocksTest < ActiveSupport::TestCase
 
   should 'not get a profile block for a not logged in user' do
     logout_api
-    profile = fast_create(Profile, public_profile: false)
+    profile = fast_create(Profile, access: Entitlement::Levels.levels[:self])
     box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
@@ -56,7 +56,7 @@ class BlocksTest < ActiveSupport::TestCase
   end
 
   should 'not get a profile block for an user without permission' do
-    profile = fast_create(Profile, public_profile: false)
+    profile = fast_create(Profile, access: Entitlement::Levels.levels[:self])
     box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
     block = fast_create(Block, box_id: box.id)
     get "/api/v1/blocks/#{block.id}?#{params.to_query}"
@@ -64,7 +64,7 @@ class BlocksTest < ActiveSupport::TestCase
   end
 
   should 'get an invisible profile block for an user with permission' do
-    profile = fast_create(Profile, public_profile: false)
+    profile = fast_create(Profile, access: Entitlement::Levels.levels[:self])
     profile.add_admin(person)
     box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
     block = fast_create(Block, box_id: box.id)
@@ -74,7 +74,7 @@ class BlocksTest < ActiveSupport::TestCase
   end
 
   should 'get a block for an user with permission in a private profile' do
-    profile = fast_create(Profile, public_profile: false)
+    profile = fast_create(Profile, access: Entitlement::Levels.levels[:self])
     profile.add_admin(person)
     box = fast_create(Box, :owner_id => profile.id, :owner_type => Profile.name)
     block = fast_create(Block, box_id: box.id)

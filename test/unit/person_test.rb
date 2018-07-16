@@ -364,16 +364,6 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal ['testuser@somedomain.com'], person.email_addresses
   end
 
-  should 'show profile info to friend' do
-    person = create_user('test_user').person
-    person.public_profile = false
-    person.save!
-    friend = create_user('test_friend').person
-    person.add_friend(friend)
-    person.friends.reload
-    assert person.display_info_to?(friend)
-  end
-
   should 'have a person template' do
     template = fast_create(Person, :is_template => true)
     p = create_user('test_user').person
@@ -583,7 +573,7 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'ask to join if community is not public' do
     person = fast_create(Person)
-    community = fast_create(Community, :public_profile => false)
+    community = fast_create(Community, :access => Entitlement::Levels.levels[:self])
 
     assert person.ask_to_join?(community)
   end
@@ -1694,43 +1684,6 @@ class PersonTest < ActiveSupport::TestCase
     parent = mock
     parent.expects(:allow_create?).with(person).returns(true)
     assert person.can_post_content?(profile, parent)
-  end
-
-  should 'fetch people there are visible for a user' do
-    person = create_user('some-person').person
-    admin = create_user('some-admin').person
-    Environment.default.add_admin(admin)
-
-    p1 = fast_create(Person, :public_profile => true , :visible => true )
-    p1.add_friend(person)
-    p2 = fast_create(Person, :public_profile => true , :visible => true )
-    p3 = fast_create(Person, :public_profile => false, :visible => true )
-    p4 = fast_create(Person, :public_profile => false, :visible => true)
-    p4.add_friend(person)
-    person.add_friend(p4)
-    p5 = fast_create(Person, :public_profile => true , :visible => false)
-    p6 = fast_create(Person, :public_profile => false, :visible => false)
-
-    people = Person.visible_for_person(person)
-    people_for_admin = Person.visible_for_person(admin)
-
-    assert_includes     people, p1
-    assert_includes     people_for_admin, p1
-
-    assert_includes     people, p2
-    assert_includes     people_for_admin, p2
-
-    assert_not_includes people, p3
-    assert_includes     people_for_admin, p3
-
-    assert_includes     people, p4
-    assert_includes     people_for_admin, p4
-
-    assert_not_includes people, p5
-    assert_includes     people_for_admin, p5
-
-    assert_not_includes people, p6
-    assert_includes     people_for_admin, p6
   end
 
   should 'vote in a comment with value greater than 1' do

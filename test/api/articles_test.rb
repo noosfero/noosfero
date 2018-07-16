@@ -100,7 +100,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
   should 'not list forbidden article when listing articles' do
     person = fast_create(Person)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     assert !article.published?
 
     get "/api/v1/articles?#{params.to_query}"
@@ -117,7 +117,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
   should 'not return article if user has no permission to view it' do
     person = fast_create(Person, :environment_id => environment.id)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     assert !article.published?
 
     get "/api/v1/articles/#{article.id}?#{params.to_query}"
@@ -184,7 +184,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
   should 'not list children of forbidden article' do
     person = fast_create(Person, :environment_id => environment.id)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     child1 = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing")
     child2 = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing")
     get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
@@ -193,7 +193,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
   should 'not return child of forbidden article' do
     person = fast_create(Person, :environment_id => environment.id)
-    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing")
     get "/api/v1/articles/#{article.id}/children/#{child.id}?#{params.to_query}"
     assert_equal 403, last_response.status
@@ -202,7 +202,7 @@ class ArticlesTest < ActiveSupport::TestCase
   should 'not return private child' do
     person = fast_create(Person, :environment_id => environment.id)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
-    child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false)
+    child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     get "/api/v1/articles/#{article.id}/children/#{child.id}?#{params.to_query}"
     assert_equal 403, last_response.status
   end
@@ -210,7 +210,7 @@ class ArticlesTest < ActiveSupport::TestCase
   should 'not list private child' do
     person = fast_create(Person, :environment_id => environment.id)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
-    child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false)
+    child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     get "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_not_includes json.map {|a| a['id']}, child.id
@@ -378,7 +378,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
     should "not return article by #{kind} if user has no permission to view it" do
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
-      article = fast_create(Article, :profile_id => profile.id, :name => "Some thing", :published => false)
+      article = fast_create(Article, :profile_id => profile.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
       assert !article.published?
 
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/#{article.id}?#{params.to_query}"
@@ -387,7 +387,7 @@ class ArticlesTest < ActiveSupport::TestCase
 
     should "not list forbidden article when listing articles by #{kind}" do
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
-      article = fast_create(Article, :profile_id => profile.id, :name => "Some thing", :published => false)
+      article = fast_create(Article, :profile_id => profile.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
       assert !article.published?
 
       get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
@@ -420,7 +420,7 @@ class ArticlesTest < ActiveSupport::TestCase
     should "not return article by #{kind} and path if user has no permission to view it" do
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
-      article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article, :published => false)
+      article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article, :published => false, :access => Entitlement::Levels.levels[:self])
 
       assert !article.published?
 
@@ -832,7 +832,7 @@ class ArticlesTest < ActiveSupport::TestCase
   should 'not list private child when get the parent article' do
     person = fast_create(Person, :environment_id => environment.id)
     article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
-    child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false)
+    child = fast_create(Article, :parent_id => article.id, :profile_id => person.id, :name => "Some thing", :published => false, :access => Entitlement::Levels.levels[:self])
     get "/api/v1/articles/#{article.id}?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert_not_includes json['children'].map {|a| a['id']}, child.id

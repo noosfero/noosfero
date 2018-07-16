@@ -68,25 +68,13 @@ module ArticleHelper
   end
 
   def visibility_options(article, tokenized_children)
-    content_tag('h4', _('Visibility')) +
-    content_tag('div',
-      content_tag('div',
-        radio_button(:article, :published, true) +
-          content_tag('span', '&nbsp;'.html_safe, :class => 'access-public-icon') +
-          content_tag('label', _('Public'), :for => 'article_published_true') +
-          content_tag('span', _('Visible to other people'), :class => 'access-note'),
-          :class => 'access-item'
-           ) +
-      content_tag('div',
-        radio_button(:article, :published, false) +
-          content_tag('span', '&nbsp;'.html_safe, :class => 'access-private-icon') +
-          content_tag('label', _('Private'), :for => 'article_published_false', :id => "label_private") +
-          content_tag('span', _('Limit visibility of this article'), :class => 'access-note'),
-          :class => 'access-item'
-      ) +
-      privacity_exceptions(article, tokenized_children),
-      :class => 'access-itens'
-    )
+    content_tag('h4', _('Post access')) +
+    content_tag( 'small', _('Who will be able to see your post?')) +
+    access_slider_field_tag('post-access', 'article[access]',
+                            article, article.default_slider_value,
+                            article.access_levels) +
+    content_tag('div', privacity_exceptions(@article, tokenized_children),
+                :class => 'access-items')
   end
 
   def topic_creation(article)
@@ -113,12 +101,15 @@ module ArticleHelper
   end
 
   def add_option_to_followers(article, tokenized_children)
-    label_message = article.profile.organization? ? _('Allow all community members to view this content') : _('Allow all your friends to view this content')
+    return if article.profile.person?
+    label_message = _('Community members will not view this content')
 
     check_box(
       :article,
       :show_to_followers,
-      {:class => "custom_privacy_option"}
+      {:class => "custom_privacy_option"},
+      "0",
+      "1"
     ) +
     content_tag(
       'label',

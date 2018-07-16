@@ -6,7 +6,8 @@ module Api
 
         get do
           users = select_filtered_collection_of(environment, 'users', params)
-          users = users.select{|u| u.person.display_info_to? current_person}
+          users = users.joins(:person)
+                       .merge(Person.accessible_to(current_person))
           present users, :with => Entities::User, :current_person => current_person
         end
 

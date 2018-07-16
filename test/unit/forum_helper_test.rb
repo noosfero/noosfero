@@ -29,17 +29,17 @@ class ForumHelperTest < ActionView::TestCase
     assert_kind_of String, cms_label_for_edit
   end
 
-  should 'list posts with different classes' do
-    forum.children << older_post = create(TextArticle, :name => 'First post', :profile => profile, :parent => forum, :published => false, :author => profile)
-    one_month_later = Time.now + 1.month
-    Time.stubs(:now).returns(one_month_later)
-    forum.children << newer_post = create(TextArticle, :name => 'Second post', :profile => profile, :parent => forum, :published => true, :author => profile)
-    assert_match /forum-post position-1 first odd-post.*forum-post position-2 last not-published even-post/, list_forum_posts(forum.posts)
-  end
+ should 'list posts with different classes' do
+   forum.children << older_post = create(TextArticle, :name => 'First post', :profile => profile, :parent => forum, :access => Entitlement::Levels.levels[:self], :author => profile)
+   one_month_later = Time.now + 1.month
+   Time.stubs(:now).returns(one_month_later)
+   forum.children << newer_post = create(TextArticle, :name => 'Second post', :profile => profile, :parent => forum, :author => profile)
+   assert_match /forum-post position-1 first odd-post.*forum-post position-2 last private even-post/, list_forum_posts(forum.posts)
+ end
 
   should 'display icon warning only for not published posts' do
-    post1 = create(TextArticle, :name => 'A post', :profile => profile, :parent => forum, :published => true, :author => profile)
-    post2 = create(TextArticle, :name => 'Another post', :profile => profile, :parent => forum, :published => false, :author => profile)
+    post1 = create(TextArticle, :name => 'A post', :profile => profile, :parent => forum, :author => profile)
+    post2 = create(TextArticle, :name => 'Another post', :profile => profile, :parent => forum, :access => Entitlement::Levels.levels[:self], :author => profile)
 
     assert_no_tag_in_string topic_title(post1), :tag => 'span', :attributes => { :class => /ui-icon/ }
     assert_tag_in_string topic_title(post2), :tag => 'span', :attributes => { :class => /ui-icon/ }

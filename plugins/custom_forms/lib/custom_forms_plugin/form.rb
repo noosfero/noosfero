@@ -85,9 +85,14 @@ class CustomFormsPlugin::Form < ApplicationRecord
     end
   }
 
+  # TODO Fix this
   scope :accessible_to, -> user, profile {
-    where('access <= ?', AccessLevels.permission(user, profile))
+    where('access <= ?', profile.entitlement(user))
   }
+
+  def display_to?(user)
+    access <= profile.entitlement(user)
+  end
 
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)
@@ -98,7 +103,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
   end
 
   def access_levels
-    AccessLevels.range_options(0, 2)
+    Entitlement::Levels.range_options(0, 2)
   end
 
   def image

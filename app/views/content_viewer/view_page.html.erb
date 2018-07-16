@@ -20,7 +20,7 @@
 
 <%= render :partial => 'article_field_values', locals: { fields: @page.metadata['custom_fields'] || [] } %>
 
-<% if NOOSFERO_CONF['addthis_enabled'] and @page.public? %>
+<% if NOOSFERO_CONF['addthis_enabled'] %>
   <%= render :partial => 'addthis' %>
 <% end %>
 

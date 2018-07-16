@@ -62,10 +62,10 @@ class FolderTest < ActiveSupport::TestCase
     c = fast_create(Community)
     folder = fast_create(Folder, :profile_id => c.id)
     f = fast_create(Folder, :name => 'folder', :profile_id => c.id, :parent_id => folder.id)
-    u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => folder)
-    older_t = fast_create(TextArticle, :name => 'old news', :profile_id => c.id, :parent_id => folder.id)
-    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => folder.id)
-    t_in_f = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
+    u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => folder, :published_at => 3.day.ago)
+    older_t = fast_create(TextArticle, :name => 'old news', :profile_id => c.id, :parent_id => folder.id, :published_at => 2.days.ago)
+    t = fast_create(TextArticle, :name => 't', :profile_id => c.id, :parent_id => folder.id, :published_at => Time.now)
+    t_in_f = fast_create(TextArticle, :name => 't_in_f', :profile_id => c.id, :parent_id => f.id, :published_at => Time.now)
 
     assert_equal [t], folder.news(1)
   end

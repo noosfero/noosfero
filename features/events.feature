@@ -180,19 +180,19 @@ Feature: events
 
   Scenario: events that are not allowed to the user should not be displayed nor listed in the calendar
     Given the following events
-      | owner     | name               | start_date | published |
-      | josesilva | Unpublished event  | 2009-10-25 | false     |
+      | owner     | name           | start_date | published |  access |
+      | josesilva | Private event  | 2009-10-25 | true      |    40   |
     When I am on /profile/josesilva/events/2009/10/25
-    Then I should not see "Unpublished event"
+    Then I should not see "Private event" within "#agenda-items"
     And I should not see "25" link
 
   Scenario: events that are allowed to the user should be displayed and listed in the calendar
     Given the following events
-      | owner     | name               | start_date | published |
-      | josesilva | Unpublished event  | 2009-10-25 | false     |
+      | owner     | name           | start_date | published |
+      | josesilva | Private event  | 2009-10-25 | true      |
     And I am logged in as "josesilva"
     When I am on /profile/josesilva/events/2009/10/25
-    Then I should see "Unpublished event"
+    Then I should see "Private event" within "#agenda-items"
     And I should see "25" link
 
   Scenario: events have lead field

@@ -155,50 +155,34 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'article-tags' }, :descendant => { :content => /This article's tags:/ }
   end
 
-  should 'not display forbidden articles' do
-    profile.articles.create!(:name => 'test')
-    profile.update!({:public_content => false}, :without_protection => true)
-
-    Article.any_instance.expects(:display_to?).with(anything).returns(false)
-    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
-    assert_response 403
-  end
-
-  should 'display allowed articles' do
-    profile.articles.create!(:name => 'test')
-    profile.update!({:public_content => false}, :without_protection => true)
-
-    Article.any_instance.expects(:display_to?).with(anything).returns(true)
-    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
-    assert_response 200
-  end
-
   should 'give 404 status on unexisting article' do
     profile.articles.delete_all
     get :view_page, :profile => profile.identifier, :page => [ 'VERY-UNPROBABLE-PAGE' ]
     assert_response 404
   end
 
-  should 'show access denied to unpublished articles' do
-    profile.articles.create!(:name => 'test', :published => false)
-    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
-    assert_response 403
-  end
+ #should 'show access denied to unpublished articles' do
+ #  profile.articles.create!(:name => 'test', :published => false, :access => Entitlement::Levels.levels[:self])
+ #  get :view_page, :profile => profile.identifier, :page => [ 'test' ]
+ #  assert_response 403
+ #end
 
-  should 'show unpublished articles to the user himself' do
-    profile.articles.create!(:name => 'test', :published => false)
+ #should 'show unpublished articles to the user himself' do
+ #  profile.articles.create!(:name => 'test',
+ #                           :published => true,
+ #                           :access => Entitlement::Levels.levels[:self])
 
-    login_as(profile.identifier)
-    get :view_page, :profile => profile.identifier, :page => [ 'test' ]
-    assert_response :success
-  end
+ #  login_as(profile.identifier)
+ #  get :view_page, :profile => profile.identifier, :page => [ 'test' ]
+ #  assert_response :success
+ #end
 
   should 'not show private content to members' do
     community = fast_create(Community)
     admin = fast_create(Person)
     community.add_member(admin)
 
-    folder = fast_create(Folder, :profile_id => community.id, :published => false, :show_to_followers => false)
+    folder = fast_create(Folder, :profile_id => community.id, :published => false, :access => Entitlement::Levels.levels[:self])
     community.add_member(profile)
     login_as(profile.identifier)
 
@@ -209,7 +193,9 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'show private content to profile moderators' do
     community = Community.create!(:name => 'testcomm')
-    community.articles.create!(:name => 'test', :published => false)
+    community.articles.create!(:name => 'test',
+                               :published => true,
+                               :access => Entitlement::Levels.levels[:self])
     community.add_moderator(profile)
 
     login_as(profile.identifier)
@@ -220,7 +206,9 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'show private content to profile admins' do
     community = Community.create!(:name => 'testcomm')
-    community.articles.create!(:name => 'test', :published => false)
+    community.articles.create!(:name => 'test',
+                               :published => true,
+                               :access => Entitlement::Levels.levels[:self])
     community.add_admin(profile)
 
     login_as(profile.identifier)
@@ -280,7 +268,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not give access to private articles if logged off' do
     profile = Community.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false, :access => Entitlement::Levels.levels[:self])
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
@@ -290,17 +278,17 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not give access to private articles if logged in but not member' do
     login_as('testinguser')
     profile = Community.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false, :access => Entitlement::Levels.levels[:self])
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template "profile/_private_profile"
+    assert_template "shared/access_denied"
   end
 
   should 'not give access to private articles if logged in and only member' do
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false, :show_to_followers => false)
+    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false, :access => Entitlement::Levels.levels[:self])
     profile.affiliate(person, Profile::Roles.member(profile.environment.id))
     login_as('test_user')
 
@@ -312,7 +300,10 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'give access to private articles if logged in and moderator' do
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
+    intranet = Folder.create!(:name => 'my_intranet',
+                              :profile => profile,
+                              :published => true,
+                              :access => Entitlement::Levels.levels[:self])
     profile.affiliate(person, Profile::Roles.moderator(profile.environment.id))
     login_as('test_user')
 
@@ -324,7 +315,10 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'give access to private articles if logged in and admin' do
     person = create_user('test_user').person
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
-    intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
+    intranet = Folder.create!(:name => 'my_intranet',
+                              :profile => profile,
+                              :published => true,
+                              :access => Entitlement::Levels.levels[:self])
     profile.affiliate(person, Profile::Roles.admin(profile.environment.id))
     login_as('test_user')
 
@@ -484,22 +478,25 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  should 'list unpublished posts to owner with a different class' do
-    login_as('testinguser')
-    blog = Blog.create!(:name => 'A blog test', :profile => profile)
-    blog.posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false)
+ should 'list unpublished posts to owner with a different class' do
+   login_as('testinguser')
+   blog = Blog.create!(:name => 'A blog test', :profile => profile)
+   blog.posts << TextArticle.create!(:name => 'Post', :profile => profile,
+                                     :parent => blog,
+                                     :published => false,
+                                     :access => Entitlement::Levels.levels[:self])
 
-    get :view_page, :profile => profile.identifier, :page => [blog.path]
-    assert_tag :tag => 'div', :attributes => {:class => /not-published/}
-  end
+   get :view_page, :profile => profile.identifier, :page => [blog.path]
+   assert_tag :tag => 'div', :attributes => {:class => /private/}
+ end
 
-  should 'not list unpublished posts to a not logged person' do
-    blog = Blog.create!(:name => 'A blog test', :profile => profile)
-    blog.posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false)
+ should 'not list unpublished posts to a not logged person' do
+   blog = Blog.create!(:name => 'A blog test', :profile => profile)
+   blog.posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false, :access => Entitlement::Levels.levels[:self])
 
-    get :view_page, :profile => profile.identifier, :page => [blog.path]
-    assert_no_tag :tag => 'a', :content => "Post"
-  end
+   get :view_page, :profile => profile.identifier, :page => [blog.path]
+   assert_no_tag :tag => 'a', :content => "Post"
+ end
 
   should 'display pagination links of blog' do
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :posts_per_page => 5)
@@ -702,7 +699,10 @@ class ContentViewerControllerTest < ActionController::TestCase
     owner = create_user('owner').person
     unauthorized = create_user('unauthorized').person
     folder = Gallery.create!(:name => 'gallery', :profile => owner)
-    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, 
+                                  :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false, :access => Entitlement::Levels.levels[:self], :access => Entitlement::Levels.levels[:self])
+
+
     login_as('unauthorized')
     get :view_page, :profile => owner.identifier, :page => folder.path, :slideshow => true
     assert_response :success
@@ -713,7 +713,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     owner = create_user('owner').person
     unauthorized = create_user('unauthorized').person
     folder = Gallery.create!(:name => 'gallery', :profile => owner)
-    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false, :access => Entitlement::Levels.levels[:self])
     login_as('unauthorized')
     get :view_page, :profile => owner.identifier, :page => folder.path
     assert_response :success
@@ -818,23 +818,12 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
   end
 
-  should 'allow publisher owner view private articles' do
-    c = Community.create!(:name => 'test_com')
-    u = create_user_with_permission('test_user', 'publish_content', c)
-    login_as u.identifier
-    a = create(Article, :profile => c, :name => 'test-article', :author => u, :published => false)
-
-    get :view_page, :profile => c.identifier, :page => a.path
-
-    assert_response :success
-    assert_template 'view_page'
-  end
-
   should 'display link to new_article if profile is publisher' do
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = create(Article, :profile => c, :name => 'test-article', :author => profile, :published => true)
+    a = create(Article, :profile => c, :name => 'test-article',
+               :author => profile, :published => true)
 
     xhr :get, :view_page, :profile => c.identifier, :page => a.path, :toolbar => true
 
@@ -898,15 +887,18 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'list unpublished forum posts to owner with a different class' do
     login_as('testinguser')
     forum = Forum.create!(:name => 'A forum test', :profile => profile)
-    forum.posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => forum, :published => false)
+    forum.posts << TextArticle.create!(:name => 'Post', :profile => profile,
+                                       :parent => forum,
+                                       :published => true,
+                                       :access => Entitlement::Levels.levels[:self])
 
     get :view_page, :profile => profile.identifier, :page => [forum.path]
-    assert_tag :tag => 'tr', :attributes => {:class => /not-published/}
+    assert_tag :tag => 'tr', :attributes => {:class => /private/}
   end
 
   should 'not list unpublished forum posts to a not logged person' do
     forum = Forum.create!(:name => 'A forum test', :profile => profile)
-    forum.posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => forum, :published => false)
+    forum.posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => forum, :published => false, :access => Entitlement::Levels.levels[:self])
 
     get :view_page, :profile => profile.identifier, :page => [forum.path]
     assert_no_tag :tag => 'a', :content => "Post"
@@ -1496,7 +1488,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     end
   end
 
-  should 'manage  private article visualization' do
+  should 'manage private article visualization' do
     community = Community.create(:name => 'test-community')
     community.add_member(@profile)
     community.save!
@@ -1504,10 +1496,10 @@ class ContentViewerControllerTest < ActionController::TestCase
     blog = community.articles.find_by(name: "Blog")
 
     article = TextArticle.create(:name => 'Article to be shared with images',
-                                    :body => 'This article should be shared with all social networks',
-                                    :profile => community,
-                                    :published => false,
-                                    :show_to_followers => true)
+                                 :body => 'This article should be shared with all social networks',
+                                 :profile => community,
+                                 :published => true,
+                                 :access => Entitlement::Levels.levels[:related])
     article.parent = blog
     article.save!
 
@@ -1520,7 +1512,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response :success
     assert_tag :tag => 'h1', :attributes => { :class => /title/ }, :content => article.name
 
-    article.show_to_followers = false
+    article.access = Entitlement::Levels.levels[:self]
     article.save!
 
     get :view_page, :profile => community.identifier, "page" => 'blog'
@@ -1631,10 +1623,10 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'use context method in extra toolbar actions on article from plugins' do
     class Plugin1 < Noosfero::Plugin
       def article_extra_toolbar_buttons(article)
-        if profile.public?
-          {:title => 'some_title', :icon => 'some_icon', :url => '/someurl'}
-        else
+        if profile.name == 'Special'
           {:title => 'another_title', :icon => 'another_icon', :url => '/anotherurl'}
+        else
+          {:title => 'some_title', :icon => 'some_icon', :url => '/someurl'}
         end
        end
     end
@@ -1644,7 +1636,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    profile.public_profile = false
+    profile.name = 'Special'
     profile.save
     login_as(profile.identifier)
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
@@ -1667,7 +1659,8 @@ class ContentViewerControllerTest < ActionController::TestCase
     article = TextArticle.create(:name => 'Article to be shared with images',
                                     :body => 'This article should be shared with all social networks',
                                     :profile => @profile,
-                                    :published => false,
+                                    :published => true,
+                                    :access => Entitlement::Levels.levels[:self],
                                     :abstract => "teste teste teste",
                                     :show_to_followers => true,
                                     :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')} )

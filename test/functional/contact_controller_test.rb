@@ -111,7 +111,7 @@ class ContactControllerTest < ActionController::TestCase
   end
 
   should 'not show send e-mail page to non members of private community' do
-    community = fast_create(Community, :identifier => 'private-community', :name => 'Private Community', :public_profile => false)
+    community = fast_create(Community, :identifier => 'private-community', :name => 'Private Community', :access => Entitlement::Levels.levels[:self])
 
     post :new, :profile => community.identifier
 
@@ -120,7 +120,7 @@ class ContactControllerTest < ActionController::TestCase
   end
 
   should 'not show send e-mail page to non members of invisible community' do
-    community = fast_create(Community, :identifier => 'invisible-community', :name => 'Private Community', :visible => false)
+    community = fast_create(Community, :identifier => 'invisible-community', :name => 'Private Community', :secret => true)
 
     post :new, :profile => community.identifier
 
@@ -129,7 +129,7 @@ class ContactControllerTest < ActionController::TestCase
   end
 
   should 'show send e-mail page to members of private community' do
-    community = fast_create(Community, :identifier => 'private-community', :name => 'Private Community', :public_profile => false)
+    community = fast_create(Community, :identifier => 'private-community', :name => 'Private Community', :access => Entitlement::Levels.levels[:self])
     community.add_member(@profile)
 
     post :new, :profile => community.identifier
