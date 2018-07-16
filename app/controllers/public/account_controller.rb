@@ -5,7 +5,6 @@ class AccountController < ApplicationController
   before_filter :login_required, :require_login_for_environment, :only => [:activation_question, :accept_terms, :activate_enterprise, :change_password]
   before_filter :redirect_if_logged_in, :only => [:login, :signup, :activate]
   before_filter :protect_from_spam, :only => :signup
-  before_filter :block_blacklisted_user, :only => :signup
   before_filter :check_activation_token, :only => [:activate, :resend_activation_codes]
 
   protect_from_forgery except: [:login]
@@ -138,13 +137,7 @@ class AccountController < ApplicationController
       @kinds = environment.kinds.where(:type => 'Person')
 
       if request.post?
-        unless verify_captcha(:signup, @user, nil, environment)
-          session[:bot_failures] = (session[:bot_failures] || 0) + 1
-          if session[:bot_failures] > 3
-            environment.add_to_signup_blacklist(request.remote_ip)
-          end
-          sleep 5 * session[:bot_failures] # Putting possible bot to sleep
-        else
+        if verify_captcha(:signup, @user, nil, environment)
           @user.community_to_join = session[:join]
           @user.signup!
           invitation = Task.from_code(@invitation_code).first
@@ -167,7 +160,8 @@ class AccountController < ApplicationController
           else
             redirect_to action: :activate,
                         activation_token: @user.activation_code,
-                        return_to: { controller: :home, action: :welcome, template_id: @user.person.template.try(:id) }
+                        return_to: { controller: :home, action: :welcome,
+                                     template_id: @user.person.template.try(:id) }
           end
         end
       end
@@ -500,12 +494,6 @@ class AccountController < ApplicationController
     unless profile_to_join.blank?
      environment.profiles.find_by(identifier: profile_to_join).add_member(user.person)
      session.delete(:join)
-    end
-  end
-
-  def block_blacklisted_user
-    if environment.on_signup_blacklist?(request.remote_ip)
-      return head :ok, content_type: "text/html"
     end
   end
 
