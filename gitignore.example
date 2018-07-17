@@ -22,12 +22,14 @@ config/local.rb
 config/initializers/local.rb
 config/routes/plugins
 
+
 tags
 vendor/rails
 tmp
 index
 locale
 log
+node_modules
 
 # uploaded and custom data
 public/articles
