@@ -1,14 +1,17 @@
-<% cache_timeout(profile.friends_cache_key(params), 4.hours) do %>
-  <ul class='profile-list'>
-    <% follow.each do |follower| %>
-      <%= profile_image_link(follower) %>
-    <% end%>
-  </ul>
+<div class="common-profile-list-block">
+  <% cache_timeout(profile.friends_cache_key(params), 4.hours) do %>
+    <ul class='profile-list'>
+      <% follow.each do |follower| %>
+        <%= profile_image_link(follower) %>
+      <% end%>
+    </ul>
 
-  <div id='pagination-profiles'>
-    <%= pagination_links follow, :param_name => 'npage' %>
-  </div>
-<% end %>
+  <% end %>
+</div>
+
+<div id='pagination-profiles'>
+  <%= pagination_links follow, :param_name => 'npage' %>
+</div>
 
 <%= button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' } %>

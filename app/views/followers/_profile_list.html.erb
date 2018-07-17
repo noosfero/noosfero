@@ -7,7 +7,7 @@
       <%= modal_link_to font_awesome(:edit),
              url_for(:controller => 'followers', :action => 'set_category_modal',
                      :followed_profile_id => followed_profile.id) %>
-      <%= link_to font_awesome(:'user-times'),
+      <%= link_to font_awesome(:remove_user),
         { :controller => "profile", :profile => followed_profile.identifier, :follower_id => profile.id,
           :action => 'unfollow', :redirect_to => url_for({:controller => "followers", :profile => profile.identifier}) },
           :method => :post, :title => _('remove') %>

@@ -182,8 +182,11 @@ class ProfileMembersControllerTest < ActionController::TestCase
 
     get :index, :profile => com.identifier
 
-    assert_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{member.identifier}/} }
-    assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{admin.identifier}/} }
+    assert_tag :tag => 'td', :descendant => { :tag => 'a',
+      :attributes => {:class => /icon-trash/, :onclick => /#{member.identifier}/} }
+
+    assert_no_tag :tag => 'td', :descendant => { :tag => 'a',
+      :attributes => {:class => /icon-trash/, :onclick => /#{admin.identifier}/} }
   end
 
   should 'display send email to members that have the permission' do

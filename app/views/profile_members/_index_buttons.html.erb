@@ -1,13 +1,19 @@
 <%= button_bar do %>
+
   <%= button :back, _('Back'), :controller => 'profile_editor' %>
-  <%= button :add, _('Add members'), :action => 'add_members' if profile.enterprise? %>
+
+  <%= button :add_user, _('Add members'), :action => 'add_members' if profile.enterprise? %>
+
   <% if profile.community? and user.has_permission?(:invite_members, profile) %>
-    <%= button :person, _('Invite people to join'), :controller => 'invite', :action => 'invite_friends' %>
+    <%= button :add_user, _('Invite people to join'), :controller => 'invite', :action => 'invite_friends' %>
   <% end %>
+
   <% if profile.community? and user.has_permission?(:send_mail_to_members, profile) %>
-    <%= submit_button(:send, _('Send e-mail to members')) %>
+    <%= submit_button(:email, _('Send e-mail to members')) %>
   <% end %>
+
   <% @plugins.dispatch(:manage_members_extra_buttons).each do |plugin_button| %>
     <%= button plugin_button[:icon], plugin_button[:title], plugin_button[:url] %>
   <% end %>
+
 <% end %>

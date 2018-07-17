@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class ModalHelperTest < ActiveSupport::TestCase
+class ModalHelperTest < ActionView::TestCase
 
   include ModalHelper
 
@@ -10,13 +10,19 @@ class ModalHelperTest < ActiveSupport::TestCase
   end
 
   should 'provide link to close modal' do
-    expects(:button).with(:close, 'text', '#!', has_entries({ :class => ' modal-close', :id => 'my-id' })).returns('[close-modal]')
+
+    expects(:button).with(:cancel, 'text', '#!',
+      has_entries({ :class => ' modal-close',
+                    :id => 'my-id' })).returns('[close-modal]')
 
     assert_equal '[close-modal]', modal_close_button('text', :id => 'my-id')
   end
 
   should 'merge existing :class option in modal_close_button' do
-    expects(:button).with(:close, 'text', '#!', has_entries({ :class => ' modal-close my-class', :id => 'my-id' })).returns('[close-modal]')
+
+    expects(:button).with(:cancel, 'text', '#!',
+      has_entries({ :class => ' modal-close my-class',
+                    :id => 'my-id' })).returns('[close-modal]')
 
     assert_equal '[close-modal]', modal_close_button('text', :class => 'my-class', :id => 'my-id' )
   end
@@ -28,7 +34,7 @@ class ModalHelperTest < ActiveSupport::TestCase
   end
 
   should 'provide modal_icon_button' do
-    expects(:icon_button).with('type', 'label', { :action => 'popup'}, has_entries({ :class => 'open-modal' })).returns('[button]')
+    expects(:button_without_text).with('type', 'label', { :action => 'popup'}, has_entries({ :class => 'open-modal' })).returns('[button]')
 
     assert_equal '[button]', modal_icon_button('type', 'label', { :action => 'popup'})
   end

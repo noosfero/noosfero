@@ -118,13 +118,14 @@ Feature: edit article
     Then I should see "My Folder"
     And I should be on /joaosilva/my-folder
 
+ @selenium
   Scenario: cancel button back to cms
     Given I am on joaosilva's control panel
     And I follow "Manage" within "#section-content"
     And I follow "New content"
     And I follow "Folder"
     When I follow "Cancel" within ".main-block"
-    Then I should be on joaosilva's cms
+    Then I should see "Control panel"
 
   @selenium
   Scenario: display tag list field when creating event

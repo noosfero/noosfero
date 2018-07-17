@@ -2,9 +2,9 @@
   <div class='categories-wrapper'>
     <h1><%= category_name %></h1>
 
-    <div class='action-bar button'>
-      <%= link_to _('New category'), :action => 'new', :type => category_type %>
-    </div>
+    <%= button_bar do %>
+      <%= button :add, _('New category'), :action => 'new', :type => category_type %>
+    <% end %>
 
     <ul class='tree categories-list'>
       <%= render :partial => 'category', :collection => root_categories_for(category_type) %>

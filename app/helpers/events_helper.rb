@@ -76,13 +76,13 @@ module EventsHelper
   def invite_decision_icon invitation
     case invitation.decision
       when EventInvitation::DECISIONS['yes']
-        font_awesome(:check)
+        font_awesome(:ok)
       when EventInvitation::DECISIONS['no']
-        font_awesome(:times)
+        font_awesome(:cancel)
       when EventInvitation::DECISIONS['maybe']
         font_awesome(:star)
       else
-        font_awesome(:envelope)
+        font_awesome(:email)
     end
   end
 

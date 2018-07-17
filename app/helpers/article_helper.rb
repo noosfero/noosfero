@@ -159,7 +159,7 @@ module ArticleHelper
   end
 
   def follow_button_text(article)
-    font_awesome(:plus, article.event? ? _('Attend') : _('Follow'))
+    font_awesome(:add, article.event? ? _('Attend') : _('Follow'))
   end
 
   def unfollow_button_text(article)
@@ -216,7 +216,7 @@ module ArticleHelper
     end
 
     if @page != profile.home_page && !@page.has_posts? && @page.allow_delete?(user) && !remove_content_button(:delete, @page)
-      content = font_awesome('trash', _('Delete'))
+      content = font_awesome(:trash, _('Delete'))
       url = profile.admin_url.merge({ controller: 'cms', action: 'destroy', id: @page.id})
       options = { method: :post, 'data-confirm' => delete_article_message(@page) }
       actions << link_to(content, url, options)
@@ -229,7 +229,7 @@ module ArticleHelper
     end
 
     if @page.allow_edit?(user) && @page.kind_of?(Event)
-      content = font_awesome('user-plus', _('Invite Friends'))
+      content = font_awesome(:add_user, _('Invite Friends'))
       url = profile.admin_url.merge({controller: 'cms', action: 'invite_to_event', id: @page.id})
       actions << link_to(content, url) if url
     end
@@ -280,7 +280,7 @@ module ArticleHelper
     path = link_to(article.profile.name, article.profile.url, class: 'path-to-parent')
     parents = article.hierarchy.select { |parent| parent != article }
     parents.each do |parent|
-      path += link_to(font_awesome('angle-right', parent.name), parent.url, class: 'path-to-parent')
+      path += link_to(font_awesome(:angle_right, parent.name), parent.url, class: 'path-to-parent')
     end
     content_tag(:div, path, class: 'path-to-parents')
   end

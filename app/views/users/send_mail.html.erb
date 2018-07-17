@@ -14,7 +14,8 @@
   </div>
   <%= labelled_form_field(_('Subject:'), f.text_field(:subject)) %>
   <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => current_editor)) %>
-  <%= submit_button(:send, _('Send')) %>
-  <%= button :cancel, _('Cancel e-mail'), :controller => 'users' %>
+  <%= button_bar do %>
+    <%= submit_button(:email, _('Send'), :cancel => { :controller => 'users' }) %>
+  <% end %>
 <% end %>
 <%= javascript_include_tag "send_email.js" %>

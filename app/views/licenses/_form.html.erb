@@ -6,7 +6,6 @@
   <%= labelled_form_field(_('License url'), f.text_field(:url)) %>
 
  <%= button_bar do %>
-   <%= submit_button('save', _('Save'))%>
-   <%= button('cancel', _('Cancel'), {:action => 'index'})%>
+   <%= submit_button(:save, _('Save'), :cancel => { :action => 'index' })%>
   <% end %>
 <% end %>

@@ -10,7 +10,8 @@
 <% list_of_templates.each do |title, templates, kind|%>
   <div class='template-kind'>
     <h2><%= title %></h2>
-    <%= button :add, _('New...'), {:action => "create_#{kind}_template"}, :title => _("Create a new template for %s").html_safe % title.downcase %>
+    <%= button :add, _('New...'), {:action => "create_#{kind}_template"},
+          :title => _("Create a new template for %s").html_safe % title.downcase %>
     <table class='actions'>
       <tr>
         <th><%= _('Template') %></th>
@@ -20,19 +21,34 @@
         <tr>
           <td>
             <%#= image_tag "icons-app/#{kind}-icon.png" %>
-            <%= link_to(template.name, {:controller => 'profile_editor', :profile => template.identifier}, :title => _('Edit template "%s"').html_safe % template.name ) %>
+            <%= link_to(template.name, {:controller => 'profile_editor', :profile => template.identifier},
+                  :title => _('Edit template "%s"').html_safe % template.name ) %>
             <% if environment.is_default_template?(template) %>
-              <%= _('is the default template') %>
-            <% else %>
-              <%= link_to(_('Set as default'), {:action => "set_#{kind}_as_default", :template_id => template.id}, :title => _('Set %s template as default').html_safe % template.name ) %>
+              <span class='default-template'><%= _('is the default template') %></span>
             <% end %>
           </td>
           <td>
-            <%= button_without_text 'edit', _('Edit settings'), {:controller => 'profile_editor', :profile => template.identifier, :action => 'edit'} %>
-            <%= button_without_text 'welcome_page', _('Edit welcome page'), {:controller => 'profile_editor', :profile => template.identifier, :action => 'welcome_page'} %>
-            <%= button_without_text 'blocks', _('Edit sideblocks'), {:controller => 'profile_design', :profile => template.identifier, :action => 'index'} %>
-            <%= button_without_text 'appearance', _('Edit appearance'), {:controller => 'profile_themes', :profile => template.identifier, :action => 'index'} %>
-            <%= button_without_text 'header_footer', _('Edit header/footer'), {:controller => 'profile_editor', :profile => template.identifier, :action => 'header_footer'} %>
+            <% unless environment.is_default_template?(template) %>
+                <%= button_without_text(:ok, _('Set as default'), {:action => "set_#{kind}_as_default",
+                      :template_id => template.id}) %>
+            <% else %>
+                    <%= button_without_text(:ok, _('This is defatult template'), '#', :class => 'disabled' ) %>
+            <% end %>
+
+            <%= button_without_text :edit, _('Edit settings'),
+                  {:controller => 'profile_editor', :profile => template.identifier, :action => 'edit'} %>
+
+            <%= button_without_text :welcome_page, _('Edit welcome page'),
+                  {:controller => 'profile_editor', :profile => template.identifier, :action => 'welcome_page'} %>
+
+            <%= button_without_text 'blocks', _('Edit sideblocks'),
+                  {:controller => 'profile_design', :profile => template.identifier, :action => 'index'} %>
+
+            <%= button_without_text :appearance, _('Edit appearance'),
+                  {:controller => 'profile_themes', :profile => template.identifier, :action => 'index'} %>
+
+            <%= button_without_text :header_footer, _('Edit header/footer'),
+                  {:controller => 'profile_editor', :profile => template.identifier, :action => 'header_footer'} %>
           </td>
         </tr>
       <% end %>

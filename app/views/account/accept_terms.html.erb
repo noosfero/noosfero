@@ -22,7 +22,8 @@
     <%= labelled_check_box(environment.terms_of_use_acceptance_text.blank? ? _('I read the terms of use and accepted them') : environment.terms_of_use_acceptance_text, :terms_accepted, '1', false, :id => 'accept-terms') %>
     <%= button_bar do %>
       <%= button 'cancel', _('Cancel'), :controller => 'home', :action => 'index' %>
-      <%= submit_button 'forward', _('Continue'), {:disabled => true, :class => 'disabled', :id => 'submit-accept-terms'} %>
+      <%= submit_button :ok, _('Continue'), {:disabled => true, :class => 'disabled',
+                                             :id => 'submit-accept-terms'} %>
     <% end %>
   <% end %>
 </div>
