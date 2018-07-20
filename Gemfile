@@ -84,7 +84,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'mocha',                     :require => false
+  gem 'mocha',                     require: false
   gem 'test-unit'
   gem 'minitest'
   gem 'minitest-reporters'
