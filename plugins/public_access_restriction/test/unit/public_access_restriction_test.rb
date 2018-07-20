@@ -80,7 +80,9 @@ class PublicAccessRestrictionPluginTest < ActiveSupport::TestCase
     task = ApproveArticle.create!(article: article, name: article.name, target: portal, requestor: fast_create(Person), create_link: true)
     task.finish
 
-    refute @plugin.should_block?(user, @env, article.url, community)
+    params = article.url
+    params[:page] = params[:page].join('/')
+    refute @plugin.should_block?(user, @env, params, community)
   end
 
 end
