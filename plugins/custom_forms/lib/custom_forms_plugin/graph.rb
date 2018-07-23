@@ -107,8 +107,10 @@ class CustomFormsPlugin::Graph
     list_of_answers = answer.value.split(",")
     list_of_answers.each do |answer_value|
       alternative_and_sum_of_answers = @answers_with_alternative_label[field_id][answer_value]
-      alternative = alternative_and_sum_of_answers.keys.first
-      @answers_with_alternative_label[field_id][answer_value][alternative] += 1
+      if alternative_and_sum_of_answers
+        alternative = alternative_and_sum_of_answers.keys.first
+        @answers_with_alternative_label[field_id][answer_value][alternative] += 1
+      end
     end
   end
 
@@ -116,8 +118,10 @@ class CustomFormsPlugin::Graph
     field_id = answer.field_id
     answer_value = answer.value
     alternative_and_sum_of_answers = @answers_with_alternative_label[field_id][answer_value]
-    alternative = alternative_and_sum_of_answers.keys.first
-    @answers_with_alternative_label[field_id][answer_value][alternative] += 1
+    if alternative_and_sum_of_answers
+      alternative = alternative_and_sum_of_answers.keys.first
+      @answers_with_alternative_label[field_id][answer_value][alternative] += 1
+    end
   end
 
   alias select_answers radio_answers
