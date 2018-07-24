@@ -34,8 +34,12 @@ class PersonNotifier
       notifications = @person.tracked_notifications.where("created_at > ?", notify_from)
       tasks = Task.to(@person).without_spam.pending.where("created_at > ?", notify_from).order_by('created_at', 'asc')
 
-      Noosfero.with_locale @person.environment.default_language do
-        Mailer::content_summary(@person, notifications, tasks).deliver unless notifications.empty? && tasks.empty?
+      if @person.valid?
+        Noosfero.with_locale @person.environment.default_language do
+          unless notifications.empty? && tasks.empty?
+            Mailer::content_summary(@person, notifications, tasks).deliver
+          end
+        end
       end
       @person.settings[:last_notification] = DateTime.now
       @person.save!
