@@ -307,6 +307,11 @@ module ApplicationHelper
     end
   end
 
+  def site_title
+    return unless theme_site_title.present?
+    content_tag('h1', theme_site_title, id: 'site-title')
+  end
+
   def theme_site_title
     @theme_site_title ||= theme_include 'site_title'
   end
