@@ -32,20 +32,29 @@ class CustomFormsPlugin::Graph
   end
 
   def report()
+    data = get_data
+
+    format_data(data)
+  end
+
+  private
+  def get_data
+    data = CustomFormsPlugin::Field.all
+    data = @form.fields
+      .joins('inner join custom_forms_plugin_alternatives as al on custom_forms_plugin_fields.id = al.field_id')
+      .joins('inner join custom_forms_plugin_answers as ans on al.id = nullif(ans.value, \'\')::int')
+      .group('custom_forms_plugin_fields.id, al.id')
+      .order('al.id')
+      .select('custom_forms_plugin_fields.name as field_name, custom_forms_plugin_fields.show_as as show_as, al.id as alternative, al.label as label, count(al.id) as answer_count')    
+
+    data
+  end
+
+  def format_data(data)
     computed_fields = []
     computed_data = []
-    @form.submissions
-      .joins(answers: :field)
-      .joins('inner join custom_forms_plugin_alternatives ON '\
-             'custom_forms_plugin_alternatives.field_id=custom_forms_plugin_fields.id')
-      .joins('inner join custom_forms_plugin_form_answers on '\
-             'custom_forms_plugin_form_answers.alternative_id=custom_forms_plugin_alternatives.id')
-      .group('custom_forms_plugin_alternatives.label, custom_forms_plugin_form_answers.answer_id, custom_forms_plugin_fields.name, custom_forms_plugin_fields.show_as')
-      .select('COUNT(custom_forms_plugin_form_answers.answer_id) as answer_count, '\
-              'custom_forms_plugin_alternatives.label as label, '\
-              'custom_forms_plugin_fields.name as field_name,
-              custom_forms_plugin_fields.show_as as show_as')
-      .map do |r|
+
+    data.map do |r|
       if computed_fields.include?(r.field_name)
         computed_data.each do |c|
           if c["field"] == r.field_name
@@ -62,6 +71,7 @@ class CustomFormsPlugin::Graph
         computed_data << data
       end
     end
+
     computed_data
-  end
+  end 
 end
