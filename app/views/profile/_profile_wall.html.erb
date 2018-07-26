@@ -8,7 +8,8 @@
                       :complete => "jQuery('#leave_scrap_form').removeClass('loading').find('*').attr('disabled', false)",
                       :loading => "jQuery('#leave_scrap_form').addClass('loading').find('*').attr('disabled', true)",
                       :html => {:id => 'leave_scrap_form' } do %>
-    <%= limited_text_area :scrap, :content, 420, 'leave_scrap_content', :rows => 2, :class => 'autogrow' %>
+    <%= limited_text_area :scrap, :content, 420, 'leave_scrap_content', :rows => 2, :class => 'autogrow',
+                                                                        'aria-label' => _('Leave a scrap') %>
     <% if profile == user %>
       <%= token_input_field_tag(:filter_followed, 'filter-followed', {:action => 'search_followed'}, {:theme => 'facebook', :placeholder => _('Filter followed, friends or group of friends to send them a private scrap...')}) %>
     <% end %>
