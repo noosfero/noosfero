@@ -8,5 +8,5 @@
   <%= pie_chart result["data"], donut: false, legend: false,
                 summary: (result['summary'] if current_person.try(:can_see_summary?, profile)) %>
   
-  <div id="legend" style="display: flex; flex-wrap: wrap;"></div>
+  <div id="<%="legend-#{index+1}"%>" style="display: flex; flex-wrap: wrap;"></div>
 </div>

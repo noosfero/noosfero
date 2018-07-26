@@ -3,60 +3,60 @@
 
 (function() {
 
-function summaryFor(chartId, label) {
-  var summaries = Chartkick.charts['chart-' + chartId].options['summary'];
-  if (!summaries) {
-    return '';
-  }
-
-  var summary = summaries[label];
-  if (summary && summary.offline != 0) {
-    return ' - Online: ' + summary.online + '%, Offline: ' +
-           summary.offline + '%';
-  } else {
-    return '';
-  }
-}
-
-function legend(chart) {
-  var legendItems = chart.chart.legend.legendItems;
-  let html = ``;
-  for (item in legendItems) {
-    var legend_text = `<div style="display: flex; margin: unset; margin-right: 5px; margin-bottom: 5px;"><div style="width: 10px; height: 10px; background: ${legendItems[item].fillStyle}; margin-right: 5px;"></div><span style="width: 130px; display: inline-block; font-size: 11px;">${legendItems[item].text} </span></div>`
-    html += legend_text;
-  }
-  document.getElementById("legend").innerHTML = html;
-  document.querySelector("#chart-1").setAttribute("style", "width: 50%");
-}
-
-$( document ).ready(function() {
-  Chart.defaults.global.plugins.datalabels.color = "white";
-  Chart.defaults.global.plugins.datalabels.formatter = function(value, context) {
-    var total = 0;
-    for (var i in context.dataset.data) {
-      total += context.dataset.data[i];
+  function summaryFor(chartId, label) {
+    var summaries = Chartkick.charts['chart-' + chartId].options['summary'];
+    if (!summaries) {
+      return '';
     }
 
-    var tooltipPercentage = Math.round((value / total) * 100);
-    return `${tooltipPercentage}%`;
-  };
-
-  const charts = Chartkick.charts;
-  const chartPrefix = "chart-";
-  var chartIndex = 1;
-
-  while (true){
-    var chart = charts[chartPrefix + chartIndex];
-    legend(chart);
-    if (typeof chart == "undefined")
-      break;
-
-    var graph = chart.getChartObject();
-    if (graph.config.type == 'pie' || graph.config.type == 'bar') {
-      chart.redraw();
+    var summary = summaries[label];
+    if (summary && summary.offline != 0) {
+      return ' - Online: ' + summary.online + '%, Offline: ' +
+            summary.offline + '%';
+    } else {
+      return '';
     }
-    chartIndex += 1;
   }
-});
+
+  function legend(chart, chartIndex) {
+    var legendItems = chart.chart.legend.legendItems;
+    let html = ``;
+    for (item in legendItems) {
+      var legend_text = `<div style="display: flex; margin: unset; margin-right: 5px; margin-bottom: 5px;"><div style="width: 10px; height: 10px; background: ${legendItems[item].fillStyle}; margin-right: 5px;"></div><span style="width: 130px; display: inline-block; font-size: 11px;">${legendItems[item].text} </span></div>`
+      html += legend_text;
+    }
+    document.getElementById("legend-" + chartIndex).innerHTML = html;
+    document.querySelector("#chart-" + chartIndex).setAttribute("style", "width: 50%");
+  }
+
+  $( document ).ready(function() {
+    Chart.defaults.global.plugins.datalabels.color = "white";
+    Chart.defaults.global.plugins.datalabels.formatter = function(value, context) {
+      var total = 0;
+      for (var i in context.dataset.data) {
+        total += context.dataset.data[i];
+      }
+
+      var tooltipPercentage = Math.round((value / total) * 100);
+      return `${tooltipPercentage}%`;
+    };
+
+    const charts = Chartkick.charts;
+    const chartPrefix = "chart-";
+    var chartIndex = 1;
+
+    while (true){
+      var chart = charts[chartPrefix + chartIndex];
+      legend(chart, chartIndex);
+      if (typeof chart == "undefined")
+        break;
+
+      var graph = chart.getChartObject();
+      if (graph.config.type == 'pie' || graph.config.type == 'bar') {
+        chart.redraw();
+      }
+      chartIndex += 1;
+    }
+  });
 
 })();
