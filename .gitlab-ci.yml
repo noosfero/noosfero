@@ -1,6 +1,7 @@
-image: alaxalves/noosfero-ci
+image: alaxalves/noosfero-ci:latest
 
 before_script:
+  - apt-get update
   - ./script/quick-start
   - bundle exec rake db:migrate RAILS_ENV=test
 
