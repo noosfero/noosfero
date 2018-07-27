@@ -39,14 +39,16 @@ class CustomFormsPlugin::Graph
 
   private
   def get_data
-    data = CustomFormsPlugin::Field.all
-          .joins('INNER JOIN custom_forms_plugin_alternatives AS al ON custom_forms_plugin_fields.id = al.field_id')
-          .where('custom_forms_plugin_fields.form_id = ?', @form.id)
-          .joins('INNER JOIN custom_forms_plugin_form_answers AS fa ON al.id = fa.alternative_id')
-          .joins('INNER JOIN custom_forms_plugin_answers AS ans ON ans.id = fa.answer_id')
-          .group('custom_forms_plugin_fields.id, al.id')
-          .order('al.id')
-          .select('custom_forms_plugin_fields.name AS field_name, custom_forms_plugin_fields.show_as AS show_as, al.id AS alternative, al.label AS label, COUNT(al.id) AS answer_count')
+    data = @form.fields
+          .joins(:alternatives)
+          .joins(alternatives: :form_answers)
+          .group('custom_forms_plugin_fields.id, custom_forms_plugin_alternatives.id')
+          .order('custom_forms_plugin_alternatives.id')
+          .select('custom_forms_plugin_fields.name AS field_name,'\
+                  'custom_forms_plugin_fields.show_as AS show_as,'\
+                  'custom_forms_plugin_alternatives.id AS alternative,'\
+                  'custom_forms_plugin_alternatives.label AS label,'\
+                  'COUNT(custom_forms_plugin_alternatives.id) AS answer_count')
     
     data
   end
