@@ -40,12 +40,13 @@ class CustomFormsPlugin::Graph
   private
   def get_data
     data = CustomFormsPlugin::Field.all
-      .joins('inner join custom_forms_plugin_alternatives as al on custom_forms_plugin_fields.id = al.field_id')
-      .where("custom_forms_plugin_fields.form_id = ?", @form.id)
-      .joins('inner join custom_forms_plugin_answers as ans on al.id = nullif(ans.value, \'\')::int')
-      .group('custom_forms_plugin_fields.id, al.id')
-      .order('al.id')
-      .select('custom_forms_plugin_fields.name as field_name, custom_forms_plugin_fields.show_as as show_as, al.id as alternative, al.label as label, count(al.id) as answer_count')
+          .joins('INNER JOIN custom_forms_plugin_alternatives AS al ON custom_forms_plugin_fields.id = al.field_id')
+          .where('custom_forms_plugin_fields.form_id = ?', @form.id)
+          .joins('INNER JOIN custom_forms_plugin_form_answers AS fa ON al.id = fa.alternative_id')
+          .joins('INNER JOIN custom_forms_plugin_answers AS ans ON ans.id = fa.answer_id')
+          .group('custom_forms_plugin_fields.id, al.id')
+          .order('al.id')
+          .select('custom_forms_plugin_fields.name AS field_name, custom_forms_plugin_fields.show_as AS show_as, al.id AS alternative, al.label AS label, COUNT(al.id) AS answer_count')
     
     data
   end
