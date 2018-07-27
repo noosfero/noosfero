@@ -15,8 +15,7 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def default_title
-    return _('communities') if profile_count.to_i == 0
-    n_('{#} community', '{#} communities', profile_count)
+    _('{#} Communities')
   end
 
   def help
@@ -28,14 +27,15 @@ class CommunitiesBlock < ProfileListBlock
     owner.profile_suggestions.of_community.enabled.limit(3).includes(:suggestion)
   end
 
-  def profiles
-    owner.communities.no_templates
+  def base_profiles
+    owner.communities
   end
 
   def api_content(params = {})
+    communities = profiles(params[:current_person])
     content = {}
-    content['communities'] = Api::Entities::Community.represent(profiles.limit(self.limit)).as_json
-    content['#'] = profiles.size
+    content['communities'] = Api::Entities::Community.represent(communities.limit(self.limit)).as_json
+    content['#'] = communities.count
     content
   end
 

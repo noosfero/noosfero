@@ -17,7 +17,7 @@ Feature: edit article
     And I follow "New" within "#section-content"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
-    And I press "Save"
+    And I follow "Save"
     And I go to joaosilva's control panel
     And I follow "Manage" within "#section-content"
     Then I should see "My Folder"
@@ -38,14 +38,13 @@ Feature: edit article
     And I should see "Folder"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
-    And I choose "article_published_false"
-    And I uncheck "article_show_to_followers"
+    And I fill in post-access hidden field with "1"
     And I follow "Save"
     And I log off
     And I go to /freesoftware/my-folder
     Then I should see "You are not allowed to view this page."
 
-  @selenium
+  @selenium-fixme
   Scenario: Hide token field when show to members is activated
     Given the following communities
       | name           | identifier    | owner     |
@@ -61,8 +60,7 @@ Feature: edit article
     And I should see "Folder"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
-    And I choose "article_published_false"
-    And I check "article_show_to_followers"
+    And I fill in post-access hidden field with "1"
     Then I should not see "Fill in the search"
 
   @selenium
@@ -81,7 +79,7 @@ Feature: edit article
     And I should see "Folder"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
-    And I choose "article_published_false"
+    And I fill in post-access hidden field with "3"
     And I uncheck "article_show_to_followers"
     Then I should see "Allow only community members entered below to view this content"
 
@@ -102,29 +100,32 @@ Feature: edit article
     And I go to /freesoftware/my-folder
     And I follow "article-options"
     When I follow "Edit"
-    And I choose "article_published_false"
+    And I fill in post-access hidden field with "2"
     And I follow "Save"
     And I add to "My Folder" the following exception "Maria Silva"
     And I am logged in as "maria"
     And I go to /freesoftware/my-folder
     Then I should see "My Folder"
 
+  @selenium
   Scenario: redirect to the created folder
     Given I am on joaosilva's control panel
     And I follow "New" within "#section-content"
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
-    And I press "Save"
+    And I fill in post-access hidden field with "1"
+    And I follow "Save"
     Then I should see "My Folder"
     And I should be on /joaosilva/my-folder
 
+ @selenium
   Scenario: cancel button back to cms
     Given I am on joaosilva's control panel
     And I follow "Manage" within "#section-content"
     And I follow "New content"
     And I follow "Folder"
     When I follow "Cancel" within ".main-block"
-    Then I should be on joaosilva's cms
+    Then I should see "Control panel"
 
   @selenium
   Scenario: display tag list field when creating event
@@ -148,17 +149,19 @@ Feature: edit article
     Then I should see "Tag list"
     When I fill in "Title" with "Article with tags"
     And I fill in "Tag list" with "aurium, bug"
-    And I press "Save"
+    And I follow "Save"
     And I go to /joaosilva/article-with-tags
     Then I should see "aurium" within "#article-tags"
     And I should see "bug" within "#article-tags"
 
+  @selenium
   Scenario: redirect to the created article
     Given I am on joaosilva's control panel
     And I follow "New" within "#section-content"
     When I follow "Text article"
     And I fill in "Title" with "My Article"
-    And I press "Save"
+    And I fill in post-access hidden field with "1"
+    And I follow "Save"
     Then I should see "My Article"
     And I should be on /joaosilva/my-article
 
@@ -219,7 +222,7 @@ Feature: edit article
     Given I am on /joaosilva/save-the-whales
     And I follow "Edit"
     When I fill in "Text" with "new text"
-    And I press "Save and continue"
+    And I follow "Save and continue"
     Then the "Text" field should contain "new text"
     And I should be on "Save the whales" edit page
 
@@ -230,7 +233,7 @@ Feature: edit article
     And I follow "Text article"
     And I fill in "Title" with "My new article"
     And I fill in "Text" with "text for the new article"
-    And I press "Save and continue"
+    And I follow "Save and continue"
     Then I should be on "My new article" edit page
     And the "Title" field should contain "My new article"
     And the "Text" field should contain "text for the new article"

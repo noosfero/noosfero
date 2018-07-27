@@ -174,7 +174,7 @@ module Api
     def find_articles(asset, method_or_relation = 'articles')
       articles = select_filtered_collection_of(asset, method_or_relation, params)
       if current_person.present?
-        articles = articles.display_filter(current_person, nil)
+        articles = articles.accessible_to(current_person)
       else
         articles = articles.published
       end
@@ -236,7 +236,7 @@ module Api
     def find_activities(asset, method_or_relation = 'tracked_notifications')
 
       not_found! if asset.blank? || asset.secret || !asset.visible
-      forbidden! if !asset.display_private_info_to?(current_person)
+      forbidden! unless asset.display_private_info_to?(current_person)
       if method_or_relation == 'activities'
         activities = select_filtered_collection_of(asset, method_or_relation, params)
         activities = activities.map(&:activity)
@@ -383,14 +383,6 @@ module Api
 
     def authenticate!
       unauthorized! unless current_user
-    end
-
-    def profiles_for_person(profiles, person)
-      if person
-        profiles.listed_for_person(person)
-      else
-        profiles.visible
-      end
     end
 
     # Checks the occurrences of uniqueness of attributes, each attribute must be present in the params hash

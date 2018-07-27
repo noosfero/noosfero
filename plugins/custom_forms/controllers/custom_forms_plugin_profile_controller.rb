@@ -126,7 +126,7 @@ class CustomFormsPluginProfileController < ProfileController
 
   def has_access
     form = CustomFormsPlugin::Form.find_by(identifier: params[:id])
-    render_access_denied if form.blank? || !AccessLevels.can_access?(form.access, user, profile)
+    render_access_denied unless form.try(:display_to?, user)
   end
 
   def can_view_results

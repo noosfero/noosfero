@@ -154,9 +154,9 @@
 
 <%= captcha_tags(:signup, nil, environment) %>
 
-<p class='button-bar'>
-  <%= submit_button('new_user', _('Create my account')) %>
-</p>
+<%= button_bar do %>
+  <%= submit_button(:add_user, _('Create my account')) %>
+<% end %>
 
 <%= required_fields_message %>
 

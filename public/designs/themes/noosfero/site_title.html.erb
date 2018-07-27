@@ -2,10 +2,8 @@
 <form action="/search/articles" id="top-search" class="search_form clean" method="get" >
   <input name="query" placeholder="<%=_('Search on Noosfero')%>" />
   <input type="submit" class="button with-text icon-search hidden-submit submit" id="top-search-button" value="<%=_('Search')%>"/>
-    <a class="button with-text icon-search" style="margin: 0em;" href="#" onclick="submit_form(this); return false;">
-      <div style="padding-top:0.35em; padding-bottom:0.5em;">
+    <a class="button with-text icon-search" href="#" onclick="submit_form(this); return false;">
       <i class="fa fa-search" aria-hidden="true"></i>
       <span>Search</span>
-      </div>
     </a>
 </form>

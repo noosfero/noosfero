@@ -1,7 +1,9 @@
 <h1><%= _('Manage trusted sites') %></h1>
 
 <p>
-<%=  _('Here you can manage the list of trusted sites of your environment. A trusted site is a site that you consider safe enough to incorporate their content through <em>iframes</em>.').html_safe %>
+<%=  _('Here you can manage the list of trusted sites of your environment. ' +
+       'A trusted site is a site that you consider safe enough to incorporate ' +
+       'their content through <em>iframes</em>.').html_safe %>
 </p>
 
 <table>
@@ -14,9 +16,11 @@
       <td>
         <%= link_to site, :action => 'show', :site => site %>
       </td>
-      <td>
+      <td class='actions'>
         <%= button_without_text :edit, _('Edit'), :action => 'edit', :site => site %>
-        <%= button_without_text :remove,  _('Remove'), {action: :destroy, site: site}, method: :delete, data: {confirm: _('Are you sure you want to remove this site from the list of trusted sites?')} %>
+        <%= button_without_text :trash,  _('Remove'), {action: :destroy, site: site},
+              method: :delete, data: {confirm: _('Are you sure you want to remove ' +
+                'this site from the list of trusted sites?')} %>
       </td>
     </tr>
   <% end %>

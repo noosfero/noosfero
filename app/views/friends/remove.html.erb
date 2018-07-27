@@ -17,8 +17,7 @@
 <%= form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
 
-  <%= submit_button(:ok, _("Yes") % @friend.name) %>
-  <%= button(:cancel, _("No"), :action => 'index') %>
+  <%= submit_button(:ok, _("Remove"), :cancel => { :action => 'index'}) %>
 <% end %>
 
 </div><!-- end id="remove_friend" -->

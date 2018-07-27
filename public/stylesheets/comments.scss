@@ -42,16 +42,6 @@ form.comment_form {
   div.inline-captcha-wrapper {
     flex-grow: 1;
     flex-direction: row;
-    .comment-buttons {
-      display: flex;
-      flex-direction: column;
-    }
-    .button.with-text {
-      width: 90%;
-      margin-top: 10px;
-      margin-left: auto;
-      margin-right: auto !important
-    }
     #submit_form_button {
       margin-top: 15px;
     }

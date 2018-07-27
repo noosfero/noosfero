@@ -589,7 +589,7 @@ class Noosfero::Plugin
   # own use in specific views
   def find_by_contents(asset, scope, query, paginate_options={}, options={})
     scope = scope.like_search(query, options) unless query.blank?
-    scope = scope.send(options[:filter]) unless options[:filter].blank? || options[:filter] == 'more_relevant'
+    scope = scope.send(options[:order]) unless options[:order].blank? || options[:order] == 'more_relevant'
     {:results => scope.paginate(paginate_options)}
   end
 

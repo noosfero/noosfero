@@ -54,7 +54,7 @@ class Folder < Article
   end
 
   def news(limit = 30, highlight = false)
-    profile.recent_documents(limit, ["articles.type != ? AND articles.highlighted = ? AND articles.parent_id = ?", 'Folder', highlight, id])
+    children.news(profile, limit, highlight)
   end
 
   has_many :images, -> {

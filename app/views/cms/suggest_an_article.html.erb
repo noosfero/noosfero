@@ -22,7 +22,6 @@
   <%= captcha_tags(:suggest_article, nil, environment, profile) %>
 
   <%= button_bar do %>
-    <%= submit_button :save, _('Save') %>
-    <%= button :cancel, _('Cancel'), @back_to %>
+    <%= submit_button :save, _('Save'), :cancel => @back_to %>
   <% end %>
 <% end %>

@@ -54,16 +54,16 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
     block.expects(:owner).returns(community)
     blog = fast_create(Blog, :profile_id => member1.id)
     post = fast_create(TextArticle, :name => 'headlines', :profile_id => member1.id, :parent_id => blog.id)
-    assert_equal [member1], block.authors_list
+    assert_equal [member1], block.authors_list(member1)
   end
 
   should 'not select private authors to display' do
     block = ProfileMembersHeadlinesBlock.new(:limit => 1)
     block.expects(:owner).returns(community)
-    private_author = fast_create(Person, :public_profile => false)
+    private_author = fast_create(Person, :access => Entitlement::Levels.levels[:self])
     blog = fast_create(Blog, :profile_id => private_author.id)
     post = fast_create(TextArticle, :name => 'headlines', :profile_id => private_author.id, :parent_id => blog.id)
-    assert_equal [], block.authors_list
+    assert_equal [], block.authors_list(nil)
   end
 
   should 'filter authors by roles to display' do
@@ -78,6 +78,6 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
       blog = fast_create(Blog, :profile_id => member.id)
       post = fast_create(TextArticle, :name => 'headlines', :profile_id => member.id, :parent_id => blog.id)
     end
-    assert_equal [author], block.authors_list
+    assert_equal [author], block.authors_list(author)
   end
 end

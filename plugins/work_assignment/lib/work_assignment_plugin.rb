@@ -10,7 +10,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
 
   def self.can_download_submission?(user, submission)
       submission.published? || (user && (submission.author == user || user.has_permission?('view_private_content', submission.profile) ||
-      submission.display_unpublished_article_to?(user)))
+      submission.display_to?(user)))
   end
 
   def self.is_submission?(content)

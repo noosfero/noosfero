@@ -29,6 +29,13 @@ every 30.days do
   runner "ProfileSuggestion.generate_all_profile_suggestions"
 end
 
+if ENV['RAILS_ENV'] == 'production'
+  every 1.minute do
+    runner "ArticleAccessFriendship.refresh"
+    runner "ArticleAccessMembership.refresh"
+  end
+end
+
 # Loads "schedule.rb" files from plugins
 #
 # Allows Noosfero's plugins schedule jobs using `whenever` Ruby gem the same

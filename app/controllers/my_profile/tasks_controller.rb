@@ -91,10 +91,6 @@ class TasksController < MyProfileController
     end
   end
 
-  def list_requested
-    @tasks = Task.without_spam.where requestor_id: profile.id
-  end
-
   def ticket_details
     @ticket = Ticket.where('(requestor_id = ? or target_id = ?) and id = ?', profile.id, profile.id, params[:id]).first
   end

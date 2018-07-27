@@ -146,41 +146,43 @@ ActiveRecord::Schema.define(version: 20180705174013) do
     t.boolean "notify_comments", default: true
     t.integer "hits", default: 0
     t.datetime "published_at"
-    t.string "source"
-    t.boolean "highlighted", default: false
-    t.string "external_link"
-    t.boolean "thumbnails_processed", default: false
-    t.boolean "is_image", default: false
-    t.integer "translation_of_id"
-    t.string "language"
-    t.string "source_name"
-    t.integer "license_id"
-    t.integer "image_id"
-    t.integer "position", default: 0
-    t.integer "spam_comments_count", default: 0
-    t.integer "author_id"
-    t.integer "created_by_id"
-    t.boolean "show_to_followers", default: true
-    t.integer "followers_count", default: 0
-    t.boolean "archived", default: false
-    t.string "editor", default: "tiny_mce", null: false
-    t.jsonb "metadata", default: {}
-    t.index ["comments_count"], name: "index_articles_on_comments_count"
-    t.index ["created_at"], name: "index_articles_on_created_at"
-    t.index ["hits"], name: "index_articles_on_hits"
-    t.index ["metadata"], name: "index_articles_on_metadata", using: :gin
-    t.index ["name"], name: "index_articles_on_name"
-    t.index ["parent_id"], name: "index_articles_on_parent_id"
-    t.index ["path", "profile_id"], name: "index_articles_on_path_and_profile_id"
-    t.index ["path"], name: "index_articles_on_path"
-    t.index ["profile_id"], name: "index_articles_on_profile_id"
-    t.index ["published_at", "id"], name: "index_articles_on_published_at_and_id"
-    t.index ["slug"], name: "index_articles_on_slug"
-    t.index ["translation_of_id"], name: "index_articles_on_translation_of_id"
-    t.index ["type", "parent_id"], name: "index_articles_on_type_and_parent_id"
-    t.index ["type", "profile_id"], name: "index_articles_on_type_and_profile_id"
-    t.index ["type"], name: "index_articles_on_type"
+    t.string   "source"
+    t.boolean  "highlighted",          default: false
+    t.string   "external_link"
+    t.boolean  "thumbnails_processed", default: false
+    t.boolean  "is_image",             default: false
+    t.integer  "translation_of_id"
+    t.string   "language"
+    t.string   "source_name"
+    t.integer  "license_id"
+    t.integer  "image_id"
+    t.integer  "position",             default: 0
+    t.integer  "spam_comments_count",  default: 0
+    t.integer  "author_id"
+    t.integer  "created_by_id"
+    t.boolean  "show_to_followers",    default: true
+    t.integer  "followers_count",      default: 0
+    t.boolean  "archived",             default: false
+    t.string   "editor",               default: "tiny_mce", null: false
+    t.jsonb    "metadata",             default: {}
+    t.integer  "access",       default: 0
   end
+
+  add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree
+  add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
+  add_index "articles", ["hits"], name: "index_articles_on_hits", using: :btree
+  add_index "articles", ["metadata"], name: "index_articles_on_metadata", using: :gin
+  add_index "articles", ["name"], name: "index_articles_on_name", using: :btree
+  add_index "articles", ["parent_id"], name: "index_articles_on_parent_id", using: :btree
+  add_index "articles", ["path", "profile_id"], name: "index_articles_on_path_and_profile_id", using: :btree
+  add_index "articles", ["path"], name: "index_articles_on_path", using: :btree
+  add_index "articles", ["profile_id"], name: "index_articles_on_profile_id", using: :btree
+  add_index "articles", ["published_at", "id"], name: "index_articles_on_published_at_and_id", using: :btree
+  add_index "articles", ["slug"], name: "index_articles_on_slug", using: :btree
+  add_index "articles", ["translation_of_id"], name: "index_articles_on_translation_of_id", using: :btree
+  add_index "articles", ["type", "parent_id"], name: "index_articles_on_type_and_parent_id", using: :btree
+  add_index "articles", ["type", "profile_id"], name: "index_articles_on_type_and_profile_id", using: :btree
+  add_index "articles", ["type"], name: "index_articles_on_type", using: :btree
 
   create_table "articles_categories", id: false, force: :cascade do |t|
     t.integer "article_id"
@@ -607,64 +609,65 @@ ActiveRecord::Schema.define(version: 20180705174013) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string "name"
-    t.string "type"
-    t.string "identifier"
-    t.integer "environment_id"
-    t.boolean "active", default: true
-    t.string "address"
-    t.string "contact_phone"
-    t.integer "home_page_id"
-    t.integer "user_id"
-    t.integer "region_id"
-    t.text "data"
+    t.string   "name"
+    t.string   "type"
+    t.string   "identifier"
+    t.integer  "environment_id"
+    t.boolean  "active",                             default: true
+    t.string   "address"
+    t.string   "contact_phone"
+    t.integer  "home_page_id"
+    t.integer  "user_id"
+    t.integer  "region_id"
+    t.text     "data"
     t.datetime "created_at"
-    t.float "lat"
-    t.float "lng"
-    t.integer "geocode_precision"
-    t.boolean "enabled", default: true
-    t.string "nickname", limit: 16
-    t.text "custom_header"
-    t.text "custom_footer"
-    t.string "theme"
-    t.boolean "public_profile", default: true
-    t.date "birth_date"
-    t.integer "preferred_domain_id"
+    t.float    "lat"
+    t.float    "lng"
+    t.integer  "geocode_precision"
+    t.boolean  "enabled",                            default: true
+    t.string   "nickname",                limit: 16
+    t.text     "custom_header"
+    t.text     "custom_footer"
+    t.string   "theme"
+    t.date     "birth_date"
+    t.integer  "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean "visible", default: true
-    t.integer "image_id"
-    t.boolean "validated", default: true
-    t.string "cnpj"
-    t.string "national_region_code"
-    t.boolean "is_template", default: false
-    t.integer "template_id"
-    t.string "redirection_after_login"
-    t.integer "friends_count", default: 0, null: false
-    t.integer "members_count", default: 0, null: false
-    t.integer "activities_count", default: 0, null: false
-    t.string "personal_website"
-    t.string "jabber_id"
-    t.integer "welcome_page_id"
-    t.boolean "allow_members_to_invite", default: true
-    t.boolean "invite_friends_only", default: false
-    t.boolean "secret", default: false
-    t.string "editor", default: "tiny_mce", null: false
-    t.integer "top_image_id"
-    t.jsonb "metadata", default: {}
-    t.string "upload_quota"
-    t.float "disk_usage"
-    t.string "cropped_image"
-    t.index ["activities_count"], name: "index_profiles_on_activities_count"
-    t.index ["created_at"], name: "index_profiles_on_created_at"
-    t.index ["environment_id"], name: "index_profiles_on_environment_id"
-    t.index ["friends_count"], name: "index_profiles_on_friends_count"
-    t.index ["identifier"], name: "index_profiles_on_identifier"
-    t.index ["members_count"], name: "index_profiles_on_members_count"
-    t.index ["metadata"], name: "index_profiles_on_metadata", using: :gin
-    t.index ["region_id"], name: "index_profiles_on_region_id"
-    t.index ["user_id", "type"], name: "index_profiles_on_user_id_and_type"
-    t.index ["user_id"], name: "index_profiles_on_user_id"
+    t.boolean  "visible",                            default: true
+    t.integer  "image_id"
+    t.boolean  "validated",                          default: true
+    t.string   "cnpj"
+    t.string   "national_region_code"
+    t.boolean  "is_template",                        default: false
+    t.integer  "template_id"
+    t.string   "redirection_after_login"
+    t.integer  "friends_count",                      default: 0,          null: false
+    t.integer  "members_count",                      default: 0,          null: false
+    t.integer  "activities_count",                   default: 0,          null: false
+    t.string   "personal_website"
+    t.string   "jabber_id"
+    t.integer  "welcome_page_id"
+    t.boolean  "allow_members_to_invite",            default: true
+    t.boolean  "invite_friends_only",                default: false
+    t.boolean  "secret",                             default: false
+    t.string   "editor",                             default: "tiny_mce", null: false
+    t.integer  "top_image_id"
+    t.jsonb    "metadata",                           default: {}
+    t.string   "upload_quota"
+    t.float    "disk_usage"
+    t.string   "cropped_image"
+    t.integer  "access",                             default: 0
   end
+
+  add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
+  add_index "profiles", ["created_at"], name: "index_profiles_on_created_at", using: :btree
+  add_index "profiles", ["environment_id"], name: "index_profiles_on_environment_id", using: :btree
+  add_index "profiles", ["friends_count"], name: "index_profiles_on_friends_count", using: :btree
+  add_index "profiles", ["identifier"], name: "index_profiles_on_identifier", using: :btree
+  add_index "profiles", ["members_count"], name: "index_profiles_on_members_count", using: :btree
+  add_index "profiles", ["metadata"], name: "index_profiles_on_metadata", using: :gin
+  add_index "profiles", ["region_id"], name: "index_profiles_on_region_id", using: :btree
+  add_index "profiles", ["user_id", "type"], name: "index_profiles_on_user_id_and_type", using: :btree
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "profiles_circles", force: :cascade do |t|
     t.integer "profile_id"
@@ -910,4 +913,54 @@ ActiveRecord::Schema.define(version: 20180705174013) do
   end
 
   add_foreign_key "profiles_circles", "circles", on_delete: :cascade
+
+  profile_friendships_table = <<-SQL
+    SELECT profiles.id, profiles.access,
+    friendships.friend_id AS friend_id, friendships.person_id AS person_id
+    FROM profiles LEFT JOIN friendships
+    ON profiles.id = friendships.person_id OR profiles.id = friendships.friend_id
+    WHERE profiles.access > #{Entitlement::Levels.levels[:users]};
+  SQL
+
+  profile_memberships_table = <<-SQL
+    SELECT profiles.id, profiles.access,
+    role_assignments.accessor_id AS member_id, roles.permissions, roles.key
+    FROM profiles LEFT JOIN role_assignments
+    ON profiles.id = role_assignments.resource_id
+    LEFT JOIN roles ON role_assignments.role_id = roles.id
+    WHERE profiles.access > #{Entitlement::Levels.levels[:users]};
+  SQL
+
+  article_friendships_table = <<-SQL
+    SELECT articles.id, articles.profile_id, articles.access,
+    friendships.friend_id AS friend_id, friendships.person_id AS person_id
+    FROM articles JOIN profiles ON profiles.id = articles.profile_id
+    LEFT JOIN friendships
+    ON articles.profile_id = friendships.person_id OR articles.profile_id = friendships.friend_id
+    WHERE articles.access > #{Entitlement::Levels.levels[:users]};
+  SQL
+
+  article_memberships_table = <<-SQL
+    SELECT articles.id, articles.profile_id, articles.access,
+    role_assignments.accessor_id AS member_id, roles.permissions, roles.key
+    FROM articles LEFT JOIN role_assignments
+    ON articles.profile_id = role_assignments.resource_id
+    LEFT JOIN roles ON role_assignments.role_id = roles.id
+    WHERE articles.access > #{Entitlement::Levels.levels[:users]};
+  SQL
+
+  noosfero_env = ENV['RAILS_ENV']
+  if noosfero_env != 'production'
+    create_view "profile_access_friendships", sql_definition: profile_friendships_table
+    create_view "profile_access_memberships", sql_definition: profile_memberships_table
+    create_view "article_access_friendships", sql_definition: article_friendships_table
+    create_view "article_access_memberships", sql_definition: article_memberships_table
+  else
+    create_view "profile_access_friendships", materialized: true, sql_definition: profile_friendships_table
+    create_view "profile_access_memberships", materialized: true, sql_definition: profile_memberships_table
+    create_view "article_access_friendships", materialized: true, sql_definition: article_friendships_table
+    create_view "article_access_memberships", materialized: true, sql_definition: article_memberships_table
+    ArticleAccessFriendship.refresh()
+    ArticleAccessMembership.refresh()
+  end
 end

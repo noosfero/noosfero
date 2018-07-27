@@ -14,7 +14,7 @@ class FavoriteEnterprisePerson < ApplicationRecord
   protected
 
   def notifiable?
-    self.enterprise.public?
+    self.enterprise.display_to?
   end
 
   def enterprise_name

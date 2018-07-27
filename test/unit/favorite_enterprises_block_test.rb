@@ -15,16 +15,17 @@ class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
   end
 
   should 'list owner favorite enterprises' do
-
+    owner = fast_create(Person)
     block = FavoriteEnterprisesBlock.new
+    block.stubs(:owner).returns(owner)
 
-    owner = mock
-    block.expects(:owner).returns(owner)
+    e1 = fast_create(Enterprise)
+    e2 = fast_create(Enterprise)
+    e3 = fast_create(Enterprise)
+    owner.favorite_enterprises << e1
+    owner.favorite_enterprises << e2
 
-    list = []
-    owner.expects(:favorite_enterprises).returns(list)
-
-    assert_same list, block.profiles
+    assert_equivalent [e1,e2], block.profiles
   end
 
   should 'have Enterprise as base_class' do

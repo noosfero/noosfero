@@ -76,7 +76,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
   should 'notify the community members on private articles' do
     person = fast_create(Person)
     community  = fast_create(Community)
-    article = fast_create(TextArticle, :published => false, :profile_id => community.id)
+    article = fast_create(TextArticle, :access => Entitlement::Levels.levels[:self], :profile_id => community.id)
     action_tracker = fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person.id, :target_type => 'Article', :target_id => article.id, :verb => 'create_article')
     refute NotifyActivityToProfilesJob::NOTIFY_ONLY_COMMUNITY.include?(action_tracker.verb)
     m1, m2 = fast_create(Person), fast_create(Person), fast_create(Person), fast_create(Person)
@@ -126,7 +126,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
   should 'notify only the community and its members if it is private' do
     person = fast_create(Person)
-    private_community  = fast_create(Community, :public_profile => false)
+    private_community  = fast_create(Community, :access => Entitlement::Levels.levels[:self])
     action_tracker = fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person.id, :target_type => 'Profile', :target_id => private_community.id, :verb => 'create_article')
     refute NotifyActivityToProfilesJob::NOTIFY_ONLY_COMMUNITY.include?(action_tracker.verb)
     p1, p2, m1, m2 = fast_create(Person), fast_create(Person), fast_create(Person), fast_create(Person)

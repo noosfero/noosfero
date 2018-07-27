@@ -34,13 +34,13 @@ class CommunitiesBlockTest < ActiveSupport::TestCase
     public_community = fast_create(Community, :environment_id => Environment.default.id)
     public_community.add_member(user)
 
-    private_community = fast_create(Community, :environment_id => Environment.default.id, :public_profile => false)
+    private_community = fast_create(Community, :environment_id => Environment.default.id, :access => Entitlement::Levels.levels[:related])
     private_community.add_member(user)
 
     block = CommunitiesBlock.new
     block.expects(:owner).at_least_once.returns(user)
 
-    assert_equivalent [public_community, private_community], block.profiles
+    assert_equivalent [public_community, private_community], block.profiles(user)
   end
 
   should 'have Community as base class' do
@@ -56,8 +56,8 @@ class CommunitiesBlockViewTest < ActionView::TestCase
 
   should 'support profile as block owner' do
     env = fast_create(Environment)
-    community = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    profile = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    community = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     relation = RoleAssignment.new(:resource_id => community.id, :resource_type => 'Profile', :role_id => 3)
     relation.accessor = profile
@@ -86,8 +86,8 @@ class CommunitiesBlockViewTest < ActionView::TestCase
 
   should 'support environment as block owner' do
     env = Environment.default
-    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    member = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = CommunitiesBlock.new
     block.box = env.boxes.first

@@ -9,64 +9,63 @@
 <% end %>
 
 <div class='<%= (@article.display_media_panel? ? 'with_media_panel' : 'no_media_panel') %>'>
-<%= labelled_form_for 'article', :html => { :multipart => true, :class => "#{@type} #{@type.to_css_class}" } do |f| %>
+  <%= labelled_form_for 'article', :html => { :multipart => true, :class => "#{@type} #{@type.to_css_class}" } do |f| %>
+    <%= hidden_field_tag("type", @type) if @type %>
+    <%= hidden_field_tag('back_to', @back_to) %>
+    <%= hidden_field_tag('success_back_to', @success_back_to) %>
 
+    <%= render_partial_for_class @article.class, f: f %>
+    <%= render partial: 'article_custom_fields',
+               locals: { types: ['text', 'date', 'boolean'],
+                         fields: @article.metadata['custom_fields'] || [] } %>
 
-  <%= hidden_field_tag("type", @type) if @type %>
+    <% if environment.is_portal_community?(profile) %>
+      <div>
+        <%= check_box(:article, :highlighted) %>
+        <label for="article_highlighted"><%= _('Highlight this article')%></label>
+      </div>
+    <% end %>
 
-  <%= hidden_field_tag('back_to', @back_to) %>
-
-  <%= hidden_field_tag('success_back_to', @success_back_to) %>
-
-
-  <%= render_partial_for_class @article.class, f: f %>
-  <%= render partial: 'article_custom_fields',
-             locals: { types: ['text', 'date', 'boolean'],
-                       fields: @article.metadata['custom_fields'] || [] } %>
-
-  <% if environment.is_portal_community?(profile) %>
-    <div>
-      <%= check_box(:article, :highlighted) %>
-      <label for="article_highlighted"><%= _('Highlight this article')%></label>
+    <div style='float: right'>
+      <%= modal_button :help, _('Why categorize?'), :action => 'why_categorize' %>
     </div>
-  <% end %>
 
-  <%= button_bar do %>
-    <%= submit_button :save, _('Save') %>
-    <%= submit_button :save_and_continue, _('Save and continue'), :name => "continue" %>
-  <% end %>
-
-  <%= select_categories(:article, _('Categorize your article')) %>
-
-  <%= render :partial => 'shared/tags_field', :locals => {:f => f, :value => @article.tag_list} %>
-
-  <div id='edit-article-options'>
-    <%= options_for_article(@article, @tokenized_children) %>
-  </div>
-
-  <div id='article-extra-options'>
-    <%= safe_join( @plugins.dispatch(:cms_extra_options).map do |content|
-          content.kind_of?(Proc) ? self.instance_exec(&content) : content
-        end, "\n") %>
-  </div>
-
-  <%= button_bar do %>
-    <%= submit_button :save, _('Save') %>
-
-    <% if @back_to %>
-      <%= button :cancel, _('Cancel'), @back_to %>
-    <% elsif @parent_id || @article.parent %>
-      <%= button :cancel, _('Cancel'), :action => 'view', :id => @parent_id || @article.parent %>
-    <% else %>
-      <%= button :cancel, _('Cancel'), :action => 'index' %>
+    <%= button_bar do %>
+      <%= submit_button :save, _('Save') %>
+      <%= submit_button :save_and_continue, _('Save and continue'), :name => "continue" %>
     <% end %>
 
-    <% unless @article.new_record? %>
-      <%= button :delete, _('Delete'), {:controller => :cms, :action => :destroy, :id => @article},
-        :method => :post, data: {confirm: delete_article_message(@article)} %>
+    <%= select_categories(:article, _('Categorize your article')) %>
+
+    <%= render :partial => 'shared/tags_field', :locals => {:f => f, :value => @article.tag_list} %>
+
+    <div id='edit-article-options'>
+      <%= options_for_article(@article, @tokenized_children) %>
+    </div>
+
+    <div id='article-extra-options'>
+      <%= safe_join( @plugins.dispatch(:cms_extra_options).map do |content|
+            content.kind_of?(Proc) ? self.instance_exec(&content) : content
+          end, "\n") %>
+    </div>
+
+    <%= button_bar do %>
+      <%= submit_button :save, _('Save') %>
+
+      <% if @back_to %>
+        <%= button :cancel, _('Cancel'), @back_to %>
+      <% elsif @parent_id || @article.parent %>
+        <%= button :cancel, _('Cancel'), :action => 'view', :id => @parent_id || @article.parent %>
+      <% else %>
+        <%= button :cancel, _('Cancel'), :action => 'index' %>
+      <% end %>
+
+      <% unless @article.new_record? %>
+        <%= button :delete, _('Delete'), {:controller => :cms, :action => :destroy, :id => @article},
+          :method => :post, data: {confirm: delete_article_message(@article)} %>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
 </div>
 
 

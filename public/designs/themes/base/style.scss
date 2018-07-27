@@ -1285,8 +1285,8 @@ hr.pre-posts, hr.sep-posts {
 }
 #content a.button.disabled,
 #content a.button.disabled:hover {
-  background-color: #CCC;
-  border-color: #CCC;
+  background-color: #EEE;
+  border-color: #EEE;
   pointer-events: none;
 }
 
@@ -1992,15 +1992,6 @@ form.form-with-captcha {
   font-size: 100%;
   width: 100%;
   padding-right: 20px;
-  margin-top: 2px;
-}
-
-.organization_button {
-  font-size: 100% !important;
-  padding: 0.5em 0.5em 0.8em 0.5em !important;
-  margin-right: 0.5em !important;
-  height: 1em;
-  min-width: 4em;
   margin-top: 2px;
 }
 

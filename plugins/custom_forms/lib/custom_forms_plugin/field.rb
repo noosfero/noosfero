@@ -20,6 +20,13 @@ class CustomFormsPlugin::Field < ApplicationRecord
     field.slug = field.name.to_slug if field.name.present?
   end
 
+  before_save do |field|
+
+    if form != nil && form.kind == 'poll'
+      field.mandatory = true
+    end
+  end
+
   def accept_multiple_answers?
     self.show_as.in? ['check_box', 'multiple_select']
   end

@@ -253,15 +253,21 @@ module BoxesHelper
 
     if movable?(block)
       if block.first?
-        buttons << icon_button('up-disabled', _("Can't move up anymore."), nowhere)
+        buttons << button_without_text(:up, _("Can't move up anymore."),
+                     nowhere, :class => 'disabled')
       else
-        buttons << icon_button('up', _('Move block up'), { :action => 'move_block_up', :id => block.id }, { :method => 'post' })
+        buttons << button_without_text(:up, _('Move block up'),
+                     { :action => 'move_block_up', :id => block.id },
+                     { :method => 'post' })
       end
 
       if block.last?
-        buttons << icon_button('down-disabled', _("Can't move down anymore."), nowhere)
+        buttons << button_without_text(:down, _("Can't move down anymore."),
+                     nowhere, :class => 'disabled')
       else
-        buttons << icon_button(:down, _('Move block down'), { :action => 'move_block_down' ,:id => block.id }, { :method => 'post'})
+        buttons << button_without_text(:down, _('Move block down'),
+                     { :action => 'move_block_down' ,:id => block.id },
+                     { :method => 'post'})
       end
 
       holder = block.owner
@@ -269,9 +275,18 @@ module BoxesHelper
       # FIXME too much hardcoded stuff
       if holder.layout_template == 'default'
         if block.box.position == 2 # area 2, left side => move to right side
-          buttons << icon_button('right', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[2].id.to_s, :id => block.id }, :method => 'post' )
+
+          buttons << button_without_text(:right, _('Move to the opposite side'),
+                       { :action => 'move_block', :target => 'end-of-box-' +
+                         holder.boxes[2].id.to_s, :id => block.id },
+                       :method => 'post' )
+
         elsif block.box.position == 3 # area 3, right side => move to left side
-          buttons << icon_button('left', _('Move to the opposite side'), { :action => 'move_block', :target => 'end-of-box-' + holder.boxes[1].id.to_s, :id => block.id }, :method => 'post' )
+
+          buttons << button_without_text(:left, _('Move to the opposite side'),
+                       { :action => 'move_block', :target => 'end-of-box-' +
+                         holder.boxes[1].id.to_s, :id => block.id },
+                       :method => 'post' )
         end
       end
     end
@@ -281,12 +296,14 @@ module BoxesHelper
     end
 
     if movable?(block) && !block.main?
-      buttons << icon_button(:delete, _('Remove block'), { action: 'remove', id: block.id }, method: 'post', data: {confirm: _('Are you sure you want to remove this block?')})
-      buttons << icon_button(:clone, _('Clone'), { :action => 'clone_block', :id => block.id }, { :method => 'post' })
-    end
 
-    if block.respond_to?(:help)
-      buttons << modal_inline_icon(:help, _('Help on this block'), '#!', "#help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help.html_safe, :style => 'margin-bottom: 1em;'), :style => 'display: none;', :id => "help-on-box-#{block.id}")
+      buttons << button_without_text(:trash, _('Remove block'),
+                   { action: 'remove', id: block.id }, method: 'post',
+                   data: { confirm: _('Are you sure you want to remove this block?')})
+
+      buttons << button_without_text(:clone, _('Clone'),
+                   { :action => 'clone_block', :id => block.id },
+                   { :method => 'post' })
     end
 
     if block.embedable?
@@ -294,11 +311,26 @@ module BoxesHelper
       embed_code = instance_exec(&embed_code) if embed_code.respond_to?(:call)
       html = content_tag('div',
               content_tag('h2', _('Embed block code')) +
-              content_tag('div', _('Below, you''ll see a field containing embed code for the block. Just copy the code and paste it into your website or blogging software.'), :style => 'margin-bottom: 1em;') +
-              content_tag('textarea', embed_code, :style => 'margin-bottom: 1em; width:100%; height:40%;', :readonly => 'readonly') +
-              modal_close_button(_('Close')), :style => 'display: none;', :id => "embed-code-box-#{block.id}")
-      buttons << modal_inline_icon(:embed, _('Embed code'), "#!", "#embed-code-box-#{block.id}") << html
+              content_tag('div', _('Below, you''ll see a field containing ' +
+                  'embed code for the block. Just copy the code and paste ' +
+                  'it into your website or blogging software.'),
+                :style => 'margin-bottom: 1em;') +
+              content_tag('textarea', embed_code, :readonly => 'readonly') +
+              modal_close_button(_('Close')), :style => 'display: none;',
+                :id => "embed-code-box-#{block.id}")
+      buttons << modal_inline_icon(:code, _('Embed code'), "#!", "#embed-code-box-#{block.id}")
+      buttons << html
     end
+
+    if block.respond_to?(:help)
+
+      buttons << modal_inline_icon(:help, _('Help on this block'), '#!',
+                   "#help-on-box-#{block.id}") <<
+                     content_tag('div', content_tag('h2', _('Help')) +
+                     content_tag('div', block.help.html_safe, :style => 'margin-bottom: 1em;'),
+                   :style => 'display: none;', :id => "help-on-box-#{block.id}")
+    end
+
 
     content_tag('div', buttons.join("\n").html_safe + tag('br', :style => 'clear: left'), :class => 'button-bar button-bar-boxes')
   end

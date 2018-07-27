@@ -73,6 +73,7 @@ gem 'protected_attributes_continued'
 gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
+gem 'scenic'
 gem 'sass-listen'
 
 group :production do

@@ -17,14 +17,17 @@ class EnterprisesBlockTest < ActiveSupport::TestCase
 
   should 'list owner enterprises' do
     block = EnterprisesBlock.new
+    owner = fast_create(Person)
 
-    owner = mock
+    e1 = fast_create(Enterprise)
+    e1.add_member(owner)
+    e2 = fast_create(Enterprise)
+    e2.add_member(owner)
+    e3 = fast_create(Enterprise)
+
     block.expects(:owner).at_least_once.returns(owner)
 
-    list = []
-    owner.expects(:enterprises).returns(list)
-
-    assert_same list, block.profiles
+    assert_equivalent [e1,e2], block.profiles(owner)
   end
 
   should 'count number of owner enterprises' do
@@ -41,7 +44,7 @@ class EnterprisesBlockTest < ActiveSupport::TestCase
     block = EnterprisesBlock.new
     block.expects(:owner).at_least_once.returns(user)
 
-    assert_equal 2, block.profile_count
+    assert_equal 2, block.profile_count(user)
   end
 
   should 'have Enterprise as base class' do
@@ -57,8 +60,8 @@ class EnterprisesBlockViewTest < ActionView::TestCase
 
   should 'link to all enterprises for profile' do
     env = fast_create(Environment)
-    enterprise = fast_create(Enterprise, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    profile = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    enterprise = fast_create(Enterprise, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     relation = RoleAssignment.new(:resource_id => enterprise.id, :resource_type => 'Profile', :role_id => 3)
     relation.accessor = profile
@@ -80,7 +83,7 @@ class EnterprisesBlockViewTest < ActionView::TestCase
 
   should 'link to all enterprises for environment' do
     env = fast_create(Environment)
-    enterprise = fast_create(Enterprise, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    enterprise = fast_create(Enterprise, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = EnterprisesBlock.new
     block.expects(:owner).returns(env).at_least_once

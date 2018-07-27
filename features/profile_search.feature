@@ -60,7 +60,7 @@ Feature: search inside a profile
 
   Scenario: not display search on private profiles
     Given the following users
-      | login      | name        | public_profile |
-      | mariasilva | Maria Silva | false          |
+      | login      | name        | access |
+      | mariasilva | Maria Silva |   20   |
     And I go to /profile/mariasilva/search
     Then I should see "friends only"

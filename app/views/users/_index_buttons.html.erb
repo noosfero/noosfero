@@ -1,12 +1,12 @@
 <%= button_bar do %>
-  <%= button 'sort-amount-down', _('Export People list'), '#!', {class: 'export-people-list'} %>
-  <%= button :send, _('Send e-mail to users'), :action => 'send_mail' %>
   <%= button :back, _('Back'), :controller => 'admin_panel' %>
+  <%= button :file, _('Export People list'), '#!', {class: 'export-people-list'} %>
+  <%= button :email, _('Send e-mail to users'), :action => 'send_mail' %>
 <% end %>
 
 <div class="export-people-field" >
   <%= form_tag({action: 'download', controller: 'users'}) do %>
-    <label>Select the file format</label>
+    <label><%=_('Select the file format')%></label>
     <div class="download-format">
       <label><%= radio_button_tag('format', 'xml', true) %> XML </label>
       <label><%= radio_button_tag('format', 'csv', false) %> CSV </label>

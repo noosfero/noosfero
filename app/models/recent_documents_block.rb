@@ -23,7 +23,11 @@ class RecentDocumentsBlock < Block
   settings_items :limit, :type => :integer, :default => 5
 
   def docs
-    self.limit.nil? ? owner.recent_documents(nil, {}, false) : owner.recent_documents(self.get_limit, {}, false)
+    docs = owner.articles.relevant_as_recent.more_recent.limit(limit || get_limit)
+    if owner.is_a? Environment
+      docs = docs.where.not(type: 'LinkArticle')
+    end
+    docs.limit(limit || get_limit)
   end
 
   def self.expire_on
@@ -31,7 +35,7 @@ class RecentDocumentsBlock < Block
   end
 
   def api_content(params = {})
-    {:articles => Api::Entities::ArticleBase.represent(docs)}.as_json
+    { articles: Api::Entities::ArticleBase.represent(docs) }.as_json
   end
 
   def display_api_content_by_default?

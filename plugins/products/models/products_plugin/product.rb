@@ -67,25 +67,6 @@ class ProductsPlugin::Product < ApplicationRecord
     joins(:product_category).where('categories.path LIKE ?', "%#{category.slug}%") if category
   }
 
-  scope :visible_for_person, lambda { |person|
-    joins('INNER JOIN "profiles" enterprises ON enterprises."id" = "products"."profile_id"')
-    .joins('LEFT JOIN "role_assignments" ON ("role_assignments"."resource_id" = enterprises."id"
-          AND "role_assignments"."resource_type" = \'Profile\') OR (
-          "role_assignments"."resource_id" = enterprises."environment_id" AND
-          "role_assignments"."resource_type" = \'Environment\' )')
-    .joins('LEFT JOIN "roles" ON "role_assignments"."role_id" = "roles"."id"')
-    .where(
-      ['( (roles.key = ? OR roles.key = ?) AND role_assignments.accessor_type = \'Profile\' AND role_assignments.accessor_id = ? )
-        OR
-        ( ( ( role_assignments.accessor_type = \'Profile\' AND
-              role_assignments.accessor_id = ? ) OR
-            ( enterprises.public_profile = ? AND enterprises.enabled = ? ) ) AND
-          ( enterprises.visible = ? ) )',
-      'profile_admin', 'environment_administrator', person.id, person.id,
-      true, true, true]
-    ).uniq
-  }
-
   scope :recent, -> limit=nil { order('id DESC').limit(limit) }
 
   after_update :save_image
@@ -147,7 +128,7 @@ class ProductsPlugin::Product < ApplicationRecord
   end
 
   def public?
-    self.profile.public?
+    self.profile.display_to?
   end
 
   def formatted_value(method)

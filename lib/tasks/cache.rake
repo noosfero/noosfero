@@ -3,7 +3,7 @@ namespace :cache do
     require 'sdbm'
 
     hash = {}
-    UploadedFile.where(:published => false).find_each do |uploaded_file|
+    UploadedFile.where("access > #{Entitlement::Levels.levels[:visitors]}").find_each do |uploaded_file|
       hash[uploaded_file.public_filename] = uploaded_file.full_path
     end
 

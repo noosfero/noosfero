@@ -31,5 +31,7 @@
 
   <%= captcha_tags(:new_contact, user, environment, profile) %>
 
-  <%= submit_button(:send, _('Send'), :onclick => "jQuery('#confirm').val('true')") %>
+  <%= button_bar do %>
+    <%= submit_button(:email, _('Send'), :onclick => "jQuery('#confirm').val('true')") %>
+  <% end %>
 <% end %>

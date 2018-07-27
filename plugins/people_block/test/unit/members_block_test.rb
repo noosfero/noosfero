@@ -103,8 +103,8 @@ class MembersBlockTest < ActionView::TestCase
 
   should 'count number of public and private members' do
     owner = fast_create(Community)
-    private_p = fast_create(Person, {:public_profile => false})
-    public_p = fast_create(Person, {:public_profile => true})
+    private_p = fast_create(Person, access: Entitlement::Levels.levels[:self])
+    public_p = fast_create(Person)
 
     owner.add_member(private_p)
     owner.add_member(public_p)
@@ -112,7 +112,8 @@ class MembersBlockTest < ActionView::TestCase
     block = MembersBlock.new
     block.expects(:owner).returns(owner).at_least_once
 
-    assert_equal 2, block.profile_count
+    assert_equal 1, block.profile_count
+    assert_equal 2, block.profile_count(private_p)
   end
 
 
@@ -232,11 +233,11 @@ class MembersBlockTest < ActionView::TestCase
 
   should 'count number of profiles by role' do
     owner = fast_create(Community)
-    u1 = create_user(nil,{},{:public_profile => true})
+    u1 = create_user(nil)
     u1.activate!
     profile1 = u1.person
 
-    u2 = create_user(nil,{},{:public_profile => true})
+    u2 = create_user(nil)
     u2.activate!
     profile2 = u2.person
 
@@ -260,6 +261,10 @@ require 'boxes_helper'
 
 class MembersBlockViewTest < ActionView::TestCase
   include BoxesHelper
+
+  def setup
+    view.stubs(:user).returns(nil)
+  end
 
   should 'list members from community' do
     owner = fast_create(Community)
@@ -290,8 +295,8 @@ class MembersBlockViewTest < ActionView::TestCase
 
   should 'provide link to members page without a visible_role selected' do
     env = fast_create(Environment)
-    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    member = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     relation = RoleAssignment.new(:resource_id => profile.id, :resource_type => 'Profile', :role_id => 3)
     relation.accessor = member
     relation.save
@@ -313,8 +318,8 @@ class MembersBlockViewTest < ActionView::TestCase
 
   should 'provide link to members page when visible_role is profile_member' do
     env = fast_create(Environment)
-    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    member = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     relation = RoleAssignment.new(:resource_id => profile.id, :resource_type => 'Profile', :role_id => 3)
     relation.accessor = member
     relation.save
@@ -336,8 +341,8 @@ class MembersBlockViewTest < ActionView::TestCase
 
   should 'provide link to members page when visible_role is profile_moderator' do
     env = fast_create(Environment)
-    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    member = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     relation = RoleAssignment.new(:resource_id => profile.id, :resource_type => 'Profile', :role_id => 3)
     relation.accessor = member
     relation.save
@@ -360,8 +365,8 @@ class MembersBlockViewTest < ActionView::TestCase
 
   should 'provide link to admins page when visible_role is profile_admin' do
     env = fast_create(Environment)
-    profile = fast_create(Community, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    member = fast_create(Person, :public_profile => true, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     relation = RoleAssignment.new(:resource_id => profile.id, :resource_type => 'Profile', :role_id => 3)
     relation.accessor = member
     relation.save
@@ -476,12 +481,13 @@ class MembersBlockViewTest < ActionView::TestCase
     json_response_1 = block.api_content
     json_response_2 = block.api_content
     json_response_3 = block.api_content
-    assert !(json_response_1 == json_response_2 && json_response_2 == json_response_3)
+    assert_not_equal json_response_1, json_response_2
+    assert_not_equal json_response_2, json_response_3
   end
 
   should 'return members in order of name in api content' do
     owner = fast_create(Community)
-    10.times do |n|
+    3.times do |n|
       friend = fast_create(Person, :name => "Person #{n}")
       owner.add_member(friend)
     end

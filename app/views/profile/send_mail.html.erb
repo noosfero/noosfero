@@ -18,6 +18,5 @@
 
   <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => 'body ' + current_editor)) %>
 
-  <%= submit_button(:send, _('Send')) %>
-  <%= button :cancel, _('Cancel e-mail'), :back %>
+  <%= submit_button(:email, _('Send'), :cancel => { :action => @back_to }) %>
 <% end %>

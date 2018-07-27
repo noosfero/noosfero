@@ -19,7 +19,7 @@ class ActivitiesTest < ActiveSupport::TestCase
 
   should 'get network activities' do
     fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => user.id))
-    
+
     get "/api/v1/profiles/#{person.id}/network_activities?#{params.to_query}"
     json = JSON.parse(last_response.body)
     assert 1, json.count
@@ -27,7 +27,7 @@ class ActivitiesTest < ActiveSupport::TestCase
   end
 
   should 'not get private community activities' do
-    community = fast_create(Community, :public_profile => false)
+    community = fast_create(Community, :access => Entitlement::Levels.levels[:self])
     create_activity(:target => community)
 
     get "/api/v1/profiles/#{community.id}/activities?#{params.to_query}"
@@ -37,7 +37,7 @@ class ActivitiesTest < ActiveSupport::TestCase
   end
 
   should 'not get community activities if not member and community is private' do
-    community = fast_create(Community, public_profile: false)
+    community = fast_create(Community, access: Entitlement::Levels.levels[:self])
     other_person = fast_create(Person)
     community.add_member(other_person) # so there is an activity in community
 

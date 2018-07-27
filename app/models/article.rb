@@ -1,4 +1,3 @@
-
 class Article < ApplicationRecord
 
   module Editor
@@ -9,6 +8,8 @@ class Article < ApplicationRecord
 
   include SanitizeHelper
   include SanitizeTags
+  include Entitlement::SliderHelper
+  include Entitlement::ArticleJudge
 
   attr_accessible :name, :body, :abstract, :profile, :tag_list, :parent,
                   :allow_members_to_edit, :translation_of_id, :language,
@@ -19,7 +20,7 @@ class Article < ApplicationRecord
                   :external_feed_builder, :display_versions, :external_link,
                   :image_builder, :show_to_followers, :archived,
                   :author, :display_preview, :published_at, :person_followers,
-                  :editor, :metadata, :position
+                  :editor, :metadata, :position, :access
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
@@ -52,8 +53,6 @@ class Article < ApplicationRecord
     if params.present? && params.first.present?
       if params.first.symbolize_keys.has_key?(:published)
         self.published = params.first.symbolize_keys[:published]
-      elsif params.first[:profile].present? && !params.first[:profile].public_profile
-        self.published = false
       end
     end
   end
@@ -159,6 +158,12 @@ class Article < ApplicationRecord
     includes('categories_including_virtual').where('categories.id' => category.id)
   }
 
+  scope :relevant_as_recent, -> {
+    where "(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and
+            articles.type != 'Gallery' and articles.type != 'Blog') OR
+           articles.type is NULL"
+  }
+
   include TimeScopes
 
   scope :by_range, -> range {
@@ -179,6 +184,7 @@ class Article < ApplicationRecord
   validate :parent_archived?
 
   validate :valid_slug
+  validate :access_value
 
   RESERVED_SLUGS = %w[
     about
@@ -187,6 +193,12 @@ class Article < ApplicationRecord
 
   def valid_slug
     errors.add(:title, _('is not available as article name.')) unless Article.is_slug_available?(slug)
+  end
+
+  def access_value
+    if profile.present? && access < profile.access
+      self.errors.add(:access, _('can not be less restrictive than this profile access which is: %s.') % Entitlement::Levels.label(profile.access, profile))
+    end
   end
 
   def self.is_slug_available?(slug)
@@ -303,37 +315,10 @@ class Article < ApplicationRecord
     where 'parent_id is null and profile_id = ?', profile.id
   }
 
-  scope :is_public, -> {
-    joins(:profile).
-    where("articles.advertise = ? AND articles.published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true)
-  }
-
-  scope :more_recent, -> {
-    order('articles.published_at desc, articles.id desc')
-    .where("articles.advertise = ? AND articles.published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
-    ((articles.type != ?) OR articles.type is NULL)",
-    true, true, true, true, 'RssFeed')
-  }
-
   # retrives the most commented articles, sorted by the comment count (largest
   # first)
   def self.most_commented(limit)
     order('comments_count DESC').paginate(page: 1, per_page: limit)
-  end
-
-  scope :more_popular, -> { order 'hits DESC' }
-  scope :relevant_as_recent, -> {
-   where "(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"
-  }
-
-  def self.recent(limit = nil, extra_conditions = {}, pagination = true)
-    result = where(extra_conditions).
-      is_public.
-      relevant_as_recent.
-      limit(limit).
-      order(['articles.published_at desc', 'articles.id desc'])
-
-    pagination ? result.paginate({:page => 1, :per_page => limit}) : result
   end
 
   # produces the HTML code that is to be displayed as this article's contents.
@@ -527,15 +512,7 @@ class Article < ApplicationRecord
   end
 
   def published?
-    if self.published
-      if self.parent && !self.parent.published?
-        return false
-      end
-
-      true
-    else
-      false
-    end
+    published && (parent.blank? || parent.published?)
   end
 
   def archived?
@@ -553,44 +530,20 @@ class Article < ApplicationRecord
   scope :images, -> { where :is_image => true }
   scope :no_images, -> { where :is_image => false }
   scope :files, -> { where :type => 'UploadedFile' }
+  scope :no_files, -> { where "type != 'UploadedFile'" }
   scope :with_types, -> types { where 'articles.type IN (?)', types }
 
   scope :more_popular, -> { order 'articles.hits DESC' }
   scope :more_comments, -> { order "articles.comments_count DESC" }
-  scope :more_recent, -> { order "articles.created_at DESC" }
+  scope :more_recent, -> { order "articles.created_at DESC, articles.id DESC" }
 
-  scope :display_filter, lambda {|user, profile|
-    return published if (user.nil? && profile && profile.public?)
-    return [] if user.nil? || (profile && !profile.public? && !profile.in_social_circle?(user))
-    where(
-      [
-       "published = ? OR last_changed_by_id = ? OR profile_id = ? OR ?
-        OR  (show_to_followers = ? AND ? AND profile_id IN (?))", true, user.id, user.id,
-        profile.nil? ?  false : user.has_permission?(:view_private_content, profile),
-        true, (profile.nil? ? true : profile.in_social_circle?(user)),  ( profile.nil? ? (user.friends.select('profiles.id')) : [profile.id])
-      ]
-    )
+  scope :news, -> profile, limit, highlight {
+      no_folders(profile).
+      no_files.
+      where(highlighted: highlight).
+      limit(limit).
+      order("articles.metadata->'order' NULLS FIRST, published_at DESC")
   }
-
-
-  def display_unpublished_article_to?(user)
-    user == author || allow_view_private_content?(user) || user == profile ||
-    user.is_admin?(profile.environment) || user.is_admin?(profile) ||
-    article_privacy_exceptions.include?(user) ||
-    (self.show_to_followers && user.follows?(profile))
-  end
-
-  def display_to?(user = nil)
-    if published?
-      (profile.secret? || !profile.visible?) ? profile.display_info_to?(user) : true
-    else
-      if !user
-        false
-      else
-        display_unpublished_article_to?(user)
-      end
-    end
-  end
 
   def allow_post_content?(user = nil)
     return true if allow_edit_topic?(user)
@@ -608,7 +561,7 @@ class Article < ApplicationRecord
   alias :allow_delete?  :allow_post_content?
 
   def allow_spread?(user = nil)
-    user && public?
+    user
   end
 
   def allow_create?(user)
@@ -634,10 +587,6 @@ class Article < ApplicationRecord
 
   def accept_category?(cat)
     true
-  end
-
-  def public?
-    profile.visible? && profile.public? && published?
   end
 
   def copy_without_save(options = {})
@@ -877,8 +826,8 @@ class Article < ApplicationRecord
 
   def first_image
     img = ( image.present? && { 'src' => File.join([Noosfero.root, image.public_filename(:uploaded)].join) } ) ||
-          Nokogiri::HTML.fragment(self.lead.to_s).css('img[src]').first ||
-          Nokogiri::HTML.fragment(self.body.to_s).search('img').first
+      Nokogiri::HTML.fragment(self.lead.to_s).css('img[src]').first ||
+      Nokogiri::HTML.fragment(self.body.to_s).search('img').first
     img.nil? ? '' : img['src']
   end
 
@@ -927,9 +876,9 @@ class Article < ApplicationRecord
   private
 
   def parent_archived?
-     if self.parent_id_changed? && self.parent && self.parent.archived?
-       errors.add(:parent_folder, N_('is archived!!'))
-     end
+    if self.parent_id_changed? && self.parent && self.parent.archived?
+      errors.add(:parent_folder, N_('is archived!!'))
+    end
   end
 
   def validate_custom_fields
@@ -949,5 +898,4 @@ class Article < ApplicationRecord
       [field.to_slug, metadata['custom_fields'][field]]
     end.to_h
   end
-
 end

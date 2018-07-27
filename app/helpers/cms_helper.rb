@@ -36,10 +36,12 @@ module CmsHelper
   end
 
   def display_delete_button(article)
-    expirable_button article, :delete, _('Delete'), { :action => 'destroy', :id => article.id }, :method => :post, 'data-confirm' => delete_article_message(article)
+    expirable_button article, :delete, _('Delete'),
+      { :action => 'destroy', :id => article.id }, { :method => :post,
+      'data-confirm' => delete_article_message(article)}, :trash
   end
 
-  def expirable_button(content, action, title, url, options = {})
+  def expirable_button(content, action, title, url, options = {}, icon='')
     reason = @plugins.dispatch("content_expire_#{action.to_s}", content).first
     if reason.present?
       options[:class] = (options[:class] || '') + ' disabled'
@@ -48,7 +50,8 @@ module CmsHelper
       options.delete(:method)
       title = reason
     end
-    button_without_text action.to_sym, title, url, options
+    icon = action.to_sym unless icon.present?
+    button_without_text icon, title, url, options
   end
 
   def max_upload_size_for(profile)

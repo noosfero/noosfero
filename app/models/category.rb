@@ -65,7 +65,7 @@ class Category < ApplicationRecord
   end
 
   def recent_articles(limit = 10)
-    self.articles.recent(limit)
+    self.articles.more_recent.paginate(page: 1, per_page: limit)
   end
 
   def recent_comments(limit = 10)

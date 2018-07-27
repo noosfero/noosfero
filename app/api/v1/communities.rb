@@ -16,7 +16,7 @@ module Api
         #  GET /communities?reference_id=10&limit=10&oldest
         get do
           communities = select_filtered_collection_of(environment, 'communities', params)
-          communities = profiles_for_person(communities, current_person)
+          communities = communities.visible.accessible_to(current_person)
           communities = communities.by_location(params) # Must be the last. May return Exception obj
           present_partial communities, :with => Entities::Community, :current_person => current_person, :params => params
         end
@@ -48,8 +48,8 @@ module Api
         end
 
         get ':id' do
-          community = profiles_for_person(environment.communities, current_person).find_by_id(params[:id])
-          not_found! unless community.present?
+          community = environment.communities.find_by_id(params[:id])
+          not_found! unless community.present? && community.display_to?(current_person)
           present_partial community, :with => Entities::Community, :current_person => current_person, :params => params
         end
 
@@ -63,8 +63,8 @@ module Api
         end
         post ':id/invite' do
           authenticate!
-          community = profiles_for_person(environment.communities, current_person).find_by_id(params[:id])
-          not_found! unless community.present?
+          community = environment.communities.find_by_id(params[:id])
+          not_found! unless community.present? && community.display_to?(current_person)
           forbidden! unless community.allow_invitation_from?(current_person)
           Delayed::Job.enqueue InvitationJob.new(current_person.id, params[:contacts], '', community.id, nil, I18n.locale)
           msg = {
@@ -132,7 +132,7 @@ module Api
               person = environment.people.find(params[:person_id])
 
               not_found! if person.blank?
-              forbidden! if !person.display_info_to?(current_person)
+              forbidden! if !person.display_to?(current_person)
 
               communities = select_filtered_collection_of(person, 'communities', params)
               communities = communities.visible

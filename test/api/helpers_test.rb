@@ -122,7 +122,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
   should 'find_article return forbidden when a user try to access an article without permission' do
     login_api
     p = fast_create(Profile)
-    a = fast_create(Article, :published => false, :profile_id => p.id)
+    a = fast_create(Article, :published => false, :access => Entitlement::Levels.levels[:self], :profile_id => p.id)
     fast_create(Article, :profile_id => p.id)
 
     self.params = {private_token: user.private_token}

@@ -139,7 +139,7 @@ class HomeControllerTest < ActionController::TestCase
   should 'not display template welcome page if it is not published' do
     template = create_user('template').person
     template.is_template = true
-    welcome_page = TextArticle.create!(:name => 'Welcome page', :profile => template, :published => false, :body => 'Template welcome page')
+    welcome_page = TextArticle.create!(:name => 'Welcome page', :profile => template, :body => 'Template welcome page', access: Entitlement::Levels.levels[:self])
     template.welcome_page = welcome_page
     template.save!
     get :welcome, :template_id => template.id

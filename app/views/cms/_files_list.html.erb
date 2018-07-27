@@ -20,8 +20,8 @@
           <td class="file-size">
             <%= number_to_human_size(file.size) %>
           </td>
-          <td class="article-controls">
-            <%= button_without_text :eyes, _('Public view'), file.view_url %>
+          <td class="actions">
+            <%= button_without_text :eye, _('Public view'), file.view_url %>
             <% if !remove_content_button(:delete, file) %>
               <%= display_delete_button(file) %>
             <% end %>

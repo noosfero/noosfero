@@ -5,12 +5,12 @@ Feature: private profiles
 
   Background:
     Given the following community
-      | identifier | name     | public_profile |
-      | safernet   | Safernet | false          |
+      | identifier | name     | access |
+      | safernet   | Safernet |   30   |
     And the following users
-      | login   | public_profile |
-      | joao    | true           |
-      | shygirl | false          |
+      | login   | access |
+      | joao    |    0   |
+      | shygirl |   30   |
 
   Scenario: joining a private community
     Given I am logged in as "joao"

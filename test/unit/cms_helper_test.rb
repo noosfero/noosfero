@@ -9,15 +9,16 @@ class CmsHelperTest < ActionView::TestCase
   include Noosfero::Plugin::HotSpot
 
   should 'show default options for article' do
-    result = options_for_article(build(RssFeed, :profile => Profile.new))
-    assert_tag_in_string result, tag: 'input', attributes: {id: 'article_published_true',  name:'article[published]', type: 'radio', value: 'true'}
-    assert_tag_in_string result, tag: 'input', attributes: {id: 'article_published_false', name:'article[published]', type: 'radio', value: 'false'}
+    profile = Profile.new
+    result = options_for_article(RssFeed.new profile: profile)
+    assert_tag_in_string result, tag: 'input', attributes: {id: 'post-access',  name:'article[access]', type: 'hidden', value: profile.access}
     assert_tag_in_string result, tag: 'input', attributes: {id: 'article_accept_comments', name:'article[accept_comments]', type: 'checkbox', value: '1'}
   end
 
   should 'show custom options for blog' do
-    result = options_for_article(Blog.new(:profile => fast_create(Profile)))
-    assert_tag_in_string result, :tag => 'input', :attributes => { :name => 'article[published]' , :type => "hidden", :value => "1" }
+    profile = fast_create(Profile)
+    result = options_for_article(Blog.new(:profile => profile))
+    assert_tag_in_string result, tag: 'input', attributes: {id: 'post-access',  name:'article[access]', type: 'hidden', value: profile.access}
     assert_tag_in_string result, :tag => 'input', :attributes => { :name => "article[accept_comments]", :type => "hidden", :value => "0" }
   end
 
@@ -54,8 +55,12 @@ class CmsHelperTest < ActionView::TestCase
   should 'display spread button' do
     plugins.stubs(:dispatch).returns([])
     profile = fast_create(Person)
-    article = fast_create(TextArticle, :name => 'My article', :profile_id => profile.id)
-    expects(:link_to).with({:action => 'publish', :id => article.id}, :modal => true, :class => 'button without-text', :title => 'Spread this')
+    article = fast_create(TextArticle, :name => 'My article',
+      :profile_id => profile.id)
+
+    expects(:link_to).with(font_awesome(:spread), {:action => 'publish', :id => article.id},
+      :modal => true, :class => 'button icon-spread without-text',
+      :title => 'Spread this')
 
     result = display_spread_button(article)
   end
@@ -65,8 +70,13 @@ class CmsHelperTest < ActionView::TestCase
     profile = fast_create(Profile)
     name = 'My folder'
     folder = fast_create(Folder, :name => name, :profile_id => profile.id)
-    confirm_message = "Are you sure that you want to remove the folder \"#{name}\"? Note that all the items inside it will also be removed!"
-    expects(:link_to).with({action: 'destroy', id: folder.id}, method: :post, 'data-confirm' => confirm_message, class: 'button without-text', title: 'Delete')
+    confirm_message = "Are you sure that you want to remove the folder \"#{name}\"? " +
+      "Note that all the items inside it will also be removed!"
+
+    expects(:link_to).with(font_awesome(:trash),
+      {action: 'destroy', id: folder.id}, method: :post,
+      'data-confirm' => confirm_message, class: 'button icon-trash without-text',
+      title: 'Delete')
 
     result = display_delete_button(folder)
   end
@@ -77,7 +87,11 @@ class CmsHelperTest < ActionView::TestCase
     name = 'My article'
     article = fast_create(TextArticle, :name => name, :profile_id => profile.id)
     confirm_message = "Are you sure that you want to remove the item \"#{name}\"?"
-    expects(:link_to).with({action: 'destroy', id: article.id}, method: :post, 'data-confirm' => confirm_message, class: 'button without-text', title: 'Delete')
+
+    expects(:link_to).with(font_awesome(:trash),
+      {action: 'destroy', id: article.id}, method: :post,
+      'data-confirm' => confirm_message, class: 'button icon-trash without-text',
+      title: 'Delete')
 
     result = display_delete_button(article)
   end

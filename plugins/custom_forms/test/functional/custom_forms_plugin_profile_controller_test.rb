@@ -33,6 +33,17 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_redirected_to :action => 'show'
   end
 
+  should 'not save empty submission' do
+    form = CustomFormsPlugin::Form.create!(profile: profile, name: 'Free Software', identifier: 'free-software', kind: 'poll')
+    field1 = CustomFormsPlugin::TextField.create(name: 'Name', form: form)
+
+    assert_no_difference 'CustomFormsPlugin::Submission.count' do
+      post :show, :profile => profile.identifier, :id => form.identifier, :submission => {field1.id.to_s => ''}
+    end
+
+    assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+  end
+
   should 'display errors if user is not logged in and author_name is not uniq' do
     logout
     form = CustomFormsPlugin::Form.create(:profile => profile, :name => 'Free Software', :identifier => 'free-software')
@@ -154,9 +165,15 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'filter forms by query' do
-    space_wars = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Space Wars', :identifier => 'space-wars')
-    star_trek = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Star Trek', :identifier => 'star-trek')
-    star_wars = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Star Wars', :identifier => 'star-wars')
+    space_wars = CustomFormsPlugin::Form.create!(:profile => profile,
+                                                 :name => 'Space Wars',
+                                                 :identifier => 'space-wars')
+    star_trek = CustomFormsPlugin::Form.create!(:profile => profile,
+                                                :name => 'Star Trek',
+                                                :identifier => 'star-trek')
+    star_wars = CustomFormsPlugin::Form.create!(:profile => profile,
+                                                :name => 'Star Wars',
+                                                :identifier => 'star-wars')
 
     get :queries, :profile => profile.identifier, :q => 'star'
 
@@ -165,19 +182,25 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_not_includes assigns(:forms), space_wars
   end
 
-  should 'forbid access to form based on AccessLevels' do
+  should 'forbid access to form based on entitlement' do
     community = fast_create(Community)
-    form = CustomFormsPlugin::Form.create!(:profile => community, :name => 'Free Software', :identifier => 'free-software', :access => AccessLevels.levels[:visitors])
-    AccessLevels.expects(:can_access?).with(form.access, profile, community).returns(false)
+    form = CustomFormsPlugin::Form.create!(:profile => community,
+                                           :name => 'Free Software',
+                                           :identifier => 'free-software',
+                                           :access => Entitlement::Levels.levels[:related])
+
     get :show, :profile => community.identifier, :id => form.identifier
     assert_response :forbidden
     assert_template 'shared/access_denied'
   end
 
-  should 'allow access to form based on AccessLevels' do
+  should 'allow access to form based on entitlement' do
     community = fast_create(Community)
-    form = CustomFormsPlugin::Form.create!(:profile => community, :name => 'Free Software', :identifier => 'free-software', :access => AccessLevels.levels[:visitors])
-    AccessLevels.expects(:can_access?).with(form.access, profile, community).returns(true)
+    form = CustomFormsPlugin::Form.create!(:profile => community,
+                                           :name => 'Free Software',
+                                           :identifier => 'free-software',
+                                           :access => Entitlement::Levels.levels[:visitors])
+
     get :show, :profile => community.identifier, :id => form.identifier
     assert_response :success
     assert_template 'custom_forms_plugin_profile/show'
@@ -186,9 +209,15 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
   should 'filter forms for visitors' do
     logout
     community = fast_create(Community)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
-    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
-    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors',
+                                         :profile => community,
+                                         :access => Entitlement::Levels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users',
+                                         :profile => community,
+                                         :access => Entitlement::Levels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members',
+                                         :profile => community,
+                                         :access => Entitlement::Levels.levels[:related])
 
     get :queries, :profile => community.identifier
 
@@ -199,9 +228,9 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
 
   should 'filter forms for logged users' do
     community = fast_create(Community)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
-    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
-    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => Entitlement::Levels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => Entitlement::Levels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => Entitlement::Levels.levels[:related])
 
     get :queries, :profile => community.identifier
 
@@ -213,9 +242,9 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
   should 'filter forms for related users' do
     community = fast_create(Community)
     community.add_member(profile)
-    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => AccessLevels.levels[:visitors])
-    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => AccessLevels.levels[:users])
-    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => AccessLevels.levels[:related])
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For Visitors', :profile => community, :access => Entitlement::Levels.levels[:visitors])
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For Logged Users', :profile => community, :access => Entitlement::Levels.levels[:users])
+    f3 = CustomFormsPlugin::Form.create!(:name => 'For Members', :profile => community, :access => Entitlement::Levels.levels[:related])
 
     get :queries, :profile => community.identifier
 

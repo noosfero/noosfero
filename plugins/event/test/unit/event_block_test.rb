@@ -8,15 +8,19 @@ class EventBlockTest < ActiveSupport::TestCase
 
     @p1  = fast_create(Person, :environment_id => @env.id)
     @event = fast_create(Event, :name => 'Event p1 A', :profile_id => @p1.id,
-                          :start_date => Date.today+30)
+                          :start_date => Date.today+30,
+                          :access => Entitlement::Levels.levels[:visitors])
     fast_create(Event, :name => 'Event p1 B', :profile_id => @p1.id,
-                  :start_date => Date.today+10)
+                  :start_date => Date.today+10,
+                  :access => Entitlement::Levels.levels[:visitors])
 
     @p2  = fast_create(Community, :environment_id => @env.id)
     fast_create(Event, :name => 'Event p2 A', :profile_id => @p2.id,
-                  :start_date => Date.today-10)
+                  :start_date => Date.today-10,
+                  :access => Entitlement::Levels.levels[:visitors])
     fast_create(Event, :name => 'Event p2 B', :profile_id => @p2.id,
-                  :start_date => Date.today-30)
+                  :start_date => Date.today-30,
+                  :access => Entitlement::Levels.levels[:visitors])
 
     box = fast_create(Box, :owner_id => @p1)
     @block = EventPlugin::EventBlock.new(:limit => 99, :future_only => false, :box => box)
@@ -113,22 +117,23 @@ class EventBlockTest < ActiveSupport::TestCase
     @block.box.owner = @env
     @block.all_env_events = true
     @event.published = false
+    @event.access = Entitlement::Levels.levels[:self]
     @event.save!
 
     assert_equal 3, @block.events.length
   end
 
   should 'filter events from non public profiles' do
-    person  = create_user('testuser', :environment_id => @env.id).person
-    person.public_profile = false
+    person = create_user('testuser', :environment_id => @env.id).person
+    person.access = Entitlement::Levels.levels[:related]
     person.save!
 
     visibility_content_test_from_a_profile person
   end
 
-  should 'filter events from non visible profiles' do
-    person = create_user('testuser', :environment_id=>@env.id).person
-    person.visible = false
+  should 'filter events from secret profiles' do
+    person = create_user('testuser', :environment_id => @env.id).person
+    person.secret = true
     person.save!
 
     visibility_content_test_from_a_profile person
@@ -136,15 +141,18 @@ class EventBlockTest < ActiveSupport::TestCase
 
   def visibility_content_test_from_a_profile(profile)
     @block.box.owner = @env
-    ev = Event.create!(:name => '2 de Julho', :profile => profile)
+    ev = Event.create!(:name => '2 de Julho',
+                       :profile => profile,
+                       :published => true,
+                       :access => Entitlement::Levels.levels[:related])
     @block.all_env_events = true
 
     # Do not list event from private profile for non logged visitor
-    refute  @block.events.include?(ev)
+    refute @block.events.include?(ev)
     assert_equal 4, @block.events.length
 
     # Do not list event from private profile for non unprivileged user
-    refute  @block.events.include?(ev)
+    refute @block.events.include?(ev)
     assert_equal 4, @block.events(@p1).length
 
     # Must to list event from private profile for a friend

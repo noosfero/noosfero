@@ -3,7 +3,7 @@ class RecentActivitiesPlugin::ActivitiesBlock < Block
   settings_items :limit, type: :integer, default: 5
 
   def view_title
-    self.default_title 
+    self.default_title
   end
 
   def activities

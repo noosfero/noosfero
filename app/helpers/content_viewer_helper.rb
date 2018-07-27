@@ -31,8 +31,8 @@ module ContentViewerHelper
       title << content_tag(:div,
         content_tag(:span, '', :class => 'ui-icon ui-icon-locked') +
         content_tag(:span, _("This is a private content"), :class => 'alert-message'),
-        :class => 'not-published alert-text'
-      ) unless article.published?
+        :class => 'private alert-text'
+      ) if article.access.eql? Entitlement::Levels.levels[:self]
     end
     title
   end

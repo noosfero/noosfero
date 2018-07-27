@@ -45,7 +45,7 @@ Feature: search enterprises
     Then I should see "This is the homepage of"
     And I should see "about sho..."
 
-  @selenium
+  @selenium-fixme
   Scenario: show clean enterprise description on search results
     Given the following enterprises
       | identifier | name | description |
@@ -53,7 +53,6 @@ Feature: search enterprises
     When I go to the search enterprises page
     And I fill in "search-input" with "clothes"
     And I follow "Search" within ".search-form"
-    And I wait for 1 seconds
     And I select "Full" from "display"
     And I should see "This clothes shop" within ".search-enterprise-description"
     And I should see "really import..." within ".search-enterprise-description"

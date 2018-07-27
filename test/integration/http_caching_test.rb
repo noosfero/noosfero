@@ -85,7 +85,8 @@ class HttpCachingTest < ActionDispatch::IntegrationTest
 
   test 'private community content should not return cache headers' do
     community = create_private_community('the-community')
-    create(Article, profile_id: community.id, name: 'Test page', published: false)
+    create(Article, profile_id: community.id, name: 'Test page', 
+           :access => Entitlement::Levels.levels[:self] )
 
     get "/the-community/test-page"
     assert_response 403
@@ -109,7 +110,7 @@ class HttpCachingTest < ActionDispatch::IntegrationTest
 
   def create_private_community(identifier)
     community = fast_create(Community, identifier: identifier)
-    community.public_profile = false
+    community.access = Entitlement::Levels.levels[:self]
     community.save!
     community
   end

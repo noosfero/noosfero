@@ -12,12 +12,8 @@ class FansBlock < ProfileListBlock
     _('This block presents the fans of an enterprise.')
   end
 
-  def profiles
+  def base_profiles
     owner.fans
-  end
-
-  def profile_count
-    profiles.visible.count
   end
 
   def self.pretty_name

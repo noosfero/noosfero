@@ -409,7 +409,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_nil form.image
   end
 
-  should 'return filtered polls of a pofile' do
+  should 'return filtered polls of a profile' do
     another_profile = fast_create(Profile)
     f1 = profile.forms.create(name: 'Form 1', :kind => 'poll')
     f2 = profile.forms.create(name: 'Form 2', :kind => 'poll')

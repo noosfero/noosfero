@@ -4,7 +4,7 @@
 <p><%= _('You must be aware that all content of this profile (articles, events, files and pictures) will also be deleted.') %></p>
 
 <%= button_bar do %>
-  <%= button(:remove, _('Yes, I am sure'), {:action => 'destroy_profile'}, :method => :post) %>
+  <%= button(:ok, _('Yes, I am sure'), {:action => 'destroy_profile'}, :method => :post) %>
   <%= button(:cancel, _('No, I gave up'), profile.url) %>
 <% end %>
 

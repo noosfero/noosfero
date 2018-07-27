@@ -31,7 +31,6 @@ class MetadataPlugin::Base < Noosfero::Plugin
         when Proc then instance_exec(&variable)
         else instance_variable_get variable
         end
-      return if object.respond_to? :public? and not object.public?
       return unless specs = (object.class.metadata_specs rescue nil)
 
       r = []

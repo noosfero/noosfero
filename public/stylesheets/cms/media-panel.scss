@@ -88,6 +88,7 @@
 .text-editor-sidebar .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   margin: 0 0 10px 0;
   padding: 5px 15px;
   font-weight: bold;
@@ -176,18 +177,41 @@
   background-color: transparent;
 }
 
-.text-editor-sidebar .items .image-controls,
-.view-all-media .image-controls {
-  display: none;
+#content .text-editor-sidebar .items .image-controls,
+#content .view-all-media .image-controls {
+  display: flex;
+  flex-direction: column;
   position: absolute;
-  top: 5px;
+  top: 0;
   left: 5px;
-  line-height: 16px;
+  height: 100%;
+  width: 25px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 1s;
+
+  a.button.without-text {
+    text-shadow: 2px 2px 2px #000;
+    color: #fff;
+    width: 100%;
+    border-radius: 0;
+    text-align:center;
+    flex-grow: 1;
+    margin: 0;
+    padding: 12px 0;
+
+    &:hover {
+        background: transparent;
+    }
+  }
 }
 
-.text-editor-sidebar .items .item:hover .image-controls,
-.view-all-media .item:hover .image-controls {
-  display: block;
+#content .text-editor-sidebar .items .item:hover .image-controls,
+#content .view-all-media .item:hover .image-controls {
+  opacity: 1;
+  transition: opacity 1s;
+
 }
 
 .view-all-images .item:hover .image-controls {
@@ -201,9 +225,7 @@
 
 .text-editor-sidebar .items .image-controls .icon-zoom,
 .view-all-media .image-controls .icon-zoom  {
-  background-image: url(../images/zoom-dark.png);
   display: block;
-  width: 0px;
   margin-top: 4px;
 }
 

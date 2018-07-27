@@ -303,7 +303,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert(environment.blocks.any? { |block| block.kind_of? MainBlock })
   end
 
-  should 'provide recent_documents' do
+  should 'provide recent articles' do
     environment = fast_create(Environment)
 
     p1 = fast_create(Profile, :environment_id => environment.id)
@@ -322,39 +322,10 @@ class EnvironmentTest < ActiveSupport::TestCase
     # p1 creates another article
     doc4 = fast_create(Article, :profile_id => p1.id)
 
-    all_recent = environment.recent_documents
+    all_recent = environment.articles.more_recent
     [doc1,doc2,doc3,doc4].each do |item|
       assert_includes all_recent, item
     end
-
-    last_three = environment.recent_documents(3)
-    [doc2, doc3, doc4].each do |item|
-      assert_includes last_three, item
-    end
-    assert_not_includes last_three, doc1
-
-  end
-
-  should 'not include link articles on recent_documents' do
-    environment = fast_create(Environment)
-
-    p1 = fast_create(Profile, environment_id: environment.id)
-    p2 = fast_create(Profile, environment_id: environment.id)
-
-    Article.delete_all
-    
-    doc1 = fast_create(Article, profile_id: p1.id)
-    doc2 = fast_create(Article, profile_id: p2.id)
-    link = LinkArticle.create!(
-      reference_article: doc1, profile: p2
-    )
-
-    all_recent = environment.recent_documents
-    [doc1, doc2].each do |item|
-      assert_includes all_recent, item
-    end
-
-    assert_not_includes all_recent, link
   end
 
   should 'have a description attribute' do
@@ -1859,24 +1830,36 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal 4, environment.get_captcha_level(action)
   end
 
-  should 'get require captcha if on restriction levels' do
+  should 'require captcha if demands is true for the action' do
     environment = Environment.default
     user = mock
     action = 'some-action'
 
-    RestrictionLevels.expects(:is_restricted?).returns(true)
+    environment.stubs(:demands?).with(user, 'some-action_captcha').returns(true)
 
     assert environment.require_captcha?(action, user)
   end
 
-  should 'not get require captcha if not on restriction levels' do
+  should 'not require captcha if demands is false for the action' do
     environment = Environment.default
     user = mock
     action = 'some-action'
 
-    RestrictionLevels.expects(:is_restricted?).returns(false)
+    environment.stubs(:demands?).with(user, 'some-action_captcha').returns(false)
 
     refute environment.require_captcha?(action, user)
+  end
+
+  should 'only captcha requirement if action is valid' do
+    environment = Environment.default
+    environment.stubs(:captcha_requirements).returns({action1: {}, action2: {}})
+    environment.expects(:captcha_requirement).with('action1')
+    environment.expects(:captcha_requirement).with('action3').never
+
+    environment.action1_captcha_requirement
+    assert_raise NoMethodError do
+      environment.action3_captcha_requirement
+    end
   end
 
   should 'check whether ip is in the signup_blacklist' do

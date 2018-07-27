@@ -30,7 +30,8 @@ class TrackListBlockTest < ActionView::TestCase
 
   should 'display help button' do
     controller.expects(:boxes_editor?).returns(false)
-    assert_tag_in_string render_block_content(block), :tag => 'a', :attributes => {:class => 'button with-text tour-button'}
+    assert_tag_in_string render_block_content(block), :tag => 'a',
+      :attributes => {:class => 'button icon-help with-text tour-button'}
   end
 
   should 'do not display help button when display_button is false' do

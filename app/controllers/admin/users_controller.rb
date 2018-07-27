@@ -106,7 +106,7 @@ class UsersController < AdminController
       end
     end
 
-    scope = scope.order('name ASC')
+    scope = scope.order('profiles.name ASC')
     find_by_contents(:people, environment, scope, params[:q],
                      pagination_opts)[:results]
   end

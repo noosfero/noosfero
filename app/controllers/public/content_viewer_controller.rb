@@ -38,8 +38,6 @@ class ContentViewerController < ApplicationController
       return
     end
 
-    # At this point the page will be showed
-
     unless user_is_a_bot? || already_visited?(@page)
       Noosfero::Scheduler::Defer.later{ @page.hit }
     end
@@ -134,13 +132,7 @@ class ContentViewerController < ApplicationController
     end
 
     unless @page.display_to?(user)
-      if !profile.visible? || profile.secret? || (user && profile.in_social_circle?(user)) || user.blank?
-        render_access_denied
-      else
-        private_profile_partial_parameters
-        render :template => 'profile/_private_profile', :status => 403, :formats => [:html]
-      end
-
+      render_access_denied
       return false
     end
 
@@ -214,6 +206,7 @@ class ContentViewerController < ApplicationController
         raise "No data for file"
       end
 
+      ## TODO: We will need to see how fix this using the new published schema.
       if @page.published && @page.uploaded_file?
         redirect_to "#{Noosfero.root}#{@page.public_filename}"
       else
@@ -235,8 +228,8 @@ class ContentViewerController < ApplicationController
       #      relation.
       posts = posts.native_translations if blog_with_translation?(@page)
 
-      @posts = posts.display_filter(user, profile).paginate({ :page => params[:npage], :per_page => @page.posts_per_page }).to_a
-
+      # Here we filter the accessible posts
+      @posts = posts.accessible_to(user).paginate({ :page => params[:npage], :per_page => @page.posts_per_page }).to_a
       if blog_with_translation?(@page)
         @posts.replace @posts.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
       end

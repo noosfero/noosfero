@@ -465,17 +465,22 @@ class Environment < ApplicationRecord
   store_accessor :metadata
   include MetadataScopes
 
-  CAPTCHA = {
-    create_comment: {label: _('Create a comment'), options: RestrictionLevels.range_options},
-    new_contact: {label: _('Make email contact'), options: RestrictionLevels.range_options},
-    report_abuse: {label: _('Report an abuse'), options: RestrictionLevels.range_options},
-    suggest_article: {label: _('Suggest a new article'), options: RestrictionLevels.range_options(0,1)},
-    forgot_password: {label: _('Recover forgotten password'), options: RestrictionLevels.range_options(0,1)},
-    signup: {label: _('Sign up'), options: RestrictionLevels.range_options(0,1)},
+  include Entitlement::SliderHelper
+  include Entitlement::EnvironmentJudge
+
+
+  CAPTCHA_REQUIREMENTS = {
+    suggest_article: {label: _('Suggest a new article'), options: Entitlement::Levels.range_options(0,1)},
+    forgot_password: {label: _('Recover forgotten password'), options: Entitlement::Levels.range_options(0,1)},
+    signup: {label: _('Sign up'), options: Entitlement::Levels.range_options(0,1)},
   }
 
+  def captcha_requirements
+    CAPTCHA_REQUIREMENTS.merge(Profile::CAPTCHA_REQUIREMENTS)
+  end
+
   def default_captcha_requirement
-    2
+    Entitlement::Levels.levels[:users]
   end
 
   def get_captcha_level(action)
@@ -483,7 +488,11 @@ class Environment < ApplicationRecord
   end
 
   def require_captcha?(action, user, profile = nil)
-    RestrictionLevels.is_restricted?(get_captcha_level(action), user, profile)
+    if profile.present?
+      profile.demands?(user, "#{action}_captcha")
+    else
+      demands?(user, "#{action}_captcha")
+    end
   end
 
   # returns <tt>true</tt> if this Environment has terms of use to be
@@ -782,6 +791,7 @@ class Environment < ApplicationRecord
   end
 
   has_many :articles, through:  :profiles
+ 
   def recent_documents(limit = 10, options = {}, pagination = true)
     self.articles.where.not(type: 'LinkArticle').recent(limit, options, pagination)
   end
@@ -1135,6 +1145,14 @@ class Environment < ApplicationRecord
 
   def allow_edit_design?(person = nil )
     person.kind_of?(Profile) && person.has_permission?('edit_environment_design', self)
+  end
+
+  def method_missing(method, *args, &block)
+    if method.to_s =~ /^(.+)_captcha_requirement$/ && captcha_requirements.keys.include?($1.to_sym)
+      self.send(:captcha_requirement, $1)
+    else
+      super
+    end
   end
 
   private

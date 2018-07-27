@@ -16,16 +16,17 @@ class FansBlockTest < ActiveSupport::TestCase
   end
 
   should 'list owner fans' do
-
+    owner = fast_create(Enterprise)
     block = FansBlock.new
+    block.stubs(:owner).returns(owner)
 
-    owner = mock
-    block.expects(:owner).returns(owner)
+    f1 = fast_create(Person)
+    f2 = fast_create(Person)
+    f3 = fast_create(Person)
+    owner.fans << f1
+    owner.fans << f2
 
-    list = []
-    owner.expects(:fans).returns(list)
-
-    assert_same list, block.profiles
+    assert_equivalent [f1,f2], block.profiles
   end
 
   should 'respond to person as base_class' do

@@ -35,25 +35,20 @@ Feature: search
   @selenium
   Scenario: show link to see all results
     Given the following users
-      | login      | name        |
-      | joaosilva  | Joao Silva  |
-    And the following articles
-      | owner     | name       |
-      | joaosilva | article #1 |
-      | joaosilva | article #2 |
-      | joaosilva | article #3 |
-      | joaosilva | article #4 |
-      | joaosilva | article #5 |
-      | joaosilva | article #6 |
-      | joaosilva | article #7 |
-      | joaosilva | article #8 |
-      | joaosilva | article #9 |
+      | login      | name          |
+      | tom1silva  | Tom1 Silva #1 |
+      | tom2silva  | Tom2 Silva #2 |
+      | tom3silva  | Tom3 Silva #3 |
+      | tom4silva  | Tom4 Silva #4 |
+      | tom5silva  | Tom5 Silva #5 |
+      | tom6silva  | Tom6 Silva #6 |
+      | tom7silva  | Tom7 Silva #7 |
+      | tom8silva  | Tom8 Silva #8 |
+      | tom9silva  | Tom9 Silva #9 |
     When I go to the search page
-    And I fill in "search-input" with "article"
-    And I follow "Search" within ".search-form"
     And I should see "see all (9)"
     When I follow "see all (9)"
-    Then I should be on the search articles page
+    Then I should be on the search people page
 
   @selenium
   Scenario: simple search for community
