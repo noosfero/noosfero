@@ -20,22 +20,23 @@ class BlockHelperTest < ActiveSupport::TestCase
                          tag: 'h3', attributes: { class: 'block-title' }
   end
 
-  should 'generate no tag if title is not present' do
-    assert_no_tag_in_string block_title('', 'subtitle'),
-                            tag: 'h3', attributes: { class: 'block-title' }
+  should 'generate hidden tag if title is not present' do
+    assert_tag_in_string block_title('', 'subtitle'),
+                         tag: 'h3', attributes: { class: 'block-title hidden' }
   end
 
   should 'generate tag if subtitle is present' do
     assert_tag_in_string block_title('title', 'subtitle'),
-                         tag: 'h4', attributes: { class: 'block-subtitle' }
+                         tag: 'span', attributes: { class: 'block-subtitle' }
   end
 
   should 'generate no tag if subtitle is not present' do
     assert_no_tag_in_string block_title('title', ''),
-                            tag: 'h4', attributes: { class: 'block-subtitle' }
+                            tag: 'span', attributes: { class: 'block-subtitle' }
   end
 
-  should 'returns no tag if title and subtitle are empty' do
-    assert block_title('', '').blank?
+  should 'returns an empty tag' do
+    assert_no_tag_in_string block_title('', ''),
+                            tag: 'span', attributes: { class: 'block-header empty' }
   end
 end

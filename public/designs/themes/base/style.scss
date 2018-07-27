@@ -421,6 +421,7 @@ div#notice {
   text-align: left;
   border-bottom: 2px solid #AAA;
 }
+
 #content .block-subtitle {
   font-variant: normal;
   color: #AAA;
@@ -428,6 +429,8 @@ div#notice {
   text-align: center;
   border-bottom: 1px solid #AAA;
   padding: 2px 0;
+  display: block;
+  margin-bottom: 1em;
 }
 
 /*************************** Login block *****************************/
@@ -764,20 +767,20 @@ div#notice {
 .product-categories-block .catalog-categories-list a {
   text-decoration: none;
   font-size: 120%;
-	line-height: 150%;
+  line-height: 150%;
   color: #333;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	display: inline-block;
-	padding: 0 0.3em 0 0.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: inline-block;
+  padding: 0 0.3em 0 0.5em;
   border-radius: 5px;
-	max-width: 80%;
-	vertical-align: middle;
+  max-width: 80%;
+  vertical-align: middle;
 }
 .product-categories-block .catalog-categories-list ul a {
   text-decoration: none;
   font-size: 110%;
-	line-height: 163.6%;
+  line-height: 163.6%;
 }
 .product-categories-block .catalog-categories-list div:hover a:hover {
   background: rgba(0,0,0,0.6);
@@ -803,19 +806,19 @@ div#notice {
 }
 
 .product-categories-block .count {
-	display: inline-block;
-	vertical-align: middle;
-	margin-left: -0.2em;
-	padding: 0 0.2em;
-	line-height: 180%;
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: -0.2em;
+  padding: 0 0.2em;
+  line-height: 180%;
   border-radius: 5px;
 }
 
 .block.product-categories-block .count:before {
-	content: "(";
+  content: "(";
 }
 .block.product-categories-block .count:after {
-	content: ")";
+  content: ")";
 }
 
 .catalog-categories-notice {
@@ -1557,17 +1560,17 @@ table#recaptcha_table tr:hover td {
 /*************************** join community confirmation ********************************/
 
 .join-community-confirmation h1 {
-	font-variant: small-caps;
-	font-size: 20px;
-	color: #555753;
-	text-align: left;
+  font-variant: small-caps;
+  font-size: 20px;
+  color: #555753;
+  text-align: left;
 }
 
 .join-community-confirmation {
-	padding: 5px 20px 0px 20px;
+  padding: 5px 20px 0px 20px;
 }
 
 .join-community-confirmation input.button.with-text {
-	padding-right: 4px;
+  padding-right: 4px;
 }
 
