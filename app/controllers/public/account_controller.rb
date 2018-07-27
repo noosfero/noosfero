@@ -5,7 +5,6 @@ class AccountController < ApplicationController
   before_filter :login_required, :require_login_for_environment, :only => [:activation_question, :accept_terms, :activate_enterprise, :change_password]
   before_filter :redirect_if_logged_in, :only => [:login, :signup, :activate]
   before_filter :protect_from_spam, :only => :signup
-  before_filter :block_blacklisted_user, :only => :signup
   before_filter :check_activation_token, :only => [:activate, :resend_activation_codes]
 
   protect_from_forgery except: [:login]
@@ -117,11 +116,6 @@ class AccountController < ApplicationController
     render :action => 'login', :layout => false
   end
 
-  def signup_time
-    key = set_signup_start_time_for_now
-    render :text => { :ok=>true, :key=>key }.to_json
-  end
-
   # action to register an user to the application
   def signup
     if @plugins.dispatch(:allow_user_registration).include?(false)
@@ -143,13 +137,7 @@ class AccountController < ApplicationController
       @kinds = environment.kinds.where(:type => 'Person')
 
       if request.post?
-        if bot_by_signup_time || !verify_captcha(:signup, @user, nil, environment)
-          session[:bot_failures] = (session[:bot_failures] || 0) + 1
-          if session[:bot_failures] > 3
-            environment.add_to_signup_blacklist(request.remote_ip)
-          end
-          sleep 5 * session[:bot_failures] # Putting possible bot to sleep
-        else
+        if verify_captcha(:signup, @user, nil, environment)
           @user.community_to_join = session[:join]
           @user.signup!
           invitation = Task.from_code(@invitation_code).first
@@ -172,7 +160,8 @@ class AccountController < ApplicationController
           else
             redirect_to action: :activate,
                         activation_token: @user.activation_code,
-                        return_to: { controller: :home, action: :welcome, template_id: @user.person.template.try(:id) }
+                        return_to: { controller: :home, action: :welcome,
+                                     template_id: @user.person.template.try(:id) }
           end
         end
       end
@@ -182,7 +171,6 @@ class AccountController < ApplicationController
       @person.errors.delete(:user_id)
       render :action => 'signup'
     end
-    clear_signup_start_time
   end
 
   # action to perform logout from the application
@@ -394,32 +382,6 @@ class AccountController < ApplicationController
     @cannot_redirect = true
   end
 
-  def set_signup_start_time_for_now
-    key = 'signup_start_time_' + rand.to_s.split('.')[1]
-    Rails.cache.write key, Time.now
-    key
-  end
-
-  def get_signup_start_time
-    Rails.cache.read params[:signup_time_key]
-  end
-
-  def clear_signup_start_time
-    Rails.cache.delete params[:signup_time_key] if params[:signup_time_key]
-  end
-
-  def bot_by_signup_time
-    # No minimum signup delay, no bot test.
-    return false if environment.min_signup_delay == 0
-
-    # never set signup_time, hi wget!
-    signup_start_time = get_signup_start_time
-    return true if signup_start_time.nil?
-
-    # so fast, so bot.
-    signup_start_time > ( Time.now - environment.min_signup_delay.seconds )
-  end
-
   def check_answer
     unless answer_correct
       @enterprise.block
@@ -534,12 +496,6 @@ class AccountController < ApplicationController
     unless profile_to_join.blank?
      environment.profiles.find_by(identifier: profile_to_join).add_member(user.person)
      session.delete(:join)
-    end
-  end
-
-  def block_blacklisted_user
-    if environment.on_signup_blacklist?(request.remote_ip)
-      return head :ok, content_type: "text/html"
     end
   end
 

@@ -1818,7 +1818,8 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment = Environment.default
     action = 'some-action'
     assert environment.metadata['captcha'].blank?
-    assert_equal environment.default_captcha_requirement, environment.get_captcha_level(action) end
+    assert_equal environment.default_captcha_requirement, environment.get_captcha_level(action)
+  end
 
   should 'get captcha level' do
     environment = Environment.default
@@ -1860,48 +1861,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_raise NoMethodError do
       environment.action3_captcha_requirement
     end
-  end
-
-  should 'check whether ip is in the signup_blacklist' do
-    ip = '0.0.0.0'
-    other_ip = '1.1.1.1'
-    environment = Environment.default
-    environment.metadata['signup_blacklist'] = [ip]
-    environment.save!
-    assert environment.on_signup_blacklist?(ip)
-
-    environment.metadata['signup_blacklist'] = [other_ip]
-    environment.save!
-    refute environment.on_signup_blacklist?(ip)
-  end
-
-  should 'add ip to signup blacklist' do
-    ip = '0.0.0.0'
-    environment = Environment.default
-    environment.add_to_signup_blacklist(ip)
-    assert environment.on_signup_blacklist?(ip)
-  end
-
-  should 'remove ip from signup blacklist' do
-    ip = '0.0.0.0'
-    environment = Environment.default
-    environment.metadata['signup_blacklist'] = [ip]
-    environment.save!
-    environment.remove_from_signup_blacklist(ip)
-
-    refute environment.on_signup_blacklist?(ip)
-  end
-
-  should 'remove from signup blacklist after removal job is performed' do
-    ip = '0.0.0.0'
-    environment = Environment.default
-    environment.add_to_signup_blacklist(ip)
-    assert environment.on_signup_blacklist?(ip)
-
-    job = Delayed::Job.where("handler LIKE '%RemoveIpFromBlacklist%'").last
-    job.invoke_job
-    environment.reload
-    refute environment.on_signup_blacklist?(ip)
   end
 
   should 'not save object with invalid upload quotas' do
