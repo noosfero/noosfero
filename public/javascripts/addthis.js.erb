@@ -1,0 +1,8 @@
+addthis_pub = '<%= NOOSFERO_CONF['addthis_pub'].to_json %>';
+addthis_logo = '<%= NOOSFERO_CONF['addthis_logo'].to_json %>';
+addthis_options = '<%= NOOSFERO_CONF['addthis_options'].to_json %>';
+
+$('#bt_addThis').on('click', function() {
+  addthis_open(this, '', '[URL]')
+  return false
+})
