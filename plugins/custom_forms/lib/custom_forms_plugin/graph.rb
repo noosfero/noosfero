@@ -39,16 +39,18 @@ class CustomFormsPlugin::Graph
 
   private
   def get_data
+    # TODO: Use left_joins after Rails 5 upgrade
     data = @form.fields
           .joins(:alternatives)
-          .joins(alternatives: :form_answers)
+          .joins('LEFT JOIN custom_forms_plugin_form_answers '\
+                 'ON custom_forms_plugin_alternatives.id = custom_forms_plugin_form_answers.alternative_id')
           .group('custom_forms_plugin_fields.id, custom_forms_plugin_alternatives.id')
           .order('custom_forms_plugin_alternatives.id')
           .select('custom_forms_plugin_fields.name AS field_name,'\
                   'custom_forms_plugin_fields.show_as AS show_as,'\
                   'custom_forms_plugin_alternatives.id AS alternative,'\
                   'custom_forms_plugin_alternatives.label AS label,'\
-                  'COUNT(custom_forms_plugin_alternatives.id) AS answer_count')
+                  'COUNT(custom_forms_plugin_form_answers.alternative_id) AS answer_count')
     
     data
   end
