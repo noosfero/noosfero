@@ -4,12 +4,16 @@ class ChangePhoneFieldsToValidFormat < ActiveRecord::Migration
       unless person.valid?
         Person::PHONE_FIELDS.each do |field|
           phone = person.send(field)
-          if  phone.present? && person.send(field) !~ Person::PHONE_FORMAT
+          if phone.present? && phone !~ Person::PHONE_FORMAT
             field = field.to_s + "="
-            person.send(field, phone.gsub(/\D/, ''))
+            phone = phone.gsub(/\D/, '')
+            phone = phone.rjust(5, '0') if phone.length < 5
+            phone = phone[0, 15] if phone.length > 15
+            person.send(field, phone)
           end
         end
-        person.save!
+        p person.name
+        person.save(validate: false)
       end
     end
   end
