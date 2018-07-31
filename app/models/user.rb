@@ -22,6 +22,7 @@ class User < ApplicationRecord
   N_('Password')
   N_('Password confirmation')
   N_('Terms accepted')
+  N_('Last login at')
 
   SEARCHABLE_FIELDS = {
     :email => {:label => _('Email'), :weight => 5},
