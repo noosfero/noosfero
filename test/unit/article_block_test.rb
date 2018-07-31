@@ -109,7 +109,7 @@ class ArticleBlockViewTest < ActionView::TestCase
     block.stubs(:article).returns(article)
 
     assert_tag_in_string render_block_content(block),
-         :tag => 'h3', :attributes => {:class => 'block-title empty'},
+         :tag => 'h3', :attributes => {:class => 'block-title hidden'},
          :descendant => { :tag => 'span' }
   end
 

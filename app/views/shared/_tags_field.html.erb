@@ -1,7 +1,11 @@
 <div class='formfieldline'>
-  <%= label_tag _('Tag list') do %>
-    <%= text_field_tag 'tag_list', value.join(','), size: 64, :id => 'tag-list' %>
-  <% end %>
+  <label class='formlabel'>
+    <%= _('Tag list') %>
+    <div class='formfield'>
+      <%= text_field_tag "#{f.object_name}[tag_list]", value.join(','),
+                         size: 64, :id => 'tag-list' %>
+    </div>
+  </lable>
 </div>
 
 <%= content_tag( 'small', _('Separate tags with commas') ) %>
