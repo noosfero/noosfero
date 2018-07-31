@@ -246,15 +246,15 @@ class PersonNotifierTest < ActiveSupport::TestCase
     assert_equal 1, Delayed::Job.count
   end
 
-  should 'NotifyJob failed jobs create a new NotifyJob on failure' do
+  should 'don\'t create a new NotifyJob on failure' do
     Delayed::Worker.max_attempts = 1
     Delayed::Job.enqueue(PersonNotifier::NotifyJob.new(@member.id))
 
     PersonNotifier.any_instance.stubs(:notify).raises('error')
 
-    process_delayed_job_queue
-    jobs = PersonNotifier::NotifyJob.find(@member.id)
-    refute jobs.select {|j| !j.failed? && j.last_error.nil? }.empty?
+    assert_no_difference 'job_count(PersonNotifier::NotifyJob)' do
+      process_delayed_job_queue
+    end
   end
 
   should 'render image tags for both internal and external src' do
