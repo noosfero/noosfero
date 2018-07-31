@@ -36,10 +36,14 @@
       for (var i in context.dataset.data) {
         total += context.dataset.data[i];
       }
-
       var tooltipPercentage = Math.round((value / total) * 100);
+
       return `${tooltipPercentage}%`;
     };
+
+    Chart.defaults.global.plugins.datalabels.display = function (context) {
+      return context.dataset.data[context.dataIndex] !== 0;  
+    }
 
     const charts = Chartkick.charts;
     const chartPrefix = "chart-";
@@ -57,6 +61,7 @@
       }
       chartIndex += 1;
     }
+
   });
 
 })();
