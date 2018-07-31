@@ -49,9 +49,7 @@
 .block embed {
   max-width: 100%;
 }
-.block-title.empty {
-  display: none;
-}
+
 .invisible-block {
   background: url(../images/hachure.png);
   opacity: 0.25;
@@ -198,6 +196,6 @@
   width: 49%;
 }
 
-.block-subtitle.empty {
+.block-header.empty {
   display: none;
 }

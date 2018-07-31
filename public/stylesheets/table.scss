@@ -51,27 +51,27 @@ table.noborder:hover td.selected, td.selected {
 td .button {
   background-color: transparent;
 }
-table.profile td.field-name {
+div.profile table td.field-name {
   width: 150px;
   text-align: left;
   vertical-align: middle;
   padding-right: 5px;
 }
 
-table.profile .ui-tabs .ui-tabs-panel {
+div.profile table .ui-tabs .ui-tabs-panel {
   border-left: 0;
   border-right: 0;
   border-bottom: 0;
 }
 
-table.profile th {
+div.profile table th {
   border-bottom: 2px solid #eeeeec;
   padding: 10px 0px 0px 0px;
 }
-table.profile td {
+div.profile table td {
   border: none;
   padding: 0px;
 }
-table.profile tr:hover td {
+div.profile table tr:hover td {
   background: none;
 }

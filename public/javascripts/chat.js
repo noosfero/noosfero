@@ -872,7 +872,7 @@ jQuery(function($) {
     else
       var src = "/chat/avatar/"+identifier;
 
-    return '<img class="avatar" src="' + src + '">';
+    return '<img class="avatar" src="' + src + '" alt="' + identifier + '">';
   }
 
   function disconnect() {

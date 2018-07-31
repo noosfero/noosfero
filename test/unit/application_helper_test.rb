@@ -185,6 +185,29 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_nil theme_site_title
   end
 
+  should 'creates a tag for the theme site title if it is present' do
+    stubs(:theme_path).returns('/user_themes/mytheme')
+    site_title_path = Rails.root.join('public', 'user_themes', 'mytheme', 'site_title.html.erb')
+
+    File.expects(:exists?).with(site_title_path).returns(true)
+    expects(:render).with(:file => site_title_path, :use_full_path => false)
+                    .returns("Site title")
+
+    assert_tag_in_string site_title,
+                         tag: 'h1', content: 'Site title',
+                         attributes: { id: 'site-title' }
+  end
+
+  should 'does not create a tag if theme site title is empty' do
+    stubs(:theme_path).returns('/user_themes/mytheme')
+    site_title_path = Rails.root.join('public', 'user_themes', 'mytheme', 'site_title.html.erb')
+
+    File.expects(:exists?).with(site_title_path).returns(false)
+    expects(:render).with(:file => site_title_path).never
+
+    assert_nil site_title
+  end
+
   should 'expose theme owner' do
     theme = mock
     profile = mock

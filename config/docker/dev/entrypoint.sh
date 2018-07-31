@@ -42,4 +42,5 @@ if [ -f $pidfile ] ; then
   rm $pidfile
 fi
 
-exec $cmd
+# exec $cmd
+tail -f /dev/null
