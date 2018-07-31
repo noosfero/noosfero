@@ -25,7 +25,7 @@ class Exporter
   private
 
   def csv_columns
-    base_fields + @related_fields.map { |_, cols| cols }.flatten
+    (base_fields + @related_fields.map { |_, cols| cols }.flatten).map { |field| _(field.humanize) }
   end
 
   def csv_line_for(entry)

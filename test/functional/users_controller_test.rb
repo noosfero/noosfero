@@ -141,7 +141,7 @@ class UsersControllerTest < ActionController::TestCase
 
     get :download, :format => 'csv', :fields => ['email']
     assert_match 'jhondoe@noosfero.org', @response.body
-    assert_match 'last_login_at', @response.body
+    assert_match 'Last login at', @response.body
     assert_no_match 'name', @response.body
   end
 
