@@ -21,6 +21,14 @@ class CustomFormsPlugin::Answer < ApplicationRecord
     to_text_list.map{ |l| l.gsub(';', '.') }.join(';')
   end
 
+  def value
+    if field.is_a? CustomFormsPlugin::SelectField
+      form_answers.map { |f| f.alternative_id }.join(',')
+    else
+      self['value']
+    end
+  end
+
   private
 
   def value_is_mandatory
