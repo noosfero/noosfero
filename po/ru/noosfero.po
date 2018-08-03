@@ -19,30 +19,28 @@ msgstr ""
 "X-Generator: Weblate 2.9\n"
 
 #, fuzzy
-msgid "Communities in common"
-msgstr "Меню \"Сообщества\""
+msgid "Sort by:"
+msgstr "Отправлено %s."
 
 #, fuzzy
-msgid "Display a form to search the profile"
-msgstr "Отобразить сводку профиля"
+msgid "This error happened with the following tasks: "
+msgstr "Со следующими сообществами возникли ошибки:"
 
 #, fuzzy
-msgid "All Users"
-msgstr "Все группы"
+msgid "Remove field"
+msgstr "Удалить"
 
 #, fuzzy
 msgid "Unauthorized"
 msgstr "Продукт без категории"
 
 #, fuzzy
-msgid ""
-"Display the last content produced in the context where the block is "
-"available."
-msgstr "Отображаемое имя"
+msgid "Reset homepage"
+msgstr "Использовать как домашнюю страницу"
 
 #, fuzzy
-msgid "Show last updates"
-msgstr "Последние обновления"
+msgid "no members"
+msgstr "один участник"
 
 #, fuzzy
 msgid ""
@@ -51,16 +49,16 @@ msgid ""
 msgstr "Контакт"
 
 #, fuzzy
-msgid "Recent Content"
-msgstr "Последний контент"
+msgid "Invite"
+msgstr "Текст приглашения"
 
 #, fuzzy
-msgid "RssFeed"
-msgstr "RSS лента"
+msgid "Where do you want to publish this article?"
+msgstr "Выберите группы, где вы хотите опубликовать событие"
 
 #, fuzzy
-msgid "Profile Information"
-msgstr "Предоставленная информация"
+msgid "Publish this article on your profile"
+msgstr "Опубликовать Вашу статью на портале сообщества"
 
 #, fuzzy
 msgid "No one following this article yet."
@@ -71,134 +69,141 @@ msgid "The comment was not removed."
 msgstr "Текст был удален"
 
 #, fuzzy
-msgid "Show profile information"
+msgid "Publish this article on communities you are part of"
+msgstr "Опубликовать Вашу статью на портале сообщества"
+
+#, fuzzy
+msgid "Type in a search for your community"
+msgstr "Отключить поиск по компаниям"
+
+#, fuzzy
+msgid "second item"
+msgstr "один пункт"
+
+#, fuzzy
+msgid "first item"
+msgstr "Дата рождения"
+
+#, fuzzy
+msgid "Choose the type of content:"
+msgstr "Выберите тип статьи"
+
+#, fuzzy
+msgid "Images:"
+msgstr "Изображение"
+
+#, fuzzy
+msgid "Links:"
+msgstr "Ссылки"
+
+#, fuzzy
+msgid "Source URL"
+msgstr "Источник"
+
+#, fuzzy
+msgid "Simple formatting:"
 msgstr "Предоставленная информация"
 
 #, fuzzy
-msgid ""
-"Display profile image and links to access initial homepage, control panel "
-"and profile activities."
-msgstr "Отображаемое имя"
+msgid "bold"
+msgstr "мир"
 
 #, fuzzy
-msgid "Article suggestion"
-msgstr "Статьи"
+msgid "Your name"
+msgstr "Полное имя"
 
 #, fuzzy
-msgid ""
-"%{requestor} suggested the publication %{target_detail} of the article: "
-"%{subject}."
-msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
-
-#, fuzzy
-msgid "%{requestor} suggested the publication of the article: %{article}."
-msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
-
-#, fuzzy
-msgid ""
-"<p>Display a tag cloud with the content produced where the block is applied."
-"</p> <p>The user could limit the number of tags will be displayed.</p>"
-msgstr "Отображаемое имя"
-
-#, fuzzy
-msgid "Display a tag cloud about current content"
-msgstr "Отображаемое имя"
-
-#, fuzzy
-msgid "no members"
-msgstr "один участник"
-
-#, fuzzy
-msgid "%s activities"
-msgstr "деятельность %s"
-
-#, fuzzy
-msgid "one activity"
-msgstr "Экономическая активность"
-
-#, fuzzy
-msgid "no activity"
-msgstr "Экономическая активность"
-
-#, fuzzy
-msgid "Tag Cloud"
-msgstr "Облако тэгов"
-
-#, fuzzy
-msgid "Hidden"
+msgid "(hide)"
 msgstr "Спрятать"
 
 #, fuzzy
-msgid "Task"
-msgstr "Задачи"
+msgid "(show)"
+msgstr "Показать"
 
 #, fuzzy
-msgid "%s can't have members"
-msgstr "%s не может иметь участников"
+msgid "Last topics"
+msgstr "Обновлено"
 
 #, fuzzy
-msgid "is not a template."
-msgstr "Использовать этот шаблон"
+msgid "Publish date"
+msgstr "Публиковать контент"
 
 #, fuzzy
-msgid "Text article"
-msgstr "Новая статья"
+msgid "Parent folder:"
+msgstr "родительская папка"
 
 #, fuzzy
-msgid "Manage custom roles"
-msgstr "Управление ролями"
+msgid "Search among your uploaded files"
+msgstr "Поиск"
 
 #, fuzzy
-msgid "Send e-Mail to members"
-msgstr "Послать e-mail участникам"
+msgid "Recent media"
+msgstr "Последний контент"
 
 #, fuzzy
-msgid "Text article to create user content."
-msgstr "Пользователь"
+msgid "Show all uploads"
+msgstr "Посмотреть все продукты"
 
 #, fuzzy
-msgid "Ticket"
-msgstr "Тикет: %s"
+msgid "Hide all uploads"
+msgstr "Посмотреть все продукты"
 
 #, fuzzy
-msgid "{fn} of uploaded file was larger than the maximum size of %{size}"
-msgstr "%{fn} загруженного файла превысило максимальный размер - %{size}"
+msgid "New folder"
+msgstr "родительская папка"
 
 #, fuzzy
-msgid "{fn} must be checked in order to signup."
-msgstr "%{fn} - необходимое значение для регистрации."
+msgid "Leave your comment"
+msgstr "Введите ваш комментарий"
 
 #, fuzzy
-msgid "Manage Roles"
-msgstr "Управлять%s"
+msgid "Show/Hide"
+msgstr "Показать"
+
+#, fuzzy
+msgid ""
+"%{sender} (%{sender_link}) commented on the content \"%{article_title}\"."
+msgstr ""
+"%{sender} (%{sender_link}) создал новый комментарий к вашей статье "
+"\"%{article_title}\" ."
 
 #, fuzzy
 msgid "Logged users"
 msgstr "В системе как %s"
 
 #, fuzzy
-msgid "%d Administrators"
-msgstr "Администрация"
+msgid "Manage Roles"
+msgstr "Управлять%s"
 
 #, fuzzy
 msgid "Friends in common"
 msgstr "Информатика"
 
 #, fuzzy
-msgid "View tasks"
-msgstr "Просмотреть детали"
+msgid "%d Administrators"
+msgstr "Администрация"
+
+#, fuzzy
+msgid "Zoom in"
+msgstr "домен"
+
+#, fuzzy
+msgid "Add to the text"
+msgstr "Перейти к контенту"
 
 #, fuzzy
 msgid "Me"
 msgstr "Мужской"
 
 #, fuzzy
-msgid "does not match."
-msgstr "Подтверждение пароля"
+msgid "This system is under maintainance. It should be back in a few moments."
+msgstr ""
+"В системе проводятся плановые технические работы, она будет доступна через "
+"несколько часов."
 
 #, fuzzy
-msgid "Image (%s)"
-msgstr "Картинки"
+msgid "Click on the address below to view this comment:"
+msgstr "Перейдите по следующему адресу для просмотра:"
 
 #, fuzzy
 msgid "Administrators"
@@ -209,16 +214,16 @@ msgid "Environment settings updated"
 msgstr "Статистика среды"
 
 #, fuzzy
-msgid "File (%s)"
-msgstr "Цена: %s"
+msgid "Click on the address below to cancel the notification of new comments:"
+msgstr "Перейдите по следующему адресу для просмотра:"
 
 #, fuzzy
-msgid "Available: "
-msgstr "Свободно!"
+msgid "Send an e-mail to administrators"
+msgstr "Послать e-mail %s"
 
 #, fuzzy
-msgid "The account could not be created"
-msgstr "Адрес не может быть сохранен"
+msgid "Information about the user who sent this message:"
+msgstr "Информация о событии"
 
 #, fuzzy
 msgid "Category %s saved."
@@ -229,76 +234,70 @@ msgid "Could not save category."
 msgstr "Выберите категорию:"
 
 #, fuzzy
-msgid "Passwords don't match"
-msgstr "Подтверждение пароля"
+msgid "Enter your e-Mail"
+msgstr "Введите ваш комментарий"
 
 #, fuzzy
-msgid "Bad"
-msgstr "Март"
+msgid "Cancel notifications for e-mail above"
+msgstr "Отменить подгрузку e-mail"
 
 #, fuzzy
-msgid "Full name"
-msgstr "Имя файла"
+msgid "No one attending this event yet."
+msgstr "Нет"
 
 #, fuzzy
-msgid "terms of use"
+msgid "(Not countable anymore)"
+msgstr "Нет"
+
+#, fuzzy
+msgid "Choose parent folder:"
+msgstr "родительская папка"
+
+#, fuzzy
+msgid "Create new folder"
+msgstr "Создать новую группу"
+
+#, fuzzy
+msgid "Reference"
+msgstr "Адрес:"
+
+#, fuzzy
+msgid "Viewed one time %{desc}"
+msgid_plural "Viewed %{num} times %{desc}"
+msgstr[0] "просмотрено один раз"
+msgstr[1] "просмотрено %{num} раз"
+
+#, fuzzy
+msgid "Go back to latest version"
+msgstr "Назад в %s"
+
+#, fuzzy
+msgid "Terms of use:"
 msgstr "Правила пользования"
 
 #, fuzzy
-msgid "I accept the %s"
-msgstr "С правилами согласен"
+msgid "Has terms of use:"
+msgstr "Правила пользования"
 
 #, fuzzy
-msgid "[%s] Notifications"
-msgstr "Опции модерации"
+msgid "Version %s"
+msgstr "Разрешения"
 
 #, fuzzy
-msgid "Create my account"
-msgstr "Создать новое сообщество"
+msgid "by %{author}"
+msgstr "Автор"
 
 #, fuzzy
-msgid "Textile"
-msgstr "Текст"
+msgid "This gallery contains no images yet"
+msgstr "%{gallery} (%{count} изображений)"
 
 #, fuzzy
-msgid "Welcome to %s!"
-msgstr "Добро пожаловать в %s"
+msgid "Site"
+msgstr "Карта сайта"
 
 #, fuzzy
-msgid "Sign up for %s!"
-msgstr "Регистрация"
-
-#, fuzzy
-msgid "Site name"
-msgstr "Имя файла"
-
-#, fuzzy
-msgid "No reply email"
-msgstr "E-Mail"
-
-#, fuzzy
-msgid "Article's date format"
-msgstr "Аннотация"
-
-#, fuzzy
-msgid "{fn} is already used by other user"
-msgstr "%{fn} уже используется другим юзером"
-
-#, fuzzy
-msgid "Default language"
-msgstr "Языки"
-
-#, fuzzy
-msgid "Available languages"
-msgstr "Языки"
-
-#, fuzzy
-msgid "System settings"
-msgstr "Настройки"
-
-#, fuzzy
-msgid "Environment settings"
-msgstr "Статистика среды"
+msgid "Back to the versions"
+msgstr "Назад к списку продуктов"
 
 #, fuzzy
 msgid "License could not be created"
@@ -325,16 +324,18 @@ msgid "Organization profiles"
 msgstr "метот утверждения"
 
 #, fuzzy
-msgid "Custom education"
-msgstr "Пользовательское формирование"
+msgid "Revert to this version"
+msgstr "Нет событий на эту дату"
 
 #, fuzzy
-msgid "Features"
-msgstr "Возможность"
+msgid "Go to latest version"
+msgstr "Нет событий на эту дату"
 
 #, fuzzy
-msgid "Sideboxes"
-msgstr "Редактировать боковую панель"
+msgid ""
+"Drag images to add them to the text or click on file names to add links to "
+"the text."
+msgstr "Имя"
 
 #, fuzzy
 msgid "%s enabled"
@@ -369,60 +370,60 @@ msgid "Plugins were not updated successfully."
 msgstr "Поля участника не обновлены"
 
 #, fuzzy
-msgid "Licenses"
-msgstr "Редактировать друзей"
+msgid "Changes on \"%s\""
+msgstr "Изменение роли %s"
 
 #, fuzzy
 msgid "All profiles"
 msgstr "Все статьи"
 
 #, fuzzy
-msgid "Email templates"
+msgid "comments"
+msgstr "комментарий"
+
+#, fuzzy
+msgid "Template Name:"
 msgstr "Редактировать шаблоны"
 
 #, fuzzy
-msgid "Profiles"
-msgstr "Профиль"
+msgid "Template Type:"
+msgstr "Редактировать шаблоны"
 
 #, fuzzy
-msgid "User roles"
-msgstr "Редактировать пользовательские роли"
+msgid "Site name"
+msgstr "Имя файла"
 
 #, fuzzy
-msgid "Sort by:"
-msgstr "Отправлено %s."
+msgid "Template language reference"
+msgstr "Редактировать шаблоны"
 
 #, fuzzy
-msgid "Organizations"
-msgstr "Организация"
+msgid "The following parameters may be used in subject and body:"
+msgstr "Четверг"
 
 #, fuzzy
-msgid "Profile templates"
-msgstr "Изображение профиля"
+msgid "Email Templates"
+msgstr "Редактировать шаблоны"
 
 #, fuzzy
-msgid "Fields"
-msgstr "Поле"
+msgid "New template"
+msgstr "Выбрать шаблон"
 
 #, fuzzy
-msgid "Enterprise-related settings"
-msgstr "Инфо компании и настройки"
+msgid "Embed unavailable."
+msgstr "Продукт не доступен!"
 
 #, fuzzy
-msgid "Message for disabled enterprises"
-msgstr "Редактировать сообщение для отключенных компаний"
-
-#, fuzzy
-msgid "Validators by region"
-msgstr "Утверждающие по регионам"
+msgid "Enterprises's profile"
+msgstr "Категории профиля"
 
 #, fuzzy
 msgid "Community not found. The template could no be changed."
 msgstr "Адрес не может быть сохранен"
 
 #, fuzzy
-msgid "Define news amount on portal"
-msgstr "Определить количество для папки"
+msgid "First paragraph, with post picture"
+msgstr "Первый параграф"
 
 #, fuzzy
 msgid "Person not found. The template could no be changed."
@@ -433,8 +434,8 @@ msgid "Enterprise not found. The template could no be changed."
 msgstr "Адрес не может быть сохранен"
 
 #, fuzzy
-msgid "News amount on portal"
-msgstr "Количество новостей по папкам"
+msgid "Yes, I am sure"
+msgstr "Да"
 
 #, fuzzy
 msgid "Failed to add trusted site."
@@ -465,36 +466,32 @@ msgid "Could not remove profile"
 msgstr "Невозможно обновить профиль"
 
 #, fuzzy
-msgid "Number of highlighted news"
-msgstr "Количество новостей"
+msgid "I want to add %s as a favorite enterprise"
+msgstr "Да, добавить %s"
 
 #, fuzzy
-msgid "person"
-msgstr "Личность"
+msgid "Cover image:"
+msgstr "изображение"
 
 #, fuzzy
-msgid "Address reference"
-msgstr "Адрес:"
+msgid "Check/Uncheck All"
+msgstr "Очистить выбор"
 
 #, fuzzy
-msgid "Number of portal news"
-msgstr "Количество новостей"
+msgid "Custom Fields"
+msgstr "Поле"
 
 #, fuzzy
-msgid "Number of news by folder"
-msgstr "Количество новостей"
-
-#, fuzzy
-msgid "Signup welcome email"
-msgstr "Послать e-mail пользователям"
+msgid "New field"
+msgstr "Новый друг"
 
 #, fuzzy
 msgid "The circle could not be saved"
 msgstr "Адрес не может быть сохранен"
 
 #, fuzzy
-msgid "District"
-msgstr "Ограничения"
+msgid "Type: "
+msgstr "Тип"
 
 #, fuzzy
 msgid "Homepage reseted."
@@ -521,45 +518,32 @@ msgid "Select some group to publish your article"
 msgstr "Выберите группы, где вы хотите опубликовать событие"
 
 #, fuzzy
-msgid "Signup introduction text"
-msgstr "Отправить инструкции"
-
-#, fuzzy
 msgid "Some of your publish requests couldn't be sent."
 msgstr "Ваш запрос на публикацию не может быть отправлен"
-
-#, fuzzy
-msgid "Region Code"
-msgstr "Регион"
 
 #, fuzzy
 msgid "Default value"
 msgstr "Языки"
 
 #, fuzzy
-msgid "Add parameter"
-msgstr "Добавить участников"
+msgid "New circle"
+msgstr "Новый"
 
 #, fuzzy
-msgid "Run"
-msgstr "Воскресение"
+msgid "Create a new circle"
+msgstr "Создать новую группу"
 
 #, fuzzy
-msgid ""
-"User \"%{user}\" just requested to register. You have to approve or reject "
-"it through the \"Pending Validations\" section in your control panel.\n"
-msgstr ""
-"Пользователь \"%{user}\" запросил разрешение на создание сообщества "
-"%{community}. Вам необходимо одобрить либо отклонить данный запрос в секции  "
-"\"Ожидающие валидации\" вашей контрольной панели.\n"
+msgid "Display on moderation?"
+msgstr "Показать при создании?"
 
 #, fuzzy
-msgid "You need to login on %{system} in order to approve or reject this user."
-msgstr "Необходимо войти в %{system} для утверждения статьи"
+msgid "Manage circles"
+msgstr "Управлять%s"
 
 #, fuzzy
-msgid "Some suggestions for you"
-msgstr "Предположения: %s"
+msgid "Edit circle"
+msgstr "Редактировать"
 
 #, fuzzy
 msgid "All decisions were applied successfully."
@@ -574,8 +558,8 @@ msgid "Files"
 msgstr "Имя файла"
 
 #, fuzzy
-msgid "%{sender} wants to register."
-msgstr "%s хочет быть вашим другом"
+msgid "Add option"
+msgstr "Добавить"
 
 #, fuzzy
 msgid "Email template was successfully created."
@@ -586,8 +570,8 @@ msgid "Email template was successfully updated."
 msgstr "E-Mail"
 
 #, fuzzy
-msgid "See all suggestions"
-msgstr "Статьи"
+msgid "Create circle"
+msgstr "Создать роль"
 
 #, fuzzy
 msgid "Circles of %s updated successfully"
@@ -598,32 +582,36 @@ msgid "Error: No profile to follow."
 msgstr "Нет"
 
 #, fuzzy
-msgid "User since %s/%s"
-msgstr "Price %s (%s)"
+msgid "Profile type"
+msgstr "Профиль"
 
 #, fuzzy
-msgid "Send an e-mail to the administrators"
-msgstr "Послать e-mail %s"
+msgid "Members Whitelist"
+msgstr "Участники: %s"
 
 #, fuzzy
-msgid "Please confirm to leave the community '%{name}'"
-msgstr "теперь отностися к новому сообществу:<br />%{name}"
+msgid "Enable whitelist"
+msgstr "Включить компанию"
 
 #, fuzzy
-msgid "New Circle"
-msgstr "Новый"
+msgid "Allow these people to access this environment:"
+msgstr "Вы хотите видеть других людей в этом сообществе?"
 
 #, fuzzy
-msgid "Circle name"
-msgstr "Имя файла"
+msgid "Type in a search term for a user"
+msgstr "Отключить поиск по компаниям"
 
 #, fuzzy
-msgid "Number of posts:"
-msgstr "Количество новостей"
+msgid "Enable feed proxy"
+msgstr "Включить"
 
 #, fuzzy
-msgid "How to display this content:"
-msgstr "Как отображать посты:"
+msgid "Pick a color"
+msgstr "Вывести список"
+
+#, fuzzy
+msgid "Disable feed SSL"
+msgstr "Отключить"
 
 #, fuzzy
 msgid "Could not delete profile"
@@ -654,12 +642,12 @@ msgid "Could not activate the profile."
 msgstr "Невозможно обновить профиль"
 
 #, fuzzy
-msgid "New Window"
-msgstr "Новый друг"
+msgid "Manage fields displayed for profiles"
+msgstr "Управление ролями"
 
 #, fuzzy
-msgid "Custom subtitle for this block: "
-msgstr "Сменить заголовок"
+msgid "Person's fields"
+msgstr "Управ"
 
 #, fuzzy
 msgid "You can not destroy the profile."
@@ -682,8 +670,8 @@ msgid "Current admins"
 msgstr "Текущие участники"
 
 #, fuzzy
-msgid "Display to users:"
-msgstr "Вывести список"
+msgid "Community's fields"
+msgstr "Сообщества"
 
 #, fuzzy
 msgid "The members list was updated."
@@ -698,12 +686,12 @@ msgid "Failed to remove role!"
 msgstr "невозможно создать роль"
 
 #, fuzzy
-msgid "Link list"
-msgstr "Ссылки"
+msgid "Enterprise's fields"
+msgstr "Категории профиля"
 
 #, fuzzy
-msgid "all languages"
-msgstr "Языки"
+msgid "Download image"
+msgstr "Вниз"
 
 #, fuzzy
 msgid "Task responsible successfully updated!"
@@ -714,72 +702,68 @@ msgid "Some decisions couldn't be applied."
 msgstr "Адрес не может быть сохранен"
 
 #, fuzzy
-msgid "Show for:"
-msgstr "Искать:"
-
-#, fuzzy
-msgid "New window"
-msgstr "Новый друг"
+msgid "Download"
+msgstr "Вниз"
 
 #, fuzzy
 msgid "Your community (%s) was successfully created."
 msgstr "Ваша компания %s была успешно зарегистрирована."
 
 #, fuzzy
-msgid "New tab"
-msgstr "Новый пост"
-
-#, fuzzy
-msgid "Same page"
-msgstr "Домашняя страница"
-
-#, fuzzy
-msgid "URL"
-msgstr "URL:"
-
-#, fuzzy
-msgid "description"
-msgstr "Описание"
-
-#, fuzzy
-msgid "title"
-msgstr "Название"
-
-#, fuzzy
-msgid "Edit options:"
-msgstr "Настройки почты"
-
-#, fuzzy
-msgid "Move options:"
-msgstr "Опции модерации"
+msgid "Connections with %s"
+msgstr "Контент, отмеченный \"%s\""
 
 #, fuzzy
 msgid "Filter blocks"
 msgstr "Папка"
 
 #, fuzzy
-msgid "Pick a color"
+msgid "Go to friends list"
+msgstr "У вас еще нет друзей"
+
+#, fuzzy
+msgid "Custom subtitle for this block: "
+msgstr "Сменить заголовок"
+
+#, fuzzy
+msgid "Invite people"
+msgstr "Пригласить участников"
+
+#, fuzzy
+msgid "Move options:"
+msgstr "Опции модерации"
+
+#, fuzzy
+msgid "Edit options:"
+msgstr "Настройки почты"
+
+#, fuzzy
+msgid "Show for:"
+msgstr "Искать:"
+
+#, fuzzy
+msgid "all languages"
+msgstr "Языки"
+
+#, fuzzy
+msgid "Display to users:"
 msgstr "Вывести список"
 
 #, fuzzy
-msgid "Profile type"
-msgstr "Профиль"
-
-#, fuzzy
-msgid "Create circle"
-msgstr "Создать роль"
+msgid "Friends suggestions"
+msgstr "Статьи"
 
 #, fuzzy
 msgid "Can not recover user password with blank value."
 msgstr "Вы не можете восстановить пароль тут"
 
 #, fuzzy
-msgid "Edit circle"
-msgstr "Редактировать"
+msgid "Removing suggestion for friend: %s"
+msgstr "Удаление друга: %s"
 
 #, fuzzy
-msgid "Manage circles"
-msgstr "Управлять%s"
+msgid "Friends suggestions for %s"
+msgstr "Настройки профиля %s"
 
 #, fuzzy
 msgid "This login name is available"
@@ -814,8 +798,8 @@ msgid "Comment was rejected"
 msgstr "Комментарий для автора"
 
 #, fuzzy
-msgid "Create a new circle"
-msgstr "Создать новую группу"
+msgid "Terms of use - %s"
+msgstr "Правила пользования"
 
 #, fuzzy
 msgid "Comment successfully created."
@@ -826,94 +810,92 @@ msgid "You couldn't mark this comment as spam."
 msgstr "Вы уверены что хотите удалить этот элемент?"
 
 #, fuzzy
-msgid "New circle"
-msgstr "Новый"
+msgid "Welcome to %s!"
+msgstr "Добро пожаловать в %s"
 
 #, fuzzy
-msgid "Custom Fields"
-msgstr "Поле"
+msgid "Invite and find"
+msgstr "Пригласить друзей"
 
 #, fuzzy
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr "Активность успешно удалена."
 
 #, fuzzy
-msgid "New field"
-msgstr "Новый друг"
+msgid "Documentation"
+msgstr "Документы"
 
 #, fuzzy
-msgid "Cover image:"
-msgstr "изображение"
+msgid "Ask for friendship"
+msgstr "%s: друзей"
 
 #, fuzzy
 msgid "Please enter a valid profile."
 msgstr "Пожалуйста, введите правильный E-Mail."
 
 #, fuzzy
-msgid "First paragraph, with post picture"
-msgstr "Первый параграф"
+msgid "Invite people to join"
+msgstr "Пригласить друзей присоединиться к %s"
 
 #, fuzzy
-msgid ""
-"Drag images to add them to the text or click on file names to add links to "
-"the text."
-msgstr "Имя"
+msgid "Choose person by:"
+msgstr "Выбрать блог"
 
 #, fuzzy
-msgid "Invitation"
-msgstr "Текст приглашения"
+msgid "Step 2 of 2: Selecting People"
+msgstr "Шаг 2 из 2: выбор друзей"
 
 #, fuzzy
-msgid "Site"
-msgstr "Карта сайта"
+msgid "Indicate which people you want to invite."
+msgstr "Выберите, каких друзей вы хотите пригласить"
 
 #, fuzzy
 msgid "You are not a member of %s."
 msgstr "Вы уже участник %s"
 
 #, fuzzy
-msgid "Has terms of use:"
-msgstr "Правила пользования"
+msgid "Do you want to remove this user?"
+msgstr "Хотите присоединиться к группе?"
 
 #, fuzzy
-msgid "Terms of use:"
-msgstr "Правила пользования"
+msgid "New license"
+msgstr "Новая ссылка"
 
 #, fuzzy
 msgid "You are already following %s."
 msgstr "Вы и %s уже друзья"
 
 #, fuzzy
-msgid "{fn} of uploaded file was larger than the maximum size of 5.0 MB"
-msgstr "%{fn} загруженного превысило максимальный размер - 5.0 MB"
+msgid "Edit license"
+msgstr "Редактировать тему"
 
 #, fuzzy
-msgid "Creates image slideshow"
-msgstr "Создать"
+msgid "Manage licenses"
+msgstr "Редактировать друзей"
 
 #, fuzzy
-msgid "A gallery, inside which you can put images."
-msgstr "Папка, в которую можно помещать другие статьи"
+msgid "Are you sure you want to remove this license?"
+msgstr "Вы уверены что хотите удалить этот элемент?"
 
 #, fuzzy
-msgid "Gallery"
-msgstr "Галерея рисунков"
+msgid "Add a new license"
+msgstr "Одна компания"
 
 #, fuzzy
-msgid "Parent folder:"
-msgstr "родительская папка"
+msgid "Address not found, reason:"
+msgstr "Адрес не найден"
 
 #, fuzzy
-msgid "Reference"
-msgstr "Адрес:"
-
-#, fuzzy
-msgid "Comment successfully added."
-msgstr "Комментарий успешно удален"
+msgid "Invalid address"
+msgstr "Адрес ленты"
 
 #, fuzzy
 msgid "You can't leave an empty comment."
 msgstr "Вы не можете оставить пустое сообщение"
+
+#, fuzzy
+msgid "Comment successfully added."
+msgstr "Комментарий успешно удален"
 
 #, fuzzy
 msgid "Notification successfully removed."
@@ -928,143 +910,136 @@ msgid "You could not answer the captcha."
 msgstr "Невозможно удалить этот пост."
 
 #, fuzzy
-msgid "Create new folder"
-msgstr "Создать новую группу"
+msgid "Request denied"
+msgstr "Доступ запрещен"
 
 #, fuzzy
 msgid "Contents"
 msgstr "Контент"
 
 #, fuzzy
-msgid "Choose parent folder:"
-msgstr "родительская папка"
+msgid "Address do not exist"
+msgstr "Адрес не может быть сохранен"
 
 #, fuzzy
-msgid "Add to the text"
-msgstr "Перейти к контенту"
+msgid "Go to groups list"
+msgstr "В группах"
 
 #, fuzzy
-msgid "Zoom in"
-msgstr "домен"
+msgid "See some suggestions of communities..."
+msgstr "Администратор должен утвердить все новые организации"
 
 #, fuzzy
-msgid "Show/Hide"
-msgstr "Показать"
+msgid "No groups to list"
+msgstr "В группах"
 
 #, fuzzy
-msgid "New folder"
-msgstr "родительская папка"
+msgid "Communities suggestions for %s"
+msgstr "Настройки профиля %s"
 
 #, fuzzy
-msgid "This block presents the fans of an enterprise."
-msgstr "Этот блок отображает участников коллектива"
+msgid "Community created"
+msgstr "Сообщество"
 
 #, fuzzy
-msgid "{#} fan"
-msgid_plural "{#} fans"
-msgstr[0] "{#} Поклонник"
-msgstr[1] "{#} Поклонники"
-msgstr[2] ""
+msgid "You can manage your community now."
+msgstr "Теперь вы можете управлять своей компанией."
 
 #, fuzzy
-msgid "Hide all uploads"
-msgstr "Посмотреть все продукты"
+msgid "Do you want to deactivate this organization?"
+msgstr "Хотите присоединиться к группе?"
 
 #, fuzzy
-msgid "A calendar event."
-msgstr "Событие календаря"
+msgid "Deactivate"
+msgstr "Активировать"
 
 #, fuzzy
-msgid "{fn} cannot come before end date."
-msgstr "%{fn} невозможно до даты окончания"
+msgid "Do you want to activate this organization?"
+msgstr "Хотите присоединиться к группе?"
 
 #, fuzzy
-msgid "Show all uploads"
-msgstr "Посмотреть все продукты"
+msgid "Do you want to destroy this organization?"
+msgstr "Хотитие присоединиться к сообществу?"
 
 #, fuzzy
-msgid "is not available."
-msgstr "Продукт не доступен!"
+msgid "New Window"
+msgstr "Новый друг"
 
 #, fuzzy
-msgid "Recent media"
-msgstr "Последний контент"
+msgid "Find organizations"
+msgstr "Одна организация"
 
 #, fuzzy
-msgid "Search among your uploaded files"
-msgstr "Поиск"
+msgid "Filter by: "
+msgstr "Папка"
 
 #, fuzzy
-msgid "Suggest an article"
-msgstr "Новая статья"
+msgid "Any"
+msgstr "Акроним"
 
 #, fuzzy
-msgid "Report reasons"
-msgstr "Адрес ленты"
+msgid "Disabled"
+msgstr "Отключить"
 
 #, fuzzy
-msgid "Publish date"
-msgstr "Публиковать контент"
+msgid "Enabled"
+msgstr "Включено?"
 
 #, fuzzy
-msgid "(show)"
-msgstr "Показать"
+msgid "has published on community %s"
+msgstr "В сообществе %s"
 
 #, fuzzy
-msgid "This enterprise needs to be enabled."
-msgstr "Ваша компания зоблокирована"
+msgid "How to display this content:"
+msgstr "Как отображать посты:"
 
 #, fuzzy
-msgid "Redirects the user to the environment welcome page."
-msgstr "Использовать WYSIWYG-редактор для измерерия вида домашней страницы"
+msgid "Number of posts:"
+msgstr "Количество новостей"
 
 #, fuzzy
-msgid "(hide)"
-msgstr "Спрятать"
+msgid "profile|Comment"
+msgstr "Профиль"
 
 #, fuzzy
-msgid "Simple formatting:"
-msgstr "Предоставленная информация"
+msgid "Are you sure you want to remove this activity and all its replies?"
+msgstr "Вы уверены что хотите удалить комментарий?"
 
 #, fuzzy
-msgid "Redirects the user to his control panel."
-msgstr "Назад в контрольную панель"
+msgid "View all %s comments"
+msgstr "Просмотреть все иконки"
 
 #, fuzzy
-msgid "bold"
-msgstr "мир"
+msgid "Circle name"
+msgstr "Имя файла"
 
 #, fuzzy
-msgid "Links:"
-msgstr "Ссылки"
+msgid "New Circle"
+msgstr "Новый"
 
 #, fuzzy
-msgid "Redirects the user to the environment homepage."
-msgstr "Использовать WYSIWYG-редактор для измерерия вида домашней страницы"
+msgid "%s's Notifications"
+msgstr "Опции модерации"
 
 #, fuzzy
-msgid "Images:"
-msgstr "Изображение"
+msgid "Network Activity"
+msgstr "%s активности сети"
 
 #, fuzzy
-msgid "Enable appearance editing by users"
-msgstr "Отключить редактирование header и footer пользователями"
+msgid "Please confirm to leave the community '%{name}'"
+msgstr "теперь отностися к новому сообществу:<br />%{name}"
 
 #, fuzzy
-msgid "Show content only to members"
-msgstr "Весь контент"
+msgid "Manage plugins"
+msgstr "Редактировать друзей"
 
 #, fuzzy
-msgid "first item"
-msgstr "Дата рождения"
+msgid "Select which plugins you want to enable in your environment"
+msgstr "Выберите группы, где вы хотите опубликовать событие"
 
 #, fuzzy
-msgid "second item"
-msgstr "один пункт"
-
-#, fuzzy
-msgid "Reset homepage"
-msgstr "Использовать как домашнюю страницу"
+msgid "See more"
+msgstr "Больше"
 
 #, fuzzy
 msgid "contents|More recent"
@@ -1107,76 +1082,80 @@ msgid "communities|More popular"
 msgstr "Сообщества|Наиболее популярные"
 
 #, fuzzy
-msgid "Remove field"
-msgstr "Удалить"
+msgid "Send an e-mail to the administrators"
+msgstr "Послать e-mail %s"
 
 #, fuzzy
 msgid "See all"
 msgstr "просмотреть все..."
 
 #, fuzzy
-msgid "Back to roles management"
-msgstr "Назад в панель управления"
-
-#, fuzzy
 msgid "My enterprises"
 msgstr "Компании"
 
 #, fuzzy
-msgid "This error happened with the following tasks: "
-msgstr "Со следующими сообществами возникли ошибки:"
+msgid "View comment"
+msgid_plural "View all %s comments"
+msgstr[0] "Комментарий"
+msgstr[1] "Комментарий"
+
+#, fuzzy
+msgid "Name A-Z"
+msgstr "Имя"
 
 #, fuzzy
 msgid "Manage your pending tasks"
 msgstr "Управление контентом"
 
 #, fuzzy
-msgid "Admin must approve registration of new users"
-msgstr "Администратор должен утвердить все новые организации"
+msgid "Name Z-A"
+msgstr "Имя"
 
 #, fuzzy
-msgid "Invite"
-msgstr "Текст приглашения"
+msgid "Are you sure you want to remove this scrap and all its replies?"
+msgstr "Вы уверены что хотите удалить комментарий?"
 
 #, fuzzy
-msgid "Find users"
-msgstr "Один пользователь"
+msgid "%s's fans"
+msgstr "%s: теги"
 
 #, fuzzy
-msgid "Where do you want to publish this article?"
-msgstr "Выберите группы, где вы хотите опубликовать событие"
+msgid "User since %s/%s"
+msgstr "Price %s (%s)"
 
 #, fuzzy
-msgid "Publish this article on your profile"
-msgstr "Опубликовать Вашу статью на портале сообщества"
+msgid "%s is followed by"
+msgstr "от"
 
 #, fuzzy
-msgid "Publish this article on communities you are part of"
-msgstr "Опубликовать Вашу статью на портале сообщества"
+msgid ""
+"Authorize the visibility of your email address to the community "
+"administrator."
+msgstr "Автор"
 
 #, fuzzy
-msgid "Type in a search for your community"
-msgstr "Отключить поиск по компаниям"
+msgid "Authorize"
+msgstr "Автор"
 
 #, fuzzy
-msgid "Choose the type of content:"
-msgstr "Выберите тип статьи"
+msgid "Members (%d)"
+msgstr "Участники: %s"
 
 #, fuzzy
-msgid "Source URL"
-msgstr "Источник"
+msgid "%d Members"
+msgstr "Участники"
 
 #, fuzzy
-msgid "Your name"
-msgstr "Полное имя"
+msgid "Report reasons"
+msgstr "Адрес ленты"
 
 #, fuzzy
-msgid "Last topics"
-msgstr "Обновлено"
+msgid "See all suggestions"
+msgstr "Статьи"
 
 #, fuzzy
-msgid "Leave your comment"
-msgstr "Введите ваш комментарий"
+msgid "Some suggestions for you"
+msgstr "Предположения: %s"
 
 #, fuzzy
 msgid ""
@@ -1193,19 +1172,16 @@ msgid "Profile organization"
 msgstr "Одна организация"
 
 #, fuzzy
-msgid ""
-"%{sender} (%{sender_link}) commented on the content \"%{article_title}\"."
-msgstr ""
-"%{sender} (%{sender_link}) создал новый комментарий к вашей статье "
-"\"%{article_title}\" ."
+msgid "Report profile"
+msgstr "Уничтожить профиль"
 
 #, fuzzy
 msgid "Errors while saving"
 msgstr "Сообщение об ошибке"
 
 #, fuzzy
-msgid "Click on the address below to view this comment:"
-msgstr "Перейдите по следующему адресу для просмотра:"
+msgid "All members"
+msgstr "Добавить участников"
 
 #, fuzzy
 msgid "The contents in this profile is available to members only."
@@ -1220,82 +1196,68 @@ msgid "Full screen"
 msgstr "Полный пост"
 
 #, fuzzy
-msgid "Click on the address below to cancel the notification of new comments:"
-msgstr "Перейдите по следующему адресу для просмотра:"
+msgid "To:"
+msgstr "Получатель:"
 
 #, fuzzy
-msgid "Send an e-mail to administrators"
-msgstr "Послать e-mail %s"
+msgid "Select a template:"
+msgstr "Выбрать шаблон"
 
 #, fuzzy
-msgid "Information about the user who sent this message:"
-msgstr "Информация о событии"
+msgid "Email Configuration:"
+msgstr "Настройка"
 
 #, fuzzy
-msgid "RSS feed"
-msgstr "RSS лента"
+msgid "Run"
+msgstr "Воскресение"
 
 #, fuzzy
-msgid "Enter your e-Mail"
-msgstr "Введите ваш комментарий"
+msgid "Add parameter"
+msgstr "Добавить участников"
 
 #, fuzzy
-msgid "Cancel notifications for e-mail above"
-msgstr "Отменить подгрузку e-mail"
+msgid "Send administrator Email for every task"
+msgstr "E-Mail"
 
 #, fuzzy
-msgid "No one attending this event yet."
-msgstr "Нет"
+msgid "Invitation moderation:"
+msgstr "Текст приглашения"
 
 #, fuzzy
-msgid "(Not countable anymore)"
-msgstr "Нет"
+msgid "New members must allow email visibility to the profile admin"
+msgstr "Новый участник"
 
 #, fuzzy
 msgid "I want to approve comments on this article"
 msgstr "Получать комментарии к статье"
 
 #, fuzzy
-msgid "Viewed one time %{desc}"
-msgid_plural "Viewed %{num} times %{desc}"
-msgstr[0] "просмотрено один раз"
-msgstr[1] "просмотрено %{num} раз"
+msgid "You have %s pending requests"
+msgstr "У вас есть ожидающие запросы"
 
 #, fuzzy
 msgid "I want this article to display a link to older versions"
 msgstr "Хочу чтоб статья отображала количество полученных хитов"
 
 #, fuzzy
-msgid "Visibility"
-msgstr "Видимый"
+msgid "[%s] Notifications"
+msgstr "Опции модерации"
 
 #, fuzzy
-msgid "Visible to other people"
-msgstr "Статья должна быть опубликована (видима другим)"
-
-#, fuzzy
-msgid "Go back to latest version"
-msgstr "Назад в %s"
-
-#, fuzzy
-msgid "Version %s"
-msgstr "Разрешения"
+msgid "Private Token"
+msgstr "Приватный профиль"
 
 #, fuzzy
 msgid "Topic creation"
 msgstr "Расположение:"
 
 #, fuzzy
-msgid "by %{author}"
-msgstr "Автор"
+msgid "Recent Content"
+msgstr "Последний контент"
 
 #, fuzzy
 msgid "Allow all community members to view this content"
 msgstr "единица"
-
-#, fuzzy
-msgid "Allow all your friends to view this content"
-msgstr "Друзья"
 
 #, fuzzy
 msgid "Allow only community members entered below to view this content"
@@ -1306,36 +1268,36 @@ msgid "Type in a name of a community member"
 msgstr "Имя"
 
 #, fuzzy
-msgid "This gallery contains no images yet"
-msgstr "%{gallery} (%{count} изображений)"
+msgid "Signup introduction text"
+msgstr "Отправить инструкции"
 
 #, fuzzy
-msgid "Back to the versions"
-msgstr "Назад к списку продуктов"
+msgid "Personal website"
+msgstr "Сайт события"
 
 #, fuzzy
-msgid "Revert to this version"
-msgstr "Нет событий на эту дату"
+msgid "Signup welcome email"
+msgstr "Послать e-mail пользователям"
 
 #, fuzzy
-msgid "Go to latest version"
-msgstr "Нет событий на эту дату"
+msgid "Custom formation"
+msgstr "Пользовательское формирование"
 
 #, fuzzy
-msgid "Changes on \"%s\""
-msgstr "Изменение роли %s"
+msgid "Deleting profile %s"
+msgstr "Уничтожить профиль"
 
 #, fuzzy
-msgid "Manage Email Templates"
-msgstr "Редактировать шаблоны"
+msgid "Are you sure you want to delete this profile?"
+msgstr "Вы уверены что хотите удалить комментарий?"
 
 #, fuzzy
-msgid "Edit Raw HTML block"
-msgstr "Исходный HTML"
+msgid "Number of news by folder"
+msgstr "Количество новостей"
 
 #, fuzzy
-msgid "comments"
-msgstr "комментарий"
+msgid "Number of portal news"
+msgstr "Количество новостей"
 
 #, fuzzy
 msgid "Invite Friends"
@@ -1346,120 +1308,128 @@ msgid "Add translation"
 msgstr "Графический переход:"
 
 #, fuzzy
-msgid "Template Name:"
-msgstr "Редактировать шаблоны"
+msgid "Number of highlighted news"
+msgstr "Количество новостей"
+
+#, fuzzy
+msgid "Suggest an article"
+msgstr "Новая статья"
 
 #, fuzzy
 msgid "All versions"
 msgstr "Посмотреть все продукты"
 
 #, fuzzy
-msgid "Template Type:"
+msgid "News amount on portal"
+msgstr "Количество новостей по папкам"
+
+#, fuzzy
+msgid "This profile is a template"
+msgstr "Этот профиль не публичный"
+
+#, fuzzy
+msgid "Deactivate profile"
+msgstr "Приватный профиль"
+
+#, fuzzy
+msgid "Are you sure you want to deactivate this profile?"
+msgstr "Вы уверены что хотите удалить комментарий?"
+
+#, fuzzy
+msgid "Define news amount on portal"
+msgstr "Определить количество для папки"
+
+#, fuzzy
+msgid "Activate profile"
+msgstr "Приватный профиль"
+
+#, fuzzy
+msgid "Are you sure you want to activate this profile?"
+msgstr "Вы уверены что хотите удалить комментарий?"
+
+#, fuzzy
+msgid "Delete profile"
+msgstr "Уничтожить профиль"
+
+#, fuzzy
+msgid "Editor"
+msgstr "Редактировать"
+
+#, fuzzy
+msgid "Validators by region"
+msgstr "Утверждающие по регионам"
+
+#, fuzzy
+msgid "Message for disabled enterprises"
+msgstr "Редактировать сообщение для отключенных компаний"
+
+#, fuzzy
+msgid "Enterprise-related settings"
+msgstr "Инфо компании и настройки"
+
+#, fuzzy
+msgid "Suggestions"
+msgstr "Предположения: %s"
+
+#, fuzzy
+msgid "Fields"
+msgstr "Поле"
+
+#, fuzzy
+msgid "Profile templates"
+msgstr "Изображение профиля"
+
+#, fuzzy
+msgid "Organizations"
+msgstr "Организация"
+
+#, fuzzy
+msgid "Visibility"
+msgstr "Видимый"
+
+#, fuzzy
+msgid "User roles"
+msgstr "Редактировать пользовательские роли"
+
+#, fuzzy
+msgid "Profiles"
+msgstr "Профиль"
+
+#, fuzzy
+msgid "Profile Admins"
+msgstr "Профиль"
+
+#, fuzzy
+msgid "Allow other users to follow me"
+msgstr "Пользователь"
+
+#, fuzzy
+msgid "Email templates"
 msgstr "Редактировать шаблоны"
 
 #, fuzzy
-msgid "Template language reference"
+msgid "Edit welcome page"
 msgstr "Редактировать шаблоны"
 
 #, fuzzy
-msgid "Manage environment licenses"
-msgstr "Управлять ролями среды"
+msgid "Licenses"
+msgstr "Редактировать друзей"
 
 #, fuzzy
-msgid "Manage environment templates"
-msgstr "Управлять ролями среды"
+msgid "Add admins to %s"
+msgstr "Добавить участников в %s"
 
 #, fuzzy
-msgid "Manage environment organizations"
-msgstr "Управлять утверждениями среды"
-
-#, fuzzy
-msgid "The following parameters may be used in subject and body:"
-msgstr "Четверг"
-
-#, fuzzy
-msgid "Manage environment validators"
-msgstr "Управлять утверждениями среды"
-
-#, fuzzy
-msgid "Email Templates"
-msgstr "Редактировать шаблоны"
-
-#, fuzzy
-msgid "New template"
-msgstr "Выбрать шаблон"
-
-#, fuzzy
-msgid "Embed unavailable."
-msgstr "Продукт не доступен!"
-
-#, fuzzy
-msgid "Enterprises's profile"
-msgstr "Категории профиля"
-
-#, fuzzy
-msgid "I want to add %s as a favorite enterprise"
-msgstr "Да, добавить %s"
-
-#, fuzzy
-msgid "Yes, I am sure"
-msgstr "Да"
-
-#, fuzzy
-msgid "Check/Uncheck All"
-msgstr "Очистить выбор"
-
-#, fuzzy
-msgid "Pending activation of enterprise %{enterprise}."
-msgstr "'%{user} хочет активировать E-Mail '%{email}' "
-
-#, fuzzy
-msgid "%{requestor} wants to activate enterprise %{enterprise}."
-msgstr "'%{user} хочет активировать E-Mail '%{email}' "
-
-#, fuzzy
-msgid "Pending activation of enterprise %{linked_subject}."
-msgstr "'%{user} хочет активировать E-Mail '%{email}' "
-
-#, fuzzy
-msgid "%{requestor} wants to activate enterprise %{linked_subject}."
-msgstr "'%{user} хочет активировать E-Mail '%{email}' "
-
-#, fuzzy
-msgid "Type: "
-msgstr "Тип"
-
-#, fuzzy
-msgid "Display on moderation?"
-msgstr "Показать при создании?"
-
-#, fuzzy
-msgid "Add option"
-msgstr "Добавить"
-
-#, fuzzy
-msgid "Members Whitelist"
-msgstr "Участники: %s"
-
-#, fuzzy
-msgid "Enable whitelist"
-msgstr "Включить компанию"
-
-#, fuzzy
-msgid "Change User Password"
-msgstr "Сменить пароль"
-
-#, fuzzy
-msgid "Allow these people to access this environment:"
-msgstr "Вы хотите видеть других людей в этом сообществе?"
+msgid "Sideboxes"
+msgstr "Редактировать боковую панель"
 
 #, fuzzy
 msgid ", by %s"
 msgstr "%s"
 
 #, fuzzy
-msgid "Organization Members"
-msgstr "Организация"
+msgid "Name or Email"
+msgstr "E-Mail"
 
 #, fuzzy
 msgid "Task Spam"
@@ -1470,16 +1440,20 @@ msgid "Are you sure you want to mark this comment as SPAM?"
 msgstr "Вы уверены что хотите удалить этот элемент?"
 
 #, fuzzy
-msgid "Task Acceptance"
-msgstr "Подтвердить"
+msgid "Features"
+msgstr "Возможность"
 
 #, fuzzy
 msgid "Are you sure you want to remove this comment and all its replies?"
 msgstr "Вы уверены что хотите удалить комментарий?"
 
 #, fuzzy
-msgid "Task Rejection"
-msgstr "Отклонить"
+msgid "Environment settings"
+msgstr "Статистика среды"
+
+#, fuzzy
+msgid "One comment"
+msgstr "Комментарий"
 
 #, fuzzy
 msgid "no comments yet"
@@ -1490,12 +1464,8 @@ msgid "%s comments"
 msgstr "Опубликовать комментарий"
 
 #, fuzzy
-msgid "One comment"
-msgstr "Комментарий"
-
-#, fuzzy
-msgid "%{requestor} wants to activate the following email: %{subject}."
-msgstr "'%{user} хочет активировать E-Mail '%{email}' "
+msgid "System settings"
+msgstr "Настройки"
 
 #, fuzzy
 msgid "Translations"
@@ -1506,40 +1476,32 @@ msgid "String"
 msgstr "Медицинский работник"
 
 #, fuzzy
-msgid "Email activation"
-msgstr "Активация компании"
+msgid "Current members"
+msgstr "один участник"
 
 #, fuzzy
 msgid "Date"
 msgstr "Область"
 
 #, fuzzy
-msgid "Type in a search term for a user"
-msgstr "Отключить поиск по компаниям"
+msgid "No members found to: %s"
+msgstr "Нет"
 
 #, fuzzy
 msgid "Link"
 msgstr "Ссылки"
 
 #, fuzzy
-msgid "{fn} must not start with www."
-msgstr "%{fn} не может начинаться с www."
+msgid "Available languages"
+msgstr "Языки"
 
 #, fuzzy
-msgid ""
-"{fn} must be composed of sequences of lowercase letters (a to z), numbers (0 "
-"to 9), \"_\" and \"-\", separated by dots."
-msgstr ""
-"%{fn} должно иметь только буквы нижнего регистра (a to z), цифры (0 to 9) и "
-"нижнее подчеркивание"
+msgid "Default language"
+msgstr "Языки"
 
 #, fuzzy
-msgid "Enable feed proxy"
-msgstr "Включить"
-
-#, fuzzy
-msgid "Disable feed SSL"
-msgstr "Отключить"
+msgid "Custom Roles:"
+msgstr "Роли:"
 
 #, fuzzy
 msgid "%{month_name}, %{year}"
@@ -1550,12 +1512,12 @@ msgid "%{month_name} %{day}"
 msgstr "%{month} %{year}"
 
 #, fuzzy
-msgid "%{month}/%{day}"
-msgstr "%{day}.%{month}.%{year}"
+msgid "Last administrator leaving %s"
+msgstr "Список администраторов"
 
 #, fuzzy
-msgid "Manage fields displayed for profiles"
-msgstr "Управление ролями"
+msgid "%{month}/%{day}"
+msgstr "%{day}.%{month}.%{year}"
 
 #, fuzzy
 msgid "%{month_name} %{day}, %{year}"
@@ -1582,182 +1544,162 @@ msgid "from %{date1} to %{date2}, %{year}"
 msgstr "%{day}.%{month}.%{year}"
 
 #, fuzzy
-msgid "Person's fields"
-msgstr "Управ"
+msgid "Find users"
+msgstr "Один пользователь"
 
 #, fuzzy
-msgid "New field related to existent one with same name"
-msgstr "Имя"
+msgid "%s Permissions:"
+msgstr "Разрешения:"
 
 #, fuzzy
-msgid "There is a field with the same name for this type in this environment"
-msgstr "Имя"
+msgid "Article's date format"
+msgstr "Аннотация"
 
 #, fuzzy
-msgid "Community's fields"
-msgstr "Сообщества"
+msgid "Select members to assign the role"
+msgstr "Выбрать предпочтительные домены для профиля"
 
 #, fuzzy
-msgid "Enterprise's fields"
-msgstr "Категории профиля"
+msgid "No reply email"
+msgstr "E-Mail"
 
 #, fuzzy
-msgid "Download image"
-msgstr "Вниз"
-
-#, fuzzy
-msgid "Download"
-msgstr "Вниз"
+msgid "Replace role: "
+msgstr "Создать роль"
 
 #, fuzzy
 msgid "%{month}"
 msgstr "%{day}.%{month}.%{year}"
 
 #, fuzzy
-msgid "Connections with %s"
-msgstr "Контент, отмеченный \"%s\""
+msgid "Deleting %s"
+msgstr "Удалить: %s"
 
 #, fuzzy
-msgid "Go to friends list"
-msgstr "У вас еще нет друзей"
+msgid "Are you sure you want to delete this role?"
+msgstr "Вы уверены что хотите удалить комментарий?"
 
 #, fuzzy
-msgid "Invite people"
-msgstr "Пригласить участников"
+msgid "To which role do you want to change them?"
+msgstr "Выберите, каких друзей вы хотите пригласить"
 
 #, fuzzy
-msgid "Friends suggestions"
-msgstr "Статьи"
+msgid "Delete role"
+msgstr "Уничтожить профиль"
 
 #, fuzzy
 msgid "No events for this month"
 msgstr "Нет событий на эту дату"
 
 #, fuzzy
-msgid "Removing suggestion for friend: %s"
-msgstr "Удаление друга: %s"
+msgid "Create a new role"
+msgstr "Создать новую группу"
 
 #, fuzzy
-msgid "Friends suggestions for %s"
-msgstr "Настройки профиля %s"
+msgid "Back to roles management"
+msgstr "Назад в панель управления"
 
 #, fuzzy
 msgid "Place: "
 msgstr "Цена:"
 
 #, fuzzy
-msgid "Terms of use - %s"
-msgstr "Правила пользования"
+msgid "%s result found"
+msgid_plural "%s results found"
+msgstr[0] "найдено %d записей"
 
 #, fuzzy
-msgid "Invite and find"
-msgstr "Пригласить друзей"
+msgid "Search on %s's profile"
+msgstr "%s: профиль"
 
 #, fuzzy
-msgid "%{requestor} wants to create enterprise %{subject}."
-msgstr "%s хочет создать сообщество %s"
+msgid "View this scrap on the wall"
+msgstr "Прсмотреть этот пост на Вашей стене"
 
 #, fuzzy
-msgid "Documentation"
-msgstr "Документы"
+msgid "Sign up for %s!"
+msgstr "Регистрация"
 
 #, fuzzy
-msgid ""
-"{fn} is already being as identifier by another enterprise, organization or "
-"person."
-msgstr "%{fn} уже используется другой категорией"
+msgid "Updated by %{name} at %{date}"
+msgstr "от %{author} в \"%{article}\""
 
 #, fuzzy
-msgid "{fn} is not a validator for the chosen region"
-msgstr "%{fn} - недопустимое имя"
+msgid "Last posts"
+msgstr "Обновлено"
 
 #, fuzzy
-msgid "Ask for friendship"
-msgstr "%s: друзей"
+msgid "Last items"
+msgstr "Последние обновления"
 
 #, fuzzy
-msgid "Invite people to join"
-msgstr "Пригласить друзей присоединиться к %s"
+msgid "No image"
+msgstr "изображение"
 
 #, fuzzy
-msgid "Choose person by:"
-msgstr "Выбрать блог"
+msgid "Total of 1 result"
+msgid_plural "Total of %s results"
+msgstr[0] "найдено %d записей"
 
 #, fuzzy
-msgid "Step 2 of 2: Selecting People"
-msgstr "Шаг 2 из 2: выбор друзей"
+msgid "Category Index"
+msgstr "Категория:"
 
 #, fuzzy
-msgid "Indicate which people you want to invite."
-msgstr "Выберите, каких друзей вы хотите пригласить"
+msgid "Image Label:"
+msgstr "Изображение"
 
 #, fuzzy
-msgid "Do you want to remove this user?"
-msgstr "Хотите присоединиться к группе?"
+msgid "Published at: %s"
+msgstr "Опубликовать медиа-контент"
 
 #, fuzzy
-msgid "New license"
-msgstr "Новая ссылка"
+msgid "Used when a short version of your text is needed."
+msgstr "Используется, когда нужна короткая версия Вашего текста."
 
 #, fuzzy
-msgid "Edit license"
-msgstr "Редактировать тему"
+msgid "Profiles in common:"
+msgstr "Предоставленная информация"
 
 #, fuzzy
-msgid "Manage licenses"
-msgstr "Редактировать друзей"
+msgid "Find in %s's content"
+msgstr "Основной контент"
 
 #, fuzzy
-msgid "Are you sure you want to remove this license?"
+msgid "General"
+msgstr "Основная задача"
+
+#, fuzzy
+msgid "Search all content"
+msgstr "Весь контент"
+
+#, fuzzy
+msgid "You have no more suggestions :("
+msgstr "У вас есть ожидающие запросы"
+
+#, fuzzy
+msgid "Add suggestion"
+msgstr "Статьи"
+
+#, fuzzy
+msgid "Remove suggestion"
+msgstr "Статьи"
+
+#, fuzzy
+msgid "Are you sure you want to remove this suggestion?"
 msgstr "Вы уверены что хотите удалить этот элемент?"
 
 #, fuzzy
-msgid "Add a new license"
-msgstr "Одна компания"
+msgid "Are you sure you want to remove %s from your suggestions list?"
+msgstr "Вы уверены что хотите удалить %s из списка друзей?"
 
 #, fuzzy
-msgid "Address not found, reason:"
-msgstr "Адрес не найден"
+msgid "Yes, I want to remove %s"
+msgstr "Да, покинуть"
 
 #, fuzzy
-msgid "%{requestor} wants to create community %{subject}"
-msgstr "%s хочет создать сообщество %s"
-
-#, fuzzy
-msgid "Invalid address"
-msgstr "Адрес ленты"
-
-#, fuzzy
-msgid "%{requestor} wants to create community %{subject} with no description."
-msgstr "%s хочет создать сообщество %s"
-
-#, fuzzy
-msgid "Request denied"
-msgstr "Доступ запрещен"
-
-#, fuzzy
-msgid "Address do not exist"
-msgstr "Адрес не может быть сохранен"
-
-#, fuzzy
-msgid "Go to groups list"
-msgstr "В группах"
-
-#, fuzzy
-msgid "We"
-msgstr "Среда"
-
-#, fuzzy
-msgid "Sa"
-msgstr "Суббота"
-
-#, fuzzy
-msgid "Fr"
-msgstr "Пятница"
-
-#, fuzzy
-msgid "Th"
-msgstr "Четверг"
+msgid "Remove image"
+msgstr "Удалить участника"
 
 #, fuzzy
 msgid "Tu"
@@ -1772,88 +1714,116 @@ msgid "Su"
 msgstr "Воскресение"
 
 #, fuzzy
-msgid "See some suggestions of communities..."
-msgstr "Администратор должен утвердить все новые организации"
+msgid "We"
+msgstr "Среда"
 
 #, fuzzy
-msgid "one view"
-msgstr "один пункт"
+msgid "Th"
+msgstr "Четверг"
 
 #, fuzzy
-msgid "No groups to list"
-msgstr "В группах"
+msgid "Fr"
+msgstr "Пятница"
 
 #, fuzzy
-msgid "Communities suggestions for %s"
-msgstr "Настройки профиля %s"
+msgid "Sa"
+msgstr "Суббота"
 
 #, fuzzy
-msgid "Roles"
-msgstr "Роли:"
+msgid "Go to the home page"
+msgstr "Перейти на домашнюю страницу сайта"
 
 #, fuzzy
-msgid "Community created"
-msgstr "Сообщество"
+msgid "Join room"
+msgstr "Присоединиться"
 
 #, fuzzy
-msgid "Edit settings"
-msgstr "Настройки почты"
+msgid "Leave room"
+msgstr "Введите ваш комментарий"
 
 #, fuzzy
-msgid "You can manage your community now."
-msgstr "Теперь вы можете управлять своей компанией."
+msgid "Join chat room"
+msgstr "Присоединиться"
 
 #, fuzzy
-msgid "Deactivate"
-msgstr "Активировать"
+msgid "Original content"
+msgstr "Основной контент"
 
 #, fuzzy
-msgid "Jun"
-msgstr "Июнь"
+msgid "Comment"
+msgstr "Комментарий:"
 
 #, fuzzy
-msgid "Do you want to deactivate this organization?"
-msgstr "Хотите присоединиться к группе?"
+msgid "Reported folder"
+msgstr "родительская папка"
 
 #, fuzzy
-msgid "Mar"
-msgstr "Март"
+msgid "Show details"
+msgstr "Просмотреть детали"
 
 #, fuzzy
-msgid "Apr"
-msgstr "Апрель"
+msgid "Sent by"
+msgstr "Отправлено %s."
 
 #, fuzzy
-msgid "Jan"
-msgstr "и"
+msgid "Folder|none"
+msgstr "Папка"
 
 #, fuzzy
-msgid "Jul"
-msgstr "Июль"
+msgid "Abstract|empty"
+msgstr "Аннотация"
 
 #, fuzzy
-msgid "Aug"
-msgstr "Август"
-
-#, fuzzy
-msgid "Do you want to activate this organization?"
-msgstr "Хотите присоединиться к группе?"
+msgid "Are you sure you want to remove this article suggestion?"
+msgstr "Вы уверены что хотите удалить этот элемент?"
 
 #, fuzzy
 msgid "Nov"
 msgstr "Нет"
 
 #, fuzzy
-msgid "Sep"
-msgstr "Пол"
+msgid "Manage SPAM"
+msgstr "Управлять%s"
 
 #, fuzzy
 msgid "Oct"
 msgstr "Октябрь"
 
 #, fuzzy
-msgid "Posts"
-msgstr "Фотографии"
+msgid "Apr"
+msgstr "Апрель"
+
+#, fuzzy
+msgid "Aug"
+msgstr "Август"
+
+#, fuzzy
+msgid "Jul"
+msgstr "Июль"
+
+#, fuzzy
+msgid "Jun"
+msgstr "Июнь"
+
+#, fuzzy
+msgid "Jan"
+msgstr "и"
+
+#, fuzzy
+msgid "There are no spams to review."
+msgstr "У вас еще нет контактов"
+
+#, fuzzy
+msgid "Mar"
+msgstr "Март"
+
+#, fuzzy
+msgid "Sep"
+msgstr "Пол"
+
+#, fuzzy
+msgid "Comment Spam"
+msgstr "Комментарий:"
 
 #, fuzzy
 msgid "Prev"
@@ -1864,88 +1834,104 @@ msgid "Wk"
 msgstr "Работа"
 
 #, fuzzy
-msgid "Do you want to destroy this organization?"
-msgstr "Хотитие присоединиться к сообществу?"
-
-#, fuzzy
-msgid "Find organizations"
-msgstr "Одна организация"
+msgid "View details"
+msgstr "Просмотреть детали"
 
 #, fuzzy
 msgid "root"
 msgstr "Выйти"
 
 #, fuzzy
-msgid "Filter by: "
-msgstr "Папка"
+msgid "Select an acceptance email template:"
+msgstr "E-Mail"
 
 #, fuzzy
 msgid "Configure forum"
 msgstr "Настроить блог"
 
 #, fuzzy
-msgid "Template"
-msgstr "Редактировать шаблоны"
+msgid "Create a link"
+msgstr "Создано:"
+
+#, fuzzy
+msgid "Posts"
+msgstr "Фотографии"
 
 #, fuzzy
 msgid "Last post"
 msgstr "Обновлено"
 
 #, fuzzy
-msgid "Any"
-msgstr "Акроним"
+msgid "Sent by: "
+msgstr "Отправлено %s."
 
 #, fuzzy
-msgid "Map"
-msgstr "Май"
+msgid "Email: %s"
+msgstr "E-Mail: %s"
 
 #, fuzzy
-msgid "Disabled"
-msgstr "Отключить"
+msgid "Closed by:"
+msgstr "Закрыть"
 
 #, fuzzy
-msgid "Enabled"
-msgstr "Включено?"
+msgid "Select a rejection email template:"
+msgstr "E-Mail"
 
 #, fuzzy
-msgid "has published on community %s"
-msgstr "В сообществе %s"
+msgid "Type of task"
+msgstr "Kategorietyp"
 
 #, fuzzy
-msgid "profile|Comment"
-msgstr "Профиль"
+msgid "View tasks"
+msgstr "Просмотреть детали"
 
 #, fuzzy
-msgid "Are you sure you want to remove this activity and all its replies?"
-msgstr "Вы уверены что хотите удалить комментарий?"
+msgid "Status"
+msgstr "Статус:"
 
 #, fuzzy
-msgid "enterprise"
-msgstr "Компания"
+msgid "Text Filter:"
+msgstr "Папка"
 
 #, fuzzy
-msgid "View all %s comments"
-msgstr "Просмотреть все иконки"
+msgid "Processed date"
+msgstr "Обработано:"
 
 #, fuzzy
-msgid "%s's Notifications"
-msgstr "Опции модерации"
+msgid "The template could not be saved"
+msgstr "Адрес не может быть сохранен"
 
 #, fuzzy
-msgid "Network Activity"
-msgstr "%s активности сети"
+msgid "There were problems with the following fields:"
+msgstr "Со следующими файлами возникли проблемы:"
 
 #, fuzzy
-msgid "Manage plugins"
-msgstr "Редактировать друзей"
+msgid "Create enterprise template"
+msgstr "Редактировать шаблон компании"
 
 #, fuzzy
-msgid "Select which plugins you want to enable in your environment"
-msgstr "Выберите группы, где вы хотите опубликовать событие"
+msgid "Create community template"
+msgstr "Редактировать шаблон сообщества"
 
 #, fuzzy
-msgid "See more"
-msgstr "Больше"
+msgid "Create person template"
+msgstr "Редактировать персональный шаблон"
+
+#, fuzzy
+msgid "Create a new template for %s"
+msgstr "Создать новую тему"
+
+#, fuzzy
+msgid "Template"
+msgstr "Редактировать шаблоны"
+
+#, fuzzy
+msgid "Edit template \"%s\""
+msgstr "Редактировать шаблоны"
+
+#, fuzzy
+msgid "is the default template"
+msgstr "Использовать эту тему"
 
 #, fuzzy
 msgid "Home"
@@ -1964,343 +1950,350 @@ msgid "Community's profile"
 msgstr "Сообщества"
 
 #, fuzzy
-msgid "View comment"
-msgid_plural "View all %s comments"
-msgstr[0] "Комментарий"
-msgstr[1] "Комментарий"
-
-#, fuzzy
-msgid "Name A-Z"
-msgstr "Имя"
-
-#, fuzzy
-msgid "Name Z-A"
-msgstr "Имя"
-
-#, fuzzy
-msgid "Are you sure you want to remove this scrap and all its replies?"
-msgstr "Вы уверены что хотите удалить комментарий?"
-
-#, fuzzy
-msgid ""
-"Filter followed, friends or group of friends to send them a private scrap..."
-msgstr "Друзья"
-
-#, fuzzy
-msgid "%s's fans"
-msgstr "%s: теги"
+msgid "Edit settings"
+msgstr "Настройки почты"
 
 #, fuzzy
 msgid "Edit sideblocks"
 msgstr "Редактировать боковую панель"
 
 #, fuzzy
-msgid "%s is followed by"
-msgstr "от"
+msgid "Edit header/footer"
+msgstr "Редактирование header или footer"
+
+#, fuzzy
+msgid "Use the default theme"
+msgstr "Использовать эту тему"
+
+#, fuzzy
+msgid "Are you sure you want to use the environment default theme?"
+msgstr "Вы уверены что хотите выйти?"
+
+#, fuzzy
+msgid "Editing trusted site"
+msgstr "Редактировать тему \"%s\""
+
+#, fuzzy
+msgid "Manage trusted sites"
+msgstr "Управление ролями"
+
+#, fuzzy
+msgid "Create my account"
+msgstr "Создать новое сообщество"
+
+#, fuzzy
+msgid "I accept the %s"
+msgstr "С правилами согласен"
+
+#, fuzzy
+msgid "terms of use"
+msgstr "Правила пользования"
 
 #, fuzzy
 msgid ""
-"Authorize the visibility of your email address to the community "
-"administrator."
-msgstr "Автор"
-
-#, fuzzy
-msgid "Appearance"
-msgstr "Изменить вид"
-
-#, fuzzy
-msgid "Authorize"
-msgstr "Автор"
-
-#, fuzzy
-msgid "Members (%d)"
-msgstr "Участники: %s"
-
-#, fuzzy
-msgid "%d Members"
-msgstr "Участники"
-
-#, fuzzy
-msgid "Report profile"
-msgstr "Уничтожить профиль"
-
-#, fuzzy
-msgid "All members"
-msgstr "Добавить участников"
-
-#, fuzzy
-msgid "To:"
-msgstr "Получатель:"
-
-#, fuzzy
-msgid "Select a template:"
-msgstr "Выбрать шаблон"
-
-#, fuzzy
-msgid "Email Configuration:"
-msgstr "Настройка"
-
-#, fuzzy
-msgid "community"
-msgstr "Сообщество"
-
-#, fuzzy
-msgid "Send administrator Email for every task"
-msgstr "E-Mail"
-
-#, fuzzy
-msgid "Invitation moderation:"
-msgstr "Текст приглашения"
-
-#, fuzzy
-msgid "New members must allow email visibility to the profile admin"
-msgstr "Новый участник"
-
-#, fuzzy
-msgid "Communities Block"
-msgstr "Сообщества"
-
-#, fuzzy
-msgid ""
-"<p>Display all of your communities.</p><p>You could choose the amount of "
-"communities will be displayed and you could priorize that profiles with "
-"images.</p> <p>The view all button is always present in the block.</p>"
-msgstr "Отображаемое имя"
-
-#, fuzzy
-msgid "You have %s pending requests"
-msgstr "У вас есть ожидающие запросы"
-
-#, fuzzy
-msgid "Private Token"
-msgstr "Приватный профиль"
-
-#, fuzzy
-msgid "Personal website"
-msgstr "Сайт события"
-
-#, fuzzy
-msgid "Custom formation"
-msgstr "Пользовательское формирование"
-
-#, fuzzy
-msgid "Deleting profile %s"
-msgstr "Уничтожить профиль"
-
-#, fuzzy
-msgid ""
-"In order to change your password, please visit the following address:\n"
-"\n"
-"%s\n"
-"\n"
-"If you did not required any change to your password just desconsider this "
-"email."
-msgstr ""
-"Для смены пароля перейдите на следующий адрес:\n"
-"\n"
-"%s"
-
-#, fuzzy
-msgid "Are you sure you want to delete this profile?"
+"Are you sure you want to remove this site from the list of trusted sites?"
 msgstr "Вы уверены что хотите удалить комментарий?"
 
 #, fuzzy
-msgid "This profile is a template"
-msgstr "Этот профиль не публичный"
+msgid "Full name"
+msgstr "Имя файла"
 
 #, fuzzy
-msgid "Deactivate profile"
-msgstr "Приватный профиль"
+msgid "Add a trusted site"
+msgstr "Одна компания"
 
 #, fuzzy
-msgid "Are you sure you want to deactivate this profile?"
-msgstr "Вы уверены что хотите удалить комментарий?"
+msgid "Add a new trusted site"
+msgstr "Одна компания"
 
 #, fuzzy
-msgid "Activate profile"
-msgstr "Приватный профиль"
+msgid "Add trusted site"
+msgstr "Перейти к контенту"
 
 #, fuzzy
-msgid "{fn} cannot be like that."
-msgstr "Значение %{fn} недопустимо."
-
-#, fuzzy
-msgid "Abbreviation"
-msgstr "Аббревиатура"
-
-#, fuzzy
-msgid "Are you sure you want to activate this profile?"
-msgstr "Вы уверены что хотите удалить комментарий?"
-
-#, fuzzy
-msgid "Delete profile"
-msgstr "Уничтожить профиль"
-
-#, fuzzy
-msgid "Editor"
-msgstr "Редактировать"
-
-#, fuzzy
-msgid "Suggestions"
-msgstr "Предположения: %s"
-
-#, fuzzy
-msgid "Cannot be moved"
-msgstr "Адрес не может быть сохранен"
-
-#, fuzzy
-msgid "Public &mdash; show my contents to all internet users"
-msgstr "Показывать мои данные внешним пользователям"
-
-#, fuzzy
-msgid "Public &mdash; show content of this group to all internet users"
-msgstr "Показывать данные группы внешним пользователям"
-
-#, fuzzy
-msgid "Not logged"
-msgstr "Не информировано"
-
-#, fuzzy
-msgid "Logged"
-msgstr "В системе как %s"
-
-#, fuzzy
-msgid "Private &mdash; show content of this group only to members"
-msgstr "Показывать данные группы пользователям"
-
-#, fuzzy
-msgid "In all pages, except in the homepage"
-msgstr "Только на домашней"
-
-#, fuzzy
-msgid "Allow other users to follow me"
-msgstr "Пользователь"
-
-#, fuzzy
-msgid "Edit welcome page"
-msgstr "Редактировать шаблоны"
-
-#, fuzzy
-msgid "Add admins to %s"
-msgstr "Добавить участников в %s"
-
-#, fuzzy
-msgid "Show one article"
-msgstr "Показать"
-
-#, fuzzy
-msgid "Display one of your contents."
-msgstr "Показать один элемент содержимого"
-
-#, fuzzy
-msgid "Name or Email"
-msgstr "E-Mail"
-
-#, fuzzy
-msgid "Current members"
-msgstr "один участник"
-
-#, fuzzy
-msgid "Created at: "
-msgstr "Создано:"
-
-#, fuzzy
-msgid "No members found to: %s"
-msgstr "Нет"
-
-#, fuzzy
-msgid "Custom Roles:"
-msgstr "Роли:"
-
-#, fuzzy
-msgid "one comment"
-msgstr "Комментарий"
-
-#, fuzzy
-msgid "no comments"
-msgstr "Комментарий"
-
-#, fuzzy
-msgid "Last administrator leaving %s"
-msgstr "Список администраторов"
-
-#, fuzzy
-msgid "This system is under maintainance. It should be back in a few moments."
-msgstr ""
-"В системе проводятся плановые технические работы, она будет доступна через "
-"несколько часов."
-
-#, fuzzy
-msgid "No description informed."
-msgstr "Не информировано"
-
-#, fuzzy
-msgid "The target is achived and can't accept votes"
-msgstr "Четверг"
-
-#, fuzzy
-msgid "memberships"
-msgstr "Участники: %s"
-
-#, fuzzy
-msgid "Profile Admins"
-msgstr "Профиль"
-
-#, fuzzy
-msgid "Environment Admins"
-msgstr "Статистика среды"
-
-#, fuzzy
-msgid "Only Admins"
-msgstr "Админ"
-
-#, fuzzy
-msgid "Deactivate user"
-msgstr "Активировать"
-
-#, fuzzy
-msgid "Do you want to deactivate this user?"
-msgstr "Хотите присоединиться к группе?"
-
-#, fuzzy
-msgid "Activate user"
-msgstr "Активировать"
-
-#, fuzzy
-msgid "Do you want to activate this user?"
-msgstr "Хотите присоединиться к группе?"
-
-#, fuzzy
-msgid "Do you want to set this user as administrator?"
-msgstr "Хотитие присоединиться к сообществу?"
-
-#, fuzzy
-msgid "Set admin role"
-msgstr "Создать новую группу"
-
-#, fuzzy
-msgid "Reset admin role"
-msgstr "Создать новую группу"
-
-#, fuzzy
-msgid "Do you want to reset this user as administrator?"
-msgstr "Хотитие присоединиться к сообществу?"
-
-#, fuzzy
-msgid "Communities suggestions:"
-msgstr "Меню \"Сообщества\""
-
-#, fuzzy
-msgid "Friends suggestions:"
-msgstr "Статьи"
+msgid "Bad"
+msgstr "Март"
 
 #, fuzzy
 msgid "Welcome to environment %s"
 msgstr "Добро пожаловать в %s"
 
 #, fuzzy
-msgid "Add trusted site"
-msgstr "Перейти к контенту"
+msgid "Passwords don't match"
+msgstr "Подтверждение пароля"
+
+#, fuzzy
+msgid "Friends suggestions:"
+msgstr "Статьи"
+
+#, fuzzy
+msgid "Communities suggestions:"
+msgstr "Меню \"Сообщества\""
+
+#, fuzzy
+msgid "Do you want to reset this user as administrator?"
+msgstr "Хотитие присоединиться к сообществу?"
+
+#, fuzzy
+msgid "The account could not be created"
+msgstr "Адрес не может быть сохранен"
+
+#, fuzzy
+msgid "Reset admin role"
+msgstr "Создать новую группу"
+
+#, fuzzy
+msgid "Available: "
+msgstr "Свободно!"
+
+#, fuzzy
+msgid "Do you want to set this user as administrator?"
+msgstr "Хотитие присоединиться к сообществу?"
+
+#, fuzzy
+msgid "File (%s)"
+msgstr "Цена: %s"
+
+#, fuzzy
+msgid "Set admin role"
+msgstr "Создать новую группу"
+
+#, fuzzy
+msgid "Image (%s)"
+msgstr "Картинки"
+
+#, fuzzy
+msgid "Do you want to activate this user?"
+msgstr "Хотите присоединиться к группе?"
+
+#, fuzzy
+msgid "does not match."
+msgstr "Подтверждение пароля"
+
+#, fuzzy
+msgid "Activate user"
+msgstr "Активировать"
+
+#, fuzzy
+msgid "{fn} must be checked in order to signup."
+msgstr "%{fn} - необходимое значение для регистрации."
+
+#, fuzzy
+msgid "Do you want to deactivate this user?"
+msgstr "Хотите присоединиться к группе?"
+
+#, fuzzy
+msgid "Deactivate user"
+msgstr "Активировать"
+
+#, fuzzy
+msgid "All Users"
+msgstr "Все группы"
+
+#, fuzzy
+msgid "Only Admins"
+msgstr "Админ"
+
+#, fuzzy
+msgid "{fn} of uploaded file was larger than the maximum size of %{size}"
+msgstr "%{fn} загруженного файла превысило максимальный размер - %{size}"
+
+#, fuzzy
+msgid "Environment Admins"
+msgstr "Статистика среды"
+
+#, fuzzy
+msgid "Ticket"
+msgstr "Тикет: %s"
+
+#, fuzzy
+msgid "Text article to create user content."
+msgstr "Пользователь"
+
+#, fuzzy
+msgid "Text article"
+msgstr "Новая статья"
+
+#, fuzzy
+msgid "Task"
+msgstr "Задачи"
+
+#, fuzzy
+msgid "Hidden"
+msgstr "Спрятать"
+
+#, fuzzy
+msgid "Tag Cloud"
+msgstr "Облако тэгов"
+
+#, fuzzy
+msgid "Display a tag cloud about current content"
+msgstr "Отображаемое имя"
+
+#, fuzzy
+msgid ""
+"<p>Display a tag cloud with the content produced where the block is applied."
+"</p> <p>The user could limit the number of tags will be displayed.</p>"
+msgstr "Отображаемое имя"
+
+#, fuzzy
+msgid "%{requestor} suggested the publication of the article: %{article}."
+msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+
+#, fuzzy
+msgid ""
+"%{requestor} suggested the publication %{target_detail} of the article: "
+"%{subject}."
+msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
+
+#, fuzzy
+msgid "Article suggestion"
+msgstr "Статьи"
+
+#, fuzzy
+msgid "RssFeed"
+msgstr "RSS лента"
+
+#, fuzzy
+msgid "Show last updates"
+msgstr "Последние обновления"
+
+#, fuzzy
+msgid ""
+"Display the last content produced in the context where the block is "
+"available."
+msgstr "Отображаемое имя"
+
+#, fuzzy
+msgid "Communities in common"
+msgstr "Меню \"Сообщества\""
+
+#, fuzzy
+msgid "Display a form to search the profile"
+msgstr "Отобразить сводку профиля"
+
+#, fuzzy
+msgid "Profile Information"
+msgstr "Предоставленная информация"
+
+#, fuzzy
+msgid "Show profile information"
+msgstr "Предоставленная информация"
+
+#, fuzzy
+msgid ""
+"Display profile image and links to access initial homepage, control panel "
+"and profile activities."
+msgstr "Отображаемое имя"
+
+#, fuzzy
+msgid "%s activities"
+msgstr "деятельность %s"
+
+#, fuzzy
+msgid "one activity"
+msgstr "Экономическая активность"
+
+#, fuzzy
+msgid "no activity"
+msgstr "Экономическая активность"
+
+#, fuzzy
+msgid "%s can't have members"
+msgstr "%s не может иметь участников"
+
+#, fuzzy
+msgid "is not a template."
+msgstr "Использовать этот шаблон"
+
+#, fuzzy
+msgid "Manage custom roles"
+msgstr "Управление ролями"
+
+#, fuzzy
+msgid "Send e-Mail to members"
+msgstr "Послать e-mail участникам"
+
+#, fuzzy
+msgid "Textile"
+msgstr "Текст"
+
+#, fuzzy
+msgid "{fn} is already used by other user"
+msgstr "%{fn} уже используется другим юзером"
+
+#, fuzzy
+msgid "Custom education"
+msgstr "Пользовательское формирование"
+
+#, fuzzy
+msgid "person"
+msgstr "Личность"
+
+#, fuzzy
+msgid "District"
+msgstr "Ограничения"
+
+#, fuzzy
+msgid "Address reference"
+msgstr "Адрес:"
+
+#, fuzzy
+msgid "Region Code"
+msgstr "Регион"
+
+#, fuzzy
+msgid ""
+"User \"%{user}\" just requested to register. You have to approve or reject "
+"it through the \"Pending Validations\" section in your control panel.\n"
+msgstr ""
+"Пользователь \"%{user}\" запросил разрешение на создание сообщества "
+"%{community}. Вам необходимо одобрить либо отклонить данный запрос в секции  "
+"\"Ожидающие валидации\" вашей контрольной панели.\n"
+
+#, fuzzy
+msgid "You need to login on %{system} in order to approve or reject this user."
+msgstr "Необходимо войти в %{system} для утверждения статьи"
+
+#, fuzzy
+msgid "%{sender} wants to register."
+msgstr "%s хочет быть вашим другом"
+
+#, fuzzy
+msgid "Link list"
+msgstr "Ссылки"
+
+#, fuzzy
+msgid "New window"
+msgstr "Новый друг"
+
+#, fuzzy
+msgid "New tab"
+msgstr "Новый пост"
+
+#, fuzzy
+msgid "Same page"
+msgstr "Домашняя страница"
+
+#, fuzzy
+msgid "URL"
+msgstr "URL:"
+
+#, fuzzy
+msgid "description"
+msgstr "Описание"
+
+#, fuzzy
+msgid "title"
+msgstr "Название"
+
+#, fuzzy
+msgid "Invitation"
+msgstr "Текст приглашения"
+
+#, fuzzy
+msgid "{fn} of uploaded file was larger than the maximum size of 5.0 MB"
+msgstr "%{fn} загруженного превысило максимальный размер - 5.0 MB"
 
 #, fuzzy
 msgid "Date of birth"
@@ -2315,85 +2308,99 @@ msgid "Privacy setting"
 msgstr "Настройки приватности"
 
 #, fuzzy
-msgid "Add a new trusted site"
-msgstr "Одна компания"
+msgid "Creates image slideshow"
+msgstr "Создать"
 
 #, fuzzy
-msgid "Add a trusted site"
-msgstr "Одна компания"
+msgid "A gallery, inside which you can put images."
+msgstr "Папка, в которую можно помещать другие статьи"
 
 #, fuzzy
-msgid ""
-"Are you sure you want to remove this site from the list of trusted sites?"
-msgstr "Вы уверены что хотите удалить комментарий?"
+msgid "Gallery"
+msgstr "Галерея рисунков"
 
 #, fuzzy
-msgid "Manage trusted sites"
-msgstr "Управление ролями"
+msgid "This block presents the fans of an enterprise."
+msgstr "Этот блок отображает участников коллектива"
 
 #, fuzzy
-msgid "Editing trusted site"
-msgstr "Редактировать тему \"%s\""
+msgid "{#} fan"
+msgid_plural "{#} fans"
+msgstr[0] "{#} Поклонник"
+msgstr[1] "{#} Поклонники"
+msgstr[2] ""
 
 #, fuzzy
-msgid "Use the default theme"
-msgstr "Использовать эту тему"
+msgid "A calendar event."
+msgstr "Событие календаря"
 
 #, fuzzy
-msgid "Are you sure you want to use the environment default theme?"
-msgstr "Вы уверены что хотите выйти?"
+msgid "{fn} cannot come before end date."
+msgstr "%{fn} невозможно до даты окончания"
 
 #, fuzzy
-msgid "Edit header/footer"
-msgstr "Редактирование header или footer"
+msgid "is not available."
+msgstr "Продукт не доступен!"
 
 #, fuzzy
-msgid "Set %s template as default"
-msgstr "Шаблон \"%s\""
+msgid "This enterprise needs to be enabled."
+msgstr "Ваша компания зоблокирована"
 
 #, fuzzy
-msgid "is the default template"
-msgstr "Использовать эту тему"
+msgid "Redirects the user to the environment welcome page."
+msgstr "Использовать WYSIWYG-редактор для измерерия вида домашней страницы"
 
 #, fuzzy
-msgid "Edit template \"%s\""
+msgid "Redirects the user to his control panel."
+msgstr "Назад в контрольную панель"
+
+#, fuzzy
+msgid "Redirects the user to the environment homepage."
+msgstr "Использовать WYSIWYG-редактор для измерерия вида домашней страницы"
+
+#, fuzzy
+msgid "Enable appearance editing by users"
+msgstr "Отключить редактирование header и footer пользователями"
+
+#, fuzzy
+msgid "Show content only to members"
+msgstr "Весь контент"
+
+#, fuzzy
+msgid "Admin must approve registration of new users"
+msgstr "Администратор должен утвердить все новые организации"
+
+#, fuzzy
+msgid "Manage Email Templates"
 msgstr "Редактировать шаблоны"
 
 #, fuzzy
-msgid "Create a new template for %s"
-msgstr "Создать новую тему"
+msgid "Edit Raw HTML block"
+msgstr "Исходный HTML"
 
 #, fuzzy
-msgid "Create person template"
-msgstr "Редактировать персональный шаблон"
+msgid "Manage environment licenses"
+msgstr "Управлять ролями среды"
 
 #, fuzzy
-msgid "Create community template"
-msgstr "Редактировать шаблон сообщества"
+msgid "Manage environment templates"
+msgstr "Управлять ролями среды"
 
 #, fuzzy
-msgid "Create enterprise template"
-msgstr "Редактировать шаблон компании"
+msgid "Manage environment organizations"
+msgstr "Управлять утверждениями среды"
 
 #, fuzzy
-msgid "There were problems with the following fields:"
-msgstr "Со следующими файлами возникли проблемы:"
+msgid "Manage environment validators"
+msgstr "Управлять утверждениями среды"
 
 #, fuzzy
-msgid "The template could not be saved"
-msgstr "Адрес не может быть сохранен"
+msgid "Pending activation of enterprise %{enterprise}."
+msgstr "'%{user} хочет активировать E-Mail '%{email}' "
 
 #, fuzzy
-msgid "Processed date"
-msgstr "Обработано:"
-
-#, fuzzy
-msgid "Text Filter:"
-msgstr "Папка"
-
-#, fuzzy
-msgid "Status"
-msgstr "Статус:"
+msgid "%{requestor} wants to activate enterprise %{enterprise}."
+msgstr "'%{user} хочет активировать E-Mail '%{email}' "
 
 #, fuzzy
 msgid "More popular"
@@ -2412,6 +2419,10 @@ msgid "More comments"
 msgstr "Модерировать комментарии"
 
 #, fuzzy
+msgid "Map"
+msgstr "Май"
+
+#, fuzzy
 msgid "Full"
 msgstr "Имя файла"
 
@@ -2420,12 +2431,12 @@ msgid "Compact"
 msgstr "Информатика"
 
 #, fuzzy
-msgid "Type of task"
-msgstr "Kategorietyp"
+msgid "Pending activation of enterprise %{linked_subject}."
+msgstr "'%{user} хочет активировать E-Mail '%{email}' "
 
 #, fuzzy
-msgid "Select a rejection email template:"
-msgstr "E-Mail"
+msgid "%{requestor} wants to activate enterprise %{linked_subject}."
+msgstr "'%{user} хочет активировать E-Mail '%{email}' "
 
 #, fuzzy
 msgid "search in all categories"
@@ -2440,16 +2451,24 @@ msgid "Choose a template"
 msgstr "Шаблон \"%s\""
 
 #, fuzzy
-msgid "Closed by:"
-msgstr "Закрыть"
+msgid "Change User Password"
+msgstr "Сменить пароль"
 
 #, fuzzy
-msgid "View details"
-msgstr "Просмотреть детали"
+msgid "Organization Members"
+msgstr "Организация"
 
 #, fuzzy
-msgid "Email: %s"
-msgstr "E-Mail: %s"
+msgid "Task Acceptance"
+msgstr "Подтвердить"
+
+#, fuzzy
+msgid "Task Rejection"
+msgstr "Отклонить"
+
+#, fuzzy
+msgid "No results"
+msgstr "найдено %d записей"
 
 #, fuzzy
 msgid "Searching..."
@@ -2458,10 +2477,6 @@ msgstr "Искать"
 #, fuzzy
 msgid "Type in an keyword"
 msgstr "Отключить поиск по компаниям"
-
-#, fuzzy
-msgid "No results"
-msgstr "найдено %d записей"
 
 #, fuzzy
 msgid "Type in a search term"
@@ -2488,96 +2503,78 @@ msgid "Filter"
 msgstr "Папка"
 
 #, fuzzy
-msgid "Sent by: "
-msgstr "Отправлено %s."
+msgid "%{requestor} wants to activate the following email: %{subject}."
+msgstr "'%{user} хочет активировать E-Mail '%{email}' "
 
 #, fuzzy
 msgid "[%s] %s commented on a content of %s"
 msgstr "Наиболее комментируемые статьи"
 
 #, fuzzy
-msgid "Create a link"
-msgstr "Создано:"
+msgid "Email activation"
+msgstr "Активация компании"
 
 #, fuzzy
-msgid "Select an acceptance email template:"
-msgstr "E-Mail"
+msgid "{fn} must not start with www."
+msgstr "%{fn} не может начинаться с www."
 
 #, fuzzy
-msgid "Comment Spam"
-msgstr "Комментарий:"
+msgid ""
+"{fn} must be composed of sequences of lowercase letters (a to z), numbers (0 "
+"to 9), \"_\" and \"-\", separated by dots."
+msgstr ""
+"%{fn} должно иметь только буквы нижнего регистра (a to z), цифры (0 to 9) и "
+"нижнее подчеркивание"
 
 #, fuzzy
-msgid "There are no spams to review."
-msgstr "У вас еще нет контактов"
+msgid "New field related to existent one with same name"
+msgstr "Имя"
 
 #, fuzzy
-msgid "Manage SPAM"
-msgstr "Управлять%s"
+msgid "There is a field with the same name for this type in this environment"
+msgstr "Имя"
 
 #, fuzzy
-msgid "Are you sure you want to remove this article suggestion?"
-msgstr "Вы уверены что хотите удалить этот элемент?"
+msgid "%{requestor} wants to create enterprise %{subject}."
+msgstr "%s хочет создать сообщество %s"
 
 #, fuzzy
-msgid "Abstract|empty"
-msgstr "Аннотация"
+msgid ""
+"{fn} is already being as identifier by another enterprise, organization or "
+"person."
+msgstr "%{fn} уже используется другой категорией"
+
+#, fuzzy
+msgid "{fn} is not a validator for the chosen region"
+msgstr "%{fn} - недопустимое имя"
+
+#, fuzzy
+msgid "%{requestor} wants to create community %{subject}"
+msgstr "%s хочет создать сообщество %s"
 
 #, fuzzy
 msgid "[%s] Activate your account"
 msgstr "Активировать организацию"
 
 #, fuzzy
-msgid "Folder|none"
-msgstr "Папка"
+msgid "%{requestor} wants to create community %{subject} with no description."
+msgstr "%s хочет создать сообщество %s"
 
 #, fuzzy
 msgid "Abuse complaint (%s)"
 msgstr "Скидка (%s)"
 
 #, fuzzy
-msgid "Sent by"
-msgstr "Отправлено %s."
+msgid "memberships"
+msgstr "Участники: %s"
 
 #, fuzzy
-msgid "Show details"
-msgstr "Просмотреть детали"
+msgid "one view"
+msgstr "один пункт"
 
 #, fuzzy
-msgid "Reported folder"
-msgstr "родительская папка"
-
-#, fuzzy
-msgid "Comment"
-msgstr "Комментарий:"
-
-#, fuzzy
-msgid "Original content"
-msgstr "Основной контент"
-
-#, fuzzy
-msgid "Join chat room"
-msgstr "Присоединиться"
-
-#, fuzzy
-msgid "Leave room"
-msgstr "Введите ваш комментарий"
-
-#, fuzzy
-msgid "Join room"
-msgstr "Присоединиться"
-
-#, fuzzy
-msgid "Go to the home page"
-msgstr "Перейти на домашнюю страницу сайта"
-
-#, fuzzy
-msgid "Remove image"
-msgstr "Удалить участника"
-
-#, fuzzy
-msgid "Yes, I want to remove %s"
-msgstr "Да, покинуть"
+msgid "Roles"
+msgstr "Роли:"
 
 #, fuzzy
 msgid ""
@@ -2585,12 +2582,8 @@ msgid ""
 msgstr "%s хочет быть участником %s"
 
 #, fuzzy
-msgid "Are you sure you want to remove %s from your suggestions list?"
-msgstr "Вы уверены что хотите удалить %s из списка друзей?"
-
-#, fuzzy
-msgid "Are you sure you want to remove this suggestion?"
-msgstr "Вы уверены что хотите удалить этот элемент?"
+msgid "enterprise"
+msgstr "Компания"
 
 #, fuzzy
 msgid ""
@@ -2602,24 +2595,12 @@ msgid ""
 msgstr "Контакт"
 
 #, fuzzy
-msgid "Remove suggestion"
-msgstr "Статьи"
-
-#, fuzzy
-msgid "Add suggestion"
-msgstr "Статьи"
-
-#, fuzzy
-msgid "You have no more suggestions :("
-msgstr "У вас есть ожидающие запросы"
+msgid "The target is achived and can't accept votes"
+msgstr "Четверг"
 
 #, fuzzy
 msgid "%{requestor} wants to publish the article: %{linked_subject}."
 msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
-
-#, fuzzy
-msgid "General"
-msgstr "Основная задача"
 
 #, fuzzy
 msgid "%{requestor} wants to publish the article: %{article}."
@@ -2630,86 +2611,76 @@ msgid "%{requestor} wanted to publish an article but it was removed."
 msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
 
 #, fuzzy
-msgid "Search all content"
-msgstr "Весь контент"
-
-#, fuzzy
-msgid "Find in %s's content"
-msgstr "Основной контент"
-
-#, fuzzy
-msgid "Profiles in common:"
-msgstr "Предоставленная информация"
-
-#, fuzzy
 msgid "Your request for publishing the article \"%{article}\" was rejected."
 msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
-
-#, fuzzy
-msgid "Used when a short version of your text is needed."
-msgstr "Используется, когда нужна короткая версия Вашего текста."
-
-#, fuzzy
-msgid "Published at: %s"
-msgstr "Опубликовать медиа-контент"
-
-#, fuzzy
-msgid "Image Label:"
-msgstr "Изображение"
 
 #, fuzzy
 msgid "%{requestor} commented on the article: %{linked_subject}."
 msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
 
 #, fuzzy
-msgid "Category Index"
-msgstr "Категория:"
+msgid "Appearance"
+msgstr "Изменить вид"
 
 #, fuzzy
-msgid "Total of 1 result"
-msgid_plural "Total of %s results"
-msgstr[0] "найдено %d записей"
+msgid "No description informed."
+msgstr "Не информировано"
 
 #, fuzzy
-msgid "No image"
-msgstr "изображение"
+msgid "community"
+msgstr "Сообщество"
 
 #, fuzzy
-msgid "Last items"
-msgstr "Последние обновления"
+msgid "Communities Block"
+msgstr "Сообщества"
 
 #, fuzzy
-msgid "Last posts"
-msgstr "Обновлено"
+msgid ""
+"<p>Display all of your communities.</p><p>You could choose the amount of "
+"communities will be displayed and you could priorize that profiles with "
+"images.</p> <p>The view all button is always present in the block.</p>"
+msgstr "Отображаемое имя"
 
 #, fuzzy
-msgid "Updated by %{name} at %{date}"
-msgstr "от %{author} в \"%{article}\""
+msgid ""
+"In order to change your password, please visit the following address:\n"
+"\n"
+"%s\n"
+"\n"
+"If you did not required any change to your password just desconsider this "
+"email."
+msgstr ""
+"Для смены пароля перейдите на следующий адрес:\n"
+"\n"
+"%s"
 
 #, fuzzy
-msgid "View this scrap on the wall"
-msgstr "Прсмотреть этот пост на Вашей стене"
+msgid "{fn} cannot be like that."
+msgstr "Значение %{fn} недопустимо."
 
 #, fuzzy
-msgid "Search on %s's profile"
-msgstr "%s: профиль"
+msgid "Abbreviation"
+msgstr "Аббревиатура"
 
 #, fuzzy
-msgid "%s result found"
-msgid_plural "%s results found"
-msgstr[0] "найдено %d записей"
+msgid "Cannot be moved"
+msgstr "Адрес не может быть сохранен"
+
+#, fuzzy
+msgid "Not logged"
+msgstr "Не информировано"
 
 #, fuzzy
 msgid "Abstract"
 msgstr "Аннотация"
 
 #, fuzzy
-msgid "Create a new role"
-msgstr "Создать новую группу"
+msgid "Logged"
+msgstr "В системе как %s"
 
 #, fuzzy
-msgid "Delete role"
-msgstr "Уничтожить профиль"
+msgid "In all pages, except in the homepage"
+msgstr "Только на домашней"
 
 #, fuzzy
 msgid "Filename"
@@ -2728,42 +2699,38 @@ msgstr ""
 "используется другой статьей."
 
 #, fuzzy
-msgid "To which role do you want to change them?"
-msgstr "Выберите, каких друзей вы хотите пригласить"
+msgid "Show one article"
+msgstr "Показать"
 
 #, fuzzy
-msgid "Are you sure you want to delete this role?"
-msgstr "Вы уверены что хотите удалить комментарий?"
+msgid "Display one of your contents."
+msgstr "Показать один элемент содержимого"
 
 #, fuzzy
-msgid "Deleting %s"
-msgstr "Удалить: %s"
+msgid "Created at: "
+msgstr "Создано:"
 
 #, fuzzy
-msgid "Replace role: "
-msgstr "Создать роль"
+msgid "one comment"
+msgstr "Комментарий"
 
 #, fuzzy
-msgid "Select members to assign the role"
-msgstr "Выбрать предпочтительные домены для профиля"
+msgid "no comments"
+msgstr "Комментарий"
 
-#, fuzzy
-msgid "%s Permissions:"
-msgstr "Разрешения:"
-
-#: ../app/api/helpers.rb:428
+#: ../app/api/helpers.rb:420
 msgid "(Invalid request) %s can't be saved"
 msgstr ""
 
-#: ../app/api/helpers.rb:433
+#: ../app/api/helpers.rb:425
 msgid "(Invalid request) %s not given"
 msgstr ""
 
-#: ../app/api/helpers.rb:438
+#: ../app/api/helpers.rb:430
 msgid "Something wrong happened"
 msgstr ""
 
-#: ../app/api/helpers.rb:447
+#: ../app/api/helpers.rb:439
 msgid "Method Not Allowed"
 msgstr ""
 
@@ -2850,7 +2817,7 @@ msgid "Logout successfully."
 msgstr "Успешный логин"
 
 #: ../app/api/v1/session.rb:64 ../app/helpers/forgot_password_helper.rb:21
-#: ../app/models/user.rb:27 ../app/models/user.rb:46
+#: ../app/models/user.rb:28 ../app/models/user.rb:47
 #: ../app/views/cms/suggest_an_article.html.erb:15
 #: ../app/views/contact/sender/notification.html.erb:12
 #: ../app/views/invite/invite_friends.html.erb:15
@@ -2867,20 +2834,20 @@ msgid "Login"
 msgstr "Логин"
 
 #: ../app/api/v1/session.rb:66 ../app/models/change_password.rb:8
-#: ../app/models/user.rb:22 ../app/views/account/_signup_form.html.erb:52
-#: ../app/views/account/_signup_form.html.erb:60
+#: ../app/models/user.rb:22 ../app/views/account/_signup_form.html.erb:40
+#: ../app/views/account/_signup_form.html.erb:48
 #: ../app/views/invite/_select_address_book.html.erb:34
 msgid "Password"
 msgstr "Пароль"
 
 #: ../app/api/v1/session.rb:85
+msgid "Activation token"
+msgstr ""
+
+#: ../app/api/v1/session.rb:85
 #, fuzzy
 msgid "Short activation code"
 msgstr "Введите код компании"
-
-#: ../app/api/v1/session.rb:85
-msgid "Activation token"
-msgstr ""
 
 #: ../app/api/v1/session.rb:110 ../app/api/v1/session.rb:114
 msgid "Token is invalid"
@@ -2899,21 +2866,22 @@ msgstr ""
 msgid "Access denied"
 msgstr "Доступ запрещен"
 
-#: ../app/concerns/levels.rb:3
+#: ../app/concerns/entitlement/levels.rb:6
 msgid "Nobody"
 msgstr ""
 
-#: ../app/concerns/levels.rb:4 ../app/helpers/profile_image_helper.rb:92
-#: ../app/models/block.rb:282 ../app/models/control_panel/friends.rb:4
-#: ../app/models/forum.rb:44
+#: ../app/concerns/entitlement/levels.rb:7
+#: ../app/helpers/profile_image_helper.rb:92 ../app/models/block.rb:282
+#: ../app/models/control_panel/friends.rb:4 ../app/models/forum.rb:45
 msgid "Friends"
 msgstr "Друзья"
 
-#: ../app/concerns/levels.rb:5 ../app/helpers/profile_helper.rb:97
+#: ../app/concerns/entitlement/levels.rb:10
+#: ../app/helpers/profile_helper.rb:97
 #: ../app/helpers/profile_image_helper.rb:100
 #: ../app/helpers/profile_image_helper.rb:108 ../app/models/block.rb:282
-#: ../app/models/control_panel/members.rb:4 ../app/models/forum.rb:48
-#: ../app/views/profile_roles/assign.html.erb:12
+#: ../app/models/control_panel/members.rb:4 ../app/models/forum.rb:49
+#: ../app/views/profile_roles/assign.html.erb:13
 msgid "Members"
 msgstr "Участники"
 
@@ -3031,7 +2999,7 @@ msgstr "Неверный код компании"
 #: ../app/controllers/public/search_controller.rb:55
 #: ../app/controllers/public/search_controller.rb:178
 #: ../app/controllers/public/search_controller.rb:266
-#: ../app/helpers/application_helper.rb:835 ../app/helpers/assets_helper.rb:8
+#: ../app/helpers/application_helper.rb:834 ../app/helpers/assets_helper.rb:8
 #: ../app/models/menu_block.rb:25 ../app/models/menu_block.rb:26
 msgid "People"
 msgstr "Пользователи"
@@ -3040,7 +3008,7 @@ msgstr "Пользователи"
 #: ../app/controllers/public/search_controller.rb:58
 #: ../app/controllers/public/search_controller.rb:179
 #: ../app/controllers/public/search_controller.rb:267
-#: ../app/helpers/application_helper.rb:859 ../app/helpers/assets_helper.rb:11
+#: ../app/helpers/application_helper.rb:858 ../app/helpers/assets_helper.rb:11
 #: ../app/helpers/profile_image_helper.rb:93
 #: ../app/models/communities_block.rb:10 ../app/models/menu_block.rb:24
 msgid "Communities"
@@ -3123,25 +3091,25 @@ msgstr ""
 msgid "You do not have access to "
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:315
-#: ../app/controllers/my_profile/cms_controller.rb:335
+#: ../app/controllers/my_profile/cms_controller.rb:322
+#: ../app/controllers/my_profile/cms_controller.rb:342
 msgid "Your publish request was sent successfully"
 msgstr "Ваш запрос на публикацию успешно отправлен"
 
-#: ../app/controllers/my_profile/cms_controller.rb:337
+#: ../app/controllers/my_profile/cms_controller.rb:344
 msgid "Your publish request couldn't be sent."
 msgstr "Ваш запрос на публикацию не может быть отправлен"
 
-#: ../app/controllers/my_profile/cms_controller.rb:341
+#: ../app/controllers/my_profile/cms_controller.rb:348
 msgid "There is no portal community to publish your article."
 msgstr "В портале нет сообществ дл публикации вашей статьи"
 
-#: ../app/controllers/my_profile/cms_controller.rb:362
+#: ../app/controllers/my_profile/cms_controller.rb:369
 msgid "Thanks for your suggestion. The community administrators were notified."
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:408
-#: ../app/mailers/contact.rb:23 ../app/models/article.rb:31
+#: ../app/controllers/my_profile/cms_controller.rb:415
+#: ../app/mailers/contact.rb:23 ../app/models/article.rb:32
 #: ../app/models/category.rb:6 ../app/models/circle.rb:3
 #: ../app/models/comment.rb:7 ../app/models/create_enterprise.rb:4
 #: ../app/models/license.rb:6 ../app/models/national_region.rb:4
@@ -3161,20 +3129,20 @@ msgstr ""
 msgid "Name"
 msgstr "Имя"
 
-#: ../app/controllers/my_profile/cms_controller.rb:409
+#: ../app/controllers/my_profile/cms_controller.rb:416
 msgid "Size (bigger first)"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:410
+#: ../app/controllers/my_profile/cms_controller.rb:417
 msgid "Size (smaller first)"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:439
+#: ../app/controllers/my_profile/cms_controller.rb:446
 msgid "Are not you going to invite anyone?"
 msgstr ""
 
-#: ../app/controllers/my_profile/cms_controller.rb:548
-#: ../app/views/profile_themes/edit.html.erb:24
+#: ../app/controllers/my_profile/cms_controller.rb:555
+#: ../app/views/profile_themes/edit.html.erb:26
 msgid "Images"
 msgstr "Картинки"
 
@@ -3201,7 +3169,7 @@ msgid "e-Mail was not disabled successfully."
 msgstr "E-Mail не отключен."
 
 #: ../app/controllers/my_profile/maps_controller.rb:22
-#: ../app/controllers/my_profile/profile_editor_controller.rb:117
+#: ../app/controllers/my_profile/profile_editor_controller.rb:122
 msgid "Address was updated successfully!"
 msgstr "Адрес успешно обновлен"
 
@@ -3211,19 +3179,19 @@ msgid ""
 "You will be notified."
 msgstr ""
 
-#: ../app/controllers/my_profile/profile_editor_controller.rb:129
+#: ../app/controllers/my_profile/profile_editor_controller.rb:134
 msgid "%s was not enabled."
 msgstr "%s не позволено"
 
-#: ../app/controllers/my_profile/profile_editor_controller.rb:139
+#: ../app/controllers/my_profile/profile_editor_controller.rb:144
 msgid "%s was not disabled."
 msgstr "%s не отключено"
 
-#: ../app/controllers/my_profile/profile_editor_controller.rb:240
+#: ../app/controllers/my_profile/profile_editor_controller.rb:245
 msgid "Changes applied correctly"
 msgstr ""
 
-#: ../app/controllers/my_profile/profile_editor_controller.rb:243
+#: ../app/controllers/my_profile/profile_editor_controller.rb:248
 msgid "Something wrong happened! Changes could not be save!"
 msgstr ""
 
@@ -3243,71 +3211,71 @@ msgstr ""
 msgid "This action is not available for \"%s\"."
 msgstr "Действие невозможно для \"%s\"."
 
-#: ../app/controllers/public/account_controller.rb:27
+#: ../app/controllers/public/account_controller.rb:26
 msgid ""
 "We couldn't find an account to be activated. Maybe it is to be approved by "
 "an admin."
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:42
+#: ../app/controllers/public/account_controller.rb:41
 msgid ""
 "Your account was activated, now wait until an administrator approves your "
 "account."
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:48
+#: ../app/controllers/public/account_controller.rb:47
 msgid "Looks like your activation code is not correct. Would you try again?"
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:54
+#: ../app/controllers/public/account_controller.rb:53
 msgid ""
 "Something went wrong. You can try again, and if it persists, contact an "
 "administrator."
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:62
+#: ../app/controllers/public/account_controller.rb:61
 msgid "Invalid activation token. Maybe this account was already activated?"
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:69
+#: ../app/controllers/public/account_controller.rb:68
 msgid ""
 "A new activation code is on its way. Make sure to use the last code you "
 "received."
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:88
+#: ../app/controllers/public/account_controller.rb:87
 msgid "An admin will approve your account soon."
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:104
+#: ../app/controllers/public/account_controller.rb:103
 msgid "Logged in successfully"
 msgstr "Успешный логин"
 
-#: ../app/controllers/public/account_controller.rb:107
+#: ../app/controllers/public/account_controller.rb:106
 msgid "Incorrect username or password"
 msgstr "Неправильное имя или пароль"
 
-#: ../app/controllers/public/account_controller.rb:129
+#: ../app/controllers/public/account_controller.rb:123
 msgid "This environment doesn't allow user registration."
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:195
+#: ../app/controllers/public/account_controller.rb:183
 msgid "You have been logged out."
 msgstr "Вы произвели выход"
 
-#: ../app/controllers/public/account_controller.rb:206
+#: ../app/controllers/public/account_controller.rb:194
 msgid "Your password has been changed successfully!"
 msgstr "Ваш пароль успешно изменен"
 
-#: ../app/controllers/public/account_controller.rb:219
+#: ../app/controllers/public/account_controller.rb:207
 msgid "This environment doesn't allow password recovery."
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:239
+#: ../app/controllers/public/account_controller.rb:227
 msgid "Could not find any user with %s equal to \"%s\"."
 msgstr ""
 
-#: ../app/controllers/public/account_controller.rb:242
+#: ../app/controllers/public/account_controller.rb:230
 msgid "Could not perform password recovery for the user."
 msgstr ""
 
@@ -3376,26 +3344,22 @@ msgid "You are not allowed to unblock enterprises in this environment."
 msgstr "Вы не можете разблокировать компании в этой среде."
 
 #: ../app/controllers/public/profile_controller.rb:255
-msgid "Message successfully sent."
-msgstr "Сообщение успешно отправлено."
-
-#: ../app/controllers/public/profile_controller.rb:255
 msgid "You can't leave an empty message."
 msgstr "Вы не можете оставить пустое сообщение"
+
+#: ../app/controllers/public/profile_controller.rb:255
+msgid "Message successfully sent."
+msgstr "Сообщение успешно отправлено."
 
 #: ../app/controllers/public/search_controller.rb:57
 msgid "Upcoming events"
 msgstr "Предстоящие события"
 
 #: ../app/controllers/public/search_controller.rb:181
-#: ../app/helpers/application_helper.rb:864 ../app/helpers/assets_helper.rb:12
+#: ../app/helpers/application_helper.rb:863 ../app/helpers/assets_helper.rb:12
 #: ../app/views/search/events.html.erb:1
 msgid "Events"
 msgstr "События"
-
-#: ../app/controllers/public_controller.rb:41
-msgid "Oops ... you cannot go ahead here"
-msgstr "Лажа... Вы не можете сюда зайти"
 
 #: ../app/controllers/public_controller.rb:41
 msgid ""
@@ -3403,8 +3367,12 @@ msgid ""
 "content here."
 msgstr ""
 
+#: ../app/controllers/public_controller.rb:41
+msgid "Oops ... you cannot go ahead here"
+msgstr "Лажа... Вы не можете сюда зайти"
+
 #: ../app/helpers/account_helper.rb:10
-#: ../app/views/account/_signup_form.html.erb:44
+#: ../app/views/account/_signup_form.html.erb:32
 msgid "Checking availability of login name..."
 msgstr ""
 
@@ -3462,12 +3430,12 @@ msgstr "написал (-а): <br /> \"%{text}\""
 msgid "favorited enterprise %{title} %{time_ago}"
 msgstr ""
 
-#: ../app/helpers/application_helper.rb:109 ../app/helpers/boxes_helper.rb:289
+#: ../app/helpers/application_helper.rb:109 ../app/helpers/boxes_helper.rb:329
 #: ../app/helpers/link_list_block_helper.rb:23
 msgid "Help"
 msgstr "Помощь"
 
-#: ../app/helpers/application_helper.rb:125 ../app/helpers/boxes_helper.rb:299
+#: ../app/helpers/application_helper.rb:125 ../app/helpers/boxes_helper.rb:319
 #: ../app/views/cms/_text_editor_sidebar.html.erb:6
 #: ../app/views/cms/why_categorize.html.erb:8
 msgid "Close"
@@ -3520,67 +3488,66 @@ msgstr "Введите запрос и нажмите enter"
 msgid "Search"
 msgstr "Поиск"
 
-#: ../app/helpers/application_helper.rb:621
-#: ../app/helpers/article_helper.rb:76
-#: ../app/helpers/profile_editor_helper.rb:178
+#: ../app/helpers/application_helper.rb:620
+#: ../app/helpers/profile_editor_helper.rb:177
 #: ../app/views/cms/custom_fields/_article_custom_field_template.html.erb:8
 #: ../app/views/shared/_custom_fields.html.erb:19
 msgid "Public"
 msgstr "публичный"
 
-#: ../app/helpers/application_helper.rb:666 ../app/models/folder.rb:4
-#: ../app/models/folder.rb:25 ../app/views/cms/_media_new_folder.html.erb:9
+#: ../app/helpers/application_helper.rb:665 ../app/models/folder.rb:4
+#: ../app/models/folder.rb:25 ../app/views/cms/_media_new_folder.html.erb:12
 #: ../app/views/search/_full_uploaded_file.html.erb:16
 #: ../app/views/spam/_suggest_article.html.erb:12
 msgid "Folder"
 msgstr "Папка"
 
-#: ../app/helpers/application_helper.rb:667
+#: ../app/helpers/application_helper.rb:666
 #: ../app/helpers/link_list_block_helper.rb:35
 #: ../app/helpers/organization_helper.rb:9 ../app/models/blog.rb:18
 #: ../app/models/blog.rb:22 ../app/models/enterprise.rb:125
-#: ../app/models/enterprise.rb:139 ../app/models/organization.rb:175
-#: ../app/models/person.rb:411 ../app/models/person.rb:431
+#: ../app/models/enterprise.rb:139 ../app/models/organization.rb:145
+#: ../app/models/person.rb:398 ../app/models/person.rb:418
 msgid "Blog"
 msgstr "Блог"
 
-#: ../app/helpers/application_helper.rb:668
+#: ../app/helpers/application_helper.rb:667
 #: ../app/helpers/link_list_block_helper.rb:28 ../app/models/event.rb:12
 #: ../app/models/event.rb:69
 msgid "Event"
 msgstr "Событие"
 
-#: ../app/helpers/application_helper.rb:669
-#: ../app/helpers/link_list_block_helper.rb:29 ../app/models/forum.rb:27
-#: ../app/models/forum.rb:31
+#: ../app/helpers/application_helper.rb:668
+#: ../app/helpers/link_list_block_helper.rb:29 ../app/models/forum.rb:28
+#: ../app/models/forum.rb:32
 msgid "Forum"
 msgstr ""
 
-#: ../app/helpers/application_helper.rb:672 ../app/models/article_block.rb:14
+#: ../app/helpers/application_helper.rb:671 ../app/models/article_block.rb:14
 #: ../app/models/text_article.rb:23
 msgid "Article"
 msgstr "Статья"
 
-#: ../app/helpers/application_helper.rb:674
+#: ../app/helpers/application_helper.rb:673
 msgid "Clone %s"
 msgstr ""
 
-#: ../app/helpers/application_helper.rb:688
+#: ../app/helpers/application_helper.rb:687
 msgid "Online Manual"
 msgstr "Онлайн-руководство"
 
-#: ../app/helpers/application_helper.rb:689
+#: ../app/helpers/application_helper.rb:688
 #: ../app/helpers/link_list_block_helper.rb:33
 #: ../app/views/shared/logged_in/xmpp_chat.html.erb:18
 msgid "Chat"
 msgstr "Чат"
 
-#: ../app/helpers/application_helper.rb:711
+#: ../app/helpers/application_helper.rb:710
 #: ../app/views/home/index.html.erb:13
 msgid "Read more"
 msgstr "Читать дальше"
 
-#: ../app/helpers/application_helper.rb:870
+#: ../app/helpers/application_helper.rb:869
 #: ../app/views/blocks/slideshow.html.erb:27
 #: ../app/views/layouts/slideshow.html.erb:18
 msgid "Previous"
@@ -3606,14 +3573,14 @@ msgid "Configure the environment"
 msgstr "Настроить среду"
 
 #: ../app/helpers/application_helper.rb:969
+msgid "Leave the system"
+msgstr "Выйти из системы"
+
+#: ../app/helpers/application_helper.rb:969
 #: ../app/views/blocks/login.html.erb:9
 #: ../app/views/shared/user_menu.html.erb:45
 msgid "Logout"
 msgstr "Выйти"
-
-#: ../app/helpers/application_helper.rb:969
-msgid "Leave the system"
-msgstr "Выйти из системы"
 
 #: ../app/helpers/application_helper.rb:988
 msgid "Go to your homepage"
@@ -3686,11 +3653,11 @@ msgstr ""
 msgid "Exit full screen mode"
 msgstr ""
 
-#: ../app/helpers/article_helper.rb:17 ../app/helpers/folder_helper.rb:62
+#: ../app/helpers/article_helper.rb:17 ../app/helpers/folder_helper.rb:63
 msgid "Options"
 msgstr "Опции"
 
-#: ../app/helpers/article_helper.rb:22 ../app/helpers/folder_helper.rb:67
+#: ../app/helpers/article_helper.rb:22 ../app/helpers/folder_helper.rb:68
 msgid "Do not allow new content on this article and its children"
 msgstr ""
 
@@ -3714,28 +3681,28 @@ msgstr "Получать уведомления о комментариях на
 msgid "I want this article to display the number of hits it received"
 msgstr "Хочу чтоб статья отображала количество полученных хитов"
 
-#: ../app/helpers/article_helper.rb:83
-msgid "Private"
-msgstr "Приватный"
-
-#: ../app/helpers/article_helper.rb:84
-msgid "Limit visibility of this article"
+#: ../app/helpers/article_helper.rb:71
+msgid "Post access"
 msgstr ""
 
-#: ../app/helpers/article_helper.rb:96
+#: ../app/helpers/article_helper.rb:72
+msgid "Who will be able to see your post?"
+msgstr ""
+
+#: ../app/helpers/article_helper.rb:84
 msgid "Who will be able to create new topics on this forum?"
 msgstr ""
 
-#: ../app/helpers/article_helper.rb:163 ../app/helpers/folder_helper.rb:74
+#: ../app/helpers/article_helper.rb:154 ../app/helpers/folder_helper.rb:75
 #: ../app/models/approve_article.rb:71
 #: ../app/views/shared/user_menu.html.erb:23
 msgid "New article"
 msgstr "Новая статья"
 
-#: ../app/helpers/article_helper.rb:167 ../app/helpers/boxes_helper.rb:280
+#: ../app/helpers/article_helper.rb:158 ../app/helpers/boxes_helper.rb:295
 #: ../app/helpers/comment_helper.rb:94
 #: ../app/helpers/link_list_block_helper.rb:5
-#: ../app/views/categories/_category.html.erb:16
+#: ../app/views/categories/_category.html.erb:12
 #: ../app/views/circles/index.html.erb:19
 #: ../app/views/cms/_view_items.html.erb:20
 #: ../app/views/content_viewer/_comment.html.erb:68
@@ -3743,53 +3710,53 @@ msgstr "Новая статья"
 #: ../app/views/kinds/index.html.erb:19
 #: ../app/views/licenses/index.html.erb:15
 #: ../app/views/profile/_comment.html.erb:51
-#: ../app/views/profile_members/_members_list.html.erb:22
-#: ../app/views/profile_members/add_admin.html.erb:22
-#: ../app/views/profile_members/add_member.html.erb:22
-#: ../app/views/profile_members/remove_admin.html.erb:22
-#: ../app/views/profile_members/unassociate.html.erb:22
+#: ../app/views/profile_members/_members_list.html.erb:21
+#: ../app/views/profile_members/add_admin.html.erb:21
+#: ../app/views/profile_members/add_member.html.erb:21
+#: ../app/views/profile_members/remove_admin.html.erb:21
+#: ../app/views/profile_members/unassociate.html.erb:21
 #: ../app/views/profile_roles/index.html.erb:15
 #: ../app/views/profile_roles/show.html.erb:11
 #: ../app/views/role/index.html.erb:14 ../app/views/role/show.html.erb:11
-#: ../app/views/trusted_sites/index.html.erb:18
+#: ../app/views/trusted_sites/index.html.erb:20
 msgid "Edit"
 msgstr "Редактировать"
 
-#: ../app/helpers/article_helper.rb:171
+#: ../app/helpers/article_helper.rb:162
 msgid "Attend"
 msgstr ""
 
-#: ../app/helpers/article_helper.rb:171
+#: ../app/helpers/article_helper.rb:162
 #: ../app/views/blocks/profile_info_actions/_circles.html.erb:7
 #: ../app/views/blocks/profile_info_actions/_common.html.erb:4
 msgid "Follow"
 msgstr ""
 
-#: ../app/helpers/article_helper.rb:175
-msgid "Unattend"
-msgstr ""
-
-#: ../app/helpers/article_helper.rb:175
+#: ../app/helpers/article_helper.rb:166
 #: ../app/views/blocks/profile_info_actions/_common.html.erb:10
 msgid "Unfollow"
 msgstr ""
 
-#: ../app/helpers/article_helper.rb:228 ../app/helpers/cms_helper.rb:39
+#: ../app/helpers/article_helper.rb:166
+msgid "Unattend"
+msgstr ""
+
+#: ../app/helpers/article_helper.rb:219 ../app/helpers/cms_helper.rb:39
 #: ../app/views/circles/index.html.erb:20
-#: ../app/views/cms/_view_items.html.erb:44 ../app/views/cms/edit.html.erb:65
+#: ../app/views/cms/_view_items.html.erb:44 ../app/views/cms/edit.html.erb:64
 #: ../app/views/features/custom_fields/_form.html.erb:28
 #: ../app/views/kinds/index.html.erb:20
 #: ../app/views/profile_roles/index.html.erb:16
 msgid "Delete"
 msgstr "Удалить"
 
-#: ../app/helpers/article_helper.rb:235
+#: ../app/helpers/article_helper.rb:226
 #: ../app/helpers/link_list_block_helper.rb:24
 #: ../app/views/cms/_view_items.html.erb:38
 msgid "Spread"
 msgstr "Поток"
 
-#: ../app/helpers/article_helper.rb:264
+#: ../app/helpers/article_helper.rb:255
 msgid "Upload files"
 msgstr "Загруженные файлы"
 
@@ -3834,52 +3801,52 @@ msgstr ""
 msgid "Can't move up anymore."
 msgstr "Невозможно передвинуть выше"
 
-#: ../app/helpers/boxes_helper.rb:258
+#: ../app/helpers/boxes_helper.rb:259
 msgid "Move block up"
 msgstr "Передвинуть блок выше"
 
-#: ../app/helpers/boxes_helper.rb:262
+#: ../app/helpers/boxes_helper.rb:265
 msgid "Can't move down anymore."
 msgstr "Невозможно передвинуть ниже"
 
-#: ../app/helpers/boxes_helper.rb:264
+#: ../app/helpers/boxes_helper.rb:268
 msgid "Move block down"
 msgstr "Передвинуть блок ниже"
 
-#: ../app/helpers/boxes_helper.rb:272 ../app/helpers/boxes_helper.rb:274
+#: ../app/helpers/boxes_helper.rb:279 ../app/helpers/boxes_helper.rb:286
 msgid "Move to the opposite side"
 msgstr "Переместить на другую сторону"
 
-#: ../app/helpers/boxes_helper.rb:284
-msgid "Are you sure you want to remove this block?"
-msgstr "Вы уверены что хотите удалить блок?"
-
-#: ../app/helpers/boxes_helper.rb:284
+#: ../app/helpers/boxes_helper.rb:300
 msgid "Remove block"
 msgstr "Удалить блок"
 
-#: ../app/helpers/boxes_helper.rb:285
+#: ../app/helpers/boxes_helper.rb:302
+msgid "Are you sure you want to remove this block?"
+msgstr "Вы уверены что хотите удалить блок?"
+
+#: ../app/helpers/boxes_helper.rb:304
 msgid "Clone"
 msgstr ""
 
-#: ../app/helpers/boxes_helper.rb:289
-#: ../app/views/box_organizer/index.html.erb:12
-msgid "Help on this block"
-msgstr "Помощь по блоку"
-
-#: ../app/helpers/boxes_helper.rb:296
+#: ../app/helpers/boxes_helper.rb:313
 msgid "Embed block code"
 msgstr ""
 
-#: ../app/helpers/boxes_helper.rb:297
+#: ../app/helpers/boxes_helper.rb:314
 msgid ""
 "Below, youll see a field containing embed code for the block. Just copy the "
 "code and paste it into your website or blogging software."
 msgstr ""
 
-#: ../app/helpers/boxes_helper.rb:300
+#: ../app/helpers/boxes_helper.rb:321
 msgid "Embed code"
 msgstr ""
+
+#: ../app/helpers/boxes_helper.rb:327
+#: ../app/views/box_organizer/index.html.erb:12
+msgid "Help on this block"
+msgstr "Помощь по блоку"
 
 #: ../app/helpers/categories_helper.rb:6
 #, fuzzy
@@ -3929,23 +3896,23 @@ msgstr ""
 #: ../app/views/admin_panel/set_portal_community.html.erb:22
 #: ../app/views/admin_panel/set_portal_folders.html.erb:28
 #: ../app/views/box_organizer/_link_list_block.html.erb:11
-#: ../app/views/categories/_category.html.erb:19
-#: ../app/views/cms/_article_custom_fields.html.erb:17
+#: ../app/views/categories/_category.html.erb:20
 #: ../app/views/content_viewer/_comment.html.erb:73
 #: ../app/views/email_templates/index.html.erb:17
 #: ../app/views/features/custom_fields/_extras_field.html.erb:12
+#: ../app/views/friends/remove.html.erb:20
 #: ../app/views/licenses/index.html.erb:16
 #: ../app/views/organizations/_results.html.erb:28
 #: ../app/views/profile/_comment.html.erb:36
-#: ../app/views/profile_members/_members_list.html.erb:23
-#: ../app/views/profile_members/add_admin.html.erb:23
-#: ../app/views/profile_members/add_member.html.erb:23
-#: ../app/views/profile_members/remove_admin.html.erb:23
-#: ../app/views/profile_members/unassociate.html.erb:23
+#: ../app/views/profile_members/_members_list.html.erb:22
+#: ../app/views/profile_members/add_admin.html.erb:22
+#: ../app/views/profile_members/add_member.html.erb:22
+#: ../app/views/profile_members/remove_admin.html.erb:22
+#: ../app/views/profile_members/unassociate.html.erb:22
 #: ../app/views/shared/_category_row.html.erb:8
 #: ../app/views/shared/_list_groups.html.erb:21
 #: ../app/views/spam/_task.html.erb:13
-#: ../app/views/trusted_sites/index.html.erb:19
+#: ../app/views/trusted_sites/index.html.erb:21
 #: ../app/views/users/_users_list.html.erb:48
 msgid "Remove"
 msgstr "Удалить"
@@ -3983,26 +3950,24 @@ msgid "Checkbox"
 msgstr ""
 
 #: ../app/helpers/custom_fields_helper.rb:52
-#: ../app/views/account/activate_enterprise.html.erb:10
-#: ../app/views/account/logout_popup.html.erb:4
-#: ../app/views/cms/_blog.html.erb:43
-#: ../app/views/content_viewer/custom_fields/_boolean.html.erb:3
-#: ../app/views/friends/remove.html.erb:20
-#: ../app/views/kinds/index.html.erb:17
-#: ../app/views/profile_editor/_change_identifier.html.erb:43
-msgid "Yes"
-msgstr "Да"
-
-#: ../app/helpers/custom_fields_helper.rb:52
 #: ../app/views/account/activate_enterprise.html.erb:11
 #: ../app/views/cms/_blog.html.erb:44
 #: ../app/views/content_viewer/custom_fields/_boolean.html.erb:3
-#: ../app/views/friends/remove.html.erb:21
 #: ../app/views/kinds/index.html.erb:17
 #: ../app/views/profile_editor/_change_identifier.html.erb:44
 #: ../app/views/shared/_remove_suggestion.html.erb:9
 msgid "No"
 msgstr "Нет"
+
+#: ../app/helpers/custom_fields_helper.rb:52
+#: ../app/views/account/activate_enterprise.html.erb:10
+#: ../app/views/account/logout_popup.html.erb:4
+#: ../app/views/cms/_blog.html.erb:43
+#: ../app/views/content_viewer/custom_fields/_boolean.html.erb:3
+#: ../app/views/kinds/index.html.erb:17
+#: ../app/views/profile_editor/_change_identifier.html.erb:43
+msgid "Yes"
+msgstr "Да"
 
 #: ../app/helpers/dates_helper.rb:22
 msgid "%{month}/%{day}/%{year}"
@@ -4012,33 +3977,33 @@ msgstr "%{day}.%{month}.%{year}"
 msgid "from %{date1} to %{date2}"
 msgstr ""
 
-#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:160
-msgid "Sun"
-msgstr "Воскресение"
-
-#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:160
-msgid "Sat"
-msgstr "Суббота"
-
-#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:160
-msgid "Thu"
-msgstr "Четверг"
-
-#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:160
+#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:161
 msgid "Wed"
 msgstr "Среда"
 
-#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:160
+#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:161
 msgid "Fri"
 msgstr "Пятница"
 
-#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:160
+#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:161
 msgid "Mon"
 msgstr "Понедельник"
 
-#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:160
+#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:161
 msgid "Tue"
 msgstr "Вторник"
+
+#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:161
+msgid "Sun"
+msgstr "Воскресение"
+
+#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:161
+msgid "Sat"
+msgstr "Суббота"
+
+#: ../app/helpers/dates_helper.rb:78 ../app/helpers/forms_helper.rb:161
+msgid "Thu"
+msgstr "Четверг"
 
 #: ../app/helpers/dates_helper.rb:97
 msgid "%{month} %{year}"
@@ -4060,7 +4025,7 @@ msgstr "Отклонено"
 msgid "Events for %s"
 msgstr "События для %s"
 
-#: ../app/helpers/events_helper.rb:29
+#: ../app/helpers/events_helper.rb:30
 msgid " to "
 msgstr ""
 
@@ -4070,16 +4035,16 @@ msgstr ""
 msgid "Yes, I will go!"
 msgstr "Да"
 
-#: ../app/helpers/events_helper.rb:66
+#: ../app/helpers/events_helper.rb:68
 msgid "I will not"
 msgstr ""
 
-#: ../app/helpers/events_helper.rb:68
+#: ../app/helpers/events_helper.rb:70
 #: ../app/views/tasks/_invite_event_action_bar.html.erb:8
 msgid "I'm interested"
 msgstr ""
 
-#: ../app/helpers/events_helper.rb:70
+#: ../app/helpers/events_helper.rb:72
 msgid "Will you go?"
 msgstr ""
 
@@ -4099,159 +4064,155 @@ msgstr "Все новые организации по умолчанию утв�
 msgid "(empty folder)"
 msgstr "(пустая папка)"
 
-#: ../app/helpers/folder_helper.rb:78
+#: ../app/helpers/folder_helper.rb:79
 msgid "Edit folder"
 msgstr "Редактировать папку"
 
 #: ../app/helpers/forgot_password_helper.rb:20 ../app/models/profile.rb:27
-#: ../app/models/user.rb:46 ../app/views/account/_signup_form.html.erb:27
+#: ../app/models/user.rb:47 ../app/views/account/_signup_form.html.erb:15
 #: ../app/views/invite/_select_address_book.html.erb:33
 msgid "Username"
 msgstr "Имя пользователя"
 
-#: ../app/helpers/forms_helper.rb:32
+#: ../app/helpers/forms_helper.rb:33
 #: ../app/helpers/link_list_block_helper.rb:9
 #: ../app/views/account/_login_form.html.erb:16
 #: ../app/views/account/accept_terms.html.erb:24
 #: ../app/views/account/activate.html.erb:32
 #: ../app/views/account/activation_question.html.erb:38
 #: ../app/views/admin_panel/message_for_disabled_enterprise.html.erb:9
-#: ../app/views/admin_panel/set_portal_news_configurations.html.erb:13
 #: ../app/views/blocks/profile_info_actions/_circles.html.erb:8
 #: ../app/views/blocks/profile_info_actions/_select_circles.html.erb:19
 #: ../app/views/box_organizer/edit.html.erb:42
-#: ../app/views/cms/edit.html.erb:57 ../app/views/cms/edit.html.erb:59
-#: ../app/views/cms/edit.html.erb:61
-#: ../app/views/cms/suggest_an_article.html.erb:26
-#: ../app/views/comment/_comment_form.html.erb:34
+#: ../app/views/cms/_article_custom_fields.html.erb:17
+#: ../app/views/cms/edit.html.erb:56 ../app/views/cms/edit.html.erb:58
+#: ../app/views/cms/edit.html.erb:60
+#: ../app/views/comment/_comment_form.html.erb:35
 #: ../app/views/content_viewer/forum_page.html.erb:25
-#: ../app/views/followers/_edit_circles_modal.html.erb:10
 #: ../app/views/invite/invite_friends.html.erb:29
-#: ../app/views/licenses/_form.html.erb:10
-#: ../app/views/memberships/new_community.html.erb:53
 #: ../app/views/profile/join.html.erb:12
 #: ../app/views/profile/report_abuse.html.erb:10
-#: ../app/views/profile_members/_manage_roles.html.erb:10
 #: ../app/views/profile_themes/add_css.html.erb:8
 #: ../app/views/shared/_change_image.html.erb:18
+#: ../app/views/shared/_select_categories.html.erb:12
 #: ../app/views/templates/_create_template_form.html.erb:16
 #: ../app/views/users/_index_buttons.html.erb:23
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../app/helpers/forms_helper.rb:67
+#: ../app/helpers/forms_helper.rb:68
 msgid "Select the State"
 msgstr "Выберите область"
 
-#: ../app/helpers/forms_helper.rb:68
+#: ../app/helpers/forms_helper.rb:69
 msgid "Select the City"
 msgstr "Выберите город"
 
-#: ../app/helpers/forms_helper.rb:91
+#: ../app/helpers/forms_helper.rb:92
 msgid "State:"
 msgstr "Область:"
 
-#: ../app/helpers/forms_helper.rb:94
+#: ../app/helpers/forms_helper.rb:95
 msgid "City:"
 msgstr "Город:"
 
-#: ../app/helpers/forms_helper.rb:107
+#: ../app/helpers/forms_helper.rb:108
 msgid "* field is mandatory"
 msgstr ""
 
-#: ../app/helpers/forms_helper.rb:154
+#: ../app/helpers/forms_helper.rb:155
 msgid "Done"
 msgstr ""
 
-#: ../app/helpers/forms_helper.rb:156
+#: ../app/helpers/forms_helper.rb:157
 msgid "Today"
 msgstr ""
 
-#: ../app/helpers/forms_helper.rb:158
-msgid "Wednesday"
-msgstr "Среда"
-
-#: ../app/helpers/forms_helper.rb:158
-msgid "Monday"
-msgstr "Понедельник"
-
-#: ../app/helpers/forms_helper.rb:158
-msgid "Sunday"
-msgstr "Воскресение"
-
-#: ../app/helpers/forms_helper.rb:158
-msgid "Thursday"
-msgstr "Четверг"
-
-#: ../app/helpers/forms_helper.rb:158
-msgid "Tuesday"
-msgstr "Вторник"
-
-#: ../app/helpers/forms_helper.rb:158
-msgid "Friday"
-msgstr "Пятница"
-
-#: ../app/helpers/forms_helper.rb:158
+#: ../app/helpers/forms_helper.rb:159
 msgid "Saturday"
 msgstr "Суббота"
 
-#: ../app/helpers/forms_helper.rb:169
-msgid "October"
-msgstr "Октябрь"
+#: ../app/helpers/forms_helper.rb:159
+msgid "Friday"
+msgstr "Пятница"
 
-#: ../app/helpers/forms_helper.rb:169
-msgid "November"
-msgstr "Ноябрь"
+#: ../app/helpers/forms_helper.rb:159
+msgid "Thursday"
+msgstr "Четверг"
 
-#: ../app/helpers/forms_helper.rb:169
-msgid "June"
-msgstr "Июнь"
+#: ../app/helpers/forms_helper.rb:159
+msgid "Monday"
+msgstr "Понедельник"
 
-#: ../app/helpers/forms_helper.rb:169
+#: ../app/helpers/forms_helper.rb:159
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: ../app/helpers/forms_helper.rb:159
+msgid "Wednesday"
+msgstr "Среда"
+
+#: ../app/helpers/forms_helper.rb:159
+msgid "Sunday"
+msgstr "Воскресение"
+
+#: ../app/helpers/forms_helper.rb:170
 msgid "July"
 msgstr "Июль"
 
-#: ../app/helpers/forms_helper.rb:169
-msgid "September"
-msgstr "Сентябрь"
-
-#: ../app/helpers/forms_helper.rb:169
-msgid "August"
-msgstr "Август"
-
-#: ../app/helpers/forms_helper.rb:169
-msgid "February"
-msgstr "Февраль"
-
-#: ../app/helpers/forms_helper.rb:169
+#: ../app/helpers/forms_helper.rb:170
 msgid "December"
 msgstr "Декабрь"
 
-#: ../app/helpers/forms_helper.rb:169 ../app/helpers/forms_helper.rb:170
-msgid "May"
-msgstr "Май"
+#: ../app/helpers/forms_helper.rb:170
+msgid "November"
+msgstr "Ноябрь"
 
-#: ../app/helpers/forms_helper.rb:169
-msgid "April"
-msgstr "Апрель"
+#: ../app/helpers/forms_helper.rb:170
+msgid "October"
+msgstr "Октябрь"
 
-#: ../app/helpers/forms_helper.rb:169
+#: ../app/helpers/forms_helper.rb:170
+msgid "September"
+msgstr "Сентябрь"
+
+#: ../app/helpers/forms_helper.rb:170
+msgid "August"
+msgstr "Август"
+
+#: ../app/helpers/forms_helper.rb:170
 msgid "March"
 msgstr "Март"
 
-#: ../app/helpers/forms_helper.rb:169
+#: ../app/helpers/forms_helper.rb:170 ../app/helpers/forms_helper.rb:171
+msgid "May"
+msgstr "Май"
+
+#: ../app/helpers/forms_helper.rb:170
+msgid "June"
+msgstr "Июнь"
+
+#: ../app/helpers/forms_helper.rb:170
+msgid "February"
+msgstr "Февраль"
+
+#: ../app/helpers/forms_helper.rb:170
 msgid "January"
 msgstr "Январь"
 
 #: ../app/helpers/forms_helper.rb:170
+msgid "April"
+msgstr "Апрель"
+
+#: ../app/helpers/forms_helper.rb:171
 msgid "Feb"
 msgstr ""
 
-#: ../app/helpers/forms_helper.rb:170
+#: ../app/helpers/forms_helper.rb:171
 msgid "Dec"
 msgstr ""
 
-#: ../app/helpers/forms_helper.rb:172
+#: ../app/helpers/forms_helper.rb:173
 #: ../app/views/blocks/slideshow.html.erb:31
 #: ../app/views/enterprise_registration/index.html.erb:42
 #: ../app/views/invite/_select_address_book.html.erb:38
@@ -4259,11 +4220,11 @@ msgstr ""
 msgid "Next"
 msgstr "Следующий"
 
-#: ../app/helpers/forms_helper.rb:253
+#: ../app/helpers/forms_helper.rb:254
 msgid "From"
 msgstr ""
 
-#: ../app/helpers/forms_helper.rb:254
+#: ../app/helpers/forms_helper.rb:255
 msgid "Until"
 msgstr ""
 
@@ -4305,14 +4266,14 @@ msgstr "Новый"
 #: ../app/views/admin_panel/message_for_disabled_enterprise.html.erb:8
 #: ../app/views/admin_panel/set_portal_community.html.erb:8
 #: ../app/views/admin_panel/set_portal_folders.html.erb:41
-#: ../app/views/admin_panel/set_portal_news_configurations.html.erb:12
+#: ../app/views/admin_panel/set_portal_news_configurations.html.erb:23
 #: ../app/views/admin_panel/site_info.html.erb:22
 #: ../app/views/box_organizer/edit.html.erb:41
 #: ../app/views/captcha/index.html.erb:15
-#: ../app/views/categories/_form.html.erb:29 ../app/views/cms/edit.html.erb:35
-#: ../app/views/cms/edit.html.erb:54
+#: ../app/views/categories/_form.html.erb:29 ../app/views/cms/edit.html.erb:34
+#: ../app/views/cms/edit.html.erb:53
 #: ../app/views/cms/suggest_an_article.html.erb:25
-#: ../app/views/email_templates/_form.html.erb:26
+#: ../app/views/email_templates/_form.html.erb:27
 #: ../app/views/enterprise_validation/edit_validation_info.html.erb:9
 #: ../app/views/features/_manage_custom_fields.html.erb:26
 #: ../app/views/followers/_edit_circles_modal.html.erb:9
@@ -4323,7 +4284,7 @@ msgstr "Новый"
 #: ../app/views/profile_editor/informations.html.erb:31
 #: ../app/views/profile_editor/locality.html.erb:14
 #: ../app/views/profile_editor/preferences.html.erb:34
-#: ../app/views/profile_editor/privacy.html.erb:42
+#: ../app/views/profile_editor/privacy.html.erb:31
 #: ../app/views/profile_editor/regions.html.erb:7
 #: ../app/views/profile_editor/tags.html.erb:8
 #: ../app/views/profile_editor/welcome_page.html.erb:17
@@ -4335,10 +4296,10 @@ msgid "Save"
 msgstr "Сохранить"
 
 #: ../app/helpers/link_list_block_helper.rb:8
-#: ../app/views/comment/_comment_form.html.erb:33
-#: ../app/views/contact/new.html.erb:34
+#: ../app/views/comment/_comment_form.html.erb:34
+#: ../app/views/contact/new.html.erb:35
 #: ../app/views/profile/send_mail.html.erb:21
-#: ../app/views/tasks/new.html.erb:15 ../app/views/users/send_mail.html.erb:17
+#: ../app/views/tasks/new.html.erb:15 ../app/views/users/send_mail.html.erb:18
 msgid "Send"
 msgstr "Отправить"
 
@@ -4417,11 +4378,11 @@ msgstr "Присоединиться к сообществу"
 
 #: ../app/helpers/organization_helper.rb:7
 #: ../app/helpers/profile_image_helper.rb:101
-#: ../app/helpers/profile_image_helper.rb:109 ../app/models/person.rb:410
+#: ../app/helpers/profile_image_helper.rb:109 ../app/models/person.rb:397
 msgid "Agenda"
 msgstr "Повестка дня"
 
-#: ../app/helpers/organization_helper.rb:8 ../app/models/person.rb:409
+#: ../app/helpers/organization_helper.rb:8 ../app/models/person.rb:396
 msgid "Image gallery"
 msgstr "Галерея рисунков"
 
@@ -4509,7 +4470,7 @@ msgstr "Экология"
 msgid "Economy"
 msgstr "Экономика"
 
-#: ../app/helpers/profile_editor_helper.rb:26 ../app/models/person.rb:344
+#: ../app/helpers/profile_editor_helper.rb:26 ../app/models/person.rb:331
 #: ../app/views/profile_editor/_person_form.html.erb:55
 msgid "Education"
 msgstr "Образование"
@@ -4801,7 +4762,7 @@ msgstr "Выберите домен"
 msgid "Preferred domain name:"
 msgstr "Предпочтительное доменное имя"
 
-#: ../app/helpers/profile_editor_helper.rb:178
+#: ../app/helpers/profile_editor_helper.rb:177
 msgid "This field must be public"
 msgstr ""
 
@@ -5209,29 +5170,33 @@ msgstr ""
 "Это пояснение к отвергнутому комментарию, оставленное администратором:\n"
 "%{reject_explanation}"
 
-#: ../app/models/article.rb:33 ../app/models/article.rb:71
+#: ../app/models/article.rb:34 ../app/models/article.rb:70
 #: ../app/models/comment.rb:8 ../app/models/control_panel.rb:13
 #: ../app/models/scrap.rb:10
 msgid "Content"
 msgstr "Контент"
 
-#: ../app/models/article.rb:34 ../app/models/category.rb:9
+#: ../app/models/article.rb:35 ../app/models/category.rb:9
 msgid "Slug"
 msgstr ""
 
-#: ../app/models/article.rb:189
+#: ../app/models/article.rb:195
 msgid "is not available as article name."
 msgstr ""
 
-#: ../app/models/article.rb:197
+#: ../app/models/article.rb:200
+msgid "can not be less restrictive than this profile access which is: %s."
+msgstr ""
+
+#: ../app/models/article.rb:209
 msgid "self-reference is not allowed."
 msgstr ""
 
-#: ../app/models/article.rb:204
+#: ../app/models/article.rb:216
 msgid "cyclical reference is not allowed."
 msgstr ""
 
-#: ../app/models/article.rb:225 ../app/models/comment.rb:6
+#: ../app/models/article.rb:237 ../app/models/comment.rb:6
 #: ../app/views/cms/_article.html.erb:3
 #: ../app/views/cms/_link_article.html.erb:2
 #: ../app/views/cms/_text_article.html.erb:3
@@ -5246,39 +5211,39 @@ msgstr ""
 msgid "Title"
 msgstr "Название"
 
-#: ../app/models/article.rb:273 ../app/models/organization.rb:146
+#: ../app/models/article.rb:285 ../app/models/organization.rb:116
 msgid "Tag list"
 msgstr "Список тегов"
 
-#: ../app/models/article.rb:380
+#: ../app/models/article.rb:365
 msgid "HTML Text document"
 msgstr "Текстовый HTML документ"
 
-#: ../app/models/article.rb:493
+#: ../app/models/article.rb:478
 msgid "Language is already used"
 msgstr ""
 
-#: ../app/models/article.rb:499
+#: ../app/models/article.rb:484
 msgid "Language must be choosen"
 msgstr ""
 
-#: ../app/models/article.rb:505
+#: ../app/models/article.rb:490
 msgid "A language must be choosen for the native article"
 msgstr ""
 
-#: ../app/models/article.rb:857
+#: ../app/models/article.rb:806
 msgid "no views"
 msgstr ""
 
-#: ../app/models/article.rb:859
+#: ../app/models/article.rb:808
 msgid "%s views"
 msgstr ""
 
-#: ../app/models/article.rb:930
+#: ../app/models/article.rb:879
 msgid "is archived!!"
 msgstr ""
 
-#: ../app/models/article.rb:939
+#: ../app/models/article.rb:888
 msgid "Custom fields must have values"
 msgstr ""
 
@@ -5333,7 +5298,7 @@ msgid "This block presents the categories like a web site menu."
 msgstr "Этот блок отображает категории такие как меню веб-сайта."
 
 #: ../app/models/category.rb:7 ../app/models/create_enterprise.rb:8
-#: ../app/models/organization.rb:146
+#: ../app/models/organization.rb:116
 #: ../app/views/enterprise_validation/_details.html.erb:19
 msgid "Acronym"
 msgstr "Акроним"
@@ -5384,9 +5349,14 @@ msgstr "(неизвестный пользователь)"
 msgid "(removed user)"
 msgstr "(удаленный пользователь)"
 
-#: ../app/models/comment.rb:242
+#: ../app/models/comment.rb:250
 msgid "associated with this comment is archived!"
 msgstr ""
+
+#: ../app/models/communities_block.rb:18
+#, fuzzy
+msgid "{#} Communities"
+msgstr "Сообщества"
 
 #: ../app/models/communities_block.rb:18
 #: ../app/models/control_panel/groups.rb:20
@@ -5394,13 +5364,7 @@ msgstr ""
 msgid "communities"
 msgstr "Сообщества"
 
-#: ../app/models/communities_block.rb:19
-msgid "{#} community"
-msgid_plural "{#} communities"
-msgstr[0] "Сообщество"
-msgstr[1] "{#} сообщества"
-
-#: ../app/models/communities_block.rb:23
+#: ../app/models/communities_block.rb:22
 msgid "This block displays the communities in which the user is a member."
 msgstr "Этот блок отображает сообщества, в которых состоит данный пользователь"
 
@@ -5462,7 +5426,7 @@ msgstr ""
 msgid "Change Password"
 msgstr "Сменить пароль"
 
-#: ../app/models/control_panel/circles.rb:20 ../app/models/person.rb:208
+#: ../app/models/control_panel/circles.rb:20 ../app/models/person.rb:195
 msgid "friends"
 msgstr "Друзья"
 
@@ -5483,6 +5447,11 @@ msgstr "Настроить блог"
 
 #: ../app/models/control_panel/configure_gallery.rb:20
 #, fuzzy
+msgid "picture"
+msgstr "Одна каритнка"
+
+#: ../app/models/control_panel/configure_gallery.rb:20
+#, fuzzy
 msgid "image"
 msgstr "Изображение"
 
@@ -5490,11 +5459,6 @@ msgstr "Изображение"
 #, fuzzy
 msgid "photo"
 msgstr "Фотографии"
-
-#: ../app/models/control_panel/configure_gallery.rb:20
-#, fuzzy
-msgid "picture"
-msgstr "Одна каритнка"
 
 #: ../app/models/control_panel/disable_enterprise.rb:4
 #: ../app/views/admin_panel/set_portal_community.html.erb:16
@@ -5700,23 +5664,23 @@ msgstr "Адрес"
 msgid "Contact phone"
 msgstr "Контактный телефон"
 
-#: ../app/models/create_enterprise.rb:7 ../app/models/organization.rb:146
+#: ../app/models/create_enterprise.rb:7 ../app/models/organization.rb:116
 msgid "Contact person"
 msgstr "Контактное лицо"
 
-#: ../app/models/create_enterprise.rb:9 ../app/models/organization.rb:146
+#: ../app/models/create_enterprise.rb:9 ../app/models/organization.rb:116
 msgid "Foundation year"
 msgstr "Год создания"
 
-#: ../app/models/create_enterprise.rb:10 ../app/models/organization.rb:146
+#: ../app/models/create_enterprise.rb:10 ../app/models/organization.rb:116
 msgid "Legal form"
 msgstr "Правовая форма"
 
-#: ../app/models/create_enterprise.rb:11 ../app/models/organization.rb:146
+#: ../app/models/create_enterprise.rb:11 ../app/models/organization.rb:116
 msgid "Economic activity"
 msgstr "Экономическая активность"
 
-#: ../app/models/create_enterprise.rb:12 ../app/models/organization.rb:146
+#: ../app/models/create_enterprise.rb:12 ../app/models/organization.rb:116
 msgid "Management information"
 msgstr "Информация о менеджменте"
 
@@ -5842,31 +5806,31 @@ msgstr "Вы уже запросили активацию почтового я�
 msgid "User Activation"
 msgstr ""
 
-#: ../app/models/enterprise.rb:23 ../app/models/person.rb:347
-msgid "State"
-msgstr "Область"
-
-#: ../app/models/enterprise.rb:23 ../app/models/person.rb:338
-#: ../app/views/profile_editor/_person_form.html.erb:71
-msgid "Organization website"
-msgstr "Веб-сайт организации"
-
-#: ../app/models/enterprise.rb:23 ../app/models/person.rb:347
-msgid "Country"
-msgstr "Страна"
+#: ../app/models/enterprise.rb:23 ../app/models/person.rb:334
+#: ../app/views/search/_full_enterprise.html.erb:18
+msgid "City"
+msgstr "Город"
 
 #: ../app/models/enterprise.rb:23
 msgid "Activities short description"
 msgstr "Краткое описание занятий"
 
+#: ../app/models/enterprise.rb:23 ../app/models/person.rb:325
+#: ../app/views/profile_editor/_person_form.html.erb:71
+msgid "Organization website"
+msgstr "Веб-сайт организации"
+
+#: ../app/models/enterprise.rb:23 ../app/models/person.rb:334
+msgid "State"
+msgstr "Область"
+
 #: ../app/models/enterprise.rb:23
 msgid "Historic and current context"
 msgstr "Предшествующий и нынешний контекст"
 
-#: ../app/models/enterprise.rb:23 ../app/models/person.rb:347
-#: ../app/views/search/_full_enterprise.html.erb:18
-msgid "City"
-msgstr "Город"
+#: ../app/models/enterprise.rb:23 ../app/models/person.rb:334
+msgid "Country"
+msgstr "Страна"
 
 #: ../app/models/enterprise.rb:41
 msgid "Business name"
@@ -5879,10 +5843,9 @@ msgid "Enterprise activation"
 msgstr "Активация компании"
 
 #: ../app/models/enterprises_block.rb:4
-msgid "{#} enterprise"
-msgid_plural "{#} enterprises"
-msgstr[0] "компания"
-msgstr[1] "{#} компании"
+#, fuzzy
+msgid "{#} Enterprises"
+msgstr "компания"
 
 #: ../app/models/enterprises_block.rb:8
 msgid "This block displays the enterprises where this user works."
@@ -5926,8 +5889,8 @@ msgstr "Управлять пользователями среды"
 msgid "Manage environment captcha"
 msgstr "Управлять ролями среды"
 
-#: ../app/models/environment.rb:65 ../app/models/profile.rb:97
-#: ../app/views/templates/index.html.erb:34
+#: ../app/models/environment.rb:65 ../app/models/profile.rb:103
+#: ../app/views/templates/index.html.erb:47
 msgid "Edit appearance"
 msgstr "Изменить вид"
 
@@ -6047,13 +6010,13 @@ msgid "Display explanation about header and footer"
 msgstr "Отображать вспомогательную информацию о заголовке и нижнем колонтитуле"
 
 #: ../app/models/environment.rb:160
+msgid "Articles don't accept comments by default"
+msgstr "Статьи по умолчанию не допускают комментарии"
+
+#: ../app/models/environment.rb:160
 #, fuzzy
 msgid "Allow profiles to change their URL"
 msgstr "Позволить организациям изменять свой URL"
-
-#: ../app/models/environment.rb:160
-msgid "Articles don't accept comments by default"
-msgstr "Статьи по умолчанию не допускают комментарии"
 
 #: ../app/models/environment.rb:161
 msgid "Organizations have moderated publication by default"
@@ -6128,15 +6091,11 @@ msgstr "Опубликовать комментарий"
 msgid "Recover forgotten password"
 msgstr "Восстановить пароль"
 
-#: ../app/models/environment.rb:470
-msgid "Make email contact"
-msgstr ""
-
-#: ../app/models/environment.rb:720
+#: ../app/models/environment.rb:728
 msgid "Only one Virtual Community can be the default one"
 msgstr "Только виртуальное сообщество может быть выбранным по умолчанию"
 
-#: ../app/models/environment.rb:1152
+#: ../app/models/environment.rb:1145
 msgid "have unsupported languages."
 msgstr ""
 
@@ -6144,7 +6103,7 @@ msgstr ""
 msgid "Displays the people who like the enterprise"
 msgstr "Отображает число людей кому нравится коллектив"
 
-#: ../app/models/fans_block.rb:24
+#: ../app/models/fans_block.rb:20
 msgid "Fans"
 msgstr ""
 
@@ -6176,7 +6135,7 @@ msgstr ""
 msgid "A folder, inside which you can put other articles."
 msgstr "Папка, в которую можно помещать другие статьи"
 
-#: ../app/models/forum.rb:35
+#: ../app/models/forum.rb:36
 msgid "An internet forum where discussions can be held."
 msgstr ""
 
@@ -6258,7 +6217,7 @@ msgid "<user> is inviting you to join \"<community>\" on <environment>."
 msgstr ""
 "<user> приглашает Вас присоединиться к \"<community>\" в <environment>."
 
-#: ../app/models/layout_template.rb:19 ../app/models/profile.rb:1324
+#: ../app/models/layout_template.rb:19 ../app/models/profile.rb:1315
 #: ../app/views/users/index_csv.html.erb:1
 msgid "name"
 msgstr "Имя"
@@ -6267,7 +6226,7 @@ msgstr "Имя"
 msgid "Links (static menu)"
 msgstr "Ссылки (статическое меню)"
 
-#: ../app/models/link_list_block.rb:25
+#: ../app/models/link_list_block.rb:38
 msgid ""
 "This block can be used to create a menu of links. You can add, remove and "
 "update the links as you wish."
@@ -6349,22 +6308,22 @@ msgstr "Блок, показывающий некоторую информаци
 msgid "Invalid city or state name."
 msgstr ""
 
-#: ../app/models/organization.rb:146
-#: ../app/views/admin_panel/_site_info.html.erb:2
-msgid "Contact email"
-msgstr "Контактный email"
-
-#: ../app/models/organization.rb:146
-msgid "Display name"
-msgstr "Отображаемое имя"
-
-#: ../app/models/organization.rb:146
+#: ../app/models/organization.rb:116
 #: ../app/views/box_organizer/show_block_type_info.html.erb:16
 #: ../app/views/cms/_uploaded_file.html.erb:7
 #: ../app/views/profile_editor/_person_form.html.erb:13
 #: ../app/views/search/_article_description.html.erb:4
 msgid "Description"
 msgstr "Описание"
+
+#: ../app/models/organization.rb:116
+#: ../app/views/admin_panel/_site_info.html.erb:2
+msgid "Contact email"
+msgstr "Контактный email"
+
+#: ../app/models/organization.rb:116
+msgid "Display name"
+msgstr "Отображаемое имя"
 
 #: ../app/models/person.rb:20
 msgid "Latitude"
@@ -6380,100 +6339,100 @@ msgstr "Продолжить"
 msgid "Full address"
 msgstr "Адрес ленты"
 
-#: ../app/models/person.rb:202
+#: ../app/models/person.rb:189
 msgid "An existing person cannot be renamed."
 msgstr "Невозможно переименовать"
 
-#: ../app/models/person.rb:208
-msgid "work"
-msgstr "работа"
-
-#: ../app/models/person.rb:208
+#: ../app/models/person.rb:195
 msgid "school"
 msgstr "школа"
 
-#: ../app/models/person.rb:208
+#: ../app/models/person.rb:195
+msgid "work"
+msgstr "работа"
+
+#: ../app/models/person.rb:195
 msgid "family"
 msgstr "семья"
 
-#: ../app/models/person.rb:338
-#: ../app/views/profile_editor/_person_form.html.erb:18
-msgid "Cell phone"
-msgstr "Мобильный телефон"
-
-#: ../app/models/person.rb:338
+#: ../app/models/person.rb:325
 #: ../app/views/profile_editor/_person_form.html.erb:36
 msgid "Schooling"
 msgstr "Учеба"
 
-#: ../app/models/person.rb:338
+#: ../app/models/person.rb:325
 #: ../app/views/profile_editor/_person_form.html.erb:19
 msgid "Comercial phone"
 msgstr "рабочий телефон"
 
-#: ../app/models/person.rb:338
-#: ../app/views/profile_editor/_person_form.html.erb:69
-msgid "Professional activity"
-msgstr "Профессиональная деятельность"
-
-#: ../app/models/person.rb:338
-#: ../app/views/profile_editor/_person_form.html.erb:24
-msgid "Nationality"
-msgstr "Национальность"
-
-#: ../app/models/person.rb:338
+#: ../app/models/person.rb:325
 #: ../app/views/profile_editor/_person_form.html.erb:70
 msgid "Organization"
 msgstr "Организация"
 
-#: ../app/models/person.rb:338
+#: ../app/models/person.rb:325
+#: ../app/views/profile_editor/_person_form.html.erb:18
+msgid "Cell phone"
+msgstr "Мобильный телефон"
+
+#: ../app/models/person.rb:325
+#: ../app/views/profile_editor/_person_form.html.erb:24
+msgid "Nationality"
+msgstr "Национальность"
+
+#: ../app/models/person.rb:325
 #: ../app/views/profile_editor/_person_form.html.erb:62
 msgid "Area of study"
 msgstr "Облась изучния"
 
-#: ../app/models/person.rb:341
+#: ../app/models/person.rb:325
+#: ../app/views/profile_editor/_person_form.html.erb:69
+msgid "Professional activity"
+msgstr "Профессиональная деятельность"
+
+#: ../app/models/person.rb:328
 msgid "Schooling status"
 msgstr "Учебный статус"
 
-#: ../app/models/person.rb:344
+#: ../app/models/person.rb:331
 #: ../app/views/profile_editor/_person_form.html.erb:65
 msgid "Custom area of study"
 msgstr "Пользовательская область изучения"
 
-#: ../app/models/person.rb:347
+#: ../app/models/person.rb:334
 #: ../app/views/profile_editor/_person_form.html.erb:15
 msgid "Contact information"
 msgstr "Контактная информация"
 
-#: ../app/models/person.rb:347
+#: ../app/models/person.rb:334
 msgid "Zip code"
 msgstr "Почтовый индекс"
 
-#: ../app/models/person.rb:347
+#: ../app/models/person.rb:334
 msgid "Sex"
 msgstr "Пол"
 
-#: ../app/models/person.rb:542
+#: ../app/models/person.rb:521
 msgid "none"
 msgstr "нет"
 
-#: ../app/models/person.rb:543
+#: ../app/models/person.rb:522
 msgid "one friend"
 msgstr "один друг"
 
-#: ../app/models/person.rb:544
+#: ../app/models/person.rb:523
 msgid "%s friends"
 msgstr "%s: друзей"
 
-#: ../app/models/person.rb:580
+#: ../app/models/person.rb:559
 msgid "You just left %s."
 msgstr "Вы только что покинули %s."
 
-#: ../app/models/person.rb:661
+#: ../app/models/person.rb:640
 msgid "TinyMCE"
 msgstr ""
 
-#: ../app/models/person.rb:664 ../app/models/raw_html_block.rb:4
+#: ../app/models/person.rb:643 ../app/models/raw_html_block.rb:4
 #: ../app/models/raw_html_block.rb:8
 msgid "Raw HTML"
 msgstr "Исходный HTML"
@@ -6483,95 +6442,99 @@ msgstr "Исходный HTML"
 msgid "Nickname"
 msgstr "Ник"
 
-#: ../app/models/profile.rb:86
+#: ../app/models/profile.rb:38
+msgid "Make email contact"
+msgstr ""
+
+#: ../app/models/profile.rb:92
 msgid "Edit profile"
 msgstr "Редактировать профиль"
 
-#: ../app/models/profile.rb:87
+#: ../app/models/profile.rb:93
 msgid "Destroy profile"
 msgstr "Уничтожить профиль"
 
-#: ../app/models/profile.rb:88
+#: ../app/models/profile.rb:94
 msgid "Manage memberships"
 msgstr "Управление членствами"
 
-#: ../app/models/profile.rb:89
+#: ../app/models/profile.rb:95
 msgid "Manage content"
 msgstr "Управлять контентом"
 
-#: ../app/models/profile.rb:90
+#: ../app/models/profile.rb:96
 msgid "Edit profile design"
 msgstr "Изменить дизайн профиля"
 
-#: ../app/models/profile.rb:91
+#: ../app/models/profile.rb:97
 msgid "Manage products"
 msgstr "Управление продуктами"
 
-#: ../app/models/profile.rb:92
+#: ../app/models/profile.rb:98
 msgid "Manage friends"
 msgstr "Редактировать друзей"
 
-#: ../app/models/profile.rb:93
+#: ../app/models/profile.rb:99
 msgid "Validate enterprise"
 msgstr "Подтвердить компанию"
 
-#: ../app/models/profile.rb:94
+#: ../app/models/profile.rb:100
 msgid "Perform task"
 msgstr "Сделать задачу"
 
-#: ../app/models/profile.rb:96
+#: ../app/models/profile.rb:102
 msgid "Moderate comments"
 msgstr "Модерировать комментарии"
 
-#: ../app/models/profile.rb:98
+#: ../app/models/profile.rb:104
 msgid "View private content"
 msgstr "Просмотр частного контента"
 
-#: ../app/models/profile.rb:99
+#: ../app/models/profile.rb:105
 msgid "Publish content"
 msgstr "Публиковать контент"
 
-#: ../app/models/profile.rb:100
+#: ../app/models/profile.rb:106
 msgid "Invite members"
 msgstr "Пригласить участников"
 
-#: ../app/models/profile.rb:173
+#: ../app/models/profile.rb:182
 msgid ""
 "You must to provide `lat` and `lng`, or `city` and `country` to define the "
 "center of the search circle, defined by `distance`."
 msgstr ""
 
-#: ../app/models/profile.rb:908
+#: ../app/models/profile.rb:549
+msgid "can not be less restrictive than access which is: %s."
+msgstr ""
+
+#: ../app/models/profile.rb:921
 msgid "%s can't has moderators"
 msgstr "%s не может иметь модераторов"
 
-#: ../app/models/profile.rb:989
-msgid "Private profile"
-msgstr "Приватный профиль"
+#: ../app/models/profile.rb:987
+msgid "Profile accessible to %s"
+msgstr ""
 
-#: ../app/models/profile.rb:989
-msgid "Public profile"
-msgstr "Публичный пофиль"
-
-#: ../app/models/profile.rb:1112
+#: ../app/models/profile.rb:1110
 msgid "Since: "
 msgstr "С:"
 
-#: ../app/models/profile.rb:1136
+#: ../app/models/profile.rb:1134
 msgid "one member"
 msgstr "один участник"
 
-#: ../app/models/profile.rb:1137
+#: ../app/models/profile.rb:1135
 msgid "%s members"
 msgstr "%s участников"
 
-#: ../app/models/profile.rb:1323
+#: ../app/models/profile.rb:1314
 msgid "id"
 msgstr ""
 
 #: ../app/models/profile_image_block.rb:8
 #: ../app/models/profile_image_block.rb:20
-#: ../app/views/account/_signup_form.html.erb:100
+#: ../app/views/account/_signup_form.html.erb:88
 msgid "Profile Image"
 msgstr "Изображение профиля"
 
@@ -6591,11 +6554,11 @@ msgstr ""
 msgid "Random profiles"
 msgstr "Случайные профили"
 
-#: ../app/models/profile_list_block.rb:38
+#: ../app/models/profile_list_block.rb:42
 msgid "{#} People or Groups"
 msgstr "{#} Пользователи или группы"
 
-#: ../app/models/profile_list_block.rb:42
+#: ../app/models/profile_list_block.rb:46
 msgid "Clicking on the people or groups will take you to their home page."
 msgstr "Для просмотра профиля выберите пользователя или группу."
 
@@ -6626,6 +6589,7 @@ msgid "%s's content published at %s"
 msgstr "%s's контент, опубликованный в %s"
 
 #: ../app/models/rss_feed.rb:105
+#: ../app/views/content_viewer/_article_toolbar.html.erb:6
 msgid "RSS Feed"
 msgstr "RSS лента"
 
@@ -6701,7 +6665,7 @@ msgstr "Правила одобрены"
 msgid "E-mail"
 msgstr "E-Mail"
 
-#: ../app/models/user.rb:321
+#: ../app/models/user.rb:322
 msgid ""
 "The user \"%{login}\" is not activated! Please check your email to activate "
 "your user"
@@ -6725,54 +6689,54 @@ msgstr "RSS лента"
 msgid "Log in"
 msgstr "Войти"
 
-#: ../app/views/account/_signup_form.html.erb:28
+#: ../app/views/account/_signup_form.html.erb:16
 msgid ""
 "Your username identifies you inside the network, and will be used to "
 "generate a custom address to your pages. Choose wisely, you will not be able "
 "to change it."
 msgstr ""
 
-#: ../app/views/account/_signup_form.html.erb:33
+#: ../app/views/account/_signup_form.html.erb:21
 msgid "Example of good usernames: jose-silva, maria.santos, josecosta"
 msgstr ""
 
-#: ../app/views/account/_signup_form.html.erb:53
+#: ../app/views/account/_signup_form.html.erb:41
 msgid ""
 "You also need a password in order to access the network. Choose something "
 "with at least 4 characters that you will remember later."
 msgstr ""
 
-#: ../app/views/account/_signup_form.html.erb:66
+#: ../app/views/account/_signup_form.html.erb:54
 msgid "Type your password again"
 msgstr ""
 
-#: ../app/views/account/_signup_form.html.erb:77
+#: ../app/views/account/_signup_form.html.erb:65
 msgid "Too Short"
 msgstr ""
 
-#: ../app/views/account/_signup_form.html.erb:83
+#: ../app/views/account/_signup_form.html.erb:71
 msgid "Good"
 msgstr ""
 
-#: ../app/views/account/_signup_form.html.erb:86
+#: ../app/views/account/_signup_form.html.erb:74
 msgid "Strong"
 msgstr ""
 
-#: ../app/views/account/_signup_form.html.erb:96
+#: ../app/views/account/_signup_form.html.erb:84
 msgid "E.g.: Maria Silva"
 msgstr ""
 
-#: ../app/views/account/_signup_form.html.erb:106
+#: ../app/views/account/_signup_form.html.erb:94
 msgid "E.g.: maria.silva@mail.com"
 msgstr ""
 
 #: ../app/views/account/accept_terms.html.erb:14
-msgid " part 2 of 3"
-msgstr " Часть 2 из 3х"
-
-#: ../app/views/account/accept_terms.html.erb:14
 msgid "part 2 of 2"
 msgstr "Часть 2 из 2х"
+
+#: ../app/views/account/accept_terms.html.erb:14
+msgid " part 2 of 3"
+msgstr " Часть 2 из 3х"
 
 #: ../app/views/account/accept_terms.html.erb:22
 msgid "I read the terms of use and accepted them"
@@ -6853,12 +6817,12 @@ msgid "A CNPJ have 14 digits"
 msgstr "CNPJ сожержит 14 символов"
 
 #: ../app/views/account/activation_question.html.erb:26
-msgid "part 1 of 3"
-msgstr "Часть 1 из 3"
-
-#: ../app/views/account/activation_question.html.erb:26
 msgid "part 1 of 2"
 msgstr "Часть 1 из 2"
+
+#: ../app/views/account/activation_question.html.erb:26
+msgid "part 1 of 3"
+msgstr "Часть 1 из 3"
 
 #: ../app/views/account/activation_question.html.erb:29
 msgid "Pay atention! You have only one chance!"
@@ -6877,13 +6841,13 @@ msgstr ""
 "обратиться к администраторам %s"
 
 #: ../app/views/account/activation_question.html.erb:33
+msgid "What is the CNPJ of your enterprise?"
+msgstr "Какой CNPJ вашей компании?"
+
+#: ../app/views/account/activation_question.html.erb:33
 msgid ""
 "What year your enterprise was founded? It must have 4 digits, eg 1990. %s"
 msgstr "Когда была создана ваша компания? Например,1990. %s"
-
-#: ../app/views/account/activation_question.html.erb:33
-msgid "What is the CNPJ of your enterprise?"
-msgstr "Какой CNPJ вашей компании?"
 
 #: ../app/views/account/already_activated.html.erb:1
 msgid "This enterprise is already active"
@@ -6924,7 +6888,7 @@ msgid "Confirm your new Password"
 msgstr "Подтверждение нового пароля"
 
 #: ../app/views/account/change_password.html.erb:17
-#: ../app/views/circles/index.html.erb:28 ../app/views/cms/view.html.erb:77
+#: ../app/views/circles/index.html.erb:28 ../app/views/cms/view.html.erb:75
 #: ../app/views/favorite_enterprises/index.html.erb:31
 #: ../app/views/followers/index.html.erb:29
 #: ../app/views/friends/index.html.erb:37
@@ -6938,11 +6902,11 @@ msgstr "Подтверждение нового пароля"
 #: ../app/views/profile_editor/informations.html.erb:30
 #: ../app/views/profile_editor/locality.html.erb:13
 #: ../app/views/profile_editor/preferences.html.erb:33
-#: ../app/views/profile_editor/privacy.html.erb:41
+#: ../app/views/profile_editor/privacy.html.erb:30
 #: ../app/views/profile_editor/regions.html.erb:6
 #: ../app/views/profile_editor/tags.html.erb:7
 #: ../app/views/profile_roles/index.html.erb:26
-#: ../app/views/profile_themes/index.html.erb:44
+#: ../app/views/profile_themes/index.html.erb:40
 #: ../app/views/spam/index.html.erb:10 ../app/views/spam/index.html.erb:24
 #: ../app/views/tasks/index.html.erb:44 ../app/views/tasks/index.html.erb:84
 msgid "Back to control panel"
@@ -7128,7 +7092,7 @@ msgstr "%s благополучно активирована"
 msgid "Go to my control panel"
 msgstr "Перейти в панель управления"
 
-#: ../app/views/account/welcome.html.erb:8
+#: ../app/views/account/welcome.html.erb:9
 msgid "Go to my enterprise control panel"
 msgstr "Перейти в панель управления предприятием"
 
@@ -7284,11 +7248,11 @@ msgstr ""
 "Такой же порядок, в котором Вы организовали тут каталоги,будет использован "
 "для организации боксов на начальной странице среды"
 
-#: ../app/views/admin_panel/set_portal_news_configurations.html.erb:8
+#: ../app/views/admin_panel/set_portal_news_configurations.html.erb:14
 msgid "Show all news on area news"
 msgstr ""
 
-#: ../app/views/admin_panel/set_portal_news_configurations.html.erb:9
+#: ../app/views/admin_panel/set_portal_news_configurations.html.erb:18
 msgid "Show only not highlighted news on area news"
 msgstr ""
 
@@ -7433,12 +7397,12 @@ msgid "Since %{year}/%{month}"
 msgstr "С %{month}/%{year}"
 
 #: ../app/views/blocks/profile_info_actions/_enterprise.html.erb:4
-msgid "Add as favorite"
-msgstr "Добавить в избранное"
-
-#: ../app/views/blocks/profile_info_actions/_enterprise.html.erb:4
 msgid "Add enterprise as favorite"
 msgstr "Добавить компанию в избранное"
+
+#: ../app/views/blocks/profile_info_actions/_enterprise.html.erb:4
+msgid "Add as favorite"
+msgstr "Добавить в избранное"
 
 #: ../app/views/blocks/profile_info_actions/_join_leave_community.html.erb:4
 msgid "Your membership is waiting for approval"
@@ -7454,7 +7418,7 @@ msgid "Select the circles for %s"
 msgstr ""
 
 #: ../app/views/blocks/profile_info_actions/_select_circles.html.erb:18
-#: ../app/views/cms/_media_new_folder.html.erb:13
+#: ../app/views/cms/_media_new_folder.html.erb:17
 #: ../app/views/memberships/new_community.html.erb:52
 #: ../app/views/profile_themes/new.html.erb:8
 msgid "Create"
@@ -7473,14 +7437,14 @@ msgstr ""
 "его перед использованием этого блока"
 
 #: ../app/views/box_organizer/_article_block.html.erb:28
-#: ../app/views/cms/_blog.html.erb:61
-msgid "Full post"
-msgstr "Полный пост"
-
-#: ../app/views/box_organizer/_article_block.html.erb:28
 #: ../app/views/spam/_suggest_article.html.erb:13
 msgid "Lead"
 msgstr "Вести"
+
+#: ../app/views/box_organizer/_article_block.html.erb:28
+#: ../app/views/cms/_blog.html.erb:61
+msgid "Full post"
+msgstr "Полный пост"
 
 #: ../app/views/box_organizer/_blog_archives_block.html.erb:3
 msgid "Choose a blog:"
@@ -7513,6 +7477,13 @@ msgstr "Новое выделение"
 
 #: ../app/views/box_organizer/_highlights_block.html.erb:20
 #: ../app/views/box_organizer/_slideshow_block.html.erb:7
+msgid "Every 1 second"
+msgid_plural "Every %d seconds"
+msgstr[0] "Каждую секунду"
+msgstr[1] "Каждые %d секунд"
+
+#: ../app/views/box_organizer/_highlights_block.html.erb:20
+#: ../app/views/box_organizer/_slideshow_block.html.erb:7
 msgid "No automatic transition"
 msgstr "Нет автоматического перехода"
 
@@ -7520,13 +7491,6 @@ msgstr "Нет автоматического перехода"
 #: ../app/views/box_organizer/_slideshow_block.html.erb:7
 msgid "Image transition:"
 msgstr "Графический переход:"
-
-#: ../app/views/box_organizer/_highlights_block.html.erb:20
-#: ../app/views/box_organizer/_slideshow_block.html.erb:7
-msgid "Every 1 second"
-msgid_plural "Every %d seconds"
-msgstr[0] "Каждую секунду"
-msgstr[1] "Каждые %d секунд"
 
 #: ../app/views/box_organizer/_highlights_block.html.erb:22
 #: ../app/views/box_organizer/_slideshow_block.html.erb:9
@@ -7555,12 +7519,12 @@ msgid "New link"
 msgstr "Новая ссылка"
 
 #: ../app/views/box_organizer/_location_block.html.erb:2
-msgid "World"
-msgstr "мир"
-
-#: ../app/views/box_organizer/_location_block.html.erb:2
 msgid "Zoom Level:"
 msgstr "Увеличение:"
+
+#: ../app/views/box_organizer/_location_block.html.erb:2
+msgid "World"
+msgstr "мир"
 
 #: ../app/views/box_organizer/_location_block.html.erb:4
 msgid "Street"
@@ -7620,16 +7584,16 @@ msgid "%{gallery} (%{count} images)"
 msgstr "%{gallery} (%{count} изображений)"
 
 #: ../app/views/box_organizer/_slideshow_block.html.erb:5
+msgid "Image size"
+msgstr "Размер изображения"
+
+#: ../app/views/box_organizer/_slideshow_block.html.erb:5
 msgid "Thumbnail"
 msgstr "Превью"
 
 #: ../app/views/box_organizer/_slideshow_block.html.erb:5
 msgid "Slideshow size"
 msgstr "Размер слайдшоу"
-
-#: ../app/views/box_organizer/_slideshow_block.html.erb:5
-msgid "Image size"
-msgstr "Размер изображения"
 
 #: ../app/views/box_organizer/_tags_block.html.erb:2
 msgid "Limit of tags to display:"
@@ -7667,34 +7631,34 @@ msgid ""
 msgstr ""
 
 #: ../app/views/captcha/index.html.erb:14
-#: ../app/views/features/_manage_community_fields.html.erb:60
-#: ../app/views/features/_manage_enterprise_fields.html.erb:60
-#: ../app/views/features/_manage_person_fields.html.erb:64
-#: ../app/views/features/index.html.erb:74
-#: ../app/views/kinds/index.html.erb:33
+#: ../app/views/features/_manage_community_fields.html.erb:59
+#: ../app/views/features/_manage_enterprise_fields.html.erb:59
+#: ../app/views/features/_manage_person_fields.html.erb:63
+#: ../app/views/features/index.html.erb:73
+#: ../app/views/kinds/index.html.erb:34
 #: ../app/views/licenses/index.html.erb:24
-#: ../app/views/plugins/index.html.erb:31 ../app/views/role/index.html.erb:22
-#: ../app/views/templates/index.html.erb:44
-#: ../app/views/trusted_sites/index.html.erb:27
+#: ../app/views/plugins/index.html.erb:33 ../app/views/role/index.html.erb:22
+#: ../app/views/templates/index.html.erb:60
+#: ../app/views/trusted_sites/index.html.erb:31
 msgid "Back to admin panel"
 msgstr "Назад в панель администрирования"
+
+#: ../app/views/categories/_category.html.erb:11
+msgid "Add subcategory"
+msgstr "Добавить субкатегорию"
 
 #: ../app/views/categories/_category.html.erb:12
 #, fuzzy
 msgid "Show subcategories"
 msgstr "Не яаляется подкатегорией"
 
-#: ../app/views/categories/_category.html.erb:13
-msgid "Add subcategory"
-msgstr "Добавить субкатегорию"
-
-#: ../app/views/categories/_category.html.erb:19
-msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
-msgstr "Вы уверены что хотите удалить \"%s\" и все подкатегории?"
-
-#: ../app/views/categories/_category.html.erb:19
+#: ../app/views/categories/_category.html.erb:15
 msgid "Are you sure you want to remove \"%s\"?"
 msgstr "Вы уверены что хотите удалить \"%s\"?"
+
+#: ../app/views/categories/_category.html.erb:17
+msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
+msgstr "Вы уверены что хотите удалить \"%s\" и все подкатегории?"
 
 #: ../app/views/categories/_form.html.erb:22
 msgid "Display in the menu"
@@ -7719,20 +7683,20 @@ msgid "New category"
 msgstr "Новая категория"
 
 #: ../app/views/chat/start_session_error.html.erb:3
-msgid "try again"
-msgstr "Попробуйте снова"
-
-#: ../app/views/chat/start_session_error.html.erb:3
 msgid "Could not connect to chat"
 msgstr "Невозможно соединиться с чатом"
 
+#: ../app/views/chat/start_session_error.html.erb:3
+msgid "try again"
+msgstr "Попробуйте снова"
+
 #: ../app/views/circles/_form.html.erb:12
 #: ../app/views/environment_role_manager/change_role.html.erb:11
-#: ../app/views/features/_manage_community_fields.html.erb:59
-#: ../app/views/features/_manage_enterprise_fields.html.erb:59
-#: ../app/views/features/_manage_person_fields.html.erb:63
-#: ../app/views/features/index.html.erb:73
-#: ../app/views/plugins/index.html.erb:30
+#: ../app/views/features/_manage_community_fields.html.erb:60
+#: ../app/views/features/_manage_enterprise_fields.html.erb:60
+#: ../app/views/features/_manage_person_fields.html.erb:64
+#: ../app/views/features/index.html.erb:74
+#: ../app/views/plugins/index.html.erb:34
 #: ../app/views/profile_members/change_role.html.erb:28
 #: ../app/views/profile_roles/_form.html.erb:20
 #: ../app/views/role/_form.html.erb:20
@@ -7753,8 +7717,8 @@ msgstr "Сохранить изменения"
 #: ../app/views/profile_quotas/_profile_list.html.erb:7
 #: ../app/views/profile_quotas/_quotas_by_kind.html.erb:6
 #: ../app/views/profile_roles/index.html.erb:6
-#: ../app/views/role/index.html.erb:6 ../app/views/templates/index.html.erb:17
-#: ../app/views/trusted_sites/index.html.erb:10
+#: ../app/views/role/index.html.erb:6 ../app/views/templates/index.html.erb:18
+#: ../app/views/trusted_sites/index.html.erb:12
 #: ../app/views/users/_users_list.html.erb:26
 msgid "Actions"
 msgstr "Действия"
@@ -7872,6 +7836,10 @@ msgid "My Forum"
 msgstr ""
 
 #: ../app/views/cms/_general_fields.html.erb:8
+msgid "License"
+msgstr ""
+
+#: ../app/views/cms/_general_fields.html.erb:8
 #: ../app/views/search/_article_categories.html.erb:7
 #: ../app/views/search/_article_description.html.erb:15
 #: ../app/views/search/_article_tags.html.erb:7
@@ -7881,11 +7849,7 @@ msgstr ""
 msgid "None"
 msgstr "Нет"
 
-#: ../app/views/cms/_general_fields.html.erb:8
-msgid "License"
-msgstr ""
-
-#: ../app/views/cms/_media_new_folder.html.erb:11
+#: ../app/views/cms/_media_new_folder.html.erb:14
 msgid "Name:"
 msgstr "Имя:"
 
@@ -7898,6 +7862,10 @@ msgid "Limit of articles"
 msgstr "Лимит статей"
 
 #: ../app/views/cms/_rss_feed.html.erb:11
+msgid "Article body"
+msgstr "Тело статьи"
+
+#: ../app/views/cms/_rss_feed.html.erb:11
 msgid "Use as item description:"
 msgstr "Использовать как описание"
 
@@ -7905,21 +7873,17 @@ msgstr "Использовать как описание"
 msgid "Article abstract"
 msgstr "Аннотация"
 
-#: ../app/views/cms/_rss_feed.html.erb:11
-msgid "Article body"
-msgstr "Тело статьи"
-
 #: ../app/views/cms/_rss_feed.html.erb:13
-msgid "Only articles child of the same article as the feed"
-msgstr "Только статьи как из ленты"
+msgid "Include in the feed:"
+msgstr "Добавить в ленту"
 
 #: ../app/views/cms/_rss_feed.html.erb:13
 msgid "All articles"
 msgstr "Все статьи"
 
 #: ../app/views/cms/_rss_feed.html.erb:13
-msgid "Include in the feed:"
-msgstr "Добавить в ленту"
+msgid "Only articles child of the same article as the feed"
+msgstr "Только статьи как из ленты"
 
 #: ../app/views/cms/_text_editor_sidebar.html.erb:9
 msgid "Insert media"
@@ -8000,22 +7964,25 @@ msgid "Yes, I want."
 msgstr "Да"
 
 #: ../app/views/cms/destroy.html.erb:17 ../app/views/profile/leave.html.erb:14
-#: ../app/views/profile_editor/disable.html.erb:10
-#: ../app/views/profile_editor/enable.html.erb:10
 msgid "No, I don't want."
 msgstr "Нет"
 
-#: ../app/views/cms/edit.html.erb:30
+#: ../app/views/cms/edit.html.erb:25
 #: ../app/views/tasks/_approve_article_accept_details.html.erb:7
 #: ../app/views/tasks/_suggest_article_accept_details.html.erb:12
 msgid "Highlight this article"
 msgstr "Подчеркнуть эту статью"
 
-#: ../app/views/cms/edit.html.erb:36
+#: ../app/views/cms/edit.html.erb:30
+#: ../app/views/cms/why_categorize.html.erb:1
+msgid "Why categorize?"
+msgstr "Почему категоризировать?"
+
+#: ../app/views/cms/edit.html.erb:35
 msgid "Save and continue"
 msgstr "Сохранить и продолжить"
 
-#: ../app/views/cms/edit.html.erb:39
+#: ../app/views/cms/edit.html.erb:38
 msgid "Categorize your article"
 msgstr "Категоризировать статью"
 
@@ -8109,23 +8076,22 @@ msgid "There is no portal community in this environment."
 msgstr "Нет портала сообщества в этой среде"
 
 #: ../app/views/cms/publish_on_portal_community.html.erb:18
-#: ../app/views/email_templates/_form.html.erb:27
+#: ../app/views/email_templates/_form.html.erb:26
 #: ../app/views/email_templates/index.html.erb:26
-#: ../app/views/enterprise_registration/creation.html.erb:8
+#: ../app/views/enterprise_registration/creation.html.erb:7
 #: ../app/views/enterprise_validation/details.html.erb:3
 #: ../app/views/enterprise_validation/list_processed.html.erb:3
 #: ../app/views/enterprise_validation/view_processed.html.erb:3
 #: ../app/views/environment_role_manager/index.html.erb:13
 #: ../app/views/environment_themes/index.html.erb:7
 #: ../app/views/invite/select_friends.html.erb:12
-#: ../app/views/memberships/welcome.html.erb:8
+#: ../app/views/memberships/welcome.html.erb:7
 #: ../app/views/organizations/index.html.erb:34
-#: ../app/views/profile_members/_index_buttons.html.erb:2
-#: ../app/views/profile_themes/edit.html.erb:6
-#: ../app/views/tasks/list_requested.html.erb:17
+#: ../app/views/profile_members/_index_buttons.html.erb:3
+#: ../app/views/profile_themes/edit.html.erb:7
 #: ../app/views/tasks/processed.html.erb:52
 #: ../app/views/tasks/ticket_details.html.erb:18
-#: ../app/views/users/_index_buttons.html.erb:4
+#: ../app/views/users/_index_buttons.html.erb:2
 msgid "Back"
 msgstr "Назад"
 
@@ -8170,10 +8136,6 @@ msgstr ""
 #, fuzzy
 msgid "Your files"
 msgstr "Переместить файлы"
-
-#: ../app/views/cms/why_categorize.html.erb:1
-msgid "Why categorize?"
-msgstr "Почему категоризировать?"
 
 #: ../app/views/cms/why_categorize.html.erb:4
 msgid ""
@@ -8307,7 +8269,7 @@ msgid "%s following this article."
 msgstr ""
 
 #: ../app/views/content_viewer/_publishing_info.html.erb:57
-#: ../app/views/content_viewer/versioned_article.html.erb:33
+#: ../app/views/content_viewer/versioned_article.html.erb:35
 msgid "Licensed under %s"
 msgstr ""
 
@@ -8351,11 +8313,11 @@ msgstr "Посмотреть слайдшоу"
 msgid "Back to gallery"
 msgstr "Назад в галлерею"
 
-#: ../app/views/content_viewer/versioned_article.html.erb:20
+#: ../app/views/content_viewer/versioned_article.html.erb:21
 msgid "Version %{version} - %{author} on %{date}"
 msgstr ""
 
-#: ../app/views/content_viewer/versioned_article.html.erb:24
+#: ../app/views/content_viewer/versioned_article.html.erb:26
 msgid "This is not the latest version of this content."
 msgstr ""
 
@@ -8454,14 +8416,14 @@ msgstr "Вы можете продолжить работу в вашем соо
 msgid "Your enterprise (%s) was successfully registered."
 msgstr "Ваша компания %s была успешно зарегистрирована."
 
-#: ../app/views/enterprise_registration/creation.html.erb:3
-msgid "You can manage your enterprise now."
-msgstr "Теперь вы можете управлять своей компанией."
-
-#: ../app/views/enterprise_registration/creation.html.erb:5
-#: ../app/views/memberships/welcome.html.erb:5
+#: ../app/views/enterprise_registration/creation.html.erb:4
+#: ../app/views/memberships/welcome.html.erb:4
 msgid "What can I do with a %s?"
 msgstr ""
+
+#: ../app/views/enterprise_registration/creation.html.erb:8
+msgid "You can manage your enterprise now."
+msgstr "Теперь вы можете управлять своей компанией."
 
 #: ../app/views/enterprise_registration/index.html.erb:8
 msgid ""
@@ -8472,13 +8434,13 @@ msgstr ""
 "администратором для инструкций."
 
 #: ../app/views/enterprise_registration/index.html.erb:12
-#: ../app/views/profile/_follow.html.erb:14
+#: ../app/views/profile/_follow.html.erb:17
 #: ../app/views/profile/_private_profile.html.erb:15
-#: ../app/views/profile/communities.html.erb:18
-#: ../app/views/profile/enterprises.html.erb:12
-#: ../app/views/profile/fans.html.erb:12
-#: ../app/views/profile/favorite_enterprises.html.erb:12
-#: ../app/views/profile/friends.html.erb:13
+#: ../app/views/profile/communities.html.erb:20
+#: ../app/views/profile/enterprises.html.erb:15
+#: ../app/views/profile/fans.html.erb:14
+#: ../app/views/profile/favorite_enterprises.html.erb:14
+#: ../app/views/profile/friends.html.erb:20
 #: ../app/views/profile/members.html.erb:40
 #: ../app/views/public/offline.html.erb:8
 #: ../app/views/shared/access_denied.html.erb:13
@@ -8522,8 +8484,8 @@ msgid "(not informed)"
 msgstr "(нет информации)"
 
 #: ../app/views/enterprise_registration/select_validator.html.erb:26
-#: ../app/views/profile_roles/assign.html.erb:21
-#: ../app/views/profile_roles/assign.html.erb:32
+#: ../app/views/profile_roles/assign.html.erb:26
+#: ../app/views/profile_roles/assign.html.erb:40
 msgid "Confirm"
 msgstr "Подтвердить"
 
@@ -8702,12 +8664,6 @@ msgstr "Добавить %s как избранную компанию"
 msgid "Are you sure you want to add %s as your favorite enterprise?"
 msgstr "Вы уверены что хотите добавить %s как избранную компанию?"
 
-#: ../app/views/favorite_enterprises/add.html.erb:11
-#: ../app/views/favorite_enterprises/remove.html.erb:15
-#: ../app/views/profile/leave.html.erb:12
-msgid "No, I don't want"
-msgstr "Нет, не хочу"
-
 #: ../app/views/favorite_enterprises/index.html.erb:3
 #: ../app/views/profile/favorite_enterprises.html.erb:3
 msgid "%s's favorite enterprises"
@@ -8730,10 +8686,6 @@ msgstr "Удалить избранную компанию: %s"
 #: ../app/views/favorite_enterprises/remove.html.erb:8
 msgid "Are you sure you want to remove %s from your favorite enterprise list?"
 msgstr "Вы уверены что хотите удалить %s из списка избранных компаний?"
-
-#: ../app/views/favorite_enterprises/remove.html.erb:14
-msgid "Yes, I want to remove %s from my favorite enterprise list"
-msgstr "Да, удалить %s"
 
 #: ../app/views/features/_manage_community_fields.html.erb:5
 #: ../app/views/features/_manage_enterprise_fields.html.erb:5
@@ -8837,7 +8789,7 @@ msgid "image %d of %d"
 msgstr "Картинка %d, %d"
 
 #: ../app/views/followers/index.html.erb:3
-#: ../app/views/profile/following.html.erb:3
+#: ../app/views/profile/following.html.erb:1
 msgid "%s is following"
 msgstr ""
 
@@ -9064,7 +9016,7 @@ msgstr ""
 msgid "Moderated?"
 msgstr "Модератор"
 
-#: ../app/views/kinds/index.html.erb:26
+#: ../app/views/kinds/index.html.erb:27
 msgid "There no kinds of this type yet."
 msgstr ""
 
@@ -9112,7 +9064,7 @@ msgid ""
 msgstr "Вы уже запросили активацию почты."
 
 #: ../app/views/mailconf/index.html.erb:21
-#: ../app/views/plugins/index.html.erb:21
+#: ../app/views/plugins/index.html.erb:24
 msgid "Configuration"
 msgstr "Настройка"
 
@@ -9180,12 +9132,12 @@ msgid "Manage my groups"
 msgstr "Управлять моими группами"
 
 #: ../app/views/memberships/index.html.erb:6
-#: ../app/views/profile/communities.html.erb:19
+#: ../app/views/profile/communities.html.erb:21
 msgid "Create a new community"
 msgstr "Создать новое сообщество"
 
 #: ../app/views/memberships/index.html.erb:7
-#: ../app/views/profile/enterprises.html.erb:13
+#: ../app/views/profile/enterprises.html.erb:16
 msgid "Register a new enterprise"
 msgstr "Зарегистрировать новую компанию"
 
@@ -9252,7 +9204,7 @@ msgstr "%s имеет %d ожидающих задач"
 msgid "See complete forum"
 msgstr ""
 
-#: ../app/views/profile/_follow.html.erb:16
+#: ../app/views/profile/_follow.html.erb:19
 msgid "Manage followed people"
 msgstr ""
 
@@ -9268,10 +9220,6 @@ msgstr "публичный"
 #: ../app/views/profile/activities.html.erb:4
 msgid "%s's wall"
 msgstr "Стена %s"
-
-#: ../app/views/profile/activities.html.erb:18
-msgid "Share"
-msgstr ""
 
 #: ../app/views/profile/communities.html.erb:3
 msgid "%s's communities"
@@ -9293,7 +9241,7 @@ msgstr "Смотреть контент, отмеченный \"%s\" "
 msgid "%s's enterprises"
 msgstr "%s: компании"
 
-#: ../app/views/profile/friends.html.erb:15
+#: ../app/views/profile/friends.html.erb:22
 msgid "Manage my friends"
 msgstr "Друзья: управление"
 
@@ -9317,16 +9265,15 @@ msgstr "Вы уверены что хотите покинуть %s?"
 msgid "Yes, I want to leave."
 msgstr "Да, покинуть"
 
+#: ../app/views/profile/leave.html.erb:12
+msgid "No, I don't want"
+msgstr "Нет, не хочу"
+
 #: ../app/views/profile/members.html.erb:46
 #: ../app/views/profile/send_mail.html.erb:3
-#: ../app/views/profile_members/_index_buttons.html.erb:8
+#: ../app/views/profile_members/_index_buttons.html.erb:12
 msgid "Send e-mail to members"
 msgstr "Послать e-mail участникам"
-
-#: ../app/views/profile/send_mail.html.erb:22
-#: ../app/views/users/send_mail.html.erb:18
-msgid "Cancel e-mail"
-msgstr "отменить email"
 
 #: ../app/views/profile/sitemap.html.erb:1
 msgid "%s: site map"
@@ -9389,7 +9336,7 @@ msgid "Process requests"
 msgstr "Процесс запрашивает"
 
 #: ../app/views/profile_editor/_people_privacy.html.erb:2
-msgid "Half Day"
+msgid "With which frequency do you want to receive notifications?"
 msgstr ""
 
 #: ../app/views/profile_editor/_people_privacy.html.erb:2
@@ -9401,7 +9348,7 @@ msgid "Daily"
 msgstr ""
 
 #: ../app/views/profile_editor/_people_privacy.html.erb:2
-msgid "With which frequency do you want to receive notifications?"
+msgid "Half Day"
 msgstr ""
 
 #: ../app/views/profile_editor/_person.html.erb:1
@@ -9574,21 +9521,21 @@ msgstr ""
 msgid "%s's Privacy options"
 msgstr "Настройки приватности"
 
-#: ../app/views/profile_editor/privacy.html.erb:11
-msgid "Private &mdash; show my contents only to friends"
-msgstr ""
-
-#: ../app/views/profile_editor/privacy.html.erb:15
+#: ../app/views/profile_editor/privacy.html.erb:7
 msgid ""
-"Secret &mdash; hide the community and all its contents for non members and "
-"other people can't join this community unless they are invited to."
+"Secret &mdash; hide the group and all its contents for non members and other "
+"people can't join this community unless they are invited to."
 msgstr ""
 
-#: ../app/views/profile_editor/privacy.html.erb:25
+#: ../app/views/profile_editor/privacy.html.erb:11
+msgid "Who will be able to see your profile?"
+msgstr ""
+
+#: ../app/views/profile_editor/privacy.html.erb:14
 msgid "Wall access"
 msgstr ""
 
-#: ../app/views/profile_editor/privacy.html.erb:26
+#: ../app/views/profile_editor/privacy.html.erb:15
 msgid "Who will be able to see your wall?"
 msgstr ""
 
@@ -9609,11 +9556,11 @@ msgid ""
 "This page will be displayed to the user after his signup with this template."
 msgstr ""
 
-#: ../app/views/profile_members/_index_buttons.html.erb:3
+#: ../app/views/profile_members/_index_buttons.html.erb:5
 msgid "Add members"
 msgstr "Добавить участников"
 
-#: ../app/views/profile_members/_manage_roles.html.erb:21
+#: ../app/views/profile_members/_manage_roles.html.erb:20
 msgid "Type in a search term for users"
 msgstr ""
 
@@ -9755,7 +9702,7 @@ msgid "Choose the image file"
 msgstr "Выберите изображение"
 
 #: ../app/views/profile_themes/add_image.html.erb:4
-#: ../app/views/profile_themes/edit.html.erb:31
+#: ../app/views/profile_themes/edit.html.erb:33
 #: ../app/views/shared/_change_image.html.erb:6
 #: ../app/views/shared/_crop_button.html.erb:1
 msgid "Add image"
@@ -9769,19 +9716,19 @@ msgstr "CSS код: \"%s\""
 msgid "Editing theme \"%s\""
 msgstr "Редактировать тему \"%s\""
 
-#: ../app/views/profile_themes/edit.html.erb:5
+#: ../app/views/profile_themes/edit.html.erb:8
 msgid "Preview this theme"
 msgstr "Предпросмотр темы"
 
-#: ../app/views/profile_themes/edit.html.erb:12
+#: ../app/views/profile_themes/edit.html.erb:14
 msgid "CSS files"
 msgstr "CSS файлы"
 
-#: ../app/views/profile_themes/edit.html.erb:19
+#: ../app/views/profile_themes/edit.html.erb:21
 msgid "New CSS"
 msgstr "новый CSS"
 
-#: ../app/views/profile_themes/edit.html.erb:37
+#: ../app/views/profile_themes/edit.html.erb:39
 msgid "Select a CSS file to edit"
 msgstr "Выберите CSS"
 
@@ -9793,20 +9740,20 @@ msgstr "Мои темы"
 msgid "Use this theme"
 msgstr "Использовать эту тему"
 
-#: ../app/views/profile_themes/index.html.erb:22
+#: ../app/views/profile_themes/index.html.erb:19
 #: ../app/views/themes/_select_theme.html.erb:14
 msgid "The \"%s\" theme."
 msgstr "Тема \"%s\""
 
-#: ../app/views/profile_themes/index.html.erb:26
+#: ../app/views/profile_themes/index.html.erb:22
 msgid "Edit this theme"
 msgstr "Редактировать тему"
 
-#: ../app/views/profile_themes/index.html.erb:28
+#: ../app/views/profile_themes/index.html.erb:23
 msgid "Test this theme"
 msgstr "Попробовать тему"
 
-#: ../app/views/profile_themes/index.html.erb:46
+#: ../app/views/profile_themes/index.html.erb:42
 msgid "New theme ..."
 msgstr "Новая тема..."
 
@@ -9935,7 +9882,7 @@ msgstr "Облако тэгов"
 msgid "Max size: %s (.jpg, .gif, .png, .bmp, .tiff)"
 msgstr ""
 
-#: ../app/views/shared/_crop_image.html.erb:6
+#: ../app/views/shared/_crop_image.html.erb:5
 msgid "Crop"
 msgstr ""
 
@@ -10161,7 +10108,6 @@ msgid "Assigned to"
 msgstr ""
 
 #: ../app/views/tasks/_task_processed.html.erb:9
-#: ../app/views/tasks/list_requested.html.erb:8
 msgid "Created:"
 msgstr "Создано:"
 
@@ -10188,14 +10134,6 @@ msgstr "Просмотреть выполненные задачи"
 #: ../app/views/tasks/index.html.erb:59
 msgid "Set all tasks to:"
 msgstr ""
-
-#: ../app/views/tasks/list_requested.html.erb:1
-msgid "Tasks that I requested"
-msgstr "Задачи, которые я запросил"
-
-#: ../app/views/tasks/list_requested.html.erb:10
-msgid "Status:"
-msgstr "Статус:"
 
 #: ../app/views/tasks/new.html.erb:1
 msgid "New request"
@@ -10257,7 +10195,7 @@ msgstr ""
 msgid "New..."
 msgstr ""
 
-#: ../app/views/templates/index.html.erb:27
+#: ../app/views/templates/index.html.erb:32
 msgid "Set as default"
 msgstr ""
 
@@ -10324,14 +10262,19 @@ msgstr ""
 msgid "To see the full list of communities suggestions, follow the link: %s"
 msgstr ""
 
-#: ../app/views/users/_index_buttons.html.erb:2
+#: ../app/views/users/_index_buttons.html.erb:3
 msgid "Export People list"
 msgstr ""
 
-#: ../app/views/users/_index_buttons.html.erb:3
+#: ../app/views/users/_index_buttons.html.erb:4
 #: ../app/views/users/send_mail.html.erb:1
 msgid "Send e-mail to users"
 msgstr "Послать e-mail пользователям"
+
+#: ../app/views/users/_index_buttons.html.erb:9
+#, fuzzy
+msgid "Select the file format"
+msgstr "Выберите CSS"
 
 #: ../app/views/users/_index_buttons.html.erb:17
 msgid "Select the fields to be included in the people list"
@@ -10400,6 +10343,81 @@ msgstr ""
 
 #~ msgid "Skip"
 #~ msgstr "Подписаться"
+
+#, fuzzy
+#~ msgid "RSS feed"
+#~ msgstr "RSS лента"
+
+#, fuzzy
+#~ msgid "Visible to other people"
+#~ msgstr "Статья должна быть опубликована (видима другим)"
+
+#, fuzzy
+#~ msgid "Allow all your friends to view this content"
+#~ msgstr "Друзья"
+
+#, fuzzy
+#~ msgid ""
+#~ "Filter followed, friends or group of friends to send them a private "
+#~ "scrap..."
+#~ msgstr "Друзья"
+
+#, fuzzy
+#~ msgid "Public &mdash; show my contents to all internet users"
+#~ msgstr "Показывать мои данные внешним пользователям"
+
+#, fuzzy
+#~ msgid "Public &mdash; show content of this group to all internet users"
+#~ msgstr "Показывать данные группы внешним пользователям"
+
+#, fuzzy
+#~ msgid "Private &mdash; show content of this group only to members"
+#~ msgstr "Показывать данные группы пользователям"
+
+#, fuzzy
+#~ msgid "Set %s template as default"
+#~ msgstr "Шаблон \"%s\""
+
+#: ../app/helpers/article_helper.rb:83
+#~ msgid "Private"
+#~ msgstr "Приватный"
+
+#: ../app/models/communities_block.rb:19
+#~ msgid "{#} community"
+#~ msgid_plural "{#} communities"
+#~ msgstr[0] "Сообщество"
+#~ msgstr[1] "{#} сообщества"
+
+#: ../app/models/enterprises_block.rb:4
+#~ msgid "{#} enterprise"
+#~ msgid_plural "{#} enterprises"
+#~ msgstr[0] "компания"
+#~ msgstr[1] "{#} компании"
+
+#: ../app/models/profile.rb:989
+#~ msgid "Private profile"
+#~ msgstr "Приватный профиль"
+
+#: ../app/models/profile.rb:989
+#~ msgid "Public profile"
+#~ msgstr "Публичный пофиль"
+
+#: ../app/views/favorite_enterprises/remove.html.erb:14
+#~ msgid "Yes, I want to remove %s from my favorite enterprise list"
+#~ msgstr "Да, удалить %s"
+
+#: ../app/views/profile/send_mail.html.erb:22
+#: ../app/views/users/send_mail.html.erb:18
+#~ msgid "Cancel e-mail"
+#~ msgstr "отменить email"
+
+#: ../app/views/tasks/list_requested.html.erb:1
+#~ msgid "Tasks that I requested"
+#~ msgstr "Задачи, которые я запросил"
+
+#: ../app/views/tasks/list_requested.html.erb:10
+#~ msgid "Status:"
+#~ msgstr "Статус:"
 
 #~ msgid ""
 #~ "The <label class='pseudoformlabel'>highlighted</label> fields are "
