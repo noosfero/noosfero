@@ -627,6 +627,7 @@ class Profile < ApplicationRecord
     self.custom_footer = template[:custom_footer]
     self.custom_header = template[:custom_header]
     self.access = template.access
+    self.fields_privacy = template.fields_privacy
     self.image = template.image
     # flush
     self.save(:validate => false)
