@@ -2,8 +2,10 @@ require_relative "../test_helper"
 
 class ExporterTest < ActiveSupport::TestCase
   def setup
-    @person = create_user('test').person
-    @fields = { base: %w[name], user: %w[login] }
+    @person = create_user('testuser').person
+    @person.schooling = 'Ph.D.'
+    @person.save!
+    @fields = { base: %w[name], user: %w[login], methods: %w[schooling]}
     @exporter = Exporter.new(Person.all, @fields)
   end
 
@@ -12,7 +14,7 @@ class ExporterTest < ActiveSupport::TestCase
   end
 
   should 'extract related fields correctly' do
-    assert_equal @fields.except(:base), @exporter.related_fields
+    assert_equal @fields.except(:base, :methods), @exporter.related_fields
   end
 
   should 'include base fields on resulting csv' do
@@ -33,5 +35,15 @@ class ExporterTest < ActiveSupport::TestCase
   should 'include relation fields on resulting xml' do
     content = @exporter.to_xml
     assert_match @person.user.login, content
+  end
+
+  should 'include method results on resulting xml' do
+    content = @exporter.to_xml
+    assert_match @person.schooling, content
+  end
+
+  should 'include method results on resulting csv' do
+    content = @exporter.to_csv
+    assert_match @person.schooling, content
   end
 end
