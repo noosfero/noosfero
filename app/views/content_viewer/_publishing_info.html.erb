@@ -18,13 +18,7 @@
       <% end %>
 
       <span class="followers-count">
-        <% if article.event? %>
-          <% if article.person_followers.size > 0 %>
-            <%= _("%s will attend this event.") % [ pluralize(article.person_followers.size, _("person"))]%>
-          <% else %>
-            <%= _("No one attending this event yet.") %>
-          <% end %>
-        <% elsif article.person_followers.size > 0 %>
+        <% if article.person_followers.size > 0 %>
           <%= _("%s following this article.") % [ pluralize(article.person_followers.size, _("person"))]%>
         <% else %>
           <%= _("No one following this article yet.") %>

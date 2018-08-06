@@ -159,11 +159,11 @@ module ArticleHelper
   end
 
   def follow_button_text(article)
-    font_awesome(:add, article.event? ? _('Attend') : _('Follow'))
+    font_awesome(:add, _('Follow'))
   end
 
   def unfollow_button_text(article)
-    font_awesome(:minus, article.event? ? _('Unattend') : _('Unfollow'))
+    font_awesome(:minus, _('Unfollow'))
   end
 
   def following_button(page, user)
