@@ -1,8 +1,8 @@
 class CustomFormsPluginProfileController < ProfileController
+  helper CustomFormsPlugin::Helper
+
   before_filter :has_access, :only => [:show]
   before_filter :can_view_results, :only => [:review]
-
-  include CustomFormsPlugin::Helper
 
   def show
     profile = Profile.find_by(identifier: params[:profile])
