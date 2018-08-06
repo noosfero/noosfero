@@ -655,4 +655,15 @@ class Person < Profile
   def display_private_info_to?(person)
     super || (is_a_friend?(person) && display_to?(person))
   end
+
+  def self.get_field_origin field
+    if Person.column_names.include? field
+      'self'
+    elsif User.column_names.include? field
+      'user'
+    else
+      'data'
+    end
+  end
+
 end
