@@ -380,11 +380,10 @@ class CmsControllerTest < ActionController::TestCase
     assert_not_nil profile.articles.find_by(path: 'rails')
   end
 
-  should 'upload to rigth folder' do
+  should 'upload to right folder' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     post :upload_files, :profile => profile.identifier, :parent_id => f.id,
-         :uploaded_files => { '0' => { 'file' => fixture_file_upload('/files/test.txt')},
-                              '1' => { 'file' => fixture_file_upload('/files/test_another.txt')}}
+         :uploaded_files => { '0' => { 'file' => fixture_file_upload('/files/test.txt') } }
     f.reload
 
     assert_not_nil f.children[0]

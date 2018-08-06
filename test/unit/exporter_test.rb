@@ -6,7 +6,7 @@ class ExporterTest < ActiveSupport::TestCase
     @person.schooling = 'Ph.D.'
     @person.save!
     @fields = { base: %w[name], user: %w[login], methods: %w[schooling]}
-    @exporter = Exporter.new(Person.all, @fields)
+    @exporter = Exporter.new([@person], @fields)
   end
 
   should 'extract base fields correctly' do
