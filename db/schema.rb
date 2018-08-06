@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180705174013) do
+ActiveRecord::Schema.define(version: 20180720180749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(version: 20180705174013) do
     t.boolean  "archived",             default: false
     t.string   "editor",               default: "tiny_mce", null: false
     t.jsonb    "metadata",             default: {}
-    t.integer  "access",       default: 0
+    t.integer  "access",               default: 0
   end
 
   add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree

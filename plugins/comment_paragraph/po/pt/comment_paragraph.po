@@ -135,14 +135,11 @@ msgstr "Título: "
 msgid "Paragraph: "
 msgstr "Parágrafo: "
 
-#: ../controllers/comment_paragraph_plugin_admin_controller.rb:8
 #~ msgid "Settings successfuly saved"
 #~ msgstr "Configurações gravadas com sucesso"
 
-#: ../lib/comment_paragraph_plugin.rb:52
 #~ msgid "Deactivate Comments"
 #~ msgstr "Desativar Comentários"
 
-#: ../lib/comment_paragraph_plugin.rb:52
 #~ msgid "Activate Comments"
 #~ msgstr "Ativar Comentários"

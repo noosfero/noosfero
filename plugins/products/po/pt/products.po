@@ -103,7 +103,7 @@ msgid "Distance:"
 msgstr "Distância:"
 
 #: ../lib/products_plugin/products_helper.rb:22
-#: ../models/products_plugin/product.rb:142
+#: ../models/products_plugin/product.rb:123
 msgid "Uncategorized product"
 msgstr "Produto não categorizado"
 
@@ -239,27 +239,27 @@ msgstr "Produtos em destaque"
 msgid "Other costs"
 msgstr "Outros custos"
 
-#: ../models/products_plugin/product.rb:278
+#: ../models/products_plugin/product.rb:259
 msgid "0%"
 msgstr "0%"
 
-#: ../models/products_plugin/product.rb:279
+#: ../models/products_plugin/product.rb:260
 msgid "25%"
 msgstr "25%"
 
-#: ../models/products_plugin/product.rb:280
+#: ../models/products_plugin/product.rb:261
 msgid "50%"
 msgstr "50%"
 
-#: ../models/products_plugin/product.rb:281
+#: ../models/products_plugin/product.rb:262
 msgid "75%"
 msgstr "75%"
 
-#: ../models/products_plugin/product.rb:282
+#: ../models/products_plugin/product.rb:263
 msgid "100%"
 msgstr "100%"
 
-#: ../models/products_plugin/product.rb:305
+#: ../models/products_plugin/product.rb:286
 msgid "should not be bigger than the price"
 msgstr "não pode ser maior que o preço"
 

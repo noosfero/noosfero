@@ -90,8 +90,9 @@ class OauthClientPlugin < Noosfero::Plugin
 
   def account_controller_filters
     {
-      :type => 'before_action', :method_name => 'signup',
-      :block => proc {
+      type: 'before_action', method_name: 'check_email_on_oauth_signup',
+      options: { only: :signup },
+      block: proc {
         auth = session[:oauth_data]
 
         if auth.present? && params[:user].present?
@@ -105,7 +106,6 @@ class OauthClientPlugin < Noosfero::Plugin
   end
 
   def js_files
-  ["script.js"]
+    ["script.js"]
   end
-
 end

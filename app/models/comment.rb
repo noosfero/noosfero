@@ -236,12 +236,6 @@ class Comment < ApplicationRecord
     self.source && self.source.is_a?(Article) && self.source.archived?
   end
 
-  protected
-
-  def article_archived?
-    errors.add(:article, N_('associated with this comment is archived!')) if archived?
-  end
-
   def new_comment_for_author_notification
     author = self.article.profile
     if author.respond_to? :push_subscriptions
@@ -250,6 +244,12 @@ class Comment < ApplicationRecord
       })
     end
   end
+  protected
+
+  def article_archived?
+    errors.add(:article, N_('associated with this comment is archived!')) if archived?
+  end
+
 
   def new_comment_for_followers_notification
     {

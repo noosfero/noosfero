@@ -325,8 +325,7 @@ module FormsHelper
     fields = content_tag('div', { class: 'exportable-fields' }) do
       profile.exportable_fields.map do |field|
         checked = field.in? selected_fields
-        content = check_box_tag(name, field, checked) +
-                  _(field.humanize(capitalize: false)).capitalize
+        content = check_box_tag(name, field, checked) + _(field.humanize)
         content_tag('label', content.html_safe)
       end.join("\n").html_safe
     end

@@ -228,31 +228,31 @@ msgstr "identificador"
 msgid "Description"
 msgstr "Descrição"
 
-#: ../lib/custom_forms_plugin/form.rb:122
+#: ../lib/custom_forms_plugin/form.rb:127
 msgid "This query has no ending date"
 msgstr "Essa consulta não possui data de finalização"
 
-#: ../lib/custom_forms_plugin/form.rb:127
+#: ../lib/custom_forms_plugin/form.rb:132
 msgid "Ends today"
 msgstr "Termina hoje"
 
-#: ../lib/custom_forms_plugin/form.rb:131
+#: ../lib/custom_forms_plugin/form.rb:136
 msgid "Ends tomorow"
 msgstr "Termina amanhã"
 
-#: ../lib/custom_forms_plugin/form.rb:135
+#: ../lib/custom_forms_plugin/form.rb:140
 msgid "Already closed"
 msgstr "Finalizada"
 
-#: ../lib/custom_forms_plugin/form.rb:138
+#: ../lib/custom_forms_plugin/form.rb:143
 msgid "%s days left"
 msgstr "%s dias restantes"
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "The time range selected is invalid."
 msgstr "A faixa de tempo selecionada é inválida."
 
-#: ../lib/custom_forms_plugin/form.rb:189
+#: ../lib/custom_forms_plugin/form.rb:194
 msgid "can't be less than 2"
 msgstr "não pode ser menor que 2"
 
@@ -384,6 +384,12 @@ msgid_plural "%s submissions"
 msgstr[0] "%s submissão"
 msgstr[1] "%s submissões"
 
+#: ../views/blocks/poll/_list_item.html.erb:35
+#: ../views/blocks/survey/_list_item.html.erb:30
+#: ../views/custom_forms_plugin_profile/show.html.erb:22
+msgid "See partial results"
+msgstr "Ver resultados parciais"
+
 #: ../views/blocks/poll/_results.html.erb:11
 msgid "See results"
 msgstr "Ver resultados"
@@ -395,11 +401,6 @@ msgstr "Não há resultados para essa enquete."
 #: ../views/blocks/poll/_results.html.erb:23
 msgid "This poll is closed."
 msgstr "Essa enquete está fechada."
-
-#: ../views/blocks/poll/_submission.html.erb:14
-#: ../views/blocks/survey/_list_item.html.erb:30
-msgid "See partial results"
-msgstr "Ver resultados parciais"
 
 #: ../views/blocks/survey/_list_item.html.erb:30
 msgid "See final results"
@@ -419,7 +420,8 @@ msgstr "Exportar um arquivo com várias consultas de uma vez."
 
 #: ../views/custom_forms_plugin_admin/index.html.erb:14
 msgid "Select the user fields to be included in the submissions report"
-msgstr "Selecione os campos de usuário a serem incluídos no relatório de submissões"
+msgstr ""
+"Selecione os campos de usuário a serem incluídos no relatório de submissões"
 
 #: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
@@ -453,7 +455,6 @@ msgstr "Obrigatório"
 
 #: ../views/custom_forms_plugin_myprofile/_field.html.erb:15
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:46
-#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:63
 msgid "Remove field"
 msgstr "Remover campo"
 
@@ -663,8 +664,8 @@ msgid ""
 "header is expected."
 msgstr ""
 "Você deve escolher um arquivo CSV que siga uma estrutura específica. É "
-"recomendado que você siga o modelo gerado. Note que um arquivo com "
-"cabeçalho é experado."
+"recomendado que você siga o modelo gerado. Note que um arquivo com cabeçalho "
+"é experado."
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:11
 msgid "Download Template"
@@ -826,12 +827,12 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Partial results"
-msgstr "Resultados parciais"
-
-#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
 msgid "Final results"
 msgstr "Resultados finais"
+
+#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
+msgid "Partial results"
+msgstr "Resultados parciais"
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
 msgid "No queries found! Try different search terms or filters."
@@ -851,11 +852,15 @@ msgstr "Resposta"
 msgid "%s's queries"
 msgstr "Consultas de %s"
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:28
+#: ../views/custom_forms_plugin_profile/review.html.erb:15
+msgid "Jump to question"
+msgstr "Pular para pergunta"
+
+#: ../views/custom_forms_plugin_profile/review.html.erb:31
 msgid "There is no answers for this question"
 msgstr "Não há respostas para essa pergunta"
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:46
+#: ../views/custom_forms_plugin_profile/review.html.erb:49
 msgid "View all queries"
 msgstr "Ver todas as consultas"
 
@@ -863,12 +868,12 @@ msgstr "Ver todas as consultas"
 msgid "Edit"
 msgstr "Editar"
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:24
+#: ../views/custom_forms_plugin_profile/show.html.erb:31
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr "Desculpe, você não pode preencher esse formulário ainda"
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:26
+#: ../views/custom_forms_plugin_profile/show.html.erb:33
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr "Desculpe, você não pode mais preencher esse formulário"
@@ -898,11 +903,10 @@ msgstr "Procurar consultas por nome"
 msgid "Your e-mail will be visible to this form's owners."
 msgstr "Seu e-mail ficará visível para o dono deste formulário."
 
-#: ../views/shared/_form_submission.html.erb:9
+#: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr "Essa foi a sua resposta."
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
 #~ msgid "City"
 #~ msgstr "Cidade"
 

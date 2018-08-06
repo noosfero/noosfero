@@ -701,7 +701,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     unauthorized = create_user('unauthorized').person
     folder = Gallery.create!(:name => 'gallery', :profile => owner)
     image1 = UploadedFile.create!(:profile => owner, :parent => folder, 
-                                  :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false, :access => Entitlement::Levels.levels[:self], :access => Entitlement::Levels.levels[:self])
+                                  :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false, :access => Entitlement::Levels.levels[:self])
 
 
     login_as('unauthorized')

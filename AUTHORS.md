@@ -66,6 +66,7 @@ Daniel Henrique <danielhmarinho@gmail.com>
 Daniel Teles <danieelteles@gmail.com>
 Daniel Tygel <dtygel@eita.org.br>
 Daniela Soares Feitosa <danielafeitosa@colivre.coop.br>
+David Carlos <davidcarlos@colivre.coop.br>
 David Carlos <ddavidcarlos1392@gmail.com>
 Diego Araujo <diegoamc90@gmail.com>
 Dylan Guedes <djmgguedes@gmail.com>

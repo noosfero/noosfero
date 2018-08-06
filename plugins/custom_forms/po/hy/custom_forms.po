@@ -46,16 +46,16 @@ msgid "Membership survey"
 msgstr "Անդամներ: %s"
 
 #, fuzzy
-msgid "Triggered after membership"
-msgstr "Կառավարել անդամակցությունները"
+msgid "There are no submissions for this form."
+msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
 
 #, fuzzy
 msgid "Submission could not be saved"
 msgstr "Անհանատական էջի տվյալների բաժին"
 
 #, fuzzy
-msgid "There are no submissions for this form."
-msgstr "%s-ի համար ենթակատեգորիաներ չկան:"
+msgid "Triggered after membership"
+msgstr "Կառավարել անդամակցությունները"
 
 #, fuzzy
 msgid "Submissions"
@@ -346,31 +346,31 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:122
+#: ../lib/custom_forms_plugin/form.rb:127
 msgid "This query has no ending date"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:127
+#: ../lib/custom_forms_plugin/form.rb:132
 msgid "Ends today"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:131
+#: ../lib/custom_forms_plugin/form.rb:136
 msgid "Ends tomorow"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:135
+#: ../lib/custom_forms_plugin/form.rb:140
 msgid "Already closed"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:138
+#: ../lib/custom_forms_plugin/form.rb:143
 msgid "%s days left"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "The time range selected is invalid."
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:189
+#: ../lib/custom_forms_plugin/form.rb:194
 msgid "can't be less than 2"
 msgstr ""
 
@@ -465,17 +465,18 @@ msgstr ""
 msgid "No queries available"
 msgstr ""
 
+#: ../views/blocks/poll/_list_item.html.erb:35
+#: ../views/blocks/survey/_list_item.html.erb:30
+#: ../views/custom_forms_plugin_profile/show.html.erb:22
+msgid "See partial results"
+msgstr ""
+
 #: ../views/blocks/poll/_results.html.erb:11
 msgid "See results"
 msgstr ""
 
 #: ../views/blocks/poll/_results.html.erb:23
 msgid "This poll is closed."
-msgstr ""
-
-#: ../views/blocks/poll/_submission.html.erb:14
-#: ../views/blocks/survey/_list_item.html.erb:30
-msgid "See partial results"
 msgstr ""
 
 #: ../views/blocks/survey/_list_item.html.erb:30
@@ -774,7 +775,11 @@ msgstr ""
 msgid "%s's queries"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:28
+#: ../views/custom_forms_plugin_profile/review.html.erb:15
+msgid "Jump to question"
+msgstr ""
+
+#: ../views/custom_forms_plugin_profile/review.html.erb:31
 msgid "There is no answers for this question"
 msgstr ""
 
@@ -782,12 +787,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:24
+#: ../views/custom_forms_plugin_profile/show.html.erb:31
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:26
+#: ../views/custom_forms_plugin_profile/show.html.erb:33
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr ""
@@ -816,7 +821,7 @@ msgstr ""
 msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
-#: ../views/shared/_form_submission.html.erb:9
+#: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr ""
 

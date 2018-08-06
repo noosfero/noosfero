@@ -1,0 +1,38 @@
+.oauth-login .provider {
+  a {
+    min-width: 20px;
+    min-height: 20px;
+    background-size: 20px;
+    display: inline-block;
+    text-decoration: none;
+    background-repeat: no-repeat;
+    line-height: 20px;
+
+    img {
+      max-width: 40px;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+
+  .developer {
+    display: none;
+  }
+}
+
+.remember-enable-email.hidden {
+  display: none;
+}
+
+#oauth-signup {
+  #signup-password-section {
+    display: none;
+  }
+
+  #signup-email input {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

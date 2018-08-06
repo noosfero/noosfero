@@ -39,16 +39,16 @@ msgid "Name"
 msgstr "Name"
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Subject"
-msgstr "Betreff"
+msgid "Message"
+msgstr "Nachricht"
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "e-Mail"
 msgstr "E-Mail"
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Message"
-msgstr "Nachricht"
+msgid "Subject"
+msgstr "Betreff"
 
 #: ../lib/work_assignment_plugin/helper.rb:9
 msgid "Submission date"

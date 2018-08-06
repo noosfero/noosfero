@@ -296,7 +296,6 @@ class Environment < ApplicationRecord
     settings[:message_for_member_invitation] || InviteMember.mail_template
   end
 
-  settings_items :min_signup_delay, :type => Integer, :default => 3 #seconds
   settings_items :activation_blocked_text, :type => String
   settings_items :message_for_disabled_enterprise, :type => String,
                  :default => _('This enterprise needs to be enabled.')
@@ -1112,26 +1111,6 @@ class Environment < ApplicationRecord
     profiles = environment.profiles.where(:identifier => identifier)
     profiles = profiles.where(['id != ?', profile_id]) if profile_id.present?
     !reserved_identifiers.include?(identifier) && !profiles.exists?
-  end
-
-  BLACKLIST_DURATION = 3 # hours
-
-  def on_signup_blacklist?(ip_address)
-    metadata['signup_blacklist'].present? && metadata['signup_blacklist'].include?(ip_address)
-  end
-
-  def add_to_signup_blacklist(ip_address)
-    metadata['signup_blacklist'] = [] if metadata['signup_blacklist'].nil?
-    unless metadata['signup_blacklist'].include?(ip_address)
-    self.metadata['signup_blacklist'] << ip_address
-    self.save!
-    Delayed::Job.enqueue(RemoveIpFromBlacklistJob.new(environment.id, ip_address), {:run_at => BLACKLIST_DURATION.hours.from_now})
-    end
-  end
-
-  def remove_from_signup_blacklist(ip_address)
-    self.metadata['signup_blacklist'].delete(ip_address)
-    self.save!
   end
 
   def quota_for(klass)
