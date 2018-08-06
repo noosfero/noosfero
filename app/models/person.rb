@@ -271,35 +271,11 @@ class Person < Profile
 
   validates_multiparameter_assignments
 
+  validate :presence_of_required_fields, :unless => :is_template
+  validate :phone_format_is_valid, unless: :is_template
+
   def self.fields
     FIELDS
-  end
-
-  validate :presence_of_required_fields, :unless => :is_template
-
-  # Special cases for presence_of_required_fields. You can set:
-  # - cond: to be executed rather than checking if the field is blank
-  # - unless: an exception for when the field is not present
-  # - to_fields: map the errors to these fields rather than `field`
-  REQUIRED_FIELDS_EXCEPTIONS = {
-    custom_area_of_study: { unless: Proc.new{|p| p.area_of_study != 'Others' } },
-    custom_formation: { unless: Proc.new{|p| p.formation != 'Others' } },
-    location: { cond: Proc.new{|p| p.lat.nil? || p.lng.nil? }, to_fields: [:lat, :lng] }
-  }
-
-  def presence_of_required_fields
-    self.required_fields.each do |field|
-      opts = REQUIRED_FIELDS_EXCEPTIONS[field.to_sym] || {}
-      if (opts[:cond] ? opts[:cond].call(self) : self.send(field).blank?)
-        unless opts[:unless].try(:call, self)
-          fields = opts[:to_fields] || field
-          fields = fields.kind_of?(Array) ? fields : [fields]
-          fields.each do |to_field|
-            self.errors.add_on_blank(to_field)
-          end
-        end
-      end
-    end
   end
 
   before_save do |person|
@@ -666,4 +642,42 @@ class Person < Profile
     end
   end
 
+  private
+
+  # Special cases for presence_of_required_fields. You can set:
+  # - cond: to be executed rather than checking if the field is blank
+  # - unless: an exception for when the field is not present
+  # - to_fields: map the errors to these fields rather than `field`
+  REQUIRED_FIELDS_EXCEPTIONS = {
+    custom_area_of_study: { unless: Proc.new{|p| p.area_of_study != 'Others' } },
+    custom_formation: { unless: Proc.new{|p| p.formation != 'Others' } },
+    location: { cond: Proc.new{|p| p.lat.nil? || p.lng.nil? }, to_fields: [:lat, :lng] }
+  }
+
+  def presence_of_required_fields
+    self.required_fields.each do |field|
+      opts = REQUIRED_FIELDS_EXCEPTIONS[field.to_sym] || {}
+      if (opts[:cond] ? opts[:cond].call(self) : self.send(field).blank?)
+        unless opts[:unless].try(:call, self)
+          fields = opts[:to_fields] || field
+          fields = fields.kind_of?(Array) ? fields : [fields]
+          fields.each do |to_field|
+            self.errors.add_on_blank(to_field)
+          end
+        end
+      end
+    end
+  end
+
+  PHONE_FIELDS = %i(cell_phone comercial_phone contact_phone)
+  PHONE_FORMAT = /^\d{5,15}$/
+
+  def phone_format_is_valid
+    PHONE_FIELDS.each do |field|
+      if self.send(field).present? && self.send(field) !~ PHONE_FORMAT
+        self.errors.add(field, _('is not valid. Check the digits and '\
+                                 'make sure to use only numbers.'))
+      end
+    end
+  end
 end

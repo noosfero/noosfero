@@ -2055,4 +2055,36 @@ class PersonTest < ActiveSupport::TestCase
     person = create_user('mytestuser').person
     assert_includes profile.available_blocks(person), CommunitiesBlock
   end
+
+  Person::PHONE_FIELDS.each do |field|
+    should "accept valid format of #{field} if field is present" do
+      person = Person.new(field => '55623214567')
+      person.valid?
+      refute person.errors[field].present?
+    end
+
+    should "refuse invalid format of #{field} if field is present" do
+      person = Person.new(field => '+55(62)321-4567')
+      person.valid?
+      assert person.errors[field].present?
+    end
+
+    should "refuse too short #{field} if field is present" do
+      person = Person.new(field => '1122')
+      person.valid?
+      assert person.errors[field].present?
+    end
+
+    should "refuse too long #{field} if field is present" do
+      person = Person.new(field => '1115562321456799999')
+      person.valid?
+      assert person.errors[field].present?
+    end
+
+    should "not validate format of #{field} if field is not present" do
+      person = Person.new(field => nil)
+      person.valid?
+      refute person.errors[field].present?
+    end
+  end
 end
