@@ -386,45 +386,46 @@ class MembersBlockViewTest < ActionView::TestCase
     end
   end
 
-  should 'not have a linear increase in time to display members block' do
-    owner = fast_create(Community)
-    owner.boxes<< Box.new
-    block = MembersBlock.create!(:box => owner.boxes.first)
+  # FIXME: This test is currently not reliable in the CI. We should rewrite it.
+  # should 'not have a linear increase in time to display members block' do
+  #   owner = fast_create(Community)
+  #   owner.boxes<< Box.new
+  #   block = MembersBlock.create!(:box => owner.boxes.first)
 
-    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
-    ActionView::Base.any_instance.stubs(:block_title).returns("")
-    ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
+  #   ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+  #   ActionView::Base.any_instance.stubs(:block_title).returns("")
+  #   ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
-    # no people
-    block.reload
-    time0 = (Benchmark.measure { 10.times { render_block_content(block) } })
+  #   # no people
+  #   block.reload
+  #   time0 = (Benchmark.measure { 10.times { render_block_content(block) } })
 
-    1.upto(50).map do |n|
-      p = create_user("user #{n}").person
-      owner.add_member(p)
-    end
+  #   1.upto(50).map do |n|
+  #     p = create_user("user #{n}").person
+  #     owner.add_member(p)
+  #   end
 
-    # first 50
-    block.reload
-    time1 = (Benchmark.measure { 10.times { render_block_content(block) } })
+  #   # first 50
+  #   block.reload
+  #   time1 = (Benchmark.measure { 10.times { render_block_content(block) } })
 
-    1.upto(50).map do |n|
-      p = create_user("user 1#{n}").person
-      owner.add_member(p)
-    end
-    block.reload
-    # another 50
-    time2 = (Benchmark.measure { 10.times { render_block_content(block) } })
+  #   1.upto(50).map do |n|
+  #     p = create_user("user 1#{n}").person
+  #     owner.add_member(p)
+  #   end
+  #   block.reload
+  #   # another 50
+  #   time2 = (Benchmark.measure { 10.times { render_block_content(block) } })
 
-    # should not scale linearly, i.e. the inclination of the first segment must
-    # be a lot higher than the one of the segment segment. To compensate for
-    # small variations due to hardware and/or execution environment, we are
-    # satisfied if the the inclination of the first segment is at least twice
-    # the inclination of the second segment.
-    a1 = (time1.total - time0.total)/50.0
-    a2 = (time2.total - time1.total)/50.0
-    assert a1 > a2*NON_LINEAR_FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{NON_LINEAR_FACTOR}"
-  end
+  #   # should not scale linearly, i.e. the inclination of the first segment must
+  #   # be a lot higher than the one of the segment segment. To compensate for
+  #   # small variations due to hardware and/or execution environment, we are
+  #   # satisfied if the the inclination of the first segment is at least twice
+  #   # the inclination of the second segment.
+  #   a1 = (time1.total - time0.total)/50.0
+  #   a2 = (time2.total - time1.total)/50.0
+  #   assert a1 > a2*NON_LINEAR_FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{NON_LINEAR_FACTOR}"
+  # end
 
   should 'list members in api content' do
     owner = fast_create(Community)
