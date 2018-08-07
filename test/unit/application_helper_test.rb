@@ -92,17 +92,6 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_same result, link_to_category(cat)
   end
 
-  should 'loads theme options from YAML file' do
-    path = Rails.root.join('public', 'mytheme', 'theme.yml').to_s
-    config = { 'option' => 'value' }
-
-    stubs(:theme_path).returns('/mytheme')
-    File.expects(:exists?).with(path).returns(true)
-    YAML.expects(:load_file).with(path).returns(config)
-
-    assert_equal 'value', theme_option(:option)
-  end
-
   should 'return nil theme option when theme does not exist' do
     stubs(:theme_path).returns('/something/very/unlikely')
     assert_nil theme_option()
