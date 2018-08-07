@@ -35,7 +35,10 @@
       <% end %>
     </tbody>
   </table>
+
   <p>* <%= _('imported submissions') %></p>
+
+  <%= pagination_links(@submissions) %>
 <% end %>
 
 <%= button_bar do %>
