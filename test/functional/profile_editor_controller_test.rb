@@ -85,9 +85,9 @@ class ProfileEditorControllerTest < ActionController::TestCase
     profile.update_attributes(category_ids: [region.id, category.id])
 
     get :categories, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :content => profile_region.name,
+    assert_tag :tag => 'div', :content => profile_region.name,
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
-    assert_no_tag :tag => 'div', :content => region.name,
+    assert_tag :tag => 'div', :content => region.name,
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
     assert_tag :tag => 'div', :content => category.name,
                :ancestor => { :tag => 'div', :attributes => { :id => 'category-ajax-selector'}}
