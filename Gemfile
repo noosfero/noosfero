@@ -22,7 +22,6 @@ gem 'daemons'
 gem 'nokogiri'
 gem 'mini_portile2'
 gem 'will_paginate'
-gem 'pothoven-attachment_fu'
 gem 'delayed_job'
 gem 'delayed_job_active_record'
 gem 'rake',                       require: false
