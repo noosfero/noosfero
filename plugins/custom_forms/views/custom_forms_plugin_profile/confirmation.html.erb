@@ -1,0 +1,22 @@
+<div id="custom-forms-plugin_submission">
+  <h1 class='submission-conformation'>
+    <%= _('Thank you, your submission was received') %>
+  </h1>
+
+  <% if (current_person.present? && @submission.profile == current_person) ||
+        @submission.form.show_results_for(current_user) %>
+    <%= fields_for :submission, @submission do |f| %>
+      <%= render partial: 'shared/form_submission',
+                 locals: { f: f, form: @submission.form,
+                           submission: @submission } %>
+    <% end %>
+  <% else %>
+    <p><%= _('Your answers will be shown along with the other submissions, '\
+             'as soon as the results are avaiable.') %></p>
+  <% end %>
+
+  <div class='button-bar'>
+    <%= button :back, _('Go back to the profile'),
+               controller: :profile, profile: profile.identifier %>
+  </div>
+</div>

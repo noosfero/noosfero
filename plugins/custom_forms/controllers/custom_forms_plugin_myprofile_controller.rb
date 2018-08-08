@@ -1,8 +1,7 @@
 require 'csv'
 
 class CustomFormsPluginMyprofileController < MyProfileController
-
-  include CustomFormsPlugin::Helper
+  helper CustomFormsPlugin::Helper
 
   protect 'post_content', :profile
 

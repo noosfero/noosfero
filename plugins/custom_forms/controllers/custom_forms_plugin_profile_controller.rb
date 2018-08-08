@@ -1,8 +1,8 @@
 class CustomFormsPluginProfileController < ProfileController
+  helper CustomFormsPlugin::Helper  
+
   before_action :has_access, :only => [:show]
   before_action :can_view_results, :only => [:review]
-
-  include CustomFormsPlugin::Helper
 
   def show
     profile = Profile.find_by(identifier: params[:profile])
@@ -30,12 +30,17 @@ class CustomFormsPluginProfileController < ProfileController
         if not @submission.save
           raise 'Submission failed: answers not valid'
         end
-        session[:notice] = _('Submission saved')
-        redirect_to :action => 'show'
+
+        redirect_to action: :confirmation, submission_id: @submission.id
       rescue
         session[:notice] = _('Submission could not be saved')
       end
     end
+  end
+
+  def confirmation
+    @submission = CustomFormsPlugin::Submission.find_by(id: params[:submission_id])
+    render_not_found unless @submission.present?
   end
 
   def review

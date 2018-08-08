@@ -12,13 +12,13 @@ class ProfileEmailTemplatesControllerTest < ActionController::TestCase
   attr_accessor :profile, :person
 
   test "should get index" do
-    get :index, :profile => profile.identifier
+    get :index, params: { profile: profile.identifier }
     assert_response :success
     assert_not_nil assigns(:email_templates)
   end
 
   test "should get new" do
-    get :new, :profile => profile.identifier
+    get :new, params: { profile: profile.identifier }
     assert_response :success
   end
 
@@ -31,23 +31,26 @@ class ProfileEmailTemplatesControllerTest < ActionController::TestCase
   end
 
   test "should show email_template" do
-    get :show, id: @email_template, :profile => profile.identifier
+    get :show, params: { id: @email_template, profile: profile.identifier } 
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @email_template, :profile => profile.identifier
+    get :edit, params: { id: @email_template, profile: profile.identifier }
     assert_response :success
   end
 
   test "should update email_template" do
-    put :update, id: @email_template, email_template: {  }, :profile => profile.identifier
+    put :update, params: { id: @email_template, 
+                           email_template: {  }, 
+                           profile: profile.identifier
+                         }
     assert_redirected_to url_for(:action => :index)
   end
 
   test "should destroy email_template" do
     assert_difference('EmailTemplate.count', -1) do
-      delete :destroy, id: @email_template, :profile => profile.identifier
+      delete :destroy, params: { id: @email_template, profile: profile.identifier }
     end
 
     assert_redirected_to url_for(:action => :index)
@@ -58,7 +61,9 @@ class ProfileEmailTemplatesControllerTest < ActionController::TestCase
     @email_template.subject = '{{profile_name}} - {{environment_name}}'
     @email_template.body = '{{profile_name}} - {{environment_name}}'
     @email_template.save!
-    get :show_parsed, id: @email_template, :profile => profile.identifier
+    get :show_parsed, params: { id: @email_template, 
+                                profile: profile.identifier
+                              }
     assert_response :success
     json_response = ActiveSupport::JSON.decode(@response.body)
     assert_equal "#{@person.name} - #{environment.name}", json_response['parsed_subject']

@@ -21,30 +21,30 @@ class EnvironmentEmailTemplatesControllerTest < ActionController::TestCase
 
   test "should create email_template" do
     assert_difference('EmailTemplate.count') do
-      post :create, email_template: { :name => 'test' }
+      post :create, params: { email_template: { :name => 'test' } }
     end
 
     assert_redirected_to url_for(:action => :index)
   end
 
   test "should show email_template" do
-    get :show, id: @email_template
+    get :show, params: { id: @email_template }
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, id: @email_template
+    get :edit, params: { id: @email_template }
     assert_response :success
   end
 
   test "should update email_template" do
-    put :update, id: @email_template, email_template: {  }
+    put :update, params: { id: @email_template, email_template: {  } }
     assert_redirected_to url_for(:action => :index)
   end
 
   test "should destroy email_template" do
     assert_difference('EmailTemplate.count', -1) do
-      delete :destroy, id: @email_template
+      delete :destroy, params: { id: @email_template }
     end
 
     assert_redirected_to url_for(:action => :index)
@@ -55,7 +55,7 @@ class EnvironmentEmailTemplatesControllerTest < ActionController::TestCase
     @email_template.subject = '{{environment_name}}'
     @email_template.body = '{{environment_name}}'
     @email_template.save!
-    get :show_parsed, id: @email_template
+    get :show_parsed, params: { id: @email_template }
     assert_response :success
     json_response = ActiveSupport::JSON.decode(@response.body)
     assert_equal "#{environment.name}", json_response['parsed_subject']
