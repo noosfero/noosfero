@@ -17,15 +17,15 @@ class PeopleBlockBase < ProfileListBlock
     _('{#} People')
   end
 
-  def view_title
+  def view_title(user=nil)
     title.gsub('{#}', profile_count.to_s)
   end
 
-  def profiles
+  def self.profiles
     owner.profiles
   end
 
-  def profile_list
+  def self.profile_list
     result = nil
     visible_profiles = profiles.visible.activated.includes([:image,:domains,:preferred_domain,:environment])
     if !prioritize_profiles_with_image
@@ -38,7 +38,7 @@ class PeopleBlockBase < ProfileListBlock
     result.slice(0..limit-1)
   end
 
-  def profile_count
+  def self.profile_count
     profiles.visible.count(:id)
   end
   
