@@ -57,12 +57,13 @@ class CustomFormsPlugin::Graph
     @form.fields
          .joins("INNER JOIN custom_forms_plugin_answers as ans ON ans.field_id = custom_forms_plugin_fields.id
                  INNER JOIN custom_forms_plugin_submissions as s ON s.id = ans.submission_id")
+         .group("custom_forms_plugin_fields.id, custom_forms_plugin_fields.name")
          .select("custom_forms_plugin_fields.id as id,
                    custom_forms_plugin_fields.name as field_name,
-                   ans.value as answers,
-                   s.author_name as users,
+                   STRING_AGG(ans.value, ',') as answers,
+                   STRING_AGG(s.author_name, ',') as users,
                    custom_forms_plugin_fields.show_as as show_as,
-                   ans.imported as imported")
+                   STRING_AGG(ans.imported::text, ',') as imported")
          .where("custom_forms_plugin_fields.type = 'CustomFormsPlugin::TextField'")
   end
 
@@ -83,8 +84,8 @@ class CustomFormsPlugin::Graph
         text_answers = {
           "data" => {
             "answers" => f.answers.map(&:value),
-            "users" => [f.users],
-            "imported" => [f.imported]
+            "users" => f.users.split(','),
+            "imported" => f.imported.split(',')
           },
           "show_as" => 'text',
           "field" => f.field_name
@@ -92,6 +93,10 @@ class CustomFormsPlugin::Graph
 
         text_fields << text_answers
       end
+      puts "*"*40
+      pp text_fields
+      puts "*"*40
+
     end
     
     unless data[:select_fields] == []
