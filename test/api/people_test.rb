@@ -863,7 +863,7 @@ class PeopleTest < ActiveSupport::TestCase
       get "/api/v1/people/#{target_person.id}/?#{params.to_query}"
       json = JSON.parse(last_response.body)
       assert json.has_key?(attr.to_s)
-      assert_equal json[attr.to_s],target_person.send(attr)
+      assert_equal json[attr.to_s], target_person.send(attr)
     end
 
     define_method "test_should_not_show_#{attr}_if_it_is_an_private_attribute_to_logged_user_without_permission" do
