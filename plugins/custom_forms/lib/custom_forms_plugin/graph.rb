@@ -67,6 +67,53 @@ class CustomFormsPlugin::Graph
          .where("custom_forms_plugin_fields.type = 'CustomFormsPlugin::TextField'")
   end
 
+  def format_text_fields(unformatted_text_fields)
+    formated_text_fields = []
+    unformatted_text_fields.each do |f|
+      text_answers = {
+        "data" => {
+          "answers" => f.answers.map(&:value),
+          "users" => f.users.split(','),
+          "imported" => f.imported.split(',')
+        },
+        "show_as" => 'text',
+        "field" => f.field_name
+      }
+
+      formated_text_fields << text_answers
+    end
+
+    formated_text_fields
+  end
+
+  # TODO: Maybe there's a better way to do this
+  def format_select_fields(unformatted_select_fields)
+    computed_fields = []
+    computed_data = []
+
+    unformatted_select_fields.map do |r|
+      if computed_fields.include?(r.field_name)
+        computed_data.each do |c|
+          if c["field"] == r.field_name
+            c["data"][r.label] = r.answer_count
+            break
+          end
+        end
+      else
+        computed_fields << r.field_name
+        data = { 
+          "data" => {r.label => r.answer_count},
+          "field" => r.field_name,
+          "show_as" => chart_to_show_data(r.show_as),
+          "summary" => {}
+        }
+        computed_data << data
+      end
+    end
+
+    computed_data
+  end
+
   def get_data
     select_fields = get_select_fields
     text_fields = get_text_fields
@@ -75,52 +122,17 @@ class CustomFormsPlugin::Graph
   end
 
   def format_data(data)
-    computed_fields = []
-    computed_data = []
+    select_fields = []
     text_fields = []
     
     unless data[:text_fields] == []
-      data[:text_fields].each do |f|
-        text_answers = {
-          "data" => {
-            "answers" => f.answers.map(&:value),
-            "users" => f.users.split(','),
-            "imported" => f.imported.split(',')
-          },
-          "show_as" => 'text',
-          "field" => f.field_name
-        }
-
-        text_fields << text_answers
-      end
-      puts "*"*40
-      pp text_fields
-      puts "*"*40
-
+      text_fields = format_text_fields(data[:text_fields])
     end
     
     unless data[:select_fields] == []
-      data[:select_fields].map do |r|
-        if computed_fields.include?(r.field_name)
-          computed_data.each do |c|
-            if c["field"] == r.field_name
-              c["data"][r.label] = r.answer_count
-              break
-            end
-          end
-        else
-          computed_fields << r.field_name
-          data = { 
-            "data" => {r.label => r.answer_count},
-            "field" => r.field_name,
-            "show_as" => chart_to_show_data(r.show_as),
-            "summary" => {}
-          }
-          computed_data << data
-        end
-      end
+      select_fields = format_select_fields(data[:select_fields])
     end
 
-    computed_data + text_fields
+    select_fields + text_fields
   end 
 end
