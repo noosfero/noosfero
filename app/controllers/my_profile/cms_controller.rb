@@ -89,10 +89,6 @@ class CmsController < MyProfileController
         @article.image.label = params[:article][:image_builder][:label]
         @article.image.save!
       end
-      params_metadata = params[:article].try(:delete, :metadata) || {}
-      custom_fields = params_metadata.try(:delete, :custom_fields) || {}
-      @article.metadata = @article.metadata.merge(params_metadata)
-      @article.metadata[:custom_fields] = custom_fields
       @article.last_changed_by = user
       @article.update_access_level(params[:article][:access])
       params[:article].delete(:access)
