@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-gem 'chartkick'
+gem 'chartkick', '~> 2.3.5'
 gem 'rubyzip', '~> 1.2.0'
