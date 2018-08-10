@@ -8,4 +8,4 @@
     args[:action] = action
 %>
 
-<%= link_to font_awesome('angle-double-right', _('View all')), args, :class => 'view-all' unless block_elements.count == 0 %>
+<%= link_to font_awesome(:more_right, _('View all')), args, :class => 'view-all' unless block_elements.count == 0 %>

@@ -11,7 +11,6 @@ class AccountControllerTest < ActionDispatch::IntegrationTest
 
     e = Environment.default
     e.enable 'skip_new_user_email_confirmation', true
-    disable_signup_bot_check e
   end
 
   should 'use the parameters' do
@@ -34,10 +33,5 @@ class AccountControllerTest < ActionDispatch::IntegrationTest
   end
 
   private
-
-  def disable_signup_bot_check environment = Environment.default
-    environment.min_signup_delay = 0
-    environment.save!
-  end
 
 end

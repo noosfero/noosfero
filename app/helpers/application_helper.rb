@@ -106,7 +106,7 @@ module ApplicationHelper
   #
   # TODO: implement correcly the 'Help' button click
   def help(content = nil, link_name = nil, options = {}, &block)
-    link_name ||= _('Help')
+    link_name ||= font_awesome(:help, _('Help'))
 
     @help_message_id ||= 1
     help_id = "help_message_#{@help_message_id}"
@@ -617,7 +617,6 @@ module ApplicationHelper
   end
 
   def profile_field_privacy_selector(profile, name)
-    return '' unless profile.public?
     content_tag('div', labelled_check_box(_('Public'), 'profile_data[fields_privacy]['+name+']', 'public', profile.public_fields.include?(name)), :class => 'field-privacy-selector')
   end
 
@@ -867,10 +866,11 @@ module ApplicationHelper
   alias :browse_events_menu :search_events_menu
 
   def pagination_links(collection, options={})
-    options = { previous_label: content_tag(:span, font_awesome('long-arrow-left', _('Previous'))),
-                next_label:     content_tag(:span, "#{_('Next')} #{font_awesome('long-arrow-right')}".html_safe),
+    options = { previous_label: content_tag(:span, font_awesome(:back, _('Previous'))),
+                next_label:     content_tag(:span, "#{_('Next')} #{font_awesome(:next)}".html_safe),
                 inner_window: 1,
-                outer_window: 0 }.merge(options)
+                outer_window: 0,
+                params: @filters }.merge(options)
     will_paginate(collection, options)
   end
 
@@ -890,7 +890,7 @@ module ApplicationHelper
       link_to_all = nil
       if list.count > 5
         list = list.first(5)
-        link_to_all = link_to( font_awesome('plus-circle', _('See all')), :controller => 'memberships', :profile => user.identifier)
+        link_to_all = link_to( font_awesome(:see_more, _('See all')), :controller => 'memberships', :profile => user.identifier)
       end
       link = list.map do |element|
         link_to( font_awesome( icon, _('Manage %s').html_safe % element.short_name(25)),
@@ -905,7 +905,7 @@ module ApplicationHelper
 
   def manage_enterprises
     return '' unless user && user.environment.enabled?(:display_my_enterprises_on_user_menu)
-    manage_link(user.enterprises, :enterprises, _('My enterprises'), 'suitcase').to_s
+    manage_link(user.enterprises, :enterprises, _('My enterprises'), :enterprise).to_s
   end
 
   def manage_communities
@@ -915,7 +915,7 @@ module ApplicationHelper
   end
 
   def admin_link
-    admin_icon = font_awesome('shield-alt', _('Administration'))
+    admin_icon = font_awesome(:admin, _('Administration'))
     user.is_admin?(environment) ? link_to(admin_icon, environment.admin_url, title: _("Configure the environment"), class: 'admin-link') : nil
   end
 
@@ -990,7 +990,7 @@ module ApplicationHelper
   end
 
   def ctrl_panel_link
-    link_to(font_awesome(:cog, _('Control panel')), user.admin_url,
+    link_to(font_awesome(:control_panel, _('Control panel')), user.admin_url,
                           class: 'ctrl-panel', title: _("Configure your personal account and content"))
   end
 
@@ -1145,7 +1145,7 @@ module ApplicationHelper
   end
 
   def content_remove_spread(content)
-    !content.public? || content.folder? || (profile == user && user.communities.blank? && !environment.portal_enabled)
+    content.folder? || (profile == user && user.communities.blank? && !environment.portal_enabled)
   end
 
   def remove_content_button(action, content)
@@ -1316,7 +1316,7 @@ module ApplicationHelper
                                                     href: "#",
                                                     title: _("Go to full screen mode") })
 
-    content += content_tag('a', font_awesome(:compress, _("Exit full screen")), { id: "exit-fullscreen-btn",
+    content += content_tag('a', font_awesome(:fullscreen_out, _("Exit full screen")), { id: "exit-fullscreen-btn",
                                                          onclick: "toggle_fullwidth('#{item_id}')",
                                                          href: "#",
                                                          title: _("Exit full screen mode"),

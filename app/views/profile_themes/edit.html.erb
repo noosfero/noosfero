@@ -2,9 +2,11 @@
   <%# FIXME %>
   <h1 id='theme-name'>
     <%= _('Editing theme "%s"') % @theme.name %>
-    <%= button(:eyes, _('Preview this theme'), :action => 'start_test', :id => @theme.id) %>
-    <%= button(:back, _('Back'), :action => 'index') %>
   </h1>
+  <%= button_bar do %>
+    <%= button(:back, _('Back'), :action => 'index') %>
+    <%= button(:eye, _('Preview this theme'), :action => 'start_test', :id => @theme.id) %>
+  <% end %>
 </form>
 
 

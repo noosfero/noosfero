@@ -60,7 +60,7 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
   def linked_on_portal_news(environment, params, profile)
     return false unless params['controller'] == 'content_viewer' && params['action'] == 'view_page'
     return false if params['page'].nil?
-    article = profile.articles.find_by(path: params['page'].join('/'))
+    article = profile.articles.find_by(path: params['page'])
     portal = environment.portal_community
     portal.articles.
       where(type: 'LinkArticle').

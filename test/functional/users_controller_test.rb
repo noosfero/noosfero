@@ -112,10 +112,11 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   should 'response as XML to export users' do
-    create_user('maryjane')
-    get :download, :format => 'xml', :fields => ['name']
+    create_user('maryjane', :email => 'maryjane@mail.com')
+    get :download, :format => 'xml', :fields => ['name', 'email']
     assert_equal 'text/xml', @response.content_type
     assert_match 'maryjane', @response.body
+    assert_match 'maryjane@mail.com', @response.body
   end
 
   should 'response as CSV to export users' do
@@ -141,7 +142,7 @@ class UsersControllerTest < ActionController::TestCase
 
     get :download, :format => 'csv', :fields => ['email']
     assert_match 'jhondoe@noosfero.org', @response.body
-    assert_match 'last_login_at', @response.body
+    assert_match 'Last login at', @response.body
     assert_no_match 'name', @response.body
   end
 

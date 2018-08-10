@@ -23,12 +23,12 @@ msgid "Type"
 msgstr "Typ:"
 
 #, fuzzy
-msgid "Checkboxes"
-msgstr "Checkbox"
-
-#, fuzzy
 msgid "Multiple choice"
 msgstr "Mehrfachauswahl"
+
+#, fuzzy
+msgid "Checkboxes"
+msgstr "Checkbox"
 
 #, fuzzy
 msgid "The %s could not be updated"
@@ -43,16 +43,16 @@ msgid "The %s could not be removed"
 msgstr "Das Formular konnte nicht entfernt werden"
 
 #, fuzzy
-msgid "What is the time limit for this %s to be filled?"
-msgstr "Bis wann kann dieses Formular ausgefüllt werden?"
-
-#, fuzzy
 msgid "This field will be added automatically to your survey"
 msgstr "Dieses Feld wird automatisch zu Ihrem Formular hinzugefügt werden"
 
 #, fuzzy
 msgid "Multiline text"
 msgstr "Einzeiliger Text"
+
+#, fuzzy
+msgid "What is the time limit for this %s to be filled?"
+msgstr "Bis wann kann dieses Formular ausgefüllt werden?"
 
 #, fuzzy
 msgid "Manage queries"
@@ -188,34 +188,15 @@ msgstr ""
 msgid "New Survey"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../lib/custom_forms_plugin/form.rb:46
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
-#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
-#: ../views/shared/_form.html.erb:6
-msgid "Name"
-msgstr "Name"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr "E-Mail"
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
-msgid "City"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:29
+#: ../lib/custom_forms_plugin/csv_handler.rb:25
 msgid "Timestamp"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:39
+#: ../lib/custom_forms_plugin/csv_handler.rb:36
 msgid " or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:40
+#: ../lib/custom_forms_plugin/csv_handler.rb:37
 msgid ", or "
 msgstr ""
 
@@ -264,6 +245,14 @@ msgstr ""
 msgid "%{value} is not a valid kind."
 msgstr ""
 
+#: ../lib/custom_forms_plugin/form.rb:46
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
+#: ../views/shared/_form.html.erb:6
+msgid "Name"
+msgstr "Name"
+
 #: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
 msgstr ""
@@ -277,31 +266,31 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:122
+#: ../lib/custom_forms_plugin/form.rb:127
 msgid "This query has no ending date"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:127
+#: ../lib/custom_forms_plugin/form.rb:132
 msgid "Ends today"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:131
+#: ../lib/custom_forms_plugin/form.rb:136
 msgid "Ends tomorow"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:135
+#: ../lib/custom_forms_plugin/form.rb:140
 msgid "Already closed"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:138
+#: ../lib/custom_forms_plugin/form.rb:143
 msgid "%s days left"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:179
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "The time range selected is invalid."
 msgstr "Die ausgewählte Zeitspanne ist ungültig."
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:194
 msgid "can't be less than 2"
 msgstr ""
 
@@ -421,6 +410,12 @@ msgid "%s submission"
 msgid_plural "%s submissions"
 msgstr[0] "Beiträge"
 
+#: ../views/blocks/poll/_list_item.html.erb:35
+#: ../views/blocks/survey/_list_item.html.erb:30
+#: ../views/custom_forms_plugin_profile/show.html.erb:22
+msgid "See partial results"
+msgstr ""
+
 #: ../views/blocks/poll/_results.html.erb:11
 msgid "See results"
 msgstr ""
@@ -432,11 +427,6 @@ msgstr "Es gibt keine Unterbeiträge für dieses Formular."
 
 #: ../views/blocks/poll/_results.html.erb:23
 msgid "This poll is closed."
-msgstr ""
-
-#: ../views/blocks/poll/_submission.html.erb:14
-#: ../views/blocks/survey/_list_item.html.erb:30
-msgid "See partial results"
 msgstr ""
 
 #: ../views/blocks/survey/_list_item.html.erb:30
@@ -455,11 +445,15 @@ msgstr ""
 msgid "Export one file with several queries at once."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:12
+#: ../views/custom_forms_plugin_admin/index.html.erb:14
+msgid "Select the user fields to be included in the submissions report"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:18
+#: ../views/custom_forms_plugin_admin/index.html.erb:23
 msgid "Filter profiles by name"
 msgstr ""
 
@@ -469,16 +463,16 @@ msgid "%s form"
 msgid_plural "%s forms"
 msgstr[0] "Formular editieren"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:42
-msgid "Deselect all"
-msgstr ""
-
 #: ../views/custom_forms_plugin_admin/index.html.erb:45
 #, fuzzy
 msgid "Select all"
 msgstr "Feld auswählen"
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:50
+#: ../views/custom_forms_plugin_admin/index.html.erb:47
+msgid "Deselect all"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:55
 msgid "Generate CSV"
 msgstr ""
 
@@ -488,7 +482,6 @@ msgstr "Pflichtangabe"
 
 #: ../views/custom_forms_plugin_myprofile/_field.html.erb:15
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:46
-#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:63
 msgid "Remove field"
 msgstr "Feld entfernen"
 
@@ -589,6 +582,11 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:56
 msgid "Add option"
 msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
+msgstr "E-Mail"
 
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:33
 msgid "Add a new text field"
@@ -721,18 +719,18 @@ msgid "Time"
 msgstr "Zeit"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
-msgid "Sort by"
-msgstr "Sortieren nach"
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
 #: ../views/custom_forms_plugin_profile/_text.html.erb:8
 msgid "User"
 msgstr "Nutzer"
 
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
+msgid "Sort by"
+msgstr "Sortieren nach"
+
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:44
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:47
 msgid "Back to forms"
 msgstr "Zurück zu den Formularen"
 
@@ -805,11 +803,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
+msgid "Partial results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Partial results"
+msgid "Final results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
@@ -830,7 +828,11 @@ msgstr ""
 msgid "%s's queries"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:28
+#: ../views/custom_forms_plugin_profile/review.html.erb:15
+msgid "Jump to question"
+msgstr ""
+
+#: ../views/custom_forms_plugin_profile/review.html.erb:31
 msgid "There is no answers for this question"
 msgstr ""
 
@@ -838,12 +840,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:24
+#: ../views/custom_forms_plugin_profile/show.html.erb:31
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr "Entschuldigung, Sie können dieses Formular momentan nicht ausfüllen"
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:26
+#: ../views/custom_forms_plugin_profile/show.html.erb:33
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr "Entschuldigung, Sie können dieses Formular nicht mehr ausfüllen"
@@ -872,7 +874,7 @@ msgstr ""
 msgid "Your e-mail will be visible to this form's owners."
 msgstr "Ihre E-Mail-Adresse wird für den Besitzer des Formulars sichtbar sein."
 
-#: ../views/shared/_form_submission.html.erb:9
+#: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr ""
 

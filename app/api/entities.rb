@@ -14,7 +14,8 @@ module Api
       permissions.merge!(permission_options)
       field = permissions[:field]
       permission = permissions[:permission]
-      return true if profile.public? && profile.public_fields.map{|f| f.to_sym}.include?(field.to_sym)
+      return true if profile.display_to? &&
+                     profile.public_fields.map{|f| f.to_sym}.include?(field.to_sym)
 
       current_person = options[:current_person]
 
@@ -185,7 +186,7 @@ module Api
 
     class Community < Profile
       expose :description
-      expose :admins, :if => lambda { |community, options| Entities.expose_optional_field?(:admins, options) && (community.display_info_to? options[:current_person])} do |community, options|
+      expose :admins, :if => lambda { |community, options| Entities.expose_optional_field?(:admins, options) && community.display_to?(options[:current_person])} do |community, options|
         community.admins.map{|admin| {"name"=>admin.name, "id"=>admin.id, "username" => admin.identifier}}
       end
       expose :categories, :using => Category, :if => lambda {|community, options| Entities.expose_optional_field?(:categories, options)}
@@ -271,7 +272,7 @@ module Api
         expose attribute, :as => name, :if => lambda{|user,options| Entities.can_display_profile_field?(user.person, options, {:field =>  attribute})}
       end
 
-      expose :person, :using => Person, :if => lambda{|user,options| user.person.display_info_to? options[:current_person]}
+      expose :person, :using => Person, :if => lambda{|user,options| user.person.display_to? options[:current_person]}
       expose :permissions, :if => lambda{|user,options| Entities.can_display_profile_field?(user.person, options, {:field => :permissions, :permission => :self})} do |user, options|
         output = {}
         user.person.role_assignments.map do |role_assigment|

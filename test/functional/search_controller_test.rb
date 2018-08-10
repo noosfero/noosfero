@@ -143,6 +143,26 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:searches)[:enterprises][:results].size
   end
 
+  should 'return pagination links with filters' do
+    Enterprise.destroy_all
+    @controller.expects(:limit).returns(2).at_least_once
+    ent1 = create_profile_with_optional_category(Enterprise, 'teste 1')
+    ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
+    ent3 = create_profile_with_optional_category(Enterprise, 'teste 3')
+
+    get :enterprises, :page => '1', :order => 'more_active'
+
+    assert_equal 2, assigns(:searches)[:enterprises][:results].size
+    assert_tag :tag => 'a', :attributes => { :rel => 'next',
+                 :href => '/search/enterprises?order=more_active&amp;page=2'}
+
+    get :enterprises, :page => '2', :order => 'more_active'
+
+    assert_equal 1, assigns(:searches)[:enterprises][:results].size
+    assert_tag :tag => 'a', :attributes => {
+                 :href => '/search/enterprises?order=more_active&amp;page=1'}
+  end
+
   should 'display a given category' do
     get :category_index, :category_path => [ 'my-category' ]
     assert_equal @category, assigns(:category)
@@ -244,8 +264,12 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'return events of today when no date specified' do
     person = create_user('someone').person
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => DateTime.now)
-    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => DateTime.now - 2.month)
+    ev1 = create_event(person, :name => 'event 1',
+                       :category_ids => [@category.id],
+                       :start_date => DateTime.now)
+    ev2 = create_event(person, :name => 'event 2',
+                       :category_ids => [@category.id],
+                       :start_date => DateTime.now - 2.month)
 
     get :events
 
@@ -430,16 +454,6 @@ class SearchControllerTest < ActionController::TestCase
     create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     get :communities, :order => 'more_active'
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
-  end
-
-  should "only admin can view invisible people" do
-    # assuming that all filters behave the same!
-    p1 = fast_create(Person, :visible => false)
-    admin = create_user('admin').person;
-    Environment.default.add_admin admin
-    login_as("admin")
-    get :people, :order => 'more_recent'
-    assert_includes assigns(:searches)[:people][:results], p1
   end
 
   should "only include visible people in more_recent filter" do

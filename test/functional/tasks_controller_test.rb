@@ -203,22 +203,6 @@ class TasksControllerTest < ActionController::TestCase
     assert_equal profile, assigns(:ticket).requestor
   end
 
-  should 'list tasks that this profile created' do
-    task = Ticket.create!(:name => 'test', :requestor => profile)
-    get :list_requested, :profile => profile.identifier
-
-    assert_includes assigns(:tasks), task
-  end
-
-  should 'list tasks that this profile created without spam' do
-    task_spam = Ticket.create!(:name => 'test', :requestor => profile, :spam => true)
-    task_ham = Ticket.create!(:name => 'test', :requestor => profile, :spam => false)
-    get :list_requested, :profile => profile.identifier
-
-    assert_includes assigns(:tasks), task_ham
-    assert_not_includes assigns(:tasks), task_spam
-  end
-
   should 'set target of ticket when creating it' do
      f = create_user('friend').person
      profile.add_friend f
@@ -624,7 +608,7 @@ class TasksControllerTest < ActionController::TestCase
     Task.create!(:requestor => person, :target => community)
     get :index
 
-    assert_select '.task-actions', 2
+    assert_select '.task-actions', 1
   end
 
   should 'hide decision selector when user has only view_tasks permission' do
@@ -636,11 +620,10 @@ class TasksControllerTest < ActionController::TestCase
     Task.create!(:requestor => person, :target => community)
     get :index
 
-    assert_select '#up-set-all-tasks-to', 0
-    assert_select '#down-set-all-tasks-to', 0
+    assert_select '#set-all-tasks-to', 0
   end
 
-  should 'display accept all tasks button when user has perform_task permission' do
+  should 'display decision selector when user has perform_task permission' do
     community = fast_create(Community)
     @controller.stubs(:profile).returns(community)
     person = create_user_with_permission('taskperformer', 'perform_task', community)
@@ -649,7 +632,7 @@ class TasksControllerTest < ActionController::TestCase
     Task.create!(:requestor => person, :target => community)
     get :index
 
-    assert_select '#save-all-tasks'
+    assert_select '#set-all-tasks-to'
   end
 
   should 'hide decision buttons when user has only view_tasks permission' do

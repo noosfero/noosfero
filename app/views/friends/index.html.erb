@@ -15,7 +15,7 @@
   <%= button_bar do %>
     <%= button(:search, _('Find people'), controller: 'search', action: 'assets', asset: 'people') %>
     <% unless @plugins.dispatch(:remove_invite_friends_button).include?(true) %>
-      <%= button(:'user-plus', _('Invite people'), controller: 'invite', action: 'invite_friends') %>
+      <%= button(:add_user, _('Invite people'), controller: 'invite', action: 'invite_friends') %>
     <% end %>
   <% end %>
 

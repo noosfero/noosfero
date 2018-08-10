@@ -70,10 +70,10 @@ class GalleryTest < ActiveSupport::TestCase
     c = fast_create(Community)
     gallery = fast_create(Gallery, :profile_id => c.id)
     f = fast_create(Gallery, :name => 'gallery', :profile_id => c.id, :parent_id => gallery.id)
-    u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
-    older_t = fast_create(TextArticle, :name => 'old news', :profile_id => c.id, :parent_id => gallery.id)
-    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id)
-    t_in_f = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id)
+    u = create(UploadedFile, :profile => c, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :published_at => 3.days.ago)
+    older_t = fast_create(TextArticle, :name => 'old news', :profile_id => c.id, :parent_id => gallery.id, :published_at => 2.days.ago)
+    t = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => gallery.id, :published_at => Time.now)
+    t_in_f = fast_create(TextArticle, :name => 'news', :profile_id => c.id, :parent_id => f.id, :published_at => Time.now)
 
     assert_equal [t], gallery.news(1)
   end

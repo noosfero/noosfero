@@ -37,7 +37,7 @@ Feature: approve article
     And I follow "Sample Article"
     Then I should see "This is an article edited"
 
-  @selenium
+  @selenium-fixme
   Scenario: reject an article with explanation
     Given I am logged in as "mariasilva"
     And I go to mariasilva's cms
@@ -49,14 +49,14 @@ Feature: approve article
     And I am logged in as "joaosilva"
     And I go to sample-community's control panel
     And I follow "Tasks"
-    And I follow "Reject"
+    And I choose "Reject"
     And I fill in "tasks_1_task_reject_explanation" with "Rejected"
-    And I follow "Reject"
+    And I follow "Save tasks"
     When I go to sample-community's sitemap
     Then I should not see "Sample Article"
 
   #FIXME this test is possibly failing because of this issue https://gitlab.com/pedrodelyra/noosfero/issues/2
-  @selenium
+  @selenium-fixme
   Scenario: reject an article that was removed
     Given I am logged in as "mariasilva"
     And I follow "Dub Wars"
@@ -72,8 +72,8 @@ Feature: approve article
     And I am logged in as "joaosilva"
     And I go to sample-community's control panel
     And I follow "Tasks"
-    And I follow "Reject"
+    And I choose "Reject"
     And I fill in "tasks_1_task_reject_explanation" with "Article was removed."
-    And I follow "Reject"
+    And I follow "Save tasks"
     Then I should see "No pending tasks"
     And I should not see "You have a nil object when you didn't expect it"

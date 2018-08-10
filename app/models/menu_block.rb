@@ -59,11 +59,7 @@ class MenuBlock < Block
   end
 
   def display_activities?(user)
-    AccessLevels.can_access?(access_level, user, owner)
-  end
-
-  def access_level
-    owner.person? ? AccessLevels.levels[:users] : AccessLevels.levels[:visitors]
+    owner.display_to?(user, :menu_block)
   end
 
   def display_about?(user)

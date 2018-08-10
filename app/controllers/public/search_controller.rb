@@ -66,7 +66,7 @@ class SearchController < PublicController
   end
 
   def articles
-    @scope = @environment.articles.is_public
+    @scope = @environment.articles.accessible_to(user)
     full_text_search
   end
 
@@ -238,9 +238,13 @@ class SearchController < PublicController
   end
 
   def full_text_search
-    @searches[@asset] = find_by_contents(@asset, environment, @scope, @query, paginate_options,
-      {:category => @category, :tag => @tag, :filter => @order, :template_id => params[:template_id],
-       :facets => params[:facets], :periods => params[:periods]})
+    options = {:category => @category, :tag => @tag, :order => @order,
+               :display => params[:display], :template_id => params[:template_id],
+               :facets => params[:facets], :periods => params[:periods]}
+
+    @filters = load_filters options
+    @searches[@asset] = find_by_contents(@asset, environment, @scope, @query,
+                          paginate_options, options)
   end
 
   private
@@ -248,11 +252,7 @@ class SearchController < PublicController
   def visible_profiles(klass, *extra_relations)
     relations = [:image, :domains, :environment, :preferred_domain]
     relations += extra_relations
-    if current_user && current_user.person.is_admin?
-      @environment.send(klass.name.underscore.pluralize).includes(relations)
-    else
-      @environment.send(klass.name.underscore.pluralize).visible.includes(relations)
-    end
+    @environment.send(klass.name.underscore.pluralize).accessible_to(user).visible.includes(relations)
   end
 
   def per_page
@@ -281,5 +281,4 @@ class SearchController < PublicController
       @events = environment.events.by_month(@date)
     end
   end
-
 end

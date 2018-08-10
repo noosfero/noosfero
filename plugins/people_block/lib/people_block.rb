@@ -12,7 +12,8 @@ class PeopleBlock < PeopleBlockBase
     _('{#} People')
   end
 
-  def profiles
-    owner.people.no_templates.order('RANDOM()')
+  def profiles(user=nil)
+    profiles = super
+    profiles.activated.order('RANDOM()')
   end
 end

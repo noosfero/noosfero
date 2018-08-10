@@ -13,14 +13,13 @@ class UserRegistersAtTheApplicationTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
-    assert_response :success
+    assert_response :redirect
 
-    assert_tag :tag => 'a', :attributes => { :href => "#" }
+    assert_tag :tag => 'a', :content => 'redirected'
   end
 
   def test_trying_an_existing_login_name
     env = Environment.default
-    env.min_signup_delay = 0
     env.save!
 
     assert User.find_by(login: 'ze') # just to make sure that 'ze' already exists

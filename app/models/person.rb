@@ -58,19 +58,6 @@ class Person < Profile
     distinct.select('profiles.*').where('"profiles"."id" NOT IN (SELECT DISTINCT profiles.id FROM "profiles" INNER JOIN "friendships" ON "friendships"."person_id" = "profiles"."id" WHERE "friendships"."friend_id" IN (%s))' % resources.map(&:id))
   }
 
-  scope :visible_for_person, lambda { |person|
-    joins('LEFT JOIN "role_assignments" ON
-          "role_assignments"."resource_id" = "profiles"."environment_id" AND
-          "role_assignments"."resource_type" = \'Environment\'')
-    .joins('LEFT JOIN "roles" ON "role_assignments"."role_id" = "roles"."id"')
-    .joins('LEFT JOIN "friendships" ON "friendships"."friend_id" = "profiles"."id"')
-    .where(
-      ['( roles.key = ? AND role_assignments.accessor_type = ? AND role_assignments.accessor_id = ? ) OR (
-        ( ( friendships.person_id = ? ) OR (profiles.public_profile = ?)) AND (profiles.visible = ?) )',
-         'environment_administrator', Profile.name, person.id, person.id,  true, true]
-    ).uniq
-  }
-
   def has_permission_with_admin?(permission, resource)
     return true if resource.blank? || resource.admins.include?(self)
     return true if resource.kind_of?(Profile) && resource.environment.admins.include?(self)
@@ -284,35 +271,11 @@ class Person < Profile
 
   validates_multiparameter_assignments
 
+  validate :presence_of_required_fields, :unless => :is_template
+  validate :phone_format_is_valid, unless: :is_template
+
   def self.fields
     FIELDS
-  end
-
-  validate :presence_of_required_fields, :unless => :is_template
-
-  # Special cases for presence_of_required_fields. You can set:
-  # - cond: to be executed rather than checking if the field is blank
-  # - unless: an exception for when the field is not present
-  # - to_fields: map the errors to these fields rather than `field`
-  REQUIRED_FIELDS_EXCEPTIONS = {
-    custom_area_of_study: { unless: Proc.new{|p| p.area_of_study != 'Others' } },
-    custom_formation: { unless: Proc.new{|p| p.formation != 'Others' } },
-    location: { cond: Proc.new{|p| p.lat.nil? || p.lng.nil? }, to_fields: [:lat, :lng] }
-  }
-
-  def presence_of_required_fields
-    self.required_fields.each do |field|
-      opts = REQUIRED_FIELDS_EXCEPTIONS[field.to_sym] || {}
-      if (opts[:cond] ? opts[:cond].call(self) : self.send(field).blank?)
-        unless opts[:unless].try(:call, self)
-          fields = opts[:to_fields] || field
-          fields = fields.kind_of?(Array) ? fields : [fields]
-          fields.each do |to_field|
-            self.errors.add_on_blank(to_field)
-          end
-        end
-      end
-    end
   end
 
   before_save do |person|
@@ -440,14 +403,6 @@ class Person < Profile
   def email_addresses
     # TODO for now, only one e-mail address
     ['%s@%s' % [self.identifier, self.email_domain] ]
-  end
-
-  def display_private_info_to?(user)
-    if friends.include?(user)
-      true
-    else
-      super
-    end
   end
 
   def default_template
@@ -671,5 +626,58 @@ class Person < Profile
 
   def pending_tasks
     Task.to(self).pending
+  end
+
+  def display_private_info_to?(person)
+    super || (is_a_friend?(person) && display_to?(person))
+  end
+
+  def self.get_field_origin field
+    if Person.column_names.include? field
+      'self'
+    elsif User.column_names.include? field
+      'user'
+    else
+      'data'
+    end
+  end
+
+  private
+
+  # Special cases for presence_of_required_fields. You can set:
+  # - cond: to be executed rather than checking if the field is blank
+  # - unless: an exception for when the field is not present
+  # - to_fields: map the errors to these fields rather than `field`
+  REQUIRED_FIELDS_EXCEPTIONS = {
+    custom_area_of_study: { unless: Proc.new{|p| p.area_of_study != 'Others' } },
+    custom_formation: { unless: Proc.new{|p| p.formation != 'Others' } },
+    location: { cond: Proc.new{|p| p.lat.nil? || p.lng.nil? }, to_fields: [:lat, :lng] }
+  }
+
+  def presence_of_required_fields
+    self.required_fields.each do |field|
+      opts = REQUIRED_FIELDS_EXCEPTIONS[field.to_sym] || {}
+      if (opts[:cond] ? opts[:cond].call(self) : self.send(field).blank?)
+        unless opts[:unless].try(:call, self)
+          fields = opts[:to_fields] || field
+          fields = fields.kind_of?(Array) ? fields : [fields]
+          fields.each do |to_field|
+            self.errors.add_on_blank(to_field)
+          end
+        end
+      end
+    end
+  end
+
+  PHONE_FIELDS = %i(cell_phone comercial_phone contact_phone)
+  PHONE_FORMAT = /^\d{5,15}$/
+
+  def phone_format_is_valid
+    PHONE_FIELDS.each do |field|
+      if self.send(field).present? && self.send(field) !~ PHONE_FORMAT
+        self.errors.add(field, _('is not valid. Check the digits and '\
+                                 'make sure to use only numbers.'))
+      end
+    end
   end
 end

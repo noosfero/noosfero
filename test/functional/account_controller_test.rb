@@ -10,8 +10,6 @@ class AccountControllerTest < ActionController::TestCase
 
   def setup
     @controller = AccountController.new
-
-    disable_signup_bot_check
   end
 
   def test_should_login_and_redirect
@@ -559,7 +557,6 @@ class AccountControllerTest < ActionController::TestCase
     template.boxes[0].blocks << Block.new
     template.save!
     env = fast_create(Environment, :name => 'test_env')
-    disable_signup_bot_check(env)
     env.settings[:person_template_id] = template.id
     env.save!
 
@@ -719,9 +716,9 @@ class AccountControllerTest < ActionController::TestCase
     assert_redirected_to action: :login
   end
 
-  should 'respond with 404 when activation token is not sent' do
+  should 'redirect to login when activation token is not sent' do
     get :activate, activation_token: nil
-    assert_response 404
+    assert_redirected_to action: :login
   end
 
   should 'activate user when activation code is present and correct' do
@@ -1016,30 +1013,6 @@ class AccountControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'home', :action => 'welcome'
   end
 
-  should 'put ip in black list after 3 spam check failures' do
-    environment = Environment.default
-    environment.min_signup_delay = 1
-    environment.save!
-    ip_address = '0.0.0.0'
-    Environment.any_instance.expects(:add_to_signup_blacklist).with(ip_address)
-
-    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
-    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
-    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
-    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
-  end
-
-  should 'return empty page on registration if ip on temporary signup blacklist' do
-    environment = Environment.default
-    ip_address = '0.0.0.0'
-    environment.add_to_signup_blacklist(ip_address)
-
-    post :signup
-
-    assert @response.body.blank?
-    assert_response 200
-  end
-
   protected
 
   def new_user(options = {}, extra_options ={})
@@ -1063,11 +1036,6 @@ class AccountControllerTest < ActionController::TestCase
 
   def cookie_for(user)
     auth_token users(user).remember_token
-  end
-
-  def disable_signup_bot_check(environment = Environment.default)
-    environment.min_signup_delay = 0
-    environment.save!
   end
 
   def create_state_and_city
@@ -1109,7 +1077,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'render 404 if activation token is not sent when requesting new codes' do
     get :resend_activation_codes
-    assert_response 404
+    assert_redirected_to action: :login
   end
 
   should 'redirect to login if user was activated when requesting new codes' do

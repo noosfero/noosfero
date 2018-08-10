@@ -56,9 +56,4 @@ class VideoPlugin::VideoGallery < Folder
   def self.icon_name(article = nil)
     'Video gallery'
   end
-
-  def news(limit = 30, highlight = false)
-    profile.recent_documents(limit, ["articles.type != ? AND articles.highlighted = ? AND articles.parent_id = ?", 'Folder', highlight, id])
-  end
-
 end

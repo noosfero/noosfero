@@ -5,10 +5,11 @@
 <div id="article" class="<%= @page.css_class_name %>">
 
   <div id="article-actions">
-    <%= button(:clock, _('All versions'), {:controller => 'content_viewer', :profile => profile.identifier, :action => 'article_versions'}, :id => 'article-versions-link') %>
+    <%= button(:clock, _('All versions'), {:controller => 'content_viewer',
+          :profile => profile.identifier, :action => 'article_versions'}, :id => 'article-versions-link') %>
 
     <% if @page.allow_edit?(user) && !remove_content_button(:undo, @page) %>
-      <% content = content_tag('span', _('Revert to this version')) %>
+      <% content = font_awesome(:undo, _('Revert to this version')) %>
       <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id, :version => @version }) %>
       <%= expirable_button @page, :undo, content, url, :id => 'article-revert-version-link' %>
     <% end %>
@@ -17,7 +18,8 @@
 </div>
   <div id="article-header">
     <h1 class='title'><%= @versioned_article.name %></h1>
-    <%= _("Version %{version} - %{author} on %{date}") % {:version => @version, :author => @page.author_name(@version), :date => show_time(@versioned_article.updated_at) } %>
+    <%= _("Version %{version} - %{author} on %{date}") % {:version => @version,
+          :author => @page.author_name(@version), :date => show_time(@versioned_article.updated_at) } %>
   </div>
 
   <p id="no-current-version">
@@ -33,7 +35,8 @@
     <div id='article-sub-header'>
       <% if version_license.present? %>
         <div id="article-license">
-          <%= _('Licensed under %s').html_safe % (version_license.url.present? ? link_to(version_license.name, version_license.url, :target => '_blank') : version_license.name) %>
+            <%= _('Licensed under %s').html_safe % (version_license.url.present? ?
+                  link_to(version_license.name, version_license.url, :target => '_blank') : version_license.name) %>
         </div>
       <% end %>
     </div>

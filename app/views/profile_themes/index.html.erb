@@ -14,21 +14,17 @@
           selected = theme.id == @current_theme
           sel_html = selected ?
             content_tag('big', _('(current)') ) :
-            link_to(_('Use this theme'), :action => 'set', :id => theme.id)
+            button(:ok, _('Use this theme'), :action => 'set', :id => theme.id)
 
-          content_tag( 'div',
-            image_tag(
-              '/images/icons-app/design-editor.png',
-              :alt => (_('The "%s" theme.') % theme.name)) +
-            '<div class="opt-info">' +
-              content_tag('strong', theme.name, :class => 'name') +
-              ' <br/> '+ sel_html +' <br/> ' +
-              link_to(_('Edit this theme'), :action => 'edit', :id => theme.id) +
-              ' <br/> ' +
-              link_to(_('Test this theme'), :action => 'start_test', :id => theme.id) +
-            '</div>',
-            :class => 'theme-opt list-opt' + (selected ? ' selected' : '')
-          )
+          image = image_tag('/images/icons-app/design-editor.png', :alt => (_('The "%s" theme.') % theme.name))
+          theme_name = content_tag('strong', theme.name, :class => 'name')
+          use_link = sel_html
+          edit_link = button(:edit, _('Edit this theme'), :action => 'edit', :id => theme.id)
+          test_link = button(:eye, _('Test this theme'), :action => 'start_test', :id => theme.id)
+          links_container = content_tag(:div, use_link + edit_link + test_link)
+          content = image + theme_name + links_container
+
+          content_tag(:div, content, :class => 'theme-opt list-opt' + (selected ? ' selected' : ''))
 
         end
       %><% end %>

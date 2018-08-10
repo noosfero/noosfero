@@ -30,8 +30,10 @@
         <div class='comment-recaptcha'></div>
       <% end %>
         <div class="comment-buttons">
-          <%= f.submit _('Send'), :class => 'button with-text', :id => 'submit_form_button' %>
-          <a class="button with-text cancel-button" id="cancel-comment"><%= _("Cancel") %></a>
+          <%= button_bar do %>
+            <%= submit_button :comment, _('Send'), :id => 'submit_form_button' %>
+            <%= modal_close_button _('Cancel'), :id => 'cancel-comment' %>
+          <% end %>
         </div>
     </div>
   </div>

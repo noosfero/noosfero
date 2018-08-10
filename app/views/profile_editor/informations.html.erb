@@ -28,10 +28,10 @@
 
   <%= button_bar do %>
     <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
-    <%= submit_button('save', _('Save')) %>
+    <%= submit_button(:save, _('Save')) %>
   <% end %>
 
-  <a id="advanced_options_button" class="button with-text icon-ban" href="#advanced_options"><%= _('Advanced Options') %></a>
+  <%= button :alert, _('Advanced Options'), '#advanced_options', :id => 'advanced_options_button' %>
   <div id="advanced_options">
     <%= button_bar do %>
       <% if user && user.has_permission?('destroy_profile', profile) %>
@@ -42,7 +42,7 @@
                        { action: :deactivate_profile, id: profile.id },
                        id: 'deactivate_profile_button', data: { confirm: _("Are you sure you want to deactivate this profile?") }) %>
           <% else %>
-            <%= button(:'toggle-on',
+            <%= button(:'ok',
                        _('Activate profile'),
                        { action: :activate_profile, id: profile.id },
                        data: { confirm: _("Are you sure you want to activate this profile?") }) %>

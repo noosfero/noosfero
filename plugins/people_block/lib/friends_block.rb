@@ -13,8 +13,13 @@ class FriendsBlock < PeopleBlockBase
     n_('{#} friend', '{#} friends', profile_count)
   end
 
-  def profiles
-    owner.friends.no_templates.order('RANDOM()')
+  def base_profiles
+    owner.friends
+  end
+
+  def profiles(user=nil)
+    profiles = super
+    profiles.order('RANDOM()')
   end
 
   def suggestions

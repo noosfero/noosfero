@@ -6,8 +6,8 @@
 
   <%= captcha_tags(:report_abuse, user, environment, profile) %>
 
-  <%= submit_button(:send, _('Report profile'), :style => 'float: left; cursor: pointer;', :id => 'report-abuse-submit-button', :onclick => "jQuery('#form-submit-loading').show()") %>
-  <%= button(:cancel, _('Cancel'), {}, :style => 'float: left; padding-top: 0px; padding-bottom: 0px;', :onclick => 'noosfero.modal.close(); return false;')%>
+  <%= submit_button(:alert, _('Report profile'), :id => 'report-abuse-submit-button', :onclick => "jQuery('#form-submit-loading').show()") %>
+  <%= button(:cancel, _('Cancel'), {}, :onclick => 'noosfero.modal.close(); return false;')%>
   <div id="form-submit-loading" class="small-loading" style="width: 16px; height: 16px; margin-top: 3px; float: left; display: none;"></div>
 <% end %>
 

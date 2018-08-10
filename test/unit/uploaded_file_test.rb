@@ -261,10 +261,10 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_nil ActionTracker::Record.where(verb: "upload_image").last
   end
 
-  should 'not track action when is not published' do
+  should 'not track action when is not public' do
     ActionTracker::Record.delete_all
     p = fast_create(Gallery, :profile_id => @profile.id)
-    f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile, :published => false)
+    f = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile, :access => Entitlement::Levels.levels[:self])
     assert_nil ActionTracker::Record.where(verb: "upload_image").last
   end
 
@@ -371,17 +371,17 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'add file to dbm if it becomes private' do
     require 'sdbm'
-    public_file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true)
-    private_file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile, :published => false)
+    public_file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile)
+    private_file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile, :access => Entitlement::Levels.levels[:self])
 
     dbm = SDBM.open(UploadedFile::DBM_PRIVATE_FILE)
     assert !dbm.has_key?(public_file.public_filename)
     assert dbm.has_key?(private_file.public_filename)
     dbm.close
 
-    public_file.published = false
+    public_file.access = Entitlement::Levels.levels[:self]
     public_file.save!
-    private_file.published = true
+    private_file.access = Entitlement::Levels.levels[:visitors]
     private_file.save!
 
     dbm = SDBM.open(UploadedFile::DBM_PRIVATE_FILE)
@@ -430,15 +430,18 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'update the disk usage of the profile when a file is created' do
     file1 = UploadedFile.create!(profile: profile, uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'))
+    profile.reload
     assert_equal file1.size, profile.metadata['disk_usage']
 
     file2 = UploadedFile.create!(profile: profile, uploaded_data: fixture_file_upload('/files/test.txt', 'text/plain'))
+    profile.reload
     assert_equal (file1.size + file2.size), profile.metadata['disk_usage']
   end
 
   should 'update the disk usage of the profile when a file is destroyed' do
     file1 = UploadedFile.create!(profile: profile, uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'))
     file2 = UploadedFile.create!(profile: profile, uploaded_data: fixture_file_upload('/files/test.txt', 'text/plain'))
+    profile.reload
     assert_equal (file1.size + file2.size), profile.metadata['disk_usage']
 
     file1.destroy

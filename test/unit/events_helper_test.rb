@@ -34,7 +34,7 @@ class EventsHelperTest < ActionView::TestCase
   should 'hide private events from guests' do
     user = create_user('userwithevents').person
     stubs(:user).returns(nil)
-    event = fast_create(Event, :profile_id => user.id, :published => false)
+    event = fast_create(Event, :profile_id => user.id, :access => Entitlement::Levels.levels[:self])
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, false, true]
@@ -43,7 +43,9 @@ class EventsHelperTest < ActionView::TestCase
   should 'hide events from invisible profiles from guests' do
     user = create_user('usernonvisible', {}, {:visible => false}).person
     stubs(:user).returns(nil)
-    event = fast_create(Event, :profile_id => user.id)
+    event = fast_create(Event, :profile_id => user.id,
+                        :published => true,
+                        :access => 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, false, true]
@@ -52,7 +54,9 @@ class EventsHelperTest < ActionView::TestCase
   should 'hide events from private profiles from guests' do
     user = create_user('usernonvisible', {}, {:visible => false}).person
     stubs(:user).returns(nil)
-    event = fast_create(Event, :profile_id => user.id)
+    event = fast_create(Event, :profile_id => user.id,
+                        :published => true,
+                        :access => 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, false, true]
@@ -61,7 +65,9 @@ class EventsHelperTest < ActionView::TestCase
   should 'show private events to owner' do
     user = create_user('userwithevents').person
     stubs(:user).returns(user)
-    event = fast_create(Event, :profile_id => user.id, :published => false)
+    event = fast_create(Event, :profile_id => user.id,
+                        :published => true,
+                        :access => 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, true, true]
@@ -70,7 +76,9 @@ class EventsHelperTest < ActionView::TestCase
   should 'show events from invisible profiles to owner' do
     user = create_user('usernonvisible', {}, {:visible => false}).person
     stubs(:user).returns(user)
-    event = fast_create(Event, :profile_id => user.id)
+    event = fast_create(Event, :profile_id => user.id,
+                        :published => true,
+                        :access => 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, true, true]
@@ -79,7 +87,9 @@ class EventsHelperTest < ActionView::TestCase
   should 'show events from private profiles to owner' do
     user = create_user('usernonvisible', {}, {:visible => false}).person
     stubs(:user).returns(user)
-    event = fast_create(Event, :profile_id => user.id)
+    event = fast_create(Event, :profile_id => user.id,
+                        :published => true,
+                        :access => 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, true, true]

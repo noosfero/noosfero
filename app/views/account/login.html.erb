@@ -21,9 +21,9 @@
   <%= safe_join(@plugins.dispatch(:login_extra_contents).collect { |content| instance_exec(&content) }, "") %>
 
   <%= button_bar do %>
-    <%= submit_button( 'login', _('Log in') )%>
+    <%= submit_button( :login, _('Log in') )%>
     <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
-      <%= button :add, _("New user"), :controller => 'account', :action => 'signup' %>
+      <%= button :add_user, _("New user"), :controller => 'account', :action => 'signup' %>
     <% end %>
   <% end %>
   <p class="forgot-passwd">

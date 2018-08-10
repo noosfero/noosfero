@@ -12,6 +12,7 @@ module EventsHelper
       title = _('Events for %s') % show_month(date.year, date.month)
     end
 
+    # TODO Use accessible_to here.
     user_events = events.select { |item| item.display_to?(user) }
     events_for_month = safe_join(user_events.map {|item| display_event_in_listing(item)}, '')
     content_tag('h2', title) +
@@ -35,6 +36,7 @@ module EventsHelper
 
   def populate_calendar(selected_date, events)
     selected_date = selected_date.to_date
+    # TODO Use accessible_to here.
     events = events.reject{ |event| !event.display_to? user }
     calendar = Event.date_range(selected_date.year, selected_date.month).map do |date|
       [
@@ -74,13 +76,13 @@ module EventsHelper
   def invite_decision_icon invitation
     case invitation.decision
       when EventInvitation::DECISIONS['yes']
-        font_awesome(:check)
+        font_awesome(:ok)
       when EventInvitation::DECISIONS['no']
-        font_awesome(:times)
+        font_awesome(:cancel)
       when EventInvitation::DECISIONS['maybe']
         font_awesome(:star)
       else
-        font_awesome(:envelope)
+        font_awesome(:email)
     end
   end
 

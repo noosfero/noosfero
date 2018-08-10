@@ -39,7 +39,8 @@
     <%= render :partial => 'shared/profile_kinds', :locals => {:form_field => 'create_enterprise'} %>
 
     <%= button_bar do %>
-      <%= submit_button('next', _('Next'), :cancel => {:profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile"}) %>
+      <%= submit_button(:next, _('Next'), :cancel => {:profile => current_user.person.identifier,
+            :action=>"enterprises", :controller=>"profile"}) %>
     <% end %>
   <% end %>
 <% end %>

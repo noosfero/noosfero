@@ -1,3 +1,4 @@
+var show_custom_privacy_option = false
 jQuery(document).ready(function(){
   jQuery('.slider').each(function(index, s) {
     var s = jQuery(s);
@@ -14,7 +15,16 @@ jQuery(document).ready(function(){
       step: 1,
       value: input.val(),
       range: range,
-      change: function(event, ui) { input.val(ui.value) }
+      change: function(event, ui) {
+        input.val(ui.value)
+        if (ui.value == keys['self']) {
+          show_custom_privacy_option = true
+        }
+        else {
+          show_custom_privacy_option = false
+        }
+          jQuery('#post-access').val(ui.value).trigger('change')
+      }
     }).each(function() {
 
       var opt = jQuery(this).data()['ui-slider'].options;
@@ -26,4 +36,5 @@ jQuery(document).ready(function(){
       });
     });
   });
+
 });

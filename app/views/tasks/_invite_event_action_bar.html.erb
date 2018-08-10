@@ -1,15 +1,29 @@
 <%= button_bar(class: 'task-actions') do %>
   <% unless task.accept_disabled? %>
 
-    <%= link_to _("Yes, I will go!"), '#',
-            class: 'button btn-blue keep-when-hover invite-decision-yes' %>
+    <div class='custom-task-decisions'>
+      <%= labelled_radio_button(_("Yes, I will go!"), "tasks[#{task.id}][task][decision]",
+            0, false, class: "task-invite-event-decision-yes", task_id: "#{task.id}") %>
 
-    <%= link_to _("I'm interested"), '#',
-            class: 'button btn-blue-reverse keep-when-hover invite-decision-maybe' %>
+      <%= labelled_radio_button(_("I'm interested"), "tasks[#{task.id}][task][decision]",
+            1, false, class: "task-invite-event-decision-maybe", task_id: "#{task.id}") %>
 
-    <%= link_to _("I will not, thank you"), '#',
-            class: 'button btn-blue-reverse keep-when-hover invite-decision-no' %>
+      <%= labelled_radio_button(_("I will not, thank you"), "tasks[#{task.id}][task][decision]",
+            2, false, class: "task-invite-event-decision-no", task_id: "#{task.id}") %>
 
-  <%end%>
+      <%= labelled_radio_button(_("Skip"), "tasks[#{task.id}][task][decision]",
+            3, true, class: "task-invite-event-decision-unconfirmed", task_id: "#{task.id}") %>
+    </div>
+
+    <div class="task-decisions">
+      <% [["accept", "finish"],
+          ["skip", "skip"]].each do |task_name, task_action| %>
+
+          <%= labelled_radio_button(_(task_name.capitalize), "tasks[#{task.id}][decision]",
+                task_action, task.default_decision == task_name, id: "decision-#{task_action}-#{task.id}",
+                class: "task-#{task_name}-radio", task_id: "#{task.id}") %>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>
 

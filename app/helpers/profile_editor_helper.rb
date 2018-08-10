@@ -174,11 +174,7 @@ module ProfileEditorHelper
   end
 
   def unchangeable_privacy_field(profile)
-    if profile.public?
-      labelled_check_box(_('Public'), '', '', true, :disabled => true, :title => _('This field must be public'), :class => 'disabled')
-    else
-      ''
-    end
+    labelled_check_box(_('Public'), '', '', true, :disabled => true, :title => _('This field must be public'), :class => 'disabled')
   end
 
   def select_editor(title, object, method, options)

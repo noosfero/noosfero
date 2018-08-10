@@ -5,7 +5,7 @@
 
   <div class="query-header">
     <i class="fa fa-hourglass" aria-hidden="true"></i>
-      <span><%= @form.duration_in_days %></span>
+      <span><%= time_status(@form) %></span>
     <span class="bullet">•</span>
     <i class="fa fa-users" aria-hidden="true"></i>
     <span><%= _(pluralize(@form.submissions.count, 'participant')) %></span>
@@ -13,13 +13,16 @@
   </div>
 
   <% if @query_results.any? { |r| r['field'].present? } %>
-    <ul class='table-of-contents'>
-      <% @query_results.each do |result| %>
-        <li>
-          <%= link_to(result['field'], "##{result['field'].to_slug}") %>
-        </li>
-      <% end %>
-    </ul>
+    <div class='table-of-contents'>
+    <span><%= _('Jump to question') %></span>
+      <ul>
+        <% @query_results.each do |result| %>
+          <li>
+            <%= link_to(result['field'], "##{result['field'].to_slug}") %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
   <% end %>
 
   <div class="overview">

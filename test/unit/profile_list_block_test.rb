@@ -41,6 +41,9 @@ class ProfileListBlockTest < ActiveSupport::TestCase
       def theme_option(opt = nil)
         nil
       end
+
+      def user
+      end
     end
 
     content = render_block_content(block)
@@ -56,7 +59,7 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     env = fast_create(Environment)
     env.boxes << Box.new
     profile1 = fast_create(Profile, :environment_id => env.id)
-    profile2 = fast_create(Profile, :environment_id => env.id, :public_profile => false) # private profile
+    profile2 = fast_create(Profile, :environment_id => env.id, :access => Entitlement::Levels.levels[:self]) # private profile
     block = ProfileListBlock.new
     env.boxes.first.blocks << block
     block.save!
@@ -105,14 +108,14 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     env.boxes.first.blocks << block
     block.save!
 
-    priv_p = fast_create(Person, :environment_id => env.id, :public_profile => false)
-    pub_p = fast_create(Person, :environment_id => env.id, :public_profile => true)
+    priv_p = fast_create(Person, :environment_id => env.id, :access => Entitlement::Levels.levels[:self])
+    pub_p = fast_create(Person, :environment_id => env.id)
 
-    priv_c = fast_create(Community, :public_profile => false, :environment_id => env.id)
-    pub_c = fast_create(Community, :public_profile => true , :environment_id => env.id)
+    priv_c = fast_create(Community, :access => Entitlement::Levels.levels[:self], :environment_id => env.id)
+    pub_c = fast_create(Community, :environment_id => env.id)
 
-    priv_e = fast_create(Enterprise, :public_profile => false , :environment_id => env.id)
-    pub_e = fast_create(Enterprise, :public_profile => true , :environment_id => env.id)
+    priv_e = fast_create(Enterprise, :access => Entitlement::Levels.levels[:self] , :environment_id => env.id)
+    pub_e = fast_create(Enterprise, :environment_id => env.id)
 
     assert_equal 3, block.profile_count
   end

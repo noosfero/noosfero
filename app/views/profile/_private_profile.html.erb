@@ -1,4 +1,4 @@
-<div class='profile-picture' style='float: left; margin-top: 5px'>
+<div class='profile-picture'>
   <%= profile_image(profile, :big) %>
 </div>
 
@@ -9,8 +9,8 @@
   <% if @action == :join && logged_in? %>
     <%= join_community_button({:logged => true}) %>
   <% end %>
-  <% if @action == :add_friend && logged_in? && !user.already_request_friendship?(profile) %>
-    <%= button(:add, content_tag('span', _('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
+  <% if @action == :add_friend && logged_in? && !user.already_request_friendship?(profile) && !user.is_a_friend?(profile) %>
+    <%= button(:add_user, _('Add friend'), profile.add_url, :class => 'add-friend', :title => _("Add friend")) %>
   <% end %>
   <%= button :back, _('Go back'), :back %>
   <%= button :home, _("Go to %s home page").html_safe % environment.name, :controller => 'home' %>

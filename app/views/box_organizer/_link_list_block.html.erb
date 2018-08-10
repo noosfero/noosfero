@@ -19,4 +19,4 @@
   <input type="hidden" id="page_url" value="<%=url_for(:action=>'search_autocomplete')%>" />
 </div>
 
-<%= link_to_function(_('New link'), 'add_new_link();', :class => 'button icon-add with-text') %>
+<%= button_to_function(:add, _('New link'), 'add_new_link();', :class => 'button icon-add with-text') %>

@@ -1,30 +1,19 @@
-  <h1><%= _('') %></h1>
 <h1><%= _('%s\'s Privacy options').html_safe % profile.name %></h1>
 
 <%= labelled_form_for :profile_data, :html => { :id => 'profile-data' } do |f| %>
   <%= content_tag('h2', _('Visibility')) %>
-  <% if profile.person? %>
-    <div id="profile_allow_follows">
-      <%= labelled_radio_button _('Public &mdash; show my contents to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile? %>
-    </div>
-    <div>
-      <%= labelled_radio_button _('Private &mdash; show my contents only to friends').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile? %>
-    </div>
-  <% else %>
-    <div>
-      <%= labelled_check_box _("Secret &mdash; hide the community and all its contents for non members and other people can't join this community unless they are invited to.").html_safe, 'profile_data[secret]', true, profile.secret, :class => "profile-secret-box" %>
-    </div>
-    <div>
-      <%= labelled_radio_button _('Public &mdash; show content of this group to all internet users').html_safe, 'profile_data[public_profile]', true, @profile.public_profile?, :class => "public-community-button" %>
-    </div>
-    <div>
-      <%= labelled_radio_button _('Private &mdash; show content of this group only to members').html_safe, 'profile_data[public_profile]', false, !@profile.public_profile?, :class => "private-community-button" %>
-    </div>
+
+  <% if profile.organization? %>
+    <%= labelled_check_box _("Secret &mdash; hide the group and all its contents for non members and other people can't join this community unless they are invited to.").html_safe, 'profile_data[secret]', true, profile.secret, :class => "profile-secret-box" %>
   <% end %>
+
+  <%= content_tag('h2', _('Profile Access')) %>
+  <%= content_tag( 'small', _('Who will be able to see your profile?')) %>
+  <%= access_slider_field_tag('access', 'profile_data[access]', @profile, @profile.default_slider_value, @profile.access_levels) %>
 
   <%= content_tag('h2', _('Wall access')) %>
   <%= content_tag( 'small', _('Who will be able to see your wall?')) %>
-  <%= access_slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, @profile.wall_access, @profile.wall_access_levels) %>
+  <%= access_slider_field_tag('wall-access', 'profile_data[wall_access]', @profile, @profile.default_slider_value('wall'), @profile.wall_access_levels) %>
 
   <%= content_tag('h2', _('Followers')) %>
   <div>

@@ -60,7 +60,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'not expose metadata on private pages' do
-    profile.update_column :public_profile, false
+    profile.update_column :access, Entitlement::Levels.levels[:self]
     a = TextArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/x.png" />', profile: profile)
 
     get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]

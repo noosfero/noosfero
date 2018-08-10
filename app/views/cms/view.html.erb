@@ -72,8 +72,6 @@
 </table>
 
 <%= button_bar do %>
-  <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
-  <%= modal_button('new', _('New content'), url_for({:action => 'new', :parent_id => parent_id, :cms => true}).html_safe) %>
   <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
 <% end %>
 

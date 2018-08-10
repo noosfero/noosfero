@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-10 00:10+0000\n"
-"PO-Revision-Date: 2018-04-10 00:10+0000\n"
+"POT-Creation-Date: 2018-07-03 15:02+0000\n"
+"PO-Revision-Date: 2018-07-03 15:02+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,11 +19,19 @@ msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
 #: ../lib/ext/article.rb:13
-msgid "Older than one year"
+msgid "Published date"
 msgstr ""
 
 #: ../lib/ext/article.rb:13
-msgid "Published date"
+msgid "Older than one year"
+msgstr ""
+
+#: ../lib/ext/article.rb:14
+msgid "In the last year"
+msgstr ""
+
+#: ../lib/ext/article.rb:14
+msgid "In the last month"
 msgstr ""
 
 #: ../lib/ext/article.rb:14
@@ -32,14 +40,6 @@ msgstr ""
 
 #: ../lib/ext/article.rb:14
 msgid "In the last week"
-msgstr ""
-
-#: ../lib/ext/article.rb:14
-msgid "In the last month"
-msgstr ""
-
-#: ../lib/ext/article.rb:14
-msgid "In the last year"
 msgstr ""
 
 #: ../lib/ext/product.rb:7

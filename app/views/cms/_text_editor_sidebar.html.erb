@@ -7,7 +7,7 @@
 
   <div id='media-panel-header' class='header'>
     <strong><%= _('Insert media') %></strong>
-    <%= button('caret-square-down', _('Show/Hide'), '#', id: "media-panel-button") %>
+    <%= button(:eye, _('Show/Hide'), '#', id: "media-panel-button") %>
   </div>
 
   <%= render(:partial => 'textile_quick_reference') if @article.editor?(Article::Editor::TEXTILE) %>
@@ -20,7 +20,7 @@
                 :parent_id, profile, default_folder, {}, {},
                 "type='Folder' or type='Gallery'"
           ) %>
-          <%= button(:newfolder, _('New folder'), '#', :id => 'new-folder-button') %>
+          <%= button(:folder, _('New folder'), '#', :id => 'new-folder-button') %>
           <%= render partial: 'shared/crop_button' %>
         </div>
         <p>

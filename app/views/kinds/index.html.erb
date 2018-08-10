@@ -15,9 +15,10 @@
       <tr>
         <td><%= entry.name %></td>
         <td style="text-align: center"><%= entry.moderated ? _('Yes') : _('No') %></td>
-        <td>
-          <%= button_without_text 'edit', _('Edit'), {:action => 'edit', :id => entry.id} %>
-          <%= button_without_text 'delete', _('Delete'), {:action => 'destroy', :id => entry.id}, data: {confirm: _("Do you want to delete this kind?")} %>
+        <td class='actions'>
+          <%= button_without_text :edit, _('Edit'), {:action => 'edit', :id => entry.id} %>
+          <%= button_without_text :trash, _('Delete'), {:action => 'destroy', :id => entry.id},
+                  data: {confirm: _("Do you want to delete this kind?")} %>
         </td>
       </tr>
     <% end %>

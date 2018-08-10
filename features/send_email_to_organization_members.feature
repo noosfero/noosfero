@@ -60,9 +60,9 @@ Feature: send emails to organization members
     Given I am logged in as "joaosilva"
     And I go to Sample Community's members management
     And I check "checkbox-manoel"
-    And I press "Send e-mail to members"
-    When I follow "Cancel e-mail"
-    Then I should be on Sample Community's members management
+    And I follow "Send e-mail to members"
+    When I follow "Cancel"
+    Then I should see "Sample Community"
 
   Scenario: Cant access if has no send_mail_to_members permission
     Given I am logged in as "manoel"
@@ -86,11 +86,4 @@ Feature: send emails to organization members
     And I fill in "Subject" with "Hello, member!"
     And I fill in "Body" with "We have some news"
     When I press "Send"
-    Then I should be on Sample Community's members page
-
-  Scenario: Back to profile members page after cancel creation of mailing
-    Given I am logged in as "jose"
-    And I go to Sample Community's members page
-    And I follow "Send e-mail to members"
-    When I follow "Cancel e-mail"
     Then I should be on Sample Community's members page

@@ -47,7 +47,7 @@ Feature: send emails to environment members users
     Given I am logged in as admin
     And I go to /admin/users/send_mail
     Then I should be on /admin/users/send_mail
-    When I follow "Cancel e-mail"
+    When I follow "Cancel"
     Then I should be on /admin/users
 
   @selenium

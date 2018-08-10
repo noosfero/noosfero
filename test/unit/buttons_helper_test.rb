@@ -9,8 +9,8 @@ class ButtonsHelperTest < ActionView::TestCase
     btn1 = button('type', 'label', 'url', {:class => 'my-class', :title => 'title'})
     btn2 = button_without_text('type', 'label', 'url', {:class => 'my-class', :title => 'title'})
 
-    assert_match /.*button with-text my-class.*/, btn1
-    assert_match /.*button without-text my-class.*/, btn2
+    assert_match /.*button icon-type with-text my-class.*/, btn1
+    assert_match /.*button icon-type without-text my-class.*/, btn2
   end
 
   should 'envelop a html with button-bar div' do

@@ -94,6 +94,9 @@ class CmsController < MyProfileController
       @article.metadata = @article.metadata.merge(params_metadata)
       @article.metadata[:custom_fields] = custom_fields
       @article.last_changed_by = user
+      @article.update_access_level(params[:article][:access])
+      params[:article].delete(:access)
+
       if @article.update(params[:article])
         if !continue
           if @article.content_type.nil? || @article.image?
@@ -134,6 +137,7 @@ class CmsController < MyProfileController
     raise "Invalid article type #{@type}" unless valid_article_type?(@type)
     klass = @type.constantize
     article_data = environment.enabled?('articles_dont_accept_comments_by_default') ? { :accept_comments => false } : {}
+
     article_data.merge!(params[:article]) if params[:article]
     article_data.merge!(:profile => profile) if profile
 
@@ -144,12 +148,15 @@ class CmsController < MyProfileController
       klass.new(article_data)
     end
 
+    @article.access = profile.access
+
     parent = check_parent(params[:parent_id])
     if parent
       @article.parent = parent
       @article.published = parent.published
       @article.show_to_followers = parent.show_to_followers
       @article.highlighted = parent.highlighted
+      @article.access = parent.access
       @parent_id = parent.id
     end
 
@@ -158,13 +165,13 @@ class CmsController < MyProfileController
     @article.editor = current_person.editor
     @article.last_changed_by = user
     @article.created_by = user
+    @article.update_access_level(article_data["access"]) if article_data["access"]
 
     translations if @article.translatable?
 
     continue = params[:continue]
     if request.post?
       @article.article_privacy_exceptions = params[:q].split(/,/).map{|n| environment.people.find n.to_i} unless params[:q].nil?
-
       if @article.save
         if continue
           redirect_to :action => 'edit', :id => @article

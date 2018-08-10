@@ -7,18 +7,6 @@
 
 <%= labelled_form_for :user, :html => { multipart: true, id: 'signup-form', class: 'form-with-captcha', honeypot: true } do |f| %>
 
-<input type="hidden" id="signup_time_key" name="signup_time_key" />
-<script type="text/javascript">
-  jQuery.ajax({
-    type: "GET",
-    url: "<%= url_for :controller=>'account', :action=>'signup_time' %>",
-    dataType: 'json',
-    success: function(data) {
-      if (data.ok) jQuery('#signup_time_key').val(data.key);
-    }
-  });
-</script>
-
 <%= hidden_field_tag :invitation_code, @invitation_code %>
 
 <div id='signup-form-header'>
@@ -154,9 +142,9 @@
 
 <%= captcha_tags(:signup, nil, environment) %>
 
-<p class='button-bar'>
-  <%= submit_button('new_user', _('Create my account')) %>
-</p>
+<%= button_bar do %>
+  <%= submit_button(:add_user, _('Create my account')) %>
+<% end %>
 
 <%= required_fields_message %>
 

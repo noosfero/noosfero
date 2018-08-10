@@ -1,4 +1,4 @@
-Feature: invitation
+        Feature: invitation
   As a noosfero visitor
   I want to invite my friends to Noosfero
 
@@ -108,7 +108,8 @@ Feature: invitation
     And I go to josesantos's control panel
     And I follow "Tasks"
     And I should see "josesilva invited you to join 26 Bsslines."
-    And I follow "Accept"
+    And I choose "Accept"
+    And I follow "Save tasks"
     Then I should not see "josesilva invited you to join 26 Bsslines."
     When I go to josesantos's control panel
     And I follow "Groups" within "#section-relationships"
@@ -122,7 +123,8 @@ Feature: invitation
     And I go to josesantos's control panel
     And I follow "Tasks"
     And I should see "josesilva invited you to join 26 Bsslines."
-    And I follow "Reject"
+    And I choose "Reject"
+    And I follow "Save tasks"
     Then I should not see "josesilva invited you to join 26 Bsslines."
     And I go to josesantos's control panel
     And I follow "Groups" within "#section-relationships"
@@ -156,9 +158,10 @@ Feature: invitation
     And I go to josesantos's control panel
     And I follow "Tasks"
     And I should see "josesilva wants to be your friend."
-    And I follow "Accept"
-    And I fill in "Classify your new friend" with "friends" within "#on-accept-information-1" 
-    And I follow "Accept"
+    And I follow "View task details"
+    And I fill in "Classify your new friend" with "friends" within "#on-accept-information-1"
+    And I choose "Accept"
+    And I follow "Save tasks"
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
     And I follow "Friends" within "#section-relationships"
@@ -174,7 +177,8 @@ Feature: invitation
     And I go to josesantos's control panel
     And I follow "Tasks"
     And I should see "josesilva wants to be your friend."
-    And I follow "Reject"
+    And I choose "Reject"
+    And I follow "Save tasks"
     And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
     And I follow "Friends" within "#section-relationships"

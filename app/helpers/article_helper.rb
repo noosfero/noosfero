@@ -68,25 +68,13 @@ module ArticleHelper
   end
 
   def visibility_options(article, tokenized_children)
-    content_tag('h4', _('Visibility')) +
-    content_tag('div',
-      content_tag('div',
-        radio_button(:article, :published, true) +
-          content_tag('span', '&nbsp;'.html_safe, :class => 'access-public-icon') +
-          content_tag('label', _('Public'), :for => 'article_published_true') +
-          content_tag('span', _('Visible to other people'), :class => 'access-note'),
-          :class => 'access-item'
-           ) +
-      content_tag('div',
-        radio_button(:article, :published, false) +
-          content_tag('span', '&nbsp;'.html_safe, :class => 'access-private-icon') +
-          content_tag('label', _('Private'), :for => 'article_published_false', :id => "label_private") +
-          content_tag('span', _('Limit visibility of this article'), :class => 'access-note'),
-          :class => 'access-item'
-      ) +
-      privacity_exceptions(article, tokenized_children),
-      :class => 'access-itens'
-    )
+    content_tag('h4', _('Post access')) +
+    content_tag( 'small', _('Who will be able to see your post?')) +
+    access_slider_field_tag('post-access', 'article[access]',
+                            article, article.default_slider_value,
+                            article.access_levels) +
+    content_tag('div', privacity_exceptions(@article, tokenized_children),
+                :class => 'access-items')
   end
 
   def topic_creation(article)
@@ -113,12 +101,15 @@ module ArticleHelper
   end
 
   def add_option_to_followers(article, tokenized_children)
-    label_message = article.profile.organization? ? _('Allow all community members to view this content') : _('Allow all your friends to view this content')
+    return if article.profile.person?
+    label_message = _('Community members will not view this content')
 
     check_box(
       :article,
       :show_to_followers,
-      {:class => "custom_privacy_option"}
+      {:class => "custom_privacy_option"},
+      "0",
+      "1"
     ) +
     content_tag(
       'label',
@@ -168,11 +159,11 @@ module ArticleHelper
   end
 
   def follow_button_text(article)
-    font_awesome(:plus, article.event? ? _('Attend') : _('Follow'))
+    font_awesome(:add, _('Follow'))
   end
 
   def unfollow_button_text(article)
-    font_awesome(:minus, article.event? ? _('Unattend') : _('Unfollow'))
+    font_awesome(:minus, _('Unfollow'))
   end
 
   def following_button(page, user)
@@ -225,7 +216,7 @@ module ArticleHelper
     end
 
     if @page != profile.home_page && !@page.has_posts? && @page.allow_delete?(user) && !remove_content_button(:delete, @page)
-      content = font_awesome('trash', _('Delete'))
+      content = font_awesome(:trash, _('Delete'))
       url = profile.admin_url.merge({ controller: 'cms', action: 'destroy', id: @page.id})
       options = { method: :post, 'data-confirm' => delete_article_message(@page) }
       actions << link_to(content, url, options)
@@ -238,7 +229,7 @@ module ArticleHelper
     end
 
     if @page.allow_edit?(user) && @page.kind_of?(Event)
-      content = font_awesome('user-plus', _('Invite Friends'))
+      content = font_awesome(:add_user, _('Invite Friends'))
       url = profile.admin_url.merge({controller: 'cms', action: 'invite_to_event', id: @page.id})
       actions << link_to(content, url) if url
     end
@@ -289,7 +280,7 @@ module ArticleHelper
     path = link_to(article.profile.name, article.profile.url, class: 'path-to-parent')
     parents = article.hierarchy.select { |parent| parent != article }
     parents.each do |parent|
-      path += link_to(font_awesome('angle-right', parent.name), parent.url, class: 'path-to-parent')
+      path += link_to(font_awesome(:angle_right, parent.name), parent.url, class: 'path-to-parent')
     end
     content_tag(:div, path, class: 'path-to-parents')
   end

@@ -191,7 +191,7 @@ module Api
           #TODO make tests for this situation
           votes_order = params.delete(:order) if params[:order]=='votes_score'
           articles = select_filtered_collection_of(article, 'children', params)
-          articles = articles.display_filter(current_person, article.profile)
+          articles = articles.accessible_to(current_person)
 
           #TODO make tests for this situation
           if votes_order
@@ -259,7 +259,7 @@ module Api
       resource :profiles do
         get ':id/home_page' do
           profiles = environment.profiles
-          profiles = profiles.visible_for_person(current_person)
+          profiles = profiles.accessible_to(current_person)
           profile = profiles.find_by id: params[:id]
           present_partial profile.home_page, :with => Entities::Article
         end

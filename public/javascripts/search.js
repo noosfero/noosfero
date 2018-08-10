@@ -12,12 +12,12 @@
 
   // Sorting and Views
   $('#search-filters select').change(function(){
-    $('form.search_form').submit();
+    $(this).closest('form.search_form').submit()
   });
 
   // Filter submenu
   $('#search-subheader select').change(function(){
-    $('form.search_form').submit();
+    $(this).closest('form.search_form').submit()
   });
 
   // Form Ajax submission

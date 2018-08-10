@@ -3,7 +3,7 @@
     <%= image_tag(@file.full_path) %>
   </span>
   <div class="controls image-controls">
-    <a class="button icon-add add-to-text" href="#"><span><%= _('Add to the text') %></span></a>
-    <a class="button icon-zoom zoom" href="#" title="<%= _('Zoom in') %>"><span><%= _('Zoom in') %></span></a>
+    <%= button_without_text :add, _('Add to the text'), '#', :class => 'add-to-text' %>
+    <%= button_without_text :zoom, _('Zoom in'), '#', :class => 'zoom' %>
   </div>
 </div>

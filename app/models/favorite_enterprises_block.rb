@@ -12,7 +12,7 @@ class FavoriteEnterprisesBlock < ProfileListBlock
     _('Favorite Enterprises')
   end
 
-  def profiles
+  def base_profiles
     owner.favorite_enterprises
   end
 

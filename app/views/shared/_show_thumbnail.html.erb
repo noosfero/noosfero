@@ -4,7 +4,7 @@
              locals: { for_attr: for_attr, display: 'none', type: type } %>
 </div>
 
-<%= button_to_function(:photos, _('Change image'), 'display_change_image()', id: 'change-image-link' ) %>
+<%= button_to_function(:image, _('Change image'), 'display_change_image()', id: 'change-image-link' ) %>
 
 <% if image.present? && removable %>
   <div id='image-builder-remove-checkbox'>

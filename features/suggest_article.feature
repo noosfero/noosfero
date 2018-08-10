@@ -24,7 +24,8 @@ Feature: suggest article
     When I am logged in as "joaosilva"
     And I go to sample-community's control panel
     And I follow "menu-toggle"
-    And I follow "Accept"
+    And I choose "Accept"
+    And I follow "Save tasks"
     # Fix Me: Needs code reformulation to satisfy previous behavior
     And I should see "suggested the publication of the article"
     Then I should see "Highlight this article" within ".task_box"
@@ -46,7 +47,8 @@ Feature: suggest article
     And I follow "menu-toggle"
     # Fix Me: Needs code reformulation to satisfy previous behavior
     When I follow "Process requests"
-    And I follow "Accept"
+    And I choose "Accept"
+    And I follow "Save tasks"
     Then I should see "suggested the publication of the article: Suggestion."
     When I follow "Accept"
     And I select "sample-community/Blog" from "Select the folder where the article must be published"

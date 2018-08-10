@@ -13,12 +13,12 @@
         <%= _('Created at: %s') % show_date(group.created_at) unless group.enterprise? %> <br/>
         <%= button_bar do %>
           <% if user.has_permission?(:edit_profile, group) %>
-            <%= button 'menu-ctrl-panel', _('Control panel'), group.admin_url %>
+            <%= button :control_panel, _('Control panel'), group.admin_url %>
           <% end %>
-          <%= button 'menu-logout', _('Leave'), group.leave_url(true), :class => 'leave-community' %>
+          <%= button :logout, _('Leave'), group.leave_url(true), :class => 'leave-community' %>
 
           <% if (user.has_permission?(:destroy_profile, group) && !environment.enabled?('forbid_destroy_profile')) || user.is_admin?(environment) %>
-            <%= button 'delete', _('Remove'),
+            <%= button :delete, _('Remove'),
               { :controller => 'profile_editor',
                 :action => 'destroy_profile',
                 :profile => group.identifier }

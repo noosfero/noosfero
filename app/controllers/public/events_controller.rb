@@ -5,7 +5,7 @@ class EventsController < PublicController
   before_filter :load_events
 
   def events
-    events_in_range = profile.events.by_range((@date - 1.month).at_beginning_of_month .. (@date + 1.month).at_end_of_month)
+    events_in_range = profile.events.accessible_to(user).by_range((@date - 1.month).at_beginning_of_month .. (@date + 1.month).at_end_of_month)
     @calendar = populate_calendar(@date, events_in_range)
     @events = @events.paginate(:per_page => per_page, :page => params[:page])
   end
@@ -30,10 +30,12 @@ class EventsController < PublicController
       return render_not_found
     end
 
+    @events = profile.events.accessible_to(user)
+
     if params[:year] && params[:month] && params[:day]
-      @events = profile.events.by_day(@date)
+      @events = @events.by_day(@date)
     else
-      @events = profile.events.by_month(@date)
+      @events = @events.by_month(@date)
     end
   end
 end

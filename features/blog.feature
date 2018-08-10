@@ -54,14 +54,16 @@ Feature: blog
     Then I should not see "error"
     And I should be on /joaosilva/blog-two
 
+  @selenium
   Scenario: cancel button back to cms
     Given I go to joaosilva's control panel
     And I follow "Manage" within "#section-content"
     And I follow "New content"
-    And I follow "Blog"
-    When I follow "Cancel" within ".main-block"
+    And I follow "blog"
+    When I follow "Cancel"
     Then I should be on /myprofile/joaosilva/cms
 
+  @selenium
   Scenario: cancel button back to myprofile
     Given I go to joaosilva's control panel
     And I follow "New Blog"

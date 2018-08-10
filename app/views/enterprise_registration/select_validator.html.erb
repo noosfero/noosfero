@@ -23,6 +23,7 @@
   </table>
 
   <%= button_bar do %>
-    <%= submit_button 'save', _('Confirm') %>
+      <%= submit_button(:ok, _('Confirm'), :cancel => {:profile => current_user.person.identifier,
+            :action=>"enterprises", :controller=>"profile"}) %>
   <% end %>
 <% end %>

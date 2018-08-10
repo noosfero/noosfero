@@ -25,7 +25,7 @@ module ForumHelper
       position = (i%2 == 0) ? 'odd-post' : 'even-post'
       css_add << 'first' if i == 0
       css_add << 'last'  if i == (artic_len-1)
-      css_add << 'not-published' if !art.published?
+      css_add << 'private' if art.access.eql? Entitlement::Levels.levels[:self]
       css_add << position
       content << content_tag('tr',
                              content_tag('td', topic_title(art), :class => 'forum-post-title') +
@@ -40,11 +40,11 @@ module ForumHelper
 
   def topic_title(article)
     topic_link = link_to(article.title, article.url)
-    if article.published?
-      topic_link
-    else
+    if article.access == Entitlement::Levels.levels[:self]
       content_tag(:span, '', :class => 'ui-icon ui-icon-locked', :title => ('This is a private content')) +
         topic_link
+    else
+      topic_link
     end
   end
 

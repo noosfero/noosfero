@@ -17,6 +17,7 @@ module FolderHelper
   end
 
   def available_articles(articles, user)
+    # TODO User accessible_to here
     articles.select {|article| article.display_to?(user)}
   end
 

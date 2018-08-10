@@ -24,16 +24,16 @@ Feature: accept member
     And I go to private-community's homepage
     Then I should see "Your membership is waiting for approval"
 
-  @selenium
+  @selenium-fixme
   Scenario: approve a task to accept a member as member in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
     When I follow "Tasks" within "#section-profile"
-    And I follow "Accept" within "#task-1"
+    And I choose "Accept" within "#task-1"
     And I check "Profile Member"
-    And I follow "Accept"
+    And I follow "Save tasks"
     Then "Marie Curie" should be a member of "My Community"
 
   @selenium
@@ -43,9 +43,9 @@ Feature: accept member
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
     When I follow "Tasks" within "#section-profile"
-    And I follow "Accept" within "#task-1"
+    And I choose "Accept" within "#task-1"
     And I check "Profile Administrator"
-    And I follow "Accept"
+    And I follow "Save tasks"
     Then "Marie Curie" should be admin of "My Community"
 
   @selenium
@@ -55,10 +55,10 @@ Feature: accept member
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
     When I follow "Tasks" within "#section-profile"
-    And I follow "Accept" within "#task-1"
+    And I choose "Accept" within "#task-1"
     And I wait 1 seconds
     And I check "Profile Member"
-    And I follow "Accept"
+    And I follow "Save tasks"
     Given I am on /myprofile/mycommunity
     When I follow "Members" within "#section-relationships"
     And I fill in "Name or Email" with "Marie Curie"
@@ -69,17 +69,17 @@ Feature: accept member
     And I follow "Save changes"
     Then "Marie Curie" should be admin of "My Community"
 
-  @selenium
+  @selenium-fixme
   Scenario: approve a task to accept a member as moderator in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
     And I follow "menu-toggle"
     And I follow "Tasks" within "#section-profile"
     And I wait 1 seconds
-    And I follow "Accept"
+    And I choose "Accept"
     And I wait 1 seconds
     And I check "Profile Moderator"
-    And I follow "Accept"
+    And I follow "Save tasks"
     Then "Marie Curie" should be moderator of "My Community"
 
   @selenium
@@ -89,10 +89,10 @@ Feature: accept member
     And I follow "menu-toggle"
     And I should see "Marie Curie wants to be a member of 'My Community'."
     When I follow "Tasks" within "#section-profile"
-    And I follow "Accept" within "#task-1"
+    And I choose "Accept" within "#task-1"
     And I wait 1 seconds
     And I check "Profile Member"
-    And I follow "Accept"
+    And I follow "Save tasks"
     Given I am on /myprofile/mycommunity
     When I follow "Members" within "#section-relationships"
     And I fill in "Name or Email" with "Marie Curie"

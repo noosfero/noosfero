@@ -24,7 +24,7 @@ class ProfileSearchController < PublicController
   protected
 
   def check_access_to_profile
-    unless profile.display_info_to?(user)
+    unless profile.display_to?(user)
       redirect_to :controller => 'profile', :action => 'index'
     end
   end

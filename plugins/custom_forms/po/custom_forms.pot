@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-12 14:04+0000\n"
-"PO-Revision-Date: 2018-06-12 14:04+0000\n"
+"POT-Creation-Date: 2018-08-03 21:22+0000\n"
+"PO-Revision-Date: 2018-08-03 21:22+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -142,38 +142,19 @@ msgstr ""
 msgid "New Survey"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
-#: ../views/shared/_form.html.erb:7
-msgid "Email"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:5
-#: ../lib/custom_forms_plugin/form.rb:46
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
-#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
-#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
-#: ../views/shared/_form.html.erb:6
-msgid "Name"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
-msgid "City"
-msgstr ""
-
-#: ../lib/custom_forms_plugin/csv_handler.rb:29
+#: ../lib/custom_forms_plugin/csv_handler.rb:25
 msgid "Timestamp"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:39
+#: ../lib/custom_forms_plugin/csv_handler.rb:36
 msgid " or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:40
+#: ../lib/custom_forms_plugin/csv_handler.rb:37
 msgid ", or "
 msgstr ""
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:123
+#: ../lib/custom_forms_plugin/csv_handler.rb:116
 msgid "Invalid alternative"
 msgstr ""
 
@@ -217,6 +198,14 @@ msgstr ""
 msgid "%{value} is not a valid kind."
 msgstr ""
 
+#: ../lib/custom_forms_plugin/form.rb:46
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
+#: ../views/shared/_form.html.erb:6
+msgid "Name"
+msgstr ""
+
 #: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
 msgstr ""
@@ -230,31 +219,31 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:122
+#: ../lib/custom_forms_plugin/form.rb:127
 msgid "This query has no ending date"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:127
+#: ../lib/custom_forms_plugin/form.rb:132
 msgid "Ends today"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:131
+#: ../lib/custom_forms_plugin/form.rb:136
 msgid "Ends tomorow"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:135
+#: ../lib/custom_forms_plugin/form.rb:140
 msgid "Already closed"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:138
+#: ../lib/custom_forms_plugin/form.rb:143
 msgid "%s days left"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:179
+#: ../lib/custom_forms_plugin/form.rb:189
 msgid "The time range selected is invalid."
 msgstr ""
 
-#: ../lib/custom_forms_plugin/form.rb:184
+#: ../lib/custom_forms_plugin/form.rb:194
 msgid "can't be less than 2"
 msgstr ""
 
@@ -384,6 +373,12 @@ msgid_plural "%s submissions"
 msgstr[0] ""
 msgstr[1] ""
 
+#: ../views/blocks/poll/_list_item.html.erb:35
+#: ../views/blocks/survey/_list_item.html.erb:30
+#: ../views/custom_forms_plugin_profile/show.html.erb:22
+msgid "See partial results"
+msgstr ""
+
 #: ../views/blocks/poll/_results.html.erb:11
 msgid "See results"
 msgstr ""
@@ -394,11 +389,6 @@ msgstr ""
 
 #: ../views/blocks/poll/_results.html.erb:23
 msgid "This poll is closed."
-msgstr ""
-
-#: ../views/blocks/poll/_submission.html.erb:14
-#: ../views/blocks/survey/_list_item.html.erb:30
-msgid "See partial results"
 msgstr ""
 
 #: ../views/blocks/survey/_list_item.html.erb:30
@@ -417,29 +407,33 @@ msgstr ""
 msgid "Export one file with several queries at once."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:12
+#: ../views/custom_forms_plugin_admin/index.html.erb:14
+msgid "Select the user fields to be included in the submissions report"
+msgstr ""
+
+#: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:18
+#: ../views/custom_forms_plugin_admin/index.html.erb:23
 msgid "Filter profiles by name"
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:29
+#: ../views/custom_forms_plugin_admin/index.html.erb:34
 msgid "%s form"
 msgid_plural "%s forms"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:42
+#: ../views/custom_forms_plugin_admin/index.html.erb:47
 msgid "Deselect all"
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:45
+#: ../views/custom_forms_plugin_admin/index.html.erb:50
 msgid "Select all"
 msgstr ""
 
-#: ../views/custom_forms_plugin_admin/index.html.erb:50
+#: ../views/custom_forms_plugin_admin/index.html.erb:55
 msgid "Generate CSV"
 msgstr ""
 
@@ -449,7 +443,6 @@ msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_field.html.erb:15
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:46
-#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:63
 msgid "Remove field"
 msgstr ""
 
@@ -548,11 +541,11 @@ msgid "Type in your question"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Checkboxes"
+msgid "Multiple choice"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Multiple choice"
+msgid "Checkboxes"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
@@ -579,6 +572,11 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:16
 msgid "This field will be added automatically to your survey"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
+#: ../views/shared/_form.html.erb:7
+msgid "Email"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:33
@@ -741,7 +739,7 @@ msgid "Time"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:44
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:47
 msgid "Back to forms"
 msgstr ""
 
@@ -807,7 +805,7 @@ msgstr ""
 msgid "There are no submissions for this form."
 msgstr ""
 
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:40
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:41
 #: ../views/custom_forms_plugin_profile/_text.html.erb:30
 msgid "imported submissions"
 msgstr ""
@@ -819,11 +817,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Partial results"
+msgid "Final results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
+msgid "Partial results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
@@ -844,11 +842,15 @@ msgstr ""
 msgid "%s's queries"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:28
+#: ../views/custom_forms_plugin_profile/review.html.erb:15
+msgid "Jump to question"
+msgstr ""
+
+#: ../views/custom_forms_plugin_profile/review.html.erb:31
 msgid "There is no answers for this question"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:46
+#: ../views/custom_forms_plugin_profile/review.html.erb:49
 msgid "View all queries"
 msgstr ""
 
@@ -856,12 +858,12 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:24
+#: ../views/custom_forms_plugin_profile/show.html.erb:31
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
 msgid "Sorry, you can't fill this form yet"
 msgstr ""
 
-#: ../views/custom_forms_plugin_profile/show.html.erb:26
+#: ../views/custom_forms_plugin_profile/show.html.erb:33
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:10
 msgid "Sorry, you can't fill this form anymore"
 msgstr ""
@@ -890,6 +892,6 @@ msgstr ""
 msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
-#: ../views/shared/_form_submission.html.erb:9
+#: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr ""

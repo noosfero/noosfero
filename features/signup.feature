@@ -14,7 +14,6 @@ Feature: signup
       | Password                 | secret                |
       | Type your password again | secret                |
       | Full name                | José da Silva         |
-    And wait for the captcha signup time
     And I follow "Create my account"
     And there are no pending jobs
     Then I should receive an e-mail on josesilva@example.com
@@ -57,7 +56,6 @@ Feature: signup
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
     And I fill in "Type your password again" with "secret"
-    And wait for the captcha signup time
     And I follow "Create my account"
     Then I should see "Name can't be blank"
 

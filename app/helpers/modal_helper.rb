@@ -1,11 +1,13 @@
 module ModalHelper
 
+  include ButtonsHelper
+
   def modal_inline_link_to title, url, selector, options = {}
     link_to title, url, modal_options(options.merge(:inline => selector))
   end
 
   def modal_inline_icon type, title, url, selector, options = {}
-    icon_button type, title, url, modal_options(options.merge(:inline => selector))
+    button_without_text type, title, url, modal_options(options.merge(:inline => selector))
   end
 
   def modal_link_to title, url, options = {}
@@ -17,7 +19,7 @@ module ModalHelper
   end
 
   def modal_close_button(text, options = {})
-    button :close, text, '#!', modal_options(options, :close)
+    button :cancel, text, '#!', modal_options(options, :close)
   end
 
   def modal_button(type, label, url, options = {})
@@ -25,7 +27,7 @@ module ModalHelper
   end
 
   def modal_icon_button(type, label, url, options = {})
-    icon_button type, label, url, modal_options(options)
+    button_without_text type, label, url, modal_options(options)
   end
 
   # options must be an HTML options hash as passed to link_to etc.

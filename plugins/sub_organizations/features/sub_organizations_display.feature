@@ -37,7 +37,8 @@ Feature: sub_organizations_display
       When I follow "Tasks" within "#section-profile"
       Then I should see "Nelson wants to create enterprise Bart."
       And the first mail is to admin_user@example.com
-      And I follow "Accept"
+      And I choose "Accept"
+      And I follow "Save tasks"
       And I am logged in as "nelson"
       When I go to springfield's control panel
       And I follow "Subgroups" within "#section-relationships"

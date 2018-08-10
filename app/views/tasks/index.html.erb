@@ -1,7 +1,6 @@
 <%= stylesheet_link_tag 'tasks' %>
 
 <h1><%= _("%s's pending tasks") % profile.name %></h1>
-<p>
 
 <%
   type_collection = [[nil, _('All')]] + @task_types
@@ -40,15 +39,33 @@
   <p class='empty-tasks'>
     <em><%= _('No pending tasks for %s') % profile.name %></em>
   </p>
+
+  <%= button_bar do %>
+    <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
+  <% end %>
+
 <% else %>
   <%= form_tag tasks_url(action: 'close') do%>
 
-    <%= button_bar(:class => 'task-actions') do %>
-      <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
-      <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
-      <%= button(:save, _("Accept all tasks"), '#!', :id => 'save-all-tasks') %>
-      <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
-    <% end unless @view_only %>
+
+    <% unless @view_only %>
+      <%= button_bar(:class => 'task-actions') do %>
+        <div>
+          <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
+          <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>
+          <%= button(:edit, _('View processed tasks'), :action => 'processed') %>
+        </div>
+        <div>
+          <%= labelled_select(_("Set all tasks to:"), 'set-decisions', 'first', 'last', nil,
+                [['',""],
+                  ['accept',_("Accept")],
+                  ['reject',_("Reject")],
+                  ['skip',_("Skip")]],
+                :id => "set-all-tasks-to") %>
+      </div>
+      <% end %>
+
+    <% end %>
 
     <ul class='task-list'>
 
@@ -62,13 +79,12 @@
 
     <%= pagination_links(@tasks, :params => { :filter_type => @filter_type,
                                               :filter_text => @filter_text })%>
+    <%= button_bar do %>
+      <%= submit_button(:save, _('Save tasks')) %>
+      <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
+    <% end %>
 
   <% end %>
-<% end %>
-</p>
-
-<%= button_bar do %>
-  <%= button(:back, _('Back to control panel'), controller: 'profile_editor') %>
 <% end %>
 
 <%= javascript_include_tag 'tasks' %>

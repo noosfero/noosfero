@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-10 12:34+0000\n"
-"PO-Revision-Date: 2018-04-10 12:34+0000\n"
+"POT-Creation-Date: 2018-07-03 15:02+0000\n"
+"PO-Revision-Date: 2018-07-03 15:02+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -23,6 +23,10 @@ msgid "Clicking a friend takes you to his/her homepage"
 msgstr ""
 
 #: ../lib/friends_block.rb:12
+msgid "friends"
+msgstr ""
+
+#: ../lib/friends_block.rb:13
 msgid "{#} friend"
 msgid_plural "{#} friends"
 msgstr[0] ""
@@ -60,18 +64,16 @@ msgstr ""
 msgid "A plugin that adds a people block"
 msgstr ""
 
-#: ../views/blocks/footers/friends.html.erb:1
-#: ../views/blocks/footers/members.html.erb:2
-#: ../views/blocks/footers/people.html.erb:1
-msgid "View all"
-msgstr ""
-
 #: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
 msgstr ""
 
 #: ../views/blocks/footers/friends.html.erb:10
 msgid "See all suggestions"
+msgstr ""
+
+#: ../views/blocks/people_base.html.erb:25
+msgid "This block has no content yet."
 msgstr ""
 
 #: ../views/box_organizer/_people_block_base.html.erb:6

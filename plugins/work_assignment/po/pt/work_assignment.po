@@ -44,12 +44,12 @@ msgid "e-Mail"
 msgstr "e-Mail"
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Subject"
-msgstr "Assunto"
-
-#: ../lib/work_assignment_plugin/email_contact.rb:21
 msgid "Message"
 msgstr "Mensagem"
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "Subject"
+msgstr "Assunto"
 
 #: ../lib/work_assignment_plugin/helper.rb:9
 msgid "Submission date"

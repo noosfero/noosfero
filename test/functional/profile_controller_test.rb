@@ -168,7 +168,8 @@ class ProfileControllerTest < ActionController::TestCase
   should 'show create community in own profile' do
     login_as(@profile.identifier)
     get :communities, :profile => @profile.identifier
-    assert_tag :tag => 'a',  :attributes => {:class => 'button with-text', :title => 'Create a new community' }
+    assert_tag :tag => 'a',  :attributes => {:class => 'button icon-add with-text',
+      :title => 'Create a new community' }
   end
 
   should 'not show create community on profile of other users' do
@@ -186,24 +187,13 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'check access before displaying profile' do
-    Person.any_instance.expects(:display_info_to?).with(anything).returns(false)
+    Person.any_instance.expects(:display_to?).with(anything).returns(false)
     @profile.visible = false
     @profile.save
 
     get :index, :profile => @profile.identifier
     assert_response 403
   end
-
-  should 'display template profiles' do
-    Person.any_instance.expects(:display_info_to?).with(anything).returns(false)
-    @profile.visible = false
-    @profile.is_template = true
-    @profile.save
-
-    get :index, :profile => @profile.identifier
-    assert_response :success
-  end
-
 
   should 'display add friend button' do
     @profile.user.activate!
@@ -539,9 +529,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'show tags in index' do
     article = create(Article, :name => 'Published at', :profile_id => profile.id, :tag_list => ['tag1'])
-
     get :index, :profile => profile.identifier
-
     assert_tag :tag => 'a', :content => 'tag1', :attributes => { :href => /profile\/#{profile.identifier}\/tags\/tag1$/ }
   end
 
@@ -712,7 +700,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal profile, last.sender
   end
 
- should "the receiver be the current profile by default" do
+  should "the receiver be the current profile by default" do
     login_as(profile.identifier)
     count = Scrap.count
     another_person = create_user.person
@@ -1019,7 +1007,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "not show the activities to offline users if the profile is private" do
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
-    profile.public_profile=false
+    profile.access = Entitlement::Levels.levels[:self]
     profile.save
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => profile.identifier
@@ -1751,7 +1739,7 @@ class ProfileControllerTest < ActionController::TestCase
       :descendant => { :tag => 'a', :attributes => { :title => "another_user" } }
 
     assert_no_tag :tag => 'ul', :attributes => { :class => /profile-list-admins/},
-    :descendant => { :tag => 'a', :attributes => { :title => "another_user" } }
+      :descendant => { :tag => 'a', :attributes => { :title => "another_user" } }
   end
 
   should 'members be sorted by name in ascendant order' do
@@ -2052,7 +2040,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'not fetch or show wall activities if user does not have wall access' do
     sample_user = create_user('sample-user').person
     login_as(sample_user.identifier)
-    AccessLevels.stubs(:can_access?).returns(false)
+    Profile.any_instance.stubs(:display_to?).returns(false)
     get :index, :profile => @profile.identifier
     assert_nil assigns(:activities)
     assert_no_tag :tag => 'div', :attributes => {:id => 'profile-wall'}
@@ -2061,7 +2049,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'fetch and show wall activities if user has wall access' do
     sample_user = create_user('sample-user').person
     login_as(sample_user.identifier)
-    AccessLevels.stubs(:can_access?).returns(true)
+    Profile.any_instance.stubs(:display_to?).returns(true)
     get :index, :profile => @profile.identifier
     assert_not_nil assigns(:activities)
     assert_tag :tag => 'div', :attributes => {:id => 'profile-wall'}
@@ -2102,7 +2090,7 @@ class ProfileControllerTest < ActionController::TestCase
     article = TextArticle.create!(profile: profile, name: 'An article about free software')
     20.times do |i|
       comment = fast_create(Comment, source_id: article, title: "Comment #{i}",
-                                     body: "lalala", created_at: Time.now)
+                            body: "lalala", created_at: Time.now)
     end
     assert_equal 20, article.comments.count
     activity = ActionTracker::Record.last
@@ -2212,7 +2200,7 @@ class ProfileControllerTest < ActionController::TestCase
                                              keys: { auth: '1', p256dh: '2' })
 
     post :leave_scrap, profile: another_person.identifier,
-                       scrap: { content: 'something' }
+      scrap: { content: 'something' }
     Webpush.expects(:payload_send).once
     process_delayed_job_queue
   end

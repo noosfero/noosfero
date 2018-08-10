@@ -56,8 +56,8 @@
             value: (_("Hello, come and join the ") + @article.title + ".")) %>
 
       <%= button_bar do %>
-        <%= submit_button 'invite', font_awesome(:envelope, _('Invite')) %>
         <%= button(:back, _('Back to Event'), @article.url) %>
+        <%= submit_button :email, _('Invite') %>
       <% end %>
     <% end %>
   <% end %>

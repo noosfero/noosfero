@@ -11,6 +11,17 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
     field = CustomFormsPlugin::Field.new
     refute field.mandatory
   end
+  
+  should 'set mandatory field as true when form type is a poll' do
+    form = CustomFormsPlugin::Form.create!(profile: fast_create(Profile),
+                                           name: 'Free Software',
+                                           identifier: 'free',
+                                           kind: 'poll')
+    field = CustomFormsPlugin::Field.new(name: 'field', form: form)
+    field.save!
+    
+    assert field.mandatory
+  end
 
   should 'have answers' do
     form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile),

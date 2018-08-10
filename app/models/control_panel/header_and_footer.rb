@@ -9,7 +9,7 @@ class ControlPanel::HeaderAndFooter < ControlPanel::Entry
     end
 
     def icon
-      'object-group'
+      'header_footer'
     end
 
     def priority

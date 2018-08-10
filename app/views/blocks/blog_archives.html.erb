@@ -12,5 +12,5 @@
     <% end %>
   </ul>
 
-  <%= content_tag('div', link_to(font_awesome('rss', _('Subscribe RSS Feed')), block.blog.feed.url), :class => 'subscribe-feed') %>
+  <%= content_tag('div', link_to(font_awesome(:rss, _('Subscribe RSS Feed')), block.blog.feed.url), :class => 'subscribe-feed') %>
 <% end %>

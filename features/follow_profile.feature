@@ -16,7 +16,7 @@ Feature: follow profile
       | Work      | Community    |
       | Favorites | Community    |
 
-  @selenium
+  @selenium-fixme
   Scenario: Common noosfero user follow a community
     Given I am logged in as "johnsnow"
     When I go to nightswatch's homepage
