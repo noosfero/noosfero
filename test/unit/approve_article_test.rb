@@ -395,7 +395,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     end
     task2 = create(ApproveArticle, :name => article.name + ' v2', :article => article, :target => community, :requestor => profile)
     assert_difference 'article.class.count' do
-      assert_nothing_raised ActiveRecord::RecordInvalid do
+      assert_nothing_raised do
          task2.finish
       end
     end

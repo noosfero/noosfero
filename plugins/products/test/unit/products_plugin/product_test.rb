@@ -70,7 +70,7 @@ class ProductsPlugin::ProductTest < ActiveSupport::TestCase
       p = create(ProductsPlugin::Product, name: 'test product1', profile: profile, product_category: product_category, image_builder: {
         uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
       }, profile_id: @profile.id)
-      assert_equal p.image(true).filename, 'rails.png'
+      assert_equal p.image.filename, 'rails.png'
     end
   end
 

@@ -61,10 +61,10 @@ class ArticleTest < ActiveSupport::TestCase
   should 'act as versioned' do
     a = create(Article, :name => 'my article',
                :body => 'my text', :profile_id => profile.id)
-    assert_equal 1, a.versions(true).size
+    assert_equal 1, a.versions.size
     a.name = 'some other name'
     a.save!
-    assert_equal 2, a.versions(true).size
+    assert_equal 2, a.versions.size
   end
 
   should 'act as taggable' do
@@ -225,7 +225,7 @@ class ArticleTest < ActiveSupport::TestCase
     article.add_category c2
 
     assert_equivalent [c1,c2], article.categories
-    assert_equivalent [c1, parent_cat, c2], article.categories_including_virtual(true)
+    assert_equivalent [c1, parent_cat, c2], article.categories_including_virtual
   end
 
   should 'remove comments when removing article' do
@@ -291,14 +291,14 @@ class ArticleTest < ActiveSupport::TestCase
     art.add_category(c3)
 
     assert_equal [c3], art.categories
-    assert_equal [art], c2.articles(true)
+    assert_equal [art], c2.articles
 
-    assert_includes c3.articles(true), art
-    assert_includes c2.articles(true), art
-    assert_includes c1.articles(true), art
+    assert_includes c3.articles, art
+    assert_includes c2.articles, art
+    assert_includes c1.articles, art
 
-    assert_includes art.categories_including_virtual(true), c2
-    assert_includes art.categories_including_virtual(true), c1
+    assert_includes art.categories_including_virtual, c2
+    assert_includes art.categories_including_virtual, c1
   end
 
   should 'redefine the entire category set at once' do
@@ -314,8 +314,8 @@ class ArticleTest < ActiveSupport::TestCase
     art.category_ids = [c2,c3].map(&:id)
 
     assert_equivalent [c2, c3], art.categories
-    assert_includes art.categories_including_virtual(true), c1
-    refute art.categories_including_virtual(true).include?(c4)
+    assert_includes art.categories_including_virtual, c1
+    refute art.categories_including_virtual.include?(c4)
   end
 
   should 'be able to create an article already with categories' do
@@ -327,7 +327,7 @@ class ArticleTest < ActiveSupport::TestCase
     a = create(Article, :name => 'test', :category_ids => [c1.id, c2.id], :profile_id => p.id)
 
     assert_equivalent [c1, c2], a.categories
-    assert_includes a.categories_including_virtual(true), parent1
+    assert_includes a.categories_including_virtual, parent1
   end
 
   should 'not add a category twice to article' do
@@ -339,7 +339,7 @@ class ArticleTest < ActiveSupport::TestCase
     art.category_ids = [c2,c3,c3].map(&:id)
 
     categories = art.categories
-    categories_including_virtual = art.categories_including_virtual(true)
+    categories_including_virtual = art.categories_including_virtual
     assert_not_includes categories, c1
     assert_includes categories, c2
     assert_includes categories, c3
@@ -1597,7 +1597,7 @@ class ArticleTest < ActiveSupport::TestCase
       p = create(Article, :name => 'test', :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       }, :profile_id => @profile.id)
-      assert_equal p.image(true).filename, 'rails.png'
+      assert_equal p.image.filename, 'rails.png'
     end
   end
 

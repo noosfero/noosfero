@@ -234,7 +234,7 @@ class BlogTest < ActiveSupport::TestCase
     blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     blog.save!
     blog.reload
-    assert_equal blog.image(true).filename, 'rails.png'
+    assert_equal blog.image.filename, 'rails.png'
   end
 
   should 'remove cover image' do
@@ -259,7 +259,7 @@ class BlogTest < ActiveSupport::TestCase
     blog.save!
     blog.reload
 
-    assert_equal blog.image(true).filename, 'noosfero-network.png'
+    assert_equal blog.image.filename, 'noosfero-network.png'
   end
 
   should 'count total number of posts by year' do

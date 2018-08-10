@@ -665,7 +665,9 @@ class Person < Profile
           fields = opts[:to_fields] || field
           fields = fields.kind_of?(Array) ? fields : [fields]
           fields.each do |to_field|
-            self.errors.add_on_blank(to_field)
+            if self.send(to_field).blank?
+              self.errors.add(to_field, :blank)
+            end
           end
         end
       end

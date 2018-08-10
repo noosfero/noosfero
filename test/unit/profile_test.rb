@@ -480,11 +480,11 @@ class ProfileTest < ActiveSupport::TestCase
     profile.add_category(c3)
 
     assert_equal [c3], profile.categories
-    assert_equal [profile], c2.people(true)
+    assert_equal [profile], c2.people
 
-    assert_includes c3.people(true), profile
-    assert_includes c2.people(true), profile
-    assert_includes c1.people(true), profile
+    assert_includes c3.people, profile
+    assert_includes c2.people, profile
+    assert_includes c1.people, profile
 
     assert_includes profile.categories_including_virtual, c2
     assert_includes profile.categories_including_virtual, c1
@@ -502,7 +502,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile.category_ids = [c2,c3].map(&:id)
 
     assert_equivalent [c2, c3], profile.categories
-    assert_equivalent [c2, c1, c3], profile.categories_including_virtual(true)
+    assert_equivalent [c2, c1, c3], profile.categories_including_virtual
   end
 
   should 'be able to create a profile with categories' do
@@ -513,7 +513,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile = create(Profile, :category_ids => [c1.id, c2.id])
 
     assert_equivalent [c1, c2], profile.categories
-    assert_equivalent [c1, pcat, c2], profile.categories_including_virtual(true)
+    assert_equivalent [c1, pcat, c2], profile.categories_including_virtual
   end
 
   should 'be associated with a region' do
@@ -572,7 +572,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     assert_equal region, profile.region
     assert_equivalent [region, category], profile.categories
-    assert_equivalent [region, category, pcat], profile.categories_including_virtual(true)
+    assert_equivalent [region, category, pcat], profile.categories_including_virtual
   end
 
   should 'be able to update categories and not get regions removed' do
@@ -585,7 +585,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile.update_attribute(:category_ids, [category2.id])
 
     assert_includes profile.categories, region
-    assert_includes profile.categories_including_virtual(true), pcat
+    assert_includes profile.categories_including_virtual, pcat
   end
 
   should 'be able to update region and not get categories removed' do
@@ -598,7 +598,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile.update_attribute(:region, region2)
 
     assert_includes profile.categories, category
-    assert_includes profile.categories_including_virtual(true), pcat
+    assert_includes profile.categories_including_virtual, pcat
   end
 
   should 'accept region as a category' do
@@ -724,7 +724,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
     profile.category_ids = [c2,c3,c3].map(&:id)
     assert_equivalent [c2, c3], profile.categories
-    assert_equivalent [c1, c2, c3], profile.categories_including_virtual(true)
+    assert_equivalent [c1, c2, c3], profile.categories_including_virtual
   end
 
   should 'not return nil members when a member is removed from system' do
@@ -1372,7 +1372,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile.preferred_domain = domain
     profile.save!
 
-    assert_equal domain, Profile.find(profile.id).preferred_domain(true)
+    assert_equal domain, Profile.find(profile.id).preferred_domain
   end
 
   should 'use preferred domain for hostname' do
