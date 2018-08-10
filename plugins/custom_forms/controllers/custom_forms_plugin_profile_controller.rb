@@ -62,6 +62,21 @@ class CustomFormsPluginProfileController < ProfileController
     end
   end
 
+  def download_field_answers
+    field = CustomFormsPlugin::Field.find_by(name: params[:field_name])
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        handler = CustomFormsPlugin::CsvHandler.new(@form)
+        csv_content = handler.generate_csv(field)
+        send_data csv_content, type: 'text/csv', filename: "#{params[:field_name]}.csv"
+
+        render 'review'
+      end
+    end
+  end
+
   def queries
     @order_options = [
       [_('Older'), 'older'],

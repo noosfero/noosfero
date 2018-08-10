@@ -9,7 +9,7 @@
     <span class="bullet">•</span>
     <i class="fa fa-users" aria-hidden="true"></i>
     <span><%= _(pluralize(@form.submissions.count, 'participant')) %></span>
-    <%= link_to 'Download as CSV', format: 'csv'  %>
+    <%= link_to 'Download as CSV', format: 'csv' %>
   </div>
 
   <% if @query_results.any? { |r| r['field'].present? } %>

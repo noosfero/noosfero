@@ -20,12 +20,12 @@ class CustomFormsPlugin::CsvHandler
 
   attr_reader :profile_fields
 
-  def generate_csv
+  def generate_csv(fields=@fields)
     CSV.generate do |csv|
-      field_names = ([_('Timestamp')] + profile_fields + @fields.map(&:name))
+      field_names = ([_('Timestamp')] + profile_fields + fields.map(&:name))
       csv << field_names.map(&:capitalize)
       @form.submissions.each do |submission|
-        csv << submission_row(submission)
+        csv << submission_row(submission, fields)
       end
     end
   end
@@ -69,9 +69,8 @@ class CustomFormsPlugin::CsvHandler
 
   private
   
-  def submission_row(subm)
-    row = default_values(subm)
-    @fields.each do |field|
+  def submission_row(subm, fields)
+    fields.each do |field|
       row << subm.answer_for(field).to_s
     end
     row

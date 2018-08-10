@@ -12,6 +12,15 @@
 
   <tbody>
     <% result["data"]["answers"].each_with_index do |answer, index| %>
+      <% if index > 10 %>
+        <tr>
+          <td colspan=2>
+            <%= link_to(_("Download #{result['field']} Answers"),
+                download_field_answers_path, method: :delete, params: {field_name: result['field'], format: :csv}) %>
+          </td>
+        </tr>
+        <% break %>
+      <% end %>
       <tr>
         <td class="review_text_align">
           <%= result["data"]["users"][index] %>
@@ -21,7 +30,7 @@
           <% end %>
         </td>
         <td class="review_text_align"> <%= answer %> </td>
-      <tr>
+      </tr>
     <% end %>
   </tbody>
 </table>
