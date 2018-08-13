@@ -63,16 +63,16 @@ class CustomFormsPluginProfileController < ProfileController
   end
 
   def download_field_answers
-    field = CustomFormsPlugin::Field.find_by(name: params[:field_name])
+    field = CustomFormsPlugin::TextField.find_by(name: params[:field_name])
+    profile = Profile.find_by(identifier: params[:profile])
+    @form = profile.forms.find_by(identifier: params[:id])
 
     respond_to do |format|
       format.html
       format.csv do
         handler = CustomFormsPlugin::CsvHandler.new(@form)
-        csv_content = handler.generate_csv(field)
+        csv_content = handler.generate_csv([field])
         send_data csv_content, type: 'text/csv', filename: "#{params[:field_name]}.csv"
-
-        render 'review'
       end
     end
   end

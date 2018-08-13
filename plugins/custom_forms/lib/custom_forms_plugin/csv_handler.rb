@@ -70,6 +70,7 @@ class CustomFormsPlugin::CsvHandler
   private
   
   def submission_row(subm, fields)
+    row = default_values(subm)
     fields.each do |field|
       row << subm.answer_for(field).to_s
     end
