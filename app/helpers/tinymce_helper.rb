@@ -13,10 +13,6 @@ module TinymceHelper
   def tinymce_init_js options = {}
     options.merge! :document_base_url => top_url,
       :content_css => "/stylesheets/tinymce.css,#{macro_css_files}",
-      :plugins => %w[compat3x advlist autolink lists link image charmap print preview hr anchor pagebreak
-        searchreplace wordcount visualblocks visualchars code fullscreen
-        insertdatetime media nonbreaking save table contextmenu directionality
-        emoticons template paste textcolor colorpicker textpattern],
       :image_advtab => true,
       :language => tinymce_language,
       :selector => '.' + current_editor(options[:mode])
