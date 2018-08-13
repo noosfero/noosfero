@@ -4,6 +4,9 @@ toolbar:
   - styleselect | bold italic | undo redo
   - image | link
 
+content_css:
+  - /stylesheets/tinymce.css
+
 plugins:
   - compat3x
   - advlist
