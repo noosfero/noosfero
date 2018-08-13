@@ -15,7 +15,7 @@
       <% if index > 10 %>
         <tr>
           <td colspan=2>
-            <%= link_to(_("Download #{result['field']} Answers"),
+            <%= link_to(_("Download %s Answers") % result['field'],
                 download_field_answers_path, method: :delete, params: {field_name: result['field'], format: :csv}) %>
           </td>
         </tr>
