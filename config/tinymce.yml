@@ -1,0 +1,9 @@
+# This file contains default settings to tinymce editor
+
+toolbar:
+  - styleselect | bold italic | undo redo
+  - image | link
+
+plugins:
+  - link
+  - image
