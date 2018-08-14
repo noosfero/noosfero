@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180720180749) do
+ActiveRecord::Schema.define(version: 20180807181133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,43 +146,42 @@ ActiveRecord::Schema.define(version: 20180720180749) do
     t.boolean "notify_comments", default: true
     t.integer "hits", default: 0
     t.datetime "published_at"
-    t.string   "source"
-    t.boolean  "highlighted",          default: false
-    t.string   "external_link"
-    t.boolean  "thumbnails_processed", default: false
-    t.boolean  "is_image",             default: false
-    t.integer  "translation_of_id"
-    t.string   "language"
-    t.string   "source_name"
-    t.integer  "license_id"
-    t.integer  "image_id"
-    t.integer  "position",             default: 0
-    t.integer  "spam_comments_count",  default: 0
-    t.integer  "author_id"
-    t.integer  "created_by_id"
-    t.boolean  "show_to_followers",    default: true
-    t.integer  "followers_count",      default: 0
-    t.boolean  "archived",             default: false
-    t.string   "editor",               default: "tiny_mce", null: false
-    t.jsonb    "metadata",             default: {}
-    t.integer  "access",               default: 0
+    t.string "source"
+    t.boolean "highlighted", default: false
+    t.string "external_link"
+    t.boolean "thumbnails_processed", default: false
+    t.boolean "is_image", default: false
+    t.integer "translation_of_id"
+    t.string "language"
+    t.string "source_name"
+    t.integer "license_id"
+    t.integer "image_id"
+    t.integer "position", default: 0
+    t.integer "spam_comments_count", default: 0
+    t.integer "author_id"
+    t.integer "created_by_id"
+    t.boolean "show_to_followers", default: true
+    t.integer "followers_count", default: 0
+    t.boolean "archived", default: false
+    t.string "editor", default: "tiny_mce", null: false
+    t.jsonb "metadata", default: {}
+    t.integer "access", default: 0
+    t.index ["comments_count"], name: "index_articles_on_comments_count"
+    t.index ["created_at"], name: "index_articles_on_created_at"
+    t.index ["hits"], name: "index_articles_on_hits"
+    t.index ["metadata"], name: "index_articles_on_metadata", using: :gin
+    t.index ["name"], name: "index_articles_on_name"
+    t.index ["parent_id"], name: "index_articles_on_parent_id"
+    t.index ["path", "profile_id"], name: "index_articles_on_path_and_profile_id"
+    t.index ["path"], name: "index_articles_on_path"
+    t.index ["profile_id"], name: "index_articles_on_profile_id"
+    t.index ["published_at", "id"], name: "index_articles_on_published_at_and_id"
+    t.index ["slug"], name: "index_articles_on_slug"
+    t.index ["translation_of_id"], name: "index_articles_on_translation_of_id"
+    t.index ["type", "parent_id"], name: "index_articles_on_type_and_parent_id"
+    t.index ["type", "profile_id"], name: "index_articles_on_type_and_profile_id"
+    t.index ["type"], name: "index_articles_on_type"
   end
-
-  add_index "articles", ["comments_count"], name: "index_articles_on_comments_count", using: :btree
-  add_index "articles", ["created_at"], name: "index_articles_on_created_at", using: :btree
-  add_index "articles", ["hits"], name: "index_articles_on_hits", using: :btree
-  add_index "articles", ["metadata"], name: "index_articles_on_metadata", using: :gin
-  add_index "articles", ["name"], name: "index_articles_on_name", using: :btree
-  add_index "articles", ["parent_id"], name: "index_articles_on_parent_id", using: :btree
-  add_index "articles", ["path", "profile_id"], name: "index_articles_on_path_and_profile_id", using: :btree
-  add_index "articles", ["path"], name: "index_articles_on_path", using: :btree
-  add_index "articles", ["profile_id"], name: "index_articles_on_profile_id", using: :btree
-  add_index "articles", ["published_at", "id"], name: "index_articles_on_published_at_and_id", using: :btree
-  add_index "articles", ["slug"], name: "index_articles_on_slug", using: :btree
-  add_index "articles", ["translation_of_id"], name: "index_articles_on_translation_of_id", using: :btree
-  add_index "articles", ["type", "parent_id"], name: "index_articles_on_type_and_parent_id", using: :btree
-  add_index "articles", ["type", "profile_id"], name: "index_articles_on_type_and_profile_id", using: :btree
-  add_index "articles", ["type"], name: "index_articles_on_type", using: :btree
 
   create_table "articles_categories", id: false, force: :cascade do |t|
     t.integer "article_id"
@@ -315,7 +314,6 @@ ActiveRecord::Schema.define(version: 20180720180749) do
     t.text "value", default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["customized_type", "customized_id", "custom_field_id"], name: "index_custom_field_values", unique: true
   end
 
   create_table "custom_fields", force: :cascade do |t|
@@ -331,7 +329,6 @@ ActiveRecord::Schema.define(version: 20180720180749) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "moderation_task", default: false
-    t.index ["customized_type", "name", "environment_id"], name: "index_custom_field", unique: true
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -609,65 +606,64 @@ ActiveRecord::Schema.define(version: 20180720180749) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string   "name"
-    t.string   "type"
-    t.string   "identifier"
-    t.integer  "environment_id"
-    t.boolean  "active",                             default: true
-    t.string   "address"
-    t.string   "contact_phone"
-    t.integer  "home_page_id"
-    t.integer  "user_id"
-    t.integer  "region_id"
-    t.text     "data"
+    t.string "name"
+    t.string "type"
+    t.string "identifier"
+    t.integer "environment_id"
+    t.boolean "active", default: true
+    t.string "address"
+    t.string "contact_phone"
+    t.integer "home_page_id"
+    t.integer "user_id"
+    t.integer "region_id"
+    t.text "data"
     t.datetime "created_at"
-    t.float    "lat"
-    t.float    "lng"
-    t.integer  "geocode_precision"
-    t.boolean  "enabled",                            default: true
-    t.string   "nickname",                limit: 16
-    t.text     "custom_header"
-    t.text     "custom_footer"
-    t.string   "theme"
-    t.date     "birth_date"
-    t.integer  "preferred_domain_id"
+    t.float "lat"
+    t.float "lng"
+    t.integer "geocode_precision"
+    t.boolean "enabled", default: true
+    t.string "nickname", limit: 16
+    t.text "custom_header"
+    t.text "custom_footer"
+    t.string "theme"
+    t.date "birth_date"
+    t.integer "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                            default: true
-    t.integer  "image_id"
-    t.boolean  "validated",                          default: true
-    t.string   "cnpj"
-    t.string   "national_region_code"
-    t.boolean  "is_template",                        default: false
-    t.integer  "template_id"
-    t.string   "redirection_after_login"
-    t.integer  "friends_count",                      default: 0,          null: false
-    t.integer  "members_count",                      default: 0,          null: false
-    t.integer  "activities_count",                   default: 0,          null: false
-    t.string   "personal_website"
-    t.string   "jabber_id"
-    t.integer  "welcome_page_id"
-    t.boolean  "allow_members_to_invite",            default: true
-    t.boolean  "invite_friends_only",                default: false
-    t.boolean  "secret",                             default: false
-    t.string   "editor",                             default: "tiny_mce", null: false
-    t.integer  "top_image_id"
-    t.jsonb    "metadata",                           default: {}
-    t.string   "upload_quota"
-    t.float    "disk_usage"
-    t.string   "cropped_image"
-    t.integer  "access",                             default: 0
+    t.boolean "visible", default: true
+    t.integer "image_id"
+    t.boolean "validated", default: true
+    t.string "cnpj"
+    t.string "national_region_code"
+    t.boolean "is_template", default: false
+    t.integer "template_id"
+    t.string "redirection_after_login"
+    t.integer "friends_count", default: 0, null: false
+    t.integer "members_count", default: 0, null: false
+    t.integer "activities_count", default: 0, null: false
+    t.string "personal_website"
+    t.string "jabber_id"
+    t.integer "welcome_page_id"
+    t.boolean "allow_members_to_invite", default: true
+    t.boolean "invite_friends_only", default: false
+    t.boolean "secret", default: false
+    t.string "editor", default: "tiny_mce", null: false
+    t.integer "top_image_id"
+    t.jsonb "metadata", default: {}
+    t.string "upload_quota"
+    t.float "disk_usage"
+    t.string "cropped_image"
+    t.integer "access", default: 0
+    t.index ["activities_count"], name: "index_profiles_on_activities_count"
+    t.index ["created_at"], name: "index_profiles_on_created_at"
+    t.index ["environment_id"], name: "index_profiles_on_environment_id"
+    t.index ["friends_count"], name: "index_profiles_on_friends_count"
+    t.index ["identifier"], name: "index_profiles_on_identifier"
+    t.index ["members_count"], name: "index_profiles_on_members_count"
+    t.index ["metadata"], name: "index_profiles_on_metadata", using: :gin
+    t.index ["region_id"], name: "index_profiles_on_region_id"
+    t.index ["user_id", "type"], name: "index_profiles_on_user_id_and_type"
+    t.index ["user_id"], name: "index_profiles_on_user_id"
   end
-
-  add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
-  add_index "profiles", ["created_at"], name: "index_profiles_on_created_at", using: :btree
-  add_index "profiles", ["environment_id"], name: "index_profiles_on_environment_id", using: :btree
-  add_index "profiles", ["friends_count"], name: "index_profiles_on_friends_count", using: :btree
-  add_index "profiles", ["identifier"], name: "index_profiles_on_identifier", using: :btree
-  add_index "profiles", ["members_count"], name: "index_profiles_on_members_count", using: :btree
-  add_index "profiles", ["metadata"], name: "index_profiles_on_metadata", using: :gin
-  add_index "profiles", ["region_id"], name: "index_profiles_on_region_id", using: :btree
-  add_index "profiles", ["user_id", "type"], name: "index_profiles_on_user_id_and_type", using: :btree
-  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
 
   create_table "profiles_circles", force: :cascade do |t|
     t.integer "profile_id"
@@ -736,6 +732,65 @@ ActiveRecord::Schema.define(version: 20180720180749) do
     t.text "permissions"
     t.integer "environment_id"
     t.integer "profile_id"
+  end
+
+  create_table "rpush_apps", id: :serial, force: :cascade do |t|
+    t.string "name", null: false
+    t.string "environment"
+    t.text "certificate"
+    t.string "password"
+    t.integer "connections", default: 1, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string "type", null: false
+    t.string "auth_key"
+    t.string "client_id"
+    t.string "client_secret"
+    t.string "access_token"
+    t.datetime "access_token_expiration"
+  end
+
+  create_table "rpush_feedback", id: :serial, force: :cascade do |t|
+    t.string "device_token", limit: 64, null: false
+    t.datetime "failed_at", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer "app_id"
+    t.index ["device_token"], name: "index_rpush_feedback_on_device_token"
+  end
+
+  create_table "rpush_notifications", id: :serial, force: :cascade do |t|
+    t.integer "badge"
+    t.string "device_token", limit: 64
+    t.string "sound", default: "default"
+    t.text "alert"
+    t.text "data"
+    t.integer "expiry", default: 86400
+    t.boolean "delivered", default: false, null: false
+    t.datetime "delivered_at"
+    t.boolean "failed", default: false, null: false
+    t.datetime "failed_at"
+    t.integer "error_code"
+    t.text "error_description"
+    t.datetime "deliver_after"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "alert_is_json", default: false
+    t.string "type", null: false
+    t.string "collapse_key"
+    t.boolean "delay_while_idle", default: false, null: false
+    t.text "registration_ids"
+    t.integer "app_id", null: false
+    t.integer "retries", default: 0
+    t.string "uri"
+    t.datetime "fail_after"
+    t.boolean "processing", default: false, null: false
+    t.integer "priority"
+    t.text "url_args"
+    t.string "category"
+    t.boolean "content_available", default: false
+    t.text "notification"
+    t.index ["delivered", "failed"], name: "index_rpush_notifications_multi", where: "((NOT delivered) AND (NOT failed))"
   end
 
   create_table "scraps", force: :cascade do |t|
@@ -914,53 +969,51 @@ ActiveRecord::Schema.define(version: 20180720180749) do
 
   add_foreign_key "profiles_circles", "circles", on_delete: :cascade
 
-  profile_friendships_table = <<-SQL
-    SELECT profiles.id, profiles.access,
-    friendships.friend_id AS friend_id, friendships.person_id AS person_id
-    FROM profiles LEFT JOIN friendships
-    ON profiles.id = friendships.person_id OR profiles.id = friendships.friend_id
-    WHERE profiles.access > #{Entitlement::Levels.levels[:users]};
+  create_view "profile_access_friendships",  sql_definition: <<-SQL
+      SELECT profiles.id,
+      profiles.access,
+      friendships.friend_id,
+      friendships.person_id
+     FROM (profiles
+       LEFT JOIN friendships ON (((profiles.id = friendships.person_id) OR (profiles.id = friendships.friend_id))))
+    WHERE (profiles.access > 10);
   SQL
 
-  profile_memberships_table = <<-SQL
-    SELECT profiles.id, profiles.access,
-    role_assignments.accessor_id AS member_id, roles.permissions, roles.key
-    FROM profiles LEFT JOIN role_assignments
-    ON profiles.id = role_assignments.resource_id
-    LEFT JOIN roles ON role_assignments.role_id = roles.id
-    WHERE profiles.access > #{Entitlement::Levels.levels[:users]};
+  create_view "profile_access_memberships",  sql_definition: <<-SQL
+      SELECT profiles.id,
+      profiles.access,
+      role_assignments.accessor_id AS member_id,
+      roles.permissions,
+      roles.key
+     FROM ((profiles
+       LEFT JOIN role_assignments ON ((profiles.id = role_assignments.resource_id)))
+       LEFT JOIN roles ON ((role_assignments.role_id = roles.id)))
+    WHERE (profiles.access > 10);
   SQL
 
-  article_friendships_table = <<-SQL
-    SELECT articles.id, articles.profile_id, articles.access,
-    friendships.friend_id AS friend_id, friendships.person_id AS person_id
-    FROM articles JOIN profiles ON profiles.id = articles.profile_id
-    LEFT JOIN friendships
-    ON articles.profile_id = friendships.person_id OR articles.profile_id = friendships.friend_id
-    WHERE articles.access > #{Entitlement::Levels.levels[:users]};
+  create_view "article_access_friendships",  sql_definition: <<-SQL
+      SELECT articles.id,
+      articles.profile_id,
+      articles.access,
+      friendships.friend_id,
+      friendships.person_id
+     FROM ((articles
+       JOIN profiles ON ((profiles.id = articles.profile_id)))
+       LEFT JOIN friendships ON (((articles.profile_id = friendships.person_id) OR (articles.profile_id = friendships.friend_id))))
+    WHERE (articles.access > 10);
   SQL
 
-  article_memberships_table = <<-SQL
-    SELECT articles.id, articles.profile_id, articles.access,
-    role_assignments.accessor_id AS member_id, roles.permissions, roles.key
-    FROM articles LEFT JOIN role_assignments
-    ON articles.profile_id = role_assignments.resource_id
-    LEFT JOIN roles ON role_assignments.role_id = roles.id
-    WHERE articles.access > #{Entitlement::Levels.levels[:users]};
+  create_view "article_access_memberships",  sql_definition: <<-SQL
+      SELECT articles.id,
+      articles.profile_id,
+      articles.access,
+      role_assignments.accessor_id AS member_id,
+      roles.permissions,
+      roles.key
+     FROM ((articles
+       LEFT JOIN role_assignments ON ((articles.profile_id = role_assignments.resource_id)))
+       LEFT JOIN roles ON ((role_assignments.role_id = roles.id)))
+    WHERE (articles.access > 10);
   SQL
 
-  noosfero_env = ENV['RAILS_ENV']
-  if noosfero_env != 'production'
-    create_view "profile_access_friendships", sql_definition: profile_friendships_table
-    create_view "profile_access_memberships", sql_definition: profile_memberships_table
-    create_view "article_access_friendships", sql_definition: article_friendships_table
-    create_view "article_access_memberships", sql_definition: article_memberships_table
-  else
-    create_view "profile_access_friendships", materialized: true, sql_definition: profile_friendships_table
-    create_view "profile_access_memberships", materialized: true, sql_definition: profile_memberships_table
-    create_view "article_access_friendships", materialized: true, sql_definition: article_friendships_table
-    create_view "article_access_memberships", materialized: true, sql_definition: article_memberships_table
-    ArticleAccessFriendship.refresh()
-    ArticleAccessMembership.refresh()
-  end
 end
