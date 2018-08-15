@@ -463,7 +463,7 @@ class Article < ApplicationRecord
   end
 
   def possible_translations
-    possibilities = environment.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
+    possibilities = environment.locales.keys - self.native_translation.translations.map(&:language) - [self.native_translation.language]
     possibilities << self.language unless self.language_changed?
     possibilities
   end
