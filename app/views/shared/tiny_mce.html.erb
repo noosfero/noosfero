@@ -4,52 +4,6 @@ mode ||= false
 %>
 
 <%= tinymce_js %>
-<script type="text/javascript">
-tinymce.create('tinymce.plugins.MacrosPlugin', {
-  createControl: function(n, cm) {
-    switch (n) {
-       case 'macros':
-         <% unless macros_in_menu.empty? %>
-           var c = cm.createMenuButton('macros', {
-             title : 'Macros',
-             image : '/designs/icons/tango/Tango/16x16/emblems/emblem-system.png',
-             icons : false
-           });
-
-           <% macros_in_menu.each do |macro| %>
-             c.onRenderMenu.add(function(c, m) {
-               m.add({
-                 title: <%= macro_title(macro).to_json %>,
-                 onclick: <%= generate_macro_config_dialog(macro) %>
-               });
-             });
-           <% end %>
-
-           // Return the new menu button instance
-           return c;
-         <% end %>
-    }
-    return null;
-  }
-});
-
-function tinymce_macros_setup(editor) {
-  <% macros_with_buttons.each do |macro| %>
-    editor.addButton('<%= macro.identifier %>', {
-      title: <%= macro_title(macro).to_json %>,
-      onclick: <%= generate_macro_config_dialog(macro) %>,
-      image : '<%= macro.configuration[:icon_path]%>'
-    });
-  <% end %>
-}
-
-// Register plugin with a short name
-tinymce.PluginManager.add('macrosPlugin', tinymce.plugins.MacrosPlugin);
-
-jQuery(document).ready(function () {
-  <%= tinymce_init_js %>
-  <%= tinymce_init_js :mode => 'simple' %>
-  <%= tinymce_init_js :mode => 'restricted' %>
-});
-</script>
-
+<%= tinymce_editor %>
+<%= tinymce_editor :mode => 'simple' %>
+<%= tinymce_editor :mode => 'restricted' %>

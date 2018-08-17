@@ -1,14 +1,9 @@
 # This file contains default settings to tinymce editor
 
-toolbar:
-  - styleselect | bold italic | undo redo
-  - image | link
-
-content_css:
-  - /stylesheets/tinymce.css
+image_advtab: true
 
 plugins:
-  - compat3x
+  # - compat3x
   - advlist
   - autolink
   - lists
@@ -38,4 +33,5 @@ plugins:
   - paste
   - textcolor
   - colorpicker
-  - textpattern]
+  - textpattern
+  - macros

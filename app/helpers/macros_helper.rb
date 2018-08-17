@@ -1,5 +1,6 @@
 module MacrosHelper
 
+  # FIXME Don't has diferrence between macro_in_menu and macros_with_buttons
   def macros_in_menu
     @plugins.dispatch(:macros).reject{ |macro| macro.configuration[:icon_path] }
   end
