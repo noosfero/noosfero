@@ -1570,6 +1570,7 @@ table.profile th {
 /**** controller-memberships action-memberships-index ****/
 
 #memberships-index li {
+  display: flex;
   background-color: #FFF;
   border: 1px solid #EEE;
   -moz-border-radius: 9px;
