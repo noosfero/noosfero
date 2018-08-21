@@ -281,7 +281,7 @@ class TasksControllerTest < ActionController::TestCase
       post :close, :tasks => {a.id => {:decision => 'finish', :task => {:name => "", :highlighted => "0", :article_parent_id => c_blog2.id.to_s}}}
     end
     assert p_article = article.class.find_by(reference_article_id: article.id)
-    assert_includes c_blog2.children(true), p_article
+    assert_includes c_blog2.children, p_article
   end
 
   should 'display error if there is an enterprise with the same identifier and keep the task active' do

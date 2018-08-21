@@ -335,7 +335,7 @@ class CmsControllerTest < ActionController::TestCase
 
     post :edit, :profile => profile.identifier, :id => file.id, :article => { :uploaded_data => fixture_file_upload('/files/test_another.txt', 'text/plain')}
 
-    assert_equal 2, file.versions(true).size
+    assert_equal 2, file.versions.size
   end
 
   should 'be able to upload an image' do

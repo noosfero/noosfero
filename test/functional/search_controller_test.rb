@@ -670,7 +670,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'not raise an exception if tag query contains accented latin characters' do
     tag_query = 'àáâãäå'
-    assert_nothing_raised(NoMethodError) { get :tag, :tag => tag_query }
+    assert_nothing_raised { get :tag, :tag => tag_query }
   end
 
   should 'not allow query injection' do

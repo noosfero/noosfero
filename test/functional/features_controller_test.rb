@@ -91,8 +91,8 @@ class FeaturesControllerTest < ActionController::TestCase
     post :manage_person_fields, :person_fields => { :cell_phone => {:active => true, :required => true }}
     assert_redirected_to :action => 'manage_fields'
     e.reload
-    assert_equal true, e.custom_person_fields['cell_phone']['active']
-    assert_equal true, e.custom_person_fields['cell_phone']['required']
+    assert_equal true, ActiveModel::Type::Boolean.new.cast(e.custom_person_fields['cell_phone']['active'])
+    assert_equal true, ActiveModel::Type::Boolean.new.cast(e.custom_person_fields['cell_phone']['required'])
   end
 
   should 'list possible enterprise fields' do
@@ -114,8 +114,8 @@ class FeaturesControllerTest < ActionController::TestCase
     post :manage_enterprise_fields, :enterprise_fields => { :contact_person => {:active => true, :required => true }}
     assert_redirected_to :action => 'manage_fields'
     e.reload
-    assert_equal true, e.custom_enterprise_fields['contact_person']['active']
-    assert_equal true, e.custom_enterprise_fields['contact_person']['required']
+    assert_equal true, ActiveModel::Type::Boolean.new.cast(e.custom_enterprise_fields['contact_person']['active'])
+    assert_equal true, ActiveModel::Type::Boolean.new.cast(e.custom_enterprise_fields['contact_person']['required'])
   end
 
   should 'list possible community fields' do
@@ -137,8 +137,8 @@ class FeaturesControllerTest < ActionController::TestCase
     post :manage_community_fields, :community_fields => { :contact_person => {:active => true, :required => true }}
     assert_redirected_to :action => 'manage_fields'
     e.reload
-    assert_equal true, e.custom_community_fields['contact_person']['active']
-    assert_equal true, e.custom_community_fields['contact_person']['required']
+    assert_equal true, ActiveModel::Type::Boolean.new.cast(e.custom_community_fields['contact_person']['active'])
+    assert_equal true, ActiveModel::Type::Boolean.new.cast(e.custom_community_fields['contact_person']['required'])
   end
 
   should 'search members by name' do
