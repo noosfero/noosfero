@@ -5,8 +5,8 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   has_many :form_answers, :class_name => 'CustomFormsPlugin::FormAnswer'
   has_many :alternatives, :through => :form_answers
   validates_presence_of :field
-  #validate :value_is_mandatory, :if => 'field.present?'
-  #validate :value_is_valid, :if => 'field.try(:alternatives).present?'
+  validate :value_is_mandatory, :if => 'field.present?'
+  validate :value_is_valid, :if => 'field.try(:alternatives).present?'
 
   attr_accessible :field, :value, :submission, :imported, :alternatives
 

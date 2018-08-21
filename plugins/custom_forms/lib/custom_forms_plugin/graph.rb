@@ -13,11 +13,11 @@ class CustomFormsPlugin::Graph
 
   def initialize(form)
     @form = form
-    self.compute_results
+    data = get_data()
+    @query_results = format_data(data)
   end
 
   def compute_results
-    @query_results = report()
   end
 
 
