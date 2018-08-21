@@ -17,10 +17,6 @@ class CustomFormsPlugin::Graph
     @query_results = format_data(data)
   end
 
-  def compute_results
-  end
-
-
   def chart_to_show_data(show_as)
     return 'pizza' if ["radio", "select"].include?(show_as)
     return 'column' if ["check_box", "multiple_select"].include?(show_as)
@@ -29,12 +25,6 @@ class CustomFormsPlugin::Graph
 
   def query_results
     @query_results
-  end
-
-  def report()
-    data = get_data
-
-    format_data(data)
   end
 
   private

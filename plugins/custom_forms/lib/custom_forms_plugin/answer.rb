@@ -18,7 +18,9 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   end
 
   def to_s
-    to_text_list.map{ |l| l.gsub(';', '.') }.join(';')
+    unless value.nil?
+      to_text_list.map{ |l| l.gsub(';', '.') }.join(';')
+    end
   end
 
   def value
@@ -52,4 +54,3 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   end
 
 end
-
