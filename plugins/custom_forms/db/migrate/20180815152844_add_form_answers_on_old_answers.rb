@@ -1,18 +1,20 @@
 class AddFormAnswersOnOldAnswers < ActiveRecord::Migration
-  def up
-    answers_without_form_answer = CustomFormsPlugin::Answer.includes(:form_answers)
-                                  .where(custom_forms_plugin_form_answers: {id: nil})
-    select_answers_without_form_answer = answers_without_form_answer.select {|a| a.field.type == "CustomFormsPlugin::SelectField"}
+  require "active_record"
+  require "activerecord-import"
 
-    select_answers_without_form_answer.each do |answer|
-      alternatives_ids = answer.attributes['value']
-      alternatives = CustomFormsPlugin::Alternative.where("id IN (?)", alternatives_ids)
-      alternatives.each do |alternative|
-        form_answer = CustomFormsPlugin::FormAnswer.create!(answer_id: answer.id, alternative_id: alternative.id)
-        answer.form_answers << form_answer
-        answer.save!
-      end
-    end
+  def up
+    @connection = ActiveRecord::Base.connection
+    values = @connection.exec_query(
+      "SELECT a.id as answer_id, al.id as alternative_id FROM custom_forms_plugin_answers AS a
+      INNER JOIN custom_forms_plugin_fields AS f ON a.field_id = f.id
+      LEFT JOIN custom_forms_plugin_form_answers AS fa ON fa.answer_id = a.id
+      INNER JOIN custom_forms_plugin_alternatives AS al ON al.id IN
+      (SELECT regexp_split_to_table(a.value, ',')::int) WHERE fa.id IS NULL 
+      AND f.type = 'CustomFormsPlugin::SelectField';"
+    )
+
+    columns = ["answer_id", "alternative_id"]
+    CustomFormsPlugin::FormAnswer.import! columns, values.rows
   end
 
   def down
