@@ -341,7 +341,7 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     another_field = CustomFormsPlugin::TextField.create!(:name => 'Text Field',
                                                           :form => form)
     submission = CustomFormsPlugin::Submission.create!(:form => form,
-                                                      :profile => profile)
+                                                       :profile => profile)
     another_submission = CustomFormsPlugin::Submission.create!(:form => form,
                                                         :profile => profile)
     answer = CustomFormsPlugin::Answer.create!(:field => field,
@@ -350,7 +350,7 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     form_answer = CustomFormsPlugin::FormAnswer.create!(answer_id: answer,
                                                         alternative_id: field.alternatives[0].id)
     answer.form_answers << form_answer
-    answer.save!  
+    answer.save!
     another_answer = CustomFormsPlugin::Answer.create!(:field => another_field,
                                                        :value => "my-another-answer",
                                                        :submission => another_submission)
@@ -362,6 +362,39 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_match profile.name, @response.body
     assert_match field.alternatives[0].label, @response.body
     assert_match another_answer.value, @response.body
+  end
+
+  should 'download csv of a single field answers' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile,
+                                           :name => 'Free Software',
+                                           :identifier => 'free')
+
+    field = CustomFormsPlugin::TextField.create!(:name => 'Field-1',
+                                            :form => form)
+
+    submission = CustomFormsPlugin::Submission.create!(:form => form,
+                                              :profile => profile)
+
+    another_profile = create_user('another-profile').person
+    another_submission = CustomFormsPlugin::Submission.create!(:form => form,
+                                                :profile => another_profile)
+
+    answer = CustomFormsPlugin::Answer.create!(:field => field,
+                                               :value => "my-answer",
+                                               :submission => submission)
+
+    empty_answer = CustomFormsPlugin::Answer.create!(:field => field,
+                                                :value => "",
+                                                :submission => another_submission)
+
+    get :download_field_answers, :profile => profile.identifier, :id => form.identifier,
+                                 :field_name => field.name, :format => 'csv'
+
+    assert_response :success
+    assert_equal 'text/csv', @response.content_type
+    assert_match profile.name, @response.body
+    assert_match answer.value, @response.body
+    assert_match another_profile.name, @response.body
   end
 
   should 'display form options to profile admin' do
