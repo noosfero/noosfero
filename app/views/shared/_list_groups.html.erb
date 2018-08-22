@@ -4,28 +4,30 @@
       <div class='common-profile-list-block'>
         <%= profile_image_link(group, :portrait, 'div') %>
       </div>
-      <span class='profile-details'>
-        <strong><%= group.name %></strong><br/>
-        <%= raw _('Role: %s') % rolename_for(profile, group) + '<br/>' if profile.role_assignments.find_by(resource_id: group.id) %>
-        <%= _('Type: %s') % _(group.class.identification) %> <br/>
-        <%= raw _('Description: %s') % group.description  + '<br/>' if group.community? %>
-        <%= _('Members: %s') % group.members_count.to_s %> <br/>
-        <%= _('Created at: %s') % show_date(group.created_at) unless group.enterprise? %> <br/>
-        <%= button_bar do %>
-          <% if user.has_permission?(:edit_profile, group) %>
-            <%= button :control_panel, _('Control panel'), group.admin_url %>
-          <% end %>
-          <%= button :logout, _('Leave'), group.leave_url(true), :class => 'leave-community' %>
+      <div>
+        <span class='profile-details'>
+          <strong><%= group.name %></strong><br/>
+          <%= raw _('Role: %s') % rolename_for(profile, group) + '<br/>' if profile.role_assignments.find_by(resource_id: group.id) %>
+          <%= _('Type: %s') % _(group.class.identification) %> <br/>
+          <%= raw _('Description: %s') % group.description  + '<br/>' if group.community? %>
+          <%= _('Members: %s') % group.members_count.to_s %> <br/>
+          <%= _('Created at: %s') % show_date(group.created_at) unless group.enterprise? %> <br/>
+          <%= button_bar do %>
+            <% if user.has_permission?(:edit_profile, group) %>
+              <%= button :control_panel, _('Control panel'), group.admin_url %>
+            <% end %>
+            <%= button :logout, _('Leave'), group.leave_url(true), :class => 'leave-community' %>
 
-          <% if (user.has_permission?(:destroy_profile, group) && !environment.enabled?('forbid_destroy_profile')) || user.is_admin?(environment) %>
-            <%= button :delete, _('Remove'),
-              { :controller => 'profile_editor',
-                :action => 'destroy_profile',
-                :profile => group.identifier }
-            %>
+            <% if (user.has_permission?(:destroy_profile, group) && !environment.enabled?('forbid_destroy_profile')) || user.is_admin?(environment) %>
+              <%= button :delete, _('Remove'),
+                { :controller => 'profile_editor',
+                  :action => 'destroy_profile',
+                  :profile => group.identifier }
+              %>
+            <% end %>
           <% end %>
-        <% end %>
-      </span>
+        </span>
+      </div>
       <br class="may-clear" />
     </li>
   <% end %>

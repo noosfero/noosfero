@@ -170,7 +170,7 @@ module ProfileImageHelper
         )) +
         extra_info_tag + profile_sex_icon(profile),
         profile.url,
-        class: 'profile_link url',
+        class: 'profile_link',
         style: (
           theme_option(:profile_list_bg_imgs) ?
           "background: url(#{profile_icon(profile, size)}) no-repeat center center; 
