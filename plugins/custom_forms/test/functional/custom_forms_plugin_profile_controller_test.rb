@@ -325,15 +325,43 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert_response :forbidden
     assert_template 'shared/access_denied'
   end
-
+ 
   should 'download csv with all submissions' do
-    form = CustomFormsPlugin::Form.create!(:profile => profile,
-                                            :name => 'Free Software',
-                                            :identifier => 'free')
+   form = CustomFormsPlugin::Form.create!(
+     :profile => profile,
+      :name => 'Free Software',
+      :identifier => 'free',
+      :kind => 'survey'
+    )
+    alternative_a = CustomFormsPlugin::Alternative.new(:label => 'A')
+    alternative_b = CustomFormsPlugin::Alternative.new(:label => 'B')
+    field = CustomFormsPlugin::SelectField.new(:name => 'Select Field', :form => form)
+    field.alternatives << [alternative_a, alternative_b]
+    field.save!
+    another_field = CustomFormsPlugin::TextField.create!(:name => 'Text Field',
+                                                          :form => form)
     submission = CustomFormsPlugin::Submission.create!(:form => form,
-                                                       :profile => profile)
+                                                      :profile => profile)
+    another_submission = CustomFormsPlugin::Submission.create!(:form => form,
+                                                        :profile => profile)
+    answer = CustomFormsPlugin::Answer.create!(:field => field,
+                                               :value => nil,
+                                               :submission => submission)
+    form_answer = CustomFormsPlugin::FormAnswer.create!(answer_id: answer,
+                                                        alternative_id: field.alternatives[0].id)
+    answer.form_answers << form_answer
+    answer.save!  
+    another_answer = CustomFormsPlugin::Answer.create!(:field => another_field,
+                                                       :value => "my-another-answer",
+                                                       :submission => another_submission)
+
     get :review, :profile => profile.identifier, :id => form.identifier, :format => 'csv'
+
     assert_response :success
+    assert_equal 'text/csv', @response.content_type
+    assert_match profile.name, @response.body
+    assert_match field.alternatives[0].label, @response.body
+    assert_match another_answer.value, @response.body
   end
 
   should 'display form options to profile admin' do
