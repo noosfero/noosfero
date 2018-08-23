@@ -37,7 +37,7 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
                                       :submission => submission2)
 
     check_box_field = CustomFormsPlugin::Field.create!(
-      :name => 'Which notebook marks do you already had?',
+      :name => 'Which laptop marks do you already had?',
       :form => @form,
       :show_as => 'check_box'
     )
@@ -77,6 +77,20 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
   end
 
   attr_reader :profile, :form
+
+  should "return right graph type" do
+    graph = CustomFormsPlugin::Graph.new(form)
+
+    ["radio", "select"].each do |option|
+      assert_equal "pizza", graph.chart_to_show_data(option)
+    end
+
+    ["check_box", "multiple_select"].each do |option|
+      assert_equal "column", graph.chart_to_show_data(option)
+    end
+
+    assert_equal "text", graph.chart_to_show_data("text")
+  end
 
   should 'calculate the user answers for a radio field' do
 
