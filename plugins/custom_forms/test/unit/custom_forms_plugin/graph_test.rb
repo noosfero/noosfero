@@ -13,55 +13,61 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
                                                        :profile => @profile)
     submission2 = CustomFormsPlugin::Submission.create!(:form => @form,
                                                        :profile => @profile2)
-    radio_field = CustomFormsPlugin::Field.create!(
+    @radio_field = CustomFormsPlugin::Field.create!(
       :name => 'What is your favorite food?',
       :form => @form,
       :show_as => 'radio'
     )
 
-
-    CustomFormsPlugin::Alternative.create!(:field => radio_field,
+    alternative_1 = CustomFormsPlugin::Alternative.create!(:field => @radio_field,
                                            :label => 'rice')
-    CustomFormsPlugin::Alternative.create!(:field => radio_field,
+    alternative_2 = CustomFormsPlugin::Alternative.create!(:field => @radio_field,
                                            :label => 'beans')
-
-    alt = CustomFormsPlugin::Alternative.create!(:field => radio_field,
+    alternative_3 = CustomFormsPlugin::Alternative.create!(:field => @radio_field,
                                                  :label => 'bread')
+    answer_1 = CustomFormsPlugin::Answer.create!(:field => @radio_field,
+                                                 :value => alternative_3.id,
+                                                 :submission => submission)
+    answer_2 = CustomFormsPlugin::Answer.create!(:field => @radio_field,
+                                                 :value => alternative_3.id,
+                                                 :submission => submission2)
+    form_answer_1 = CustomFormsPlugin::FormAnswer.create!(:alternative_id => alternative_1.id,
+                                                          :answer_id => answer_1.id)
+    form_answer_2 = CustomFormsPlugin::FormAnswer.create!(:alternative_id => alternative_2.id,
+                                                          :answer_id => answer_2.id)
 
-    CustomFormsPlugin::Answer.create!(:field => radio_field,
-                                      :value => alt.id,
-                                      :submission => submission)
-
-    CustomFormsPlugin::Answer.create!(:field => radio_field,
-                                      :value => alt.id,
-                                      :submission => submission2)
-
-    check_box_field = CustomFormsPlugin::Field.create!(
+    @check_box_field = CustomFormsPlugin::Field.create!(
       :name => 'Which laptop marks do you already had?',
       :form => @form,
       :show_as => 'check_box'
     )
 
     check_alt = CustomFormsPlugin::Alternative.create!(
-      :field => check_box_field, :label => 'azus'
+      :field => @check_box_field, :label => 'azus'
     )
     check_alt1 = CustomFormsPlugin::Alternative.create!(
-      :field => check_box_field, :label => 'acer'
+      :field => @check_box_field, :label => 'acer'
     )
     check_alt2 = CustomFormsPlugin::Alternative.create!(
-      :field => check_box_field, :label => 'mac'
+      :field => @check_box_field, :label => 'mac'
     )
     check_alt3 = CustomFormsPlugin::Alternative.create!(
-      :field => check_box_field, :label => 'dell'
+      :field => @check_box_field, :label => 'dell'
     )
 
-    CustomFormsPlugin::Answer.create!(:field => check_box_field,
+    answer_3 = CustomFormsPlugin::Answer.create!(:field => @check_box_field,
                                       :value => "#{check_alt1.id},#{check_alt2.id}",
                                       :submission => submission)
 
-    CustomFormsPlugin::Answer.create!(:field => check_box_field,
+    answer_4 = CustomFormsPlugin::Answer.create!(:field => @check_box_field,
                                       :value => "#{check_alt1.id},#{check_alt3.id}",
                                       :submission => submission2)
+
+    form_answer_3 = CustomFormsPlugin::FormAnswer.create!(:alternative_id => alternative_3.id,
+                                                          :answer_id => answer_3.id)
+
+    form_answer_4 = CustomFormsPlugin::FormAnswer.create!(:alternative_id => alternative_3.id,
+                                                          :answer_id => answer_4.id)
 
     @text_field = CustomFormsPlugin::TextField.create!(:name => 'What is your name?',
                                                       :form => @form,
@@ -76,7 +82,7 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
                                       :submission => submission2)
   end
 
-  attr_reader :profile, :form, :text_field
+  attr_reader :profile, :form, :text_field, :check_box_field, :radio_field
 
   should "return right chart type" do
     graph = CustomFormsPlugin::Graph.new(form)
@@ -107,18 +113,19 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
   should "get select fields" do 
     graph = CustomFormsPlugin::Graph.new(form)
     select_fields = graph.send(:get_select_fields)
+    field_names = select_fields.map(&:field_name).uniq
+    answer_count = select_fields.map(&:answer_count).reduce(:+)
 
-    pp select_fields.map(&:field_name).uniq
-    # Todos os valores abaixo vem 0 pq ñ tem form_answer.
-    # Criar form answers no setup (ou fazer uma callback que faz isso em answer.rb)
-    pp select_fields.map(&:answer_count) 
+    assert field_names.include? check_box_field.name
+    assert field_names.include? radio_field.name
+    assert_equal answer_count, CustomFormsPlugin::FormAnswer.count
   end
 
-  should "format data to build graph" do 
+  should "format data to build graph" do
+
   end
 
   should 'calculate the user answers for a radio field' do
-
     graph_data = CustomFormsPlugin::Graph.new(@form).query_results
 
     assert_equal graph_data.class, Array
@@ -130,7 +137,6 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
   end
 
   should 'calculate the user answers for a check_box field' do
-
     graph_data = CustomFormsPlugin::Graph.new(@form).query_results
 
     assert_equal graph_data.class, Array
