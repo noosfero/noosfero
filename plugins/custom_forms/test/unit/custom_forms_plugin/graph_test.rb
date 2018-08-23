@@ -63,22 +63,22 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
                                       :value => "#{check_alt1.id},#{check_alt3.id}",
                                       :submission => submission2)
 
-    text_field = CustomFormsPlugin::TextField.create!(:name => 'What is your name?',
+    @text_field = CustomFormsPlugin::TextField.create!(:name => 'What is your name?',
                                                       :form => @form,
                                                       :show_as => 'text')
 
-    CustomFormsPlugin::Answer.create!(:field => text_field,
+    CustomFormsPlugin::Answer.create!(:field => @text_field,
                                       :value => 'My Name is Groot',
                                       :submission => submission)
 
-    CustomFormsPlugin::Answer.create!(:field => text_field,
+    CustomFormsPlugin::Answer.create!(:field => @text_field,
                                       :value => 'My Name is David',
                                       :submission => submission2)
   end
 
-  attr_reader :profile, :form
+  attr_reader :profile, :form, :text_field
 
-  should "return right graph type" do
+  should "return right chart type" do
     graph = CustomFormsPlugin::Graph.new(form)
 
     ["radio", "select"].each do |option|
@@ -90,6 +90,31 @@ class CustomFormsPlugin::GraphTest < ActiveSupport::TestCase
     end
 
     assert_equal "text", graph.chart_to_show_data("text")
+  end
+
+  should "get text fields" do 
+    graph = CustomFormsPlugin::Graph.new(form)
+    text_fields = graph.send(:get_text_fields)
+
+    users = (text_fields.map {|f| f.users.split(',')}).flatten
+    fields_ids = text_fields.map(&:id)
+
+    assert fields_ids.include? text_field.id
+    assert users.include? @profile.name
+    assert users.include? @profile2.name
+  end
+
+  should "get select fields" do 
+    graph = CustomFormsPlugin::Graph.new(form)
+    select_fields = graph.send(:get_select_fields)
+
+    pp select_fields.map(&:field_name).uniq
+    # Todos os valores abaixo vem 0 pq ñ tem form_answer.
+    # Criar form answers no setup (ou fazer uma callback que faz isso em answer.rb)
+    pp select_fields.map(&:answer_count) 
+  end
+
+  should "format data to build graph" do 
   end
 
   should 'calculate the user answers for a radio field' do
