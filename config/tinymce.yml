@@ -1,9 +1,11 @@
 # This file contains default settings to tinymce editor
 
+mobile:
+  - theme: 'mobile'
+
 image_advtab: true
 
 plugins:
-  # - compat3x
   - advlist
   - autolink
   - lists
@@ -34,4 +36,3 @@ plugins:
   - textcolor
   - colorpicker
   - textpattern
-  - macros
