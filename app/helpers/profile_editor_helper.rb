@@ -84,7 +84,6 @@ module ProfileEditorHelper
     N_('Post-Doctoral'),
     N_('Ph.D.'),
     N_('Masters'),
-    N_('Undergraduate'),
     N_('Graduate'),
     N_('High School'),
     N_('Elementary School')
