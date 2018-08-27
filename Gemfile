@@ -45,6 +45,7 @@ gem 'activerecord-import'
 gem 'childprocess'
 gem 'rubyzip'
 gem 'tinymce-rails', '~> 4.8', '>= 4.8.2'
+gem 'tinymce-rails-langs', '~> 4.2'
 
 # API dependencies
 gem 'grape'
