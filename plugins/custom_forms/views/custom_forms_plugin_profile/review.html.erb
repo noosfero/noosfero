@@ -1,3 +1,5 @@
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.3.0"></script>
+
 <div class="query-overview">
   <h3><%= @form.name %></h3>
 
@@ -7,7 +9,7 @@
     <span class="bullet">•</span>
     <i class="fa fa-users" aria-hidden="true"></i>
     <span><%= _(pluralize(@form.submissions.count, 'participant')) %></span>
-    <%= link_to 'Download as CSV', format: 'csv'  %>
+    <%= link_to 'Download as CSV', format: 'csv' %>
   </div>
 
   <% if @query_results.any? { |r| r['field'].present? } %>
@@ -33,7 +35,7 @@
         </div>
       <% else %>
         <div>
-          <%= render partial: @graph.exibition_method(result['show_as']),
+          <%= render partial: result['show_as'],
                      locals: { graph: @graph, result: result, index: index } %>
 
           <% if index < @query_results.size - 1 %>
