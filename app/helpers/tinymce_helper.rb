@@ -9,16 +9,14 @@ module TinymceHelper
 
   def tinymce_editor options = {}
     tinymce :document_base_url => top_url,
-      :content_css => "/stylesheets/tinymce.css,#{macro_css_files}", # FIXME Check why css files don't loaded
+      :content_css => "/stylesheets/tinymce.css,#{macro_css_files}",
       :language => tinymce_language,
       :selector => '.' + current_editor(options[:mode]),
       :menubar => menubar(options[:mode]),
       :toolbar => [toolbar1(options[:mode]), toolbar2(options[:mode])],
       :font_formats => 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
-      :setup => macros_setup # FIXME Test add setups
+      :setup => macros_setup
   end
-
-  private
 
   def menubar mode
     if mode =='restricted' || mode == 'simple'
@@ -31,11 +29,7 @@ module TinymceHelper
     if mode == 'restricted'
       return "bold italic underline | link"
     end
-    return "fullscreen | insertfile undo redo | copy paste |
-            bold italic underline strikethrough removeformat backcolor |
-            styleselect fontselect fontsizeselect | forecolor backcolor |
-            alignleft aligncenter alignright alignjustify |
-            bullist numlist outdent indent | link image | hilitecolor"
+    return "fullscreen | insertfile undo redo | copy paste | bold italic underline strikethrough removeformat backcolor | styleselect fontselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | hilitecolor"
   end
 
   def toolbar2 mode
