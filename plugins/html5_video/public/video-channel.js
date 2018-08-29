@@ -89,6 +89,7 @@ VideoChannel.prototype.getItemData = function(item) {
   data.videoURL = link.getAttribute('data-download');
   data.posterURL = link.getAttribute('data-poster');
   data.title = $(link).text();
+  data.url = link.getAttribute('href');
   data.abstract = $('.abstract', item)[0].innerHTML;
   data.tags = $('.vli-data-tags > div', item)[0].innerHTML;
   return data;
@@ -102,6 +103,7 @@ exports.NoosferoVideoPlayer = function NoosferoVideoPlayer(place, channel) {
   if(!this.divBase) return;
   this.info = {
     title      : $('h2',            this.divBase)[0],
+    url        : $('.page-url',     this.divBase)[0],
     quality    : $('.quality ul',   this.divBase)[0],
     tags       : $('.tags div',     this.divBase)[0],
     abstract   : $('.abstract div', this.divBase)[0],
@@ -121,6 +123,7 @@ exports.NoosferoVideoPlayer = function NoosferoVideoPlayer(place, channel) {
 
 NoosferoVideoPlayer.prototype.update = function(data, autoplay) {
   this.info.title.innerHTML = data.title;
+  this.info.url.href = data.url;
   this.videoEl.src = data.videoURL;
   this.videoEl.autoplay = autoplay;
   this.poster = data.posterURL;
@@ -232,8 +235,9 @@ $(document).ready(function() {
   })
 
   // Hide the initial zoomed video.
-  $("a[href=#video-box-anchor]").click(function() {
+  $("a.video-box-item").click(function() {
     $(".video-player, .zoom-out").css("display", "block");
+    return false;
   });
 
   $('a[href*="#"]')
