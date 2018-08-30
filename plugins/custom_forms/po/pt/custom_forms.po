@@ -27,69 +27,65 @@ msgstr ""
 msgid "There is no data to be downloaded"
 msgstr "Não há dados para serem baixados"
 
-#: ../controllers/custom_forms_plugin_myprofile_controller.rb:39
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:38
 msgid "%s was successfully created"
 msgstr "%s foi criado com sucesso"
 
-#: ../controllers/custom_forms_plugin_myprofile_controller.rb:64
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:63
 msgid "%s was successfully updated"
 msgstr "%s foi atualizado com sucesso"
 
-#: ../controllers/custom_forms_plugin_myprofile_controller.rb:67
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:66
 msgid "The %s could not be updated"
 msgstr "A consulta não pôde ser atualizada"
 
-#: ../controllers/custom_forms_plugin_myprofile_controller.rb:78
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:77
 msgid "The %s was removed"
 msgstr "%s foi removido(a)"
 
-#: ../controllers/custom_forms_plugin_myprofile_controller.rb:80
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:79
 msgid "The %s could not be removed"
 msgstr "A consulta não pode ser removida"
 
-#: ../controllers/custom_forms_plugin_myprofile_controller.rb:128
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:127
 msgid "Maximum file size exceeded"
 msgstr "Tamanho máximo do arquivo excedido"
 
-#: ../controllers/custom_forms_plugin_myprofile_controller.rb:182
+#: ../controllers/custom_forms_plugin_myprofile_controller.rb:181
 msgid "Query Gallery"
 msgstr "Galeria de enquetes"
-
-#: ../controllers/custom_forms_plugin_profile_controller.rb:33
-msgid "Submission saved"
-msgstr "Submissão salva"
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:36
 msgid "Submission could not be saved"
 msgstr "A submissão não pode ser salva"
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:62
+#: ../controllers/custom_forms_plugin_profile_controller.rb:82
 msgid "Older"
 msgstr "Mais velhos"
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:63
+#: ../controllers/custom_forms_plugin_profile_controller.rb:83
 msgid "Recent"
 msgstr "Mais recentes"
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:65
-#: ../controllers/custom_forms_plugin_profile_controller.rb:66
-#: ../controllers/custom_forms_plugin_profile_controller.rb:71
+#: ../controllers/custom_forms_plugin_profile_controller.rb:85
+#: ../controllers/custom_forms_plugin_profile_controller.rb:86
+#: ../controllers/custom_forms_plugin_profile_controller.rb:91
 #: ../lib/custom_forms_plugin/list_block.rb:7
 msgid "All"
 msgstr "Todos"
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:72
+#: ../controllers/custom_forms_plugin_profile_controller.rb:92
 msgid "Opened"
 msgstr "Abertos"
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:73
-#: ../lib/custom_forms_plugin/helper.rb:174
-#: ../lib/custom_forms_plugin/helper.rb:186
+#: ../controllers/custom_forms_plugin_profile_controller.rb:93
+#: ../lib/custom_forms_plugin/helper.rb:176
+#: ../lib/custom_forms_plugin/helper.rb:188
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
 msgstr "Fechados"
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:74
+#: ../controllers/custom_forms_plugin_profile_controller.rb:94
 msgid "To come"
 msgstr "A começar"
 
@@ -127,15 +123,15 @@ msgstr ""
 msgid "%{requestor} wants you to fill in some further information."
 msgstr "%{requestor} quer que você preencha algumas informações adicionais."
 
-#: ../lib/custom_forms_plugin/answer.rb:27
+#: ../lib/custom_forms_plugin/answer.rb:38
 msgid "is mandatory."
 msgstr "é obrigatório."
 
-#: ../lib/custom_forms_plugin/answer.rb:36
+#: ../lib/custom_forms_plugin/answer.rb:47
 msgid "alternative is not valid"
 msgstr "alternativa não é válida"
 
-#: ../lib/custom_forms_plugin/answer.rb:41
+#: ../lib/custom_forms_plugin/answer.rb:52
 msgid "do not accept multiple answers"
 msgstr "não aceita múltiplas respostas"
 
@@ -208,7 +204,7 @@ msgid "%{value} is not a valid kind."
 msgstr "%{value} não é um tipo válido."
 
 #: ../lib/custom_forms_plugin/form.rb:46
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:2
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:3
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:10
 #: ../views/shared/_form.html.erb:6
@@ -224,35 +220,15 @@ msgid "identifier"
 msgstr "identificador"
 
 #: ../lib/custom_forms_plugin/form.rb:49
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:52
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:50
 msgid "Description"
 msgstr "Descrição"
 
-#: ../lib/custom_forms_plugin/form.rb:127
-msgid "This query has no ending date"
-msgstr "Essa consulta não possui data de finalização"
-
-#: ../lib/custom_forms_plugin/form.rb:132
-msgid "Ends today"
-msgstr "Termina hoje"
-
-#: ../lib/custom_forms_plugin/form.rb:136
-msgid "Ends tomorow"
-msgstr "Termina amanhã"
-
-#: ../lib/custom_forms_plugin/form.rb:140
-msgid "Already closed"
-msgstr "Finalizada"
-
-#: ../lib/custom_forms_plugin/form.rb:143
-msgid "%s days left"
-msgstr "%s dias restantes"
-
-#: ../lib/custom_forms_plugin/form.rb:189
+#: ../lib/custom_forms_plugin/form.rb:168
 msgid "The time range selected is invalid."
 msgstr "A faixa de tempo selecionada é inválida."
 
-#: ../lib/custom_forms_plugin/form.rb:194
+#: ../lib/custom_forms_plugin/form.rb:173
 msgid "can't be less than 2"
 msgstr "não pode ser menor que 2"
 
@@ -297,18 +273,18 @@ msgstr "Campo de seleção"
 msgid "Hold down Ctrl to select options"
 msgstr "Segure Ctrl para selecionar as opções"
 
-#: ../lib/custom_forms_plugin/helper.rb:170
-#: ../lib/custom_forms_plugin/helper.rb:178
+#: ../lib/custom_forms_plugin/helper.rb:172
+#: ../lib/custom_forms_plugin/helper.rb:180
 msgid "%s left to open"
 msgstr "%s até abrir"
 
-#: ../lib/custom_forms_plugin/helper.rb:172
-#: ../lib/custom_forms_plugin/helper.rb:184
+#: ../lib/custom_forms_plugin/helper.rb:174
+#: ../lib/custom_forms_plugin/helper.rb:186
 msgid "%s left to close"
 msgstr "%s até fechar"
 
-#: ../lib/custom_forms_plugin/helper.rb:180
-#: ../lib/custom_forms_plugin/helper.rb:189
+#: ../lib/custom_forms_plugin/helper.rb:182
+#: ../lib/custom_forms_plugin/helper.rb:191
 msgid "Always open"
 msgstr "Sempre aberta"
 
@@ -458,55 +434,55 @@ msgstr "Obrigatório"
 msgid "Remove field"
 msgstr "Remover campo"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:6
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:4
 msgid "Address"
 msgstr "Endereço"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:8
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:6
 msgid "Change picture"
 msgstr "Mudar imagem"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:13
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:11
 msgid "Remove image"
 msgstr "Remover imagem"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:21
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:19
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:4
 msgid "Period"
 msgstr "Período"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:22
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:20
 msgid "What is the time limit for this %s to be filled?"
 msgstr "Qual o período limite para este %s ser preenchido(a)?"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:29
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:27
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:6
 msgid "Access"
 msgstr "Acesso"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:31
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:29
 msgid "Who will be able to see and answer your query?"
 msgstr "Quem poderá ver e responder a sua consulta?"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:38
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:36
 msgid "When will the results of this query be displayed?"
 msgstr "Quando os resultados dessa consulta serão revelados?"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:44
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:42
 msgid "Membership Query"
 msgstr "Consulta de Integrantes"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:46
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:44
 msgid "Triggered on membership request as requirement for approval"
 msgstr "Disparado para novos integrantes como requisito de aprovação"
 
-#: ../views/custom_forms_plugin_myprofile/_form.html.erb:48
+#: ../views/custom_forms_plugin_myprofile/_form.html.erb:46
 msgid "Triggered after membership"
 msgstr "Disparado depois da aprovação de um novo integrante"
 
 #: ../views/custom_forms_plugin_myprofile/_forms.html.erb:5
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:17
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:18
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:15
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:16
 msgid "Submissions"
 msgstr "Submissões"
 
@@ -700,6 +676,7 @@ msgstr "Tamanho máximo do arquivo: %s"
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:33
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:65
+#: ../views/shared/_form.html.erb:23
 msgid "Go back"
 msgstr "Voltar"
 
@@ -707,11 +684,11 @@ msgstr "Voltar"
 msgid "Import file"
 msgstr "Importar arquivo"
 
-#: ../views/custom_forms_plugin_myprofile/index.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:1
 msgid "Manage queries"
 msgstr "Gerenciar consultas"
 
-#: ../views/custom_forms_plugin_myprofile/index.html.erb:15
+#: ../views/custom_forms_plugin_myprofile/index.html.erb:13
 #: ../views/custom_forms_plugin_profile/queries.html.erb:13
 msgid "Back"
 msgstr "Voltar"
@@ -720,34 +697,34 @@ msgstr "Voltar"
 msgid "New %s"
 msgstr "Novo(a) %s"
 
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:1
 msgid "Pending submissions for %s"
 msgstr "Submissões pendentes para %s"
 
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:6
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:4
 msgid "There are no pending submissions for this form."
 msgstr "Não há submissões pendentes para esse formulário."
 
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
-msgid "Sort by"
-msgstr "Ordenar por"
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:13
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
 #: ../views/custom_forms_plugin_profile/_text.html.erb:8
 msgid "User"
 msgstr "Usuário"
 
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:14
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:11
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:22
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
+msgid "Sort by"
+msgstr "Ordenar por"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
 msgid "Time"
 msgstr "Tempo"
 
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:26
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:47
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:24
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:45
 msgid "Back to forms"
 msgstr "Voltar para os formulários"
 
@@ -807,34 +784,34 @@ msgstr "Não autenticado"
 msgid "Back to submissions"
 msgstr "Voltar para submissões"
 
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:3
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:1
 msgid "Submissions for %s"
 msgstr "Submissões para %s"
 
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:6
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:4
 msgid "There are no submissions for this form."
 msgstr "Não há submissões para este formulário."
 
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:41
-#: ../views/custom_forms_plugin_profile/_text.html.erb:30
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:39
+#: ../views/custom_forms_plugin_profile/_text.html.erb:39
 msgid "imported submissions"
 msgstr "submissões importadas"
 
-#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:18
+#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:16
 msgid "%{count} submission"
 msgid_plural "%{count} submissions"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
-msgid "Final results"
-msgstr "Resultados finais"
-
-#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:24
+#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:22
 msgid "Partial results"
 msgstr "Resultados parciais"
 
-#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:37
+#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:22
+msgid "Final results"
+msgstr "Resultados finais"
+
+#: ../views/custom_forms_plugin_profile/_queries_content.html.erb:35
 msgid "No queries found! Try different search terms or filters."
 msgstr "Nenhuma consulta encontrada! Tente outros filtros e termos de busca."
 
@@ -848,19 +825,39 @@ msgstr "Respostas"
 msgid "Answer"
 msgstr "Resposta"
 
+#: ../views/custom_forms_plugin_profile/_text.html.erb:18
+msgid "Download %s Answers"
+msgstr "Baixar %s Respostas"
+
+#: ../views/custom_forms_plugin_profile/confirmation.html.erb:3
+msgid "Thank you, your submission was received"
+msgstr "Obrigado, sua submissão foi recebida"
+
+#: ../views/custom_forms_plugin_profile/confirmation.html.erb:14
+msgid ""
+"Your answers will be shown along with the other submissions, as soon as the "
+"results are avaiable."
+msgstr ""
+"Suas respostas serão apresentadas juntamente com as demais submissões assim "
+"que os resultados forem divulgados."
+
+#: ../views/custom_forms_plugin_profile/confirmation.html.erb:19
+msgid "Go back to the profile"
+msgstr "Voltar para o painel de controle"
+
 #: ../views/custom_forms_plugin_profile/queries.html.erb:1
 msgid "%s's queries"
 msgstr "Consultas de %s"
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:15
+#: ../views/custom_forms_plugin_profile/review.html.erb:17
 msgid "Jump to question"
 msgstr "Pular para pergunta"
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:31
+#: ../views/custom_forms_plugin_profile/review.html.erb:33
 msgid "There is no answers for this question"
 msgstr "Não há respostas para essa pergunta"
 
-#: ../views/custom_forms_plugin_profile/review.html.erb:49
+#: ../views/custom_forms_plugin_profile/review.html.erb:51
 msgid "View all queries"
 msgstr "Ver todas as consultas"
 
@@ -903,9 +900,45 @@ msgstr "Procurar consultas por nome"
 msgid "Your e-mail will be visible to this form's owners."
 msgstr "Seu e-mail ficará visível para o dono deste formulário."
 
+#: ../views/shared/_form.html.erb:15
+msgid "Send"
+msgstr "Enviar"
+
+#: ../views/shared/_form.html.erb:15
+msgid "Vote!"
+msgstr "Votar!"
+
+#: ../views/shared/_form.html.erb:18 ../views/shared/_form.html.erb:21
+msgid "Are you sure your want to submit your vote?"
+msgstr "Tem certeza de que você deseja submeter seu voto?"
+
 #: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr "Essa foi a sua resposta."
+
+#: ../controllers/custom_forms_plugin_profile_controller.rb:33
+#~ msgid "Submission saved"
+#~ msgstr "Submissão salva"
+
+#: ../lib/custom_forms_plugin/form.rb:127
+#~ msgid "This query has no ending date"
+#~ msgstr "Essa consulta não possui data de finalização"
+
+#: ../lib/custom_forms_plugin/form.rb:132
+#~ msgid "Ends today"
+#~ msgstr "Termina hoje"
+
+#: ../lib/custom_forms_plugin/form.rb:136
+#~ msgid "Ends tomorow"
+#~ msgstr "Termina amanhã"
+
+#: ../lib/custom_forms_plugin/form.rb:140
+#~ msgid "Already closed"
+#~ msgstr "Finalizada"
+
+#: ../lib/custom_forms_plugin/form.rb:143
+#~ msgid "%s days left"
+#~ msgstr "%s dias restantes"
 
 #~ msgid "City"
 #~ msgstr "Cidade"
