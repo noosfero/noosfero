@@ -11,29 +11,33 @@ Feature: Location
 
   Scenario: editing my address
     Given the following Person fields are active fields
-      | location |
+      | address  |
+      | country  |
+      | zip_code |
     And I go to zezinho's control panel
-    And I follow "Location"
+    And I follow "Location" within "#section-profile"
     When I fill in "Address" with "Rua Marechal Floriano, 28"
     And I select "Brazil" from "profile_data_country"
     And I fill in "profile_data[zip_code]" with "40110010"
-    And I press "Save"
+    And I follow "Save"
     Then "zezinho" should have the following data
       | address                   | country | zip_code |
       | Rua Marechal Floriano, 28 | BR      | 40110010 |
 
   Scenario Outline: editing address of collectives
     Given the following <class> fields are active fields
-      | location  |
+      | address  |
+      | country  |
+      | zip_code |
     Given the following <plural>
       | identifier   | name    | owner   |
       | mycollective | My Collective | zezinho |
     And I am on mycollective's control panel
-    And I follow "Location"
-    And I select "Brazil" from "profile_data_country"
+    And I follow "Location" within "#section-profile"
+    When I select "Brazil" from "profile_data_country"
     And I fill in "profile_data[zip_code]" with "40110010"
     And I fill in "Address" with "Rua Marechal Floriano, 28"
-    When I press "Save"
+    And I follow "Save"
     Then "mycollective" should have the following data
       | address                   | country | zip_code |
       | Rua Marechal Floriano, 28 | BR      | 40110010 |

@@ -25,7 +25,8 @@ class ControlPanel::Location < ControlPanel::Entry
     end
 
     def display?(user, profile, context={})
-      profile.active_fields.include?('location')
+      (profile.active_fields & Profile::LOCATION_FIELDS).present? ||
+        profile.active_fields.include?('location')
     end
   end
 end

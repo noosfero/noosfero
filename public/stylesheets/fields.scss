@@ -189,6 +189,28 @@ input[type=password] {
 	}
 }
 
+#content .address-fields {
+  .field-with-privacy-selector {
+    display: flex;
+    margin-bottom: 5px;
+
+    > select, > input, span.required-field {
+      flex: 1;
+      margin-right: 5px;
+    }
+
+    span.required-field {
+      input, select {
+        width: 100%;
+      }
+    }
+
+    .field-privacy-selector {
+      width: auto;
+    }
+  }
+}
+
 .exportable-fields-selector {
   .exportable-fields {
     display: flex;

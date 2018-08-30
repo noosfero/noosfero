@@ -1,5 +1,3 @@
-<h1><%= _('%s\' Location').html_safe % profile.name %></h1>
-
 <%= error_messages_for :profile_data %>
 
 <%= labelled_form_for :profile_data, :url => {:action => 'locality'}, :html => {:id => 'location-form'} do |f| %>

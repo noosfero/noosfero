@@ -66,7 +66,6 @@
 #signup-form .button-bar a.button {
   width: 200px;
   height: 30px;
-  line-height: 30px !important;
 }
 
 #signup-form input[type=file] {
@@ -249,4 +248,10 @@
   input { padding-left: 0 }
   .file-fieldset { padding: 0 }
   .formfieldline { display: none }
+}
+
+#signup-form #address-and-location .address-fields {
+  select, input {
+    margin-bottom: 10px;
+  }
 }

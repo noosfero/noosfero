@@ -92,10 +92,9 @@ include OrganizationHelper
     management_information
     template_id
     address_line2
-    address_reference
     profile_kinds
     location
-  ]
+  ] + LOCATION_FIELDS
 
   def self.fields
     FIELDS

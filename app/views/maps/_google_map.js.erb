@@ -9,10 +9,10 @@ function pointToAddress(latlng) {
   if (latlng == null)
     return;
 
-  jQuery('#location-support-fields').addClass("loading");
+  jQuery('.address-fields').addClass("loading");
 
   geocoder.geocode( {'latLng': latlng}, function(results, status) {
-    jQuery('#location-support-fields').removeClass("loading");
+    jQuery('.address-fields').removeClass("loading");
 
     if (status != google.maps.GeocoderStatus.OK) {
       alert("<%=_("Address not found, reason:")%>" + statusErrorMessage(status));
@@ -105,7 +105,7 @@ function valueForSelect(element) {
 }
 
 function addressToPoint() {
-  jQuery('#location-support-fields').addClass("loading");
+  jQuery('.address-fields').addClass("loading");
 
   var address_components = [
     jQuery('#profile_data_address').val(),
@@ -128,10 +128,10 @@ function addressToPoint() {
 
        jQuery('#profile_data_lat').val(results[0].geometry.location.lat());
        jQuery('#profile_data_lng').val(results[0].geometry.location.lng());
-       jQuery('#location-support-fields').removeClass("loading");
+       jQuery('.address-fields').removeClass("loading");
        enable_save();
      } else {
-       jQuery('#location-fields').removeClass("loading");
+       jQuery('.address-fields').removeClass("loading");
        alert('<%=_("Address not found, reason:")%>' + statusErrorMessage(status));
      }
    });
