@@ -122,6 +122,8 @@ GEM
       activemodel (= 4.2.5.1)
       activesupport (= 4.2.5.1)
       arel (~> 6.0)
+    activerecord-import (0.25.0)
+      activerecord (>= 3.2)
     activerecord-session_store (0.1.1)
       actionpack (>= 4.0.0, < 5)
       activerecord (>= 4.0.0, < 5)
@@ -391,6 +393,7 @@ DEPENDENCIES
   actionpack-action_caching
   actionpack-page_caching
   active_model-errors_details (> 0.0.0)!
+  activerecord-import
   activerecord-jdbcpostgresql-adapter
   activerecord-session_store
   acts-as-taggable-on

@@ -96,7 +96,7 @@ module CustomFormsPlugin::Helper
   end
 
   def default_selected(field, answer)
-    answer.present? ? answer.value.split(',') : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
+    answer.present? ? answer.alternatives.map {|m| m.id.to_s} : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
   end
 
   def display_select_field(field, answer, form)
@@ -108,24 +108,35 @@ module CustomFormsPlugin::Helper
       selected = default_selected(field, answer)
       select_tag form.to_s + "[#{field.id}]", options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected), :multiple => true, :title => _('Hold down Ctrl to select options'), :size => field.alternatives.size, :disabled => display_disabled?(field, answer)
     when 'check_box'
+      answers = answer.alternatives.map { |alt| alt.id } if (answer.present?)
+
       field.alternatives.map do |alternative|
-        default = answer.present? ? answer.value.split(',').include?(alternative.id.to_s) : alternative.selected_by_default
-        content_tag('label',
-          content_tag('span', check_box("#{form}[#{field.id}]", alternative.id,
-            checked: default, disabled: display_disabled?(field, answer))) +
-          content_tag('mark', alternative.label),
-          class: "field-alternative-row #{default ? 'checked' : ''}",
-          onclick: 'customForms.updateCBoxLabelClass(this)')
+        default = if answer.present?
+                    answers.include?(alternative.id)
+                  else
+                    alternative.selected_by_default
+                  end
+        content_tag(:div, (labelled_check_box alternative.label,
+                           form.to_s + "[#{field.id}][#{alternative.id}]",
+                           '1',
+                           default,
+                           :disabled => display_disabled?(field, answer)),
+                    :class => 'labelled-check field-alternative-row')
       end.join("\n")
     when 'radio'
       field.alternatives.map do |alternative|
-        default = answer.present? ? answer.value == alternative.id.to_s : alternative.selected_by_default
-        content_tag('label',
-          content_tag('span', radio_button(form, field.id, alternative.id,
-            checked: default, disabled: display_disabled?(field, answer))) +
-          content_tag('mark', alternative.label),
-          class: "field-alternative-row #{default ? 'checked' : ''}",
-          onclick: 'customForms.updateRadioGroupClass(this)')
+        default = if answer.present?
+                    answer.alternatives.first.id.to_s == alternative.id.to_s
+                  else
+                    alternative.selected_by_default
+                  end
+
+        content_tag(:div, (labelled_radio_button alternative.label,
+                           form.to_s + "[#{field.id}]",
+                           alternative.id,
+                           default,
+                           :disabled => display_disabled?(field, answer)),
+                    :class => 'labelled-check field-alternative-row')
       end.join("\n")
     end
   end

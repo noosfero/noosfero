@@ -20,12 +20,12 @@ class CustomFormsPlugin::CsvHandler
 
   attr_reader :profile_fields
 
-  def generate_csv
+  def generate_csv(fields=@fields)
     CSV.generate do |csv|
-      field_names = ([_('Timestamp')] + profile_fields + @fields.map(&:name))
+      field_names = ([_('Timestamp')] + profile_fields + fields.map(&:name))
       csv << field_names.map(&:capitalize)
       @form.submissions.each do |submission|
-        csv << submission_row(submission)
+        csv << submission_row(submission, fields)
       end
     end
   end
@@ -68,10 +68,10 @@ class CustomFormsPlugin::CsvHandler
   end
 
   private
-
-  def submission_row(subm)
+  
+  def submission_row(subm, fields)
     row = default_values(subm)
-    @fields.each do |field|
+    fields.each do |field|
       row << subm.answer_for(field).to_s
     end
     row
@@ -117,10 +117,15 @@ class CustomFormsPlugin::CsvHandler
         end
         alternative.id
       end
-      CustomFormsPlugin::Answer.new(field: field, value: ids.join(','),
-                                    imported: true)
+      answer = CustomFormsPlugin::Answer.new(field: field, value: nil, imported: true)
+
+      ids.each do |id|
+        form_answer = CustomFormsPlugin::FormAnswer.create!(answer_id: answer.id, alternative_id: id)
+        answer.form_answers << form_answer
+      end
+      answer
     else
-      CustomFormsPlugin::Answer.new(field: field, value: value, imported: true)
+      CustomFormsPlugin::Answer.create!(field: field, value: value, imported: true)
     end
   end
 
