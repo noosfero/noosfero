@@ -9,6 +9,7 @@ Developers
 ==========
 
 Alan Freihof Tygel <alantygel@gmail.com>
+Alax Alves <alaxallves@gmail.com>
 Alessandro Caetano <alesasndro.caetanob@gmail.com>
 Alessandro Caetano <alessandro.caetanob@gmail.com>
 Alessandro Palmeira <alessandro.palmeira@gmail.com>
@@ -135,6 +136,7 @@ Martín Olivera <molivera@solar.org.ar>
 María Vecino <mariavecino@ecoalternative.net>
 Matheus Faria <matheus.sousa.faria@gmail.com>
 Matheus Miranda <matheusmirandalacerda@gmail.com>
+MatheusRich <matheusrichardt@gmail.com>
 Maurilio Atila <cabelotaina@gmail.com>
 Maxwell Borges Bezerra <maxbborges@gmail.com>
 Melissa Wen <melissa.srw@gmail.com>
