@@ -9,15 +9,7 @@ module TinymceHelper
   end
 
   def tinymce_editor options = {}
-    options.merge!(:document_base_url => top_url,
-      :content_css => "/stylesheets/tinymce.css,#{macro_css_files}",
-      :language => tinymce_language,
-      :selector => '.' + current_editor(options[:mode]),
-      :menubar => menubar(options[:mode]),
-      :toolbar => [toolbar1(options[:mode]), toolbar2(options[:mode])],
-      :font_formats => 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
-      :setup => macros_setup)
-    tinymce options
+    tinymce base_options(options)
   end
 
   private
@@ -45,6 +37,17 @@ module TinymceHelper
       end
       return toolbar2
     end
+  end
+
+  def base_options options = {}
+    options.merge!(:document_base_url => top_url,
+      :content_css => "/stylesheets/tinymce.css,#{macro_css_files}",
+      :language => tinymce_language,
+      :selector => '.' + current_editor(options[:mode]),
+      :menubar => menubar(options[:mode]),
+      :toolbar => [toolbar1(options[:mode]), toolbar2(options[:mode])],
+      :font_formats => 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
+      :setup => macros_setup)
   end
 
 end
