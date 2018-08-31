@@ -209,6 +209,7 @@ jessicacris <jessica.cris1127@gmail.com>
 lioh <fl.araujo95@gmail.com>
 matheuslacerda <matheusmirandalacerda@gmail.com>
 mendesiasmin <mendesiasmin96@gmail.com>
+root <root@73c6e6491786>
 shshshwhs <diogobeirao10@gmail.com>
 tiagorc <tiagobrasil2005@yahoo.com.br>
 vinimlo <vinimelo@riseup.net>
