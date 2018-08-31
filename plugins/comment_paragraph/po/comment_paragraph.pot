@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-10 00:10+0000\n"
-"PO-Revision-Date: 2018-04-10 00:10+0000\n"
+"POT-Creation-Date: 2018-08-31 19:45+0000\n"
+"PO-Revision-Date: 2018-08-31 19:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,23 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../controllers/comment_paragraph_plugin_admin_controller.rb:8
-msgid "Settings successfuly saved"
-msgstr ""
-
 #: ../lib/comment_paragraph_plugin.rb:8
 msgid "A plugin that display comments divided by paragraphs."
 msgstr ""
 
-#: ../lib/comment_paragraph_plugin.rb:52
-msgid "Deactivate Comments"
-msgstr ""
-
-#: ../lib/comment_paragraph_plugin.rb:52
-msgid "Activate Comments"
-msgstr ""
-
-#: ../lib/comment_paragraph_plugin.rb:58
+#: ../lib/comment_paragraph_plugin.rb:60
 msgid "Export Comments"
 msgstr ""
 
@@ -44,17 +32,25 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../lib/comment_paragraph_plugin/discussion.rb:4
-#: ../lib/comment_paragraph_plugin/discussion.rb:8
+#: ../lib/comment_paragraph_plugin/discussion.rb:3
+#: ../lib/comment_paragraph_plugin/discussion.rb:7
 msgid "Comments Discussion"
 msgstr ""
 
-#: ../lib/comment_paragraph_plugin/discussion.rb:12
+#: ../lib/comment_paragraph_plugin/discussion.rb:11
 msgid "Article with paragraph comments"
 msgstr ""
 
 #: ../lib/comment_paragraph_plugin/discussion_block.rb:21
 msgid "This block displays all profile's article discussion"
+msgstr ""
+
+#: ../lib/comment_paragraph_plugin/macros/allow_comment.rb:11
+msgid "Select/Deselect section as commentable"
+msgstr ""
+
+#: ../lib/comment_paragraph_plugin/macros/select_all.rb:7
+msgid "Select/Deselect all sections as commentable"
 msgstr ""
 
 #: ../views/blocks/discussion.html.erb:20
@@ -110,34 +106,6 @@ msgstr ""
 
 #: ../views/cms/comment_paragraph_plugin/_discussion.html.erb:4
 msgid "Title"
-msgstr ""
-
-#: ../views/comment_paragraph_plugin_admin/index.html.erb:2
-msgid "Comment Paragraph Plugin Settings"
-msgstr ""
-
-#: ../views/comment_paragraph_plugin_admin/index.html.erb:7
-msgid "Activation Mode"
-msgstr ""
-
-#: ../views/comment_paragraph_plugin_admin/index.html.erb:10
-msgid "Auto"
-msgstr ""
-
-#: ../views/comment_paragraph_plugin_admin/index.html.erb:11
-msgid "(all text articles will be activated by default)"
-msgstr ""
-
-#: ../views/comment_paragraph_plugin_admin/index.html.erb:15
-msgid "Manual"
-msgstr ""
-
-#: ../views/comment_paragraph_plugin_admin/index.html.erb:16
-msgid "(click on \"Activate Comment Paragraph\" )"
-msgstr ""
-
-#: ../views/comment_paragraph_plugin_admin/index.html.erb:21
-msgid "Save"
 msgstr ""
 
 #: ../views/tasks/_approve_comment_accept_details.html.erb:2
