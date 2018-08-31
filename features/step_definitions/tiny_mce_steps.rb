@@ -8,3 +8,8 @@ And /^The tinymce "(.+)" should contain "(.+)"$/ do |item, content|
   item_value = page.evaluate_script("tinyMCE.get()[1].getParam('#{item}')")
   item_value.to_s.should == content
 end
+
+Given(/^I type "(.*?)" in TinyMCE field "(.*?)"$/) do |content, field|
+          page.evaluate_script("tinyMCE.get('#{field}').setContent('#{content}');")
+end
+
