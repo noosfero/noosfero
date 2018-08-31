@@ -97,4 +97,17 @@ module MacrosHelper
     end.join("\n")
   end
 
+  def macros_setup
+    setup = "function(ed) {"
+    macros_with_buttons.each do |macro|
+      setup += "ed.addButton('#{macro.identifier}', {
+                  title: #{macro_title(macro).to_json},
+                  onclick: #{generate_macro_config_dialog macro},
+                  image : '#{macro.configuration[:icon_path]}'
+                });"
+    end
+    setup += "}"
+  end
+
+
 end
