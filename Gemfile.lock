@@ -150,7 +150,6 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (>= 2.0, < 4.0)
-    chartkick (2.3.5)
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
@@ -430,7 +429,7 @@ DEPENDENCIES
   acts_as_versioned (> 0.0.0)!
   api-pagination
   capybara
-  chartkick (~> 2.3.5)
+  childprocess
   contacts (> 0.0.0)!
   cucumber
   cucumber-rails
@@ -482,7 +481,7 @@ DEPENDENCIES
   rspec-rails
   ruby-feedparser
   ruby_bosh (> 0.0.0)!
-  rubyzip (~> 1.2.0)
+  rubyzip
   sass
   sass-listen
   sass-rails

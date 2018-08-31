@@ -42,6 +42,8 @@ gem 'rpush'
 gem 'http-cookie'
 gem 'acts_as_list'
 gem 'activerecord-import'
+gem 'childprocess'
+gem 'rubyzip'
 
 
 # API dependencies
