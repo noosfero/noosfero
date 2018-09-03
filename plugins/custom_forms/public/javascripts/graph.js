@@ -20,9 +20,9 @@
 
   function legend(chart, chartIndex) {
     var legendItems = chart.chart.legend.legendItems;
-    let html = ``;
+    var html = '';
     for (item in legendItems) {
-      var legend_text = `<div style="display: flex; margin: unset; margin-right: 5px; margin-bottom: 5px;"><div style="width: 10px; height: 10px; background: ${legendItems[item].fillStyle}; margin-right: 5px;"></div><span style="width: 130px; display: inline-block; font-size: 11px;">${legendItems[item].text} </span></div>`
+      var legend_text = '<div style="display: flex; margin: unset; margin-right: 5px; margin-bottom: 5px;"><div style="width: 10px; height: 10px; background: ${legendItems[item].fillStyle}; margin-right: 5px;"></div><span style="width: 130px; display: inline-block; font-size: 11px;">' + legendItems[item].text + '</span></div>'
       html += legend_text;
     }
     document.getElementById("legend-" + chartIndex).innerHTML = html;
@@ -38,24 +38,24 @@
           total += context.dataset.data[i];
         }
         var tooltipPercentage = Math.round((value / total) * 100);
-  
-        return `${tooltipPercentage}%`;
+
+        return tooltipPercentage + '%';
       };
-  
+
       Chart.defaults.global.plugins.datalabels.display = function (context) {
-        return context.dataset.data[context.dataIndex] !== 0;  
+        return context.dataset.data[context.dataIndex] !== 0;
       }
-  
+
       const charts = Chartkick.charts;
       const chartPrefix = "chart-";
       var chartIndex = 1;
-  
+
       while (true){
         var chart = charts[chartPrefix + chartIndex];
         legend(chart, chartIndex);
         if (typeof chart == "undefined")
           break;
-  
+
         var graph = chart.getChartObject();
         if (graph.config.type == 'pie' || graph.config.type == 'bar') {
           chart.redraw();
