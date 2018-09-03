@@ -36,6 +36,8 @@ module TinymceHelper
         toolbar2 += " #{macro.identifier}"
       end
       return toolbar2
+    else
+      false
     end
   end
 
