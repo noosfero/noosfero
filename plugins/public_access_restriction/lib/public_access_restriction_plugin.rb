@@ -70,9 +70,9 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
   def show_newsletter? environment, params
     if environment.enabled_plugins.include?("NewsletterPlugin")
       params['controller'] == 'newsletter_plugin' && params['action'] == 'mailing'
+    else
+      false
     end
-
-    false
   end
 
 end
