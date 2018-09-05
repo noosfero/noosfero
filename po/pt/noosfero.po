@@ -2606,7 +2606,7 @@ msgstr "Graduação"
 
 #: ../app/helpers/profile_editor_helper.rb:88
 msgid "Graduate"
-msgstr "Graduado"
+msgstr "Graduação"
 
 #: ../app/helpers/profile_editor_helper.rb:89
 msgid "High School"
