@@ -2766,7 +2766,7 @@ msgstr "Mestrado"
 
 #: ../app/helpers/profile_editor_helper.rb:87
 msgid "Graduate"
-msgstr "Graduado"
+msgstr "Graduação"
 
 #: ../app/helpers/profile_editor_helper.rb:88
 msgid "High School"
