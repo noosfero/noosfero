@@ -45,7 +45,7 @@ class PublicAccessRestrictionPluginTest < ActiveSupport::TestCase
     @env.stubs(:enabled_plugins).returns(["NewsletterPlugin"])
     params = { "controller" => "newsletter_plugin", "action" => "mailing" }
 
-    assert @plugin.send(:show_newsletter?, @env, params)
+    assert @plugin.send(:show_newsletter?, @env, params, profile)
     assert_not @plugin.should_block?(user, @env, params, profile)
   end
 
