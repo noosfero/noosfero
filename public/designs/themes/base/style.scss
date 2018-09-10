@@ -685,7 +685,7 @@ div#notice {
 #content .box-1 .block .common-profile-list-block.vcard,
 #content .box-1 .block .common-profile-list-block.vcard .profile_link {
  padding-bottom: 0px;
- width: 70px;
+ width: 100px;
 }
 
 .block-footer-content {
@@ -1570,6 +1570,7 @@ table.profile th {
 /**** controller-memberships action-memberships-index ****/
 
 #memberships-index li {
+  display: flex;
   background-color: #FFF;
   border: 1px solid #EEE;
   -moz-border-radius: 9px;

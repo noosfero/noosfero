@@ -43,7 +43,16 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'mass assign all environment configurable person fields' do
     person = profile
-    post :informations, :profile => profile.identifier, :profile_data => { "nickname" => "ze", "description" => "Just a regular ze.", "contact_information" => "What?", "contact_phone" => "0551133445566", "cell_phone" => "0551188889999", "comercial_phone" => "0551144336655", "jabber_id" => "ze1234", "personal_website" => "http://ze.com.br", "sex" => "male", "birth_date" => "2014-06-04", "nationality" => "Brazilian", "country" => "BR", "state" => "DF", "city" => "Brasilia", "zip_code" => "70300-010", "address" => "Palacio do Planalto", "address_reference" => "Praca dos tres poderes", "district" => "DF", "schooling" => "Undergraduate", "schooling_status" => "Concluded", "formation" => "Engineerings", "area_of_study" => "Metallurgy", "professional_activity" => "Metallurgic", "organization" => "Metal Corp.", "organization_website" => "http://metal.com" }
+    post :informations, :profile => profile.identifier, :profile_data => {
+      "nickname" => "ze", "description" => "Just a regular ze.", "contact_information" => "What?",
+      "contact_phone" => "0551133445566", "cell_phone" => "0551188889999", "comercial_phone" => "0551144336655",
+      "jabber_id" => "ze1234", "personal_website" => "http://ze.com.br", "sex" => "male", "birth_date" => "2014-06-04",
+      "nationality" => "Brazilian", "country" => "BR", "state" => "DF", "city" => "Brasilia", "zip_code" => "70300-010",
+      "address" => "Palacio do Planalto", "address_reference" => "Praca dos tres poderes", "district" => "DF",
+      "schooling" => "Graduate", "schooling_status" => "Concluded", "formation" => "Engineerings",
+      "area_of_study" => "Metallurgy", "professional_activity" => "Metallurgic", "organization" => "Metal Corp.",
+      "organization_website" => "http://metal.com"
+    }
 
     assert_response :redirect
     assert_redirected_to :controller => 'profile_editor', :action => 'index'

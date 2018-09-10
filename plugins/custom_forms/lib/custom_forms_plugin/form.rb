@@ -2,7 +2,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   belongs_to :profile, optional: true
 
-  has_many :fields, -> { order 'position' },
+  has_many :fields, -> { order 'custom_forms_plugin_fields.position' },
     class_name: 'CustomFormsPlugin::Field', dependent: :destroy
   accepts_nested_attributes_for :fields, :allow_destroy => true
 

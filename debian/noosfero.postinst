@@ -39,16 +39,16 @@ chgrp noosfero /var/log/noosfero 2>/dev/null ||
 chown noosfero /var/log/noosfero 2>/dev/null ||
   adduser --system --home /usr/share/noosfero --shell /bin/sh --no-create-home --disabled-password --ingroup noosfero noosfero
 
-# Install unavailable dependencies with RubyGems
-##############################################################################
-
-cd /usr/share/noosfero && bundle > /dev/null
-
 # Avoid "Not a git repository" error messages
 # This happens due to gem dependencies that uses git on the gemspec file
 ##############################################################################
 
 cd /usr/share/noosfero && git init > /dev/null
+
+# Install unavailable dependencies with RubyGems
+##############################################################################
+
+cd /usr/share/noosfero && bundle > /dev/null
 
 # create noosfero dynamic data directories
 ##############################################################################

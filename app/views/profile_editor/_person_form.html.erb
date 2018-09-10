@@ -22,7 +22,6 @@
 <%= optional_field(@person, 'nationality', f.text_field(:nationality, :rel => _('Nationality'))) %>
 <%= optional_field(@person, 'image', labelled_form_field(_('Image'), file_field(:file, :image, :rel => _('Image')))) %>
 
-<%= render partial: 'shared/address_form', locals: { f: f, profile: @person } %>
 <%= render partial: 'shared/location_form', locals: { f: f, profile: @person } unless editing_profile %>
 
 <% @plugins.dispatch(:extra_optional_fields).each do |field| %>

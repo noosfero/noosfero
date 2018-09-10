@@ -5,7 +5,7 @@ class ConvertPublishedToContentAccess < ActiveRecord::Migration
                   published: true)
 
     Article.joins("inner join profiles on articles.profile_id = profiles.id ").
-      where('profiles.public_profile = ? and access < ?',
+      where('profiles.public_profile = ? and articles.access < ?',
                   false, Entitlement::Levels.levels[:related])
       .update_all(access: Entitlement::Levels.levels[:related],
                   published: true)

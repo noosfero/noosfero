@@ -34,7 +34,7 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
     @environment.save
 
     get '/'
-    assert_tag 'a', attributes: { href: /http:\/\/piwik.org/ },
+    assert_tag 'a', attributes: { href: /^\/\/piwik.org/ },
                     ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 
@@ -45,7 +45,7 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
     @environment.save
 
     get '/'
-    assert_tag 'a', attributes: { href: /https:\/\/piwik.org/ },
+    assert_tag 'a', attributes: { href: /^\/\/piwik.org/ },
                     ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 

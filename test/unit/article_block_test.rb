@@ -36,8 +36,6 @@ class ArticleBlockTest < ActiveSupport::TestCase
   end
 
   should 'nullify reference to unexisting article' do
-    Article.delete_all
-
     block = ArticleBlock.new
     block.article_id = 999
 
@@ -47,33 +45,32 @@ class ArticleBlockTest < ActiveSupport::TestCase
 
   should "take available articles with a person as the box owner" do
     person = create_user('testuser').person
-    person.articles.delete_all
-    assert_equal [], person.articles
     a = person.articles.create!(:name => 'test')
-    block = ArticleBlock.create.tap do |b|
-      b.article = a
-    end
-    person.boxes.first.blocks << block
+
+    block = ArticleBlock.create
+    block.article = a
     block.save!
 
-    block.reload
-    assert_equal [a],block.available_articles
+    person.boxes.first.blocks << block
+
+    assert_equal person.articles, block.available_articles
+    assert_includes block.available_articles, a
   end
 
   should "take available articles with an environment as the box owner" do
     env = Environment.create!(:name => 'test env')
-    env.profiles.each { |profile| profile.articles.destroy_all }
-    assert_equal [], env.articles
     community = fast_create(Community)
     a = fast_create(TextArticle, :profile_id => community.id, :name => 'test')
-    env.portal_community=community
+
+    env.portal_community = community
     env.save
+
     block = create(ArticleBlock, :article => a)
     env.boxes.first.blocks << block
     block.save!
 
     block.reload
-    assert_equal [a],block.available_articles
+    assert_equal [a], block.available_articles
   end
 
   protected

@@ -210,8 +210,7 @@ class CmsController < MyProfileController
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
     record_coming
     if request.post? && params[:uploaded_files]
-      params[:uploaded_files].each do |file|
-        file = file[1]
+      params[:uploaded_files].each do |_, file|
         if file && file.has_key?('file') && file[:file] != ''
           data = {
                 :uploaded_data => file[:file],

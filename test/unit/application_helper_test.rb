@@ -409,15 +409,11 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_match /<span>EDIT_FIELD<\/span>/, optional_field(profile, 'field', 'EDIT_FIELD')
   end
 
-  should 'base theme uses default icon theme' do
-    stubs(:current_theme).returns('base')
-    assert_equal "designs/icons/default/style.css", icon_theme_stylesheet_path.first
-  end
-
-  should 'base theme uses config to specify more then an icon theme' do
-    stubs(:current_theme).returns('base')
-    assert_includes icon_theme_stylesheet_path, "designs/icons/default/style.css"
-    assert_includes icon_theme_stylesheet_path, "designs/icons/pidgin/style.css"
+  should 'uses theme option to generate icon stylesheet paths' do
+    expects(:theme_option).with(:icon_theme).returns(['default', 'pidgin'])
+    icon_themes = icon_theme_stylesheet_path
+    assert_includes icon_themes, "designs/icons/default/style.css"
+    assert_includes icon_themes, "designs/icons/pidgin/style.css"
   end
 
   should 'not display active field if only required' do

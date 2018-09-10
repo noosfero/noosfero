@@ -6,7 +6,7 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     @form = @profile.forms.create!(name: 'Free Software', identifier: 'free')
   end
 
-  should 'include the profile fields in the tempalte' do
+  should 'include the profile fields in the template' do
     profile_fields = ['name', 'email', 'city', 'cell_phone']
     handler = CustomFormsPlugin::CsvHandler.new(@form, profile_fields)
     template = handler.generate_template

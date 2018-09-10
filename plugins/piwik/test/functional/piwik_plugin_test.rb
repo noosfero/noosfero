@@ -21,10 +21,16 @@ class PiwikPluginAdminControllerTest < ActionController::TestCase
     assert_nil @environment.reload.piwik_domain
     assert_equal 'piwik', @environment.reload.piwik_path
     assert_nil @environment.reload.piwik_site_id
-    post :index, :environment => { :piwik_domain => 'something', :piwik_site_id => 10, :piwik_path => 'some_path' }
+    post :index, :environment => { piwik_domain: 'something', piwik_site_id: 10, piwik_path: 'some_path' }
     assert_equal 'something', @environment.reload.piwik_domain
     assert_equal '10', @environment.reload.piwik_site_id
     assert_equal 'some_path', @environment.reload.piwik_path
+  end
+
+  should 'update piwik plugin settings with protocol on domain field' do
+    assert_nil @environment.reload.piwik_domain
+    post :index, :environment => { piwik_domain: 'http://something' }
+    assert_equal 'something', @environment.reload.piwik_domain
   end
 
 end

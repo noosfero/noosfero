@@ -882,20 +882,24 @@ class Article < ApplicationRecord
   end
 
   def validate_custom_fields
-    custom_fields = metadata['custom_fields']
-    if custom_fields.present?
-      custom_fields.each do |key, field|
-        if field['value'].blank?
-          errors.add(:metadata, _('Custom fields must have values'))
+    if metadata.has_key?('custom_fields')
+      custom_fields = metadata['custom_fields']
+      if custom_fields.present?
+        custom_fields.each do |key, field|
+          if field['value'].blank?
+            errors.add(:metadata, _('Custom fields must have values'))
+          end
         end
       end
     end
   end
 
   def sanitize_custom_field_keys
-    custom_fields = metadata['custom_fields'] || {}
-    metadata['custom_fields'] = custom_fields.keys.map do |field|
-      [field.to_slug, metadata['custom_fields'][field]]
-    end.to_h
+    if metadata.has_key?('custom_fields')
+      custom_fields = metadata['custom_fields'] || {}
+      metadata['custom_fields'] = custom_fields.keys.map do |field|
+        [field.to_slug, metadata['custom_fields'][field]]
+      end.to_h
+    end
   end
 end

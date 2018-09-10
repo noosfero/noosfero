@@ -1,13 +1,14 @@
 class CustomFormsPlugin::Answer < ApplicationRecord
   self.table_name = :custom_forms_plugin_answers
-  belongs_to :field, class_name: 'CustomFormsPlugin::Field', optional: true
-  belongs_to :submission, class_name: 'CustomFormsPlugin::Submission', optional: true
-
+  belongs_to :field, :class_name => 'CustomFormsPlugin::Field', optional: true
+  belongs_to :submission, :class_name => 'CustomFormsPlugin::Submission', optional: true
+  has_many :form_answers, :class_name => 'CustomFormsPlugin::FormAnswer'
+  has_many :alternatives, :through => :form_answers
   validates_presence_of :field
   validate :value_is_mandatory, :if => 'field.present?'
   validate :value_is_valid, :if => 'field.try(:alternatives).present?'
 
-  attr_accessible :field, :value, :submission, :imported
+  attr_accessible :field, :value, :submission, :imported, :alternatives
 
   def to_text_list
     return [value] if value.blank? || field.alternatives.blank?
@@ -17,7 +18,17 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   end
 
   def to_s
-    to_text_list.map{ |l| l.gsub(';', '.') }.join(';')
+    unless value.nil?
+      to_text_list.map{ |l| l.gsub(';', '.') }.join(';')
+    end
+  end
+
+  def value
+    if field.is_a? CustomFormsPlugin::SelectField
+      form_answers.map { |f| f.alternative_id }.join(',')
+    else
+      self['value']
+    end
   end
 
   private
@@ -43,4 +54,3 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   end
 
 end
-

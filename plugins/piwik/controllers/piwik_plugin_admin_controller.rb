@@ -4,6 +4,9 @@ class PiwikPluginAdminController < PluginAdminController
 
   def index
     if request.post?
+      if params[:environment][:piwik_domain]
+        params[:environment][:piwik_domain].sub! /^https?:\/\//, ''
+      end
       if @environment.update(params[:environment])
         session[:notice] = _('Piwik plugin settings updated successfully.')
       else

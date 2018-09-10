@@ -31,7 +31,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     get "/profile/#{community.identifier}"
     assert_tag :tag => 'div', :attributes => { :id => "block-#{community.blocks.first.id}" }, :descendant => {
       :tag => 'li', :attributes => { :class => 'vcard common-profile-list-block no-pic' }, :descendant => {
-        :tag => 'a', :attributes => { :class => 'profile_link url', :title => person.name }
+        :tag => 'a', :attributes => { :class => 'profile_link', :title => person.name }
       }
     }
   end

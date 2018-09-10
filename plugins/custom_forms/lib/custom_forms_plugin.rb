@@ -32,6 +32,8 @@ class CustomFormsPlugin < Noosfero::Plugin
       match "/profile/:profile/query/:id" => 'custom_forms_plugin_profile#show',
         via: [:get, :post]
       get "/profile/:profile/query/:id/results" => 'custom_forms_plugin_profile#review'
+
+      get "/profile/:profile/query/:id/results/answers" => 'custom_forms_plugin_profile#download_field_answers', as: :download_field_answers
     end
   end
 

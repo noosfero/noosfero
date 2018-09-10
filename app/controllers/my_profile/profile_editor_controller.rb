@@ -272,7 +272,8 @@ class ProfileEditorController < MyProfileController
   end
 
   def location_active
-    unless profile.active_fields.include?('location')
+    unless (profile.active_fields & Profile::LOCATION_FIELDS).present? ||
+           profile.active_fields.include?('location')
       session[:notice] = _('Location is disabled on the environment.')
       redirect_to action: 'index'
     end

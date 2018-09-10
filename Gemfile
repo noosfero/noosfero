@@ -45,6 +45,10 @@ gem 'responders'
 gem 'activemodel-serializers-xml'
 gem 'hpricot'
 gem 'http-cookie'
+gem 'activerecord-import'
+gem 'childprocess'
+gem 'rubyzip'
+
 
 # API dependencies
 gem 'grape'

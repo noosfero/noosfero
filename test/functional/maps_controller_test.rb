@@ -59,14 +59,6 @@ class MapsControllerTest < ActionController::TestCase
     assert_template 'edit_location'
   end
 
-  should 'dispĺay form for address with profile address' do
-    env.custom_person_fields = { 'location' => { 'active' => 'true' } }
-    env.save!
-
-    get :edit_location, :profile => profile.identifier
-    assert_tag :tag => 'select', :attributes => { :name => 'profile_data[city]' }
-  end
-
   should 'display only region categories for selection' do
     fast_create(Region, name: 'Region')
     fast_create(State, name: 'City', environment_id: env.id)
@@ -136,12 +128,17 @@ class MapsControllerTest < ActionController::TestCase
     assert_equal state, label
   end
 
-  should 'display location fields along with the map' do
+  should 'display location bar if any address field is active' do
+    Environment.any_instance.stubs(:custom_person_fields).returns({ 'location' => { 'active' => 'true' },
+                                                                    'city' => { 'active' => 'true' } })
+    get :edit_location, :profile => profile.identifier
+    assert_tag 'div', attributes: { class: /location-bar/ }
+  end
+
+  should 'not display location bar no address fields are active' do
     Environment.any_instance.stubs(:custom_person_fields).returns({ 'location' => { 'active' => 'true' } })
     get :edit_location, :profile => profile.identifier
-
-    assert_tag 'select', attributes: { id: 'profile_data_state' }
-    assert_tag 'select', attributes: { id: 'profile_data_city' }
+    assert_no_tag 'div', attributes: { class: /location-bar/ }
   end
 
   should 'accept blank address with lat and lng' do
