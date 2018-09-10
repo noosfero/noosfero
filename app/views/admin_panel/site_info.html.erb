@@ -19,6 +19,7 @@
     :content => (render :partial => 'signup_intro', :locals => {:f => f})} %>
   <%= render_tabs(tabs) %>
   <%= button_bar do %>
+    <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
     <%= submit_button(:save, _('Save'), :cancel => {:action => 'index'}) %>
   <% end %>
 <% end %>
