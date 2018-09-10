@@ -128,8 +128,8 @@ done
 
 
 communities = []
-VERBS = ['Save', 'I like', 'Use']
-STUFF = ['Free Software', 'Organic food', 'the wales', 'the environment']
+VERBS = ['Save', 'I like', 'Use', 'Lovers of', 'Rehabilitate']
+STUFF = ['Free Software', 'Organic food', 'the wales', 'the environment', 'Vegan Food', 'Vegetarians']
 print "Creating communities: "
 for verb in VERBS
   for stuff in STUFF

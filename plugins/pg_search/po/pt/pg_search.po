@@ -75,6 +75,10 @@ msgstr "Limpar filtros"
 msgid "Enable advanced search"
 msgstr "Ativar busca avançada"
 
+#: ../views/box_organizer/_profile_search_block.html.erb:4
+msgid "Customized Search Fields"
+msgstr "Campos de Busca Customizados"
+
 #: ../views/profile_search/_facets.html.erb:3
 msgid "Advanced Search"
 msgstr "Busca Avançada"
