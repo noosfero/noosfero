@@ -2,44 +2,17 @@ module TinymceHelper
   include MacrosHelper
 
   def tinymce_js
-    output = ''
-    output += javascript_include_tag 'tinymce/js/tinymce/tinymce.js'
-    output += javascript_include_tag 'tinymce/js/tinymce/jquery.tinymce.min.js'
-    output += javascript_include_tag 'tinymce.js'
-    output += include_macro_js_files.to_s
+    output = tinymce_assets
+    macro_files = include_macro_js_files
+    output += macro_files unless macro_files.nil?
     output.html_safe
   end
 
-  def tinymce_init_js options = {}
-    options.merge! :document_base_url => top_url,
-      :content_css => "/stylesheets/tinymce.css,#{macro_css_files}",
-      :plugins => %w[compat3x advlist autolink lists link image charmap print preview hr anchor pagebreak
-        searchreplace wordcount visualblocks visualchars code fullscreen
-        insertdatetime media nonbreaking save table contextmenu directionality
-        emoticons template paste textcolor colorpicker textpattern],
-      :image_advtab => true,
-      :language => tinymce_language,
-      :selector => '.' + current_editor(options[:mode])
-
-    options[:toolbar1] = toolbar1(options[:mode])
-    options[:menubar] = menubar(options[:mode])
-    options[:toolbar2] = toolbar2(options[:mode])
-
-    options[:macros_setup] = macros_with_buttons.map do |macro|
-      <<-EOS
-        ed.addButton('#{macro.identifier}', {
-          title: #{macro_title(macro).to_json},
-          onclick: #{generate_macro_config_dialog macro},
-          image : '#{macro.configuration[:icon_path]}'
-        });
-      EOS
-    end
-
-    #cleanup non tinymce options
-    options = options.except :mode
-
-    "noosfero.tinymce.init(#{options.to_json})".html_safe
+  def tinymce_editor options = {}
+    tinymce base_options(options)
   end
+
+  private
 
   def menubar mode
     if mode =='restricted' || mode == 'simple'
@@ -52,7 +25,7 @@ module TinymceHelper
     if mode == 'restricted'
       return "bold italic underline | link"
     end
-    return "fullscreen | insertfile undo redo | copy paste | bold italic underline | styleselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"
+    return "fullscreen | insertfile undo redo | copy paste | bold italic underline strikethrough removeformat backcolor | styleselect fontselect fontsizeselect | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | hilitecolor"
   end
 
   def toolbar2 mode
@@ -63,7 +36,20 @@ module TinymceHelper
         toolbar2 += " #{macro.identifier}"
       end
       return toolbar2
+    else
+      false
     end
+  end
+
+  def base_options options = {}
+    options.merge!(:document_base_url => top_url,
+      :content_css => "/stylesheets/tinymce.css,#{macro_css_files}",
+      :language => tinymce_language,
+      :selector => '.' + current_editor(options[:mode]),
+      :menubar => menubar(options[:mode]),
+      :toolbar => [toolbar1(options[:mode]), toolbar2(options[:mode])],
+      :font_formats => 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;AkrutiKndPadmini=Akpdmi-n',
+      :setup => macros_setup)
   end
 
 end

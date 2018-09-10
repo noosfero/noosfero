@@ -11,5 +11,5 @@ Feature: Create envronment notification message
     And I follow "Plugins"
     And I follow "Configuration"
     And I follow "New Notification"
-    Then The tinymce "toolbar1" should be "bold italic underline | link"
-    Then The tinymce "menubar" should be "false"
+    Then The tinymce "toolbar" with index "0" should be "bold italic underline | link"
+    Then The tinymce "menubar" should contain "false"
