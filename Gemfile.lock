@@ -385,6 +385,10 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.6)
     tilt (1.4.1)
+    tinymce-rails (4.8.2)
+      railties (>= 3.1.1)
+    tinymce-rails-langs (4.20180103)
+      tinymce-rails (~> 4.1, >= 4.1.10)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (2.5.3)
@@ -493,6 +497,8 @@ DEPENDENCIES
   spring
   sprockets-rails
   test-unit
+  tinymce-rails (~> 4.8, >= 4.8.2)
+  tinymce-rails-langs (~> 4.2)
   uglifier
   unicorn (~> 4.8)
   validates_as_cnpj (= 0.0.0)!
