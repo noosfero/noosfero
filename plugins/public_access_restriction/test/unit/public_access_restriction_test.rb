@@ -41,6 +41,10 @@ class PublicAccessRestrictionPluginTest < ActiveSupport::TestCase
   end
   
   should 'not block an unauthenticated user on newsletter' do
+    require_dependency '/noosfero/plugins/newsletter/lib/newsletter_plugin.rb'
+    Dir["/noosfero/plugins/newsletter/lib/newsletter_plugin/*.rb"].each {|file| require_dependency file }
+    @env.enable_plugin('NewsletterPlugin')
+
     user, profile = nil
     params = { "controller" => "newsletter_plugin", "action" => "mailing" }
 
