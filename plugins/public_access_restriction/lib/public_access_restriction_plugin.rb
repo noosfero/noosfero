@@ -23,7 +23,8 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
       params['controller'] == 'national_regions' ||
       params['controller'] == 'public_access_restriction_plugin_public_page' ||
       linked_on_portal_news(environment, params, profile) ||
-      show_newsletter?(environment, params, profile)
+      show_newsletter?(environment, profile) ||
+      newsletter_mail?(environment, params)
     )
   end
 
@@ -67,19 +68,16 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
       where(reference_article_id: article.id).first.present?
   end
 
-  def show_newsletter? environment, params, profile
+  def show_newsletter? environment, profile
     if environment.enabled_plugins.include?("NewsletterPlugin")
       newsletter = NewsletterPlugin::Newsletter.find_by(environment: environment.id)
-      on_newsletter = params['controller'] == 'newsletter_plugin' && params['action'] == 'mailing'
-      on_newsletter_blog = false
+      newsletter.blogs.find_by(profile: profile)
+    end
+  end
 
-      if newsletter
-        on_newsletter_blog = newsletter.blogs.find_by(profile: profile)
-      end
-
-      on_newsletter || on_newsletter_blog
-    else
-      false
+  def newsletter_mail? environment, params
+    if environment.enabled_plugins.include?("NewsletterPlugin")
+      params['controller'] == 'newsletter_plugin' && params['action'] == 'mailing'
     end
   end
 
