@@ -1,3 +1,7 @@
+# 1.15.2
+  * Bumping version 1.15.2 (Rodrigo Souto) [962dc0f]
+  * delivery-plugin: use EC5 syntax of map (Rodrigo Souto) [9aa70c7]
+
 # 1.15.1
   * Bumping version 1.15.1 (Rodrigo Souto) [8016bec]
   * translation: fix graduate pt (Rodrigo Souto) [1bbf651]
