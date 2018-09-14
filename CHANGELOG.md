@@ -1,3 +1,10 @@
+# 1.15.1
+  * Bumping version 1.15.1 (Rodrigo Souto) [8016bec]
+  * translation: fix graduate pt (Rodrigo Souto) [1bbf651]
+  * custom-forms: fix graph script to EC5 (Rodrigo Souto) [ed402b3]
+  * custom-forms: avoid crash on migration due to empty string value (Rodrigo Souto) [bde41aa]
+  * Add link to video page (Iasmin Mendes) [002fd0f]
+
 # 1.15.0
   * Bumping version 1.15.0 (Rodrigo Souto) [153123c]
   * Updating authors file (Rodrigo Souto) [52fbfe8]
