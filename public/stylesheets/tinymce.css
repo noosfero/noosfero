@@ -1,6 +1,6 @@
-body.mceContentBody,
-body.mceContentBody th,
-body.mceContentBody td {
+body.mce-content-body,
+body.mce-content-body th,
+body.mce-content-body td {
   font-size: 12px;
 }
 
@@ -16,31 +16,31 @@ embed {
   background-image: url(../designs/icons/tango/Tango/22x22/actions/media-playback-start.png);
 }
 
-body.mceContentBody h2 {
-  font-size: 18px
+body.mce-content-body h2 {
+  font-size: 18px;
 }
 
-body.mceContentBody h3 {
+body.mce-content-body h3 {
   font-size: 16px
 }
 
-body.mceContentBody h4 {
+body.mce-content-body h4 {
   font-size: 14px
 }
 
-body.mceContentBody h5 {
+body.mce-content-body h5 {
   font-size: 13px
 }
 
-body.mceContentBody h6 {
+body.mce-content-body h6 {
   font-size: 12px
 }
 
-body.mceContentBody h1,
-body.mceContentBody h2,
-body.mceContentBody h3,
-body.mceContentBody h4,
-body.mceContentBody h5,
-body.mceContentBody h6 {
+body.mce-content-body h1,
+body.mce-content-body h2,
+body.mce-content-body h3,
+body.mce-content-body h4,
+body.mce-content-body h5,
+body.mce-content-body h6 {
   margin: 10px 0px;
 }

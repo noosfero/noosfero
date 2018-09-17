@@ -5,11 +5,7 @@ class TinymceHelperTest < ActiveSupport::TestCase
   include TinymceHelper
 
   def setup
-    expects(:top_url).returns('/')
-    expects(:tinymce_language).returns('en')
-    expects(:current_editor).returns(Article::Editor::TINY_MCE)
-    @plugins = mock
-    @plugins.expects(:dispatch).returns([]).at_least_once
+    expects(:tinymce).returns("")
     @environment = Environment.default
   end
 
@@ -17,12 +13,14 @@ class TinymceHelperTest < ActiveSupport::TestCase
 
   should 'set keep_styles to false in tinymce options' do
     environment.enable_plugin(CommentParagraphPlugin)
-    assert_match /"keep_styles":false/, tinymce_init_js
+    expects(:base_options).with({:keep_styles => false})
+    tinymce_editor
   end
 
   should 'do not set keep_styles to false when plugin is not enabled' do
     environment.disable_plugin(CommentParagraphPlugin)
-    assert_no_match /"keep_styles":false/, tinymce_init_js
+    expects(:base_options).with({})
+    tinymce_editor
   end
 
 end
