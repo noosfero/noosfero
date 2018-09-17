@@ -41,15 +41,13 @@ class PublicAccessRestrictionPluginTest < ActiveSupport::TestCase
   end
   
   should 'not block an unauthenticated user on newsletter' do
-    require_dependency '/noosfero/plugins/newsletter/lib/newsletter_plugin.rb'
-    Dir["/noosfero/plugins/newsletter/lib/newsletter_plugin/*.rb"].each {|file| require_dependency file }
     @env.enable_plugin('NewsletterPlugin')
-
-    user, profile = nil
+  
     params = { "controller" => "newsletter_plugin", "action" => "mailing" }
-
-    assert @plugin.send(:show_newsletter?, @env, params, profile)
-    assert_not @plugin.should_block?(user, @env, params, profile)
+    wrong_params = { "controller" => "newsletter_plugin", "action" => "other_action" }
+    
+    assert @plugin.send(:newsletter_mail?, @env, params)
+    refute @plugin.send(:newsletter_mail?, @env, wrong_params)
   end
 
   should 'not block an unauthenticated user on account controller' do
