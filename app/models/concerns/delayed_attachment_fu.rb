@@ -15,11 +15,6 @@ module DelayedAttachmentFu
         # makes filename secure for FS manipulation and URLs
         file.filename = fname.to_slug + thumb_suffix + ext.to_s.to_slug
       end
-      after_create do |file|
-        if file.thumbnailable?
-          Delayed::Job.enqueue CreateThumbnailsJob.new(file.class.name, file.id)
-        end
-      end
     end
   end
 
@@ -33,6 +28,7 @@ module DelayedAttachmentFu
       @temp_paths.clear
       @saved_attachment = nil
       run_callbacks :after_attachment_saved
+      create_thumbnails unless self.thumbnails_processed
     end
 
     def create_thumbnails
@@ -40,7 +36,6 @@ module DelayedAttachmentFu
         self.class.with_image(full_filename) do |img|
           self.width = img.columns
           self.height = img.rows
-          self.save!
         end
         self.class.attachment_options[:thumbnails].each do |suffix, size|
           self.create_or_update_thumbnail(self.full_filename, suffix, size)
@@ -59,8 +54,6 @@ module DelayedAttachmentFu
 
         if NOOSFERO_CONF['delayed_attachment_fallback_original_image'] && self.full_filename
           self.full_filename.to_s.gsub %r(^#{Regexp.escape(base_path)}), ''
-        else
-          '/images/icons-app/image-loading-%s.png' % size
         end
       end
     end
