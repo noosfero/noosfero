@@ -22,8 +22,8 @@ Feature: newsletter plugin
     When I go to the environment control panel
     And I follow "Plugins"
     And I follow "Configuration"
-    And I follow "Save and visualize"
-    Then I should see "If you can't view this email, click here"
+    When I follow "Save and visualize"
+    Then I should see "cancel your subscription here"
     And I should not see "Newsletter settings"
 
   @selenium

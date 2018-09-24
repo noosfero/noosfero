@@ -110,4 +110,24 @@ class NewsletterPluginTest < ActiveSupport::TestCase
     end
   end
 
+  should 'not include mailing public view link on newsletter body' do
+    newsletter = NewsletterPlugin::Newsletter.create!(
+      :environment => fast_create(Environment),
+      :enabled => true,
+      :subject => 'newsletter test',
+      :person => fast_create(Person))
+
+    assert_no_match /\{mailing_url\}/, newsletter.body(mailing: false)
+  end
+
+  should 'include mailing public view link on mailing body' do
+    newsletter = NewsletterPlugin::Newsletter.create!(
+      :environment => fast_create(Environment),
+      :enabled => true,
+      :subject => 'newsletter test',
+      :person => fast_create(Person))
+
+    assert_match /\{mailing_url\}/, newsletter.body(mailing: true)
+  end
+
 end
