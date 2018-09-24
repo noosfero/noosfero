@@ -28,7 +28,7 @@ class NewsletterPlugin < Noosfero::Plugin
           mailing = NewsletterPlugin::NewsletterMailing.create!(
             :source => newsletter,
             :subject => newsletter.subject,
-            :body => newsletter.body,
+            :body => newsletter.body(mailing: true),
             :person => newsletter.person,
             :locale => newsletter.environment.default_locale,
           )
