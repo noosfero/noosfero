@@ -99,7 +99,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  before_filter :set_request_scheme
+  before_action :set_request_scheme
   def set_request_scheme
    environment.request_scheme = request.scheme
   end

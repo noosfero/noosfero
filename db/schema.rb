@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180808151241) do
+ActiveRecord::Schema.define(version: 20180829134258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -314,6 +314,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.text "value", default: ""
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["customized_type", "customized_id", "custom_field_id"], name: "index_custom_field_values", unique: true
   end
 
   create_table "custom_fields", force: :cascade do |t|
@@ -329,6 +330,69 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean "moderation_task", default: false
+    t.index ["customized_type", "name", "environment_id"], name: "index_custom_field", unique: true
+  end
+
+  create_table "custom_forms_plugin_alternatives", id: :serial, force: :cascade do |t|
+    t.string "label"
+    t.integer "field_id"
+    t.boolean "selected_by_default", default: false, null: false
+    t.integer "position", default: 0
+  end
+
+  create_table "custom_forms_plugin_answers", id: :serial, force: :cascade do |t|
+    t.text "value"
+    t.integer "field_id"
+    t.integer "submission_id"
+    t.boolean "imported", default: false
+  end
+
+  create_table "custom_forms_plugin_fields", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.string "type"
+    t.string "default_value"
+    t.float "minimum"
+    t.float "maximum"
+    t.integer "form_id"
+    t.boolean "mandatory", default: false
+    t.integer "position", default: 0
+    t.string "show_as"
+  end
+
+  create_table "custom_forms_plugin_form_answers", id: :serial, force: :cascade do |t|
+    t.integer "alternative_id"
+    t.integer "answer_id"
+    t.index ["alternative_id"], name: "index_custom_forms_plugin_form_answers_on_alternative_id"
+    t.index ["answer_id"], name: "index_custom_forms_plugin_form_answers_on_answer_id"
+  end
+
+  create_table "custom_forms_plugin_forms", id: :serial, force: :cascade do |t|
+    t.string "name"
+    t.string "slug"
+    t.text "description"
+    t.integer "profile_id"
+    t.datetime "begining"
+    t.datetime "ending"
+    t.boolean "report_submissions", default: false
+    t.boolean "on_membership", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean "for_admission", default: false
+    t.integer "article_id"
+    t.string "kind", default: "survey"
+    t.string "identifier"
+    t.string "access_result_options", default: "public"
+    t.integer "access", default: 0
+  end
+
+  create_table "custom_forms_plugin_submissions", id: :serial, force: :cascade do |t|
+    t.string "author_name"
+    t.string "author_email"
+    t.integer "profile_id"
+    t.integer "form_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -734,7 +798,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.integer "profile_id"
   end
 
-  create_table "rpush_apps", id: :serial, force: :cascade do |t|
+  create_table "rpush_apps", force: :cascade do |t|
     t.string "name", null: false
     t.string "environment"
     t.text "certificate"
@@ -750,7 +814,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.datetime "access_token_expiration"
   end
 
-  create_table "rpush_feedback", id: :serial, force: :cascade do |t|
+  create_table "rpush_feedback", force: :cascade do |t|
     t.string "device_token", limit: 64, null: false
     t.datetime "failed_at", null: false
     t.datetime "created_at"
@@ -759,7 +823,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.index ["device_token"], name: "index_rpush_feedback_on_device_token"
   end
 
-  create_table "rpush_notifications", id: :serial, force: :cascade do |t|
+  create_table "rpush_notifications", force: :cascade do |t|
     t.integer "badge"
     t.string "device_token", limit: 64
     t.string "sound", default: "default"
@@ -851,16 +915,9 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.integer "tagger_id"
     t.string "tagger_type"
     t.string "context", limit: 128
-    t.index ["context"], name: "index_taggings_on_context"
     t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
     t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
     t.index ["taggable_id", "taggable_type"], name: "index_taggings_on_taggable_id_and_taggable_type"
-    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
-    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
-    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
-    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
   end
 
   create_table "tags", force: :cascade do |t|
