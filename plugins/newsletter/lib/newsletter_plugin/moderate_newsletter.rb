@@ -12,7 +12,7 @@ class NewsletterPlugin::ModerateNewsletter < Task
     mailing = NewsletterPlugin::NewsletterMailing.create!(
       :source => newsletter,
       :subject => newsletter.subject,
-      :body => newsletter.body(:post_ids => self.post_ids.reject{|id| id.to_i.zero?}),
+      :body => newsletter.body(mailing: true, :post_ids => self.post_ids.reject{|id| id.to_i.zero?}),
       :person => newsletter.person,
       :locale => newsletter.environment.default_locale,
     )

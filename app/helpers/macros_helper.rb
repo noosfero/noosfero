@@ -1,5 +1,6 @@
 module MacrosHelper
 
+  # FIXME Don't has diferrence between macro_in_menu and macros_with_buttons
   def macros_in_menu
     @plugins.dispatch(:macros).reject{ |macro| macro.configuration[:icon_path] }
   end
@@ -95,5 +96,18 @@ module MacrosHelper
       end
     end.join("\n")
   end
+
+  def macros_setup
+    setup = "function(ed) {"
+    macros_with_buttons.each do |macro|
+      setup += "ed.addButton('#{macro.identifier}', {
+                  title: #{macro_title(macro).to_json},
+                  onclick: #{generate_macro_config_dialog macro},
+                  image : '#{macro.configuration[:icon_path]}'
+                });"
+    end
+    setup += "}"
+  end
+
 
 end

@@ -3,6 +3,7 @@
     <h1><%= category_name %></h1>
 
     <%= button_bar do %>
+      <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
       <%= button :add, _('New category'), :action => 'new', :type => category_type %>
     <% end %>
 

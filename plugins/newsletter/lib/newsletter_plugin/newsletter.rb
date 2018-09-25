@@ -122,6 +122,10 @@ class NewsletterPlugin::Newsletter < ApplicationRecord
     content_tag(:p, (_("If you can't view this email, %s.") % link_to(_('click here'), '{mailing_url}')).html_safe, :id => 'newsletter-public-link').html_safe
   end
 
+  def public_view_link
+    content_tag(:div, message_to_public_link, :style => CSS['newsletter-public-link'])
+  end
+
   def message_to_unsubscribe
     content_tag(:div, _("This is an automatically generated email, please do not reply. If you do not wish to receive future newsletter emails, %s.").html_safe % link_to(_("cancel your subscription here"), self.unsubscribe_url, :style => CSS['public-link']), :style => CSS['newsletter-unsubscribe'], :id => 'newsletter-unsubscribe').html_safe
   end
@@ -139,7 +143,8 @@ class NewsletterPlugin::Newsletter < ApplicationRecord
   end
 
   def body(data = {})
-    content_tag(:div, content_tag(:div, message_to_public_link, :style => CSS['newsletter-public-link']).html_safe+content_tag(:table,(self.image.nil? ? '' : content_tag(:tr, content_tag(:th, tag(:img, :src => "#{self.environment.top_url}#{self.image.public_filename}", :style => CSS['header-image']),:colspan => 2),:style => CSS['newsletter-header'])).html_safe+self.posts(data).map do |post|
+    mailing_link = data[:mailing] ? public_view_link : ''
+      content_tag(:div, mailing_link.html_safe+content_tag(:table,(self.image.nil? ? '' : content_tag(:tr, content_tag(:th, tag(:img, :src => "#{self.environment.top_url}#{self.image.public_filename}", :style => CSS['header-image']),:colspan => 2),:style => CSS['newsletter-header'])).html_safe+self.posts(data).map do |post|
         if post.image
           post_with_image(post)
         else

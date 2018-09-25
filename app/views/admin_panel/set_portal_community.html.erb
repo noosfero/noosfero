@@ -5,6 +5,7 @@
     <%= labelled_form_field(_('Portal identifier'), text_field_tag('portal_community_identifier', @portal_community.identifier, :size => 40) ) %>
 
     <%= button_bar do %>
+      <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
       <%= submit_button :save, _('Save'), :cancel => { :action => 'index' }  %>
     <% end %>
   <% end %>
