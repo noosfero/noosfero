@@ -71,16 +71,7 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
   def show_newsletter? environment, profile
     if environment.enabled_plugins.include?("NewsletterPlugin")
       newsletter = NewsletterPlugin::Newsletter.find_by(environment: environment.id)
-      on_newsletter = params['controller'] == 'newsletter_plugin' && params['action'] == 'mailing'
-      on_newsletter_blog = false
-
-      if newsletter
-        on_newsletter_blog = newsletter.blogs.find_by(profile: profile)
-      end
-
-      on_newsletter || on_newsletter_blog
-    else
-      false
+      newsletter.blogs.find_by(profile: profile)
     end
   end
 
