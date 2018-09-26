@@ -357,7 +357,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'be able to edit an image label' do
-    image = fast_create(Image, :content_type => 'image/png', :filename => 'event-image.png', :label => 'test_label', :size => 1014)
+    image = create(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :label => 'test_label')
     article = fast_create(Article, :profile_id => profile.id, :name => 'test_label_article', :body => 'test_content')
     article.image = image
     article.save

@@ -50,11 +50,7 @@ module DelayedAttachmentFu
       if !self.thumbnailable? || self.thumbnails_processed || force
         super size
       else
-        size ||= :thumb
-
-        if NOOSFERO_CONF['delayed_attachment_fallback_original_image'] && self.full_filename
-          self.full_filename.to_s.gsub %r(^#{Regexp.escape(base_path)}), ''
-        end
+        self.full_filename.to_s.gsub %r(^#{Regexp.escape(base_path)}), ''
       end
     end
 

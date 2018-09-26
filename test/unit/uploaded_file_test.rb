@@ -97,8 +97,6 @@ class UploadedFileTest < ActiveSupport::TestCase
     f = fast_create(Folder, :name => 'test_folder', :profile_id => p.id)
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent_id => f.id, :profile => p)
 
-    process_delayed_job_queue
-
     file.reload
     assert File.exists?(file.public_filename(:icon))
     file.destroy
@@ -108,7 +106,6 @@ class UploadedFileTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => p)
 
-    process_delayed_job_queue
     assert File.exists?(UploadedFile.find(file.id).public_filename(:icon))
     file.destroy
   end
@@ -162,8 +159,6 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'create thumbnails after processing jobs' do
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
 
-    process_delayed_job_queue
-
     UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
       assert File.exists?(UploadedFile.find(file.id).public_filename(suffix))
     end
@@ -172,8 +167,6 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'set thumbnails_processed to true after creating thumbnails' do
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
-
-    process_delayed_job_queue
 
     assert UploadedFile.find(file.id).thumbnails_processed
     file.destroy
@@ -194,21 +187,15 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert file.thumbnails_processed
   end
 
-  should 'have a default image if thumbnails were not processed' do
-    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
-    assert_equal '/images/icons-app/image-loading-thumb.png', file.public_filename
-  end
-
   should 'use origin image if thumbnails were not processed and fallback is enabled' do
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
-    NOOSFERO_CONF.expects(:[]).with('delayed_attachment_fallback_original_image').returns(true).at_least_once
 
+    UploadedFile.any_instance.stubs(:thumbnails_processed).returns(false)
     assert_match(/rails.png/, UploadedFile.find(file.id).public_filename(:thumb))
   end
 
   should 'return image thumbnail if thumbnails were processed' do
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
-    process_delayed_job_queue
 
     assert_match(/rails_thumb.png/, UploadedFile.find(file.id).public_filename(:thumb))
   end
@@ -290,7 +277,6 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'upload to a folder with same name as the schema if database is postgresql' do
     uses_postgresql 'image_schema_one'
     file1 = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
-    process_delayed_job_queue
     assert_match(/image_schema_one\/\d{4}\/\d{4}\/rails.png/, UploadedFile.find(file1.id).public_filename)
     uses_postgresql 'image_schema_two'
     file2 = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => @profile)
@@ -316,7 +302,6 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'upload thumbnails to a folder with same name as the schema if database is postgresql' do
     uses_postgresql
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
-    process_delayed_job_queue
     UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
       assert_match(/test_schema\/\d{4}\/\d{4}\/rails_#{suffix}.png/, UploadedFile.find(file.id).public_filename(suffix))
     end
@@ -449,31 +434,35 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal file2.size, profile.metadata['disk_usage']
   end
 
+  should 'check if load_image_and_crop callback has called' do
+
+    UploadedFile.any_instance.expects(:load_image_and_crop).times(2)
+
+    file = create(UploadedFile, :profile => profile,
+                  :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+  end
+
   should 'create cropped image' do
 
     File.stubs(:extname).returns('.png')
-    Magick::Image.stubs(:crop!).returns(true)
-    Magick::Image.stubs(:write).returns(true)
+    Magick::ImageList.any_instance.expects(:crop!).times(1)
 
-    assert_difference 'UploadedFile.count', 1 do
-      file = create(UploadedFile, :profile => profile,
-                    :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
-                    :crop_x => 0, :crop_y => 0, :crop_w => 25, :crop_h => 25)
-    end
+    file = UploadedFile.new(:profile => profile,
+                  :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
+                  :crop_x => 0, :crop_y => 0, :crop_w => 25, :crop_h => 25)
+
+    file.send(:load_image_and_crop)
   end
 
   should 'create image without crop if don\'t have cropping meassures' do
 
     File.stubs(:extname).returns('.png')
-    Magick::Image.stubs(:crop!).returns(true)
-    Magick::Image.stubs(:write).returns(true)
+    Magick::ImageList.any_instance.expects(:crop!).times(0)
 
-    Magick::Image.expects(:crop!).times(0)
+    file = UploadedFile.new(:profile => profile,
+                  :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
-    assert_difference 'UploadedFile.count', 1 do
-      file = create(UploadedFile, :profile => profile,
-                    :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    end
+    file.send(:load_image_and_crop)
   end
 
   should 'create file without calling the crop if it is not an image' do
