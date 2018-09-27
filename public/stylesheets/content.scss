@@ -170,13 +170,16 @@
   }
 }
 
-#content div.path-to-parents {
+#article div.path-to-parents,
+div.path-to-parents {
   background: #e8e8e8;
   padding: 3px 7px;
+  border-top: 1px solid #212e3c;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   margin-bottom: 5px;
-  a.path-to-parent {
+  box-sizing: border-box;
+  > a.path-to-parent {
     margin-right: 5px;
     text-decoration: none;
     color: #212e3c;
@@ -190,6 +193,11 @@
     }
   }
 }
+
+#article div.path-to-parents {
+    border-top: 0px;
+}
+
 
 #content #article #article-header,
 html.controller-cms #content .main-content {

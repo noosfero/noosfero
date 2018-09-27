@@ -63,6 +63,8 @@ module ApplicationHelper
 
   include EventsHelper
 
+  include SensitiveContentHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end

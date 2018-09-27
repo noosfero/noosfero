@@ -63,6 +63,7 @@ module ButtonsHelper
     ok:                'check',
     pdf:               'file-pdf',
     people:            'user',
+    profile:           'user-circle',
     reload:            'redo',
     remove:            'times',
     remove_user:       'user-times',

@@ -1,0 +1,276 @@
+#new-sensitive-content {
+    min-width: 800px;
+    min-height: 400px;
+
+    div.publish-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+
+        div.publish-header {
+            margin: 20px;
+        }
+
+        div.new-sensitive-content-container {
+            margin: 0 20px;
+            overflow: hidden;
+            // max-height: 290px;
+
+            h2 { margin-top: 0px; }
+
+            &.scrollbar {
+                overflow-y: auto;
+            }
+        }
+
+        a img.photo {
+          border-radius: 100%;
+        }
+
+        div.publish-header {
+          display: flex;
+          align-items: center;
+
+          > div.publish-header-infos {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-left: 15px;
+
+            h1 {
+              margin: 0;
+
+              > span.publish-profile {
+                color: #3e8e3e;
+              }
+
+              > span.publish-page {
+                color: #346392;
+              }
+            }
+          }
+        }
+
+        div.publish-options {
+            display: flex;
+            width: 100%;
+            height: 30px;
+            overflow: hidden;
+            box-sizing: border-box;
+            position: absolute;
+            bottom: 0;
+
+            a.button {
+                height: 30px;
+                padding: 5px;
+                color: #fff;
+                margin: 0;
+                border-radius: 0px;
+                flex: 1;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+            }
+
+            div.sensitive-buttons {
+                flex:5;
+                display: flex;
+            }
+
+            a.option-back {
+                background: #212e3c;
+                border-color: #212e3c;
+            }
+
+            a.option-folder {
+                background: #346392;
+                border-color: #346392;
+            }
+
+            a.option-profile {
+                background: #3e8e3e;
+                border-color: #3e8e3e;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+          div.publish-header > div.publish-header-infos h1 {
+            margin-top: 15px;
+            font-size: 1.3em;
+          }
+
+          div.new-sensitive-content-container h2 {
+            font-size: 1.1em;
+          }
+
+          div.publish-options {
+            height: 70px;
+
+            a.button {
+              min-height: 35px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+
+            > a.button.option-back {
+                height: 70px;
+
+                span { display: none }
+
+                i.fa {
+                    margin-left: 6px;
+                    font-size: 2em;
+                    // background: #fff;
+                    // color: #212e3c;
+                    // padding: 10px 12px;
+                    // border-radius: 50%;
+                }
+            }
+
+            > div.sensitive-buttons {
+                flex-direction: column;
+            }
+          }
+        }
+    }
+
+    #profile-selector-search {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    ul.article-types,
+    div.profile-selector-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        height: calc(400px - 70px - 100px);
+        margin: 10px auto;
+
+        > a {
+          display: inline-flex;
+          min-width: 45%;
+          height: 50px;
+          margin-bottom: 15px;
+          padding: 5px;
+          text-align: left;
+
+          > li, 
+          > li > div.image-profile,
+          &.profile-selector-entry {
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: #212e3c;
+            text-decoration: none;
+
+            &:hover {
+              background-color: #d2e0f0;
+            }
+
+            img {
+                margin-right: 15px;
+            }
+          }
+        }
+
+        > a > li > div.image-profile > img {
+          margin: 5px 10px 5px -55px;
+        }
+
+        > a > img {
+            height: 50px;
+            width: auto;
+        }
+    }
+
+    div.profile-selector-container {
+        height: calc(400px - 75px - 70px - 100px);
+    }
+
+
+    ul.article-types > a > li {
+      flex-direction: column;
+      justify-content: center;
+      align-items: unset;
+    }
+
+    div.profile-selector-container {
+        > a.profile-selector-entry {
+            display: inline-flex;
+            width:45%;
+
+            .profile-identifier {
+                display: none;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 620px) {
+      ul.article-types,
+      div.profile-selector-container {
+        justify-content: start;
+
+        > a {
+          min-width: 90%;
+        }
+      }
+
+    }
+
+    @media only screen and (max-height: 600px) {
+        min-height: 80vh;
+
+        div.profile-selector-container {
+            // AlturaTotal - alturaBarraDePesquisa - alturaButoesRodape - 
+            height: calc(80vh - 90px - 70px - 83px);
+        }
+
+        ul.article-types {
+        // div.new-sensitive-content-container {
+            max-height: calc(80vh - 70px - 83px);
+        }
+    }
+
+    @media only screen and (max-height: 500px) {
+        min-height: 80vh;
+
+        div.profile-selector-container {
+            // AlturaTotal - alturaBarraDePesquisa - alturaButoesRodape - 
+            height: calc(80vh - 90px - 120px - 83px);
+        }
+
+        ul.article-types {
+            // div.new-sensitive-content-container {
+            max-height: calc(80vh - 120px - 83px);
+            background: pink
+        }
+    }
+
+    @media only screen and (max-height: 400px) {
+        min-height: 80vh;
+
+        div.profile-selector-container {
+            // AlturaTotal - alturaBarraDePesquisa - alturaButoesRodape - 
+            height: 60px;
+        }
+
+        div.publish-container.select-profile div.new-sensitive-content-container {
+            // height: 80px;
+        }
+    }
+
+    @media only screen and (max-height: 370px) {
+        div.publish-container div.new-sensitive-content-container .profile-selector {
+            height: 80px;
+            overflow-y: scroll;
+        }
+    }
+}

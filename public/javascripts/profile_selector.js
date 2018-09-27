@@ -29,5 +29,5 @@ function ProfileSelector(wrapperClass) {
 }
 
 $(document).ready(function() {
-  new ProfileSelector('form div.profile-selector')
+  new ProfileSelector('div.profile-selector')
 })

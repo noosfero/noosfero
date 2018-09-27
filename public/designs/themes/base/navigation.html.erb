@@ -1,6 +1,15 @@
 <% if user.present? %>
-  <li class="user-home">
-    <%= link_to font_awesome(:user, content_tag(:span, _('Profile'), class: 'home')).html_safe, url_for(user.public_profile_url) %>
+
+  <li class="new-content-home">
+    <% unless @page.nil? %>
+        <%= modal_icon_button(:file, _('New Content'),
+          url_for(:controller => 'cms', :action => 'sensitive_content',
+                  :profile => profile_to_publish(user, profile), :page => @page.id)) %>
+    <% else %>
+        <%= modal_icon_button(:file, _('New Content'),
+          url_for(:controller => 'cms', :action => 'sensitive_content',
+                  :profile => profile_to_publish(user, profile))) %>
+    <% end %>
   </li>
 
   <li class="user-pending-tasks">

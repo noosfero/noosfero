@@ -468,6 +468,46 @@ class CmsController < MyProfileController
     end
   end
 
+  def sensitive_content
+    #FIXME Define logic
+          #se o sensitive_content for nulo criar um novo se nao atualizar o parametro
+    current_page = Article.find(params[:page])
+
+    @sensitive_content = SensitiveContent.set_context(profile, current_page)
+    p @sensitive_content.current_page
+
+    @directory = @sensitive_content.directory_to_publish
+    @article_types = []
+    available_article_types.each do |type|
+      @article_types.push({
+        :class => type,
+        :short_description => type.short_description,
+        :description => type.description
+      })
+    end
+  end
+
+  def select_directory
+    #FIXME Define logic
+    @directories = user.folders.order(:name)
+  end
+
+  def select_profile
+    #FIXME Define logic
+    if params[:select_type].present?
+      case params[:select_type]
+      when 'community'
+        @profiles = user.communities.order(:name)
+      when 'enterprise'
+        @profiles = user.enterprises.order(:name)
+      else
+        @profiles = nil
+      end
+    else
+      @profiles = nil
+    end
+  end
+
   protected
 
   include CmsHelper
@@ -611,5 +651,24 @@ class CmsController < MyProfileController
       result << profile unless inviteds.find_by(guest: profile)
     end
     result
-   end
+  end
+
+  def sensitive_directory_to_publish user, page
+    page = Article.find_by_id(page)
+    unless page.nil?
+      if sensitive_publish_permission?(user, page.profile)
+        page
+      else
+        page.class.where(profile: user).first
+      end
+    else
+      nil
+    end
+  end
+
+  def sensitive_publish_permission? user, profile
+    profile.present? && user.has_permission?('post_content', profile) &&
+      (profile.organization? || profile == user)
+  end
+
 end
