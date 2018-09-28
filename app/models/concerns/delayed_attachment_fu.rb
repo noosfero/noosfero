@@ -65,5 +65,9 @@ module DelayedAttachmentFu
     def split_filename
       self.filename.match(/^(.*)(\.[^.]*)$/).to_a
     end
+
+    def thumbnailable?
+        super && (File.extname(temp_path) != '.ico')
+    end
   end
 end
