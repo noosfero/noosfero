@@ -1,0 +1,12 @@
+FROM debian:jessie-slim
+
+RUN apt-get update -qq && \
+    apt-get install -y apache2
+
+RUN a2enmod deflate expires proxy proxy_balancer proxy_http rewrite
+
+COPY ./templates/mysite.template /etc/apache2/sites-available/$MYSITE
+
+RUN a2ensite $MYSITE
+
+RUN invoke-rc.d apache2 restart

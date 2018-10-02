@@ -1,0 +1,27 @@
+FROM debian:jessie-slim
+
+RUN apt-get update -qq && \
+    apt-get install -y varnish
+
+RUN apt-get install -y \
+    make \
+    automake \
+    autotools-dev \
+    libedit-dev \
+    libjemalloc-dev \
+    libncurses-dev \
+    libpcre3-dev \
+    libtool \
+    pkg-config \
+    python-docutils \
+    python-sphinx \
+    libapache2-mod-rpaf
+
+COPY ./templates/ports-conf.template /etc/apache2/ports.conf
+COPY ./templates/default-conf.template /etc/apache2/sites-enabled/000-default.conf
+COPY ./templates/varnish.template /etc/default/varnish
+COPY ./templates/default-vcl.template /etc/varnish/default.vcl
+COPY ./templates/varnishncsa.template /etc/default/varnishncsa
+
+RUN service varnish restart
+RUN service varnishncsa restart
