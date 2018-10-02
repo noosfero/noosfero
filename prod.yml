@@ -1,7 +1,33 @@
 version: "3"
 
 services:
+
+  varnish:
+    container_name: varnish
+    build:
+      context: ./config/docker/prod/
+      dockerfile: ./Dockerfile-varnish
+    volumes:
+      - apache2:/etc/apache2/
+    command: ["service", "apache2", "restart"]
+    env_file:
+      - config/docker/prod/varnish-apache.env
+    depends_on:
+      - apache2
+
+  apache2:
+    container_name: apache2
+    build:
+      context: ./config/docker/prod/
+      dockerfile: ./Dockerfile-apache2
+    restart: always
+    env_file:
+      - config/docker/prod/varnish-apache.env
+    volumes:
+      - apache2:/etc/apache2/
+
   postgres:
+    container_name: postgres
     image: postgres:9.4
     environment:
       POSTGRES_USER: noosfero
@@ -11,6 +37,7 @@ services:
       - pg-prod-data:/var/lib/postgresql/data
 
   noosfero:
+    container_name: noosfero
     build:
       context: .
       dockerfile: ./config/docker/prod/Dockerfile
@@ -37,3 +64,4 @@ services:
 
 volumes:
   pg-prod-data: {}
+  apache2:
