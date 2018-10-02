@@ -3,5 +3,5 @@
 
 #FIXME The package is not working
 unless(system 'gem list -i chartkick')
-  system 'gem install chartkick'
+  system "gem install chartkick -v '~> 2.3.5'"
 end
