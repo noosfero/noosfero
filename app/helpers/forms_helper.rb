@@ -15,6 +15,7 @@ module FormsHelper
 
     html += check_box_tag( name, value, checked, options ) +
          content_tag( 'label', human_name, :for => options[:id] )
+    html.html_safe
   end
 
   def labelled_text_field( human_name, name, value=nil, options={} )
