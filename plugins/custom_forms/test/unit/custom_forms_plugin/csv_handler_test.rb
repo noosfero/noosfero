@@ -60,7 +60,7 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     assert_match /#{f2.name}/, content
   end
 
-  should 'include all submissions in the generated CSV' do
+ should 'include all submissions in the generated CSV' do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
     submission1 = @form.submissions.create!(profile: fast_create(Person))
     submission2 = @form.submissions.create!(author_name: 'some author',
@@ -75,8 +75,15 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     alt2 = f2.alternatives.new(label: 'Ubuntu')
     f2.alternatives = [alt1, alt2]
     f2.save!
-    submission1.answers.create(field: f2, value: alt2.id)
-    submission2.answers.create(field: f2, value: alt1.id)
+    answer3 = submission1.answers.create!(field: f2, value: alt2.id)
+    answer4 = submission2.answers.create!(field: f2, value: alt1.id)
+
+    form_answer1 =CustomFormsPlugin::FormAnswer.create!(alternative_id: alt2.id, answer_id: answer3.id)
+    answer3.form_answers << form_answer1
+    answer3.save!
+    form_answer2 =CustomFormsPlugin::FormAnswer.create!(alternative_id: alt1.id, answer_id: answer4.id)
+    answer4.form_answers << form_answer2
+    answer4.save!
 
     content = handler.generate_csv
     assert_match /#{submission1.profile.name}/, content
@@ -191,7 +198,7 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     assert_equal row.split(','), error[:row]
   end
 
-  should 'save row column number of errored lines' do
+  should 'a' do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
     CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 1')
     CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 2',
