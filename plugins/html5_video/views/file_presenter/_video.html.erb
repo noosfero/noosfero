@@ -17,6 +17,11 @@
     </div><!-- class="video-player-info" -->
     <br style="clear: both"/>
 
+  <% elsif is_ongoing?(video) %>
+    <div class="message">
+      <p><%= _('This video is currently being processed. It might '\
+               'take a while.') %></p>
+    </div>
   <% elsif position_for(video).present? %>
     <div class="message">
       <p><%= _('Queued to generate the web version.') %></p>
