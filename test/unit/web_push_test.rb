@@ -24,8 +24,10 @@ class WebPushTest < ActiveSupport::TestCase
     subscription.stubs(:keys).returns({})
     subscription.stubs(:subject)
 
+    resp = mock
+    resp.stubs(:body)
     subscription.expects(:destroy).once
-    Webpush.expects(:payload_send).raises(Webpush::InvalidSubscription)
+    Webpush.expects(:payload_send).raises(Webpush::InvalidSubscription.new(resp, "myhost"))
     WebPush.notify(subscription, {})
   end
 
