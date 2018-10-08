@@ -88,4 +88,16 @@ class PoolManagerTest < ActiveSupport::TestCase
     assert @pool.queue_position(1, 30).nil?
   end
 
+  should 'return true if video is in the ongoing pool' do
+    @pool.push(1, 10, '/some/path')
+    @pool.assign(1, 10)
+
+    assert @pool.is_ongoing?(1, 10)
+  end
+
+  should 'return false if video is not in the ongoing pool' do
+    @pool.push(1, 10, '/some/path')
+
+    refute @pool.is_ongoing?(1, 10)
+  end
 end
