@@ -1,8 +1,8 @@
     <VirtualHost *:80>
       ServerName $DOMAIN
 
-      DocumentRoot "/var/lib/noosfero/current/public"
-      <Directory "/var/lib/noosfero/current/public">
+      DocumentRoot "$NOOSFERO_PATH/public"
+      <Directory "$NOOSFERO_PATH/public">
         Options FollowSymLinks
         AllowOverride None
         Order Allow,Deny
@@ -26,7 +26,7 @@
       LogLevel warn
       CustomLog /var/log/apache2/noosfero.access.log combined
 
-      Include /var/lib/noosfero/current/etc/noosfero/apache/cache.conf
+      Include $NOOSFERO_PATH/etc/noosfero/apache/cache.conf
 
     </VirtualHost>
 

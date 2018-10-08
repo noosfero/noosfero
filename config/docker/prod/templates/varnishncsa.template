@@ -11,7 +11,7 @@
 # set the variable to "0", "no", or leave it unset.
 #
 # NCSA log format, to be used by HTTP log analyzers
-  VARNISHNCSA_ENABLED=1
+VARNISHNCSA_ENABLED=1
 #
 # If you want to add more arguments to varnishncsa, such as providing
 # a different log format, you can override the DAEMON_OPTS variable

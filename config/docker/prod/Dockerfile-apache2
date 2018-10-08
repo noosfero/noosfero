@@ -1,4 +1,4 @@
-FROM debian:jessie-slim
+FROM httpd:2.4.35
 
 RUN apt-get update -qq && \
     apt-get install -y apache2
@@ -9,4 +9,5 @@ COPY ./templates/mysite.template /etc/apache2/sites-available/$MYSITE
 
 RUN a2ensite $MYSITE
 
-RUN invoke-rc.d apache2 restart
+CMD ["invoke-rc.d", "apache2", "restart"]
+CMD ["service", "apache2", "start"]
