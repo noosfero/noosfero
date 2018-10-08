@@ -86,11 +86,15 @@ def process_video(env_id, video_path, video_id)
     converter.logger = LOGGER
 
     register_conversion_start(env_id, converter.info, video_id)
-    previews = converter.create_preview_imgs
-    videos = converter.create_web_videos
 
+    previews = converter.create_preview_imgs
+    LOGGER.info "Registering previews for [Video #{video_id}]"
+    register_previews(env_id, previews, video_id)
+
+    videos = converter.create_web_videos
     LOGGER.info "Registering results for [Video #{video_id}]"
-    register_results(env_id, previews, videos, video_id)
+    register_results(env_id, videos, video_id)
+
     LOGGER.info "Finished processing [Video #{video_id}]"
   rescue => e
     ERRORS[video_id] += 1
