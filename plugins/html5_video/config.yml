@@ -1,0 +1,2 @@
+ffmpeg:
+  num_of_threads: 2
