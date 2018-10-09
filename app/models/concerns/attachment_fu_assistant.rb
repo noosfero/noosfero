@@ -1,8 +1,8 @@
-module DelayedAttachmentFu
+module AttachmentFuAssistant
 
   module ClassMethods
-    def delay_attachment_fu_thumbnails
-      include DelayedAttachmentFu::InstanceMethods
+    def attachment_fu_thumbnails
+      include AttachmentFuAssistant::InstanceMethods
 
       before_validation :remove_ext_from_name, on: :create
 
