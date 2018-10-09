@@ -158,7 +158,7 @@ class PeopleBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
-      assert_select '[href=/search/people]'
+      assert_select "[href=\"/search/people\"]"
     end
   end
 
@@ -174,7 +174,7 @@ class PeopleBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
-      assert_select "[href=/profile/#{profile.id}/friends]"
+      assert_select "[href=\"/profile/#{profile.id}/friends\"]"
     end
   end
 
@@ -191,7 +191,7 @@ class PeopleBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
-      assert_select "[href=/profile/#{profile.id}/members]"
+      assert_select "[href=\"/profile/#{profile.id}/members\"]"
     end
   end
 

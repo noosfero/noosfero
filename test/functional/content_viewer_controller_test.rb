@@ -56,7 +56,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => 'someone', :page => [ '500' ], :view => true
 
     assert_response :success
-    assert_select "a[href=#{html.full_path}]"
+    assert_select "a[href=\"#{html.full_path}\"]"
   end
 
   should 'download file when view page is blank' do
@@ -403,7 +403,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     page.body = 'test article edited'; page.save
 
     get :article_versions, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_select "ul#article-versions a[href=http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1]"
+    assert_select "ul#article-versions a[href=\"http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1\"]"
   end
 
   should "display correct author for each article versions" do

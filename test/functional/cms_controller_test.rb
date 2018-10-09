@@ -1241,7 +1241,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'only_once option marked by default' do
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_select 'input[name=?][value="true"]', 'article[external_feed_builder][only_once]' do |elements|
+    assert_select "input[name=?][value=true]", 'article[external_feed_builder][only_once]' do |elements|
       assert elements.length > 0
       elements.each do |element|
         assert element['checked']
@@ -1611,7 +1611,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'display display posts in current language input checked when editing blog' do
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
-    assert_select 'input[type=checkbox][name=?]', 'article[display_posts_in_current_language]' do |elements|
+    assert_select "input[type=checkbox][name=?]", 'article[display_posts_in_current_language]' do |elements|
       assert elements.length > 0
       elements.each do |element|
         assert element["checked"]

@@ -312,7 +312,7 @@ class MembersBlockViewTest < ActionView::TestCase
 
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
-      assert_select "[href=/profile/mytestuser/members#members-tab]"
+      assert_select "[href=\"/profile/mytestuser/members#members-tab\"]"
     end
   end
 
@@ -335,7 +335,7 @@ class MembersBlockViewTest < ActionView::TestCase
 
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
-      assert_select '[href=/profile/mytestuser/members#members-tab]'
+      assert_select "[href=\"/profile/mytestuser/members#members-tab\"]"
     end
   end
 
@@ -359,7 +359,7 @@ class MembersBlockViewTest < ActionView::TestCase
 
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
-      assert_select '[href=/profile/mytestuser/members#members-tab]'
+      assert_select "[href=\"/profile/mytestuser/members#members-tab\"]"
     end
   end
 
@@ -382,7 +382,7 @@ class MembersBlockViewTest < ActionView::TestCase
     render_block_footer(block).inspect
 
     assert_select 'a.view-all' do |elements|
-      assert_select '[href=/profile/mytestuser/members#admins-tab]'
+      assert_select "[href=\"/profile/mytestuser/members#admins-tab\"]"
     end
   end
 
