@@ -77,7 +77,7 @@ class EnterprisesBlockViewTest < ActionView::TestCase
 
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
-      assert_select "[href=/profile/#{profile.identifier}/enterprises]"
+      assert_select "[href=\"/profile/#{profile.identifier}/enterprises\"]"
     end
   end
 
