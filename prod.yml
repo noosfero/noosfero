@@ -4,6 +4,7 @@ services:
 
   varnish:
     container_name: varnish
+    privileged: true
     build:
       context: ./config/docker/prod/
       dockerfile: ./Dockerfile-varnish
@@ -25,6 +26,7 @@ services:
     build:
       context: ./config/docker/prod/
       dockerfile: ./Dockerfile-apache2
+    command: ["service", "apache2", "start"]
     networks:
       - noosfero-net
     restart: always

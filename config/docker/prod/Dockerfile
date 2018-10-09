@@ -3,7 +3,7 @@ LABEL Maintainer="Noosfero Development Team <noosfero-dev@listas.softwarelivre.o
 
 LABEL Description="This dockerfile builds a noosfero production environment."
 
-EXPOSE 80
+EXPOSE 3000
 
 ENV RAILS_ENV production
 RUN apt-get update && apt-get install -y sudo cron nodejs postgresql-client
