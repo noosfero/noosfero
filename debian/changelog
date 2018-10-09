@@ -1,3 +1,9 @@
+noosfero (2.6.0) jessie-test; urgency=medium
+
+  * Noosfero 2.6.0
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Mon, 24 Sep 2018 20:45:33 +0000
+
 noosfero (2.5.0) jessie-test; urgency=medium
 
   * Noosfero 2.5.0
