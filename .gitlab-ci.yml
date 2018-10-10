@@ -3,7 +3,7 @@ image: alaxalves/noosfero-ci:latest
 before_script:
   - apt-get update
   - ./script/quick-start
-  - bundle exec rake db:migrate RAILS_ENV=test
+  - bundle exec rails db:migrate RAILS_ENV=test
 
 stages:
   #FIXME Selenium tests are randomly failing and this avoid other tests to run.
@@ -11,7 +11,7 @@ stages:
   - all-tests
 
 #smoke:
-#  script: bundle exec rake ci:smoke
+#  script: bundle exec rails ci:smoke
 #  stage: smoke-tests
 
 .retriable-template: &retriable
@@ -19,12 +19,12 @@ stages:
 
 specs-models:
   <<: *retriable
-  script: bundle exec rake test:specs
+  script: bundle exec rails test:specs
   stage: all-tests
 
 api:
   <<: *retriable
-  script: bundle exec rake test:api
+  script: bundle exec rails test:api
   stage: all-tests
 
 # TODO: Unforce-passing the path to execute rake task
@@ -41,68 +41,68 @@ functionals:
 
 integration:
   <<: *retriable
-  script: bundle exec rake test:integration
+  script: bundle exec rails test:integration
   stage: all-tests
 
 cucumber-1:
   <<: *retriable
-  script: SLICE=1/2 bundle exec rake cucumber
+  script: SLICE=1/2 bundle exec rails cucumber
   stage: all-tests
 cucumber-2:
   <<: *retriable
-  script: SLICE=2/2 bundle exec rake cucumber
+  script: SLICE=2/2 bundle exec rails cucumber
   stage: all-tests
 
 selenium-1:
   <<: *retriable
-  script: SLICE=1/6 bundle exec rake selenium
+  script: SLICE=1/6 bundle exec rails selenium
   stage: all-tests
 selenium-2:
   <<: *retriable
-  script: SLICE=2/6 bundle exec rake selenium
+  script: SLICE=2/6 bundle exec rails selenium
   stage: all-tests
 selenium-3:
   <<: *retriable
-  script: SLICE=3/6 bundle exec rake selenium
+  script: SLICE=3/6 bundle exec rails selenium
   stage: all-tests
 selenium-4:
   <<: *retriable
-  script: SLICE=4/6 bundle exec rake selenium
+  script: SLICE=4/6 bundle exec rails selenium
   stage: all-tests
 selenium-5:
   <<: *retriable
-  script: SLICE=5/6 bundle exec rake selenium
+  script: SLICE=5/6 bundle exec rails selenium
   stage: all-tests
 selenium-6:
   <<: *retriable
-  script: SLICE=6/6 bundle exec rake selenium
+  script: SLICE=6/6 bundle exec rails selenium
   stage: all-tests
 
 # NOOSFERO_BUNDLE_OPTS=install makes migrations fails
 # probably because of rubygems-integration
 plugins-1:
   <<: *retriable
-  script: SLICE=1/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  script: SLICE=1/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-2:
   <<: *retriable
-  script: SLICE=2/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  script: SLICE=2/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-3:
   <<: *retriable
-  script: SLICE=3/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  script: SLICE=3/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-4:
   <<: *retriable
-  script: SLICE=4/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  script: SLICE=4/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-5:
   <<: *retriable
-  script: SLICE=5/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  script: SLICE=5/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 
 cypress:
   <<: *retriable
-  script: bundle exec rake cypress:run
+  script: bundle exec rails cypress:run
   stage: all-tests
 
