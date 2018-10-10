@@ -266,7 +266,6 @@ class ProfilesTest < ActiveSupport::TestCase
     CustomField.create!(:name => "Rating", :format => "string", :customized_type => "Community", :active => true, :environment => Environment.default)
     some_profile = fast_create(Community)
     some_profile.custom_values = { "Rating" => { "value" => "Five stars", "public" => "true"} }
-    some_profile.save!
     set_profile_field_privacy(some_profile, 'Rating', 'public')
 
     params[:optional_fields] = 'additional_data'
