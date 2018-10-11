@@ -24,6 +24,8 @@ class FfmpegTest < ActiveSupport::TestCase
 
   def setup
     Environment.default.enable_plugin Html5VideoPlugin
+    VideoProcessor::Ffmpeg.any_instance.stubs(:config)
+                          .returns({ 'num_of_threads' => 1 })
     @temp = []
     rm_web_videos_dir
   end
@@ -165,7 +167,7 @@ class FfmpegTest < ActiveSupport::TestCase
     assert_equal 5, resp[:duration]
     assert_equal 2428, resp[:global_bitrate]
     assert_equal '{}', h2s(resp[:metadata])
-    assert_match /^\[i,\/[^,]*\/videos\/old-movie.mpg\]$/, h2s(resp[:parameters])
+    assert_match /^\[threads,1,i,\/[^,]*\/videos\/old-movie.mpg\]$/, h2s(resp[:parameters])
     assert_match /^\{bitrate:104857,codec:mpeg1video,framerate:23.98,id:#0,size:\{h:480,w:720\},type:video\}$/, h2s(resp[:streams][0])
     assert_match /^\{bitrate:128,codec:mp2,frequency:48000,id:#0,type:audio\}$/, h2s(resp[:streams][1])
   end
@@ -180,7 +182,7 @@ class FfmpegTest < ActiveSupport::TestCase
     resp = ffmpeg.convert2ogv in: video_path('old-movie.mpg'), out: out_video
     assert_equal [:error, :parameters, :output, :conf], resp.keys
     assert_equal '{code:0,message:}', h2s(resp[:error])
-    assert_match /^\[i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,600k,f,ogg,acodec,libvorbis,vcodec,libtheora,\/tmp\/[^,\/]*.ogv\]$/, h2s(resp[:parameters])
+    assert_match /^\[threads,1,i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,600k,f,ogg,acodec,libvorbis,vcodec,libtheora,\/tmp\/[^,\/]*.ogv\]$/, h2s(resp[:parameters])
     assert_match /^\{in:\/[^,]*\/videos\/old-movie.mpg,out:\/tmp\/[^,\/]*.ogv,type:OGV,vbrate:600\}$/, h2s(resp[:conf])
     assert File.exist? out_video
   end
@@ -190,7 +192,7 @@ class FfmpegTest < ActiveSupport::TestCase
     resp = ffmpeg.convert2mp4 in: video_path('old-movie.mpg'), out: out_video
     assert_equal [:error, :parameters, :output, :conf], resp.keys
     assert_equal '{code:0,message:}', h2s(resp[:error])
-    assert_match /^\[i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,600k,preset,slow,f,mp4,acodec,aac,vcodec,libx264,strict,-2,\/tmp\/[^,\/]*.mp4\]$/, h2s(resp[:parameters])
+    assert_match /^\[threads,1,i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,600k,preset,slow,f,mp4,acodec,aac,vcodec,libx264,strict,-2,\/tmp\/[^,\/]*.mp4\]$/, h2s(resp[:parameters])
     assert_match /^\{in:\/[^,]*\/videos\/old-movie.mpg,out:\/tmp\/[^,\/]*.mp4,type:MP4,vbrate:600\}$/, h2s(resp[:conf])
     assert File.exist? out_video
   end
@@ -200,7 +202,7 @@ class FfmpegTest < ActiveSupport::TestCase
     resp = ffmpeg.convert2webm in: video_path('old-movie.mpg'), out: out_video
     assert_equal [:error, :parameters, :output, :conf], resp.keys
     assert_equal '{code:0,message:}', h2s(resp[:error])
-    assert_match /^\[i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,600k,f,webm,acodec,libvorbis,vcodec,libvpx,\/tmp\/[^,\/]*.webm\]$/, h2s(resp[:parameters])
+    assert_match /^\[threads,1,i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,600k,f,webm,acodec,libvorbis,vcodec,libvpx,\/tmp\/[^,\/]*.webm\]$/, h2s(resp[:parameters])
     assert_match /^\{in:\/[^,]*\/videos\/old-movie.mpg,out:\/tmp\/[^,\/]*.webm,type:WEBM,vbrate:600\}$/, h2s(resp[:conf])
     assert File.exist? out_video
   end
@@ -209,7 +211,7 @@ class FfmpegTest < ActiveSupport::TestCase
     resp = ffmpeg.make_ogv_for_web in: video_path('old-movie.mpg')
     assert_equal [:error, :parameters, :output, :conf], resp.keys
     assert_equal '{code:0,message:}', h2s(resp[:error])
-    assert_match /^\[i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,1024k,f,ogg,acodec,libvorbis,vcodec,libtheora,s,640x426,b:a,128k,\/[^,]*\/videos\/web\/640x426_1024.ogv\]$/, h2s(resp[:parameters])
+    assert_match /^\[threads,1,i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,1024k,f,ogg,acodec,libvorbis,vcodec,libtheora,s,640x426,b:a,128k,\/[^,]*\/videos\/web\/640x426_1024.ogv\]$/, h2s(resp[:parameters])
     assert_match /^\/[^,]*\/videos\/web\/640x426_1024.ogv$/, resp[:conf][:out]
     assert File.exist? resp[:conf][:out]
   end
@@ -218,7 +220,7 @@ class FfmpegTest < ActiveSupport::TestCase
     resp = ffmpeg.make_mp4_for_web in: video_path('old-movie.mpg')
     assert_equal [:error, :parameters, :output, :conf], resp.keys
     assert_equal '{code:0,message:}', h2s(resp[:error])
-    assert_match /^\[i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,1024k,preset,slow,f,mp4,acodec,aac,vcodec,libx264,strict,-2,s,640x426,b:a,128k,\/[^,]*\/videos\/web\/640x426_1024.mp4\]$/, h2s(resp[:parameters])
+    assert_match /^\[threads,1,i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,1024k,preset,slow,f,mp4,acodec,aac,vcodec,libx264,strict,-2,s,640x426,b:a,128k,\/[^,]*\/videos\/web\/640x426_1024.mp4\]$/, h2s(resp[:parameters])
     assert_match /^\/[^,]*\/videos\/web\/640x426_1024.mp4$/, resp[:conf][:out]
     assert File.exist? resp[:conf][:out]
   end
@@ -227,7 +229,7 @@ class FfmpegTest < ActiveSupport::TestCase
     resp = ffmpeg.make_webm_for_web in: video_path('old-movie.mpg')
     assert_equal [:error, :parameters, :output, :conf], resp.keys
     assert_equal '{code:0,message:}', h2s(resp[:error])
-    assert_match /^\[i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,1024k,f,webm,acodec,libvorbis,vcodec,libvpx,s,640x426,b:a,128k,\/[^,]*\/videos\/web\/640x426_1024.webm\]$/, h2s(resp[:parameters])
+    assert_match /^\[threads,1,i,\/[^,]*\/videos\/old-movie.mpg,y,b:v,1024k,f,webm,acodec,libvorbis,vcodec,libvpx,s,640x426,b:a,128k,\/[^,]*\/videos\/web\/640x426_1024.webm\]$/, h2s(resp[:parameters])
     assert_match /^\/[^,]*\/videos\/web\/640x426_1024.webm$/, resp[:conf][:out]
     assert File.exist? resp[:conf][:out]
   end
