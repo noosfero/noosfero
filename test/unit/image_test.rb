@@ -25,7 +25,6 @@ class ImageTest < ActiveSupport::TestCase
     file = create(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     profile.update_attribute(:image_id, file.id)
 
-    process_delayed_job_queue
     Image.attachment_options[:thumbnails].each do |suffix, size|
       assert File.exists?(Image.find(file.id).public_filename(suffix))
     end
@@ -35,8 +34,6 @@ class ImageTest < ActiveSupport::TestCase
   should 'set thumbnails_processed to true after creating thumbnails' do
     file = create(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     profile.update_attribute(:image_id, file.id)
-
-    process_delayed_job_queue
 
     assert Image.find(file.id).thumbnails_processed
     file.destroy
@@ -57,17 +54,11 @@ class ImageTest < ActiveSupport::TestCase
     assert file.thumbnails_processed
   end
 
-  should 'have a default image if thumbnails were not processed' do
-    file = Image.new
-    file.expects(:thumbnailable?).returns(true)
-    assert_equal '/images/icons-app/image-loading-thumb.png', file.public_filename(:thumb)
-  end
-
   should 'use origin image if thumbnails were not processed and fallback is enabled' do
-    NOOSFERO_CONF.expects(:[]).with('delayed_attachment_fallback_original_image').returns(true).at_least_once
     file = create(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     profile.update_attribute(:image_id, file.id)
 
+    Image.any_instance.stubs(:thumbnails_processed).returns(false)
     assert_match(/rails.png/, Image.find(file.id).public_filename(:thumb))
 
     file.destroy
@@ -76,7 +67,6 @@ class ImageTest < ActiveSupport::TestCase
   should 'return image thumbnail if thumbnails were processed' do
     file = create(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     profile.update_attribute(:image_id, file.id)
-    process_delayed_job_queue
 
     assert_match(/rails_thumb.png/, Image.find(file.id).public_filename(:thumb))
 
@@ -99,21 +89,10 @@ class ImageTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not create a background job for an image that is not thumbnailable' do
-    # this test verifies whether it created background jobs also for the
-    # thumbnails!
-    assert_no_difference 'Delayed::Job.count' do
-      image = build(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-      image.stubs(:thumbnailable?).returns(false)
-      image.save!
-    end
-  end
-
   should 'upload to a folder with same name as the schema if database is postgresql' do
     uses_postgresql
     file = create(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     profile.update_attribute(:image_id, file.id)
-    process_delayed_job_queue
     assert_match(/images\/test_schema\/\d{4}\/\d{4}\/rails.png/, Image.find(file.id).public_filename)
     file.destroy
     uses_sqlite
@@ -123,7 +102,6 @@ class ImageTest < ActiveSupport::TestCase
     uses_sqlite
     file = create(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     profile.update_attribute(:image_id, file.id)
-    process_delayed_job_queue
     assert_match(/images\/\d{4}\/\d{4}\/rails.png/, Image.find(file.id).public_filename)
     file.destroy
   end

@@ -498,6 +498,7 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   should 'use favicon from profile articles if the profile theme does not have' do
+    File.stubs(:extname).returns('.ico')
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/favicon.ico', 'image/x-ico'), :profile => profile)

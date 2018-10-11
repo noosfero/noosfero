@@ -3,13 +3,12 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 18:45+0000\n"
-"PO-Revision-Date: 2018-08-30 18:45+0000\n"
+"POT-Creation-Date: 2018-10-04 13:52+0000\n"
+"PO-Revision-Date: 2018-10-04 13:52+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -30,11 +29,11 @@ msgstr ""
 msgid "A video channel, where you can make your own web TV."
 msgstr ""
 
-#: ../lib/presenters/video.rb:9
+#: ../lib/presenters/video.rb:10
 msgid "Video (%s)"
 msgstr ""
 
-#: ../lib/presenters/video.rb:131
+#: ../lib/presenters/video.rb:132
 msgid "Undefined"
 msgstr ""
 
@@ -121,45 +120,53 @@ msgid "%sº video in the queue"
 msgstr ""
 
 #: ../views/content_viewer/video_channel.html.erb:78
-msgid "This video will be enqueued soon"
+msgid "This video is being processed, it might take a while"
 msgstr ""
 
 #: ../views/content_viewer/video_channel.html.erb:80
+msgid "This video will be enqueued soon"
+msgstr ""
+
+#: ../views/content_viewer/video_channel.html.erb:82
 msgid "Conversion couldn't be completed"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:91
+#: ../views/content_viewer/video_channel.html.erb:93
 msgid "Non video files"
 msgstr ""
 
 #: ../views/file_presenter/_video.html.erb:22
+msgid "This video is currently being processed. It might take a while."
+msgstr ""
+
+#: ../views/file_presenter/_video.html.erb:27
 msgid "Queued to generate the web version."
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:23
+#: ../views/file_presenter/_video.html.erb:28
 msgid "This is the %sº video in the queue. Come back soon"
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:28
+#: ../views/file_presenter/_video.html.erb:33
 msgid "This video will be enqueued for conversion soon. Come back later."
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:33
+#: ../views/file_presenter/_video.html.erb:38
 msgid "It was not possible to convert this video, contact an administator."
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:49
+#: ../views/file_presenter/_video.html.erb:54
 msgid "Video conversion errors"
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:59
+#: ../views/file_presenter/_video.html.erb:64
 msgid "Error while converting %{orig_type} to %{new_type}, %{size} size."
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:62
+#: ../views/file_presenter/_video.html.erb:67
 msgid "Code %s"
 msgstr ""
 
-#: ../views/file_presenter/_video.html.erb:64
+#: ../views/file_presenter/_video.html.erb:69
 msgid "display full output"
 msgstr ""
