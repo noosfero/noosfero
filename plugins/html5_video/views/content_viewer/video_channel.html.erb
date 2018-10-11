@@ -79,6 +79,8 @@
             <span>
               <% if position_for(f).present? %>
                 <%= _("%sº video in the queue") % position_for(f) %>
+              <% elsif is_ongoing?(f) %>
+                <%= _('This video is being processed, it might take a while') %>
               <% elsif f.enqueuing_jobs.present? %>
                 <%= _("This video will be enqueued soon") %>
               <% else %>

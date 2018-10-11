@@ -1,4 +1,5 @@
 require 'RMagick'
+require 'yaml'
 
 # Works for ffmpeg version 2.8.6-1~bpo8 shiped by Debian Jessie Backports
 # https://packages.debian.org/jessie-backports/ffmpeg
@@ -12,7 +13,7 @@ class VideoProcessor::Ffmpeg
   end
 
   def run(*parameters)
-    parameters = parameters.flatten
+    parameters = ([:threads, config['num_of_threads']] + parameters).flatten
     cmd = ['ffmpeg'] + parameters.map do |p|
       p.kind_of?(Symbol) ? '-'+p.to_s : p.to_s
     end
@@ -59,6 +60,10 @@ class VideoProcessor::Ffmpeg
       end
     end
     return response
+  end
+
+  def config
+    @config ||= YAML.load_file(File.join(__dir__, '../../config.yml'))['ffmpeg']
   end
 
   def register_information

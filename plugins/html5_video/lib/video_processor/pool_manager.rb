@@ -79,6 +79,11 @@ module VideoProcessor
       index ? index + 1 : nil
     end
 
+    def is_ongoing?(env_id, video_id)
+      ids = all_files(env_id, :ongoing).map{ |f| f.split('/').last }
+      return ids.include?(video_id.to_s)
+    end
+
     private
 
     def pool_for(env_id, pool=:waiting)
