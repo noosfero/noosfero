@@ -51,6 +51,7 @@ DAEMON_OPTS="-a :80 \
              -s malloc,256m" \
              -p vcc_allow_inline_c=on
 
+
 ## Alternative 3, Advanced configuration
 #
 # This example uses the INSTANCE variable above, which you need to uncomment.

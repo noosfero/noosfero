@@ -1,4 +1,4 @@
 #!/bin/bash
 
-/usr/sbin/varnishd
+service apache2 start
 tail -f /dev/null

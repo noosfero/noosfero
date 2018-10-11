@@ -10,7 +10,6 @@ services:
       dockerfile: ./Dockerfile-varnish
     networks:
       - noosfero-net
-    command: ["sh", "/home/varnish-start.sh"]
     volumes:
       - apache2:/etc/apache2/
       - /var/lib/varnish/:/var/lib/varnish/
@@ -26,7 +25,6 @@ services:
     build:
       context: ./config/docker/prod/
       dockerfile: ./Dockerfile-apache2
-    command: ["service", "apache2", "start"]
     networks:
       - noosfero-net
     restart: always
