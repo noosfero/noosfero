@@ -7,8 +7,6 @@ Before you start installing Noosfero manually, see the information about the Noo
 
 If you want to setup a development environment instead of a production one, stop reading this file right now and read the file `HACKING.md` instead.
 
-For a complete installation guide, please see the following web page: http://noosfero.org/Development/HowToInstall
-
 If you have problems with the setup, please feel free to ask questions in the development mailing list.
 
 Requirements
@@ -18,25 +16,8 @@ Requirements
 
 Noosfero is written in Ruby with the "[Rails framework](http://www.rubyonrails.org)", so the process of setting it up is pretty similar to other Rails applications.
 
-You need to install some packages Noosfero depends on. On Debian GNU/Linux or Debian-based systems, all of these packages are available through the Debian archive. You can install them with the following command:
-
-    # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby1.8 \
-      libsqlite3-ruby librmagick-ruby libredcloth-ruby \
-      libwill-paginate-ruby iso-codes libfeedparser-ruby libdaemons-ruby thin
-
-On other systems, they may or may not be available through your regular package management system. Below are the links to their homepages.
-
-* Ruby: http://www.ruby-lang.org
-* Rake: http://rake.rubyforge.org
-* po4a: http://po4a.alioth.debian.org
-* Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
-* RMagick: http://rmagick.rubyforge.org
-* RedCloth: http://redcloth.org
-* will_paginate: http://github.com/mislav/will_paginate/wikis
-* iso-codes: http://pkg-isocodes.alioth.debian.org
-* feedparser: http://packages.debian.org/sid/libfeedparser-ruby
-* Daemons - http://daemons.rubyforge.org
-* Thin: http://code.macournoyer.com/thin
+    # apt-get install gcc g++ make ruby ruby-dev libxml2 zlib1g-dev libpq-dev libmagickwand-dev
+    # gem install bundler
 
 If you manage to install Noosfero successfully on other systems than Debian,
 please feel free to contact the Noosfero development mailing with the
@@ -66,37 +47,16 @@ The `--system` option will tell adduser to create a system user, i.e. this user 
 As noosfero user
 ================
 
-downloading from git
---------------------
-
-Here we are cloning the noosfero repository from git. Note: you will need to install git before.
+Here we are cloning the noosfero repository from git. Note: you may need to install git before.
 
     $ git clone https://gitlab.com/noosfero/noosfero.git current
     $ cd current
     $ git checkout -b stable origin/stable
 
-downloading tarball
--------------------
+After cloning the repository, go ahead and install the production dependencies with bundler.
 
-Note: replace 0.39.0 below from the latest stable version.
+    $ bundle --without cucumber development test
 
-    $ wget http://noosfero.org/pub/Development/NoosferoVersion00x39x00/noosfero-0.39.0.tar.gz
-    $ tar -zxvf noosfero-0.39.0.tar.gz
-    $ ln -s noosfero-0.39.0 current
-    $ cd current
-
-Create the thin configuration file:
-
-    $ thin -C config/thin.yml -e production config
-
-Edit config/thin.yml to suit your needs. Make sure your apache configuration matches the thin cluster configuration, specially in respect to the ports and numbers of thin instances.
-
-*Note*: currently Noosfero only supports Rails 2.3.5, which is the version in Debian Squeeze. If you have a Rails version newer than that, Noosfero will probably not work. You can install Rails 2.3.5 into your Noosfero installation with the following procedure:
-
-    $ cd /var/lib/noosfero/current/vendor
-    $ wget http://ftp.de.debian.org/debian/pool/main/r/rails/rails_2.3.5.orig.tar.gz
-    $ tar xzf rails_2.3.5.orig.tar.gz
-    $ ln -s rails-2.3.5 rails
 
 As root user
 ============
@@ -108,13 +68,13 @@ Setup Noosfero log and tmp directories:
 
 Now it's time to setup the database. In this example we are using PostgreSQL, so if you are planning to use a different database this steps won't apply. Pay special attention to the default collation defined on your setup by the environment variable LC_COLLATE because it might interfere in some sorting operations on your database. For more information checkout `man locale`.
 
-    # apt-get install postgresql libpgsql-ruby
+    # apt-get install postgresql
     # su postgres -c 'createuser noosfero -S -d -R'
 
 By default Rails will try to connect on postgresql through 5432 port, you can check it on `/etc/postgresql/8.4/main/postgresql.conf` file.
 
 Restart postgresql:
-    # invoke-rc.d postgresql restart
+    # systemctl restart postgresql
 
 Noosfero needs a functional e-mail setup to work: the local mail system should be able to deliver e-mail to the internet, either directly or through an external SMTP server. Please check the documentation at the INSTALL.email file.
 
@@ -125,10 +85,6 @@ Now create the databases:
 
     $ cd /var/lib/noosfero/current
     $ createdb noosfero_production
-    $ createdb noosfero_development
-    $ createdb noosfero_test
-
-The development and test databases are actually optional. If you are creating a stricly production server, you will probably not need them.
 
 Now we want to configure Noosfero for accessing the database we just created. To do that, you can 1) copy `config/database.yml.pgsql` to `config/database.yml`, or create `config/database.yml` from scratch with the following content:
 
