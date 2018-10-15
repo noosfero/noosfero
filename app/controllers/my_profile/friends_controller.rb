@@ -3,10 +3,14 @@ class FriendsController < MyProfileController
   protect 'manage_friends', :profile
 
   def index
-    @suggestions = profile.suggested_profiles.of_person.enabled.includes(:suggestion).limit(per_page)
-    if is_cache_expired?(profile.manage_friends_cache_key(params))
-      @friends = profile.friends.order(:name)
-        .paginate(:per_page => per_page, :page => params[:npage])
+    if profile.person?
+      @suggestions = profile.suggested_profiles.of_person.enabled.includes(:suggestion).limit(per_page)
+      if is_cache_expired?(profile.manage_friends_cache_key(params))
+        @friends = profile.friends.order(:name)
+          .paginate(:per_page => per_page, :page => params[:npage])
+      end
+    else
+      render_not_found
     end
   end
 
