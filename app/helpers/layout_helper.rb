@@ -95,7 +95,7 @@ module LayoutHelper
   end
 
   def layout_template
-    # if profile then profile.layout_template else environment.layout_template end
+    if profile then profile.layout_template else environment.layout_template end
   end
 
   def addthis_javascript
