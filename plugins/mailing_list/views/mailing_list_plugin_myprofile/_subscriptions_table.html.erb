@@ -33,8 +33,8 @@
       <td><%= link_to_profile related.short_name(48), related.identifier, :title => _('View profile') %> </td>
       <td style="text-align: center"><%= subscribed ? _('Yes') : _('No') %></td>
       <%= content_tag('td', :title => td_title) do %>
-        <%= button_without_text 'subscribe', _('Subscribe'), {:action => 'subscribe', :id => related.id}, subscribe_html_options unless subscribed %>
-        <%= button_without_text 'unsubscribe', _('Unsubscribe'), {:action => 'unsubscribe', :id => related.id}, data: {confirm: _("Do you really want to unsubscribe?")} if subscribed %>
+        <%= button_without_text :rss, _('Subscribe'), {:action => 'subscribe', :id => related.id}, subscribe_html_options unless subscribed %>
+        <%= button_without_text :remove, _('Unsubscribe'), {:action => 'unsubscribe', :id => related.id}, data: {confirm: _("Do you really want to unsubscribe?")} if subscribed %>
       <% end %>
     </tr>
   <% end %>
