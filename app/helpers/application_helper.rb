@@ -838,18 +838,18 @@ module ApplicationHelper
   def search_people_options
     host = environment.default_hostname
     [
-      (link_to s_('people|More recent'), controller: 'search', action: 'people', filter: 'more_recent'),
-      (link_to s_('people|More active'), controller: 'search', action: 'people', filter: 'more_active'),
-      (link_to s_('people|More popular'), controller: 'search', action: 'people', filter: 'more_popular')
+      (link_to s_('people|More recent'), controller: 'search', action: 'people', order: 'more_recent'),
+      (link_to s_('people|More active'), controller: 'search', action: 'people', order: 'more_active'),
+      (link_to s_('people|More popular'), controller: 'search', action: 'people', order: 'more_popular')
     ]
   end
 
   def search_community_options
     host = environment.default_hostname
     [
-      (link_to s_('communities|More recent'), controller: 'search', action: 'communities', filter: 'more_recent'),
-      (link_to s_('communities|More active'), controller: 'search', action: 'communities', filter: 'more_active'),
-      (link_to s_('communities|More popular'), controller: 'search', action: 'communities', filter: 'more_popular')
+      (link_to s_('communities|More recent'), controller: 'search', action: 'communities', order: 'more_recent'),
+      (link_to s_('communities|More active'), controller: 'search', action: 'communities', order: 'more_active'),
+      (link_to s_('communities|More popular'), controller: 'search', action: 'communities', order: 'more_popular')
     ]
   end
 
