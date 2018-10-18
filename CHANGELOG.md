@@ -1,3 +1,14 @@
+# 1.16.0
+  * Bumping version 1.16.0 (Rodrigo Souto) [ac2ce0c]
+  * Update translations (Rodrigo Souto) [9746df1]
+  * layout-helper: uncomment layout_template method (Rodrigo Souto) [35fab84]
+  * Add migrate to remove signup_blacklist metatada in environments (Iasmin Mendes) [be2952c]
+  * Remove blacklist logic to signup (Iasmin Mendes) [eed8862]
+  * Remove bot signup (Iasmin Mendes) [9e305cd]
+  * [Html5Video] Limits ffmpeg resources (Gabriel Silva) [1d72df6]
+  * [HTML5VIdeoPlugin] Translates missing strings (Gabriel Silva) [ae73250]
+  * [HTML5VideoPlugin] Fixes bug that displayed error for ongoing videos (Gabriel Silva) [e653935]
+
 # 1.15.2
   * Bumping version 1.15.2 (Rodrigo Souto) [962dc0f]
   * delivery-plugin: use EC5 syntax of map (Rodrigo Souto) [9aa70c7]
