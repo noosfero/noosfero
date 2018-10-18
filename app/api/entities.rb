@@ -111,7 +111,7 @@ module Api
       expose :blocks, :using => Block do |box, options|
         box.blocks.select {|block| block.visible_to_user?(options[:current_person]) || block.allow_edit?(options[:current_person]) }
       end
-   end
+    end
 
     class Profile < Entity
       expose :identifier, :name, :id
@@ -315,6 +315,12 @@ module Api
       expose :layout_template
       expose :signup_intro
       expose :terms_of_use
+      expose :captcha_site_key do |environment, options|
+        Recaptcha.configuration.site_key
+      end
+      expose :captcha_signup_enable do |environment, options|
+        environment.require_captcha?(:signup, nil, environment)
+      end
       expose :top_url, as: :host, :if => lambda {|instance, options| Entities.expose_optional_field?(:host, options)}
       expose :type do |environment, options|
         "Environment"
