@@ -18,14 +18,6 @@ class AddFormAnswersOnOldAnswers < ActiveRecord::Migration
   end
 
   def down
-    fields = CustomFormsPlugin::Field.where(type: "CustomFormsPlugin::SelectField")
-    answers_ids = CustomFormsPlugin::FormAnswer.all.map(&:answer_id)
-    answers = CustomFormsPlugin::Answer.where("id IN (?)", answers_ids)
-
     CustomFormsPlugin::FormAnswer.delete_all
-    answers.each do |answer|
-      answer.form_answers = []
-      answer.save!
-    end
   end
 end

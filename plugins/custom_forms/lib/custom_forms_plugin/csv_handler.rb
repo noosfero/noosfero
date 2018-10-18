@@ -125,7 +125,7 @@ class CustomFormsPlugin::CsvHandler
       end
       answer
     else
-      CustomFormsPlugin::Answer.create!(field: field, value: value, imported: true)
+      CustomFormsPlugin::Answer.create(field: field, value: value, imported: true)
     end
   end
 

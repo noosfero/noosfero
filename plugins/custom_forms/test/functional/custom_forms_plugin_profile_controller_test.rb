@@ -35,14 +35,21 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'not save empty submission' do
-    form = CustomFormsPlugin::Form.create!(profile: profile, name: 'Free Software', identifier: 'free-software', kind: 'poll')
-    field1 = CustomFormsPlugin::TextField.create(name: 'Name', form: form)
+    form = CustomFormsPlugin::Form.create!(profile: profile, name: 'Free Software', identifier: 'free-software', kind: 'survey')
+    field1 = CustomFormsPlugin::TextField.create!(name: 'Name', form: form, mandatory: true)
+    alternative_a = CustomFormsPlugin::Alternative.new(:label => 'A')
+    alternative_b = CustomFormsPlugin::Alternative.new(:label => 'B')
+    field2 = CustomFormsPlugin::SelectField.new(name: 'Select Field', form: form, mandatory: true)
+    field2.alternatives << [alternative_a, alternative_b]
+    field2.save!
 
     assert_no_difference 'CustomFormsPlugin::Submission.count' do
-      post :show, :profile => profile.identifier, :id => form.identifier, :submission => {field1.id.to_s => ''}
+      post :show, :profile => profile.identifier, :id => form.identifier, :submission => {field1.id.to_s => '', field2.id.to_s => '0'}
     end
 
-    assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
+    assert_tag :tag => 'div', attributes: { class: 'errorExplanation', id: 'errorExplanation' }
+    assert_tag :tag => 'li', content: "#{field1.name} is mandatory."
+    assert_tag :tag => 'li', content: "#{field2.name} is mandatory."
   end
 
   should 'display errors if user is not logged in and author_name is not uniq' do

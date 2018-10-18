@@ -37,31 +37,33 @@ class CustomFormsPlugin::Submission < ApplicationRecord
       chosen_alternatives = chosen_alternatives_from_value(value)
       #keeping the value field for text answers.
       answer = self.answers.build :field => field, :value => value
-      answer.alternatives << chosen_alternatives
-      answer.save!
+
+      chosen_alternatives.each do |alternative|
+        form_answer = CustomFormsPlugin::FormAnswer.new(alternative_id: alternative.id, answer_id: answer.id)
+        answer.form_answers << form_answer
+      end
     end
     self.answers
   end
 
   def chosen_alternatives_from_value(value)
     begin
+      alternatives = []
+      
       if value.kind_of?(String)
-        return CustomFormsPlugin::Alternative.find(value)
+        alternatives << CustomFormsPlugin::Alternative.find(value) if (value.to_i > 0)
       end
       if value.kind_of?(Array)
-        alternatives = []
         value.each do |v|
           alternatives << CustomFormsPlugin::Alternative.find(v)  if (v.to_i > 0)
         end
-        return alternatives
       end
       if value.kind_of?(Hash)
-        alternatives = []
         value.each do |key, value|
           alternatives << CustomFormsPlugin::Alternative.find(key)  if (value.to_i > 0)
         end
-        return alternatives
       end
+      alternatives
     rescue ActiveRecord::RecordNotFound
       # the field is a text field.
       return []
