@@ -38,7 +38,7 @@ Install the RPAF apache module (or skip this step if not using apache):
 
 On manual installations, change `/etc/noosfero/*` to `{Rails.root}/etc/noosfero/*`
 
-**NOTE**: it is very important that the `*.vcl` files are included in that order, i.e. *first* include `varnish-noosfero.vcl`, and *after* `noosfero-accept-language.cvl`.
+**NOTE**: it is very important that the `*.vcl` files are included in that order, i.e. *first* include `varnish-noosfero.vcl`, and *after* `noosfero-accept-language.vcl`.
 
 5) Enable varnish logging:
 

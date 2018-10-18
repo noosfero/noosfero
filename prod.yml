@@ -1,39 +1,68 @@
-version: "3"
+version: "3.5"
 
 services:
+
+  varnish:
+    container_name: varnish
+    privileged: true
+    build:
+      context: ./config/docker/prod/
+      dockerfile: ./Dockerfile-varnish
+    networks:
+      - noosfero-net
+    volumes:
+      - apache2:/etc/apache2/
+      - /var/lib/varnish/:/var/lib/varnish/
+      - /etc/default/:/etc/default/
+      - /etc/varnish/:/etc/varnish/
+    env_file:
+      - config/docker/prod/production.env
+    depends_on:
+      - apache2
+
+  apache2:
+    container_name: apache2
+    build:
+      context: ./config/docker/prod/
+      dockerfile: ./Dockerfile-apache2
+    networks:
+      - noosfero-net
+    restart: always
+    env_file:
+      - config/docker/prod/production.env
+    volumes:
+      - apache2:/etc/apache2/
+
   postgres:
+    container_name: postgres
     image: postgres:9.4
-    environment:
-      POSTGRES_USER: noosfero
-      POSTGRES_PASSWORD: noosfero
-      POSTGRES_DB: noosfero_production
+    networks:
+      - noosfero-net
+    env_file:
+      - config/docker/prod/production.env
     volumes:
       - pg-prod-data:/var/lib/postgresql/data
 
   noosfero:
+    container_name: noosfero
     build:
       context: .
       dockerfile: ./config/docker/prod/Dockerfile
     ports:
-      - 80:3000
+      - 3000:3000
     depends_on:
       - postgres
     volumes:
       - ./tmp/backup:/dump
-    environment:
-      POSTGRES_HOST: postgres
-      POSTGRES_USER: noosfero
-      POSTGRES_PASSWORD: noosfero
-      POSTGRES_DB: noosfero_production
-      NOOSFERO_DUMP_FILE:
-
-      # Set your custom credentials if you want to create a default admin account
-      ADMIN_LOGIN:
-      ADMIN_EMAIL:
-      ADMIN_PASSWORD:
-
-      # Set your custom environment configs
-      ENVIRONMENT_NAME: Noosfero
+    networks:
+      - noosfero-net
+    env_file:
+      - config/docker/prod/production.env 
 
 volumes:
   pg-prod-data: {}
+  apache2:
+
+networks:
+  noosfero-net:
+    name: noosfero-net
