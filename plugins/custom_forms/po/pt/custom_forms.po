@@ -385,8 +385,8 @@ msgstr "Exportar um arquivo com várias consultas de uma vez."
 #: ../views/custom_forms_plugin_admin/index.html.erb:14
 msgid "Select the user fields to be included in the submissions report"
 msgstr ""
-"Selecione os campos de usuários para serem incluídos no relatório "
-"de submissões."
+"Selecione os campos de usuários para serem incluídos no relatório de "
+"submissões."
 
 #: ../views/custom_forms_plugin_admin/index.html.erb:19
 msgid "Select which profiles you want to export the queries from."
@@ -906,31 +906,24 @@ msgstr "Tem certeza de que deseja submeter sua resposta?"
 msgid "This was your answer."
 msgstr "Essa foi a sua resposta."
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:33
 #~ msgid "Submission saved"
 #~ msgstr "Submissão salva"
 
-#: ../lib/custom_forms_plugin/csv_handler.rb:6
 #~ msgid "City"
 #~ msgstr "Cidade"
 
-#: ../lib/custom_forms_plugin/form.rb:122
 #~ msgid "This query has no ending date"
 #~ msgstr "Essa consulta não possui data de finalização"
 
-#: ../lib/custom_forms_plugin/form.rb:127
 #~ msgid "Ends today"
 #~ msgstr "Termina hoje"
 
-#: ../lib/custom_forms_plugin/form.rb:131
 #~ msgid "Ends tomorow"
 #~ msgstr "Termina amanhã"
 
-#: ../lib/custom_forms_plugin/form.rb:135
 #~ msgid "Already closed"
 #~ msgstr "Finalizada"
 
-#: ../lib/custom_forms_plugin/form.rb:138
 #~ msgid "%s days left"
 #~ msgstr "%s dias restantes"
 

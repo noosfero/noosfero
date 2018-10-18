@@ -870,7 +870,6 @@ msgstr ""
 msgid "This was your answer."
 msgstr ""
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:33
 #~ msgid "Submission saved"
 #~ msgstr "Beitrag gespeichert"
 

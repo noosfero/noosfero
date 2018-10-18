@@ -3,12 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-04 13:52+0000\n"
-"PO-Revision-Date: 2018-10-04 13:52+0000\n"
+"POT-Creation-Date: 2018-10-18 22:15+0000\n"
+"PO-Revision-Date: 2018-10-18 22:15+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -29,53 +30,53 @@ msgstr ""
 msgid "A video channel, where you can make your own web TV."
 msgstr ""
 
-#: ../lib/presenters/video.rb:10
+#: ../lib/presenters/video.rb:9
 msgid "Video (%s)"
 msgstr ""
 
-#: ../lib/presenters/video.rb:132
+#: ../lib/presenters/video.rb:131
 msgid "Undefined"
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:32
+#: ../lib/video_processor/ffmpeg.rb:33
 msgid "Unknow error"
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:35
+#: ../lib/video_processor/ffmpeg.rb:36
 msgid "No such file or directory \"%s\"."
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:38
+#: ../lib/video_processor/ffmpeg.rb:39
 msgid "No output defined."
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:41
+#: ../lib/video_processor/ffmpeg.rb:42
 msgid "Unknown encoder \"%s\"."
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:44
+#: ../lib/video_processor/ffmpeg.rb:45
 msgid ""
 "Error while opening encoder for output - maybe incorrect parameters such as bi"
 "t rate, frame rate, width or height."
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:47
+#: ../lib/video_processor/ffmpeg.rb:48
 msgid "Could not open \"%s\"."
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:50
+#: ../lib/video_processor/ffmpeg.rb:51
 msgid "Unsupported codec %{codec} for %{act} stream %{id}."
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:54
+#: ../lib/video_processor/ffmpeg.rb:55
 msgid "Unable to find a suitable output format for %{file}."
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:58
+#: ../lib/video_processor/ffmpeg.rb:59
 msgid "Invalid data found when processing input."
 msgstr ""
 
-#: ../lib/video_processor/ffmpeg.rb:197
+#: ../lib/video_processor/ffmpeg.rb:202
 msgid "Success."
 msgstr ""
 
@@ -100,38 +101,38 @@ msgstr ""
 msgid "Quality options"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:20
+#: ../views/content_viewer/video_channel.html.erb:23
 msgid "Tags"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:24
+#: ../views/content_viewer/video_channel.html.erb:27
 #: ../views/file_presenter/_video.html.erb:14
 msgid "Description"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:62
+#: ../views/content_viewer/video_channel.html.erb:67
 msgid "This channel has one video waiting to be converted"
 msgid_plural "This channel has %d videos waiting to be converted"
 msgstr[0] ""
 msgstr[1] ""
 
-#: ../views/content_viewer/video_channel.html.erb:76
+#: ../views/content_viewer/video_channel.html.erb:81
 msgid "%sº video in the queue"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:78
+#: ../views/content_viewer/video_channel.html.erb:83
 msgid "This video is being processed, it might take a while"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:80
+#: ../views/content_viewer/video_channel.html.erb:85
 msgid "This video will be enqueued soon"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:82
+#: ../views/content_viewer/video_channel.html.erb:87
 msgid "Conversion couldn't be completed"
 msgstr ""
 
-#: ../views/content_viewer/video_channel.html.erb:93
+#: ../views/content_viewer/video_channel.html.erb:98
 msgid "Non video files"
 msgstr ""
 
