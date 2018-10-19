@@ -2,8 +2,8 @@
   <h4 class='box-title'><%= _('Additional Fields') %></h4>
 
   <div id='article-custom-fields'>
-    <% fields.each do |key, field| %>
-      <% field.symbolize_keys! %>
+    <% fields.each do |key, value| %>
+      <% field = value.symbolize_keys %>
       <%= render partial: "cms/custom_fields/#{field[:type]}", locals: { field: field } %>
     <% end %>
   </div>
