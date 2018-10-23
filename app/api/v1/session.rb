@@ -109,16 +109,17 @@ module Api
               user.generate_private_token!
               present user, :with => Entities::UserLogin, :current_person => current_person
             else
-              # Waiting for admin moderate user registration
               status 202
-              body({ message: 'Waiting for admin moderate user registration' })
+              output = {:success => true}
+	            output[:message] = _('Waiting for admin moderate user registration')
+              output[:code] = Api::Status::Http::OK
+              present output, :with => Entities::Response
             end
           else
-            render_api_error!(_('Token is invalid'), 412)
+            render_api_error!(_('Activation code is invalid'), 412)
           end
         else
-          # Token not found in database
-          render_api_error!(_('Token is invalid'), 412)
+          render_api_error!(_('Activation token is invalid'), 412)
         end
       end
 
@@ -137,7 +138,7 @@ module Api
         end
 
         output = {:success => true}
-	output[:message] = _('All change password requests were sent.')
+	      output[:message] = _('All change password requests were sent.')
         output[:code] = Api::Status::Http::OK
         present output, :with => Entities::Response
       end
