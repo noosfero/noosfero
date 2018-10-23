@@ -239,6 +239,20 @@ class DiscussionBlockViewTest < ActionView::TestCase
     assert_equivalent [a2.id, a1.id], b.api_content['articles'].map {|a| a[:id]}
   end
 
+  should 'return fixed_documents in api_content' do
+    community = fast_create(Community)
+    community.boxes << Box.new
+    b = CommentParagraphPlugin::DiscussionBlock.new
+    b.box = community.boxes.last
+    b.save
+    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
+    b.fixed_documents_ids = [a1.id]
+    fast_create(Event, :profile_id => community.id)
+    fast_create(TextArticle, :profile_id => community.id)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
+    assert_equivalent [a1.id], b.api_content['fixed_documents'].map {|a| a[:id]}
+  end
+
   should 'sort discussions by start_date, end_date and created_at' do
     community = fast_create(Community)
     community.boxes << Box.new

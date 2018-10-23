@@ -2,10 +2,12 @@ class CommentParagraphPlugin::DiscussionBlock < Block
 
   settings_items :presentation_mode, :type => String, :default => 'title_only'
   settings_items :total_items, :type => Integer, :default => 5
+  settings_items :fixed_documents_ids, :type => Array, :default => []
   settings_items :discussion_status, :type => Integer
   settings_items :use_portal_community, :type => :boolean, :default => false
+  # settings_items :limit, :type => :integer, :default => 5
 
-  attr_accessible :presentation_mode, :total_items, :discussion_status, :use_portal_community
+  attr_accessible :presentation_mode, :discussion_status, :use_portal_community
 
   VALID_CONTENT = ['CommentParagraphPlugin::Discussion']
 
@@ -22,9 +24,13 @@ class CommentParagraphPlugin::DiscussionBlock < Block
   end
 
   def discussions
+    amount = self.total_items - self.fixed_documents_ids.length
+    if(amount <= 0 )
+      return [];
+    end
     current_time = Time.now
     return [] if holder.blank?
-    discussions = holder.articles.where(type: VALID_CONTENT).order('start_date ASC, end_date ASC, created_at DESC').limit(self.total_items)
+    discussions = holder.articles.where(type: VALID_CONTENT).order('start_date ASC, end_date ASC, created_at DESC').limit(amount)
     case discussion_status
     when STATUS_NOT_OPENED
       discussions = discussions.where("start_date > ?", current_time)
@@ -35,6 +41,10 @@ class CommentParagraphPlugin::DiscussionBlock < Block
       discussions = discussions.where("end_date < ?", current_time)
     end
     discussions
+  end
+
+  def fixed_documents
+    holder.articles.where(type: VALID_CONTENT, id: self.fixed_documents_ids).order('start_date ASC, end_date ASC, created_at DESC')
   end
 
   def holder
@@ -51,7 +61,17 @@ class CommentParagraphPlugin::DiscussionBlock < Block
   end
 
   def api_content(params = {})
-    {:articles => Api::Entities::ArticleBase.represent(self.discussions)}.as_json
+    {
+      articles: Api::Entities::ArticleBase.represent(self.discussions),
+      fixed_documents: Api::Entities::ArticleBase.represent(self.fixed_documents),
+      total_items: self.total_items
+    }.as_json
+  end
+
+  def api_content= params
+    super
+    self.total_items= params[:total_items]
+    self.fixed_documents_ids= params[:fixed_documents_ids]
   end
 
   def display_api_content_by_default?
