@@ -16,6 +16,11 @@ class Html5VideoPlugin < Noosfero::Plugin
     _("A plugin to enable the video suport, with auto conversion for the web.")
   end
 
+  def self.config
+    @config ||= YAML.load_file(File.join(root_path, 'config.yml'))
+                    .with_indifferent_access
+  end
+
   def content_types
     [Html5VideoPlugin::VideoChannel]
   end

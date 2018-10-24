@@ -67,16 +67,23 @@ module Api
       end
 
       post "/register" do
-        attrs = attributes_for_keys [:email, :login, :password, :password_confirmation] + environment.signup_person_fields
+        attrs = attributes_for_keys [:email, :login, :password, :password_confirmation, :captcha] + environment.signup_person_fields
         name = params[:name].present? ? params[:name] : attrs[:email]
         attrs[:password_confirmation] = attrs[:password] if !attrs.has_key?(:password_confirmation)
         user = User.new(attrs.merge(:name => name))
 
         begin
+          if !verify_recaptcha(model: user, attribute: :captcha, secret_key: Recaptcha.configuration.secret_key, response: user.captcha)
+            raise ArgumentError.new("Invalid Captcha")
+          end
+
           user.signup!
           user.generate_private_token! if user.activated?
+          
           present user, :with => Entities::UserLogin, :current_person => user.person
-        rescue ActiveRecord::RecordInvalid
+        rescue ActiveRecord::RecordInvalid 
+          render_model_errors!(user.errors)
+        rescue ArgumentError
           render_model_errors!(user.errors)
         end
       end

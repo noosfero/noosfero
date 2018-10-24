@@ -3,7 +3,7 @@ module MailingListPlugin::ControlPanel
     class << self
 
       def name
-        _('Mailing List')
+        _('Mailing Lists')
       end
 
       def section

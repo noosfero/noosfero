@@ -1,0 +1,19 @@
+FROM httpd:2.4.35
+
+RUN apt-get update -qq && \
+    apt-get install -y apache2
+
+EXPOSE 80
+
+ARG MYSITE
+
+RUN a2enmod deflate expires proxy proxy_balancer proxy_http rewrite
+
+COPY ./templates/mysite.template /etc/apache2/sites-available/$MYSITE
+COPY ./apache-start.sh /bin/apache-start.sh
+
+RUN a2ensite $MYSITE
+
+CMD ["invoke-rc.d", "apache2", "restart"]
+ENTRYPOINT ["sh", "/bin/apache-start.sh"]
+

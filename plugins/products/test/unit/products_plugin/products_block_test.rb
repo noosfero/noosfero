@@ -124,18 +124,6 @@ class ProductsBlockViewTest < ActionView::TestCase
     assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product two/ }
   end
 
-  should 'display the default minor image if thumbnails were not processed' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    create(Product, :enterprise => enterprise, :name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
-
-    block.expects(:products).returns(enterprise.products)
-    ActionView::Base.any_instance.stubs(:block_title).returns("")
-
-    content = render_block_content(block)
-
-    assert_tag_in_string content, :tag => 'a', :attributes => { :style => /image-loading-minor.png/ }
-  end
-
   should 'display the thumbnail image if thumbnails were processed' do
     enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
     create(Product, :enterprise => enterprise, :name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})

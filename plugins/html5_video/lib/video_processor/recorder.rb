@@ -20,7 +20,12 @@ module VideoProcessor
        video.save"`
     end
 
-    def register_results(env_id, previews, responses, video_id)
+    def register_previews(env_id, previews, video_id)
+      previews = previews.is_a?(Symbol) ? ":#{previews}" : previews
+      save_hash(env_id, video_id, :previews, previews)
+    end
+
+    def register_results(env_id, responses, video_id)
       videos = { OGV: { tiny: {}, nice: {} }, WEBM: { tiny: {}, nice: {} } }
       responses.each do |format, sizes|
         sizes.each do |size, result|
@@ -41,15 +46,7 @@ module VideoProcessor
         end
       end
 
-      previews = previews.is_a?(Symbol) ? ":#{previews}" : previews
-
-      `DISABLE_SPRING=1 rails runner -e #{RAILS_ENV} "\
-       env = Environment.find(#{env_id}); \
-       file = env.articles.find(#{video_id}); \
-       video = FilePresenter.for(file); \
-       video.web_versions = #{videos.to_s.gsub('"', "'")}; \
-       video.previews = #{previews.to_s.gsub('"', "'")}; \
-       video.save"`
+       save_hash(env_id, video_id, :web_versions, videos)
     end
 
     def register_errors(env_id, video_id, error)
@@ -68,5 +65,15 @@ module VideoProcessor
        video.save"`
     end
 
+    private
+
+    def save_hash(env_id, video_id, attr, hash)
+      `DISABLE_SPRING=1 rails runner -e #{RAILS_ENV} "\
+       env = Environment.find(#{env_id}); \
+       file = env.articles.find(#{video_id}); \
+       video = FilePresenter.for(file); \
+       video.#{attr} = #{hash.to_s.gsub('"', "'")}; \
+       video.save"`
+    end
   end
 end

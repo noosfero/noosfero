@@ -12,7 +12,7 @@ class User < ApplicationRecord
   SHORT_ACTIVATION_CODE_SIZE = 6
 
   attr_accessible :login, :email, :password, :password_confirmation, :activated_at
-
+  attr_accessor :captcha
   store_accessor :metadata
   metadata_items :short_activation_code
 

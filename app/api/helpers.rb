@@ -13,6 +13,7 @@ module Api
     include Noosfero::Plugin::HotSpot
     include ForgotPasswordHelper
     include SearchTermHelper
+    include Recaptcha::Verify
 
     def set_locale
       I18n.locale = (params[:lang] || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')

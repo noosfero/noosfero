@@ -110,11 +110,14 @@ module CustomFormsPlugin::Helper
 
     when 'multiple_select'
       selected = default_selected(field, answer)
-      select_tag form.to_s + "[#{field.id}]",
-                 options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected),
-                 :multiple => true, :title => _('Hold down Ctrl to select options'),
-                 :size => field.alternatives.size,
-                 :disabled => display_disabled?(field, answer)
+      input_name = form.to_s + "[#{field.id}]"
+      
+      inputs = hidden_field_tag(input_name, '0')
+      inputs += select_tag input_name, options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected),
+              :multiple => true, :title => _('Hold down Ctrl to select options'),
+              :size => field.alternatives.size,
+              :disabled => display_disabled?(field, answer)
+      inputs.html_safe
 
     when 'check_box'
       answers = answer.alternatives.map { |alt| alt.id } if (answer.present?)
@@ -133,20 +136,24 @@ module CustomFormsPlugin::Helper
                     :class => 'labelled-check field-alternative-row')
       end.join("\n")
     when 'radio'
-      field.alternatives.map do |alternative|
+      input_name = form.to_s + "[#{field.id}]"
+      inputs = hidden_field_tag(input_name, '0')
+      inputs += field.alternatives.map do |alternative|
         default = if answer.present?
-                    answer.alternatives.first.id.to_s == alternative.id.to_s
+                    unless answer.alternatives.empty?
+                      answer.alternatives.first.id == alternative.id
+                    end
                   else
                     alternative.selected_by_default
                   end
 
         content_tag(:div, (labelled_radio_button alternative.label,
-                           form.to_s + "[#{field.id}]",
+                           input_name,
                            alternative.id,
                            default,
                            :disabled => display_disabled?(field, answer)),
-                    :class => 'labelled-check field-alternative-row')
-      end.join("\n")
+                           :class => 'labelled-check field-alternative-row')
+      end.join("\n").html_safe
     end
   end
 

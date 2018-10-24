@@ -100,8 +100,8 @@ class UploadedFile < Article
   validates_attachment :size => N_("{fn} of uploaded file was larger than the maximum size of %{size}").sub('%{size}', self.max_size.to_humanreadable).fix_i18n
   validate :profile_quota_usage
 
-  extend DelayedAttachmentFu::ClassMethods
-  delay_attachment_fu_thumbnails
+  extend AttachmentFuAssistant::ClassMethods
+  attachment_fu_thumbnails
 
   postgresql_attachment_fu
 

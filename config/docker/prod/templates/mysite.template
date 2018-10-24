@@ -1,0 +1,38 @@
+    <VirtualHost *:80>
+      ServerName $DOMAIN
+
+      DocumentRoot "$NOOSFERO_PATH/public"
+      <Directory "$NOOSFERO_PATH/public">
+        Options FollowSymLinks
+        AllowOverride None
+        Order Allow,Deny
+        Allow from all
+      </Directory>
+
+      RewriteEngine On
+
+      # Rewrite index to check for static index.html
+      RewriteRule ^/$ /index.html [QSA]
+
+      # Rewrite to check for Rails cached page
+      RewriteRule ^([^.]+)$ $1.html [QSA]
+
+      RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+      RewriteRule ^.*$ balancer://noosfero%{REQUEST_URI} [P,QSA,L]
+
+      ErrorDocument 503 /503.html
+
+      ErrorLog /var/log/apache2/noosfero.log
+      LogLevel warn
+      CustomLog /var/log/apache2/noosfero.access.log combined
+
+      Include $NOOSFERO_PATH/etc/noosfero/apache/cache.conf
+
+    </VirtualHost>
+
+    <Proxy balancer://noosfero>
+      BalancerMember http://127.0.0.1:3000
+      BalancerMember http://127.0.0.1:3001
+      Order Allow,Deny
+      Allow from All
+    </Proxy>

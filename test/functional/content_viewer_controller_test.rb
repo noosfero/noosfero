@@ -161,22 +161,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response 404
   end
 
- #should 'show access denied to unpublished articles' do
- #  profile.articles.create!(:name => 'test', :published => false, :access => Entitlement::Levels.levels[:self])
- #  get :view_page, :profile => profile.identifier, :page => [ 'test' ]
- #  assert_response 403
- #end
-
- #should 'show unpublished articles to the user himself' do
- #  profile.articles.create!(:name => 'test',
- #                           :published => true,
- #                           :access => Entitlement::Levels.levels[:self])
-
- #  login_as(profile.identifier)
- #  get :view_page, :profile => profile.identifier, :page => [ 'test' ]
- #  assert_response :success
- #end
-
   should 'not show private content to members' do
     community = fast_create(Community)
     admin = fast_create(Person)
@@ -721,23 +705,13 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_select '.image-gallery-item', 0
   end
 
-  should 'display default image in the slideshow if thumbnails were not processed' do
+  should 'display original image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
-    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
-
-    get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
-
-    assert_tag :tag => 'img', :attributes => {:src => /\/images\/icons-app\/image-loading-display.png/}
-  end
-
-  should 'display original image in the slideshow if thumbnails were not processed and fallback is enabled' do
-    @controller.stubs(:per_page).returns(1)
-    folder = Gallery.create!(:name => 'gallery', :profile => profile)
-
-    NOOSFERO_CONF['delayed_attachment_fallback_original_image'] = true
-    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder,
+               :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+    UploadedFile.any_instance.stubs(:thumbnails_processed).returns(false)
 
     get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
 
@@ -750,29 +724,17 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
-    process_delayed_job_queue
     get :view_page, :profile => profile.identifier, :page => folder.path, :slideshow => true
 
     assert_tag :tag => 'img', :attributes => {:src => /other-pic_display.jpg/}
   end
 
-  should 'display default image in gallery if thumbnails were not processed' do
+  should 'display original image in gallery if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
-
-    get :view_page, :profile => profile.identifier, :page => folder.path
-
-    assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(\/images\/icons-app\/image-loading-thumb.png\)/}
-  end
-
-  should 'display original image in gallery if thumbnails were not processed and fallback is enabled' do
-    @controller.stubs(:per_page).returns(1)
-    folder = Gallery.create!(:name => 'gallery', :profile => profile)
-
-    NOOSFERO_CONF['delayed_attachment_fallback_original_image'] = true
-    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+    UploadedFile.any_instance.stubs(:thumbnails_processed).returns(false)
 
     get :view_page, :profile => profile.identifier, :page => folder.path
 
@@ -785,7 +747,6 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
 
-    process_delayed_job_queue
     get :view_page, :profile => profile.identifier, :page => folder.path
 
     assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(.*\/other-pic_thumb.jpg\)/}
