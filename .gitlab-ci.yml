@@ -10,6 +10,7 @@ stages:
   #FIXME Selenium tests are randomly failing and this avoid other tests to run.
   #- smoke-tests
   - all-tests
+  - code-quality
 
 #smoke:
 #  script: bundle exec rake ci:smoke
@@ -109,7 +110,8 @@ rubocop:
   <<: *retriable
   script:
   - rubocop
-  stage: all-tests
+  stage: code-quality
+  allow_failure: true
 
 code_quality:
   <<: *retriable
@@ -129,4 +131,4 @@ code_quality:
         "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
   artifacts:
     paths: [gl-code-quality-report.json]
-  stage: all-tests
+  stage: code-quality
