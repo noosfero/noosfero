@@ -126,6 +126,7 @@ Feature: forum
     And I am logged in as "mariasilva"
     And I go to /joaosilva/forum-one?terms=terms
     When I follow "Accept"
+    And I wait for 1 second
     Then I should see "Forum One"
     And I should see "My description"
 
