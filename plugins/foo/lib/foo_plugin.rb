@@ -23,12 +23,16 @@ class FooPlugin < Noosfero::Plugin
     end
   end
 
-  def profile_tabs
-    title = plugins.dispatch_first(:foo_plugin_tab_title)
-    title = 'Foo plugin tab' unless title
+  # TODO:
+  # Somehow this method crashes many tests because it is called
+  # even on other plugins
+  # 
+  # def profile_tabs
+  #   title = plugins.dispatch_first(:foo_plugin_tab_title)
+  #   title = 'Foo plugin tab' unless title
 
-    {:title => title, :id => 'foo_plugin', :content => lambda {'Foo plugin random content'} }
-  end
+  #   {:title => title, :id => 'foo_plugin', :content => lambda {'Foo plugin random content'} }
+  # end
 
   def control_panel_entries
     [FooPlugin::Button]
