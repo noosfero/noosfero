@@ -848,7 +848,6 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'return only article fields defined in parameter' do
-    Article.destroy_all
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     params[:fields] = {:only => ['id', 'title']}
     get "/api/v1/articles/?#{params.to_query}"
@@ -857,7 +856,6 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'return all article fields except the ones defined in parameter' do
-    Article.destroy_all
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     params[:fields] = {:except => ['id', 'title']}
     get "/api/v1/articles/?#{params.to_query}"
