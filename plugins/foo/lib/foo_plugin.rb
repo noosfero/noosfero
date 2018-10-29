@@ -20,6 +20,7 @@ class FooPlugin < Noosfero::Plugin
     # -> Custom title for foo profiles tab
     # returns = a string with a custom title
     def foo_plugin_tab_title
+      "Foo plugin tab"
     end
   end
 

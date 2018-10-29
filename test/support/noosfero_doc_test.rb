@@ -41,8 +41,6 @@ module Noosfero::DocTest
     create_doc('user', 'accepting-friends', 'pt', 'Aceitando amigos')
     create_doc('user', 'commenting-articles', 'en', 'Commenting articles', 'How to access')
     create_doc('user', 'commenting-articles', 'pt', 'Comentando artigos')
-
-    DocSection.stubs(:root_dir).returns(ROOT)
   end
 
   def tear_down_doc_test
