@@ -3,16 +3,22 @@ image: alaxalves/noosfero-ci:latest
 before_script:
   - apt-get update
   - ./script/quick-start
-  - bundle exec rails db:migrate RAILS_ENV=test
+  - bundle exec rails db:migrate
+
+variables:
+  RAILS_ENV: test
+
+services:
+  - postgres:9.4
 
 stages:
   #FIXME Selenium tests are randomly failing and this avoid other tests to run.
-  #- smoke-tests
+  - smoke-tests
   - all-tests
 
-#smoke:
-#  script: bundle exec rails ci:smoke
-#  stage: smoke-tests
+smoke:
+  script: bundle exec rails ci:smoke
+  stage: smoke-tests
 
 .retriable-template: &retriable
   retry: 2
@@ -48,11 +54,11 @@ integration:
 
 cucumber-1:
   <<: *retriable
-  script: SLICE=1/2 bundle exec rails cucumber
+  script: SLICE=1/2 bundle exec cucumber --profile default
   stage: all-tests
 cucumber-2:
   <<: *retriable
-  script: SLICE=2/2 bundle exec rails cucumber
+  script: SLICE=2/2 bundle exec cucumber --profile default
   stage: all-tests
 
 selenium-1:
