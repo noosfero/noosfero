@@ -16,9 +16,9 @@
 
 <table>
   <colgroup>
-    <col width="60%">
+    <col width="50%">
     <col width="25%">
-    <col width="15%">
+    <col width="25%">
   </colgroup>
   <tr>
     <th><%= _('Member') %></th>
@@ -38,7 +38,7 @@
           <% if p.is_admin? %>
             <%= button_without_text :user, _('Reset admin role'), {action: 'reset_admin_role', id: p, q: @q}, filter: @filter, data: {confirm: _("Do you want to reset this user as administrator?")} %>
           <% else %>
-            <%= button_without_text :admin_user, _('Set admin role'), {action: 'set_admin_role', id: p, q: @q}, filter: @filter, data: {confirm: _("Do you want to set this user as administrator?")} %>
+            <%= button_without_text :add_admin, _('Set admin role'), {action: 'set_admin_role', id: p, q: @q}, filter: @filter, data: {confirm: _("Do you want to set this user as administrator?")} %>
           <% end %>
           <% if !p.user.activated? %>
             <%= button_without_text :ok, _('Activate user'), {action: 'activate', id: p, q: @q}, filter: @filter, data: {confirm: _("Do you want to activate this user?")} %>
