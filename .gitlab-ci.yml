@@ -28,12 +28,14 @@ api:
   stage: all-tests
 
 # TODO: Unforce-passing the path to execute rake task
+# Later change folder name to models/ and rails invoking to `rails test:models`
 units:
   <<: *retriable
   script: bundle exec rails test test/unit
   stage: all-tests
 
 # TODO: Unforce-passing the path to execute rake task
+# Later change folder name to controllers/ and rails invoking to `rails test:controllers`
 functionals:
   <<: *retriable
   script: bundle exec rails test test/functional
