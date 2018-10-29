@@ -5,6 +5,9 @@ mobile:
 
 image_advtab: true
 
+relative_urls : false
+remove_script_host : true
+
 plugins:
   - advlist
   - autolink
