@@ -614,6 +614,6 @@ class ApplicationControllerTest < ActionController::TestCase
     @controller.stubs(:session).returns({})
     @controller.stubs(:params).returns({})
     @controller.expects(:redirect_to_without_plugins).with('/plugin/custom_redirect', {})
-    @controller.redirect_to
+    @controller.send(:redirect_to)
   end
 end
