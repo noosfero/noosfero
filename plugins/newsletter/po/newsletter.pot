@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 18:45+0000\n"
-"PO-Revision-Date: 2018-08-30 18:45+0000\n"
+"POT-Creation-Date: 2018-10-30 19:31+0000\n"
+"PO-Revision-Date: 2018-10-30 19:31+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -75,32 +75,32 @@ msgid "must have only valid emails"
 msgstr ""
 
 #: ../lib/newsletter_plugin/newsletter.rb:122
-msgid "If you can't view this email, %s."
-msgstr ""
-
-#: ../lib/newsletter_plugin/newsletter.rb:122
 msgid "click here"
 msgstr ""
 
-#: ../lib/newsletter_plugin/newsletter.rb:126
-msgid "cancel your subscription here"
+#: ../lib/newsletter_plugin/newsletter.rb:122
+msgid "If you can't view this email, %s."
 msgstr ""
 
-#: ../lib/newsletter_plugin/newsletter.rb:126
+#: ../lib/newsletter_plugin/newsletter.rb:130
 msgid ""
 "This is an automatically generated email, please do not reply. If you do not w"
 "ish to receive future newsletter emails, %s."
 msgstr ""
 
 #: ../lib/newsletter_plugin/newsletter.rb:130
+msgid "cancel your subscription here"
+msgstr ""
+
+#: ../lib/newsletter_plugin/newsletter.rb:134
 msgid "Read more"
 msgstr ""
 
-#: ../lib/newsletter_plugin/newsletter.rb:152
+#: ../lib/newsletter_plugin/newsletter.rb:157
 msgid "Breaking news"
 msgstr ""
 
-#: ../lib/newsletter_plugin/newsletter.rb:175
+#: ../lib/newsletter_plugin/newsletter.rb:180
 msgid "have unknown file type: %s"
 msgstr ""
 

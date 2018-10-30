@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 22:22+0000\n"
-"PO-Revision-Date: 2018-05-23 22:22+0000\n"
+"POT-Creation-Date: 2018-10-30 19:32+0000\n"
+"PO-Revision-Date: 2018-10-30 19:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -127,7 +127,6 @@ msgstr ""
 
 #: ../lib/mailing_list_plugin.rb:4
 #: ../lib/mailing_list_plugin/control_panel/organization_list.rb:6
-#: ../lib/mailing_list_plugin/control_panel/person_list.rb:6
 msgid "Mailing List"
 msgstr ""
 
@@ -164,6 +163,10 @@ msgstr ""
 #: ../views/mailing_list_plugin_admin/edit.html.erb:8
 #: ../views/mailing_list_plugin_admin/index.html.erb:13
 msgid "Administrator"
+msgstr ""
+
+#: ../lib/mailing_list_plugin/control_panel/person_list.rb:6
+msgid "Mailing Lists"
 msgstr ""
 
 #: ../lib/mailing_list_plugin/mailer.rb:34
@@ -336,21 +339,15 @@ msgstr ""
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
 #: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
 #: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
-msgid "Activate all"
-msgstr ""
-
-#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
-#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
-#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
 msgid ""
 "Are you sure you want to activate the e-mail sending for mailing list on ALL %"
 "s?"
 msgstr ""
 
-#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
-#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
-#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:20
-msgid "Deactivate all"
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
+msgid "Activate all"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
@@ -359,6 +356,12 @@ msgstr ""
 msgid ""
 "Are you sure you want to deactivate the e-mail sending for mailing list on ALL"
 " %s?"
+msgstr ""
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:20
+msgid "Deactivate all"
 msgstr ""
 
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:9
@@ -391,12 +394,12 @@ msgstr ""
 
 #:
 #: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
-msgid "Define which blogs or forums should send e-mails to the mailing list"
+msgid "Type in a search term for blogs or forums"
 msgstr ""
 
 #:
 #: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
-msgid "Type in a search term for blogs or forums"
+msgid "Define which blogs or forums should send e-mails to the mailing list"
 msgstr ""
 
 #: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:1

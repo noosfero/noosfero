@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-03 21:22+0000\n"
-"PO-Revision-Date: 2018-08-03 21:22+0000\n"
+"POT-Creation-Date: 2018-10-30 19:32+0000\n"
+"PO-Revision-Date: 2018-10-30 19:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -320,6 +320,15 @@ msgstr ""
 #: ../views/person_notifier/mailer/_create_product.html.erb:9
 #: ../views/person_notifier/mailer/_remove_product.html.erb:8
 #: ../views/person_notifier/mailer/_update_product.html.erb:9
+#: ../views/profile/_create_product.html.erb:9
+#: ../views/profile/_remove_product.html.erb:8
+#: ../views/profile/_update_product.html.erb:9
+msgid "Are you sure you want to remove this activity and all its replies?"
+msgstr ""
+
+#: ../views/person_notifier/mailer/_create_product.html.erb:9
+#: ../views/person_notifier/mailer/_remove_product.html.erb:8
+#: ../views/person_notifier/mailer/_update_product.html.erb:9
 #: ../views/products_plugin/page/_display_input.html.erb:8
 #: ../views/products_plugin/page/_edit_price_details.html.erb:6
 #: ../views/products_plugin/page/index.html.erb:19
@@ -327,15 +336,6 @@ msgstr ""
 #: ../views/profile/_remove_product.html.erb:8
 #: ../views/profile/_update_product.html.erb:9
 msgid "Remove"
-msgstr ""
-
-#: ../views/person_notifier/mailer/_create_product.html.erb:9
-#: ../views/person_notifier/mailer/_remove_product.html.erb:8
-#: ../views/person_notifier/mailer/_update_product.html.erb:9
-#: ../views/profile/_create_product.html.erb:9
-#: ../views/profile/_remove_product.html.erb:8
-#: ../views/profile/_update_product.html.erb:9
-msgid "Are you sure you want to remove this activity and all its replies?"
 msgstr ""
 
 #: ../views/products_plugin/catalog/index.html.erb:7
@@ -424,13 +424,13 @@ msgid "type a category for the product"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_description.html.erb:3
-msgid ""
-"Edit the description of your product and give consumers more information about"
-" what you are advertising"
+msgid "Edit description"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_description.html.erb:3
-msgid "Edit description"
+msgid ""
+"Edit the description of your product and give consumers more information about"
+" what you are advertising"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_description.html.erb:8
@@ -508,11 +508,11 @@ msgid "Order inputs"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_name.html.erb:3
-msgid "Click here to edit the name of your product and the unit"
+msgid "Edit name and unit"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_name.html.erb:3
-msgid "Edit name and unit"
+msgid "Click here to edit the name of your product and the unit"
 msgstr ""
 
 #: ../views/products_plugin/page/_display_price_details.html.erb:6
@@ -622,11 +622,11 @@ msgid "Image:"
 msgstr ""
 
 #: ../views/products_plugin/page/_form.html.erb:13
-msgid "Create product"
+msgid "Save changes"
 msgstr ""
 
 #: ../views/products_plugin/page/_form.html.erb:13
-msgid "Save changes"
+msgid "Create product"
 msgstr ""
 
 #: ../views/products_plugin/page/_manage_product_details.html.erb:9
@@ -649,14 +649,14 @@ msgstr ""
 
 #: ../views/products_plugin/page/_price_composition_bar.html.erb:20
 msgid ""
-"The production cost of your product is fully described and will be displayed o"
-"n your product's page"
+"The production cost of your product is not described yet. If you want to displ"
+"ay the price composition, please add all the costs"
 msgstr ""
 
 #: ../views/products_plugin/page/_price_composition_bar.html.erb:20
 msgid ""
-"The production cost of your product is not described yet. If you want to displ"
-"ay the price composition, please add all the costs"
+"The production cost of your product is fully described and will be displayed o"
+"n your product's page"
 msgstr ""
 
 #: ../views/products_plugin/page/_price_composition_bar.html.erb:20

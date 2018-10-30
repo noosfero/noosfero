@@ -134,7 +134,6 @@ msgstr ""
 
 #: ../lib/mailing_list_plugin.rb:4
 #: ../lib/mailing_list_plugin/control_panel/organization_list.rb:6
-#: ../lib/mailing_list_plugin/control_panel/person_list.rb:6
 msgid "Mailing List"
 msgstr "Lista de Discussão"
 
@@ -175,6 +174,10 @@ msgstr "Lista de discussão de %s"
 #: ../views/mailing_list_plugin_admin/index.html.erb:13
 msgid "Administrator"
 msgstr "Administrador"
+
+#: ../lib/mailing_list_plugin/control_panel/person_list.rb:6
+msgid "Mailing Lists"
+msgstr "Listas de Discussão"
 
 #: ../lib/mailing_list_plugin/mailer.rb:34
 msgid "Re:"
@@ -358,12 +361,6 @@ msgstr "Implantar todos"
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
 #: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
 #: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
-msgid "Activate all"
-msgstr "Ativar todos"
-
-#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
-#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
-#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
 msgid ""
 "Are you sure you want to activate the e-mail sending for mailing list on ALL "
 "%s?"
@@ -371,11 +368,11 @@ msgstr ""
 "Tem certeza que você quer ativar o envio de e-mail para a lista de "
 "discussãode TODOS os grupos?"
 
-#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
-#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
-#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:20
-msgid "Deactivate all"
-msgstr "Desativar todos"
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
+msgid "Activate all"
+msgstr "Ativar todos"
 
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
 #: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
@@ -386,6 +383,12 @@ msgid ""
 msgstr ""
 "Tem certeza que você quer desativar o envio de e-mail para a lista de "
 "discussão de TODOS os grupos?"
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:20
+msgid "Deactivate all"
+msgstr "Desativar todos"
 
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:9
 msgid "Subscribed?"
@@ -416,13 +419,13 @@ msgid "Unsubscribe"
 msgstr "Desinscrever"
 
 #: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
+msgid "Type in a search term for blogs or forums"
+msgstr "Escreva um termo de busca para blogs ou fóruns"
+
+#: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
 msgid "Define which blogs or forums should send e-mails to the mailing list"
 msgstr ""
 "Defina quais blogs ou fóruns devem enviar e-mails para a lista dediscussão"
-
-#: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
-msgid "Type in a search term for blogs or forums"
-msgstr "Escreva um termo de busca para blogs ou fóruns"
 
 #: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:1
 #: ../views/mailing_list_plugin_myprofile_person/edit.html.erb:1

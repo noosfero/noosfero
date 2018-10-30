@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-03 15:02+0000\n"
-"PO-Revision-Date: 2018-07-03 15:02+0000\n"
+"POT-Creation-Date: 2018-10-30 19:31+0000\n"
+"PO-Revision-Date: 2018-10-30 19:31+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -68,6 +68,10 @@ msgstr ""
 
 #: ../views/box_organizer/_profile_search_block.html.erb:3
 msgid "Enable advanced search"
+msgstr ""
+
+#: ../views/box_organizer/_profile_search_block.html.erb:4
+msgid "Customized Search Fields"
 msgstr ""
 
 #: ../views/profile_search/_facets.html.erb:3

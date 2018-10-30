@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 18:45+0000\n"
-"PO-Revision-Date: 2018-08-30 18:45+0000\n"
+"POT-Creation-Date: 2018-10-30 19:32+0000\n"
+"PO-Revision-Date: 2018-10-30 19:32+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -74,8 +74,8 @@ msgid "Opened"
 msgstr ""
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:93
-#: ../lib/custom_forms_plugin/helper.rb:176
-#: ../lib/custom_forms_plugin/helper.rb:188
+#: ../lib/custom_forms_plugin/helper.rb:183
+#: ../lib/custom_forms_plugin/helper.rb:195
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
 msgstr ""
@@ -260,22 +260,22 @@ msgstr ""
 msgid "Select field"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/helper.rb:115
+#: ../lib/custom_forms_plugin/helper.rb:117
 msgid "Hold down Ctrl to select options"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/helper.rb:172
-#: ../lib/custom_forms_plugin/helper.rb:180
+#: ../lib/custom_forms_plugin/helper.rb:179
+#: ../lib/custom_forms_plugin/helper.rb:187
 msgid "%s left to open"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/helper.rb:174
-#: ../lib/custom_forms_plugin/helper.rb:186
+#: ../lib/custom_forms_plugin/helper.rb:181
+#: ../lib/custom_forms_plugin/helper.rb:193
 msgid "%s left to close"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/helper.rb:182
-#: ../lib/custom_forms_plugin/helper.rb:191
+#: ../lib/custom_forms_plugin/helper.rb:189
+#: ../lib/custom_forms_plugin/helper.rb:198
 msgid "Always open"
 msgstr ""
 
@@ -517,11 +517,11 @@ msgid "Type in your question"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Multiple choice"
+msgid "Checkboxes"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Checkboxes"
+msgid "Multiple choice"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
@@ -698,9 +698,10 @@ msgid "There are no pending submissions for this form."
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
+msgid "Time"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
@@ -709,10 +710,9 @@ msgid "Sort by"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
-msgid "Time"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:24
@@ -888,11 +888,11 @@ msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Send"
+msgid "Vote!"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Vote!"
+msgid "Send"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18 ../views/shared/_form.html.erb:21
