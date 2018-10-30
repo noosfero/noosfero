@@ -253,5 +253,33 @@ class ActiveSupport::TestCase
     base64_image
   end
 
+
+  # DEPRECATED/REMOVED METHODS
+  def clean_backtrace(&block)
+    yield
+  rescue ActiveModel::Errors => e
+    path = File.expand_path(__FILE__)
+    raise ActiveModel::Errors, e.message, e.backtrace.reject { |line| File.expand_path(line) =~ /#{path}/ }
+  end
+
+  def find_tag(conditions)
+    html_document.find(conditions)
+  end
+
+  def assert_tag(*opts)
+    clean_backtrace do
+      opts = opts.size > 1 ? opts.last.merge({ :tag => opts.first.to_s }) : opts.first
+      tag = find_tag(opts)
+      assert tag, "expected tag, but no tag found matching #{opts.inspect} in:\n#{@response.body.inspect}"
+    end
+  end
+
+  def assert_no_tag(*opts)
+    clean_backtrace do
+      opts = opts.size > 1 ? opts.last.merge({ :tag => opts.first.to_s }) : opts.first
+      tag = find_tag(opts)
+      assert !tag, "expected no tag, but found tag matching #{opts.inspect} in:\n#{@response.body.inspect}"
+    end
+  end
 end
 
