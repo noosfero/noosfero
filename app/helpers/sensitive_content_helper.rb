@@ -1,21 +1,20 @@
 module SensitiveContentHelper
 
-  # def profile_to_publish current_user, profile_viewed
-  #   if profile_viewed.present?
-  #       if current_user.has_permission?('post_content', profile_viewed) ||
-  #           current_user.has_permission?('publish_content', profile_viewed)
-  #           if profile_viewed.organization?
-  #               profile_viewed.identifier
-  #           else
-  #               current_user.identifier
-  #           end
-  #       else
-  #           current_user.identifier
-  #       end
-  #   else
-  #       current_user.identifier
-  #   end
-  # end
+  def sensitive_context_message profile, directory=nil
+
+    directory_name = unless directory.nil?
+                        content_tag(:span, directory.name, class: 'publish-page')
+                     else
+                         _('profile')
+                     end
+
+    profile_name = content_tag(:span, profile.name, class: 'publish-profile')
+
+    content_tag :h1 do
+        _("You are publishing in ").html_safe + directory_name +
+        _(' of ').html_safe + profile_name
+    end
+  end
 
   def profile_to_publish current_user, profile_viewed
     if sensitive_publish_permission?(current_user, profile_viewed)
@@ -31,4 +30,5 @@ module SensitiveContentHelper
     profile.present? && user.has_permission?('post_content', profile) &&
       profile.organization?
   end
+
 end

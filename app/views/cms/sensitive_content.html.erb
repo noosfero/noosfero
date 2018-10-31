@@ -4,15 +4,8 @@
     <div class='publish-header'>
       <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
       <div class='publish-header-infos'>
-        <h1>
-            <%= _("You are publishing in")%>
-            <% unless @directory.nil? %>
-                <span class='publish-page'><%= @directory.name %></span> <%= _('of') %> 
-            <% else %>
-                <%= ('profile of') %>
-            <% end %>
-          <span class='publish-profile'><%= @profile.name %></span>
-        </h1>
+        <%= sensitive_context_message @sensitive_content.current_user,
+              @sensitive_content.directory %>
         <%= path_to_parents %>
       </div>
     </div>

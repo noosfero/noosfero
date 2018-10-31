@@ -1,17 +1,18 @@
-class BlogContext < GenericContext
+class FolderContext < GenericContext
 
   def content_options
     [
         TextArticle,
         Event,
-        RssFeed
+        UploadedFile,
+        Folder
     ]
   end
 
   private
 
   def directory_in_user_profile
-    current_user.blogs.first
+    current_user.folders.first
   end
 
 end
