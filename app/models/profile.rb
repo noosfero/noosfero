@@ -310,7 +310,6 @@ class Profile < ApplicationRecord
   has_many :scraps_received, -> { order 'updated_at DESC' }, class_name: 'Scrap', foreign_key: :receiver_id, dependent: :destroy
   belongs_to :template, class_name: 'Profile', foreign_key: 'template_id', optional: true
 
-  has_many :comments_received, class_name: 'Comment', through:  :articles, source:  :comments
 
   has_many :email_templates, foreign_key: :owner_id
 
@@ -340,27 +339,27 @@ class Profile < ApplicationRecord
 
   # These names cannot be used as identifiers for Profiles
   RESERVED_IDENTIFIERS = %w[
-  admin
-  system
-  myprofile
-  profile
-  cms
-  community
-  test
-  search
-  not_found
-  cat
-  tag
-  tags
-  environment
-  webmaster
-  info
-  root
-  assets
-  doc
-  chat
-  plugin
-  site
+    admin
+    system
+    myprofile
+    profile
+    cms
+    community
+    test
+    search
+    not_found
+    cat
+    tag
+    tags
+    environment
+    webmaster
+    info
+    root
+    assets
+    doc
+    chat
+    plugin
+    site
   ]
 
   belongs_to :user, optional: true
@@ -370,6 +369,7 @@ class Profile < ApplicationRecord
   belongs_to :environment, optional: true
 
   has_many :articles, dependent: :destroy
+  has_many :comments_received, class_name: 'Comment', through:  :articles, source:  :comments
   belongs_to :home_page, class_name: Article.name, foreign_key: 'home_page_id', optional: true
 
   has_many :files, class_name:  'UploadedFile'

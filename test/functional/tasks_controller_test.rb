@@ -730,7 +730,6 @@ class TasksControllerTest < ActionController::TestCase
     assert_no_match /#{person_custom_field.name}/, email.body.to_s
   end
 
-
   should 'list custom field details in moderation of community creation tasks when moderation_tasks is true' do
     community_custom_field = CustomField.create(:name => "great_field", :format=>"string", :default_value => "value for community", :customized_type=>"Community", :active => true, :environment => Environment.default, :moderation_task => true, :required => true)
     p1 = create_user("great_person").person
