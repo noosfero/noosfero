@@ -13,13 +13,14 @@ services:
 
 stages:
   #FIXME Selenium tests are randomly failing and this avoid other tests to run.
-  - smoke-tests
+  # - smoke-tests
   - all-tests
   - code-quality
 
 smoke:
   script: bundle exec rails ci:smoke
-  stage: smoke-tests
+  stage: all-tests
+  # stage: smoke-tests
 
 .retriable-template: &retriable
   retry: 2
