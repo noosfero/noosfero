@@ -1,7 +1,11 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
-  attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone, :comercial_phone, :jabber_id, :personal_website, :nationality, :schooling, :schooling_status, :formation, :custom_formation, :area_of_study, :custom_area_of_study, :professional_activity, :organization_website, :following_articles, :editor
+  attr_accessible :organization, :contact_information, :sex, :birth_date, :cell_phone,
+                  :comercial_phone, :jabber_id, :personal_website, :nationality, :schooling,
+                  :schooling_status, :formation, :custom_formation, :area_of_study,
+                  :custom_area_of_study, :professional_activity, :organization_website,
+                  :following_articles, :editor
 
   SEARCH_FILTERS = {
     :order => %w[more_recent more_popular more_active],
@@ -248,27 +252,27 @@ class Person < Profile
   end
 
   FIELDS = %w[
-  description
-  preferred_domain
-  nickname
-  sex
-  birth_date
-  nationality
-  cell_phone
-  comercial_phone
-  personal_website
-  jabber_id
-  schooling
-  formation
-  custom_formation
-  area_of_study
-  custom_area_of_study
-  professional_activity
-  organization
-  organization_website
-  contact_phone
-  contact_information
-  location
+    description
+    preferred_domain
+    nickname
+    sex
+    birth_date
+    nationality
+    cell_phone
+    comercial_phone
+    personal_website
+    jabber_id
+    schooling
+    formation
+    custom_formation
+    area_of_study
+    custom_area_of_study
+    professional_activity
+    organization
+    organization_website
+    contact_phone
+    contact_information
+    location
   ] + LOCATION_FIELDS
 
   validates_multiparameter_assignments

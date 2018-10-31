@@ -23,6 +23,19 @@ class FriendsControllerTest < ActionController::TestCase
     assert_equal assigns(:friends).map(&:name), ['angela', 'jose', 'paula']
   end
 
+  should 'only list friends of a person' do
+    login_as :testuser
+    community = fast_create(Community, name: 'my test profile', identifier: 'communitytest')
+    enterprise = fast_create(Enterprise, name: 'my test profile 2', identifier: 'enterprisetest')
+    community.add_admin(profile)
+    enterprise.add_admin(profile)
+
+    [community.identifier, enterprise.identifier].each do |id|
+      get :index, profile: id
+      assert_response :not_found
+    end
+  end
+
   should 'confirm removal of friend' do
     profile.add_friend(friend)
 

@@ -1,6 +1,7 @@
 class FriendsController < MyProfileController
 
   protect 'manage_friends', :profile
+  before_action :is_person?, only: :index
 
   def index
     @suggestions = profile.suggested_profiles.of_person.enabled.includes(:suggestion).limit(per_page)
@@ -53,4 +54,11 @@ class FriendsController < MyProfileController
     self.class.per_page
   end
 
+  private
+
+  def is_person?
+    unless profile.person?
+      render_not_found
+    end
+  end
 end

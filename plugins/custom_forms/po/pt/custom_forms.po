@@ -79,8 +79,8 @@ msgid "Opened"
 msgstr "Abertos"
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:93
-#: ../lib/custom_forms_plugin/helper.rb:176
-#: ../lib/custom_forms_plugin/helper.rb:188
+#: ../lib/custom_forms_plugin/helper.rb:183
+#: ../lib/custom_forms_plugin/helper.rb:195
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
 msgstr "Fechados"
@@ -269,22 +269,22 @@ msgstr "Campo de texto"
 msgid "Select field"
 msgstr "Campo de seleção"
 
-#: ../lib/custom_forms_plugin/helper.rb:115
+#: ../lib/custom_forms_plugin/helper.rb:117
 msgid "Hold down Ctrl to select options"
 msgstr "Segure Ctrl para selecionar as opções"
 
-#: ../lib/custom_forms_plugin/helper.rb:172
-#: ../lib/custom_forms_plugin/helper.rb:180
+#: ../lib/custom_forms_plugin/helper.rb:179
+#: ../lib/custom_forms_plugin/helper.rb:187
 msgid "%s left to open"
 msgstr "%s até abrir"
 
-#: ../lib/custom_forms_plugin/helper.rb:174
-#: ../lib/custom_forms_plugin/helper.rb:186
+#: ../lib/custom_forms_plugin/helper.rb:181
+#: ../lib/custom_forms_plugin/helper.rb:193
 msgid "%s left to close"
 msgstr "%s até fechar"
 
-#: ../lib/custom_forms_plugin/helper.rb:182
-#: ../lib/custom_forms_plugin/helper.rb:191
+#: ../lib/custom_forms_plugin/helper.rb:189
+#: ../lib/custom_forms_plugin/helper.rb:198
 msgid "Always open"
 msgstr "Sempre aberta"
 
@@ -529,12 +529,12 @@ msgid "Type in your question"
 msgstr "Digite a sua pergunta"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Multiple choice"
-msgstr "Múltipla escolha"
-
-#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
 msgid "Checkboxes"
 msgstr "Checkboxes"
+
+#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
+msgid "Multiple choice"
+msgstr "Múltipla escolha"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:39
@@ -706,10 +706,11 @@ msgid "There are no pending submissions for this form."
 msgstr "Não há submissões pendentes para esse formulário."
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Usuário"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
+msgid "Time"
+msgstr "Tempo"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
@@ -717,11 +718,10 @@ msgid "Sort by"
 msgstr "Ordenar por"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
-msgid "Time"
-msgstr "Tempo"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Usuário"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:24
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:45
@@ -901,12 +901,12 @@ msgid "Your e-mail will be visible to this form's owners."
 msgstr "Seu e-mail ficará visível para o dono deste formulário."
 
 #: ../views/shared/_form.html.erb:15
-msgid "Send"
-msgstr "Enviar"
-
-#: ../views/shared/_form.html.erb:15
 msgid "Vote!"
 msgstr "Votar!"
+
+#: ../views/shared/_form.html.erb:15
+msgid "Send"
+msgstr "Enviar"
 
 #: ../views/shared/_form.html.erb:18 ../views/shared/_form.html.erb:21
 msgid "Are you sure your want to submit your vote?"
@@ -916,27 +916,21 @@ msgstr "Tem certeza de que você deseja submeter seu voto?"
 msgid "This was your answer."
 msgstr "Essa foi a sua resposta."
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:33
 #~ msgid "Submission saved"
 #~ msgstr "Submissão salva"
 
-#: ../lib/custom_forms_plugin/form.rb:127
 #~ msgid "This query has no ending date"
 #~ msgstr "Essa consulta não possui data de finalização"
 
-#: ../lib/custom_forms_plugin/form.rb:132
 #~ msgid "Ends today"
 #~ msgstr "Termina hoje"
 
-#: ../lib/custom_forms_plugin/form.rb:136
 #~ msgid "Ends tomorow"
 #~ msgstr "Termina amanhã"
 
-#: ../lib/custom_forms_plugin/form.rb:140
 #~ msgid "Already closed"
 #~ msgstr "Finalizada"
 
-#: ../lib/custom_forms_plugin/form.rb:143
 #~ msgid "%s days left"
 #~ msgstr "%s dias restantes"
 

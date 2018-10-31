@@ -114,8 +114,8 @@ msgid "Opened"
 msgstr ""
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:93
-#: ../lib/custom_forms_plugin/helper.rb:176
-#: ../lib/custom_forms_plugin/helper.rb:188
+#: ../lib/custom_forms_plugin/helper.rb:183
+#: ../lib/custom_forms_plugin/helper.rb:195
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
 msgstr ""
@@ -307,17 +307,17 @@ msgstr "Textfeld"
 msgid "Select field"
 msgstr "Feld auswählen"
 
-#: ../lib/custom_forms_plugin/helper.rb:115
+#: ../lib/custom_forms_plugin/helper.rb:117
 msgid "Hold down Ctrl to select options"
 msgstr "Halte Strg, um Optionen auszuwählen"
 
-#: ../lib/custom_forms_plugin/helper.rb:172
-#: ../lib/custom_forms_plugin/helper.rb:180
+#: ../lib/custom_forms_plugin/helper.rb:179
+#: ../lib/custom_forms_plugin/helper.rb:187
 msgid "%s left to open"
 msgstr ""
 
-#: ../lib/custom_forms_plugin/helper.rb:174
-#: ../lib/custom_forms_plugin/helper.rb:186
+#: ../lib/custom_forms_plugin/helper.rb:181
+#: ../lib/custom_forms_plugin/helper.rb:193
 msgid "%s left to close"
 msgstr ""
 
@@ -689,17 +689,17 @@ msgid "There are no pending submissions for this form."
 msgstr "Es gibt keine ausstehenden Einreichungen für dieses Formular."
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Nutzer"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
 msgid "Time"
 msgstr "Zeit"
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Nutzer"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
@@ -870,18 +870,17 @@ msgid "Your e-mail will be visible to this form's owners."
 msgstr "Ihre E-Mail-Adresse wird für den Besitzer des Formulars sichtbar sein."
 
 #: ../views/shared/_form.html.erb:15
-msgid "Send"
+msgid "Vote!"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Vote!"
+msgid "Send"
 msgstr ""
 
 #: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr ""
 
-#: ../controllers/custom_forms_plugin_profile_controller.rb:33
 #~ msgid "Submission saved"
 #~ msgstr "Beitrag gespeichert"
 

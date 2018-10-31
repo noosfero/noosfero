@@ -286,6 +286,7 @@ module Api
 
     class UserLogin < User
       expose :private_token, documentation: {type: 'String', desc: 'A valid authentication code for post/delete api actions'}, if: lambda {|object, options| object.activated? }
+      expose :activation_code
     end
 
     class Task < Entity
@@ -321,7 +322,7 @@ module Api
       expose :captcha_signup_enable do |environment, options|
         environment.require_captcha?(:signup, nil, environment)
       end
-      expose :top_url, as: :host, :if => lambda {|instance, options| Entities.expose_optional_field?(:host, options)}
+      expose :top_url, as: :host
       expose :type do |environment, options|
         "Environment"
       end
