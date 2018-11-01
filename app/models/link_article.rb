@@ -6,6 +6,10 @@ class LinkArticle < Article
     "Article link"
   end
 
+  def icon
+    "link"
+  end
+
   delegate :name, :to => :reference_article
   delegate :body, :to => :reference_article
   delegate :abstract, :to => :reference_article
