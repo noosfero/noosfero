@@ -469,21 +469,20 @@ class CmsController < MyProfileController
   end
 
   def sensitive_content
-    #FIXME Define logic
-          #se o sensitive_content for nulo criar um novo se nao atualizar o parametro
     current_page = params[:page] ? Article.find(params[:page]) : nil
-
     @sensitive_content = SensitiveContent.new(user: profile, page: current_page)
-    @article_types = @sensitive_content.content_options
   end
 
   def select_directory
-    #FIXME Define logic
-    @directories = user.folders.order(:name)
+    current_page = params[:page] ? Article.find(params[:page]) : nil
+    @sensitive_content = SensitiveContent.new(user: profile, page: current_page)
   end
 
   def select_profile
-    #FIXME Define logic
+    current_page = params[:page] ? Article.find(params[:page]) : nil
+    @sensitive_content = SensitiveContent.new(user: profile, page: current_page)
+
+    #TODO Selecionar somente os perfis que o usuário tem permissão para publicar
     if params[:select_type].present?
       case params[:select_type]
       when 'community'

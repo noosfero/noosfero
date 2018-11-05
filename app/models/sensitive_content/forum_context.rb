@@ -10,7 +10,7 @@ class ForumContext < GenericContext
 
   private
 
-  def directory_in_user_profile
+  def sensitive_directory_in_user_profile
     current_user.forums.first
   end
 

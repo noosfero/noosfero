@@ -4,22 +4,19 @@
     <div class='publish-header'>
       <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
       <div class='publish-header-infos'>
-        <h1><%= _("You are publishing in profile of")%> <span class='publish-profile'><%= @profile.name %></span></h1>
-        <%= path_to_parents %>
+        <%= sensitive_context_message @sensitive_content, false %>
+        <%= path_to_parents @sensitive_content.directory %>
       </div>
     </div>
 
     <div class='new-sensitive-content-container '>
       <h2><%= _("In which directory do you want to publish?")%></h2>
       <ul class="article-types scrollbar">
-        <% for directory in @directories %>
+        <% for directory in @sensitive_content.directory_options %>
           <% #FIXME passar a pasta para publicacao na action %>
-          <%= content_tag('a', :href => '#action') do %>
-            <li class="<%= "bigicon-#{directory.icon_name}" %>">
-              <h3><%= directory.name %></h3>
-              <div class='description'><%= directory.abstract %></div>
-            </li>
-          <% end %>
+          <%= modal_button(:none, directory_option(directory), url_for(:controller => 'cms',
+                :action => 'sensitive_content', :profile => user.identifier,
+                :page => directory.id)) %>
         <% end %>
       </ul>
     </div>

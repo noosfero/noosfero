@@ -160,6 +160,8 @@
           margin-bottom: 15px;
           padding: 5px;
           text-align: left;
+          box-sizing: content-box;
+          border: 0;
 
           > li, 
           > li > div.image-profile,
@@ -250,7 +252,6 @@
         ul.article-types {
             // div.new-sensitive-content-container {
             max-height: calc(80vh - 120px - 83px);
-            background: pink
         }
     }
 

@@ -5,6 +5,11 @@ class GenericContext
     @current_page = args[:page]
   end
 
+  def self.set_context user, page=nil
+    context = self.define_context(page)
+    context.new(user: user, page: page)
+  end
+
   def current_user
     @current_user
   end
@@ -15,27 +20,6 @@ class GenericContext
 
   def current_profile
     @current_page.profile unless @current_page.nil?
-  end
-
-  def self.set_context user, page=nil
-    context = self.define_context(page)
-    context.new(user: user, page: page)
-  end
-
-  def directory_to_publish
-    directory = nil
-    unless current_page.nil?
-      if publish_permission?
-        if current_page.folder?
-            directory = current_page
-        elsif current_page.parent.present?
-            directory = current_page.parent
-        end
-      else
-        directory = directory_in_user_profile
-      end
-    end
-    directory
   end
 
   def content_options
@@ -49,6 +33,28 @@ class GenericContext
         Gallery,
         RssFeed
     ]
+  end
+
+  def directory_to_publish
+    directory = nil
+    unless current_page.nil?
+      if GenericContext.publish_permission? current_profile, current_user
+        if current_page.folder?
+            directory = current_page
+        elsif current_page.parent.present?
+            directory = current_page.parent
+        end
+      else
+        directory = sensitive_directory_in_user_profile
+      end
+    end
+    directory
+  end
+
+  def self.publish_permission? profile, user
+    profile.present? &&
+    user.has_permission?('post_content', profile) &&
+    (profile.organization? || profile == user)
   end
 
   private
@@ -65,13 +71,7 @@ class GenericContext
     context
   end
 
-  def publish_permission?
-    current_profile.present? &&
-    current_user.has_permission?('post_content', current_profile) &&
-    (current_profile.organization? || current_profile == current_user)
-  end
-
-  def directory_in_user_profile
+  def sensitive_directory_in_user_profile
     nil
   end
 
