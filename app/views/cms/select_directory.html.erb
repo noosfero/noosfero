@@ -24,9 +24,7 @@
     <div class='publish-options'>
       <%= button(:back, "<span>#{_('Back')}</span>".html_safe, '#', :class => 'option-back') %>
       <div class='sensitive-buttons'>
-        <%= modal_button(:profile, _('Post to another profile'),
-              url_for(:controller => 'cms', :action => 'select_profile', :profile => user.identifier),
-              :class => 'option-profile') %>
+        <%= select_profile_button @sensitive_content %>
       </div>
     </div>
 

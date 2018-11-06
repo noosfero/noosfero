@@ -31,9 +31,13 @@ module ProfileSelectorHelper
     end.join.html_safe
   end
 
-  def modal_url_entry_to_profile_selector profiles, url=nil
+  def modal_url_entry_to_profile_selector profiles, url_options={}
     profiles.collect do |profile|
-      url = profile.url if url.nil?
+      if url_options.empty?
+        url = profile.url
+      else
+        url = url_for(url_options.merge(:profile => profile.identifier))
+      end
 
       link_to url, class: ' profile-selector-entry open-modal' do
         name = content_tag(:span, profile.name, class: 'profile-name') +

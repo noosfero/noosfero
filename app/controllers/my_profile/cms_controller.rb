@@ -470,6 +470,9 @@ class CmsController < MyProfileController
 
   def sensitive_content
     current_page = params[:page] ? Article.find(params[:page]) : nil
+
+    #TODO No caso do usuário nao ter permissao de publicar e nao ter uma pasta daquele tipo de conteudo
+    # deve-se retornar o contexto generico
     @sensitive_content = SensitiveContent.new(user: profile, page: current_page)
   end
 

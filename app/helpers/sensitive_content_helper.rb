@@ -34,4 +34,26 @@ module SensitiveContentHelper
     end
   end
 
+  def select_directory_button sensitive_content
+    modal_button(:folder, _('Post to another directory'),
+      url_for(:controller => 'cms', :action => 'select_directory',
+              :profile => sensitive_content.profile.identifier,
+              :page => sensitive_content.directory.try(:id)), :class => 'option-folder')
+  end
+
+  def select_profile_button sensitive_content
+    modal_button(:folder, _('Post to another profile'),
+      url_for(:controller => 'cms', :action => 'select_profile',
+              :profile => sensitive_content.profile.identifier,
+              :page => sensitive_content.directory.try(:id)), :class => 'option-profile')
+  end
+
+  def select_item title, image
+    content_tag :li do
+      content_tag :div, class: 'image-profile' do
+        image + content_tag(:h3, title)
+      end
+    end
+  end
+
 end

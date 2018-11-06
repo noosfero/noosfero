@@ -20,13 +20,8 @@
       <%= button(:back, "<span>#{_('Back')}</span>".html_safe, '#', :class => 'option-back') %>
       <div class='sensitive-buttons'>
 
-        <%= modal_button(:folder, _('Post to another directory'),
-              url_for(:controller => 'cms', :action => 'sensitive_content', :profile => user.identifier,
-                :page => @sensitive_content.directory.try(:id), :select_directory => true), :class => 'option-folder') %>
-
-        <%= modal_button(:profile, _('Post to another profile'),
-              url_for(:controller => 'cms', :action => 'select_profile', :profile => user.identifier),
-              :class => 'option-profile') %>
+        <%= select_directory_button @sensitive_content %>
+        <%= select_profile_button @sensitive_content %>
       </div>
     </div>
 

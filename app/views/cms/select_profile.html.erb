@@ -4,7 +4,7 @@
     <div class='publish-header'>
       <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
       <div class='publish-header-infos'>
-        <h1><%= _("You are publishing in profile of")%> <span class='publish-profile'><%= @profile.name %></span></h1>
+        <%= sensitive_context_message @sensitive_content, false %>
         <%= path_to_parents %>
       </div>
     </div>
@@ -15,53 +15,35 @@
       <% if @profiles.nil? %>
         <ul class="article-types scrollbar">
 
-          <%= content_tag('a', :href => '#action') do %>
-            <li>
-              <div class='image-profile'>
-                <%= profile_image(user, :minor) %>
-                <h3><%= user.name %></h3>
-              </div>
-            </li>
+          <%= modal_button(:none, select_item(user.name, profile_image(user, :minor)),
+                           url_for(:controller => 'cms', :action => 'sensitive_content',
+                           :profile => user.identifier, :page => @sensitive_content.directory.try(:id))) %>
+
+          <% if user.communities.present? %>
+            <%= modal_button(:none, select_item(_('My communities'),
+                  image_tag(profile_default_image(:community), :class => 'logo')),
+                  url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'community',
+                  :profile => user.identifier, :page => @sensitive_content.directory.try(:id))) %>
           <% end %>
 
-          <% if profile.communities.present? %>
-            <%= content_tag('a', :href => url_for(:controller => 'cms', :action => 'select_profile',
-                  :profile => user.identifier, :select_type => 'community'), :class => 'open-modal') do %>
-              <li>
-                <div class='image-profile'>
-                  <%= image_tag(profile_default_image(:community), :class => 'logo') %>
-                  <h3><%= _('My communities') %></h3>
-                </div>
-              </li>
-            <% end %>
-          <% end %>
-
-          <% if profile.enterprises.present? %>
-            <%= content_tag('a', :href => url_for(:controller => 'cms', :action => 'select_profile',
-                  :profile => user.identifier, :select_type => 'enterprise'), :class => 'open-modal') do %>
-              <li>
-                <div class='image-profile'>
-                  <%= image_tag(profile_default_image(:enterprise), :class => 'logo') %>
-                  <h3><%= _('My enterprises') %></h3>
-                </div>
-              </li>
-            <% end %>
+          <% if user.enterprises.present? %>
+            <%= modal_button(:none, select_item(_('My enterprises'),
+                  image_tag(profile_default_image(:enterprise), :class => 'logo')),
+                  url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'enterprise',
+                  :profile => user.identifier, :page => @sensitive_content.directory.try(:id))) %>
           <% end %>
         </ul>
 
       <% else %>
-        <%= profile_selector modal_url_entry_to_profile_selector(@profiles) %>
+        <%= profile_selector modal_url_entry_to_profile_selector(@profiles, {:controller => 'cms',
+              :action => 'sensitive_content', :page => @sensitive_content.directory.try(:id)}) %>
       <% end %>
     </div>
 
     <div class='publish-options'>
       <%= button(:back, "<span>#{_('Back')}</span>".html_safe, '#', :class => 'option-back') %>
       <div class='sensitive-buttons'>
-
-        <%= modal_button(:folder, _('Post to another directory'),
-              url_for(:controller => 'cms', :action => 'select_directory', :profile => user.identifier),
-              :class => 'option-folder') %>
-
+        <%= select_directory_button @sensitive_content %>
       </div>
     </div>
 
