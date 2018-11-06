@@ -258,8 +258,7 @@ module Api
       end
       expose :permissions do |article, options|
         Entities.permissions_for_entity(article, options[:current_person],
-          :allow_edit?, :allow_post_content?, :allow_delete?, :allow_create?,
-          :allow_publish_content?)
+          :allow_edit?, :allow_post_content?, :allow_delete?, :allow_create?)
       end
     end
 
