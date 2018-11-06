@@ -10,7 +10,7 @@ Feature: manage roles
     Then I should not see "My new role"
     And I follow "Create a new role"
     And I fill in "Name" with "My new role"
-    And I check "Publish content"
+    And I check "Manage/Publish content"
     And I follow "Create role"
     And I go to the environment control panel
     And I follow "User roles"
