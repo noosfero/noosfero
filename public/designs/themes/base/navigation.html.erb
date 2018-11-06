@@ -1,15 +1,9 @@
 <% if user.present? %>
 
   <li class="new-content-home">
-    <% unless @page.nil? %>
-        <%= modal_icon_button(:file, _('New Content'),
-          url_for(:controller => 'cms', :action => 'sensitive_content',
-                  :profile => profile_to_publish(user, profile), :page => @page.id)) %>
-    <% else %>
-        <%= modal_icon_button(:file, _('New Content'),
-          url_for(:controller => 'cms', :action => 'sensitive_content',
-                  :profile => profile_to_publish(user, profile))) %>
-    <% end %>
+    <%= modal_icon_button(:file, _('New Content'),
+      url_for(:controller => 'cms', :action => 'sensitive_content',
+              :profile => profile_to_publish(user, profile), :page => @page.try(:id))) %>
   </li>
 
   <li class="user-pending-tasks">

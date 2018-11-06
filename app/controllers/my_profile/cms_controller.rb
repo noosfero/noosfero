@@ -473,25 +473,24 @@ class CmsController < MyProfileController
 
     #TODO No caso do usuário nao ter permissao de publicar e nao ter uma pasta daquele tipo de conteudo
     # deve-se retornar o contexto generico
-    @sensitive_content = SensitiveContent.new(user: profile, page: current_page)
+    @sensitive_content = SensitiveContent.new(user: user, page: current_page, profile: profile)
   end
 
   def select_directory
     current_page = params[:page] ? Article.find(params[:page]) : nil
-    @sensitive_content = SensitiveContent.new(user: profile, page: current_page)
+    @sensitive_content = SensitiveContent.new(user: user, page: current_page, profile: profile)
   end
 
   def select_profile
     current_page = params[:page] ? Article.find(params[:page]) : nil
-    @sensitive_content = SensitiveContent.new(user: profile, page: current_page)
+    @sensitive_content = SensitiveContent.new(user: user, page: current_page, profile: profile)
 
-    #TODO Selecionar somente os perfis que o usuário tem permissão para publicar
     if params[:select_type].present?
       case params[:select_type]
       when 'community'
-        @profiles = user.communities.order(:name)
+        @profiles = user.communities_with_post_permisson
       when 'enterprise'
-        @profiles = user.enterprises.order(:name)
+        @profiles = user.enterprises_with_post_permisson
       else
         @profiles = nil
       end

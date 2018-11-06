@@ -19,18 +19,20 @@
                            url_for(:controller => 'cms', :action => 'sensitive_content',
                            :profile => user.identifier, :page => @sensitive_content.directory.try(:id))) %>
 
-          <% if user.communities.present? %>
+          <% if user.communities_with_post_permisson.present? %>
             <%= modal_button(:none, select_item(_('My communities'),
                   image_tag(profile_default_image(:community), :class => 'logo')),
                   url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'community',
-                  :profile => user.identifier, :page => @sensitive_content.directory.try(:id))) %>
+                          :profile => @sensitive_content.profile.identifier,
+                          :page => @sensitive_content.directory.try(:id))) %>
           <% end %>
 
-          <% if user.enterprises.present? %>
+          <% if user.enterprises_with_post_permisson.present? %>
             <%= modal_button(:none, select_item(_('My enterprises'),
                   image_tag(profile_default_image(:enterprise), :class => 'logo')),
                   url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'enterprise',
-                  :profile => user.identifier, :page => @sensitive_content.directory.try(:id))) %>
+                          :profile => @sensitive_content.profile.identifier, 
+                          :page => @sensitive_content.directory.try(:id))) %>
           <% end %>
         </ul>
 

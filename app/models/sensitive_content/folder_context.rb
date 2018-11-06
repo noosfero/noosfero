@@ -11,8 +11,10 @@ class FolderContext < GenericContext
 
   private
 
-  def sensitive_directory_in_user_profile
-    current_user.folders.first
+  def sensitive_directory_in_profile
+    current_user.folders.select do |folder|
+      folder.class == Folder
+    end.first
   end
 
 end

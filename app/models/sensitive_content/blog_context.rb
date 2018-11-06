@@ -10,8 +10,8 @@ class BlogContext < GenericContext
 
   private
 
-  def sensitive_directory_in_user_profile
-    current_user.blogs.first
+  def sensitive_directory_in_profile
+    selected_profile.blogs.first
   end
 
 end

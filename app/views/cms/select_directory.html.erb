@@ -13,9 +13,8 @@
       <h2><%= _("In which directory do you want to publish?")%></h2>
       <ul class="article-types scrollbar">
         <% for directory in @sensitive_content.directory_options %>
-          <% #FIXME passar a pasta para publicacao na action %>
           <%= modal_button(:none, directory_option(directory), url_for(:controller => 'cms',
-                :action => 'sensitive_content', :profile => user.identifier,
+                :action => 'sensitive_content', :profile => @sensitive_content.profile.identifier,
                 :page => directory.id)) %>
         <% end %>
       </ul>

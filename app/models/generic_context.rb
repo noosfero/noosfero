@@ -3,11 +3,12 @@ class GenericContext
   def initialize(args = {})
     @current_user = args[:user]
     @current_page = args[:page]
+    @selected_profile = set_selected_profile(args[:profile])
   end
 
-  def self.set_context user, page=nil
+  def self.set_context user, page=nil, profile=nil
     context = self.define_context(page)
-    context.new(user: user, page: page)
+    context.new(user: user, page: page, profile: profile)
   end
 
   def current_user
@@ -18,8 +19,8 @@ class GenericContext
     @current_page
   end
 
-  def current_profile
-    @current_page.profile unless @current_page.nil?
+  def selected_profile
+    @selected_profile
   end
 
   def content_options
@@ -38,14 +39,10 @@ class GenericContext
   def directory_to_publish
     directory = nil
     unless current_page.nil?
-      if GenericContext.publish_permission? current_profile, current_user
-        if current_page.folder?
-            directory = current_page
-        elsif current_page.parent.present?
-            directory = current_page.parent
-        end
+      if current_page.profile == selected_profile
+        directory = get_page_directory
       else
-        directory = sensitive_directory_in_user_profile
+        directory = sensitive_directory_in_profile
       end
     end
     directory
@@ -71,7 +68,25 @@ class GenericContext
     context
   end
 
-  def sensitive_directory_in_user_profile
+  def set_selected_profile profile
+    if !profile.nil? && GenericContext.publish_permission?(profile, current_user)
+      profile
+    else
+      current_user
+    end
+  end
+
+  def get_page_directory
+    unless current_page.nil?
+      if current_page.folder?
+        current_page
+      else
+        current_page.parent
+      end
+    end
+  end
+
+  def sensitive_directory_in_profile
     nil
   end
 
