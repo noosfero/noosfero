@@ -105,12 +105,6 @@ module ButtonsHelper
     end
   end
 
-  #def button(type, label, url, html_options = {})
-  #  klass = 'with-text'
-  #  if html_options.has_key?(:class)
-  #    klass << ' ' << html_options[:class]
-  #end
-      
   def generic_button(type, label, url, html_options = {})
     classes = "button icon-#{type}"
     html_options = merge_class(classes, html_options)

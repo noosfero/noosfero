@@ -792,16 +792,12 @@ class Environment < ApplicationRecord
     self.name || '?'
   end
 
-  has_many :articles, through:  :profiles
- 
-  def recent_documents(limit = 10, options = {}, pagination = true)
-    self.articles.where.not(type: 'LinkArticle').recent(limit, options, pagination)
-  end
+  has_many :articles, through: :profiles
 
-  has_many :events, through:  :profiles, source:  :articles, class_name:  'Event'
+  has_many :events, through: :profiles, source:  :articles, class_name: 'Event'
 
-  has_many :article_tags, through:  :articles, source:  :tags
-  has_many :profile_tags, through:  :profiles, source:  :tags
+  has_many :article_tags, through: :articles, source: :tags
+  has_many :profile_tags, through: :profiles, source: :tags
 
   include ScopeTool
   scope :tags, -> environment {ScopeTool.union(environment.article_tags, environment.profile_tags)}

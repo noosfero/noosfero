@@ -97,11 +97,11 @@ class Person < Profile
     memberships.where('role_assignments.role_id = ?', role.id)
   end
 
-  has_many :comments, foreign_key:  :author_id
-  has_many :article_followers, dependent:  :destroy
-  has_many :following_articles, class_name:  'Article', through:  :article_followers, source:  :article
-  has_many :friendships, dependent:  :destroy
-  has_many :friends, class_name:  'Person', through:  :friendships
+  has_many :comments, foreign_key: :author_id
+  has_many :article_followers, dependent: :destroy
+  has_many :following_articles, class_name: 'Article', through: :article_followers, source: :article
+  has_many :friendships, dependent: :destroy
+  has_many :friends, class_name: 'Person', through: :friendships
   has_many :circles
   has_many :push_subscriptions, as: :owner
   has_many :event_invitation

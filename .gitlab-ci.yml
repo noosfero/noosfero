@@ -2,7 +2,9 @@ image: alaxalves/noosfero-ci:latest
 
 before_script:
   - apt-get update
-  - ./script/quick-start
+  - mkdir -p locale
+  - ./script/set-apt-proxy
+  - ./script/silent-quick-start
   - bundle exec rails db:migrate
 
 variables:

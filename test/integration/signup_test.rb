@@ -30,7 +30,7 @@ class SignupTest < ActionDispatch::IntegrationTest
     end
   end
 
-  should 'create user that accepted the temrs' do
+  should 'create user that accepted the terms' do
     @env = Environment.default
     @env.terms_of_use = 'You agree to not be annoying.'
     @env.save!
@@ -50,8 +50,8 @@ class SignupTest < ActionDispatch::IntegrationTest
                            return_to: { controller: :home, action: :welcome, template_id: nil }
     end
 
-    assert_difference 'ActionMailer::Base.deliveries.count' do
-      process_delayed_job_queue
+    assert_difference ActionMailer::Base.deliveries.count.to_i do
+      process_delayed_job_queue.to_i
     end
   end
 end

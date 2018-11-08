@@ -21,7 +21,7 @@ class HighlightsBlock < Block
       i[:new_window] = i[:new_window] == '1' ? true : false
 
       uploaded_file = UploadedFile.find_by(id: i[:image_id])
-      i[:image_src] = if uploaded_file.present? then uploaded_file.public_filename else nil end
+      i[:image_src] = uploaded_file.present? ? uploaded_file.public_filename : nil
     end
   end
 
