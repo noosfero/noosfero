@@ -184,7 +184,7 @@ class ProfileController < PublicController
     if profile.followed_by?(current_person)
       render plain: _("You are already following %s.") % profile.name, :status => 400
     else
-      selected_circles = params[:circles].map{ |circle_name, circle_id| Circle.find_by(:id => circle_id) }.select{ |c| c.present? }
+      selected_circles = params[:circles].to_h.map{ |circle_name, circle_id| Circle.find_by(:id => circle_id) }.select{ |c| c.present? }
       if selected_circles.present?
         current_person.follow(profile, selected_circles)
         render plain: _("You are now following %s") % profile.name, :status => 200
