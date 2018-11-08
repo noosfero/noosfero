@@ -299,7 +299,8 @@ module Api
 
     # changing make_order_with_parameters to avoid sql injection
     def make_order_with_parameters(object, method_or_relation, params)
-      return_type = (method_or_relation.is_a?(String)) ? define_table_name(method_or_relation) + '.' : ''
+      assoc_class = extract_associated_classname(object, method_or_relation)
+      return_type = assoc_class == '' ? '' : assoc_class.table_name + '.'
       order = "#{return_type}created_at DESC"
       unless params[:order].blank?
         if params[:order].include? '\'' or params[:order].include? '"'
@@ -319,23 +320,6 @@ module Api
         end
       end
       return order
-    end
-
-    def define_table_name(method_or_relation)
-      case method_or_relation
-      when 'articles'
-        'articles'
-      when 'communities'
-        'profiles'
-      when 'people'
-        'profiles'
-      when 'members'
-        'profiles'
-      when 'tasks'
-        'tasks'
-      else
-        ''
-      end
     end
 
     def make_timestamp_with_parameters_and_method(object, method_or_relation, params)
@@ -388,8 +372,6 @@ module Api
       objects = by_reference(objects, params)
       objects = by_categories(objects, params)
       objects = by_roles(objects, params)
-
-      [:start_date, :end_date].each { |attribute| objects = by_period(objects, params, attribute) }
 
       objects = objects.where(conditions).where(timestamp)
 
