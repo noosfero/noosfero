@@ -5,9 +5,8 @@ class CommentParagraphPlugin::DiscussionBlock < Block
   settings_items :fixed_documents_ids, :type => Array, :default => []
   settings_items :discussion_status, :type => Integer
   settings_items :use_portal_community, :type => :boolean, :default => false
-  # settings_items :limit, :type => :integer, :default => 5
 
-  attr_accessible :presentation_mode, :discussion_status, :use_portal_community
+  attr_accessible :presentation_mode, :discussion_status, :use_portal_community, :total_items
 
   VALID_CONTENT = ['CommentParagraphPlugin::Discussion']
 
@@ -30,7 +29,7 @@ class CommentParagraphPlugin::DiscussionBlock < Block
     end
     current_time = Time.now
     return [] if holder.blank?
-    discussions = holder.articles.where(type: VALID_CONTENT).order('start_date ASC, end_date ASC, created_at DESC').limit(amount)
+    discussions = holder.articles.where(type: VALID_CONTENT).order('start_date DESC, end_date ASC, created_at DESC').limit(amount)
     case discussion_status
     when STATUS_NOT_OPENED
       discussions = discussions.where("start_date > ?", current_time)
@@ -44,7 +43,7 @@ class CommentParagraphPlugin::DiscussionBlock < Block
   end
 
   def fixed_documents
-    holder.articles.where(type: VALID_CONTENT, id: self.fixed_documents_ids).order('start_date ASC, end_date ASC, created_at DESC')
+    holder.articles.where(type: VALID_CONTENT, id: self.fixed_documents_ids).order('start_date DESC, end_date ASC, created_at DESC')
   end
 
   def holder

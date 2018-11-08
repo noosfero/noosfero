@@ -134,6 +134,7 @@ module Api
     def find_article(articles, params)
       conditions = make_conditions_with_parameter(params, Article)
       article = articles.find_by(conditions)
+      not_found! if article.nil?
       article.display_to?(current_person) ? article : forbidden!
     end
 
@@ -298,10 +299,11 @@ module Api
 
     # changing make_order_with_parameters to avoid sql injection
     def make_order_with_parameters(object, method_or_relation, params)
-      order = "created_at DESC"
+      return_type = (method_or_relation.is_a?(String)) ? define_table_name(method_or_relation) + '.' : ''
+      order = "#{return_type}created_at DESC"
       unless params[:order].blank?
         if params[:order].include? '\'' or params[:order].include? '"'
-          order = "created_at DESC"
+          order = "#{return_type}created_at DESC"
         elsif ['RANDOM()', 'RANDOM'].include? params[:order].upcase
           order = 'RANDOM()'
         else
@@ -310,13 +312,30 @@ module Api
           if !field_name.blank? and assoc_class
             if assoc_class.respond_to?(:attribute_names) && (assoc_class.attribute_names.include? field_name)
               if direction.present? and ['ASC','DESC'].include? direction.upcase
-                order = "#{field_name} #{direction.upcase}"
+                order = "#{return_type}#{field_name} #{direction.upcase}"
               end
             end
           end
         end
       end
       return order
+    end
+
+    def define_table_name(method_or_relation)
+      case method_or_relation
+      when 'articles'
+        'articles'
+      when 'communities'
+        'profiles'
+      when 'people'
+        'profiles'
+      when 'members'
+        'profiles'
+      when 'tasks'
+        'tasks'
+      else
+        ''
+      end
     end
 
     def make_timestamp_with_parameters_and_method(object, method_or_relation, params)
@@ -370,11 +389,15 @@ module Api
       objects = by_categories(objects, params)
       objects = by_roles(objects, params)
 
-      objects = objects.where(conditions).where(timestamp).reorder(order)
+      [:start_date, :end_date].each { |attribute| objects = by_period(objects, params, attribute) }
+
+      objects = objects.where(conditions).where(timestamp)
 
       if params[:search].present? || params[:tag].present?
         asset = objects.model.name.underscore.pluralize
-        objects = find_by_contents(asset, object, objects, params[:search], {:page => 1}, tag: params[:tag])[:results]
+        objects = find_by_contents(asset, object, objects, params[:search], {:page => 1}, tag: params[:tag])[:results].reorder(order)
+      else 
+        objects = objects.reorder(order)
       end
 
       params[:page] ||= 1
@@ -595,5 +618,6 @@ module Api
       settings = {:available_blocks => blocks}
       settings
     end
+
   end
 end
