@@ -17,14 +17,15 @@
 
           <%= modal_button(:none, select_item(user.name, profile_image(user, :minor)),
                            url_for(:controller => 'cms', :action => 'sensitive_content',
-                           :profile => user.identifier, :page => @sensitive_content.directory.try(:id))) %>
+                           :profile => user.identifier, :page => @sensitive_content.directory.try(:id)),
+                           class: 'add-sensitive-history') %>
 
           <% if user.communities_with_post_permisson.present? %>
             <%= modal_button(:none, select_item(_('My communities'),
                   image_tag(profile_default_image(:community), :class => 'logo')),
                   url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'community',
                           :profile => @sensitive_content.profile.identifier,
-                          :page => @sensitive_content.directory.try(:id))) %>
+                          :page => @sensitive_content.directory.try(:id)), class: 'add-sensitive-history') %>
           <% end %>
 
           <% if user.enterprises_with_post_permisson.present? %>
@@ -32,18 +33,23 @@
                   image_tag(profile_default_image(:enterprise), :class => 'logo')),
                   url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'enterprise',
                           :profile => @sensitive_content.profile.identifier, 
-                          :page => @sensitive_content.directory.try(:id))) %>
+                          :page => @sensitive_content.directory.try(:id)), class: 'add-sensitive-history') %>
           <% end %>
         </ul>
 
       <% else %>
-        <%= profile_selector modal_url_entry_to_profile_selector(@profiles, {:controller => 'cms',
-              :action => 'sensitive_content', :page => @sensitive_content.directory.try(:id)}) %>
+              <%= profile_selector modal_url_entry_to_profile_selector(@profiles,
+                { url: { :controller => 'cms',
+                         :action => 'sensitive_content',
+                         :page => @sensitive_content.directory.try(:id)
+                  },
+                  class: 'add-sensitive-content'
+                }) %>
       <% end %>
     </div>
 
     <div class='publish-options'>
-      <%= button(:back, "<span>#{_('Back')}</span>".html_safe, '#', :class => 'option-back') %>
+      <%= sensitive_back_button @sensitive_back %>
       <div class='sensitive-buttons'>
         <%= select_directory_button @sensitive_content %>
       </div>

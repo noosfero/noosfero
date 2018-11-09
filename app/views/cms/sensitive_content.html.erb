@@ -5,7 +5,7 @@
       <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
       <div class='publish-header-infos'>
         <%= sensitive_context_message @sensitive_content %>
-        <%= path_to_parents @sensitive_content.directory %>
+        <%= path_to_parents @sensitive_content.directory, true %>
       </div>
     </div>
 
@@ -17,7 +17,7 @@
     </div>
 
     <div class='publish-options'>
-      <%= button(:back, "<span>#{_('Back')}</span>".html_safe, '#', :class => 'option-back') %>
+      <%= sensitive_back_button @sensitive_back %>
       <div class='sensitive-buttons'>
         <%= select_directory_button @sensitive_content %>
         <%= select_profile_button @sensitive_content %>

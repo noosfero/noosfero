@@ -471,18 +471,34 @@ class CmsController < MyProfileController
   def sensitive_content
     current_page = params[:page] ? Article.find(params[:page]) : nil
 
-    #TODO No caso do usuário nao ter permissao de publicar e nao ter uma pasta daquele tipo de conteudo
-    # deve-se retornar o contexto generico
-    @sensitive_content = SensitiveContent.new(user: user, page: current_page, profile: profile)
+    @sensitive_back = params[:back] ? params[:back] : false
+
+    @sensitive_content = SensitiveContent.new(
+                           user: user,
+                           page: current_page,
+                           profile: profile
+                         )
   end
 
   def select_directory
     current_page = params[:page] ? Article.find(params[:page]) : nil
-    @sensitive_content = SensitiveContent.new(user: user, page: current_page, profile: profile)
+    select_subdirectory = !params[:select_subdirectory].nil?
+
+    @sensitive_back = params[:back] ? params[:back] : false
+
+    @sensitive_content = SensitiveContent.new(
+                           user: user,
+                           page: current_page,
+                           profile: profile,
+                           select_subdirectory: select_subdirectory
+                         )
   end
 
   def select_profile
     current_page = params[:page] ? Article.find(params[:page]) : nil
+
+    @sensitive_back = params[:back] ? params[:back] : false
+
     @sensitive_content = SensitiveContent.new(user: user, page: current_page, profile: profile)
 
     if params[:select_type].present?

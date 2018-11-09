@@ -11,7 +11,7 @@ class ForumContext < GenericContext
   private
 
   def sensitive_directory_in_profile
-    current_user.forums.first
+    selected_profile.forums.first
   end
 
 end

@@ -5,6 +5,9 @@ module SensitiveContentHelper
     directory = sensitive_context.directory
     profile = sensitive_context.profile
 
+    #TODO No caso do usuario estar publicando no seu proprio perfil
+    # retornar algo como 'Você esta publicando no seu perfil'
+    # ao inves de retonar na terceira pessoa
     directory_name = if !directory.nil? && display_directory
                         content_tag(:span, directory.name, class: 'publish-page')
                      else
@@ -38,14 +41,24 @@ module SensitiveContentHelper
     modal_button(:folder, _('Post to another directory'),
       url_for(:controller => 'cms', :action => 'select_directory',
               :profile => sensitive_content.profile.identifier,
-              :page => sensitive_content.directory.try(:id)), :class => 'option-folder')
+              :page => sensitive_content.directory.try(:id)),
+      :class => 'option-folder add-sensitive-history')
   end
 
   def select_profile_button sensitive_content
     modal_button(:folder, _('Post to another profile'),
       url_for(:controller => 'cms', :action => 'select_profile',
               :profile => sensitive_content.profile.identifier,
-              :page => sensitive_content.directory.try(:id)), :class => 'option-profile')
+              :page => sensitive_content.directory.try(:id)),
+      :class => 'option-profile add-sensitive-history')
+  end
+
+  def sensitive_back_button not_back = false
+    if not_back
+      button :none, '', '#', class: 'button option-not-back'
+    else
+      button :back, _('Back'), '#', class: 'button option-back'
+    end
   end
 
   def select_item title, image

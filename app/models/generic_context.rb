@@ -4,11 +4,13 @@ class GenericContext
     @current_user = args[:user]
     @current_page = args[:page]
     @selected_profile = set_selected_profile(args[:profile])
+    @select_subdirectory = args[:select_subdirectory]
   end
 
-  def self.set_context user, page=nil, profile=nil
+  def self.set_context user, page=nil, profile=nil, select_subdirectory=false
     context = self.define_context(page)
-    context.new(user: user, page: page, profile: profile)
+    context.new(user: user, page: page, profile: profile,
+                select_subdirectory: select_subdirectory)
   end
 
   def current_user
@@ -21,6 +23,10 @@ class GenericContext
 
   def selected_profile
     @selected_profile
+  end
+
+  def select_subdirectory
+    @select_subdirectory
   end
 
   def content_options
@@ -46,6 +52,14 @@ class GenericContext
       end
     end
     directory
+  end
+
+  def directory_options
+    if select_subdirectory
+      directory_to_publish.subdirectories
+    else
+      Folder.subdirectories_to selected_profile
+    end
   end
 
   def self.publish_permission? profile, user

@@ -9,7 +9,7 @@ class GalleryContext < GenericContext
   private
 
   def sensitive_directory_in_profile
-    current_user.galleries.first
+    selected_profile.galleries.first
   end
 
 end

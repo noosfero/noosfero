@@ -276,15 +276,17 @@ module ArticleHelper
     actions << fullscreen_buttons("#article") << report_abuse(profile, :link, @page)
   end
 
-  def path_to_parents(article=nil)
+  def path_to_parents(article=nil, display_article_name=false)
     if article
-        path = link_to(article.profile.name, article.profile.url, class: 'path-to-parent')
-        parents = article.hierarchy.select { |parent| parent != article }
-        parents.each do |parent|
-            path += link_to(font_awesome(:angle_right, parent.name), parent.url, class: 'path-to-parent')
-        end
+      path = link_to(article.profile.name, article.profile.url, class: 'path-to-parent')
+      parents = article.hierarchy.select { |parent| parent != article }
+      parents.each do |parent|
+          path += link_to(font_awesome(:angle_right, parent.name), parent.url, class: 'path-to-parent')
+      end
+      path += link_to(font_awesome(:angle_right, article.name),
+                      '#', class: 'path-to-parent') if display_article_name
     else
-        path = link_to(profile.name, profile.url, class: 'path-to-parent')
+      path = link_to(profile.name, profile.url, class: 'path-to-parent')
     end
     content_tag(:div, path, class: 'path-to-parents')
   end

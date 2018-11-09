@@ -50,6 +50,13 @@ noosfero.modal = {
     jQuery.colorbox.close();
   },
 
+  loadPage: function(url) {
+    $.get(url, function(data) {
+      $("#noosfero-modal-inner").html(data);
+      $("#noosfero-modal").fadeIn().css("display", "flex");
+    });
+  }
+
 };
 
 noosfero.modal.watchClass();
@@ -59,10 +66,7 @@ noosfero.modal.watchClass();
 $( document ).ready(function() {
   $("body").on('click', '.open-modal', function(event) {
     event.preventDefault();
-    $.get($(this).attr('href'), function(data) {
-      $("#noosfero-modal-inner").html(data);
-      $("#noosfero-modal").fadeIn().css("display", "flex");
-    });
+    noosfero.modal.loadPage($(this).attr('href'))
   });
 
   $("#close-modal").click(function() {

@@ -3,7 +3,8 @@
   <li class="new-content-home">
     <%= modal_icon_button(:file, _('New Content'),
       url_for(:controller => 'cms', :action => 'sensitive_content',
-              :profile => profile_to_publish(user, profile), :page => @page.try(:id))) %>
+              :profile => profile_to_publish(user, profile), :page => @page.try(:id)),
+      class: 'initialize-sensitive-history') %>
   </li>
 
   <li class="user-pending-tasks">

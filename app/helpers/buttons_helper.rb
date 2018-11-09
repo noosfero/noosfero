@@ -36,6 +36,7 @@ module ButtonsHelper
     file:              'file-alt',
     file_code:         'file-code',
     folder:            'folder',
+    folder_open:       'folder-open',
     forward:           'forward',
     fullscreen:        'expand-arrows-alt',
     fullscreen_out:    'compress',

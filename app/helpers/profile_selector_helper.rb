@@ -31,15 +31,22 @@ module ProfileSelectorHelper
     end.join.html_safe
   end
 
-  def modal_url_entry_to_profile_selector profiles, url_options={}
-    profiles.collect do |profile|
-      if url_options.empty?
-        url = profile.url
-      else
-        url = url_for(url_options.merge(:profile => profile.identifier))
-      end
+  def modal_url_entry_to_profile_selector profiles, options={}
+    if options.has_key? :url
+      url_options = options[:url]
+      options.delete(:url)
+    end
 
-      link_to url, class: ' profile-selector-entry open-modal' do
+    options[:class] = class_merge(options, 'profile-selector-entry open-modal')
+
+    profiles.collect do |profile|
+      url = if url_options
+              url_for(url_options.merge(:profile => profile.identifier))
+            else
+              profile.url
+            end
+
+      link_to url, options do
         name = content_tag(:span, profile.name, class: 'profile-name') +
                content_tag(:span, profile.identifier, class: 'profile-identifier')
 
@@ -47,6 +54,16 @@ module ProfileSelectorHelper
         content_tag(:div, name, class: 'profile-selector-entry-info')
       end
     end.join.html_safe
+  end
+
+  private
+
+  def class_merge options, classes
+    if options.has_key? :class
+      options[:class] + ' ' + classes
+    else
+      classes
+    end
   end
 
 end

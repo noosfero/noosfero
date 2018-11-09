@@ -4,7 +4,9 @@ class SensitiveContent
     current_user = args[:user]
     current_page = args[:page]
     profile = args[:profile]
-    @context = GenericContext.set_context(current_user, current_page, profile)
+    select_subdirectory = args[:select_subdirectory]
+    @context = GenericContext.set_context(current_user, current_page,
+                                          profile, select_subdirectory)
   end
 
   def context
@@ -24,7 +26,7 @@ class SensitiveContent
   end
 
   def directory_options
-    profile.folders
+    @context.directory_options
   end
 
 end
