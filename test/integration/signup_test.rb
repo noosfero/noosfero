@@ -50,7 +50,7 @@ class SignupTest < ActionDispatch::IntegrationTest
                            return_to: { controller: :home, action: :welcome, template_id: nil }
     end
 
-    assert_difference('ActionMailer::Base.deliveries.count', 1) do
+    assert_difference("ActionMailer::Base.deliveries.count", 1) do
       process_delayed_job_queue
     end
   end

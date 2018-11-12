@@ -353,7 +353,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'be able to save FeedReaderBlock configurations' do
     @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
     holder.blocks(true)
-    block = @box1.blocks.find_by(type: FeedReaderBlock)
+    block = @box1.blocks.find_by(type: "FeedReaderBlock")
 
     post :save, :profile => 'designtestuser', :id => block.id, :block => {:address => 'new feed address', :limit => '20'}
 

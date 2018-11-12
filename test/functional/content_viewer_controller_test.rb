@@ -465,7 +465,7 @@ class ContentViewerControllerTest < ActionController::TestCase
  should 'list unpublished posts to owner with a different class' do
    login_as('testinguser')
    blog = Blog.create!(:name => 'A blog test', :profile => profile)
-   blog.posts << TextArticle.create!(:name => 'Post', :profile => profile,
+   blog.posts.to_a << TextArticle.create!(:name => 'Post', :profile => profile,
                                      :parent => blog,
                                      :published => false,
                                      :access => Entitlement::Levels.levels[:self])
@@ -476,8 +476,8 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not list unpublished posts to a not logged person' do
     blog = Blog.create!(name: 'A blog test', profile: profile)
-    blog_posts = blog.posts
-    blog_posts << TextArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false, :access => Entitlement::Levels.levels[:self])
+    blog_posts.to_a = blog.posts
+    blog_posts.to_a << TextArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false, :access => Entitlement::Levels.levels[:self])
 
     get :view_page, :profile => profile.identifier, :page => [blog.path]
     !assert_tag :tag => 'a', :content => "Post"
@@ -486,7 +486,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'display pagination links of blog' do
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :posts_per_page => 5)
     for n in 1..10
-      blog.posts << TextArticle.create!(:name => "Post #{n}", :profile => profile, :parent => blog)
+      blog.posts.to_a << TextArticle.create!(name: "Post #{n}", profile: profile, parent: blog)
     end
     assert_equal 10, blog.posts.size
 
@@ -808,7 +808,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :visualization_format => 'short')
 
-    blog.posts << TextArticle.create!(:name => 'first post', :parent => blog, :profile => profile, :body => '<p>Content to be displayed.</p> Anything')
+    blog.posts.to_a << TextArticle.create!(:name => 'first post', :parent => blog, :profile => profile, :body => '<p>Content to be displayed.</p> Anything')
 
     get :view_page, :profile => profile.identifier, :page => blog.path
 
@@ -821,7 +821,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :visualization_format => 'short+pic')
 
-    blog.posts << TextArticle.create!(:name => 'first post', :parent => blog, :profile => profile, :body => '<p>Content to be displayed.</p> <img src="pic.jpg">')
+    blog.posts.to_a << TextArticle.create!(:name => 'first post', :parent => blog, :profile => profile, :body => '<p>Content to be displayed.</p> <img src="pic.jpg">')
 
     get :view_page, :profile => profile.identifier, :page => blog.path
 
@@ -1149,8 +1149,8 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'list all posts at blog listing if blog option is disabled' do
     FastGettext.stubs(:locale).returns('es')
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :display_posts_in_current_language => false)
-    blog.posts << es_post = TextArticle.create!(:name => 'Spanish Post', :profile => profile, :parent => blog, :language => 'es')
-    blog.posts << en_post = TextArticle.create!(:name => 'English Post', :profile => profile, :parent => blog, :language => 'en', :translation_of_id => es_post.id)
+    blog.posts.to_a << es_post = TextArticle.create!(:name => 'Spanish Post', :profile => profile, :parent => blog, :language => 'es')
+    blog.posts.to_a << en_post = TextArticle.create!(:name => 'English Post', :profile => profile, :parent => blog, :language => 'en', :translation_of_id => es_post.id)
     get :view_page, :profile => profile.identifier, :page => [blog.path]
     assert_equal 2, assigns(:posts).size
     assert_tag :div, :attributes => { :id => "post-#{es_post.id}" }
@@ -1389,7 +1389,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not escape acceptable HTML in list of blog posts' do
     login_as('testinguser')
     blog = Blog.create!(:name => 'A blog test', :profile => profile)
-    blog.posts << TextArticle.create!(
+    blog.posts.to_a << TextArticle.create!(
       :name => 'Post',
       :profile => profile,
       :parent => blog,
