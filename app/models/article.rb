@@ -149,7 +149,7 @@ class Article < ApplicationRecord
 
   after_destroy :destroy_link_article
   def destroy_link_article
-    Article.destroy_all(reference_article_id: self.id, type: 'LinkArticle')
+    Article.where(reference_article_id: self.id, type: 'LinkArticle').destroy_all
   end
 
   xss_terminate only: [ :name ], on: :validation, with: :white_list
