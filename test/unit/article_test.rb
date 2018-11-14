@@ -1392,7 +1392,6 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'show more popular articles' do
-    Article.destroy_all
     art1 = create(Article, :name => 'article 1',
                   :profile_id => fast_create(Person).id)
     art2 = create(Article, :name => 'article 2',
