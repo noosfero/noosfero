@@ -669,7 +669,7 @@ Then /^the element "(.*)" has class "(.*)"$/ do |el_selector, el_class|
 end
 
 Given /^there are no pending jobs$/ do
-  silence_stream(STDOUT) do
+  silenced do
     Delayed::Worker.new.work_off
   end
 end

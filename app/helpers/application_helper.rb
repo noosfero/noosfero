@@ -1345,13 +1345,12 @@ module ApplicationHelper
     end
   end
 
-  def silence_stream(stream)
-    old_stream = stream.dup
-    stream.reopen(RbConfig::CONFIG['host_os'] =~ /mswin|mingw/ ? 'NUL:' : '/dev/null')
-    stream.sync = true
+  def silenced
+    $stdout = StringIO.new
+
     yield
   ensure
-    stream.reopen(old_stream)
+    $stdout = STDOUT
   end
 
   def xml_http_request(request_method, action, parameters = nil, session = nil, flash = nil)
