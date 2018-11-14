@@ -476,7 +476,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not list unpublished posts to a not logged person' do
     blog = Blog.create!(name: 'A blog test', profile: profile)
-    blog_posts.to_a = blog.posts
+    blog_posts = blog.posts
     blog_posts.to_a << TextArticle.create!(:name => 'Post', :profile => profile, :parent => blog, :published => false, :access => Entitlement::Levels.levels[:self])
 
     get :view_page, :profile => profile.identifier, :page => [blog.path]
