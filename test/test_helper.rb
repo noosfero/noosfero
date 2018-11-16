@@ -193,9 +193,9 @@ class ActiveSupport::TestCase
   end
 
   def process_delayed_job_queue
-    silenced do
-      Delayed::Worker.new.work_off
-    end
+    # silenced do
+    # end
+    Delayed::Worker.new(quiet: false).work_off
   end
 
   def uses_postgresql(schema_name = 'test_schema')
