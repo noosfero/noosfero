@@ -36,13 +36,13 @@ class SignupTest < ActionDispatch::IntegrationTest
     @env.save!
 
     assert_difference 'User.count' do
-      post '/account/signup', params: {user: { login: 'shouldaccepterms',
-                                               password: 'test',
-                                               password_confirmation: 'test',
-                                               email: 'shouldaccepterms@example.com',
-                                               terms_accepted: '1'
-                                             },
-                                       profile_data: person_data
+      post '/account/signup', params: { user: { login: 'shouldaccepterms',
+                                                password: 'test',
+                                                password_confirmation: 'test',
+                                                email: 'shouldaccepterms@example.com',
+                                                terms_accepted: '1'
+                                              },
+                                        profile_data: person_data
                                       }
       user = User.last
       assert_redirected_to action: :activate,

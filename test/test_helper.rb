@@ -86,6 +86,7 @@ class ActiveSupport::TestCase
 
   def global_setup
     User.current = nil
+    Delayed::Job.destroy_all
   end
 
   alias :ok :assert_block
