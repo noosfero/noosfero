@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2017-10-04 11:47+0000\n"
-"Last-Translator: shshshwhs <diogobeirao10@gmail.com>\n"
+"PO-Revision-Date: 2018-11-19 09:07+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.17-dev\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.3-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -4241,8 +4241,9 @@ msgid ""
 "or .png."
 msgstr ""
 "<strong>Imagem: </strong>Insira uma imagem. Ela será a imagem da comunidade. "
-"Clique em &#8220;Arquivo&#8230;&#8221; e escolha a imagem no seu computador. "
-"A imagem deve ter no máximo 500Kb e ser do tipo .jpg, .gif ou .png."
+"Clique em &#8220;Ficheiro&#8230;&#8221; e escolha a imagem no seu "
+"computador. A imagem deve ter no máximo 500Kb e ser do tipo .jpg, .gif ou "
+".png."
 
 # type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
@@ -5205,14 +5206,14 @@ msgstr "Enviando arquido pelo CMS"
 #: doc/noosfero/cms/managing-content.en.xhtml:27
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:35
 msgid "Select the folder where the file will be uploaded"
-msgstr "Escolha a pasta que o arquivo será inserido;"
+msgstr "Escolha a pasta onde o ficheiro será inserido"
 
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:28
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:36
 msgid "Select the file in your computer"
-msgstr "Selecione o arquivo no seu computador;"
+msgstr "Selecione o ficheiro no seu computador"
 
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ul><li><ol><li>
@@ -5221,8 +5222,8 @@ msgstr "Selecione o arquivo no seu computador;"
 msgid ""
 "If you want to upload more files at once, click on &#8220;More files&#8221;"
 msgstr ""
-"Caso queira adicionar mais arquivos ao mesmo tempo, clique em &#8220;Mais "
-"arquivos&#8221;"
+"Caso queira adicionar mais ficheiro ao mesmo tempo, clique em &#8220;Mais "
+"ficheiros&#8221;"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ul><li><ol><li>
@@ -5712,9 +5713,9 @@ msgid ""
 "article. But both can be added in the same way:"
 msgstr ""
 "Quando você adiciona um documento no seu artigo, é criado um link para "
-"download do arquivo, e quando adiciona uma imagem, ele será visualizado como "
-"uma imagem do artigo. Mas a forma que a imagem ou documento é inserida é a "
-"mesma:"
+"download do ficheiro, e quando adiciona uma imagem, ele será visualizado "
+"como uma imagem do artigo. Mas a forma que a imagem ou documento é inserida "
+"é a mesma:"
 
 # type: Content of: <ul><li><ol><li>
 #. type: Content of: <ul><li><ul><li><ol><li>
@@ -6778,7 +6779,7 @@ msgid ""
 "gif</em> or <em>.png</em> ."
 msgstr ""
 "<strong>Mudar foto: </strong>Insira ou altere a foto do empreendimento. "
-"Clique em &#8221;Arquivo...&#8220; e escolha a imagem no seu computador. A "
+"Clique em &#8221;Ficheiro...&#8220; e escolha a imagem no seu computador. A "
 "imagem deve ter no máximo 500Kb e ser do tipo <em>.jpg</em>, <em>.gif</em> "
 "ou <em>.png</em>."
 
@@ -8327,9 +8328,10 @@ msgid ""
 "on&quot;File…&quot; and choose the image in your computer. The image must "
 "have a maximum of 500Kb e be <em>.jpg</em> , <em>.gif</em> or <em>.png</em> ."
 msgstr ""
-"<strong>Mudar foto: </strong>Insira ou altere sua foto. Clique em &#8220;"
-"Arquivo...&#8221; e escolha a imagem no seu computador. A imagem deve ter no "
-"máximo 500Kb e ser do tipo <em>.jpg</em>, <em>.gif</em> ou <em>.png</em>."
+"<strong>Mudar foto: </strong>Insira ou altere sua foto. Clique em "
+"&#8220;Ficheiro...&#8221; e escolha a imagem no seu computador. A imagem "
+"deve ter no máximo 500Kb e ser do tipo <em>.jpg</em>, <em>.gif</em> ou "
+"<em>.png</em>."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>

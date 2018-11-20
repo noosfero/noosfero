@@ -183,7 +183,7 @@ class Person < Profile
 
   def can_post_content?(profile, parent=nil)
     (!parent.nil? && (parent.allow_create?(self))) ||
-      (self.has_permission?('post_content', profile) || self.has_permission?('publish_content', profile))
+      self.has_permission?('post_content', profile)
   end
 
   # Sets the identifier for this person. Raises an exception when called on a

@@ -1670,14 +1670,6 @@ class PersonTest < ActiveSupport::TestCase
     assert person.can_post_content?(profile)
   end
 
-  should 'allow posting content when has publish_content permission' do
-    person = create_user('person').person
-    profile = mock
-    person.expects(:has_permission?).with('post_content', profile).returns(false)
-    person.expects(:has_permission?).with('publish_content', profile).returns(true)
-    assert person.can_post_content?(profile)
-  end
-
   should 'allow posting content when has permission in the parent' do
     person = create_user('person').person
     profile = mock
