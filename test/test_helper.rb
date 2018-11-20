@@ -9,6 +9,7 @@ require 'mocha'
 require 'mocha/minitest'
 require 'minitest/spec'
 require 'minitest/reporters'
+require 'database_cleaner'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
 require_relative 'mocks/environment'
@@ -34,7 +35,7 @@ Thumbnail.attachment_options[:path_prefix] = 'test/tmp/public/thumbnails'
 
 FastGettext.add_text_domain 'noosferotest', :type => :chain, :chain => []
 FastGettext.default_text_domain = 'noosferotest'
-
+DatabaseCleaner.strategy = :transaction
 
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
@@ -68,6 +69,7 @@ class ActiveSupport::TestCase
 
   fixtures :environments, :roles
 
+
   def self.all_fixtures
     Dir.glob(Rails.root.join('test', 'fixtures', '*.yml')).each do |item|
       fixtures File.basename(item).sub(/\.yml$/, '').to_s
@@ -85,7 +87,13 @@ class ActiveSupport::TestCase
   setup :global_setup
 
   def global_setup
+    DatabaseCleaner.start
     User.current = nil
+    # Delayed::Job.destroy_all
+  end
+
+  teardown do
+    DatabaseCleaner.clean
   end
 
   alias :ok :assert_block
@@ -193,8 +201,7 @@ class ActiveSupport::TestCase
   end
 
   def process_delayed_job_queue
-    # silenced do
-    # end
+    # To enable logs, add `(quiet: false)` to Delayed::Workey.new
     Delayed::Worker.new(quiet: false).work_off
   end
 
