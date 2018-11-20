@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2016-10-03 18:21+0000\n"
-"Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
+"PO-Revision-Date: 2018-11-19 09:07+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-custom-forms/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.9-dev\n"
+"X-Generator: Weblate 3.3-dev\n"
 
 #: ../controllers/custom_forms_plugin_admin_controller.rb:12
 msgid "There is no data to be downloaded"
@@ -49,7 +49,7 @@ msgstr "A consulta não pode ser removida"
 
 #: ../controllers/custom_forms_plugin_myprofile_controller.rb:127
 msgid "Maximum file size exceeded"
-msgstr "Tamanho máximo do arquivo excedido"
+msgstr "Tamanho máximo do ficheiro excedido"
 
 #: ../controllers/custom_forms_plugin_myprofile_controller.rb:181
 msgid "Query Gallery"
@@ -392,7 +392,7 @@ msgstr "Exportar consultas do ambiente"
 
 #: ../views/custom_forms_plugin_admin/index.html.erb:8
 msgid "Export one file with several queries at once."
-msgstr "Exportar um arquivo com várias consultas de uma vez."
+msgstr "Exportar um ficheiro com várias consultas de uma vez."
 
 #: ../views/custom_forms_plugin_admin/index.html.erb:14
 msgid "Select the user fields to be included in the submissions report"
@@ -639,13 +639,13 @@ msgid ""
 "recommended that you follow the generated template. Note that a file with "
 "header is expected."
 msgstr ""
-"Você deve escolher um arquivo CSV que siga uma estrutura específica. É "
-"recomendado que você siga o modelo gerado. Note que um arquivo com cabeçalho "
-"é experado."
+"Você deve escolher um ficheiro CSV que siga uma estrutura específica. É "
+"recomendado que você siga o modelo gerado. Note que um ficheiro com "
+"cabeçalho é experado."
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:11
 msgid "Download Template"
-msgstr "Baixar Modelo"
+msgstr "Descarregar Modelo"
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:16
 msgid "Take note"
@@ -668,11 +668,11 @@ msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:26
 msgid "Choose a CSV file to import submissions from"
-msgstr "Escolha um arquivo CSV para importar as submissões"
+msgstr "Escolha um ficheiro CSV para importar as submissões"
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:29
 msgid "Maximum file size: %s"
-msgstr "Tamanho máximo do arquivo: %s"
+msgstr "Tamanho máximo do ficheiro: %s"
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:33
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:65
@@ -682,7 +682,7 @@ msgstr "Voltar"
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:34
 msgid "Import file"
-msgstr "Importar arquivo"
+msgstr "Importar ficheiro"
 
 #: ../views/custom_forms_plugin_myprofile/index.html.erb:1
 msgid "Manage queries"
@@ -766,7 +766,7 @@ msgstr "%s Sumissões Falhas.csv"
 
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:71
 msgid "Import another file"
-msgstr "Importar outro arquivo"
+msgstr "Importar outro ficheiro"
 
 #: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:10
 msgid "Submission date"
