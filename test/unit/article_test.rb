@@ -618,7 +618,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'allow author to edit if is publisher' do
     c = fast_create(Community)
-    p = create_user_with_permission('test_user', 'publish_content', c)
+    p = create_user_with_permission('test_user', 'post_content', c)
     a = create(Article, :name => 'a test article', :author => p, :profile_id => c.id)
 
     assert a.allow_post_content?(p)

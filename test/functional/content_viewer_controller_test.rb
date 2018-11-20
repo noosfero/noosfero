@@ -782,7 +782,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display link to new_article if profile is publisher' do
     c = Community.create!(:name => 'test_com')
-    u = create_user_with_permission('test_user', 'publish_content', c)
+    u = create_user_with_permission('test_user', 'post_content', c)
     login_as u.identifier
     a = create(Article, :profile => c, :name => 'test-article',
                :author => profile, :published => true)
