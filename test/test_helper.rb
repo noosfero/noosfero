@@ -9,7 +9,6 @@ require 'mocha'
 require 'mocha/minitest'
 require 'minitest/spec'
 require 'minitest/reporters'
-require 'database_cleaner'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
 
 require_relative 'mocks/environment'
@@ -26,7 +25,6 @@ require_relative 'support/action_tracker_test_helper'
 require_relative 'support/noosfero_doc_test'
 require_relative 'support/performance_helper'
 require_relative 'support/noosfero_test_helper'
-
 
 FileUtils.rm_rf(Rails.root.join('index', 'test'))
 
@@ -69,7 +67,6 @@ class ActiveSupport::TestCase
 
   fixtures :environments, :roles
 
-
   def self.all_fixtures
     Dir.glob(Rails.root.join('test', 'fixtures', '*.yml')).each do |item|
       fixtures File.basename(item).sub(/\.yml$/, '').to_s
@@ -87,13 +84,8 @@ class ActiveSupport::TestCase
   setup :global_setup
 
   def global_setup
-    DatabaseCleaner.start
     User.current = nil
-    # Delayed::Job.destroy_all
-  end
-
-  teardown do
-    DatabaseCleaner.clean
+    Delayed::Job.destroy_all
   end
 
   alias :ok :assert_block
@@ -201,7 +193,7 @@ class ActiveSupport::TestCase
   end
 
   def process_delayed_job_queue
-    # To enable logs, add `(quiet: false)` to Delayed::Workey.new
+    # To enable logs, add `(quiet: false)` to Delayed::Worker.new
     Delayed::Worker.new(quiet: false).work_off
   end
 
