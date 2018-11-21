@@ -62,7 +62,6 @@ profile_admin:
    - edit_appearance
    - manage_friends
    - validate_enterprise
-   - publish_content
    - manage_email_templates
 profile_member:
   id: 6
