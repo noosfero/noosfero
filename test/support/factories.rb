@@ -128,7 +128,7 @@ module Noosfero::Factory
 
   def fast_insert(klass, data)
     names = data.keys
-    values = names.map {|k| ApplicationRecord.send(:sanitize_sql_array, ['?', data[k]]) }
+    values = names.map {|k| klass.send(:sanitize_sql_array, ['?', data[k]]) }
     sql = 'insert into %s(%s) values (%s)' % [klass.table_name, names.join(','), values.join(',')]
     klass.connection.execute(sql)
     klass.order(:id).last

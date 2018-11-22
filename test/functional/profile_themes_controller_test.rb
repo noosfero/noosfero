@@ -106,7 +106,7 @@ class ProfileThemesControllerTest < ActionController::TestCase
 
   should 'display screen for creating new theme' do
     @request.expects(:xhr?).returns(true).at_least_once
-    get :new, :profile => 'testinguser'
+    get :new, profile: 'testinguser'
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/new', :method => /post/i }, :descendant => { :tag => 'input', :attributes => { :type => 'text', :name => 'name' } }
   end
 
