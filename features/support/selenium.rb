@@ -1,15 +1,18 @@
-require 'selenium/webdriver'
+require 'selenium-webdriver'
 
 Capybara.default_driver = :selenium
 Capybara.register_driver :selenium do |app|
   case ENV['SELENIUM_DRIVER']
   when 'chrome'
-    Capybara::Selenium::Driver.new app, browser: :chrome
+    options = Selenium::WebDriver::Chrome::Options.new
+    driver = Selenium::WebDriver.for :chrome, options: options
   else
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile.native_events = true
     profile["intl.accept_languages"] = "en"
-    Capybara::Selenium::Driver.new app, browser: :firefox, profile: profile
+    options = Selenium::WebDriver::Firefox::Options.new
+    options.profile = profile
+    driver = Selenium::WebDriver.for :firefox, options: options
   end
 end
 
