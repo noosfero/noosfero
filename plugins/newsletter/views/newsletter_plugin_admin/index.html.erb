@@ -81,6 +81,7 @@
       :id => 'newsletter-footer-field'
     ))
   %>
+  <%= render :file => 'shared/tiny_mce', :locals => { custom_options: { relative_urls: false, remove_script_host: false, branding: false } } %>    
   <%= button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= submit_button :save, _('Save and visualize'), :name => "visualize", :cancel => {:controller => 'plugins'}  %>
