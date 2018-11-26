@@ -24,16 +24,24 @@ smoke:
   stage: all-tests
   # stage: smoke-tests
 
+.cache: &cache
+  cache:
+    key: "$CI_BUILD_REF_NAME"
+    paths:
+      - /usr/share/rubygems-integration/all/
+
 .retriable-template: &retriable
   retry: 2
 
 specs-models:
   <<: *retriable
+  <<: *cache
   script: bundle exec rails test:specs
   stage: all-tests
 
 api:
   <<: *retriable
+  <<: *cache
   script: bundle exec rails test:api
   stage: all-tests
 
@@ -41,6 +49,7 @@ api:
 # Later change folder name to models/ and rails invoking to `rails test:models`
 units:
   <<: *retriable
+  <<: *cache
   script: bundle exec rails test test/unit
   stage: all-tests
 
@@ -48,25 +57,30 @@ units:
 # Later change folder name to controllers/ and rails invoking to `rails test:controllers`
 functionals:
   <<: *retriable
+  <<: *cache
   script: bundle exec rails test test/functional
   stage: all-tests
 
 integration:
   <<: *retriable
+  <<: *cache
   script: bundle exec rails test:integration
   stage: all-tests
 
 cucumber-1:
   <<: *retriable
+  <<: *cache
   script: SLICE=1/2 bundle exec cucumber --profile default
   stage: all-tests
 cucumber-2:
   <<: *retriable
+  <<: *cache
   script: SLICE=2/2 bundle exec cucumber --profile default
   stage: all-tests
 
 selenium-1:
   <<: *retriable
+  <<: *cache
   script: SLICE=1/6 bundle exec rails selenium
   stage: all-tests
 selenium-2:
@@ -75,18 +89,22 @@ selenium-2:
   stage: all-tests
 selenium-3:
   <<: *retriable
+  <<: *cache
   script: SLICE=3/6 bundle exec rails selenium
   stage: all-tests
 selenium-4:
   <<: *retriable
+  <<: *cache
   script: SLICE=4/6 bundle exec rails selenium
   stage: all-tests
 selenium-5:
   <<: *retriable
+  <<: *cache
   script: SLICE=5/6 bundle exec rails selenium
   stage: all-tests
 selenium-6:
   <<: *retriable
+  <<: *cache
   script: SLICE=6/6 bundle exec rails selenium
   stage: all-tests
 
@@ -94,34 +112,41 @@ selenium-6:
 # probably because of rubygems-integration
 plugins-1:
   <<: *retriable
-  script: SLICE=1/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  <<: *cache
+  script: SLICE=1/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-2:
   <<: *retriable
-  script: SLICE=2/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  <<: *cache
+  script: SLICE=2/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-3:
   <<: *retriable
-  script: SLICE=3/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  <<: *cache
+  script: SLICE=3/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-4:
   <<: *retriable
-  script: SLICE=4/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  <<: *cache
+  script: SLICE=4/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 plugins-5:
   <<: *retriable
-  script: SLICE=5/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
+  <<: *cache
+  script: SLICE=5/5 bundle exec rake test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: all-tests
 
 cypress:
   <<: *retriable
+  <<: *cache
   script: bundle exec rails cypress:run
   stage: all-tests
 
 rubocop:
   <<: *retriable
+  <<: *cache
   script:
-  - rubocop
+    - rubocop
   stage: code-quality
   allow_failure: true
 
