@@ -300,7 +300,8 @@ module Api
     # changing make_order_with_parameters to avoid sql injection
     def make_order_with_parameters(object, method_or_relation, params)
       assoc_class = extract_associated_classname(object, method_or_relation)
-      return_type = assoc_class == '' ? '' : assoc_class.table_name + '.'
+      return_type = assoc_class == '' ? '' : (assoc_class.respond_to?(:table_name) ? assoc_class.table_name + '.' : '')
+      
       order = "#{return_type}created_at DESC"
       unless params[:order].blank?
         if params[:order].include? '\'' or params[:order].include? '"'

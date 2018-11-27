@@ -867,8 +867,8 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'search for articles' do
-    article1 = fast_create(Article, profile_id: user.person.id, name: "Some thing")
-    article2 = fast_create(Article, profile_id: user.person.id, name: "Other thing")
+    article1 = fast_create(TextArticle, profile_id: user.person.id, name: "Some thing")
+    article2 = fast_create(TextArticle, profile_id: user.person.id, name: "Other thing")
     params[:search] = 'some'
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
