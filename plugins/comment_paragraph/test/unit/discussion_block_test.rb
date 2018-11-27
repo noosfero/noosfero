@@ -263,7 +263,7 @@ class DiscussionBlockViewTest < ActionView::TestCase
     a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now)
     a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now + 1.day)
     a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now + 1.day)
-    assert_equal [a1.id, a2.id, a3.id, a4.id], b.discussions.map(&:id)
+    assert_equal [a4.id, a3.id, a2.id, a1.id], b.discussions.map(&:id)
   end
 
 end

@@ -63,7 +63,8 @@ class CommentParagraphPlugin::DiscussionBlock < Block
     {
       articles: Api::Entities::ArticleBase.represent(self.discussions),
       fixed_documents: Api::Entities::ArticleBase.represent(self.fixed_documents),
-      total_items: self.total_items
+      total_items: self.total_items,
+      discussion_status: self.discussion_status
     }.as_json
   end
 
