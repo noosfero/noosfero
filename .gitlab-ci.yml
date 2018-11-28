@@ -7,8 +7,8 @@ before_script:
   - bundle exec rake db:migrate RAILS_ENV=test
 
 stages:
-  #FIXME Selenium tests are randomly failing and this avoid other tests to run.
-  #- smoke-tests
+  # FIXME Selenium tests are randomly failing and this avoid other tests to run.
+  - smoke-tests
   - all-tests
   - code-quality
 
@@ -18,14 +18,14 @@ stages:
     paths:
       - /usr/share/rubygems-integration/all/
 
-#smoke:
-#  script: bundle exec rake ci:smoke
-#  stage: smoke-tests
+# smoke:
+#   script: bundle exec rake ci:smoke
+#   stage: smoke-tests
 
 .retriable-template: &retriable
   retry: 2
 
-specs-models:
+rspec:
   <<: *retriable
   <<: *cache
   script: bundle exec rake test:specs
@@ -132,7 +132,6 @@ cypress:
   stage: all-tests
 
 rubocop:
-  <<: *retriable
   <<: *cache
   script:
   - rubocop
@@ -156,5 +155,10 @@ code_quality:
         --volume /var/run/docker.sock:/var/run/docker.sock
         "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
   artifacts:
-    paths: [gl-code-quality-report.json]
+    paths:
+      - gl-code-quality-report.json
+    reports:
+      codequality: gl-code-quality-report.json
   stage: code-quality
+  only:
+    - tags
