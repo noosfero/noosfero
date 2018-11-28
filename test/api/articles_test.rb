@@ -901,4 +901,77 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal ({"name" => [{"error"=>"blank", "full_message"=>"Title can't be blank"}]}), json["errors"]
   end
+
+  should 'return event articles from start_date' do
+    Article.delete_all
+    article = fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now + 1)
+    fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now - 1)
+    params[:from_start_date] = DateTime.now
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return event articles from end_date' do
+    Article.delete_all
+    fast_create(Event, :profile_id => user.person.id, end_date: DateTime.now + 2)
+    article = fast_create(Event, :profile_id => user.person.id, end_date: DateTime.now)
+    fast_create(Event, :profile_id => user.person.id)
+    params[:until_end_date] = DateTime.now + 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return event articles from start_date and end_date' do
+    Article.delete_all
+    fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now + 1, end_date: DateTime.now + 2)
+    article = fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now + 1, end_date: DateTime.now)
+    fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now - 1)
+    params[:from_start_date] = DateTime.now
+    params[:until_end_date] = DateTime.now + 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return articles from start_date' do
+    Article.delete_all
+    article = fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now + 1)
+    fast_create(Event, :profile_id => user.person.id, created_at: DateTime.now - 1)
+    params[:from_start_date] = DateTime.now
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return articles from end_date' do
+    Article.delete_all
+    fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now + 2)
+    article = fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now)
+    fast_create(TextArticle, :profile_id => user.person.id)
+    params[:until_end_date] = DateTime.now + 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return articles from start_date and end_date' do
+    Article.delete_all
+    fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now - 2)
+    article = fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now)
+    fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now + 2)
+    params[:from_start_date] = DateTime.now - 1
+    params[:until_end_date] = DateTime.now + 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
 end
