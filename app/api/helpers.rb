@@ -334,7 +334,7 @@ module Api
     end
 
     def by_period(scope, params, class_type, attribute)
-      return scope if class_type == NilClass
+      return scope if (class_type == NilClass || class_type.is_a?(String))
       from_param = "from_#{attribute}".to_sym
       until_param = "until_#{attribute}".to_sym
       from_date = DateTime.parse(params.delete(from_param)) if params[from_param]
@@ -391,6 +391,7 @@ module Api
       objects = by_reference(objects, params)
       objects = by_categories(objects, params)
       objects = by_roles(objects, params)
+
       [:start_date, :end_date].each { |attribute| objects = by_period(objects, params, assoc_class, attribute) }
 
       objects = objects.where(conditions).where(timestamp)
