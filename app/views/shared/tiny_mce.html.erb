@@ -3,7 +3,9 @@ extend TinymceHelper
 mode ||= false
 %>
 
+<% custom_options ||= {} %>
+
 <%= tinymce_js %>
-<%= tinymce_editor %>
+<%= tinymce_editor custom_options %>
 <%= tinymce_editor :mode => 'simple' %>
 <%= tinymce_editor :mode => 'restricted' %>

@@ -370,7 +370,7 @@ class Profile < ApplicationRecord
   has_many :articles, :dependent => :destroy
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
-  has_many :files, class_name: 'UploadedFile', dependent: :delete_all
+  has_many :files, class_name: 'UploadedFile', dependent: :destroy
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image
