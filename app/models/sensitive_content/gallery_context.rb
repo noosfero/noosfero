@@ -1,6 +1,6 @@
 class GalleryContext < GenericContext
 
-  def content_options
+  def content_types
     [
         UploadedFile
     ]

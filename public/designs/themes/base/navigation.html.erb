@@ -3,7 +3,7 @@
   <li class="new-content-home">
     <%= modal_icon_button(:file, _('New Content'),
       url_for(:controller => 'cms', :action => 'sensitive_content',
-              :profile => profile_to_publish(user, profile), :page => @page.try(:id)),
+              :profile => profile_to_publish(user, profile), :page => @page.try(:id), :not_back => true),
       class: 'initialize-sensitive-history') %>
   </li>
 
@@ -34,6 +34,7 @@
     <%= link_to("#{profile_image(user, :minor, class: "profile-icon")} #{content_tag :span, user.name, id: 'user-name'}".html_safe, '#', class: 'trigger-menu-toggle') %>
     <%= link_to(font_awesome('caret-down'), '#', class: "menu-toggle", id: "menu-dropdown") %>
     <ul class="noosfero-dropdown-menu">
+      <li><%= link_to font_awesome(:user, _('My Profile')), url_for(user.public_profile_url) %></li>
       <% user_menu_items.flatten.reject(&:blank?).each do |item| %>
         <li><%= item %></li>
       <% end %>
@@ -44,6 +45,7 @@
     <%= link_to(font_awesome(:bars), '#', class: "menu-toggle") %>
     <ul class="noosfero-dropdown-menu">
       <li><%= link_to(font_awesome(:search, _('Search')), controller: 'search', action: 'articles') %></li>
+      <li><%= link_to font_awesome(:user, _('My Profile')), url_for(user.public_profile_url) %></li>
       <% user_menu_items.flatten.reject(&:blank?).each do |item| %>
         <li><%= item %></li>
       <% end %>

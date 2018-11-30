@@ -525,6 +525,10 @@ class Article < ApplicationRecord
   scope :published, -> { where 'articles.published = ?', true }
   scope :folders, -> profile { where 'articles.type IN (?)', profile.folder_types }
   scope :no_folders, -> profile { where 'articles.type NOT IN (?)', profile.folder_types }
+  scope :top_folders, -> profile { where 'articles.type IN (?) and profile_id = ? and ' +
+                                         'parent_id IS NULL', profile.folder_types, profile }
+  scope :subfolders, -> profile, parent { where 'articles.type IN (?) and profile_id = ? and ' +
+                                          'parent_id = ?', profile.folder_types, profile, parent }
   scope :galleries, -> { where "articles.type IN ('Gallery')" }
   scope :images, -> { where :is_image => true }
   scope :no_images, -> { where :is_image => false }

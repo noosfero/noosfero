@@ -21,8 +21,8 @@ class SensitiveContent
     @context.directory_to_publish
   end
 
-  def content_options
-    @context.content_options
+  def content_types
+    @context.content_types
   end
 
   def directory_options

@@ -16,7 +16,6 @@
         div.new-sensitive-content-container {
             margin: 0 20px;
             overflow: hidden;
-            // max-height: 290px;
 
             h2 { margin-top: 0px; }
 
@@ -260,7 +259,6 @@
         }
 
         ul.article-types {
-        // div.new-sensitive-content-container {
             max-height: calc(80vh - 70px - 83px);
         }
     }
@@ -274,7 +272,6 @@
         }
 
         ul.article-types {
-            // div.new-sensitive-content-container {
             max-height: calc(80vh - 120px - 83px);
         }
     }
@@ -285,10 +282,6 @@
         div.profile-selector-container {
             // AlturaTotal - alturaBarraDePesquisa - alturaButoesRodape - 
             height: 60px;
-        }
-
-        div.publish-container.select-profile div.new-sensitive-content-container {
-            // height: 80px;
         }
     }
 

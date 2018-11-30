@@ -5,9 +5,6 @@ module SensitiveContentHelper
     directory = sensitive_context.directory
     profile = sensitive_context.profile
 
-    #TODO No caso do usuario estar publicando no seu proprio perfil
-    # retornar algo como 'Você esta publicando no seu perfil'
-    # ao inves de retonar na terceira pessoa
     directory_name = if !directory.nil? && display_directory
                         content_tag(:span, directory.name, class: 'publish-page')
                      else
@@ -39,9 +36,10 @@ module SensitiveContentHelper
 
   def select_directory_button sensitive_content
     modal_button(:folder, _('Post to another directory'),
-      url_for(:controller => 'cms', :action => 'select_directory',
+      url_for(:controller => 'cms', :action => 'sensitive_content',
               :profile => sensitive_content.profile.identifier,
-              :page => sensitive_content.directory.try(:id)),
+              :page => sensitive_content.directory.try(:id),
+              :select_directory => true),
       :class => 'option-folder add-sensitive-history')
   end
 

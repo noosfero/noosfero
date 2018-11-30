@@ -13,11 +13,7 @@
       <h2><%= _("In which directory do you want to publish?")%></h2>
       <ul class="article-types scrollbar">
         <% for directory in @sensitive_content.directory_options %>
-          <% if directory.subdirectories.empty? %>
-            <%= modal_button(:none, directory_option(directory), url_for(:controller => 'cms',
-                  :action => 'sensitive_content', :profile => @sensitive_content.profile.identifier,
-                  :page => directory.id), class: 'add-sensitive-history') %>
-          <% else %>
+          <% if directory.has_subdirectories? %>
             <div class='folder-dropdown 'style='position:relative'>
               <%= link_to directory_option(directory), '#', id: "sub-directories-for-#{directory.id}",
                     onclick: "openDropdown(this)" %>
@@ -30,11 +26,16 @@
                 <% end %>
                 <%= content_tag :li do %>
                   <%= modal_button(:folder_open, _('See subdirectories'), url_for(:controller => 'cms',
-                        :action => 'select_directory', :profile => @sensitive_content.profile.identifier,
-                        :page => directory.id, :select_subdirectory => true), class: 'add-sensitive-history') %>
+                        :action => 'sensitive_content', :profile => @sensitive_content.profile.identifier,
+                        :page => directory.id, :select_directory => true, :select_subdirectory => true),
+                        class: 'add-sensitive-history') %>
                 <% end %>
               <% end %>
             </div>
+          <% else %>
+            <%= modal_button(:none, directory_option(directory), url_for(:controller => 'cms',
+                  :action => 'sensitive_content', :profile => @sensitive_content.profile.identifier,
+                  :page => directory.id), class: 'add-sensitive-history') %>
           <% end %>
         <% end %>
       </ul>

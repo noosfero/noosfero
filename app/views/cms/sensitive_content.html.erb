@@ -12,7 +12,7 @@
     <div class='new-sensitive-content-container scrollbar'>
       <h2><%= _('What do you want to publish?') %></h2>
       <%= render :partial => 'cms/article_types', locals: {
-            article_types: @sensitive_content.content_options,
+            article_types: @sensitive_content.content_types,
             parent_id: @sensitive_content.directory.try(:id) } %>
     </div>
 

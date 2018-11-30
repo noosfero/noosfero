@@ -470,21 +470,9 @@ class CmsController < MyProfileController
 
   def sensitive_content
     current_page = params[:page] ? Article.find(params[:page]) : nil
-
-    @sensitive_back = params[:back] ? params[:back] : false
-
-    @sensitive_content = SensitiveContent.new(
-                           user: user,
-                           page: current_page,
-                           profile: profile
-                         )
-  end
-
-  def select_directory
-    current_page = params[:page] ? Article.find(params[:page]) : nil
     select_subdirectory = !params[:select_subdirectory].nil?
 
-    @sensitive_back = params[:back] ? params[:back] : false
+    @sensitive_back = params[:not_back] ? (params[:not_back] == 'true') : false
 
     @sensitive_content = SensitiveContent.new(
                            user: user,
@@ -492,6 +480,12 @@ class CmsController < MyProfileController
                            profile: profile,
                            select_subdirectory: select_subdirectory
                          )
+
+    if params[:select_directory]
+        render :action => 'select_directory'
+    else
+        render :action => 'sensitive_content'
+    end
   end
 
   def select_profile

@@ -16,13 +16,17 @@ sensitive_content = {
   backHistory: function(element, loadCallback) {
     this.current_page = this.history.pop()
     if(this.history.length == 0) {
-        if(this.current_page.includes('?')) {
-            loadCallback(this.current_page + '&back=true')
-        } else {
-            loadCallback(this.current_page + '?back=true')
-        }
+        loadCallback(this.addNotBackParam(this.current_page, true))
     } else {
         loadCallback(this.current_page)
+    }
+  },
+
+  addNotBackParam: function(url, not_back) {
+    if(url.indexOf('?') == -1) {
+        return url + '?not_back=' + not_back
+    } else {
+        return url + '&not_back=' + not_back
     }
   }
 }

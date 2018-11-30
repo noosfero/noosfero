@@ -1,6 +1,6 @@
 class FolderContext < GenericContext
 
-  def content_options
+  def content_types
     [
         TextArticle,
         Event,

@@ -29,7 +29,7 @@ class GenericContext
     @select_subdirectory
   end
 
-  def content_options
+  def content_types
     [
         TextArticle,
         Event,
@@ -56,9 +56,9 @@ class GenericContext
 
   def directory_options
     if select_subdirectory
-      directory_to_publish.subdirectories
+      Folder.subdirectories selected_profile, directory_to_publish
     else
-      Folder.subdirectories_to selected_profile
+      Folder.subdirectories selected_profile
     end
   end
 

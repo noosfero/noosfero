@@ -75,16 +75,16 @@ class Folder < Article
     'folder'
   end
 
-  def subdirectories
-    children.select do |directory|
-        directory.folder?
+  def self.subdirectories profile, folder=nil
+    if folder.nil?
+        Article.top_folders profile
+    else
+        Article.subfolders profile, folder
     end
   end
 
-  def self.subdirectories_to profile
-    Article.top_level_for(profile).select do |directory|
-        directory.folder?
-    end
+  def has_subdirectories?
+    Article.subfolders(profile, self).present?
   end
 
 end
