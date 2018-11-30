@@ -14,7 +14,6 @@ services:
   - postgres:9.4
 
 stages:
-  #FIXME Selenium tests are randomly failing and this avoid other tests to run.
   # - smoke-tests
   - all-tests
   - code-quality
@@ -30,10 +29,14 @@ smoke:
     paths:
       - /usr/share/rubygems-integration/all/
 
+# smoke:
+#   script: bundle exec rake ci:smoke
+#   stage: smoke-tests
+
 .retriable-template: &retriable
   retry: 2
 
-specs-models:
+rspec:
   <<: *retriable
   <<: *cache
   script: bundle exec rails test:specs
@@ -143,7 +146,6 @@ cypress:
   stage: all-tests
 
 rubocop:
-  <<: *retriable
   <<: *cache
   script:
     - rubocop
@@ -167,5 +169,10 @@ code_quality:
         --volume /var/run/docker.sock:/var/run/docker.sock
         "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
   artifacts:
-    paths: [gl-code-quality-report.json]
+    paths:
+      - gl-code-quality-report.json
+    reports:
+      codequality: gl-code-quality-report.json
   stage: code-quality
+  only:
+    - tags
