@@ -184,7 +184,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
   should 'make_order_with_parameters return order if attribute is found at object association' do
     environment = Environment.new
     params = {:order => "name ASC"}
-    assert_equal "name ASC", make_order_with_parameters(environment, "articles", params)
+    assert_equal "articles.name ASC", make_order_with_parameters(params, Article)
   end
 
   # test added to check for eventual sql injection vunerabillity
@@ -192,25 +192,25 @@ class Api::HelpersTest < ActiveSupport::TestCase
   should 'make_order_with_parameters return default order if attributes not exists' do
     environment = Environment.new
     params = {:order => "CRAZY_FIELD ASC"} # quote used to check sql injection vunerabillity
-    assert_equal "created_at DESC", make_order_with_parameters(environment, "articles", params)
+    assert_equal "articles.created_at DESC", make_order_with_parameters(params, Article)
   end
 
   should 'make_order_with_parameters return default order if sql injection detected' do
     environment = Environment.new
     params = {:order => "name' ASC"} # quote used to check sql injection vunerabillity
-    assert_equal "created_at DESC", make_order_with_parameters(environment, "articles", params)
+    assert_equal "articles.created_at DESC", make_order_with_parameters(params, Article)
   end
 
   should 'make_order_with_parameters return RANDOM() if random is passed' do
     environment = Environment.new
     params = {:order => "random"} # quote used to check sql injection vunerabillity
-    assert_equal "RANDOM()", make_order_with_parameters(environment, "articles", params)
+    assert_equal "RANDOM()", make_order_with_parameters(params, Article)
   end
 
   should 'make_order_with_parameters return RANDOM() if random function is passed' do
     environment = Environment.new
     params = {:order => "random()"} # quote used to check sql injection vunerabillity
-    assert_equal "RANDOM()", make_order_with_parameters(environment, "articles", params)
+    assert_equal "RANDOM()", make_order_with_parameters(params, Article)
   end
 
   should 'render not_found if endpoint is unavailable' do

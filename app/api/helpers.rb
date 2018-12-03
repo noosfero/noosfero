@@ -134,6 +134,7 @@ module Api
     def find_article(articles, params)
       conditions = make_conditions_with_parameter(params, Article)
       article = articles.find_by(conditions)
+      not_found! if article.nil?
       article.display_to?(current_person) ? article : forbidden!
     end
 
@@ -297,20 +298,21 @@ module Api
     end
 
     # changing make_order_with_parameters to avoid sql injection
-    def make_order_with_parameters(object, method_or_relation, params)
-      order = "created_at DESC"
+    def make_order_with_parameters(params, class_type)
+      return_type = class_type == '' ? '' : (class_type.respond_to?(:table_name) ? class_type.table_name + '.' : '')
+      
+      order = "#{return_type}created_at DESC"
       unless params[:order].blank?
         if params[:order].include? '\'' or params[:order].include? '"'
-          order = "created_at DESC"
+          order = "#{return_type}created_at DESC"
         elsif ['RANDOM()', 'RANDOM'].include? params[:order].upcase
           order = 'RANDOM()'
         else
           field_name, direction = params[:order].split(' ')
-          assoc_class = extract_associated_classname(object, method_or_relation)
-          if !field_name.blank? and assoc_class
-            if assoc_class.respond_to?(:attribute_names) && (assoc_class.attribute_names.include? field_name)
+          if !field_name.blank? and class_type
+            if class_type.respond_to?(:attribute_names) && (class_type.attribute_names.include? field_name)
               if direction.present? and ['ASC','DESC'].include? direction.upcase
-                order = "#{field_name} #{direction.upcase}"
+                order = "#{return_type}#{field_name} #{direction.upcase}"
               end
             end
           end
@@ -319,17 +321,35 @@ module Api
       return order
     end
 
-    def make_timestamp_with_parameters_and_method(object, method_or_relation, params)
+    def make_timestamp_with_parameters_and_method(params, class_type)
       timestamp = nil
       if params[:timestamp]
         datetime = DateTime.parse(params[:timestamp]).utc
-        table_name = extract_associated_tablename(object, method_or_relation)
-        assoc_class = extract_associated_classname(object, method_or_relation)
-        date_atrr = assoc_class.attribute_names.include?('updated_at') ? 'updated_at' : 'created_at'
+        table_name = class_type.table_name
+        date_atrr = class_type.attribute_names.include?('updated_at') ? 'updated_at' : 'created_at'
         timestamp = "#{table_name}.#{date_atrr} >= '#{datetime}'"
       end
 
       timestamp
+    end
+
+    def by_period(scope, params, class_type, attribute)
+      return scope if (class_type == NilClass || class_type.is_a?(String))
+      from_param = "from_#{attribute}".to_sym
+      until_param = "until_#{attribute}".to_sym
+      from_date = DateTime.parse(params.delete(from_param)) if params[from_param]
+      until_date = DateTime.parse(params.delete(until_param)) if params[until_param]
+      table_name = class_type.table_name
+
+      if class_type == Event
+        scope = scope.where("#{table_name}.#{attribute} >= ?", from_date) unless from_date.nil?
+        scope = scope.where("#{table_name}.#{attribute} <= ?", until_date) unless until_date.nil?
+      else 
+        scope = scope.where("#{table_name}.created_at >= ?", from_date) if !from_date.nil? && until_date.nil?
+        scope = scope.where("#{table_name}.created_at <= ?", until_date) if !until_date.nil? && from_date.nil?
+        scope = scope.where("#{table_name}.created_at BETWEEN ? AND ?", from_date, until_date) if !until_date.nil? && !from_date.nil?
+      end
+      scope
     end
 
     def by_roles(scope, params)
@@ -361,20 +381,26 @@ module Api
     end
 
     def select_filtered_collection_of(object, method_or_relation, params)
+      assoc_class = extract_associated_classname(object, method_or_relation)
+
       conditions = make_conditions_with_parameter(params)
-      order = make_order_with_parameters(object,method_or_relation,params)
-      timestamp = make_timestamp_with_parameters_and_method(object, method_or_relation, params)
+      order = make_order_with_parameters(params, assoc_class)
+      timestamp = make_timestamp_with_parameters_and_method(params, assoc_class)
 
       objects = is_a_relation?(method_or_relation) ? method_or_relation : object.send(method_or_relation)
       objects = by_reference(objects, params)
       objects = by_categories(objects, params)
       objects = by_roles(objects, params)
 
-      objects = objects.where(conditions).where(timestamp).reorder(order)
+      [:start_date, :end_date].each { |attribute| objects = by_period(objects, params, assoc_class, attribute) }
+
+      objects = objects.where(conditions).where(timestamp)
 
       if params[:search].present? || params[:tag].present?
         asset = objects.model.name.underscore.pluralize
-        objects = find_by_contents(asset, object, objects, params[:search], {:page => 1}, tag: params[:tag])[:results]
+        objects = find_by_contents(asset, object, objects, params[:search], {:page => 1}, tag: params[:tag])[:results].reorder(order)
+      else 
+        objects = objects.reorder(order)
       end
 
       params[:page] ||= 1
@@ -537,15 +563,11 @@ module Api
     end
     private
 
-    def extract_associated_tablename(object, method_or_relation)
-      extract_associated_classname(object, method_or_relation).table_name
-    end
-
     def extract_associated_classname(object, method_or_relation)
       if is_a_relation?(method_or_relation)
         method_or_relation.blank? ? '' : method_or_relation.first.class
       else
-        object.send(method_or_relation).table_name.singularize.camelize.constantize
+        object.send(method_or_relation).first.class
       end
     end
 
@@ -595,5 +617,6 @@ module Api
       settings = {:available_blocks => blocks}
       settings
     end
+
   end
 end
