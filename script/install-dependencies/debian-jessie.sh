@@ -72,8 +72,7 @@ timestamp=/tmp/.noosfero.apt-get.update
 now=$(date +%s)
 if [ ! -f $timestamp ] || [ $(($now - $(stat --format=%Y $timestamp))) -gt 21600 ]; then
   run retry 3 sudo apt-get update
-  run retry 3 sudo apt-mark hold firefox
-  run retry 3 sudo apt-get -qy upgrade
+  run retry 3 sudo apt-get -qy dist-upgrade
   touch $timestamp
 fi
 
