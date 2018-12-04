@@ -275,7 +275,7 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
-    mocha (1.7.0)
+    mocha (1.6.0)
       metaclass (~> 0.0.1)
     multi_json (1.13.1)
     multi_test (0.1.2)
