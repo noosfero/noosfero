@@ -2,7 +2,6 @@
 require_relative "../test_helper"
 
 class ApplicationHelperTest < ActionView::TestCase
-
   include ApplicationHelper
 
   def setup
@@ -453,6 +452,7 @@ class ApplicationHelperTest < ActionView::TestCase
   should 'display only environment if no profile and page' do
     stubs(:environment).returns(Environment.default)
     @controller = ApplicationController.new
+    stubs(:profile).returns(nil)
 
     assert_equal Environment.default.name, page_title
   end
@@ -792,44 +792,65 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   should 'include file from current theme out of a profile page' do
-    def profile; nil; end
-    def environment; e={}; def e.theme; 'env-theme'; end; e; end
-    def render(opt); opt; end
-    File.stubs(:exists?).returns(false)
+    env = mock
+    env.stubs(:theme).returns('env-theme')
+    stubs(:profile).returns(nil)
+    stubs(:environment).returns(env)
+    stubs(:render)
+
     file = Rails.root.join 'public/designs/themes/env-theme/somefile.html.erb'
-    assert_nil theme_include('somefile') # exists? = false
+    File.expects(:exists?).with(file).returns(false).at_least_once
+    expects(:render).with(file: file, use_full_path: false).never
+    theme_include('somefile')
+
     File.expects(:exists?).with(file).returns(true).at_least_once
-    assert_equal file, theme_include('somefile')[:file] # exists? = true
+    expects(:render).with(file: file, use_full_path: false).once
+    theme_include('somefile')
   end
 
   should 'include file from current theme inside a profile page' do
-    def profile; p={}; def p.theme; 'my-theme'; end; p; end
-    def render(opt); opt; end
-    File.stubs(:exists?).returns(false)
+    profile = mock
+    profile.stubs(:theme).returns('my-theme')
+    stubs(:profile).returns(profile)
+
     file = Rails.root.join 'public/designs/themes/my-theme/otherfile.html.erb'
-    assert_nil theme_include('otherfile') # exists? = false
+    File.expects(:exists?).with(file).returns(false).at_least_once
+    expects(:render).with(file: file, use_full_path: false).never
+    theme_include('otherfile')
+
     File.expects(:exists?).with(file).returns(true).at_least_once
-    assert_equal file, theme_include('otherfile')[:file] # exists? = true
+    expects(:render).with(file: file, use_full_path: false).once
+    theme_include('otherfile')
   end
 
   should 'include file from env theme' do
-    def profile; p={}; def p.theme; 'my-theme'; end; p; end
-    def environment; e={}; def e.theme; 'env-theme'; end; e; end
-    def render(opt); opt; end
-    File.stubs(:exists?).returns(false)
+    profile = mock
+    profile.stubs(:theme).returns('my-theme')
+    stubs(:profile).returns(profile)
+    env = mock
+    env.stubs(:theme).returns('env-theme')
+    stubs(:environment).returns(env)
+
     file = Rails.root.join 'public/designs/themes/env-theme/afile.html.erb'
-    assert_nil env_theme_include('afile') # exists? = false
+    File.expects(:exists?).with(file).returns(false).at_least_once
+    expects(:render).with(file: file, use_full_path: false).never
+    env_theme_include('afile')
+
     File.expects(:exists?).with(file).returns(true).at_least_once
-    assert_equal file, env_theme_include('afile')[:file] # exists? = true
+    expects(:render).with(file: file, use_full_path: false).once
+    env_theme_include('afile')
   end
 
   should 'include file from some theme' do
-    def render(opt); opt; end
-    File.stubs(:exists?).returns(false)
     file = Rails.root.join 'public/designs/themes/atheme/afile.html.erb'
-    assert_nil from_theme_include('atheme', 'afile') # exists? = false
+
+    File.expects(:exists?).with(file).returns(false).at_least_once
+    expects(:render).with(file: file, use_full_path: false).never
+    from_theme_include('atheme', 'afile')
+
     File.expects(:exists?).with(file).returns(true).at_least_once
-    assert_equal file, from_theme_include('atheme', 'afile')[:file] # exists? = true
+    expects(:render).with(file: file, use_full_path: false).once
+    from_theme_include('atheme', 'afile')
   end
 
   should 'enable fullscreen buttons' do
@@ -1003,5 +1024,4 @@ class ApplicationHelperTest < ActionView::TestCase
   def concat(str)
     str
   end
-
 end
