@@ -326,7 +326,7 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'list articles with pagination' do
-    Article.destroy_all
+    Article.delete_all
     article_one = fast_create(Article, :profile_id => user.person.id, :name => "Another thing", :created_at => 2.days.ago)
     article_two = fast_create(Article, :profile_id => user.person.id, :name => "Some thing", :created_at => 1.day.ago)
 
@@ -400,21 +400,22 @@ class ArticlesTest < ActiveSupport::TestCase
       parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
       article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
 
-      params[:path] = parent_article.slug+'/'+article.slug
-      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      params[:key] = 'path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/#{article.path}?#{params.to_query}"
       json = JSON.parse(last_response.body)
       assert_equal article.id, json["id"]
     end
 
-    should "return an empty array if theres id no article in path of #{kind}" do
+    should "return an error if there is no article in path of #{kind}" do
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
       article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
 
-      params[:path] = 'no-path'
-      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      params[:key] = 'path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/no-path?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert json.empty?
+      assert !json['success']
+      assert_equal Api::Status::Http::NOT_FOUND, json['code']
     end
 
     should "not return article by #{kind} and path if user has no permission to view it" do
@@ -424,19 +425,9 @@ class ArticlesTest < ActiveSupport::TestCase
 
       assert !article.published?
 
-      params[:path] = parent_article.slug+'/'+article.slug
-      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      params[:key] = 'path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/#{article.path}?#{params.to_query}"
       assert_equal 403, last_response.status
-    end
-
-    should "get article in #{kind} by path in articles endpoint be deprecated" do
-      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
-      parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
-      article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
-
-      params[:path] = parent_article.slug+'/'+article.slug
-      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
-      assert_equal Api::Status::DEPRECATED, last_response.status
     end
 
     should "return article by #{kind} and path with key parameter" do
@@ -848,7 +839,7 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'return only article fields defined in parameter' do
-    Article.destroy_all
+    Article.delete_all
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     params[:fields] = {:only => ['id', 'title']}
     get "/api/v1/articles/?#{params.to_query}"
@@ -857,7 +848,7 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'return all article fields except the ones defined in parameter' do
-    Article.destroy_all
+    Article.delete_all
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     params[:fields] = {:except => ['id', 'title']}
     get "/api/v1/articles/?#{params.to_query}"
