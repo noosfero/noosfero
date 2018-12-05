@@ -323,6 +323,8 @@ GEM
       actionpack (~> 5.x, >= 5.0.1)
       actionview (~> 5.x, >= 5.0.1)
       activesupport (~> 5.x)
+    rails-deprecated_sanitizer (1.0.3)
+      activesupport (>= 4.2.0.alpha)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
       nokogiri (>= 1.6)
@@ -537,6 +539,7 @@ DEPENDENCIES
   rack-cors
   rails (~> 5.1.6)
   rails-controller-testing
+  rails-deprecated_sanitizer
   rails-html-sanitizer
   rails-observers
   rails_autolink

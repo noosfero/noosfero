@@ -94,6 +94,7 @@ group :test do
   gem 'test-unit'
   gem 'minitest'
   gem 'minitest-reporters'
+  gem 'rails-deprecated_sanitizer'
   gem 'simplecov',                 require: false
 end
 

@@ -119,13 +119,13 @@ class ActiveSupport::TestCase
   end
 
   def assert_tag_in_string(text, options)
-    doc = Nokogiri::HTML(text)
+    doc = HTML::Document.new(text)
     tag = doc.find(options)
     assert tag, "expected tag #{options.inspect}, but not found in #{text.inspect}"
   end
 
   def assert_no_tag_in_string(text, options)
-    doc = Nokogiri::HTML(text)
+    doc = HTML::Document.new(text)
     tag = doc.find(options)
     assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
   end
