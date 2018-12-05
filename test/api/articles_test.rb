@@ -7,7 +7,7 @@ class ArticlesTest < ActiveSupport::TestCase
     login_api
   end
 
-  expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count url)
+  expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count url access)
 
   expose_attributes.each do |attr|
     should "expose article #{attr} attribute by default" do
