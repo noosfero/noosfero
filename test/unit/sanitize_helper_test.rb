@@ -4,6 +4,7 @@ class SanitizeHelperTest < ActionView::TestCase
 
   should 'permit white_list attributes on links' do
     allowed_attributes.each do |attribute|
+      next if attribute == 'xml:lang'
       assert_match /#{attribute}/, sanitize_link("<a #{attribute.to_sym}='value' />")
     end
   end

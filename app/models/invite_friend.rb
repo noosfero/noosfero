@@ -44,9 +44,10 @@ class InviteFriend < Invitation
 
   private
   def check_for_invitation_existence
-    if friend
-      friend.tasks.pending.of("InviteFriend").where(requestor_id: person.id, target_id: friend.id).blank?
-    end
+    return unless friend && friend.tasks.pending.of("InviteFriend")
+                                  .where(requestor_id: person.id, target_id: friend.id)
+                                  .present?
+    throw(:abort)
   end
 
 end

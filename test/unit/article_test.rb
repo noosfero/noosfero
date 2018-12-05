@@ -1403,7 +1403,9 @@ class ArticleTest < ActiveSupport::TestCase
     art3.hits = 92; art3.save!
     art2.hits = 3; art2.save!
 
-    assert_equal [art3, art1, art2], Article.more_popular
+    articles = Article.more_popular
+    assert articles.index(art3) < articles.index(art1)
+    assert articles.index(art1) < articles.index(art2)
   end
 
   should 'not allow all community members to edit by default' do

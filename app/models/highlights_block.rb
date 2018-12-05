@@ -19,10 +19,10 @@ class HighlightsBlock < Block
       if !Noosfero.root.nil? and !i[:address].start_with?(Noosfero.root + '/')
         i[:address] = Noosfero.root + i[:address]
       end
-      
+
       i[:new_window] = i[:new_window] == '1' ? true : false
       uploaded_file = UploadedFile.find_by(id: i[:image_id])
-      i[:image_src] = uploaded_file.present? ? uploaded_file.public_filename : nil
+      i[:image_src] = uploaded_file.public_filename if uploaded_file.present?
     end
   end
 

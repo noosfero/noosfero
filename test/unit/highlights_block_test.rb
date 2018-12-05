@@ -52,9 +52,11 @@ class HighlightsBlockTest < ActiveSupport::TestCase
   end
 
   should 'remove images with blank fields' do
-    h = HighlightsBlock.new(:block_images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => '', :position => '', :title => ''}])
+    h = HighlightsBlock.new(:block_images => [{ :image_id => 1, :address => '/address', :position => 1, :title => 'address' },
+                                              { :image_id => '', :address => '', :position => '', :title => '' }])
     h.save!
-    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false}], h.block_images
+    assert_equal [{:image_id => 1, :address => '/address', :position => 1, :title => 'address', :new_window => false}],
+                 h.block_images
   end
 
   should 'replace 1 and 0 by true and false in new_window attribute' do
@@ -63,9 +65,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     h = HighlightsBlock.new(:block_images => [image1, image2])
     h.save!
     image1[:new_window] = false
-    image1[:image_src] = nil
     image2[:new_window] = true
-    image2[:image_src] = nil
 
     assert_equivalent [image1, image2], h.block_images
   end
