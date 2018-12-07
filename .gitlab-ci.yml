@@ -8,6 +8,7 @@ before_script:
 
 variables:
   RAILS_ENV: test
+  SELENIUM_DRIVER: firefox
 
 services:
   - postgres:9.4
@@ -83,31 +84,31 @@ cucumber-2:
 selenium-1:
   <<: *retriable
   <<: *cache
-  script: SLICE=1/6 bundle exec cucumber -p selenium --format progress
+  script: SLICE=1/6 bundle exec rails selenium
   stage: all-tests
 selenium-2:
   <<: *retriable
-  script: SLICE=2/6 bundle exec cucumber -p selenium --format progress
+  script: SLICE=2/6 bundle exec rails selenium
   stage: all-tests
 selenium-3:
   <<: *retriable
   <<: *cache
-  script: SLICE=3/6 bundle exec cucumber -p selenium --format progress
+  script: SLICE=3/6 bundle exec rails selenium
   stage: all-tests
 selenium-4:
   <<: *retriable
   <<: *cache
-  script: SLICE=4/6 bundle exec cucumber -p selenium --format progress
+  script: SLICE=4/6 bundle exec rails selenium
   stage: all-tests
 selenium-5:
   <<: *retriable
   <<: *cache
-  script: SLICE=5/6 bundle exec cucumber -p selenium --format progress
+  script: SLICE=5/6 bundle exec rails selenium
   stage: all-tests
 selenium-6:
   <<: *retriable
   <<: *cache
-  script: SLICE=6/6 bundle exec cucumber -p selenium --format progress
+  script: SLICE=6/6 bundle exec rails selenium
   stage: all-tests
 
 # NOOSFERO_BUNDLE_OPTS=install makes migrations fails
