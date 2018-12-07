@@ -904,6 +904,19 @@ class ArticlesTest < ActiveSupport::TestCase
     assert_equal json.first['id'], article.id
   end
 
+  should 'return descendent of event articles from start_date' do
+    Article.delete_all
+    class EventDescendent < Event; end
+    article = fast_create(EventDescendent, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now + 1)
+    fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now - 1)
+    params[:from_start_date] = DateTime.now
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+
   should 'return event articles from end_date' do
     Article.delete_all
     fast_create(Event, :profile_id => user.person.id, end_date: DateTime.now + 2)

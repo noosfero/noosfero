@@ -341,7 +341,7 @@ module Api
       until_date = DateTime.parse(params.delete(until_param)) if params[until_param]
       table_name = class_type.table_name
 
-      if class_type == Event
+      if class_type.new.is_a?(Event)
         scope = scope.where("#{table_name}.#{attribute} >= ?", from_date) unless from_date.nil?
         scope = scope.where("#{table_name}.#{attribute} <= ?", until_date) unless until_date.nil?
       else 
@@ -381,9 +381,10 @@ module Api
     end
 
     def select_filtered_collection_of(object, method_or_relation, params)
-      assoc_class = extract_associated_classname(object, method_or_relation)
 
       conditions = make_conditions_with_parameter(params)
+      assoc_class = extract_associated_classname(object, method_or_relation, conditions)
+
       order = make_order_with_parameters(params, assoc_class)
       timestamp = make_timestamp_with_parameters_and_method(params, assoc_class)
 
@@ -563,11 +564,11 @@ module Api
     end
     private
 
-    def extract_associated_classname(object, method_or_relation)
+    def extract_associated_classname(object, method_or_relation, conditions)
       if is_a_relation?(method_or_relation)
-        method_or_relation.blank? ? '' : method_or_relation.first.class
+        method_or_relation.blank? ? '' : method_or_relation.where(conditions).first.class
       else
-        object.send(method_or_relation).first.class
+        object.send(method_or_relation).where(conditions).first.class
       end
     end
 
