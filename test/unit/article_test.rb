@@ -876,9 +876,6 @@ class ArticleTest < ActiveSupport::TestCase
     friend = fast_create(Person)
     circle = Circle.create!(:person=> friend, :name => "Zombies", :profile_type => 'Person')
     friend.follow(profile, circle)
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
-    ActionTrackerNotification.destroy_all
     User.current = profile.user
     article = create(TextArticle, :profile_id => profile.id)
 
@@ -914,9 +911,6 @@ class ArticleTest < ActiveSupport::TestCase
 
     friend.follow(profile, circle)
 
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
-    ActionTrackerNotification.destroy_all
     User.current = profile.user
     article = create(TextArticle, :profile_id => profile.id)
     activity = article.activity

@@ -98,7 +98,7 @@ class UploadedFileTest < ActiveSupport::TestCase
     file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent_id => f.id, :profile => p)
 
     file.reload
-    assert File.exists?(file.public_filename(:icon))
+    assert File.exists?(UploadedFile.find(file.id).public_filename(:icon))
     file.destroy
   end
 
