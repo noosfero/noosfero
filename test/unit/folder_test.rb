@@ -146,4 +146,41 @@ class FolderTest < ActiveSupport::TestCase
     assert folder.accept_uploads?
   end
 
+  should 'return true if folder has subdirectories' do
+    profile = create_user('testuser').person
+    folder = fast_create(Folder, profile_id: profile.id)
+    subfolder = fast_create(Folder, profile_id: profile.id, parent_id: folder.id)
+
+    assert folder.has_subdirectories?
+  end
+
+  should 'return false if folder has subdirectories' do
+    profile = create_user('testuser').person
+    folder = fast_create(Folder, profile_id: profile.id)
+
+    refute folder.has_subdirectories?
+  end
+
+  should 'return root folders to profile' do
+    profile = create_user('testuser').person
+    folder = fast_create(Folder, profile_id: profile.id)
+    subfolder = fast_create(Folder, profile_id: profile.id, parent_id: folder.id)
+
+    result = Folder.subdirectories(profile)
+
+    assert_includes result, folder
+    assert_not_includes result, subfolder
+  end
+
+  should 'return sub folders to a folder in profile' do
+    profile = create_user('testuser').person
+    folder = fast_create(Folder, profile_id: profile.id)
+    subfolder = fast_create(Folder, profile_id: profile.id, parent_id: folder.id)
+
+    result = Folder.subdirectories(profile, folder)
+
+    assert_includes result, subfolder
+    assert_not_includes result, folder
+  end
+
 end

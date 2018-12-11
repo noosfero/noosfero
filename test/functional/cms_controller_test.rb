@@ -2211,6 +2211,94 @@ class CmsControllerTest < ActionController::TestCase
     assert_match /PNG image data, 320 x 240/, `file '#{file.public_filename}'`
   end
 
+  should 'render sensitive content view' do
+    post :sensitive_content, profile: profile.identifier
+    assert_template 'sensitive_content'
+    assert_tag :span, :content => profile.name, :attributes => { :class => 'publish-profile' }
+    assert_no_tag :span, :attributes => { :class => 'publish-page' }
+  end
+
+  should 'render sensitive content view with current page' do
+    page = fast_create(Blog, profile_id: profile.id)
+    post :sensitive_content, profile: profile.identifier, page: page.id
+    assert_template 'sensitive_content'
+    assert_tag :span, :content => profile.name, :attributes => { :class => 'publish-profile' }
+    assert_tag :span, :content => page.title, :attributes => { :class => 'publish-page' }
+  end
+
+  should 'render sensitive content view with user has\'t permission to publish in current page' do
+    page = fast_create(Blog)
+    post :sensitive_content, profile: profile.identifier, page: page.id
+    assert_template 'sensitive_content'
+    assert_tag :span, :content => profile.name, :attributes => { :class => 'publish-profile' }
+    assert_no_tag :span, :attributes => { :class => 'publish-page' }
+  end
+
+  should 'render select directory view if pass select_directory param' do
+    post :sensitive_content, profile: profile.identifier, select_directory: true
+    assert_template 'select_directory'
+    assert_tag :span, :content => profile.name, :attributes => { :class => 'publish-profile' }
+    assert_no_tag :span, :attributes => { :class => 'publish-page' }
+    assert_no_tag :a, attributes: {
+      href: "/myprofile/#{profile.identifier}/cms/sensitive_content?select_directory=true" }
+  end
+
+  should 'render select profile view' do
+    post :select_profile, profile: profile.identifier
+    assert_template 'select_profile'
+    assert_tag :a, attributes: {
+      href: "/myprofile/#{profile.identifier}/cms/sensitive_content" }
+    assert_no_tag :a, attributes: {
+      href: "/myprofile/#{profile.identifier}/cms/select_profile" }
+  end
+
+  should 'render select profile view with communities option' do
+    community = fast_create(Community)
+    community.add_admin(profile)
+    post :select_profile, profile: profile.identifier
+    assert_template 'select_profile'
+    assert_tag :a, attributes: {
+      href: "/myprofile/#{profile.identifier}/cms/select_profile?select_type=community" }
+    assert_no_tag :a, attributes: {
+      href: "/myprofile/#{profile.identifier}/cms/select_profile" }
+  end
+
+  should 'render select profile view with enterprises option' do
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(profile)
+    post :select_profile, profile: profile.identifier
+    assert_template 'select_profile'
+    assert_tag :a, attributes: {
+      href: "/myprofile/#{profile.identifier}/cms/select_profile?select_type=enterprise" }
+    assert_no_tag :a, attributes: {
+      href: "/myprofile/#{profile.identifier}/cms/select_profile" }
+  end
+
+  should 'show back button in sensitive_content' do
+    page = fast_create(Blog, profile_id: profile.id)
+    post :sensitive_content, profile: profile.identifier, page: page.id, not_back: "false"
+
+    assert_template 'sensitive_content'
+
+    assert_tag :a, :attributes => { 
+      :class => 'button icon-back with-text button option-back'}
+
+    assert_no_tag :a, :attributes => {
+      :class => 'button icon-none with-text button option-not-back'}
+  end
+
+  should 'not show back button in sensitive_content' do
+    page = fast_create(Blog, profile_id: profile.id)
+    post :sensitive_content, profile: profile.identifier, page: page.id, not_back: "true"
+    assert_template 'sensitive_content'
+
+    assert_tag :a, :attributes => {
+      :class => 'button icon-none with-text button option-not-back'}
+
+    assert_no_tag :a, :attributes => {
+      :class => 'button icon-back with-text button option-back'}
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

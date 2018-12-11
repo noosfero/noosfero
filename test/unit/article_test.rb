@@ -1228,6 +1228,41 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
+  should 'return top folders' do
+
+    parent_folder_1 = fast_create(Folder, profile_id: profile.id)
+    sub_folder_1 = fast_create(Blog, parent_id: parent_folder_1.id,
+                                profile_id: profile.id)
+
+    parent_folder_2 = fast_create(Folder, profile_id: profile.id)
+    sub_folder_2 = fast_create(Blog, parent_id: parent_folder_2.id,
+                                profile_id: profile.id)
+
+    assert_includes Article.top_folders(profile), parent_folder_1
+    assert_includes Article.top_folders(profile), parent_folder_2
+
+    assert_not_includes Article.top_folders(profile), sub_folder_1
+    assert_not_includes Article.top_folders(profile), sub_folder_2
+
+  end
+
+  should 'return subfolders' do
+
+    parent_folder_1 = fast_create(Folder, profile_id: profile.id)
+    sub_folder_1 = fast_create(Blog, parent_id: parent_folder_1.id,
+                                profile_id: profile.id)
+
+    parent_folder_2 = fast_create(Folder, profile_id: profile.id)
+    sub_folder_2 = fast_create(Blog, parent_id: parent_folder_2.id,
+                                profile_id: profile.id)
+
+    assert_includes Article.subfolders(profile, parent_folder_1), sub_folder_1
+    assert_not_includes Article.subfolders(profile, parent_folder_1), parent_folder_1
+
+    assert_includes Article.subfolders(profile, parent_folder_2), sub_folder_2
+    assert_not_includes Article.subfolders(profile, parent_folder_2), parent_folder_2
+  end
+
   should 'accept uploads if parent accept uploads' do
     folder = fast_create(Folder)
     child = fast_create(UploadedFile, :parent_id => folder.id)

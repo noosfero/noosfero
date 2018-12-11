@@ -15,25 +15,27 @@
       <% if @profiles.nil? %>
         <ul class="article-types scrollbar">
 
-          <%= modal_button(:none, select_item(user.name, profile_image(user, :minor)),
+          <%= link_to(select_item(user.name, profile_image(user, :minor)),
                            url_for(:controller => 'cms', :action => 'sensitive_content',
                            :profile => user.identifier, :page => @sensitive_content.directory.try(:id)),
-                           class: 'add-sensitive-history') %>
+                           modal_options({class: 'add-sensitive-history', title: _('Publish in your profile')})) %>
 
           <% if user.communities_with_post_permisson.present? %>
-            <%= modal_button(:none, select_item(_('My communities'),
+            <%= link_to(select_item(_('My communities'),
                   image_tag(profile_default_image(:community), :class => 'logo')),
                   url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'community',
                           :profile => @sensitive_content.profile.identifier,
-                          :page => @sensitive_content.directory.try(:id)), class: 'add-sensitive-history') %>
+                          :page => @sensitive_content.directory.try(:id)),
+                  modal_options({class: 'add-sensitive-history', title: _('My communities')})) %>
           <% end %>
 
           <% if user.enterprises_with_post_permisson.present? %>
-            <%= modal_button(:none, select_item(_('My enterprises'),
+            <%= link_to(select_item(_('My enterprises'),
                   image_tag(profile_default_image(:enterprise), :class => 'logo')),
                   url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'enterprise',
                           :profile => @sensitive_content.profile.identifier, 
-                          :page => @sensitive_content.directory.try(:id)), class: 'add-sensitive-history') %>
+                          :page => @sensitive_content.directory.try(:id)),
+                  modal_options({class: 'add-sensitive-history', title: _('My enterprises')})) %>
           <% end %>
         </ul>
 

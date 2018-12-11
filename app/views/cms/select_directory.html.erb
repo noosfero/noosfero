@@ -16,7 +16,7 @@
           <% if directory.has_subdirectories? %>
             <div class='folder-dropdown 'style='position:relative'>
               <%= link_to directory_option(directory), '#', id: "sub-directories-for-#{directory.id}",
-                    onclick: "openDropdown(this)" %>
+                    onclick: "openDropdown(this)", title: directory.name %>
               <%= content_tag :ul, :class => "noosfero-dropdown-menu",
                     :id => "sub-directories-for-#{directory.id}-dropdown" do %>
                 <%= content_tag :li do %>
@@ -33,9 +33,9 @@
               <% end %>
             </div>
           <% else %>
-            <%= modal_button(:none, directory_option(directory), url_for(:controller => 'cms',
+            <%= link_to(directory_option(directory), url_for(:controller => 'cms',
                   :action => 'sensitive_content', :profile => @sensitive_content.profile.identifier,
-                  :page => directory.id), class: 'add-sensitive-history') %>
+                  :page => directory.id), modal_options({class: 'add-sensitive-history', title: directory.name})) %>
           <% end %>
         <% end %>
       </ul>

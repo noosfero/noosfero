@@ -4,7 +4,7 @@
     <%= modal_icon_button(:file, _('New Content'),
       url_for(:controller => 'cms', :action => 'sensitive_content',
               :profile => profile_to_publish(user, profile), :page => @page.try(:id), :not_back => true),
-      class: 'initialize-sensitive-history') %>
+      class: 'initialize-sensitive-history', id: 'new-sensitive-content-start') %>
   </li>
 
   <li class="user-pending-tasks">
