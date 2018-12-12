@@ -7,7 +7,7 @@ class ArticlesTest < ActiveSupport::TestCase
     login_api
   end
 
-  expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count url)
+  expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count url access)
 
   expose_attributes.each do |attr|
     should "expose article #{attr} attribute by default" do
@@ -326,7 +326,7 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'list articles with pagination' do
-    Article.destroy_all
+    Article.delete_all
     article_one = fast_create(Article, :profile_id => user.person.id, :name => "Another thing", :created_at => 2.days.ago)
     article_two = fast_create(Article, :profile_id => user.person.id, :name => "Some thing", :created_at => 1.day.ago)
 
@@ -400,21 +400,22 @@ class ArticlesTest < ActiveSupport::TestCase
       parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
       article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
 
-      params[:path] = parent_article.slug+'/'+article.slug
-      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      params[:key] = 'path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/#{article.path}?#{params.to_query}"
       json = JSON.parse(last_response.body)
       assert_equal article.id, json["id"]
     end
 
-    should "return an empty array if theres id no article in path of #{kind}" do
+    should "return an error if there is no article in path of #{kind}" do
       profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
       parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
       article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
 
-      params[:path] = 'no-path'
-      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      params[:key] = 'path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/no-path?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert json.empty?
+      assert !json['success']
+      assert_equal Api::Status::Http::NOT_FOUND, json['code']
     end
 
     should "not return article by #{kind} and path if user has no permission to view it" do
@@ -424,19 +425,9 @@ class ArticlesTest < ActiveSupport::TestCase
 
       assert !article.published?
 
-      params[:path] = parent_article.slug+'/'+article.slug
-      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
+      params[:key] = 'path'
+      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles/#{article.path}?#{params.to_query}"
       assert_equal 403, last_response.status
-    end
-
-    should "get article in #{kind} by path in articles endpoint be deprecated" do
-      profile = fast_create(kind.camelcase.constantize, :environment_id => environment.id)
-      parent_article = Folder.create!(:profile => profile, :name => "Parent Folder")
-      article = Article.create!(:profile => profile, :name => "Some thing", :parent => parent_article)
-
-      params[:path] = parent_article.slug+'/'+article.slug
-      get "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
-      assert_equal Api::Status::DEPRECATED, last_response.status
     end
 
     should "return article by #{kind} and path with key parameter" do
@@ -848,6 +839,7 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'return only article fields defined in parameter' do
+    Article.delete_all
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     params[:fields] = {:only => ['id', 'title']}
     get "/api/v1/articles/?#{params.to_query}"
@@ -856,6 +848,7 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'return all article fields except the ones defined in parameter' do
+    Article.delete_all
     article = fast_create(Article, :profile_id => user.person.id, :name => "Some thing")
     params[:fields] = {:except => ['id', 'title']}
     get "/api/v1/articles/?#{params.to_query}"
@@ -865,8 +858,8 @@ class ArticlesTest < ActiveSupport::TestCase
   end
 
   should 'search for articles' do
-    article1 = fast_create(Article, profile_id: user.person.id, name: "Some thing")
-    article2 = fast_create(Article, profile_id: user.person.id, name: "Other thing")
+    article1 = fast_create(TextArticle, profile_id: user.person.id, name: "Some thing")
+    article2 = fast_create(TextArticle, profile_id: user.person.id, name: "Other thing")
     params[:search] = 'some'
     get "/api/v1/articles/?#{params.to_query}"
     json = JSON.parse(last_response.body)
@@ -899,4 +892,90 @@ class ArticlesTest < ActiveSupport::TestCase
     json = JSON.parse(last_response.body)
     assert_equal ({"name" => [{"error"=>"blank", "full_message"=>"Title can't be blank"}]}), json["errors"]
   end
+
+  should 'return event articles from start_date' do
+    Article.delete_all
+    article = fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now + 1)
+    fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now - 1)
+    params[:from_start_date] = DateTime.now
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return descendent of event articles from start_date' do
+    Article.delete_all
+    class EventDescendent < Event; end
+    article = fast_create(EventDescendent, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now + 1)
+    fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now - 1)
+    params[:from_start_date] = DateTime.now
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+
+  should 'return event articles from end_date' do
+    Article.delete_all
+    fast_create(Event, :profile_id => user.person.id, end_date: DateTime.now + 2)
+    article = fast_create(Event, :profile_id => user.person.id, end_date: DateTime.now)
+    fast_create(Event, :profile_id => user.person.id)
+    params[:until_end_date] = DateTime.now + 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return event articles from start_date and end_date' do
+    Article.delete_all
+    fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now + 1, end_date: DateTime.now + 2)
+    article = fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now + 1, end_date: DateTime.now)
+    fast_create(Event, :profile_id => user.person.id, :name => "Some thing", start_date: DateTime.now - 1)
+    params[:from_start_date] = DateTime.now
+    params[:until_end_date] = DateTime.now + 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return articles from start_date' do
+    Article.delete_all
+    article = fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now + 1)
+    fast_create(Event, :profile_id => user.person.id, created_at: DateTime.now - 1)
+    params[:from_start_date] = DateTime.now
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return articles from end_date' do
+    Article.delete_all
+    fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now + 2)
+    article = fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now)
+    fast_create(TextArticle, :profile_id => user.person.id)
+    params[:until_end_date] = DateTime.now + 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
+  should 'return articles from start_date and end_date' do
+    Article.delete_all
+    fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now - 2)
+    article = fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now)
+    fast_create(TextArticle, :profile_id => user.person.id, created_at: DateTime.now + 2)
+    params[:from_start_date] = DateTime.now - 1
+    params[:until_end_date] = DateTime.now + 1
+    get "/api/v1/articles/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_equal 1, json.length
+    assert_equal json.first['id'], article.id
+  end
+
 end

@@ -371,7 +371,7 @@ class Profile < ApplicationRecord
   has_many :comments_received, class_name: 'Comment', through:  :articles, source:  :comments
   belongs_to :home_page, class_name: Article.name, foreign_key: 'home_page_id', optional: true
 
-  has_many :files, class_name:  'UploadedFile'
+  has_many :files, class_name: 'UploadedFile', dependent: :destroy
 
   extend ActsAsHavingImage::ClassMethods
   acts_as_having_image

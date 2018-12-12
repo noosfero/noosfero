@@ -240,6 +240,7 @@ module Api
       expose :type
       expose :comments, using: CommentBase, :if => lambda{|comment,options| Entities.expose_optional_field?(:comments, options)}
       expose :published
+      expose :access
       expose :accept_comments?, as: :accept_comments
       expose :mime_type
       expose :size, :if => lambda { |article, options| article.kind_of?(UploadedFile)}
@@ -315,6 +316,7 @@ module Api
       expose :layout_template
       expose :signup_intro
       expose :terms_of_use
+      expose :contact_email
       expose :captcha_site_key do |environment, options|
         Recaptcha.configuration.site_key
       end

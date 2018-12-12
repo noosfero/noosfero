@@ -281,19 +281,7 @@ module Api
               get do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
 
-                if params[:path].present?
-                  article = profile.articles.find_by path: params[:path]
-                  if article && !article.display_to?(current_person)
-                    article = forbidden!
-                  end
-                  article ||= []
-                  status Api::Status::DEPRECATED
-
-                  present_partial article, :with => Entities::Article, current_person: current_person
-                else
-
-                  present_articles_for_asset(profile)
-                end
+                present_articles_for_asset(profile)
               end
 
               desc "Return a article associate with a profile of type #{kind}" do
@@ -305,7 +293,15 @@ module Api
               end
               get '/*id' do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
-                present_article(profile)
+                key = (params[:key].present? && params[:key] == 'path') ? :path : :id
+
+                article = profile.articles.find_by(key => params[:id])
+                if article && !article.display_to?(current_person)
+                  article = forbidden!
+                end
+                article ||= not_found! 
+
+                present_partial article, :with => Entities::Article, current_person: current_person
               end
 
               # Example Request:
