@@ -255,6 +255,7 @@ matheuslacerda <matheusmirandalacerda@gmail.com>
 mendesiasmin <mendesiasmin96@gmail.com>
 nimradium <nimra242001@gmail.com>
 shshshwhs <diogobeirao10@gmail.com>
+ssantos <ssantos@web.de>
 thiagorfm <t_moreira@outlook.com>
 tiagorc <tiagobrasil2005@yahoo.com.br>
 victorcmoura <victor_cmoura@hotmail.com>
