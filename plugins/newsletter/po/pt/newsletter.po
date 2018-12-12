@@ -76,12 +76,16 @@ msgid "must have only valid emails"
 msgstr "deve ter apenas emails válidos"
 
 #: ../lib/newsletter_plugin/newsletter.rb:122
+msgid "click here"
+msgstr "clique aqui"
+
+#: ../lib/newsletter_plugin/newsletter.rb:122
 msgid "If you can't view this email, %s."
 msgstr "Se você não pode ver este email, %s."
 
-#: ../lib/newsletter_plugin/newsletter.rb:122
-msgid "click here"
-msgstr "clique aqui"
+#: ../lib/newsletter_plugin/newsletter.rb:130
+msgid "cancel your subscription here"
+msgstr "cancele sua inscrição aqui"
 
 #: ../lib/newsletter_plugin/newsletter.rb:130
 msgid ""
@@ -90,10 +94,6 @@ msgid ""
 msgstr ""
 "Este e-mail é gerado automaticamente, por favor não responda. Se você não "
 "deseja continuar recebendo boletins informativos, %s."
-
-#: ../lib/newsletter_plugin/newsletter.rb:130
-msgid "cancel your subscription here"
-msgstr "cancele sua inscrição aqui"
 
 #: ../lib/newsletter_plugin/newsletter.rb:134
 msgid "Read more"
@@ -227,11 +227,11 @@ msgstr "Imagem do topo (imagens com 640px de largura):"
 msgid "Newsletter footer"
 msgstr "Rodapé do boletim informativo"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:85
+#: ../views/newsletter_plugin_admin/index.html.erb:86
 msgid "Save"
 msgstr "Salvar"
 
-#: ../views/newsletter_plugin_admin/index.html.erb:86
+#: ../views/newsletter_plugin_admin/index.html.erb:87
 msgid "Save and visualize"
 msgstr "Salvar e visualizar"
 

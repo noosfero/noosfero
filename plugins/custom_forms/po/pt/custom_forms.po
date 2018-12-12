@@ -529,12 +529,12 @@ msgid "Type in your question"
 msgstr "Digite a sua pergunta"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Checkboxes"
-msgstr "Checkboxes"
-
-#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
 msgid "Multiple choice"
 msgstr "Múltipla escolha"
+
+#: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
+msgid "Checkboxes"
+msgstr "Checkboxes"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:39
@@ -706,11 +706,10 @@ msgid "There are no pending submissions for this form."
 msgstr "Não há submissões pendentes para esse formulário."
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
-#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
-msgid "Time"
-msgstr "Tempo"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Usuário"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
@@ -718,10 +717,11 @@ msgid "Sort by"
 msgstr "Ordenar por"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Usuário"
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
+#: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
+msgid "Time"
+msgstr "Tempo"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:24
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:45
@@ -901,12 +901,12 @@ msgid "Your e-mail will be visible to this form's owners."
 msgstr "Seu e-mail ficará visível para o dono deste formulário."
 
 #: ../views/shared/_form.html.erb:15
-msgid "Vote!"
-msgstr "Votar!"
-
-#: ../views/shared/_form.html.erb:15
 msgid "Send"
 msgstr "Enviar"
+
+#: ../views/shared/_form.html.erb:15
+msgid "Vote!"
+msgstr "Votar!"
 
 #: ../views/shared/_form.html.erb:18 ../views/shared/_form.html.erb:21
 msgid "Are you sure your want to submit your vote?"

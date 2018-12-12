@@ -54,7 +54,7 @@ msgstr "%{num} խմբեր"
 msgid "friends"
 msgstr ""
 
-#: ../lib/members_block.rb:36
+#: ../lib/members_block.rb:38
 msgid "Show join leave button"
 msgstr ""
 

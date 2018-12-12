@@ -42,7 +42,7 @@ msgstr "Discussão de Comentários"
 msgid "Article with paragraph comments"
 msgstr "Artigo com parágrafos comentados"
 
-#: ../lib/comment_paragraph_plugin/discussion_block.rb:23
+#: ../lib/comment_paragraph_plugin/discussion_block.rb:22
 msgid "This block displays all profile's article discussion"
 msgstr "Este bloco mostra todos os debates neste perfil"
 
@@ -60,16 +60,16 @@ msgid "Choose which blog should be displayed"
 msgstr "Escolha qual blog deve ser mostrado"
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
-msgid "Not Opened Discussions"
-msgstr "Discussões Não Abertas"
-
-#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
 msgid "Available Discussions"
 msgstr "Discussões Disponíveis"
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
 msgid "Closed Discussions"
 msgstr "Discussões Fechadas"
+
+#: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
+msgid "Not Opened Discussions"
+msgstr "Discussões Não Abertas"
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:10
 msgid "Choose how the content should be displayed"

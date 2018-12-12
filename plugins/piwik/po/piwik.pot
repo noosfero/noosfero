@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-03 15:02+0000\n"
-"PO-Revision-Date: 2018-07-03 15:02+0000\n"
+"POT-Creation-Date: 2018-12-12 13:31+0000\n"
+"PO-Revision-Date: 2018-12-12 13:31+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../controllers/piwik_plugin_admin_controller.rb:8
+#: ../controllers/piwik_plugin_admin_controller.rb:11
 msgid "Piwik plugin settings updated successfully."
 msgstr ""
 
-#: ../controllers/piwik_plugin_admin_controller.rb:10
+#: ../controllers/piwik_plugin_admin_controller.rb:13
 msgid "Piwik plugin settings could not be saved."
 msgstr ""
 
@@ -30,7 +30,7 @@ msgstr ""
 msgid "Tracking and web analytics to your Noosfero's environment"
 msgstr ""
 
-#: ../lib/piwik_plugin.rb:38
+#: ../lib/piwik_plugin.rb:37
 msgid "Piwik"
 msgstr ""
 
