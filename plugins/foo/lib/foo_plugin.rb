@@ -20,7 +20,6 @@ class FooPlugin < Noosfero::Plugin
     # -> Custom title for foo profiles tab
     # returns = a string with a custom title
     def foo_plugin_tab_title
-      "Foo plugin tab"
     end
   end
 
@@ -28,12 +27,11 @@ class FooPlugin < Noosfero::Plugin
   # Somehow this method crashes many tests because it is called
   # even on other plugins
   # 
-  # def profile_tabs
-  #   title = plugins.dispatch_first(:foo_plugin_tab_title)
-  #   title = 'Foo plugin tab' unless title
+  def profile_tabs
+    title = 'Foo plugin tab' unless title
 
-  #   {:title => title, :id => 'foo_plugin', :content => lambda {'Foo plugin random content'} }
-  # end
+    {:title => title, :id => 'foo_plugin', :content => lambda {'Foo plugin random content'} }
+  end
 
   def control_panel_entries
     [FooPlugin::Button]

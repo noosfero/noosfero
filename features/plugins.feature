@@ -19,7 +19,7 @@ Feature: plugins
     And I go to joaosilva's control panel
     Then I should see "Foo plugin button"
 
-  Scenario: a user must see the plugin\'s tab in in the profile if the plugin is enabled
+  Scenario: a user must see the plugin\'s tab in the profile if the plugin is enabled
     Given plugin Foo is enabled on environment
     And I am on joaosilva's profile
     Then I should see "Foo plugin tab"

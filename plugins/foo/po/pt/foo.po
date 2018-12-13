@@ -25,4 +25,4 @@ msgstr ""
 
 #: ../lib/foo_plugin.rb:9
 msgid "A sample plugin to test autoload craziness."
-msgstr "Um plugin de teste para testar a loucura do caregamento."
+msgstr "Um plugin de teste para testar a loucura do carregamento."
