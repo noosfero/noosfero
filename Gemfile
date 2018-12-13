@@ -106,7 +106,7 @@ group :cucumber, :test do
   gem 'database_cleaner'
   # Selenium WebDriver 3+ depends on geckodriver
   gem 'selenium-webdriver'
-  # gem 'geckodriver-helper'
+  gem 'geckodriver-helper', git: 'https://github.com/alaxalves/geckodriver-helper', branch: 'master'
 end
 
 # Requires custom dependencies
