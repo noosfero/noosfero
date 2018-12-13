@@ -132,6 +132,26 @@ class GenericContextTest < ActiveSupport::TestCase
     assert_equal ForumContext, context.class
   end
 
+  should 'return EventContext if current page is a event' do
+    current_page = fast_create(Event, profile_id: community_can_post.id)
+
+    context = GenericContext.set_context(test_user, current_page,
+                                          community_can_post)
+
+    assert_equal EventContext, context.class
+  end
+
+  should 'return EventContext if current page belongs to a event' do
+    parent = fast_create(Event, profile_id: community_can_post.id)
+
+    current_page = fast_create(TextArticle, parent_id: parent.id)
+
+    context = GenericContext.set_context(test_user, current_page,
+                                          community_can_post)
+
+    assert_equal EventContext, context.class
+  end
+
   should 'return GenericContext if parent to current page is nil and current page isn\'t folder' do
 
     current_page = fast_create(TextArticle, parent_id: nil)
@@ -283,6 +303,10 @@ class GenericContextTest < ActiveSupport::TestCase
     assert_includes context.directory_options, subfolder
     assert_not_includes context.directory_options, folder
     assert_equal community_can_post, context.selected_profile
+  end
+
+  should 'return alternative context if it is defined and page context not found' do
+
   end
 
 end

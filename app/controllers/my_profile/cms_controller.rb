@@ -474,6 +474,7 @@ class CmsController < MyProfileController
     @sensitive_content = SensitiveContent.new(
                            user: user,
                            page: current_page,
+                           alternative_context: params[:alternative_context],
                            profile: profile,
                            select_subdirectory: select_subdirectory
                          )
@@ -490,7 +491,9 @@ class CmsController < MyProfileController
 
     @sensitive_back = params[:back] ? params[:back] : false
 
-    @sensitive_content = SensitiveContent.new(user: user, page: current_page, profile: profile)
+    @sensitive_content = SensitiveContent.new(user: user, page: current_page,
+                           alternative_context: params[:alternative_context],
+                           profile: profile)
 
     if params[:select_type].present?
       case params[:select_type]

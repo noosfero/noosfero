@@ -5,12 +5,16 @@ class GenericContext
     @current_page = args[:page]
     @selected_profile = set_selected_profile(args[:profile])
     @select_subdirectory = args[:select_subdirectory]
+    @alternative_context = args[:alternative_context]
   end
 
-  def self.set_context user, page=nil, profile=nil, select_subdirectory=false
-    context = self.define_context(page)
+  def self.set_context user, page=nil, profile=nil, select_subdirectory=false,
+    alternative_context=nil
+
+    context = self.define_context(page, alternative_context)
     context.new(user: user, page: page, profile: profile,
-                select_subdirectory: select_subdirectory)
+                select_subdirectory: select_subdirectory,
+                alternative_context: alternative_context)
   end
 
   def current_user
@@ -27,6 +31,10 @@ class GenericContext
 
   def select_subdirectory
     @select_subdirectory
+  end
+
+  def alternative_context
+    @alternative_context
   end
 
   def content_types
@@ -70,14 +78,14 @@ class GenericContext
 
   private
 
-  def self.define_context page=nil
+  def self.define_context page=nil, alternative_context=nil
     context = GenericContext
-    unless page.nil?
-      if page.folder? && const_defined?("#{page.class}Context")
-        context = "#{page.class}Context".constantize
-      elsif page.parent.present? && const_defined?("#{page.parent.class}Context")
-        context = "#{page.parent.class}Context".constantize
-      end
+    if !page.nil? && const_defined?("#{page.class}Context")
+      context = "#{page.class}Context".constantize
+    elsif !page.nil? && !page.parent.nil? && const_defined?("#{page.parent.class}Context")
+      context = "#{page.parent.class}Context".constantize
+    elsif !alternative_context.nil? && const_defined?("#{alternative_context}Context")
+      context = "#{alternative_context}Context".constantize
     end
     context
   end

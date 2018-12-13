@@ -5,7 +5,7 @@
       <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
       <div class='publish-header-infos'>
         <%= sensitive_context_message @sensitive_content, false %>
-        <%= path_to_parents %>
+        <%= sensitive_path_to_parents @sensitive_content %>
       </div>
     </div>
 
@@ -25,7 +25,8 @@
                   image_tag(profile_default_image(:community), :class => 'logo')),
                   url_for(:controller => 'cms', :action => 'select_profile', :select_type => 'community',
                           :profile => @sensitive_content.profile.identifier,
-                          :page => @sensitive_content.directory.try(:id)),
+                          :page => @sensitive_content.directory.try(:id),
+                          :alternative_context => @sensitive_content.alternative_context),
                   modal_options({class: 'add-sensitive-history', title: _('My communities')})) %>
           <% end %>
 
@@ -43,7 +44,8 @@
               <%= profile_selector modal_url_entry_to_profile_selector(@profiles,
                 { url: { :controller => 'cms',
                          :action => 'sensitive_content',
-                         :page => @sensitive_content.directory.try(:id)
+                         :page => @sensitive_content.directory.try(:id),
+                         :alternative_context => @sensitive_content.alternative_context
                   },
                   class: 'add-sensitive-content'
                 }) %>

@@ -5,7 +5,7 @@
       <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
       <div class='publish-header-infos'>
         <%= sensitive_context_message @sensitive_content, false %>
-        <%= path_to_parents @sensitive_content.directory, true %>
+        <%= sensitive_path_to_parents @sensitive_content %>
       </div>
     </div>
 

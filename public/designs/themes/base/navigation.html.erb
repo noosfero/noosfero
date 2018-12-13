@@ -6,7 +6,9 @@
   <li class="new-content-home">
     <%= modal_icon_button(:file, _('New Content'),
       url_for(:controller => 'cms', :action => 'sensitive_content',
-              :profile => profile_to_publish(user, profile), :page => @page.try(:id), :not_back => true),
+              :profile => profile_to_publish(user, profile), :page => @page.try(:id),
+              :alternative_context => alternative_context(controller.controller_name, @page),
+              :not_back => true),
       class: 'initialize-sensitive-history', id: 'new-sensitive-content-start') %>
   </li>
 
