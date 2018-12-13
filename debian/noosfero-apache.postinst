@@ -8,7 +8,7 @@ db_get noosfero-apache/enable_apache_site
 enable_apache_site="$RET"
 
 if test -x /usr/sbin/a2enmod; then
-  a2enmod deflate expires proxy proxy_balancer proxy_http rewrite
+  a2enmod deflate expires proxy proxy_balancer proxy_http rewrite headers
 fi
 
 if which update-noosfero-apache >/dev/null; then
