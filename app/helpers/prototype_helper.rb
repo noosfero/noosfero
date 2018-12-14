@@ -103,33 +103,6 @@ module PrototypeHelper
     callbacks
   end
 
-  def singular_class_name(record_or_class)
-    model_name_from_record_or_class(record_or_class).singular
-  end
-
-  def remote_form_for(record_or_name_or_array, *args, &proc)
-    options = args.extract_options!
-
-    case record_or_name_or_array
-    when String, Symbol
-      object_name = record_or_name_or_array
-    when Array
-      object = record_or_name_or_array.last
-      object_name = singular_class_name(object)
-      apply_form_for_options!(record_or_name_or_array, options)
-      args.unshift object
-    else
-      object = record_or_name_or_array
-      object_name = singular_class_name(record_or_name_or_array)
-      apply_form_for_options!(nil, object, options)
-      args.unshift object
-    end
-
-    concat(form_remote_tag(options))
-    fields_for(object_name, *(args << options), &proc)
-    concat('</form>'.html_safe)
-  end
-
   def extra_tags_for_form(html_options)
     authenticity_token = html_options.delete("authenticity_token")
     method = html_options.delete("method").to_s

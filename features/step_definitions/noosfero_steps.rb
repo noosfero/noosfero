@@ -669,9 +669,7 @@ Then /^the element "(.*)" has class "(.*)"$/ do |el_selector, el_class|
 end
 
 Given /^there are no pending jobs$/ do
-  silenced do
-    Delayed::Worker.new.work_off
-  end
+  Delayed::Worker.new(quiet: true).work_off
 end
 
 Given /^the field (.*) is public for all users$/ do |field|
