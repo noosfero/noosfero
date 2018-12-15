@@ -43,7 +43,7 @@ module PartialsHelper
 
   ##
   # Calculate partial name with prefix and suffix
-  # Togheter with render_partial_for_class,
+  # Together with render_partial_for_class,
   # it should replace #partial_for_class_in_view_path in the future
   #
   def partial_name_for underscore, prefix = nil, suffix = nil

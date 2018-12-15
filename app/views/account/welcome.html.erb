@@ -1,7 +1,7 @@
 <% if @enterprise && logged_in? %>
   <h1><%= _('Welcome to %s') % environment.name %></h1>
 
-  <%= _('%s was successfuly activated. Now you may go to your control panel or to the control panel of your enterprise') % @enterprise.name %>
+  <%= _('%s was successfully activated. Now you may go to your control panel or to the control panel of your enterprise') % @enterprise.name %>
 
   <%= button_bar do %>
     <%= button :control_panel, _('Go to my control panel'), :action => 'index',

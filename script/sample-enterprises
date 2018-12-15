@@ -42,6 +42,7 @@ groups.each do |group|
       end
     end
   end
+  print '.'
 end
 done
 

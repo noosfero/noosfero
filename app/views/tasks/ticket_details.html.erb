@@ -10,8 +10,8 @@
   <p><%= _('Description: %s').html_safe % @ticket.description %></p>
 </div>
 
-<% if @ticket.closing_statment %>
-  <p><%= _('Closing statement: %s').html_safe % @ticket.closing_statment %></p>
+<% if @ticket.closing_statement %>
+  <p><%= _('Closing statement: %s').html_safe % @ticket.closing_statement %></p>
 <% end %>
 
 <%= button_bar do %>

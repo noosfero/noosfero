@@ -62,7 +62,7 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert_equal [p1.random_event, p2.random_event], plugins.dispatch(:random_event)
   end
 
-  should 'dispatch_first method returns the first plugin response if there is many plugins to responde the event' do
+  should 'dispatch_first method returns the first plugin response if there is many plugins to respond the event' do
     class Noosfero::Plugin
       def random_event
       end
@@ -121,7 +121,7 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert 'Plugin2', manager.dispatch_first(:random_event)
   end
 
-  should 'returns plugins that returns true to the event' do
+  should 'return plugins that respond true to the event' do
     class Plugin1 < Noosfero::Plugin
       def random_event
       end
@@ -150,7 +150,7 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert_includes results, Plugin3
   end
 
-  should 'return the first plugin that returns true' do
+  should 'return the first plugin that responds true' do
     class Plugin1 < Noosfero::Plugin
       def random_event
       end

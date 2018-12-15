@@ -37,7 +37,7 @@ class KindsController < AdminController
     kind = environment.kinds.find(params[:id])
     if kind.present?
       if kind.destroy
-        session[:notice] = _('Kind sucessfully removed')
+        session[:notice] = _('Kind successfully removed')
       else
         session[:notice] = _('There were some problems deleting this kind')
       end

@@ -2,7 +2,7 @@ module Noosfero::GeoRef
 
   # May replace this module by http://www.postgresql.org/docs/9.3/static/earthdistance.html
 
-  EARTH_RADIUS = 6378 # aproximate in km
+  EARTH_RADIUS = 6378 # approximate in km
 
   class << self
 

@@ -32,7 +32,7 @@ class ApproveArticle < Task
     data[:name] = value
   end
 
-  settings_items :closing_statment, :article_parent_id, :highlighted
+  settings_items :closing_statement, :article_parent_id, :highlighted
   settings_items :create_link, :type => :boolean, :default => false
 
   def article_parent
@@ -125,7 +125,7 @@ class ApproveArticle < Task
 
   def task_finished_message
     if !closing_statment.blank?
-      _("Your request for publishing the article \"%{article}\" was approved. Here is the comment left by the admin who approved your article:\n\n%{comment} ") % {:article => name, :comment => closing_statment}
+      _("Your request for publishing the article \"%{article}\" was approved. Here is the comment left by the admin who approved your article:\n\n%{comment} ") % {:article => name, :comment => closing_statement}
     else
       _('Your request for publishing the article "%{article}" was approved.') % {:article => name}
     end

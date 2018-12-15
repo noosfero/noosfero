@@ -37,7 +37,7 @@ class ProfileListBlock < Block
     profiles(user).count
   end
 
-  # the title of the block. Probably will be overriden in subclasses.
+  # the title of the block. Probably will be overridden in subclasses.
   def default_title
     _('{#} People or Groups')
   end

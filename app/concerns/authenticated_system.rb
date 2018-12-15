@@ -151,7 +151,7 @@ module AuthenticatedSystem
     end
 
     # When called with before_filter :login_from_cookie will check for an :auth_token
-    # cookie and log the user back in if apropriate
+    # cookie and log the user back in if appropriate
     def login_from_cookie
       return if cookies[:auth_token].blank? or logged_in?
       user = User.where(remember_token: cookies[:auth_token]).first
