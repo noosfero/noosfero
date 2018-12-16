@@ -808,7 +808,7 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/testinguser\/myarticle/ }
   end
 
-  should 'detect when comming from home page' do
+  should 'detect when coming from home page' do
     @request.expects(:referer).returns('http://colivre.net/testinguser').at_least_once
     get :edit, :profile => 'testinguser', :id => @profile.home_page.id
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'back_to', :value => @request.referer }
@@ -837,7 +837,7 @@ class CmsControllerTest < ActionController::TestCase
     assert_redirected_to @profile.articles.find_by(name: 'new-article-from-public-view').url
   end
 
-  should 'keep the back_to hint in unsuccessfull saves' do
+  should 'keep the back_to hint in unsuccessful saves' do
     post :new, :profile => 'testinguser', :type => 'TextArticle', :back_to => 'public_view', :article => { }
     assert_response :success
     assert_tag :tag => "input", :attributes => { :type => 'hidden', :name => 'back_to', :value => 'public_view' }
@@ -1160,7 +1160,7 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{folder.slug}/ }
   end
 
-  should 'detect when comming from home page to upload files' do
+  should 'detect when coming from home page to upload files' do
     folder = Folder.create!(:name => 'testfolder', :profile => profile)
     @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}").at_least_once
     @controller.stubs(:profile).returns(profile)
@@ -1189,7 +1189,7 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :descendant => { :content => 'Cancel' }, :attributes => { :href => /^https?:\/\/colivre.net\/#{profile.identifier}\/#{file.slug}?.*view=true/ }
   end
 
-  should 'detect when comming from home page to edit files with view true' do
+  should 'detect when coming from home page to edit files with view true' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     @request.expects(:referer).returns("http://colivre.net/#{profile.identifier}?view=true").at_least_once
@@ -1809,7 +1809,7 @@ class CmsControllerTest < ActionController::TestCase
     post :media_upload, :profile => @profile.identifier
   end
 
-  should 'mark unsuccessfull upload' do
+  should 'mark unsuccessful upload' do
     file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('files/rails.png', 'image/png'))
     post :media_upload, :profile => profile.identifier, :media_listing => true, :file => fixture_file_upload('files/rails.png', 'image/png')
     assert_response :bad_request
@@ -1841,7 +1841,7 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal license, article.license
   end
 
-  should 'not display license field if there is no license availabe in environment' do
+  should 'not display license field if there is no license available in environment' do
     article = fast_create(Article, :profile_id => profile.id)
     License.delete_all
     login_as(profile.identifier)

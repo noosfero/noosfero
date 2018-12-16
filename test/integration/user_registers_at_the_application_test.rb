@@ -3,7 +3,7 @@ require_relative "../test_helper"
 class UserRegistersAtTheApplicationTest < ActionDispatch::IntegrationTest
   fixtures :users, :environments, :profiles
 
-  def test_successfull_registration
+  def test_successful_registration
     get '/'
     assert_can_login
     assert_can_signup

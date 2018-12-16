@@ -38,7 +38,7 @@ class RoleControllerTest < ActionController::TestCase
     assert_nil session[:notice]
   end
 
-  def test_should_not_update_to_invalid_paramters
+  def test_should_not_update_to_invalid_parameters
     Role.any_instance.stubs(:valid?).returns(false)
     post 'update', :id => @role.id
     assert_response :success

@@ -308,7 +308,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => {:class => 'ctrl-panel', :title => 'Configure your personal account and content', :href => '/myprofile/designtestuser'}
   end
 
-  should 'display avaliable blocks in alphabetical order' do
+  should 'display available blocks in alphabetical order' do
     @controller.stubs(:available_blocks).returns([TagsCloudBlock, ArticleBlock])
     get :index, :profile => 'designtestuser'
     assert_equivalent assigns(:available_blocks), [ArticleBlock, TagsCloudBlock]

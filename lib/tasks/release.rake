@@ -38,14 +38,14 @@ namespace :noosfero do
       sh "git commit -m '#{commit_message}'"
     else
       sh "git checkout #{files}"
-      abort 'There are changes to be commited. Reverting changes and exiting...'
+      abort 'There are changes to be committed. Reverting changes and exiting...'
     end
   end
 
   desc 'checks if there are uncommitted changes in the repo'
   task :check_repo do
     if !pendencies_on_repo[:ok]
-      raise "******** There are uncommited changes in the repository, cannot continue"
+      raise "******** There are uncommitted changes in the repository, cannot continue"
     end
   end
 
@@ -152,7 +152,7 @@ EOF
     sh "dput --unchecked noosfero-#{target} #{Dir['pkg/*.changes'].first}"
   end
 
-  desc 'sets the new version on apropriate files'
+  desc 'sets the new version on appropriate files'
   task :set_version, :target do |t, args|
     next if File.exist?("tmp/pending-release")
     target = args[:target]

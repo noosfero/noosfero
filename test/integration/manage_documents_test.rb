@@ -24,7 +24,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/myuser/cms/new', :method => /post/i }
 
     assert_difference 'Article.count' do
-      post_via_redirect '/myprofile/myuser/cms/new', :type => 'TextArticle', :article => { :name => 'my article', :body => 'this is the body of ther article'}
+      post_via_redirect '/myprofile/myuser/cms/new', :type => 'TextArticle', :article => { :name => 'my article', :body => 'this is the body of there article'}
     end
 
     assert_response :success
