@@ -274,10 +274,10 @@ Feature: edit article
     And I follow "Add translation"
     And I fill in "Title" with "Article in Portuguese"
     And I follow "Save"
-    Then I should see "Language must be choosen"
+    Then I should see "Language must be chosen"
     When I select "Português" from "Language"
     And I follow "Save"
-    Then I should not see "Language must be choosen"
+    Then I should not see "Language must be chosen"
     And I should be on /joaosilva/article-in-portuguese
 
   @selenium

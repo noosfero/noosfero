@@ -376,7 +376,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'keep special characters on filenames' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/Realção com Espaço.txt', 'image/png'), :profile => profile)
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/Relação com Espaço.txt', 'image/png'), :profile => profile)
     assert_equal file.name, 'Relação com Espaço'
   end
 

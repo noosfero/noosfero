@@ -187,7 +187,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
     task = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
     task.stubs(:closing_statement).returns('somenthing')
 
-    assert_match(/Your .*#{task.article.title}.*Here is the comment.*\n\n#{task.closing_statment}/, task.task_finished_message)
+    assert_match(/Your .*#{task.article.title}.*Here is the comment.*\n\n#{task.closing_statement}/, task.task_finished_message)
   end
 
   should 'return reject message even without reject explanation' do

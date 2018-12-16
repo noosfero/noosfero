@@ -481,7 +481,7 @@ class Article < ApplicationRecord
 
   def translation_must_have_language
     unless self.translation_of.nil?
-      errors.add(:language, N_('Language must be choosen')) if self.language.blank?
+      errors.add(:language, N_('Language must be chosen')) if self.language.blank?
     end
   end
 

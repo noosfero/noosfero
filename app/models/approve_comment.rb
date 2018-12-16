@@ -90,7 +90,7 @@ class ApproveComment < Task
   end
 
   def task_finished_message
-    if !closing_statment.blank?
+    if !closing_statement.blank?
       _("Your comment to the article \"%{article}\" was approved. Here is the comment left by the admin who approved your comment:\n\n%{comment} ") % {:article => article_name, :comment => closing_statement}
     else
       _('Your request for comment the article "%{article}" was approved.') % {:article => article_name}

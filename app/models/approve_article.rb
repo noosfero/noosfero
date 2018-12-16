@@ -124,7 +124,7 @@ class ApproveArticle < Task
   end
 
   def task_finished_message
-    if !closing_statment.blank?
+    if !closing_statement.blank?
       _("Your request for publishing the article \"%{article}\" was approved. Here is the comment left by the admin who approved your article:\n\n%{comment} ") % {:article => name, :comment => closing_statement}
     else
       _('Your request for publishing the article "%{article}" was approved.') % {:article => name}
