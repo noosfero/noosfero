@@ -33,6 +33,7 @@ Feature: domain for profile
     And I fill in "joaosilva" for "Username / Email"
     And I fill in "123456" for "Password"
     And I follow "Log in"
+    And I wait for 1 seconds
     And I follow "Control panel"
     Then I should see "Joao Silva" within "span.control-panel-title"
 

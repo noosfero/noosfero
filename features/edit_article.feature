@@ -80,7 +80,7 @@ Feature: edit article
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I fill in post-access hidden field with "3"
-    And I uncheck "#article_show_to_followers"
+    And I uncheck "article_show_to_followers"
     Then I should see "Allow only community members entered below to view this content"
 
   @selenium

@@ -40,7 +40,7 @@ end
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
     begin
-      link   = find :link_or_button, link, match: :prefer_exact
+      link = find :link_or_button, link, match: :prefer_exact
       # If the link has child elements, then $(link).click() has no effect,
       # so find the first child and click on it.
       if Capybara.default_driver == :selenium
@@ -50,8 +50,7 @@ When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
       end
       target.click
     rescue
-      alert = page.driver.browser.switch_to.alert
-      alert.send 'accept'
+      page.driver.browser.switch_to.alert.accept
     end
   end
 end
@@ -144,8 +143,8 @@ Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
     begin
       expect(page).to have_content(text)
     rescue
-      alert = page.driver.browser.switch_to.alert
-      alert.text.should eq(text)
+      alert_text = page.driver.browser.switch_to.alert.text
+      alert_text.should == text
     end
   end
 end
