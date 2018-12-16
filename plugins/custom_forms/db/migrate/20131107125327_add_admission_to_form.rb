@@ -1,4 +1,4 @@
-class AddAdmissionToForm < ActiveRecord::Migration
+class AddAdmissionToForm < ActiveRecord::Migration[5.1]
   def self.up
     change_table :custom_forms_plugin_forms do |t|
       t.boolean :for_admission, :default => false

@@ -1,4 +1,4 @@
-class AddTimestampToRelation < ActiveRecord::Migration
+class AddTimestampToRelation < ActiveRecord::Migration[5.1]
   def change
     add_column :sub_organizations_plugin_relations, :created_at, :datetime
     add_column :sub_organizations_plugin_relations, :updated_at, :datetime

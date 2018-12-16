@@ -1,4 +1,4 @@
-class AssociateFieldsToAlternatives < ActiveRecord::Migration
+class AssociateFieldsToAlternatives < ActiveRecord::Migration[5.1]
   class CustomFormsPlugin::Field < ApplicationRecord
     self.table_name = :custom_forms_plugin_fields
     has_many :alternatives, :class_name => 'CustomFormsPlugin::Alternative'

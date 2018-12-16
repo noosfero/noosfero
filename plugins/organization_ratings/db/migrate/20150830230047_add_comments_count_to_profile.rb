@@ -1,4 +1,4 @@
-class AddCommentsCountToProfile < ActiveRecord::Migration
+class AddCommentsCountToProfile < ActiveRecord::Migration[5.1]
   def self.up
     change_table :profiles do |t|
       t.integer :comments_count

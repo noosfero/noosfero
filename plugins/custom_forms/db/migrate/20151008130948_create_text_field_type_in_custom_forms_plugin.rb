@@ -1,4 +1,4 @@
-class CreateTextFieldTypeInCustomFormsPlugin < ActiveRecord::Migration
+class CreateTextFieldTypeInCustomFormsPlugin < ActiveRecord::Migration[5.1]
   def up
     rename_column :custom_forms_plugin_fields, :select_field_type, :show_as
     change_column :custom_forms_plugin_fields, :show_as, :string, :null => true, :default => nil

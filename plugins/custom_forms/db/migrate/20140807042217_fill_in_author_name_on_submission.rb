@@ -1,4 +1,4 @@
-class FillInAuthorNameOnSubmission < ActiveRecord::Migration
+class FillInAuthorNameOnSubmission < ActiveRecord::Migration[5.1]
   def up
     CustomFormsPlugin::Submission.find_each do |submission|
       unless submission.profile.nil?

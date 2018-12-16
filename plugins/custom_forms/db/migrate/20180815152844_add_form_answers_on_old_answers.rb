@@ -1,4 +1,4 @@
-class AddFormAnswersOnOldAnswers < ActiveRecord::Migration
+class AddFormAnswersOnOldAnswers < ActiveRecord::Migration[5.1]
   require "active_record"
   require "activerecord-import"
 

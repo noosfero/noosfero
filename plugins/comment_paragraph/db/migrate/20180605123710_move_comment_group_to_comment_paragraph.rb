@@ -1,4 +1,4 @@
-class MoveCommentGroupToCommentParagraph < ActiveRecord::Migration
+class MoveCommentGroupToCommentParagraph < ActiveRecord::Migration[5.1]
 
   def change
     if column_exists? :comments, :group_id

@@ -1,4 +1,4 @@
-class CreateCustomFormsPluginFields < ActiveRecord::Migration
+class CreateCustomFormsPluginFields < ActiveRecord::Migration[5.1]
   def self.up
     create_table :custom_forms_plugin_fields do |t|
       t.string :name

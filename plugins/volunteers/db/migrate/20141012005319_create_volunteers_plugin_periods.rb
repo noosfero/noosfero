@@ -1,4 +1,4 @@
-class CreateVolunteersPluginPeriods < ActiveRecord::Migration
+class CreateVolunteersPluginPeriods < ActiveRecord::Migration[5.1]
   def up
     create_table :volunteers_plugin_periods do |t|
       t.integer :owner_id

@@ -1,4 +1,4 @@
-class CreateNotificationSettings < ActiveRecord::Migration
+class CreateNotificationSettings < ActiveRecord::Migration[5.1]
   def change
     create_table :push_notification_plugin_notification_settings do |t|
       t.integer :user_id, null: false

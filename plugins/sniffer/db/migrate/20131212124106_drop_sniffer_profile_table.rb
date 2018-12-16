@@ -7,7 +7,7 @@ class SnifferPlugin::Opportunity < ApplicationRecord
   belongs_to :sniffer_profile, class_name: 'SnifferPlugin::Profile', foreign_key: :profile_id, optional: true
 end
 
-class DropSnifferProfileTable < ActiveRecord::Migration
+class DropSnifferProfileTable < ActiveRecord::Migration[5.1]
   def self.up
     SnifferPlugin::Opportunity.find_each do |opportunity|
       sniffer_profile = opportunity.sniffer_profile

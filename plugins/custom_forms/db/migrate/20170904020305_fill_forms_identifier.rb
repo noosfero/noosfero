@@ -1,4 +1,4 @@
-class FillFormsIdentifier < ActiveRecord::Migration
+class FillFormsIdentifier < ActiveRecord::Migration[5.1]
   def self.up
     CustomFormsPlugin::Form.where('identifier is null').each do |form|
       form.update(identifier: form.slug)

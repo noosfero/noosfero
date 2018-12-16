@@ -1,4 +1,4 @@
-class AddPositionToFieldAndAlternatives < ActiveRecord::Migration
+class AddPositionToFieldAndAlternatives < ActiveRecord::Migration[5.1]
   def self.up
     change_table :custom_forms_plugin_alternatives do |t|
       t.integer :position, :default => 0

@@ -1,4 +1,4 @@
-class DestroyRejectedReports < ActiveRecord::Migration
+class DestroyRejectedReports < ActiveRecord::Migration[5.1]
   def up
     comments = []
     select_all("SELECT data FROM tasks WHERE type = 'CreateOrganizationRatingComment' AND status = 2").each do |task|

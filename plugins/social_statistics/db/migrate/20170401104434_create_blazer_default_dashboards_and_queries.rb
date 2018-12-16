@@ -1,4 +1,4 @@
-class CreateBlazerDefaultDashboardsAndQueries < ActiveRecord::Migration
+class CreateBlazerDefaultDashboardsAndQueries < ActiveRecord::Migration[5.1]
   def change
     # Contents
     contents_dashboard = Blazer::Dashboard.create!(:name => 'Contents')
