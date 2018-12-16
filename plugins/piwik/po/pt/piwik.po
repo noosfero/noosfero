@@ -23,11 +23,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0\n"
 
-#: ../controllers/piwik_plugin_admin_controller.rb:8
+#: ../controllers/piwik_plugin_admin_controller.rb:11
 msgid "Piwik plugin settings updated successfully."
 msgstr "As configurações do plugin Piwik foram atualizadas com sucesso."
 
-#: ../controllers/piwik_plugin_admin_controller.rb:10
+#: ../controllers/piwik_plugin_admin_controller.rb:13
 msgid "Piwik plugin settings could not be saved."
 msgstr "As configurações do plugin Piwik não puderam ser gravadas."
 
@@ -35,7 +35,7 @@ msgstr "As configurações do plugin Piwik não puderam ser gravadas."
 msgid "Tracking and web analytics to your Noosfero's environment"
 msgstr "Rastreamento e análise web para o seu ambiente Noosfero"
 
-#: ../lib/piwik_plugin.rb:38
+#: ../lib/piwik_plugin.rb:37
 msgid "Piwik"
 msgstr "Piwik"
 

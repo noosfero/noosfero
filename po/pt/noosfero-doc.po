@@ -4242,8 +4242,8 @@ msgid ""
 msgstr ""
 "<strong>Imagem: </strong>Insira uma imagem. Ela será a imagem da comunidade. "
 "Clique em &#8220;Ficheiro&#8230;&#8221; e escolha a imagem no seu "
-"computador. A imagem deve ter no máximo 500Kb e ser do tipo .jpg, .gif ou "
-".png."
+"computador. A imagem deve ter no máximo 500Kb e ser do tipo .jpg, .gif ou ."
+"png."
 
 # type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
@@ -8328,10 +8328,9 @@ msgid ""
 "on&quot;File…&quot; and choose the image in your computer. The image must "
 "have a maximum of 500Kb e be <em>.jpg</em> , <em>.gif</em> or <em>.png</em> ."
 msgstr ""
-"<strong>Mudar foto: </strong>Insira ou altere sua foto. Clique em "
-"&#8220;Ficheiro...&#8221; e escolha a imagem no seu computador. A imagem "
-"deve ter no máximo 500Kb e ser do tipo <em>.jpg</em>, <em>.gif</em> ou "
-"<em>.png</em>."
+"<strong>Mudar foto: </strong>Insira ou altere sua foto. Clique em &#8220;"
+"Ficheiro...&#8221; e escolha a imagem no seu computador. A imagem deve ter "
+"no máximo 500Kb e ser do tipo <em>.jpg</em>, <em>.gif</em> ou <em>.png</em>."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>

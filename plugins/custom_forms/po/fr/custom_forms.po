@@ -670,17 +670,17 @@ msgid "New %s"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Utilisateur"
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
 msgid "Time"
 msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Utilisateur"
 
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:4
 msgid "Report for submissions import"
@@ -815,11 +815,11 @@ msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Send"
+msgid "Vote!"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Vote!"
+msgid "Send"
 msgstr ""
 
 #: ../views/shared/_form_submission.html.erb:8
