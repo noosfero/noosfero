@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 platform :ruby do
-  gem 'pg',                     '~> 1.0.0'
+  gem 'pg',                     '~> 1.1.3'
   gem 'rmagick',                '~> 2.13', require: false
   gem 'RedCloth',               '~> 4.2'
   gem 'unicorn',                '~> 5.4'
