@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2018-11-19 09:07+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2018-12-19 17:09+0000\n"
+"Last-Translator: Rebeca Moura <rebecasm@movecode.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
 "Language: pt\n"
@@ -16,19 +16,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/send_email.en.xhtml:1
 msgid "SendEmailPlugin"
-msgstr "SendEmailPlugin"
+msgstr "Plugin de Enviar Email"
 
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:2
 msgid "Allows to send e-mails through an e-mail form."
-msgstr "Permite enviar e-mails por um formulário web."
+msgstr "Permite enviar e-mails através de um formulário web."
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -266,10 +266,9 @@ msgstr "Plugin de variáveis"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:2
-#, fuzzy
 msgid "A set of simple variables to be used in a macro context."
 msgstr ""
-"Um conjunto de variáveis simples para serem utilizadas num contexto de macro"
+"Um conjunto de variáveis simples para serem utilizadas num contexto de macro."
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -292,17 +291,19 @@ msgid ""
 "Add a <span class=\"caps\">HTML</span> div tag with css class &#8220;"
 "macro&#8221; (see Example)"
 msgstr ""
+"Adicionar uma tag div <span class=\"caps\">1HTML</span>2 com a classe css "
+"&#8220;3 macro &#8221;4 (veja o Exemplo)"
 
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/variables.en.xhtml:8
+#, fuzzy
 msgid "Add inner that div tag the variable desired, like {profile}"
-msgstr ""
+msgstr "Adicione o interior da tag div à variável desejada, como {profile}"
 
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/variables.en.xhtml:10
-#, fuzzy
 msgid "Usage with TextArticle"
-msgstr "Utilizável com TextArticle"
+msgstr "Utilizável com Artigo de Texto"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/variables.en.xhtml:11
@@ -1710,7 +1711,7 @@ msgstr ""
 #. type: Content of: <p>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:19
 msgid "After choosing the quota value, just click &#8220;Save&#8221;."
-msgstr "Após definir o valor da cota, clique no botão &#8220;Salvar&#8221;"
+msgstr "Após definir o valor da cota, clique no botão  &#8220;1Salvar&#8221;2."
 
 #. type: Content of: <h2>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:20
@@ -4928,7 +4929,7 @@ msgstr "Depois, clique em &#8220;Gerenciar conteúdo&#8221;"
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:13
 #: doc/noosfero/cms/writing-article.en.xhtml:12
 msgid "Manage content in control panel"
-msgstr "Manage content in control panel"
+msgstr "Gerenciar conteúdo no painel de controle"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -4940,7 +4941,7 @@ msgstr "Encontre seu blog na lista e clique para visualizá-lo."
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:17
 msgid "Public visualization of blog in CMS"
-msgstr "Public visualization of blog in CMS"
+msgstr "Visualização pública do blog no editor CMS"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -5148,7 +5149,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/managing-content.en.xhtml:18
 msgid "CMS with marks on buttons"
-msgstr "CMS with marks on buttons"
+msgstr "CMS com marcas nos botões"
 
 # type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li>
@@ -5254,7 +5255,7 @@ msgstr "Opções das pastas. Da esquerda para a direita:"
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/managing-content.en.xhtml:33
 msgid "Folder icons on CMS"
-msgstr "Folder icons on CMS"
+msgstr "Ícones de pastas no CMS"
 
 # type: Content of: <ol><li><ol><li><ul><li>
 #. type: Content of: <ol><li><ol><li>
@@ -5585,7 +5586,7 @@ msgstr "Escreva no seu artigo o texto que aparecerá"
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:18
 #: doc/noosfero/cms/writing-article.en.xhtml:25
 msgid "Text on an article"
-msgstr "Text on an article"
+msgstr "Texto em um artigo"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -8382,7 +8383,7 @@ msgstr ""
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:3
 msgid "<a href=\"/doc/plugins/send_email\">SendEmailPlugin</a>"
-msgstr "<a href=\"/doc/plugins/send_email\">SendEmailPlugin</a>"
+msgstr "<a href=\"/doc/plugins/send_email\">Plugin de Enviar E-mail</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -8396,7 +8397,9 @@ msgstr "<a href=\"/doc/plugins\">Plugins</a>"
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:5
 msgid "<a href=\"/doc/plugins/google_cse\">GoogleCsePlugin</a>"
-msgstr "<a href=\"/doc/plugins/google_cse\">GoogleCsePlugin</a>"
+msgstr ""
+"<a href=\"/doc/plugins/google_cse\">Plugin de pesquisa personalizado do "
+"Google</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
