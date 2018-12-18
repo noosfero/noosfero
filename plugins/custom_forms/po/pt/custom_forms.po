@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2018-11-19 09:07+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2018-12-19 17:09+0000\n"
+"Last-Translator: Rebeca Moura <rebecasm@movecode.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-custom-forms/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../controllers/custom_forms_plugin_admin_controller.rb:12
 msgid "There is no data to be downloaded"
@@ -534,7 +534,7 @@ msgstr "Múltipla escolha"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
 msgid "Checkboxes"
-msgstr "Checkboxes"
+msgstr "Caixas de seleção"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:39
@@ -590,7 +590,7 @@ msgstr "Radio"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:7
 msgid "Checkbox"
-msgstr "Checkbox"
+msgstr "Caixa de seleção"
 
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
 msgid "Drop down"
