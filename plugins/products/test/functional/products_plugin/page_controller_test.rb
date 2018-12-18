@@ -306,12 +306,14 @@ class PageControllerTest < ActionController::TestCase
     second = Input.create!(product: product, product_category: fast_create(ProductCategory))
     third = Input.create!(product: product, product_category: fast_create(ProductCategory))
 
-    assert_equal [first, second, third], product.inputs(true)
+    inputs = [first, second, third]
+    
+    assert_equal inputs, product.inputs
 
-    get :order_inputs, profile: @enterprise.identifier, id: product, input: [second.id, third.id, first.id]
+    get :order_inputs, profile: @enterprise.identifier, id: product, input: inputs
     assert_template nil
 
-    assert_equal [second, third, first], product.inputs(true)
+    assert_equal inputs, product.inputs
   end
 
   should 'render partial certifiers for selection' do
