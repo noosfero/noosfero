@@ -82,16 +82,16 @@ class SnifferMapTest < ActionDispatch::IntegrationTest
 
   should 'create balloon on map for a supplier' do
     post url_plugin_myprofile(@e[1], :map_balloon, :id => @e[2].id),
-    {"suppliersProducts" => {
-      0=>{
-      "product_category_id" => @c[1].id,
-      "id" => @p[3].id,
-      "view" => 'product',
-      "profile_id" => @e[2].id
-      }},
-     "consumersProducts" => [],
-     "id" => @e[2].id
-    }
+      params: { "suppliersProducts" => {
+        0=>{
+        "product_category_id" => @c[1].id,
+        "id" => @p[3].id,
+        "view" => 'product',
+        "profile_id" => @e[2].id
+        }},
+       "consumersProducts" => {},
+       "id" => @e[2].id
+      }
     assert_response 200
     assert_tag :tag => 'a', :attributes => { :href => '/profile/ent2'}, :content => @e[2].name
     assert_tag :tag => 'a', :attributes => { :href => url_for(@p[3].url) }, :content => @p[3].name
@@ -102,16 +102,16 @@ class SnifferMapTest < ActionDispatch::IntegrationTest
 
   should 'create balloon on map for a consumer' do
     post url_plugin_myprofile(@e[1], :map_balloon, :id => @e[4].id),
-    {"suppliersProducts" => [],
-     "consumersProducts" => {
-      0=>{
-      "product_category_id" => @c[2].id,
-      "id" => @p[2].id,
-      "view" => 'product',
-      "profile_id" => @e[4].id
-      }},
-     "id" => @e[4].id
-    }
+      params: { "suppliersProducts" => {},
+       "consumersProducts" => {
+        0=>{
+        "product_category_id" => @c[2].id,
+        "id" => @p[2].id,
+        "view" => 'product',
+        "profile_id" => @e[4].id
+        }},
+       "id" => @e[4].id
+      }
     assert_response 200
     assert_tag :tag => 'a', :attributes => { :href => '/profile/ent4'}, :content => @e[4].name
     assert_tag :tag => 'a', :attributes => { :href => url_for(@p[2].url) }, :content => @p[2].name
@@ -122,28 +122,28 @@ class SnifferMapTest < ActionDispatch::IntegrationTest
 
   should 'create balloon on map for a supplier and consumer' do
     post url_plugin_myprofile(@e[1], :map_balloon, :id => @e[3].id),
-    {"suppliersProducts" => {
-      0=>{
-      "product_category_id" => @c[1].id,
-      "id" => @p[6].id,
-      "view" => 'product',
-      "profile_id" => @e[3].id
-      }},
-     "consumersProducts" => {
-      0=>{
-      "product_category_id" => @c[2].id,
-      "id" => @p[2].id,
-      "view" => 'product',
-      "profile_id" => @e[3].id
-      }},
-     "id" => @e[3].id
-    }
+      params: { "suppliersProducts" => {
+        0=>{
+        "product_category_id" => @c[1].id,
+        "id" => @p[6].id,
+        "view" => 'product',
+        "profile_id" => @e[3].id
+        }},
+       "consumersProducts" => {
+        0=>{
+        "product_category_id" => @c[2].id,
+        "id" => @p[2].id,
+        "view" => 'product',
+        "profile_id" => @e[3].id
+        }},
+       "id" => @e[3].id
+      }
     assert_response 200
     assert_tag :tag => 'a', :attributes => { :href => '/profile/ent3'}, :content => @e[3].name
     doc = Nokogiri::HTML @response.body
-    assert_select doc, ".suppliers-products a[href=#{url_for(@p[6].url)}]", @p[6].name,
+    assert_select doc, ".suppliers-products a[href='#{url_for(@p[6].url)}']", @p[6].name,
       "Can't find link to @p6 (#{@p[6].name})."
-    assert_select doc, ".consumer-products a[href=#{url_for(@p[2].url)}]", @p[2].name,
+    assert_select doc, ".consumer-products a[href='#{url_for(@p[2].url)}']", @p[2].name,
       "Can't find link to @p2 (#{@p[2].name})."
   end
 

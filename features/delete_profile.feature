@@ -20,8 +20,6 @@ Feature: delete profile
     And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to deactivate this profile?"
-    When I follow "Yes, I am sure"
     Then I should see "Are you sure you want to delete this profile?"
     Then I follow "Yes, I am sure"
     Then I should be on the homepage
@@ -40,8 +38,7 @@ Feature: delete profile
     And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to deactivate this profile?"
-    And I confirm the browser dialog
+    Then I should see "Are you sure you want to delete this profile?"
     When I follow "No, I gave up"
     Then I should be on joaosilva's profile
 
@@ -60,8 +57,6 @@ Feature: delete profile
     And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to deactivate this profile?"
-    When I follow "Yes, I am sure"
     Then I should see "Are you sure you want to delete this profile?"
     Then I follow "Yes, I am sure"
     Then I should be on the homepage
@@ -95,8 +90,6 @@ Feature: delete profile
     And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to deactivate this profile?"
-    When I follow "Yes, I am sure"
     Then I should see "Are you sure you want to delete this profile?"
     Then I follow "Yes, I am sure"
     Then I should be on the homepage
@@ -120,8 +113,6 @@ Feature: delete profile
     And I follow "Informations" within "#section-profile"
     And I follow "Advanced Options"
     And I follow "Delete profile"
-    Then I should see "Are you sure you want to deactivate this profile?"
-    When I follow "Yes, I am sure"
     Then I should see "Are you sure you want to delete this profile?"
     Then I follow "Yes, I am sure"
     Then I should be on the homepage

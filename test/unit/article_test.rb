@@ -1488,7 +1488,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'return license from a specific version' do
-    cc = License.create!(:name => 'CC (by)', :environment => Environment.default)
+    cc = License.create!(:name => 'CC', :environment => Environment.default)
     gpl = License.create!(:name => 'GPLv3', :environment => Environment.default)
     article = create(Article, :name => 'first version', :profile => profile, :license => cc)
     article.license = gpl

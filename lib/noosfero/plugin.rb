@@ -97,7 +97,7 @@ class Noosfero::Plugin
     # This is a generic method that initialize any possible filter defined by a
     # plugin to a specific controller
     def load_plugin_filters(plugin)
-      ActionDispatch::Reloader.to_param do
+      ActiveSupport::Reloader.to_prepare do
         filters = plugin.new.send 'application_controller_filters' rescue []
         Noosfero::Plugin.add_controller_filters ApplicationController, plugin, filters
 
@@ -119,7 +119,7 @@ class Noosfero::Plugin
     #
     # Checkout FooPlugin for usage example.
     def load_plugin_hotspots(plugin)
-      ActionDispatch::Reloader.to_param do
+      ActiveSupport::Reloader.to_prepare do
         begin
           module_name = "#{plugin.name}::Hotspots"
           Noosfero::Plugin.send(:include, module_name.constantize)
@@ -143,7 +143,7 @@ class Noosfero::Plugin
     end
 
     def load_plugin_extensions(dir)
-      ActionDispatch::Reloader.to_param do
+      ActiveSupport::Reloader.to_prepare do
         Dir[File.join(dir, 'lib', 'ext', '**', '*.rb')].each{ |file| require_dependency file }
       end
     end
