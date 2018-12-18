@@ -17,17 +17,17 @@ class CategoryListTest < ActionDispatch::IntegrationTest
 
 	should 'display products categories when plugin is enabled' do
     login 'ze', 'test'
-		get "/admin/categories", :profile => 'ze'
+		get "/admin/categories"
 
-		assert_tag :tag => 'a', :attributes => { :href =>	'/admin/categories/new?type=ProductCategory'}
+		assert_tag tag: 'a', attributes: {href: '/admin/categories/new?type=ProductCategory'}
 	end
 
 	should 'do not display products categories when plugin is disabled' do
     @environment.disable_plugin('ProductsPlugin')
 		login 'ze', 'test'
-		get "/admin/categories", :profile => 'ze'
+		get "/admin/categories"
 
-		!assert_tag :tag => 'a', :attributes => { :href =>	'/admin/categories/new?type=ProductCategory'}
+		!assert_tag tag: 'a', attributes: {href: '/admin/categories/new?type=ProductCategory'}
 	end
 
 	should 'list products categories correctely' do
@@ -35,9 +35,9 @@ class CategoryListTest < ActionDispatch::IntegrationTest
     @product_category = create ProductsPlugin::ProductCategory, name: 'Test'
 
     login 'ze', 'test'
-    get "/admin/categories", :profile => 'ze'
+    get "/admin/categories"
 
-    assert_tag :tag => 'span', :content => 'Products'
-    assert_tag :tag => 'span', :content => 'Test'
+    assert_tag tag: 'span', content: 'Products'
+    assert_tag tag: 'span', content: 'Test'
 	end
 end
