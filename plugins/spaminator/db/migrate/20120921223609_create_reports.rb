@@ -1,4 +1,4 @@
-class CreateReports < ActiveRecord::Migration
+class CreateReports < ActiveRecord::Migration[5.1]
   def self.up
     create_table :spaminator_plugin_reports do |t|
       t.integer     :spams_by_content, :default => 0
@@ -9,7 +9,7 @@ class CreateReports < ActiveRecord::Migration
       t.integer     :total_comments, :default => 0
       t.integer     :processed_comments, :default => 0
       t.integer     :processed_people, :default => 0
-      t.references  :environment
+      t.references  :environment, index: {:name => 'index_asHf871d'}
       t.text        :failed
       t.timestamps
     end
