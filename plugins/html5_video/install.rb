@@ -14,7 +14,7 @@ end
 
 unless system 'dpkg -s ghostscript'
   system 'sudo apt-get update'
-  unless system 'sudo apt-get install -y -t ghostscript'
+  unless system 'sudo apt-get install -y ghostscript'
     exit $?.exitstatus
   end
 end
