@@ -311,9 +311,8 @@ class MembersBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View All")
 
     render_block_footer(block)
-    assert_select 'a.view-all' do |elements|
-      assert_select "[href=\"/profile/mytestuser/members#members-tab\"]"
-    end
+    assert_select "a.view-all"
+    assert_select "a[href=?]", "/profile/#{profile.name.to_slug}/members#members-tab"
   end
 
   should 'provide link to members page when visible_role is profile_member' do
@@ -334,9 +333,8 @@ class MembersBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     render_block_footer(block)
-    assert_select 'a.view-all' do |elements|
-      assert_select "[href=\"/profile/mytestuser/members#members-tab\"]"
-    end
+    assert_select "a.view-all"
+    assert_select "a[href=?]", "/profile/#{profile.name.to_slug}/members#members-tab"
   end
 
   should 'provide link to members page when visible_role is profile_moderator' do
@@ -358,9 +356,8 @@ class MembersBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     render_block_footer(block)
-    assert_select 'a.view-all' do |elements|
-      assert_select "[href=\"/profile/mytestuser/members#members-tab\"]"
-    end
+    assert_select "a.view-all"
+    assert_select "a[href=?]", "/profile/#{profile.name.to_slug}/members#members-tab"
   end
 
   should 'provide link to admins page when visible_role is profile_admin' do
@@ -381,9 +378,8 @@ class MembersBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
     render_block_footer(block).inspect
 
-    assert_select 'a.view-all' do |elements|
-      assert_select "[href=\"/profile/mytestuser/members#admins-tab\"]"
-    end
+    assert_select "a.view-all"
+    assert_select "a[href=?]", "/profile/#{profile.name.to_slug}/members#admins-tab"
   end
 
   # FIXME: This test is currently not reliable in the CI. We should rewrite it.
