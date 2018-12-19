@@ -190,6 +190,7 @@ module ProductsPlugin
 
     def certifiers_for_selection
       @qualifier = Qualifier.where(id: params[:id]).first
+      # Replace this later to use Unobtrusive JS
       render :update do |page|
         page.replace_html params[:certifier_area], partial: 'certifiers_for_selection'
       end

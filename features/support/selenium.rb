@@ -11,7 +11,7 @@ Capybara.register_driver :selenium do |app|
     options.profile = profile
     driver = Capybara::Selenium::Driver.new app, browser: :firefox, options: options
   else
-    puts '[ERROR] :: Unsupported web browser, use Firefox 60.3 instead.'
+    puts '[ERROR] :: Unsupported web browser, use Firefox 57.0 instead.'
   end
 end
 

@@ -55,6 +55,9 @@ module PrototypeHelper
 
     return function.html_safe
   end
+  def method_option_to_s(method)
+    (method.is_a?(String) and !method.index("'").nil?) ? method : "'#{method}'"
+  end
 
   def options_for_ajax(options)
     js_options = build_callbacks(options)
