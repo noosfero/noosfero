@@ -174,9 +174,11 @@ class Comment < ApplicationRecord
   after_create do |comment|
     if comment.source.kind_of?(Article)
       comment.article.create_activity if comment.article.activity.nil?
-      if comment.article.activity
-        comment.article.activity.increment!(:comments_count)
-        comment.article.activity.update_attribute(:visible, true)
+      activity = comment.article.activity
+      if activity.present?
+        activity.increment!(:comments_count)
+        activity.update_attribute(:visible, true)
+        activity.touch
       end
     end
   end

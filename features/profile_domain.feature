@@ -17,27 +17,18 @@ Feature: domain for profile
     And "Joao Silva" is environment admin
     And "Joao Silva" is admin of "Sample Community"
 
-  @selenium
   Scenario: access profile control panel through profile blocks
     Given I am logged in as "joaosilva"
     When I go to joaosilva's homepage
     And I follow "Control panel" within ".profile-image-block"
     Then I should see "Joao Silva" within "span.control-panel-title"
 
-  @selenium
-  Scenario: access user control panel
+  Scenario: can't see profile if domain is different
     Given I am logged in as "joaosilva"
     When I follow "Profile"
     And I go to sample-community's homepage
-    And I follow "Login"
-    And I fill in "joaosilva" for "Username / Email"
-    And I fill in "123456" for "Password"
-    And I follow "Log in"
-    And I wait for 1 seconds
-    And I follow "Control panel"
-    Then I should see "Joao Silva" within "span.control-panel-title"
+    Then I should not see "Sample Community" within any "h1"
 
-  @selenium
   Scenario: access user page
     Given I am logged in as "joaosilva"
     When I follow "Profile"
