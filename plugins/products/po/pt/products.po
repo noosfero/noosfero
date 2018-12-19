@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2016-09-12 13:14-0300\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2018-12-20 19:09+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"plugin-products/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../controllers/profile/products_plugin/page_controller.rb:41
 msgid "Product succesfully created"
@@ -92,7 +94,7 @@ msgstr "Localização"
 
 #: ../lib/products_plugin/enterprise_homepage_helper.rb:11
 msgid "Address:"
-msgstr "Endereço"
+msgstr "Endereço:"
 
 #: ../lib/products_plugin/enterprise_homepage_helper.rb:12
 msgid "Economic activity:"
@@ -622,7 +624,7 @@ msgstr "Tem certeza que quer excluir este custo?"
 
 #: ../views/products_plugin/page/_form.html.erb:6
 msgid "Name:"
-msgstr "Nome"
+msgstr "Nome:"
 
 #: ../views/products_plugin/page/_form.html.erb:7
 msgid "Price:"
