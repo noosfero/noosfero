@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2018-12-19 17:09+0000\n"
-"Last-Translator: Rebeca Moura <rebecasm@movecode.com>\n"
+"PO-Revision-Date: 2018-12-20 19:09+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
 "Language: pt\n"
@@ -1431,7 +1431,7 @@ msgstr "Painel de controle no menu"
 #: doc/noosfero/admin/send-email-members.en.xhtml:11
 #: doc/noosfero/admin/export-users-list.en.xhtml:11
 msgid "Then, click on &#8220;Manage users&#8221; link:"
-msgstr "Depois, clique em &#8220;Gerenciar usuários&#8221;"
+msgstr "Depois, clique em &#8220;Gerenciar usuários&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -1572,7 +1572,8 @@ msgid ""
 "&#8220;<span class=\"caps\">XML</span>&#8221;."
 msgstr ""
 "Em &#8220;Gerenciar usuários&#8221;, escolha em qual formato você quer "
-"exportar a lista. Há duas opções: &#8220;CSV&#8221; e &#8220;XML&#8221;."
+"exportar a lista. Há duas opções: &#8220;<span class=\"caps\""
+">CSV</span>&#8221; e &#8220;<span class=\"caps\">XML</span>&#8221;."
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -3858,8 +3859,9 @@ msgid ""
 msgstr ""
 "<strong>Leitor de Feed:</strong> Este bloco pode ser utilizado para listar "
 "as últimas notícias de qualquer site que desejar. Você só precisa informar o "
-"endereço de um feed RSS clicando no botão &#8220;Editar&#8221;. Você também "
-"pode selecionar o número de itens que serão mostrados."
+"endereço de um feed <span class=\"caps\">RSS</span> clicando no botão "
+"&#8220;Editar&#8221;. Você também pode selecionar o número de itens que "
+"serão mostrados."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
@@ -4839,10 +4841,11 @@ msgid ""
 "code, to be viewed on browsers. Use this button to view/edit the <span class="
 "\"caps\">HTML</span> code of your header/footer."
 msgstr ""
-"<strong>Editar código fonte:</strong> o texto escrito nesse editor é "
-"transformado em código HTML, para poder ser visualizado nos navegadores. "
-"Utilize esse botão para visualizar/editar o código <span class=\"caps"
-"\">HTML</span> do seu cabeçalho/rodapé."
+"<strong>Editar código fonte <span class=\"caps\">HTML</span>:</strong> o "
+"texto escrito nesse editor é transformado em código <span class=\"caps\""
+">HTML</span>, para poder ser visualizado nos navegadores. Utilize esse botão "
+"para visualizar/editar o código <span class=\"caps\">HTML</span> do seu cabeç"
+"alho/rodapé."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -4919,7 +4922,7 @@ msgstr ""
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:13
 #: doc/noosfero/cms/writing-article.en.xhtml:12
 msgid "Then, click on &#8220;Manage content&#8221;:"
-msgstr "Depois, clique em &#8220;Gerenciar conteúdo&#8221;"
+msgstr "Depois, clique em &#8220;Gerenciar conteúdo&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -5759,7 +5762,7 @@ msgstr "Inserir vídeos e áudio"
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:55
 msgid "Click on &#8220;<span class=\"caps\">HTML</span>&#8221; button"
-msgstr "Clique no botão &#8220;HTML&#8221;:"
+msgstr "Clique no botão &#8220;<span class=\"caps\">HTML</span>&#8221;"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -7094,7 +7097,7 @@ msgstr "<em>Sempre que quiser, você pode alterar sua senha.</em>"
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:12
 msgid "Then, click on &#8220;Change Password&#8221;:"
-msgstr "Depois, clique em &#8220;Alterar senha&#8221;"
+msgstr "Depois, clique em &#8220;Alterar senha&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -8231,7 +8234,7 @@ msgid ""
 "see below the user picture"
 msgstr ""
 "Na página do usuário, clique no botão &#8220;Adicionar amigo&#8221; que você "
-"verá abaixo da foto do usuário "
+"verá abaixo da foto do usuário"
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/adding-friends.en.xhtml:12
