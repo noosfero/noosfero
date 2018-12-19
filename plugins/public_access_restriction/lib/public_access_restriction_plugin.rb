@@ -13,7 +13,7 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
   end
 
   def should_block?(user, environment, params, profile)
-    params = params.with_indifferent_access
+    params = params.to_h.with_indifferent_access
     profile = Profile[params[:profile]] unless profile
     not(
       user ||
@@ -29,7 +29,7 @@ class PublicAccessRestrictionPlugin < Noosfero::Plugin
   end
 
   def should_display_public_page?(params)
-    params = params.with_indifferent_access
+    params = params.to_h.with_indifferent_access
     profile = Profile[params[:profile]]
     settings = Noosfero::Plugin::Settings.new(profile, self.class) if profile
     settings.show_public_page.in? ["1", true] if settings

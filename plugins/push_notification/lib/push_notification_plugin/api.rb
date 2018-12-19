@@ -52,7 +52,8 @@ class PushNotificationPlugin::API < Grape::API
       authenticate!
       target_user = target
 
-      PushNotificationPlugin::DeviceToken.delete_all(["token = ? AND user_id = (?)", params[:token],target_user.id])
+      PushNotificationPlugin::DeviceToken.where("token = ? AND user_id = (?)", params[:token],target_user.id)
+                                         .delete_all
 
       present target_user, :with => PushNotificationPlugin::Entities::DeviceUser
     end
