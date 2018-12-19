@@ -92,7 +92,7 @@ class AdminNotificationsPluginMyprofileControllerTest < ActionController::TestCa
                       :active => true,
                       :type => "AdminNotificationsPlugin::DangerNotification"
                     )
-    delete :destroy, :profile => @community.identifier, :id => @notification.id
+    post :destroy, :profile => @community.identifier, :id => @notification.id
     assert_nil AdminNotificationsPlugin::Notification.find_by_id(@notification.id)
   end
 
@@ -103,7 +103,7 @@ class AdminNotificationsPluginMyprofileControllerTest < ActionController::TestCa
                       :active => true,
                       :type => "AdminNotificationsPlugin::DangerNotification"
                     )
-    delete :destroy, :profile => @community.identifier, :id => @notification.id
+    post :destroy, :profile => @community.identifier, :id => @notification.id
 
     assert_redirected_to :root
     assert_not_nil AdminNotificationsPlugin::Notification.find_by_id(@notification.id)

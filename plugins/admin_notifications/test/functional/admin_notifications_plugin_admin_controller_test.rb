@@ -85,7 +85,7 @@ class AdminNotificationsPluginAdminControllerTest < ActionController::TestCase
                       :active => true,
                       :type => "AdminNotificationsPlugin::DangerNotification"
                     )
-    delete :destroy, :id => @notification.id
+    post :destroy, :id => @notification.id
     assert_nil AdminNotificationsPlugin::Notification.find_by id: @notification.id
   end
 
@@ -96,7 +96,7 @@ class AdminNotificationsPluginAdminControllerTest < ActionController::TestCase
                       :active => true,
                       :type => "AdminNotificationsPlugin::DangerNotification"
                     )
-     delete :destroy, :id => @notification.id
+     post :destroy, :id => @notification.id
 
      assert_response 403
      assert_not_nil AdminNotificationsPlugin::Notification.find_by id: @notification.id

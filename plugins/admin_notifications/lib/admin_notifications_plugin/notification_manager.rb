@@ -20,13 +20,11 @@ module AdminNotificationsPlugin::NotificationManager
   end
 
   def destroy
-    if request.delete?
-      notification = target.notifications.find_by id: params[:id]
-      if notification && notification.destroy
-        session[:notice] = _('The notification was deleted.')
-      else
-        session[:notice] = _('Could not remove the notification')
-      end
+    notification = target.notifications.find_by id: params[:id]
+    if notification && notification.destroy
+      session[:notice] = _('The notification was deleted.')
+    else
+      session[:notice] = _('Could not remove the notification')
     end
     redirect_to :action => :index
   end
