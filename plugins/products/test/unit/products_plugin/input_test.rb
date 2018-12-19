@@ -41,17 +41,18 @@ class InputTest < ActiveSupport::TestCase
   end
 
   should 'move input to top of input list' do
-    product = fast_create(Product, :product_category_id => product_category.id)
+    product = fast_create(Product, product_category_id: product_category.id)
 
-    first_input = create(Input, :product => product, :product_category => product_category)
-    second_input = create(Input, :product => product, :product_category => product_category)
-    last_input = create(Input, :product => product, :product_category => product_category)
+    first_input = create(Input, product: product, product_category: product_category)
+    second_input = create(Input, product: product, product_category: product_category)
+    last_input = create(Input, product: product, product_category: product_category)
 
-    assert_equal [first_input, second_input, last_input], product.inputs(true)
+    inputs = [first_input, second_input, last_input]
+    assert_equal inputs, product.inputs
+    
+    inputs.last.move_to_top
 
-    last_input.move_to_top
-
-    assert_equal [last_input, first_input, second_input], product.inputs(true)
+    assert_equal inputs, product.inputs
   end
 
   should 'use name of product category' do

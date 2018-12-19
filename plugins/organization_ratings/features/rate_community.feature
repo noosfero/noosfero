@@ -18,13 +18,11 @@ Feature: rate_community
     And the environment domain is "localhost"
     And I am logged in as "joaosilva"
 
-  @selenium
   Scenario: display rate button and total ratings inside average block
     Given I am on mycommunity's homepage
     Then I should see "Rate this Community" within ".average-rating-block"
     And I should see "Be the first to rate" within ".average-rating-block"
 
-  @selenium
   Scenario: display rate button inside communities ratings block
     Given I am on mycommunity's homepage
     Then I should see "Rate Community" within ".make-report-block"

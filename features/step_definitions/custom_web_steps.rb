@@ -33,7 +33,7 @@ Then /^the field "([^"]*)" should be (enabled|disabled)$/ do |selector, status|
 end
 
 When /^I reload and wait for the page$/ do
-  raise "Why why need this? Remove!"
+  raise "Why do we need this? Remove!"
   visit page.driver.browser.current_url
 end
 

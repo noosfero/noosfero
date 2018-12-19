@@ -37,7 +37,7 @@ class ProductsPlugin::Product < ApplicationRecord
 
   belongs_to :product_category, optional: true
 
-  has_many :inputs, -> { order 'position' }, dependent: :destroy
+  has_many :inputs, -> { order(position: :asc) }, dependent: :destroy
   has_many :price_details, dependent: :destroy
   has_many :production_costs, through: :price_details
 
