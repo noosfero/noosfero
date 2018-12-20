@@ -176,13 +176,13 @@ jQuery(function($) {
   }
 
   function show_hide_privacy_options() {
-   var custom_privacy_option = $(".custom_privacy_option").parent("div");
-   if( show_custom_privacy_option ) {
-     custom_privacy_option.show();
-   } else {
-     custom_privacy_option.hide();
-   }
-   show_hide_token_input();
+    var custom_privacy_option = $(".custom_privacy_option").parent("div");
+    if( show_custom_privacy_option ) {
+      custom_privacy_option.show();
+    } else {
+      custom_privacy_option.hide();
+    }
+    show_hide_token_input();
   }
 
   function show_hide_token_input() {

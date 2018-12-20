@@ -44,7 +44,7 @@ Feature: edit article
     And I go to /freesoftware/my-folder
     Then I should see "You are not allowed to view this page."
 
-  @selenium-fixme
+  @selenium
   Scenario: Hide token field when show to members is activated
     Given the following communities
       | name           | identifier    | owner     |

@@ -41,14 +41,7 @@ When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
     begin
       link = find :link_or_button, link, match: :prefer_exact
-      # If the link has child elements, then $(link).click() has no effect,
-      # so find the first child and click on it.
-      if Capybara.default_driver == :selenium
-        target = link.all('*').first || link
-      else
-        target = link
-      end
-      target.click
+      link.click
     rescue
       page.driver.browser.switch_to.alert.accept
     end
@@ -70,7 +63,7 @@ end
 When /^(?:|I )fill in post-access hidden field with "([^"]*)"/ do |value|
   execute_script("
                  if (#{value.to_s} == '3') {
-                  show_custom_privacy_option = true;
+                  window.show_custom_privacy_option = true;
                  }
                  $('#post-access').val(#{value.to_s}).trigger('change');
                  ")
