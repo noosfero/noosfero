@@ -15,7 +15,7 @@ class VotePluginProfileController < ProfileController
 
     object = target(model)
     vote_target(object, vote)
-
+    # Later change this to use unobtrusive JS
     render :update do |page|
       model_settings.each do |v|
         page.replace "vote_#{model}_#{params[:id]}_#{v}", instance_eval(&controller.vote_partial(object, v==1, false))

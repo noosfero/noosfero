@@ -49,7 +49,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should "display 'Upload files' when create children of image gallery" do
     login_as(profile.identifier)
     f = Gallery.create!(:name => 'gallery', :profile => profile)
-    xhr :get, :view_page, :profile => profile.identifier, :page => f.explode_path, :toolbar => true
+    get :view_page, xhr: true, params: { profile: profile.identifier, page: f.explode_path, toolbar: true }
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{f.id}/}
   end
 
