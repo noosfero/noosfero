@@ -3,12 +3,14 @@ require 'test_helper'
 class HomeControllerTest < ActionController::TestCase
 
   def setup
+    p Environment.all
     @env = Environment.default
     @env.enable_plugin('EventPlugin')
 
     @p1  = fast_create(Person, :environment_id => @env.id)
     @e1a = Event.create!(:name=>'Event p1 A', :profile =>@p1)
 
+    p @env.boxes
     box = Box.create!(:owner => @env)
     @block = EventPlugin::EventBlock.create!(:box => box)
   end
@@ -19,7 +21,6 @@ class HomeControllerTest < ActionController::TestCase
 
   should 'see events microdata structure' do
     get :index
-    puts response.body
     assert_select '.event-plugin_event-block ul.events'
     assert_select ev
     assert_select ev + '  a[itemprop="url"]'
