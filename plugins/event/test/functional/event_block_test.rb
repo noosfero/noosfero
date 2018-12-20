@@ -19,7 +19,7 @@ class HomeControllerTest < ActionController::TestCase
 
   should 'see events microdata structure' do
     get :index
-#raise response.body.inspect
+    puts response.body
     assert_select '.event-plugin_event-block ul.events'
     assert_select ev
     assert_select ev + '  a[itemprop="url"]'
