@@ -74,7 +74,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     end
   end
 
-  should 'create admission survey when atempted membership' do
+  should 'create admission survey when attempted membership' do
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
     organization = fast_create(Organization)

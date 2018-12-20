@@ -354,7 +354,7 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     answer = CustomFormsPlugin::Answer.create!(:field => field,
                                                :value => nil,
                                                :submission => submission)
-    form_answer = CustomFormsPlugin::FormAnswer.create!(answer_id: answer,
+    form_answer = CustomFormsPlugin::FormAnswer.create!(answer_id: answer.id,
                                                         alternative_id: field.alternatives[0].id)
     answer.form_answers << form_answer
     answer.save!

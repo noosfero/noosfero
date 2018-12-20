@@ -13,7 +13,8 @@ class CommunityTrackPluginMyprofileControllerTest < ActionController::TestCase
   end
 
   should 'redirect to track on save order' do
-    get :save_order, :profile => @profile.identifier, :track => @track.id, :step_ids => []
+    get :save_order, params: { profile: @profile.identifier,
+                               track: @track.id, step_ids: [] }
     assert_redirected_to @track.url
   end
 

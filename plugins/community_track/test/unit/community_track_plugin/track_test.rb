@@ -57,14 +57,16 @@ class TrackTest < ActiveSupport::TestCase
     category1 = fast_create(Category, :name => 'category1', :parent_id => top.id )
     category2 = fast_create(Category, :name => 'category2', :parent_id => category1.id )
     @track.categories.delete_all
-    @track.add_category(category2, true)
+    @track.add_category(category2)
+    @track.reload
     assert_equal 'top category', @track.category_name
   end
 
   should 'return name of the top category when has no subcategory' do
     top = create(Category, :name => 'top category', :environment => Environment.default)
     @track.categories.delete_all
-    @track.add_category(top, true)
+    @track.add_category(top)
+    @track.reload
     assert_equal 'top category', @track.category_name
   end
 
@@ -76,9 +78,10 @@ class TrackTest < ActiveSupport::TestCase
   should 'return category name of first category' do
     category = fast_create(Category, :name => 'category')
     @track.categories.delete_all
-    @track.add_category(category, true)
+    @track.add_category(category)
     category2 = fast_create(Category, :name => 'category2')
-    @track.add_category(category2, true)
+    @track.add_category(category2)
+    @track.reload
     assert_equal 'category', @track.category_name
   end
 

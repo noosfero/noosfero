@@ -36,6 +36,6 @@ class CustomFormsPluginAdminController < AdminController
   private
 
   def set_profiles
-    @profiles = environment.profiles.joins(:forms).uniq
+    @profiles = environment.profiles.joins(:forms).distinct
   end
 end
