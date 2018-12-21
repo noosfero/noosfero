@@ -56,6 +56,7 @@ class LattesCurriculumPlugin < Noosfero::Plugin
   def profile_editor_controller_filters
     validate_lattes_url_block = proc do
       if request.post?
+        params = params.to_h.with_indifferent_access
         if !params[:academic_infos].blank?
           @profile_data = profile
 

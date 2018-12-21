@@ -5,6 +5,7 @@ class NewsletterPluginAdminController < PluginAdminController
 
     if request.post?
       # token input gives the param as a comma separated string
+      params[:newsletter] = {} if params[:newsletter].blank?
       params[:newsletter][:blog_ids] = (params[:newsletter][:blog_ids] || '').split(',')
       @newsletter.person_id = user.id
 
