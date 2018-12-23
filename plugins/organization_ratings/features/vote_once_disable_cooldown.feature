@@ -15,8 +15,8 @@ Feature: vote_once_disable_cooldown
     And I follow "Administration"
     And I follow "Plugins"
     And I follow "Configuration"
-    And the field "#organization_ratings_config_cooldown" should be enabled
-    And I check "Vote once"
-    And the field "#organization_ratings_config_cooldown" should be disabled
-    And I uncheck "Vote once"
+    Then the field "#organization_ratings_config_cooldown" should be enabled
+    And I follow "Vote once"
+    Then the field "#organization_ratings_config_cooldown" should be disabled
+    And I follow "Vote once"
     Then the field "#organization_ratings_config_cooldown" should be enabled

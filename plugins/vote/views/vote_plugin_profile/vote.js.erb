@@ -1,0 +1,4 @@
+<% @model_settings.each do |v| %>
+  $('#<%= "vote_#{@model}_#{@model_id}_#{v}" %>')
+    .replaceWith('<%= j vote_partial(@object, v == 1, false).call %>')
+<% end %>

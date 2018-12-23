@@ -1,37 +1,37 @@
 class VotePluginProfileController < ProfileController
+  helper VotePluginHelper
 
   before_action :login_required, :only => [:vote]
 
   def vote
-    model = params[:model].to_sym
+    @model = params[:model].to_sym
+    @model_id = params[:id]
+
     vote = params[:vote].to_i
     settings = Noosfero::Plugin::Settings.new(environment, VotePlugin)
-    model_settings = settings.send("enable_vote_#{model}")
+    @model_settings = settings.send("enable_vote_#{@model}")
 
-    unless model_settings && model_settings.include?(vote)
+    unless @model_settings && @model_settings.include?(vote)
       render_access_denied
       return
     end
 
-    object = target(model)
-    vote_target(object, vote)
-    # Later change this to use unobtrusive JS
-    render :update do |page|
-      model_settings.each do |v|
-        page.replace "vote_#{model}_#{params[:id]}_#{v}", instance_eval(&controller.vote_partial(object, v==1, false))
-      end
+    @object = target(@model)
+    vote_target(@object, vote)
+
+    respond_to do |format|
+      format.js
     end
   end
 
-  include VotePluginHelper
-
   def reload_vote
-    model = params[:model].to_sym
-    vote = params[:vote].to_i
-    object = target(model)
+    @model = params[:model].to_sym
+    @model_id = params[:id]
+    @vote = params[:vote].to_i
+    @object = target(@model)
 
-    render :update do |page|
-      page.replace "vote_#{model}_#{params[:id]}_#{vote}", instance_eval(&controller.vote_partial(object, vote==1, true))
+    respond_to do |format|
+      format.js
     end
   end
 
