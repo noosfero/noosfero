@@ -318,7 +318,7 @@ class PageControllerTest < ActionController::TestCase
 
   should 'render partial certifiers for selection' do
     xhr :get, :certifiers_for_selection, profile: @enterprise.identifier
-    assert_template '_certifiers_for_selection'
+    assert_template 'certifiers_for_selection'
   end
 
   should 'not list all the products of enterprise' do
