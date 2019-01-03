@@ -55,14 +55,14 @@ class LattesCurriculumPlugin < Noosfero::Plugin
 
   def profile_editor_controller_filters
     validate_lattes_url_block = proc do
+      parameters = params.to_h.with_indifferent_access
       if request.post?
-        params = params.to_h.with_indifferent_access
-        if !params[:academic_infos].blank?
+        if !parameters[:academic_infos].blank?
           @profile_data = profile
 
-          academic_infos = {"academic_info_attributes" => params[:academic_infos]}
+          academic_infos = {"academic_info_attributes" => parameters[:academic_infos]}
 
-          params_profile_data = params[:profile_data]
+          params_profile_data = parameters[:profile_data]
           params_profile_data = params_profile_data.merge(academic_infos)
 
           @profile_data.attributes = params_profile_data
@@ -70,7 +70,7 @@ class LattesCurriculumPlugin < Noosfero::Plugin
 
           @possible_domains = profile.possible_domains
 
-          unless AcademicInfo.matches?(params[:academic_infos])
+          unless AcademicInfo.matches?(parameters[:academic_infos])
             @profile_data.errors.add(:lattes_url, _(' Invalid lattes url'))
             render :action => :informations, :profile => profile.identifier
           end
@@ -96,14 +96,15 @@ class LattesCurriculumPlugin < Noosfero::Plugin
 
   def account_controller_filters
     validate_lattes_url_block = proc do
+      parameters = params.to_h.with_indifferent_access
       if request.post?
-        params[:profile_data] ||= {}
-        params[:profile_data][:academic_info_attributes] = params[:academic_infos]
+        parameters[:profile_data] ||= {}
+        parameters[:profile_data][:academic_info_attributes] = parameters[:academic_infos]
 
-        if !params[:academic_infos].blank? && !AcademicInfo.matches?(params[:academic_infos])
-          @person = Person.new(params[:profile_data])
+        if !parameters[:academic_infos].blank? && !AcademicInfo.matches?(parameters[:academic_infos])
+          @person = Person.new(parameters[:profile_data])
           @person.environment = environment
-          @user = User.new(params[:user])
+          @user = User.new(parameters[:user])
           @person.errors.add(:lattes_url, _(' Invalid lattes url'))
           render :action => :signup
         end
