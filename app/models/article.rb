@@ -100,10 +100,10 @@ class Article < ApplicationRecord
   has_many :person_followers_emails, -> { select :email }, class_name: 'User', through: :person_followers, source: :user
 
   has_many :article_categorizations, -> { where 'articles_categories.virtual = ?', false }
-  has_many :categories, through:  :article_categorizations
+  has_many :categories, through: :article_categorizations
 
   has_many :article_categorizations_including_virtual, class_name: 'ArticleCategorization'
-  has_many :categories_including_virtual, through:  :article_categorizations_including_virtual, source: :category
+  has_many :categories_including_virtual, through: :article_categorizations_including_virtual, source: :category
 
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :setting

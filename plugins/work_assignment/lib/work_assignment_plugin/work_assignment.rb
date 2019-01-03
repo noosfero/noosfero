@@ -38,15 +38,15 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
 
   def find_or_create_author_folder(author)
     children.find_by(slug: author.name.to_slug) || Folder.create!(
-                                                                {
-                                                                  :name => author.name,
-                                                                  :parent => self,
-                                                                  :profile => profile,
-                                                                  :author => author,
-                                                                  :published => publish_submissions,
-                                                                },
-                                                                :without_protection => true
-                                                  )
+                                                                  {
+                                                                    :name => author.name,
+                                                                    :parent => self,
+                                                                    :profile => profile,
+                                                                    :author => author,
+                                                                    :published => publish_submissions,
+                                                                  },
+                                                                  :without_protection => true
+                                                                 )
   end
 
   def submissions

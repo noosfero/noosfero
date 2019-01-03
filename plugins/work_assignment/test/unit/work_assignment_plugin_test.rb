@@ -9,9 +9,9 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
 
     refute WorkAssignmentPlugin.is_submission?(content)
 
-    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(name: 'Work Assignment', profile: organization)
+    work_assignment = create_submission(person)
     content.parent = work_assignment
-    content.save!
+    content.save
     
     assert WorkAssignmentPlugin.is_submission?(content)
 
