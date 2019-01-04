@@ -82,13 +82,4 @@ class VotePluginProfileControllerTest < ActionController::TestCase
     xhr :post, :vote, :profile => profile.identifier, :id => article.id, :model => 'article', :vote => 1
     assert profile.voted_for?(article)
   end
-
-  should 'update views with new vote state' do
-    xhr :post, :vote, :profile => profile.identifier, :id => article.id, :model => 'article', :vote => 1
-    assert_select_rjs :replace do
-      assert_select "#vote_article_#{article.id}_1"
-      assert_select "#vote_article_#{article.id}_-1"
-    end
-  end
-
 end

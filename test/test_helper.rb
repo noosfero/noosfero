@@ -194,7 +194,7 @@ class ActiveSupport::TestCase
 
   def process_delayed_job_queue
     # To enable logs, add `(quiet: false)` to Delayed::Worker.new
-    Delayed::Worker.new(quiet: false).work_off
+    Delayed::Worker.new(quiet: true).work_off
   end
 
   def uses_postgresql(schema_name = 'test_schema')
