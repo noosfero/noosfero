@@ -7,7 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "PO-Revision-Date: 2019-01-07 15:39+0000\n"
-"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"Last-Translator: Jorge F. Tinoco Gomez "
+"<revistafammatvmusic.oficial@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/es/>\n"
 "Language: es\n"
@@ -3714,7 +3715,7 @@ msgstr "%{fn} no puede ser de esta forma."
 
 #: ../app/models/category.rb:14
 msgid "{fn} is already being used by another category."
-msgstr "{fn} ya está siendo usado por otra categoría."
+msgstr "%{fin} ya está siendo usado por otra categoría."
 
 #: ../app/models/change_password.rb:10
 msgid "Password Confirmation"
