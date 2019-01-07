@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2019-01-07 14:48+0000\n"
-"Last-Translator: Eduardo Vital <vitaldu@gmail.com>\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-custom-forms/pt/>\n"
 "Language: pt\n"
@@ -774,7 +774,7 @@ msgstr "Data de submissão"
 
 #: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:14
 msgid "Author"
-msgstr "Nome do autor"
+msgstr "Nome do autor(a)"
 
 #: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:26
 msgid "Unauthenticated"
