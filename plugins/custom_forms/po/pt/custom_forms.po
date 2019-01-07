@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "PO-Revision-Date: 2019-01-07 14:48+0000\n"
-"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"Last-Translator: Eduardo Vital <vitaldu@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-custom-forms/pt/>\n"
 "Language: pt\n"
@@ -770,11 +770,11 @@ msgstr "Importar outro ficheiro"
 
 #: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:10
 msgid "Submission date"
-msgstr "Data da submissão"
+msgstr "Data de submissão"
 
 #: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:14
 msgid "Author"
-msgstr "Autor"
+msgstr "Nome do autor"
 
 #: ../views/custom_forms_plugin_myprofile/show_submission.html.erb:26
 msgid "Unauthenticated"
