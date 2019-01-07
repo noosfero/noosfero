@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "PO-Revision-Date: 2019-01-07 15:19+0000\n"
-"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"Last-Translator: Gabriel Silva <gabriel93.silva@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
 "Language: pt\n"
@@ -1491,7 +1491,7 @@ msgstr "Não permitir novo conteúdo neste artigo e em seus filhos"
 
 #: ../app/helpers/article_helper.rb:29
 msgid "Allow all members to edit this article"
-msgstr "Permitir que todos os membros editem este artigo"
+msgstr "Permitir que apenas membros editem este artigo"
 
 #: ../app/helpers/article_helper.rb:36
 msgid "I want to receive comments about this article"
