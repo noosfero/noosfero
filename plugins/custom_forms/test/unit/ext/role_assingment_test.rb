@@ -95,6 +95,6 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     assert_difference 'CustomFormsPlugin::AdmissionSurvey.count', 2 do
       organization.add_member(person)
     end
-    refute organization.members.include?(person)
+    assert organization.members.include?(person)
   end
 end
