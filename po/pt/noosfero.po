@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2019-01-07 15:19+0000\n"
-"Last-Translator: Gabriel Silva <gabriel93.silva@gmail.com>\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
 "Language: pt\n"
@@ -1491,7 +1491,7 @@ msgstr "Não permitir novo conteúdo neste artigo e em seus filhos"
 
 #: ../app/helpers/article_helper.rb:29
 msgid "Allow all members to edit this article"
-msgstr "Permitir que apenas membros editem este artigo"
+msgstr "Permitir que todos os membros editem este artigo"
 
 #: ../app/helpers/article_helper.rb:36
 msgid "I want to receive comments about this article"
@@ -5481,7 +5481,7 @@ msgstr "Envie qualquer tipo de ficheiro que você queira."
 
 #: ../app/models/uploaded_file.rb:259
 msgid "Your upload quota has exceeded"
-msgstr "A sua cota de upload foi excedida"
+msgstr "Sua cota de upload foi excedida"
 
 #: ../app/models/user.rb:23
 msgid "Password confirmation"
@@ -6080,15 +6080,15 @@ msgstr "Formato de data do artigo"
 
 #: ../app/views/admin_panel/_site_info.html.erb:11
 msgid "mm/dd/yyyy"
-msgstr "dd/mm/aaaa"
+msgstr "mm/dd/aaaa"
 
 #: ../app/views/admin_panel/_site_info.html.erb:12
 msgid "mm/dd"
-msgstr "dd/mm"
+msgstr "mm/dd"
 
 #: ../app/views/admin_panel/_site_info.html.erb:13
 msgid "Month dd, yyyy"
-msgstr "dd de Mês, aaaa"
+msgstr "Mês dd, aaaa"
 
 #: ../app/views/admin_panel/_site_info.html.erb:14
 msgid "Month dd"
@@ -6901,11 +6901,11 @@ msgstr "Primeiro parágrafo"
 
 #: ../app/views/cms/_blog.html.erb:63
 msgid "First paragraph, with post picture"
-msgstr "Primeiro parágrafo, com figura"
+msgstr "Primeiro parágrafo, com imagem postada"
 
 #: ../app/views/cms/_blog.html.erb:64
 msgid "Title, Image, Lead"
-msgstr "Título, Imagem, Olho"
+msgstr "Título, Imagem, Corpo"
 
 #: ../app/views/cms/_blog.html.erb:67 ../app/views/cms/_forum.html.erb:13
 msgid "Posts per page:"
@@ -9707,7 +9707,7 @@ msgstr "Atribuir %s"
 
 #: ../app/views/profile_roles/assign.html.erb:9
 msgid "Assign role by:"
-msgstr "Atribuir papel por:"
+msgstr "Atribui papel por:"
 
 #: ../app/views/profile_roles/assign.html.erb:23
 msgid "Select members to assign the role"
@@ -9723,7 +9723,7 @@ msgstr "Removendo %s"
 
 #: ../app/views/profile_roles/destroy.html.erb:4
 msgid "This role is not being currently used."
-msgstr "Este papel não está sendo usado."
+msgstr "Este papel não está sendo usado no momento."
 
 #: ../app/views/profile_roles/destroy.html.erb:5
 msgid "Are you sure you want to delete this role?"
@@ -9731,7 +9731,7 @@ msgstr "Tem certeza que quer remover este papel?"
 
 #: ../app/views/profile_roles/destroy.html.erb:12
 msgid "There are members currently using this role."
-msgstr "Existem membros com este papel."
+msgstr "Existem membros usando este papel no momento."
 
 #: ../app/views/profile_roles/destroy.html.erb:13
 msgid "To which role do you want to change them?"
