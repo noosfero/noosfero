@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2018-12-19 17:09+0000\n"
-"Last-Translator: Rebeca Moura <rebecasm@movecode.com>\n"
+"PO-Revision-Date: 2019-01-07 14:48+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-custom-forms/pt/>\n"
 "Language: pt\n"
@@ -83,7 +83,7 @@ msgstr "Abertos"
 #: ../lib/custom_forms_plugin/helper.rb:195
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
-msgstr "Fechados"
+msgstr "Fechado"
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:94
 msgid "To come"
@@ -137,7 +137,7 @@ msgstr "não aceita múltiplas respostas"
 
 #: ../lib/custom_forms_plugin/control_panel/all_queries.rb:6
 msgid "View All"
-msgstr "Ver Todas"
+msgstr "Ver Todos(as)"
 
 #: ../lib/custom_forms_plugin/control_panel/new_poll.rb:6
 msgid "New Poll"
@@ -213,7 +213,7 @@ msgstr "Nome"
 
 #: ../lib/custom_forms_plugin/form.rb:47
 msgid "Slug"
-msgstr "Slug"
+msgstr "Texto curto"
 
 #: ../lib/custom_forms_plugin/form.rb:48
 msgid "identifier"
@@ -346,7 +346,7 @@ msgstr "Esse block mostra os últimios questionários realizados no perfil."
 
 #: ../views/blocks/_form_list_block.html.erb:1
 msgid "View all"
-msgstr "Ver todas"
+msgstr "Ver todos(as)"
 
 #: ../views/blocks/_form_list_block.html.erb:13
 #: ../views/blocks/_queries_block.html.erb:7
@@ -440,7 +440,7 @@ msgstr "Endereço"
 
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:6
 msgid "Change picture"
-msgstr "Mudar imagem"
+msgstr "Mudar foto"
 
 #: ../views/custom_forms_plugin_myprofile/_form.html.erb:11
 msgid "Remove image"
