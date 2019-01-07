@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2018-12-20 19:09+0000\n"
+"PO-Revision-Date: 2019-01-07 15:19+0000\n"
 "Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
@@ -142,7 +142,7 @@ msgstr "A amizade com %s foi finalizada."
 
 #: ../app/api/v1/people.rb:178
 msgid "You already make a membership solicitation"
-msgstr "Você já requisitou se tornar membro."
+msgstr "Você já requisitou se tornar membro"
 
 #: ../app/api/v1/people.rb:181
 msgid "Your membership request is waiting for approval."
@@ -154,7 +154,7 @@ msgstr "O perfil %s foi removido."
 
 #: ../app/api/v1/session.rb:42
 msgid "Logout successfully."
-msgstr "Logout bem sucedido"
+msgstr "Logout bem sucedido."
 
 #: ../app/api/v1/session.rb:64 ../app/helpers/forgot_password_helper.rb:21
 #: ../app/models/user.rb:28 ../app/models/user.rb:47
@@ -255,7 +255,7 @@ msgstr "Seguidores"
 #: ../app/models/control_panel/members.rb:4 ../app/models/forum.rb:49
 #: ../app/views/profile_roles/assign.html.erb:13
 msgid "Members"
-msgstr "Integrantes"
+msgstr "Membros"
 
 #: ../app/concerns/entitlement/levels.rb:11 ../app/models/forum.rb:48
 msgid "Administrators"
@@ -340,7 +340,7 @@ msgstr "Campos de comunidade não atualizados com sucesso."
 
 #: ../app/controllers/admin/kinds_controller.rb:16
 msgid "Kind successfully created"
-msgstr "Tipo criado com sucesso."
+msgstr "Tipo personalizado criado com sucesso"
 
 #: ../app/controllers/admin/kinds_controller.rb:19
 msgid "There were some problems creating this new kind"
@@ -1739,7 +1739,7 @@ msgstr "Sair do bate-papo"
 
 #: ../app/helpers/cms_helper.rb:7
 msgid "New %s"
-msgstr "Novo %s"
+msgstr "Novo(a) %s"
 
 #: ../app/helpers/cms_helper.rb:35 ../app/views/cms/publish.html.erb:29
 #: ../app/views/cms/publish.html.erb:45 ../app/views/cms/publish.html.erb:62
@@ -2856,7 +2856,7 @@ msgstr "Configurações de privacidade"
 #: ../app/views/content_viewer/view_page.html.erb:41
 #: ../app/views/search/_article_tags.html.erb:2
 msgid "Tags"
-msgstr "Tags"
+msgstr "Etiquetas"
 
 #: ../app/helpers/profile_helper.rb:100
 #: ../app/models/control_panel/following.rb:4
@@ -2929,7 +2929,7 @@ msgstr "Links do perfil"
 
 #: ../app/helpers/profile_selector_helper.rb:6
 msgid "Filter profiles by name"
-msgstr "Filtrar perfis por name:"
+msgstr "Filtrar perfis por nome"
 
 #: ../app/helpers/sanitize_helper.rb:108
 msgid "Identifier of the current person that is logged in the system"
@@ -3767,7 +3767,7 @@ msgstr "Círculos"
 
 #: ../app/models/control_panel/circles.rb:20 ../app/models/person.rb:199
 msgid "friends"
-msgstr "amigos"
+msgstr "amigos(as)"
 
 #: ../app/models/control_panel/configure_blog.rb:4
 msgid "Configure Blog"
@@ -3912,7 +3912,7 @@ msgstr "Gerenciar"
 
 #: ../app/models/control_panel/manage_content.rb:20
 msgid "cms"
-msgstr "cms"
+msgstr "sistema de gerenciamento de conteúdo"
 
 #: ../app/models/control_panel/new_blog.rb:4
 msgid "New Blog"
@@ -5429,7 +5429,7 @@ msgstr ""
 #: ../app/views/features/_manage_person_fields.html.erb:6
 #: ../app/views/features/custom_fields/_form.html.erb:16
 msgid "Active"
-msgstr "Ativar"
+msgstr "Ativa"
 
 #: ../app/models/task.rb:40
 msgid "Finished"
@@ -7741,11 +7741,11 @@ msgstr "Ordenar por"
 
 #: ../app/views/content_viewer/view_page.html.erb:70
 msgid "Oldest"
-msgstr "Mais antigas"
+msgstr "Mais antigos(as)"
 
 #: ../app/views/content_viewer/view_page.html.erb:70
 msgid "Newest"
-msgstr "Mais recents"
+msgstr "Mais recentes"
 
 #: ../app/views/doc/_path.html.erb:2
 msgid "You are here:"
@@ -8925,7 +8925,7 @@ msgstr "Desabilitado"
 
 #: ../app/views/organizations/index.html.erb:22
 msgid "Enabled"
-msgstr "Habilitado"
+msgstr "Ativado"
 
 #: ../app/views/pending_task_notifier/notification.text.erb:1
 msgid "Dear %s"
@@ -9917,7 +9917,7 @@ msgstr "Veja esse recado no mural"
 
 #: ../app/views/search/_article_author.html.erb:4
 msgid "Author"
-msgstr "Autor"
+msgstr "Nome do autor(a)"
 
 #: ../app/views/search/_article_last_change.html.erb:6
 msgid "Updated by %{name} at %{date}"
@@ -9957,7 +9957,7 @@ msgstr "Últimos tópicos"
 
 #: ../app/views/search/_image.html.erb:23
 msgid "No image"
-msgstr "Nenhuma imagem"
+msgstr "Nenhuma foto"
 
 #: ../app/views/search/_total.html.erb:2
 #: ../app/views/search/_total_results.html.erb:2
@@ -10140,7 +10140,7 @@ msgstr "Selecione um(a) %s e clique no botão Adicionar"
 
 #: ../app/views/shared/_select_categories_top.html.erb:16
 msgid "There are no %s selected yet."
-msgstr "Não há %s selecionados(as) ainda"
+msgstr "Não há %s selecionados(as) ainda."
 
 #: ../app/views/shared/_show_thumbnail.html.erb:7
 msgid "Change image"
