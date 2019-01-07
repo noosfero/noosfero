@@ -5,16 +5,9 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
     organization = fast_create(Organization)
     folder = fast_create(Folder)
     person = fast_create(Person)
-    content = UploadedFile.create!(
-            {
-              :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'),
-              :profile => organization,
-              :parent => folder,
-              :last_changed_by => person,
-              :author => person,
-            },
-            :without_protection => true
-          )
+    content = UploadedFile.create!(uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'),
+                                   profile: organization, parent: folder,
+                                   author: person)
 
     organization.add_member(person)
     refute WorkAssignmentPlugin.is_submission?(content)
@@ -22,6 +15,7 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(name: 'Work Assignment', profile: organization)
     content.parent = work_assignment
     content.save!
+
     assert WorkAssignmentPlugin.is_submission?(content)
 
     author_folder = work_assignment.find_or_create_author_folder(content.author)
