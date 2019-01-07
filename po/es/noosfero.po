@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2018-05-23 11:18+0000\n"
-"Last-Translator: Jesús Parrillas <jesusparrillas@gmail.com>\n"
+"PO-Revision-Date: 2019-01-07 15:38+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/es/>\n"
 "Language: es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #, fuzzy
 msgid ""
@@ -3416,11 +3416,11 @@ msgstr ""
 
 #: ../app/models/approve_comment.rb:17
 msgid "Anonymous"
-msgstr "Anónimo"
+msgstr "Anónimos"
 
 #: ../app/models/approve_comment.rb:33
 msgid "New comment to article"
-msgstr "Nuevo comentario para el artículo / entrada"
+msgstr "Nuevo comentario al artículo"
 
 #: ../app/models/approve_comment.rb:49 ../app/models/approve_comment.rb:51
 msgid "%{requestor} commented on the article: %{linked_subject}."
@@ -5917,7 +5917,7 @@ msgstr "parte 1 de 3"
 
 #: ../app/views/account/activation_question.html.erb:29
 msgid "Pay atention! You have only one chance!"
-msgstr "¡Atención, tienes solamente una oportunidad! "
+msgstr "¡Atención, tienes solamente una oportunidad!"
 
 #: ../app/views/account/activation_question.html.erb:31
 msgid ""
@@ -7152,7 +7152,7 @@ msgstr "Título, Imagen, Primer párrafo"
 
 #: ../app/views/cms/_blog.html.erb:67 ../app/views/cms/_forum.html.erb:13
 msgid "Posts per page:"
-msgstr "Publicaciones por página: "
+msgstr "Publicaciones por página:"
 
 # translated????
 #: ../app/views/cms/_blog.html.erb:69
@@ -7190,7 +7190,7 @@ msgid ""
 "not be fetched immediately."
 msgstr ""
 "Los Feeds serán actualizados periódicamente en grupos. Ten en cuenta de que "
-"tus publicaciones no se extraerán inmediatamente "
+"tus publicaciones no se extraerán inmediatamente."
 
 #: ../app/views/cms/_drag_and_drop_note.html.erb:3
 msgid ""
@@ -7653,7 +7653,7 @@ msgstr "Atrás"
 
 #: ../app/views/cms/select_article_type.html.erb:2
 msgid "Choose the type of content:"
-msgstr "Elegir el tipo de contenido: "
+msgstr "Elegir el tipo de contenido:"
 
 #: ../app/views/cms/suggest_an_article.html.erb:9
 #: ../app/views/spam/_suggest_article.html.erb:10
@@ -7770,7 +7770,7 @@ msgstr "Título: %s"
 #: ../app/views/comment_mailer/new_comment_for_author.text.erb:7
 #: ../app/views/comment_mailer/new_comment_for_followers.html.erb:7
 msgid "Comment:"
-msgstr "Comentario: "
+msgstr "Comentario:"
 
 #: ../app/views/comment_mailer/new_comment_for_author.text.erb:12
 msgid "Access the address below to view this comment:"
@@ -9495,7 +9495,7 @@ msgid ""
 "accept the article in pending request before the article be listed as a "
 "article of this group)."
 msgstr ""
-"<strong>Antes</ strong> de ser publicado en este grupo (un moderador tiene "
+"<strong>Antes</strong> de ser publicado en este grupo (un moderador tiene "
 "queaceptar el artículo en solicitud pendiente antes de que el artículo se "
 "enliste como uno de este grupo)."
 
@@ -10210,11 +10210,11 @@ msgid ""
 "result to add them as validators for this region. "
 msgstr ""
 "Primero busca organizaciones por su nombre, luego usa los botones en el "
-"resultadode la misma  para añadirlos como validadores para esta región."
+"resultadode la misma  para añadirlos como validadores para esta región. "
 
 #: ../app/views/scrap_mailer/new_scrap.text.erb:3
 msgid "%{sender} (%{sender_link}) has left the following scrap for you:"
-msgstr "%{sender} (%{sender_link}) te ha dejado el siguiente recorte: "
+msgstr "%{sender} (%{sender_link}) te ha dejado el siguiente recorte:"
 
 #: ../app/views/scrap_mailer/new_scrap.text.erb:9
 msgid "View this scrap on the wall"
@@ -11172,11 +11172,9 @@ msgstr ""
 #~ msgid "Skip"
 #~ msgstr "Omitir"
 
-#: ../app/models/profile.rb:95
 #~ msgid "Manage content"
 #~ msgstr "Administrar contenido"
 
-#: ../app/models/profile.rb:105
 #~ msgid "Publish content"
 #~ msgstr "Publicar contenido"
 
