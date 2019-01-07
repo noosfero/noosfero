@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2019-01-07 15:53+0000\n"
-"Last-Translator: Becca Cook <b.cook28@gmail.com>\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/es/>\n"
 "Language: es\n"
@@ -303,7 +303,7 @@ msgstr "Guardado en la categoría %s."
 
 #: ../app/controllers/admin/categories_controller.rb:45
 msgid "Could not save category."
-msgstr "No se pudo salvar la categoría:"
+msgstr "No se pudo salvar la categoría."
 
 #: ../app/controllers/admin/environment_role_manager_controller.rb:17
 #: ../app/controllers/my_profile/profile_members_controller.rb:41
@@ -334,7 +334,7 @@ msgstr "Características actualizadas correctamente."
 
 #: ../app/controllers/admin/features_controller.rb:28
 msgid "Person fields updated successfully."
-msgstr "Campos de persona actualizados correctamente"
+msgstr "Campos de persona actualizados correctamente."
 
 # No se si campo es la mejor traducción de fields
 #: ../app/controllers/admin/features_controller.rb:30
@@ -462,7 +462,7 @@ msgstr "Características actualizadas correctamente."
 # No se si campo es la mejor traducción de fields
 #: ../app/controllers/admin/plugins_controller.rb:14
 msgid "Plugins were not updated successfully."
-msgstr "Los pluggings no se actualizaron correctamente"
+msgstr "Plugins no se han actualizado correctamente."
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:40
 #: ../app/controllers/admin/profile_quotas_controller.rb:65
@@ -4007,14 +4007,12 @@ msgid "Groups"
 msgstr "Suelos"
 
 #: ../app/models/control_panel/groups.rb:20
-#, fuzzy
 msgid "enterprises"
-msgstr "empresa"
+msgstr "empresas"
 
 #: ../app/models/control_panel/groups.rb:20
-#, fuzzy
 msgid "organizations"
-msgstr "Organizaciones"
+msgstr "organizaciones"
 
 #: ../app/models/control_panel/header_and_footer.rb:4
 #, fuzzy
@@ -7501,9 +7499,8 @@ msgid "Back to Content Management"
 msgstr "Volver a la gestión de contenido"
 
 #: ../app/views/cms/files.html.erb:11
-#, fuzzy
 msgid "Sort by"
-msgstr "Ordenar por:"
+msgstr "Ordenar por"
 
 #: ../app/views/cms/invite_to_event.html.erb:4
 #: ../app/views/events/_event_invitations.html.erb:1
@@ -7983,7 +7980,7 @@ msgstr "Versión %{version} - %{author} en %{date}"
 
 #: ../app/views/content_viewer/versioned_article.html.erb:26
 msgid "This is not the latest version of this content."
-msgstr "Este no es la última versión de este contenido."
+msgstr "Esta no es la última versión de este contenido."
 
 #: ../app/views/content_viewer/versions_diff.html.erb:5
 msgid "Changes on \"%s\""
@@ -8854,8 +8851,7 @@ msgstr "Pide amistad"
 #: ../app/views/invite/invite_friends.html.erb:3
 msgid "You can search for user profiles and ask them to become your friends."
 msgstr ""
-"Puedes buscar otros perfiles de usuari@s y preguntas si quieren ser tus "
-"amig@s."
+"Puede buscar perfiles de usuarios y pedirles que se conviertan en sus amigos."
 
 #: ../app/views/invite/invite_friends.html.erb:5
 #: ../app/views/invite/select_friends.html.erb:6
@@ -8866,7 +8862,7 @@ msgstr "Invita a la gente a unirse"
 
 #: ../app/views/invite/invite_friends.html.erb:6
 msgid "You can search for user profiles and invite them to join this group."
-msgstr "Puedes buscar perfiles de usuario e invitarlos a unirse a este grupo."
+msgstr "Puede buscar perfiles de usuarios e invitarles a unirse a este grupo."
 
 #: ../app/views/invite/invite_friends.html.erb:10
 msgid "Choose person by:"
@@ -8902,7 +8898,7 @@ msgstr "Desmarcar todos"
 
 #: ../app/views/invite/select_friends.html.erb:36
 msgid "Invite!"
-msgstr "¡Invitar!"
+msgstr "¡Invita!"
 
 #: ../app/views/kinds/edit.html.erb:1
 msgid "Edit %s kind"
@@ -9468,7 +9464,7 @@ msgstr "Moderación de invitación:"
 #: ../app/views/profile_editor/_moderation.html.erb:18
 msgid "Allow all members to send invitation (Default: only administrator)"
 msgstr ""
-"Permitir a todos los usuarios mandar invitaciones (Por defecto: solo "
+"Permitir que todos los miembros envíen invitaciones (Predeterminado: solo "
 "administrador)"
 
 #: ../app/views/profile_editor/_moderation.html.erb:24
