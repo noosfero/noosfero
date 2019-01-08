@@ -5,19 +5,23 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
     organization = fast_create(Organization)
     folder = fast_create(Folder)
     person = fast_create(Person)
-    content = UploadedFile.create!(uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'), profile: organization, parent: folder)
+    content = UploadedFile.create!(uploaded_data: fixture_file_upload('/files/rails.png', 'image/png'),
+                                   profile: organization, parent: folder,
+                                   author: person)
 
+    organization.add_member(person)
     refute WorkAssignmentPlugin.is_submission?(content)
 
-    work_assignment = create_submission(person)
+    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(name: 'Work Assignment', profile: organization)
     content.parent = work_assignment
-    content.save
-    
+    content.save!
+
     assert WorkAssignmentPlugin.is_submission?(content)
 
     author_folder = work_assignment.find_or_create_author_folder(content.author)
     assert_equal author_folder, content.parent
   end
+
 
   should 'be able to download submission if work_assignment published submissions' do
     submission = create_submission
