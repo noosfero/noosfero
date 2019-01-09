@@ -42,7 +42,7 @@ When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
     begin
       link = find :link_or_button, link, match: :prefer_exact
       link.click
-    rescue
+    rescue Capybara::ElementNotFound
       page.driver.browser.switch_to.alert.accept
     end
   end

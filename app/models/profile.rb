@@ -629,7 +629,7 @@ class Profile < ApplicationRecord
     self.custom_header = template[:custom_header]
     self.access = template.access
     self.fields_privacy = template.fields_privacy
-    self.image = template.image
+    self.image = template.image.dup if template.image
     # flush
     self.save(:validate => false)
   end
