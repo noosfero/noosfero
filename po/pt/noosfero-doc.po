@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2018-12-27 18:09+0000\n"
+"PO-Revision-Date: 2019-01-10 15:07+0000\n"
 "Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
@@ -3473,8 +3473,7 @@ msgid ""
 "You can change your template clicking on the link &#8220;Use this "
 "template&#8221;"
 msgstr ""
-"Você pode alterar seu template clicando no link &#8220;Usar este "
-"modelo&#8221;"
+"Você pode alterar seu modelo clicando no link &#8220;Usar este modelo&#8221;"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
