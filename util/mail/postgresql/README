@@ -231,7 +231,7 @@ Then edit /etc/default/saslauthd and change the line that defines "MECHANISMS" t
 
 MECHANISMS="pam"
 
-Also change START=no to START=yes at the begining of the file
+Also change START=no to START=yes at the beginning of the file
 
 Also modify the options as explained in the comment just above it. (see
 /usr/share/doc/sasl2-bin/README.Debian) for the proper setup for postfix. In a
@@ -314,7 +314,7 @@ Lets's first create a database for horde in PostgreSQL.
 Take note of the password you enter for the horde user in the second command.
 It will be referred below as **HORDEPASS**
 
-You can ignore the two error messages in the begining, it is trying to create a
+You can ignore the two error messages in the beginning, it is trying to create a
 database and a user. Since we already created both with the proper settings,
 than nothing more is needed.
 
