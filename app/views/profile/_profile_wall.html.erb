@@ -1,20 +1,21 @@
 <% if allow_scrap? %>
   <div id='leave_scrap'>
-  <%= flash[:error] %>
-  <%= format_name url: { controller: 'profile', action: 'leave_scrap', tab_action: 'wall' },
-                      update: 'profile_activities',
-                      success: "jQuery('#leave_scrap_content').val(''); if (jQuery('#filter-followed').length) jQuery('#filter-followed').tokenInput('clear')",
-                      complete: "jQuery('#leave_scrap_form').removeClass('loading').find('*').attr('disabled', false)",
-                      loading: "jQuery('#leave_scrap_form').addClass('loading').find('*').attr('disabled', true)",
-                      html: {:id => 'leave_scrap_form' } do %>
-    <%= limited_text_area :scrap, :content, 420, 'leave_scrap_content', :rows => 2, :class => 'autogrow' %>
-    <div class="button-bar">
-      <%= submit_button :none, _('Publish') %>
-    </div>
-  <% end %>
+    <%= flash[:error] %>
+    <%= form_remote_tag url: { controller: 'profile', action: 'leave_scrap', tab_action: 'wall' },
+                        update: 'profile_activities',
+                        success: "jQuery('#leave_scrap_content').val(''); if (jQuery('#filter-followed').length) jQuery('#filter-followed').tokenInput('clear')",
+                        complete: "jQuery('#leave_scrap_form').removeClass('loading').find('*').attr('disabled', false)",
+                        loading: "jQuery('#leave_scrap_form').addClass('loading').find('*').attr('disabled', true)",
+                        html: {:id => 'leave_scrap_form' } do %>
+      <%= limited_text_area :scrap, :content, 420, 'leave_scrap_content', :rows => 2, :class => 'autogrow' %>
+      <div class="button-bar">
+        <%= submit_button :none, _('Publish') %>
+      </div>
+    <% end %>
   </div>
   <div id='leave_scrap_response'></div>
 <% end %>
+
 <ul id='profile_activities' class='profile-activities'>
   <%= render :partial => 'profile_activities_list', :locals => {:activities => @activities} %>
 </ul>
