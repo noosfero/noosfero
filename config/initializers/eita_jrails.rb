@@ -10,4 +10,7 @@ ActionView::Base.class_eval do
   include ActionView::Helpers::JqueryHelper
   include ActionView::Helpers::JqueryUiHelper
   include ActionView::Helpers::JavaScriptHelper
+
+  cattr_accessor :debug_rjs
+  self.debug_rjs = false
 end
