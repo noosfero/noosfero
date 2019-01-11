@@ -12,6 +12,8 @@ services:
 
 before_script:
   - ./script/silent-quick-start -i
+  - mkdir -p tmp/pids tmp/cache cache
+  - rm -f vendor/rails
   - cp config/database.yml.gitlab-ci config/database.yml
   - bundle exec rake db:create
   - bundle exec rake db:schema:load

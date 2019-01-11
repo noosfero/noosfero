@@ -15,14 +15,14 @@ module CustomFormsPlugin::Helper
   end
 
   def period_range(form)
-    if form.begining.blank? && form.ending.blank?
+    if form.beginning.blank? && form.ending.blank?
       _('Always')
-    elsif form.begining.present? && form.ending.blank?
-      ('From %s') % time_format(form.begining)
-    elsif form.begining.blank? && form.ending.present?
+    elsif form.beginning.present? && form.ending.blank?
+      ('From %s') % time_format(form.beginning)
+    elsif form.beginning.blank? && form.ending.present?
       _('Until %s') % time_format(form.ending)
-    elsif form.begining.present? && form.ending.present?
-      _('From %s until %s') % [time_format(form.begining), time_format(form.ending)]
+    elsif form.beginning.present? && form.ending.present?
+      _('From %s until %s') % [time_format(form.beginning), time_format(form.ending)]
     end
   end
 
@@ -174,17 +174,17 @@ module CustomFormsPlugin::Helper
   end
 
   def time_status(form)
-    if form.begining.present? && form.ending.present?
-      if Time.now < form.begining
-        _('%s left to open') % distance_of_time_in_words(Time.now, form.begining)
+    if form.beginning.present? && form.ending.present?
+      if Time.now < form.beginning
+        _('%s left to open') % distance_of_time_in_words(Time.now, form.beginning)
       elsif Time.now < form.ending
         _('%s left to close') % distance_of_time_in_words(Time.now, form.ending)
       else
         _('Closed')
       end
-    elsif form.begining.present?
-      if Time.now < form.begining
-        _('%s left to open') % distance_of_time_in_words(Time.now, form.begining)
+    elsif form.beginning.present?
+      if Time.now < form.beginning
+        _('%s left to open') % distance_of_time_in_words(Time.now, form.beginning)
       else
         _('Always open')
       end

@@ -198,13 +198,13 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
 
   should 'return open forms in poll list' do
 
-    open_poll_1 =  create_poll('Open Poll 1', begining: DateTime.now - 1.day,
+    open_poll_1 =  create_poll('Open Poll 1', beginning: DateTime.now - 1.day,
                                 ending: DateTime.now + 2.days)
     open_poll_2 =  create_poll('Open Poll 2', ending: DateTime.now + 3.days)
 
     closed_poll =  create_poll('Closed Poll 1', ending: DateTime.now - 1.days)
     not_open_yet_poll =  create_poll('Not open yet Poll 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     @my_block.metadata['status'] = 'not_closed'
     @my_block.save!
 
@@ -226,7 +226,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
 
     open_poll =  create_poll('Open Poll', ending: DateTime.now + 3.days)
     not_open_yet_poll =  create_poll('Not open yet Poll',
-                                      begining: DateTime.now + 2.days)
+                                      beginning: DateTime.now + 2.days)
 
     @my_block.metadata['status'] = 'closed'
     @my_block.save!
@@ -245,12 +245,12 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   should 'return not open yet forms in poll list' do
 
     not_open_yet_poll_1 =  create_poll('Not open yet Poll 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     not_open_yet_poll_2 =  create_poll('Not open yet Poll 2',
-                                        begining: DateTime.now + 1.days)
+                                        beginning: DateTime.now + 1.days)
 
     closed_poll =  create_poll('Closed Poll', ending: DateTime.now - 1.days)
-    open_poll =  create_poll('Open Poll', begining: DateTime.now,
+    open_poll =  create_poll('Open Poll', beginning: DateTime.now,
                               ending: DateTime.now + 2.days)
 
     @my_block.metadata['status'] = 'not_open_yet'
@@ -269,7 +269,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
 
   should 'return all forms in poll list' do
 
-    open_poll_1 =  create_poll('Open Poll 1', begining: DateTime.now,
+    open_poll_1 =  create_poll('Open Poll 1', beginning: DateTime.now,
                                 ending: DateTime.now + 2.days)
     open_poll_2 =  create_poll('Open Poll 2', ending: DateTime.now + 3.days)
 
@@ -277,9 +277,9 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     closed_poll_2 =  create_poll('Closed Poll 2', ending: DateTime.now - 2.days)
 
     not_open_yet_poll_1 =  create_poll('Not open yet Poll 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     not_open_yet_poll_2 =  create_poll('Not open yet Poll 2',
-                                        begining: DateTime.now + 1.days)
+                                        beginning: DateTime.now + 1.days)
 
     @my_block.metadata['limit'] = 9
     @my_block.metadata['status'] = 'all'

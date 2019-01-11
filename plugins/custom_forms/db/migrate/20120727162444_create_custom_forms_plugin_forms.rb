@@ -5,7 +5,7 @@ class CreateCustomFormsPluginForms < ActiveRecord::Migration[5.1]
       t.string :slug
       t.text :description
       t.references :profile
-      t.datetime :begining
+      t.datetime :beginning
       t.datetime :ending
       t.boolean :report_submissions, :default => false
       t.boolean :on_membership, :default => false

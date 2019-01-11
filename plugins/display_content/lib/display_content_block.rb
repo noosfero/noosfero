@@ -136,7 +136,7 @@ class DisplayContentBlock < Block
 
     if content_with_translations
       documents = documents.native_translations
-      documents.replace documents.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
+      documents = documents.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
     end
 
     documents
