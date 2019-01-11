@@ -1,7 +1,6 @@
 module FormsHelper
 
   include ButtonsHelper
-  include PrototypeHelper
   include Entitlement::SliderHelper
 
   def labelled_radio_button( human_name, name, value, checked = false, options = {} )
