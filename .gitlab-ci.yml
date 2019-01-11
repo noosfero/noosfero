@@ -1,17 +1,21 @@
-image: alaxalves/noosfero-ci:latest
-
-before_script:
-  - apt-get update
-  - mkdir -p locale
-  - ./script/quick-start
-  - bundle exec rails db:migrate
+image: gabrielssilva/noosfero-ci:latest
 
 variables:
   RAILS_ENV: test
   SELENIUM_DRIVER: firefox
+  POSTGRES_DB: gitlab_ci_test
+  POSTGRES_USER: gitlab_ci_runner
+  POSTGRES_PASSWORD: ""
 
 services:
   - postgres:9.4
+
+before_script:
+  - ./script/silent-quick-start -i
+  - cp config/database.yml.gitlab-ci config/database.yml
+  - bundle exec rake db:create
+  - bundle exec rake db:schema:load
+  - bundle exec rake db:migrate
 
 stages:
   # - smoke-tests
