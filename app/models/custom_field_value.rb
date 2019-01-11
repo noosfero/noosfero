@@ -6,8 +6,8 @@ class CustomFieldValue < ApplicationRecord
   validate :can_save?
 
   scope :only_public, -> { where(:public => true) }
-  scope :not_public, -> { where(:public => false) } 
-  scope :by_field, lambda { |field| self.joins(:custom_field).where("custom_fields.name = ?", field) } 
+  scope :not_public, -> { where(:public => false) }
+  scope :by_field, lambda { |field| self.joins(:custom_field).where("custom_fields.name = ?", field) }
 
   def can_save?
     if value.blank? && custom_field.required

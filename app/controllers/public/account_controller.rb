@@ -128,7 +128,7 @@ class AccountController < ApplicationController
 
     @invitation_code = params[:invitation_code]
     begin
-      @user = User.build(params[:user], params[:profile_data], environment)
+      @user = User.build(params[:user], params[:profile_data].to_h, environment)
       @user.session = session
       @terms_of_use = environment.terms_of_use
       @user.return_to = session[:return_to]
