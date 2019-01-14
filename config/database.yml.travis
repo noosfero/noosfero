@@ -1,5 +1,6 @@
 # From http://about.travis-ci.org/docs/user/database-setup/
 test:
   adapter: postgresql
-  database: myapp_test
-  username: postgres
+  database: travis_ci_test
+  username: travis_ci_runner
+  password:

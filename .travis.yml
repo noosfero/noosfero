@@ -8,21 +8,24 @@ services:
 before_script:
   - docker-compose -f dev.yml up -d --build
   - >
-    while ! docker logs noosfero | grep "RUNNING MIGRATIONS"; do
+    while ! docker logs noosfero | grep "Activating"; do
         echo "Waiting for entrypoint script to finish..."
-        sleep 10
+        sleep 60
     done;
+  - docker-compose -f dev.yml exec noosfero rails db:migrate RAILS_ENV=test
 
 env:
+  global:
+    - RAILS_ENV=test
   matrix:
     - TASK=cypress:run
     - TASK=spec SPEC=spec/models
     - TASK=test:api
-    - TASK=test:units
-    - TASK=test:functionals
+    - TASK=test test/unit
+    - TASK=test test/functional
     - TASK=test:integration
-    - SLICE=1/2 TASK=cucumber
-    - SLICE=2/2 TASK=cucumber
+    - SLICE=1/2 TASK=cucumber --profile default
+    - SLICE=2/2 TASK=cucumber --profile default
     - SLICE=1/4 TASK=selenium
     - SLICE=2/4 TASK=selenium
     - SLICE=3/4 TASK=selenium
