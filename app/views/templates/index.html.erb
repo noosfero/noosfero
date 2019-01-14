@@ -36,7 +36,7 @@
             <% end %>
 
             <%= button_without_text :edit, _('Edit settings'),
-                  {:controller => 'profile_editor', :profile => template.identifier, :action => 'edit'} %>
+                  {:controller => 'profile_editor', :profile => template.identifier, :action => 'index'} %>
 
             <%= button_without_text :welcome_page, _('Edit welcome page'),
                   {:controller => 'profile_editor', :profile => template.identifier, :action => 'welcome_page'} %>
