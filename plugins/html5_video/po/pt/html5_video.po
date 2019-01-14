@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2018-11-19 09:07+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-html5-video/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../lib/html5_video_plugin.rb:16
 msgid "A plugin to enable the video suport, with auto conversion for the web."
@@ -112,7 +112,7 @@ msgstr "Opções de qualidade"
 
 #: ../views/content_viewer/video_channel.html.erb:20
 msgid "Tags"
-msgstr "Tags"
+msgstr "Etiquetas"
 
 #: ../views/content_viewer/video_channel.html.erb:24
 #: ../views/file_presenter/_video.html.erb:14
@@ -156,7 +156,7 @@ msgstr "Enfileirado para a geração das versões para a web."
 
 #: ../views/file_presenter/_video.html.erb:28
 msgid "This is the %sº video in the queue. Come back soon"
-msgstr "Este é o %sº vídeo na fila de processamento. Volte em breve."
+msgstr "Este é o %sº vídeo na fila de processamento. Volte em breve"
 
 #: ../views/file_presenter/_video.html.erb:33
 msgid "This video will be enqueued for conversion soon. Come back later."
@@ -165,7 +165,7 @@ msgstr "O vídeo será enfileirado para processamento em breve."
 #: ../views/file_presenter/_video.html.erb:38
 msgid "It was not possible to convert this video, contact an administator."
 msgstr ""
-"Não foi possível processar esse vídeo, entre em contato com um administrador"
+"Não foi possível processar esse vídeo, entre em contato com um administrador."
 
 #: ../views/file_presenter/_video.html.erb:54
 msgid "Video conversion errors"

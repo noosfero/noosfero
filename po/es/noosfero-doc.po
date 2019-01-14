@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2018-05-23 13:10+0000\n"
-"Last-Translator: Jesús Parrillas <jesusparrillas@gmail.com>\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
 "documentation/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -292,6 +292,7 @@ msgstr ""
 #: doc/noosfero/plugins/variables.en.xhtml:2
 msgid "A set of simple variables to be used in a macro context."
 msgstr ""
+"Un conjunto de variables simples que se utilizarán en un contexto macro."
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -5527,7 +5528,7 @@ msgstr ""
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:7
 msgid "<a href=\"#insertinglinks\">Inserting links</a>"
-msgstr "<a href=\"#insertinglinks\"Insertando enlaces</a>"
+msgstr "<a href=\"#insertinglinks\">Insertando enlaces</a>"
 
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:8
@@ -6177,8 +6178,8 @@ msgid ""
 "<a href=\"/doc/enterprise/editing-header-footer\">Editing header and footer</"
 "a>"
 msgstr ""
-"<a href=\"/doc/enterprise/editing-header-footer\"Editando encabezado y pie "
-"de pgina</a>"
+"<a href=\"/doc/enterprise/editing-header-footer\">Edición de encabezado y "
+"pie de página</a>"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>

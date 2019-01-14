@@ -6,16 +6,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2018-05-23 13:10+0000\n"
-"Last-Translator: Jesús Parrillas <jesusparrillas@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
-"custom-forms/es/>\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
+"plugin-custom-forms/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #, fuzzy
 msgid "From %s until %s"
@@ -200,7 +200,7 @@ msgstr ""
 #: ../controllers/custom_forms_plugin_profile_controller.rb:91
 #: ../lib/custom_forms_plugin/list_block.rb:7
 msgid "All"
-msgstr ""
+msgstr "Todo"
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:92
 msgid "Opened"
@@ -211,7 +211,7 @@ msgstr ""
 #: ../lib/custom_forms_plugin/helper.rb:195
 #: ../lib/custom_forms_plugin/list_block.rb:9
 msgid "Closed"
-msgstr ""
+msgstr "Cerrado"
 
 #: ../controllers/custom_forms_plugin_profile_controller.rb:94
 msgid "To come"
@@ -665,17 +665,17 @@ msgid "Sort by"
 msgstr "Ordenar por"
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Usuario"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
 msgid "Time"
 msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Usuario"
 
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:4
 msgid "Report for submissions import"
@@ -814,11 +814,11 @@ msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Send"
+msgid "Vote!"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Vote!"
+msgid "Send"
 msgstr ""
 
 #: ../views/shared/_form_submission.html.erb:8

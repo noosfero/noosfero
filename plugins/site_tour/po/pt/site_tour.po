@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2016-10-03 18:20+0000\n"
-"Last-Translator: Aurélio A. Heckert <aurelio@colivre.coop.br>\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-site-tour/pt/>\n"
 "Language: pt\n"
@@ -10,11 +10,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.9-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../lib/site_tour_plugin.rb:8
 msgid "A site tour to show users how to use the application."
-msgstr "Um plugin para apresentar aos usuários um tour da aplicação"
+msgstr "Um tour do site para mostrar aos usuários como usar a aplicação."
 
 #: ../lib/site_tour_plugin/tour_block.rb:3
 msgid "Click to start tour!"
@@ -46,7 +46,7 @@ msgid ""
 "{profile.url}."
 msgstr ""
 "Campos especiais para a descrição: {profile.name}, {profile.identifier}, "
-"{profile.url}"
+"{profile.url}."
 
 #: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:11
 #: ../views/box_organizer/site_tour_plugin/_tour_block.html.erb:29

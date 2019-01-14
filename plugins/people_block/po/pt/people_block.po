@@ -49,7 +49,7 @@ msgstr "integrantes"
 msgid "{#} %s"
 msgstr "{#} %s"
 
-#: ../lib/members_block.rb:36
+#: ../lib/members_block.rb:38
 msgid "Show join leave button"
 msgstr "Mostrar botão entrar/sair"
 
@@ -85,9 +85,6 @@ msgstr "Esse bloco não tem conteúdo ainda."
 msgid "Filter by role:"
 msgstr "Filtrar por papel:"
 
-#: ../views/blocks/footers/friends.html.erb:1
-#: ../views/blocks/footers/members.html.erb:2
-#: ../views/blocks/footers/people.html.erb:1
 #~ msgid "View all"
 #~ msgstr "Ver todos(as)"
 
