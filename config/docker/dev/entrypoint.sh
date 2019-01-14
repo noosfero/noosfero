@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cmd="$@"
+
 bundle check || bundle install
 
 echo "copying config/database.yml.docker -> config/database.yml"
@@ -25,10 +27,11 @@ done
 
 echo "POSTGRES IS UP, CONTINUE"
 
-echo "RUNNING MIGRATIONS"
 if bundle exec rake db:exists; then
-  bundle exec rake db:migrate   
+  echo "RUNNING MIGRATIONS"
+  bundle exec rake db:migrate
 else
+  echo "SETTING THE DATABASE UP"
   bundle exec rake db:create
   bundle exec rake db:schema:load
   /noosfero/script/sample-data
@@ -40,4 +43,4 @@ if [ -f $pidfile ] ; then
   rm $pidfile
 fi
 
-bundle exec rails s -b 0.0.0.0
+exec $cmd
