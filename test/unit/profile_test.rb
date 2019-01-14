@@ -970,14 +970,14 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'copy picture template when applying template' do
     template = fast_create(Profile, :is_template => true)
-    template.image = Image.new
+    template.image_builder = { uploaded_data: fixture_file_upload('/files/rails.png', 'image/png') }
     template.save!
+    template.reload
 
-    p = create(Profile)
+    profile = create(Profile)
+    profile.apply_template(template)
 
-    p.apply_template(template)
-
-    assert_equal template.image, p.image
+    assert_equal template.image.filename, profile.image.filename
   end
 
   should 'copy blocks when applying template' do

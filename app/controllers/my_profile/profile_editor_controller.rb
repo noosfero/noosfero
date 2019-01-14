@@ -24,8 +24,10 @@ class ProfileEditorController < MyProfileController
   def informations
     @profile_data = profile
     @kinds = environment.kinds.where(:type => profile.type)
+    profile_params = params[:profile_data].to_h
+
     if request.post?
-      params[:profile_data][:fields_privacy] ||= {} if profile.person? && params[:profile_data].is_a?(Hash)
+      profile_params[:fields_privacy] ||= {} if profile.person? && profile_params.is_a?(Hash)
       Profile.transaction do
         Image.transaction do
           begin
@@ -33,7 +35,7 @@ class ProfileEditorController < MyProfileController
             @plugins.dispatch(:profile_editor_transaction_extras)
 
             # TODO: This is unsafe! Add sanitizer
-            @profile_data.update!(params[:profile_data])
+            @profile_data.update!(profile_params)
             redirect_to :action => 'index', :profile => profile.identifier
           rescue
             profile.identifier = params[:profile] if profile.identifier.blank?

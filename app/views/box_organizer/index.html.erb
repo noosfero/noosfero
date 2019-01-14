@@ -24,7 +24,11 @@
 <div id="block-store-draggables"></div>
 
 <%= button_bar do %>
-  <%= button(:back, _('Back to administration'), :controller => 'admin_panel') %>
+  <% if profile.present? %>
+    <%= button(:back, _('Back to control panel'), profile.admin_url) %>
+  <% else %>
+    <%= button(:back, _('Back to administration'), controller: 'admin_panel') %>
+  <% end %>
 <% end %>
 
 <script>initBlockStore();</script>

@@ -82,6 +82,11 @@ class User < ApplicationRecord
       p.visible = false unless user.activated?
       p.save!
 
+      if user.person_data[:image_builder]
+        p.image_builder = user.person_data[:image_builder]
+        p.image&.save!
+      end
+
       user.person = p
     end
     if user.environment.enabled?('skip_new_user_email_confirmation')

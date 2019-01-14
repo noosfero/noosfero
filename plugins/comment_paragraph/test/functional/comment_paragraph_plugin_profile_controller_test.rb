@@ -54,7 +54,7 @@ class CommentParagraphPluginProfileControllerTest < ActionController::TestCase
     comment1 = fast_create(Comment, :created_at => Time.now - 1.days, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'a comment', :paragraph_uuid => nil)
     comment2 = fast_create(Comment, :created_at => Time.now - 2.days, :source_id => article, :author_id => profile, :title => 'b comment', :body => 'b comment', :paragraph_uuid => nil)
     xhr :get, :export_comments, :profile => @profile.identifier, :id => article.id
-    assert_equal 'text/csv; charset=UTF-8; header=present', @response.content_type
+    assert_equal 'text/csv; header=present', @response.content_type
     lines = @response.body.split("\n")
     assert_equal '"paragraph_id","paragraph_text","comment_id","comment_reply_to","comment_title","comment_content","comment_author_name","comment_author_email","comment_date"', lines.first
     assert_equal "\"\",\"\",\"#{comment2.id}\",\"\",\"b comment\",\"b comment\",\"#{comment2.author_name}\",\"#{comment2.author_email}\",\"#{comment2.created_at}\"", lines.second

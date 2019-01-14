@@ -20,6 +20,7 @@ services:
       - postgres
     volumes:
       - noosfero-code-sync:/noosfero:nocopy
+      - /tmp/.X11-unix:/tmp/.X11-unix
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_USER: noosfero

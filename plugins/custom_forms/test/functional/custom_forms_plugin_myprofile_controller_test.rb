@@ -52,13 +52,13 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
   should 'create a form' do
     format = '%Y-%m-%d %H:%M'
-    begining = Time.now.strftime(format)
+    beginning = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
     assert_difference 'CustomFormsPlugin::Form.count', 1 do
       post :create, :profile => profile.identifier,
         :form => {
           :name => 'My Form',
-          :begining => begining,
+          :beginning => beginning,
           :ending => ending,
           :description => 'Cool form',
           :identifier => 'my_form',
@@ -83,7 +83,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     end
 
     form = CustomFormsPlugin::Form.find_by(name: 'My Form')
-    assert_equal begining, form.begining.strftime(format)
+    assert_equal beginning, form.beginning.strftime(format)
     assert_equal ending, form.ending.strftime(format)
     assert_equal 'Cool form', form.description
     assert_equal 2, form.fields.count
@@ -104,7 +104,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   should 'create fields in the order they are sent when no position defined' do
     format = '%Y-%m-%d %H:%M'
     num_fields = 10
-    begining = Time.now.strftime(format)
+    beginning = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
     fields = {}
     num_fields.times do |i|
@@ -118,7 +118,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
       post :create, :profile => profile.identifier,
         :form => {
         :name => 'My Form',
-        :begining => begining,
+        :beginning => beginning,
         :ending => ending,
         :description => 'Cool form',
         :fields_attributes => fields,
@@ -136,7 +136,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
   should 'create fields in any position size' do
     format = '%Y-%m-%d %H:%M'
-    begining = Time.now.strftime(format)
+    beginning = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
     fields = {}
     fields['0'] = {
@@ -155,7 +155,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
       post :create, :profile => profile.identifier,
         :form => {
         :name => 'My Form',
-        :begining => begining,
+        :beginning => beginning,
         :ending => ending,
         :description => 'Cool form',
         :fields_attributes => fields,
@@ -170,13 +170,13 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
   should 'remove empty alternatives' do
     format = '%Y-%m-%d %H:%M'
-    begining = Time.now.strftime(format)
+    beginning = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
     assert_difference 'CustomFormsPlugin::Form.count', 1 do
       post :create, :profile => profile.identifier,
         :form => {
           :name => 'My Form',
-          :begining => begining,
+          :beginning => beginning,
           :ending => ending,
           :description => 'Cool form',
           :identifier => 'cool-form',
@@ -214,13 +214,13 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
                                            :name => 'Free Software',
                                            :identifier => 'free')
     format = '%Y-%m-%d %H:%M'
-    begining = Time.now.strftime(format)
+    beginning = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
 
     assert_equal form.fields.length, 0
 
     post :update, :profile => profile.identifier, :id => form.id,
-      :form => {:name => 'My Form', :begining => begining, :ending => ending, :description => 'Cool form',
+      :form => {:name => 'My Form', :beginning => beginning, :ending => ending, :description => 'Cool form',
         :fields_attributes => {1 => {:name => 'Source'}}}
 
     form.reload
@@ -228,7 +228,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
 
     field = form.fields.last
 
-    assert_equal begining, form.begining.strftime(format)
+    assert_equal beginning, form.beginning.strftime(format)
     assert_equal ending, form.ending.strftime(format)
     assert_equal 'Cool form', form.description
     assert_equal 'Source', field.name

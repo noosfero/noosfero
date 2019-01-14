@@ -1,0 +1,4 @@
+$('#<%= "box-#{@source_box.id}" %>')
+  .html('<%= j display_updated_box(@source_box) %>')
+$('#<%= "box-#{@target_box.id}" %>')
+  .html('<%= j display_updated_box(@target_box) %>')

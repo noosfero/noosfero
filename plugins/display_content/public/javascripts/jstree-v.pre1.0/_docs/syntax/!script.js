@@ -937,7 +937,7 @@ var sh = {
 		},
 		
 		/**
-		 * Removes all white space at the begining and end of a string.
+		 * Removes all white space at the beginning and end of a string.
 		 * 
 		 * @param {String} str   String to trim.
 		 * @return {String}      Returns string without leading and following white space characters.
@@ -978,7 +978,7 @@ var sh = {
 				min = Math.min(matches[0].length, min);
 			}
 			
-			// trim minimum common number of white space from the begining of every line
+			// trim minimum common number of white space from the beginning of every line
 			if (min > 0) 
 				for (var i = 0; i < lines.length; i++) 
 					lines[i] = lines[i].substr(min);

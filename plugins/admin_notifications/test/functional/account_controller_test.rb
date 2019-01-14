@@ -15,20 +15,22 @@ class AccountControllerTest < ActionController::TestCase
     @environment.save!
 
     login_as(@person.user.login)
+    @request.cookies[:hide_notifications] = JSON.generate([1,2])
   end
 
   attr_accessor :person
 
-  should 'clean hide_notifications cookie after logout' do
-    @request.cookies[:hide_notifications] = JSON.generate([1,2])
+  should 'not clean hide_notifications cookie if user is not logged out' do
     get :index
-    assert !@request.cookies[:hide_notifications].blank?
 
-    @request.cookies[:hide_notifications] = nil
-    get :logout
-    assert_nil session[:user]
-    assert_response :redirect
-    assert_equal 1, @controller.hide_notifications.count
-    assert @controller.hide_notifications.include?(-1)
+    refute cookies[:hide_notifications].blank?
+  end
+
+  should 'clean hide_notifications cookie after logout' do
+    logout
+    get :index
+
+    assert_equal [-1], @controller.hide_notifications
+    assert cookies[:hide_notifications].blank?
   end
 end

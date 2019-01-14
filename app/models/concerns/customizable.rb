@@ -117,6 +117,7 @@ module Customizable
 
     def save_custom_values
       parse_custom_values.each(&:save)
+      self.custom_values = {}
     end
 
   end

@@ -92,7 +92,7 @@ class CommunityTrackPluginPublicControllerTest < ActionController::TestCase
   should 'return error message if user do not select a community' do
     user = create_user('testinguser')
     login_as(user.login)
-    post :select_community, :profile => user.person.identifier, :community_identifier => nil
+    post :select_community, params: { profile: user.person.identifier, community_identifier: nil }
     assert_equal 1, assigns(:failed).count
     assert_tag :tag => 'div', :attributes => {:id => 'errorExplanation'}
   end

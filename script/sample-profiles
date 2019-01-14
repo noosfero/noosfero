@@ -152,8 +152,8 @@ for verb in VERBS
         community.add_category(category)
       end
     end
+    print '.'
   end
-  print '.'
 end
 
 done
