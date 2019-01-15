@@ -8,44 +8,48 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-12 13:30+0000\n"
-"PO-Revision-Date: 2018-12-12 13:30+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2019-01-16 16:27+0000\n"
+"Last-Translator: Allan Nordhøy <epost@anotheragency.no>\n"
+"Language-Team: Norwegian Bokmål <https://hosted.weblate.org/projects/"
+"noosfero/noosfero/nb_NO/>\n"
 "Language: nb_NO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../app/api/helpers.rb:448
 msgid "(Invalid request) %s can't be saved"
-msgstr ""
+msgstr "(Invalid request) %s kan ikke lagres"
 
 #: ../app/api/helpers.rb:453
 msgid "(Invalid request) %s not given"
-msgstr ""
+msgstr "(Ugyldig forespørsel) %s ikke gitt"
 
 #: ../app/api/helpers.rb:458
 msgid "Something wrong happened"
-msgstr ""
+msgstr "Noe gikk galt"
 
 #: ../app/api/helpers.rb:463
+#, fuzzy
 msgid "Unauthorized"
-msgstr ""
+msgstr "Ikke identitetsbekreftet"
 
 #: ../app/api/helpers.rb:467
 msgid "Method Not Allowed"
-msgstr ""
+msgstr "Metode tillates ikke"
 
 #: ../app/api/v1/articles.rb:67
 msgid "The article %s was removed."
-msgstr ""
+msgstr "Artikkelen %s ble fjernet."
 
 #: ../app/api/v1/articles.rb:71
+#, fuzzy
 msgid ""
 "The article couldn't be removed due to some problem. Please contact the admini"
 "strator."
-msgstr ""
+msgstr "Kunne ikke fjerne artikkelen. Kontakt administratoren."
 
 #: ../app/api/v1/articles.rb:99
 #: ../app/controllers/public/profile_controller.rb:428
