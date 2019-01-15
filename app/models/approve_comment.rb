@@ -1,7 +1,7 @@
 class ApproveComment < Task
   validates_presence_of :target_id
 
-  settings_items :comment_attributes, :closing_statement
+  settings_items :comment_attributes, :closing_statment
 
   validates_presence_of :comment_attributes
 
@@ -90,8 +90,8 @@ class ApproveComment < Task
   end
 
   def task_finished_message
-    if !closing_statement.blank?
-      _("Your comment to the article \"%{article}\" was approved. Here is the comment left by the admin who approved your comment:\n\n%{comment} ") % {:article => article_name, :comment => closing_statement}
+    if !closing_statment.blank?
+      _("Your comment to the article \"%{article}\" was approved. Here is the comment left by the admin who approved your comment:\n\n%{comment} ") % {:article => article_name, :comment => closing_statment}
     else
       _('Your request for comment the article "%{article}" was approved.') % {:article => article_name}
     end
