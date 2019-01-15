@@ -51,11 +51,11 @@ module TagsHelper
       if options[:show_count]
         display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""
         link_to (tag + display_count).html_safe, destination,
-                 :class => 'tag-cloud-item'
+                 {:class => 'tag-cloud-item', :data => { :items => count }}
       else
         link_to h(tag) , destination,
-          :title => n_( 'one item', '%d items', count ) % count,
-          :class => 'tag-cloud-item'
+          { :title => n_( 'one item', '%d items', count ) % count,
+            :class => 'tag-cloud-item', :data => { :items => count }}
       end
 
     end.join("\n").html_safe

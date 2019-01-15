@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2015-02-23 11:38+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-comment-classification/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../controllers/admin/comment_classification_plugin_labels_controller.rb:16
 msgid "Label created"
@@ -137,7 +137,7 @@ msgstr "Marcador"
 #: ../views/comment_classification_plugin_labels/index.html.erb:11
 #: ../views/comment_classification_plugin_status/index.html.erb:10
 msgid "Enabled"
-msgstr "Habilitado"
+msgstr "Ativado"
 
 #: ../views/comment_classification_plugin_labels/index.html.erb:12
 #: ../views/comment_classification_plugin_status/index.html.erb:12

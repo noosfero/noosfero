@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2018-11-19 09:07+0000\n"
-"Last-Translator: ssantos <ssantos@web.de>\n"
+"PO-Revision-Date: 2019-01-10 15:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.3-dev\n"
+"X-Generator: Weblate 3.4-dev\n"
 
 #: ../app/api/helpers.rb:448
 msgid "(Invalid request) %s can't be saved"
@@ -142,7 +142,7 @@ msgstr "A amizade com %s foi finalizada."
 
 #: ../app/api/v1/people.rb:178
 msgid "You already make a membership solicitation"
-msgstr "Você já requisitou se tornar membro."
+msgstr "Você já requisitou se tornar membro"
 
 #: ../app/api/v1/people.rb:181
 msgid "Your membership request is waiting for approval."
@@ -154,7 +154,7 @@ msgstr "O perfil %s foi removido."
 
 #: ../app/api/v1/session.rb:42
 msgid "Logout successfully."
-msgstr "Logout bem sucedido"
+msgstr "Logout bem sucedido."
 
 #: ../app/api/v1/session.rb:64 ../app/helpers/forgot_password_helper.rb:21
 #: ../app/models/user.rb:28 ../app/models/user.rb:47
@@ -255,7 +255,7 @@ msgstr "Seguidores"
 #: ../app/models/control_panel/members.rb:4 ../app/models/forum.rb:49
 #: ../app/views/profile_roles/assign.html.erb:13
 msgid "Members"
-msgstr "Integrantes"
+msgstr "Membros"
 
 #: ../app/concerns/entitlement/levels.rb:11 ../app/models/forum.rb:48
 msgid "Administrators"
@@ -340,7 +340,7 @@ msgstr "Campos de comunidade não atualizados com sucesso."
 
 #: ../app/controllers/admin/kinds_controller.rb:16
 msgid "Kind successfully created"
-msgstr "Tipo criado com sucesso."
+msgstr "Tipo personalizado criado com sucesso"
 
 #: ../app/controllers/admin/kinds_controller.rb:19
 msgid "There were some problems creating this new kind"
@@ -581,7 +581,7 @@ msgstr "Falhou ao remove bloco"
 #: ../app/controllers/concerns/captcha.rb:2
 msgid "Make sure you made the test to verify that your are not a robot!"
 msgstr ""
-"Certifique-se de que você fez o teste para confirmar que você não é um robô."
+"Certifique-se de que você fez o teste para verificar que você não é um robô!"
 
 #: ../app/controllers/my_profile/circles_controller.rb:29
 msgid "The circle could not be saved"
@@ -687,11 +687,11 @@ msgstr "Arquivos"
 
 #: ../app/controllers/my_profile/email_templates_controller.rb:36
 msgid "Email template was successfully created."
-msgstr "Template de e-mail foi criado com sucesso."
+msgstr "Modelo de e-mail foi criado com sucesso."
 
 #: ../app/controllers/my_profile/email_templates_controller.rb:47
 msgid "Email template was successfully updated."
-msgstr "Template de e-mail foi atualizado com sucesso."
+msgstr "Modelo de e-mail foi atualizado com sucesso."
 
 #: ../app/controllers/my_profile/event_invitation_controller.rb:32
 msgid "Sorry, we can not record your decision."
@@ -859,7 +859,7 @@ msgstr ""
 
 #: ../app/controllers/public/account_controller.rb:37
 msgid "Your account was successfully activated!"
-msgstr "Sua conta foi ativada com sucesso."
+msgstr "Sua conta foi ativada com sucesso!"
 
 #: ../app/controllers/public/account_controller.rb:41
 msgid ""
@@ -1739,7 +1739,7 @@ msgstr "Sair do bate-papo"
 
 #: ../app/helpers/cms_helper.rb:7
 msgid "New %s"
-msgstr "Novo %s"
+msgstr "Novo(a) %s"
 
 #: ../app/helpers/cms_helper.rb:35 ../app/views/cms/publish.html.erb:29
 #: ../app/views/cms/publish.html.erb:45 ../app/views/cms/publish.html.erb:62
@@ -1860,7 +1860,7 @@ msgstr "Lista"
 #: ../app/helpers/custom_fields_helper.rb:11
 #: ../app/helpers/custom_fields_helper.rb:23
 msgid "Checkbox"
-msgstr "Checkbox"
+msgstr "Caixa de seleção"
 
 #: ../app/helpers/custom_fields_helper.rb:52
 #: ../app/views/account/activate_enterprise.html.erb:11
@@ -2856,7 +2856,7 @@ msgstr "Configurações de privacidade"
 #: ../app/views/content_viewer/view_page.html.erb:41
 #: ../app/views/search/_article_tags.html.erb:2
 msgid "Tags"
-msgstr "Tags"
+msgstr "Etiquetas"
 
 #: ../app/helpers/profile_helper.rb:100
 #: ../app/models/control_panel/following.rb:4
@@ -2929,7 +2929,7 @@ msgstr "Links do perfil"
 
 #: ../app/helpers/profile_selector_helper.rb:6
 msgid "Filter profiles by name"
-msgstr "Filtrar perfis por name:"
+msgstr "Filtrar perfis por nome"
 
 #: ../app/helpers/sanitize_helper.rb:108
 msgid "Identifier of the current person that is logged in the system"
@@ -2991,7 +2991,7 @@ msgstr "Exibição"
 
 #: ../app/helpers/search_helper.rb:170
 msgid "Choose a template"
-msgstr "Escolha um template"
+msgstr "Escolha um modelo"
 
 #: ../app/helpers/tags_helper.rb:34
 msgid "No tags yet."
@@ -3767,7 +3767,7 @@ msgstr "Círculos"
 
 #: ../app/models/control_panel/circles.rb:20 ../app/models/person.rb:199
 msgid "friends"
-msgstr "amigos"
+msgstr "amigos(as)"
 
 #: ../app/models/control_panel/configure_blog.rb:4
 msgid "Configure Blog"
@@ -3912,7 +3912,7 @@ msgstr "Gerenciar"
 
 #: ../app/models/control_panel/manage_content.rb:20
 msgid "cms"
-msgstr "cms"
+msgstr "sistema de gerenciamento de conteúdo"
 
 #: ../app/models/control_panel/new_blog.rb:4
 msgid "New Blog"
@@ -5158,7 +5158,7 @@ msgstr "Gerenciar amigos"
 
 #: ../app/models/profile.rb:99
 msgid "Validate enterprise"
-msgstr "validar empreendimento"
+msgstr "Validar empreendimento"
 
 #: ../app/models/profile.rb:100
 msgid "Perform task"
@@ -5429,7 +5429,7 @@ msgstr ""
 #: ../app/views/features/_manage_person_fields.html.erb:6
 #: ../app/views/features/custom_fields/_form.html.erb:16
 msgid "Active"
-msgstr "Ativar"
+msgstr "Ativa"
 
 #: ../app/models/task.rb:40
 msgid "Finished"
@@ -5481,7 +5481,7 @@ msgstr "Envie qualquer tipo de ficheiro que você queira."
 
 #: ../app/models/uploaded_file.rb:259
 msgid "Your upload quota has exceeded"
-msgstr "A sua cota de upload foi excedida"
+msgstr "Sua cota de upload foi excedida"
 
 #: ../app/models/user.rb:23
 msgid "Password confirmation"
@@ -6080,15 +6080,15 @@ msgstr "Formato de data do artigo"
 
 #: ../app/views/admin_panel/_site_info.html.erb:11
 msgid "mm/dd/yyyy"
-msgstr "dd/mm/aaaa"
+msgstr "mm/dd/aaaa"
 
 #: ../app/views/admin_panel/_site_info.html.erb:12
 msgid "mm/dd"
-msgstr "dd/mm"
+msgstr "mm/dd"
 
 #: ../app/views/admin_panel/_site_info.html.erb:13
 msgid "Month dd, yyyy"
-msgstr "dd de Mês, aaaa"
+msgstr "Mês dd, aaaa"
 
 #: ../app/views/admin_panel/_site_info.html.erb:14
 msgid "Month dd"
@@ -6178,7 +6178,7 @@ msgstr "Organizações"
 
 #: ../app/views/admin_panel/index.html.erb:96
 msgid "Profile templates"
-msgstr "Templates de perfil"
+msgstr "Modelos de perfil"
 
 #: ../app/views/admin_panel/index.html.erb:102
 msgid "Fields"
@@ -6901,11 +6901,11 @@ msgstr "Primeiro parágrafo"
 
 #: ../app/views/cms/_blog.html.erb:63
 msgid "First paragraph, with post picture"
-msgstr "Primeiro parágrafo, com figura"
+msgstr "Primeiro parágrafo, com imagem postada"
 
 #: ../app/views/cms/_blog.html.erb:64
 msgid "Title, Image, Lead"
-msgstr "Título, Imagem, Olho"
+msgstr "Título, Imagem, Corpo"
 
 #: ../app/views/cms/_blog.html.erb:67 ../app/views/cms/_forum.html.erb:13
 msgid "Posts per page:"
@@ -7741,11 +7741,11 @@ msgstr "Ordenar por"
 
 #: ../app/views/content_viewer/view_page.html.erb:70
 msgid "Oldest"
-msgstr "Mais antigas"
+msgstr "Mais antigos(as)"
 
 #: ../app/views/content_viewer/view_page.html.erb:70
 msgid "Newest"
-msgstr "Mais recents"
+msgstr "Mais recentes"
 
 #: ../app/views/doc/_path.html.erb:2
 msgid "You are here:"
@@ -8302,7 +8302,7 @@ msgstr "Campos de pessoa"
 
 #: ../app/views/features/manage_fields.html.erb:8
 msgid "Community's fields"
-msgstr "Campos de comundade"
+msgstr "Campos de comunidade"
 
 #: ../app/views/features/manage_fields.html.erb:11
 msgid "Enterprise's fields"
@@ -8440,7 +8440,7 @@ msgstr "Bem-vindo ao ambiente %s!"
 msgid ""
 "Thanks for signing up, we're thrilled to have you on our social network!"
 msgstr ""
-"Obrigado por se registrar! Agora verifique seu e-mail para ativar sua conta!"
+"Obrigado por se registrar, estamos empolgados em ter você na nossa rede!"
 
 #: ../app/views/home/welcome.html.erb:10
 msgid "Wait for admin approvement!"
@@ -8925,7 +8925,7 @@ msgstr "Desabilitado"
 
 #: ../app/views/organizations/index.html.erb:22
 msgid "Enabled"
-msgstr "Habilitado"
+msgstr "Ativado"
 
 #: ../app/views/pending_task_notifier/notification.text.erb:1
 msgid "Dear %s"
@@ -9644,7 +9644,7 @@ msgid ""
 "zero will make it impossible for profiles to upload new files. Any other "
 "numeric value is valid."
 msgstr ""
-"Ao deixar o campo em branco a cota de upload será definida como ilimitatada. "
+"Ao deixar o campo em branco a cota de upload será definida como ilimitada. "
 "Ao escolher zero como valor, o perfil não será capaz de fazer mas uploads. "
 "Qualquer outro valor numérico é válido."
 
@@ -9707,7 +9707,7 @@ msgstr "Atribuir %s"
 
 #: ../app/views/profile_roles/assign.html.erb:9
 msgid "Assign role by:"
-msgstr "Atribuir papel por:"
+msgstr "Atribui papel por:"
 
 #: ../app/views/profile_roles/assign.html.erb:23
 msgid "Select members to assign the role"
@@ -9723,7 +9723,7 @@ msgstr "Removendo %s"
 
 #: ../app/views/profile_roles/destroy.html.erb:4
 msgid "This role is not being currently used."
-msgstr "Este papel não está sendo usado."
+msgstr "Este papel não está sendo usado no momento."
 
 #: ../app/views/profile_roles/destroy.html.erb:5
 msgid "Are you sure you want to delete this role?"
@@ -9731,7 +9731,7 @@ msgstr "Tem certeza que quer remover este papel?"
 
 #: ../app/views/profile_roles/destroy.html.erb:12
 msgid "There are members currently using this role."
-msgstr "Existem membros com este papel."
+msgstr "Existem membros usando este papel no momento."
 
 #: ../app/views/profile_roles/destroy.html.erb:13
 msgid "To which role do you want to change them?"
@@ -9917,7 +9917,7 @@ msgstr "Veja esse recado no mural"
 
 #: ../app/views/search/_article_author.html.erb:4
 msgid "Author"
-msgstr "Autor"
+msgstr "Nome do autor(a)"
 
 #: ../app/views/search/_article_last_change.html.erb:6
 msgid "Updated by %{name} at %{date}"
@@ -9957,7 +9957,7 @@ msgstr "Últimos tópicos"
 
 #: ../app/views/search/_image.html.erb:23
 msgid "No image"
-msgstr "Nenhuma imagem"
+msgstr "Nenhuma foto"
 
 #: ../app/views/search/_total.html.erb:2
 #: ../app/views/search/_total_results.html.erb:2
@@ -10140,7 +10140,7 @@ msgstr "Selecione um(a) %s e clique no botão Adicionar"
 
 #: ../app/views/shared/_select_categories_top.html.erb:16
 msgid "There are no %s selected yet."
-msgstr "Não há %s selecionados(as) ainda"
+msgstr "Não há %s selecionados(as) ainda."
 
 #: ../app/views/shared/_show_thumbnail.html.erb:7
 msgid "Change image"
@@ -10539,7 +10539,7 @@ msgstr "Criar um novo modelo para %s"
 
 #: ../app/views/templates/index.html.erb:17
 msgid "Template"
-msgstr "Tema"
+msgstr "Modelo"
 
 #: ../app/views/templates/index.html.erb:25
 msgid "Edit template \"%s\""
@@ -10966,11 +10966,9 @@ msgstr ""
 #~ msgid "Skip"
 #~ msgstr "Pular"
 
-#: ../app/models/profile.rb:95
 #~ msgid "Manage content"
 #~ msgstr "Gerenciar conteúdo"
 
-#: ../app/models/profile.rb:105
 #~ msgid "Publish content"
 #~ msgstr "Publicar conteúdo"
 
