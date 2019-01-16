@@ -1,4 +1,4 @@
-FROM ruby:2.3-jessie
+FROM ruby:2.3-stretch
 LABEL Maintainer="Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>"
 
 RUN echo 'LANG=C.UTF-8' > /etc/default/locale
