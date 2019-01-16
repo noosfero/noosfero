@@ -24,7 +24,7 @@ module TagsHelper
   #
   # * <tt>:max_size</tt>: font size for the tag with largest count
   # * <tt>:min_size</tt>: font size for the tag with smallest count
-  # * <tt>:show_count</tt>: whether to show the count of contents for each tag.   Defauls to <tt>false</tt>.
+  # * <tt>:show_count</tt>: whether to show the count of contents for each tag.   Defaults to <tt>false</tt>.
   #
   # The algorithm for generating the different sizes and positions is a
   # courtesy of Aurelio: http://www.colivre.coop.br/Aurium/Nuvem

@@ -196,7 +196,7 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
-  should 'indicate wheter children articles are allowed or not' do
+  should 'indicate whether children articles are allowed or not' do
     assert_equal true, Article.new.allow_children?
   end
 
@@ -579,11 +579,11 @@ class ArticleTest < ActiveSupport::TestCase
 
     other_environment = fast_create(Environment)
     user_from_other_environment = create_user('other_user', :environment => other_environment).person
-    article_from_other_enviroment = create(Article, :profile => user_from_other_environment, :tag_list => 'bli')
+    article_from_other_environment = create(Article, :profile => user_from_other_environment, :tag_list => 'bli')
 
     tagged_articles_in_other_environment = other_environment.articles.tagged_with('bli')
 
-    assert_includes tagged_articles_in_other_environment, article_from_other_enviroment
+    assert_includes tagged_articles_in_other_environment, article_from_other_environment
     assert_not_includes tagged_articles_in_other_environment, article_from_this_environment
   end
 

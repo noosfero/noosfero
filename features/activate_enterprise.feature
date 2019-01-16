@@ -77,7 +77,7 @@ Feature: activate enterprise
     And I follow "Continue"
     And I check "I read the terms of use and accepted them"
     When I follow "Continue"
-    Then I should see "Services Provider was successfuly activated. Now you may go to your control panel or to the control panel of your enterprise"
+    Then I should see "Services Provider was successfully activated. Now you may go to your control panel or to the control panel of your enterprise"
     And enterprise "Services Provider" should be enabled
     And "Joao Silva" is admin of "Services Provider"
 
@@ -98,7 +98,7 @@ Feature: activate enterprise
     And I follow "Continue"
     And I check "I read the terms of use and accepted them"
     When I follow "Continue"
-    Then I should see "Services Provider 2 was successfuly activated. Now you may go to your control panel or to the control panel of your enterprise"
+    Then I should see "Services Provider 2 was successfully activated. Now you may go to your control panel or to the control panel of your enterprise"
     And enterprise "Services Provider 2" should be enabled
     And "Joao Silva" is admin of "Services Provider 2"
     And "Services Provider 2" has "Active Template" as template
@@ -120,7 +120,7 @@ Feature: activate enterprise
     And I follow "Continue"
     And I check "I read the terms of use and accepted them"
     When I follow "Continue"
-    Then I should see "Services Provider 3 was successfuly activated. Now you may go to your control panel or to the control panel of your enterprise"
+    Then I should see "Services Provider 3 was successfully activated. Now you may go to your control panel or to the control panel of your enterprise"
     And enterprise "Services Provider 3" should be enabled
     And "Joao Silva" is admin of "Services Provider 3"
     And "Services Provider 3" doesnt have "Active Template" as template

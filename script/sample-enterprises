@@ -40,6 +40,7 @@ groups.each do |group|
           enterprise.add_category category
         end
       end
+      print '.'
     end
   end
 end

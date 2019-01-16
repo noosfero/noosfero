@@ -18,7 +18,7 @@ module ActionTracker
     validate :user_existence
 
     def user_existence
-      errors.add(:user, "user doesn't exists") if user && !user.class.exists?(user)
+      errors.add(:user, "user doesn't exist") if user && !user.class.exists?(user)
     end
 
     alias_method :subject, :user

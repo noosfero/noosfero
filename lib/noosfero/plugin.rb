@@ -489,7 +489,7 @@ class Noosfero::Plugin
   end
 
   # -> Extends person memberships list
-  # returns = An instance of ActiveRecord::NamedScope::Scope retrived through
+  # returns = An instance of ActiveRecord::NamedScope::Scope retrieved through
   # Person.memberships_of method.
   def person_memberships(person)
     nil
@@ -740,7 +740,7 @@ class Noosfero::Plugin
     nil
   end
 
-  # -> Implements a custom notificaiton strategy for the Notifiable module
+  # -> Implements a custom notification strategy for the Notifiable module
   def custom_notification(verb, *args)
     nil
   end

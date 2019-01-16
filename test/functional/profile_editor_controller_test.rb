@@ -1248,7 +1248,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert profile.nickname, 'My Nickname'
   end
 
-  should 'update profile from remote form and reponse in js format' do
+  should 'update profile from remote form and response in js format' do
     post :remote_edit, :format => 'js', :profile => profile.identifier,
             :profile_data => { :nickname => 'My Nickname' }, :field => 'nickname',
             :type => 'text'

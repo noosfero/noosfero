@@ -38,7 +38,7 @@ class Invitation < Task
   def not_invite_yourself
     email = friend && friend.person? ? friend.user.email : friend_email
     if person && email && person.user.email == email
-      self.errors.add(:base, _("You can't invite youself"))
+      self.errors.add(:base, _("You can't invite yourself"))
     end
   end
 

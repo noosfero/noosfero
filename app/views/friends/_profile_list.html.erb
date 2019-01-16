@@ -3,7 +3,7 @@
     <li>
       <%= link_to_profile profile_image(profile) + profile.short_name,
                           profile.identifier, class: 'profile-link' %>
-      <div class="controll">
+      <div class="control">
         <%= link_to font_awesome(:email),
                     profile.url.merge(controller: 'contact', action: 'new', profile: profile.identifier),
                     title: _('contact') %>

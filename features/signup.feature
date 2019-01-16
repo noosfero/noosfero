@@ -4,7 +4,7 @@ Feature: signup
   So I can have fun using its features
 
   @selenium
-  Scenario: successfull registration
+  Scenario: successful registration
     Given I am on the homepage
     When I follow "Login"
     And I follow "New user"

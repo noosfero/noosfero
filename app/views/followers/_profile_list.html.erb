@@ -3,7 +3,7 @@
     <li>
     <%= link_to_profile profile_image(followed_profile) + followed_profile.short_name,
                         followed_profile.identifier, class: 'profile-link' %>
-    <div class="controll">
+    <div class="control">
       <%= modal_link_to font_awesome(:edit),
              url_for(:controller => 'followers', :action => 'set_category_modal',
                      :followed_profile_id => followed_profile.id) %>

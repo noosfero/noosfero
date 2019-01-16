@@ -31,7 +31,7 @@
           <%= profile_suggestion_profile_connections(s) %>
           <%= profile_suggestion_tag_connections(s) %>
         </div>
-        <div class="controll">
+        <div class="control">
           <% if collection == :friends_suggestions %>
             <%= link_to 'x',
                 { :controller => 'friends', :action => 'remove_suggestion', :id => s.suggestion.identifier, :per_page => per_page },
@@ -49,7 +49,7 @@
                     :remote => true
                   %>
           <% end %>
-        </div><!-- end class="controll" -->
+        </div><!-- end class="control" -->
       </li>
     <% end %>
   </ul>

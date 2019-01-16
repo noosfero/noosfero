@@ -75,7 +75,7 @@ class Domain < ApplicationRecord
   #
   # Since this is going to be called a lot, The queries are cached so the
   # database is hit only for the first query for a given domain name. This way,
-  # transfering a domain from a profile to an environment of vice-versa
+  # transferring a domain from a profile to an environment of vice-versa
   # requires restarting the application.
   def self.hosting_profile_at(domainname)
     return false unless domainname

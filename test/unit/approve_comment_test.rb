@@ -76,7 +76,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
     end
   end
 
-  should 'create comment with the created_at atribute passed as parameter when finishing task' do
+  should 'create comment with the created_at attribute passed as parameter when finishing task' do
     now = Time.now.in_time_zone - 10
     @comment.created_at = now
     approve_comment = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
@@ -185,7 +185,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
 
   should 'have a personalized finished messsage after approval' do
     task = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-    task.stubs(:closing_statment).returns('somenthing')
+    task.stubs(:closing_statment).returns('something')
 
     assert_match(/Your .*#{task.article.title}.*Here is the comment.*\n\n#{task.closing_statment}/, task.task_finished_message)
   end

@@ -28,7 +28,7 @@ class DocSectionTest < ActiveSupport::TestCase
     assert_equal item, section.items.first
   end
 
-  # This test assumes the existance of some sample documentation sections. If
+  # This test assumes the existence of some sample documentation sections. If
   # they are removed or retitled this test will break
   should 'list available sections' do
     sections = DocSection.all
@@ -55,7 +55,7 @@ class DocSectionTest < ActiveSupport::TestCase
     end
   end
 
-  # This test also depends on the existance of specific documentation sections.
+  # This test also depends on the existence of specific documentation sections.
   # The same conditions as the above tests apply.
   should 'list items' do
     section = DocSection.all.find {|item| item.title == 'Content Management' }
