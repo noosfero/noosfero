@@ -25,9 +25,10 @@ class ThemeManagerHelperPluginTest < ActiveSupport::TestCase
     pack.stubs(:read).returns 'this is a test'
     result = get_theme_package @temp, pack
     assert_equal result[:file_type], 'text/plain'
-    pack.stubs(:read).returns 'PKJteste/PK'
-    result = get_theme_package @temp, pack
-    assert_equal result[:file_type], 'application/zip'
+    pack2 = mock
+    pack2.stubs(:read).returns 'PK^C^D^T^@^@^@^H^@B[^[MAþOô{.^@^@^@/^@^@^R^@^\^@fixtureUT'
+    result = get_theme_package @temp, pack2
+    assert result[:file_type] = 'application/zip'
   end
 
   should "exists zipfile reference" do
