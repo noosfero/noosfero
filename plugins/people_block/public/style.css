@@ -92,11 +92,11 @@
 #content .common-profile-list-block .profiles-suggestions .button span {
   display: none;
 }
-#content .common-profile-list-block .profiles-suggestions .controll {
+#content .common-profile-list-block .profiles-suggestions .control {
   top: 0px;
   right: 0px;
 }
-#content .common-profile-list-block .profiles-suggestions .controll a {
+#content .common-profile-list-block .profiles-suggestions .control a {
   width: 16px;
   padding: 1px;
 }
