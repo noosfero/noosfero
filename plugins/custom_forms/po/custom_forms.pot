@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 13:31+0000\n"
-"PO-Revision-Date: 2018-12-12 13:31+0000\n"
+"POT-Creation-Date: 2019-01-17 12:24+0000\n"
+"PO-Revision-Date: 2019-01-17 12:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -318,11 +318,11 @@ msgid "This block show last polls performed in profile."
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Multiple Choice"
+msgid "Single Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Single Choice"
+msgid "Multiple Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/survey_block.rb:12
@@ -517,11 +517,11 @@ msgid "Type in your question"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Multiple choice"
+msgid "Checkboxes"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:18
-msgid "Checkboxes"
+msgid "Multiple choice"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:27
@@ -698,12 +698,6 @@ msgid "There are no pending submissions for this form."
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
 msgid "Sort by"
 msgstr ""
@@ -713,6 +707,12 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
 msgid "Time"
+msgstr ""
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:24

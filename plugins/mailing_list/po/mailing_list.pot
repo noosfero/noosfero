@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 19:32+0000\n"
-"PO-Revision-Date: 2018-10-30 19:32+0000\n"
+"POT-Creation-Date: 2019-01-17 12:24+0000\n"
+"PO-Revision-Date: 2019-01-17 12:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -339,15 +339,15 @@ msgstr ""
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
 #: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
 #: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
-msgid ""
-"Are you sure you want to activate the e-mail sending for mailing list on ALL %"
-"s?"
+msgid "Activate all"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
 #: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
 #: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
-msgid "Activate all"
+msgid ""
+"Are you sure you want to activate the e-mail sending for mailing list on ALL %"
+"s?"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
@@ -394,12 +394,12 @@ msgstr ""
 
 #:
 #: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
-msgid "Type in a search term for blogs or forums"
+msgid "Define which blogs or forums should send e-mails to the mailing list"
 msgstr ""
 
 #:
 #: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
-msgid "Define which blogs or forums should send e-mails to the mailing list"
+msgid "Type in a search term for blogs or forums"
 msgstr ""
 
 #: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:1

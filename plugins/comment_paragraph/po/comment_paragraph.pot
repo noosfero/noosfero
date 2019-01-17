@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 13:31+0000\n"
-"PO-Revision-Date: 2018-12-12 13:31+0000\n"
+"POT-Creation-Date: 2019-01-17 12:23+0000\n"
+"PO-Revision-Date: 2019-01-17 12:23+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -59,7 +59,7 @@ msgid "Choose which blog should be displayed"
 msgstr ""
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
-msgid "Available Discussions"
+msgid "Not Opened Discussions"
 msgstr ""
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
@@ -67,7 +67,7 @@ msgid "Closed Discussions"
 msgstr ""
 
 #: ../views/box_organizer/comment_paragraph_plugin/_discussion_block.html.erb:5
-msgid "Not Opened Discussions"
+msgid "Available Discussions"
 msgstr ""
 
 #:

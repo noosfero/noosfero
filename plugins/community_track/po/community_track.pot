@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 18:45+0000\n"
-"PO-Revision-Date: 2018-08-30 18:45+0000\n"
+"POT-Creation-Date: 2019-01-17 12:24+0000\n"
+"PO-Revision-Date: 2019-01-17 12:24+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -48,11 +48,11 @@ msgid "Soon"
 msgstr ""
 
 #: ../lib/community_track_plugin/step_helper.rb:4
-msgid "Join!"
+msgid "Closed"
 msgstr ""
 
 #: ../lib/community_track_plugin/step_helper.rb:4
-msgid "Closed"
+msgid "Join!"
 msgstr ""
 
 #: ../lib/community_track_plugin/track.rb:16
@@ -90,11 +90,11 @@ msgid "Hits"
 msgstr ""
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Random"
+msgid "Most Recent"
 msgstr ""
 
 #: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Most Recent"
+msgid "Random"
 msgstr ""
 
 #: ../views/blocks/_track.html.erb:12 ../views/content_viewer/track.html.erb:9
