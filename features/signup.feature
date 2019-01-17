@@ -3,7 +3,7 @@ Feature: signup
   I want to sign up to the site
   So I can have fun using its features
 
-  Scenario: successfull registration
+  Scenario: successful registration
     Given I am on the homepage
     When I follow "Sign up"
     And I fill in the following within ".no-boxes":

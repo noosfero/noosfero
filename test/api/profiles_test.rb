@@ -371,7 +371,7 @@ class ProfilesTest < ActiveSupport::TestCase
     assert_includes json["permissions"], 'allow_post_content'
   end
 
-  should 'list permissions allow_edit_design if ther person has it on profile' do
+  should 'list permissions allow_edit_design if there person has it on profile' do
     login_api
     profile = fast_create(Community)
     give_permission(person, 'edit_profile_design', profile)

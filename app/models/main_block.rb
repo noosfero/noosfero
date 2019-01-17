@@ -1,6 +1,6 @@
 class MainBlock < Block
 
-  validate :cannnot_be_unacessible
+  validate :cannot_be_unacessible
 
   def self.description
     _('Main content')
@@ -33,7 +33,7 @@ class MainBlock < Block
   end
 
   private
-  def cannnot_be_unacessible
+  def cannot_be_unacessible
     if display == 'never'
       self.errors.add(:display, :cannot_hide_block)
     end

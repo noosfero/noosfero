@@ -365,7 +365,7 @@ class CategoryTest < ActiveSupport::TestCase
   should 'cache children count' do
     c = create(Category, :name => 'test', :environment => Environment.default)
 
-    # two children catagories
+    # two children categories
     create(Category, :parent => c, :name => 'test1', :environment => Environment.default)
     create(Category, :parent => c, :name => 'test2', :environment => Environment.default)
 

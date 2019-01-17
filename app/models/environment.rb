@@ -279,7 +279,7 @@ class Environment < ApplicationRecord
   settings_items :organization_approval_method, :type => Symbol, :default => :admin
 
   # Whether this environment should force having 'www.' in its domain name or
-  # not. Defauls to false.
+  # not. Defaults to false.
   #
   # Sets the value of #force_www. <tt>value</tt> must be a boolean.
   #

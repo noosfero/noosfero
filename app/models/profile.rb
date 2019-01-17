@@ -164,7 +164,7 @@ class Profile < ApplicationRecord
     [ :city, :state, :country ].each do |place|
       unless params[place].blank?
        # ... So we must to find on this named location
-       # TODO: convert location attrs to a table collumn
+       # TODO: convert location attrs to a table column
        where_code << "(profiles.data like '%#{place}: #{params[place]}%')"
      end
    end
@@ -562,7 +562,7 @@ class Profile < ApplicationRecord
   after_create :create_default_set_of_boxes
 
   # creates the initial set of boxes when the profile is created. Can be
-  # overriden for each subclass to create a custom set of boxes for its
+  # overridden for each subclass to create a custom set of boxes for its
   # instances.
   def create_default_set_of_boxes
     if template
@@ -1077,12 +1077,12 @@ private :generate_url, :url_options
     end
   end
 
-  # FIXME: horrible workaround to circular dependancy in environment.rb
+  # FIXME: horrible workaround to circular dependency in environment.rb
   after_update do |profile|
     ProfileSweeper.new().after_update(profile)
   end
 
-  # FIXME: horrible workaround to circular dependancy in environment.rb
+  # FIXME: horrible workaround to circular dependency in environment.rb
   after_create do |profile|
     ProfileSweeper.new().after_create(profile)
   end

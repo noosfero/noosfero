@@ -38,7 +38,7 @@ class ProfileMembersController < MyProfileController
       if@person.is_last_admin_leaving?(profile, @roles)
         redirect_to :action => :last_admin
       elsif @person.define_roles(@roles, profile)
-        session[:notice] = _('Roles successfuly updated')
+        session[:notice] = _('Roles successfully updated')
         redirect_to :action => 'index'
       else
         session[:notice] = _('Couldn\'t change the roles')
@@ -95,7 +95,7 @@ class ProfileMembersController < MyProfileController
     associations = member.find_roles(profile)
     RoleAssignment.transaction do
       if associations.map(&:destroy)
-        session[:notice] = _('Member succesfully unassociated')
+        session[:notice] = _('Member successfully unassociated')
       else
         session[:notice] = _('Failed to unassociate member')
       end

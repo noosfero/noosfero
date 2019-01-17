@@ -29,13 +29,13 @@ class DatesHelperTest < ActiveSupport::TestCase
     assert_equal 'from XXX to YYY', show_period(date1, date2)
   end
 
-  should 'generate period with in two diferent years' do
+  should 'generate period with in two different years' do
     date1 = DateTime.new(1920, 1, 2)
     date2 = DateTime.new(1992, 4, 6)
     assert_equal 'from January 2, 1920 0:00 to April 6, 1992 0:00', show_period(date1, date2)
   end
 
-  should 'generate period with in two diferent months of the same year' do
+  should 'generate period with in two different months of the same year' do
     date1 = DateTime.new(2013, 2, 1)
     date2 = DateTime.new(2013, 3, 1)
     assert_equal 'from February 1 to March 1, 2013', show_period(date1, date2)

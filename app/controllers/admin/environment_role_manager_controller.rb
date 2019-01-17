@@ -14,7 +14,7 @@ class EnvironmentRoleManagerController < AdminController
     @roles = params[:roles] ? Role.find(params[:roles]) : []
     @person = Person.find(params[:person])
     if @person.define_roles(@roles, environment)
-      session[:notice] = _('Roles successfuly updated')
+      session[:notice] = _('Roles successfully updated')
     else
       session[:notice] = _('Couldn\'t change the roles')
     end

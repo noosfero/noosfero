@@ -21,7 +21,7 @@ Feature: internationalization
     And I go to the homepage
     Then the site should be in French
 
-  Scenario: explictly selecting a language
+  Scenario: explicitly selecting a language
     Given I am on the homepage
     When I follow "Français"
     Then the site should be in French

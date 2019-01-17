@@ -57,7 +57,7 @@ class TasksTest < ActiveSupport::TestCase
     assert_equal 401, last_response.status
   end
 
-  should 'not return environmet task if user has no permission to view it' do
+  should 'not return environments task if user has no permission to view it' do
     person = fast_create(Person)
     task = create(Task, :requestor => person, :target => environment)
 

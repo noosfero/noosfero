@@ -205,7 +205,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_nil article.class.last.parent
   end
 
-  should 'overwrite blog if parent was choosen on published' do
+  should 'overwrite blog if parent was chosen on published' do
     profile_blog = fast_create(Blog, :profile_id => profile.id)
     article.parent = profile_blog
     article.save

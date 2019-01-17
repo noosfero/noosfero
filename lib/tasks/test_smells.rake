@@ -14,5 +14,5 @@ def find_test_smells(id, title, pattern)
   task 'test:smells' => full_id
 end
 
-find_test_smells 'dbhits', "Full database hits (they are probably unecessary)", '\.create'
-find_test_smells 'constants', 'Probably unecessary contants for creating objects', "create_user.*password"
+find_test_smells 'dbhits', "Full database hits (they are probably unnecessary)", '\.create'
+find_test_smells 'constants', 'Probably unnecessary contants for creating objects', "create_user.*password"

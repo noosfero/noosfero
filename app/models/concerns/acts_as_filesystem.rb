@@ -137,7 +137,7 @@ module ActsAsFilesystem
     # example, if item1 has a children item2 and item2 has a children item3,
     # then item3's hierarchy would be [item1, item2, item3].
     #
-    # If +reload+ is passed as +true+, then the hierarchy is reload (usefull
+    # If +reload+ is passed as +true+, then the hierarchy is reload (useful
     # when the ActiveRecord object was modified in some way, or just after
     # changing parent)
     def hierarchy(reload = false)

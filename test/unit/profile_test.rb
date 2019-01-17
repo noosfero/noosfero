@@ -629,9 +629,9 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'query region for location' do
-    region = build(Region, :name => 'Some ackward region name')
+    region = build(Region, :name => 'Some awkward region name')
     p = build(Profile, :region => region)
-    assert_equal 'Some ackward region name', p.location
+    assert_equal 'Some awkward region name', p.location
   end
 
   should 'query region hierarchy for location up to 2 levels' do

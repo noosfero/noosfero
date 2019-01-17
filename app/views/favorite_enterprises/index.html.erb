@@ -15,7 +15,7 @@
         <li>
           <%= link_to_profile profile_image(enterprise).html_safe + enterprise.name,
                               enterprise.identifier, :class => 'profile-link' %>
-          <div class="controll">
+          <div class="control">
             <%= link_to(font_awesome(:remove), { action: 'remove', id: enterprise.id }, title: _('remove'), class: 'remove-favorite-enterprise') %>
           </div>
         </li>

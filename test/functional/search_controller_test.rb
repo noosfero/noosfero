@@ -183,7 +183,7 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => { :id => 'search-input', :value => 'a sample search'}
   end
 
-  should 'offer text box to enter a new seach in specific context' do
+  should 'offer text box to enter a new search in specific context' do
     get :index, :category_path => [ 'my-category'], :query => 'a sample search'
     assert_tag :tag => 'input', :attributes => { :id => 'search-input', :value => 'a sample search'}
   end

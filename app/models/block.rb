@@ -206,7 +206,7 @@ class Block < ApplicationRecord
     self.move_modes == "all"
   end
 
-  # must always return false, except on MainBlock clas.
+  # must always return false, except on MainBlock class.
   def main?
     false
   end

@@ -27,7 +27,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
       post '/myprofile/myuser/cms/new',
           params: {type: 'TextArticle',
                    article: { name: 'my article',
-                              body: 'this is the body of ther article'
+                              body: 'this is the body of the article'
                             }
           }
       follow_redirect!

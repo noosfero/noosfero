@@ -213,7 +213,7 @@ Feature: uploads items on media panel
 
   # issue #18
   @selenium-fixme
-  Scenario: separete images from non-images
+  Scenario: separate images from non-images
     When I follow "Show/Hide"
     Then I should not see "Images"
       And I should not see "Files"

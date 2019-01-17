@@ -86,7 +86,7 @@ class ApplicationHelperTest < ActionView::TestCase
     cat.expects(:environment).returns(Environment.default)
     Environment.any_instance.expects(:default_hostname).returns('example.com')
 
-    result = "/cat/my-category/my-subcatagory"
+    result = "/cat/my-category/my-subcategory"
     expects(:link_to).with('category name', {:controller => 'search', :action => 'category_index', :category_path => ['my-category', 'my-subcatagory'], :host => 'example.com'}, {}).returns(result)
     assert_same result, link_to_category(cat)
   end

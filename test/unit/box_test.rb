@@ -132,7 +132,7 @@ class BoxTest < ActiveSupport::TestCase
     refute blocks.include?('box-test_plugin-block')
   end
 
-  should 'list only boxes with a postion greater than zero' do
+  should 'list only boxes with a position greater than zero' do
     profile = fast_create(Profile)
     box = fast_create(Box, :owner_id => profile.id, :owner_type => 'Profile', :position => 0)
     box2 = fast_create(Box, :owner_id => profile.id, :owner_type => 'Profile', :position => 1)

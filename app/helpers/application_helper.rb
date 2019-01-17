@@ -566,7 +566,7 @@ module ApplicationHelper
   #
   # If +field_id+ is not given, the underlying implementation will try to guess
   # it from +field_html+ using a regular expression. In this case, make sure
-  # that the first ocurrance of id=['"]([^'"]*)['"] in +field_html+ if the one
+  # that the first occurrence of id=['"]([^'"]*)['"] in +field_html+ if the one
   # you want (i.e. the correct id for the control )
   def labelled_form_field(label, field_html, field_id = nil)
     NoosferoFormBuilder::output_field(label, field_html, field_id)
