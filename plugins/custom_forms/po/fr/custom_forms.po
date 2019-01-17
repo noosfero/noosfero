@@ -8,8 +8,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2018-05-13 17:37+0000\n"
 "Last-Translator: farfadet46 <farfadet46@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
-"custom-forms/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-cus"
+"tom-forms/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,17 +22,21 @@ msgid "From %s until %s"
 msgstr "de %s à %s"
 
 #, fuzzy
+#, fuzzy
 msgid "Are you sure you want to remove this query?"
 msgstr "Êtes-vous sûr(e) de vouloir ôter cet élément ?"
 
+#, fuzzy
 #, fuzzy
 msgid "Manage queries"
 msgstr "Gérer"
 
 #, fuzzy
+#, fuzzy
 msgid "The %s could not be updated"
 msgstr "Ce fichier n'a pas pu être sauvegardé"
 
+#, fuzzy
 #, fuzzy
 msgid "Back to submissions"
 msgstr "Retour à la galerie"
@@ -41,6 +45,7 @@ msgstr "Retour à la galerie"
 msgid "The %s could not be removed"
 msgstr "Ce fichier n'a pas pu être sauvegardé"
 
+#, fuzzy
 #, fuzzy
 msgid "There are no submissions for this form."
 msgstr "Il n'existe pas de sous-catégorie pour %s."
@@ -54,12 +59,22 @@ msgid "Submission could not be saved"
 msgstr "Bloc d'information de profil"
 
 #, fuzzy
+#, fuzzy
+msgid "Back to submissions"
+msgstr "Retour à la galerie"
+
+#, fuzzy
 msgid "Author"
 msgstr "Auteur"
 
 #, fuzzy
 msgid "Submission date"
 msgstr "Permissions"
+
+#, fuzzy
+#, fuzzy
+msgid "The %s could not be updated"
+msgstr "Ce fichier n'a pas pu être sauvegardé"
 
 #, fuzzy
 msgid "Back to forms"
@@ -74,8 +89,14 @@ msgid "There are no pending submissions for this form."
 msgstr "Il n'existe pas de sous-catégorie pour %s."
 
 #, fuzzy
+#, fuzzy
 msgid "Pending submissions for %s"
 msgstr "Statistiques pour %s"
+
+#, fuzzy
+#, fuzzy
+msgid "Manage queries"
+msgstr "Gérer"
 
 #, fuzzy
 msgid "Admission survey"
@@ -100,6 +121,12 @@ msgid "is mandatory."
 msgstr "%{fn} est obligatoire"
 
 #, fuzzy
+#, fuzzy
+msgid "Pending submissions for %s"
+msgstr "Statistiques pour %s"
+
+#, fuzzy
+#, fuzzy
 msgid "Edit form"
 msgstr "Éditer le dossier"
 
@@ -121,6 +148,7 @@ msgid "Type:"
 msgstr "Type"
 
 #, fuzzy
+#, fuzzy
 msgid "Remove alternative"
 msgstr "Ôter le membre"
 
@@ -128,6 +156,11 @@ msgstr "Ôter le membre"
 #, fuzzy
 msgid "Add a new select field"
 msgstr "Une entreprise"
+
+#, fuzzy
+#, fuzzy
+msgid "Remove alternative"
+msgstr "Ôter le membre"
 
 # (second try of this knid of contents)
 #, fuzzy
@@ -151,9 +184,15 @@ msgid "Type"
 msgstr "Type"
 
 #, fuzzy
+#, fuzzy
+msgid "Are you sure you want to remove this query?"
+msgstr "Êtes-vous sûr(e) de vouloir ôter cet élément ?"
+
+#, fuzzy
 msgid "Pending"
 msgstr "Tâches en attente"
 
+#, fuzzy
 #, fuzzy
 msgid "Submissions"
 msgstr "Permissions"
@@ -163,9 +202,16 @@ msgid "Triggered after membership"
 msgstr "Gérer les membres"
 
 #, fuzzy
+#, fuzzy
 msgid "Membership survey"
 msgstr "Membres : %s"
 
+#, fuzzy
+#, fuzzy
+msgid "Access"
+msgstr "Accepter"
+
+#, fuzzy
 #, fuzzy
 msgid "Access"
 msgstr "Accepter"
@@ -179,8 +225,24 @@ msgid "Mandatory"
 msgstr "Modérer les commentaires"
 
 #, fuzzy
+#, fuzzy
 msgid "Select field"
 msgstr "Nouveau dossier"
+
+#, fuzzy
+#, fuzzy
+msgid "Edit form"
+msgstr "Éditer le dossier"
+
+#, fuzzy
+#, fuzzy
+msgid "There are no submissions for this form."
+msgstr "Il n'existe pas de sous-catégorie pour %s."
+
+#, fuzzy
+#, fuzzy
+msgid "Submissions"
+msgstr "Permissions"
 
 #, fuzzy
 msgid "%{requestor} wants to fill in some further information."
@@ -191,8 +253,18 @@ msgid "%{requestor} wants you to fill in some information."
 msgstr "%s veut être votre contact."
 
 #, fuzzy
+#, fuzzy
+msgid "Membership survey"
+msgstr "Membres : %s"
+
+#, fuzzy
 msgid "Select"
 msgstr "[Choisir...]"
+
+#, fuzzy
+#, fuzzy
+msgid "Select field"
+msgstr "Nouveau dossier"
 
 #: ../controllers/custom_forms_plugin_admin_controller.rb:12
 msgid "There is no data to be downloaded"
@@ -432,11 +504,11 @@ msgid "This block show last polls performed in profile."
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Single Choice"
+msgid "Multiple Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/select_field.rb:11
-msgid "Multiple Choice"
+msgid "Single Choice"
 msgstr ""
 
 #: ../lib/custom_forms_plugin/survey_block.rb:12
@@ -587,40 +659,47 @@ msgstr ""
 msgid "Email"
 msgstr "Email"
 
+#:
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:5
 msgid "Radio"
 msgstr ""
 
+#:
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:9
 msgid "Drop down"
 msgstr ""
 
+#:
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:11
 msgid "Multiple Select"
 msgstr ""
 
+#:
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:17
 #: ../views/custom_forms_plugin_profile/_results_table.html.erb:5
 msgid "Alternative"
 msgstr ""
 
+#:
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:5
 msgid "One-line text"
 msgstr ""
 
+#:
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:7
 msgid "Multiline text"
 msgstr ""
 
+#:
 #: ../views/custom_forms_plugin_myprofile/custom_forms_plugin/_text_field.html.erb:13
 msgid "Maximum of 255 characters"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:6
 msgid ""
-"You must choose a CSV file that follows a specific structure. It is "
-"recommended that you follow the generated template. Note that a file with "
-"header is expected."
+"You must choose a CSV file that follows a specific structure. It is recommende"
+"d that you follow the generated template. Note that a file with header is expe"
+"cted."
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:11
@@ -632,14 +711,13 @@ msgid "Take note"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:18
-msgid ""
-"Select fields are identified as single or multiple choice in the template."
+msgid "Select fields are identified as single or multiple choice in the template."
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:20
 msgid ""
-"A semicolon (;) should be used to separate multiple answers for multiple "
-"choice fields."
+"A semicolon (;) should be used to separate multiple answers for multiple choic"
+"e fields."
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:26
@@ -670,17 +748,17 @@ msgid "New %s"
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
+#: ../views/custom_forms_plugin_profile/_text.html.erb:8
+msgid "User"
+msgstr "Utilisateur"
+
+#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
 #: ../views/custom_forms_plugin_myprofile/pending.html.erb:12
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:9
 #: ../views/custom_forms_plugin_myprofile/submissions.html.erb:20
 msgid "Time"
 msgstr ""
-
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:7
-#: ../views/custom_forms_plugin_myprofile/pending.html.erb:11
-#: ../views/custom_forms_plugin_profile/_text.html.erb:8
-msgid "User"
-msgstr "Utilisateur"
 
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:4
 msgid "Report for submissions import"
@@ -694,8 +772,8 @@ msgstr[1] ""
 
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:21
 msgid ""
-"The failed rows are listed below, and the columns with errors have been "
-"highlighted. Move the cursor over the highlighted cells to see more details."
+"The failed rows are listed below, and the columns with errors have been highli"
+"ghted. Move the cursor over the highlighted cells to see more details."
 msgstr ""
 
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:31
@@ -756,8 +834,8 @@ msgstr ""
 
 #: ../views/custom_forms_plugin_profile/confirmation.html.erb:14
 msgid ""
-"Your answers will be shown along with the other submissions, as soon as the "
-"results are avaiable."
+"Your answers will be shown along with the other submissions, as soon as the re"
+"sults are avaiable."
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/confirmation.html.erb:19
@@ -828,18 +906,13 @@ msgstr ""
 
 #~ msgid "Manage Queries"
 #~ msgstr "Gérer"
-
 #~ msgid "Invalid string format of access."
 #~ msgstr "Format de chaîne d'accès non valide."
-
 #~ msgid "There is no profile with the provided id."
 #~ msgstr "Il n'y a pas le profil avec l'ID fourni."
-
 #~ msgid "Custom"
 #~ msgstr "En-tête sur-mesure"
-
 #~ msgid "Custom access definitions"
 #~ msgstr "En-tête sur-mesure"
-
 #~ msgid "Result Access"
 #~ msgstr "Accepter"
