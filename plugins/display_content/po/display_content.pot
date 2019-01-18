@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-17 12:24+0000\n"
-"PO-Revision-Date: 2019-01-17 12:24+0000\n"
+"POT-Creation-Date: 2017-05-09 15:45+0000\n"
+"PO-Revision-Date: 2017-05-09 15:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -45,11 +45,11 @@ msgid "%{month}/%{day}"
 msgstr ""
 
 #: ../lib/display_content_block.rb:166
-msgid "%{month_name} %{day}"
+msgid "%{month_name} %{day}, %{year}"
 msgstr ""
 
 #: ../lib/display_content_block.rb:166
-msgid "%{month_name} %{day}, %{year}"
+msgid "%{month_name} %{day}"
 msgstr ""
 
 #: ../lib/display_content_plugin.rb:10

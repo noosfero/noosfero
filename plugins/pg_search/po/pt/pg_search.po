@@ -14,8 +14,8 @@ msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "PO-Revision-Date: 2019-01-08 14:07+0000\n"
 "Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
-"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/plugin"
-"-pg-search/pt/>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"plugin-pg-search/pt/>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,9 +85,12 @@ msgstr "Busca Avançada"
 
 #~ msgid "Types"
 #~ msgstr "Formatos"
+
 #~ msgid "TextArticle"
 #~ msgstr "Artigo de Texto"
+
 #~ msgid "UploadedFile"
 #~ msgstr "Arquivo"
+
 #~ msgid "RSSFeed"
 #~ msgstr "RSS"
