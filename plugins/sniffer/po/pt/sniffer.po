@@ -21,7 +21,8 @@ msgstr "Interesses de consumo atualizados"
 
 #: ../lib/sniffer_plugin.rb:8
 msgid "Sniffs product suppliers and consumers near to your enterprise."
-msgstr "Busca fornecedores e consumidores de produtos próximos ao seu empreendimento."
+msgstr ""
+"Busca fornecedores e consumidores de produtos próximos ao seu empreendimento."
 
 #: ../lib/sniffer_plugin/control_panel/consumer_interests.rb:6
 msgid "Consumer Interests"
@@ -90,14 +91,14 @@ msgstr "Interesses de compra"
 
 #: ../views/sniffer_plugin_myprofile/edit.html.erb:4
 msgid ""
-"Select here products and services categories that you have an interest on buyi"
-"ng. Then you can go to the Opportunity Sniffer and check out enterprises near "
-"you that offer such products. Type in some characters and choose your interest"
-"s from our list."
+"Select here products and services categories that you have an interest on "
+"buying. Then you can go to the Opportunity Sniffer and check out enterprises "
+"near you that offer such products. Type in some characters and choose your "
+"interests from our list."
 msgstr ""
-"Selecione aqui as categorias de produtos e serviços que você tem interesse em "
-"comprar. Com isso, empreendimentos saberão suas necessidades e poderão te faze"
-"r ofertas.Digite e escolha quais são seus interesses."
+"Selecione aqui as categorias de produtos e serviços que você tem interesse "
+"em comprar. Com isso, empreendimentos saberão suas necessidades e poderão te "
+"fazer ofertas.Digite e escolha quais são seus interesses."
 
 #: ../views/sniffer_plugin_myprofile/edit.html.erb:15
 msgid "Type in a keyword"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-17 12:24+0000\n"
-"PO-Revision-Date: 2019-01-17 12:24+0000\n"
+"POT-Creation-Date: 2018-08-30 18:45+0000\n"
+"PO-Revision-Date: 2018-08-30 18:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -35,7 +35,7 @@ msgid "Name"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Subject"
+msgid "e-Mail"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
@@ -43,7 +43,7 @@ msgid "Message"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "e-Mail"
+msgid "Subject"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/helper.rb:9

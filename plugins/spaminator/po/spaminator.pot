@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-17 12:24+0000\n"
-"PO-Revision-Date: 2019-01-17 12:24+0000\n"
+"POT-Creation-Date: 2017-11-07 17:21-0200\n"
+"PO-Revision-Date: 2017-11-07 17:21-0200\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -131,11 +131,11 @@ msgid "Spammers found / number of users verified"
 msgstr ""
 
 #: ../views/spaminator_plugin_admin/index.html.erb:52
-msgid "No Report"
+msgid "SEE FULL REPORTS (%s)"
 msgstr ""
 
 #: ../views/spaminator_plugin_admin/index.html.erb:52
-msgid "SEE FULL REPORTS (%s)"
+msgid "No Report"
 msgstr ""
 
 #: ../views/spaminator_plugin_admin/reports.html.erb:1

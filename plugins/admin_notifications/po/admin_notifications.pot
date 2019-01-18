@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-17 12:23+0000\n"
-"PO-Revision-Date: 2019-01-17 12:23+0000\n"
+"POT-Creation-Date: 2018-05-23 22:21+0000\n"
+"PO-Revision-Date: 2018-05-23 22:21+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -93,11 +93,7 @@ msgid "Inactive"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
-msgid "Notifications Color/Type"
-msgstr ""
-
-#: ../views/shared/_form.html.erb:18
-msgid "Blue - Information"
+msgid "Green - Success"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
@@ -105,19 +101,23 @@ msgid "Yellow - Warning"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
+msgid "Blue - Information"
+msgstr ""
+
+#: ../views/shared/_form.html.erb:18
 msgid "Red - Danger"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18
-msgid "Green - Success"
-msgstr ""
-
-#: ../views/shared/_form.html.erb:21
-msgid "Display only in the profile homepage"
+msgid "Notifications Color/Type"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:21
 msgid "Display only in the homepage"
+msgstr ""
+
+#: ../views/shared/_form.html.erb:21
+msgid "Display only in the profile homepage"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:25

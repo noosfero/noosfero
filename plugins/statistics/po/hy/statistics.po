@@ -73,7 +73,8 @@ msgid "Statistics for %s"
 msgstr "Վիճակագրություն"
 
 #: ../lib/statistics_plugin.rb:10
-msgid "A plugin that adds a block where you can see statistics of it's context."
+msgid ""
+"A plugin that adds a block where you can see statistics of it's context."
 msgstr ""
 
 #: ../views/blocks/statistics.html.erb:23
