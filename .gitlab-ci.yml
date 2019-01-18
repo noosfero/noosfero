@@ -1,4 +1,4 @@
-image: gabrielssilva/noosfero-ci:latest
+image: alaxalves/noosfero-ci:stretch
 
 variables:
   RAILS_ENV: test
