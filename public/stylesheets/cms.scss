@@ -2,6 +2,8 @@
 @import 'cms/media-panel';
 @import 'cms/access-options';
 @import 'cms/article-fields';
+@import 'cms/why-categorize';
+
 .cms-header {
   display: flex;
   justify-content: flex-end;
@@ -369,16 +371,5 @@ form.text-article {
     font-weight: 700;
     margin: 1.33em 0px;
     color: #212e3c;
-  }
-}
-
-h4.why-categorize {
-  a {
-    color: #346392;
-    margin-left: 2px;
-    &:hover,
-    &:visited {
-      color: #346392;
-    }
   }
 }

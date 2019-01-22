@@ -1,0 +1,15 @@
+#why-categorize {
+  float: right;
+  margin-left: 3px;
+}
+
+h4.why-categorize {
+  a {
+    color: #346392;
+    margin-left: 2px;
+    &:hover,
+    &:visited {
+      color: #346392;
+    }
+  }
+}
