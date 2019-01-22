@@ -26,13 +26,10 @@
       </div>
     <% end %>
 
-    <div id='why-categorize'>
-      <%= modal_button :help, _('Why categorize?'), :action => 'why_categorize' %>
-    </div>
-
     <%= button_bar do %>
       <%= submit_button :save, _('Save') %>
       <%= submit_button :save_and_continue, _('Save and continue'), :name => "continue" %>
+      <%= modal_button :help, _('Why categorize?'), :action => 'why_categorize' %>
     <% end %>
 
     <%= select_categories(:article, _('Categorize your article')) %>
