@@ -4,7 +4,7 @@ upstream rails_app {
 
 server {  
    # define your domain  
-   server_name $DOMAIN;
+   server_name $NOOSFERO_DOMAIN;
    # define the public application root  
    root   $NOOSFERO_PATH/public;  
    index  index.html;
