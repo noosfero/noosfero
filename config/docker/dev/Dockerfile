@@ -1,4 +1,5 @@
-FROM debian:jessie
+FROM ruby:2.1.5
+
 LABEL Maintainer="Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>"
 
 LABEL Description="This dockerfile builds a noosfero development environment."
@@ -13,7 +14,6 @@ RUN echo "IRB.conf[:HISTORY_FILE] = '~/.irb-history'" >> .irbrc
 
 WORKDIR /noosfero
 ADD . /noosfero/
-RUN ./script/quick-start -i
 
 RUN bundle install
 

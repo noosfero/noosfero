@@ -503,9 +503,8 @@ DEPENDENCIES
   rpush
   rspec
   rspec-rails
-  rubocop (~> 0.57.2)
+  rubocop
   ruby-feedparser
-  ruby-progressbar (~> 1.7.0)
   ruby_bosh (> 0.0.0)!
   rubyzip
   sass
@@ -529,6 +528,3 @@ DEPENDENCIES
   whenever
   will_paginate
   xss_terminate (= 0.0.0)!
-
-BUNDLED WITH
-   1.16.1
