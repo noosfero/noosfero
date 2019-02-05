@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2019-01-10 15:07+0000\n"
-"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"PO-Revision-Date: 2019-01-27 22:06+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
 "Language: pt\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.5-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -1698,7 +1698,7 @@ msgid ""
 msgstr ""
 "Você pode difinir qualquer valor numérico para o valor da cota, mas note que "
 "o valor será interpretado em Megabytes. Zero é um valor válido, mas "
-"significa que o perfil não poderá enviar mais arquivos."
+"significa que o perfil não poderá enviar mais ficheiros."
 
 #. type: Content of: <p>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:17
@@ -1707,7 +1707,7 @@ msgid ""
 "quota. That is the default value for all profiles."
 msgstr ""
 "Se você deixar o campo em branco, o perfil vai possuir uma cota ilimitada de "
-"envio de arquivos. Esse é o valor padrão para todos os perfis."
+"envio de ficheiros. Esse é o valor padrão para todos os perfis."
 
 # type: Content of: <ol><li>
 #. type: Content of: <p>
@@ -1749,7 +1749,7 @@ msgid ""
 msgstr ""
 "Cotas de upload são uma feature que permite ao administrador do sistema "
 "controlar a quantidade de dados que um perfil pode consumir ao enviar "
-"arquivos para o servidor."
+"ficheiros para o servidor."
 
 #. type: Content of: <p>
 #: doc/noosfero/quotas/index.en.xhtml:4
@@ -1760,15 +1760,15 @@ msgid ""
 "if old files are deleted in order to free some of the used space."
 msgstr ""
 "Se um perfil exceder a sua cota de upload, ele não será capaz de enviar mais "
-"arquivos para o servidor. Os arquivos enviados anteriormente continuarão "
-"disponíveis. O perfil somente será capaz de enviar novos arquivos se a cota "
-"for aumentada, ou se arquivos antigos forem excluídos para liberar espaço."
+"ficheiros para o servidor. Os ficheiros enviados anteriormente continuarão "
+"disponíveis. O perfil somente será capaz de enviar novos ficheiros se a cota "
+"for aumentada, ou se ficheiros antigos forem excluídos para liberar espaço."
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/searching.en.xhtml:1
 msgid "Searching on the system"
-msgstr "Buscar na rede"
+msgstr "Buscar no sistema"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -1858,7 +1858,7 @@ msgid ""
 "of information with a limited number of results. To see more results of a "
 "box, click on &#8220;See all&#8221; link below the box."
 msgstr ""
-"Então você verá o resultado da busca na tela. Cada caixa reúne um tipo de "
+"Então você verá o resultado da busca no ecrã. Cada caixa reúne um tipo de "
 "informação com um número limitado de resultados. Para ver mais resultados de "
 "uma caixa, clique no link &#8220;Ver todos&#8221; abaixo da caixa."
 
@@ -2602,7 +2602,7 @@ msgid ""
 "all&#8221; link below the box."
 msgstr ""
 "Nesse exemplo, procuramos &#8220;free software&#8221; em artigos/pessoas/"
-"comunidades/eventos/empreendimentos/produtos. Então aparecerá uma tela com o "
+"comunidades/eventos/empreendimentos/produtos. Então aparecerá um ecrã com o "
 "resultado da busca. Cada caixa reúne um tipo de informação com um número "
 "limitado de resultados. Para ver mais resultados de uma caixa, clique no "
 "link &#8220;Ver todos&#8221; logo abaixo da caixa."
@@ -2785,7 +2785,7 @@ msgid ""
 "navigation/advanced-search\">Advanced search</a>"
 msgstr ""
 "Em todas as opções de busca, você pode especificar mais a busca clicando no "
-"link &#8220;Mais opções&#8221;. As opções que aparecem na tela são "
+"link &#8220;Mais opções&#8221;. As opções que aparecem no ecrã são "
 "explicadas no artigo <a href=\"/doc/navigation/advanced-search\">Busca "
 "avançada</a>"
 
@@ -3630,8 +3630,8 @@ msgid ""
 msgstr ""
 "<strong>Importando</strong>: Escolha uma das outras opções para importar "
 "seus contatos a partir de seu e-mail. Preencha os campos com o nome de "
-"usuário e senha que você utiliza para acessar seu e-mail e clique em &#8220;"
-"Próximo&#8221;."
+"usuário e palavra-passe que você utiliza para acessar seu e-mail e clique em "
+"&#8220;Próximo&#8221;."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
@@ -5112,9 +5112,10 @@ msgid ""
 "be called a directory. It may contain other files and folders, which may "
 "also contain other directories</em>"
 msgstr ""
-"<em>Pasta, em informática, é uma estrutura utilizada para organizar arquivos "
-"em um computador e também pode ser chamada de diretório. Ela pode conter "
-"outros arquivos e pastas, que podem conter também outros diretórios.</em>"
+"<em>Pasta, em informática, é uma estrutura utilizada para organizar "
+"ficheiros num computador e também pode ser chamada de diretório. Ela pode "
+"conter outros ficheiros e pastas, que podem conter também outros "
+"diretórios.</em>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -5123,7 +5124,7 @@ msgid ""
 "<em>It is usually used to organize files from the same category, like music, "
 "videos, poems, recipes, payments or the way the user prefers.</em>"
 msgstr ""
-"<em>Normalmente é usada para reunir arquivos da mesmo categoria, como "
+"<em>Normalmente é usada para reunir ficheiros da mesmo categoria, como "
 "músicas, vídeos, poesias, receitas, pagamentos ou da da forma que o usuário "
 "preferir.</em>"
 
@@ -5133,7 +5134,7 @@ msgstr ""
 msgid ""
 "<em>To organize your texts/images/files, you should manage your content.</em>"
 msgstr ""
-"<em>Para organizar seus textos/imagens/arquivos, você deve gerenciar seu "
+"<em>Para organizar seus textos/imagens/ficheiros, você deve gerenciar seu "
 "conteúdo.</em>"
 
 # type: Content of: <ol><li>
@@ -5144,9 +5145,9 @@ msgid ""
 "listed first and then your files/articles. Clicking on your folders, you "
 "will see the files/folders inside them."
 msgstr ""
-"Aparecerá uma tela com alguns botões e a lista do seu conteúdo. Primeiro são "
-"listadas as pastas e depois os seus arquivos/artigos. Clicando nas pastas, "
-"você poderá visualizar os arquivos/pastas guardadas nela."
+"Aparecerá um ecrã com alguns botões e a lista do seu conteúdo. Primeiro são "
+"listadas as pastas e depois os seus ficheiros/artigos. Clicando nas pastas, "
+"você poderá visualizar os ficheiros/pastas guardadas nela."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -5197,13 +5198,13 @@ msgstr "Preencha com alguma informação sobre a pasta"
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:25
 msgid "Click to upload files"
-msgstr "Clique para adicionar arquivos"
+msgstr "Clique para adicionar ficheiros"
 
 # type: Attribute 'alt' of: <ol><li><ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/managing-content.en.xhtml:25
 msgid "Uploading files from CMS"
-msgstr "Enviando arquido pelo CMS"
+msgstr "Enviando ficheiros pelo CMS"
 
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ul><li><ol><li>
@@ -5298,7 +5299,7 @@ msgstr "<strong>Remover:</strong> Apaga a pasta"
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:40
 msgid "Files options. From left to right:"
-msgstr "Opções dos arquivos. Da esquerda para a direita:"
+msgstr "Opções dos ficheiros. Da esquerda para a direita:"
 
 # type: Attribute 'alt' of: <ol><li><ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -5389,7 +5390,7 @@ msgid ""
 "You will see your image gallery. Click on &#8220;Upload files&#8221; button"
 msgstr ""
 "Você verá a sua galeria de imagens. Clique no botão &#8220;Enviar "
-"arquivos&#8221;"
+"ficheiros&#8221;"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -5405,15 +5406,16 @@ msgid ""
 "button. If you want to upload more than 3 pictures at once, click on &#8220;"
 "More files&#8221;button and more fields will appear."
 msgstr ""
-"Então basta selecionar os arquivos das fotos que você deseja postar e clicar "
-"no botão &#8220;Upload&#8221;. Caso você queira postar mais que 3 fotos de "
-"uma vez clique no botão &#8220;Mais arquivos&#8221; e mais campos aparecerão."
+"Então basta selecionar os ficheiros das fotos que você deseja postar e "
+"clicar no botão &#8220;Upload&#8221;. Caso você queira postar mais que 3 "
+"fotos de uma vez clique no botão &#8220;Mais ficheiros&#8221; e mais campos "
+"aparecerão."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:19
 msgid "uploading files to gallery"
-msgstr "enviando arquivos para a galeria"
+msgstr "enviando ficheiros para a galeria"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -5572,7 +5574,7 @@ msgid ""
 "Read <a href=\"/doc/cms/writing-article\">Writing an article</a> to learn "
 "how to access article edition page."
 msgstr ""
-"Para acessar a tela de edição de artigo, leia: <a href=\"/doc/cms/writing-"
+"Para acessar o ecrã de edição de artigo, leia: <a href=\"/doc/cms/writing-"
 "article\">Escrevendo um artigo</a>."
 
 # type: Content of: <h3>
@@ -5673,7 +5675,7 @@ msgstr "Inserir imagens"
 #. type: Content of: <p>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:31
 msgid "When creating/editing an article, you will see a box in the right side."
-msgstr "Na tela de criação/edição de artigo, há um quadro do lado direito."
+msgstr "No ecrã de criação/edição de artigo, há um quadro do lado direito."
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -5682,8 +5684,8 @@ msgid ""
 "In the top of it, you can choose files from your computer and upload them as "
 "files from your profile."
 msgstr ""
-"Na parte de cima, você pode escolher arquivos do seu computador e incluí-los "
-"no como arquivos do seu perfil."
+"Na parte de cima, você pode escolher ficheiros do seu computador e incluí-"
+"los no como ficheiros do seu perfil."
 
 # type: Attribute 'alt' of: <ul><li><p><img>
 #. type: Attribute 'alt' of: <ul><li><ol><li><img>
@@ -5698,8 +5700,8 @@ msgid ""
 "In the bottom of it, you will see the list of your files, that can be "
 "inserted in your article."
 msgstr ""
-"Na parte de baixo estão listados os seus arquivos, que poderão ser inseridos "
-"no artigo."
+"Na parte de baixo estão listados os seus ficheiros, que poderão ser "
+"inseridos no artigo."
 
 # type: Content of: <ul><li><p>
 #. type: Content of: <ul><li><ul><li>
@@ -5709,7 +5711,7 @@ msgid ""
 "files, below &#8220;Documents&#8221;."
 msgstr ""
 "Na coluna da esquerda, você verá imagens e na coluna da direita, os outros "
-"arquivos, com o título &#8220;Documentos&#8221;."
+"ficheiros, com o título &#8220;Documentos&#8221;."
 
 # type: Content of: <ul><li><p>
 #. type: Content of: <ul><li><ul><li>
@@ -5859,8 +5861,8 @@ msgid ""
 "<strong>Text article with visual editor:</strong> the screen for "
 "article&#8217;s edition is similar to most text editors"
 msgstr ""
-"<strong>Artigo de texto com editor visual:</strong> a tela de edição do "
-"artigo é parecida com a maioria dos editores de texto;"
+"<strong>Artigo de texto com editor visual:</strong> o ecrã de edição do "
+"artigo é parecido com a maioria dos editores de texto"
 
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
@@ -6169,7 +6171,7 @@ msgid ""
 "You will see the confirmation screen. If you are sure that you want to "
 "disable the enterprise, click on &#8220;Yes, I want to disable&#8221;."
 msgstr ""
-"Você verá a tela de confirmação. Se você tiver certeza que deseja "
+"Você verá o ecrã de confirmação. Se você tiver certeza que deseja "
 "desabilitar o empreendimento, clique em &#8220;Sim, eu quero "
 "desabilitar&#8221;."
 
@@ -6272,7 +6274,7 @@ msgid ""
 "enterprise will be blocked. If you are sure that your answer is right, click "
 "on &#8220;Continue&#8221; button."
 msgstr ""
-"Você verá uma tela com o primeiro passo da ativação, a pergunta sobre o "
+"Você verá um ecrã com o primeiro passo da ativação, a pergunta sobre o "
 "empreendimento. Você deve preencher o campo com a resposta correta, ou seu "
 "empreendimento será bloqueado. Se você tiver certeza que sua resposta está "
 "correta, clique no botão &#8220;Continue&#8221;."
@@ -6315,7 +6317,7 @@ msgid ""
 "go to your control panel."
 msgstr ""
 "Depois, você receberá uma confirmação que seu empreendimento foi ativado. "
-"Nesta tela, você pode ir para o painel de controle do seu empreendimento e "
+"Neste ecrã, você pode ir para o painel de controle do seu empreendimento e "
 "atualizá-lo ou ir para o seu painel de controle."
 
 # type: Attribute 'alt' of: <ol><li><div><img>
@@ -6648,7 +6650,7 @@ msgid ""
 "the enterprise. The members you add will have administrator role by default, "
 "with all permissions."
 msgstr ""
-"<strong>Adicionar integrantes:</strong> Você verá uma tela para adicionar "
+"<strong>Adicionar integrantes:</strong> Você verá um ecrã para adicionar "
 "novos integrantes ao empreendimento. Os integrantes inseridos terão o papel "
 "de administrador do perfil por padrão, com todas as permissões."
 
@@ -6661,8 +6663,8 @@ msgid ""
 "the search results."
 msgstr ""
 "Digite no campo de busca o nome do usuário do sistema que você deseja "
-"adicionar ao empreendimento. A tabela do lado esquerdo da tela (&#8220;"
-"Usuários&#8221;) mostrará o resultado da busca."
+"adicionar ao empreendimento. A tabela do lado esquerdo do ecrã "
+"(&#8220;Usuários&#8221;) mostrará o resultado da busca."
 
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
@@ -6734,7 +6736,7 @@ msgid ""
 "enterprise. This screen will be explained in parts"
 msgstr ""
 "Então você verá um formulário com as informações e configurações do "
-"empreendimento. Essa tela será explicada por partes"
+"empreendimento. Esse ecrã será explicado por partes"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -7089,49 +7091,49 @@ msgstr "Produto criado completo"
 #: doc/noosfero/user/changing-password.en.xhtml:1
 #: doc/noosfero/user/changing-password.en.xhtml:15
 msgid "Changing password"
-msgstr "Alterando senha"
+msgstr "Alterando palavra-passe"
 
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/changing-password.en.xhtml:2
 msgid "<em>Whenever you want, you can change your password.</em>"
-msgstr "<em>Sempre que quiser, você pode alterar sua senha.</em>"
+msgstr "<em>Sempre que quiser, você pode alterar sua palavra-passe.</em>"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:12
 msgid "Then, click on &#8220;Change Password&#8221;:"
-msgstr "Depois, clique em &#8220;Alterar senha&#8221;:"
+msgstr "Depois, clique em &#8220;Alterar palavra-passe&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/changing-password.en.xhtml:12
 msgid "Change password in control panel"
-msgstr "Alterar senha no painel de controle"
+msgstr "Alterar palavra-passe no painel de controle"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:17
 msgid "Fill in with your password."
-msgstr "Preencha com sua senha."
+msgstr "Preencha com sua palavra-passe."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:18
 msgid "Fill in with your new password."
-msgstr "Preencha com sua nova senha."
+msgstr "Preencha com sua nova palavra-passe."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:19
 msgid "Retype your new password, to confirm it."
-msgstr "Digite novamente sua senha, para confirmá-la."
+msgstr "Digite novamente sua palavra-passe, para confirmá-la."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:20
 msgid "Then, click on &#8220;Change password&#8221;."
-msgstr "Depois, clique em &#8220;Alterar senha&#8221;."
+msgstr "Depois, clique em &#8220;Alterar palavra-passe&#8221;."
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -7183,8 +7185,8 @@ msgid ""
 "You will be asked to confirm exclusion. Clickiing on &#8220;Ok&#8221; "
 "button, the comment will be removed"
 msgstr ""
-"Aparecerá a tela para confirmar a exclusão. Clicando no botão &#8220;"
-"Ok&#8221;, o comentário será removido"
+"Aparecerá o ecrã para confirmar a exclusão. Clicando no botão "
+"&#8220;Ok&#8221;, o comentário será removido"
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-comments.en.xhtml:13
@@ -7237,7 +7239,7 @@ msgid ""
 "you want to remove from your contact list and click on trash icon next to "
 "the picture of the person you want to remove."
 msgstr ""
-"Na tela de gerenciar amigos, você irá visualizar a sua lista de amigos. "
+"No ecrã de gerenciar amigos, você irá visualizar a sua lista de amigos. "
 "Encontre o amigo que deseja excluir da sua lista de contatos e clique no "
 "ícone com formato de lixeira ao lado da foto da pessoa que você deseja "
 "remover."
@@ -7258,7 +7260,7 @@ msgid ""
 "You will be asked to confirm the exclusion. Confirm that you want to remove "
 "your friend."
 msgstr ""
-"Aparecerá uma tela pedindo que confirme a exclusão. Confirme que deseja "
+"Aparecerá um ecrã pedindo que confirme a exclusão. Confirme que deseja "
 "remover o amigo."
 
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -7618,8 +7620,8 @@ msgid ""
 "Fill in the fields with the &#8216;login&#8217; and &#8216;password&#8217; "
 "you choosed in your registration and click on &#8220;Log in&#8221; button."
 msgstr ""
-"Preencha os campos com o &#8216;login&#8217 e a &#8216;senha&#8217 que "
-"escolheu durante seu cadastro, e clique no botão &#8220;Entrar&#8221;."
+"Preencha os campos com o &#8216;login&#8217 e a &#8216;palavra-passe&#8217 "
+"que escolheu durante seu cadastro, e clique no botão &#8220;Entrar&#8221;."
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/login.en.xhtml:12
@@ -7762,7 +7764,7 @@ msgid ""
 "You will see a confirmation page. If you are sure that you want to delete "
 "the profile, click on &#8220;Yes, I am sure&#8221;"
 msgstr ""
-"Você verá a tela de confirmação. Se você tiver certeza que deseja remover o "
+"Você verá o ecrã de confirmação. Se você tiver certeza que deseja remover o "
 "perfil, clique em &#8220;Sim, eu tenho certeza&#8221;"
 
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -7834,8 +7836,8 @@ msgid ""
 "shown informing the error and you should choose another login/e-mail."
 msgstr ""
 "Seu e-mail e login devem ser únicos no sistema. Então, caso preencha o campo "
-"com um e-mail/login que já exista no sistema, aparecerá uma tela informando "
-"o erro e você deverá escolher outro e-mail/login."
+"com um e-mail/login que já exista no sistema, aparecerá um ecrã informando o "
+"erro e você deverá escolher outro e-mail/login."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li><ul><li>
@@ -8252,7 +8254,7 @@ msgid ""
 "friend. On this screen you can also classify your friend with your "
 "relationship type."
 msgstr ""
-"Após clicar no botão, confirme que deseja adicionar o amigo. Nessa tela você "
+"Após clicar no botão, confirme que deseja adicionar o amigo. Nesse ecrã você "
 "também poderá classificar o seu amigo de acordo com a relação que vocês têm."
 
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -8313,7 +8315,7 @@ msgid ""
 "explained in parts"
 msgstr ""
 "Aparecerá, então, um formulário com as suas informações e configurações. "
-"Essa tela será explicada por partes"
+"Esse ecrã será explicado por partes"
 
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ol><li>
@@ -8636,7 +8638,7 @@ msgstr "<a href=\"/doc/user/editing-sideboxes\">Editar blocos laterais</a>"
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:18
 msgid "<a href=\"/doc/user/changing-password\">Changing password</a>"
-msgstr "<a href=\"/doc/user/changing-password\">Alterar senha</a>"
+msgstr "<a href=\"/doc/user/changing-password\">Alterar palavra-passe</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
