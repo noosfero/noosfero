@@ -119,25 +119,15 @@ class CommentController < ApplicationController
     if @comment.update(params[:comment])
       @plugins.dispatch(:process_extra_comment_params, [@comment,params])
 
+      @comment_to_render = @comment.comment_root
+      @anchor = @comment_to_render.anchor
+
       respond_to do |format|
-        format.js do
-          comment_to_render = @comment.comment_root
-          render :json => {
-            :ok => true,
-            :render_target => comment_to_render.anchor,
-            :html => render_to_string(:partial => 'comment', :locals => {:comment => comment_to_render})
-          }
-        end
+        format.js
       end
     else
      respond_to do |format|
-       format.js do
-         render :json => {
-           :ok => false,
-           :render_target => 'form',
-           :html => render_to_string(:partial => 'comment_form', :object => @comment, :locals => {:comment => @comment, :display_link => false, :edition_mode => true, :show_form => true})
-         }
-       end
+      format.js
      end
     end
   end
