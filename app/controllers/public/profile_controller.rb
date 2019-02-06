@@ -322,20 +322,11 @@ class ProfileController < PublicController
   end
 
   def more_replies
-    activity = Scrap.where(:id => params[:activity], :receiver_id => @profile, :scrap_id => nil).first
-    comments_count = activity.replies.count
-    comment_page = (params[:comment_page] || 1).to_i
-    comments_per_page = 5
-    no_more_pages = comments_count <= comment_page * comments_per_page
-
-    render :update do |page|
-      page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity],
-        :partial => 'profile_scrap', :collection => activity.replies.paginate(:per_page => comments_per_page, :page => comment_page), :as => :scrap
-
-      page.remove 'profile-wall-activities-comments-more-'+params[:activity] if comment_page == 1
-      page.insert_html :after, "profile-wall-activities-comments-#{params[:activity]}",
-                        partial: "more_replies", locals: { activity: activity, comment_page: comment_page } unless no_more_pages
-    end
+    @activity = Scrap.where(:id => params[:activity], :receiver_id => @profile, :scrap_id => nil).first
+    @comments_count = @activity.replies.count
+    @comment_page = (params[:comment_page] || 1).to_i
+    @comments_per_page = 5
+    @no_more_pages = @comments_count <= @comment_page * @comments_per_page
   end
 
   def remove_scrap

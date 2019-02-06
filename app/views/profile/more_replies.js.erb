@@ -1,0 +1,10 @@
+$('#profile-wall-activities-comments-<%=params[:activity]%>').append('<%= j render partial: "profile_scrap", :collection => @activity.replies.paginate(:per_page => @comments_per_page, :page => @comment_page), :as => :scrap %>');
+<% if @comment_page == 1 %>
+  $('#profile-wall-activities-comments-more-<%=params[:activity]%>').remove();
+<% end %>
+
+<% unless @no_more_pages %>
+  $('#profile-wall-activities-comments-<%=params[:activity]%>').after('<%= j render partial: "more_replies", locals: { activity: @activity, comment_page: @comment_page } %>');
+<% end %>
+
+
