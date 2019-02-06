@@ -21,19 +21,20 @@ class EnvironmentEmailTemplatesControllerTest < ActionController::TestCase
 
   test "should create email_template" do
     assert_difference('EmailTemplate.count') do
-      post :create, params: { email_template: { :name => 'test' } }
+
+      post :create, email_template: { :name => 'test' }
     end
 
     assert_redirected_to url_for(:action => :index)
   end
 
   test "should show email_template" do
-    get :show, params: { id: @email_template }
+    get :show, id: @email_template
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: { id: @email_template }
+    get :edit, id: @email_template
     assert_response :success
   end
 
@@ -55,7 +56,7 @@ class EnvironmentEmailTemplatesControllerTest < ActionController::TestCase
     @email_template.subject = '{{environment_name}}'
     @email_template.body = '{{environment_name}}'
     @email_template.save!
-    get :show_parsed, params: { id: @email_template }
+    get :show_parsed, id: @email_template
     assert_response :success
     json_response = ActiveSupport::JSON.decode(@response.body)
     assert_equal "#{environment.name}", json_response['parsed_subject']
