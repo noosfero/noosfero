@@ -311,16 +311,14 @@ class ProfileController < PublicController
 
   def more_comments
     profile_filter = @profile.person? ? {:user_id => @profile} : {:target_id => @profile}
-    activity = ActionTracker::Record.where(:id => params[:activity])
-    activity = activity.where(profile_filter) if !logged_in? || !current_person.follows?(@profile)
-    activity = activity.first
+    @activity = ActionTracker::Record.where(:id => params[:activity])
+    @activity = @activity.where(profile_filter) if !logged_in? || !current_person.follows?(@profile)
+    @activity = @activity.first
 
-    comments_count = activity.comments.count
-    comment_page = (params[:comment_page] || 1).to_i
-    comments_per_page = 5
-    no_more_pages = comments_count <= comment_page * comments_per_page
-
-    update_feed(comments_count, comment_page, comments_per_page, no_more_pages, activity)
+    comments_count = @activity.comments.count
+    @comment_page = (params[:comment_page] || 1).to_i
+    @comments_per_page = 5
+    @no_more_pages = comments_count <= @comment_page * @comments_per_page
   end
 
   def more_replies
