@@ -90,12 +90,6 @@ class ContentViewerController < ApplicationController
   def view_more_comments
     @page = Article.find_by_id params[:id]
     process_comments(params)
-    render :update do |page|
-      page.insert_html :bottom, "article-comments-list",
-                       partial: 'comment/comment', collection: @comments, as: :comment
-
-      page.remove "view-more-comments"
-    end
   end
 
   protected
