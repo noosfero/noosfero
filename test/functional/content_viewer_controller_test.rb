@@ -52,11 +52,10 @@ class ContentViewerControllerTest < ActionController::TestCase
     profile = create_user('someone').person
     html = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/500.html', 'text/html'), :profile => profile
     html.save!
-
     get :view_page, :profile => 'someone', :page => [ '500' ], :view => true
 
     assert_response :success
-    assert_select "a[href=\"#{html.full_path}\"]"
+    assert_select "a.download-link"
   end
 
   should 'download file when view page is blank' do

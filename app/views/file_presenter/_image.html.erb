@@ -25,12 +25,10 @@
 </div>
 
 <% end %>
-
 <%# image_tag(article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%') %>
 
 <img src="<%= [Noosfero.root, image.public_filename(:display)].join %>" class="<%=image.css_class_name%>">
-
-<% if image.parent.is_a?(Gallery) && image.parent.allow_download %>
+<% if ((image.parent.is_a?(Gallery) && image.parent.allow_download) || (!image.parent.is_a?(Gallery))) %>
   <%= button :download,  _('Download image'),  [Noosfero.root, image.public_filename(:display)].join,
         download: image.filename, id: 'download-image-id' %>
 <% end %>
