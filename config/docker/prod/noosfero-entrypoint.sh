@@ -1,9 +1,5 @@
 #!/bin/bash
-
-cmd="$@"
-
-echo "copying config/database.yml.docker -> config/database.yml"
-cp /noosfero/config/database.yml.docker /noosfero/config/database.yml
+set -e
 
 function_postgres_ready() {
 ruby << END
@@ -35,17 +31,20 @@ if [ -f $dump_file ]; then
   yes | bundle exec rake restore BACKUP=$dump_file
 fi
 
-if bundle exec rake db:exists; then
-  echo ">>>>> DATABASE DETECTED APPLYING MIGRATIONS <<<<<"
-  bundle exec rake db:migrate
-else
+if ! bundle exec rake db:exists; then
   echo ">>>>> NO DATABASE DETECTED CREATING A NEW ONE <<<<<"
   bundle exec rake db:create
-  bundle exec rake db:schema:load
+fi
 
+if ! bundle exec rake db:tables:exists; then
+  echo ">>>>> NO DATABASE TABLES DETECTED LOADING SCHEMA <<<<<"
+  bundle exec rake db:schema:load
   echo ">>>>> CREATING DEFAULT ENVIRONMENT AND ADMIN USER <<<<<"
   bundle exec rake db:data:minimal
 fi
+
+echo ">>>>> DATABASE DETECTED APPLYING MIGRATIONS <<<<<"
+bundle exec rake db:migrate
 
 echo ">>>>> PID VERIFICATION <<<<<"
 pidfile='/noosfero/tmp/pids/server.pid'
@@ -54,8 +53,7 @@ if [ -f $pidfile ] ; then
   rm $pidfile
 fi
 
+echo ">>>>> COMPILING ASSETS <<<<<"
+bundle exec rake assets:precompile
 
-# echo ">>>>> COMPILING ASSETS <<<<<"
-# bundle exec rake assets:precompile
-
-exec $cmd
+exec "$@"

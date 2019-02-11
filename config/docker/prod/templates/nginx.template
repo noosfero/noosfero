@@ -1,15 +1,16 @@
 upstream rails_app {  
    server noosfero:3000;
-} 
+}
+
 server {  
    # define your domain  
-   server_name www.example.com;   
+   server_name $NOOSFERO_DOMAIN;
    # define the public application root  
-   root   $RAILS_ROOT/public;  
+   root   $NOOSFERO_PATH/public;  
    index  index.html;
    # define where Nginx should write its logs  
-   access_log $RAILS_ROOT/log/nginx.access.log;  
-   error_log $RAILS_ROOT/log/nginx.error.log;   
+   access_log $NOOSFERO_PATH/log/nginx.access.log;  
+   error_log $NOOSFERO_PATH/log/nginx.error.log;   
   
    # deny requests for files that should never be accessed  
    location ~ /\. {    
@@ -21,7 +22,7 @@ server {
  
    # serve static (compiled) assets directly if they exist (for rails production)  
    location ~ ^/(assets|images|javascripts|stylesheets|swfs|system)/   {    
-      try_files $uri @rails;     
+      try_files $uri $uri.html @rails;     
       access_log off;    
       gzip_static on; 
       # to serve pre-gzipped version     
@@ -35,13 +36,15 @@ server {
   
    # send non-static file requests to the app server  
    location / {    
-      try_files $uri @rails;  
+      try_files $uri $uri.html @rails;  
    }   
    location @rails {    
-      proxy_set_header  X-Real-IP  $remote_addr;    
-      proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;         
-      proxy_set_header Host $http_host;    
+      #proxy_set_header X-Real-IP $remote_addr;    
+      #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;         
+      #proxy_set_header Host $http_host;    
       proxy_redirect off;    
       proxy_pass http://rails_app;  
    }
 }
+
+# vim: ft=conf

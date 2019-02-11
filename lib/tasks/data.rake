@@ -15,7 +15,7 @@ namespace :db do
                                  :password => ENV['ADMIN_PASSWORD'],
                                  :password_confirmation => ENV['ADMIN_PASSWORD'],
                                  :environment => Environment.default)
-                               admin.activate
+                               admin.activate!
                                Environment.default.add_admin(admin.person)"
       end
     end

@@ -21,31 +21,37 @@ services:
       - 3000:3000
     depends_on:
       - postgres
-    volumes:
-      - ./tmp/backup:/dump
-      - static-data:/var/www/app_name/public
     networks:
       - noosfero-net
     env_file:
       - config/docker/prod/production.env 
+    volumes:
+      - ./tmp/backup:/dump
+      - noosfero-public:/noosfero/public
+      - noosfero-log:/noosfero/log
 
   nginx:
-    container_name: nginx    
-    build:      
-      context: .
-      dockerfile: ./config/docker/prod/Dockerfile-nginx
+    container_name: nginx
+    image: nginx:1.14
     depends_on:      
       - noosfero    
     ports:      
       - 80:80
     networks:
       - noosfero-net  
+    env_file:
+      - config/docker/prod/production.env
     volumes:
-      - static-data:/var/www/app_name/public
+      - noosfero-public:/noosfero/public
+      - noosfero-log:/noosfero/log
+      - ./config/docker/prod/nginx-start.sh:/tmp/nginx-start.sh
+      - ./config/docker/prod/templates/nginx.template:/tmp/nginx.template
+    command: /tmp/nginx-start.sh
 
 volumes:
   pg-prod-data: {}
-  static-data:
+  noosfero-public:
+  noosfero-log:
 
 networks:
   noosfero-net:
