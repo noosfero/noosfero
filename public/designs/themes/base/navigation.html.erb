@@ -1,6 +1,3 @@
-<%
-#FIXME uncomment this code
-=begin%>
  <% if user.present? %>
   <li class="user-home">
     <%= link_to font_awesome(:user, content_tag(:span, _('Profile'), class: 'home')).html_safe, url_for(user.public_profile_url) %>
@@ -81,5 +78,3 @@
     </ul>
   </li>
 <% end %> 
-<%
-=end%>
