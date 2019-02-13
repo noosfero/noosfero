@@ -1,3 +1,4 @@
+#module Myprofile
 class ProfileDesignController < BoxOrganizerController
 
   needs_profile
@@ -33,3 +34,4 @@ class ProfileDesignController < BoxOrganizerController
   end
 
 end
+#end

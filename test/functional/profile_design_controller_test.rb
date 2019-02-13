@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class ProfileDesignControllerTest < ActionController::TestCase
+class ProfileDesignControllerTest <  ActionDispatch::IntegrationTest
 
   COMMOM_BLOCKS = [ ArticleBlock, InterestTagsBlock, TagsCloudBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock, HighlightsBlock, MenuBlock ]
   PERSON_BLOCKS = COMMOM_BLOCKS + [ FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
@@ -10,7 +10,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   attr_reader :holder
   def setup
-    @controller = ProfileDesignController.new
+#     @controller = ProfileDesignController.new
 
     @profile = @holder = create_user('designtestuser').person
     holder.save!
@@ -50,12 +50,13 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @b8 = Block.new
     @box3.blocks << @b8
 
-    @request.env['HTTP_REFERER'] = '/editor'
+    # @request.env['HTTP_REFERER'] = '/editor'
 
     holder.blocks(true)
 
-    @controller.stubs(:boxes_holder).returns(holder)
-    login_as 'designtestuser'
+    # @controller.stubs(:boxes_holder).returns(holder)
+    # login_as 'designtestuser'
+    login_as('designtestuser')
   end
   attr_reader :profile
 
@@ -63,7 +64,10 @@ class ProfileDesignControllerTest < ActionController::TestCase
   # BEGIN - tests for BoxOrganizerController features
   ######################################################
   def test_should_move_block_to_the_end_of_another_block
-    get :move_block, :profile => 'designtestuser', :id => "block-#{@b1.id}", :target => "end-of-box-#{@box2.id}"
+    # person = create_user('mylogin').person
+    
+    get move_block_profile_design_index_path({profile: 'designtestuser'}), params: {:id => "block-#{@b1.id}", :target => "end-of-box-#{@box2.id}"}
+    # get move_block_profile_design_index_path(), params: {:id => "block-#{@b1.id}", :target => "end-of-box-#{@box2.id}"}
 
     @b1.reload
     @box2.reload
@@ -75,7 +79,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   def test_should_move_block_to_the_middle_of_another_block
     # block 4 is in box 2
-    get :move_block, :profile => 'designtestuser', :id => "block-#{@b1.id}", :target => "before-block-#{@b4.id}"
+    get move_block_profile_design_index_path('designtestuser'), params: {:id => "block-#{@b1.id}", :target => "before-block-#{@b4.id}"}
 
     @b1.reload
     @b4.reload
@@ -86,7 +90,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   def test_block_can_be_moved_up
-    get :move_block, :profile => 'designtestuser', :id => "block-#{@b4.id}", :target => "before-block-#{@b3.id}"
+    get move_block_profile_design_index_path('designtestuser'), params: { :id => "block-#{@b4.id}", :target => "before-block-#{@b3.id}"}
 
     @b4.reload
     @b3.reload
@@ -98,7 +102,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert_equal [1,2,3], [@b3,@b4,@b5].map {|item| item.position}
 
     # b3 -> before b5
-    get :move_block, :profile => 'designtestuser', :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"
+    get move_block_profile_design_index_path('designtestuser'), params: {:id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"}
 
     [@b3,@b4,@b5].each do |item|
       item.reload
@@ -108,17 +112,17 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   def test_move_block_should_redirect_when_not_called_via_ajax
-    get :move_block, :profile => 'designtestuser', :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"
+    get move_block_profile_design_index_path(:profile => 'designtestuser'), params: { :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"}
     assert_redirected_to :action => 'index'
   end
 
   def test_move_block_should_render_when_called_via_ajax
-    xml_http_request :get, :move_block, :profile => 'designtestuser', :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"
+    get move_block_profile_design_index_path(:profile => 'designtestuser'), params: { :id => "block-#{@b3.id}", :target => "before-block-#{@b5.id}"}, xhr: true
     assert_template 'move_block'
   end
 
   def test_should_be_able_to_move_block_directly_down
-    post :move_block_down, :profile => 'designtestuser', :id => @b1.id
+    post move_block_down_profile_design_path('designtestuser',@b1)
     assert_response :redirect
 
     @b1.reload
@@ -128,7 +132,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   def test_should_be_able_to_move_block_directly_up
-    post :move_block_up, :profile => 'designtestuser', :id => @b2.id
+    post move_block_up_profile_design_path('designtestuser', @b2)
     assert_response :redirect
 
     @b1.reload
@@ -139,14 +143,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   def test_should_remove_block
     assert_difference 'Block.count', -1 do
-      post :remove, :profile => 'designtestuser', :id => @b2.id
+      post remove_profile_design_path('designtestuser', @b2)
       assert_response :redirect
       assert_redirected_to :action => 'index'
     end
   end
 
   should 'have options to display blocks' do
-    get :edit, :profile => 'designtestuser', :id => @b1.id
+    get edit_profile_design_path({:profile => 'designtestuser'}, @b1)
     %w[always home_page_only except_home_page never].each do |option|
       assert_tag :select, :attributes => {:name => 'block[display]'},
        :descendant => {:tag => 'option', :attributes => {:value => option}}
@@ -181,7 +185,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     end
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
-    get :index, :profile => 'designtestuser'
+    get profile_design_index_path(:profile => 'designtestuser')
     assert_response :success
 
     (1..9).each {|i| assert_tag :tag => 'div', :attributes => { 'data-block-type' => "ProfileDesignControllerTest::CustomBlock#{i}" } }
@@ -213,7 +217,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     end
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
-    get :index, :profile => 'designtestuser'
+    get profile_design_index_path('designtestuser')
     assert_response :success
 
     [1, 5].each {|i| assert_tag :tag => 'div', :attributes => { 'data-block-type' => "ProfileDesignControllerTest::CustomBlock#{i}" }}
@@ -221,25 +225,26 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'not edit main block with never option' do
-    get :edit, :profile => 'designtestuser', :id => @b4.id
+    get edit_profile_design_path({profile: 'designtestuser'}, @b4)
     !assert_tag :select, :attributes => {:name => 'block[display]'},
       :descendant => {:tag => 'option', :attributes => {:value => 'never'}}
   end
 
   should 'not edit main block with home_page_only option' do
-    get :edit, :profile => 'designtestuser', :id => @b4.id
+    get edit_profile_design_path({profile: 'designtestuser'}, @b4)
     !assert_tag :select, :attributes => {:name => 'block[display]'},
      :descendant => {:tag => 'option', :attributes => {:value => 'home_page_only'}}
   end
 
   should 'edit main block with always option' do
-    get :edit, :profile => 'designtestuser', :id => @b4.id
+    get edit_profile_design_path({profile: 'designtestuser'}, @b4)
+
     assert_tag :select, :attributes => {:name => 'block[display]'},
      :descendant => {:tag => 'option', :attributes => {:value => 'always'}}
   end
 
   should 'edit main block with except_home_page option' do
-    get :edit, :profile => 'designtestuser', :id => @b4.id
+    get edit_profile_design_path({profile: 'designtestuser'}, @b4)
     assert_tag :select, :attributes => {:name=> 'block[display]'},
      :descendant => {:tag => 'option', :attributes => {:value => 'except_home_page'}}
   end
@@ -249,7 +254,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     article2 = fast_create(Article, :profile_id => @profile.id, :name => "Some article")
     article3 = fast_create(Article, :profile_id => @profile.id, :name => "Not an article")
 
-    xhr :get, :search_autocomplete, :profile => 'designtestuser' , :query => 'Some'
+    get search_autocomplete_profile_design_index_path('designtestuser'), xhr: true, params: {:query => 'Some'}
 
     json_response = ActiveSupport::JSON.decode(@response.body)
 
@@ -269,7 +274,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   should 'actually add a new block' do
     assert_difference 'Block.count' do
-      post :move_block, :profile => 'designtestuser', :target => "end-of-box-#{@box1.id}", :type => RecentDocumentsBlock.name
+      post move_block_profile_design_index_path('designtestuser'), params: {:target => "end-of-box-#{@box1.id}", :type => RecentDocumentsBlock.name}
       assert_redirected_to :action => 'index'
     end
   end
@@ -277,19 +282,21 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'not allow to create unknown types' do
     assert_no_difference 'Block.count' do
       assert_raise ArgumentError do
-        post :move_block, :profile => 'designtestuser', :box_id => @box1.id, :type => "PleaseLetMeCrackYourSite"
+        post move_block_profile_design_index_path('designtestuser'), params: {:box_id => @box1.id, :type => "PleaseLetMeCrackYourSite"}
       end
     end
   end
 
   should 'provide edit screen for blocks' do
-    get :edit, :profile => 'designtestuser', :id => @b1.id
+    #get edit_profile_design_path({:profile => 'designtestuser'},{:id => @b1})
+    get edit_profile_design_url('designtestuser', @b1), params: {:profile => 'designtestuser', :id => @b1}
+#    get edit_profile_design_url('designtestuser', @b1)
     assert_template 'edit'
     !assert_tag :tag => 'body' # e.g. no layout
   end
 
   should 'be able to save a block' do
-    post :save, :profile => 'designtestuser', :id => @b1.id, :block => { :article_id => 999 }
+    post save_profile_design_path('designtestuser', @b1), params: { :block => { :article_id => 999 }}
 
     assert_redirected_to :action => 'index'
 
@@ -299,18 +306,18 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   should 'not be able to save a non editable block' do
     Block.any_instance.expects(:editable?).returns(false)
-    post :save, :profile => 'designtestuser', :id => @b1.id, :block => { }
+    post save_profile_design_path('designtestuser', @b1), params: {:block => { }}
     assert_response :forbidden
   end
 
   should 'display back to control panel button' do
-    get :index, :profile => 'designtestuser'
+    get profile_design_index_path('designtestuser')
     assert_tag :tag => 'a', :attributes => {:class => 'ctrl-panel', :title => 'Configure your personal account and content', :href => '/myprofile/designtestuser'}
   end
 
   should 'display available blocks in alphabetical order' do
-    @controller.stubs(:available_blocks).returns([TagsCloudBlock, ArticleBlock])
-    get :index, :profile => 'designtestuser'
+    ProfileDesignController.any_instance.stubs(:available_blocks).returns([TagsCloudBlock, ArticleBlock])
+    get profile_design_index_path('designtestuser')
     assert_equivalent assigns(:available_blocks), [ArticleBlock, TagsCloudBlock]
   end
 
@@ -318,24 +325,26 @@ class ProfileDesignControllerTest < ActionController::TestCase
     p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
 
     login_as(create_user_with_permission('test_user','edit_profile_design',p).identifier )
-    get :index, :profile => p.identifier
 
+    get profile_design_index_path(p.identifier)
     assert_tag :tag => 'a', :attributes => {:href => '/myprofile/test_user'}
   end
 
   should 'offer to create blog archives block only if has blog' do
     holder.articles << Blog.new(:name => 'Blog test', :profile => holder)
-    get :index, :profile => 'designtestuser'
+
+    get profile_design_index_path('designtestuser')
+
     assert_tag :tag => 'div', :attributes => { 'data-block-type' => 'BlogArchivesBlock' }
   end
 
   should 'not offer to create blog archives block if user dont have blog' do
-    get :index, :profile => 'designtestuser'
+    get profile_design_index_path('designtestuser')
     !assert_tag :tag => 'div', :attributes => { 'data-block-type' => 'BlogArchivesBlock' }
   end
 
   should 'offer to create feed reader block' do
-    get :index, :profile => 'designtestuser'
+    get profile_design_index_path('designtestuser')
     assert_tag :tag => 'div', :attributes => { 'data-block-type' => 'FeedReaderBlock' }
   end
 
@@ -343,7 +352,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
     holder.blocks(true)
 
-    get :edit, :profile => 'designtestuser', :id => @box1.blocks[-1].id
+    get edit_profile_design_path('designtestuser', @box1.blocks[-1])
 
     assert_response :success
     assert_tag :tag => 'input', :attributes => { :name => "block[address]", :value => 'feed address' }
@@ -355,7 +364,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     holder.blocks(true)
     block = @box1.blocks.find_by(type: "FeedReaderBlock")
 
-    post :save, :profile => 'designtestuser', :id => block.id, :block => {:address => 'new feed address', :limit => '20'}
+    post save_profile_design_path('designtestuser', block), params: {:block => {:address => 'new feed address', :limit => '20'}}
 
     block.reload
 
@@ -365,18 +374,19 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   should 'require login' do
     logout
-    get :index, :profile => profile.identifier
-    assert_redirected_to :controller => 'account', :action => 'login'
+    get profile_design_index_path(profile.identifier)
+    assert_redirected_to login_account_index_path
   end
 
   should 'not show sideboxes when render access denied' do
     another_profile = create_user('bobmarley').person
-    get :index, :profile => another_profile.identifier
+    get profile_design_index_path(another_profile.identifier)
     assert_tag :tag => 'div', :attributes => {:class => 'no-boxes'}
     assert_tag :tag => 'div', :attributes => {:id => 'access-denied'}
   end
 
   should 'the person blocks are all available' do
+    @controller = ProfileDesignController.new
     profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -391,6 +401,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'the person with blog blocks are all available' do
+    @controller = ProfileDesignController.new
     profile = Person.new
     profile.stubs(:has_blog?).returns(true)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -405,6 +416,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'the enterprise blocks are all available' do
+    @controller = ProfileDesignController.new
     profile = Enterprise.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -419,27 +431,30 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'allow admins to add RawHTMLBlock' do
+    @controller = ProfileDesignController.new
     profile.stubs(:is_admin?).returns(true)
     @controller.stubs(:user).returns(profile)
-    get :index, :profile => 'designtestuser'
+    get profile_design_index_path('designtestuser')
     assert_tag :tag => 'div', :attributes => { 'data-block-type' => 'RawHTMLBlock' }
   end
 
   should 'not allow normal users to add RawHTMLBlock' do
+    @controller = ProfileDesignController.new
     profile.stubs(:is_admin?).returns(false)
     @controller.stubs(:user).returns(profile)
-    get :index, :profile => 'designtestuser'
+    get profile_design_index_path('designtestuser')
     !assert_tag :tag => 'div', :attributes => { 'data-block-type' => 'RawHTMLBlock' }
   end
 
   should 'editing article block displays right selected article' do
     selected_article = fast_create(Article, :profile_id => profile.id)
     ArticleBlock.any_instance.stubs(:article).returns(selected_article)
-    get :edit, :profile => 'designtestuser', :id => @b1.id
+    get edit_profile_design_path('designtestuser', @b1)
     assert_tag :tag => 'option', :attributes => {:value => selected_article.id, :selected => 'selected'}
   end
 
   should 'the block plugin add a new block' do
+    @controller = ProfileDesignController.new
     profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -465,6 +480,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'a person block plugin add new blocks for person profile' do
+    @controller = ProfileDesignController.new
     profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -490,6 +506,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'a community block plugin add new blocks for community profile' do
+    @controller = ProfileDesignController.new
     profile = Community.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -515,6 +532,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'a enterprise block plugin add new blocks for enterprise profile' do
+    @controller = ProfileDesignController.new
     profile = Enterprise.new
     person = Person.new
     profile.stubs(:has_blog?).returns(false)
@@ -541,6 +559,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'an environment block plugin not add new blocks for person profiles' do
+    @controller = ProfileDesignController.new
     profile = Person.new
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -568,7 +587,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'clone a block' do
     block = create(ProfileImageBlock, :box => profile.boxes.first)
     assert_difference 'ProfileImageBlock.count', 1 do
-      post :clone_block, :id => block.id, :profile => profile.identifier
+      post clone_block_profile_design_path(profile.identifier, block)
       assert_response :redirect
     end
   end
@@ -578,7 +597,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     block.edit_modes = "none"
     block.save!
 
-    post :save, id: block.id, profile: profile.identifier
+    post save_profile_design_path(profile.identifier, block)
     assert_response :forbidden
   end
 
@@ -587,12 +606,12 @@ class ProfileDesignControllerTest < ActionController::TestCase
     block.move_modes = "none"
     block.save!
 
-    post :move_block, id: block.id, profile: profile.identifier, target: "end-of-box-#{@box3.id}"
+    post move_block_profile_design_index_path({profile: profile.identifier}), params: {id: block.id, target: "end-of-box-#{@box3.id}"}
     assert_response :forbidden
   end
 
   should 'guarantee main block is always visible to everybody' do
-    get :edit, :profile => 'designtestuser', :id => @b4.id
+    get edit_profile_design_path('designtestuser', @b4)
     %w[logged not_logged followers].each do |option|
       !assert_tag :select, :attributes => {:name => 'block[display_user]'},
         :descendant => {:tag => 'option', :attributes => {:value => option}}
@@ -607,7 +626,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
     Block.any_instance.expects(:accept_category?).at_least_once.returns true
 
-    xhr :get, :update_categories, :profile => profile.identifier, :id => block.id, :category_id => c1.id
+    get update_categories_profile_design_path(profile.identifier, block), params: {:category_id => c1.id}, xhr: true
 
     assert_equal assigns(:current_category), c1
   end
@@ -615,6 +634,6 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'not fail when a profile has a tag block' do
     a = create(Article, :name => 'my article', :profile_id => holder.id, :tag_list => 'tag')
     @box1.blocks << TagsCloudBlock.new
-    get :index, :profile => 'designtestuser'
+    get profile_design_index_path('designtestuser')
   end
 end

@@ -84,10 +84,12 @@ module AuthenticatedSystem
     #   skip_before_filter :login_required
     #
     def login_required
+      
       username, passwd = get_auth_data
       if username && passwd
         self.current_user ||= User.authenticate(username, passwd) || nil
       end
+
       if logged_in? && authorized?
         true
       else
@@ -154,7 +156,12 @@ module AuthenticatedSystem
     # cookie and log the user back in if appropriate
     def login_from_cookie
       return if cookies[:auth_token].blank? or logged_in?
-      user = User.where(remember_token: cookies[:auth_token]).first
+
+      token = cookies[:auth_token].to_s.match(/auth_token=(.*);/)
+      token = token ? token[1] : nil
+
+      user = User.where(remember_token: token).first
+
       self.current_user = user if user and user.remember_token?
     end
 

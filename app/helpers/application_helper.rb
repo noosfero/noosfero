@@ -1351,13 +1351,4 @@ module ApplicationHelper
     $stdout = STDOUT
   end
 
-  def xml_http_request(request_method, action, parameters = nil, session = nil, flash = nil)
-    @request.env['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest'
-    @request.env['HTTP_ACCEPT'] ||=  [Mime[:js], Mime[:html], Mime[:xml], 'text/xml', Mime[:all]].join(', ')
-    __send__(request_method, action, parameters, session, flash).tap do
-      @request.env.delete 'HTTP_X_REQUESTED_WITH'
-      @request.env.delete 'HTTP_ACCEPT'
-    end
-  end
-  alias xhr :xml_http_request
 end

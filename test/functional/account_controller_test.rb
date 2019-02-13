@@ -1,39 +1,34 @@
 require_relative '../test_helper'
 
-class AccountControllerTest < ActionController::TestCase
+class AccountControllerTest  < ActionDispatch::IntegrationTest
 
   all_fixtures
 
-  def teardown
-    Thread.current[:enabled_plugins] = nil
-  end
-
-  def setup
-    @controller = AccountController.new
+  test "should get index" do
+    get search_state_account_index_url, xhr: true, params: {:state_name=>"Rio Grande"}
+    assert_response :success
   end
 
   def test_should_login_and_redirect
-    post :login, :user => {:login => 'johndoe', :password => 'test'}
+    post login_account_index_url, params: { :user => {:login => 'johndoe', :password => 'test'}}
     assert session[:user]
     assert_response :redirect
   end
 
   should 'display notice message if the login fail' do
-    @controller.stubs(:logged_in?).returns(false)
-    post :login, :user => {:login => 'quire', :password => 'quire'}
+    post login_account_index_url, params: { :user => {:login => 'quire', :password => 'quire'}}
 
     assert session[:notice].include?('Incorrect')
   end
 
   should 'authenticate on the current environment' do
     User.expects(:authenticate).with('fake', 'fake', is_a(Environment))
-    @request.env["HTTP_REFERER"] = '/bli'
-    post :login, :user => { :login => 'fake', :password => 'fake' }
+    post login_account_index_url, params: { :user => { :login => 'fake', :password => 'fake' }}
   end
 
   should 'fail login and redirect to activation if user is inactive' do
     user = User.create!(login: 'testuser', email: 'test@email.com', password:'test', password_confirmation:'test', activation_code: nil)
-    post :login, :user => { :login => 'testuser', :password => 'test' }
+    post login_account_index_url, params: { :user => { :login => 'testuser', :password => 'test' }}
 
     assert_redirected_to action: :activate,
                          activation_token: user.activation_code
@@ -41,8 +36,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_should_fail_login_and_not_redirect
-    @request.env["HTTP_REFERER"] = 'bli'
-    post :login, :user => {:login => 'johndoe', :password => 'bad password'}
+    post login_account_index_url, params: { :user => {:login => 'johndoe', :password => 'bad password'}}
     assert_nil session[:user]
     assert_response :success
   end
@@ -116,64 +110,66 @@ class AccountControllerTest < ActionController::TestCase
 
   def test_should_logout
     login_as :johndoe
-    get :logout
+    get logout_account_index_url
     assert_nil session[:user]
     assert_response :redirect
   end
 
   def test_should_remember_me
-    @request.env["HTTP_REFERER"] = '/bli'
-    post :login, :user => {:login => 'johndoe', :password => 'test'}, :remember_me => "1"
+    post login_account_index_url, params: { :user => {:login => 'johndoe', :password => 'test'}, :remember_me => "1" }
     assert_not_nil @response.cookies["auth_token"]
   end
 
   def test_should_not_remember_me
-    post :login, :user => {:login => 'johndoe', :password => 'test'}, :remember_me => "0"
+    post login_account_index_url, params: { :user => {:login => 'johndoe', :password => 'test'}, :remember_me => "0"}
     assert_nil @response.cookies["auth_token"]
   end
 
   def test_should_delete_token_on_logout
     login_as :johndoe
-    get :logout
+    get logout_account_index_url
     assert_nil @response.cookies["auth_token"]
   end
 
   should 'login with cookie' do
     users(:johndoe).remember_me
-    @request.cookies["auth_token"] = cookie_for(:johndoe)
-    get :index
+    cookies["auth_token"] = cookie_for(:johndoe)
+    get account_index_url
     assert @controller.send(:logged_in?)
   end
 
   should 'fail expired cookie login' do
     users(:johndoe).remember_me
     users(:johndoe).update_attribute :remember_token_expires_at, 5.minutes.ago
-    @request.cookies["auth_token"] = cookie_for(:johndoe)
-    get :index
+    cookies["auth_token"] = cookie_for(:johndoe)
+    get account_index_url
     refute @controller.send(:logged_in?)
   end
 
   should 'fail cookie login' do
     users(:johndoe).remember_me
-    @request.cookies["auth_token"] = auth_token('invalid_auth_token')
-    get :index
+    cookies["auth_token"] = auth_token('invalid_auth_token')
+    get account_index_url
     refute @controller.send(:logged_in?)
   end
 
   def test_should_display_anonymous_user_options
-    get :index
+    get account_index_url
     assert_template 'index_anonymous'
   end
 
   def test_should_display_logged_in_user_options
-    login_as 'johndoe'
-    get :index
+    person = create_user('mylogin').person
+    login_as(person.identifier)
+    get account_index_url
     assert_template 'index'
   end
 
   def test_should_display_change_password_screen
-    login_as 'johndoe'
-    get :change_password
+    person = create_user('mylogin').person
+    login_as(person.identifier)
+
+    get change_password_account_index_url
     assert_response :success
     assert_template 'change_password'
     assert_tag :tag => 'input', :attributes => { :name => 'current_password' }
@@ -182,61 +178,63 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   def test_should_be_able_to_change_password
-    login_as 'ze'
-    post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blabla'
+    person = create_user('mylogin').person
+    login_as(person.identifier)
+    post change_password_account_index_url, params: { :current_password => '123456', :new_password => 'blabla', :new_password_confirmation => 'blabla'}
     assert_response :redirect
     assert_redirected_to :action => 'index'
     assert assigns(:current_user).authenticated?('blabla')
-    assert_equal users(:ze), @controller.send(:current_user)
+    assert_equal person.user, @controller.send(:current_user)
   end
 
   should 'input current password correctly to change password' do
-    login_as 'ze'
-    post :change_password, :current_password => 'wrong', :new_password => 'blabla', :new_password_confirmation => 'blabla'
+    person = create_user('mylogin').person
+    login_as(person.identifier)
+    post change_password_account_index_url, params: { :current_password => 'wrong', :new_password => 'blabla', :new_password_confirmation => 'blabla'}
     assert_response :success
     assert_template 'change_password'
     refute  User.find_by(login: 'ze').authenticated?('blabla')
-    assert_equal users(:ze), @controller.send(:current_user)
+    assert_equal person.user, @controller.send(:current_user)
   end
 
   should "not change password when new password and new password confirmation don't match" do
-    login_as 'ze'
-    post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blibli'
+    person = create_user('mylogin').person
+    login_as(person.identifier)
+    post change_password_account_index_url, params: { :current_password => '123456', :new_password => 'blabla', :new_password_confirmation => 'blibli'}
     assert_response :success
     assert_template 'change_password'
     refute assigns(:current_user).authenticated?('blabla')
     refute assigns(:current_user).authenticated?('blibli')
-    assert_equal users(:ze), @controller.send(:current_user)
+    assert_equal person.user, @controller.send(:current_user)
   end
 
   should 'require login to change password' do
-    post :change_password
+    post change_password_account_index_url
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
   should 'provide a "I forget my password" link at the login page' do
-    get :login
+    get login_account_index_url
     assert_tag :tag => 'a', :attributes => {
       :href => '/account/forgot_password'
     }
   end
 
   should 'provide a "forgot my password" form' do
-    get :forgot_password
+    get forgot_password_account_index_url
     assert_response :success
   end
 
   should 'respond to forgotten password change request with login' do
     create_user('test')
 
-    post :forgot_password, :value => 'test'
+    post forgot_password_account_index_url, params: { :value => 'test'}
     assert_template 'password_recovery_sent'
   end
 
   should 'not respond to forgotten password change if captcha verification fails' do
     create_user('test')
-    @controller.stubs(:verify_captcha).returns(false)
-    post :forgot_password, :value => 'test'
+    post forgot_password_account_index_url, params: { :value => 'test'}
     change = assigns(:change_password)
     assert change.invalid?
     assert_response :success
@@ -246,13 +244,13 @@ class AccountControllerTest < ActionController::TestCase
     change = ChangePassword.new
     create_user('test', :email => 'test@localhost.localdomain')
 
-    post :forgot_password, :value => 'test@localhost.localdomain'
+    post forgot_password_account_index_url, params: { :value => 'test@localhost.localdomain'}
     assert_template 'password_recovery_sent'
   end
 
   should 'use redirect_to parameter on successful login' do
     url = 'http://kernel.org'
-    post :login, :return_to => url, :user => {:login => 'ze', :password => 'test'}
+    post login_account_index_url, params: { :return_to => url, :user => {:login => 'ze', :password => 'test'}}
     assert_redirected_to url
   end
 
@@ -261,7 +259,7 @@ class AccountControllerTest < ActionController::TestCase
     person = create_user('joe').person
     change = ChangePassword.create! code: code, requestor: person
 
-    get :new_password, code: code
+    get new_password_account_index_url, params: {code: code}
     assert_equal change, assigns(:change_password)
   end
 
@@ -270,7 +268,7 @@ class AccountControllerTest < ActionController::TestCase
     person = create_user('joe').person
     ChangePassword.create! code: code, requestor: person
 
-    post :new_password, code: code, change_password: { password: 'newpass', password_confirmation: 'newpass' }
+    post new_password_account_index_url, params: { code: code, change_password: { password: 'newpass', password_confirmation: 'newpass' }}
 
     assert_template 'new_password_ok'
   end
@@ -278,7 +276,7 @@ class AccountControllerTest < ActionController::TestCase
   should 'require a valid change_password code' do
     ChangePassword.destroy_all
 
-    get :new_password, :code => 'dontexist'
+    get new_password_account_index_url, params: {:code => 'dontexist'}
     assert_response 403
     assert_template 'invalid_change_password_code'
   end
@@ -288,7 +286,7 @@ class AccountControllerTest < ActionController::TestCase
     user.activate!
     change = ChangePassword.create!(:requestor => user.person)
 
-    post :new_password, :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' }
+    post new_password_account_index_url, params: { :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' } }
     assert_response :success
     assert_template 'new_password'
 
@@ -296,13 +294,13 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'display login popup' do
-    get :login_popup
+    get login_popup_account_index_url
     assert_template 'login'
     !assert_tag :tag => "body" # e.g. no layout
   end
 
   should 'display logout popup' do
-    get :logout_popup
+    get logout_popup_account_index_url
     assert_template 'logout_popup'
     !assert_tag :tag => "body" # e.g. no layout
   end
@@ -324,7 +322,7 @@ class AccountControllerTest < ActionController::TestCase
 ################################
 
   should 'require login for validation question' do
-    get :activation_question, :enterprise_code => 'some_code'
+    get activation_question_account_index_url, params: {:enterprise_code => 'some_code'}
 
     assert_redirected_to :controller => 'account', :action => 'login'
   end
@@ -333,7 +331,7 @@ class AccountControllerTest < ActionController::TestCase
     person = create_user('mylogin').person
     login_as(person.identifier)
 
-    get :activation_question, :enterprise_code => 'some_invalid_code'
+    get activation_question_account_index_url, params: {:enterprise_code => 'some_invalid_code'}
 
     assert_template 'invalid_enterprise_code'
   end
@@ -346,7 +344,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:cnpj, '0'*14)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    get :activation_question, :enterprise_code => '0123456789'
+    get activation_question_account_index_url, params: {:enterprise_code => '0123456789'}
 
     assert_template 'already_activated'
   end
@@ -358,7 +356,7 @@ class AccountControllerTest < ActionController::TestCase
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent')
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    get :activation_question, :enterprise_code => '0123456789'
+    get activation_question_account_index_url, params:{:enterprise_code => '0123456789'}
 
     assert_equal ent, assigns(:enterprise)
   end
@@ -370,7 +368,7 @@ class AccountControllerTest < ActionController::TestCase
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    get :activation_question, :enterprise_code => '0123456789'
+    get activation_question_account_index_url, params: {:enterprise_code => '0123456789'}
 
     assert_template 'blocked'
   end
@@ -383,7 +381,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    get :activation_question, :enterprise_code => '0123456789'
+    get activation_question_account_index_url, params: {:enterprise_code => '0123456789'}
 
     assert_template 'activation_question'
   end
@@ -396,7 +394,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:cnpj, '0'*14)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    get :activation_question, :enterprise_code => '0123456789'
+    get activation_question_account_index_url, params: {:enterprise_code => '0123456789'}
 
     assert_template 'activation_question'
   end
@@ -410,7 +408,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.block
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    get :activation_question, :enterprise_code => '0123456789'
+    get activation_question_account_index_url, params: { :enterprise_code => '0123456789' }
 
     assert_template 'blocked'
   end
@@ -423,7 +421,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    get :activation_question, :enterprise_code => '0123456789'
+    get activation_question_account_index_url, params: {:enterprise_code => '0123456789'}
 
     assert_tag :tag => 'input', :attributes => { :type => 'hidden', :name => 'enterprise_code', :value => '0123456789'}
   end
@@ -433,7 +431,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    post :accept_terms, :enterprise_code => '0123456789', :answer => '1998'
+    post accept_terms_account_index_url, params: { :enterprise_code => '0123456789', :answer => '1998'}
 
     assert_redirected_to :controller => 'account', :action => 'login'
   end
@@ -446,7 +444,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    post :accept_terms, :enterprise_code => '0123456789', :answer => '1997'
+    post accept_terms_account_index_url, params: { :enterprise_code => '0123456789', :answer => '1997'}
 
     ent.reload
 
@@ -467,7 +465,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    post :accept_terms, :enterprise_code => '0123456789', :answer => '1998'
+    post accept_terms_account_index_url, params: { :enterprise_code => '0123456789', :answer => '1998'}
 
     assert_template 'accept_terms'
     assert_tag :tag => 'div', :content => 'Some terms'
@@ -483,7 +481,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.save
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    get :accept_terms, :enterprise_code => '0123456789', :answer => 1998
+    get accept_terms_account_index_url, params: {:enterprise_code => '0123456789', :answer => 1998}
 
     assert_template 'blocked'
   end
@@ -496,7 +494,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
+    post activate_enterprise_account_index_url, params: { :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true}
 
     assert_redirected_to :controller => 'account', :action => 'login'
   end
@@ -509,7 +507,7 @@ class AccountControllerTest < ActionController::TestCase
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => false
+    post activate_enterprise_account_index_url, params: { :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => false}
     ent.reload
 
     refute ent.enabled
@@ -517,18 +515,18 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'activate enterprise and make logged user admin' do
-    p = create_user('test_user', :password => 'blih', :password_confirmation => 'blih', :email => 'test@noosfero.com').person
-    login_as(p.identifier)
+    person = create_user('mylogin').person
+    login_as(person.identifier)
 
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
 
-    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
+    post activate_enterprise_account_index_url, params: { :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true}
     ent.reload
 
     assert ent.enabled
-    assert_includes ent.members, p
+    assert_includes ent.members, person
   end
 
   should 'load terms of use for users when creating new users as activate enterprise' do
@@ -541,9 +539,7 @@ class AccountControllerTest < ActionController::TestCase
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
     ent.update_attribute(:foundation_year, 1998)
     EnterpriseActivation.create! code: '0123456789', enterprise: ent
-
-    post :activate_enterprise, :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true
-
+    post activate_enterprise_account_index_url, params: { :enterprise_code => '0123456789', :answer => '1998', :terms_accepted => true}
     assert_equal 'some terms', assigns(:terms_of_use)
   end
 
@@ -556,12 +552,9 @@ class AccountControllerTest < ActionController::TestCase
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
     template.save!
-    env = fast_create(Environment, :name => 'test_env')
+    env = Environment.default
     env.settings[:person_template_id] = template.id
     env.save!
-
-    @controller.stubs(:environment).returns(env)
-
     new_user
 
     assert_equal 1, assigns(:user).person.boxes.size
@@ -575,7 +568,7 @@ class AccountControllerTest < ActionController::TestCase
     template2 = fast_create(Person, :name => 'template2', :environment_id => Environment.default.id, :is_template => true)
     template3 = fast_create(Person, :name => 'template3', :environment_id => env2.id, :is_template => true)
 
-    get :signup
+    get signup_account_index_url
     assert_select '#template-options' do |elements|
       assert_match /template1/, elements[0].to_s
       assert_match /template2/, elements[0].to_s
@@ -585,33 +578,33 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'render person partial' do
     Environment.any_instance.expects(:signup_person_fields).returns(['contact_phone']).at_least_once
-    get :signup
+    get signup_account_index_url
     assert_tag :tag => 'input', :attributes => { :name => "profile_data[contact_phone]" }
   end
 
   should 'redirect to login when unlogged user tries to logout' do
     logout
     assert_nothing_raised do
-      get :logout
+      get logout_account_index_url
       assert_redirected_to :action => 'index', :controller => 'home'
     end
   end
 
   should 'fill session for new users' do
-    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
+    post signup_account_index_url, params: { :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }}
     assert_equal assigns(:user).session, session
   end
 
   should 'signup filling in mandatory person fields' do
     Person.any_instance.stubs(:required_fields).returns(['organization'])
     assert_difference 'User.count' do
-      post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
+      post signup_account_index_url, params: { :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }}
     end
     assert_equal 'example.com', Person['testuser'].organization
   end
 
   should "create a new user with image" do
-    post :signup, :user => {
+    post signup_account_index_url, params: { :user => {
       :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com'
       },
       :profile_data => {
@@ -619,7 +612,7 @@ class AccountControllerTest < ActionController::TestCase
       },
       :file => {
         :image => fixture_file_upload('/files/rails.png', 'image/png')
-      }
+      }}
 
     person = Person["testuser"]
     assert_equal "rails.png", person.image.filename
@@ -636,46 +629,39 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'redirect to initial page after logout' do
     login_as :johndoe
-    get :logout
+    get logout_account_index_url
     assert_nil session[:user]
     assert_redirected_to :controller => 'home', :action => 'index'
   end
 
   should 'check_valid_name is available on environment' do
-    env = fast_create(Environment, :name => 'Environment test')
-    @controller.expects(:environment).returns(env).at_least_once
-    profile = create_user('mylogin').person
-    get :check_valid_name, :identifier => 'mylogin'
+    get check_valid_name_account_index_url, params: { :identifier => 'mylogin' }
     assert_equal 'validated', assigns(:status_class)
   end
 
   should 'check if url is not available on environment' do
-    @controller.expects(:environment).returns(Environment.default).at_least_once
     profile = create_user('mylogin').person
-    get :check_valid_name, :identifier => 'mylogin'
+    get check_valid_name_account_index_url, params: {:identifier => 'mylogin'}
     assert_equal 'invalid', assigns(:status_class)
   end
 
   should 'suggest a list with three possible usernames' do
     profile = create_user('mylogin').person
-    get :check_valid_name, :identifier => 'mylogin'
+    get check_valid_name_account_index_url, params: { :identifier => 'mylogin' }
 
     assert_equal 3, assigns(:suggested_usernames).uniq.size
   end
 
   should 'check if e-mail is available on environment' do
     env = fast_create(Environment, :name => 'Environment test')
-    @controller.expects(:environment).returns(env).at_least_once
     profile = create_user('mylogin', :email => 'mylogin@noosfero.org', :environment_id => fast_create(Environment).id)
-    get :check_email, :address => 'mylogin@noosfero.org'
+    get check_email_account_index_url, params: { address: 'mylogin@noosfero.org'}
     assert_equal 'validated', assigns(:status_class)
   end
 
   should 'check if e-mail is not available on environment' do
-    env = fast_create(Environment, :name => 'Environment test')
-    @controller.expects(:environment).returns(env).at_least_once
-    profile = create_user('mylogin', :email => 'mylogin@noosfero.org', :environment_id => env)
-    get :check_email, :address => 'mylogin@noosfero.org'
+    profile = create_user('mylogin', :email => 'mylogin@noosfero.org')
+    get check_email_account_index_url, params: {:address => 'mylogin@noosfero.org'}
     assert_equal 'invalid', assigns(:status_class)
   end
 
@@ -694,37 +680,37 @@ class AccountControllerTest < ActionController::TestCase
       end
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
-
-    e = User.find_by(login: 'ze').environment
+    person = create_user('mylogin').person
+    e = person.environment
     e.enable_plugin(Plugin1.name)
     e.enable_plugin(Plugin2.name)
+    
+    login_as(person.identifier)
 
-    login_as 'ze'
-
-    xhr :get, :user_data
-    assert_equal User.find_by(login: 'ze').data_hash(@controller.gravatar_default).merge({ 'foo' => 'bar', 'test' => 5 }), ActiveSupport::JSON.decode(@response.body)
+    get user_data_account_index_url, xhr: true
+    assert_equal person.user.data_hash(@controller.gravatar_default).merge({ 'foo' => 'bar', 'test' => 5, 'notice' => "Logged in successfully" }), ActiveSupport::JSON.decode(@response.body)
   end
 
   should 'render activate template when is a get' do
     user = create_user_full
-    get :activate, activation_token: user.activation_code
+    get activate_account_index_url, params: {activation_token: user.activation_code}
     assert_template 'activate'
   end
 
   should 'redirect to login if cant find a user with an activation token' do
-    get :activate, activation_token: 'doesntexist'
+    get activate_account_index_url, params: {activation_token: 'doesntexist'}
     assert_redirected_to action: :login
   end
 
   should 'redirect to login when activation token is not sent' do
-    get :activate, activation_token: nil
+    get activate_account_index_url
     assert_redirected_to action: :login
   end
 
   should 'activate user when activation code is present and correct' do
     user = create_user_full
-    post :activate, activation_token: user.activation_code,
-                    short_activation_code: user.short_activation_code
+    post activate_account_index_url, params: {activation_token: user.activation_code,
+                    short_activation_code: user.short_activation_code}
 
     user.reload
     assert user.activated?
@@ -734,16 +720,16 @@ class AccountControllerTest < ActionController::TestCase
   should 'not authenticate after activation if env is moderated' do
     user = create_user_full
     user.environment.enable('admin_must_approve_new_users')
-    post :activate, activation_token: user.activation_code,
-                    short_activation_code: user.short_activation_code
+    post activate_account_index_url, params: { activation_token: user.activation_code,
+                    short_activation_code: user.short_activation_code}
 
     assert assigns(:current_user).nil?
   end
 
   should 'not activate user when activation code is wrong' do
     user = create_user_full
-    post :activate, activation_token: user.activation_code,
-                    short_activation_code: 'worngcode'
+    post activate_account_index_url, params: { activation_token: user.activation_code,
+                    short_activation_code: 'worngcode'}
 
     user.reload
     refute user.activated?
@@ -753,8 +739,8 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'not activate if short activation code is empty' do
     user = create_user_full
-    post :activate, activation_token: user.activation_code,
-                    short_activation_code: nil
+    post activate_account_index_url, params: { activation_token: user.activation_code,
+                    short_activation_code: nil}
 
     user.reload
     refute user.activated?
@@ -767,8 +753,8 @@ class AccountControllerTest < ActionController::TestCase
     User.any_instance.expects(:activate).with(user.short_activation_code)
         .raises(ActiveRecord::RecordInvalid, user)
 
-    post :activate, activation_token: user.activation_code,
-                    short_activation_code: user.short_activation_code
+    post activate_account_index_url, params: { activation_token: user.activation_code,
+                    short_activation_code: user.short_activation_code}
 
     assert_redirected_to action: :activate,
                          activation_token: user.activation_code
@@ -830,7 +816,7 @@ class AccountControllerTest < ActionController::TestCase
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
 
-    get :signup
+    get signup_account_index_url
 
     assert_tag :tag => 'strong', :content => 'Plugin1 text'
     assert_tag :tag => 'strong', :content => 'Plugin2 text'
@@ -845,7 +831,7 @@ class AccountControllerTest < ActionController::TestCase
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     Environment.default.enable_plugin(Plugin1.name)
 
-    post :login, :user => {:login => "testuser"}
+    post login_account_index_url, params: { :user => {:login => "testuser"}}
 
     assert_equal user.login, assigns(:current_user).login
     assert_response :redirect
@@ -859,7 +845,7 @@ class AccountControllerTest < ActionController::TestCase
     end
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     Environment.default.enable_plugin(Plugin1.name)
-    post :login, :user => {:login => 'johndoe', :password => 'test'}
+    post login_account_index_url, params: { :user => {:login => 'johndoe', :password => 'test'}}
     assert session[:user]
     assert_equal 'johndoe', assigns(:current_user).login
     assert_response :redirect
@@ -874,7 +860,7 @@ class AccountControllerTest < ActionController::TestCase
     Noosfero::Plugin.stubs(:all).returns([TestRegistrationPlugin.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestRegistrationPlugin.new])
 
-    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }
+    post signup_account_index_url, params: { :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }}
     assert_response :redirect
   end
 
@@ -893,7 +879,7 @@ class AccountControllerTest < ActionController::TestCase
     Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
 
-    get :login
+    get login_account_index_url
 
     !assert_tag :tag => 'a', :attributes => {:href => '/account/signup'}
   end
@@ -908,11 +894,11 @@ class AccountControllerTest < ActionController::TestCase
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestRegistrationPlugin.new])
 
     #Redirect on get action
-    get :forgot_password
+    get forgot_password_account_index_url
     assert_response :redirect
 
     #Redirect on post action
-    post :forgot_password, :value => 'test'
+    post forgot_password_account_index_url, params: { :value => 'test'}
     assert_response :redirect
   end
 
@@ -931,7 +917,7 @@ class AccountControllerTest < ActionController::TestCase
     Noosfero::Plugin.stubs(:all).returns([Plugin1.new, Plugin2.new])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
 
-    get :login
+    get login_account_index_url
 
     !assert_tag :tag => 'a', :attributes => {:href => '/account/forgot_password'}
   end
@@ -952,21 +938,21 @@ class AccountControllerTest < ActionController::TestCase
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
 
-    get :login
+    get login_account_index_url
 
     assert_tag :tag => 'strong', :content => 'Plugin1 text'
     assert_tag :tag => 'strong', :content => 'Plugin2 text'
   end
 
   should 'include honeypot in the signup form' do
-    get :signup
+    get signup_account_index_url
     assert_tag :tag => /input|textarea/, :attributes => {:id => 'a_comment_body'}
   end
 
   should 'not sign in if the honeypot field is filled' do
     Person.any_instance.stubs(:required_fields).returns(['organization'])
     assert_no_difference 'User.count' do
-      post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }, :a_comment_body => 'something'
+      post signup_account_index_url, params: { :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }, :a_comment_body => 'something'}
     end
     assert @response.body.blank?
     assert_response 200
@@ -974,10 +960,13 @@ class AccountControllerTest < ActionController::TestCase
 
   should "Search for state" do
     create_state_and_city
+    person = create_user('mylogin').person
+    login_as(person.identifier)
 
-    xhr :get, :search_state, :state_name=>"Rio Grande"
+    get search_state_account_index_url, xhr: true, params: {:state_name=>"Rio Grande"}
 
     json_response = ActiveSupport::JSON.decode(@response.body)
+    
     label = json_response[0]['label']
 
     assert_equal label, "Rio Grande do Sul"
@@ -986,7 +975,7 @@ class AccountControllerTest < ActionController::TestCase
   should "Search for city" do
     create_state_and_city
 
-    xhr :get, :search_cities, :state_name=>"Rio Grande do Sul", :city_name=>"Lavras"
+    get search_cities_account_index_url, params: { :state_name=>"Rio Grande do Sul", :city_name=>"Lavras" }, xhr: true 
 
     json_response = ActiveSupport::JSON.decode(@response.body)
     label = json_response[0]['label']
@@ -1022,7 +1011,7 @@ class AccountControllerTest < ActionController::TestCase
     end
     data.merge! extra_options
 
-    post :signup, { :user => { :login => 'quire',
+    post signup_account_index_url, params: { :user => { :login => 'quire',
       :email => 'quire@example.com',
       :password => 'quire',
       :password_confirmation => 'quire'
@@ -1054,10 +1043,10 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'not lock users out of login if environment is restrict to members' do
     Environment.default.enable(:restrict_to_members)
-    get :login
+    get login_account_index_url
     assert_response :success
 
-    post :login, :user => {:login => 'johndoe', :password => 'test'}
+    post login_account_index_url, params: { :user => {:login => 'johndoe', :password => 'test'}}
     assert session[:user]
     assert_response :redirect
   end
@@ -1067,7 +1056,7 @@ class AccountControllerTest < ActionController::TestCase
     old_token = user.activation_code
     old_code = user.short_activation_code
 
-    get :resend_activation_codes, activation_token: user.activation_code
+    get resend_activation_codes_account_index_url, params: {activation_token: user.activation_code}
     user.reload
     assert_not_equal old_token, user.activation_code
     assert_not_equal old_code, user.short_activation_code
@@ -1076,7 +1065,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'render 404 if activation token is not sent when requesting new codes' do
-    get :resend_activation_codes
+    get resend_activation_codes_account_index_url
     assert_redirected_to action: :login
   end
 
@@ -1085,7 +1074,7 @@ class AccountControllerTest < ActionController::TestCase
     old_token = user.activation_code
     user.activate!
 
-    get :resend_activation_codes, activation_token: old_token
+    get resend_activation_codes_account_index_url, params: {activation_token: old_token}
     assert_redirected_to action: :login
   end
 end

@@ -80,6 +80,7 @@ class AccountController < ApplicationController
 
     begin
       self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
+      
     rescue User::UserNotActivated => e
       if e.user.activation_code.present?
         redirect_to action: :activate, activation_token: e.user.activation_code
@@ -309,6 +310,7 @@ class AccountController < ApplicationController
   def check_valid_name
     @identifier = params[:identifier]
     valid = Person.is_available?(@identifier, environment)
+
     if valid
       @status = _('This login name is available')
       @status_class = 'validated'
@@ -341,6 +343,7 @@ class AccountController < ApplicationController
       else
         { }
       end
+
     if session[:notice]
       user_data['notice'] = session[:notice]
       session[:notice] = nil # consume the notice
@@ -392,7 +395,7 @@ class AccountController < ApplicationController
   end
 
   def check_acceptance_of_terms
-    unless params[:terms_accepted]
+    if params[:terms_accepted].to_s == 'false'
       redirect_to :action => 'index'
       return
     end

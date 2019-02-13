@@ -25,7 +25,7 @@
 
 <%= button_bar do %>
   <% if profile.present? %>
-    <%= button(:back, _('Back to control panel'), profile.admin_url) %>
+    <%= button(:back, _('Back to control panel'), profile_design_index_path(profile: profile.identifier)) %>
   <% else %>
     <%= button(:back, _('Back to administration'), controller: 'admin_panel') %>
   <% end %>

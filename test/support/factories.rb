@@ -104,8 +104,8 @@ module Noosfero::Factory
     name ||= 'user' + factory_num_seq.to_s
     environment_id = options.delete(:environment_id) || (options.delete(:environment) || Environment.default).id
 
-    password = options.delete(:password)
-    password_confirmation = options.delete(:password_confirmation)
+    password = options.delete(:password) || '123456'
+    password_confirmation = options.delete(:password_confirmation) || '123456'
     raise build(Exception, "Passwords don't match") if (password && password_confirmation && password != password_confirmation)
     crypted_password = (password || name).crypt('xy')
 
@@ -115,14 +115,18 @@ module Noosfero::Factory
       :crypted_password => crypted_password,
       :password_type => 'crypt',
       :salt => 'xy',
+      activation_code: nil,
+      activated_at: Time.now.utc,
       :environment_id => environment_id,
     }.merge(options)
+    
     user = fast_insert_with_timestamps(User, data)
     person = fast_insert_with_timestamps(Person, { :type => 'Person', :identifier => name, :name => name, :user_id => user.id, :environment_id => environment_id }.merge(person_options))
     homepage = fast_insert_with_timestamps(TextArticle, { :type => 'TextArticle', :name => 'homepage', :slug => 'homepage', :path => 'homepage', :profile_id => person.id })
     fast_update(person, {:home_page_id => homepage.id})
     box = fast_insert(Box, { :owner_type => "Profile", :owner_id => person.id, :position => 1})
     block = fast_insert(Block, { :box_id => box.id, :type => 'MainBlock', :position => 0})
+    
     user
   end
 

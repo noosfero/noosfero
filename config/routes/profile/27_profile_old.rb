@@ -18,7 +18,7 @@ Noosfero::Application.routes.draw do
   match 'profile/:profile/tags/:id/feed', controller: :profile, action: :tag_feed, id: /.+/, profile: /#{Noosfero.identifier_format_in_url}/i, as: :tag_feed, via: :all
 
   # profile tags
-  match 'profile/:profile/tags/:id', controller: :profile, action: :content_tagged, id: /.+/, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
+#  match 'profile/:profile/tags/:id', controller: :profile, action: :content_tagged, id: /.+/, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
   match 'profile/:profile/tags(/:id)', controller: :profile, action: :tags, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
 
   # profile search
