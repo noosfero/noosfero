@@ -4,8 +4,6 @@ class AdminPanelControllerTest < ActionController::TestCase
 
   all_fixtures
   def setup
-    @controller = AdminPanelController.new
-
     login_as(create_admin_user(Environment.default))
   end
 
