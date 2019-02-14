@@ -1,31 +1,37 @@
 require_relative '../test_helper'
 
-class EnvironmentDesignControllerTest < ActionController::TestCase
+class EnvironmentDesignControllerTest < ActionDispatch::IntegrationTest
 
   ALL_BLOCKS = [ArticleBlock, LoginBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, CategoriesBlock, RawHTMLBlock, TagsCloudBlock ]
 
   def setup
-    @controller = EnvironmentDesignController.new
-    @controller.stubs(:boxes_holder).returns(Environment.default)
+#    @controller = EnvironmentDesignController.new
+#    @controller.stubs(:boxes_holder).returns(Environment.default)
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
   end
 
   should 'indicate only actual blocks as such' do
-    @controller.stubs(:user).returns(create_user.person)
-    assert(@controller.available_blocks.all? {|item| item.new.is_a? Block})
+    controller = EnvironmentDesignController.new
+    controller.stubs(:boxes_holder).returns(Environment.default)
+    controller.stubs(:user).returns(create_user.person)
+    assert(controller.available_blocks.all? {|item| item.new.is_a? Block})
   end
 
   ALL_BLOCKS.map do |block|
     define_method "test_should_#{block.to_s}_is_available" do
-      @controller.stubs(:user).returns(create_user.person)
-      assert_includes @controller.available_blocks,block
+      controller = EnvironmentDesignController.new
+      controller.stubs(:boxes_holder).returns(Environment.default)
+      controller.stubs(:user).returns(create_user.person)
+      assert_includes controller.available_blocks,block
     end
   end
 
   should 'all available block in test' do
-    @controller.stubs(:user).returns(create_user.person)
-    assert_equal ALL_BLOCKS, @controller.available_blocks
+    controller = EnvironmentDesignController.new
+    controller.stubs(:boxes_holder).returns(Environment.default)
+    controller.stubs(:user).returns(create_user.person)
+    assert_equal ALL_BLOCKS, controller.available_blocks
   end
 
   should 'be able to edit LinkListBlock' do
@@ -33,7 +39,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     l = LinkListBlock.create!(:links => [{:name => 'link 1', :address => '/address_1'}])
     Environment.default.boxes.create!
     Environment.default.boxes.first.blocks << l
-    get :edit, :id => l.id
+    get edit_environment_design_path(l)
     assert_tag :tag => 'input', :attributes => { :name => 'block[links][][name]' }
     assert_tag :tag => 'input', :attributes => { :name => 'block[links][][address]' }
   end
@@ -43,7 +49,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     l = LinkListBlock.create!()
     Environment.default.boxes.create!
     Environment.default.boxes.first.blocks << l
-    post :save, :id => l.id, :block => { :links => [{:name => 'link 1', :address => '/address_1'}] }
+    post save_environment_design_path(l), params: {:block => { :links => [{:name => 'link 1', :address => '/address_1'}] }}
     l.reload
     assert_equal [{'name' => 'link 1', 'address' => '/address_1'}], l.links
   end
@@ -58,7 +64,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:portal_community).returns(community)
     article = fast_create(Article)
     community.stubs(:articles).returns([article])
-    get :edit, :id => l.id
+    get edit_environment_design_path(l)
     assert_tag :tag => 'select', :attributes => { :name => 'block[article_id]' }
   end
 
@@ -70,7 +76,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e.boxes.first.blocks << l
     community = mock()
     Environment.any_instance.expects(:portal_community).returns(nil)
-    get :edit, :id => l.id
+    get edit_environment_design_path(l)
     assert_tag :tag => 'p', :attributes => { :id => 'no_portal_community' }
   end
 
@@ -80,7 +86,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
-    get :edit, :id => b.id
+    get edit_environment_design_path(b)
     assert_tag :tag => 'input', :attributes => { :id => 'block_limit' }
   end
 
@@ -90,7 +96,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
-    get :edit, :id => b.id
+    get edit_environment_design_path(b)
     assert_tag :tag => 'select', :attributes => { :id => 'block_gallery_id' }
   end
 
@@ -100,7 +106,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
-    get :edit, :id => b.id
+    get edit_environment_design_path(b)
     assert_tag :tag => 'input', :attributes => { :id => 'block_title' }
   end
 
@@ -110,7 +116,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
-    get :edit, :id => b.id
+    get edit_environment_design_path(b)
     assert_tag :tag => 'input', :attributes => { :id => 'block_limit' }
   end
 
@@ -120,7 +126,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
-    get :edit, :id => b.id
+    get edit_environment_design_path(b)
     assert_tag :tag => 'input', :attributes => { :id => 'block_limit' }
   end
 
@@ -130,7 +136,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
-    get :edit, :id => b.id
+    get edit_environment_design_path(b)
     assert_tag :tag => 'input', :attributes => { :id => 'block_address' }
   end
 
@@ -140,7 +146,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
-    get :edit, :id => b.id
+    get edit_environment_design_path(b)
     assert_tag :tag => 'input', :attributes => { :id => 'block_title' }
   end
 
@@ -149,12 +155,14 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     Environment.default.boxes.create!.blocks << EnterprisesBlock.new
     Environment.default.boxes.create!.blocks << LoginBlock.new
     login_as(create_admin_user(Environment.default))
-    get :index
+    get environment_design_index_path
 
     assert_tag :tag => 'li', :child => { :tag => 'a', :attributes => {:href => '/admin', :class => 'admin-link'} }
   end
 
   should 'a environment block plugin add new blocks for environments' do
+    controller = EnvironmentDesignController.new
+    controller.stubs(:boxes_holder).returns(Environment.default)
     class CustomBlock1 < Block; end;
 
     class TestBlockPlugin < Noosfero::Plugin
@@ -164,13 +172,15 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
         }
       end
     end
-    @controller.stubs(:user).returns(create_user.person)
+    controller.stubs(:user).returns(create_user.person)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
-    assert @controller.available_blocks.include?(CustomBlock1)
+    assert controller.available_blocks.include?(CustomBlock1)
   end
 
   should 'a person, enterprise and community blocks plugins do not add new blocks for environments' do
-    @controller.stubs(:user).returns(create_user.person)
+    controller = EnvironmentDesignController.new
+    controller.stubs(:boxes_holder).returns(Environment.default)
+    controller.stubs(:user).returns(create_user.person)
 
     class CustomBlock1 < Block; end;
     class CustomBlock2 < Block; end;
@@ -189,10 +199,10 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     end
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
-    assert @controller.available_blocks.include?(CustomBlock1)
-    refute @controller.available_blocks.include?(CustomBlock2)
-    refute @controller.available_blocks.include?(CustomBlock3)
-    refute @controller.available_blocks.include?(CustomBlock4)
+    assert controller.available_blocks.include?(CustomBlock1)
+    refute controller.available_blocks.include?(CustomBlock2)
+    refute controller.available_blocks.include?(CustomBlock3)
+    refute controller.available_blocks.include?(CustomBlock4)
   end
 
   should 'a block plugin add new blocks' do
@@ -224,7 +234,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
     login_as(create_admin_user(Environment.default))
-    get :index
+    get environment_design_index_path
     assert_response :success
 
     (1..9).each {|i| assert_tag :tag => 'div', :attributes => { 'data-block-type' => "EnvironmentDesignControllerTest::CustomBlock#{i}" }}
@@ -257,7 +267,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
     login_as(create_admin_user(Environment.default))
-    get :index
+    get environment_design_index_path
     assert_response :success
 
     [4, 8].each {|i| assert_tag :tag => 'div', :attributes => { 'data-block-type' => "EnvironmentDesignControllerTest::CustomBlock#{i}" }}
@@ -265,27 +275,30 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
   end
 
   should 'clone a block' do
+    logout
     login_as(create_admin_user(Environment.default))
     block = TagsCloudBlock.create!
     assert_difference 'TagsCloudBlock.count', 1 do
-      post :clone_block, :id => block.id
+      post clone_block_environment_design_path(block)
       assert_response :redirect
     end
   end
 
   should 'return a list of paths from portal related to the words used in the query search' do
+    controller = EnvironmentDesignController.new
+    controller.stubs(:boxes_holder).returns(Environment.default)
     env = Environment.default
     login_as(create_admin_user(env))
     community = fast_create(Community, :environment_id => env)
     env.portal_community = community
     env.enable('use_portal_community')
     env.save
-    @controller.stubs(:boxes_holder).returns(env)
+    controller.stubs(:boxes_holder).returns(env)
     article1 = fast_create(Article, :profile_id => community.id, :name => "Some thing")
     article2 = fast_create(Article, :profile_id => community.id, :name => "Some article")
     article3 = fast_create(Article, :profile_id => community.id, :name => "Not an article")
 
-    xhr :get, :search_autocomplete, :query => 'Some'
+    get search_autocomplete_environment_design_index_path, params: {:query => 'Some'}, xhr: true
 
     json_response = ActiveSupport::JSON.decode(@response.body)
 
@@ -299,7 +312,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     env = Environment.default
     login_as(create_admin_user(env))
 
-    xhr :get, :search_autocomplete, :query => 'Some'
+    get search_autocomplete_environment_design_index_path, params: {:query => 'Some'}, xhr: true
 
     json_response = ActiveSupport::JSON.decode(@response.body)
 

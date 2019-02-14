@@ -10,8 +10,6 @@ class ProfileDesignControllerTest <  ActionDispatch::IntegrationTest
 
   attr_reader :holder
   def setup
-#     @controller = ProfileDesignController.new
-
     @profile = @holder = create_user('designtestuser').person
     holder.save!
 
@@ -54,8 +52,6 @@ class ProfileDesignControllerTest <  ActionDispatch::IntegrationTest
 
     holder.blocks(true)
 
-    # @controller.stubs(:boxes_holder).returns(holder)
-    # login_as 'designtestuser'
     login_as('designtestuser')
   end
   attr_reader :profile

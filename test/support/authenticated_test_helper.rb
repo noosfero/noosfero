@@ -5,7 +5,7 @@ module AuthenticatedTestHelper
     # FIXME rails 5 not allow put values on controller session like this anymore 
     # To make the loggin we have to access the post action of account controller
     # Tests inherited form ActionDispatch::IntegrationTest have to make the post request
-    if @request
+    if @controller && @request
       @request.session[:user] = User.find_by(login: user.to_s).id 
     else 
       old_controller = @controller
