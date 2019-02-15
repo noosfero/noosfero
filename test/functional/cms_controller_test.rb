@@ -1512,7 +1512,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'do not display name and email when a logged in user suggest an article' do
-    get suggest_an_article_cms_index_path(profile.identifier), :back_to => 'action_view'
+    get suggest_an_article_cms_index_path(profile.identifier), params: {:back_to => 'action_view'}
 
     assert_select '#task_name', 0
     assert_select '#task_email', 0
