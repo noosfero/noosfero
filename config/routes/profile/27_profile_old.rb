@@ -26,7 +26,7 @@ Noosfero::Application.routes.draw do
     via: :all, as: :profile_search
 
   # comments
-  match 'profile/:profile/comment/:action/:id', controller: :comment, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
+#  match 'profile/:profile/comment/:action/:id', controller: :comment, profile: /#{Noosfero.identifier_format_in_url}/i, via: :all
 
   # public profile information
   match 'profile/:profile(/:action(/:id))', controller: :profile, action: :index, id: /[^\/]*/, profile: /#{Noosfero.identifier_format_in_url}/i, as: :profile, via: :all

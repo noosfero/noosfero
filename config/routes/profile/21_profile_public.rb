@@ -1,3 +1,4 @@
+#FIXME See if it's correct
 Noosfero::Application.routes.draw do
   resources :profile, only: [] do
     collection do
