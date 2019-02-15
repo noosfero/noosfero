@@ -11,7 +11,7 @@ module Noosfero
     disjunction = controllers_in_directory(dir).join('|')
 
     #FIXME should not load a controller twice with diferrents routing files
-    exclude_controllers = %w(profile_design)
+    exclude_controllers = %w(profile_design cms)
     exclude_controllers.map do |name|
       disjunction.gsub!(name,'')
     end
