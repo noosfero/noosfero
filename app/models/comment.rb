@@ -112,7 +112,7 @@ class Comment < ApplicationRecord
 
   after_create :new_follower
   def new_follower
-    if source.kind_of?(Article) and !author.nil? and @follow_article
+    if source.kind_of?(Article) and !author.nil? and (@follow_article.to_s != 'false')
       article.person_followers += [author]
       article.person_followers.to_a.uniq!
       article.save

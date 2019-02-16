@@ -2,7 +2,7 @@ Noosfero::Application.routes.draw do
 
   scope :profile do
     scope ':profile' do
-      resources :comment, only: [:create, :edit, :update] do
+      resources :comment, only: [:create, :edit] do
         collection do
 #          match 'suggest_an_article', to: 'cms#suggest_an_article', via: [:get, :post]
 #          match 'new', as: 'new', to: 'cms#new', via: [:get, :post]
@@ -26,6 +26,7 @@ Noosfero::Application.routes.draw do
 #          match 'publish', to: 'cms#publish', via: [:get, :post]
           post 'check_actions'
           post 'mark_as_spam'
+          post 'update'
 	  post 'destroy', as: 'destroy'
         end
       end

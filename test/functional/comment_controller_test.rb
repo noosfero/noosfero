@@ -108,7 +108,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     other_page = other_person.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     assert_no_difference 'Comment.count' do
-      post comment_index_path(profile.identifier, other_page), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }}, xhr: true
+      post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: other_page.id}, xhr: true
     end
      assert_match /not found/, @response.body
   end
@@ -117,7 +117,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
 
     assert_no_difference 'Comment.count' do
-      post comment_index_path(profile.identifier, page), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }}, xhr: true
+      post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: page.id}, xhr: true
     end
      assert_match /Comment not allowed in this article/, @response.body
   end
@@ -127,7 +127,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
 
     login_as profile.identifier
 
-    post comment_index_path(profile.identifier, page), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: page.id}, xhr: true
     assert_equal profile, assigns(:comment).author
   end
 
@@ -136,14 +136,14 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
 
     login_as profile.identifier
 
-    post comment_index_path(profile.identifier, page), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: page.id}, xhr: true
     assert_equal page, assigns(:comment).article
   end
 
   should 'show validation error when body comment is missing' do
     login_as @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post comment_index_path(@profile.identifier, page), params: {:comment => { :title => '', :body => '' }, :confirm => 'true'}, xhr: true
+    post comment_index_path(@profile.identifier), params: {:comment => { :title => '', :body => '' }, :confirm => 'true', id: page.id}, xhr: true
     response = ActiveSupport::JSON.decode @response.body
     assert_match /errorExplanation/, response["html"]
   end
@@ -157,7 +157,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestFilterPlugin.new])
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     assert_no_difference 'Comment.count' do
-      post comment_index_path(profile.identifier, page), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'}, xhr: true
+      post comment_index_path(profile.identifier), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true', id: page.id}, xhr: true
     end
   end
 
@@ -170,7 +170,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestFilterPlugin.new])
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     assert_no_difference 'Comment.count' do
-      post comment_index_path(profile.identifier, page), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'}, xhr: true
+      post comment_index_path(profile.identifier), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true', id: page.id}, xhr: true
     end
 
     assert_match /rejected/, @response.body
@@ -178,10 +178,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
 
   should 'store IP address, user agent and referrer for comments' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-#    @request.stubs(:remote_ip).returns('33.44.55.66')
-#    @request.stubs(:referrer).returns('http://example.com')
-#    @request.stubs(:user_agent).returns('MyBrowser')
-    post comment_index_path(profile.identifier, page), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true', id: page.id}, xhr: true, headers: { "HTTP_REFERER" => "http://example.com", 'REMOTE_ADDR' => '33.44.55.66', 'HTTP_USER_AGENT': 'MyBrowser' }
     comment = Comment.last
     assert_equal '33.44.55.66', comment.ip_address
     assert_equal 'MyBrowser', comment.user_agent
@@ -194,7 +191,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     login_as('testinguser')
 
     assert_no_difference 'Comment.count' do
-      post comment_index_path(profile.identifier, article), params: {:comment => {:body => ""}, :confirm => 'true'}, xhr: true
+      post comment_index_path(profile.identifier), params: {:comment => {:body => ""}, :confirm => 'true', id: article.id}, xhr: true
     end
     assert_match /errorExplanation/, @response.body
   end
@@ -207,7 +204,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     login_as(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      post comment_index_path(community.identifier, page), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true'}, xhr: true
+      post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
   end
 
@@ -218,7 +215,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     community.add_moderator(@profile)
 
     assert_no_difference 'ApproveComment.count' do
-      post comment_index_path(profile.identifier, page), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true'}, xhr: true
+      post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
   end
 
@@ -229,7 +226,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     login_as(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      post comment_index_path(community.identifier, page), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true'}, xhr: true
+      post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
     task = Task.last
     assert_equal commenter, task.requestor
@@ -244,7 +241,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     login_as(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      post comment_index_path(community.identifier, page), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true'}, xhr: true
+      post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
     task = Task.last
     assert_equal community, task.target
@@ -257,7 +254,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
 
     now = Time.now
     Time.stubs(:now).returns(now)
-    post comment_index_path(community.identifier, page.id), params: { :comment => {:body => 'Some comment...'}, :confirm => 'true'}, xhr: true
+    post comment_index_path(community.identifier), params: { :comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     task = Task.last
     assert_equal now.utc.to_s, task.comment.created_at.utc.to_s
   end
@@ -265,14 +262,14 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   should "render_target be nil in article with moderation" do
     page = profile.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
-    post comment_index_path(community.identifier, page.id), params: {:comment => {:body => 'Some comment...', :name => 'some name', :email => 'some@test.com.br'}, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...', :name => 'some name', :email => 'some@test.com.br'}, :confirm => 'true', id: page.id}, xhr: true
     assert_nil ActiveSupport::JSON.decode(@response.body)['render_target']
   end
 
   should "display message 'waitting for approval' of comments in article with moderation" do
     page = profile.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
-    post comment_index_path(community.identifier, page), params: {:comment => {:body => 'Some comment...', :name => 'some name', :email => 'some@test.com.br'}, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...', :name => 'some name', :email => 'some@test.com.br'}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /waiting for approval/, @response.body
   end
 
@@ -280,7 +277,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
-    post comment_index_path(community.identifier, page), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /#{Comment.last.id}/, ActiveSupport::JSON.decode(@response.body)['render_target']
   end
 
@@ -288,7 +285,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
-    post comment_index_path(community.identifier, page), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /successfully created/, @response.body
   end
 
@@ -296,7 +293,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
-    post comment_index_path(community.identifier, page), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /id="#{Comment.last.anchor}" class="comment-container"/, ActiveSupport::JSON.decode(@response.body)['html']
   end
 
@@ -306,7 +303,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
 
     comment = fast_create(Comment, :body => 'some content', :source_id => page.id, :source_type => 'Article')
 
-    post comment_index_path(community.identifier, page), params: {:comment => {:body => 'Some comment...', :reply_of_id => comment.id}, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...', :reply_of_id => comment.id}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /id="#{comment.anchor}" class="comment-container"/, ActiveSupport::JSON.decode(@response.body)['html']
   end
 
@@ -314,7 +311,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     login_as @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    post comment_index_path(community.identifier, page), params: {:comment => { :title => 'html comment', :body => "this is a <strong id='html_test_comment'>html comment</strong>"}}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => { :title => 'html comment', :body => "this is a <strong id='html_test_comment'>html comment</strong>"}, id: page.id}, xhr: true
 
     assert Comment.last.body.match(/this is a html comment/)
     !assert_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
@@ -323,7 +320,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   should 'filter html content from title' do
     login_as @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post comment_index_path(community.identifier, page), params: {:comment => { :title => "html <strong id='html_test_comment'>comment</strong>", :body => "this is a comment"}}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => { :title => "html <strong id='html_test_comment'>comment</strong>", :body => "this is a comment"}, id: page.id}, xhr: true
     assert Comment.last.title.match(/html comment/)
     !assert_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
   end
@@ -335,7 +332,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     Article.record_timestamps = true
 
     login_as @profile.identifier
-    post comment_index_path(community.identifier, page), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap' }, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap' }, :confirm => 'true', id: page.id}, xhr: true
     assert_not_equal yesterday, page.reload.updated_at
   end
 
@@ -343,7 +340,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text')
     login_as @profile.identifier
 
-    post comment_index_path(community.identifier, page), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => true}, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => true}, :confirm => 'true', id: page.id}, xhr: true
     assert_includes page.person_followers, @profile
   end
 
@@ -351,7 +348,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text')
     login_as @profile.identifier
 
-    post comment_index_path(community.identifier, page), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => false }, :confirm => 'true'}, xhr: true
+    post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => false }, :confirm => 'true', id: page.id}, xhr: true
     assert_not_includes page.person_followers, @profile
   end
 
@@ -437,7 +434,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile.id)
 
-    get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    get edit_comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}
     assert_tag :tag => 'textarea', :attributes => { :id => 'comment-field', :title => 'Leave your comment', :placeholder => 'Leave your comment' }, :content =>  /Original comment/
   end
 
@@ -445,7 +442,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    get :edit, :id => 1000, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    get edit_comment_path(profile.identifier, 1000), params: {:comment => { :body => 'Comment edited' }}
     assert_response 404
   end
 
@@ -453,7 +450,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
-    get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    get edit_comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}
     assert_response 404
   end
 
@@ -463,7 +460,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
-    get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    get edit_comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}
     assert_response 404
   end
 
@@ -472,8 +469,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile)
 
-    xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
-    assert ActiveSupport::JSON.decode(@response.body)["ok"], "attribute ok expected to be true"
+    post comment_path(profile.identifier, comment), params: {:comment => { :body => 'Comment edited' }}, xhr: true
     assert_equal 'Comment edited', Comment.find(comment.id).body
   end
 
@@ -481,7 +477,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    xhr :post, :update, :id => 1000, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    post comment_path(profile.identifier, 1000), params: { :comment => { :body => 'Comment edited' }}
     assert_response 404
   end
 
@@ -489,7 +485,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
-    xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    post comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}, xhr: true
     assert_response 404
   end
 
@@ -499,7 +495,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
-    xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    post comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}, xhr: true
     assert_response 404
   end
 
@@ -513,7 +509,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
-    xhr :post, :check_actions, :profile => profile.identifier, :id => comment.id
+    post check_actions_comment_path(profile.identifier, comment) 
     assert_match /\{\"ids\":\[\"action1\",\"action2\"\]\}/, @response.body
   end
 
@@ -533,8 +529,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     end
 
     login_as commenter.identifier
-    xhr :post, :create, profile: author.identifier, id: article.id,
-                          comment: { title: 'push', body: 'notification' }
+    post comment_index_path(author.identifier), params: {id: article.id,  comment: { title: 'push', body: 'notification' }}, xhr: true
 
     Webpush.expects(:payload_send).times(3)
     process_delayed_job_queue
