@@ -1,14 +1,38 @@
 Noosfero::Application.routes.draw do
-  resources :profile do
+  resources :profile, param: :profile, only: []  do
     collection do
-      scope ':profile' do
+#      scope ':profile' do
 #        match '', to: 'profile#', via: :all
+#        get :leave
+#        get :
+#        get :
+#        get :
+#        get :
+
+#        post :
+#        post :
+#        post :
+
+#      end
+    end
+
+    member do 
+        get :index
+#      scope ':profile' do
+        match 'send_mail', to: 'profile#send_mail', via: [:get, :post]
+        match 'tags/:id/feed', to: 'profile#tag_feed,', via: :get
+        get :tags
+        get :tag_feed, via: :all, as: :tag_feed
+        get :content_tagged
+
+
         match 'follow', to: 'profile#follow', via: [:get, :post]
+        match 'leave', to: 'profile#leave', via: [:get, :post]
         match 'join', to: 'profile#join', via: [:get, :post]
-#        get :index
+        match 'tags/:id', to: 'profile#content_tagged,', via: :all
+
         get :about
         get :activities
-        get :tags
         get :communities
         get :enterprises
         get :friends
@@ -27,11 +51,7 @@ Noosfero::Application.routes.draw do
         get :view_more_activities
         get :more_comments
         get :more_replies
-        get :leave
-#        get :
-#        get :
-#        get :
-#        get :
+
 
         post :join_modal
         post :add
@@ -46,19 +66,9 @@ Noosfero::Application.routes.draw do
         post :report_abuse
         post :register_report
         post :remove_comment
-        post :send_mail
-#        post :
-#        post :
-#        post :
-
-      end
-    end
-
-    member do 
-      scope ':profile' do
-        get :content_tagged
-        get :tag_feed
-      end
+#        post :send_mail
+#        get 'tags/:tag_feed', as: :feed
+#      end
     end
   end
 
