@@ -1,24 +1,10 @@
 Noosfero::Application.routes.draw do
   resources :profile, param: :profile, only: []  do
     collection do
-#      scope ':profile' do
-#        match '', to: 'profile#', via: :all
-#        get :leave
-#        get :
-#        get :
-#        get :
-#        get :
-
-#        post :
-#        post :
-#        post :
-
-#      end
     end
 
     member do 
         get :index
-#      scope ':profile' do
         match 'send_mail', to: 'profile#send_mail', via: [:get, :post]
         match 'tags/:id/feed', to: 'profile#tag_feed,', via: :get
         get :tags
@@ -66,9 +52,9 @@ Noosfero::Application.routes.draw do
         post :report_abuse
         post :register_report
         post :remove_comment
-#        post :send_mail
-#        get 'tags/:tag_feed', as: :feed
-#      end
+
+	# FIXME see if it's needed. See helper links_for_balloon
+        get :events
     end
   end
 

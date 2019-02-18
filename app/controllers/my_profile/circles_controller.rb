@@ -1,6 +1,6 @@
 class CirclesController < MyProfileController
 
-  before_action :accept_only_post, :only => [:create, :update, :destroy]
+  before_action :accept_only_post, :only => [:create, :update]
 
   def index
     @circles = profile.circles
