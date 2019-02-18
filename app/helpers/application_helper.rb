@@ -148,7 +148,7 @@ module ApplicationHelper
 
   def link_to_profile(text, profile = nil, options = {})
     profile ||= current_user.login
-    link_to text, profile_path(:profile => profile) , options
+    link_to text, profile_index_path(profile) , options
   end
 
   def link_to_homepage(text, profile, options = {})

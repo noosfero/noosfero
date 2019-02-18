@@ -79,6 +79,7 @@ class UsersControllerTest < ActionController::TestCase
 
   should 'activate user' do
     u = create_user()
+    u.deactivate
     assert_equal false, u.activated?
     post :activate, :id => u.person.id, :q => ''
     u.reload
