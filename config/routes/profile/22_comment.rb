@@ -1,7 +1,7 @@
 Noosfero::Application.routes.draw do
 
   scope :profile do
-    scope ':profile' do
+    scope ':profile', profile: /[^\/]+/ do
       resources :comment, only: [:create, :edit] do
         collection do
         end

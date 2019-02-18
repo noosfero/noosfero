@@ -1,7 +1,7 @@
 Noosfero::Application.routes.draw do
 
   scope :myprofile do
-    scope ':profile' do
+    scope ':profile', profile: /[^\/]+/ do
       resources :profile_themes, only: [:new, :index, :edit] do
         collection do
           # FIXME this route should be on member

@@ -1,5 +1,5 @@
 Noosfero::Application.routes.draw do
-  resources :profile, param: :profile, only: []  do
+  resources :profile, param: :profile,  profile: /[^\/]+/ , only: []  do
     collection do
     end
 
@@ -15,7 +15,7 @@ Noosfero::Application.routes.draw do
         match 'follow', to: 'profile#follow', via: [:get, :post]
         match 'leave', to: 'profile#leave', via: [:get, :post]
         match 'join', to: 'profile#join', via: [:get, :post]
-        match 'tags/:id', to: 'profile#content_tagged,', via: :all
+        match 'tags/:id', to: 'profile#content_tagged', via: :all, id: /[^\/]+/
 
         get :about
         get :activities

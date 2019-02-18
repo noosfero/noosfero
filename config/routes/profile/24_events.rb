@@ -1,7 +1,7 @@
 Noosfero::Application.routes.draw do
 
   scope :profile do
-    scope ':profile' do
+    scope ':profile', profile: /[^\/]+/ do
       resources :events, only: [] do
         collection do
           match '', to: 'events#events', via: [:get, :post], as: ''

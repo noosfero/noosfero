@@ -1,7 +1,8 @@
 Noosfero::Application.routes.draw do
 
   scope :myprofile do
-    scope ':profile' do
+    scope ':profile',  profile: /[^\/]+/ do
+      get '', to: 'profile_editor#index'
       resources :profile_editor, only: [:index] do
         collection do
           match 'informations', to: 'profile_editor#informations', via: :all

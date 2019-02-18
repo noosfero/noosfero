@@ -1,6 +1,6 @@
 Noosfero::Application.routes.draw do
   scope :profile do
-    scope ':profile' do
+    scope ':profile', profile: /[^\/]+/ do
       resources :search, only: [] do
 #      resources :search, path_names: { index: 'search' }, only: [:index] do
         collection do

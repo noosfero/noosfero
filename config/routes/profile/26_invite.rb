@@ -1,6 +1,6 @@
 Noosfero::Application.routes.draw do
   scope :profile do
-    scope ':profile' do
+    scope ':profile', profile: /[^\/]+/ do
       resources :invite, only: [:create, :edit] do
         collection do
           get :friends, to: 'invite#invite_friends'

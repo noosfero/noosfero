@@ -1,7 +1,7 @@
 Noosfero::Application.routes.draw do
 
   scope :myprofile do
-    scope ':profile' do
+    scope ':profile',  profile: /[^\/]+/ do
       resources :cms, only: [:index] do
         collection do
           match 'suggest_an_article', to: 'cms#suggest_an_article', via: [:get, :post]
