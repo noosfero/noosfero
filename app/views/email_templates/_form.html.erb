@@ -1,4 +1,4 @@
-<%= form_for(@email_template, :url => {:action => @email_template.persisted? ? :update : :create, :id => @email_template.id}) do |f| %>
+<%= form_for(@email_template, :url => (@email_template.persisted? ? profile_email_templates_path(profile.identifier, @email_template) : profile_email_templates_index_path(profile.identifier))) do |f| %>
 
   <%= error_messages_for :email_template if @email_template.errors.any? %>
 

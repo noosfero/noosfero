@@ -27,7 +27,7 @@ Noosfero::Application.routes.draw do
         get :view_more_activities
         get :more_comments
         get :more_replies
-#        get :
+        get :leave
 #        get :
 #        get :
 #        get :

@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ProfileEmailTemplatesControllerTest < ActionController::TestCase
+class ProfileEmailTemplatesControllerTest < ActionDispatch::IntegrationTest 
 
   setup do
     @profile = fast_create(Community)
@@ -12,45 +12,42 @@ class ProfileEmailTemplatesControllerTest < ActionController::TestCase
   attr_accessor :profile, :person
 
   test "should get index" do
-    get :index, params: { profile: profile.identifier }
+    get profile_email_templates_index_path(profile.identifier)
     assert_response :success
     assert_not_nil assigns(:email_templates)
   end
 
   test "should get new" do
-    get :new, params: { profile: profile.identifier }
+    get new_profile_email_templates_path(profile.identifier)
     assert_response :success
   end
 
   test "should create email_template" do
     assert_difference('EmailTemplate.count') do
-      post :create, email_template: { :name => 'test' }, :profile => profile.identifier
+      post profile_email_templates_index_path(profile.identifier), params: {email_template: { :name => 'test' }}
     end
 
     assert_redirected_to url_for(:action => :index)
   end
 
   test "should show email_template" do
-    get :show, params: { id: @email_template, profile: profile.identifier } 
+    get profile_email_templates_path(profile.identifier, @email_template)
     assert_response :success
   end
 
   test "should get edit" do
-    get :edit, params: { id: @email_template, profile: profile.identifier }
+    get edit_profile_email_templates_path(profile.identifier, @email_template)
     assert_response :success
   end
 
   test "should update email_template" do
-    put :update, params: { id: @email_template, 
-                           email_template: {  }, 
-                           profile: profile.identifier
-                         }
+    put profile_email_templates_path(profile.identifier, @email_template), params: { email_template: {  }}
     assert_redirected_to url_for(:action => :index)
   end
 
   test "should destroy email_template" do
     assert_difference('EmailTemplate.count', -1) do
-      delete :destroy, params: { id: @email_template, profile: profile.identifier }
+      delete profile_email_templates_path(profile.identifier, @email_template)
     end
 
     assert_redirected_to url_for(:action => :index)
@@ -61,9 +58,7 @@ class ProfileEmailTemplatesControllerTest < ActionController::TestCase
     @email_template.subject = '{{profile_name}} - {{environment_name}}'
     @email_template.body = '{{profile_name}} - {{environment_name}}'
     @email_template.save!
-    get :show_parsed, params: { id: @email_template, 
-                                profile: profile.identifier
-                              }
+    get show_parsed_profile_email_templates_path(profile.identifier, @email_template)
     assert_response :success
     json_response = ActiveSupport::JSON.decode(@response.body)
     assert_equal "#{@person.name} - #{environment.name}", json_response['parsed_subject']
