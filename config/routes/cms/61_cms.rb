@@ -1,13 +1,8 @@
-#Noosfero::Application.routes.draw do
-#  scope ':profile', profile: /[^\/]+/ do
-##    resources :content_viewer, only: [] do
-##      collection do
-#    get '*pages', to: 'content_viewer#view_page'
-##      end
-#    
-##      member do 
-##        post :update
-##      end
-##    end
-#  end
-#end
+Noosfero::Application.routes.draw do
+  scope ':profile', profile: /[^\/]+/ do
+    get '/*page/versions', to: 'content_viewer#article_versions', as: :versions
+    get '/*page/versions_diff', to: 'content_viewer#versions_diff', as: :versions_diff
+    get '/(*page)', to: 'content_viewer#view_page', as: :page
+  end
+
+end
