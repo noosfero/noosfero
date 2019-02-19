@@ -71,6 +71,7 @@ class ChatController < PublicController
 
   def update_presence_status
     if request.xhr?
+	    raise 'bli'
       current_user.update({:chat_status_at => DateTime.now}.merge(params[:status] || {}))
     end
     head :ok
