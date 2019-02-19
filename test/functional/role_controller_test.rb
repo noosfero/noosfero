@@ -1,23 +1,21 @@
 require_relative '../test_helper'
 
-class RoleControllerTest < ActionController::TestCase
+class RoleControllerTest < ActionDispatch::IntegrationTest
   all_fixtures
 
   def setup
-    @controller = RoleController.new
-
     @role = Role.first
-    login_as(:ze)
+    login_as_rails5(create_admin_user(Environment.default))
   end
 
   def test_index_should_get_roles
-    get 'index'
+    get role_index_path
     assert_response :success
     assert assigns(:roles)
   end
 
   def test_show_should_fetch_role
-    get 'show', :id => @role.id
+    get role_path(@role)
     assert_response :success
     assert_template 'show'
     assert assigns(:role)
@@ -25,43 +23,42 @@ class RoleControllerTest < ActionController::TestCase
   end
 
   def test_can_edit
-    get 'edit', :id => @role.id
+    get edit_role_path(@role)
     assert_not_nil assigns(:role)
     assert_equal @role.id, assigns(:role).id
   end
 
   def test_should_update_to_valid_parameters
     Role.any_instance.stubs(:valid?).returns(true)
-    post 'update', :id => @role.id
+    put role_path(@role)
     assert_response :redirect
     assert_not_nil assigns(:role)
-    assert_nil session[:notice]
   end
 
   def test_should_not_update_to_invalid_parameters
     Role.any_instance.stubs(:valid?).returns(false)
-    post 'update', :id => @role.id
+    put role_path(@role)
     assert_response :success
     assert_not_nil assigns(:role)
     assert_not_nil session[:notice]
   end
 
   def test_should_see_new_role_page
-    get 'new'
+    get new_role_path
     assert_response :success
     assert_not_nil assigns(:role)
   end
 
   def test_should_create_new_role
     assert_difference 'Role.count' do
-      post 'create', :role => { :name => 'Test Role', :permissions => ["test"] }
+      post role_index_path, params: {:role => { :name => 'Test Role', :permissions => ["test"] }}
     end
     assert_redirected_to :action => 'show', :id => Role.last.id
   end
 
   def test_should_not_create_new_role
     assert_no_difference 'Role.count' do
-      post 'create', :role => { }
+      post role_index_path, params: {:role => { }}
     end
     assert_template :new
   end
@@ -70,13 +67,13 @@ class RoleControllerTest < ActionController::TestCase
     role = Role.create!(:name => 'test_role', :environment => Environment.default)
 
     assert_nothing_raised do
-      get :edit, :id => role.id
+      get edit_role_path(role)
     end
   end
 
   should 'display permissions for both environment and profile when editing a environment role' do
     role = Role.create!(:name => 'environment_role', :key => 'environment_role', :environment => Environment.default)
-    get :edit, :id => role.id
+    get edit_role_path(role)
     ['Environment', 'Profile'].each do |key|
       ApplicationRecord::PERMISSIONS[key].each do |permission, value|
         assert_select ".permissions.#{key.downcase} input##{permission}"
@@ -86,7 +83,7 @@ class RoleControllerTest < ActionController::TestCase
 
   should 'display permissions only for profile when editing a profile role' do
     role = Role.create!(:name => 'profile_role', :key => 'profile_role', :environment => Environment.default)
-    get :edit, :id => role.id
+    get edit_role_path(role)
     ApplicationRecord::PERMISSIONS['Profile'].each do |permission, value|
       assert_select "input##{permission}"
     end
