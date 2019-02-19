@@ -151,7 +151,7 @@ module ProfileImageHelper
       extra_info_tag = content_tag( 'span', extra_info, :class => 'extra_info' )
     end
 
-    links = links_for_balloon(profile) << {home: {href: url_for(profile.url)}}
+    links = links_for_balloon(profile) << {home: {href: page_path(profile.identifier)}}
     content_tag(tag,
       (
         environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
@@ -169,7 +169,7 @@ module ProfileImageHelper
           "margin-top: 1.7em;" : ''
         )) +
         extra_info_tag + profile_sex_icon(profile),
-        profile.url,
+        page_path(profile.identifier),
         class: 'profile_link',
         style: (
           theme_option(:profile_list_bg_imgs) ?
