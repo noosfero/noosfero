@@ -277,7 +277,7 @@ module ArticleHelper
   end
 
   def path_to_parents(article)
-    path = link_to(article.profile.name, article.profile.url, class: 'path-to-parent')
+    path = link_to(article.profile.name, profile_path(article.profile.identifier), class: 'path-to-parent')
     parents = article.hierarchy.select { |parent| parent != article }
     parents.each do |parent|
       path += link_to(font_awesome(:angle_right, parent.name), parent.url, class: 'path-to-parent')
