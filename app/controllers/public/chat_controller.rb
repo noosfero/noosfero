@@ -55,7 +55,7 @@ class ChatController < PublicController
         expires_in 24.hours
       end
     else
-      render nothing: true
+      render body: nil
     end
   end
 
@@ -71,7 +71,6 @@ class ChatController < PublicController
 
   def update_presence_status
     if request.xhr?
-	    raise 'bli'
       current_user.update({:chat_status_at => DateTime.now}.merge(params[:status] || {}))
     end
     head :ok
