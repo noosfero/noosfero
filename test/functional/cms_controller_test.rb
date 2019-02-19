@@ -8,8 +8,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @profile = create_user_with_permission('testinguser', 'post_content')
-    logout
-    login_as :testinguser
+    logout_rails5
+    login_as_rails5 :testinguser
   end
 
   attr_reader :profile
@@ -210,7 +210,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'set last_changed_by when creating article' do
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
 
     post new_cms_index_path(profile.identifier, params: {:type => 'TextArticle', :article => { :name => 'changed by me', :body => 'content ...' }})
@@ -227,7 +227,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
     a.last_changed_by = other_person
     a.save!
 
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
     post edit_cms_path(profile.identifier, a), params: {:article => { :body => 'new content for this article' }}
 
@@ -237,7 +237,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'be able to set label to article image' do
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
     post new_cms_index_path(profile.identifier), params: {:type => TextArticle.name, :article => {
            :name => 'adding-image-label',
@@ -293,7 +293,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'be able to acess Rss feed creation page' do
-    logout  
+    logout_rails5  
     login_as_rails5(profile.identifier)
     assert_nothing_raised do
       post new_cms_index_path(profile.identifier), params: {:type => "RssFeed"}
@@ -302,7 +302,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'be able to create a RSS feed' do
-    logout  
+    logout_rails5  
     login_as_rails5(profile.identifier)
     assert_difference 'RssFeed.count' do
       post new_cms_index_path(profile.identifier), params: {:type => RssFeed.name, :article => { :name => 'new-feed', :limit => 15, :include => 'all' }}
@@ -311,7 +311,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'be able to update a RSS feed' do
-    logout	  
+    logout_rails5	  
     login_as_rails5(profile.identifier)
     feed = create(RssFeed, :name => 'myfeed', :limit => 5, :include => 'all', :profile_id => profile.id)
     post edit_cms_path(profile.identifier, feed), params: {:article => { :limit => 77, :include => 'parent_and_children' }}
@@ -1304,8 +1304,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   should 'not allow user without permission create an article in community' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
-    logout
-    login_as :test_user
+    logout_rails5
+    login_as_rails5 :test_user
 
     get new_cms_index_path(c.identifier)
     assert_response :forbidden
@@ -1315,8 +1315,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   should 'allow user with permission create an article in community' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'post_content', c)
-    logout
-    login_as :test_user
+    logout_rails5
+    login_as_rails5 :test_user
 
     get new_cms_index_path(c.identifier), params: {:type => 'TextArticle'}
     assert_response :success
@@ -1327,8 +1327,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
     a = create(Article, :profile => c, :name => 'test_article', :author => u)
-    logout
-    login_as :test_user
+    logout_rails5
+    login_as_rails5 :test_user
 
     get edit_cms_path(c.identifier, a)
     assert_response :forbidden
@@ -1339,9 +1339,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'post_content', c)
     a = create(Article, :profile => c, :name => 'test_article', :author => u)
-    logout
-    login_as :test_user
-#    @controller.stubs(:user).returns(u)
+    logout_rails5
+    login_as_rails5 :test_user
 
     get edit_cms_path(c.identifier, a)
 
@@ -1359,8 +1358,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
 
     article = community.articles.create!(:name => 'test_article', :allow_members_to_edit => true)
 
-    logout
-    login_as member.identifier
+    logout_rails5
+    login_as_rails5 member.identifier
     get edit_cms_path(community.identifier, article)
     assert_response :success
   end
@@ -1497,14 +1496,14 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not logged in to suggest an article' do
-    logout
+    logout_rails5
     get suggest_an_article_cms_index_path(profile.identifier), params: {:back_to => 'action_view'}
 
     assert_template 'suggest_an_article'
   end
 
   should 'display name and email when a not logged in user suggest an article' do
-    logout
+    logout_rails5
     get suggest_an_article_cms_index_path(profile.identifier), params: {:back_to => 'action_view'}
 
     assert_select '#task_name'
@@ -1519,7 +1518,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'render TinyMce Editor on suggestion of article if editor is TinyMCE' do
-    logout
+    logout_rails5
     profile.editor = Article::Editor::TINY_MCE
     profile.save
     get suggest_an_article_cms_index_path(profile.identifier)
@@ -1661,8 +1660,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
 
   should 'logged in user NOT be able to create topic on forum when topic creation is set to Me' do
     u = create_user('linux')
-    logout
-    login_as :linux
+    logout_rails5
+    login_as_rails5 :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
                                       :topic_creation => Entitlement::Levels.levels[:self],
                                       :body => 'Forum Body')
@@ -1677,8 +1676,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
 
   should 'logged in user NOT be able to create topic on forum when topic creation is set to Friends/Members' do
     u = create_user('linux')
-    logout
-    login_as :linux
+    logout_rails5
+    login_as_rails5 :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
                                       :topic_creation => Entitlement::Levels.levels[:related],
                                       :body => 'Forum Body')
@@ -1693,8 +1692,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
 
   should 'logged in user be able to create topic on forum when topic creation is set to Logged in users' do
     u = create_user('linux')
-    logout
-    login_as :linux
+    logout_rails5
+    login_as_rails5 :linux
     profile.articles << f = Forum.new(:name => 'Forum for test',
                                       :topic_creation => '0',
                                       :body => 'Forum Body')
@@ -1829,7 +1828,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   should 'be able to define license when updating article' do
     article = fast_create(Article, :profile_id => profile.id)
     license = License.create!(:name => 'GPLv3', :environment => profile.environment)
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
 
     post edit_cms_path(profile.identifier, article), params: {:article => { :license_id => license.id }}
@@ -1841,7 +1840,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   should 'not display license field if there is no license available in environment' do
     article = fast_create(Article, :profile_id => profile.id)
     License.delete_all
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
 
     get new_cms_index_path(profile.identifier), params: {:type => 'TextArticle'}
@@ -1853,7 +1852,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
     f1 = fast_create(Folder, :profile_id => profile.id)
     f2 = fast_create(Folder, :profile_id => profile.id)
     f3 = fast_create(Folder, :profile_id => profile, :parent_id => f2.id)
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
 
     get edit_cms_path(profile.identifier, article)
@@ -1867,7 +1866,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
     f1 = fast_create(Folder, :profile_id => profile.id)
     f2 = fast_create(Folder, :profile_id => profile.id)
     article = fast_create(Article, :profile_id => profile.id, :parent_id => f1)
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
 
     post edit_cms_path(profile.identifier, article), params: {:article => {:parent_id => f2.id}}
@@ -1877,7 +1876,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'set author when creating article' do
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
 
     post new_cms_index_path(profile.identifier), params: {:type => 'TextArticle', :article => { :name => 'Sample Article', :body => 'content ...' }}
@@ -1892,8 +1891,8 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
     u = create_user('test_user')
     a = c.articles.create!(:name => 'test_article')
     a.stubs(:allow_create?).with(u).returns(true)
-    logout
-    login_as :test_user
+    logout_rails5
+    login_as_rails5 :test_user
 
     get upload_files_cms_index_path(c.identifier), params: {:parent_id => a.id}
     assert_response :forbidden
@@ -1967,7 +1966,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'set created_by when creating article' do
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
 
     post new_cms_index_path(profile.identifier), params: {:type => 'TextArticle', :article => { :name => 'changed by me', :body => 'content ...' }}
@@ -1984,7 +1983,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
     a.created_by = other_person
     a.save!
 
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
     post edit_cms_path(profile.identifier, a), params: {:article => { :body => 'new content for this article' }}
 
@@ -2011,7 +2010,7 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'clone an article with its parent' do
-    logout
+    logout_rails5
     login_as_rails5(profile.identifier)
 
     f = Folder.new(:name => 'f')
@@ -2078,14 +2077,14 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
 
     community.add_admin(author1)
     community.add_admin(author2)
-    logout
+    logout_rails5
     login_as_rails5(author1.identifier)
     post new_cms_index_path(community.identifier), params: {:type => 'TextArticle',
                :article => { :name => 'Main Article', :body => 'some content' }}
 
     article = community.articles.last
 #    @controller.stubs(:user).returns(author2)
-    logout
+    logout_rails5
     login_as_rails5(author2.identifier)
     post edit_cms_path(community.identifier, article), params: {:article => { :name => 'Main Article', :body => 'edited' }}
 

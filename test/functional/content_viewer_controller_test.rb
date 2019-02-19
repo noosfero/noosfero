@@ -164,7 +164,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
 
     folder = fast_create(Folder, :profile_id => community.id, :published => false, :access => Entitlement::Levels.levels[:self])
     community.add_member(profile)
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
 
     get page_path( community.identifier, :page => [ folder.path ])
 
@@ -178,7 +178,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
                                :access => Entitlement::Levels.levels[:self])
     community.add_moderator(profile)
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
 
     get page_path(community.identifier, :page => [ 'test' ])
     assert_response :success
@@ -191,7 +191,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
                                :access => Entitlement::Levels.levels[:self])
     community.add_admin(profile)
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
 
     get page_path(community.identifier, :page => [ 'test' ])
     assert_response :success
@@ -208,7 +208,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'give link to edit the article for owner' do
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
     assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
@@ -217,14 +217,14 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     !assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
   should 'not give link to edit article for other people' do
-    login_as(create_user('anotheruser').login)
+    login_as_rails5(create_user('anotheruser').login)
 
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
     !assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
 
   should 'give link to create new article' do
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
     assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
@@ -233,13 +233,13 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     !assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
   should 'give no link to create new article for other people' do
-    login_as(create_user('anotheruser').login)
+    login_as_rails5(create_user('anotheruser').login)
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
     !assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
 
   should 'give link to create new article inside folder' do
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     folder = Folder.create!(:name => 'myfolder', :profile => @profile)
     get page_path('testinguser', :page => [ 'myfolder' ]), params: { :toolbar => true}, xhr: true
     assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
@@ -255,7 +255,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not give access to private articles if logged in but not member' do
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     profile = Community.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false, :access => Entitlement::Levels.levels[:self])
 
@@ -269,7 +269,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false, :access => Entitlement::Levels.levels[:self])
     profile.affiliate(person, Profile::Roles.member(profile.environment.id))
-    login_as('test_user')
+    login_as_rails5('test_user')
 
     get page_path('test_profile', :page => [ 'my-intranet' ])
 
@@ -284,7 +284,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
                               :published => true,
                               :access => Entitlement::Levels.levels[:self])
     profile.affiliate(person, Profile::Roles.moderator(profile.environment.id))
-    login_as('test_user')
+    login_as_rails5('test_user')
 
     get page_path('test_profile', :page => [ 'my-intranet' ])
 
@@ -299,7 +299,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
                               :published => true,
                               :access => Entitlement::Levels.levels[:self])
     profile.affiliate(person, Profile::Roles.admin(profile.environment.id))
-    login_as('test_user')
+    login_as_rails5('test_user')
 
     get page_path('test_profile', :page => [ 'my-intranet' ])
 
@@ -457,7 +457,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
  should 'list unpublished posts to owner with a different class' do
-   login_as('testinguser')
+   login_as_rails5('testinguser')
    blog = Blog.create!(:name => 'A blog test', :profile => profile)
    blog.posts.to_a << TextArticle.create!(:name => 'Post', :profile => profile,
                                      :parent => blog,
@@ -538,7 +538,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'give link to create new article inside folder when view child of folder' do
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     folder = Folder.create!(:name => 'myfolder', :profile => @profile)
     folder.children << TextArticle.new(:name => 'children-article', :profile => @profile)
     get page_path('testinguser', :page => [ 'myfolder', 'children-article' ]), params: { :toolbar => true}, xhr: true
@@ -546,7 +546,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "display 'New article' when create children of folder" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     a = Folder.new(:name => 'article folder'); profile.articles << a;  a.save!
     Article.stubs(:short_description).returns('bli')
     get page_path(profile.identifier, :page => [a.path]), params: { :toolbar => true}, xhr: true
@@ -554,7 +554,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "display 'New post' when create children of blog" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     a = Blog.create!(:name => 'article folder', :profile => profile)
     Article.stubs(:short_description).returns('bli')
     get page_path(profile.identifier, :page => [a.path]), params: { :toolbar => true}, xhr: true
@@ -562,7 +562,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "display same label for new article button of parent" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     a = Blog.create!(:name => 'article folder', :profile => profile)
     Article.stubs(:short_description).returns('bli')
     t = TextArticle.create!(:name => 'first post', :parent => a, :profile => profile)
@@ -571,28 +571,28 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'display button to remove article' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     t = TextArticle.create!(:name => 'article to destroy', :profile => profile)
     get page_path(profile.identifier, :page => [t.path]), params: { :toolbar => true}, xhr: true
     assert_tag :tag => 'a', :content => 'Delete', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/destroy/#{t.id}"}
   end
 
   should 'not display delete button for homepage' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     page = profile.home_page
     get page_path(profile.identifier, :page => page.path), params: { :toolbar => true}, xhr: true
     !assert_tag :tag => 'a', :content => 'Delete', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/destroy/#{page.id}" }
   end
 
   should 'add meta tag to rss feed on view blog' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     profile.articles << Blog.new(:name => 'Blog', :profile => profile)
     get page_path(profile.identifier, :page => ['blog'])
     assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Blog', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
   end
 
   should 'add meta tag to rss feed on view post blog' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     blog = Blog.create!(:name => 'Blog', :profile => profile)
     TextArticle.create!(:name => 'first post', :parent => blog, :profile => profile)
     get page_path(profile.identifier, :page => ['blog', 'first-post'])
@@ -615,7 +615,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'display download button to images in galleries that allow downloads' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     gallery = Gallery.create!(:name => 'gallery1', :profile => profile, :allow_download => true)
     image = UploadedFile.create!(:profile => profile, :parent => gallery, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     get page_path(profile.identifier, :page => image.path), params: { :view => true}
@@ -623,7 +623,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not display download button to images in galleries that do not allow downloads' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     gallery = Gallery.create!(:name => 'gallery1', :profile => profile, :allow_download => false)
     image = UploadedFile.create!(:profile => profile, :parent => gallery, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     get page_path(profile.identifier, :page => image.path), params: { :view => true}
@@ -631,14 +631,14 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "display 'Upload files' when create children of image gallery" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     f = Gallery.create!(:name => 'gallery', :profile => profile)
     get page_path(profile.identifier, :page => f.path), params: { :toolbar => true}, xhr: true
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{f.id}/}
   end
 
   should "display 'New article' when showing folder child of image gallery" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     folder1 = Gallery.create!(:name => 'gallery1', :profile => profile)
     folder1.children << folder2 = Folder.new(:name => 'gallery2', :profile => profile)
 
@@ -647,7 +647,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "display 'Upload files' to image gallery when showing its children" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
     file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     get page_path(profile.identifier, :page => file.path, :view => true), params: { :toolbar => true}, xhr: true
@@ -682,7 +682,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
                                   :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false, :access => Entitlement::Levels.levels[:self])
 
 
-    login_as('unauthorized')
+    login_as_rails5('unauthorized')
     get page_path(owner.identifier, :page => folder.path), params: { :slideshow => true}
     assert_response :success
     assert_equal 0, assigns(:images).length
@@ -693,7 +693,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     unauthorized = create_user('unauthorized').person
     folder = Gallery.create!(:name => 'gallery', :profile => owner)
     image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false, :access => Entitlement::Levels.levels[:self])
-    login_as('unauthorized')
+    login_as_rails5('unauthorized')
     get page_path(owner.identifier, :page => folder.path)
     assert_response :success
     assert_select '.image-gallery-item', 0
@@ -765,7 +765,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'display title of image on image gallery' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     folder = fast_create(Gallery, :profile_id => profile.id)
     file = UploadedFile.create!(:title => 'my img title', :profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
@@ -777,7 +777,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   should 'display link to new_article if profile is publisher' do
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'post_content', c)
-    login_as u.identifier
+    login_as_rails5 u.identifier
     a = create(Article, :profile => c, :name => 'test-article',
                :author => profile, :published => true)
 
@@ -798,7 +798,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'show only first paragraph of blog posts if visualization_format is short' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
 
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :visualization_format => 'short')
 
@@ -811,7 +811,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'show only first paragraph with picture of posts if visualization_format is short+pic' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
 
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :visualization_format => 'short+pic')
 
@@ -826,7 +826,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
 
   should 'display link to edit blog for allowed' do
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get page_path(profile.identifier, :page => blog.path), params: { :toolbar => true}, xhr: true
 
     assert_tag :tag => 'ul',
@@ -841,7 +841,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   # Forum
 
   should 'list unpublished forum posts to owner with a different class' do
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     forum = Forum.create!(:name => 'A forum test', :profile => profile)
     forum.posts << TextArticle.create!(:name => 'Post', :profile => profile,
                                        :parent => forum,
@@ -926,7 +926,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "display 'New discussion topic' when create children of forum" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     a = Forum.create!(:name => 'article folder', :profile => profile)
     Article.stubs(:short_description).returns('bli')
     get page_path(profile.identifier, :page => [a.path]), params: { :toolbar => true}, xhr: true
@@ -934,7 +934,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "display same label for new article button of forum parent" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     a = Forum.create!(:name => 'article folder', :profile => profile)
     Article.stubs(:short_description).returns('bli')
     t = TextArticle.create!(:name => 'first post', :parent => a, :profile => profile)
@@ -952,7 +952,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     forum = Forum.create(:profile => community, :name => 'Forum test', :body => 'Forum test')
     post = fast_create(TextArticle, :name => 'First post', :profile_id => community.id, :parent_id => forum.id, :author_id => author.id)
 
-    login_as(author.identifier)
+    login_as_rails5(author.identifier)
     get page_path(community.identifier, :page => post.path.split('/'))
 
     assert_tag :tag => 'ul',
@@ -973,7 +973,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     post = fast_create(TextArticle, :name => 'First post', :profile_id => community.id,
                                     :parent_id => forum.id, :author_id => author.id)
 
-    login_as(author.identifier)
+    login_as_rails5(author.identifier)
     get page_path(community.identifier, :page => post.path.split('/'))
 
     assert_tag :tag => 'ul',
@@ -984,7 +984,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'add meta tag to rss feed on view forum' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     profile.articles << Forum.new(:name => 'Forum', :profile => profile)
     get page_path(profile.identifier, :page => ['forum'])
     assert_tag :tag => 'link', :attributes => { :rel => 'alternate',
@@ -994,7 +994,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'add meta tag to rss feed on view post forum' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     profile.articles << Forum.new(:name => 'Forum', :profile => profile)
     profile.forum.posts << TextArticle.new(:name => 'first post', :parent => profile.forum, :profile => profile)
     get page_path(profile.identifier, :page => ['forum', 'first-post'])
@@ -1002,14 +1002,14 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not display 'Upload files' when viewing forum" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     b = Forum.create!(:name => 'article folder', :profile => profile)
     get page_path(profile.identifier, :page => b.path), params: { :toolbar => true}, xhr: true
     !assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
   should "not display 'Upload files' when viewing post from a forum" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     b = Forum.create!(:name => 'article folder', :profile => profile)
     forum_post = TextArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
     get page_path(profile.identifier, :page => forum_post.path), params: { :toolbar => true}, xhr: true
@@ -1018,7 +1018,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
 
   should 'display link to edit forum for allowed' do
     forum = fast_create(Forum, :profile_id => profile.id, :path => 'forum')
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get page_path(profile.identifier, :page => forum.path), params: { :toolbar => true}, xhr: true
 
     assert_tag :tag => 'ul',
@@ -1033,28 +1033,28 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   should 'display add translation link if article is translatable' do
     environment.languages = ['en']
     environment.save
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     textile = fast_create(TextArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
     get page_path(@profile.identifier, :page => textile.path), params: { :toolbar => true}, xhr: true
     assert_tag :a, :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?article%5Btranslation_of_id%5D=#{textile.id}&type=#{TextArticle}" }
   end
 
   should 'not display add translation link if article is not translatable' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     blog = fast_create(Blog, :profile_id => @profile.id, :path => 'blog')
     get page_path(@profile.identifier, :page => blog.path), params: { :toolbar => true}, xhr: true
     !assert_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
   end
 
   should 'not display add translation link if article hasnt a language defined' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     textile = fast_create(TextArticle, :profile_id => @profile.id, :path => 'textile')
     get page_path(@profile.identifier, :page => textile.path), params: { :toolbar => true}, xhr: true
     !assert_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
   end
 
   should 'display translations link if article has translations' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     textile     = fast_create(TextArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
     translation = fast_create(TextArticle, :profile_id => @profile.id, :path => 'translation', :language => 'es', :translation_of_id => textile)
     get page_path(@profile.identifier, :page => textile.path), params: { :toolbar => true}, xhr: true
@@ -1168,7 +1168,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     article.save!
     Comment.destroy_all
     comment = article.comments.create!(:author => profile, :title => 'a comment', :body => 'lalala')
-    login_as 'testuser'
+    login_as_rails5 'testuser'
     get page_path('testuser', :page => [ 'test' ])
     assert_tag :tag => 'a', :attributes => { :class => 'reply-comment-link' }
   end
@@ -1288,7 +1288,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
     !assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
   end
@@ -1307,7 +1307,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
     assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :title => 'This button is expired.' } }
   end
@@ -1379,7 +1379,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape acceptable HTML in list of blog posts' do
-    login_as('testinguser')
+    login_as_rails5('testinguser')
     blog = Blog.create!(:name => 'A blog test', :profile => profile)
     blog.posts.to_a << TextArticle.create!(
       :name => 'Post',
@@ -1455,7 +1455,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
 
     otheruser = create_user('otheruser').person
     community.add_member(otheruser)
-    login_as(otheruser.identifier)
+    login_as_rails5(otheruser.identifier)
 
     get page_path(community.identifier, "page" => 'blog')
 
@@ -1588,7 +1588,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
 
     profile.name = 'Special'
     profile.save
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get page_path(profile.identifier, :page => [ 'myarticle' ])
     assert_tag :tag => 'ul',
                :attributes => { :class => 'noosfero-dropdown-menu' },
@@ -1617,7 +1617,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     article.parent = blog
     article.save!
 
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
 
 
     get page_path(community.identifier, "page" => 'blog')
@@ -1629,7 +1629,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
 # FIXME see the way to test with cookies
 #  should 'not count a visit twice for the same user' do
 #    profile = create_user('someone').person
-#    login_as(@profile.identifier)
+#    login_as_rails5(@profile.identifier)
 #    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
 #    page.save!
 #
@@ -1682,7 +1682,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     page.save!
 
     host! "theresourcebasedeconomy.com"
-    login_as(create_user.login)
+    login_as_rails5(create_user.login)
     
     get page_path(profile.identifier, :page => 'myarticle')
 
@@ -1713,7 +1713,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
 
     friend = create_user.person
     profile.add_friend(friend)
-    login_as friend.identifier
+    login_as_rails5 friend.identifier
 
     get page_path(profile.identifier, :page => [ 'test' ])
     assert_match /field1/i, @response.body

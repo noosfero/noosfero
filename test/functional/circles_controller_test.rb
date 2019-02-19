@@ -3,9 +3,8 @@ require_relative '../test_helper'
 class CirclesControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-#    @controller = CirclesController.new
     @person = create_user('person').person
-    login_as(@person.identifier)
+    login_as_rails5(@person.identifier)
   end
 
   should 'return all circles of a profile' do

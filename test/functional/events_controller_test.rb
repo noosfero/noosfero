@@ -109,7 +109,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     community = fast_create(Community, :identifier => 'private-community', :name => 'Private Community', :access => Entitlement::Levels.levels[:self])
     community.add_member(@profile)
 
-    login_as('testuser')
+    login_as_rails5('testuser')
 
     get events_path(community.identifier)
 

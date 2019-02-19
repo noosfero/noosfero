@@ -6,7 +6,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
   def setup
     @profile = create_user('default_user').person
     Environment.default.affiliate(@profile, [Environment::Roles.admin(Environment.default.id)] + Profile::Roles.all_roles(Environment.default.id))
-    login_as('default_user')
+    login_as_rails5('default_user')
   end
   attr_reader :profile
 
@@ -56,7 +56,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not permmit if not logged' do
-    logout
+    logout_rails5
     get profile_editor_index_path(profile.identifier)
     assert_response 302
   end
@@ -368,7 +368,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
     user1 = profile
     user2 = create_user('usertwo').person
     AddFriend.create!(:person => user1, :friend => user2)
-    login_as('usertwo')
+    login_as_rails5('usertwo')
     get profile_editor_index_path('usertwo')
     assert_tag :tag => 'div', :attributes => { :id => 'pending-tasks' }
   end
@@ -379,7 +379,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
     user2 = create_user('usertwo').person
     task = AddMember.create!(person: user1, organization: community)
     give_permission(user2, 'invite_members', community)
-    login_as('usertwo')
+    login_as_rails5('usertwo')
     get profile_editor_index_path('usertwo')
     !assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }
   end
@@ -387,7 +387,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
   should 'limit task list' do
     user2 = create_user('usertwo').person
     6.times { AddFriend.create!(:person => create_user.person, :friend => user2) }
-    login_as('usertwo')
+    login_as_rails5('usertwo')
     get profile_editor_index_path('usertwo')
     # assert_select '.pending-tasks > ul > li', 5
     assert_tag :tag => 'div', :attributes => { :id => 'pending-tasks' }, :content => '6'
@@ -397,7 +397,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
   should 'display task count in task list' do
     user2 = create_user('usertwo').person
     6.times { AddFriend.create!(:person => create_user.person, :friend => user2) }
-    login_as('usertwo')
+    login_as_rails5('usertwo')
     get profile_editor_index_path('usertwo')
     assert_response :success
 
@@ -556,7 +556,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
     enterprise = fast_create(Enterprise)
 
     u = create_user_with_permission('test_user', 'edit_profile', enterprise)
-    login_as('test_user')
+    login_as_rails5('test_user')
 
     get profile_editor_index_path(enterprise.identifier)
     !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{enterprise.identifier}/profile_editor/header_footer" }
@@ -813,8 +813,8 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
   should 'not be able to destroy profile if forbid_destroy_profile is enabled' do
     environment = Environment.default
     user = create_user('user').person
-    logout
-    login_as('user')
+    logout_rails5
+    login_as_rails5('user')
     environment.enable('forbid_destroy_profile')
     assert_no_difference 'Profile.count' do
       post destroy_profile_profile_editor_index_path(user.identifier)
@@ -824,7 +824,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
   should 'display destroy_profile button' do
     environment = Environment.default
     user = create_user_with_permission('user', 'destroy_profile')
-    login_as('user')
+    login_as_rails5('user')
     community = fast_create(Community)
     community.add_admin(user)
     get informations_profile_editor_index_path(community.identifier)
@@ -836,7 +836,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
     environment.enable('forbid_destroy_profile')
     environment.save!
     user = create_user_with_permission('user', 'destroy_profile')
-    login_as('user')
+    login_as_rails5('user')
     community = fast_create(Community)
     community.add_admin(user)
     get informations_profile_editor_index_path(community.identifier)
@@ -869,8 +869,8 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
     person = create_user('foo').person
     community.add_member(person)
 
-    logout
-    login_as 'foo'
+    logout_rails5
+    login_as_rails5 'foo'
     assert_difference 'Community.count', 0 do
       post destroy_profile_profile_editor_index_path(community.identifier)
     end
@@ -894,8 +894,8 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
     person = create_user('foo').person
     enterprise.add_member(person)
 
-    logout
-    login_as('foo')
+    logout_rails5
+    login_as_rails5('foo')
     assert_difference 'Enterprise.count', 0 do
       post destroy_profile_profile_editor_index_path(enterprise.identifier)
     end
@@ -1102,7 +1102,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
 
   should 'not see is_template check_box' do
     another_user = create_user('another_user').person
-    login_as('another_user')
+    login_as_rails5('another_user')
     get informations_profile_editor_index_path(profile.identifier)
     !assert_tag :tag => 'input', :attributes => {:name => 'profile_data[is_template]'}
   end
@@ -1143,14 +1143,14 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'show head and footer for admin' do
-    login_as('default_user')
+    login_as_rails5('default_user')
     get profile_editor_index_path(profile.identifier)
     assert_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Header and Footer' }
   end
 
   should 'not display header and footer for user when feature is enable' do
     user = create_user('user').person
-    login_as('user')
+    login_as_rails5('user')
     profile.environment.enable('disable_header_and_footer')
     get profile_editor_index_path(user.identifier)
     !assert_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Header and Footer' }
@@ -1158,7 +1158,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
 
   should 'display header and footer for user when feature is disabled ' do
     user = create_user('user').person
-    login_as('user')
+    login_as_rails5('user')
     profile.environment.disable('disable_header_and_footer')
     get profile_editor_index_path(user.identifier)
     assert_tag :tag => 'div', :descendant => { :tag => 'a', :content => 'Header and Footer' }
@@ -1170,8 +1170,8 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
     environment.save!
 
     user = create_user('user').person
-    logout
-    login_as('user')
+    logout_rails5
+    login_as_rails5('user')
 
     get header_footer_profile_editor_index_path(user.identifier)
     assert_response :redirect
@@ -1185,7 +1185,7 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
     environment.settings[:disable_header_and_footer_enabled] = true
     environment.save!
 
-    login_as('user')
+    login_as_rails5('user')
 
     get header_footer_profile_editor_index_path(user.identifier)
     assert_response :success

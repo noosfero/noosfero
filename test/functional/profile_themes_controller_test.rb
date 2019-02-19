@@ -6,7 +6,7 @@ class ProfileThemesControllerTest < ActionDispatch::IntegrationTest
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
 
     @profile = create_user('testinguser').person
-    login_as('testinguser')
+    login_as_rails5('testinguser')
 
     @env = Environment.default
     @env.enable('user_themes')
@@ -326,7 +326,7 @@ class ProfileThemesControllerTest < ActionDispatch::IntegrationTest
     environment.save!
 
     user = create_user('user').person
-    login_as('user')
+    login_as_rails5('user')
 
     post profile_themes_path(user.identifier)
     assert_response :redirect
@@ -340,8 +340,8 @@ class ProfileThemesControllerTest < ActionDispatch::IntegrationTest
     environment.disable('enable_appearance')
     environment.save!
 
-    logout
-    login_as('user')
+    logout_rails5
+    login_as_rails5('user')
 
     post profile_themes_path(user.identifier)
     assert_response :success

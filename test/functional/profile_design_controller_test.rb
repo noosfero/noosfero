@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class ProfileDesignControllerTest <  ActionDispatch::IntegrationTest
+class ProfileDesignControllerTest < ActionDispatch::IntegrationTest
 
   COMMOM_BLOCKS = [ ArticleBlock, InterestTagsBlock, TagsCloudBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock, HighlightsBlock, MenuBlock ]
   PERSON_BLOCKS = COMMOM_BLOCKS + [ FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
@@ -52,7 +52,7 @@ class ProfileDesignControllerTest <  ActionDispatch::IntegrationTest
 
     holder.blocks(true)
 
-    login_as('designtestuser')
+    login_as_rails5('designtestuser')
   end
   attr_reader :profile
 
@@ -320,7 +320,7 @@ class ProfileDesignControllerTest <  ActionDispatch::IntegrationTest
   should 'create back link to profile control panel' do
     p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
 
-    login_as(create_user_with_permission('test_user','edit_profile_design',p).identifier )
+    login_as_rails5(create_user_with_permission('test_user','edit_profile_design',p).identifier )
 
     get profile_design_index_path(p.identifier)
     assert_tag :tag => 'a', :attributes => {:href => '/myprofile/test_user'}
@@ -369,7 +369,7 @@ class ProfileDesignControllerTest <  ActionDispatch::IntegrationTest
   end
 
   should 'require login' do
-    logout
+    logout_rails5
     get profile_design_index_path(profile.identifier)
     assert_redirected_to login_account_index_path
   end

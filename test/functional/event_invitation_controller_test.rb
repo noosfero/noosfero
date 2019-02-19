@@ -7,7 +7,7 @@ class EventInvitationControllerTest < ActionDispatch::IntegrationTest
     @profile = create_user('testinguser')
     @guest = @profile.person
     @event = fast_create(Event)
-    login_as :testinguser
+    login_as_rails5 :testinguser
   end
 
   attr_reader :profile, :guest, :event

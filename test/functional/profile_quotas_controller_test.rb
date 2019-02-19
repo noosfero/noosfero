@@ -10,7 +10,7 @@ class ProfileQuotasControllerTest < ActionDispatch::IntegrationTest
 
     admin = create_user.person
     Environment.default.add_admin admin
-    login_as admin.identifier
+    login_as_rails5 admin.identifier
   end
 
   should 'filter profiles by type' do

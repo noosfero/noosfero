@@ -5,15 +5,7 @@ module AuthenticatedTestHelper
     # FIXME rails 5 not allow put values on controller session like this anymore 
     # To make the loggin we have to access the post action of account controller
     # Tests inherited form ActionDispatch::IntegrationTest have to make the post request
-    if @controller && @request
-      @request.session[:user] = User.find_by(login: user.to_s).id 
-    else 
-      old_controller = @controller
-      @controller = AccountController.new
-
-      post login_account_index_path, params: { user: { login: user, password: '123456'} }
-      @controller = old_controller
-    end
+    @request.session[:user] = User.find_by(login: user.to_s).id 
   end
 
   # Sets the current user in the session from the user fixtures.
@@ -30,17 +22,16 @@ module AuthenticatedTestHelper
 
   def logout
     #FIXME refactor this method
-    if false
-	    puts '1111111111111111111111111111111111111111111111111111111'
-	    raise @controller.inspect
-      @request.session.delete(:user) if @request
-    else 
-      old_controller = @controller
-      @controller = AccountController.new
+    @request.session.delete(:user) if @request
+  end
 
-      get logout_account_index_path
-      @controller = old_controller
-    end
+  def logout_rails5
+    #FIXME refactor this method
+    old_controller = @controller
+    @controller = AccountController.new
+
+    get logout_account_index_path
+    @controller = old_controller
   end
 
   def content_type(type)

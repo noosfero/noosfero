@@ -3,8 +3,6 @@ require_relative '../test_helper'
 class CommentControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-#    @controller = CommentController.new
-
     @profile = create_user('testinguser').person
     @environment = @profile.environment
   end
@@ -19,7 +17,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala')
 
-    login_as 'normaluser' # normaluser cannot remove other people's comments
+    login_as_rails5 'normaluser' # normaluser cannot remove other people's comments
     assert_no_difference 'Comment.count' do
       post destroy_comment_path(profile.identifier, comment)
     end
@@ -34,7 +32,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'normaluser' # normaluser cannot remove other people's comments
+    login_as_rails5 'normaluser' # normaluser cannot remove other people's comments
     assert_no_difference 'Comment.count' do
       post destroy_comment_path(profile.identifier, comment), xhr: true
       assert_response :success
@@ -50,7 +48,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'testuser' # testuser must be able to remove comments in his articles
+    login_as_rails5 'testuser' # testuser must be able to remove comments in his articles
     assert_difference 'Comment.count', -1 do
       post destroy_comment_path(profile.identifier, comment), xhr: true
       assert_response :success
@@ -67,7 +65,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => image, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'testuser' # testuser must be able to remove comments in his articles
+    login_as_rails5 'testuser' # testuser must be able to remove comments in his articles
     assert_difference 'Comment.count', -1 do
       post destroy_comment_path(profile.identifier, comment), xhr: true
       assert_response :success
@@ -80,7 +78,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     article = community.articles.create!(:name => 'test', :profile => community)
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
     community.add_moderator(profile)
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     assert_difference 'Comment.count', -1 do
       post destroy_comment_path(community.identifier, comment), xhr: true
       assert_response :success
@@ -94,7 +92,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     article.save!
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala')
 
-    login_as 'testuser'
+    login_as_rails5 'testuser'
     assert_difference 'Comment.count', -1 do
       post destroy_comment_path(profile.identifier, comment), xhr: true
       assert_response :success
@@ -125,7 +123,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   should "the author's comment be the logged user" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
 
     post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: page.id}, xhr: true
     assert_equal profile, assigns(:comment).author
@@ -134,14 +132,14 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   should "the articles's comment be the article passed as parameter" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
 
     post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: page.id}, xhr: true
     assert_equal page, assigns(:comment).article
   end
 
   should 'show validation error when body comment is missing' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     post comment_index_path(@profile.identifier), params: {:comment => { :title => '', :body => '' }, :confirm => 'true', id: page.id}, xhr: true
     response = ActiveSupport::JSON.decode @response.body
@@ -188,7 +186,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   should 'invalid comment display the comment form open' do
     article = profile.articles.build(:name => 'test')
     article.save!
-    login_as('testinguser')
+    login_as_rails5('testinguser')
 
     assert_no_difference 'Comment.count' do
       post comment_index_path(profile.identifier), params: {:comment => {:body => ""}, :confirm => 'true', id: article.id}, xhr: true
@@ -197,19 +195,19 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'create ApproveComment task when adding a comment in a moderated article' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     community = Community.create!(:name => 'testcomm')
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    login_as(commenter.identifier)
+    login_as_rails5(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
       post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
   end
 
   should 'not create ApproveComment task when the comment author is the same of article author' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     community = Community.create!(:name => 'testcomm')
     page = create(Article, :profile => community, :name => 'myarticle', :moderate_comments => true, :author => @profile)
     community.add_moderator(@profile)
@@ -224,7 +222,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    login_as(commenter.identifier)
+    login_as_rails5(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
       post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
@@ -234,12 +232,12 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "create ApproveComment task with the articles's owner profile as the target" do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     community = Community.create!(:name => 'testcomm')
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    login_as(commenter.identifier)
+    login_as_rails5(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
       post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
@@ -248,7 +246,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "create ApproveComment task with the comment created_at attribute defined to now" do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     community = Community.create!(:name => 'testcomm')
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
@@ -274,7 +272,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "render_target be the comment anchor if everithing is fine" do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
     post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
@@ -282,7 +280,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "display message 'successfully created' if the comment was saved with success" do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
     post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
@@ -290,7 +288,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "render partial comment if everithing is fine" do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
     post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
@@ -298,7 +296,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "render the root comment when a reply is made" do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
     comment = fast_create(Comment, :body => 'some content', :source_id => page.id, :source_type => 'Article')
@@ -308,7 +306,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'filter html content from body' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     post comment_index_path(profile.identifier), params: {:comment => { :title => 'html comment', :body => "this is a <strong id='html_test_comment'>html comment</strong>"}, id: page.id}, xhr: true
@@ -318,7 +316,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'filter html content from title' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     post comment_index_path(profile.identifier), params: {:comment => { :title => "html <strong id='html_test_comment'>comment</strong>", :body => "this is a comment"}, id: page.id}, xhr: true
     assert Comment.last.title.match(/html comment/)
@@ -331,14 +329,14 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text', :created_at => yesterday, :updated_at => yesterday)
     Article.record_timestamps = true
 
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap' }, :confirm => 'true', id: page.id}, xhr: true
     assert_not_equal yesterday, page.reload.updated_at
   end
 
   should 'follow article when commenting' do
     page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text')
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
 
     post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => true}, :confirm => 'true', id: page.id}, xhr: true
     assert_includes page.person_followers, @profile
@@ -346,14 +344,14 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
 
   should 'not follow article when commenting' do
     page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text')
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
 
     post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => false }, :confirm => 'true', id: page.id}, xhr: true
     assert_not_includes page.person_followers, @profile
   end
 
   should 'be able to mark comments as spam' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     article = fast_create(Article, :profile_id => profile.id)
     spam = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :source_id => article.id, :source_type => 'Article')
 
@@ -372,7 +370,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala')
 
-    login_as 'normaluser' # normaluser cannot remove other people's comments
+    login_as_rails5 'normaluser' # normaluser cannot remove other people's comments
     post mark_as_spam_comment_path(profile.identifier, comment), xhr: true
     comment.reload
     refute comment.spam?
@@ -387,7 +385,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'normaluser' # normaluser cannot remove other people's comments
+    login_as_rails5 'normaluser' # normaluser cannot remove other people's comments
 
     post mark_as_spam_comment_path(profile.identifier, comment), xhr: true
     assert_response :success
@@ -404,7 +402,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'testuser' # testuser must be able to remove comments in his articles
+    login_as_rails5 'testuser' # testuser must be able to remove comments in his articles
 
     post mark_as_spam_comment_path(profile.identifier, comment), xhr: true
     assert_response :success
@@ -420,7 +418,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
     article = community.articles.create!(:name => 'test', :profile => community)
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
     community.add_moderator(profile)
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
 
     post mark_as_spam_comment_path(community.identifier, comment), xhr: true
     assert_response :success
@@ -430,7 +428,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'edit comment from a page' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile.id)
 
@@ -439,7 +437,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
    should 'not crash on edit comment if comment does not exist' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     get edit_comment_path(profile.identifier, 1000), params: {:comment => { :body => 'Comment edited' }}
@@ -456,7 +454,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
 
   should 'not be able to edit comment if does not have the permission to' do
     user = create_user('any_guy').person
-    login_as user.identifier
+    login_as_rails5 user.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
@@ -465,7 +463,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'be able to update a comment' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile)
 
@@ -474,7 +472,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not crash on update comment if comment does not exist' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     post comment_path(profile.identifier, 1000), params: { :comment => { :body => 'Comment edited' }}
@@ -491,7 +489,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
 
   should 'not be able to update comment if does not have the permission to' do
     user = create_user('any_guy').person
-    login_as user.identifier
+    login_as_rails5 user.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
@@ -506,7 +504,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
       end
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestActionPlugin.new])
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
     post check_actions_comment_path(profile.identifier, comment) 
@@ -528,7 +526,7 @@ class CommentControllerTest < ActionDispatch::IntegrationTest
                                   keys: { auth: '123', p256dh: '456' })
     end
 
-    login_as commenter.identifier
+    login_as_rails5 commenter.identifier
     post comment_index_path(author.identifier), params: {id: article.id,  comment: { title: 'push', body: 'notification' }}, xhr: true
 
     Webpush.expects(:payload_send).times(3)

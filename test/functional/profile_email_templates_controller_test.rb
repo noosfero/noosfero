@@ -6,7 +6,7 @@ class ProfileEmailTemplatesControllerTest < ActionDispatch::IntegrationTest
     @profile = fast_create(Community)
     @person = create_user_with_permission('templatemanager', 'manage_email_templates', @profile)
     @email_template = EmailTemplate.create!(:name => 'template', :owner => @profile)
-    login_as(@person.user.login)
+    login_as_rails5(@person.user.login)
   end
 
   attr_accessor :profile, :person

@@ -4,9 +4,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   include MembershipsHelper
 
-#  self.default_params = {profile: 'testuser'}
   def setup
-#    #@controller.= ProfileController.new
     @profile = create_user('testuser').person
   end
   attr_reader :profile
@@ -28,7 +26,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     article = profile.articles.create(:name => 'test')
     article.person_followers = [follower]
     article.save
-    login_as('follower')
+    login_as_rails5('follower')
     article.reload
     assert_includes Article.find(article.id).person_followers, follower
     post unfollow_article_profile_path(profile.identifier), params: {:article_id => article.id}
@@ -36,14 +34,14 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'point to manage friends in user is seeing his own friends' do
-    login_as('testuser')
+    login_as_rails5('testuser')
     get friends_profile_path(profile.identifier)
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/friends' }
   end
 
   should 'not point to manage friends of other users' do
     create_user('ze')
-    login_as('ze')
+    login_as_rails5('ze')
     get friends_profile_path(profile.identifier)
     !assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/friends' }
   end
@@ -83,7 +81,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should 'not render any template when joining community due to Ajax request' do
     community = Community.create!(:name => 'my test community')
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
 
     get join_profile_path(community.identifier)
     assert_response :success
@@ -92,7 +90,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'actually add friend' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = create_user.person
     assert_difference 'AddFriend.count' do
       post add_profile_path(person.identifier)
@@ -133,13 +131,13 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'show a link to own control panel' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(@profile.identifier)
     assert_tag :tag => 'a', :content => 'Control panel'
   end
 
   should 'show a link to own control panel in my-network-block if is a group' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     community = Community.create!(:name => 'my test community')
     community.blocks.each{|i| i.destroy}
     community.boxes[0].blocks << MyNetworkBlock.new
@@ -149,7 +147,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not show a link to others control panel' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     other = create_user('person_1').person
     other.blocks.each{|i| i.destroy}
     other.boxes[0].blocks << ProfileInfoBlock.new
@@ -158,7 +156,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'show a link to control panel if user has profile_editor permission and is a group' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     community = Community.create!(:name => 'my test community')
     community.add_admin(@profile)
     get profile_path(community.identifier)
@@ -166,14 +164,14 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'show create community in own profile' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get communities_profile_path(profile.identifier)
     assert_tag :tag => 'a',  :attributes => {:class => 'button icon-add with-text',
       :title => 'Create a new community' }
   end
 
   should 'not show create community on profile of other users' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = create_user('person_1').person
     get communities_profile_path(profile.identifier)
     !assert_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
@@ -197,7 +195,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should 'display add friend button' do
     @profile.user.activate!
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     friend = create_user_full('friendtestuser').person
     friend.user.activate!
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
@@ -206,7 +204,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not display add friend button if user already request friendship' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     friend = create_user_full('friendtestuser').person
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     AddFriend.create!(:person => @profile, :friend => friend)
@@ -215,7 +213,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not display add friend button if user already friend' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     friend = create_user_full('friendtestuser').person
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     @profile.add_friend(friend)
@@ -241,7 +239,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'not show e-mail for non friends on profile page' do
     p1 = create_user('tusr1').person
     p2 = create_user('tusr2', :email => 't2@t2.com').person
-    login_as 'tusr1'
+    login_as_rails5 'tusr1'
 
     get profile_path('tusr2')
     !assert_tag :content => /t2@t2.com/
@@ -276,7 +274,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     env = Environment.default
     env.disable('disable_contact_person')
     env.save!
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(friend.identifier)
     assert_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
@@ -284,7 +282,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'not display contact button if no friends' do
     nofriend = create_user_full('no_friend').person
     nofriend.boxes.first.blocks << block = ProfileInfoBlock.create!
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(nofriend.identifier)
     assert_no_match /\/contact\/#{nofriend.identifier}\/new/, @response.body
   end
@@ -297,7 +295,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     env.disable('disable_contact_person')
     env.save!
     @profile.add_friend(friend)
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(friend.identifier)
     assert_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
@@ -309,7 +307,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     env.enable('disable_contact_person')
     env.save!
     @profile.add_friend(friend)
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(friend.identifier)
     assert_no_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
@@ -321,7 +319,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     env.disable('disable_contact_community')
     env.save!
     community.add_member(@profile)
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(community.identifier)
     assert_match /\/contact\/#{community.identifier}\/new/, @response.body
   end
@@ -333,14 +331,14 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     env.enable('disable_contact_community')
     env.save!
     community.add_member(@profile)
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(community.identifier)
     assert_no_match /\/contact\/#{community.identifier}\/new/, @response.body
   end
 
   should 'actually join profile' do
     community = Community.create!(:name => 'my test community')
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     post join_profile_path(community.identifier)
 
     assert_response :success
@@ -356,7 +354,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     admin = create_user.person
     community.add_member(admin)
 
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     assert_difference 'AddMember.count' do
       post join_profile_path(community.identifier)
     end
@@ -366,7 +364,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     community = fast_create(Community)
     community.update_attribute(:closed, true)
 
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     assert_no_difference 'AddMember.count' do
       post join_profile_path(community.identifier)
     end
@@ -382,7 +380,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'show regular join button for person with public email' do
     community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
     Person.any_instance.stubs(:public_fields).returns(["email"])
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
 
     get profile_path(community.identifier)
     !assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
@@ -391,7 +389,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'show join modal for person with private email' do
     community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
     Person.any_instance.stubs(:public_fields).returns([])
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
 
     get profile_path(community.identifier)
     assert_tag :tag => 'a', :attributes => { :class => /open-modal join-community/ }
@@ -400,7 +398,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'show regular join button for community without email visibility requirement' do
     community = Community.create!(:name => 'my test community', :closed => true, :requires_email => false)
     Person.any_instance.stubs(:public_fields).returns([])
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
 
     get profile_path(community.identifier)
     !assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
@@ -409,7 +407,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'show regular join button for community without email visibility requirement and person with public email' do
     community = Community.create!(:name => 'my test community', :closed => true, :requires_email => false)
     Person.any_instance.stubs(:public_fields).returns(['email'])
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
 
     get profile_path(community.identifier)
     !assert_tag :tag => 'a', :attributes => { :class => /modal-toggle join-community/ }
@@ -417,7 +415,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should 'render join modal for community with email visibility requirement and person with private email' do
     community = Community.create!(:name => 'my test community', :closed => true, :requires_email => true)
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     post join_profile_path(community.identifier)
     assert_template "join"
   end
@@ -427,7 +425,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     admin = create_user('community-admin').person
     community.add_admin(admin)
 
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     assert_difference 'AddMember.count' do
       post join_modal_profile_path(community.identifier)
     end
@@ -442,7 +440,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     community.add_member(profile)
     assert_includes profile.memberships, community
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     post leave_profile_path(community.identifier)
 
     profile = Profile.find(@profile.id)
@@ -462,7 +460,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     community.add_admin(profile)
     assert_includes profile.memberships, community
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     post leave_profile_path(community.identifier)
 
     profile.reload
@@ -491,7 +489,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'redirect to join after user logged asks to join_not_logged a community' do
     community = Community.create!(:name => 'my test community')
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get join_not_logged_profile_path(community.identifier)
 
     assert_equal community.identifier, @request.session[:join]
@@ -532,7 +530,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'show description of orgarnization' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     ent = fast_create(Enterprise)
     ent.description = "<span>Enterprise's description</span>"
     ent.save
@@ -545,7 +543,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     environment.custom_person_fields = {:description => { :active => true, :required => false, :signup => false }}
     environment.save!
     environment.reload
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     @profile.description = 'Person description'
     @profile.save!
     get profile_path(@profile.identifier)
@@ -553,14 +551,14 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not show description of orgarnization if not filled' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     ent = fast_create(Enterprise)
     get profile_path(ent.identifier)
     !assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
   end
 
   should 'not show description of person if not filled' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(@profile.identifier)
     !assert_tag :tag => 'div', :attributes => { :class => 'public-profile-description' }
   end
@@ -572,14 +570,14 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should ' not allow ordinary users to unblock enterprises' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     enterprise = fast_create(Enterprise)
     get unblock_profile_path(enterprise.identifier)
     assert_response 403
   end
 
   should 'allow environment admin to unblock enterprises' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     enterprise = fast_create(Enterprise)
     enterprise.environment.add_admin(profile)
     get unblock_profile_path(enterprise.identifier)
@@ -620,7 +618,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "leave a scrap in the own profile" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     count = Scrap.count
     assert profile.scraps_received.empty?
     post leave_scrap_profile_path(profile.identifier), params: { :scrap => {:content => 'something'}}
@@ -632,7 +630,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "leave a scrap on another profile" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     count = Scrap.count
     another_person = create_user.person
     assert another_person.scraps_received.empty?
@@ -645,7 +643,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "the owner of scrap could remove it" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     scrap = fast_create(Scrap, :sender_id => profile.id)
     count = Scrap
     assert_difference 'Scrap.count', -1 do
@@ -654,7 +652,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "the receiver scrap remove it" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     scrap = fast_create(Scrap, :receiver_id => profile.id)
     count = Scrap
     assert_difference 'Scrap.count', -1 do
@@ -663,7 +661,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not remove others scraps" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     person = fast_create(Person)
     scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => person.id)
     count = Scrap
@@ -680,7 +678,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not remove an scrap of another user" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     scrap = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
@@ -690,7 +688,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "the sender be the logged user by default" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     count = Scrap.count
     another_person = create_user.person
     post leave_scrap_profile_path(another_person.identifier), params: { :scrap => {:content => 'something'}}
@@ -699,7 +697,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "the receiver be the current profile by default" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     count = Scrap.count
     another_person = create_user.person
     post leave_scrap_profile_path(another_person.identifier), params: { :scrap => {:content => 'something'}}
@@ -708,7 +706,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "report to user the scrap errors on creation" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     count = Scrap.count
     post leave_scrap_profile_path(profile.identifier), params: { :scrap => {:content => ''}}
     assert_response :success
@@ -718,7 +716,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should "display a scrap sent" do
     another_person = fast_create(Person)
     create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get profile_path(profile.identifier)
     assert_tag :tag => 'p', :content => 'A scrap'
   end
@@ -726,7 +724,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should "not display a scrap sent by a removed user" do
     another_person = fast_create(Person)
     create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     another_person.destroy
     get profile_path(profile.identifier)
     !assert_tag :tag => 'p', :content => 'A scrap'
@@ -736,7 +734,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     p1 = create_user('some').person
     ActionTracker::Record.destroy_all
     40.times{create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))}
-    login_as(p1.identifier)
+    login_as_rails5(p1.identifier)
     get profile_path(p1.identifier)
     assert_equal 15, assigns(:activities).size
   end
@@ -761,7 +759,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     User.current = p2.user
     article2 = TextArticle.create!(:profile => p2, :name => 'Another article about free software')
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get profile_path(p3.identifier)
     assert_not_nil assigns(:activities)
     assert_equivalent [scrap1, article1.activity], assigns(:activities).map(&:activity)
@@ -791,7 +789,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
     process_delayed_job_queue
 
-    login_as p1.user.login
+    login_as_rails5 p1.user.login
     get profile_path(p1.identifier)
     assert_equivalent [a1,a3].map(&:id), assigns(:network_activities).map(&:id)
   end
@@ -856,7 +854,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "the owner of activity could remove it" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
     assert_difference 'ActionTracker::Record.count', -1 do
       post remove_activity_profile_path(profile.identifier), params: { :activity_id => at.id}
@@ -864,7 +862,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "remove the network activities dependent an ActionTracker::Record" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     person = fast_create(Person)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
     atn = fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => at.id)
@@ -886,7 +884,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should "remove an activity of another person if user has permissions to edit it" do
     user = create_user('another_user').person
     owner = create_user('owner').person
-    login_as(user.identifier)
+    login_as_rails5(user.identifier)
     activity = fast_create(ActionTracker::Record, :user_id => owner.id)
 
     assert_no_difference 'ActionTracker::Record.count' do
@@ -902,7 +900,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should "remove a notification of another profile if user has permissions to edit it" do
     user = create_user('owner').person
-    login_as(user.identifier)
+    login_as_rails5(user.identifier)
     profile = fast_create(Profile)
     activity = fast_create(ActionTracker::Record, :user_id => user.id)
     fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => activity.id)
@@ -921,7 +919,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not show the network activity if the viewer don't follow the profile" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     person = fast_create(Person)
     at = fast_create(ActionTracker::Record, :user_id => person.id)
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
@@ -930,7 +928,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not show the scrap button on network activity if the user is himself" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get profile_path(profile.identifier)
@@ -944,19 +942,19 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should "not show the scrap area on wall for stranger" do
     person = create_user('stranger').person
-    login_as(person.identifier)
+    login_as_rails5(person.identifier)
     get profile_path(profile.identifier)
     !assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
   end
 
   should "show the scrap area on wall for the user" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get profile_path(profile.identifier)
     assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Publish'} }
   end
 
   should "show the scrap area on wall for a friend" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     person = fast_create(Person)
     person.add_friend(profile)
     profile.add_friend(person)
@@ -966,7 +964,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "show the scrap area on wall for a member" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     community = fast_create(Community)
     community.add_member(profile)
 
@@ -975,7 +973,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not show the scrap button on wall activity if the user is himself" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
     get profile_path(profile.identifier)
     !assert_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
@@ -992,7 +990,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "view more activities paginated" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     article = TextArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
     40.times{ create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
@@ -1010,7 +1008,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "view more network activities paginated" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     40.times{fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
     assert_equal 40, profile.tracked_notifications.count
     get view_more_activities_profile_path(profile.identifier), params: { :page => 2, :kind => 'network', :offsets => {:wall => 0, :network => 0}}
@@ -1025,7 +1023,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not index display activities comments" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     article = TextArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
     activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
@@ -1036,7 +1034,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "view more comments paginated" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     article = TextArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
     activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
@@ -1050,7 +1048,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not index display scraps replies" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     Scrap.destroy_all
     scrap = create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
     20.times {create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
@@ -1060,7 +1058,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "view more replies paginated" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     Scrap.destroy_all
     scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
     20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
@@ -1136,7 +1134,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should 'register abuse report' do
     reported = fast_create(Profile)
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
 #    #@controller.stubs(:verify_recaptcha).returns(true)
 
     assert_difference 'AbuseReport.count', 1 do
@@ -1147,7 +1145,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'register abuse report with content' do
     reported = fast_create(Profile)
     content = fast_create(TextArticle, :profile_id => reported.id)
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
 #    #@controller.stubs(:verify_recaptcha).returns(true)
 
     assert_difference 'AbuseReport.count', 1 do
@@ -1157,7 +1155,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should 'not ask admin for captcha to register abuse' do
     reported = fast_create(Profile)
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     environment = Environment.default
     environment.add_admin(profile)
     ##@controller.expects(:verify_recaptcha).never
@@ -1175,7 +1173,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     ActionTracker::Record.destroy_all
     TextArticle.create!(:profile => profile, :name => 'An article about free software')
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get profile_path(profile.identifier)
 
     assert_tag :tag => 'p', :content => 'A scrap', :attributes => { :class => 'profile-activity-text'}
@@ -1191,7 +1189,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     TextArticle.create!(:profile => profile, :name => 'An article about free software')
     activity = ActionTracker::Record.last
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get profile_path(profile.identifier)
 
     assert_equivalent [scrap,activity], assigns(:activities).map(&:activity)
@@ -1199,7 +1197,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should "follow an article" do
     article = TextArticle.create!(:profile => profile, :name => 'An article about free software')
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     post follow_article_profile_path(profile.identifier), params: { :article_id => article.id}
     assert_includes article.person_followers, @profile
   end
@@ -1210,7 +1208,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     article.save!
     assert_includes article.person_followers, @profile
 
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     post unfollow_article_profile_path(profile.identifier), params: { :article_id => article.id}
     assert_not_includes article.person_followers, @profile
   end
@@ -1226,7 +1224,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "leave a comment in own activity" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     TextArticle.create!(:profile => profile, :name => 'An article about free software')
     activity = ActionTracker::Record.last
     count = activity.comments.count
@@ -1239,7 +1237,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "leave a comment on another profile's activity" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     another_person = fast_create(Person)
     TextArticle.create!(:profile => another_person, :name => 'An article about free software')
     activity = ActionTracker::Record.last
@@ -1260,7 +1258,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
     activity = ActionTracker::Record.last
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get more_comments_profile_path(profile.identifier), params: {:activity => activity.id, :comment_page => 1, :tab_action => 'wall'}, xhr: true
 
     assert_select 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
@@ -1271,7 +1269,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     article = TextArticle.create!(:profile => profile, :name => 'An article about spam\'s nutritional attributes')
     comment = create(Comment, :author => profile, :title => 'Test Comment', :body => 'This article makes me hungry', :source_id => article.id, :source_type => 'Article')
     comment.spam!
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get profile_path(profile.identifier)
 
     refute /This article makes me hungry/.match(@response.body), 'Spam comment was shown!'
@@ -1282,13 +1280,13 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     article = TextArticle.create!(:profile => profile, :name => 'An article about free software')
     comment = create(Comment, :name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
 
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     get profile_path(profile.identifier)
 
     activity = ActionTracker::Record.last
 
-    logout
-    login_as(profile.identifier)
+    logout_rails5
+    login_as_rails5(profile.identifier)
     get more_comments_profile_path(profile.identifier), params: {:activity => activity.id, :comment_page => 1, :tab_action => 'wall'}, xhr: true
 
     assert_select 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
@@ -1297,7 +1295,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'add locale on mailing' do
     community = fast_create(Community)
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
-    login_as('profile_moderator_user')
+    login_as_rails5('profile_moderator_user')
     ProfileController.any_instance.stubs(:locale).returns('pt')
     post send_mail_profile_path(community.identifier), params: { :mailing => {:subject => 'Hello', :body => 'We have some news'}}
     assert_equal 'pt', assigns(:mailing).locale
@@ -1306,7 +1304,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'queue mailing to process later' do
     community = fast_create(Community)
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
-    login_as('profile_moderator_user')
+    login_as_rails5('profile_moderator_user')
     #@controller.stubs(:locale).returns('pt')
 
     assert_difference 'Delayed::Job.count', 1 do
@@ -1321,7 +1319,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 #    person = create_user('Any').person
 #    community.add_member(person)
 #    community.save!
-#    login_as('profile_moderator_user')
+#    login_as_rails5('profile_moderator_user')
 #
 #    post send_mail_profile_path(community.identifier), params: { :mailing => {:subject => 'Hello', :body => 'We have some news'}}
 #    assert_equivalent community.members, OrganizationMailing.last.recipients
@@ -1337,7 +1335,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 #    person = create_user('Any').person
 #    community.add_member(person)
 #    community.save!
-#    login_as('profile_moderator_user')
+#    login_as_rails5('profile_moderator_user')
 #
 #    @request.session[:members_filtered] = [Profile.last.id+1]
 #    post send_mail_profile_path(community.identifier), params: { :mailing => {:subject => 'RUN!!', :body => 'Run to the hills!!'}}
@@ -1347,7 +1345,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'save mailing' do
     community = fast_create(Community)
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
-    login_as('profile_moderator_user')
+    login_as_rails5('profile_moderator_user')
     #@controller.stubs(:locale).returns('pt')
     post send_mail_profile_path(community.identifier), params: { :mailing => {:subject => 'Hello', :body => 'We have some news'}}
     assert_equal ['Hello', 'We have some news'], [assigns(:mailing).subject, assigns(:mailing).body]
@@ -1356,7 +1354,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'add the user logged on mailing' do
     community = fast_create(Community)
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
-    login_as('profile_moderator_user')
+    login_as_rails5('profile_moderator_user')
     post send_mail_profile_path(community.identifier), params: { :mailing => {:subject => 'Hello', :body => 'We have some news'}}
     assert_equal Profile['profile_moderator_user'], assigns(:mailing).person
   end
@@ -1364,7 +1362,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'redirect back to right place after mail' do
     community = fast_create(Community)
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
-    login_as('profile_moderator_user')
+    login_as_rails5('profile_moderator_user')
     #@controller.stubs(:locale).returns('pt')
     post send_mail_profile_path(community.identifier), params: { :mailing => {:subject => 'Hello', :body => 'We have some news'}}, headers: { "HTTP_REFERER" => "/profile/#{community.identifier}/members"}
     assert_redirected_to :action => 'members'
@@ -1373,7 +1371,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'display email templates as an option to send mail' do
     community = fast_create(Community)
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
-    login_as('profile_moderator_user')
+    login_as_rails5('profile_moderator_user')
 
     template1 = EmailTemplate.create!(:owner => community, :name => "Template 1", :template_type => :organization_members)
     template2 = EmailTemplate.create!(:owner => community, :name => "Template 2")
@@ -1386,7 +1384,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'do not display email template selection when there is no template for organization members' do
     community = fast_create(Community)
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
-    login_as('profile_moderator_user')
+    login_as_rails5('profile_moderator_user')
 
     get send_mail_profile_path(community.identifier), params: { :mailing => {:subject => 'Hello', :body => 'We have some news'}}
     assert_select '.template-selection'
@@ -1429,7 +1427,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
     strange = create_user('person_2').person
-    login_as(strange.identifier)
+    login_as_rails5(strange.identifier)
     get profile_path(viewed.identifier)
     assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
@@ -1446,7 +1444,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
     Person.any_instance.stubs(:is_a_friend?).returns(true)
-    login_as(friend.identifier)
+    login_as_rails5(friend.identifier)
     get profile_path(viewed.identifier)
     assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
@@ -1461,7 +1459,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     viewed.birth_date = Time.parse('2012-08-26').ago(22.years)
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
-    login_as(viewed.identifier)
+    login_as_rails5(viewed.identifier)
     get profile_path(viewed.identifier)
     assert_tag :tag => 'td', :content => 'Sex'
     assert_tag :tag => 'td', :content => 'Male'
@@ -1475,7 +1473,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     viewed.data = { :email => 'test@test.com', :fields_privacy => { 'email' => 'public' } }
     viewed.save!
     strange = create_user('person_2').person
-    login_as(strange.identifier)
+    login_as_rails5(strange.identifier)
     get profile_path(viewed.identifier)
     assert_tag :tag => 'th', :content => 'Contact'
     assert_tag :tag => 'td', :content => 'e-Mail'
@@ -1488,7 +1486,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     viewed.data = { :email => 'test@test.com', :fields_privacy => { 'email' => 'public' } }
     viewed.save!
     Person.any_instance.stubs(:is_a_friend?).returns(true)
-    login_as(friend.identifier)
+    login_as_rails5(friend.identifier)
     get profile_path(viewed.identifier)
     assert_tag :tag => 'th', :content => 'Contact'
     assert_tag :tag => 'td', :content => 'e-Mail'
@@ -1499,7 +1497,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     Environment.any_instance.stubs(:required_person_fields).returns([])
     viewed.data = { :email => 'test@test.com', :fields_privacy => { 'email' => 'public' } }
     viewed.save!
-    login_as(viewed.identifier)
+    login_as_rails5(viewed.identifier)
     get profile_path(viewed.identifier)
     assert_tag :tag => 'th', :content => 'Contact'
     assert_tag :tag => 'td', :content => 'e-Mail'
@@ -1511,7 +1509,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     viewed.data = { :email => 'test@test.com', :fields_privacy => { } }
     viewed.save!
     strange = create_user('person_2').person
-    login_as(strange.identifier)
+    login_as_rails5(strange.identifier)
     get profile_path(viewed.identifier)
     !assert_tag :tag => 'th', :content => 'Contact'
     !assert_tag :tag => 'td', :content => 'e-Mail'
@@ -1524,7 +1522,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     viewed.data = { :email => 'test@test.com', :fields_privacy => { } }
     viewed.save!
     Person.any_instance.stubs(:is_a_friend?).returns(true)
-    login_as(friend.identifier)
+    login_as_rails5(friend.identifier)
     get profile_path(viewed.identifier)
     assert_tag :tag => 'th', :content => 'Contact'
     assert_tag :tag => 'td', :content => 'e-Mail'
@@ -1535,7 +1533,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     Environment.any_instance.stubs(:required_person_fields).returns([])
     viewed.data = { :email => 'test@test.com', :fields_privacy => { } }
     viewed.save!
-    login_as(viewed.identifier)
+    login_as_rails5(viewed.identifier)
     get profile_path(viewed.identifier)
     assert_tag :tag => 'th', :content => 'Contact'
     assert_tag :tag => 'td', :content => 'e-Mail'
@@ -1546,7 +1544,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     community = fast_create(Community)
     community.add_admin(user)
 
-    login_as(user.identifier)
+    login_as_rails5(user.identifier)
     get profile_path(profile.identifier)
     !assert_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
   end
@@ -1560,7 +1558,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     Environment.any_instance.stubs(:enabled?).returns(false)
     Environment.any_instance.stubs(:enabled?).with(:display_my_communities_on_user_menu).returns(true)
 
-    login_as(user.identifier)
+    login_as_rails5(user.identifier)
     get profile_path(profile.identifier)
     assert_tag :tag => 'ul', :attributes => {:id => 'manage-communities'}
 
@@ -1591,7 +1589,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     c1.add_admin(u)
     c2.add_admin(u)
 
-    login_as(u.identifier)
+    login_as_rails5(u.identifier)
 
     get profile_path(profile.identifier)
 
@@ -1620,7 +1618,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
     e1.add_member(u)
 
-    login_as(u.identifier)
+    login_as_rails5(u.identifier)
 
     get profile_path(profile.identifier)
 
@@ -1641,7 +1639,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     Environment.any_instance.stubs(:enabled?).returns(false)
     Environment.any_instance.stubs(:enabled?).with(:display_my_enterprises_on_user_menu).returns(false)
 
-    login_as(user.identifier)
+    login_as_rails5(user.identifier)
     get profile_path(profile.identifier)
     !assert_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
   end
@@ -1676,7 +1674,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     community = fast_create(Community)
     another_user = create_user('another_user').person
 
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
 
     community.add_admin(@profile)
 
@@ -1743,7 +1741,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not follow a user without defining a circle' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = fast_create(Person)
     assert_no_difference 'ProfileFollower.count' do
       post follow_profile_path(person.identifier), params: { :circles => {}}
@@ -1758,7 +1756,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'follow a user with a circle' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = fast_create(Person)
 
     circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
@@ -1769,7 +1767,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'follow a user with more than one circle' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = fast_create(Person)
 
     circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
@@ -1781,7 +1779,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not follow a user with no circle selected' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = fast_create(Person)
 
     circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
@@ -1795,7 +1793,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not follow if current_person already follows the person' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = fast_create(Person)
 
     circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
@@ -1814,7 +1812,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "unfollow a followed person" do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = fast_create(Person)
 
     circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
@@ -1828,7 +1826,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "not unfollow a not followed person" do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = fast_create(Person)
 
     assert_no_difference 'ProfileFollower.count' do
@@ -1837,7 +1835,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'not display the unfollow button if the person is in the social circle' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     community = fast_create(Community)
     community.add_member(@profile)
 
@@ -1846,7 +1844,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "redirect to page after unfollow" do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     person = fast_create(Person)
 
     circle = Circle.create!(:person=> @profile, :name => "Zombies", :profile_type => 'Person')
@@ -1857,7 +1855,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "search followed people or circles" do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     c1 = Circle.create!(:name => 'Family', :person => @profile, :profile_type => Person)
     c2 = Circle.create!(:name => 'Work', :person => @profile, :profile_type => Person)
     p1 = create_user('emily').person
@@ -1947,7 +1945,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     p1.add_friend(@profile)
     scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
     scrap_activity = ProfileActivity.where(:activity => scrap).first
-    login_as(p1.identifier)
+    login_as_rails5(p1.identifier)
 
     get profile_path(@profile.identifier)
 
@@ -1965,7 +1963,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     ProfileFollower.create!(:profile => not_marked, :circle => c1)
     scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1,p2])
     scrap_activity = ProfileActivity.where(:activity => scrap).first
-    login_as(not_marked.identifier)
+    login_as_rails5(not_marked.identifier)
 
     get profile_path(@profile.identifier)
 
@@ -1978,7 +1976,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     ProfileFollower.create!(:profile => p1, :circle => c1)
     scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
     scrap_activity = ProfileActivity.where(:activity => scrap).first
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
 
     get profile_path(@profile.identifier)
 
@@ -1995,7 +1993,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
     ProfileFollower.create!(:profile => p1, :circle => c1)
     scrap = Scrap.create!(:content => 'Secret message.', :sender_id => @profile.id, :receiver_id => @profile.id, :marked_people => [p1])
     scrap_activity = ProfileActivity.where(:activity => scrap).first
-    login_as(admin.identifier)
+    login_as_rails5(admin.identifier)
 
     get profile_path(@profile.identifier)
 
@@ -2004,7 +2002,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should 'not fetch or show wall activities if user does not have wall access' do
     sample_user = create_user('sample-user').person
-    login_as(sample_user.identifier)
+    login_as_rails5(sample_user.identifier)
     Profile.any_instance.stubs(:display_to?).returns(false)
     get profile_path(@profile.identifier)
     assert_nil assigns(:activities)
@@ -2013,7 +2011,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should 'fetch and show wall activities if user has wall access' do
     sample_user = create_user('sample-user').person
-    login_as(sample_user.identifier)
+    login_as_rails5(sample_user.identifier)
     Profile.any_instance.stubs(:display_to?).returns(true)
     get profile_path(@profile.identifier)
     assert_not_nil assigns(:activities)
@@ -2028,7 +2026,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   should 'not fetch or show network activities for logged users' do
     sample_user = create_user('sample-user').person
-    login_as(sample_user.identifier)
+    login_as_rails5(sample_user.identifier)
     get profile_path(@profile.identifier)
     assert_nil assigns(:network_activities)
     !assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
@@ -2037,21 +2035,21 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   should 'not fetch or show network activities for friends' do
     friend = create_user('friend').person
     friend.add_friend(@profile)
-    login_as(friend.identifier)
+    login_as_rails5(friend.identifier)
     get profile_path(@profile.identifier)
     assert_nil assigns(:network_activities)
     !assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
   should 'fetch and show network activities for the user' do
-    login_as(@profile.identifier)
+    login_as_rails5(@profile.identifier)
     get profile_path(@profile.identifier)
     assert_not_nil assigns(:network_activities)
     assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
   should 'display comments of an article in network activities tab' do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     article = TextArticle.create!(profile: profile, name: 'An article about free software')
     20.times do |i|
       comment = fast_create(Comment, source_id: article, title: "Comment #{i}",
@@ -2156,7 +2154,7 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
   end
 
   should "send a push notification to the scrap receiver" do
-    login_as(profile.identifier)
+    login_as_rails5(profile.identifier)
     another_person = create_user.person
 
     another_person.push_subscriptions.create(endpoint: '/some',
