@@ -85,8 +85,7 @@ class CmsController < MyProfileController
     refuse_blocks
     record_coming
     if request.post?
-      if @article.image.present? && params[:article][:image_builder] &&
-        params[:article][:image_builder][:label]
+      if @article.image.present? && params[:article][:image_builder] && params[:article][:image_builder][:label]
         @article.image.label = params[:article][:image_builder][:label]
         @article.image.save!
       end
@@ -112,7 +111,6 @@ class CmsController < MyProfileController
 
   def new
     # FIXME this method should share some logic with edit !!!
-
     @success_back_to = params[:success_back_to]
     # user must choose an article type first
 

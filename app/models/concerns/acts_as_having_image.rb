@@ -5,7 +5,7 @@ module ActsAsHavingImage
       options = args.last.is_a?(Hash) ? args.pop : {}
       image_field = (options[:field] || :image).to_sym
 
-      has_one image_field, dependent: :destroy, class_name: 'Image', as: :owner
+      belongs_to image_field, dependent: :destroy, class_name: 'Image', optional: true
       scope "with_#{image_field}", -> { where "#{table_name}.#{image_field}_id IS NOT NULL" }
       scope "without_#{image_field}", -> { where "#{table_name}.#{image_field}_id IS NULL" }
       attr_accessible "#{image_field}_builder"
@@ -16,7 +16,7 @@ module ActsAsHavingImage
           self[image_field].attributes = img
         else
           send("build_#{image_field}", img)
-        end unless img[:uploaded_data].blank?
+        end unless img['uploaded_data'].blank?
         if img[:remove_image] == 'true'
           self["#{image_field}_id"] = nil
         end
