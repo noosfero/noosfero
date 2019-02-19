@@ -19,7 +19,7 @@
                     :max_size => 16, :min_size => 9) %>
     <% else %>
       <%= tag_cloud(tags, :id,
-		    tags_profile_path(block.owner.identifier),
+                    {profile: block.owner.identifier,  :controller => 'profile', :action => 'content_tagged'},
                     :max_size => 16, :min_size => 9) %>
   <% end %>
   </div>

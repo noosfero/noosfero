@@ -47,8 +47,8 @@ module TagsHelper
     # Example: AA ÁA AB Z instead of AA AB Z ÁA
     tags.collect{ |k,v| [ActiveSupport::Inflector.transliterate(k).downcase, [k,v]] }.sort.collect { |ascii, t| t }.map do |tag,count|
 # FIXME see if merge could be done	    
-#      destination = url.merge(tagname_option => tag)
-      destination = url
+      destination = url.merge(tagname_option => tag)
+#      destination = url
 
       if options[:show_count]
         display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""
