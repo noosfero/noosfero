@@ -1,6 +1,6 @@
 require_relative "../test_helper"
 
-class EnvironmentThemesControllerTest < ActionController::TestCase
+class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @controller = EnvironmentThemesController.new
@@ -9,7 +9,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
     @env = Environment.default
     login = create_admin_user(@env)
-    login_as(login)
+    login_as_rails5(login)
     @profile = User.find_by(login: login).person
   end
 
@@ -29,7 +29,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     env.save
 
     Theme.stubs(:system_themes).returns([Theme.new(t1), Theme.new(t2), Theme.new(t3)])
-    get :index
+    get environment_themes_path
 
     %w[ t1 t2 ].each do |item|
       assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/#{item}" }
@@ -47,21 +47,21 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
     Theme.stubs(:system_themes).returns([Theme.new(t1), Theme.new(t2)])
     env.update_theme(t1)
-    get :index
+    get environment_themes_path
 
     assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
     !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/one" }
   end
 
   should 'save selection of theme' do
-    get :set, :id => 'onetheme'
+    get set_environment_theme_path(id: 'onethem2e')
     env = Environment.default
     assert_equal 'onetheme', env.theme
   end
 
 
   should 'unset selection of theme' do
-    get :unset
+    get unset_environment_themes_path
     env = Environment.default
     assert_equal 'default', env.theme
   end
@@ -73,12 +73,12 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
     Theme.stubs(:system_themes).returns([Theme.new('new-theme')])
 
-    get :index
+    get environment_themes_path
     assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/unset" }
   end
 
   should 'point back to admin panel' do
-    get :index
+    get environment_themes_path
     assert_tag :tag => 'a', :attributes => { :href =>  '/admin' }, :content => 'Back'
   end
 
@@ -86,7 +86,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     all = LayoutTemplate.all
 
     LayoutTemplate.expects(:all).returns(all)
-    get :index
+    get environment_themes_path
     assert_equivalent all, assigns(:layout_templates)
   end
 
@@ -98,7 +98,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     t2 = LayoutTemplate.find('leftbar')
     LayoutTemplate.expects(:all).returns([t1, t2])
 
-    get :index
+    get environment_themes_path
     assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set_layout_template/default"}
     assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set_layout_template/leftbar"}
   end
@@ -112,14 +112,14 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     t2 = LayoutTemplate.find('leftbar')
     LayoutTemplate.expects(:all).returns([t1, t2])
 
-    get :index
+    get environment_themes_path
     assert_tag :attributes => { :class => 'template-opt list-opt selected' }
     !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set_layout_template/default"}
   end
 
   should 'set template' do
     env = Environment.default
-    post :set_layout_template, :id => 'leftbar'
+    post set_layout_template_environment_theme_path({id: 'leftbar'})
     env.reload
     assert_equal 'leftbar', env.layout_template
     assert_redirected_to :action => 'index'
@@ -129,7 +129,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
     env = Environment.default
     env.themes = []; env.save!
     Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR) # an empty dir
-    get :index
+    get environment_themes_path
     !assert_tag :content => "Select theme"
   end
 
