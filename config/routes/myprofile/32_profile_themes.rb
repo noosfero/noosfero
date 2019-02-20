@@ -4,11 +4,6 @@ Noosfero::Application.routes.draw do
     scope ':profile', profile: /[^\/]+/ do
       resources :profile_themes, only: [:new, :index, :edit] do
         collection do
-          # FIXME this route should be on member
-#          match 'new', to: 'profile_themes#new', via: :all
-#          match 'index', to: 'profile_themes#index', via: :all
-#          post 'new'
-#          post 'index'
           get 'unset'
         end
     

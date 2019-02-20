@@ -22,8 +22,8 @@
         else  # Not selected
           link_to(
             base_content +'</div>'.html_safe,
-            { :action => 'set_layout_template', :id => template.id },
-            :class => 'template-opt list-opt')
+	    set_layout_template_profile_theme_path(profile.identifier, template.id),
+            :class => 'template-opt list-opt', method: :post)
         end
 
       end

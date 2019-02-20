@@ -23,6 +23,7 @@ Noosfero::Application.routes.draw do
         member do 
           match 'edit', to: 'cms#edit', via: [:get, :post]
           match 'view', to: 'cms#view', via: [:get, :post]
+          match 'invite_to_event', to: 'cms#invite_to_event', via: [:get, :post]
           match 'publish', to: 'cms#publish', via: [:get, :post]
           post 'publish_on_communities'
           post 'publish_on_portal_community'

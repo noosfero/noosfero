@@ -194,7 +194,7 @@ module ProfileHelper
   end
 
   def treat_admins(admins)
-    profile.admins.map { |admin| link_to(admin.short_name, view_page_path(admin.identifier))}.join(', ')
+    profile.admins.map { |admin| link_to(admin.short_name, page_path(admin.identifier))}.join(', ')
   end
 
   def treat_blogs(blog)
