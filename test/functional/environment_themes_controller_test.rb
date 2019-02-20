@@ -54,7 +54,7 @@ class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'save selection of theme' do
-    get set_environment_theme_path(id: 'onethem2e')
+    get set_environment_theme_path(id: 'onetheme')
     env = Environment.default
     assert_equal 'onetheme', env.theme
   end

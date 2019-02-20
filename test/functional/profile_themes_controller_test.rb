@@ -103,12 +103,12 @@ class ProfileThemesControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'display screen for creating new theme' do
-    get new_profile_theme_path('testinguser')
+    get new_profile_themes_path('testinguser')
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/new', :method => /post/i }, :descendant => { :tag => 'input', :attributes => { :type => 'text', :name => 'name' } }
   end
 
   should 'create a new theme' do
-    post new_profile_theme_path('testinguser'), params: {:name => 'My theme'}
+    post new_profile_themes_path('testinguser'), params: {:name => 'My theme'}
 
     ok('theme should be created') do
       profile.themes.first.id == 'my-theme'

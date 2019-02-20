@@ -2,8 +2,10 @@ Noosfero::Application.routes.draw do
 
   scope :myprofile do
     scope ':profile', profile: /[^\/]+/ do
-      resources :profile_themes, only: [:new, :index, :edit] do
+      resources :profile_themes, only: [:edit] do
         collection do
+          match 'new', to: 'profile_themes#new', via: [:get, :post], as: :new
+          match 'index', to: 'profile_themes#index', via: [:get, :post]
           get 'unset'
         end
     

@@ -210,17 +210,17 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
   should 'give link to edit the article for owner' do
     login_as_rails5('testinguser')
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
-    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/#{@profile.home_page.id}/edit" } }
   end
   should 'not give link to edit the article for non-logged-in people' do
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
-    !assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    !assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/#{@profile.home_page.id}/edit" } }
   end
   should 'not give link to edit article for other people' do
     login_as_rails5(create_user('anotheruser').login)
 
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
-    !assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    !assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/#{@profile.home_page.id}/edit" } }
   end
 
   should 'give link to create new article' do
@@ -832,7 +832,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'ul',
                :attributes => { :class => 'noosfero-dropdown-menu' },
                :descendant => { :tag => 'a',
-                                :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" },
+                                :attributes => { :href => "/myprofile/testinguser/cms/#{blog.id}/edit" },
                                 :descendant => { :tag => 'i',
                                                  :attributes => { :class => 'fa fa-edit' }}
                               }
@@ -1024,7 +1024,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'ul',
                :attributes => { :class => 'noosfero-dropdown-menu' },
                :descendant => { :tag => 'a',
-                                :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" },
+                                :attributes => { :href => "/myprofile/testinguser/cms/#{forum.id}/edit" },
                                 :descendant => { :tag => 'i',
                                                  :attributes => { :class => 'fa fa-edit' }}
                               }
@@ -1093,7 +1093,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
     en_article = fast_create(TextArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
     es_article = fast_create(TextArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
     FastGettext.stubs(:locale).returns('es')
-    get page_path(@profile.identifier, :page => es_article.path), headers: { "HTTP_REFERER" => "http://localhost/myprofile/#{@profile.identifier}/cms/edit/#{en_article.id}"}
+    get page_path(@profile.identifier, :page => es_article.path), headers: { "HTTP_REFERER" => "http://localhost/myprofile/#{@profile.identifier}/cms/#{en_article.id}/edit"}
     assert_response :success
     assert_equal es_article, assigns(:page)
   end
@@ -1290,7 +1290,7 @@ class ContentViewerControllerTest < ActionDispatch::IntegrationTest
 
     login_as_rails5('testinguser')
     get page_path('testinguser', :page => []), params: { :toolbar => true}, xhr: true
-    !assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
+    !assert_tag :tag => 'ul', :attributes => { :class => 'noosfero-dropdown-menu' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/#{profile.home_page.id}/edit" } }
   end
 
   should 'expire article actions button if any plugins says so' do
