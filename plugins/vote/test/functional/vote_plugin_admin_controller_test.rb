@@ -1,5 +1,5 @@
 require 'test_helper'
-require_relative '../../controllers/vote_plugin_admin_controller'
+require_relative '../../controllers/admin/vote_plugin_admin_controller'
 
 class VotePluginAdminControllerTest < ActionController::TestCase
 
