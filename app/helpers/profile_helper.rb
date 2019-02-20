@@ -194,15 +194,15 @@ module ProfileHelper
   end
 
   def treat_admins(admins)
-    profile.admins.map { |admin| link_to(admin.short_name, admin.url)}.join(', ')
+    profile.admins.map { |admin| link_to(admin.short_name, view_page_path(admin.identifier))}.join(', ')
   end
 
   def treat_blogs(blog)
-    link_to(n_('One post', '%{num} posts', blog.posts.published.count) % { :num => blog.posts.published.count }, blog.url)
+    link_to(n_('One post', '%{num} posts', blog.posts.published.count) % { :num => blog.posts.published.count }, page_path(blog.profile.identifier, page: blog.page_path))
   end
 
   def treat_image_galleries(gallery)
-    link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, gallery.url)
+    link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, page_path(gallery.profile.identifier, page: gallery.page_path))
   end
 
   def treat_followers(followers)

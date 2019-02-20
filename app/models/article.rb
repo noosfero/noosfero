@@ -412,6 +412,10 @@ class Article < ApplicationRecord
     @url ||= self.profile.url.merge(:page => path.split('/'))
   end
 
+  def page_path
+    path.split('/')
+  end
+
   def view_url
     @view_url ||= is_a?(UploadedFile) ? url.merge(:view => true) : url
   end

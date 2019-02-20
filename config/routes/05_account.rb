@@ -11,10 +11,10 @@ Noosfero::Application.routes.draw do
     match 'change_password', to: 'account#change_password', via: :all, on: :collection
   
     collection do
+      match 'logout', to: 'account#logout', via: [:get, :post]
       get 'resend_activation_codes'
       get 'logout_popup'
       get 'login_popup'
-      get 'logout'
       get 'activation_question'
       get 'welcome'
       get 'check_valid_name'

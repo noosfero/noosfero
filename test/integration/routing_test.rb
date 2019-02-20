@@ -180,9 +180,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
     community = Community.create!(:identifier => 'testcomm', :name => "test community")
     domain = Domain.new(:name => 'example.com').tap { |d| d.owner = community; d.save! }
 
-    ActionDispatch::Request.any_instance.stubs(:host).returns('www.example.com')
-
-    assert_routing('/profile/testcomm/refuse_for_now', :controller => 'profile', :action =>  'refuse_for_now', :profile => 'testcomm')
+    assert_routing('/profile/testcomm/about', :controller => 'profile', :action =>  'about', :profile => 'testcomm')
   end
 
   def test_must_not_route_as_profile_hosted_domain_for_domains_registered_for_environments
