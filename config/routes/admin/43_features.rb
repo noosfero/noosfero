@@ -1,10 +1,10 @@
 Noosfero::Application.routes.draw do
 
   scope :admin do
+    match 'features', to: 'features#index', via: [:get, :post]
     resources :features, only:  [] do
       collection do
         match 'update', to: 'features#update', via: [:get, :post], as: :update
-        match 'index', to: 'features#index', via: [:get, :post]
         get :manage_fields
 	post :manage_person_fields
 	post :manage_enterprise_fields
