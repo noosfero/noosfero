@@ -16,6 +16,7 @@ Noosfero::Application.routes.draw do
           get 'preferences'
           get 'update_categories'
           get 'regions'
+          get 'edit'
         
           get 'search_tags'
           get 'tags'
