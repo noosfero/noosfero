@@ -7,5 +7,6 @@ class SiteTourPluginPublicController < PublicController
     user.site_tour_plugin_actions.uniq!
     render :json => {:ok => user.save}
   end
+  alias :index :mark_action
 
 end
