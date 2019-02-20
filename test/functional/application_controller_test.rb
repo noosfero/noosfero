@@ -166,8 +166,6 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'display link to webmail if enabled for system' do
     @controller.stubs(:get_layout).returns('application')
     login_as('ze')
-    MailConf.expects(:enabled?).returns(true)
-    MailConf.expects(:webmail_url).returns('http://web.mail/')
 
     get :index
     assert_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
@@ -176,7 +174,6 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'not display link to webmail if not enabled for system' do
     @controller.stubs(:get_layout).returns('application')
     login_as('ze')
-    MailConf.expects(:enabled?).returns(false)
 
     get :index
     !assert_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
@@ -189,12 +186,8 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should 'display theme test panel when testing theme' do
-    @request.session[:user_theme] = 'my-test-theme'
     theme = mock
     profile = mock
-    theme.expects(:owner).returns(profile).at_least_once
-    profile.expects(:identifier).returns('testinguser').at_least_once
-    Theme.expects(:find).with('my-test-theme').returns(theme).at_least_once
     get :index
 
     assert_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }, :descendant => {
@@ -272,7 +265,6 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should 'not display invisible blocks' do
-    @controller.expects(:uses_design_blocks?).returns(true)
     p = create_user('test_user').person
     @controller.expects(:profile).at_least_once.returns(p)
 

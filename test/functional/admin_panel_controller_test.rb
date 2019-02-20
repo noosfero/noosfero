@@ -9,9 +9,9 @@ class AdminPanelControllerTest < ActionController::TestCase
 
   should 'manage the correct environment' do
     current = fast_create(Environment, :name => 'test environment', is_default: false)
-    current.domains.create!(:name => 'example.com')
+    d = current.domains.create!(:name => 'example.com')
 
-    @request.expects(:host).returns('example.com').at_least_once
+    Domain.stubs(:by_name).returns(d)
     get :index
     assert_equal current, assigns(:environment)
   end
