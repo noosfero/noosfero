@@ -89,7 +89,7 @@ module NavigationHelpers
 
     when /^"(.+)" edit page/
       article = Article.find_by name: $1
-      '/myprofile/%s/cms/edit/%s' % [article.profile.identifier, article.id]
+      '/myprofile/%s/cms/%s/edit' % [article.profile.identifier, article.id]
 
     when /^(.+)'s members management/
       '/myprofile/%s/profile_members' % Profile.find_by(name: $1).identifier
