@@ -4,6 +4,7 @@ Noosfero::Application.routes.draw do
     match 'signup', to: 'account#signup', via: :all, on: :collection
     match 'forgot_password', to: 'account#forgot_password', via: :all, on: :collection
     match 'new_password', to: 'account#new_password', via: :all, on: :collection
+    match 'new_password/:code', to: 'account#new_password', via: :all, on: :collection
     match 'activate_enterprise', to: 'account#activate_enterprise', via: :all, on: :collection
     match 'accept_terms', to: 'account#accept_terms', via: :all, on: :collection
     match 'login', to: 'account#login', via: :all, on: :collection
