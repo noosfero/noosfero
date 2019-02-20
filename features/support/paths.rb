@@ -31,13 +31,13 @@ module NavigationHelpers
 
     when /edit "(.+)" by (.+)/
       article_id = Person[$2].articles.find_by(slug: $1.to_slug).id
-      "/myprofile/#{$2}/cms/edit/#{article_id}"
+      "/myprofile/#{$2}/cms/#{article_id}/edit"
 
     when /edit (.*Block) of (.+)/
       owner = Profile[$2]
       klass = $1.constantize
       block = klass.all.select{|i| i.owner == owner}.first
-      "/myprofile/#{$2}/profile_design/edit/#{block.id}"
+      "/myprofile/#{$2}/profile_design/#{block.id}/edit"
 
     when /^(.*)'s homepage$/
       '/' + profile_identifier($1)

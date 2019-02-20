@@ -12,15 +12,15 @@ Noosfero::Application.routes.draw do
           match 'destroy_profile', to: 'profile_editor#destroy_profile', via: :all
           match 'welcome_page', to: 'profile_editor#welcome_page', via: :all
           match 'categories', to: 'profile_editor#categories', via: [:get, :post]
+          match 'locality', to: 'profile_editor#locality', via: [:get, :post]
     
           get 'preferences'
           get 'update_categories'
           get 'regions'
-          get 'edit'
+#          get 'edit'
         
           get 'search_tags'
           get 'tags'
-          get 'locality'
           get 'deactivate_profile'
           get 'activate_profile'
           get 'reset_private_token'
