@@ -12,11 +12,14 @@ module ActsAsHavingImage
       include ActsAsHavingImage
 
       define_method "#{image_field}_builder=" do |img|
+
+        uploaded_data = img[:uploaded_data] || img['uploaded_data']
+
         if self[image_field] && self[image_field].id == img[:id]
           self[image_field].attributes = img
         else
           send("build_#{image_field}", img)
-        end unless img['uploaded_data'].blank?
+        end unless uploaded_data.blank?
         if img[:remove_image] == 'true'
           self["#{image_field}_id"] = nil
         end
