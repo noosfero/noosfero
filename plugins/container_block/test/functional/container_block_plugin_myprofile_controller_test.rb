@@ -1,10 +1,10 @@
 require 'test_helper'
 
-class ContainerBlockPluginMyprofileControllerTest < ActionController::TestCase
+class ContainerBlockPluginMyprofileControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     user = create_user('testinguser')
-    login_as(user.login)
+    login_as_rails5(user.login)
 
     @profile = fast_create(Community)
     @profile.add_admin(user.person)
@@ -16,7 +16,7 @@ class ContainerBlockPluginMyprofileControllerTest < ActionController::TestCase
   end
 
   should 'save widths of container block children' do
-    xhr :post, :saveWidths, :profile => @profile.identifier, :id => @block.id, :widths => "#{@child1.id},100|#{@child2.id},200"
+    post container_block_plugin_myprofile_path( @profile.identifier, :saveWidths, @block), params: {:widths => "#{@child1.id},100|#{@child2.id},200"}
     assert_response 200
     assert_equal 'Block successfully saved.', @response.body
     @block.reload

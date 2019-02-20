@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ContainerBlockPluginAdminControllerTest < ActionController::TestCase
+class ContainerBlockPluginAdminControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     Environment.delete_all
@@ -10,7 +10,7 @@ class ContainerBlockPluginAdminControllerTest < ActionController::TestCase
 
     user = create_user('testinguser')
     @environment.add_admin(user.person)
-    login_as(user.login)
+    login_as_rails5(user.login)
 
     @block = ContainerBlockPlugin::ContainerBlock.create!(:box_id => @environment.boxes.first.id)
     @child1 = Block.create!(:box_id => @block.container_box.id)
@@ -18,7 +18,7 @@ class ContainerBlockPluginAdminControllerTest < ActionController::TestCase
   end
 
   should 'save widths of container block children' do
-    xhr :post, :saveWidths, :id => @block.id, :widths => "#{@child1.id},100|#{@child2.id},200"
+    post container_block_plugin_admin_path(:saveWidths, @block.id), params: {:widths => "#{@child1.id},100|#{@child2.id},200"}
     assert_response 200
     assert_equal 'Block successfully saved.', @response.body
     @block.reload
