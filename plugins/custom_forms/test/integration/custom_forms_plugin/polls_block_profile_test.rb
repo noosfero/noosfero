@@ -41,7 +41,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'list forms accessible to logged users' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
@@ -52,7 +52,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'list forms accessible to member users' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @profile.add_member(@user)
 
     get "/profile/#{@profile.identifier}"
@@ -65,7 +65,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'render submission in block and main content with different names' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     submission = CustomFormsPlugin::Submission.new(form: @form1, profile: @user)
     submission.build_answers('0' => '0')
     submission.save!
@@ -78,14 +78,14 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'display submission form if poll is open and user did not answer it' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'form',
                ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
   should 'display submission in the block if the user answered the poll' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     submission = CustomFormsPlugin::Submission.new(form: @form1, profile: @user)
     submission.build_answers('0' => '0')
     submission.save!
@@ -155,14 +155,14 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'not display partial results link if poll results are private' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @form1.update_attributes(access_result_options: 'private')
     !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                    ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
   should 'display partial results link if poll results are private but user is a profile admin' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @form1.update_attributes(access_result_options: 'private')
     @profile.add_admin(@user)
 
@@ -172,7 +172,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'display partial results link if poll results are private but user is an env admin' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @form1.update_attributes(access_result_options: 'private')
     Environment.default.add_admin(@user)
 
@@ -182,7 +182,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'not display result chart or results link if the results are not available' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @form1.update_attributes(access_result_options: 'private',
                              ending: 1.day.ago)
     submission = CustomFormsPlugin::Submission.new(form: @form1, profile: @user)

@@ -41,7 +41,7 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
   end
 
   should 'list surveys accessible to logged users' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
@@ -52,7 +52,7 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
   end
 
   should 'list surveys accessible to member users' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @profile.add_member(@user)
 
     get "/profile/#{@profile.identifier}"
