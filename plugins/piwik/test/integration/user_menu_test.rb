@@ -2,12 +2,12 @@ require "test_helper"
 
 class AssetsMenuTest < ActionDispatch::IntegrationTest
   def setup
-    @person = create_user('testuser', password: 'test').person
+    @person = create_user('testuser').person
     @environment = Environment.default
 
     @environment.enable_plugin(PiwikPlugin)
     @person.user.activate!
-    login('testuser', 'test')
+    login_as_rails5('testuser')
   end
 
   should 'not display link if piwik domain was not set' do
