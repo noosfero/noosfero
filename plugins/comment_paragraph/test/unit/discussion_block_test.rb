@@ -4,9 +4,10 @@ class DiscussionBlockTest < ActiveSupport::TestCase
   def setup
     @environment = Environment.default
     @environment.enable_plugin(CommentParagraphPlugin)
+    @user = create_user('testuser').person
   end
 
-  attr_reader :environment
+  attr_reader :environment, :user
 
   should 'describe itself' do
     assert_not_equal Block.description, CommentParagraphPlugin::DiscussionBlock.description
@@ -83,6 +84,19 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     fast_create(TextArticle, :profile_id => community.id)
     a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
     assert_equivalent [a1, a2], b.discussions
+  end
+
+  should 'discussions return only article with user permissions' do
+    puts user.inspect
+    # assert false
+    community = fast_create(Community)
+    community.boxes << Box.new
+    b = CommentParagraphPlugin::DiscussionBlock.new
+    b.box = community.boxes.last
+    b.save
+    a1 = fast_create(CommentParagraphPlugin::Discussion, access: Entitlement::Levels.levels[:admin],  :profile_id => community.id)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
+    assert_equivalent [a2], b.discussions(user)
   end
 
   should 'return only not opened discussions if discussion status is not opened odered by end_date' do
