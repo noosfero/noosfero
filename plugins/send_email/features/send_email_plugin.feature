@@ -26,7 +26,7 @@ Feature: send_email_plugin
     Given I am logged in as admin
     When I go to the environment control panel
     And I follow "Plugins"
-    Then I should see "Configuration" linking to "/admin/plugin/send_email"
+    Then I should see "Configuration" linking to "/admin/plugin/send_email/admin"
 
   Scenario: configure plugin to allow emails to john@example.com
     Given I am logged in as admin
