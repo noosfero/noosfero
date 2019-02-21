@@ -317,8 +317,10 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'not list inactive people' do
     owner = fast_create(Environment)
-    person1 = create_user('John', environment: owner, activated_at: DateTime.now).person
-    person2 = create_user('Andrew', environment: owner).person
+    person1 = create_user('john', environment: owner).person
+    person2 = create_user('andrew', environment: owner).person
+    person2.user.deactivate
+    person2.reload
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
     assert_equal [person1.id], block.profile_list.map(&:id)
