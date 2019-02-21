@@ -21,7 +21,7 @@ class MailconfController < MyProfileController
     begin
       @task.save!
       session[:notice] = _('Please fill your personal information below in order to get your mailbox approved by one of the administrators')
-      redirect_to :controller => 'profile_editor', :action => 'edit'
+      redirect_to informations_profile_editor_index_path
     rescue Exception => ex
       session[:notice] = _('e-Mail was not enabled successfully.')
       render :action => 'index'
@@ -31,7 +31,7 @@ class MailconfController < MyProfileController
   def disable
     if profile.user.disable_email!
       session[:notice] = _('e-Mail disabled successfully.')
-      redirect_to :controller => 'profile_editor'
+      redirect_to profile_editor_index_path
     else
       session[:notice] = _('e-Mail was not disabled successfully.')
       redirect_to :action => 'index'

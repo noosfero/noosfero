@@ -104,13 +104,13 @@ class MailconfControllerTest < ActionController::TestCase
   should 'go back on save' do
     login_as('ze')
     post :enable, :profile => 'ze'
-    assert_redirected_to :controller => 'profile_editor', :action => 'edit'
+    assert_redirected_to :controller => 'profile_editor', :action => 'informations'
   end
 
   should 'go to profile editor after enable email' do
     login_as('ze')
     post :enable, :profile => 'ze'
-    assert_redirected_to :controller => 'profile_editor', :action => 'edit'
+    assert_redirected_to :controller => 'profile_editor', :action => 'informations'
   end
 
   should 'display notice after saving' do

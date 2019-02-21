@@ -14,10 +14,10 @@ Noosfero::Application.routes.draw do
           match 'categories', to: 'profile_editor#categories', via: [:get, :post]
           match 'locality', to: 'profile_editor#locality', via: [:get, :post]
           match 'preferences', to: 'profile_editor#preferences', via: [:get, :post]
+          match 'edit', to: 'profile_editor#edit', via: [:get, :post]
     
           get 'update_categories'
           get 'regions'
-          get 'edit'
         
           get 'search_tags'
           get 'tags'
