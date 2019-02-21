@@ -8,11 +8,12 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @profile = create_user_with_permission('testinguser', 'post_content')
+    @user = @profile.user
     logout_rails5
     login_as_rails5 :testinguser
   end
 
-  attr_reader :profile
+  attr_reader :profile, :user
 
   should 'list top level documents on index' do
     get cms_index_path(profile.identifier)

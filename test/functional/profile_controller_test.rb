@@ -6,8 +6,9 @@ class ProfileControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @profile = create_user('testuser').person
+    @user = @profile.user
   end
-  attr_reader :profile
+  attr_reader :profile, :user
 
   should 'list friends in alphabetical order' do
     profile.add_friend(create_user('angela').person)

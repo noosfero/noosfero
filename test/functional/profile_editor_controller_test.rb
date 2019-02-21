@@ -5,10 +5,11 @@ class ProfileEditorControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     @profile = create_user('default_user').person
+    @user = @profile.user
     Environment.default.affiliate(@profile, [Environment::Roles.admin(Environment.default.id)] + Profile::Roles.all_roles(Environment.default.id))
     login_as_rails5('default_user')
   end
-  attr_reader :profile
+  attr_reader :profile, :user
 
   def test_index
     get profile_editor_index_path(profile.identifier)

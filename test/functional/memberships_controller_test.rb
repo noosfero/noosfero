@@ -8,9 +8,10 @@ class MembershipsControllerTest < ActionController::TestCase
     @controller = MembershipsController.new
 
     @profile = create_user('testuser').person
+    @user = @profile.user
     login_as('testuser')
   end
-  attr_reader :profile
+  attr_reader :profile, :user
 
   should 'list current memberships' do
     get :index, :profile => profile.identifier
