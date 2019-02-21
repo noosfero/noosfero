@@ -6,7 +6,7 @@ Noosfero::Application.routes.draw do
         collection do
           match 'suggest_an_article', to: 'cms#suggest_an_article', via: [:get, :post]
           match 'new', as: 'new', to: 'cms#new', via: [:get, :post]
-    
+          match 'search_communities_to_publish', to: 'cms#search_communities_to_publish', via: [:get, :post]
           match 'upload_files', to: 'cms#upload_files', via: [:get, :post]
           post 'media_upload'
           post 'set_home_page'
