@@ -13,9 +13,28 @@ Noosfero::Application.routes.draw do
 
 
         match 'follow', to: 'profile#follow', via: [:get, :post]
+        match 'follow_article', to: 'profile#follow_article', via: [:get, :post]
+        match 'unfollow', to: 'profile#unfollow', via: [:get, :post]
+        match 'unfollow_article', to: 'profile#unfollow_article', via: [:get, :post]
+        match 'report_abuse', to: 'profile#report_abuse', via: [:get, :post]
         match 'leave', to: 'profile#leave', via: [:get, :post]
         match 'join', to: 'profile#join', via: [:get, :post]
+        match 'join_not_logged', to: 'profile#join_not_logged', via: [:get, :post]
         match 'tags/:id', to: 'profile#content_tagged', via: :all, id: /[^\/]+/
+        match 'find_profile_circles', to: 'profile#find_profile_circles', via: [:get, :post]
+        match 'unblock', to: 'profile#unblock', via: [:get, :post]
+        match 'more_comments', to: 'profile#more_comments', via: [:get, :post]
+        match 'more_replies', to: 'profile#more_replies', via: [:get, :post]
+        match 'view_more_activities', to: 'profile#view_more_activities', via: [:get, :post]
+        match 'join_modal', to: 'profile#join_modal', via: [:get, :post]
+        match 'add', to: 'profile#add', via: [:get, :post]
+        match 'leave_scrap', to: 'profile#leave_scrap', via: [:get, :post]
+        match 'leave_comment_on_activity', to: 'profile#leave_comment_on_activity', via: [:get, :post]
+        match 'remove_scrap', to: 'profile#remove_scrap', via: [:get, :post]
+        match 'remove_activity', to: 'profile#remove_activity', via: [:get, :post]
+        match 'remove_notification', to: 'profile#remove_notification', via: [:get, :post]
+        match 'register_report', to: 'profile#register_report', via: [:get, :post]
+        match 'remove_comment', to: 'profile#remove_comment', via: [:get, :post]
 
         get :about
         get :activities
@@ -28,30 +47,9 @@ Noosfero::Application.routes.draw do
         get :fans
         get :favorite_enterprises
         get :sitemap
-        get :join_not_logged
         get :check_membership
-        get :find_profile_circles
         get :check_friendship
-        get :unblock
         get :search_followed
-        get :view_more_activities
-        get :more_comments
-        get :more_replies
-
-
-        post :join_modal
-        post :add
-        post :unfollow
-        post :follow_article
-        post :unfollow_article
-        post :leave_scrap
-        post :leave_comment_on_activity
-        post :remove_scrap
-        post :remove_activity
-        post :remove_notification
-        post :report_abuse
-        post :register_report
-        post :remove_comment
 
 	# FIXME see if it's needed. See helper links_for_balloon
         get :events
