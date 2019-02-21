@@ -106,7 +106,7 @@ module ProfileImageHelper
       elsif profile.kind_of?(Enterprise)
         return [
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
-          {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
+          {_('Agenda') => {:href => url_for(:controller => :events, :action => :events, :profile => profile.identifier)}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
         ]
       end
