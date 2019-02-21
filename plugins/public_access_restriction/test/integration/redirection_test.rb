@@ -27,7 +27,7 @@ class RedirectionTest < ActionDispatch::IntegrationTest
     data = { show_public_page: true, public_page_content: 'This is public' }
     Noosfero::Plugin::Settings.new(@profile, PublicAccessRestrictionPlugin, data).save!
 
-    login 'testuser', 'testuser'
+    login_as_rails5 'testuser'
     get "/profile/#{@profile.identifier}/plugin/public_access_restriction/public_page"
     assert_redirected_to controller: 'profile', action: 'index'
   end

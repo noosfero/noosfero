@@ -1,36 +1,37 @@
 require_relative '../../test_helper'
+require_relative '../../../models/products_plugin/product_category'
 
-class PageControllerTest < ActionController::TestCase
+class PageControllerTest < ActionDispatch::IntegrationTest
 
   all_fixtures
 
   def setup
-    @controller       = ProductsPlugin::PageController.new
     @enterprise       = fast_create Enterprise, name: 'teste', identifier: 'test_ent'
     @environment      = @enterprise.environment
     @user             = create_user_with_permission 'test_user', 'manage_products', @enterprise
     @product_category = create ProductCategory, name: 'Root Category', environment_id: @environment.id
     @unit             = Unit.create environment: @environment
 
-    login_as :test_user
+    login_as_rails5 :test_user
   end
 
   should "not have permission" do
     u = create_user('user_test')
-    login_as :user_test
-    get 'index', profile: @enterprise.identifier
+    logout_rails5
+    login_as_rails5 :user_test
+    get  products_plugin_page_path(@enterprise.identifier, action: :index)
     assert :success
     assert_template 'shared/access_denied'
   end
 
   should "get index" do
-    get 'index', profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :index)
     assert_response :success
     assert assigns(:products)
   end
 
   should "get new form" do
-    get 'new', profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :new)
     assert_response :success
     assert assigns(:product)
     assert_template 'new'
@@ -39,7 +40,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "create new product" do
     assert_difference 'Product.count' do
-      post 'new', profile: @enterprise.identifier, product: {name: 'test product'}, selected_category_id: @product_category.id
+      post products_plugin_page_path(@enterprise.identifier, action: :new), params: {product: {name: 'test product'}, selected_category_id: @product_category.id}
       assert assigns(:product)
       refute assigns(:product).new_record?
     end
@@ -47,7 +48,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "not create invalid product" do
     assert_no_difference 'Product.count' do
-      post 'new', profile: @enterprise.identifier, product: {name: 'test product'}
+      post products_plugin_page_path(@enterprise.identifier, action: :new), params: {product: {name: 'test product'}}
       assert_response :success
       assert assigns(:product)
       assert assigns(:product).new_record?
@@ -56,7 +57,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "get edit name form" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get 'edit', profile: @enterprise.identifier, id: product.id, field: 'name'
+    get products_plugin_page_path(@enterprise.identifier, action: :edit), params: {id: product.id, field: 'name'}
     assert_response :success
     assert assigns(:product)
     assert_tag tag: 'form', attributes: { action: /profile\/#{@enterprise.identifier}\/plugin\/products\/page\/edit\/#{product.id}\?field=name/ }
@@ -64,7 +65,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "get edit info form" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get 'edit', profile: @enterprise.identifier, id: product.id, field: 'info'
+    get products_plugin_page_path(@enterprise.identifier, action: :edit), params: { id: product.id, field: 'info'}
     assert_response :success
     assert assigns(:product)
     assert_tag tag: 'form', attributes: { action: /profile\/#{@enterprise.identifier}\/plugin\/products\/page\/edit\/#{product.id}\?field=info/ }
@@ -72,7 +73,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "get edit image form" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get 'edit', profile: @enterprise.identifier, id: product.id, field: 'image'
+    get products_plugin_page_path(@enterprise.identifier, action: :edit), params: { id: product.id, field: 'image'}
     assert_response :success
     assert assigns(:product)
     assert_tag tag: 'form', attributes: { action: /profile\/#{@enterprise.identifier}\/plugin\/products\/page\/edit\/#{product.id}\?field=image/ }
@@ -80,7 +81,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "edit product name" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    post :edit, profile: @enterprise.identifier, products_plugin_product: {name: 'new test product'}, id: product.id, field: 'name'
+    post products_plugin_page_path(@enterprise.identifier, action: :edit), params: {products_plugin_product: {name: 'new test product'}, id: product.id, field: 'name'}
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
@@ -89,7 +90,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "edit product description" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id, description: 'My product is very good')
-    post :edit, profile: @enterprise.identifier, products_plugin_product: {description: 'A very good product!'}, id: product.id, field: 'info'
+    post products_plugin_page_path(@enterprise.identifier, action: :edit), params: {products_plugin_product: {description: 'A very good product!'}, id: product.id, field: 'info'}
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
@@ -98,7 +99,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "edit product image" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    post :edit, profile: @enterprise.identifier, products_plugin_product: { image_builder: { uploaded_data: fixture_file_upload('/files/rails.png', 'image/png') } }, id: product.id, field: 'image'
+    post products_plugin_page_path(@enterprise.identifier, action: :edit), params: {products_plugin_product: { image_builder: { uploaded_data: fixture_file_upload('/files/rails.png', 'image/png') } }, id: product.id, field: 'image'}
     assert_response :success
     assert assigns(:product)
     refute  assigns(:product).new_record?
@@ -107,7 +108,7 @@ class PageControllerTest < ActionController::TestCase
 
   should "not edit to invalid parameters" do
     product = fast_create(Product, profile_id: @enterprise.id, product_category_id: @product_category.id)
-    post 'edit_category', profile: @enterprise.identifier, selected_category_id: nil, id: product.id
+    post products_plugin_page_path(@enterprise.identifier, action: :edit_category), params: {selected_category_id: nil, id: product.id}
     assert_response :success
     assert_template 'shared/_dialog_error_messages'
   end
@@ -115,14 +116,14 @@ class PageControllerTest < ActionController::TestCase
   should "not crash if product has no category" do
     product = fast_create(Product, profile_id: @enterprise.id)
     assert_nothing_raised do
-      post 'edit_category', profile: @enterprise.identifier, id: product.id
+      post products_plugin_page_path(@enterprise.identifier, action: :edit_category), params: {id: product.id}
     end
   end
 
   should "destroy product" do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
     assert_difference 'Product.count', -1 do
-      post 'destroy', profile: @enterprise.identifier, id: product.id
+      post products_plugin_page_path(@enterprise.identifier, action: :destroy), params: {id: product.id}
       assert_response :redirect
       assert_redirected_to action: 'index'
       assert assigns(:product)
@@ -134,7 +135,7 @@ class PageControllerTest < ActionController::TestCase
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
     Product.any_instance.stubs(:destroy).returns(false)
     assert_no_difference 'Product.count' do
-      post 'destroy', profile: @enterprise.identifier, id: product.id
+      post products_plugin_page_path(@enterprise.identifier, action: :destroy), params: {id: product.id}
       assert_response :redirect
       assert_redirected_to controller: "products_plugin/page", profile: @enterprise.identifier, action: 'show', id: product.id
       assert assigns(:product)
@@ -144,14 +145,14 @@ class PageControllerTest < ActionController::TestCase
 
   should 'show categories selection' do
     create ProductCategory, name: 'Category 2', parent_id: @product_category.id
-    get :new, profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :new)
     assert_tag tag: 'select', attributes: { id: 'category_id' }, descendant: { tag: 'option', content: /#{@product_category.name}/ }
   end
 
   should "create new product categorized" do
     category2 = fast_create(ProductCategory, name: 'Category 2', parent_id: @product_category)
     assert_difference 'Product.count' do
-      post 'new', profile: @enterprise.identifier, product: { name: 'test product' }, selected_category_id: category2.id
+      post products_plugin_page_path(@enterprise.identifier, action: :new), params: { product: { name: 'test product' }, selected_category_id: category2.id}
       assert_equal category2, assigns(:product).product_category
     end
   end
@@ -159,25 +160,25 @@ class PageControllerTest < ActionController::TestCase
   should 'not create a new product with an invalid category' do
     category2 = create(Category, name: 'Category 2', parent_id: @product_category)
     assert_raise ActiveRecord::AssociationTypeMismatch do
-      post 'new', profile: @enterprise.identifier, product: { name: 'test product' }, selected_category_id: category2.id
+      post products_plugin_page_path(@enterprise.identifier, action: :new), params: { product: { name: 'test product' }, selected_category_id: category2.id}
     end
   end
 
   should 'filter html from name of product' do
-    post 'new', profile: @enterprise.identifier, products_plugin_product: { name: "<b id='html_name'>name bold</b>" }, selected_category_id: @product_category.id
+    post products_plugin_page_path(@enterprise.identifier, action: :new), params: {products_plugin_product: { name: "<b id='html_name'>name bold</b>" }, selected_category_id: @product_category.id}
     assert_sanitized assigns(:product).name
   end
 
   should 'filter html with white list from description of product' do
     product = fast_create(Product, profile_id: @enterprise.id, product_category_id: @product_category.id)
-    post 'edit', profile: @enterprise.identifier, id: product.id, field: 'info', products_plugin_product: { name: 'name', description: "<b id=\"html_descr\">descr bold</b>" }
+    post products_plugin_page_path(@enterprise.identifier, action: :edit), params: {id: product.id, field: 'info', products_plugin_product: { name: 'name', description: "<b id=\"html_descr\">descr bold</b>" }}
     assert_equal "<b id=\"html_descr\">descr bold</b>", assigns(:product).description
   end
 
   should 'show top level product categories for the user to choose' do
     pc2 = create(ProductCategory, name: 'test_category2')
 
-    get :new, profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :new)
 
     assert_equivalent ProductCategory.top_level_for(@product_category.environment), assigns(:categories)
   end
@@ -186,54 +187,54 @@ class PageControllerTest < ActionController::TestCase
     category_level1 = create ProductCategory, parent_id: @product_category.id, name: 'Shoes', environment_id: @environment.id
     category_level2 = create ProductCategory, parent_id: category_level1.id, name: 'Athletic Shoes', environment_id: @environment.id
 
-    get :categories_for_selection, profile: @enterprise.identifier, category_id: nil
+    get products_plugin_page_path(@enterprise.identifier, action: :categories_for_selection), params: {category_id: nil}
     assert_equal 0, assigns(:level)
 
-    get :categories_for_selection, profile: @enterprise.identifier, category_id: @product_category.id
+    get products_plugin_page_path(@enterprise.identifier, action: :categories_for_selection), params: {category_id: @product_category.id}
     assert_equal 1, assigns(:level)
 
-    get :categories_for_selection, profile: @enterprise.identifier, category_id: category_level1.id
+    get products_plugin_page_path(@enterprise.identifier, action: :categories_for_selection), params: {category_id: category_level1.id}
     assert_equal 2, assigns(:level)
   end
 
   should 'remember the selected category' do
     category2 = create ProductCategory, name: 'Shoes', environment_id: @environment.id
 
-    get :categories_for_selection, profile: @enterprise.identifier, category_id: @product_category.id
+    get products_plugin_page_path(@enterprise.identifier, action: :categories_for_selection), params: {category_id: @product_category.id}
     assert_equal @product_category, assigns(:category)
 
-    get :categories_for_selection, profile: @enterprise.identifier, category_id: category2.id
+    get products_plugin_page_path(@enterprise.identifier, action: :categories_for_selection), params: { category_id: category2.id}
     assert_equal category2, assigns(:category)
   end
 
   should 'list top level categories when has no category_id' do
-    get :categories_for_selection, profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :categories_for_selection)
 
     assert_equal ProductCategory.top_level_for(@environment), assigns(:categories)
   end
 
   should 'render dialog_error_messages template for invalid product' do
-    post :new, profile: @enterprise.identifier, product: { name: 'Invalid product' }
+    post  products_plugin_page_path(@enterprise.identifier, action: :new), params: {product: { name: 'Invalid product' }}
     assert_template 'shared/_dialog_error_messages'
   end
 
   should 'render redirect_via_javascript template after save' do
     assert_difference 'Product.count' do
-      post :new, profile: @enterprise.identifier, product: { name: 'Invalid product' }, selected_category_id: @product_category.id
+      post products_plugin_page_path(@enterprise.identifier, action: :new), params: {product: { name: 'Invalid product' }, selected_category_id: @product_category.id}
       assert_template 'shared/_redirect_via_javascript'
     end
   end
 
   should 'show product of enterprise' do
     prod = @enterprise.products.create!(name: 'Product test', product_category: @product_category)
-    get :show, id: prod.id, profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :show), params: {id: prod.id}
     assert_tag tag: 'h2', content: /#{prod.name}/
   end
 
   should 'link back to index from product show' do
     enterprise = create(Enterprise, name: 'test_enterprise_1', identifier: 'test_enterprise_1', environment: Environment.default)
     prod = enterprise.products.create!(name: 'Product test', product_category: @product_category)
-    get :show, id: prod.id, profile: enterprise.identifier
+    get products_plugin_page_path(enterprise.identifier, action: :show), params: { id: prod.id}
     assert_tag({
       tag: 'a',
       attributes: {
@@ -245,14 +246,14 @@ class PageControllerTest < ActionController::TestCase
 
   should 'not show product price when showing product if not informed' do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
 
     !assert_tag tag: 'span', attributes: { class: 'product_price' }, content: /Price:/
   end
 
   should 'show product price when showing product if unit was informed' do
     product = fast_create(Product, name: 'test product', price: 50.00, unit_id: @unit.id, profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
 
     assert_tag tag: 'span', attributes: { class: 'field-name' }, content: /Price:/
     assert_tag tag: 'span', attributes: { class: 'field-value' }, content: '$ 50.00'
@@ -260,7 +261,7 @@ class PageControllerTest < ActionController::TestCase
 
   should 'show product price when showing product if discount was informed' do
     product = fast_create(Product, name: 'test product', price: 50.00, unit_id: @unit.id, discount: 3.50, profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
 
     assert_tag tag: 'span', attributes: { class: 'field-name' }, content: /List price:/
     assert_tag tag: 'span', attributes: { class: 'field-value' }, content: '$ 50.00'
@@ -270,7 +271,7 @@ class PageControllerTest < ActionController::TestCase
 
   should 'show product price when showing product if unit not informed' do
     product = fast_create(Product, name: 'test product', price: 50.00, profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
 
     assert_tag tag: 'span', attributes: { class: 'field-name' }, content: /Price:/
     assert_tag tag: 'span', attributes: { class: 'field-value' }, content: '$ 50.00'
@@ -278,7 +279,7 @@ class PageControllerTest < ActionController::TestCase
 
   should 'display button to add input when product has no input' do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
 
     assert_tag tag: 'div', attributes: { id: 'display-add-input-button'},
       descendant: {tag: 'a', attributes: { href: /\/profile\/#{@enterprise.identifier}\/plugin\/products\/page\/add_input\/#{product.id}/, id: 'add-input-button'},  content: 'Add the inputs or raw material used by this product'}
@@ -286,7 +287,7 @@ class PageControllerTest < ActionController::TestCase
 
   should 'has instance of input list when showing product' do
     product = fast_create(Product, profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
     assert_equal [], assigns(:inputs)
   end
 
@@ -295,7 +296,7 @@ class PageControllerTest < ActionController::TestCase
     input = fast_create(Input, product_id: product.id, product_category_id: @product_category.id)
     assert_equal [input], product.inputs
 
-    post :remove_input, id: input.id, profile: @enterprise.identifier
+    post   products_plugin_page_path(@enterprise.identifier, action: :remove_input), params: { id: input.id}
     product.reload
     assert_equal [], product.inputs
   end
@@ -306,18 +307,18 @@ class PageControllerTest < ActionController::TestCase
     second = Input.create!(product: product, product_category: fast_create(ProductCategory))
     third = Input.create!(product: product, product_category: fast_create(ProductCategory))
 
-    inputs = [first, second, third]
+    inputs = [first.id, second.id, third.id]
     
-    assert_equal inputs, product.inputs
+    assert_equal inputs, product.inputs.map{|i|i.id}
 
-    get :order_inputs, profile: @enterprise.identifier, id: product, input: inputs
+    get  products_plugin_page_path(@enterprise.identifier, action: :order_inputs), params: { id: product.id, input: inputs}
     assert_template nil
 
-    assert_equal inputs, product.inputs
+    assert_equal inputs, product.inputs.map{|i|i.id}
   end
 
   should 'render partial certifiers for selection' do
-    xhr :get, :certifiers_for_selection, profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :certifiers_for_selection), xhr: true
     assert_template 'certifiers_for_selection'
   end
 
@@ -326,7 +327,7 @@ class PageControllerTest < ActionController::TestCase
     1.upto(12) do |n|
       fast_create(Product, name: "test product_#{n}", profile_id: @enterprise.id, product_category_id: @product_category.id)
     end
-    get :index, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :index)
     assert_equal 10, assigns(:products).size
   end
 
@@ -335,16 +336,16 @@ class PageControllerTest < ActionController::TestCase
     1.upto(12) do |n|
       fast_create(Product, name: "test product_#{n}", profile_id: @enterprise.id, product_category_id: @product_category.id)
     end
-    get :index, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :index)
     assert_tag tag: 'a', attributes: { rel: 'next', href: "/profile/#{@enterprise.identifier}/plugin/products/page?page=2" }
 
-    get :index, profile: @enterprise.identifier, page: 2
+    get products_plugin_page_path(@enterprise.identifier, action: :index), params: {page: 2}
     assert_equal 2, assigns(:products).size
   end
 
   should 'display tabs even if description and inputs are empty and user is allowed' do
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
 
     assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }
   end
@@ -352,10 +353,10 @@ class PageControllerTest < ActionController::TestCase
   should 'not display tabs if description and inputs are empty and user is not allowed' do
     create_user('foo')
 
-    login_as 'foo'
+    login_as_rails5 'foo'
 
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: {id: product.id}
 
     !assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }
   end
@@ -364,7 +365,7 @@ class PageControllerTest < ActionController::TestCase
     logout
 
     product = fast_create(Product, name: 'test product', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: {id: product.id}
 
     !assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }
   end
@@ -372,9 +373,9 @@ class PageControllerTest < ActionController::TestCase
   should 'display only description tab if inputs are empty and user is not allowed' do
     create_user('foo')
 
-    login_as 'foo'
+    login_as_rails5 'foo'
     product = fast_create(Product, description: 'This product is very good', profile_id: @enterprise.id, product_category_id: @product_category.id)
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
     assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-description'}, content: 'Description'}
     !assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#inputs'}, content: 'Inputs and raw material'}
   end
@@ -382,11 +383,11 @@ class PageControllerTest < ActionController::TestCase
   should 'display only inputs tab if description is empty and user is not allowed' do
     create_user 'foo'
 
-    login_as 'foo'
+    login_as_rails5 'foo'
     product = fast_create(Product, profile_id: @enterprise.id, product_category_id: @product_category.id)
     input = fast_create(Input, product_id: product.id, product_category_id: @product_category.id)
 
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
     !assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-description'}, content: 'Description'}
     assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-inputs'}, content: 'Inputs and raw material'}
   end
@@ -394,11 +395,11 @@ class PageControllerTest < ActionController::TestCase
   should 'display tabs if description and inputs are not empty and user is not allowed' do
     create_user('foo')
 
-    login_as 'foo'
+    login_as_rails5 'foo'
     product = fast_create(Product, description: 'This product is very good', profile_id: @enterprise.id, product_category_id: @product_category.id)
     input = fast_create(Input, product_id: product.id, product_category_id: @product_category.id)
 
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: { id: product.id}
     assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-description'}, content: 'Description'}
     assert_tag tag: 'div', attributes: { id: "product-#{product.id}-tabs" }, descendant: {tag: 'a', attributes: {href: '#product-inputs'}, content: 'Inputs and raw material'}
   end
@@ -419,7 +420,7 @@ class PageControllerTest < ActionController::TestCase
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestProductInfoExtras1Plugin.new, TestProductInfoExtras2Plugin.new])
 
-    get :show, id: product.id, profile: @enterprise.identifier
+    get  products_plugin_page_path(@enterprise.identifier, action: :show), params: {id: product.id}
 
     assert_tag tag: 'span', content: 'This is Plugin1 speaking!', attributes: {id: 'plugin1'}
     assert_tag tag: 'span', content: 'This is Plugin2 speaking!', attributes: {id: 'plugin2'}
@@ -432,7 +433,7 @@ class PageControllerTest < ActionController::TestCase
       end
     end
     enterprise = SpecialEnterprise.create!(identifier: 'special-enterprise', name: 'Special Enterprise')
-    get 'new', profile: enterprise.identifier
+    get products_plugin_page_path(enterprise.identifier, action: :new)
     assert_response 403
   end
 
@@ -443,13 +444,13 @@ class PageControllerTest < ActionController::TestCase
 
     assert_equal [detail], product.price_details
 
-    post :remove_price_detail, id: detail.id, product: product, profile: @enterprise.identifier
+    post products_plugin_page_path(@enterprise.identifier, action: :remove_price_detail), params: {id: detail.id, product: product.id}
     product.reload
     assert_equal [], product.price_details
   end
 
   should 'create a production cost for enterprise' do
-    get :create_production_cost, profile: @enterprise.identifier, id: 'Taxes'
+    get products_plugin_page_path(@enterprise.identifier, action: :create_production_cost), params: {id: 'Taxes'}
 
     assert_equal ['Taxes'], Enterprise.find(@enterprise.id).production_costs.map(&:name)
     resp = ActiveSupport::JSON.decode(@response.body)
@@ -460,7 +461,7 @@ class PageControllerTest < ActionController::TestCase
   end
 
   should 'display error if production cost has no name' do
-    get :create_production_cost, profile: @enterprise.identifier
+    get products_plugin_page_path(@enterprise.identifier, action: :create_production_cost)
 
     resp = ActiveSupport::JSON.decode(@response.body)
     assert_nil resp['name']
@@ -470,7 +471,7 @@ class PageControllerTest < ActionController::TestCase
   end
 
   should 'display error if name of production cost is too long' do
-    get :create_production_cost, profile: @enterprise.identifier, id: 'a'*60
+    get  products_plugin_page_path(@enterprise.identifier, action: :create_production_cost), params: {id: 'a'*60}
 
     resp = ActiveSupport::JSON.decode(@response.body)
     assert_nil resp['name']
