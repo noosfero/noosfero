@@ -52,7 +52,7 @@ Noosfero::Application.routes.draw do
         get :search_followed
 
 	# FIXME see if it's needed. See helper links_for_balloon
-        get :events
+#        get :events
     end
   end
 
