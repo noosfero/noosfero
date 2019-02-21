@@ -28,7 +28,6 @@ Noosfero::Application.configure do
   config.assets.digest = false
   # we have a lot of assets
   config.assets.debug = false
-  config.assets.check_precompiled_asset = false
 
 
   config.consider_all_requests_local = true
