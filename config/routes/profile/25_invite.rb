@@ -3,8 +3,8 @@ Noosfero::Application.routes.draw do
     scope ':profile', profile: /[^\/]+/ do
       resources :invite, only: [:create, :edit] do
         collection do
-          get :friends, to: 'invite#invite_friends'
-	  post :select_friends
+          match :friends, to: 'invite#invite_friends', via: [:get, :post]
+          match :select_friends, to: 'invite#select_friends', via: [:get, :post]
 	  get :invitation_data
 	  get :add_contact_list
 	  get :cancel_fetching_emails
