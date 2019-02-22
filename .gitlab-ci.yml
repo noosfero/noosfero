@@ -17,6 +17,7 @@ before_script:
   - cp config/database.yml.gitlab-ci config/database.yml
 #  - chromedriver
   - gem install webdrivers
+  - apt-get install aptitude  
   - aptitude search chrome
   - firefox --version
   - chrome --version
