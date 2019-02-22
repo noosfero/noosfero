@@ -9,7 +9,10 @@ class ChatControllerTest < ActionDispatch::IntegrationTest
     #TODO Maybe someday we should have a real testing ejabberd server
     RubyBOSH.stubs(:initialize_session).returns(['fake-jid@example.org', 'fake-sid', 'fake-rid'])
     @person = create_user('testuser').person
+    @user = @person.user
   end
+
+  attr_reader :person, :user
 
   should 'cant view chat when not logged in' do
     get start_session_chat_index_path
