@@ -2,6 +2,8 @@ require 'selenium-webdriver'
 
 Capybara.default_driver = :selenium
 Capybara.register_driver :selenium do |app|
+  puts "SELENIUMMMMMM: "
+  puts ENV['SELENIUM_DRIVER'].inspect
   case ENV['SELENIUM_DRIVER']
   when 'firefox'
     profile = Selenium::WebDriver::Firefox::Profile.new
@@ -9,6 +11,7 @@ Capybara.register_driver :selenium do |app|
     profile["intl.accept_languages"] = "en"
     options = Selenium::WebDriver::Firefox::Options.new
     options.profile = profile
+    options.headless = true
     driver = Capybara::Selenium::Driver.new app, browser: :firefox, options: options
   else
     puts '[ERROR] :: Unsupported web browser, use Firefox 60.3.0 instead.'

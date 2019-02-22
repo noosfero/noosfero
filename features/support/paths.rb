@@ -61,9 +61,11 @@ module NavigationHelpers
       '/profile/%s/leave' % profile_identifier($1)
 
     when /^login page$/
+      puts 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'
       login_account_index_path
 
     when /^logout page$/
+      puts 'bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'
       logout_account_index_path
 
     when /^signup page$/
