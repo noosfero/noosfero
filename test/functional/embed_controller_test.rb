@@ -3,13 +3,16 @@ require_relative "../test_helper"
 class EmbedControllerTest < ActionController::TestCase
 
   def setup
-    login_as(create_admin_user(Environment.default))
+    @user = create_admin_user(Environment.default)
+    login_as(@user)
     @block = LoginBlock.create!
     @block.class.any_instance.stubs(:embedable?).returns(true)
     @environment = Environment.default
     @environment.boxes.create!
     @environment.boxes.first.blocks << @block
   end
+
+  attr_reader :user
 
   should 'be able to get embed block' do
     get :block, :id => @block.id
