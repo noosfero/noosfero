@@ -2,7 +2,7 @@ image: alaxalves/noosfero-ci:stretch
 
 variables:
   RAILS_ENV: test
-  SELENIUM_DRIVER: firefox
+  SELENIUM_DRIVER: headless_chrome
   POSTGRES_DB: gitlab_ci_test
   POSTGRES_USER: gitlab_ci_runner
   POSTGRES_PASSWORD: ""
@@ -15,20 +15,6 @@ before_script:
   - mkdir -p tmp/pids tmp/cache cache
   - rm -f vendor/rails
   - cp config/database.yml.gitlab-ci config/database.yml
-#  - chromedriver
-#  - gem install webdrivers
-    #  - apt-get install -y aptitude  
-    #  - aptitude search chrome
-    #  - aptitude search chromium
-    #  - apt-get install -y chromedriver
-    #  - apt-get install -y chromium
-  - firefox --version
-  - gem install selenium-webdriver    
-#  - chromedriver    
-  #  - chrome --version
-  #  
-  #  - ps aux   
-    #  - chromium --no-sandbox &
   - bundle exec rake db:create
   - bundle exec rake db:schema:load
   - bundle exec rake db:migrate
@@ -104,7 +90,7 @@ cucumber-2:
 selenium-1:
   <<: *retriable
   <<: *cache
-  script: SLICE=1/120 bundle exec rails selenium
+  script: SLICE=1/6 bundle exec rails selenium
   stage: all-tests
 selenium-2:
   <<: *retriable
