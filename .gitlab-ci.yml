@@ -15,7 +15,7 @@ before_script:
   - mkdir -p tmp/pids tmp/cache cache
   - rm -f vendor/rails
   - cp config/database.yml.gitlab-ci config/database.yml
-  -  which chromedriver
+  - chromedriver-helper
   - bundle exec rake db:create
   - bundle exec rake db:schema:load
   - bundle exec rake db:migrate
