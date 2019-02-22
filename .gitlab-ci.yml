@@ -17,6 +17,7 @@ before_script:
   - cp config/database.yml.gitlab-ci config/database.yml
 #  - chromedriver
   - gem install webdrivers
+  - firefox --version
   - bundle exec rake db:create
   - bundle exec rake db:schema:load
   - bundle exec rake db:migrate
