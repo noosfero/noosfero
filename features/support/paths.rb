@@ -61,10 +61,10 @@ module NavigationHelpers
       '/profile/%s/leave' % profile_identifier($1)
 
     when /^login page$/
-      '/account/login'
+      login_account_index_path
 
     when /^logout page$/
-      '/account/logout'
+      logout_account_index_path
 
     when /^signup page$/
       '/account/signup'
