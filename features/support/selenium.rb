@@ -24,3 +24,52 @@ puts  ENV['SELENIUM_DRIVER'].inspect
   end
 end
 
+
+## This env var comes from the heroku-buildpack-google-chrome
+#chrome_bin = ENV.fetch('GOOGLE_CHROME_SHIM', nil)
+## This env var comes from chromedriver_linux, e.g. TravisCI
+#chrome_bin ||= ENV.fetch('CHROME_BIN', nil)
+#chrome_options = {}
+#chrome_options[:binary] = chrome_bin if chrome_bin
+#
+# # Give us access to browser console logs, see spec/support/browser_logging.rb
+#logging_preferences = { browser: 'ALL' }
+#
+#Capybara.register_driver :chrome do |app|
+#	raise 'bla'
+#  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+#    chromeOptions: chrome_options,
+#    loggingPrefs: logging_preferences
+#  )
+#
+#  Capybara::Selenium::Driver.new(
+#    app,
+#    browser: :chrome,
+#    desired_capabilities: capabilities
+#  )
+#end
+#
+#Capybara.register_driver :headless_chrome do |app|
+#  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+#    chromeOptions: chrome_options.merge(args: %w(headless disable-gpu)),
+#    loggingPrefs: logging_preferences
+#  )
+#
+#  Capybara::Selenium::Driver.new(
+#    app,
+#    browser: :chrome,
+#    desired_capabilities: capabilities
+#  )
+#end
+#
+#Capybara.javascript_driver = :chrome
+
+
+Before('@ignore-hidden-elements') do
+  Capybara.ignore_hidden_elements = true
+end
+
+Capybara.default_max_wait_time = 60
+Capybara.server_host = "localhost"
+
+World(Capybara)
