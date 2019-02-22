@@ -24,14 +24,10 @@ end
 World(WithinHelpers)
 
 Given /^(?:|I )am on (.+)$/ do |page_name|
-  puts '1111111111111111111111111111111111111111111'
-  puts page_name.inspect	
   visit path_to(page_name)
 end
 
 When /^(?:|I )go to (.+)$/ do |page_name|
-  puts '222222222222222222222222222222222222222222'
-  puts page_name.inspect	
   visit path_to(page_name)
 end
 

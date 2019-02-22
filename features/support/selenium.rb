@@ -2,11 +2,8 @@ require 'selenium-webdriver'
 
 Capybara.default_driver = :selenium
 Capybara.register_driver :selenium do |app|
-  puts "SELENIUMMMMMM: "
-  puts ENV['SELENIUM_DRIVER'].inspect
   case ENV['SELENIUM_DRIVER']
   when 'firefox'
-#    Selenium::WebDriver.logger.level = :debug
     profile = Selenium::WebDriver::Firefox::Profile.new
     profile.native_events = true
     profile["intl.accept_languages"] = "en"
