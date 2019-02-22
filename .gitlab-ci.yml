@@ -19,6 +19,8 @@ before_script:
   - gem install webdrivers
   - apt-get install -y aptitude  
   - aptitude search chrome
+  - aptitude search chromium
+  - apt-get install -y chromedriver
   - firefox --version
   - chrome --version
   - bundle exec rake db:create
