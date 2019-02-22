@@ -16,6 +16,7 @@ before_script:
   - rm -f vendor/rails
   - cp config/database.yml.gitlab-ci config/database.yml
 #  - chromedriver
+  - gem install webdrivers
   - bundle exec rake db:create
   - bundle exec rake db:schema:load
   - bundle exec rake db:migrate
