@@ -2,7 +2,7 @@ image: alaxalves/noosfero-ci:stretch
 
 variables:
   RAILS_ENV: test
-  SELENIUM_DRIVER: firefox
+  SELENIUM_DRIVER: chrome
   POSTGRES_DB: gitlab_ci_test
   POSTGRES_USER: gitlab_ci_runner
   POSTGRES_PASSWORD: ""
