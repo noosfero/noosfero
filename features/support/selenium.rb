@@ -42,7 +42,7 @@ require 'selenium-webdriver'
 #
 #World(Capybara)
 #
-Capybara.register_driver :selenium_chrome_headless_docker_friendly do |app|
+Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.load_selenium
   browser_options = ::Selenium::WebDriver::Chrome::Options.new
   browser_options.args << '--headless'
@@ -52,4 +52,4 @@ Capybara.register_driver :selenium_chrome_headless_docker_friendly do |app|
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
-Capybara.javascript_driver = :selenium_chrome_headless_docker_friendly
+Capybara.javascript_driver = :selenium
