@@ -11,10 +11,24 @@ Capybara.register_driver :selenium do |app|
     options.profile = profile
     options.headless!
     driver = Capybara::Selenium::Driver.new app, browser: :firefox, options: options
+  when 'chrome'
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w(headless disable-gpu) }
+    )
+    driver = Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
   else
     puts '[ERROR] :: Unsupported web browser, use Firefox 60.3.0 instead.'
   end
 end
+
+Capybara.register_driver :chrome do |app|
+end
+
+Capybara.register_driver :headless_chrome do |app|
+
+end
+
+Capybara.javascript_driver = :headless_chrome
 
 Before('@ignore-hidden-elements') do
   Capybara.ignore_hidden_elements = true
