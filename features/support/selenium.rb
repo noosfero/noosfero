@@ -13,7 +13,7 @@ Capybara.register_driver :selenium do |app|
     driver = Capybara::Selenium::Driver.new app, browser: :firefox, options: options
   when 'chrome'
     capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w(headless disable-gpu --no-sandbox) }
+      chromeOptions: { args: %w(headless disable-gpu --no-sandbox --disable-dev-shm-usage) }
     )
     driver = Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
 #    profile = Selenium::WebDriver::Chome::Profile.new
