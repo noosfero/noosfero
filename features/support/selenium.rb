@@ -48,11 +48,14 @@ Capybara.register_driver :selenium do |app|
   browser_options.args << '--headless'
   browser_options.args << '--disable-gpu'
   # Sandbox cannot be used inside unprivileged Docker container
+  browser_options.args << '--remote-debugging-port=9222'
+  browser_options.args << '--proxy-bypass-list=*'
+  browser_options.args << " --proxy-server='direct://'"
   browser_options.args << '--no-sandbox'
   browser_options.args << '--mute-audio'
   browser_options.args << '--hide-scrollbars'
   browser_options.args << '--disable-software-rasterizer'
-#  browser_options.args << ''
+  browser_options.args << '--disable-extensions'
   browser_options.args << '--disable-dev-shm-usage'
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
