@@ -30,14 +30,7 @@ Capybara.register_driver :selenium do |app|
   end
 end
 
-Capybara.register_driver :chrome do |app|
-end
-
-Capybara.register_driver :headless_chrome do |app|
-
-end
-
-Capybara.javascript_driver = :headless_chrome
+Capybara.javascript_driver = :selenium
 
 Before('@ignore-hidden-elements') do
   Capybara.ignore_hidden_elements = true
