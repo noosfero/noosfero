@@ -67,7 +67,7 @@ class RoutingTest < ActionDispatch::IntegrationTest
   def test_categories_management
     assert_routing('/admin/categories', :controller => 'categories', :action => 'index')
     assert_routing('/admin/categories/new', :controller => 'categories', :action => 'new')
-    assert_routing('/admin/categories/edit/2', :controller => 'categories', :action => 'edit', :id => '2')
+    assert_routing('/admin/categories/2/edit', :controller => 'categories', :action => 'edit', :id => '2')
   end
 
   # platform administrative controllers (system/*)
