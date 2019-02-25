@@ -49,6 +49,7 @@ Capybara.register_driver :selenium do |app|
   browser_options.args << '--disable-gpu'
   # Sandbox cannot be used inside unprivileged Docker container
   browser_options.args << '--no-sandbox'
+  browser_options.args << '--disable-dev-shm-usage'
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
