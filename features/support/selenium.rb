@@ -45,11 +45,15 @@ require 'selenium-webdriver'
 Capybara.register_driver :selenium do |app|
   Capybara::Selenium::Driver.load_selenium
   browser_options = ::Selenium::WebDriver::Chrome::Options.new
-#  browser_options.args << '--headless'
-#  browser_options.args << '--disable-gpu'
+  browser_options.args << '--headless'
+  browser_options.args << '--disable-gpu'
   # Sandbox cannot be used inside unprivileged Docker container
- # browser_options.args << '--no-sandbox'
-#  browser_options.args << '--disable-dev-shm-usage'
+  browser_options.args << '--no-sandbox'
+  browser_options.args << '--mute-audio'
+  browser_options.args << '--hide-scrollbars'
+  browser_options.args << '--disable-software-rasterizer'
+#  browser_options.args << ''
+  browser_options.args << '--disable-dev-shm-usage'
   Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
 end
 
