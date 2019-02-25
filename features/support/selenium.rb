@@ -12,14 +12,19 @@ Capybara.register_driver :selenium do |app|
     options.headless!
     driver = Capybara::Selenium::Driver.new app, browser: :firefox, options: options
   when 'chrome'
-    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
-      chromeOptions: { args: %w(headless disable-gpu --no-sandbox --disable-dev-shm-usage) }
-    )
-    driver = Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
+#    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+#      chromeOptions: { args: %w(headless disable-gpu --no-sandbox --disable-dev-shm-usage) }
+#    )
+#    driver = Capybara::Selenium::Driver.new(app, browser: :chrome, desired_capabilities: capabilities)
 #    profile = Selenium::WebDriver::Chome::Profile.new
 #    options = Selenium::WebDriver::Chome::Options.new
+    options = ::Selenium::WebDriver::Chrome::Options.new
+    options.add_argument('--headless')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--window-size=1400,1400')
 #    options.headless!
-#    driver = Capybara::Selenium::Driver.new app, browser: :firefox, options: options
+    driver = Capybara::Selenium::Driver.new app, browser: :chrome, options: options
   else
     puts '[ERROR] :: Unsupported web browser, use Firefox 60.3.0 instead.'
   end
