@@ -2,7 +2,7 @@ class SpaminatorPlugin::Report < ApplicationRecord
 
   serialize :failed, Hash
 
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   validates_presence_of :environment
 

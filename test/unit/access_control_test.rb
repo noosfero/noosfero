@@ -1,4 +1,3 @@
-
 require_relative "../test_helper"
 
 class AccessControlTest < ActiveSupport::TestCase

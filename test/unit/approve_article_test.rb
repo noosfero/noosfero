@@ -39,7 +39,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     p1 = profile
     p2 = create_user('testuser2').person
     task = build(AddFriend, :person => p1, :friend => p2)
-    assert_nothing_raised NotImplementedError do
+    assert_nothing_raised do
       task.target_notification_message
     end
   end
@@ -395,7 +395,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     end
     task2 = create(ApproveArticle, :name => article.name + ' v2', :article => article, :target => community, :requestor => profile)
     assert_difference 'article.class.count' do
-      assert_nothing_raised ActiveRecord::RecordInvalid do
+      assert_nothing_raised do
          task2.finish
       end
     end

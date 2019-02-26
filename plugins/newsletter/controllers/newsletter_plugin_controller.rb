@@ -1,6 +1,6 @@
 class NewsletterPluginController < PublicController
 
-  before_filter :login_required, :only => :confirm_unsubscription
+  before_action :login_required, :only => :confirm_unsubscription
 
   def mailing
     if NewsletterPlugin::NewsletterMailing.exists?(params[:id])

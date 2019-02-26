@@ -512,7 +512,7 @@ module Api
 	@environment = @domain_hash[request.host][:environment]
         if @environment.nil? && Rails.env.development?
           # This should only happen in development ...
-          @environment = Environment.create!(:name => "Noosfero", :is_default => true)
+          @environment = Environment.create!(name: "Noosfero", is_default: true)
         end
       else
         @domain_hash[request.host][:environment] ||= @domain.environment

@@ -6,10 +6,10 @@ class UsersController < ApplicationController
   include AuthenticatedSystem
 
   # Protect these actions behind an admin login
-  before_filter :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show]
+  before_action :admin_required, :only => [:suspend, :unsuspend, :destroy, :purge]
+  before_action :find_user, :only => [:suspend, :unsuspend, :destroy, :purge, :show]
 
-  before_filter :login_required, :only => [:index]
+  before_action :login_required, :only => [:index]
 
   # render new.html.erb
   def new

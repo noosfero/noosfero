@@ -5,7 +5,7 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
   include OrdersCyclePlugin::TranslationHelper
 
   no_design_blocks
-  before_filter :login_required, except: [:index]
+  before_action :login_required, except: [:index]
 
   helper OrdersCyclePlugin::TranslationHelper
   helper OrdersCyclePlugin::DisplayHelper

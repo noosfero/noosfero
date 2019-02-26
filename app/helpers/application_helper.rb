@@ -105,6 +105,7 @@ module ApplicationHelper
   # textile, into HTML). It defaults to <tt>:html</tt>.
   #
   # TODO: implement correcly the 'Help' button click
+
   def help(content = nil, link_name = nil, options = {}, &block)
     link_name ||= font_awesome(:help, _('Help'))
 
@@ -147,7 +148,7 @@ module ApplicationHelper
 
   def link_to_profile(text, profile = nil, options = {})
     profile ||= current_user.login
-    link_to text, profile_path(:profile => profile) , options
+    link_to text, profile_path(profile) , options
   end
 
   def link_to_homepage(text, profile, options = {})
@@ -861,7 +862,7 @@ module ApplicationHelper
 
   def search_events_menu
     @search_events_url = content_tag(:a, content_tag(:i, "", :class => 'fa fa-calendar') + _('Events'), :class => 'icon-menu-events', :href => "/search/events", :id => 'submenu-events')
-    render :text => @search_events_url
+    render plain: @search_events_url
   end
   alias :browse_events_menu :search_events_menu
 
@@ -1341,4 +1342,13 @@ module ApplicationHelper
                   class: 'recaptcha-wrapper')
     end
   end
+
+  def silenced
+    $stdout = StringIO.new
+
+    yield
+  ensure
+    $stdout = STDOUT
+  end
+
 end

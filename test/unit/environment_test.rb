@@ -180,14 +180,14 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'notify contact email' do
-    env = Environment.new(:contact_email => 'foo@bar.com')
+    env = Environment.new(contact_email: 'foo@bar.com')
     env.stubs(:admins).returns([])
     assert_equal ['foo@bar.com'], env.notification_emails
   end
 
   should 'provide a default hostname' do
     env = fast_create(Environment)
-    env.domains << create(Domain, :name => 'example.com', :is_default => true)
+    env.domains << create(Domain, name: 'example.com', is_default: true)
     assert_equal 'example.com', env.default_hostname
   end
 
@@ -199,27 +199,27 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'add www when told to force www' do
     env = fast_create(Environment); env.force_www = true; env.save!
 
-    env.domains << create(Domain, :name => 'example.com', :is_default => true)
+    env.domains << create(Domain, name: 'example.com', is_default: true)
     assert_equal 'www.example.com', env.default_hostname
   end
 
   should 'not add www when requesting domain for email address' do
     env = fast_create(Environment)
-    env.domains << create(Domain, :name => 'example.com', :is_default => true)
+    env.domains << create(Domain, name: 'example.com', is_default: true)
     assert_equal 'example.com', env.default_hostname(true)
   end
 
   should 'use default domain when there is more than one' do
     env = fast_create(Environment)
-    env.domains << create(Domain, :name => 'example.com', :is_default => false)
-    env.domains << create(Domain, :name => 'default.com', :is_default => true)
+    env.domains << create(Domain, name: 'example.com', is_default: false)
+    env.domains << create(Domain, name: 'default.com', is_default: true)
     assert_equal 'default.com', env.default_hostname
   end
 
   should 'use first domain when there is no default' do
     env = fast_create(Environment)
-    env.domains << create(Domain, :name => 'domain1.com', :is_default => false)
-    env.domains << create(Domain, :name => 'domain2.com', :is_default => false)
+    env.domains << create(Domain, name: 'domain1.com', is_default: false)
+    env.domains << create(Domain, name: 'domain2.com', is_default: false)
     assert_equal 'domain1.com', env.default_hostname
   end
 
@@ -310,7 +310,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     p2 = fast_create(Profile, :environment_id => environment.id)
 
     # clear the articles
-    Article.destroy_all
+    Article.delete_all
 
     # p1 creates one article
     doc1 = fast_create(Article, :profile_id => p1.id)
@@ -1390,7 +1390,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'activate on database all available plugins' do
     plugins_enable = ["Statistics", "Foo", "PeopleBlock"]
-    Noosfero::Plugins.stubs(:available_plugin_names).returns(plugins_enable)
+    Noosfero::Plugin.stubs(:available_plugin_names).returns(plugins_enable)
     env1 = Environment.create(:name => "Test")
     env2 = Environment.create(:name => "Test 2")
 

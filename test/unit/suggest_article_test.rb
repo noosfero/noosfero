@@ -95,7 +95,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
 
   should 'override target notification message method from Task' do
     task = build(SuggestArticle, :target => @profile)
-    assert_nothing_raised NotImplementedError do
+    assert_nothing_raised do
       task.target_notification_message
     end
   end

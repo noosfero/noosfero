@@ -2,7 +2,7 @@
 
 <script>
   jQuery('#tag-list').inputosaurus({
-    autoCompleteSource: <%= "'#{url_for(:action => 'search_tags', :profile => profile.identifier, :only_path => true)}',".html_safe %>
+    autoCompleteSource: <%= "'#{search_tags_cms_index_path(profile.identifier, :only_path => true)}',".html_safe %>
     activateFinalResult : true
   })
 </script>

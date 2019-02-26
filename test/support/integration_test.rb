@@ -14,7 +14,8 @@ class ActionDispatch::IntegrationTest
   def login(username, password)
     ActionDispatch::Integration::Session.any_instance.stubs(:https?).returns(true)
 
-    post_via_redirect '/account/login', :user => { :login => username, :password => password }
+    post '/account/login', params: { user: { login: username, password: password }}
+    follow_redirect!
     assert_response :success
     assert_not_equal '/account/login', path
   end

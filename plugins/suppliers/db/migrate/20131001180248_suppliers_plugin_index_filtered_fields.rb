@@ -1,4 +1,4 @@
-class SuppliersPluginIndexFilteredFields < ActiveRecord::Migration
+class SuppliersPluginIndexFilteredFields < ActiveRecord::Migration[5.1]
   def self.up
     add_index :suppliers_plugin_suppliers, [:profile_id]
     add_index :suppliers_plugin_suppliers, [:profile_id, :consumer_id]

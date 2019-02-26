@@ -15,13 +15,13 @@ module XssTerminate
   module ClassMethods
 
     def xss_terminate(options = {})
-      options[:with] ||= 'full'
-      filter_with = 'sanitize_fields_with_' + options[:with]
+      options[:with] ||= :full
+      filter_with = ('sanitize_fields_with_' + options[:with].to_s).to_sym
       # :on is util when before_filter dont work for model
       case options[:on]
-        when 'create'
+        when :create
           before_create filter_with
-        when 'validation'
+        when :validation
           before_validation filter_with
         else
           before_save filter_with
@@ -70,7 +70,8 @@ module XssTerminate
     end
 
     def sanitize_columns(with = :full)
-      columns_serialized = self.class.serialized_attributes.keys
+      class_object = self.class
+      columns_serialized = self.class.serialized_attributes(class_object).keys
       only = eval "xss_terminate_#{with}_options[:only]"
       except = eval "xss_terminate_#{with}_options[:except]"
       unless except.empty?

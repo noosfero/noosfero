@@ -26,7 +26,7 @@ class ContactTest < ActiveSupport::TestCase
   end
 
   should 'inicialize fields on instanciate' do
-    assert_nothing_raised ArgumentError do
+    assert_nothing_raised do
       Contact.new(:name => 'john', :email => 'contact@invalid.com')
     end
   end

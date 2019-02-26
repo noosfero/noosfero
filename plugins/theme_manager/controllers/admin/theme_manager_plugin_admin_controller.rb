@@ -6,8 +6,8 @@ class ThemeManagerPluginAdminController < AdminController
 
   include ThemeManagerHelper
   
-  before_filter :create_temp, only: :add_theme
-  after_filter :destroy_temp, only: :add_theme
+  before_action :create_temp, only: :add_theme
+  after_action :destroy_temp, only: :add_theme
 
   def index
     @enabled_themes = list_enabled_themes
@@ -72,7 +72,7 @@ class ThemeManagerPluginAdminController < AdminController
       @message = _("The theme %s has been enabled") % params[:id]
       session[:notice] = @message
     rescue Exception =>err
-      @message = _("The theme %{id} has not been enabled error %{err}") % {id: params[:id], err: err.message}
+      @message = _("The theme %{id} has not been enabled. Error %{err}") % {id: params[:id], err: err.message}
       session[error_key] = @message
     end
     redirect_to controller: 'theme_manager_plugin_admin', action: 'index'
@@ -85,7 +85,7 @@ class ThemeManagerPluginAdminController < AdminController
       @message = _("The theme %s has been installed") % params[:id]
       session[:notice] = @message
     rescue Exception => err
-      @message = _("The theme %{id} has not been uninstalled erro %{err}") % {id: params[:id], err: err.message}
+      @message = _("The theme %{id} has not been uninstalled. Error %{err}") % {id: params[:id], err: err.message}
       session[error_key] = @message
     end
     redirect_to controller: 'theme_manager_plugin_admin', action: 'index'
@@ -98,7 +98,7 @@ class ThemeManagerPluginAdminController < AdminController
       @message = _("The theme %s has been enabled") % params[:id]
       session[:notice] = @message
     rescue Exception => err
-      @message = _("The theme %{id} has not been enabled erro %{err}") % {id:params[:id], err:err.message}
+      @message = _("The theme %{id} has not been enabled. Error %{err}") % {id:params[:id], err: err.message}
       session[error_key] = @message
     end
     redirect_to controller: 'theme_manager_plugin_admin', action:'index'

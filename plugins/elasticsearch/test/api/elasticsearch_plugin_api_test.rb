@@ -66,7 +66,7 @@ class ElasticsearchPluginApiTest < ActiveSupport::TestCase
     end
   end
 
-  should 'show all types avaliable in /search/types endpoint' do
+  should 'show all types available in /search/types endpoint' do
     get "/api/v1/search/types"
     json = JSON.parse(last_response.body)
     assert_equal 200, last_response.status

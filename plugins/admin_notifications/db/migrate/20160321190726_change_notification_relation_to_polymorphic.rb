@@ -1,4 +1,4 @@
-class ChangeNotificationRelationToPolymorphic < ActiveRecord::Migration
+class ChangeNotificationRelationToPolymorphic < ActiveRecord::Migration[5.1]
   def up
     rename_column(:environment_notifications, :environment_id, :target_id)
     add_column(:environment_notifications, :target_type, :string)

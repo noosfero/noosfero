@@ -44,7 +44,7 @@ class CreateCommunityTest < ActiveSupport::TestCase
   should 'override message methods from Task' do
     specific = CreateCommunity.new
     %w[ task_created_message task_finished_message task_cancelled_message ].each do |method|
-      assert_nothing_raised NotImplementedError do
+      assert_nothing_raised do
         specific.send(method)
       end
     end

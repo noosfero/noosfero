@@ -6,15 +6,15 @@ module ProductsPlugin
     attr_accessible :product, :product_id, :product_category, :product_category_id,
       :amount_used, :unit_id, :price_per_unit, :relevant_to_price, :is_from_solidarity_economy
 
-    belongs_to :product
-    belongs_to :product_category
+    belongs_to :product_category, optional: true
+    
+    belongs_to :product, optional: true
+    acts_as_list scope: :product
 
     validates_presence_of :product
     validates_presence_of :product_category
 
-    acts_as_list scope: :product_id
-
-    belongs_to :unit
+    belongs_to :unit, optional: true
 
     scope :relevant_to_price, -> { where relevant_to_price: true }
 

@@ -4,16 +4,14 @@ class AdminPanelControllerTest < ActionController::TestCase
 
   all_fixtures
   def setup
-    @controller = AdminPanelController.new
-
     login_as(create_admin_user(Environment.default))
   end
 
   should 'manage the correct environment' do
-    current = fast_create(Environment, :name => 'test environment', :is_default => false)
-    current.domains.create!(:name => 'example.com')
+    current = fast_create(Environment, :name => 'test environment', is_default: false)
+    d = current.domains.create!(:name => 'example.com')
 
-    @request.expects(:host).returns('example.com').at_least_once
+    Domain.stubs(:by_name).returns(d)
     get :index
     assert_equal current, assigns(:environment)
   end
@@ -220,7 +218,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
 
     [local, tech].each do |folder|
-      assert_no_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
+      !assert_tag :tag => 'div', :attributes => {:id => 'available-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
     end
 
   end
@@ -281,7 +279,7 @@ class AdminPanelControllerTest < ActionController::TestCase
 
     get :set_portal_folders
     [local, tech, politics].each do |folder|
-      assert_no_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
+      !assert_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
     end
   end
 
@@ -301,7 +299,7 @@ class AdminPanelControllerTest < ActionController::TestCase
       assert_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => folder.id}, :content => folder.name}
     end
 
-    assert_no_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
+    !assert_tag :tag => 'div', :attributes => {:id => 'portal-folders'}, :descendant => {:tag => 'option', :attributes => {:value => politics.id}, :content => politics.name}
   end
 
   should 'save a list of folders as portal folders for the environment' do

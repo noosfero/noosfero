@@ -28,7 +28,7 @@ class CreateCommunity < Task
   def validate
     self.environment.required_community_fields.each do |field|
       if self.send(field).blank?
-        self.errors.add_on_blank(field)
+        self.errors.add(field, :blank)
       end
     end
   end

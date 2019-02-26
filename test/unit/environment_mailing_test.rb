@@ -40,7 +40,7 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
 
   should 'return url for environment on url' do
     mailing = new_mailing(environment)
-    domain = Domain.new(:name => 'noosfero.net')
+    domain = Domain.new(name: 'noosfero.net')
     domain.is_default = true
     environment.domains << domain
     assert_equal 'http://noosfero.net', mailing.url

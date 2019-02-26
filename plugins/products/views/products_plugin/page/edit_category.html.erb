@@ -8,11 +8,12 @@
 
   <div id='request_result_message' style='display: none'></div>
 
-  <%= remote_form_for(@product,
-                     loading: "open_loading('#{ _('loading...') }')",
-                     update: "request_result_message",
-                     url: {action: 'edit_category', id: @product},
-                     html: {method: 'post', id: 'category_form'}) do |f| %>
+  <%= form_for(@product,
+               remote: true,
+               loading: "open_loading('#{ _('loading...') }')",
+               update: "request_result_message",
+               url: {action: 'edit_category', id: @product},
+               html: {method: 'post', id: 'category_form'}) do |f| %>
 
     <h3><%= _('Edit category of this product:') %></h3>
 

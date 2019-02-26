@@ -19,7 +19,7 @@
                     :max_size => 16, :min_size => 9) %>
     <% else %>
       <%= tag_cloud(tags, :id,
-                    block.owner.public_profile_url.merge(:controller => 'profile', :action => 'content_tagged'),
+                    {profile: block.owner.identifier,  :controller => 'profile', :action => 'content_tagged'},
                     :max_size => 16, :min_size => 9) %>
   <% end %>
   </div>

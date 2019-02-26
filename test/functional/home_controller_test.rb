@@ -19,7 +19,7 @@ class HomeControllerTest < ActionController::TestCase
     env.save!
 
     get :index
-    assert_no_tag :tag => 'div', :attributes => { :id => 'portal-news' }
+    !assert_tag :tag => 'div', :attributes => { :id => 'portal-news' }
   end
 
   should 'not display news from portal if environment doesnt have portal community' do
@@ -28,7 +28,7 @@ class HomeControllerTest < ActionController::TestCase
     env.save!
 
     get :index
-    assert_no_tag :tag => 'div', :attributes => { :id => 'portal-news' }
+    !assert_tag :tag => 'div', :attributes => { :id => 'portal-news' }
   end
 
   should 'display news from portal if enabled and has portal community' do
@@ -63,7 +63,7 @@ class HomeControllerTest < ActionController::TestCase
 
     get :index
     assert_tag :attributes => { :class => 'headline' }, :content => a1.abstract
-    assert_no_tag :attributes => { :class => 'headline' }, :content => 'This is the article1 body.'
+    !assert_tag :attributes => { :class => 'headline' }, :content => 'This is the article1 body.'
     assert_tag :attributes => { :class => 'headline' }, :content => 'This is the article2 body.'
   end
 
@@ -123,7 +123,7 @@ class HomeControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_no_tag :tag => 'a', :attributes => {:href => '/account/signup'}
+    !assert_tag :tag => 'a', :attributes => {:href => '/account/signup'}
   end
 
   should 'display template welcome page' do

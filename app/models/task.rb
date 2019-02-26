@@ -43,10 +43,10 @@ class Task < ApplicationRecord
 
   include Noosfero::Plugin::HotSpot
 
-  belongs_to :requestor, :class_name => 'Profile', :foreign_key => :requestor_id
-  belongs_to :target, :foreign_key => :target_id, :polymorphic => true
-  belongs_to :responsible, :class_name => 'Person', :foreign_key => :responsible_id
-  belongs_to :closed_by, :class_name => 'Person', :foreign_key => :closed_by_id
+  belongs_to :requestor, class_name: 'Profile', foreign_key: :requestor_id, optional: true
+  belongs_to :target, foreign_key: :target_id, polymorphic: true, optional: true
+  belongs_to :responsible, class_name: 'Person', foreign_key: :responsible_id, optional: true
+  belongs_to :closed_by, class_name: 'Person', foreign_key: :closed_by_id, optional: true
 
   validates_uniqueness_of :code, :on => :create
   validates_presence_of :code

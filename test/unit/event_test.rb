@@ -166,7 +166,7 @@ class EventTest < ActiveSupport::TestCase
 
   should 'nil to link' do
     e = Event.new
-    assert_nothing_raised TypeError do
+    assert_nothing_raised do
       e.link = nil
     end
   end

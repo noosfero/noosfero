@@ -106,8 +106,8 @@ class TasksControllerTest < ActionController::TestCase
   should 'keep filters after close a task' do
     t = profile.tasks.build; t.save!
 
-    post :close, :tasks => {t.id => {:decision => 'finish', :task => {}}}, :filter_type => t.type
-    assert_redirected_to :action => 'index', :filter_type => t.type
+    post :close, :tasks => {t.id => {:decision => 'finish', :task => {}}}
+    assert_redirected_to :action => 'index'
     assert_equal @controller.params[:filter_type], t.type
 
     t.reload
@@ -281,7 +281,7 @@ class TasksControllerTest < ActionController::TestCase
       post :close, :tasks => {a.id => {:decision => 'finish', :task => {:name => "", :highlighted => "0", :article_parent_id => c_blog2.id.to_s}}}
     end
     assert p_article = article.class.find_by(reference_article_id: article.id)
-    assert_includes c_blog2.children(true), p_article
+    assert_includes c_blog2.children, p_article
   end
 
   should 'display error if there is an enterprise with the same identifier and keep the task active' do
@@ -729,7 +729,6 @@ class TasksControllerTest < ActionController::TestCase
     email = ActionMailer::Base.deliveries.last
     assert_no_match /#{person_custom_field.name}/, email.body.to_s
   end
-
 
   should 'list custom field details in moderation of community creation tasks when moderation_tasks is true' do
     community_custom_field = CustomField.create(:name => "great_field", :format=>"string", :default_value => "value for community", :customized_type=>"Community", :active => true, :environment => Environment.default, :moderation_task => true, :required => true)

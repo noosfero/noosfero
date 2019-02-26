@@ -62,7 +62,8 @@ class ActiveSupport::TestCase
     obj.solr_save if options[:search]
     obj
   end
-  alias_method_chain :fast_create, :solr
+  alias_method :fast_create_without_solr, :fast_create
+  alias_method :fast_create, :fast_create_with_solr
 end
 
 # disable solr actions by default

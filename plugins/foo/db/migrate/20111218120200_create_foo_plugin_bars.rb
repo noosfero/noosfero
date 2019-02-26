@@ -1,4 +1,4 @@
-class CreateFooPluginBars < ActiveRecord::Migration
+class CreateFooPluginBars < ActiveRecord::Migration[5.1]
   def self.up
     create_table :foo_plugin_bars do |t|
       t.string :name

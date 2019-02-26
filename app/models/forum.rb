@@ -16,7 +16,7 @@ class Forum < Folder
   before_save do |forum|
     if forum.has_terms_of_use
       last_editor = forum.profile.environment.people.find_by(id: forum.last_changed_by_id)
-      if last_editor && !forum.users_with_agreement.exists?(last_editor)
+      if last_editor && !forum.users_with_agreement.exists?(last_editor.id)
         forum.users_with_agreement << last_editor
       end
     else
@@ -83,7 +83,7 @@ class Forum < Folder
   def agrees_with_terms?(user)
     return true unless self.has_terms_of_use
     return false unless user
-    self.users_with_agreement.exists? user
+    self.users_with_agreement.exists? user.id
   end
 
   def topic_creation_access

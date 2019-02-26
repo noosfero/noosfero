@@ -34,7 +34,7 @@ class OauthProviderPlugin < Noosfero::Plugin
     default_scopes :public
   end
 
-  Rails.configuration.to_prepare do
+  Rails.configuration.to_param do
     Rails.application.routes.prepend do
       scope 'oauth_provider' do
         use_doorkeeper do

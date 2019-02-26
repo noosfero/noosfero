@@ -24,6 +24,9 @@ require_relative '../lib/noosfero/multi_tenancy'
 module Noosfero
   class Application < Rails::Application
 
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
+
     # The plugin xss_terminator(located in vendor/plugins/xss_terminator) and the helper
     # SanitizeHelper(located in app/helpers/sanitize_helper.rb) use
     # ALLOWED_TAGS and ALLOWED_ATTRIBUTES to make a sanitize with html.

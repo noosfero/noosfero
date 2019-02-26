@@ -1,4 +1,4 @@
-require 'RMagick'
+require 'rmagick'
 require 'yaml'
 
 # Works for ffmpeg version 2.8.6-1~bpo8 shiped by Debian Jessie Backports

@@ -12,7 +12,7 @@ class PublicController < ApplicationController
 
     urls = [Noosfero.root('/'), '/offline'] + assets
     urls += plugins.dispatch(:cache_urls)
-    render text: urls.flatten.to_json
+    render plain: urls.flatten.to_json
   end
 
   def offline

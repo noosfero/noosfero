@@ -24,13 +24,13 @@ class FollowersController < MyProfileController
   def update_category
     followed_profile = Profile.find_by(:id => params["followed_profile_id"])
 
-    selected_circles = params[:circles].map{ |circle_name, circle_id| Circle.find_by(:id => circle_id) }.select{ |c| c.present? }
+    selected_circles = (params[:circles].to_h).map{ |circle_name, circle_id| Circle.find_by(:id => circle_id) }.select{ |c| c.present? }
 
     if followed_profile
       profile.update_profile_circles(followed_profile, selected_circles)
-      render :text => _("Circles of %s updated successfully") % followed_profile.name, :status => 200
+      render plain: _("Circles of %s updated successfully") % followed_profile.name, :status => 200
     else
-      render :text => _("Error: No profile to follow."), :status => 400
+      render plain: "Error: No profile to follow.", status: 400
     end
   end
 

@@ -1,6 +1,6 @@
 class RegionValidatorsController < AdminController
 
-  before_filter :load_region_and_search, :except => 'index'
+  before_action :load_region_and_search, :except => 'index'
 
   protect 'manage_environment_validators', :environment
 

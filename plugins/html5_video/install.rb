@@ -12,3 +12,9 @@ unless system 'dpkg -s ffmpeg'
   end
 end
 
+unless system 'dpkg -s ghostscript'
+  system 'sudo apt-get update'
+  unless system 'sudo apt-get install -y ghostscript'
+    exit $?.exitstatus
+  end
+end

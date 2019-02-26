@@ -1,6 +1,6 @@
 <%= error_messages_for :role %>
 
-<%= labelled_form_for :role, :url => (mode == :edit) ? {:action => 'update', :id => role} : {:action => 'create'} do |f| %>
+<%= labelled_form_for :role, :url => ((mode == :edit) ? {:action => 'update', :id => role} : {:action => 'create'}), method: ((mode == :edit) ? :put : :post) do |f| %>
 
   <%= required_fields_message %>
 

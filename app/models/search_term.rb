@@ -2,8 +2,8 @@ class SearchTerm < ApplicationRecord
   validates_presence_of :term, :context
   validates_uniqueness_of :term, :scope => [:context_id, :context_type, :asset]
 
-  belongs_to :context, :polymorphic => true
-  has_many :occurrences, :class_name => 'SearchTermOccurrence'
+  belongs_to :context, polymorphic: true, optional: true
+  has_many :occurrences, class_name: 'SearchTermOccurrence'
 
   attr_accessible :term, :context, :asset
 

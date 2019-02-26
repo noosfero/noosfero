@@ -3,8 +3,8 @@ class PushSubscription < ApplicationRecord
   validates_presence_of :endpoint, :keys, :owner
   validate :contains_keys
 
-  belongs_to :environment
-  belongs_to :owner, polymorphic: true
+  belongs_to :environment, optional: true
+  belongs_to :owner, polymorphic: true, optional: true
 
   before_save :add_owner_environment
 

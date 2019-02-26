@@ -5,18 +5,18 @@ module WorkAssignmentPlugin::Helper
     return if work_assignment.submissions.empty?
     content_tag('table',
       content_tag('tr',
-        content_tag('th', c_('Author'), :style => 'width: 50%') +
+        content_tag('th', _('Author'), :style => 'width: 50%') +
         content_tag('th', _('Submission date')) +
         content_tag('th', _('Versions'), :style => 'text-align: center') +
         content_tag('th', '') +
         content_tag('th', '')
       ).html_safe +
-      work_assignment.children.order('name ASC').map {|author_folder| display_author_folder(author_folder, user)}.join("\n").html_safe
+      work_assignment.children.map {|author_folder| display_author_folder(author_folder, user)}.join("\n").html_safe
     )
   end
 
   def display_author_folder(author_folder, user)
-    return if author_folder.children(true).empty?
+    return if author_folder.children.empty?
     content_tag('tr',
       content_tag('td', link_to_last_submission(author_folder, user)) +
       content_tag('td', time_format(author_folder.children.last.created_at)) +
@@ -24,7 +24,7 @@ module WorkAssignmentPlugin::Helper
       content_tag('td', content_tag('a', font_awesome(:info), :title => _('View all versions'), :class => 'view-author-versions', 'data-folder-id' => author_folder.id)) +
       content_tag('td', display_privacy_button(author_folder, user))
     ).html_safe +
-    author_folder.children.order('created_at DESC').map {|submission| display_submission(submission, user)}.join("\n").html_safe
+    author_folder.children.map {|submission| display_submission(submission, user)}.join("\n").html_safe
   end
 
   def display_submission(submission, user)
@@ -37,8 +37,7 @@ module WorkAssignmentPlugin::Helper
           display_delete_button(submission)
         end
       ),
-      :class => "submission-from-#{submission.parent.id}",
-      :style => 'display: none'
+      :class => "submission-from-#{submission.parent.id}"
     )
   end
 

@@ -36,11 +36,11 @@ class ThingsController < ActionController::Base
 
   def index
     params[:foo] = params[:foo].to_i + 1
-    render :text => "test"
+    render plain: "test"
   end
 
   def test
-    render :text => "test"
+    render plain: "test"
   end
 
   def rescue_action(e)
@@ -565,7 +565,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     @controller = create_controller do
       def test
         @@action.create!
-        render :text => "test"
+        render plain: "test"
       end
 			def current_user
 				@@user.create!
@@ -608,7 +608,7 @@ class ActionTrackerTest < ActiveSupport::TestCase
     create_controller do
       def test
         @@model.create! @@attributes
-        render :text => "test"
+        render plain: "test"
       end
 
 		end

@@ -171,7 +171,7 @@ class InviteMemberTest < ActiveSupport::TestCase
     p2 = create_user('testuser2').person
 
     task = InviteMember.create!(:person => p1, :friend => p2, :community_id => fast_create(Community).id)
-    assert_nothing_raised NotImplementedError do
+    assert_nothing_raised do
       task.target_notification_message
     end
 

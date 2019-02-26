@@ -1,4 +1,4 @@
-class AddOrderToArticles < ActiveRecord::Migration
+class AddOrderToArticles < ActiveRecord::Migration[5.1]
   def up
     if !column_exists?(:articles, :position)
       add_column :articles, :position, :integer, default: 0

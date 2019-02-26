@@ -1,6 +1,6 @@
 class CustomRoutesPluginAdminController < AdminController
 
-  before_filter :accept_only_post, :only => [:create, :update, :destroy]
+  before_action :accept_only_post, :only => [:create, :update, :destroy]
 
   def index
     @routes = environment.custom_routes.all

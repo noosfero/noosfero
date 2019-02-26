@@ -179,7 +179,7 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
     specific = CreateEnterprise.new
     specific.stubs(:environment).returns(Environment.default)
     %w[ task_created_message task_finished_message task_cancelled_message ].each do |method|
-      assert_nothing_raised NotImplementedError do
+      assert_nothing_raised do
         specific.send(method)
       end
     end

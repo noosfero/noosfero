@@ -185,7 +185,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     profile.blocks.each(&:destroy)
     profile.boxes.first.blocks << LinkListBlock.new
     block = profile.boxes.first.blocks.first
-    get "/myprofile/#{profile.identifier}/profile_design/edit/#{block.id}"
+    get "/myprofile/#{profile.identifier}/profile_design/#{block.id}/edit"
     assert_select '.icon-selector'
     assert_tag :tag => 'span', :attributes => { :class => 'edit' }
   end

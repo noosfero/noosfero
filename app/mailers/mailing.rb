@@ -8,12 +8,12 @@ class Mailing < ApplicationRecord
   attr_accessible :subject, :body, :data
 
   validates_presence_of :source_id, :subject, :body
-  belongs_to :source, :foreign_key => :source_id, :polymorphic => true
-  belongs_to :person
+  belongs_to :source, foreign_key: :source_id, polymorphic: true, optional: true
+  belongs_to :person, optional: true
 
   has_many :mailing_sents
 
-  xss_terminate :only => [ :subject, :body ], :with => 'white_list', :on => 'validation'
+  xss_terminate :only => [ :subject, :body ], with: :white_list, on: :validation
 
   after_create do |mailing|
     mailing.schedule

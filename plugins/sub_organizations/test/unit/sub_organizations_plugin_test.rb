@@ -29,7 +29,7 @@ class SubOrganizationsPluginTest < ActiveSupport::TestCase
 
     org1_members = plugin.organization_members(org1)
 
-    assert_equal Person::ActiveRecord_Relation, org1_members.class
+    assert_equal "Person::ActiveRecord_Relation", org1_members.class.to_s
     assert_not_includes org1_members, member1
     assert_includes org1_members, member2
     assert_includes org1_members, member3
@@ -59,7 +59,7 @@ class SubOrganizationsPluginTest < ActiveSupport::TestCase
     person1_memberships = plugin.person_memberships(person1)
     person2_memberships = plugin.person_memberships(person2)
 
-    assert_equal Organization::ActiveRecord_Relation, person1_memberships.class
+    assert_equal "Organization::ActiveRecord_Relation", person1_memberships.class.to_s
     assert_includes person1_memberships, org1
     assert_not_includes person1_memberships, org2
     assert_not_includes person1_memberships, org3

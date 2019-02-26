@@ -1,10 +1,8 @@
 require_relative '../test_helper'
 
-class CommentControllerTest < ActionController::TestCase
+class CommentControllerTest < ActionDispatch::IntegrationTest
 
   def setup
-    @controller = CommentController.new
-
     @profile = create_user('testinguser').person
     @environment = @profile.environment
   end
@@ -19,9 +17,9 @@ class CommentControllerTest < ActionController::TestCase
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala')
 
-    login_as 'normaluser' # normaluser cannot remove other people's comments
+    login_as_rails5 'normaluser' # normaluser cannot remove other people's comments
     assert_no_difference 'Comment.count' do
-      post :destroy, :profile => profile.identifier, :id => comment.id
+      post destroy_comment_path(profile.identifier, comment)
     end
   end
 
@@ -34,9 +32,9 @@ class CommentControllerTest < ActionController::TestCase
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'normaluser' # normaluser cannot remove other people's comments
+    login_as_rails5 'normaluser' # normaluser cannot remove other people's comments
     assert_no_difference 'Comment.count' do
-      xhr :post, :destroy, :profile => profile.identifier, :id => comment.id
+      post destroy_comment_path(profile.identifier, comment), xhr: true
       assert_response :success
     end
     assert_match /\{\"ok\":false\}/, @response.body
@@ -50,9 +48,9 @@ class CommentControllerTest < ActionController::TestCase
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'testuser' # testuser must be able to remove comments in his articles
+    login_as_rails5 'testuser' # testuser must be able to remove comments in his articles
     assert_difference 'Comment.count', -1 do
-      xhr :post, :destroy, :profile => profile.identifier, :id => comment.id
+      post destroy_comment_path(profile.identifier, comment), xhr: true
       assert_response :success
     end
     assert_match /\{\"ok\":true\}/, @response.body
@@ -67,9 +65,9 @@ class CommentControllerTest < ActionController::TestCase
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => image, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'testuser' # testuser must be able to remove comments in his articles
+    login_as_rails5 'testuser' # testuser must be able to remove comments in his articles
     assert_difference 'Comment.count', -1 do
-      xhr :post, :destroy, :profile => profile.identifier, :id => comment.id
+      post destroy_comment_path(profile.identifier, comment), xhr: true
       assert_response :success
     end
   end
@@ -80,9 +78,9 @@ class CommentControllerTest < ActionController::TestCase
     article = community.articles.create!(:name => 'test', :profile => community)
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
     community.add_moderator(profile)
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     assert_difference 'Comment.count', -1 do
-      xhr :post, :destroy, :profile => community.identifier, :id => comment.id
+      post destroy_comment_path(community.identifier, comment), xhr: true
       assert_response :success
     end
     assert_match /\{\"ok\":true\}/, @response.body
@@ -94,9 +92,9 @@ class CommentControllerTest < ActionController::TestCase
     article.save!
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala')
 
-    login_as 'testuser'
+    login_as_rails5 'testuser'
     assert_difference 'Comment.count', -1 do
-      xhr :post, :destroy, :profile => profile.identifier, :id => comment.id
+      post destroy_comment_path(profile.identifier, comment), xhr: true
       assert_response :success
     end
   end
@@ -108,7 +106,7 @@ class CommentControllerTest < ActionController::TestCase
     other_page = other_person.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id => other_page.id, :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
+      post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: other_page.id}, xhr: true
     end
      assert_match /not found/, @response.body
   end
@@ -117,7 +115,7 @@ class CommentControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
 
     assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
+      post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: page.id}, xhr: true
     end
      assert_match /Comment not allowed in this article/, @response.body
   end
@@ -125,25 +123,25 @@ class CommentControllerTest < ActionController::TestCase
   should "the author's comment be the logged user" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
+    post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: page.id}, xhr: true
     assert_equal profile, assigns(:comment).author
   end
 
   should "the articles's comment be the article passed as parameter" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
+    post comment_index_path(profile.identifier), params: {:comment => { :title => 'crap!', :body => 'I think that this article is crap' }, id: page.id}, xhr: true
     assert_equal page, assigns(:comment).article
   end
 
   should 'show validation error when body comment is missing' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    xhr :post, :create, :profile => @profile.identifier, :id => page.id, :comment => { :title => '', :body => '' }, :confirm => 'true'
+    post comment_index_path(@profile.identifier), params: {:comment => { :title => '', :body => '' }, :confirm => 'true', id: page.id}, xhr: true
     response = ActiveSupport::JSON.decode @response.body
     assert_match /errorExplanation/, response["html"]
   end
@@ -157,7 +155,7 @@ class CommentControllerTest < ActionController::TestCase
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestFilterPlugin.new])
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
+      post comment_index_path(profile.identifier), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true', id: page.id}, xhr: true
     end
   end
 
@@ -170,7 +168,7 @@ class CommentControllerTest < ActionController::TestCase
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestFilterPlugin.new])
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
+      post comment_index_path(profile.identifier), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true', id: page.id}, xhr: true
     end
 
     assert_match /rejected/, @response.body
@@ -178,10 +176,7 @@ class CommentControllerTest < ActionController::TestCase
 
   should 'store IP address, user agent and referrer for comments' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    @request.stubs(:remote_ip).returns('33.44.55.66')
-    @request.stubs(:referrer).returns('http://example.com')
-    @request.stubs(:user_agent).returns('MyBrowser')
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true', id: page.id}, xhr: true, headers: { "HTTP_REFERER" => "http://example.com", 'REMOTE_ADDR' => '33.44.55.66', 'HTTP_USER_AGENT': 'MyBrowser' }
     comment = Comment.last
     assert_equal '33.44.55.66', comment.ip_address
     assert_equal 'MyBrowser', comment.user_agent
@@ -191,34 +186,34 @@ class CommentControllerTest < ActionController::TestCase
   should 'invalid comment display the comment form open' do
     article = profile.articles.build(:name => 'test')
     article.save!
-    login_as('testinguser')
+    login_as_rails5('testinguser')
 
     assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => ""}, :confirm => 'true'
+      post comment_index_path(profile.identifier), params: {:comment => {:body => ""}, :confirm => 'true', id: article.id}, xhr: true
     end
     assert_match /errorExplanation/, @response.body
   end
 
   should 'create ApproveComment task when adding a comment in a moderated article' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     community = Community.create!(:name => 'testcomm')
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    login_as(commenter.identifier)
+    login_as_rails5(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
+      post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
   end
 
   should 'not create ApproveComment task when the comment author is the same of article author' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     community = Community.create!(:name => 'testcomm')
     page = create(Article, :profile => community, :name => 'myarticle', :moderate_comments => true, :author => @profile)
     community.add_moderator(@profile)
 
     assert_no_difference 'ApproveComment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
+      post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
   end
 
@@ -227,9 +222,9 @@ class CommentControllerTest < ActionController::TestCase
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    login_as(commenter.identifier)
+    login_as_rails5(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
+      post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
     task = Task.last
     assert_equal commenter, task.requestor
@@ -237,27 +232,27 @@ class CommentControllerTest < ActionController::TestCase
   end
 
   should "create ApproveComment task with the articles's owner profile as the target" do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     community = Community.create!(:name => 'testcomm')
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    login_as(commenter.identifier)
+    login_as_rails5(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
+      post comment_index_path(community.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     end
     task = Task.last
     assert_equal community, task.target
   end
 
   should "create ApproveComment task with the comment created_at attribute defined to now" do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     community = Community.create!(:name => 'testcomm')
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     now = Time.now
     Time.stubs(:now).returns(now)
-    xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
+    post comment_index_path(community.identifier), params: { :comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     task = Task.last
     assert_equal now.utc.to_s, task.comment.created_at.utc.to_s
   end
@@ -265,67 +260,67 @@ class CommentControllerTest < ActionController::TestCase
   should "render_target be nil in article with moderation" do
     page = profile.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...', :name => 'some name', :email => 'some@test.com.br'}, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...', :name => 'some name', :email => 'some@test.com.br'}, :confirm => 'true', id: page.id}, xhr: true
     assert_nil ActiveSupport::JSON.decode(@response.body)['render_target']
   end
 
   should "display message 'waitting for approval' of comments in article with moderation" do
     page = profile.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...', :name => 'some name', :email => 'some@test.com.br'}, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...', :name => 'some name', :email => 'some@test.com.br'}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /waiting for approval/, @response.body
   end
 
   should "render_target be the comment anchor if everithing is fine" do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /#{Comment.last.id}/, ActiveSupport::JSON.decode(@response.body)['render_target']
   end
 
   should "display message 'successfully created' if the comment was saved with success" do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /successfully created/, @response.body
   end
 
   should "render partial comment if everithing is fine" do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...'}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /id="#{Comment.last.anchor}" class="comment-container"/, ActiveSupport::JSON.decode(@response.body)['html']
   end
 
   should "render the root comment when a reply is made" do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle')
 
     comment = fast_create(Comment, :body => 'some content', :source_id => page.id, :source_type => 'Article')
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...', :reply_of_id => comment.id}, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => {:body => 'Some comment...', :reply_of_id => comment.id}, :confirm => 'true', id: page.id}, xhr: true
     assert_match /id="#{comment.anchor}" class="comment-container"/, ActiveSupport::JSON.decode(@response.body)['html']
   end
 
   should 'filter html content from body' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'html comment', :body => "this is a <strong id='html_test_comment'>html comment</strong>"}
+    post comment_index_path(profile.identifier), params: {:comment => { :title => 'html comment', :body => "this is a <strong id='html_test_comment'>html comment</strong>"}, id: page.id}, xhr: true
 
     assert Comment.last.body.match(/this is a html comment/)
-    assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
+    !assert_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
   end
 
   should 'filter html content from title' do
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => "html <strong id='html_test_comment'>comment</strong>", :body => "this is a comment"}
+    post comment_index_path(profile.identifier), params: {:comment => { :title => "html <strong id='html_test_comment'>comment</strong>", :body => "this is a comment"}, id: page.id}, xhr: true
     assert Comment.last.title.match(/html comment/)
-    assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
+    !assert_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
   end
 
   should 'touch article after adding a comment' do
@@ -334,33 +329,33 @@ class CommentControllerTest < ActionController::TestCase
     page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text', :created_at => yesterday, :updated_at => yesterday)
     Article.record_timestamps = true
 
-    login_as @profile.identifier
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:title => 'crap!', :body => 'I think that this article is crap' }, :confirm => 'true'
+    login_as_rails5 @profile.identifier
+    post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap' }, :confirm => 'true', id: page.id}, xhr: true
     assert_not_equal yesterday, page.reload.updated_at
   end
 
   should 'follow article when commenting' do
     page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text')
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => true}, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => true}, :confirm => 'true', id: page.id}, xhr: true
     assert_includes page.person_followers, @profile
   end
 
   should 'not follow article when commenting' do
     page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text')
-    login_as @profile.identifier
+    login_as_rails5 @profile.identifier
 
-    xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => false }, :confirm => 'true'
+    post comment_index_path(profile.identifier), params: {:comment => {:title => 'crap!', :body => 'I think that this article is crap', :follow_article => false }, :confirm => 'true', id: page.id}, xhr: true
     assert_not_includes page.person_followers, @profile
   end
 
   should 'be able to mark comments as spam' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     article = fast_create(Article, :profile_id => profile.id)
     spam = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :source_id => article.id, :source_type => 'Article')
 
-    xhr :post, :mark_as_spam, :profile => profile.identifier, :id => spam.id
+    post mark_as_spam_comment_path(profile.identifier, spam), xhr: true
 
     spam.reload
     assert spam.spam?
@@ -375,8 +370,8 @@ class CommentControllerTest < ActionController::TestCase
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala')
 
-    login_as 'normaluser' # normaluser cannot remove other people's comments
-    xhr :post, :mark_as_spam, :profile => profile.identifier, :id => comment.id
+    login_as_rails5 'normaluser' # normaluser cannot remove other people's comments
+    post mark_as_spam_comment_path(profile.identifier, comment), xhr: true
     comment.reload
     refute comment.spam?
   end
@@ -390,9 +385,9 @@ class CommentControllerTest < ActionController::TestCase
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'normaluser' # normaluser cannot remove other people's comments
+    login_as_rails5 'normaluser' # normaluser cannot remove other people's comments
 
-    xhr :post, :mark_as_spam, :profile => profile.identifier, :id => comment.id
+    post mark_as_spam_comment_path(profile.identifier, comment), xhr: true
     assert_response :success
     comment.reload
     refute comment.spam?
@@ -407,9 +402,9 @@ class CommentControllerTest < ActionController::TestCase
     commenter = create_user('otheruser').person
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
-    login_as 'testuser' # testuser must be able to remove comments in his articles
+    login_as_rails5 'testuser' # testuser must be able to remove comments in his articles
 
-    xhr :post, :mark_as_spam, :profile => profile.identifier, :id => comment.id
+    post mark_as_spam_comment_path(profile.identifier, comment), xhr: true
     assert_response :success
     comment.reload
     assert comment.spam?
@@ -423,9 +418,9 @@ class CommentControllerTest < ActionController::TestCase
     article = community.articles.create!(:name => 'test', :profile => community)
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
     community.add_moderator(profile)
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
 
-    xhr :post, :mark_as_spam, :profile => community.identifier, :id => comment.id
+    post mark_as_spam_comment_path(community.identifier, comment), xhr: true
     assert_response :success
     comment.reload
     assert comment.spam?
@@ -433,19 +428,19 @@ class CommentControllerTest < ActionController::TestCase
   end
 
   should 'edit comment from a page' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile.id)
 
-    get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    get edit_comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}
     assert_tag :tag => 'textarea', :attributes => { :id => 'comment-field', :title => 'Leave your comment', :placeholder => 'Leave your comment' }, :content =>  /Original comment/
   end
 
    should 'not crash on edit comment if comment does not exist' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    get :edit, :id => 1000, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    get edit_comment_path(profile.identifier, 1000), params: {:comment => { :body => 'Comment edited' }}
     assert_response 404
   end
 
@@ -453,35 +448,34 @@ class CommentControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
-    get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    get edit_comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}
     assert_response 404
   end
 
   should 'not be able to edit comment if does not have the permission to' do
     user = create_user('any_guy').person
-    login_as user.identifier
+    login_as_rails5 user.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
-    get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    get edit_comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}
     assert_response 404
   end
 
   should 'be able to update a comment' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile)
 
-    xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
-    assert ActiveSupport::JSON.decode(@response.body)["ok"], "attribute ok expected to be true"
+    post comment_path(profile.identifier, comment), params: {:comment => { :body => 'Comment edited' }}, xhr: true
     assert_equal 'Comment edited', Comment.find(comment.id).body
   end
 
   should 'not crash on update comment if comment does not exist' do
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    xhr :post, :update, :id => 1000, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    post comment_path(profile.identifier, 1000), params: { :comment => { :body => 'Comment edited' }}
     assert_response 404
   end
 
@@ -489,17 +483,17 @@ class CommentControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
-    xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    post comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}, xhr: true
     assert_response 404
   end
 
   should 'not be able to update comment if does not have the permission to' do
     user = create_user('any_guy').person
-    login_as user.identifier
+    login_as_rails5 user.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
 
-    xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    post comment_path(profile.identifier, comment), params: { :comment => { :body => 'Comment edited' }}, xhr: true
     assert_response 404
   end
 
@@ -510,10 +504,10 @@ class CommentControllerTest < ActionController::TestCase
       end
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestActionPlugin.new])
-    login_as profile.identifier
+    login_as_rails5 profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
-    xhr :post, :check_actions, :profile => profile.identifier, :id => comment.id
+    post check_actions_comment_path(profile.identifier, comment) 
     assert_match /\{\"ids\":\[\"action1\",\"action2\"\]\}/, @response.body
   end
 
@@ -532,9 +526,8 @@ class CommentControllerTest < ActionController::TestCase
                                   keys: { auth: '123', p256dh: '456' })
     end
 
-    login_as commenter.identifier
-    xhr :post, :create, profile: author.identifier, id: article.id,
-                          comment: { title: 'push', body: 'notification' }
+    login_as_rails5 commenter.identifier
+    post comment_index_path(author.identifier), params: {id: article.id,  comment: { title: 'push', body: 'notification' }}, xhr: true
 
     Webpush.expects(:payload_send).times(3)
     process_delayed_job_queue

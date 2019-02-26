@@ -26,7 +26,7 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: survey.name,
+    !assert_tag tag: 'span', content: survey.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -34,25 +34,25 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form2.name,
+    !assert_tag tag: 'span', content: @form2.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form3.name,
+    !assert_tag tag: 'span', content: @form3.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
   should 'list surveys accessible to logged users' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: @form2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form3.name,
+    !assert_tag tag: 'span', content: @form3.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
   should 'list surveys accessible to member users' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @profile.add_member(@user)
 
     get "/profile/#{@profile.identifier}"
@@ -66,13 +66,13 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
 
   should 'return open forms in survey list' do
 
-    open_survey_1 =  create_survey('Open Survey 1', begining: DateTime.now - 1.day,
+    open_survey_1 =  create_survey('Open Survey 1', beginning: DateTime.now - 1.day,
                                 ending: DateTime.now + 2.days)
     open_survey_2 =  create_survey('Open Survey 2', ending: DateTime.now + 3.days)
 
     closed_survey =  create_survey('Closed Survey 1', ending: DateTime.now - 1.days)
     not_open_yet_survey =  create_survey('Not open yet Survey 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     @my_block.metadata['status'] = 'not_closed'
     @my_block.save!
 
@@ -81,9 +81,9 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: open_survey_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: closed_survey.name,
+    !assert_tag tag: 'span', content: closed_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: not_open_yet_survey.name,
+    !assert_tag tag: 'span', content: not_open_yet_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -94,7 +94,7 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
 
     open_survey =  create_survey('Open Survey', ending: DateTime.now + 3.days)
     not_open_yet_survey =  create_survey('Not open yet Survey',
-                                      begining: DateTime.now + 2.days)
+                                      beginning: DateTime.now + 2.days)
 
     @my_block.metadata['status'] = 'closed'
     @my_block.save!
@@ -104,21 +104,21 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: closed_survey_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: open_survey.name,
+    !assert_tag tag: 'span', content: open_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: not_open_yet_survey.name,
+    !assert_tag tag: 'span', content: not_open_yet_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
   should 'return not open yet forms in survey list' do
 
     not_open_yet_survey_1 =  create_survey('Not open yet Survey 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     not_open_yet_survey_2 =  create_survey('Not open yet Survey 2',
-                                        begining: DateTime.now + 1.days)
+                                        beginning: DateTime.now + 1.days)
 
     closed_survey =  create_survey('Closed Survey', ending: DateTime.now - 1.days)
-    open_survey =  create_survey('Open Survey', begining: DateTime.now,
+    open_survey =  create_survey('Open Survey', beginning: DateTime.now,
                               ending: DateTime.now + 2.days)
 
     @my_block.metadata['status'] = 'not_open_yet'
@@ -129,15 +129,15 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: not_open_yet_survey_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: open_survey.name,
+    !assert_tag tag: 'span', content: open_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: closed_survey.name,
+    !assert_tag tag: 'span', content: closed_survey.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
   should 'return all forms in survey list' do
 
-    open_survey_1 =  create_survey('Open Survey 1', begining: DateTime.now,
+    open_survey_1 =  create_survey('Open Survey 1', beginning: DateTime.now,
                                 ending: DateTime.now + 2.days)
     open_survey_2 =  create_survey('Open Survey 2', ending: DateTime.now + 3.days)
 
@@ -145,9 +145,9 @@ class CustomFormsPlugin::SurveyBlockProfileTest < ActionDispatch::IntegrationTes
     closed_survey_2 =  create_survey('Closed Survey 2', ending: DateTime.now - 2.days)
 
     not_open_yet_survey_1 =  create_survey('Not open yet Survey 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     not_open_yet_survey_2 =  create_survey('Not open yet Survey 2',
-                                        begining: DateTime.now + 1.days)
+                                        beginning: DateTime.now + 1.days)
 
     @my_block.metadata['limit'] = 9
     @my_block.metadata['status'] = 'all'

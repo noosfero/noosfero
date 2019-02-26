@@ -4,11 +4,11 @@ class OrdersPluginOrderController < ProfileController
 
   no_design_blocks
 
-  before_filter :login_required, except: [:index, :edit]
-  before_filter :load_order, except: [:new]
-  before_filter :check_access, only: [:confirm, :remove, :cancel]
-  before_filter :set_actor_name
-  before_filter :disable_purechat
+  before_action :login_required, except: [:index, :edit]
+  before_action :load_order, except: [:new]
+  before_action :check_access, only: [:confirm, :remove, :cancel]
+  before_action :set_actor_name
+  before_action :disable_purechat
 
   helper OrdersPlugin::TranslationHelper
   helper OrdersPlugin::DisplayHelper

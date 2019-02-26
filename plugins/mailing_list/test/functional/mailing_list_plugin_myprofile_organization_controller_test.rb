@@ -27,15 +27,15 @@ class MailingListPluginMyprofileOrganizationControllerTest < ActionController::T
     get :edit, profile: @profile.identifier
     assert_tag 'a', content: @member1.name, ancestor: { tag: 'table' }
     assert_tag 'a', content: @member2.name, ancestor: { tag: 'table' }
-    assert_no_tag 'a', content: template.name, ancestor: { tag: 'table' }
+    !assert_tag 'a', content: template.name, ancestor: { tag: 'table' }
   end
 
   should 'not render the members list if the list does not exist' do
     @client.stubs(:complex_lists).returns([])
 
     get :edit, profile: @profile.identifier
-    assert_no_tag 'a', content: @member1.name, ancestor: { tag: 'table' }
-    assert_no_tag 'a', content: @member2.name, ancestor: { tag: 'table' }
+    !assert_tag 'a', content: @member1.name, ancestor: { tag: 'table' }
+    !assert_tag 'a', content: @member2.name, ancestor: { tag: 'table' }
   end
 
   should 'update the profile settings' do

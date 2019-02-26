@@ -72,8 +72,7 @@ timestamp=/tmp/.noosfero.apt-get.update
 now=$(date +%s)
 if [ ! -f $timestamp ] || [ $(($now - $(stat --format=%Y $timestamp))) -gt 21600 ]; then
   run retry 3 sudo apt-get update
-  run retry 3 sudo apt-mark hold firefox
-  run retry 3 sudo apt-get -qy upgrade
+  # run retry 3 sudo apt-get -qy dist-upgrade
   touch $timestamp
 fi
 
@@ -82,7 +81,7 @@ run sudo apt-get -y install dctrl-tools
 # needed to run noosfero
 packages=$(grep-dctrl -n -s Build-Depends,Depends,Recommends -S -X noosfero debian/control | sed -e '/^\s*#/d; s/([^)]*)//g; s/,\s*/\n/g' | grep -v 'memcached\|debconf\|dbconfig-common\|misc:Depends\|adduser\|mail-transport-agent')
 run sudo apt-get -y install $packages
-sudo apt-get -y install iceweasel || sudo apt-get -y install firefox
+sudo apt-get -y install firefox-esr
 run bundle
 
 . "$(dirname $0)/install-dependencies/npm-dependencies.sh"

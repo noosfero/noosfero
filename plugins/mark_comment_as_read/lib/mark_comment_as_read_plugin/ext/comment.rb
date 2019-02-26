@@ -2,8 +2,8 @@ require_dependency 'comment'
 
 class Comment
 
-  has_many :read_comments, :class_name => 'MarkCommentAsReadPlugin::ReadComments'
-  has_many :people, :through => :read_comments
+  has_many :read_comments, class_name:  'MarkCommentAsReadPlugin::ReadComments'
+  has_many :people, through:  :read_comments
 
   def mark_as_read(person)
     people << person

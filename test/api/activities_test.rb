@@ -90,7 +90,7 @@ class ActivitiesTest < ActiveSupport::TestCase
     create_activity(:target => person)
     create(Scrap, :sender_id => person.id, :receiver_id => person.id)
 
-    assert_nothing_raised NoMethodError do
+    assert_nothing_raised do
       get "/api/v1/profiles/#{person.id}/activities?#{params.to_query}"
     end
   end

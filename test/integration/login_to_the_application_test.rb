@@ -8,7 +8,10 @@ class LoginToTheApplicationTest < ActionDispatch::IntegrationTest
     get '/myprofile/ze'
     assert_redirected_to '/account/login'
 
-    post '/account/login', :user => { :login => 'ze', :password => "test" }
+    post '/account/login', params: {user: { login: 'ze',
+                                            password: 'test'
+                                          }
+                                   }
 
     assert_redirected_to '/myprofile/ze'
   end

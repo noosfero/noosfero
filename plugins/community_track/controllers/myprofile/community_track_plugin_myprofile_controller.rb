@@ -1,6 +1,6 @@
 class CommunityTrackPluginMyprofileController < MyProfileController
 
-  before_filter :allow_edit_track, :only => :save_order
+  before_action :allow_edit_track, :only => :save_order
 
   def save_order
     track = profile.articles.find(params[:track])

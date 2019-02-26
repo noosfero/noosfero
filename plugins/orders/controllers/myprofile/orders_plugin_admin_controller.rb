@@ -6,7 +6,7 @@ class OrdersPluginAdminController < MyProfileController
   no_design_blocks
 
   protect 'edit_profile', :profile
-  before_filter :set_admin
+  before_action :set_admin
 
   helper OrdersPlugin::TranslationHelper
   helper OrdersPlugin::DisplayHelper

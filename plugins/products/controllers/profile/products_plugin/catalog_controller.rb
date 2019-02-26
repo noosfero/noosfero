@@ -1,7 +1,7 @@
 module ProductsPlugin
   class CatalogController < ProfileController
 
-    before_filter :check_profile
+    before_action :check_profile
 
     include CatalogHelper
 

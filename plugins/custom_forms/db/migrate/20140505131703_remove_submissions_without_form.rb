@@ -1,4 +1,4 @@
-class RemoveSubmissionsWithoutForm < ActiveRecord::Migration
+class RemoveSubmissionsWithoutForm < ActiveRecord::Migration[5.1]
   def self.up
     CustomFormsPlugin::Submission.find_each do |submission|
       submission.destroy if submission.form.nil?

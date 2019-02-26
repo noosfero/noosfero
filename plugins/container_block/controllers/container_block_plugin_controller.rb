@@ -11,7 +11,7 @@ module ContainerBlockPluginController
     container.children_settings = settings
     container.save!
 
-    render :text => _('Block successfully saved.')
+    render plain: 'Block successfully saved.'
   end
 
 end

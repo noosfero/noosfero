@@ -4,7 +4,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   def setup
     Environment.delete_all
-    @environment = Environment.create(:name => 'testenv', :is_default => true)
+    @environment = Environment.create(name: 'testenv', is_default: true)
     @environment.enabled_plugins = ['ContextContentPlugin']
     @environment.save!
 

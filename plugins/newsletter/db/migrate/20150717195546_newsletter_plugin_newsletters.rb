@@ -1,7 +1,7 @@
-class NewsletterPluginNewsletters < ActiveRecord::Migration
+class NewsletterPluginNewsletters < ActiveRecord::Migration[5.1]
   def up
     create_table :newsletter_plugin_newsletters do |t|
-      t.references :environment, :null => false
+      t.references :environment, :null => false, index: {:name => 'index_aasfegR6', :unique => true }
       t.references :person, :null => false
       t.boolean :enabled, :default => false
       t.string :subject
@@ -14,7 +14,6 @@ class NewsletterPluginNewsletters < ActiveRecord::Migration
       t.boolean :moderated
       t.text :unsubscribers
     end
-    add_index :newsletter_plugin_newsletters, :environment_id, :unique => true
   end
 
   def down

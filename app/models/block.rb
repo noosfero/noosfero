@@ -14,9 +14,9 @@ class Block < ApplicationRecord
 
   acts_as_list scope: :box_id
 
-  belongs_to :box
-  belongs_to :mirror_block, :class_name => "Block"
-  has_many :observers, :class_name => "Block", :foreign_key => "mirror_block_id"
+  belongs_to :box, optional: true
+  belongs_to :mirror_block, class_name: "Block", optional: true
+  has_many :observers, class_name: "Block", foreign_key: "mirror_block_id"
   has_many :images, foreign_key: "owner_id"
 
   extend ActsAsHavingSettings::ClassMethods

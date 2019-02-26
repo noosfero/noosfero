@@ -227,8 +227,9 @@ class PersonTest < ActiveSupport::TestCase
 
     p3 = create_user('testuser3').person
     p1.add_friend(p3)
+    p1.friends.reload
 
-    assert_equivalent [p2,p3], p1.friends(true) # force reload
+    assert_equivalent [p2,p3], p1.friends
   end
 
   should 'suggest default friend groups list' do
@@ -278,7 +279,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_difference 'Friendship.count', -1 do
       p1.remove_friend(p2)
     end
-    assert_not_includes p1.friends(true), p2
+    assert_not_includes p1.friends, p2
   end
 
   should 'destroy friendships when person is destroyed' do
@@ -290,7 +291,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_difference 'Friendship.count', -2 do
       p1.destroy
     end
-    assert_not_includes p2.friends(true), p1
+    assert_not_includes p2.friends, p1
   end
 
   should 'destroy use when person is destroyed' do
@@ -618,7 +619,7 @@ class PersonTest < ActiveSupport::TestCase
     person = create_user('testuser1').person
     person.user.email = nil
 
-    assert_nothing_raised ActiveRecord::RecordInvalid do
+    assert_nothing_raised do
       refute person.save
     end
   end

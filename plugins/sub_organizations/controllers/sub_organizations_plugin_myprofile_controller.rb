@@ -1,7 +1,7 @@
 class SubOrganizationsPluginMyprofileController < MyProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
-  before_filter :organizations_only
+  before_action :organizations_only
   protect 'edit_profile', :profile
 
   def index
@@ -32,7 +32,7 @@ class SubOrganizationsPluginMyprofileController < MyProfileController
   end
 
   def search_organization
-    render :text => prepare_to_token_input(
+    render plain: prepare_to_token_input(
       environment.organizations.where(
         "(LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?)
         AND (identifier NOT LIKE ?) AND (id != ?)",

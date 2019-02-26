@@ -8,7 +8,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     user = create_user('myuser')
     user.activate!
 
-    login('myuser', 'myuser')
+    login('myuser', '123456')
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{user.login}"  }
 
     get '/myprofile/myuser'
@@ -24,7 +24,13 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/myuser/cms/new', :method => /post/i }
 
     assert_difference 'Article.count' do
-      post_via_redirect '/myprofile/myuser/cms/new', :type => 'TextArticle', :article => { :name => 'my article', :body => 'this is the body of there article'}
+      post '/myprofile/myuser/cms/new',
+          params: {type: 'TextArticle',
+                   article: { name: 'my article',
+                              body: 'this is the body of the article'
+                            }
+          }
+      follow_redirect!
     end
 
     assert_response :success
@@ -38,7 +44,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     article = create_article(profile, :name => 'my-article')
     article.save!
 
-    login('myuser', 'myuser')
+    login('myuser', '123456')
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
 
     get '/myprofile/myuser'
@@ -49,12 +55,16 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/myuser/cms/edit/#{article.id}"}
 
-    get "/myprofile/myuser/cms/edit/#{article.id}"
+    get "/myprofile/myuser/cms/#{article.id}/edit"
     assert_response :success
-    assert_tag :tag => 'form', :attributes => { :action => "/myprofile/myuser/cms/edit/#{article.id}", :method => /post/i }
+    assert_tag :tag => 'form', :attributes => { :action => "/myprofile/myuser/cms/#{article.id}/edit", :method => /post/i }
 
     assert_no_difference 'Article.count' do
-      post_via_redirect "/myprofile/myuser/cms/edit/#{article.id}", :article => { :name => 'my article', :body => 'this is the body of the article'}
+      post "/myprofile/myuser/cms/#{article.id}/edit", params: {article: { name: 'my article',
+                                                                           body: 'this is the body of the article'
+                                                                         }
+                                                               }
+      follow_redirect!
     end
 
     article.reload
@@ -71,7 +81,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     article = create_article(profile, :name => 'my-article')
     article.save!
 
-    login('myuser', 'myuser')
+    login('myuser', '123456')
 
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
     get '/myprofile/myuser'
@@ -81,8 +91,9 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     get '/myprofile/myuser/cms'
     assert_response :success
 
-    assert_tag tag: 'a', attributes: { href: "/myprofile/myuser/cms/destroy/#{article.id}", 'data-confirm' => /Are you sure/ }
-    post_via_redirect "/myprofile/myuser/cms/destroy/#{article.id}"
+    assert_tag tag: 'a', attributes: { href: "/myprofile/myuser/cms/#{article.id}/destroy", 'data-confirm' => /Are you sure/ }
+    post "/myprofile/myuser/cms/#{article.id}/destroy"
+    follow_redirect!
 
     assert_response :success
     assert_equal "/myuser", path
@@ -96,10 +107,10 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
   protected
 
   def create_article(profile, options)
-    a = TextArticle.new(options)
-    a.profile = profile
-    a.save!
-    a
+    article = TextArticle.new(options)
+    article.profile = profile
+    article.save!
+    article
   end
 
 end

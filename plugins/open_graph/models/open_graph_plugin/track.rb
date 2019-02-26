@@ -7,9 +7,9 @@ class OpenGraphPlugin::Track < ApplicationRecord
     :object_type, :object_data_id, :object_data_type, :object_data_url,
     :story, :object_data, :actor
 
-  belongs_to :tracker, class_name: 'Profile'
-  belongs_to :actor, class_name: 'Profile'
-  belongs_to :object_data, polymorphic: true
+  belongs_to :tracker, class_name: 'Profile', optional: true
+  belongs_to :actor, class_name: 'Profile', optional: true
+  belongs_to :object_data, polymorphic: true, optional: true
 
   before_validation :set_context
 

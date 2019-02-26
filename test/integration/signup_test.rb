@@ -20,25 +20,37 @@ class SignupTest < ActionDispatch::IntegrationTest
     @env.save!
 
     assert_no_difference 'User.count' do
-      post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com'  }
+      post '/account/signup', params: {user: { login: 'shouldaccepterms',
+                                               password: 'test',
+                                               password_confirmation: 'test',
+                                               email: 'shouldaccepterms@example.com'
+                                             }
+                                      }
       assert_response :success
     end
   end
 
-  should 'create user that accepted the temrs' do
+  should 'create user that accepted the terms' do
     @env = Environment.default
     @env.terms_of_use = 'You agree to not be annoying.'
     @env.save!
 
     assert_difference 'User.count' do
-      post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
+      post '/account/signup', params: { user: { login: 'shouldaccepterms',
+                                                password: 'test',
+                                                password_confirmation: 'test',
+                                                email: 'shouldaccepterms@example.com',
+                                                terms_accepted: '1'
+                                              },
+                                        profile_data: person_data
+                                      }
       user = User.last
       assert_redirected_to action: :activate,
                            activation_token: user.activation_code,
                            return_to: { controller: :home, action: :welcome, template_id: nil }
     end
 
-    assert_difference 'ActionMailer::Base.deliveries.count' do
+    assert_difference("ActionMailer::Base.deliveries.count", 1) do
       process_delayed_job_queue
     end
   end

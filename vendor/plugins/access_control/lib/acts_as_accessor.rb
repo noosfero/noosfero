@@ -4,7 +4,7 @@ module ActsAsAccessor
 
   module ClassMethods
     def acts_as_accessor
-      has_many :role_assignments, :as => :accessor, :dependent => :destroy
+      has_many :role_assignments, :as => :accessor, dependent:  :destroy
     end
   end
 

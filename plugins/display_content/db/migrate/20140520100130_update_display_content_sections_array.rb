@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class UpdateDisplayContentSectionsArray < ActiveRecord::Migration
+class UpdateDisplayContentSectionsArray < ActiveRecord::Migration[5.1]
 
   def self.up
     translator = {'Publish date' => 'publish_date', 'Title' => 'title', 'Abstract' => 'abstract', 'Body' => 'body', 'Image' => 'image', 'Tags' => 'tags',

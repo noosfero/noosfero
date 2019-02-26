@@ -3,9 +3,9 @@ require_relative "../test_helper"
 class StringTemplatesTest < ActionDispatch::IntegrationTest
 
   def setup
-    @profile = create_user('testuser', password: 'test').person
+    @profile = create_user('testuser').person
     @profile.user.activate!
-    login(@profile.identifier, 'test')
+    login(@profile.identifier, '123456')
   end
 
   should 'replace block content when there is a valid macro' do

@@ -1,6 +1,6 @@
 class ToleranceTimePlugin::Tolerance < ApplicationRecord
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
   validates_presence_of :profile_id
   validates_uniqueness_of :profile_id
   validates_numericality_of :content_tolerance, :only_integer => true, :allow_nil => true

@@ -1,6 +1,6 @@
 class AcademicInfo < ApplicationRecord
 
-  belongs_to :person
+  belongs_to :person, optional: true
 
   attr_accessible :lattes_url
   validate :lattes_url_validate?

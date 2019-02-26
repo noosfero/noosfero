@@ -1,7 +1,7 @@
 class ThemesController < ApplicationController
 
-  before_filter :login_required
-  before_filter :check_user_can_edit_appearance, :only => [:index]
+  before_action :login_required
+  before_action :check_user_can_edit_appearance, :only => [:index]
 
   no_design_blocks
 

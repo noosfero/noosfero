@@ -1,4 +1,4 @@
-class EnablePeopleBlockPlugin < ActiveRecord::Migration
+class EnablePeopleBlockPlugin < ActiveRecord::Migration[5.1]
   def up
     Environment.all.each do |env|
       env.enabled_plugins << 'PeopleBlockPlugin'

@@ -4,8 +4,8 @@ class DeliveryPlugin::AdminOptionsController < DeliveryPlugin::AdminMethodContro
   helper DeliveryPlugin::DisplayHelper
 
   protect 'edit_profile', :profile
-  before_filter :load_context
-  before_filter :load_owner
+  before_action :load_context
+  before_action :load_owner
 
   def select
   end

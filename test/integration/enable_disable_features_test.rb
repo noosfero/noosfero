@@ -5,22 +5,30 @@ class EnableDisableFeaturesTest < ActionDispatch::IntegrationTest
   all_fixtures
 
   def test_enable_features
-    Environment.default.add_admin Profile['ze']
-    login 'ze', 'test'
+    #Environment.default.add_admin Profile['ze']
+    #login_as_rails5 'ze'
+    login_as_rails5(create_admin_user(Environment.default))
 
-    get '/admin/features'
+    get features_path
     assert_response :success
     assert_tag :tag => 'input', :attributes => { :name => 'environment[enabled_features][]', :value => 'feature1' }
     assert_tag :tag => 'input', :attributes => { :name => 'environment[enabled_features][]', :value => 'feature2' }
     assert_tag :tag => 'input', :attributes => { :name => 'environment[enabled_features][]', :value => 'feature3' }
 
-    post_via_redirect '/admin/features/update'
+    post update_features_path
+    follow_redirect!
+
     assert_response :success
 
     assert_response :success
     assert_equal '/admin/features', path
 
-    post_via_redirect '/admin/features/update', :environments => { :enabled_features => [ 'feature1' ], :organization_approval_method => 'region' }
+    post update_features_path, params: {environments: { enabled_features: [ 'feature1' ],
+                                                            organization_approval_method: 'region'
+                                                          }
+                                           }
+    follow_redirect!
+
     assert_response :success
 
     assert_equal '/admin/features', path

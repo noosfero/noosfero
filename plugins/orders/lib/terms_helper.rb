@@ -6,9 +6,15 @@ module TermsHelper
 
   included do
     include I18nAutoScope
-    alias_method_chain :translate, :transformation
-    alias_method_chain :translate, :terms_cache
-    alias_method_chain :translate, :terms
+    alias_method :translate_without_transformation, :translate
+    alias_method :translate, :translate_with_transformation
+
+    alias_method :translate_without_terms_cache, :translate
+    alias_method :translate, :translate_with_terms_cache
+
+    alias_method :translate_without_terms, :translate
+    alias_method :translate, :translate_with_terms
+
     alias_method :t, :translate
   end
 

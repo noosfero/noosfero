@@ -24,10 +24,11 @@ class ManageFriendshipsTest < ActionDispatch::IntegrationTest
     get "/myprofile/#{@person.identifier}/friends/remove/#{@friend.id}"
     assert_response :success
 
-    post_via_redirect "/myprofile/#{@person.identifier}/friends/remove/#{@friend.id}",
-      :confirmation => '1'
-    assert_response :success
+    post "/myprofile/#{@person.identifier}/friends/remove/#{@friend.id}", params: { confirmation: '1'}
 
+    follow_redirect!
+
+    assert_response :success
 
     assert assigns(:friends).empty?
     refute @person.is_a_friend?(@friend)

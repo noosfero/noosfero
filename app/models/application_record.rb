@@ -1,6 +1,7 @@
 class ApplicationRecord < ActiveRecord::Base
 
   extend PostgresqlAttachmentFu::ClassMethods
+  extend ActiveRecord::Attributes
 
   self.abstract_class       = true
   self.store_full_sti_class = true
@@ -56,6 +57,15 @@ class ApplicationRecord < ActiveRecord::Base
 
     else
       raise "No searchable fields defined for #{self.name}"
+    end
+  end
+
+  def self.serialized_attributes(model)
+    model.columns.select do |column|
+      model.type_for_attribute(column.name).is_a?(::ActiveRecord::Type::Serialized)
+    end.inject({}) do |hash, column|
+      hash[column.name.to_s] = model.type_for_attribute(column.name).coder
+      hash
     end
   end
 

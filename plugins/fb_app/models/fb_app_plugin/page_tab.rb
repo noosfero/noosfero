@@ -7,7 +7,7 @@ class FbAppPlugin::PageTab < ApplicationRecord
     :config_type, :profile_ids, :query,
     :title, :subtitle
 
-  belongs_to :owner_profile, foreign_key: :profile_id, class_name: 'Profile'
+  belongs_to :owner_profile, foreign_key: :profile_id, class_name: 'Profile', optional: true
 
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :config

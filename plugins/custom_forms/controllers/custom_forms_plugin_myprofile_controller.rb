@@ -5,7 +5,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
   protect 'post_content', :profile
 
-  before_filter :remove_empty_alternatives, :only => [:create, :update]
+  before_action :remove_empty_alternatives, :only => [:create, :update]
 
   def index
     @forms = {}
@@ -111,12 +111,12 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
   def polls
     polls = queries_to_token_input('poll', params[:q])
-    render text: polls.to_json
+    render plain: polls.to_json
   end
 
   def surveys
     surveys = queries_to_token_input('survey', params[:q])
-    render text: surveys.to_json
+    render plain: surveys.to_json
   end
 
   def import

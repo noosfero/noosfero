@@ -12,7 +12,8 @@ class Blog < Folder
   def posts_with_no_folders
     posts_without_no_folders.no_folders(profile)
   end
-  alias_method_chain :posts, :no_folders
+  alias_method :posts_without_no_folders, :posts
+  alias_method :posts, :posts_with_no_folders
 
   def self.type_name
     _('Blog')
@@ -47,7 +48,7 @@ class Blog < Folder
     true
   end
 
-  has_one :external_feed, :foreign_key => 'blog_id', :dependent => :destroy
+  has_one :external_feed, foreign_key:  'blog_id', dependent:  :destroy
 
   attr_accessor :external_feed_data
   def external_feed_builder=(efeed)
@@ -58,7 +59,7 @@ class Blog < Folder
 
   def prepare_external_feed
     unless self.external_feed_data.nil?
-      if self.external_feed(true) && self.external_feed.id == self.external_feed_data[:id].to_i
+      if self.external_feed && self.external_feed.id == self.external_feed_data[:id].to_i
         self.external_feed.attributes = self.external_feed_data.except(:id)
       else
         self.build_external_feed(self.external_feed_data, :without_protection => true)

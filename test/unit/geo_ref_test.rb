@@ -4,12 +4,15 @@ require 'test_helper'
 
 class GeoRefTest < ActiveSupport::TestCase
 
-  ll = {
-    salvador:       [-12.9, -38.5],
-    rio_de_janeiro: [-22.9, -43.1],
-    new_york:       [ 40.7, -74.0],
-    tokyo:          [ 35.6, 139.6]
-  }
+  def setup
+    @ll = {
+      salvador:       [-12.9, -38.5],
+      rio_de_janeiro: [-22.9, -43.1],
+      new_york:       [ 40.7, -74.0],
+      tokyo:          [ 35.6, 139.6]
+    }
+  end
+  attr_accessor :ll
 
   should 'calculate the distance between lat,lng points' do
     assert_equal 1215, Noosfero::GeoRef.dist(*(ll[:salvador]+ll[:rio_de_janeiro])).round

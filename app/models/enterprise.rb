@@ -155,7 +155,8 @@ class Enterprise < Organization
   def template_with_inactive_enterprise
     !enabled? ? environment.inactive_enterprise_template : template_without_inactive_enterprise
   end
-  alias_method_chain :template, :inactive_enterprise
+  alias_method :template_without_inactive_enterprise, :template
+  alias_method :template, :template_with_inactive_enterprise
 
   settings_items :enable_contact_us, :type => :boolean, :default => true
 

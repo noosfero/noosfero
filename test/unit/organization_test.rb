@@ -113,7 +113,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'list contact_email plus admin emails as "notification emails"' do
-    o = build(Organization, :contact_email => 'org@email.com')
+    o = build(Organization, contact_email: 'org@email.com')
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -122,7 +122,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'list only admins if contact_email is nil' do
-    o = build(Organization, :contact_email => nil)
+    o = build(Organization, contact_email: nil)
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -131,7 +131,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'list only admins if contact_email is a blank string' do
-    o = build(Organization, :contact_email => '')
+    o = build(Organization, contact_email: '')
     admin1 = mock; admin1.stubs(:email).returns('admin1@email.com')
     admin2 = mock; admin2.stubs(:email).returns('admin2@email.com')
     o.stubs(:admins).returns([admin1, admin2])
@@ -140,7 +140,7 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'use the environment contact email if no emails are listed here' do
-    o = build(Organization, :contact_email => '', :environment => Environment.default)
+    o = build(Organization, contact_email: '', :environment => Environment.default)
     assert_equal [o.environment.contact_email], o.notification_emails
   end
 

@@ -211,7 +211,7 @@ module ArticleHelper
 
     if @page.allow_edit?(user) && !remove_content_button(:edit, @page)
       content = font_awesome(:edit, label_for_edit_article(@page))
-      url = profile.admin_url.merge({ controller: 'cms', action: 'edit', id: @page.id })
+      url = edit_cms_path(profile.identifier, @page.id)
       actions << expirable_content_reference(@page, :edit, content, url)
     end
 
@@ -224,7 +224,7 @@ module ArticleHelper
 
     if @page.allow_spread?(user) && !remove_content_button(:spread, @page)
       content = font_awesome(:spread, _('Spread'))
-      url = profile.admin_url.merge({ controller: 'cms', action: 'publish', id: @page.id })
+      url = publish_cms_path(profile.identifier, @page.id)
       actions << link_to(content, url, { modal: true} ) if url
     end
 
@@ -277,7 +277,7 @@ module ArticleHelper
   end
 
   def path_to_parents(article)
-    path = link_to(article.profile.name, article.profile.url, class: 'path-to-parent')
+    path = link_to(article.profile.name, profile_path(article.profile.identifier), class: 'path-to-parent')
     parents = article.hierarchy.select { |parent| parent != article }
     parents.each do |parent|
       path += link_to(font_awesome(:angle_right, parent.name), parent.url, class: 'path-to-parent')

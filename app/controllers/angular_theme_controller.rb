@@ -1,6 +1,6 @@
 class AngularThemeController < ApplicationController
   needs_profile
-  before_filter :verify_angular_theme
+  before_action :verify_angular_theme
 
   def index
     render_not_found

@@ -3,9 +3,11 @@
 
 <% extend CategoriesHelper %>
 
+<% if profile %>
 <%= content_tag "h#{title_size}",
-                "#{title} #{modal_link_to(font_awesome(:help), action: 'why_categorize')}".html_safe,
-                class: "box-title why-categorize" %>
+                "#{title} #{modal_link_to(font_awesome(:help), why_categorize_cms_index_path(profile.identifier))}".html_safe,
+		class: "box-title why-categorize" %>
+<% end %>	
 
 <%= hidden_field_tag "#{object_name}[category_ids][]", nil %>
 

@@ -27,7 +27,7 @@ class VideoPresenterTest < ActiveSupport::TestCase
     assert_equivalent video.original_video.keys,
       [:metadata, :type, :streams, :global_bitrate, :error, :duration, :parameters]
     assert video.web_versions.keys.include? :OGV
-    assert video.web_versions.keys.include? :MP4
+    assert video.web_versions.keys.include? :WEBM
   end
 
   should 'retrieve all web versions' do

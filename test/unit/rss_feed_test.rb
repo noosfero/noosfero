@@ -227,8 +227,8 @@ class RssFeedTest < ActiveSupport::TestCase
   should 'include posts from all languages' do
     profile = create_user('testuser').person
     blog = create(Blog, :name => 'blog-test', :profile => profile, :language => nil)
-    blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
-    blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
+    blog.posts.to_a << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
+    blog.posts.to_a << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
 
     assert blog.feed.fetch_articles.include?(en_post)
     assert blog.feed.fetch_articles.include?(es_post)
@@ -238,8 +238,8 @@ class RssFeedTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     blog = create(Blog, :name => 'blog-test', :profile => profile)
     blog.feed.update! :language => 'es'
-    blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
-    blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
+    blog.posts.to_a << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
+    blog.posts.to_a << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
 
     assert_equal [es_post], blog.feed.fetch_articles
   end

@@ -6,10 +6,10 @@ class ApproveCommentTest < ActiveSupport::TestCase
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
-    @profile = create_user('test_user', :email => "someone@anyhost.com").person
-    @article = fast_create(TextArticle, :profile_id => @profile.id, :name => 'test name', :abstract => 'Lead of article', :body => 'This is my article')
-    @community = create(Community, :contact_email => "someone@anyhost.com")
-    @comment = build(Comment, :article => @article, :title => 'any comment', :body => "any text", :author => create_user('someperson').person)
+    @profile = create_user('test_user', email: "someone@anyhost.com").person
+    @article = fast_create(TextArticle, profile_id: @profile.id, name: 'test name', abstract: 'Lead of article', body: 'This is my article')
+    @community = create(Community, contact_email: "someone@anyhost.com")
+    @comment = build(Comment, article: @article, title: 'any comment', body: "any text", author: create_user('someperson').person)
   end
 
   attr_reader :profile, :article, :community
@@ -109,7 +109,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
 
    should 'override target notification message method from Task' do
     task = ApproveComment.new(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-    assert_nothing_raised NotImplementedError do
+    assert_nothing_raised do
       task.target_notification_message
     end
   end

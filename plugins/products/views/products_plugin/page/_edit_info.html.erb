@@ -2,11 +2,12 @@
   <%= render_dialog_error_messages 'product' %>
 <% end %>
 
-<%= remote_form_for(@product,
-                   loading: "small_loading('product-info-form')",
-                   update: 'product-info',
-                   url: {controller: 'products_plugin/page', action: 'edit', id: @product, field: 'info'},
-                   html: {id: 'product-info-form', method: 'post'}) do |f| %>
+<%= form_for(@product,
+             remote: true,
+             loading: "small_loading('product-info-form')",
+             update: 'product-info',
+             url: {controller: 'products_plugin/page', action: 'edit', id: @product, field: 'info'},
+             html: {id: 'product-info-form', method: 'post'}) do |f| %>
 
   <table>
     <tr>

@@ -199,7 +199,7 @@ class InviteControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template '_contact_list'
-    assert_no_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => 'webmail_import_addresses[]'})
+    !assert_tag(:tag => 'input', :attributes => { :type => 'checkbox', :name => 'webmail_import_addresses[]'})
   end
 
   should 'render list of contacts' do
@@ -244,7 +244,7 @@ class InviteControllerTest < ActionController::TestCase
 
     get :search, :profile => profile.identifier, :q => 'me@'
 
-    assert_equal 'text/html', @response.content_type
+    assert_equal 'text/plain', @response.content_type
     assert_equal [{"id" => friend2.id, "name" => friend2.name}].to_json, @response.body
 
     get :search, :profile => profile.identifier, :q => 'cri'

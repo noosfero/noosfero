@@ -9,7 +9,7 @@ class ProfileEmailTemplatesController < EmailTemplatesController
     profile
   end
 
-  before_filter :only => :index do
+  before_action :only => :index do
     @back_to = url_for(:controller => :profile_editor)
   end
 

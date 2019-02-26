@@ -1,4 +1,4 @@
-class CreateVolunteersPluginAssignments < ActiveRecord::Migration
+class CreateVolunteersPluginAssignments < ActiveRecord::Migration[5.1]
   def up
     create_table :volunteers_plugin_assignments do |t|
       t.integer :profile_id

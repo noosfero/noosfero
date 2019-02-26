@@ -87,7 +87,7 @@ class ForumTest < ActiveSupport::TestCase
   should 'profile has more then one forum' do
     p = create_user('testuser').person
     fast_create(Forum, :name => 'Forum test', :profile_id => p.id)
-    assert_nothing_raised ActiveRecord::RecordInvalid do
+    assert_nothing_raised do
       create(Forum, :name => 'Another Forum', :profile => p, :body => 'Forum test')
     end
   end

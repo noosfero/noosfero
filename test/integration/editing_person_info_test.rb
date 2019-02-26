@@ -20,7 +20,10 @@ class EditingPersonInfoTest < ActionDispatch::IntegrationTest
     get "/myprofile/#{profile.identifier}/profile_editor/informations"
     assert_response :success
 
-    post "/myprofile/#{profile.identifier}/profile_editor/informations", :profile_data => { :address => 'a new address', :contact_information => 'a new contact information' }
+    post "/myprofile/#{profile.identifier}/profile_editor/informations", params: {profile_data: { address: 'a new address',
+                                                                                                  contact_information: 'a new contact information'
+                                                                                                }
+                                                                                 }
     assert_response :redirect
 
   end

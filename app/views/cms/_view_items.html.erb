@@ -24,9 +24,9 @@
         <% if user.can_change_homepage? && !remove_content_button(:home, article) && !article.is_a?(FilePresenter) %>
           <li>
             <% if profile.home_page != article %>
-              <%= link_to font_awesome(:home, _('Use as homepage')), { action: 'set_home_page', id: article.id }, method: :post %>
+		    <%= link_to font_awesome(:home, _('Use as homepage')), set_home_page_cms_index_path(profile.identifier, id: article), method: :post %>
             <% else %>
-              <%= link_to font_awesome(:undo, _('Reset homepage')),  { action: 'set_home_page', id: nil }, method: :post %>
+              <%= link_to font_awesome(:undo, _('Reset homepage')),  set_home_page_cms_index_path(profile.identifier, id: nil), method: :post %>
             <% end %>
           </li>
         <% end %>

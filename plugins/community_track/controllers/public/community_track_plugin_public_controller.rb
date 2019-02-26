@@ -2,25 +2,20 @@ class CommunityTrackPluginPublicController < PublicController
 
   no_design_blocks
 
-  before_filter :login_required, :only => :select_community
+  before_action :login_required, :only => :select_community
 
   def view_tracks
-    block = Block.find(params[:id])
-    instance_eval(&block.set_seed)
-    p = params[:page].to_i
-    per_page = params[:per_page]
-    per_page ||= block.limit
-    per_page = per_page.to_i
-    @tracks = block.tracks(p, per_page)
+    @block = Block.find(params[:id])
+    instance_eval(&@block.set_seed)
+    @p = params[:page].to_i
+    @per_page = params[:per_page]
+    @per_page ||= @block.limit
+    @per_page = @per_page.to_i
+    @tracks = @block.tracks(@p, @per_page)
+    @force_same_page = params[:force_same_page]
 
-    render :update do |page|
-      page.insert_html :bottom, "track_list_#{block.id}", :partial => "blocks/#{block.track_partial}", :collection => @tracks, :locals => {:block => block}
-
-      if block.has_page?(p+1, per_page)
-        page.replace_html "track_list_more_#{block.id}", :partial => 'blocks/track_list_more', :locals => {:block => block, :page => p+1, :force_same_page => params[:force_same_page], :per_page => per_page}
-      else
-        page.replace_html "track_list_more_#{block.id}", ''
-      end
+    respond_to do |format|
+      format.js
     end
   end
 

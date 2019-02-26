@@ -2,7 +2,7 @@ class AnalyticsPlugin::StatsController < MyProfileController
 
   no_design_blocks
 
-  before_filter :skip_page_view
+  before_action :skip_page_view
 
   def index
   end

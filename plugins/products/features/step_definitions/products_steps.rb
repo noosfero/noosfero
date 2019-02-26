@@ -32,15 +32,17 @@ Given /^the following products?$/ do |table|
     owner = Enterprise[data.delete("owner")]
     category = Category.find_by slug: data.delete("category").to_slug
     data.merge!(enterprise: owner, product_category: category)
-    if data[:img]
-      img = Image.create!(uploaded_data: fixture_file_upload('/files/'+data.delete("img")+'.png', 'image/png'))
-      data.merge!(image_id: img.id)
-    end
+
     if data[:qualifier]
       qualifier = Qualifier.find_by name: data.delete("qualifier")
       data.merge!(qualifiers: [qualifier])
     end
+
+    img = data.delete('img')
     product = Product.create!(data, without_protection: true)
+    if img.present?
+      product.create_image(uploaded_data: fixture_file_upload("/files/#{img}.png", 'image/png'))
+    end
   end
 end
 

@@ -150,7 +150,13 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert_includes results, Plugin3
   end
 
-  should 'return the first plugin that responds true' do
+  should 'return the first plugin that returns true' do
+    class Noosfero::Plugin
+      def random_event
+        nil
+      end
+    end
+
     class Plugin1 < Noosfero::Plugin
       def random_event
       end

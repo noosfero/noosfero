@@ -110,6 +110,7 @@ class Profile < ApplicationRecord
 
   acts_as_accessible
 
+  prepend SetProfileRegionFromCityState
   include Customizable
   acts_as_customizable
 
@@ -300,25 +301,24 @@ class Profile < ApplicationRecord
   settings_items :allow_followers, :type => :boolean, :default => true
   alias_method :allow_followers?, :allow_followers
 
-  acts_as_trackable :dependent => :destroy
+  acts_as_trackable dependent: :destroy
 
   has_many :profile_activities
-  has_many :action_tracker_notifications, :foreign_key => 'profile_id'
+  has_many :action_tracker_notifications, foreign_key: 'profile_id'
   has_many :tracked_notifications, -> { order 'updated_at DESC' }, through: :action_tracker_notifications, source: :action_tracker
   has_many :scraps_received, -> { order 'updated_at DESC' }, class_name: 'Scrap', foreign_key: :receiver_id, dependent: :destroy
-  belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
+  belongs_to :template, class_name: 'Profile', foreign_key: 'template_id', optional: true
 
-  has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
 
-  has_many :email_templates, :foreign_key => :owner_id
+  has_many :email_templates, foreign_key: :owner_id
 
   has_many :profile_followers
-  has_many :followers, -> { uniq }, :class_name => 'Person', :through => :profile_followers, :source => :person
+  has_many :followers, -> { distinct }, class_name: 'Person', through:  :profile_followers, source:  :person
 
   # Although this should be a has_one relation, there are no non-silly names for
   # a foreign key on article to reference the template to which it is
   # welcome_page... =P
-  belongs_to :welcome_page, :class_name => 'Article', :dependent => :destroy
+  belongs_to :welcome_page, class_name: 'Article', dependent: :destroy, optional: true
 
   def welcome_page_content
     welcome_page && welcome_page.access == Entitlement::Levels.levels[:visitors] ? welcome_page.body : nil
@@ -338,37 +338,38 @@ class Profile < ApplicationRecord
 
   # These names cannot be used as identifiers for Profiles
   RESERVED_IDENTIFIERS = %w[
-  admin
-  system
-  myprofile
-  profile
-  cms
-  community
-  test
-  search
-  not_found
-  cat
-  tag
-  tags
-  environment
-  webmaster
-  info
-  root
-  assets
-  doc
-  chat
-  plugin
-  site
+    admin
+    system
+    myprofile
+    profile
+    cms
+    community
+    test
+    search
+    not_found
+    cat
+    tag
+    tags
+    environment
+    webmaster
+    info
+    root
+    assets
+    doc
+    chat
+    plugin
+    site
   ]
 
-  belongs_to :user
+  belongs_to :user, optional: true
 
   has_many :domains, :as => :owner
-  belongs_to :preferred_domain, :class_name => 'Domain', :foreign_key => 'preferred_domain_id'
-  belongs_to :environment
+  belongs_to :preferred_domain, class_name: 'Domain', foreign_key: 'preferred_domain_id', optional: true
+  belongs_to :environment, optional: true
 
-  has_many :articles, :dependent => :destroy
-  belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
+  has_many :articles, dependent: :destroy
+  has_many :comments_received, class_name: 'Comment', through:  :articles, source:  :comments
+  belongs_to :home_page, class_name: Article.name, foreign_key: 'home_page_id', optional: true
 
   has_many :files, class_name: 'UploadedFile', dependent: :destroy
 
@@ -376,7 +377,7 @@ class Profile < ApplicationRecord
   acts_as_having_image
   acts_as_having_image field: :top_image
 
-  has_many :tasks, :dependent => :destroy, :as => 'target'
+  has_many :tasks, dependent:  :destroy, :as => 'target'
 
   has_many :events, -> { order 'start_date' }, source: 'articles', class_name: 'Event'
 
@@ -389,15 +390,15 @@ class Profile < ApplicationRecord
   end
 
   has_many :profile_categorizations, -> { where 'categories_profiles.virtual = ?', false }
-  has_many :categories, :through => :profile_categorizations
-  has_many :regions, -> { where(:type => ['Region', 'State', 'City']) }, :through => :profile_categorizations, :source => :category
+  has_many :categories, through:  :profile_categorizations
+  has_many :regions, -> { where(:type => ['Region', 'State', 'City']) }, through:  :profile_categorizations, source:  :category
 
-  has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'
-  has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
+  has_many :profile_categorizations_including_virtual, class_name:  'ProfileCategorization'
+  has_many :categories_including_virtual, through:  :profile_categorizations_including_virtual, source:  :category
 
-  has_many :abuse_complaints, :foreign_key => 'requestor_id', :dependent => :destroy
+  has_many :abuse_complaints, foreign_key:  'requestor_id', dependent:  :destroy
 
-  has_many :profile_suggestions, :foreign_key => :suggestion_id, :dependent => :destroy
+  has_many :profile_suggestions, foreign_key:  :suggestion_id, dependent:  :destroy
 
   has_and_belongs_to_many :kinds
 
@@ -416,7 +417,7 @@ class Profile < ApplicationRecord
     categories.select {|item| !item.is_a?(Region)}
   end
 
-  belongs_to :region
+  belongs_to :region, optional: true
 
   LOCATION_FIELDS = %w[address address_reference district city state country zip_code]
   metadata_items *(LOCATION_FIELDS - %w[address])
@@ -486,14 +487,14 @@ class Profile < ApplicationRecord
     @pending_categorizations ||= []
   end
 
-  def add_category(c, reload=false)
+  def add_category(c)
     if new_record?
       pending_categorizations << c
     else
       ProfileCategorization.add_category_to_profile(c, self)
-      self.categories(true)
+      self.categories
     end
-    self.categories(reload)
+    self.categories
   end
 
   def category_ids=(ids)
@@ -610,7 +611,8 @@ class Profile < ApplicationRecord
   def template_with_default
     template_without_default || default_template
   end
-  alias_method_chain :template, :default
+  alias_method :template_without_default, :template
+  alias_method :template, :template_with_default
 
   def apply_template(template, options = {:copy_articles => true})
     raise "#{template.identifier} is not a template" if !template.is_template
@@ -627,7 +629,7 @@ class Profile < ApplicationRecord
     self.custom_header = template[:custom_header]
     self.access = template.access
     self.fields_privacy = template.fields_privacy
-    self.image = template.image
+    self.image = template.image.dup if template.image
     # flush
     self.save(:validate => false)
   end
@@ -635,8 +637,8 @@ class Profile < ApplicationRecord
   def apply_type_specific_template(template)
   end
 
-  xss_terminate :only => [ :name, :nickname, :address, :contact_phone, :description ], :on => 'validation'
-  xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list'
+  xss_terminate only: [ :name, :nickname, :address, :contact_phone, :description ], on: :validation
+  xss_terminate only: [ :custom_footer, :custom_header ], with: :white_list
 
   include SanitizeTags
 
@@ -996,9 +998,9 @@ private :generate_url, :url_options
 
   settings_items :layout_template, :type => String, :default => 'default'
 
-  has_many :blogs, :source => 'articles', :class_name => 'Blog'
-  has_many :forums, :source => 'articles', :class_name => 'Forum'
-  has_many :galleries, :source => 'articles', :class_name => 'Gallery'
+  has_many :blogs, source: 'articles', class_name: 'Blog'
+  has_many :forums, source: 'articles', class_name: 'Forum'
+  has_many :galleries, source: 'articles', class_name: 'Gallery'
 
   def blog
     self.has_blog? ? self.blogs.order(:id).first : nil

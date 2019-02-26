@@ -4,9 +4,9 @@
 
 class VoteablesController < ApplicationController
 
-  before_filter :find_user
-  before_filter :login_required, :only => [:new, :edit, :destroy, :create, :update]
-  before_filter :must_own_voteable, :only => [:edit, :destroy, :update]
+  before_action :find_user
+  before_action :login_required, :only => [:new, :edit, :destroy, :create, :update]
+  before_action :must_own_voteable, :only => [:edit, :destroy, :update]
 
   # GET /users/:id/voteables
   # GET /users/:id/voteables.xml

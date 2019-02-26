@@ -26,7 +26,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: another_poll.name,
+    !assert_tag tag: 'span', content: another_poll.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -34,25 +34,25 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form2.name,
+    !assert_tag tag: 'span', content: @form2.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form3.name,
+    !assert_tag tag: 'span', content: @form3.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
   should 'list forms accessible to logged users' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'span', content: @form1.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: @form2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: @form3.name,
+    !assert_tag tag: 'span', content: @form3.name,
                   ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
   should 'list forms accessible to member users' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @profile.add_member(@user)
 
     get "/profile/#{@profile.identifier}"
@@ -65,7 +65,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'render submission in block and main content with different names' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     submission = CustomFormsPlugin::Submission.new(form: @form1, profile: @user)
     submission.build_answers('0' => '0')
     submission.save!
@@ -78,14 +78,14 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'display submission form if poll is open and user did not answer it' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'form',
                ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
   should 'display submission in the block if the user answered the poll' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     submission = CustomFormsPlugin::Submission.new(form: @form1, profile: @user)
     submission.build_answers('0' => '0')
     submission.save!
@@ -93,7 +93,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     get "/profile/#{@profile.identifier}"
     assert_tag tag: 'input', attributes: { name: /block_submission\[/ },
                ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
-    assert_no_tag tag: 'input', attributes: { type: "submit" },
+    !assert_tag tag: 'input', attributes: { type: "submit" },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -112,7 +112,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     @form1.update_attributes(ending: 1.day.ago)
 
     get "/profile/#{@profile.identifier}"
-    assert_no_tag tag: 'div', attributes: { class: 'chart-wrapper' },
+    !assert_tag tag: 'div', attributes: { class: 'chart-wrapper' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -127,7 +127,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     @form1.update_attributes(access_result_options: 'public',
                              ending: 1.day.ago)
     get "/profile/#{@profile.identifier}"
-    assert_no_tag tag: 'a', attributes: { class: 'partial-results-link' },
+    !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -138,7 +138,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     submission.save!
 
     get "/profile/#{@profile.identifier}"
-    assert_no_tag tag: 'a', attributes: { class: 'partial-results-link' },
+    !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
@@ -155,14 +155,14 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'not display partial results link if poll results are private' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @form1.update_attributes(access_result_options: 'private')
-    assert_no_tag tag: 'a', attributes: { class: 'partial-results-link' },
+    !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                    ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
   should 'display partial results link if poll results are private but user is a profile admin' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @form1.update_attributes(access_result_options: 'private')
     @profile.add_admin(@user)
 
@@ -172,7 +172,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
   end
 
   should 'display partial results link if poll results are private but user is an env admin' do
-    login('jose', 'jose')
+    login_as_rails5('jose')
     @form1.update_attributes(access_result_options: 'private')
     Environment.default.add_admin(@user)
 
@@ -181,8 +181,8 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
-  should 'not display result chart or results link if the results are not avaiable' do
-    login('jose', 'jose')
+  should 'not display result chart or results link if the results are not available' do
+    login_as_rails5('jose')
     @form1.update_attributes(access_result_options: 'private',
                              ending: 1.day.ago)
     submission = CustomFormsPlugin::Submission.new(form: @form1, profile: @user)
@@ -190,21 +190,21 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     submission.save!
 
     get "/profile/#{@profile.identifier}"
-    assert_no_tag tag: 'div', attributes: { class: 'chart-wrapper' },
+    !assert_tag tag: 'div', attributes: { class: 'chart-wrapper' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
-    assert_no_tag tag: 'a', attributes: { class: 'partial-results-link' },
+    !assert_tag tag: 'a', attributes: { class: 'partial-results-link' },
                   ancestor: { tag: 'div', attributes: { id: /#{@form1.identifier}/ } }
   end
 
   should 'return open forms in poll list' do
 
-    open_poll_1 =  create_poll('Open Poll 1', begining: DateTime.now - 1.day,
+    open_poll_1 =  create_poll('Open Poll 1', beginning: DateTime.now - 1.day,
                                 ending: DateTime.now + 2.days)
     open_poll_2 =  create_poll('Open Poll 2', ending: DateTime.now + 3.days)
 
     closed_poll =  create_poll('Closed Poll 1', ending: DateTime.now - 1.days)
     not_open_yet_poll =  create_poll('Not open yet Poll 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     @my_block.metadata['status'] = 'not_closed'
     @my_block.save!
 
@@ -213,9 +213,9 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: open_poll_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: closed_poll.name,
+    !assert_tag tag: 'span', content: closed_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: not_open_yet_poll.name,
+    !assert_tag tag: 'span', content: not_open_yet_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
@@ -226,7 +226,7 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
 
     open_poll =  create_poll('Open Poll', ending: DateTime.now + 3.days)
     not_open_yet_poll =  create_poll('Not open yet Poll',
-                                      begining: DateTime.now + 2.days)
+                                      beginning: DateTime.now + 2.days)
 
     @my_block.metadata['status'] = 'closed'
     @my_block.save!
@@ -236,21 +236,21 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: closed_poll_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: open_poll.name,
+    !assert_tag tag: 'span', content: open_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: not_open_yet_poll.name,
+    !assert_tag tag: 'span', content: not_open_yet_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
   should 'return not open yet forms in poll list' do
 
     not_open_yet_poll_1 =  create_poll('Not open yet Poll 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     not_open_yet_poll_2 =  create_poll('Not open yet Poll 2',
-                                        begining: DateTime.now + 1.days)
+                                        beginning: DateTime.now + 1.days)
 
     closed_poll =  create_poll('Closed Poll', ending: DateTime.now - 1.days)
-    open_poll =  create_poll('Open Poll', begining: DateTime.now,
+    open_poll =  create_poll('Open Poll', beginning: DateTime.now,
                               ending: DateTime.now + 2.days)
 
     @my_block.metadata['status'] = 'not_open_yet'
@@ -261,15 +261,15 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
     assert_tag tag: 'span', content: not_open_yet_poll_2.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: open_poll.name,
+    !assert_tag tag: 'span', content: open_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
-    assert_no_tag tag: 'span', content: closed_poll.name,
+    !assert_tag tag: 'span', content: closed_poll.name,
                ancestor: { tag: 'div', attributes: { class: /form-item/ } }
   end
 
   should 'return all forms in poll list' do
 
-    open_poll_1 =  create_poll('Open Poll 1', begining: DateTime.now,
+    open_poll_1 =  create_poll('Open Poll 1', beginning: DateTime.now,
                                 ending: DateTime.now + 2.days)
     open_poll_2 =  create_poll('Open Poll 2', ending: DateTime.now + 3.days)
 
@@ -277,9 +277,9 @@ class CustomFormsPlugin::PollsBlockProfileTest < ActionDispatch::IntegrationTest
     closed_poll_2 =  create_poll('Closed Poll 2', ending: DateTime.now - 2.days)
 
     not_open_yet_poll_1 =  create_poll('Not open yet Poll 1',
-                                        begining: DateTime.now + 2.days)
+                                        beginning: DateTime.now + 2.days)
     not_open_yet_poll_2 =  create_poll('Not open yet Poll 2',
-                                        begining: DateTime.now + 1.days)
+                                        beginning: DateTime.now + 1.days)
 
     @my_block.metadata['limit'] = 9
     @my_block.metadata['status'] = 'all'

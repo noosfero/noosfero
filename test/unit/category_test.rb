@@ -348,7 +348,7 @@ class CategoryTest < ActiveSupport::TestCase
       c = create(Category, :name => 'test category1', :environment => Environment.default, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })
-      assert_equal c.image(true).filename, 'rails.png'
+      assert_equal c.image.filename, 'rails.png'
     end
   end
 

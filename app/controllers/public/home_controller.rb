@@ -1,6 +1,6 @@
 class HomeController < PublicController
 
-  before_filter :require_admin, only: :reorder
+  before_action :require_admin, only: :reorder
 
   def index
     @has_news = false
@@ -26,7 +26,7 @@ class HomeController < PublicController
   end
 
   def reorder
-    if params[:index].nil? || !params[:direction].in?(['up', 'down'])
+    if params[:index].blank? || !params[:direction].in?(['up', 'down'])
       head :bad_request
       return
     end

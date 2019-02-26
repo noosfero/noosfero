@@ -8,9 +8,10 @@ class MembershipsControllerTest < ActionController::TestCase
     @controller = MembershipsController.new
 
     @profile = create_user('testuser').person
+    @user = @profile.user
     login_as('testuser')
   end
-  attr_reader :profile
+  attr_reader :profile, :user
 
   should 'list current memberships' do
     get :index, :profile => profile.identifier
@@ -79,7 +80,7 @@ class MembershipsControllerTest < ActionController::TestCase
     enterprise = fast_create(Enterprise, :identifier => 'enterprise-test', :name => 'my test enterprise')
     enterprise.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'li', :content => /Description:/
+    !assert_tag :tag => 'li', :content => /Description:/
   end
 
   should 'show link to leave from community with reload' do
@@ -125,7 +126,7 @@ class MembershipsControllerTest < ActionController::TestCase
     get :index, :profile => 'testuser'
 
     assert_template 'index'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
   end
 
   should 'use the current environment for the template of user' do
@@ -176,7 +177,7 @@ class MembershipsControllerTest < ActionController::TestCase
     get :new_community, :profile => profile.identifier
 
     assert_tag :tag => 'input', :attributes => { :name => 'community[contact_email]' }
-    assert_no_tag :tag => 'input', :attributes => { :name => 'community[contact_phone]' }
+    !assert_tag :tag => 'input', :attributes => { :name => 'community[contact_phone]' }
   end
 
   should 'display all required fields when register new community' do
@@ -214,7 +215,7 @@ class MembershipsControllerTest < ActionController::TestCase
 
     get :new_community, :profile => profile.identifier
 
-    assert_no_tag :tag => 'textarea', :attributes => {:name => 'community[description]'}
+    !assert_tag :tag => 'textarea', :attributes => {:name => 'community[description]'}
   end
 
   should 'include hidden fields supplied by plugins on new community' do
@@ -272,7 +273,7 @@ class MembershipsControllerTest < ActionController::TestCase
     get :index, :profile => 'testuser'
 
     assert_template 'index'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{c2.identifier}" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{c2.identifier}" }
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{c1.identifier}" }
   end
 

@@ -39,7 +39,7 @@ class CatalogControllerTest < ActionController::TestCase
   should 'not show product price when listing products if not informed' do
     prod = @enterprise.products.create!(name: 'Product test', product_category: @product_category)
     get :index, profile: @enterprise.identifier
-    assert_no_tag tag: 'span', attributes: { class: 'product-price with-discount' }, content: /50.00/
+    !assert_tag tag: 'span', attributes: { class: 'product-price with-discount' }, content: /50.00/
   end
 
   should 'show product price when listing products if informed' do
@@ -137,7 +137,7 @@ class CatalogControllerTest < ActionController::TestCase
   should 'do not add highlighted CSS class around an ordinary product' do
     prod = @enterprise.products.create!(name: 'Ordinary Product', product_category: @product_category, highlighted: false)
     get :index, profile: @enterprise.identifier
-    assert_no_tag tag: 'li', attributes: { class: 'product highlighted' }, content: /Ordinary Product/
+    !assert_tag tag: 'li', attributes: { class: 'product highlighted' }, content: /Ordinary Product/
   end
 
   should 'display star image in highlighted product' do
@@ -161,7 +161,7 @@ class CatalogControllerTest < ActionController::TestCase
     assert_tag tag: 'div', attributes: {id: 'breadcrumb'}, descendant: {tag: 'a', attributes: {href: /level=#{pc1.id}/}}
     assert_tag tag: 'div', attributes: {id: 'breadcrumb'}, descendant: {tag: 'a', attributes: {href: /level=#{pc2.id}/}}
     assert_tag tag: 'div', attributes: {id: 'breadcrumb'}, descendant: {tag: 'strong', content: pc4.name}
-    assert_no_tag tag: 'div', attributes: {id: 'breadcrumb'}, descendant: {tag: 'a', attributes: {href: /level=#{pc3.id}/}}
+    !assert_tag tag: 'div', attributes: {id: 'breadcrumb'}, descendant: {tag: 'a', attributes: {href: /level=#{pc3.id}/}}
   end
 
   should 'add product status on the class css' do

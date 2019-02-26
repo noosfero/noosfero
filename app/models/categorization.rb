@@ -15,7 +15,7 @@ module Categorization
   end
 
   def remove_all_for(object)
-    self.delete_all(object_id_column => object.id)
+    self.where(object_id_column => object.id).delete_all
   end
 
 end

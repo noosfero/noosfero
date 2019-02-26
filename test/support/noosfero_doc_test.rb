@@ -1,6 +1,6 @@
 # encoding: UTF-8
 require 'mocha'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 
 module Noosfero::DocTest
 

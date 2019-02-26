@@ -1,11 +1,12 @@
 ENV["RAILS_ENV"] = "test"
 require 'simplecov'
+require 'test_helper'
 require_relative '../config/environment'
 
 require 'rails/test_help'
 
 require 'mocha'
-require 'mocha/mini_test'
+require 'mocha/minitest'
 require 'minitest/spec'
 require 'minitest/reporters'
 Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new, ENV, Minitest.backtrace_filter
@@ -25,7 +26,6 @@ require_relative 'support/noosfero_doc_test'
 require_relative 'support/performance_helper'
 require_relative 'support/noosfero_test_helper'
 
-
 FileUtils.rm_rf(Rails.root.join('index', 'test'))
 
 Image.attachment_options[:path_prefix] = 'test/tmp/public/images'
@@ -33,7 +33,7 @@ Thumbnail.attachment_options[:path_prefix] = 'test/tmp/public/thumbnails'
 
 FastGettext.add_text_domain 'noosferotest', :type => :chain, :chain => []
 FastGettext.default_text_domain = 'noosferotest'
-
+DatabaseCleaner.strategy = :transaction
 
 class ActiveSupport::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
@@ -48,7 +48,7 @@ class ActiveSupport::TestCase
   # in MySQL.  Turn off transactional fixtures in this case; however, if you
   # don't care one way or the other, switching from MyISAM to InnoDB tables
   # is recommended.
-  self.use_transactional_fixtures = true
+  self.use_transactional_tests = true
 
   # Instantiated fixtures are slow, but give you @david where otherwise you
   # would need people(:david).  If you don't want to migrate your existing
@@ -63,6 +63,7 @@ class ActiveSupport::TestCase
   include Noosfero::Factory
   include AuthenticatedTestHelper
   include PerformanceHelper
+  include ApplicationHelper
 
   fixtures :environments, :roles
 
@@ -84,6 +85,7 @@ class ActiveSupport::TestCase
 
   def global_setup
     User.current = nil
+    Delayed::Job.destroy_all
   end
 
   alias :ok :assert_block
@@ -116,15 +118,14 @@ class ActiveSupport::TestCase
     assert !text.index('<'), "Text '#{text}' expected to be sanitized"
   end
 
-  # TODO: HTML::Document is deprecated, port to Nokogiri::HTML
   def assert_tag_in_string(text, options)
-    doc = HTML::Document.new(text, false, false)
+    doc = HTML::Document.new(text)
     tag = doc.find(options)
     assert tag, "expected tag #{options.inspect}, but not found in #{text.inspect}"
   end
 
   def assert_no_tag_in_string(text, options)
-    doc = HTML::Document.new(text, false, false)
+    doc = HTML::Document.new(text)
     tag = doc.find(options)
     assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
   end
@@ -192,9 +193,8 @@ class ActiveSupport::TestCase
   end
 
   def process_delayed_job_queue
-    silence_stream STDOUT do
-      Delayed::Worker.new.work_off
-    end
+    # To enable logs, add `(quiet: false)` to Delayed::Worker.new
+    Delayed::Worker.new(quiet: true).work_off
   end
 
   def uses_postgresql(schema_name = 'test_schema')
@@ -252,5 +252,33 @@ class ActiveSupport::TestCase
     base64_image
   end
 
+
+  # DEPRECATED/REMOVED METHODS
+  def clean_backtrace(&block)
+    yield
+  rescue ActiveModel::Errors => e
+    path = File.expand_path(__FILE__)
+    raise ActiveModel::Errors, e.message, e.backtrace.reject { |line| File.expand_path(line) =~ /#{path}/ }
+  end
+
+  def find_tag(conditions)
+    html_document.find(conditions)
+  end
+
+  def assert_tag(*opts)
+    clean_backtrace do
+      opts = opts.size > 1 ? opts.last.merge({ :tag => opts.first.to_s }) : opts.first
+      tag = find_tag(opts)
+      assert tag, "expected tag, but no tag found matching #{opts.inspect} in:\n#{@response.body.inspect}"
+    end
+  end
+
+  def assert_no_tag(*opts)
+    clean_backtrace do
+      opts = opts.size > 1 ? opts.last.merge({ :tag => opts.first.to_s }) : opts.first
+      tag = find_tag(opts)
+      assert !tag, "expected no tag, but found tag matching #{opts.inspect} in:\n#{@response.body.inspect}"
+    end
+  end
 end
 

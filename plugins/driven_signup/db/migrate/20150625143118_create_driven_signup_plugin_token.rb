@@ -1,4 +1,4 @@
-class CreateDrivenSignupPluginToken < ActiveRecord::Migration
+class CreateDrivenSignupPluginToken < ActiveRecord::Migration[5.1]
 
   def change
     create_table :driven_signup_plugin_auths do |t|

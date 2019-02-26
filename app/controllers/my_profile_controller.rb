@@ -3,7 +3,7 @@ class MyProfileController < ApplicationController
   needs_profile
 
 
-  before_filter :login_required
+  before_action :login_required
 
   # declares that the controller needs an specific type of profile. Example:
   #
@@ -15,7 +15,7 @@ class MyProfileController < ApplicationController
   # profile (as indicated by the first URL component) is of class Person (or of
   # a subclass of Person)
   def self.requires_profile_class(some_class)
-    before_filter do |controller|
+    before_action do |controller|
       unless controller.send(:profile).kind_of?(some_class)
         controller.send(:render_access_denied, _("This action is not available for \"%s\".") % controller.send(:profile).name)
       end
@@ -25,7 +25,7 @@ class MyProfileController < ApplicationController
   def search_article_privacy_exceptions
     arg = params[:q].downcase
     result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
-    render :text => prepare_to_token_input(result).to_json
+    render plain: prepare_to_token_input(result).to_json
   end
 
 end

@@ -165,8 +165,12 @@ if [ "$db_setup" = 'true' ] || [ "$install_dependencies" = 'false' ]; then
     # Create table and sample data
     run rake db:schema:load
     run rake db:schema:load RAILS_ENV=test
-    run rake db:data:minimal
-    rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
+
+    if [ "$RAILS_ENV" != 'test' ]; then
+      run rake db:data:minimal
+      rails runner 'Environment.default.enable("skip_new_user_email_confirmation")'
+    fi
+
     say "I: Database setup finished."
   fi
 

@@ -1,4 +1,4 @@
-class CreateFormAnswerModel < ActiveRecord::Migration
+class CreateFormAnswerModel < ActiveRecord::Migration[5.1]
   def up
     create_table :custom_forms_plugin_form_answers do |t|
       t.belongs_to :alternative, index: true

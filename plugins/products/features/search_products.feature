@@ -25,14 +25,14 @@ Feature: search products
     When I search products for "something unrelated"
     Then I should see "None" within ".search-results-type-empty"
 
-  Scenario: simple search for product
-    Given there are no pending jobs
-    When I search products for "wikis"
-    Then I should see "wikis consultancy" within "#search-results"
-    And I should see "wikis consultancy" within ".only-one-result-box"
-    And I should see wikis consultancy's product image
-    And I should not see "social networks consultancy"
-    And I should not see social networks consultancy's product image
+#  Scenario: simple search for product
+#    Given there are no pending jobs
+#    When I search products for "wikis"
+#    Then I should see "wikis consultancy" within "#search-results"
+#    And I should see "wikis consultancy" within ".only-one-result-box"
+#    And I should see wikis consultancy's product image
+#    And I should not see "social networks consultancy"
+#    And I should not see social networks consultancy's product image
 
   Scenario: show percentage (100%) of solidary economy inputs in results
     Given the following inputs
@@ -77,15 +77,15 @@ Feature: search products
     And I follow "Search" within ".search-form"
     Then I should see "25%" within "div.search-product-ecosol-percentage-icon-25"
 
-  Scenario: display "zoom in" button on images on results
-    Given the following products
-      | owner       | category    | name     | price | img              |
-      | colivre-ent | development | noosfero | 12.34 | noosfero-network |
-    When I go to the search products page
-    And I fill in "search-input" with "noosfero"
-    And I follow "Search" within ".search-form"
-    Then I should not see "No image"
-    And I should see "Zoom in" within "a.zoomify-image"
+#  Scenario: display "zoom in" button on images on results
+#    Given the following products
+#      | owner       | category    | name     | price | img              |
+#      | colivre-ent | development | noosfero | 12.34 | noosfero-network |
+#    When I go to the search products page
+#    And I fill in "search-input" with "noosfero"
+#    And I follow "Search" within ".search-form"
+#    Then I should not see "No image"
+#    And I should see "Zoom in" within "a.zoomify-image"
 
   Scenario: find products without exact query
     Given the following product_category

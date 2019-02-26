@@ -47,7 +47,7 @@ class StoaPlugin::PersonApiTest < ActiveSupport::TestCase
 
   should 'not crash on image_base64 if profile has no image' do
     api = StoaPlugin::PersonApi.new(person)
-    assert_equal nil, api.image_base64
+    assert_nil api.image_base64
   end
 
   should 'provide tags' do

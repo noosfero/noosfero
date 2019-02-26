@@ -58,6 +58,6 @@ class QualifierTest < ActiveSupport::TestCase
     ProductQualifier.create!(:product => product2, :qualifier => qualifier, :certifier => certifier)
     assert_equal [['Free Software', 'FSF']], product1.product_qualifiers.map{|i| [i.qualifier.name, i.certifier.name]}
     Qualifier.destroy_all
-    assert_equal [], product1.product_qualifiers(true)
+    assert_equal 0, product1.product_qualifiers.count
   end
 end

@@ -37,7 +37,7 @@ class CreateEnterprise < Task
 
   # check for explanation when rejecting
   validates_presence_of :reject_explanation, :if => (lambda { |record| record.status == Task::Status::CANCELLED } )
-  xss_terminate :only => [ :acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name ], :on => 'validation'
+  xss_terminate only: [ :acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name ], on: :validation
 
   validate :validator_correct_region
   validate :not_used_identifier

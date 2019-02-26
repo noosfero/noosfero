@@ -133,7 +133,7 @@ class BlogTest < ActiveSupport::TestCase
   should 'profile has more then one blog' do
     p = create_user('testuser').person
     fast_create(Blog, :name => 'Blog test', :profile_id => p.id)
-    assert_nothing_raised ActiveRecord::RecordInvalid do
+    assert_nothing_raised do
       create(Blog, :name => 'Another Blog', :profile => p)
     end
   end
@@ -234,7 +234,7 @@ class BlogTest < ActiveSupport::TestCase
     blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     blog.save!
     blog.reload
-    assert_equal blog.image(true).filename, 'rails.png'
+    assert_equal blog.image.filename, 'rails.png'
   end
 
   should 'remove cover image' do
@@ -259,7 +259,7 @@ class BlogTest < ActiveSupport::TestCase
     blog.save!
     blog.reload
 
-    assert_equal blog.image(true).filename, 'noosfero-network.png'
+    assert_equal blog.image.filename, 'noosfero-network.png'
   end
 
   should 'count total number of posts by year' do

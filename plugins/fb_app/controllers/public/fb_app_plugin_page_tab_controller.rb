@@ -2,8 +2,8 @@ class FbAppPluginPageTabController < FbAppPluginController
 
   no_design_blocks
 
-  before_filter :change_theme
-  before_filter :disable_cache
+  before_action :change_theme
+  before_action :disable_cache
 
   include ProductsPlugin::CatalogHelper
 

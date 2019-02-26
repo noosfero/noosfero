@@ -1,4 +1,4 @@
-require 'spec_helper'
+require_relative '../spec_helper'
 
 shared_examples_for "having metadata" do
   let(:model) { described_class } # the class that includes the concern

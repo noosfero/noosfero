@@ -27,14 +27,14 @@ class SiteTourPluginAdminControllerTest < ActionController::TestCase
     actions_csv = "en,tour_plugin,.tour-button,Click"
     post :index, :settings => {"actions_csv" => actions_csv}
     @settings = Noosfero::Plugin::Settings.new(environment.reload, SiteTourPlugin)
-    assert_equal nil, @settings.settings[:actions_csv]
+    assert_nil @settings.settings[:actions_csv]
   end
 
   should 'do not store group_triggers_csv' do
     group_triggers_csv = "tour_plugin,.tour-button,click"
     post :index, :settings => {"group_triggers_csv" => group_triggers_csv}
     @settings = Noosfero::Plugin::Settings.new(environment.reload, SiteTourPlugin)
-    assert_equal nil, @settings.settings[:group_triggers_csv]
+    assert_nil @settings.settings[:group_triggers_csv]
   end
 
   should 'convert actions array to csv to enable user edition' do

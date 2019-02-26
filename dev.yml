@@ -2,6 +2,7 @@ version: "3"
 
 services:
   postgres:
+    container_name: postgres
     image: postgres:9.4
     environment:
       POSTGRES_USER: noosfero
@@ -11,6 +12,7 @@ services:
       - pg-data:/var/lib/postgresql/data
 
   noosfero:
+    container_name: noosfero
     build:
       context: .
       dockerfile: ./config/docker/dev/Dockerfile

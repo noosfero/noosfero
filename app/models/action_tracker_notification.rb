@@ -1,7 +1,7 @@
 class ActionTrackerNotification < ApplicationRecord
 
-  belongs_to :profile
-  belongs_to :action_tracker, :class_name => 'ActionTracker::Record', :foreign_key => 'action_tracker_id'
+  belongs_to :profile, optional: true
+  belongs_to :action_tracker, class_name: 'ActionTracker::Record', foreign_key: 'action_tracker_id', optional: true
 
   delegate :comments, :to => :action_tracker, :allow_nil => true
 
@@ -12,4 +12,4 @@ class ActionTrackerNotification < ApplicationRecord
 
 end
 
-ActionTracker::Record.has_many :action_tracker_notifications, :class_name => 'ActionTrackerNotification', :foreign_key => 'action_tracker_id', :dependent => :destroy
+ActionTracker::Record.has_many :action_tracker_notifications, class_name: 'ActionTrackerNotification', foreign_key:  'action_tracker_id', dependent:  :destroy

@@ -1,7 +1,7 @@
 class CommentClassificationPluginMyprofileController < MyProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
-  before_filter :organizations_only
+  before_action :organizations_only
   protect 'moderate_comments', :profile
 
   def index

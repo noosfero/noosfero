@@ -52,7 +52,6 @@ pidfiles="/noosfero/tmp/pids/*.*"
 rm -rf $pidfiles
 echo "PID folder is now clean"
 
-
 echo ">>>>> COMPILING ASSETS <<<<<"
 bundle exec rake assets:precompile
 

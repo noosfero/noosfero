@@ -6,7 +6,6 @@ Feature: push notification administration
     Given "PushNotification" plugin is enabled
     Given I am logged in as admin
 
-  @selenium
   Scenario: configure the api key
     Given I am on the environment control panel
     And I follow "Plugins"
@@ -16,7 +15,6 @@ Feature: push notification administration
     Then I should be on /admin/plugin/push_notification
     Then the "Server API key" field should contain "ABCDEFGH1234567890"
 
-  @selenium
   Scenario: change the api key
     Given that "old_key" is the server api key
     Given I go to /admin/plugin/push_notification
@@ -26,7 +24,6 @@ Feature: push notification administration
     Then I should be on /admin/plugin/push_notification
     Then the "Server API key" field should contain "new_key"
 
-  @selenium
   Scenario: enable notifications
     Given I go to /admin/plugin/push_notification
     And I check "settings_add_member"
@@ -35,7 +32,6 @@ Feature: push notification administration
     Then the "settings_add_member" checkbox should be checked
     Then the "settings_new_article" checkbox should be checked
 
-  @selenium
   Scenario: disable notifications
     Given the following notifications
       |name|

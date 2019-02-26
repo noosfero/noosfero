@@ -1,4 +1,4 @@
-class RenamePluginTables < ActiveRecord::Migration
+class RenamePluginTables < ActiveRecord::Migration[5.1]
   def up
     remove_index :environment_notifications_users, name: :index_Zaem6uuw
     remove_index :environment_notifications_users, name: :index_ap3nohR9
