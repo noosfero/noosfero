@@ -26,7 +26,9 @@ selenium: <%= selenium_options %> <%= core_features %>
     plugin_features_path  = File.join('features', 'plugins', plugin)
     plugin_base_requires  = ''
     plugin_base_requires << " -r features/plugins/#{plugin}/support" if File.exist? File.join(plugin_features_path, 'support')
+    plugin_base_requires << " -r features/plugins/#{plugin}/features/support" if File.exist? File.join(plugin_features_path, 'support')
     plugin_base_requires << " -r features/plugins/#{plugin}/step_definitions" if File.exist? File.join(plugin_features_path, 'step_definitions')
+    plugin_base_requires << " -r features/plugins/#{plugin}/features/step_definitions" if File.exist? File.join(plugin_features_path, 'step_definitions')
 %>
 <%= "#{plugin}: #{default_options} #{plugin_base_requires}" %>
 <%= "#{plugin}_selenium: #{selenium_options} #{plugin_base_requires}" %>

@@ -39,8 +39,7 @@ module ProductsPlugin
       if request.post?
         if @product.save
           session[:notice] = _('Product succesfully created')
-          render partial: 'shared/redirect_via_javascript',
-            locals: { url: url_for(controller: 'products_plugin/page', action: 'show', id: @product) }
+          render action: 'redirect_to_product'
         else
           render_dialog_error_messages 'product'
         end
@@ -72,6 +71,7 @@ module ProductsPlugin
         if @product.update({product_category_id: params[:selected_category_id]}, without_protection: true)
           render partial: 'shared/redirect_via_javascript',
             locals: { url: url_for(controller: 'products_plugin/page', action: 'show', id: @product) }
+          render action: 'redirect_to_product'
         else
           render_dialog_error_messages 'product'
         end
