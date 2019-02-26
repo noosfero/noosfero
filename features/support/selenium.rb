@@ -19,7 +19,7 @@ Capybara.register_driver :selenium do |app|
     options.add_argument('--disable-dev-shm-usage')
     driver = Capybara::Selenium::Driver.new app, browser: :chrome, options: options
   else
-    puts '[ERROR] :: Unsupported web browser, use Firefox 60.3.0 instead.'
+    puts '[ERROR] :: Unsupported web browser, use Google Chrome 71.0.3578.80 instead.'
   end
 end
 
