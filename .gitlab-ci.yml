@@ -11,6 +11,7 @@ services:
   - postgres:9.4
 
 before_script:
+  - apt update
   - ./script/silent-quick-start -i
   - mkdir -p tmp/pids tmp/cache cache
   - rm -f vendor/rails
