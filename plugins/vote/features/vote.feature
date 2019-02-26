@@ -13,17 +13,16 @@ Feature: search contents
     And plugin Vote is enabled on environment
     And I am logged in as "joaosilva"
 
-    # FIXME rails5 problem with gitlab-ci
-#  @selenium
-#  Scenario: liking an article
-#    Given I go to /joaosilva/sample-article
-#    And I click ".like-action a"
-#    Then I should see "1" within ".like-action .like-action-counter"
-#    And I should see "0" within ".dislike-action .like-action-counter"
-#
-#  @selenium
-#  Scenario: liking an article
-#    Given I go to /joaosilva/sample-article
-#    And I click ".dislike-action a"
-#    Then I should see "0" within ".like-action .like-action-counter"
-#    And I should see "1" within ".dislike-action .like-action-counter"
+  @selenium
+  Scenario: liking an article
+    Given I go to /joaosilva/sample-article
+    And I click ".like-action a"
+    Then I should see "1" within ".like-action .like-action-counter"
+    And I should see "0" within ".dislike-action .like-action-counter"
+
+  @selenium
+  Scenario: liking an article
+    Given I go to /joaosilva/sample-article
+    And I click ".dislike-action a"
+    Then I should see "0" within ".like-action .like-action-counter"
+    And I should see "1" within ".dislike-action .like-action-counter"

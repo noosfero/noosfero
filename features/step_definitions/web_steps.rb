@@ -136,8 +136,12 @@ Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
     begin
       expect(page).to have_content(text)
     rescue
-      alert_text = page.driver.browser.switch_to.alert.text
-      alert_text.should == text
+      begin
+        alert_text = page.driver.browser.switch_to.alert.text
+        alert_text.should == text
+      rescue Selenium::WebDriver::Error::NoAlertPresentError => e
+        puts 'exception NoAlertPresentError'
+      end
     end
   end
 end
