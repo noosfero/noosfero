@@ -39,7 +39,12 @@ module ProductsPlugin
       if request.post?
         if @product.save
           session[:notice] = _('Product succesfully created')
-          render action: 'redirect_to_product'
+	  respond_to do |format|
+            format.js do
+              render action: 'redirect_to_product'
+            end
+            format.html {redirect_back_or_default action: 'index'}
+          end
         else
           render_dialog_error_messages 'product'
         end
@@ -69,9 +74,12 @@ module ProductsPlugin
       @level = @category.level
       if request.post?
         if @product.update({product_category_id: params[:selected_category_id]}, without_protection: true)
-          render partial: 'shared/redirect_via_javascript',
-            locals: { url: url_for(controller: 'products_plugin/page', action: 'show', id: @product) }
-          render action: 'redirect_to_product'
+	  respond_to do |format|
+            format.js do
+              render action: 'redirect_to_product'
+            end
+            format.html {redirect_back_or_default action: 'index'}
+          end
         else
           render_dialog_error_messages 'product'
         end
