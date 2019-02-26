@@ -21,24 +21,20 @@ before_script:
   - bundle exec rake db:migrate
 
 stages:
-  # - smoke-tests
+  - smoke-tests
   - all-tests
   - code-quality
 
 smoke:
   script: bundle exec rails ci:smoke
   stage: all-tests
-  # stage: smoke-tests
+  stage: smoke-tests
 
 .cache: &cache
   cache:
     key: "$CI_BUILD_REF_NAME"
     paths:
       - /usr/share/rubygems-integration/all/
-
-# smoke:
-#   script: bundle exec rake ci:smoke
-#   stage: smoke-tests
 
 .retriable-template: &retriable
   retry: 2
@@ -55,20 +51,16 @@ api:
   script: bundle exec rails test:api
   stage: all-tests
 
-# TODO: Unforce-passing the path to execute rake task
-# Later change folder name to models/ and rails invoking to `rails test:models`
-units:
+models:
   <<: *retriable
   <<: *cache
-  script: bundle exec rails test test/unit
+  script: bundle exec rails test:models
   stage: all-tests
 
-# TODO: Unforce-passing the path to execute rake task
-# Later change folder name to controllers/ and rails invoking to `rails test:controllers`
-functionals:
+controllers:
   <<: *retriable
   <<: *cache
-  script: bundle exec rails test test/functional
+  script: bundle exec rails test:controllers
   stage: all-tests
 
 integration:
