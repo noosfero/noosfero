@@ -218,13 +218,6 @@ class PageControllerTest < ActionDispatch::IntegrationTest
     assert_template 'shared/_dialog_error_messages'
   end
 
-  should 'render redirect_via_javascript template after save' do
-    assert_difference 'Product.count' do
-      post products_plugin_page_path(@enterprise.identifier, action: :new), params: {product: { name: 'Invalid product' }, selected_category_id: @product_category.id}
-      assert_template 'shared/_redirect_via_javascript'
-    end
-  end
-
   should 'show product of enterprise' do
     prod = @enterprise.products.create!(name: 'Product test', product_category: @product_category)
     get products_plugin_page_path(@enterprise.identifier, action: :show), params: {id: prod.id}

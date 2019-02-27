@@ -2,16 +2,9 @@ module AuthenticatedTestHelper
 
   # Sets the current user in the session from the user fixtures.
   def login_as(user)
-    # FIXME rails 5 not allow put values on controller session like this anymore 
-    # To make the loggin we have to access the post action of account controller
-    # Tests inherited form ActionDispatch::IntegrationTest have to make the post request
     @request.session[:user] = User.find_by(login: user.to_s).id 
   end
 
-  # Sets the current user in the session from the user fixtures.
-  # FIXME rails 5 not allow put values on controller session like this anymore 
-  # To make the loggin we have to access the post action of account controller
-  # Tests inherited form ActionDispatch::IntegrationTest have to make the post request
   def login_as_rails5(user)
     old_controller = @controller
     @controller = AccountController.new
@@ -21,12 +14,10 @@ module AuthenticatedTestHelper
   end
 
   def logout
-    #FIXME refactor this method
     @request.session.delete(:user) if @request
   end
 
   def logout_rails5
-    #FIXME refactor this method
     old_controller = @controller
     @controller = AccountController.new
 
