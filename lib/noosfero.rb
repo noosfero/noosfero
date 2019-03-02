@@ -9,6 +9,12 @@ module Noosfero
 
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
+
+    #FIXME should not load a controller twice with diferrents routing files
+    exclude_controllers = %w(account chat circles cms comment content_viewer environment_design environment_themes event_invitation events features mailconf profile_design profile_editor profile_email_templates profile_quotas profile_roles profile_search profile_themes role)
+    exclude_controllers.map do |name|
+      disjunction.gsub!(name,'')
+    end
     pattern = disjunction.blank? ? '' : ('(' + disjunction + ')')
     Regexp.new(pattern)
   end

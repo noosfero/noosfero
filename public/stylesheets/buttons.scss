@@ -19,6 +19,8 @@ $orange_button_hover: #ff8c1a;
   justify-content: flex-end;
   margin: 1em auto;
   text-align: right;
+  flex-wrap: wrap;
+  @media only screen and (max-width: 540px) { justify-content: center; }
 }
 
 a.button,

@@ -6,12 +6,12 @@ module SampleData
   $environment = unless environment_id.blank?
     Environment.find(environment_id)
   else
-    Environment.default || Environment.create!(:name => 'Noosfero', :is_default => true)
+    Environment.default || Environment.create!(name: 'Noosfero', is_default: true)
   end
 
   def save(obj, &block)
     begin
-     if obj.save
+     if obj.save!
        print '.'
        instance_eval &block if block
        return obj

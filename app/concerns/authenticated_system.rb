@@ -6,9 +6,9 @@ module AuthenticatedSystem
 
     included do
       if self < ActionController::Base
-        around_filter :user_set_current
-        before_filter :override_user
-        before_filter :login_from_cookie
+        around_action :user_set_current
+        before_action :override_user
+        before_action :login_from_cookie
       end
 
       # Inclusion hook to make #current_user and #logged_in?
@@ -73,21 +73,23 @@ module AuthenticatedSystem
     #
     # To require logins for all actions, use this in your controllers:
     #
-    #   before_filter :login_required
+    #   before_action :login_required
     #
     # To require logins for specific actions, use this in your controllers:
     #
-    #   before_filter :login_required, :only => [ :edit, :update ]
+    #   before_action :login_required, :only => [ :edit, :update ]
     #
     # To skip this in a subclassed controller:
     #
     #   skip_before_filter :login_required
     #
     def login_required
+      
       username, passwd = get_auth_data
       if username && passwd
         self.current_user ||= User.authenticate(username, passwd) || nil
       end
+
       if logged_in? && authorized?
         true
       else
@@ -111,7 +113,7 @@ module AuthenticatedSystem
       respond_to do |accepts|
         accepts.html do
           if request.xhr?
-            render :text => _('Access denied'), :status => 401
+            render :plain => _('Access denied'), :status => 401
           else
             store_location
             redirect_to :controller => '/account', :action => 'login'
@@ -120,7 +122,7 @@ module AuthenticatedSystem
         accepts.xml do
           headers["Status"]           = "Unauthorized"
           headers["WWW-Authenticate"] = %(Basic realm="Web Password")
-          render :text => "Could't authenticate you", :status => '401 Unauthorized'
+          render plain: "Could't authenticate you", :status => '401 Unauthorized'
         end
       end
       false
@@ -154,7 +156,12 @@ module AuthenticatedSystem
     # cookie and log the user back in if appropriate
     def login_from_cookie
       return if cookies[:auth_token].blank? or logged_in?
-      user = User.where(remember_token: cookies[:auth_token]).first
+
+      token = cookies[:auth_token].to_s.match(/auth_token=(.*);/)
+      token = token ? token[1] : nil
+
+      user = User.where(remember_token: token).first
+
       self.current_user = user if user and user.remember_token?
     end
 

@@ -1,4 +1,4 @@
-class CreateAcademicInfos < ActiveRecord::Migration
+class CreateAcademicInfos < ActiveRecord::Migration[5.1]
   def self.up
     create_table :academic_infos do |t|
       t.references :person

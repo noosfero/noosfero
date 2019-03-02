@@ -5,6 +5,7 @@ require_relative 'support/factories'
 require_relative 'concerns/metadata_scopes_spec'
 
 require 'database_cleaner'
+require 'mocha/setup'
 
 RSpec.configure do |config|
 

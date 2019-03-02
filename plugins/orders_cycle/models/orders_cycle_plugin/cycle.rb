@@ -30,7 +30,7 @@ class OrdersCyclePlugin::Cycle < ApplicationRecord
     'closing' => :received,
   }
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
 
   has_many :delivery_options, -> {
     where "delivery_plugin_options.owner_type = 'OrdersCyclePlugin::Cycle'"

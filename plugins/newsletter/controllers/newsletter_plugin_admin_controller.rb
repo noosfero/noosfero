@@ -5,6 +5,7 @@ class NewsletterPluginAdminController < PluginAdminController
 
     if request.post?
       # token input gives the param as a comma separated string
+      params[:newsletter] = {} if params[:newsletter].blank?
       params[:newsletter][:blog_ids] = (params[:newsletter][:blog_ids] || '').split(',')
       @newsletter.person_id = user.id
 
@@ -37,7 +38,7 @@ class NewsletterPluginAdminController < PluginAdminController
     found_blogs = find_by_contents(:blogs, environment, blogs, params['q'], {:page => 1})[:results]
 
     results = (found_blogs + found_profiles.map(&:blogs).flatten).uniq
-    render :text => results.map { |blog| {:id => blog.id, :name => _("%s in %s") % [blog.name, blog.profile.name]} }.to_json
+    render plain: results.map { |blog| {:id => blog.id, :name => _("%s in %s") % [blog.name, blog.profile.name]} }.to_json
   end
 
   def recipients

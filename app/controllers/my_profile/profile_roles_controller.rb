@@ -1,7 +1,7 @@
 class ProfileRolesController < MyProfileController
 
   protect 'manage_custom_roles', :profile
-  before_filter :ensure_organization
+  before_action :ensure_organization
 
   def index
     @roles = profile.custom_roles
@@ -34,7 +34,7 @@ class ProfileRolesController < MyProfileController
     return redirect_to "/" if params[:q].nil? or !request.xhr?
     arg = params[:q].downcase
     result = find_by_contents(:people, environment, profile.members, params[:q])[:results]
-    render :text => prepare_to_token_input(result).to_json
+    render plain: prepare_to_token_input(result).to_json
   end
 
   def destroy

@@ -46,6 +46,6 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => @profile.identifier, :page => ['test']
 
-    assert_no_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.en\.js\??\d*/}
+    !assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.en\.js\??\d*/}
   end
 end

@@ -2,7 +2,7 @@ class AdminNotificationsPluginAdminController < AdminController
 
   include AdminNotificationsPlugin::NotificationManager
 
-  before_filter :admin_required
+  before_action :admin_required
 
   protected
   def target

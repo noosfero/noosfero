@@ -20,25 +20,25 @@ class StoaPluginController < PublicController
       else
         result = { :error => _('Incorrect user/password pair.'), :ok => false }
       end
-      render :text => result.to_json
+      render plain: result.to_json
     else
-      render :text => { :error => _('Conection requires post method.'), :ok => false }.to_json
+      render plain: { :error => _('Conection requires post method.'), :ok => false }.to_json
     end
   end
 
   def check_usp_id
     begin
-      render :text => { :exists => StoaPlugin::UspUser.exists?(params[:usp_id]) && Person.find_by(usp_id: params[:usp_id]).nil? }.to_json
+      render plain: { :exists => StoaPlugin::UspUser.exists?(params[:usp_id]) && Person.find_by(usp_id: params[:usp_id]).nil? }.to_json
     rescue Exception => exception
-      render :text => { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
+      render plain: { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
     end
   end
 
   def check_cpf
     begin
-      render :text => { :exists => StoaPlugin::UspUser.find_by(codpes: params[:usp_id]).cpf.present? }.to_json
+      render plain: { :exists => StoaPlugin::UspUser.find_by(codpes: params[:usp_id]).cpf.present? }.to_json
     rescue Exception => exception
-      render :text => { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
+      render plain: { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
     end
   end
 

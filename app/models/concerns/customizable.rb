@@ -8,7 +8,7 @@ module Customizable
   module ClassMethods
     def acts_as_customizable(options = {})
       attr_accessor :custom_values
-      has_many :custom_field_values, :dependent => :delete_all, :as => :customized
+      has_many :custom_field_values, dependent:  :delete_all, :as => :customized
       send :include, Customizable::InstanceMethods
       after_save :save_custom_values
       validate :valid_custom_values?
@@ -90,7 +90,7 @@ module Customizable
       custom_values.each_pair do |key, value|
         custom_field = environment.custom_fields.detect{|cf|cf.name==key}
         next if custom_field.blank?
-        custom_field_value = self.custom_field_values(true).detect{|cv| cv.custom_field.name==key}
+        custom_field_value = self.custom_field_values.detect{|cv| cv.custom_field.name==key}
 
         if custom_field_value.nil?
           custom_field_value = CustomFieldValue.new
@@ -117,6 +117,7 @@ module Customizable
 
     def save_custom_values
       parse_custom_values.each(&:save)
+      self.custom_values = {}
     end
 
   end

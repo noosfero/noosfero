@@ -1,8 +1,7 @@
 <% if !categories.nil? && !categories.empty? && !@object.nil? %>
   <div class="toplevel-categories">
     <% categories.select{|i| @object.accept_category?(i)}.each do |category| %>
-      <%= link_to category.name,
-        { :action => "update_categories", :category_id => category.id, :id => @object, :kind => kind },
+	    <%= link_to category.name, update_categories_cms_index_path(profile.identifier, @object, params: { :category_id => category.id, :kind => kind }),
         { :id => "select-category-#{category.id}-link", :remote => true, :class => "select-subcategory-link", 'data-children' => category.children.map(&:id).to_s } %>
     <% end %>
   </div>

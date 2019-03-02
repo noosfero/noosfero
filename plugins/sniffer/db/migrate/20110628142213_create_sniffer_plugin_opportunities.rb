@@ -1,4 +1,4 @@
-class CreateSnifferPluginOpportunities < ActiveRecord::Migration
+class CreateSnifferPluginOpportunities < ActiveRecord::Migration[5.1]
   def self.up
     create_table :sniffer_plugin_opportunities do |t|
       t.integer :profile_id

@@ -3,7 +3,7 @@ class CustomFormsPlugin::Alternative < ApplicationRecord
 
   validates_presence_of :label
 
-  belongs_to :field, :class_name => 'CustomFormsPlugin::Field'
+  belongs_to :field, :class_name => 'CustomFormsPlugin::Field', optional: true
   has_many :form_answers, :class_name => 'CustomFormsPlugin::FormAnswer'
   has_many :answers, :through => :form_answers
 

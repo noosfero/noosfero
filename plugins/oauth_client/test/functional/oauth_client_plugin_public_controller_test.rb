@@ -40,7 +40,7 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
 
     get :callback
     assert_redirected_to :controller => :account, :action => :login
-    assert_equal nil, session[:user]
+    assert_nil session[:user]
   end
 
   should 'do not login when the provider is disabled for a user' do
@@ -52,7 +52,7 @@ class OauthClientPluginPublicControllerTest < ActionController::TestCase
 
     get :callback
     assert_redirected_to :controller => :account, :action => :login
-    assert_equal nil, session[:user]
+    assert_nil session[:user]
   end
 
   should 'save provider when an user login with it' do

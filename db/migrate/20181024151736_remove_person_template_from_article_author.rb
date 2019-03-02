@@ -1,4 +1,4 @@
-class RemovePersonTemplateFromArticleAuthor < ActiveRecord::Migration
+class RemovePersonTemplateFromArticleAuthor < ActiveRecord::Migration[5.1]
   def change
     templates = Person.where(is_template: true).ids
 

@@ -53,13 +53,15 @@ class Article
       self.solr_save
     end
   end
-  alias_method_chain :add_category, :solr_save
+  alias_method :add_category_without_solr_save, :add_category
+  alias_method :add_category, :add_category_with_solr_save
 
   def create_pending_categorizations_with_solr_save
     create_pending_categorizations_without_solr_save
     self.solr_save
   end
-  alias_method_chain :create_pending_categorizations, :solr_save
+  alias_method :create_pending_categorizations_without_solr_save, :create_pending_categorizations
+  alias_method :create_pending_categorizations, :create_pending_categorizations_with_solr_save
 
   private
 

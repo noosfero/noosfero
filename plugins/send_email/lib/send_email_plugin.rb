@@ -1,5 +1,3 @@
-require 'send_email_plugin/core_ext'
-
 class SendEmailPlugin < Noosfero::Plugin
 
   def self.plugin_name

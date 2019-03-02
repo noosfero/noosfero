@@ -169,7 +169,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     login_as :test_user
 
     get :index, :profile => com.identifier
-    assert_no_tag :tag => 'a', :attributes => {:href => /add_members/}
+    !assert_tag :tag => 'a', :attributes => {:href => /add_members/}
   end
 
   should 'not display remove button if the member is the current user' do
@@ -185,7 +185,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     assert_tag :tag => 'td', :descendant => { :tag => 'a',
       :attributes => {:class => /icon-trash/, :onclick => /#{member.identifier}/} }
 
-    assert_no_tag :tag => 'td', :descendant => { :tag => 'a',
+    !assert_tag :tag => 'td', :descendant => { :tag => 'a',
       :attributes => {:class => /icon-trash/, :onclick => /#{admin.identifier}/} }
   end
 
@@ -205,7 +205,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     login_as :test_user
 
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => {:href => /send_mail/}
+    !assert_tag :tag => 'a', :attributes => {:href => /send_mail/}
   end
 
   should 'have a add_members page' do

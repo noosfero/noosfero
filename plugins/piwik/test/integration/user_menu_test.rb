@@ -2,19 +2,19 @@ require "test_helper"
 
 class AssetsMenuTest < ActionDispatch::IntegrationTest
   def setup
-    @person = create_user('testuser', password: 'test').person
+    @person = create_user('testuser').person
     @environment = Environment.default
 
     @environment.enable_plugin(PiwikPlugin)
     @person.user.activate!
-    login('testuser', 'test')
+    login_as_rails5('testuser')
   end
 
   should 'not display link if piwik domain was not set' do
     @environment.add_admin @person
 
     get '/'
-    assert_no_tag 'a', attributes: { href: /piwik.org/ },
+    !assert_tag 'a', attributes: { href: /piwik.org/ },
                        ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 
@@ -23,7 +23,7 @@ class AssetsMenuTest < ActionDispatch::IntegrationTest
     @environment.save
 
     get '/'
-    assert_no_tag 'a', attributes: { href: /piwik.org/ },
+    !assert_tag 'a', attributes: { href: /piwik.org/ },
                        ancestor: { tag: 'ul', attributes: { class: 'noosfero-dropdown-menu' } }
   end
 

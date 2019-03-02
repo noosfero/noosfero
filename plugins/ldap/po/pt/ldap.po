@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2016-03-14 16:09+0000\n"
-"Last-Translator: Eduardo Vital <vitaldu@gmail.com>\n"
+"PO-Revision-Date: 2019-01-27 22:06+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-ldap/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.5\n"
+"X-Generator: Weblate 3.5-dev\n"
 
 #: ../controllers/ldap_plugin_admin_controller.rb:10
 msgid "Ldap configuration updated successfully."
@@ -61,7 +61,7 @@ msgstr "Conta"
 
 #: ../views/ldap_plugin_admin/index.html.erb:23
 msgid "Account Password"
-msgstr "Senha da conta"
+msgstr "Palavra-passe da conta"
 
 #: ../views/ldap_plugin_admin/index.html.erb:27
 msgid "Base DN"
@@ -101,7 +101,7 @@ msgstr "Configuração de comportamento"
 
 #: ../views/ldap_plugin_admin/index.html.erb:70
 msgid "Allow password recovery"
-msgstr "Permitir recuperação de senha"
+msgstr "Permitir recuperação da palavra-passe"
 
 #: ../views/ldap_plugin_admin/index.html.erb:78
 msgid "Back to plugins administration panel"

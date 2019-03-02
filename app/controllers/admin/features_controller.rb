@@ -83,7 +83,7 @@ class FeaturesController < AdminController
   def search_members
     arg = params[:q].downcase
     result = environment.people.where('LOWER(name) LIKE ? OR identifier LIKE ?', "%#{arg}%", "%#{arg}%")
-    render :text => prepare_to_token_input(result).to_json
+    render plain: prepare_to_token_input(result).to_json
   end
 
 end

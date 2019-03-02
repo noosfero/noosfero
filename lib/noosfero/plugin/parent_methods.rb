@@ -51,7 +51,7 @@ class Noosfero::Plugin
     end
 
     def has_admin_url?
-      File.exists?(File.join(root_path, 'controllers', "#{self.identifier}_admin_controller.rb"))
+      File.exists?(File.join(root_path, 'controllers', "#{self.identifier}_admin_controller.rb")) || File.exists?(File.join(root_path, 'controllers', 'admin', "#{self.identifier}_admin_controller.rb"))
     end
 
     # -> define grape class used to map resource api provided by the plugin

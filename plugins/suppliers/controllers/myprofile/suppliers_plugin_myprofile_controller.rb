@@ -6,7 +6,7 @@ class SuppliersPluginMyprofileController < MyProfileController
 
   protect 'edit_profile', :profile
 
-  before_filter :load_new, only: [:index, :new]
+  before_action :load_new, only: [:index, :new]
 
   helper SuppliersPlugin::TranslationHelper
   helper SuppliersPlugin::DisplayHelper

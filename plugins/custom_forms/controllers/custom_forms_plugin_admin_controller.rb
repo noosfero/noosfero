@@ -1,7 +1,7 @@
 require 'zip'
 
 class CustomFormsPluginAdminController < AdminController
-  before_filter :set_profiles
+  before_action :set_profiles
 
   def index; end
 
@@ -36,6 +36,6 @@ class CustomFormsPluginAdminController < AdminController
   private
 
   def set_profiles
-    @profiles = environment.profiles.joins(:forms).uniq
+    @profiles = environment.profiles.joins(:forms).distinct
   end
 end

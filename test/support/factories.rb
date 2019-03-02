@@ -63,10 +63,15 @@ module Noosfero::Factory
 
   ###### old stuff to be rearranged
   def create_admin_user(env)
-    admin_user = User.find_by(login: 'adminuser') || create_user('adminuser', :email => 'adminuser@noosfero.org', :password => 'adminuser', :password_confirmation => 'adminuser', :environment => env)
+    admin_user = User.find_by(login: 'adminuser') || create_user('adminuser', :email => 'adminuser@noosfero.org')
+    admin_user.password = '123456'
+    admin_user.password_confirmation = '123456'
+    admin_user.environment = env
+    admin_user.save!
     admin_role = Role.find_by(name: 'admin_role') || Role.create!(:name => 'admin_role', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_trusted_sites', 'manage_environment_validators', 'manage_environment_users', 'manage_environment_organizations', 'manage_environment_templates', 'manage_environment_licenses', 'manage_environment_kinds', 'manage_environment_captcha', 'edit_appearance'])
     create(RoleAssignment, :accessor => admin_user.person, :role => admin_role, :resource => env) unless admin_user.person.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([admin_role, admin_user, env])
     env.add_admin(admin_user.person)
+    admin_user.activate!
     admin_user.login
   end
 
@@ -104,8 +109,8 @@ module Noosfero::Factory
     name ||= 'user' + factory_num_seq.to_s
     environment_id = options.delete(:environment_id) || (options.delete(:environment) || Environment.default).id
 
-    password = options.delete(:password)
-    password_confirmation = options.delete(:password_confirmation)
+    password = options.delete(:password) || '123456'
+    password_confirmation = options.delete(:password_confirmation) || '123456'
     raise build(Exception, "Passwords don't match") if (password && password_confirmation && password != password_confirmation)
     crypted_password = (password || name).crypt('xy')
 
@@ -115,20 +120,24 @@ module Noosfero::Factory
       :crypted_password => crypted_password,
       :password_type => 'crypt',
       :salt => 'xy',
+      activation_code: nil,
+      activated_at: Time.now.utc,
       :environment_id => environment_id,
     }.merge(options)
+    
     user = fast_insert_with_timestamps(User, data)
     person = fast_insert_with_timestamps(Person, { :type => 'Person', :identifier => name, :name => name, :user_id => user.id, :environment_id => environment_id }.merge(person_options))
     homepage = fast_insert_with_timestamps(TextArticle, { :type => 'TextArticle', :name => 'homepage', :slug => 'homepage', :path => 'homepage', :profile_id => person.id })
     fast_update(person, {:home_page_id => homepage.id})
     box = fast_insert(Box, { :owner_type => "Profile", :owner_id => person.id, :position => 1})
     block = fast_insert(Block, { :box_id => box.id, :type => 'MainBlock', :position => 0})
+    
     user
   end
 
   def fast_insert(klass, data)
     names = data.keys
-    values = names.map {|k| ApplicationRecord.send(:sanitize_sql_array, ['?', data[k]]) }
+    values = names.map {|k| klass.send(:sanitize_sql_array, ['?', data[k]]) }
     sql = 'insert into %s(%s) values (%s)' % [klass.table_name, names.join(','), values.join(',')]
     klass.connection.execute(sql)
     klass.order(:id).last
@@ -176,8 +185,8 @@ module Noosfero::Factory
   def defaults_for_environment
     seq = factory_num_seq
     {
-      :name => "Environment %d" % seq,
-      :contact_email => "environment%d@example.com" % seq
+      name: "Environment %d" % seq,
+      contact_email: "environment%d@example.com" % seq
     }
   end
 
@@ -283,7 +292,8 @@ module Noosfero::Factory
   # ExternalFeed
   ###############################################
   def defaults_for_external_feed
-    { :address => Rails.root.join('test', 'fixtures', 'files', 'feed.xml'), :blog_id => factory_num_seq }
+    { :address => Rails.root.join('test', 'fixtures', 'files', 'feed.xml').to_s,
+      :blog_id => factory_num_seq }
   end
 
   def create_external_feed(attrs = {})
@@ -297,7 +307,7 @@ module Noosfero::Factory
   # FeedReaderBlock
   ###############################################
   def defaults_for_feed_reader_block
-    { :address => Rails.root.join('test/fixtures/files/feed.xml') }
+    { :address => Rails.root.join('test/fixtures/files/feed.xml').to_s }
   end
 
   ###############################################

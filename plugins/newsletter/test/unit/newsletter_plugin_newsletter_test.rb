@@ -80,7 +80,7 @@ class NewsletterPluginNewsletterTest < ActiveSupport::TestCase
     blog = fast_create(Blog)
     blog.profile = fast_create(Profile, environment_id: environment.id)
     blog.save
-    assert_nothing_raised ActiveRecord::RecordInvalid do
+    assert_nothing_raised do
       NewsletterPlugin::Newsletter.create!(
         :environment => environment,
         :blog_ids => [blog.id],
@@ -142,7 +142,7 @@ class NewsletterPluginNewsletterTest < ActiveSupport::TestCase
       NewsletterPlugin::Newsletter.create!(:environment => environment, :person => fast_create(Person), additional_recipients: [{name: 'Cooperative', email: 'cooperative@example'}])
       assert_match /Additional recipients must have only valid emails/, e.to_s
     end
-    assert_nothing_raised ActiveRecord::RecordInvalid do |e|
+    assert_nothing_raised do |e|
       NewsletterPlugin::Newsletter.create!(:environment => environment, :person => fast_create(Person), additional_recipients: [{name: 'Cooperative', email: 'cooperative@example.com'}])
     end
   end

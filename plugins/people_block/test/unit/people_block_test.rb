@@ -158,11 +158,11 @@ class PeopleBlockViewTest < ActionView::TestCase
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
     assert_select 'a.view-all' do |elements|
-      assert_select '[href=/search/people]'
+      assert_select "[href=\"/search/people\"]"
     end
   end
 
-  should 'link to "all people" on friends block' do
+  should 'show link to "all people" on friends block' do
     env = fast_create(Environment)
     profile = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     friend = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
@@ -173,12 +173,11 @@ class PeopleBlockViewTest < ActionView::TestCase
 
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
-    assert_select 'a.view-all' do |elements|
-      assert_select "[href=/profile/#{profile.id}/friends]"
-    end
+    assert_select "a.view-all"
+    assert_select "a[href=?]", "/profile/#{profile.name.to_slug}/friends"
   end
 
-  should 'link to "all people" on members block' do
+  should 'show link to "all people" on members block' do
     env = fast_create(Environment)
     profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
@@ -190,9 +189,8 @@ class PeopleBlockViewTest < ActionView::TestCase
 
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
-    assert_select 'a.view-all' do |elements|
-      assert_select "[href=/profile/#{profile.id}/members]"
-    end
+    assert_select "a.view-all"
+    assert_select "a[href=?]", "/profile/#{profile.name.to_slug}/members#members-tab"
   end
 
   should 'Not show link to "all people" if the people block is empty' do
@@ -319,8 +317,10 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'not list inactive people' do
     owner = fast_create(Environment)
-    person1 = create_user('John', environment: owner, activated_at: DateTime.now).person
-    person2 = create_user('Andrew', environment: owner).person
+    person1 = create_user('john', environment: owner).person
+    person2 = create_user('andrew', environment: owner).person
+    person2.user.deactivate
+    person2.reload
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
     assert_equal [person1.id], block.profile_list.map(&:id)

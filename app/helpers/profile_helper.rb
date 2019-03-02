@@ -194,15 +194,15 @@ module ProfileHelper
   end
 
   def treat_admins(admins)
-    profile.admins.map { |admin| link_to(admin.short_name, admin.url)}.join(', ')
+    profile.admins.map { |admin| link_to(admin.short_name, page_path(admin.identifier))}.join(', ')
   end
 
   def treat_blogs(blog)
-    link_to(n_('One post', '%{num} posts', blog.posts.published.count) % { :num => blog.posts.published.count }, blog.url)
+    link_to(n_('One post', '%{num} posts', blog.posts.published.count) % { :num => blog.posts.published.count }, page_path(blog.profile.identifier, page: blog.page_path))
   end
 
   def treat_image_galleries(gallery)
-    link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, gallery.url)
+    link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, page_path(gallery.profile.identifier, page: gallery.page_path))
   end
 
   def treat_followers(followers)
@@ -233,17 +233,6 @@ module ProfileHelper
 
   def interests_custom_title(interest)
     ''
-  end
-
-  def update_feed (comments_count, comment_page, comments_per_page, no_more_pages, activity)
-    render :update do |page|
-      page.insert_html :bottom, "profile-#{params[:tab_action]}-activities-comments-#{params[:activity]}",
-        :partial => 'comment', :collection => activity.comments.flatten.paginate(:per_page => comments_per_page, :page => comment_page)
-
-      page.remove "profile-#{params[:tab_action]}-activities-comments-more-#{params[:activity]}" if comment_page == 1
-      page.insert_html :after, "profile-#{params[:tab_action]}-activities-comments-#{params[:activity]}",
-                        partial: "more_comments", locals: { activity: activity, comment_page: comment_page, tab_action: params[:tab_action] } unless no_more_pages
-    end
   end
 
   def method_missing(method, *args, &block)

@@ -11,14 +11,16 @@ class HighlightsBlock < Block
 
   before_save do |block|
     block.block_images = block.block_images.delete_if { |i| i[:image_id].blank? and i[:address].blank? and i[:position].blank? and i[:title].blank? }
+
     block.block_images.each do |i|
       i[:image_id] = i[:image_id].to_i
       i[:position] = i[:position].to_i
+
       if !Noosfero.root.nil? and !i[:address].start_with?(Noosfero.root + '/')
         i[:address] = Noosfero.root + i[:address]
       end
-      i[:new_window] = i[:new_window] == '1' ? true : false
 
+      i[:new_window] = i[:new_window] == '1' ? true : false
       uploaded_file = UploadedFile.find_by(id: i[:image_id])
       i[:image_src] = uploaded_file.public_filename if uploaded_file.present?
     end

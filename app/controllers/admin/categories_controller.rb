@@ -47,7 +47,7 @@ class CategoriesController < AdminController
     end
   end
 
-  after_filter :manage_categories_menu_cache, :only => [:edit, :new]
+  after_action :manage_categories_menu_cache, :only => [:edit, :new]
 
   post_only :remove
   def remove

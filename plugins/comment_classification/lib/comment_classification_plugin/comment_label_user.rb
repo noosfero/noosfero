@@ -1,9 +1,9 @@
 class CommentClassificationPlugin::CommentLabelUser < ApplicationRecord
   self.table_name = :comment_classification_plugin_comment_label_user
 
-  belongs_to :profile
-  belongs_to :comment
-  belongs_to :label, :class_name => 'CommentClassificationPlugin::Label'
+  belongs_to :profile, optional: true
+  belongs_to :comment, optional: true
+  belongs_to :label, class_name: 'CommentClassificationPlugin::Label', optional: true
 
   attr_accessible :profile, :comment, :label
 

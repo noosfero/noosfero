@@ -97,26 +97,25 @@ Feature: browse catalogs
     Then I should see "Agrotox" within "li.product-link"
     And I should see "12.34" within "span.product-price"
     And I should see "unit" within "span.product-unit"
-    And I should not see "No image"
     And I should not see "product unavailable"
     And I should not see "description"
     And I should not see "qualifiers"
     And I should not see "price composition"
 
-  Scenario: display "zoom in" button
-    Given the following products
-      | owner      | category | name    | price | img     |
-      | artebonito | categ1   | Agrotox | 12.34 | agrotox |
-    And I am on /catalog/artebonito
-    And I should not see "No image"
-    And I should see "Zoom in" within ".zoomify-image"
+#  Scenario: display "zoom in" button
+#    Given the following products
+#      | owner      | category | name    | price | img     |
+#      | artebonito | categ1   | Agrotox | 12.34 | agrotox |
+#    And I am on /catalog/artebonito
+#    And I should not see "No image"
+#    And I should see "Zoom in" within ".zoomify-image"
 
   Scenario: image links to product page
     Given the following products
       | owner      | category | name    | price | img     |
       | artebonito | categ1   | Agrotox | 12.34 | agrotox |
     And I am on /catalog/artebonito
-    When I follow "Agrotox" within ".product-image-link"
+    When I follow "Agrotox" within ".product-link"
     Then I should be taken to "Agrotox" product page
 
   Scenario: display product with discount
@@ -127,10 +126,11 @@ Feature: browse catalogs
     Then I should see "Semterrinha" within "li.product-link"
     And I should see "99.99" within "span.product-discount"
     And I should see "87.65" within "span.product-price"
-    And I should not see "No image"
+    #    And I should not see "No image"
     And I should not see "description"
     And I should not see "qualifiers"
     And I should not see "price composition"
+
 
   @selenium-fixme
   Scenario: display description button when needed (but not the description)

@@ -3,7 +3,7 @@ require_relative '../test_helper'
 class OnlyForPersonTestController < MyProfileController
   requires_profile_class Person
   def index
-    render :text => '<div>something</div>'
+    render html: '<div>something</div>'
   end
 end
 

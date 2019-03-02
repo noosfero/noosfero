@@ -1,4 +1,4 @@
-class InstallBlazer < ActiveRecord::Migration
+class InstallBlazer < ActiveRecord::Migration[5.1]
   def change
     create_table :blazer_queries do |t|
       t.references :creator

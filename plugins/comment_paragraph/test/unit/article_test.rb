@@ -139,7 +139,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'return nil as paragraph content when paragraph uuid is not found' do
     uuid = 0
     article.body = "<div class=\"macro\" data-macro-paragraph_uuid=#{uuid}>paragraph content</div>"
-    assert_equal nil, article.comment_paragraph_plugin_paragraph_content(1)
+    assert_nil article.comment_paragraph_plugin_paragraph_content(1)
   end
 
   should 'be enabled if plugin is enabled and article is a kind of Discussion' do

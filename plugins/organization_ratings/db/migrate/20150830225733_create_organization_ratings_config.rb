@@ -1,4 +1,4 @@
-class CreateOrganizationRatingsConfig < ActiveRecord::Migration
+class CreateOrganizationRatingsConfig < ActiveRecord::Migration[5.1]
 
   def change
     create_table :organization_ratings_configs do |t|

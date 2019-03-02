@@ -8,7 +8,7 @@ class Kind < ActiveRecord::Base
 
   include HasUploadQuota
 
-  belongs_to :environment
+  belongs_to :environment, optional: true
   has_and_belongs_to_many :profiles
 
   validates_presence_of :name, :environment

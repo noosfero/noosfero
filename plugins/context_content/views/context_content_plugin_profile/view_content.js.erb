@@ -1,0 +1,4 @@
+$('#<%= "block-#{@block.id}" %>')
+  .replaceWith('<%= j display_block_content(@block) %>')
+$('#<%= "context_content_#{@block.id}" %>')
+  .effect('slide', { direction: '<%= @direction %>' });

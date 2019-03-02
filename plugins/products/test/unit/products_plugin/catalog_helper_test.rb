@@ -42,16 +42,17 @@ class CatalogHelperTest < ActiveSupport::TestCase
     @enterprise.products.create!(:name => 'Uncle Jon Beans', :product_category => @beans)
     @enterprise.products.create!(:name => 'Red Rice', :product_category => @rice)
 
-    html = category_with_sub_list @products
+    html = category_with_sub_list(@products)
 
     doc = Nokogiri::HTML "<body>#{html}</body>"
+
     assert_select doc, 'div' do |divs|
-      assert_select divs[0], "a[href=catalog-index-level=#{@products.id}]"
-      assert_select divs[0], '.count', {:text=>'3'}
-      assert_select divs[1], "a[href=catalog-index-level=#{@food.id}]"
-      assert_select divs[1], '.count', {:text=>'2'}
-      assert_select divs[2], "a[href=catalog-index-level=#{@mineral.id}]"
-      assert_select divs[2], '.count', {:text=>'1'}
+      assert_select divs[0], "a[href=?]", "products_plugin/catalog-index-level=#{@products.id}"
+      assert_select divs[0], '.count', {text: '3'}
+      assert_select divs[1], "a[href=?]", "products_plugin/catalog-index-level=#{@food.id}"
+      assert_select divs[1], '.count', {text: '2'}
+      assert_select divs[2], "a[href=?]", "products_plugin/catalog-index-level=#{@mineral.id}"
+      assert_select divs[2], '.count', {text: '1'}
     end
   end
 

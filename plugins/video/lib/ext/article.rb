@@ -11,7 +11,8 @@ class Article
 
   #FIXME This should be done via hotspot
   class << self
-    alias_method_chain :folder_types, :video
+    alias_method :folder_types_without_video, :folder_types
+    alias_method :folder_types, :folder_types_with_video
   end
 
   def self.owner_video_galleries(owner)

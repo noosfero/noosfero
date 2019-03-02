@@ -34,18 +34,18 @@ class OrganizationsController < AdminController
   def activate
     organization = environment.organizations.find(params[:id])
     if organization.enable
-      render :text => (_('%s enabled') % organization.name).to_json
+      render plain: (_('%s enabled') % organization.name).to_json
     else
-      render :text => (_('%s could not be enabled') % organization.name).to_json
+      render plain: (_('%s could not be enabled') % organization.name).to_json
     end
   end
 
   def deactivate
     organization = environment.organizations.find(params[:id])
     if organization.disable
-      render :text => (_('%s disabled') % organization.name).to_json
+      render plain: (_('%s disabled') % organization.name).to_json
     else
-      render :text => (_('%s could not be disable') % organization.name).to_json
+      render plain: (_('%s could not be disable') % organization.name).to_json
     end
   end
 
@@ -53,12 +53,12 @@ class OrganizationsController < AdminController
     if request.post?
       organization = environment.organizations.find(params[:id])
       if organization && organization.destroy
-        render :text => (_('%s removed') % organization.name).to_json
+        render plain: (_('%s removed') % organization.name).to_json
       else
-        render :text => (_('%s could not be removed') % organization.name).to_json
+        render plain: (_('%s could not be removed') % organization.name).to_json
       end
     else
-      render :nothing => true
+      head :ok
     end
   end
 

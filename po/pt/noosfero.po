@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2019-01-17 15:45+0000\n"
-"Last-Translator: Gabriel Silva <gabriel93.silva@gmail.com>\n"
+"PO-Revision-Date: 2019-01-27 22:06+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 3.5-dev\n"
 
 #: ../app/api/helpers.rb:448
 msgid "(Invalid request) %s can't be saved"
@@ -178,7 +178,7 @@ msgstr "Entrar"
 #: ../app/views/account/_signup_form.html.erb:48
 #: ../app/views/invite/_select_address_book.html.erb:34
 msgid "Password"
-msgstr "Senha"
+msgstr "Palavra-passe"
 
 #: ../app/api/v1/session.rb:92
 msgid "Activation token"
@@ -202,11 +202,11 @@ msgstr "Código de ativação é inválido"
 
 #: ../app/api/v1/session.rb:141
 msgid "All change password requests were sent."
-msgstr "Todos os  pedidos de troca de senha foram enviados."
+msgstr "Todos os pedidos de troca de palavra-passe foram enviados."
 
 #: ../app/api/v1/session.rb:163
 msgid "Forgot password code"
-msgstr "Código do esqueceu a senha"
+msgstr "Código do esqueceu a palavra-passe"
 
 #: ../app/concerns/authenticated_system.rb:114
 #: ../app/views/shared/access_denied.html.erb:3
@@ -683,7 +683,7 @@ msgstr "Imagens"
 #: ../app/controllers/my_profile/cms_controller.rb:554
 #: ../app/views/cms/files.html.erb:5
 msgid "Files"
-msgstr "Arquivos"
+msgstr "Ficheiros"
 
 #: ../app/controllers/my_profile/email_templates_controller.rb:36
 msgid "Email template was successfully created."
@@ -902,7 +902,7 @@ msgstr "Login bem sucedido"
 
 #: ../app/controllers/public/account_controller.rb:106
 msgid "Incorrect username or password"
-msgstr "Nome ou senha incorreto"
+msgstr "Nome ou palavra-passe incorreto"
 
 #: ../app/controllers/public/account_controller.rb:123
 msgid "This environment doesn't allow user registration."
@@ -914,15 +914,15 @@ msgstr "Você saiu do sistema."
 
 #: ../app/controllers/public/account_controller.rb:194
 msgid "Your password has been changed successfully!"
-msgstr "Sua senha foi alterada com sucesso!"
+msgstr "Sua palavra-passe foi alterada com sucesso!"
 
 #: ../app/controllers/public/account_controller.rb:207
 msgid "This environment doesn't allow password recovery."
-msgstr "Este ambiente não permite a recuperação da senha."
+msgstr "Este ambiente não permite a recuperação da palavra-passe."
 
 #: ../app/controllers/public/account_controller.rb:225
 msgid "Can not recover user password with blank value."
-msgstr "Você não pode recuperar sua senha com um valor nulo."
+msgstr "Você não pode recuperar sua palavra-passe com um valor nulo."
 
 #: ../app/controllers/public/account_controller.rb:227
 msgid "Could not find any user with %s equal to \"%s\"."
@@ -930,7 +930,7 @@ msgstr "Não foi possível encontrar nenhum usuário com %s igual a \"%s\"."
 
 #: ../app/controllers/public/account_controller.rb:230
 msgid "Could not perform password recovery for the user."
-msgstr "Não foi possível recuperar a senha deste usuário."
+msgstr "Não foi possível recuperar a palavra-passe deste usuário."
 
 #: ../app/controllers/public/account_controller.rb:313
 msgid "This login name is available"
@@ -1467,19 +1467,19 @@ msgstr "Ver todas as conexões"
 
 #: ../app/helpers/application_helper.rb:1314
 msgid "Full screen"
-msgstr "Tela cheia"
+msgstr "Ecrã cheio"
 
 #: ../app/helpers/application_helper.rb:1317
 msgid "Go to full screen mode"
-msgstr "Ir para o modo tela cheia"
+msgstr "Ir para o modo ecrã cheio"
 
 #: ../app/helpers/application_helper.rb:1319
 msgid "Exit full screen"
-msgstr "Sair da tela cheia"
+msgstr "Sair do ecrã cheio"
 
 #: ../app/helpers/application_helper.rb:1322
 msgid "Exit full screen mode"
-msgstr "Sair do modo tela cheia"
+msgstr "Sair do modo ecrã cheio"
 
 #: ../app/helpers/article_helper.rb:17 ../app/helpers/folder_helper.rb:63
 msgid "Options"
@@ -1612,7 +1612,7 @@ msgstr "Adicionar tradução"
 
 #: ../app/helpers/article_helper.rb:255
 msgid "Upload files"
-msgstr "Enviar arquivos"
+msgstr "Enviar ficheiros"
 
 #: ../app/helpers/article_helper.rb:259
 msgid "Suggest an article"
@@ -3593,25 +3593,25 @@ msgstr "{fn} já está sendo usado por outra categoria."
 
 #: ../app/models/change_password.rb:10
 msgid "Password Confirmation"
-msgstr "Confirmação de senha"
+msgstr "Confirmação de palavra-passe"
 
 #: ../app/models/change_password.rb:43
 #: ../app/views/account/change_password.html.erb:1
 #: ../app/views/account/new_password.html.erb:14
 msgid "Change password"
-msgstr "Alterar senha"
+msgstr "Alterar palavra-passe"
 
 #: ../app/models/change_password.rb:47 ../app/models/change_password.rb:60
 msgid "%{requestor} wants to change its password."
-msgstr "%{requestor} quer alterar a senha."
+msgstr "%{requestor} quer alterar a palavra-passe."
 
 #: ../app/models/change_password.rb:66
 msgid "Your password change request was cancelled at %s."
-msgstr "Seu pedido de alteração de senha foi cancelado em %s."
+msgstr "Seu pedido de alteração de palavra-passe foi cancelado em %s."
 
 #: ../app/models/change_password.rb:70
 msgid "Your password was changed successfully."
-msgstr "Sua senha foi alterada com sucesso."
+msgstr "Sua palavra-passe foi alterada com sucesso."
 
 #: ../app/models/change_password.rb:80
 msgid ""
@@ -3622,12 +3622,12 @@ msgid ""
 "If you did not required any change to your password just desconsider this "
 "email."
 msgstr ""
-"Para alterar sua senha, por favor visite o seguinte endereço:\n"
+"Para alterar sua palavra-passe, por favor visite o seguinte endereço:\n"
 "\n"
 "%s\n"
 "\n"
-"Se você não requisitou que sua senha fosse alterada apenas desconsidere esse "
-"email."
+"Se você não requisitou que sua palavra-passe fosse alterada apenas "
+"desconsidere esse email."
 
 #: ../app/models/circle.rb:6
 msgid "Circle"
@@ -3698,7 +3698,8 @@ msgid ""
 "There was an error while authenticating. Did you enter correct login and "
 "password?"
 msgstr ""
-"Houve um erro ao autenticar. Você digitou usuário e senha corretamente?"
+"Houve um erro ao autenticar. Você digitou usuário e palavra-passe "
+"corretamente?"
 
 #: ../app/models/contact_list.rb:25
 msgid ""
@@ -3759,7 +3760,7 @@ msgstr "blocos laterais"
 
 #: ../app/models/control_panel/change_password.rb:4
 msgid "Change Password"
-msgstr "Alterar Senha"
+msgstr "Alterar palavra-passe"
 
 #: ../app/models/control_panel/circles.rb:4
 msgid "Circles"
@@ -4284,7 +4285,7 @@ msgstr "Activação de Usuário"
 
 #: ../app/models/email_template.rb:27
 msgid "Change User Password"
-msgstr "Alterar Senha do Usuário"
+msgstr "Alterar Palavra-passe do Usuário"
 
 #: ../app/models/enterprise.rb:23
 msgid "Activities short description"
@@ -4637,7 +4638,7 @@ msgstr "Sugerir um novo artigo"
 
 #: ../app/models/environment.rb:473
 msgid "Recover forgotten password"
-msgstr "Recuperar senha esquecida"
+msgstr "Recuperar palavra-passe esquecida"
 
 #: ../app/models/environment.rb:728
 msgid "Only one Virtual Community can be the default one"
@@ -5469,7 +5470,7 @@ msgstr "File"
 
 #: ../app/models/uploaded_file.rb:100
 msgid "{fn} of uploaded file was larger than the maximum size of %{size}"
-msgstr "{fn} do arquivo enviado é maior que o máximo permitido de %{size}"
+msgstr "{fn} do ficheiro enviado é maior que o máximo permitido de %{size}"
 
 #: ../app/models/uploaded_file.rb:129
 msgid "Uploaded file"
@@ -5485,7 +5486,7 @@ msgstr "Sua cota de upload foi excedida"
 
 #: ../app/models/user.rb:23
 msgid "Password confirmation"
-msgstr "Confirmação de senha"
+msgstr "Confirmação de palavra-passe"
 
 #: ../app/models/user.rb:24
 msgid "Terms accepted"
@@ -5564,16 +5565,16 @@ msgid ""
 "You also need a password in order to access the network. Choose something "
 "with at least 4 characters that you will remember later."
 msgstr ""
-"Você também precisa de uma senha para a acessar a rede. Escolha algo com "
-"pelo menos 4 caractéres que você consiga lembrar depois."
+"Você também precisa de uma palavra-passe para a acessar a rede. Escolha algo "
+"com pelo menos 4 caractéres que você consiga lembrar depois."
 
 #: ../app/views/account/_signup_form.html.erb:54
 msgid "Type your password again"
-msgstr "Insira a sua senha novamente"
+msgstr "Insira a sua palavra-passe novamente"
 
 #: ../app/views/account/_signup_form.html.erb:58
 msgid "Passwords don't match"
-msgstr "As senhas não correspondem"
+msgstr "As palavras-passe não correspondem"
 
 #: ../app/views/account/_signup_form.html.erb:65
 msgid "Too Short"
@@ -5706,7 +5707,7 @@ msgstr ""
 
 #: ../app/views/account/activate_enterprise.html.erb:22
 msgid "Enter you user name and password"
-msgstr "Entre com seu nome de usuário e senha"
+msgstr "Entre com seu nome de usuário e palavra-passe"
 
 #: ../app/views/account/activation_question.html.erb:6
 msgid "The year must be between %d and %d"
@@ -5785,15 +5786,15 @@ msgstr "Seu empreendimento foi bloqueado"
 
 #: ../app/views/account/change_password.html.erb:6
 msgid "Current password"
-msgstr "Senha atual"
+msgstr "Palavra-passe atual"
 
 #: ../app/views/account/change_password.html.erb:9
 msgid "New password"
-msgstr "Nova senha"
+msgstr "Nova palavra-passe"
 
 #: ../app/views/account/change_password.html.erb:12
 msgid "Confirm your new Password"
-msgstr "Confirme sua nova senha"
+msgstr "Confirme sua nova palavra-passe"
 
 #: ../app/views/account/change_password.html.erb:17
 #: ../app/views/circles/index.html.erb:28 ../app/views/cms/view.html.erb:75
@@ -5822,11 +5823,12 @@ msgstr "Voltar ao painel de controle"
 
 #: ../app/views/account/forgot_password.html.erb:1
 msgid "Forgot your password?"
-msgstr "Esqueceu sua senha?"
+msgstr "Esqueceu sua palavra-passe?"
 
 #: ../app/views/account/forgot_password.html.erb:3
 msgid "Instructions to password recovery could not be sent"
-msgstr "As instruções para recuperação de senha não puderam ser enviadas"
+msgstr ""
+"As instruções para recuperação de palavra-passe não puderam ser enviadas"
 
 #: ../app/views/account/forgot_password.html.erb:12
 msgid "Send instructions"
@@ -5838,7 +5840,7 @@ msgid ""
 "page where you will be able to create a new password."
 msgstr ""
 "Após clicar no botão acima, você receberá um e-mail com um link para uma "
-"página onde você poderá criar uma nova senha."
+"página onde você poderá criar uma nova palavra-passe."
 
 #: ../app/views/account/index.html.erb:1
 msgid "Account options"
@@ -5846,11 +5848,11 @@ msgstr "Opções da conta"
 
 #: ../app/views/account/index.html.erb:4
 msgid "Change password."
-msgstr "Alterar senha."
+msgstr "Alterar palavra-passe."
 
 #: ../app/views/account/index.html.erb:5
 msgid "It is a good idea to change your password from times to times."
-msgstr "É uma boa idéia alterar sua senha de tempos em tempos."
+msgstr "É uma boa idéia alterar sua palavra-passe de tempos em tempos."
 
 #: ../app/views/account/index.html.erb:9
 msgid "Edit Personal details."
@@ -5917,7 +5919,7 @@ msgstr ""
 
 #: ../app/views/account/invalid_change_password_code.html.erb:1
 msgid "Invalid change password code"
-msgstr "Mudança inválida do código da senha"
+msgstr "Mudança inválida do código da palavra-passe"
 
 #: ../app/views/account/invalid_change_password_code.html.erb:4
 msgid ""
@@ -5925,9 +5927,9 @@ msgid ""
 "request password change using the <a href=\"%s\">\"I forgot my password\"</"
 "a> functionality."
 msgstr ""
-"O código que você está usando para mudança de senha não é válido. Por favor "
-"tente requerir a mudança de senha usando a funcionalidade <a href=\"%s\">"
-"\"Eu esqueci minha senha\"</a>."
+"O código que você está usando para mudança de palavra-passe não é válido. "
+"Por favor tente requerir a mudança de palavra-passe usando a funcionalidade <"
+"a href=\"%s\">\"Eu esqueci minha palavra-passe\"</a>."
 
 #: ../app/views/account/invalid_enterprise_code.html.erb:1
 msgid "Invalid enterprise code"
@@ -5947,7 +5949,7 @@ msgstr "Mantenha-me logado"
 
 #: ../app/views/account/login.html.erb:31
 msgid "I forgot my password!"
-msgstr "Eu esqueci a minha senha!"
+msgstr "Eu esqueci a minha palavra-passe!"
 
 #: ../app/views/account/logout_popup.html.erb:1
 msgid "Are you sure you want to get out?"
@@ -5960,23 +5962,23 @@ msgstr "Não, eu quero ficar."
 #: ../app/views/account/new_password.html.erb:1
 #: ../app/views/account/new_password.html.erb:11
 msgid "Enter new password"
-msgstr "Entre com a nova senha"
+msgstr "Entre com a nova palavra-passe"
 
 #: ../app/views/account/new_password.html.erb:4
 msgid "Hello, %s! Please enter your new password in the form below."
-msgstr "Olá, %s! Por favor entre sua nova senha no formulário abaixo."
+msgstr "Olá, %s! Por favor entre sua nova palavra-passe no formulário abaixo."
 
 #: ../app/views/account/new_password.html.erb:12
 msgid "Confirm the new password"
-msgstr "Confirme a nova senha"
+msgstr "Confirme a nova palavra-passe"
 
 #: ../app/views/account/new_password_ok.html.erb:1
 msgid "Password changed sucessfully"
-msgstr "Senha alterada com sucesso"
+msgstr "Palavra-passe alterada com sucesso"
 
 #: ../app/views/account/new_password_ok.html.erb:4
 msgid "%s, your new password was successfully installed."
-msgstr "%s, sua nova senha foi alterada com sucesso."
+msgstr "%s, sua nova palavra-passe foi alterada com sucesso."
 
 #: ../app/views/account/new_password_ok.html.erb:8
 msgid "You can <a href='%s'>login</a> now."
@@ -5984,7 +5986,7 @@ msgstr "Você pode <a href='%s'>logar</a> agora."
 
 #: ../app/views/account/password_recovery_sent.html.erb:1
 msgid "Password recovery"
-msgstr "Recuperar senha"
+msgstr "Recuperar palavra-passe"
 
 #: ../app/views/account/password_recovery_sent.html.erb:4
 msgid ""
@@ -5992,7 +5994,7 @@ msgid ""
 "changing your password. You should receive it in a few minutes."
 msgstr ""
 "Um email foi enviado para seu endereço de e-mail, com as instruções para "
-"mudar a sua senha. Você deve recebê-lo em alguns minutos."
+"mudar a sua palavra-passe. Você deve recebê-lo em alguns minutos."
 
 #: ../app/views/account/signup.html.erb:1
 msgid "Sign up for %s!"
@@ -7099,7 +7101,7 @@ msgstr "Mostrar todos os envios"
 
 #: ../app/views/cms/_text_editor_sidebar.html.erb:39
 msgid "Recent media"
-msgstr "Imagens e arquivos recentes"
+msgstr "Mídia recente"
 
 #: ../app/views/cms/_text_editor_sidebar.html.erb:40
 msgid "Write words about the file you are looking for"
@@ -7180,12 +7182,12 @@ msgstr "Veja também uma <a href=\"%s\">Referência Textile</a> mais completa."
 
 #: ../app/views/cms/_upload_file_form.html.erb:17
 msgid "Add files..."
-msgstr "Adicionar arquivos..."
+msgstr "Adicionar ficheiros..."
 
 #: ../app/views/cms/_upload_file_form.html.erb:19
 #: ../app/views/cms/_upload_file_form.html.erb:21
 msgid "Upload"
-msgstr "Upload"
+msgstr "Enviar"
 
 #: ../app/views/cms/_view_items.html.erb:27
 msgid "Use as homepage"
@@ -7416,16 +7418,16 @@ msgstr "Seu nome"
 #: ../app/views/cms/upload_files.html.erb:3
 msgid "This file couldn't be saved"
 msgid_plural "These %{num} files couldn't be saved"
-msgstr[0] "Este arquivo não pode ser salvo"
-msgstr[1] "Estes %{num} arquivos não puderam ser salvos"
+msgstr[0] "Este ficheiro não pode ser salvo"
+msgstr[1] "Estes %{num} ficheiros não puderam ser salvos"
 
 #: ../app/views/cms/upload_files.html.erb:4
 msgid "There were problems with the following files:"
-msgstr "Houve problemas com os seguintes arquivos:"
+msgstr "Houve problemas com os seguintes ficheiros:"
 
 #: ../app/views/cms/upload_files.html.erb:15
 msgid "Publish media"
-msgstr "Publicar imagem ou documento"
+msgstr "Publicar mídia"
 
 #: ../app/views/cms/upload_files.html.erb:18
 msgid "Select the files you want to upload (max size %s):"
@@ -8521,7 +8523,7 @@ msgid ""
 msgstr ""
 "Se demorar demais, você será redirecionado(a) para a página anterior para "
 "tentar novamente. Certifique-se de preencher os campos com seu usuário e "
-"senha corretos."
+"palavra-passe corretos."
 
 #: ../app/views/invite/_dialog_wait_loading.html.erb:19
 msgid "Verify contact list"
@@ -8568,7 +8570,8 @@ msgstr "Por favor digite seu nome de usuário no formato seunome@exemplo.com"
 #: ../app/views/invite/_select_address_book.html.erb:40
 msgid "We won't store your password or contact anyone without your permission."
 msgstr ""
-"Nós não armazenamos sua senha nem contactamos ninguém sem sua permissão."
+"Nós não armazenamos sua palavra-passe nem contactamos ninguém sem sua "
+"permissão."
 
 #: ../app/views/invite/invite_friends.html.erb:2
 msgid "Ask for friendship"
@@ -9326,12 +9329,12 @@ msgid ""
 "and pictures) will also be deleted."
 msgstr ""
 "Você deve estar ciente de que todo o conteúdo deste perfil (artigos, "
-"eventos, arquivos e fotos) também serão removidos."
+"eventos, ficheiros e fotos) também serão removidos."
 
 #: ../app/views/profile_editor/destroy_profile.html.erb:8
 #: ../app/views/profile_roles/destroy.html.erb:9
 msgid "No, I gave up"
-msgstr "Não, eu desisto"
+msgstr "Não, eu desisti"
 
 #: ../app/views/profile_editor/disable.html.erb:1
 msgid "Disabling '%s' enterprise"
@@ -9495,7 +9498,7 @@ msgstr "Envie-me por e-mail sugestões de novos relacionamentos"
 
 #: ../app/views/profile_editor/preferences.html.erb:21
 msgid "Files upload"
-msgstr "Upload de arquivos"
+msgstr "Envio de ficheiros"
 
 #: ../app/views/profile_editor/preferences.html.erb:23
 msgid "Send single file in upload with description"
@@ -9814,7 +9817,7 @@ msgstr "Pré-visualizar este tema"
 
 #: ../app/views/profile_themes/edit.html.erb:14
 msgid "CSS files"
-msgstr "Arquivos CSS"
+msgstr "Ficheiros CSS"
 
 #: ../app/views/profile_themes/edit.html.erb:21
 msgid "New CSS"
@@ -10235,8 +10238,8 @@ msgid ""
 "You can move this window away to have a better visualization of specific "
 "parts of screen."
 msgstr ""
-"Você pode mover esta janela para visualizar melhor partes específicas da "
-"tela."
+"Você pode mover esta janela para visualizar melhor partes específicas do "
+"ecrã."
 
 #: ../app/views/shared/theme_test_panel.html.erb:9
 msgid "Finished testing"

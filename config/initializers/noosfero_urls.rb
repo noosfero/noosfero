@@ -1,5 +1,5 @@
 if Rails.env == 'development'
-  ActionController::Base.send(:prepend_before_filter) do |controller|
+  ActionController::Base.send(:prepend_before_action) do |controller|
     # XXX note that this is not thread-safe! Accessing a Noosfero instance in
     # development mode under different ports concurrently _will_ lead to weird
     # things happening.

@@ -74,7 +74,7 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     end
   end
 
-  should 'create admission survey when atempted membership' do
+  should 'create admission survey when attempted membership' do
     environment = Environment.default
     environment.enable_plugin(CustomFormsPlugin)
     organization = fast_create(Organization)
@@ -95,6 +95,6 @@ class RoleAssignmentsTest < ActiveSupport::TestCase
     assert_difference 'CustomFormsPlugin::AdmissionSurvey.count', 2 do
       organization.add_member(person)
     end
-    refute organization.members.include?(person)
+    assert organization.members.include?(person)
   end
 end

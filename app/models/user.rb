@@ -51,7 +51,8 @@ class User < ApplicationRecord
     end
   end
   class << self
-    alias_method_chain :human_attribute_name, :customization
+    alias_method :human_attribute_name_without_customization, :human_attribute_name
+    alias_method :human_attribute_name, :human_attribute_name_with_customization
   end
 
   def self.build(user_data, person_data, environment)
@@ -80,6 +81,11 @@ class User < ApplicationRecord
       p.name ||= user.name || user.login
       p.visible = false unless user.activated?
       p.save!
+
+      if user.person_data[:image_builder]
+        p.image_builder = user.person_data[:image_builder]
+        p.image&.save!
+      end
 
       user.person = p
     end
@@ -116,7 +122,7 @@ class User < ApplicationRecord
 
   # set autosave to false as we do manually when needed and Person syncs with us
   has_one :person, dependent: :destroy, autosave: false
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   has_many :sessions, dependent: :destroy
   # holds the current session, see lib/authenticated_system.rb

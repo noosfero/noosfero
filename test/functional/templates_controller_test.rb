@@ -184,7 +184,7 @@ class TemplatesControllerTest < ActionController::TestCase
     environment.save
 
     get :index
-    assert_no_tag :a, '', :attributes => {:href => "/admin/templates/set_community_as_default?template_id=#{c1.id}"}
+    !assert_tag :a, '', :attributes => {:href => "/admin/templates/set_community_as_default?template_id=#{c1.id}"}
   end
 
   should 'display a link for manage person template' do

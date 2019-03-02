@@ -18,10 +18,10 @@ class ProductsHelperTest < ActionView::TestCase
   attr_accessor :category
 
   should 'display select for categories' do
-    create(ProductCategory, name: 'Category 2.1', environment_id: @environment.id, parent_id: category.id)
-    create(ProductCategory, name: 'Category 2.2', environment_id: @environment.id, parent_id: category.id)
+    create(ProductCategory, name: 'Category 2.1', environment_id: @environment.id, parent: category)
+    create(ProductCategory, name: 'Category 2.2', environment_id: @environment.id, parent: category)
 
-    assert_tag_in_string select_for_categories(category.children(true), 1), tag: 'select', attributes: {id: 'category_id'}
+    assert_tag_in_string select_for_categories(category.children, 1), tag: 'select', attributes: {id: 'category_id'}
   end
 
   include ActionView::Helpers::NumberHelper

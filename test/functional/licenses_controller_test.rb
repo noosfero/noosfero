@@ -54,7 +54,7 @@ class LicensesControllerTest < ActionController::TestCase
   should 'remove a license only with post method' do
     license = License.create!(:name => 'GPLv3', :environment => environment)
     get :remove, :license_id => license.id
-    assert_nothing_raised ActiveRecord::RecordNotFound do
+    assert_nothing_raised do
       License.find(license.id)
     end
     assert_redirected_to :action => 'index'

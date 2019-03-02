@@ -16,15 +16,15 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'do not display context content block if it has no contents' do
     get :view_page, @page.url
-    assert_no_tag 'div', :attributes => {:id => "context_content_#{@block.id}", :class => 'contents'}
-    assert_no_tag 'div', :attributes => {:id => "context_content_more_#{@block.id}", :class => 'more_button'}
+    !assert_tag 'div', :attributes => {:id => "context_content_#{@block.id}", :class => 'contents'}
+    !assert_tag 'div', :attributes => {:id => "context_content_more_#{@block.id}", :class => 'more_button'}
   end
 
   should 'display context content block if it has contents' do
     article = fast_create(TextArticle, :parent_id => @page.id, :profile_id => @profile.id, :name => 'article1')
     get :view_page, @page.url
     assert_tag 'div', :attributes => {:id => "context_content_#{@block.id}", :class => 'contents'}
-    assert_no_tag 'div', :attributes => {:id => "context_content_more_#{@block.id}", :class => 'more_button'}, :descendant => {:tag => 'a'}
+    !assert_tag 'div', :attributes => {:id => "context_content_more_#{@block.id}", :class => 'more_button'}, :descendant => {:tag => 'a'}
     assert_match /article1/, @response.body
   end
 
@@ -34,7 +34,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     article = fast_create(TextArticle, :parent_id => @page.id, :profile_id => @profile.id, :name => 'article1')
     get :view_page, @page.url
     assert_tag 'h3', :attributes => {:class => 'block-title'}, :content => @block.title
-    assert_no_tag 'h3', :attributes => {:class => 'block-title'}, :content => @page.name
+    !assert_tag 'h3', :attributes => {:class => 'block-title'}, :content => @page.name
   end
 
   should 'display context content with folder title if it is configured to use_parent_title' do
@@ -43,7 +43,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     article = fast_create(TextArticle, :parent_id => @page.id, :profile_id => @profile.id, :name => 'article1')
     get :view_page, @page.url
     assert_tag 'h3', :attributes => {:class => 'block-title'}, :content => @page.name
-    assert_no_tag 'h3', :attributes => {:class => 'block-title'}, :content => @block.title
+    !assert_tag 'h3', :attributes => {:class => 'block-title'}, :content => @block.title
   end
 
   should 'display context content block with pagination' do

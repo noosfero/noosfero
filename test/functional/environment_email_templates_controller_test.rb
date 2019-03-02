@@ -21,6 +21,7 @@ class EnvironmentEmailTemplatesControllerTest < ActionController::TestCase
 
   test "should create email_template" do
     assert_difference('EmailTemplate.count') do
+
       post :create, email_template: { :name => 'test' }
     end
 
@@ -38,13 +39,13 @@ class EnvironmentEmailTemplatesControllerTest < ActionController::TestCase
   end
 
   test "should update email_template" do
-    put :update, id: @email_template, email_template: {  }
+    put :update, params: { id: @email_template, email_template: {  } }
     assert_redirected_to url_for(:action => :index)
   end
 
   test "should destroy email_template" do
     assert_difference('EmailTemplate.count', -1) do
-      delete :destroy, id: @email_template
+      delete :destroy, params: { id: @email_template }
     end
 
     assert_redirected_to url_for(:action => :index)

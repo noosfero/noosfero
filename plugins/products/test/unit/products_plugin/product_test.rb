@@ -40,7 +40,7 @@ class ProductsPlugin::ProductTest < ActiveSupport::TestCase
     product.name = 'Software'
     product.save
     assert_equal 'Software', product.name
-    assert_equal nil, product[:name]
+    assert_nil product[:name]
   end
 
   should 'list recent products' do
@@ -70,7 +70,7 @@ class ProductsPlugin::ProductTest < ActiveSupport::TestCase
       p = create(ProductsPlugin::Product, name: 'test product1', profile: profile, product_category: product_category, image_builder: {
         uploaded_data: fixture_file_upload('/files/rails.png', 'image/png')
       }, profile_id: @profile.id)
-      assert_equal p.image(true).filename, 'rails.png'
+      assert_equal p.image.filename, 'rails.png'
     end
   end
 
@@ -246,11 +246,13 @@ class ProductsPlugin::ProductTest < ActiveSupport::TestCase
     second = create(ProductsPlugin::Input, product: product, product_category: create(ProductsPlugin::ProductCategory))
     third = create(ProductsPlugin::Input, product: product, product_category: create(ProductsPlugin::ProductCategory))
 
-    assert_equal [first, second, third], product.inputs
+    assert_equal first, product.inputs.first
+    assert_equal second, product.inputs.second
+    assert_equal third, product.inputs.third
 
     product.order_inputs!([second.id, first.id, third.id])
 
-    assert_equal [second, first, third], product.inputs(true)
+    assert_equal [second, first, third], product.inputs
   end
 
   should 'format name with unit' do

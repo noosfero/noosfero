@@ -6,7 +6,6 @@ Gem::Specification.new do |s|
   s.email = "kandadaboggu@gmail.com"
   s.homepage = "http://github.com/kandadaboggu/vote_fu"
   s.description = "Enhanced vote_fu with numerical voting and total vote caching."
-  s.has_rdoc = false
   s.authors = ["Peter Jackson", "Cosmin Radoi", "Bence Nagy", "Rob Maddox", "Kandada Boggu"]
   s.files = [ "CHANGELOG.markdown",
               "MIT-LICENSE",

@@ -44,15 +44,15 @@ class AccessControlTestController < ApplicationController
   protect ['permission1', 'permission2'], :resource, :user, :only => :stuff_with_multiple_permission
 
   def index
-     render :text => 'test controller'
+     render plain: 'test controller'
   end
 
   def other_stuff
-    render :text => 'test stuff'
+    render plain: 'test stuff'
   end
 
   def stuff_with_multiple_permission
-    render :text => 'multiple permission'
+    render plain: 'multiple permission'
   end
 
 protected

@@ -5,7 +5,7 @@ module CustomDesign
   included do
     extend ClassMethods
     include InstanceMethods
-    before_filter :load_custom_design if self.respond_to? :before_filter
+    before_action :load_custom_design if self.respond_to? :before_action
   end
 
   module ClassMethods

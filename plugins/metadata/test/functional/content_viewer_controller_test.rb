@@ -25,13 +25,13 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     assert_tag tag: 'meta', attributes: { name: 'twitter:title', content: /#{a.name} - #{a.profile.name}/ }
     assert_tag tag: 'meta', attributes: { name: 'twitter:description', content: a.lead.gsub(/<\/?p>/,'') }
-    assert_no_tag tag: 'meta', attributes: { name: 'twitter:image' }
+    !assert_tag tag: 'meta', attributes: { name: 'twitter:image' }
     assert_tag tag: 'meta', attributes: { property: 'og:type', content: 'article' }
     assert_tag tag: 'meta', attributes: { property: 'og:url', content: /\/#{profile.identifier}\/#{a.name.to_slug}/ }
     assert_tag tag: 'meta', attributes: { property: 'og:title', content: /#{a.name} - #{a.profile.name}/ }
     assert_tag tag: 'meta', attributes: { property: 'og:site_name', content: a.profile.name }
     assert_tag tag: 'meta', attributes: { property: 'og:description', content: a.lead.gsub(/<\/?p>/,'') }
-    assert_no_tag tag: 'meta', attributes: { property: 'og:image' }
+    !assert_tag tag: 'meta', attributes: { property: 'og:image' }
   end
 
   should 'add meta tags with article images' do
@@ -64,7 +64,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     a = TextArticle.create(name: 'Article to be shared with images', body: 'This article should be shared with all social networks <img src="/images/x.png" />', profile: profile)
 
     get :view_page, profile: profile.identifier, page: [ a.name.to_slug ]
-    assert_no_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/x.png/  }
+    !assert_tag tag: 'meta', attributes: { property: 'og:image', content: /\/images\/x.png/  }
   end
 
 end

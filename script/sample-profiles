@@ -141,7 +141,7 @@ for verb in VERBS
       community.state = place[:state]
       community.city = place[:city]
     end
-    community.save
+    community.save!
     rand(10).times do
       person = people.sample
       community.add_member(person)

@@ -1,10 +1,10 @@
 class CustomFormsPlugin::Submission < ApplicationRecord
 
-  belongs_to :form, :class_name => 'CustomFormsPlugin::Form'
-  belongs_to :profile
+  belongs_to :form, class_name: 'CustomFormsPlugin::Form', optional: true
+  belongs_to :profile, optional: true
 
   # validation is done manually, see below
-  has_many :answers, :class_name => 'CustomFormsPlugin::Answer', :dependent => :destroy, :validate => false
+  has_many :answers, class_name:  'CustomFormsPlugin::Answer', dependent: :destroy, :validate => false
 
   attr_accessible :form, :profile, :author_name, :author_email
 
@@ -22,7 +22,8 @@ class CustomFormsPlugin::Submission < ApplicationRecord
     end
   end
   class << self
-    alias_method_chain :human_attribute_name, :customization
+    alias_method :human_attribute_name_without_customization, :human_attribute_name
+    alias_method :human_attribute_name, :human_attribute_name_with_customization
   end
 
   before_create do |submission|

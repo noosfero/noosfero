@@ -16,7 +16,7 @@ module PermissionCheck
     #   :only => :index or :except => [:edit, :update] by default protects all the actions
     def protect(permission, target_method, accessor_method = :user, actions = {})
       actions, accessor_method = accessor_method, :user if accessor_method.kind_of?(Hash)
-      before_filter actions do |c|
+      before_action actions do |c|
           target = target_method.kind_of?(Symbol) ? c.send(target_method) : target_method
           accessor = accessor_method.kind_of?(Symbol) ? c.send(accessor_method) : accessor_method
           unless Array.wrap(permission).map {|p| accessor && accessor.has_permission?(p.to_s, target)}.any?

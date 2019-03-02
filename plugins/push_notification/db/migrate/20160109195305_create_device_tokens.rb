@@ -1,4 +1,4 @@
-class CreateDeviceTokens < ActiveRecord::Migration
+class CreateDeviceTokens < ActiveRecord::Migration[5.1]
   def change
     create_table :push_notification_plugin_device_tokens do |t|
       t.integer :user_id, null: false

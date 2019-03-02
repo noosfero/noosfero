@@ -78,12 +78,12 @@ class FriendsControllerTest < ActionController::TestCase
     e.enable_plugin(Plugin2.name)
 
     get :index, :profile => 'testuser'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/profile/testuser/invite/friends" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/profile/testuser/invite/friends" }
   end
 
   should 'not display list suggestions button if there is no suggestion' do
     get :index, :profile => 'testuser'
-    assert_no_tag :tag => 'a', :content => 'Suggest friends', :attributes => { :href => "/myprofile/testuser/friends/suggest" }
+    !assert_tag :tag => 'a', :content => 'Suggest friends', :attributes => { :href => "/myprofile/testuser/friends/suggest" }
   end
 
   should 'display people suggestions' do

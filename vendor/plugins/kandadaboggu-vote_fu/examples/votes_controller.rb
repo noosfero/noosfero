@@ -3,11 +3,11 @@
 class VotesController < ApplicationController
 
   # First, figure out our nested scope. User or Voteable? 
-  before_filter :find_votes_for_my_scope, :only => [:index]
+  before_action :find_votes_for_my_scope, :only => [:index]
      
-  before_filter :login_required, :only => [:new, :edit, :destroy, :create, :update]
-  before_filter :must_own_vote,  :only => [:edit, :destroy, :update]
-  before_filter :not_allowed,    :only => [:edit, :update, :new]
+  before_action :login_required, :only => [:new, :edit, :destroy, :create, :update]
+  before_action :must_own_vote,  :only => [:edit, :destroy, :update]
+  before_action :not_allowed,    :only => [:edit, :update, :new]
 
   # GET /users/:user_id/votes/
   # GET /users/:user_id/votes.xml

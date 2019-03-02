@@ -1,0 +1,15 @@
+$('#<%= "track_list_#{@block.id}" %>')
+  .append('<%= j render(partial: "blocks/#{@block.track_partial}",
+                        collection: @tracks,
+                        locals: { block: @block }) %>')
+
+
+<% if @block.has_page?(@p + 1, @per_page) %>
+  $('#<%= "track_list_more_#{@block.id}" %>')
+    .replaceWith('<%= j render(partial: 'blocks/track_list_more',
+                               locals: { block: @block, page: (@p + 1),
+                                         force_same_page: @force_same_page,
+                                         per_page: @per_page }) %>')
+<% else %>
+  $('#<%= "track_list_more_#{@block.id}" %>').replaceWith('')
+<% end %>

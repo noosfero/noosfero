@@ -57,7 +57,7 @@ class RemoteUserPlugin < Noosfero::Plugin
     end
 
     [{
-      :type => "before_filter",
+      :type => "before_action",
       :method_name => "remote_user_authentication",
       :options => { },
       :block => block

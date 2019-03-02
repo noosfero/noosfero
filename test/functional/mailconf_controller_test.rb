@@ -62,7 +62,7 @@ class MailconfControllerTest < ActionController::TestCase
     user.update!(:enable_email => false)
     get :index, :profile => 'ze'
     assert_tag :tag => 'a', :content => 'Enable e-Mail'
-    assert_no_tag :tag => 'a', :content => 'Disable e-Mail', :attributes => { :href => '/myprofile/ze/mailconf/disable' }
+    !assert_tag :tag => 'a', :content => 'Disable e-Mail', :attributes => { :href => '/myprofile/ze/mailconf/disable' }
   end
 
   should 'not display www in email address when force_www=true' do
@@ -104,13 +104,13 @@ class MailconfControllerTest < ActionController::TestCase
   should 'go back on save' do
     login_as('ze')
     post :enable, :profile => 'ze'
-    assert_redirected_to :controller => 'profile_editor', :action => 'edit'
+    assert_redirected_to :controller => 'profile_editor', :action => 'informations'
   end
 
   should 'go to profile editor after enable email' do
     login_as('ze')
     post :enable, :profile => 'ze'
-    assert_redirected_to :controller => 'profile_editor', :action => 'edit'
+    assert_redirected_to :controller => 'profile_editor', :action => 'informations'
   end
 
   should 'display notice after saving' do
@@ -130,7 +130,7 @@ class MailconfControllerTest < ActionController::TestCase
     user.update_attribute(:environment_id, Environment.default.id)
     EmailActivation.create!(:requestor => user.person, :target => Environment.default)
     get :index, :profile => 'ze'
-    assert_no_tag :tag => 'input', :attributes => {:name => 'user[enable_email]', :type => 'checkbox'}
+    !assert_tag :tag => 'input', :attributes => {:name => 'user[enable_email]', :type => 'checkbox'}
   end
 
 end

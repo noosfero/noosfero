@@ -78,7 +78,7 @@ class Article < ApplicationRecord
     end
   end
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
 
@@ -89,21 +89,21 @@ class Article < ApplicationRecord
 
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
-  belongs_to :author, :class_name => 'Person'
-  belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
-  belongs_to :created_by, :class_name => 'Person', :foreign_key => 'created_by_id'
+  belongs_to :author, class_name: 'Person', optional: true
+  belongs_to :last_changed_by, class_name: 'Person', foreign_key: 'last_changed_by_id', optional: true
+  belongs_to :created_by, class_name: 'Person', foreign_key: 'created_by_id', optional: true
 
   has_many :comments, -> { order 'created_at asc' }, class_name: 'Comment', as: 'source', dependent: :destroy
 
-  has_many :article_followers, :dependent => :destroy
-  has_many :person_followers, :class_name => 'Person', :through => :article_followers, :source => :person
+  has_many :article_followers, dependent: :destroy
+  has_many :person_followers, class_name: 'Person', through: :article_followers, source: :person
   has_many :person_followers_emails, -> { select :email }, class_name: 'User', through: :person_followers, source: :user
 
   has_many :article_categorizations, -> { where 'articles_categories.virtual = ?', false }
-  has_many :categories, :through => :article_categorizations
+  has_many :categories, through: :article_categorizations
 
-  has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization'
-  has_many :categories_including_virtual, :through => :article_categorizations_including_virtual, :source => :category
+  has_many :article_categorizations_including_virtual, class_name: 'ArticleCategorization'
+  has_many :categories_including_virtual, through: :article_categorizations_including_virtual, source: :category
 
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :setting
@@ -115,14 +115,14 @@ class Article < ApplicationRecord
   settings_items :author_name, :type => :string, :default => ""
   settings_items :allow_members_to_edit, :type => :boolean, :default => false
   settings_items :moderate_comments, :type => :boolean, :default => false
-  has_and_belongs_to_many :article_privacy_exceptions, :class_name => 'Person', :join_table => 'article_privacy_exceptions'
+  has_and_belongs_to_many :article_privacy_exceptions, class_name:  'Person', :join_table => 'article_privacy_exceptions'
 
-  belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
+  belongs_to :reference_article, class_name: "Article", foreign_key: 'reference_article_id', optional: true
 
-  belongs_to :license
+  belongs_to :license, optional: true
 
-  has_many :translations, :class_name => 'Article', :foreign_key => :translation_of_id
-  belongs_to :translation_of, :class_name => 'Article', :foreign_key => :translation_of_id
+  has_many :translations, class_name: 'Article', foreign_key: :translation_of_id
+  belongs_to :translation_of, class_name: 'Article', foreign_key: :translation_of_id, optional: true
   before_destroy :rotate_translations
 
   acts_as_voteable
@@ -149,10 +149,10 @@ class Article < ApplicationRecord
 
   after_destroy :destroy_link_article
   def destroy_link_article
-    Article.where(:reference_article_id => self.id, :type => LinkArticle).destroy_all
+    Article.where(reference_article_id: self.id, type: 'LinkArticle').destroy_all
   end
 
-  xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
+  xss_terminate only: [ :name ], on: :validation, with: :white_list
 
   scope :in_category, -> category {
     includes('categories_including_virtual').where('categories.id' => category.id)
@@ -240,7 +240,8 @@ class Article < ApplicationRecord
     end
   end
   class << self
-    alias_method_chain :human_attribute_name, :customization
+    alias_method :human_attribute_name_without_customization, :human_attribute_name
+    alias_method :human_attribute_name, :human_attribute_name_with_customization
   end
 
   def css_class_list
@@ -255,12 +256,12 @@ class Article < ApplicationRecord
     @pending_categorizations ||= []
   end
 
-  def add_category(c, reload=false)
+  def add_category(c)
     if new_record?
       pending_categorizations << c
     else
       ArticleCategorization.add_category_to_article(c, self)
-      self.categories(reload)
+      self.categories
     end
   end
 
@@ -269,7 +270,7 @@ class Article < ApplicationRecord
     ids.uniq.each do |item|
       add_category(Category.find(item)) unless item.to_i.zero?
     end
-    self.categories(true)
+    self.categories
   end
 
   after_create :create_pending_categorizations
@@ -277,7 +278,7 @@ class Article < ApplicationRecord
     pending_categorizations.each do |item|
       ArticleCategorization.add_category_to_article(item, self)
     end
-    self.categories(true)
+    self.categories
     pending_categorizations.clear
   end
 
@@ -411,6 +412,10 @@ class Article < ApplicationRecord
     @url ||= self.profile.url.merge(:page => path.split('/'))
   end
 
+  def page_path
+    path.split('/')
+  end
+
   def view_url
     @view_url ||= is_a?(UploadedFile) ? url.merge(:view => true) : url
   end
@@ -462,7 +467,7 @@ class Article < ApplicationRecord
   end
 
   def possible_translations
-    possibilities = environment.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
+    possibilities = environment.locales.keys - self.native_translation.translations.map(&:language) - [self.native_translation.language]
     possibilities << self.language unless self.language_changed?
     possibilities
   end

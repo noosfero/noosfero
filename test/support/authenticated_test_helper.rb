@@ -2,11 +2,27 @@ module AuthenticatedTestHelper
 
   # Sets the current user in the session from the user fixtures.
   def login_as(user)
-    @request.session[:user] = User.find_by(login: user.to_s).id
+    @request.session[:user] = User.find_by(login: user.to_s).id 
+  end
+
+  def login_as_rails5(user)
+    old_controller = @controller
+    @controller = AccountController.new
+
+    post login_account_index_path, params: { user: { login: user, password: '123456'} }
+    @controller = old_controller
   end
 
   def logout
-    @request.session.delete(:user)
+    @request.session.delete(:user) if @request
+  end
+
+  def logout_rails5
+    old_controller = @controller
+    @controller = AccountController.new
+
+    get logout_account_index_path
+    @controller = old_controller
   end
 
   def content_type(type)

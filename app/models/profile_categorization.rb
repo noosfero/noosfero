@@ -1,8 +1,8 @@
 class ProfileCategorization < ApplicationRecord
   self.table_name = :categories_profiles
-  belongs_to :profile
-  belongs_to :category
-  belongs_to :region, :foreign_key => 'category_id'
+  belongs_to :profile, optional: true
+  belongs_to :category, optional: true
+  belongs_to :region, foreign_key: 'category_id', optional: true
 
   extend Categorization
 
@@ -13,10 +13,10 @@ class ProfileCategorization < ApplicationRecord
     end
   end
 
-  def self.remove_region(profile)
+  def self.remove_region profile
     if profile.old_region_id
       ids = Region.find(profile.old_region_id).hierarchy.map(&:id)
-      self.delete_all(:profile_id => profile.id, :category_id => ids)
+      self.where(profile_id: profile.id, category_id: ids).delete_all
     end
   end
 

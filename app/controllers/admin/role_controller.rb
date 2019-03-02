@@ -10,6 +10,7 @@ class RoleController < AdminController
   end
 
   def create
+    params[:role] ||= {}
     @role = Role.new :name => params[:role][:name], :permissions => params[:role][:permissions], :environment => environment
     if @role.save
       redirect_to :action => 'show', :id => @role

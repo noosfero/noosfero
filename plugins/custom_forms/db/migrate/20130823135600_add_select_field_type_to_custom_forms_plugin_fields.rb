@@ -1,4 +1,4 @@
-class AddSelectFieldTypeToCustomFormsPluginFields < ActiveRecord::Migration
+class AddSelectFieldTypeToCustomFormsPluginFields < ActiveRecord::Migration[5.1]
   def self.up
     change_table :custom_forms_plugin_fields do |t|
       t.string :select_field_type

@@ -7,8 +7,7 @@ Feature: vote_once_disable_cooldown
     Given plugin "OrganizationRatings" is enabled on environment
     And I am logged in as admin
     And I go to /admin/plugins
-
-
+  
   @selenium
   Scenario: disable or enable the cooldown field when vote on is checked or unchecked
     Given I check "Organization Ratings"
@@ -17,8 +16,8 @@ Feature: vote_once_disable_cooldown
     And I follow "Administration"
     And I follow "Plugins"
     And I follow "Configuration"
-    And the field "#organization_ratings_config_cooldown" should be enabled
+    Then the field "#organization_ratings_config_cooldown" should be enabled
     And I check "Vote once"
-    And the field "#organization_ratings_config_cooldown" should be disabled
+    Then the field "#organization_ratings_config_cooldown" should be disabled
     And I uncheck "Vote once"
     Then the field "#organization_ratings_config_cooldown" should be enabled

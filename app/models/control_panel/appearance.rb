@@ -25,6 +25,7 @@ class ControlPanel::Appearance < ControlPanel::Entry
     end
 
     def display?(user, profile, context={})
+      return false if (!user || !profile)
       user.is_admin?(profile.environment) || profile.environment.enabled?('enable_appearance')
     end
   end

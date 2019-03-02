@@ -7,7 +7,7 @@ class OrdersCyclePluginCycleController < OrdersPluginAdminController
   include OrdersCyclePlugin::TranslationHelper
 
   protect 'edit_profile', :profile
-  before_filter :set_admin
+  before_action :set_admin
 
   helper OrdersCyclePlugin::TranslationHelper
   helper OrdersCyclePlugin::DisplayHelper

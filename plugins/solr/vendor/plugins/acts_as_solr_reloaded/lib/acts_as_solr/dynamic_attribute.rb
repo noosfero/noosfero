@@ -1,3 +1,3 @@
 class DynamicAttribute < ApplicationRecord
-  belongs_to :dynamicable, :polymorphic => true
+  belongs_to :dynamicable, polymorphic:  true, optional: true
 end

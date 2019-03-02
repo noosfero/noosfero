@@ -1,0 +1,6 @@
+<% if @comment_to_render %>
+  $('#<%= @anchor %>').replaceWith('<%= j render partial: "comment", locals: { comment: @comment_to_render} %>');
+<% else %>
+  $('#edit_comment_<%= @comment.id %>').replaceWith('<%= j render partial: "comment_form", object: @comment, locals: {comment: @comment, display_link: false, edition_mode: true, show_form: true} %>');
+<% end %>
+$("#close-modal").click();

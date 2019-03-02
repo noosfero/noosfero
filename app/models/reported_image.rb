@@ -2,7 +2,7 @@ class ReportedImage < ApplicationRecord
 
   include UploadSanitizer
 
-  belongs_to :abuse_report
+  belongs_to :abuse_report, optional: true
 
   validates_presence_of :abuse_report
 

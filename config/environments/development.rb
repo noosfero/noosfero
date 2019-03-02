@@ -29,6 +29,7 @@ Noosfero::Application.configure do
   # we have a lot of assets
   config.assets.debug = false
 
+
   config.consider_all_requests_local = true
 
   # send emails to /tmp/mails

@@ -118,28 +118,28 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     get :edit, :id => @block.id
 
     assert_tag :input, :attributes => {:id => 'block_community_counter'}
-    assert_no_tag :input, :attributes => {:id => 'block_community_counter', :checked => 'checked'}
+    !assert_tag :input, :attributes => {:id => 'block_community_counter', :checked => 'checked'}
   end
 
   should 'not input enterprise counter be checked by default' do
     get :edit, :id => @block.id
 
     assert_tag :input, :attributes => {:id => 'block_enterprise_counter'}
-    assert_no_tag :input, :attributes => {:id => 'block_enterprise_counter', :checked => 'checked'}
+    !assert_tag :input, :attributes => {:id => 'block_enterprise_counter', :checked => 'checked'}
   end
 
   should 'not input product counter be checked by default' do
     get :edit, :id => @block.id
 
     assert_tag :input, :attributes => {:id => 'block_product_counter'}
-    assert_no_tag :input, :attributes => {:id => 'block_product_counter', :checked => 'checked'}
+    !assert_tag :input, :attributes => {:id => 'block_product_counter', :checked => 'checked'}
   end
 
   should 'not input category counter be checked by default' do
     get :edit, :id => @block.id
 
     assert_tag :input, :attributes => {:id => 'block_category_counter'}
-    assert_no_tag :input, :attributes => {:id => 'block_category_counter', :checked => 'checked'}
+    !assert_tag :input, :attributes => {:id => 'block_category_counter', :checked => 'checked'}
   end
 
   should 'input tag counter be checked by default' do
@@ -157,6 +157,6 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
   should 'input hit counter not be checked by default' do
     get :edit, :id => @block.id
 
-    assert_no_tag :input, :attributes => {:id => 'block_hit_counter', :checked => 'checked'}
+    !assert_tag :input, :attributes => {:id => 'block_hit_counter', :checked => 'checked'}
   end
 end

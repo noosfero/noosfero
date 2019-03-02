@@ -7,5 +7,6 @@ module TinymceHelper
     tinymce_editor_without_comment_paragraph(options)
   end
 
-  alias_method_chain :tinymce_editor, :comment_paragraph
+  alias_method :tinymce_editor_without_comment_paragraph, :tinymce_editor
+  alias_method :tinymce_editor, :tinymce_editor_with_comment_paragraph
 end

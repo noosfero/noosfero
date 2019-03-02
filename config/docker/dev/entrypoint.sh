@@ -27,10 +27,11 @@ done
 
 echo "POSTGRES IS UP, CONTINUE"
 
-echo "RUNNING MIGRATIONS"
 if bundle exec rake db:exists; then
+  echo "RUNNING MIGRATIONS"
   bundle exec rake db:migrate
 else
+  echo "SETTING THE DATABASE UP"
   bundle exec rake db:create
   bundle exec rake db:schema:load
   /noosfero/script/sample-data

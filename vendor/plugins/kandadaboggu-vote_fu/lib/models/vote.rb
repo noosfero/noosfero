@@ -12,8 +12,8 @@ class Vote < ActiveRecord::Base
   scope :descending, -> { order "created_at DESC" }
 
   # NOTE: Votes belong to the "voteable" interface, and also to voters
-  belongs_to :voteable, :polymorphic => true
-  belongs_to :voter,    :polymorphic => true
+  belongs_to :voteable, polymorphic: true
+  belongs_to :voter,    polymorphic: true
 
   attr_accessible :vote, :voter, :voteable
 

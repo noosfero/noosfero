@@ -4,7 +4,7 @@ class HomeControllerTest < ActionController::TestCase
 
   def setup
     Environment.delete_all
-    @environment = Environment.new(:name => 'testenv', :is_default => true)
+    @environment = Environment.new(name: 'testenv', is_default: true)
     @environment.enabled_plugins = ['ContainerBlockPlugin::ContainerBlock']
     @environment.save!
 
@@ -49,12 +49,12 @@ class HomeControllerTest < ActionController::TestCase
   should 'do not display hidden children of container' do
     c1 = RawHTMLBlock.create!(:box_id => @block.container_box.id, :html => 'child1 content', :display => 'never')
     get :index
-    assert_no_tag :div, :attributes => { :id => "block-#{c1.id}" }
+    !assert_tag :div, :attributes => { :id => "block-#{c1.id}" }
   end
 
   should 'do not display button to save widths of container children' do
     get :index
-    assert_no_tag :a, :attributes => { :class => "button icon-save container_block_save" }
+    !assert_tag :a, :attributes => { :class => "button icon-save container_block_save" }
   end
 
 end

@@ -1,6 +1,6 @@
 class SearchTermOccurrence < ApplicationRecord
 
-  belongs_to :search_term
+  belongs_to :search_term, optional: true
   validates_presence_of :search_term
   attr_accessible :search_term, :created_at, :total, :indexed
 

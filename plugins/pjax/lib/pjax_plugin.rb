@@ -36,13 +36,13 @@ class PjaxPlugin < Noosfero::Plugin
       self.class.send :define_method, :get_layout_with_pjax do
         if @pjax then 'pjax' else get_layout_without_pjax end
       end
-      self.class.alias_method_chain :get_layout, :pjax
+      self.class.alias_method :get_layout, :pjax
     end
   end
 
   def application_controller_filters
     [{
-      :type => 'before_filter', :method_name => 'pjax_check',
+      :type => 'before_action', :method_name => 'pjax_check',
       :options => {}, :block => PjaxCheck,
     }]
   end

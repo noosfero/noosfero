@@ -2,9 +2,9 @@ class Role < ActiveRecord::Base
 
   attr_accessible :key, :name, :environment, :permissions
 
-  has_many :role_assignments, :dependent => :destroy
-  belongs_to :environment
-  belongs_to :organization
+  has_many :role_assignments, dependent: :destroy
+  belongs_to :environment, optional: true
+  belongs_to :organization, optional: true
   serialize :permissions, Array
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :environment_id

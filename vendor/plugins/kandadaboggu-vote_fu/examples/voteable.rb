@@ -1,6 +1,6 @@
 class Voteable < ActiveRecord::Base
 
-  belongs_to :user
+  belongs_to :user, optional: true
   
   acts_as_voteable
   

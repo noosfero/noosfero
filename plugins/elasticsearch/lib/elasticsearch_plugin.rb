@@ -36,7 +36,7 @@ class ElasticsearchPlugin < Noosfero::Plugin
       redirect_to controller: 'elasticsearch_plugin', action: 'search', params: params
     end
 
-    [{ :type => 'before_filter',
+    [{ :type => 'before_action',
       :method_name => 'redirect_search_to_elastic',
       :block => block }]
   end

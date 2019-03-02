@@ -5,7 +5,7 @@ class SuppliersPlugin::BasketController < MyProfileController
   no_design_blocks
 
   protect 'edit_profile', :profile
-  before_filter :set_allowed_user
+  before_action :set_allowed_user
 
   helper SuppliersPlugin::TranslationHelper
   helper SuppliersPlugin::DisplayHelper

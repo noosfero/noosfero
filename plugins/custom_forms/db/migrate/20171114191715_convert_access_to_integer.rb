@@ -1,4 +1,4 @@
-class ConvertAccessToInteger < ActiveRecord::Migration
+class ConvertAccessToInteger < ActiveRecord::Migration[5.1]
   def up
     add_column :custom_forms_plugin_forms, :new_access, :integer, default: 0
 

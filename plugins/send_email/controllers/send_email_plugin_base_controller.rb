@@ -14,7 +14,7 @@ module SendEmailPluginBaseController
         @referer = request.referer
         SendEmailPlugin::Sender.send_message(@referer, @context_url, @mail).deliver
         if request.xhr?
-          render :text => _('Message sent')
+          render plain: _('Message sent')
         else
           render :action => 'success'
         end

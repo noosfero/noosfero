@@ -1,6 +1,6 @@
 class OauthClientPlugin::Provider < ApplicationRecord
 
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   validates_presence_of :name, :strategy
 

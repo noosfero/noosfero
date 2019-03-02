@@ -1,6 +1,6 @@
 class AnalyticsPlugin::TimeOnPageController < ProfileController
 
-  before_filter :skip_page_view
+  before_action :skip_page_view
 
   def page_load
     # to avoid concurrency problems with the original deferred request, also defer this

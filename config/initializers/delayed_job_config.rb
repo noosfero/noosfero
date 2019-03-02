@@ -33,5 +33,4 @@ Delayed::Worker.class_eval do
     ExceptionNotifier.notify_exception error, exception_recipients: NOOSFERO_CONF['exception_recipients'],
       data: {job: job, handler: job.handler} rescue nil
   end
-  alias_method_chain :handle_failed_job, :notification
 end

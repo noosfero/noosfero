@@ -4,8 +4,8 @@ module ProductsPlugin
     helper ProductsHelper
 
     protect 'manage_products', :profile, except: [:show]
-    before_filter :login_required, except: [:show]
-    before_filter :create_product?, only: [:new]
+    before_action :login_required, except: [:show]
+    before_action :create_product?, only: [:new]
 
     def index
       @products = @profile.products.paginate(per_page: 10, page: params[:page])
@@ -39,8 +39,12 @@ module ProductsPlugin
       if request.post?
         if @product.save
           session[:notice] = _('Product succesfully created')
-          render partial: 'shared/redirect_via_javascript',
-            locals: { url: url_for(controller: 'products_plugin/page', action: 'show', id: @product) }
+	  respond_to do |format|
+            format.js do
+              render action: 'redirect_to_product'
+            end
+            format.html {redirect_back_or_default action: 'index'}
+          end
         else
           render_dialog_error_messages 'product'
         end
@@ -70,8 +74,12 @@ module ProductsPlugin
       @level = @category.level
       if request.post?
         if @product.update({product_category_id: params[:selected_category_id]}, without_protection: true)
-          render partial: 'shared/redirect_via_javascript',
-            locals: { url: url_for(controller: 'products_plugin/page', action: 'show', id: @product) }
+	  respond_to do |format|
+            format.js do
+              render action: 'redirect_to_product'
+            end
+            format.html {redirect_back_or_default action: 'index'}
+          end
         else
           render_dialog_error_messages 'product'
         end
@@ -125,7 +133,7 @@ module ProductsPlugin
       @product = @price_detail.product
       if request.post?
         @price_detail.destroy
-        render nothing: true
+        render body: nil
       end
     end
 
@@ -172,7 +180,7 @@ module ProductsPlugin
     def order_inputs
       @product = @profile.products.find(params[:id])
       @product.order_inputs!(params[:input]) if params[:input]
-      render nothing: true
+      render body: nil
     end
 
     def remove_input
@@ -190,8 +198,8 @@ module ProductsPlugin
 
     def certifiers_for_selection
       @qualifier = Qualifier.where(id: params[:id]).first
-      render :update do |page|
-        page.replace_html params[:certifier_area], partial: 'certifiers_for_selection'
+      respond_to do |format|
+        format.js
       end
     end
 
@@ -199,15 +207,15 @@ module ProductsPlugin
       cost = @profile.production_costs.create(name: params[:id])
       if cost.valid?
         cost.save
-        render text: {name: cost.name,
-                         id: cost.id,
-                         ok: true
-                        }.to_json
+        render json: {  name: cost.name,
+                        id: cost.id,
+                        ok: true
+                     }
       else
-        render text: {
-          ok: false,
-          error_msg: _(cost.errors['name'].join('\n')) % {fn: _('Name')}
-        }.to_json
+        render json: {
+                        ok: false,
+                        error_msg: _(cost.errors['name'].join('\n')) % {fn: _('Name')}
+                     }
       end
     end
 

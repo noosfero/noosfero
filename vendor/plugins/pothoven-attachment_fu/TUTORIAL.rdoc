@@ -1,0 +1,258 @@
+= File Upload Fu
+
+By Mike Clark originally available at http://clarkware.com/cgi/blosxom/2007/02/24#FileUploadFu (no longer works)
+
+Edited by {Steven Pothoven}[https://github.com/pothoven]
+
+A picture might be worth a thousand words, but how many lines
+of code does it take to upload one to your Rails application? Sounds
+like a fun feature to tackle on a Friday. Let's upload some mug
+shots. You know, to identify the goofballs around the office.
+
+== 1. Install an Image Processor
+
+We'll need to resize the mugshots during the upload process, and we'll
+also want to generate thumbnails of the mugshots to use around the
+site.
+
+Image processing of this kind is best handled by native code. This
+means you end up either building a library for your operating system
+or downloading a pre-built library specific to your operating system.
+Then you install a Ruby library (gem) that wraps the image processing
+library with a Ruby API. Either way, it's the least fun step of the
+entire process, so let's get it out of the way early.
+
+Choose from one of the following libraries:
+
+[*ImageScience*]
+   A light inline-Ruby library that only resizes images. (Wraps the FreeImage library.)
+
+[*RMagick*]
+  The grand-daddy, both in terms of advanced image processing features and memory usage. (Wraps the ImageMagick library.)
+
+[*minimagick*]
+  It's much easier on memory than RMagick because it runs the ImageMagick command in a shell.
+
+OK, so which library should you use? Well, given that we just need to
+resize images (and thumbnailing is just resizing), ImageScience is a
+perfect fit. If you have one of the others installed, go with it.
+Otherwise, spend a few minutes with the short and sweet instructions
+for installing ImageScience and FreeImage.
+
+== 2. Download the attachment_fu Plugin
+
+To make light work of the rest of this task, we're going to use Rick
+Olson's attachment_fu plugin. It's a significant rewrite of his
+original acts_as_attachment plugin. That's right, this isn't Rick's
+first rodeo, and it's probably not his second. Seriously, I don't know
+of a more experienced person then Rick when it comes to uploading
+files into Rails applications. (And he's the king of good plugins!)
+
+If you're using acts_as_attachment, you might be wondering if it's
+time to upgrade. It's probably not one of those high-priority chores,
+but it's definitely something you want to consider doing soon. Rick's
+been working on attachment_fu for almost a year now, and polishing it
+smooth in production settings. It comes with a comprehensive set of
+tests, as well. And as you'll see, it's more flexible than its worthy
+predecessor. To top it off, the public API hasn't changed. I converted
+an app this morning simply by renaming one declaration in a model from
+acts_as_attachment to has_attachment. Well worth the price of
+admission. One caveat: attachment_fu requires Rails 1.2+.
+
+Here's how to get it:
+
+ gem install pothoven-attachment_fu
+
+== 3. Write an Upload Form
+
+Having installed all the supporting software, it's time to write our
+app. Let's start with the upload form in the new.rhtml file:
+
+ <%= error_messages_for :mugshot %>
+
+ <% form_for(:mugshot, :url => mugshots_path,
+                       :html => { :multipart => true }) do |f| -%>
+  <p>
+    <label for="mugshot">Upload A Mugshot:</label>
+    <%= f.file_field :uploaded_data %>
+  </p>
+  <p>
+    <%= submit_tag 'Create' %>
+  </p>
+ <% end -%>
+
+Pretty standard form stuff, with a couple important bits. First, I'm
+using RESTful named routes (mugshots_paths), but it works just as well
+with traditional routes. Second, the form uses the file_field helper.
+That helper generates a Choose File button on the form. It's important
+that we call the attribute :uploaded_data, as its the attribute name
+that attachment_fu looks for when storing the image. Third, to allow
+the form to accept files as POST data, the form is generated
+with :multipart => true. Forget either of those finer points and
+you're in for a long afternoon.
+
+== 4. Write a Controller
+
+The controller is oblivious to the fact that we're uploading images,
+so it's your typical overpaid middleman. The new action displays the
+upload form and the create action accepts the POST data.
+
+ def new
+   @mugshot = Mugshot.new
+ end
+
+ def create
+   @mugshot = Mugshot.new(params[:mugshot])
+   if @mugshot.save
+     flash[:notice] = 'Mugshot was successfully created.'
+     redirect_to mugshot_url(@mugshot)
+   else
+     render :action => :new
+   end
+ end
+
+== 5. Write a Migration and Model
+
+Next we need a MugShot model (and a corresponding database table) to
+store the uploaded file information. Let's start with the migration
+file for the mugshots database table.
+
+ class CreateMugshots < ActiveRecord::Migration
+
+   def self.up
+     create_table :mugshots do |t|
+       t.column :parent_id,  :integer
+       t.column :content_type, :string
+       t.column :filename, :string
+       t.column :thumbnail, :string
+       t.column :size, :integer
+       t.column :width, :integer
+       t.column :height, :integer
+     end
+   end
+
+   def self.down
+     drop_table :mugshots
+   end
+ end
+
+How did we come up with those column names? Well, we didn't. By
+convention, attachment_fu will automatically store the uploaded file
+information (the meta-data, if you will) in these columns. That begs
+the question: Where does the actual file data get stored? To answer
+that we need to write the MugShot model.
+
+ class Mugshot < ActiveRecord::Base
+
+   has_attachment :content_type => :image,
+                  :storage => :file_system,
+                  :max_size => 500.kilobytes,
+                  :resize_to => '320x200>',
+                  :thumbnails => { :thumb => '100x100>' } 
+
+   validates_as_attachment
+
+ end
+
+Here's where the attachment_fu plugin makes you pump your fists in
+victory. Basically, at this point we'd rather not grovel around at the
+API level of whatever Ruby image library you have installed. We'd also
+like to program at a fairly high level and not worry about how the
+file information and data is stored. (We call those things
+implementation details when our boss is listening.)
+
+In the has_attachment method we tell attachment_fue what to do with
+the uploaded image. The options are as follows:
+
+[:content_type] The content types that are allowed, which defaults to all content types. Using +:image+ allows all standard image types.
+
+[:min_size] The minimum size allowed, which defaults to 1 byte
+
+[:max_size] The maximum size allowed, which defaults to 1 megabyte
+
+[:size] A range of allowed sizes, which overrides the +:min_size+ and +:max_size+ options
+
+[:resize_to] An array of width/height values, or a geometry string for resizing the image
+
+[:thumbnails] A set of thumbnails to generate, specified by a hash of filename suffixes and resizing options. This option can be omitted if you don't need thumbnails, and you can generate more than one thumbnail simply by adding names and sizes to the hash. 
+
+[:thumbnail_class] Sets what class (model) to use for thumbnails, which defaults to the current class (MugShot, in this example). You could, for example, use a different model class with a different set of validations.
+
+[:storage] Sets where the actual image data is stored. Options include +:file_system+, +:db_system+, and +:s3+.
+
+[:processor] Sets what image processor to use. Options include ImageScience, Rmagick, and MiniMagick. By default, it will use whatever you have installed.
+
+[:path_prefix] Path to store the uploaded files, which defaults to public/#{table_name} by default for the filesystem. If you're using the S3 backend, it defaults to just #{table_name}.
+
+We don't really want folks uploading life-sized mugshots, so calling
+validates_as_attachment prevents image sizes out of range from being
+saved. (They're still uploaded in memory, mind you.) As well, because
+we set an image content type, WinZip files won't be welcome, for
+example.
+
+== 6. The Most Wanted List
+
+OK, so now we're off to the races: select a mugshot file using the
+Choose File button on the form, the mugshot image is uploaded to the
+server, the file metadata is stored in the mugshots database table,
+and the actual file data is stored in the public/mugshots directory on
+the server.
+
+Now we can show a line-up of thumbnails, with each thumbnail linked to
+the full-size image.
+
+ <h1>Most Wanted</h1>
+ <% for mugshot in @mugshots -%>
+   <%= link_to image_tag(mugshot.public_filename(:thumb)),
+ mugshot.public_filename %>
+ <% end -%>
+
+The public_filename method gives us the public path to the full-size
+file or the thumbnail if passed the name of the thumbnail suffix
+(:thumb, in our case). Given that we're using the filesystem as
+storage, this code ends up generating paths such as /mugshots/34/
+bad_man.png and /mugshots/34/bad_man_thumb.png. Those paths are
+relative to the $RAILS_ROOT/public directory on our server, by
+default.
+But Wait, There's More!
+
+One of the big benefits of using attachment_fu is the choice of
+backend storage systems. Let's say, for example, we want to store all
+of our mugshots on Amazon's S3 Web Service.
+
+== 1. Download the AWS::S3 Library
+
+ gem install aws-s3
+
+I wrote up a how-to on the AWS::S3 library a few weeks back, if you
+need a refresher. (Oh, and you thought this was a coincidence?)
+== 2. Configure attachment_fu
+
+First, just change the :storage option on the MugShot model to
+use :s3. (You saw that coming.)
+
+Then create the $RAILS_ROOT/config/amazon_s3.yml configuration file as
+follows:
+
+ development:
+   bucket_name: your_bucket_name
+   access_key_id: your_access_key_id
+   secret_access_key: your_secret_access_key
+
+ test:
+   bucket_name:
+   access_key_id:
+   secret_access_key:
+
+ production:
+   bucket_name:
+   access_key_id:
+   secret_access_key:
+
+== 3. There Is No Step 3
+
+Upload a new mugshot, and you'll see that the image link on the most
+wanted list points to your image up on the S3 server.
+
+Enjoy!
+

@@ -6,15 +6,15 @@ class SearchController < PublicController
   include SanitizeParams
 
 
-  before_filter :sanitize_params
-  before_filter :redirect_asset_param, :except => [:assets, :suggestions]
-  before_filter :load_category, :except => :suggestions
-  before_filter :load_tag, :except => :suggestions
-  before_filter :load_search_assets, :except => :suggestions
-  before_filter :load_query, :except => :suggestions
-  before_filter :load_order, :except => :suggestions
-  before_filter :load_templates, :except => :suggestions
-  before_filter :load_kind, :only => [:people, :enterprises, :communities]
+  before_action :sanitize_params
+  before_action :redirect_asset_param, :except => [:assets, :suggestions]
+  before_action :load_category, :except => :suggestions
+  before_action :load_tag, :except => :suggestions
+  before_action :load_search_assets, :except => :suggestions
+  before_action :load_query, :except => :suggestions
+  before_action :load_order, :except => :suggestions
+  before_action :load_templates, :except => :suggestions
+  before_action :load_kind, :only => [:people, :enterprises, :communities]
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -139,7 +139,7 @@ class SearchController < PublicController
   end
 
   def suggestions
-    render :text => find_suggestions(normalize_term(params[:term]), environment, params[:asset]).to_json
+    render plain: find_suggestions(normalize_term(params[:term]), environment, params[:asset]).to_json
   end
 
   #######################################################

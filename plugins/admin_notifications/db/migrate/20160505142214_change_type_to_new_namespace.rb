@@ -1,4 +1,4 @@
-class ChangeTypeToNewNamespace < ActiveRecord::Migration
+class ChangeTypeToNewNamespace < ActiveRecord::Migration[5.1]
   def up
     notification_types = %w(InformationNotification DangerNotification SuccessNotification WarningNotification)
     notification_types.each do |notification_type|

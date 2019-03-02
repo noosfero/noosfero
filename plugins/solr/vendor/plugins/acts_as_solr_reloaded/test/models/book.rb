@@ -5,6 +5,6 @@
 # - author
 
 class Book < ActiveRecord::Base
-  belongs_to :category
+  belongs_to :category, optional: true
   acts_as_solr :include => [:category]
 end

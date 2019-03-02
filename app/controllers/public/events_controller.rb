@@ -1,8 +1,8 @@
 class EventsController < PublicController
 
   needs_profile
-  before_filter :allow_access_to_page
-  before_filter :load_events
+  before_action :allow_access_to_page
+  before_action :load_events
 
   def events
     events_in_range = profile.events.accessible_to(user).by_range((@date - 1.month).at_beginning_of_month .. (@date + 1.month).at_end_of_month)

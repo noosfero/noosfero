@@ -4,8 +4,8 @@ class ProfileDesignController < BoxOrganizerController
 
   protect 'edit_profile_design', :profile
 
-  before_filter :protect_uneditable_block, :only => [:save]
-  before_filter :protect_fixed_block, :only => [:move_block]
+  before_action :protect_uneditable_block, :only => [:save]
+  before_action :protect_fixed_block, :only => [:move_block]
   include CategoriesHelper
 
   def protect_uneditable_block

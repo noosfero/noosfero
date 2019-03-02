@@ -1,0 +1,2 @@
+$('#<%= "vote_#{@model}_#{@model_id}_#{@vote}" %>')
+  .replaceWith('<%= j vote_partial(@object, @vote == 1, false).call %>')

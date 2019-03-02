@@ -1,13 +1,13 @@
 require_relative "../test_helper"
 
-class EventInvitationControllerTest < ActionController::TestCase
+class EventInvitationControllerTest < ActionDispatch::IntegrationTest
 
   def setup
     super
     @profile = create_user('testinguser')
     @guest = @profile.person
     @event = fast_create(Event)
-    login_as :testinguser
+    login_as_rails5 :testinguser
   end
 
   attr_reader :profile, :guest, :event
@@ -16,9 +16,9 @@ class EventInvitationControllerTest < ActionController::TestCase
 
     assert_difference 'EventInvitation.count', 1 do
 
-      xhr :post, :change_invitation_decision,
-            profile: guest.identifier, event: event,
-            event_invitation: { decision: EventInvitation::DECISIONS['yes'] }
+      post change_invitation_decision_event_invitation_index_path(guest.identifier), params: {
+	      event: event.id,
+            event_invitation: { decision: EventInvitation::DECISIONS['yes'] }}, xhr: true
 
     end
   end
@@ -28,9 +28,9 @@ class EventInvitationControllerTest < ActionController::TestCase
     invitation = EventInvitation.create(guest: guest, event: event,
                   decision: EventInvitation::DECISIONS['unconfirmed'])
 
-    xhr :post, :change_invitation_decision, profile: guest.identifier,
-            invitation: invitation, event: event,
-            event_invitation: { decision: EventInvitation::DECISIONS['yes'] }
+    post change_invitation_decision_event_invitation_index_path(guest.identifier), params: {
+	    invitation: invitation.id, event: event,
+            event_invitation: { decision: EventInvitation::DECISIONS['yes'] }}, xhr: true
 
     assert_equal EventInvitation::DECISIONS['yes'], invitation.reload.decision
   end
@@ -41,9 +41,9 @@ class EventInvitationControllerTest < ActionController::TestCase
     task = InviteEvent.create!(requestor: fast_create(Person),
                                 target: guest, event: event)
 
-    xhr :post, :change_invitation_decision, profile: guest.identifier,
-            invitation: task.invitation, event: event,
-            event_invitation: { decision: EventInvitation::DECISIONS['yes'] }
+    post change_invitation_decision_event_invitation_index_path(guest.identifier), params: {
+	    invitation: task.invitation.id, event: event,
+	    event_invitation: { decision: EventInvitation::DECISIONS['yes'] }}, xhr: true
 
     assert_equal Task::Status::FINISHED, task.reload.status
   end
@@ -54,9 +54,9 @@ class EventInvitationControllerTest < ActionController::TestCase
                   decision: EventInvitation::DECISIONS['unconfirmed'])
 
     # Past decision is invalid to fail save
-    xhr :post, :change_invitation_decision, profile: guest.identifier,
-            invitation: invitation, event: event,
-            event_invitation: { decision: '9' }
+    post change_invitation_decision_event_invitation_index_path(guest.identifier), params: {
+	    invitation: invitation.id, event: event,
+            event_invitation: { decision: '9' }}, xhr: true
 
     assert_nil ActiveSupport::JSON.decode(@response.body)['render_target']
   end
@@ -66,9 +66,9 @@ class EventInvitationControllerTest < ActionController::TestCase
     invitation = EventInvitation.create(guest: guest, event: event,
                   decision: EventInvitation::DECISIONS['unconfirmed'])
 
-    xhr :post, :change_invitation_decision, profile: guest.identifier,
-            invitation: invitation, event: event,
-            event_invitation: { decision: EventInvitation::DECISIONS['yes'] }
+    post change_invitation_decision_event_invitation_index_path(guest.identifier), params: {
+	    invitation: invitation.id, event: event,
+            event_invitation: { decision: EventInvitation::DECISIONS['yes'] }}, xhr: true
 
     assert_equal "invitation-#{invitation.id}",
       ActiveSupport::JSON.decode(@response.body)['render_target']

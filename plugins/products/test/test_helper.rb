@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'acts_as_list'
 
 module Noosfero::Factory
 

@@ -1,7 +1,7 @@
 class CustomFormsPlugin::Answer < ApplicationRecord
   self.table_name = :custom_forms_plugin_answers
-  belongs_to :field, :class_name => 'CustomFormsPlugin::Field'
-  belongs_to :submission, :class_name => 'CustomFormsPlugin::Submission'
+  belongs_to :field, :class_name => 'CustomFormsPlugin::Field', optional: true
+  belongs_to :submission, :class_name => 'CustomFormsPlugin::Submission', optional: true
   has_many :form_answers, :class_name => 'CustomFormsPlugin::FormAnswer'
   has_many :alternatives, :through => :form_answers
   validates_presence_of :field

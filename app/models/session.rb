@@ -7,7 +7,7 @@ class Session < ActiveRecord::SessionStore::Session
     super
   end
 
-  belongs_to :user, -> { includes :person }
+  belongs_to :user, -> { includes :person }, optional: true
 
   before_save :copy_to_columns
 

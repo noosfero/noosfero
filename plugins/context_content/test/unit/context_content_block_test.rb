@@ -17,7 +17,7 @@ class ContextContentBlockTest < ActiveSupport::TestCase
   end
 
   should 'return nothing if page is nil' do
-    assert_equal nil, @block.contents(nil)
+    assert_nil @block.contents(nil)
   end
 
   should 'return children of page' do
@@ -78,7 +78,7 @@ class ContextContentBlockTest < ActiveSupport::TestCase
 
   should 'return nil if a page has no parent' do
     folder = fast_create(Folder)
-    assert_equal nil, @block.contents(folder)
+    assert_nil @block.contents(folder)
   end
 
   should 'return available content types with checked types first' do

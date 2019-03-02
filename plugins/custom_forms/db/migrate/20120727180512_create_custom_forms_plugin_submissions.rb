@@ -1,4 +1,4 @@
-class CreateCustomFormsPluginSubmissions < ActiveRecord::Migration
+class CreateCustomFormsPluginSubmissions < ActiveRecord::Migration[5.1]
   def self.up
     create_table :custom_forms_plugin_submissions do |t|
       t.string :author_name

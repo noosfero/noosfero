@@ -1,27 +1,27 @@
 class CustomFormsPlugin::Form < ApplicationRecord
 
-  belongs_to :profile
+  belongs_to :profile, optional: true
 
   has_many :fields, -> { order 'custom_forms_plugin_fields.position' },
     class_name: 'CustomFormsPlugin::Field', dependent: :destroy
   accepts_nested_attributes_for :fields, :allow_destroy => true
 
   has_many :submissions,
-    :class_name => 'CustomFormsPlugin::Submission', :dependent => :destroy
+    class_name: 'CustomFormsPlugin::Submission', dependent: :destroy
 
   validates_presence_of :profile, :name, :identifier
   validates_uniqueness_of :slug, :scope => :profile_id
   validates_uniqueness_of :identifier, :scope => :profile_id
   validate :period_range,
-    :if => Proc.new { |f| f.begining.present? && f.ending.present? }
+    :if => Proc.new { |f| f.beginning.present? && f.ending.present? }
   validate :valid_poll_alternatives
 
   # We are using a belongs_to relation, to avoid change the UploadedFile schema.
   # With the belongs_to instead of the has_one, we keep the change only on the
   # CustomFormsPlugin::Form schema.
-  belongs_to :article, :class_name => 'UploadedFile', dependent: :destroy
+  belongs_to :article, class_name: 'UploadedFile', dependent: :destroy, optional: true
 
-  attr_accessible :name, :profile, :for_admission, :access, :begining, :kind,
+  attr_accessible :name, :profile, :for_admission, :access, :beginning, :kind,
                   :ending, :description, :fields_attributes, :profile_id,
                   :on_membership, :identifier, :access_result_options, :image
 
@@ -66,8 +66,8 @@ class CustomFormsPlugin::Form < ApplicationRecord
   scope :by_kind, -> kind { where kind: kind.to_s }
 
   scope :closed, -> { where('ending <= ?', DateTime.now) }
-  scope :not_open_yet, -> { where('begining > ?', DateTime.now) }
-  scope :not_closed, -> { where('(begining < ? OR begining IS NULL) AND '\
+  scope :not_open_yet, -> { where('beginning > ?', DateTime.now) }
+  scope :not_closed, -> { where('(beginning < ? OR beginning IS NULL) AND '\
                           '(ending > ? OR ending IS NULL)',
                           DateTime.now, DateTime.now) }
 
@@ -77,11 +77,11 @@ class CustomFormsPlugin::Form < ApplicationRecord
   scope :by_status, -> status {
     case status
     when 'opened'
-      where('(begining IS NULL OR begining <= ?) AND (ending IS NULL OR ending > ?)', Time.now, Time.now)
+      where('(beginning IS NULL OR beginning <= ?) AND (ending IS NULL OR ending > ?)', Time.now, Time.now)
     when 'closed'
       where('ending IS NOT NULL AND ending < ?', Time.now)
     when 'to-come'
-      where('begining IS NOT NULL AND begining > ?', Time.now)
+      where('beginning IS NOT NULL AND beginning > ?', Time.now)
     end
   }
 
@@ -95,11 +95,11 @@ class CustomFormsPlugin::Form < ApplicationRecord
   end
 
   def expired?
-    (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)
+    (beginning.present? && Time.now < beginning) || (ending.present? && Time.now > ending)
   end
 
   def will_open?
-    begining.present? && Time.now < begining
+    beginning.present? && Time.now < beginning
   end
 
   def access_levels
@@ -123,7 +123,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
   end
 
   def status
-    if begining.try(:future?)
+    if beginning.try(:future?)
       :not_open
     elsif ending.try(:future?) && (ending < 3.days.from_now)
       :closing_soon
@@ -165,7 +165,7 @@ class CustomFormsPlugin::Form < ApplicationRecord
   end
 
   def period_range
-    errors.add(:base, _('The time range selected is invalid.')) if ending < begining
+    errors.add(:base, _('The time range selected is invalid.')) if ending < beginning
   end
 
   def valid_poll_alternatives

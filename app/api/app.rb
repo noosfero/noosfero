@@ -82,7 +82,8 @@ module Api
           endpoints_without_plugins
         end
       end
-      alias_method_chain :endpoints, :plugins
+      alias_method :endpoints_without_plugins, :endpoints
+      alias_method :endpoints, :endpoints_with_plugins
     end
   end
 end

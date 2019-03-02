@@ -1,6 +1,6 @@
 class ExternalFeed < ApplicationRecord
 
-  belongs_to :blog
+  belongs_to :blog, optional: true
   validates_presence_of :blog_id
   validates_presence_of :address, :if => lambda {|efeed| efeed.enabled}
   validates_uniqueness_of :blog_id

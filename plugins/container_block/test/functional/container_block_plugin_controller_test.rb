@@ -6,7 +6,7 @@ class ContainerBlockPluginControllerTest < ActionController::TestCase
 
   def setup
     Environment.delete_all
-    @environment = Environment.new(:name => 'testenv', :is_default => true)
+    @environment = Environment.new(name: 'testenv', is_default: true)
     @environment.enabled_plugins = ['ContainerBlockPlugin::ContainerBlock']
     @environment.save!
 
@@ -26,7 +26,7 @@ class ContainerBlockPluginControllerTest < ActionController::TestCase
 
   should 'save widths of container block children' do
     @params = {:id => @block.id, :widths => "#{@child1.id},100|#{@child2.id},200"}
-    expects(:render).with(:text => 'Block successfully saved.')
+    expects(:render).with(:plain => 'Block successfully saved.')
     saveWidths
     @block.reload
     assert_equal 100, @block.child_width(@child1.id)
@@ -37,7 +37,7 @@ class ContainerBlockPluginControllerTest < ActionController::TestCase
     @block.children_settings = {@child2.id => {:width => 200}}
     @block.save!
     @params = {:id => @block.id, :widths => "#{@child1.id},100"}
-    expects(:render).with(:text => 'Block successfully saved.')
+    expects(:render).with(:plain => 'Block successfully saved.')
     saveWidths
     @block.reload
     assert_equal 100, @block.child_width(@child1.id)

@@ -40,7 +40,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'espape xss attack' do
     get 'index', :query => '<wslite>'
-    assert_no_tag :tag => 'wslite'
+    !assert_tag :tag => 'wslite'
   end
 
   should 'search only in specified types of content' do
@@ -170,12 +170,12 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'not list "Search for ..." in category_index' do
     get :category_index, :category_path => [ 'my-category' ]
-    assert_no_tag :content => /Search for ".*" in the whole site/
+    !assert_tag :content => /Search for ".*" in the whole site/
   end
 
   should 'not use design blocks' do
     get :index
-    assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes' }
+    !assert_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes' }
   end
 
   should 'offer text box to enter a new search in general context' do
@@ -670,7 +670,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'not raise an exception if tag query contains accented latin characters' do
     tag_query = 'àáâãäå'
-    assert_nothing_raised(NoMethodError) { get :tag, :tag => tag_query }
+    assert_nothing_raised { get :tag, :tag => tag_query }
   end
 
   should 'not allow query injection' do

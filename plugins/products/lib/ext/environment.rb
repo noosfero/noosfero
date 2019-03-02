@@ -11,7 +11,7 @@ class Environment
   has_many :qualifiers, class_name: 'ProductsPlugin::Qualifier'
   has_many :certifiers, class_name: 'ProductsPlugin::Certifier'
 
-  has_many :units, -> { order 'position' }, class_name: 'ProductsPlugin::Unit'
+  has_many :units, -> { order(position: :asc) }, class_name: 'ProductsPlugin::Unit'
 
   def highlighted_products_with_image(options = {})
     self.products.where(highlighted: true).joins(:image).order('created_at ASC')

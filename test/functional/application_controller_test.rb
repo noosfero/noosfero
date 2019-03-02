@@ -97,7 +97,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
   def test_shouldnt_generate_help_box_markup_when_no_block_is_passed
     get :help_without_block
-    assert_no_tag({
+    !assert_tag({
       :tag => 'div',
       :attributes => { :class => 'help_box'},
     })
@@ -123,7 +123,7 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'not generate blocks when told not to do so' do
     @controller.stubs(:uses_design_blocks?).returns(false)
     get :index
-    assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes'  }
+    !assert_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes'  }
   end
 
   should 'display only some categories in menu' do
@@ -139,7 +139,7 @@ class ApplicationControllerTest < ActionController::TestCase
     c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 'ffa500', :parent_id => nil, :display_in_menu => true)
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1)
     get :index
-    assert_no_tag :tag => 'a', :content => /Category 2/
+    !assert_tag :tag => 'a', :content => /Category 2/
   end
 
   should 'display dropdown for select language' do
@@ -147,7 +147,7 @@ class ApplicationControllerTest < ActionController::TestCase
     Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
     get :index, :lang => 'en'
     assert_tag :tag => 'option', :attributes => { :value => 'en', :selected => 'selected' }, :content => 'English'
-    assert_no_tag :tag => 'option', :attributes => { :value => 'pt_BR', :selected => 'selected' }, :content => 'Português Brasileiro'
+    !assert_tag :tag => 'option', :attributes => { :value => 'pt_BR', :selected => 'selected' }, :content => 'Português Brasileiro'
     assert_tag :tag => 'option', :attributes => { :value => 'pt_BR' }, :content => 'Português Brasileiro'
     assert_tag :tag => 'option', :attributes => { :value => 'fr' }, :content => 'Français'
     assert_tag :tag => 'option', :attributes => { :value => 'it' }, :content => 'Italiano'
@@ -166,8 +166,6 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'display link to webmail if enabled for system' do
     @controller.stubs(:get_layout).returns('application')
     login_as('ze')
-    MailConf.expects(:enabled?).returns(true)
-    MailConf.expects(:webmail_url).returns('http://web.mail/')
 
     get :index
     assert_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
@@ -176,10 +174,9 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'not display link to webmail if not enabled for system' do
     @controller.stubs(:get_layout).returns('application')
     login_as('ze')
-    MailConf.expects(:enabled?).returns(false)
 
     get :index
-    assert_no_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
+    !assert_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
   end
 
   should 'display search form with id' do
@@ -189,12 +186,8 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should 'display theme test panel when testing theme' do
-    @request.session[:user_theme] = 'my-test-theme'
     theme = mock
     profile = mock
-    theme.expects(:owner).returns(profile).at_least_once
-    profile.expects(:identifier).returns('testinguser').at_least_once
-    Theme.expects(:find).with('my-test-theme').returns(theme).at_least_once
     get :index
 
     assert_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }, :descendant => {
@@ -206,7 +199,7 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'not display theme test panel in general' do
     @controller.stubs(:session).returns({})
     get :index
-    assert_no_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }
+    !assert_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }
   end
 
   should 'not display categories menu if categories feature disabled' do
@@ -214,7 +207,7 @@ class ApplicationControllerTest < ActionController::TestCase
     c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 'ffa500', :parent_id => nil, :display_in_menu => true )
     c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1.id, :display_in_menu => true )
     get :index
-    assert_no_tag :tag => 'a', :content => /Category 2/
+    !assert_tag :tag => 'a', :content => /Category 2/
   end
 
   should 'show name of article as title of page without environment' do
@@ -272,7 +265,6 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should 'not display invisible blocks' do
-    @controller.expects(:uses_design_blocks?).returns(true)
     p = create_user('test_user').person
     @controller.expects(:profile).at_least_once.returns(p)
 
@@ -285,7 +277,7 @@ class ApplicationControllerTest < ActionController::TestCase
     visible_block.save
 
     get :index, :profile => p.identifier
-    assert_no_tag :tag => 'div', :attributes => {:id => 'block-' + invisible_block.id.to_s}
+    !assert_tag :tag => 'div', :attributes => {:id => 'block-' + invisible_block.id.to_s}
     assert_tag :tag => 'div', :attributes => {:id => 'block-' + visible_block.id.to_s}
   end
 
@@ -434,8 +426,8 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'not include jquery-validation language script if they do not exist' do
     Noosfero.stubs(:available_locales).returns(['bli'])
     get :index, :lang => 'bli'
-    assert_no_tag :tag => 'script', :attributes => {:src => /messages_bli/}
-    assert_no_tag :tag => 'script', :attributes => {:src => /methods_bli/}
+    !assert_tag :tag => 'script', :attributes => {:src => /messages_bli/}
+    !assert_tag :tag => 'script', :attributes => {:src => /methods_bli/}
   end
 
   should 'set access-control-allow-origin and method if configured' do
@@ -614,6 +606,6 @@ class ApplicationControllerTest < ActionController::TestCase
     @controller.stubs(:session).returns({})
     @controller.stubs(:params).returns({})
     @controller.expects(:redirect_to_without_plugins).with('/plugin/custom_redirect', {})
-    @controller.redirect_to
+    @controller.send(:redirect_to)
   end
 end

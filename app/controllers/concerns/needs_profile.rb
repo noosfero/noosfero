@@ -2,7 +2,7 @@ module NeedsProfile
 
   module ClassMethods
     def needs_profile
-      before_filter :load_profile
+      before_action :load_profile
     end
   end
 

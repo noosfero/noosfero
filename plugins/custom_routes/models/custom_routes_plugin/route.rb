@@ -2,7 +2,7 @@ require 'uri'
 
 class CustomRoutesPlugin::Route < ApplicationRecord
 
-  belongs_to :environment
+  belongs_to :environment, optional: true
 
   attr_accessible :environment_id, :source_url, :target_url, :enabled
 

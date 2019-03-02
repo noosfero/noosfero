@@ -184,17 +184,17 @@ class LdapAuthenticationTest < ActiveSupport::TestCase
 
     should 'return nil with a invalid ldap user' do
       auth = LdapAuthentication.new(@ldap_config['server'])
-      assert_equal nil, auth.authenticate('nouser','123456')
+      assert_nil auth.authenticate('nouser','123456')
     end
 
     should 'return nil without a login' do
       auth = LdapAuthentication.new(@ldap_config['server'])
-      assert_equal nil, auth.authenticate('', @ldap_config['user']['password'])
+      assert_nil auth.authenticate('', @ldap_config['user']['password'])
     end
 
     should 'return nil without a password' do
       auth = LdapAuthentication.new(@ldap_config['server'])
-      assert_equal nil, auth.authenticate(@ldap_config['user']['login'],'')
+      assert_nil auth.authenticate(@ldap_config['user']['login'],'')
     end
 
     should 'return any user without filter' do

@@ -98,7 +98,7 @@ module ProfileImageHelper
         return [
           {_('Wall') => {:href => url_for(profile.public_profile_url)}},
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
-          {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
+          {_('Agenda') => {:href => url_for(:controller => :events, :action => :events, :profile => profile.identifier)}},
           {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community'+ (show_confirmation_modal?(profile) ? ' modal-toggle' : '') , :style => 'display: none'}},
           {_('Leave community') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}}
@@ -106,7 +106,7 @@ module ProfileImageHelper
       elsif profile.kind_of?(Enterprise)
         return [
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
-          {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
+          {_('Agenda') => {:href => url_for(:controller => :events, :action => :events, :profile => profile.identifier)}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}},
         ]
       end
@@ -151,7 +151,7 @@ module ProfileImageHelper
       extra_info_tag = content_tag( 'span', extra_info, :class => 'extra_info' )
     end
 
-    links = links_for_balloon(profile) << {home: {href: url_for(profile.url)}}
+    links = links_for_balloon(profile) << {home: {href: page_path(profile.identifier)}}
     content_tag(tag,
       (
         environment.enabled?(:show_balloon_with_profile_links_when_clicked) ?
@@ -169,7 +169,7 @@ module ProfileImageHelper
           "margin-top: 1.7em;" : ''
         )) +
         extra_info_tag + profile_sex_icon(profile),
-        profile.url,
+        page_path(profile.identifier),
         class: 'profile_link',
         style: (
           theme_option(:profile_list_bg_imgs) ?

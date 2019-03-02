@@ -1,0 +1,9 @@
+$('#profile-<%=params[:tab_action]%>-activities-comments-<%=params[:activity]%>').append('<%= j render partial: "comment", :collection => @activity.comments.paginate(:per_page => @comments_per_page, :page => @comment_page) %>');
+<% if @comment_page == 1 %>
+  $('#profile-<%=params[:tab_action]%>-activities-comments-more-<%=params[:activity]%>').remove();
+<% end %>
+<% unless @no_more_pages %>
+  $('#profile-<%=params[:tab_action]%>-activities-comments-<%=params[:activity]%>').after('<%= j render partial: "more_comments", locals: { activity: @activity, comment_page: @comment_page, tab_action: params[:tab_action] }%>');
+<% end %>
+
+

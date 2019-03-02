@@ -61,6 +61,7 @@ class FilePresenter < Presenter
   # inside the `file_presenter/image.html.erb` you can access the
   # required `FilePresenter::Image` instance in the `image` variable.
   def to_html(options = {})
+  
     file = self
     proc do
       render :partial => file.class.to_s.underscore,

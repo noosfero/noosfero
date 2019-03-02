@@ -330,7 +330,7 @@ class ShoppingCartPluginController < OrdersPluginController
     @cart = data
   end
 
-  after_filter :save_cookie
+  after_action :save_cookie
   def save_cookie
     if @cart.nil?
       # cookie.delete does not work, set to empty value

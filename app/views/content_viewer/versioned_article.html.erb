@@ -1,5 +1,5 @@
 <div class="article-versions">
-  <%= button(:back, _('Back to the versions'), {:action => 'article_versions'}) %>
+  <%= button(:back, _('Back to the versions'), versions_path(profile.identifier)) %>
 </div>
 
 <div id="article" class="<%= @page.css_class_name %>">

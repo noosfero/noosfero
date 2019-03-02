@@ -2,7 +2,7 @@ class CommentController < ApplicationController
 
   needs_profile
 
-  before_filter :can_update?, :only => [:edit, :update]
+  before_action :can_update?, :only => [:edit, :update]
 
   include Captcha
 
@@ -93,10 +93,10 @@ class CommentController < ApplicationController
     comment = profile.comments_received.find(params[:id])
 
     if comment && comment.can_be_destroyed_by?(user) && comment.destroy
-      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => true}.to_json, :content_type => 'application/json'
     else
       session[:notice] = _("The comment was not removed.")
-      render :text => {'ok' => false}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => false}.to_json, :content_type => 'application/json'
     end
   end
 
@@ -104,10 +104,10 @@ class CommentController < ApplicationController
     comment = profile.comments_received.find(params[:id])
     if comment.can_be_marked_as_spam_by?(user)
       comment.spam!
-      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => true}.to_json, :content_type => 'application/json'
     else
       session[:notice] = _("You couldn't mark this comment as spam.")
-      render :text => {'ok' => false}.to_json, :content_type => 'application/json'
+      render plain: {'ok' => false}.to_json, :content_type => 'application/json'
     end
   end
 
@@ -119,25 +119,15 @@ class CommentController < ApplicationController
     if @comment.update(params[:comment])
       @plugins.dispatch(:process_extra_comment_params, [@comment,params])
 
+      @comment_to_render = @comment.comment_root
+      @anchor = @comment_to_render.anchor
+
       respond_to do |format|
-        format.js do
-          comment_to_render = @comment.comment_root
-          render :json => {
-            :ok => true,
-            :render_target => comment_to_render.anchor,
-            :html => render_to_string(:partial => 'comment', :locals => {:comment => comment_to_render})
-          }
-        end
+        format.js
       end
     else
      respond_to do |format|
-       format.js do
-         render :json => {
-           :ok => false,
-           :render_target => 'form',
-           :html => render_to_string(:partial => 'comment_form', :object => @comment, :locals => {:comment => @comment, :display_link => false, :edition_mode => true, :show_form => true})
-         }
-       end
+      format.js
      end
     end
   end

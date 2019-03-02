@@ -18,7 +18,7 @@ class Profile
 end
 
 class OrdersPlugin::Item < ApplicationRecord
-  belongs_to :order, class_name: 'OrdersPlugin::Order'
+  belongs_to :order, class_name: 'OrdersPlugin::Order', optional: true
 end
 class OrdersPlugin::Order < ApplicationRecord
   has_many :items, class_name: 'OrdersPlugin::Item', foreign_key: :order_id

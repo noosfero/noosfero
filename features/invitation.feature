@@ -162,9 +162,8 @@
     And I fill in "Classify your new friend" with "friends" within "#on-accept-information-1"
     And I choose "Accept"
     And I follow "Save tasks"
-    And I should not see "josesilva wants to be your friend."
     When I go to josesantos's control panel
-    And I follow "Friends" within "#section-relationships"
+    And I follow "Friends"
     Then I should see "josesilva"
 
   @selenium

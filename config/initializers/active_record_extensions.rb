@@ -8,6 +8,7 @@ module ActiveRecordExtension
       end
       reflection
     end
+
   end
 end
 

@@ -1,6 +1,6 @@
 class AbuseComplaint < Task
-  has_many :abuse_reports, :dependent => :destroy
-  belongs_to :reported, :class_name => "Profile", :foreign_key => "requestor_id"
+  has_many :abuse_reports, dependent: :destroy
+  belongs_to :reported, class_name: "Profile", foreign_key: "requestor_id", optional: true
 
   validates_presence_of :reported
   alias :requestor :reported

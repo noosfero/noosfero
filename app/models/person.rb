@@ -31,7 +31,8 @@ class Person < Profile
     end
   end
   class << self
-    alias_method_chain :human_attribute_name, :customization
+    alias_method :human_attribute_name_without_customization, :human_attribute_name
+    alias_method :human_attribute_name, :human_attribute_name_with_customization
   end
 
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
@@ -67,7 +68,8 @@ class Person < Profile
     return true if resource.kind_of?(Profile) && resource.environment.admins.include?(self)
     has_permission_without_admin?(permission, resource)
   end
-  alias_method_chain :has_permission?, :admin
+  alias_method :has_permission_without_admin?, :has_permission?
+  alias_method :has_permission?, :has_permission_with_admin?
 
   def has_permission_with_plugins?(permission, resource)
     permissions = [has_permission_without_plugins?(permission, resource)]
@@ -76,7 +78,8 @@ class Person < Profile
     end
     permissions.include?(true)
   end
-  alias_method_chain :has_permission?, :plugins
+  alias_method :has_permission_without_plugins?, :has_permission?
+  alias_method :has_permission?, :has_permission_with_plugins?
 
   # for eager loading
   has_many :memberships, through: :role_assignments, source: :resource, source_type: 'Profile'
@@ -94,11 +97,11 @@ class Person < Profile
     memberships.where('role_assignments.role_id = ?', role.id)
   end
 
-  has_many :comments, :foreign_key => :author_id
-  has_many :article_followers, :dependent => :destroy
-  has_many :following_articles, :class_name => 'Article', :through => :article_followers, :source => :article
-  has_many :friendships, :dependent => :destroy
-  has_many :friends, :class_name => 'Person', :through => :friendships
+  has_many :comments, foreign_key: :author_id
+  has_many :article_followers, dependent: :destroy
+  has_many :following_articles, class_name: 'Article', through: :article_followers, source: :article
+  has_many :friendships, dependent: :destroy
+  has_many :friends, class_name: 'Person', through: :friendships
   has_many :circles
   has_many :push_subscriptions, as: :owner
   has_many :event_invitation
@@ -107,19 +110,19 @@ class Person < Profile
     joins(:user).where("users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes)
   }
 
-  has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
+  has_many :requested_tasks, class_name:  'Task', foreign_key:  :requestor_id, dependent:  :destroy
 
-  has_many :abuse_reports, :foreign_key => 'reporter_id', :dependent => :destroy
+  has_many :abuse_reports, foreign_key:  'reporter_id', dependent:  :destroy
 
   has_many :mailings
 
-  has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
+  has_many :scraps_sent, class_name:  'Scrap', foreign_key:  :sender_id, dependent:  :destroy
 
   has_many :favorite_enterprise_people
   has_many :favorite_enterprises, source: :enterprise, through: :favorite_enterprise_people
 
-  has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
-  has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
+  has_and_belongs_to_many :acepted_forums, class_name:  'Forum', :join_table => 'terms_forum_people'
+  has_and_belongs_to_many :articles_with_access, class_name:  'Article', :join_table => 'article_privacy_exceptions'
 
   has_many :suggested_profiles, -> { order 'score DESC' },
     class_name: 'ProfileSuggestion', foreign_key: :person_id, dependent: :destroy
@@ -130,7 +133,7 @@ class Person < Profile
     where 'profile_suggestions.suggestion_type = ? AND profile_suggestions.enabled = ?', 'Community', true
   }, through: :suggested_profiles, source: :suggestion
 
-  has_and_belongs_to_many :marked_scraps, :join_table => :private_scraps, :class_name => 'Scrap'
+  has_and_belongs_to_many :marked_scraps, :join_table => :private_scraps, class_name:  'Scrap'
 
   scope :more_popular, -> { order 'profiles.friends_count DESC' }
 
@@ -157,7 +160,7 @@ class Person < Profile
     Friendship.where(friend_id: person.id).each{ |friendship| friendship.destroy }
   end
 
-  belongs_to :user, :dependent => :delete
+  belongs_to :user, dependent: :delete, optional: true
 
   acts_as_voter
 
@@ -178,7 +181,7 @@ class Person < Profile
   end
 
   def can_control_activity?(activity)
-    self.tracked_notifications.exists?(activity)
+    self.tracked_notifications.exists?(activity.id)
   end
 
   def can_post_content?(profile, parent=nil)
@@ -447,7 +450,7 @@ class Person < Profile
     self.friends.include?(person)
   end
 
-  has_and_belongs_to_many :refused_communities, :class_name => 'Community', :join_table => 'refused_join_community'
+  has_and_belongs_to_many :refused_communities, class_name: 'Community', :join_table => 'refused_join_community'
 
   def ask_to_join?(community)
     return false if !community.visible?
@@ -665,7 +668,9 @@ class Person < Profile
           fields = opts[:to_fields] || field
           fields = fields.kind_of?(Array) ? fields : [fields]
           fields.each do |to_field|
-            self.errors.add_on_blank(to_field)
+            if self.send(to_field).blank?
+              self.errors.add(to_field, :blank)
+            end
           end
         end
       end

@@ -2,10 +2,10 @@ class AccountController < ApplicationController
 
   no_design_blocks
 
-  before_filter :login_required, :require_login_for_environment, :only => [:activation_question, :accept_terms, :activate_enterprise, :change_password]
-  before_filter :redirect_if_logged_in, :only => [:login, :signup, :activate]
-  before_filter :protect_from_spam, :only => :signup
-  before_filter :check_activation_token, :only => [:activate, :resend_activation_codes]
+  before_action :login_required, :require_login_for_environment, :only => [:activation_question, :accept_terms, :activate_enterprise, :change_password]
+  before_action :redirect_if_logged_in, :only => [:login, :signup, :activate]
+  before_action :protect_from_spam, :only => :signup
+  before_action :check_activation_token, :only => [:activate, :resend_activation_codes]
 
   protect_from_forgery except: [:login]
 
@@ -80,6 +80,7 @@ class AccountController < ApplicationController
 
     begin
       self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
+      
     rescue User::UserNotActivated => e
       if e.user.activation_code.present?
         redirect_to action: :activate, activation_token: e.user.activation_code
@@ -128,7 +129,7 @@ class AccountController < ApplicationController
 
     @invitation_code = params[:invitation_code]
     begin
-      @user = User.build(params[:user], params[:profile_data], environment)
+      @user = User.build(params[:user], params[:profile_data].to_h, environment)
       @user.session = session
       @terms_of_use = environment.terms_of_use
       @user.return_to = session[:return_to]
@@ -309,6 +310,7 @@ class AccountController < ApplicationController
   def check_valid_name
     @identifier = params[:identifier]
     valid = Person.is_available?(@identifier, environment)
+
     if valid
       @status = _('This login name is available')
       @status_class = 'validated'
@@ -341,6 +343,7 @@ class AccountController < ApplicationController
       else
         { }
       end
+
     if session[:notice]
       user_data['notice'] = session[:notice]
       session[:notice] = nil # consume the notice
@@ -352,7 +355,7 @@ class AccountController < ApplicationController
       user_data.merge!(user_data_extras)
     end
 
-    render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
+    render plain: user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
 
   def search_cities
@@ -392,7 +395,7 @@ class AccountController < ApplicationController
   end
 
   def check_acceptance_of_terms
-    unless params[:terms_accepted]
+    if params[:terms_accepted].to_s == 'false'
       redirect_to :action => 'index'
       return
     end

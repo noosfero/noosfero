@@ -4,7 +4,7 @@ class DocController < PublicController
 
   no_design_blocks
 
-  before_filter :load_toc
+  before_action :load_toc
 
   def index
     @index = DocSection.root(language)

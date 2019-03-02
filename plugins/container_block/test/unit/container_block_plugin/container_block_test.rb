@@ -22,7 +22,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
   should 'created box should have nil as position' do
     @block.save!
-    assert_equal nil, @block.container_box.position
+    assert_nil @block.container_box.position
   end
 
   should 'return created box' do
@@ -67,11 +67,11 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
   should 'return nil in width if child do not exists' do
     @block.children_settings = {2 => {:width => 10} }
     @block.save!
-    assert_equal nil, @block.child_width(1)
+    assert_nil @block.child_width(1)
   end
 
   should 'return nil at layout_template' do
-    assert_equal nil, @block.layout_template
+    assert_nil @block.layout_template
   end
 
   should 'return children blocks that have container_box as box' do

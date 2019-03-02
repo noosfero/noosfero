@@ -1,4 +1,4 @@
-class CreateEventInvitation < ActiveRecord::Migration
+class CreateEventInvitation < ActiveRecord::Migration[5.1]
 
   def self.up
     create_table :event_invitations do |t|

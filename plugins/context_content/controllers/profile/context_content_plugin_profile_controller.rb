@@ -8,14 +8,14 @@ class ContextContentPluginProfileController < ProfileController
 
     if contents
       @page = Article.find(params[:article_id])
+      @block = block
+      @direction = params[:direction]
 
-      render :update do |page|
-        page.replace_html "context_content_#{block.id}", :file => "blocks/context_content", :locals => {:block => block}
-        page.replace_html "context_content_more_#{block.id}", :file => 'blocks/footers/context_content', :locals => {:block => block}
+      respond_to do |format|
+        format.js
       end
     else
-      render :text => "invalid page", :status => 500
+      render plain: "Invalid page", :status => 500
     end
    end
-
 end
