@@ -31,20 +31,17 @@ if [ -f $dump_file ]; then
   yes | bundle exec rake restore BACKUP=$dump_file
 fi
 
-if ! bundle exec rake db:exists; then
+if bundle exec rake db:exists; then
+  echo ">>>>> DATABASE DETECTED APPLYING MIGRATIONS <<<<<"
+  bundle exec rake db:migrate
+else
   echo ">>>>> NO DATABASE DETECTED CREATING A NEW ONE <<<<<"
   bundle exec rake db:create
-fi
-
-if ! bundle exec rake db:tables:exists; then
-  echo ">>>>> NO DATABASE TABLES DETECTED LOADING SCHEMA <<<<<"
   bundle exec rake db:schema:load
+
   echo ">>>>> CREATING DEFAULT ENVIRONMENT AND ADMIN USER <<<<<"
   bundle exec rake db:data:minimal
 fi
-
-echo ">>>>> DATABASE DETECTED APPLYING MIGRATIONS <<<<<"
-bundle exec rake db:migrate
 
 echo ">>>>> PID VERIFICATION <<<<<"
 pidfile='/noosfero/tmp/pids/server.pid'
