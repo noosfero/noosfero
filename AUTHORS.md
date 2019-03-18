@@ -20,6 +20,7 @@ Alex Campelo <campelo.al1@gmail.com>
 Alexandre Barbosa <alexandreab@live.com>
 Alexandre Torres <alexandrekry@gmail.com>
 Alipio muñiz <alipio@ecoalternative.net>
+Allan Nordhøy <epost@anotheragency.no>
 Ana Losnak <analosnak@gmail.com>
 Ana Paula Vargas <anapaulavnoronha@gmail.com>
 Andre Bedran <bedran.fleck@gmail.com>
@@ -111,6 +112,7 @@ Jefferson Fernandes <jeffs.fernandes@gmail.com>
 Jesús Parrillas <jesusparrillas@gmail.com>
 Joenio Costa <joenio@colivre.coop.br>
 Joenio Costa <joenio@joenio.me>
+Jorge F. Tinoco Gomez <revistafammatvmusic.oficial@gmail.com>
 Josafá Souza Jr <josafa.souza@serpro.gov.br>
 Josafá Souza Jr <josafa.souza@serpro.gov.br>
 Josafá Souza Jr <josafassj@gmail.com>
@@ -166,6 +168,7 @@ Matheus Joranhezon <mjoranhezon@gmail.com>
 Matheus Miranda <matheusmirandalacerda@gmail.com>
 Matheus Richard <matheusrichardt@gamil.com>
 Matheus Richard <matheusrichardt@gmail.com>
+MatheusRich <alaxallves@gmail.com>
 MatheusRich <matheusrichardt@gmail.com>
 Maurilio Atila <cabelotaina@gmail.com>
 Maxwell Borges Bezerra <maxbborges@gmail.com>
@@ -198,6 +201,8 @@ Raphael Matos da Costa <mdc.rapha@gmail.com>
 Raphaël Rousseau <raph@r4f.org>
 Raquel <rcordioli@gmail.com>
 Raquel Lira <raquel.lira@gmail.com>
+Rebeca Moura <bcasamo@gmail.com>
+Rebeca Moura <rebecasm@movecode.com>
 Renan Costa <renan2727@hotmail.com>
 Renan Teruo <renanteruoc@gmail.com>
 Rodrigo Medeiros <rodrigo.mss01@gmail.com>
