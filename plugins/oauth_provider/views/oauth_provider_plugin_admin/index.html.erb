@@ -2,7 +2,7 @@
 <h3><%= _('Oauh Provider') %></h3>
 
   <div class="applications">
-    <%= link_to _('Applications'), oauth_applications_path %>
+    <%= link_to _('Applications'), {:controller => 'oauth_provider_applications', :action => 'show' }%>
   </div>
   <div class="authorized-applications">
     <%= link_to _('Authorized Applications'), oauth_authorized_applications_path %>

@@ -1,4 +1,4 @@
-class CreateOauthClientPluginProvider < ActiveRecord::Migration
+class CreateOauthClientPluginProvider < ActiveRecord::Migration[5.1]
 
   def self.up
     create_table :oauth_client_plugin_providers do |t|
