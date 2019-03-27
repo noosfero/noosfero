@@ -133,6 +133,8 @@ module Noosfero
       app.config.assets.precompile += Dir.glob('public/javascripts/*').map{|path| path.gsub('public/', '')}
       app.config.assets.precompile += Dir.glob('public/javascripts/*/**/*.js').map{|path| path.gsub('public/', '')}
       app.config.assets.precompile += Dir.glob('public/stylesheets/*/**/*.css').map{|path| path.gsub('public/', '')}
+      app.config.assets.precompile += Dir.glob('public/stylesheets/*/**/*.scss').map{|path| path.gsub('public/', '')}
+      app.config.assets.precompile += Dir.glob('public/stylesheets/*').map{|path| path.gsub('public/', '')}
       app.config.assets.precompile += Dir.glob('public/plugins/*/**/*.css').map{|path| path.gsub('public/', '')}
       app.config.assets.precompile += Dir.glob('public/plugins/*/**/*.scss').map{|path| path.gsub('public/', '')}
       app.config.assets.precompile += Dir.glob('public/designs/themes/*/**/*.css').map{|path| path.gsub('public/', '')}
