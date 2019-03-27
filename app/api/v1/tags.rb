@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Tags < Grape::API
+    class Tags < Grape::API::Instance
       resource :articles do
         resource ':id/tags' do
           get do

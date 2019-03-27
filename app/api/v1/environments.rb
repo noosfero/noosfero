@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Environments < Grape::API
+    class Environments < Grape::API::Instance
 
       resource :environments do
 

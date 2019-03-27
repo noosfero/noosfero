@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Comments < Grape::API
+    class Comments < Grape::API::Instance
       MAX_PER_PAGE = 20
 
 

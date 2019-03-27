@@ -1,7 +1,7 @@
 module Api
   module V1
 
-    class Blocks < Grape::API
+    class Blocks < Grape::API::Instance
 
       resource :profiles do
         segment '/:id' do

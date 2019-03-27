@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Enterprises < Grape::API
+    class Enterprises < Grape::API::Instance
 
       resource :enterprises do
 

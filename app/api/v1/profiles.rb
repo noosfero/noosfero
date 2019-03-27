@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Profiles < Grape::API
+    class Profiles < Grape::API::Instance
 
       resource :profiles do
 

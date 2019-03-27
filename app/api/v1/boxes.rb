@@ -1,7 +1,7 @@
 module Api
   module V1
 
-    class Boxes < Grape::API
+    class Boxes < Grape::API::Instance
 
       kinds = %w[profile community person enterprise]
       kinds.each do |kind|

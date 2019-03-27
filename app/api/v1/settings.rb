@@ -1,7 +1,7 @@
 module Api
   module V1
 
-    class Settings < Grape::API
+    class Settings < Grape::API::Instance
 
       kinds = %w[profile environment]
       kinds.each do |kind|

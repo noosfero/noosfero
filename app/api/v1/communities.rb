@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Communities < Grape::API
+    class Communities < Grape::API::Instance
 
       resource :communities do
 

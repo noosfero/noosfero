@@ -1,6 +1,6 @@
 module Api
   module V1
-    class People < Grape::API
+    class People < Grape::API::Instance
 
       MAX_PER_PAGE = 50
 

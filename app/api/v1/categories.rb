@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Categories < Grape::API
+    class Categories < Grape::API::Instance
 
       resource :categories do
 

@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Roles < Grape::API
+    class Roles < Grape::API::Instance
 
       MAX_PER_PAGE = 50
 
