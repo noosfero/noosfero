@@ -66,7 +66,10 @@ module LayoutHelper
     if File.exists? global_css_at_fs
       output << stylesheet_link_tag(global_css_pub)
     end
-    output << stylesheet_link_tag(theme_stylesheet_path)
+
+    if File.exists?(File.join(Rails.root.join, 'public', theme_stylesheet_path))
+      output << stylesheet_link_tag(theme_stylesheet_path)
+    end
 
     # This output should be safe!
     output.join("\n").html_safe
