@@ -23,6 +23,7 @@ before_script:
 stages:
   - test
   - test-plugins
+  - test-cucumber
   - test-selenium
   - code-quality
 
@@ -69,12 +70,12 @@ cucumber-1:
   <<: *retriable
   <<: *cache
   script: SLICE=1/2 bundle exec cucumber --profile default
-  stage: test-selenium
+  stage: test-cucumber
 cucumber-2:
   <<: *retriable
   <<: *cache
   script: SLICE=2/2 bundle exec cucumber --profile default
-  stage: test-selenium
+  stage: test-cucumber
 
 selenium-1:
   <<: *retriable
