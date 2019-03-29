@@ -62,7 +62,6 @@ module LayoutHelper
       # FIXME: caching does not work with asset pipeline
       #cacheid = "cache/plugins-#{Digest::MD5.hexdigest plugins_stylesheets.to_s}"
       plugins_stylesheets.map do |plugin_stylesheet|
-        output << stylesheet_link_tag(plugin_stylesheet)
         if File.exists?(File.join(Rails.root.join, 'public', plugin_stylesheet))
           output << stylesheet_link_tag(plugin_stylesheet)
         end
