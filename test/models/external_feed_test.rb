@@ -187,4 +187,12 @@ class ExternalFeedTest < ActiveSupport::TestCase
     end
   end
 
+  should 'limit feed title to ensure name size limit' do
+    blog = create_blog
+    e = build(:external_feed, :blog => blog, :feed_title => 'The Source')
+    assert_nothing_raised do
+      e.add_item('A'*180, 'http://orig.link.invalid', Time.now, '<p style="color: red">Html content 1.</p>')
+    end
+  end
+
 end

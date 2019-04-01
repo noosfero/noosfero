@@ -26,7 +26,7 @@ class ExternalFeed < ApplicationRecord
     content = doc.to_s
 
     article = TextArticle.new
-    article.name = title
+    article.name = title[0..149]
     article.profile = blog.profile
     article.body = content
     article.published_at = date
