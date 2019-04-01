@@ -253,7 +253,8 @@ module Api
     end
 
     class Article < ArticleBase
-      expose :parent, :using => ArticleBase
+      expose :parent, :using => ArticleBase, :if => lambda {|article, options| Entities.expose_optional_field?(:parent, options)}
+      expose :parent_id
       expose :children, :using => ArticleBase do |article, options|
         article.children.published.limit(V1::Articles::MAX_PER_PAGE)
       end
