@@ -60,7 +60,7 @@ api:
 units:
   <<: *retriable
   <<: *cache
-  script: bundle exec rails test test/unit
+  script: bundle exec rails test test/models
   stage: all-tests
 
 # TODO: Unforce-passing the path to execute rake task
@@ -68,7 +68,7 @@ units:
 functionals:
   <<: *retriable
   <<: *cache
-  script: bundle exec rails test test/functional
+  script: bundle exec rails test test/controllers
   stage: all-tests
 
 integration:
