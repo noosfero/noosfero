@@ -3,7 +3,7 @@ require_relative 'api_entities'
 # Can't be called Api as will result in:
 # warning: toplevel constant Api referenced by PushNotificationPlugin::Api
 # To fix this PushNotificationPlugin should be a module
-class PushNotificationPlugin::API < Grape::API
+class PushNotificationPlugin::API < Grape::API::Instance
 
   include Api::Helpers
 

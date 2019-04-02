@@ -3,7 +3,7 @@ require_relative "../test_helper"
 class SafeStringsTest < ActionDispatch::IntegrationTest
 
   def setup
-    @user = create_user('safestring', :password => 'test', :password_confirmation => 'test')
+    @user = create_user('safestring', :password => '123456', :password_confirmation => '123456')
     @user.activate!
     @person = user.person
   end
@@ -55,30 +55,30 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape &rarr; symbol from categories' do
-    create_user('marley', :password => 'test', :password_confirmation => 'test').activate!
+    create_user('marley', :password => '123456', :password_confirmation => '123456').activate!
     category = fast_create Category
     subcategory = fast_create(Category, :parent_id => category.id)
     Person['marley'].categories << subcategory
-    login 'marley', 'test'
+    login_as_rails5 'marley'
     get "/myprofile/marley/profile_editor/categories"
     assert_tag :tag => 'div', :content => /#{category.name} &rarr; #{subcategory.name}/,
                :ancestor => { :tag => 'div', :attributes => { :class => 'selected-category' }}
   end
 
   should 'not escape MainBlock on profile design' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
+    create_user('jimi', :password => '123456', :password_confirmation => '123456').activate!
     jimi = Person['jimi']
     jimi.boxes << Box.new
     jimi.boxes.first.blocks << MainBlock.new
-    login 'jimi', 'test'
+    login_as_rails5 'jimi'
     get "/myprofile/jimi/profile_design"
     assert_tag :tag => 'div', :attributes => { :class => 'main-content' }, :content => '&lt;Main content&gt;'
   end
 
   should 'not escape confirmation message on deleting folders' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
+    create_user('jimi', :password => '123456', :password_confirmation => '123456').activate!
     fast_create(Folder, :name => 'Hey Joe', :profile_id => Person['jimi'].id, :updated_at => DateTime.now)
-    login 'jimi', 'test'
+    login_as_rails5 'jimi'
     get "/myprofile/jimi/cms"
     assert_tag :tag => 'a', :attributes => {
       'data-confirm' => /Are you sure that you want to remove the folder &quot;Hey Joe&quot;\?/
@@ -86,10 +86,10 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape people names on manage friends' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
+    create_user('jimi', :password => '123456', :password_confirmation => '123456').activate!
     friend = fast_create Person
     Person['jimi'].add_friend(friend)
-    login 'jimi', 'test'
+    login_as_rails5 'jimi'
     get '/myprofile/jimi/friends'
     assert_tag :tag => 'div', :attributes => { :id => 'manage_friends' }, :descendant => {
       :tag => 'a', :attributes => { :class => 'profile-link' }, :content => friend.name
@@ -97,11 +97,11 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape task information on manage profile' do
-    create_user('marley', :password => 'test', :password_confirmation => 'test').activate!
+    create_user('marley', :password => '123456', :password_confirmation => '123456').activate!
     person = Person['marley']
     task = create(Task, :requestor => person, :target => person)
 
-    login 'marley', 'test'
+    login_as_rails5 'marley'
 
     get "/myprofile/marley"
     assert_tag :tag => 'div', :attributes => { :id => 'pending-tasks-menu', :class => 'noosfero-dropdown-menu' },
@@ -131,18 +131,18 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SafeStringsTest::Plugin1.new])
 
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
+    create_user('jimi', :password => '123456', :password_confirmation => '123456').activate!
     person = Person['jimi']
-    login 'jimi', 'test'
+    login_as_rails5 'jimi'
     get "/myprofile/jimi/cms/new?type=TextArticle"
     assert_no_match /title: &quot;Safestringstest::plugin1::macro&quot/, response.body
   end
 
   should 'not escape short_description of articles in activities' do
-    user = create_user('marley', :password => 'test', :password_confirmation => 'test')
+    user = create_user('marley', :password => '123456', :password_confirmation => '123456')
     user.activate!
     profile = user.person
-    login 'marley', 'test'
+    login_as_rails5 'marley'
 
     expected_content = 'something'
     html_content = "<p>#{expected_content}</p>"
@@ -163,7 +163,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
         _("<p class='other-block'>Other Block</p>")
       end
     end
-    login user.login, 'test'
+    login_as_rails5 user.login
     block = OtherBlock.new
     person.boxes.first.blocks << block
     get url_for(action: :edit, controller: :profile_design, profile: person.identifier, id: block.id)
@@ -171,7 +171,7 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape edit settings in highlight block' do
-    login user.login, 'test'
+    login_as_rails5 user.login
     block = HighlightsBlock.new
     person.boxes.first.blocks << block
     get url_for(action: :edit, controller: :profile_design, profile: person.identifier, id: block.id)
@@ -179,9 +179,9 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
   end
 
   should 'not escape icons options editing link_list block' do
-    create_user('jimi', :password => 'test', :password_confirmation => 'test').activate!
+    create_user('jimi', :password => '123456', :password_confirmation => '123456').activate!
     profile = Person['jimi']
-    login 'jimi', 'test'
+    login_as_rails5 'jimi'
     profile.blocks.each(&:destroy)
     profile.boxes.first.blocks << LinkListBlock.new
     block = profile.boxes.first.blocks.first
@@ -204,8 +204,8 @@ class SafeStringsTest < ActionDispatch::IntegrationTest
     env = Environment.default
     env.custom_person_fields = { 'sex' => { 'active' => 'true' } }
     env.save!
-    create_user('marley', :password => 'test', :password_confirmation => 'test').activate!
-    login 'marley', 'test'
+    create_user('marley', :password => '123456', :password_confirmation => '123456').activate!
+    login_as_rails5 'marley'
     get "/myprofile/marley/profile_editor/informations"
     assert_tag :tag => 'input', :attributes => { :id => "profile_data_sex_male" }
   end

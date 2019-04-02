@@ -1,7 +1,7 @@
 require_dependency 'api/helpers'
 
 module Api
-  class App < Grape::API
+  class App < Grape::API::Instance
 
     logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
     logger.formatter = GrapeLogging::Formatters::Default.new
@@ -60,7 +60,7 @@ module Api
     @plugins.each do |klass|
       if klass.public_methods.include? :api_mount_points
         klass.api_mount_points.each do |mount_class|
-          mount mount_class if mount_class && ( mount_class < Grape::API )
+          mount mount_class if mount_class && ( mount_class < Grape::API::Instance )
         end
       end
     end

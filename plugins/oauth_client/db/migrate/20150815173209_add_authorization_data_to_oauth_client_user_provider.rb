@@ -1,4 +1,4 @@
-class AddAuthorizationDataToOauthClientUserProvider < ActiveRecord::Migration
+class AddAuthorizationDataToOauthClientUserProvider < ActiveRecord::Migration[5.1]
 
   def change
     rename_table :oauth_client_plugin_user_providers, :oauth_client_plugin_auths
@@ -17,10 +17,10 @@ class AddAuthorizationDataToOauthClientUserProvider < ActiveRecord::Migration
     end
     remove_column :oauth_client_plugin_auths, :user_id
 
-    add_index :oauth_client_plugin_auths, :profile_id
-    add_index :oauth_client_plugin_auths, :provider_id
-    add_index :oauth_client_plugin_auths, :provider_user_id
-    add_index :oauth_client_plugin_auths, :type
+    add_index :oauth_client_plugin_auths, :profile_id if !index_exists?(:oauth_client_plugin_auths, :profile_id)
+    add_index :oauth_client_plugin_auths, :provider_id if !index_exists?(:oauth_client_plugin_auths, :provider_id)
+    add_index :oauth_client_plugin_auths, :provider_user_id if !index_exists?(:oauth_client_plugin_auths, :provider_user_id)
+    add_index :oauth_client_plugin_auths, :type if !index_exists?(:oauth_client_plugin_auths, :type)
   end
 
 end

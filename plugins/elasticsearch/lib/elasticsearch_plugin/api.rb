@@ -1,7 +1,7 @@
 require_relative '../../helpers/elasticsearch_helper'
 require_relative 'entities'
 
-class ElasticsearchPlugin::API < Grape::API
+class ElasticsearchPlugin::API < Grape::API::Instance
   include Api::Helpers
   helpers ElasticsearchHelper
 

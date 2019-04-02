@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Tasks < Grape::API
+    class Tasks < Grape::API::Instance
       before { authenticate! }
 
       MAX_PER_PAGE = 50

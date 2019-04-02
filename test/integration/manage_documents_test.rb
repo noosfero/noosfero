@@ -8,7 +8,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     user = create_user('myuser')
     user.activate!
 
-    login('myuser', '123456')
+    login_as_rails5('myuser')
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{user.login}"  }
 
     get '/myprofile/myuser'
@@ -44,7 +44,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     article = create_article(profile, :name => 'my-article')
     article.save!
 
-    login('myuser', '123456')
+    login_as_rails5('myuser')
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
 
     get '/myprofile/myuser'
@@ -81,7 +81,7 @@ class ManageDocumentsTest < ActionDispatch::IntegrationTest
     article = create_article(profile, :name => 'my-article')
     article.save!
 
-    login('myuser', '123456')
+    login_as_rails5('myuser')
 
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}"  }
     get '/myprofile/myuser'

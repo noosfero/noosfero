@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Users < Grape::API
+    class Users < Grape::API::Instance
 
       resource :users do
 

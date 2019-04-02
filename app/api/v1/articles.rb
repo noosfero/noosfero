@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Articles < Grape::API
+    class Articles < Grape::API::Instance
 
       ARTICLE_TYPES = Article.descendants.map{|a| a.to_s}
 

@@ -1,6 +1,6 @@
 module Api
   module V1
-    class Domains < Grape::API
+    class Domains < Grape::API::Instance
 
       MAX_PER_PAGE = 20
       paginate per_page: MAX_PER_PAGE, max_per_page: MAX_PER_PAGE

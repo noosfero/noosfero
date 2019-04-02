@@ -2,7 +2,7 @@ require "uri"
 
 module Api
   module V1
-    class Session < Grape::API
+    class Session < Grape::API::Instance
 
       # Login to get token
       #

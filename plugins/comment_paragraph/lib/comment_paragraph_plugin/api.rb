@@ -3,7 +3,7 @@ require_relative 'comments_report'
 # Can't be called Api as will result in:
 # warning: toplevel constant Api referenced by CommentParagraphPlugin::Api
 # To fix this CommentParagraphPlugin should be a module
-class CommentParagraphPlugin::API < Grape::API
+class CommentParagraphPlugin::API < Grape::API::Instance
 
   MAX_PER_PAGE = 20
 
