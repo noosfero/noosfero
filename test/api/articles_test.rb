@@ -7,7 +7,7 @@ class ArticlesTest < ActiveSupport::TestCase
     login_api
   end
 
-  expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent children children_count url access)
+  expose_attributes = %w(id body abstract created_at title author profile categories image votes_for votes_against setting position hits start_date end_date tag_list parent_id children children_count url access)
 
   expose_attributes.each do |attr|
     should "expose article #{attr} attribute by default" do
@@ -477,7 +477,7 @@ class ArticlesTest < ActiveSupport::TestCase
       params[:article] = {:name => "Title", :parent_id => article.id}
       post "/api/v1/#{kind.pluralize}/#{profile.id}/articles?#{params.to_query}"
       json = JSON.parse(last_response.body)
-      assert_equal article.id, json["parent"]["id"]
+      assert_equal article.id, json["parent_id"]
     end
 
     should "#{kind} create article with content type passed as parameter" do
@@ -586,7 +586,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:article] = {:name => "Title", :parent_id => article.id}
     post "/api/v1/people/#{user.person.id}/articles?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal article.id, json["parent"]["id"]
+    assert_equal article.id, json["parent_id"]
   end
 
   should 'person create article with content type passed as parameter' do
@@ -654,7 +654,7 @@ class ArticlesTest < ActiveSupport::TestCase
     params[:article] = {:name => "Title"}
     post "/api/v1/articles/#{article.id}/children?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal article.id, json["parent"]["id"]
+    assert_equal article.id, json["parent_id"]
   end
 
   should "do not create article child if user has no permission to post content" do
@@ -803,6 +803,19 @@ class ArticlesTest < ActiveSupport::TestCase
       json = JSON.parse(last_response.body)
       assert_not_nil json[attribute]
     end
+  end
+
+  should 'only show article parent when optional_fields parent is present' do
+    person = fast_create(Person)
+    article = fast_create(Article, :profile_id => person.id, :name => "Some thing")
+
+    get "/api/v1/articles/#{article.id}/?#{params.merge(:optional_fields => [:parent]).to_query}"
+    json = JSON.parse(last_response.body)
+    assert_includes json.keys, "parent"
+
+    get "/api/v1/articles/#{article.id}/?#{params.to_query}"
+    json = JSON.parse(last_response.body)
+    assert_not_includes json.keys, "parent"
   end
 
   should 'only show article comments when optional_fields comments is present' do
