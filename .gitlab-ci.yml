@@ -21,24 +21,17 @@ before_script:
   - bundle exec rake db:migrate
 
 stages:
-  # - smoke-tests
-  - all-tests
+  - test
+  - test-plugins
+  - test-cucumber
+  - test-selenium
   - code-quality
-
-smoke:
-  script: bundle exec rails ci:smoke
-  stage: all-tests
-  # stage: smoke-tests
 
 .cache: &cache
   cache:
     key: "$CI_BUILD_REF_NAME"
     paths:
       - /usr/share/rubygems-integration/all/
-
-# smoke:
-#   script: bundle exec rake ci:smoke
-#   stage: smoke-tests
 
 .retriable-template: &retriable
   retry: 2
@@ -47,76 +40,72 @@ rspec:
   <<: *retriable
   <<: *cache
   script: bundle exec rails test:specs
-  stage: all-tests
+  stage: test
 
 api:
   <<: *retriable
   <<: *cache
   script: bundle exec rails test:api
-  stage: all-tests
+  stage: test
 
-# TODO: Unforce-passing the path to execute rake task
-# Later change folder name to models/ and rails invoking to `rails test:models`
-units:
+models:
   <<: *retriable
   <<: *cache
-  script: bundle exec rails test test/models
-  stage: all-tests
+  script: bundle exec rails test:models
+  stage: test
 
-# TODO: Unforce-passing the path to execute rake task
-# Later change folder name to controllers/ and rails invoking to `rails test:controllers`
-functionals:
+controllers:
   <<: *retriable
   <<: *cache
-  script: bundle exec rails test test/controllers
-  stage: all-tests
+  script: bundle exec rails test:controllers
+  stage: test
 
 integration:
   <<: *retriable
   <<: *cache
   script: bundle exec rails test:integration
-  stage: all-tests
+  stage: test
 
 cucumber-1:
   <<: *retriable
   <<: *cache
   script: SLICE=1/2 bundle exec cucumber --profile default
-  stage: all-tests
+  stage: test-cucumber
 cucumber-2:
   <<: *retriable
   <<: *cache
   script: SLICE=2/2 bundle exec cucumber --profile default
-  stage: all-tests
+  stage: test-cucumber
 
 selenium-1:
   <<: *retriable
   <<: *cache
   script: SLICE=1/6 bundle exec rails selenium
-  stage: all-tests
+  stage: test-selenium
 selenium-2:
   <<: *retriable
   script: SLICE=2/6 bundle exec rails selenium
-  stage: all-tests
+  stage: test-selenium
 selenium-3:
   <<: *retriable
   <<: *cache
   script: SLICE=3/6 bundle exec rails selenium
-  stage: all-tests
+  stage: test-selenium
 selenium-4:
   <<: *retriable
   <<: *cache
   script: SLICE=4/6 bundle exec rails selenium
-  stage: all-tests
+  stage: test-selenium
 selenium-5:
   <<: *retriable
   <<: *cache
   script: SLICE=5/6 bundle exec rails selenium
-  stage: all-tests
+  stage: test-selenium
 selenium-6:
   <<: *retriable
   <<: *cache
   script: SLICE=6/6 bundle exec rails selenium
-  stage: all-tests
+  stage: test-selenium
 
 # NOOSFERO_BUNDLE_OPTS=install makes migrations fails
 # probably because of rubygems-integration
@@ -124,33 +113,33 @@ plugins-1:
   <<: *retriable
   <<: *cache
   script: SLICE=1/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  stage: all-tests
+  stage: test-plugins
 plugins-2:
   <<: *retriable
   <<: *cache
   script: SLICE=2/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  stage: all-tests
+  stage: test-plugins
 plugins-3:
   <<: *retriable
   <<: *cache
   script: SLICE=3/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  stage: all-tests
+  stage: test-plugins
 plugins-4:
   <<: *retriable
   <<: *cache
   script: SLICE=4/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  stage: all-tests
+  stage: test-plugins
 plugins-5:
   <<: *retriable
   <<: *cache
   script: SLICE=5/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
-  stage: all-tests
+  stage: test-plugins
 
 cypress:
   <<: *retriable
   <<: *cache
   script: bundle exec rails cypress:run
-  stage: all-tests
+  stage: test
 
 rubocop:
   <<: *cache
