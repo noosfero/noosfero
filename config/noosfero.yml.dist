@@ -7,6 +7,7 @@ development:
   addthis_options: favorites, email, digg, delicious, technorati, slashdot, twitter, more
   gravatar: mm
   googlemaps_initial_zoom: 15
+  googlemaps_max_zoom: 15
   googlemaps_js_api_key: your-js-key
   googlemaps_static_api_key: your-static-key
   exception_recipients: [admin@example.com]

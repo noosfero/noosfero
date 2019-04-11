@@ -54,7 +54,14 @@ function mapLoad(initialZoom, centerPoint) {
   });
 }
 
-function mapCenter(latlng) {
-  if (!latlng) map.fitBounds(mapBounds);
+function mapCenter(latlng, maxZoom) {
+  if (!latlng){
+    map.fitBounds(mapBounds);
+    google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+      // var maxZoom = 10;
+      if ( this.getZoom() > maxZoom)
+        this.setZoom(maxZoom);
+    });
+  }
   map.setCenter(latlng ? latlng : mapBounds.getCenter());
 }
