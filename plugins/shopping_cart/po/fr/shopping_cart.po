@@ -6,64 +6,53 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2018-05-13 17:37+0000\n"
-"Last-Translator: farfadet46 <farfadet46@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
-"shopping-cart/fr/>\n"
+"PO-Revision-Date: 2019-04-14 15:05+0000\n"
+"Last-Translator: Nathan <bonnemainsnathan@gmail.com>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/noosfero/"
+"plugin-shopping-cart/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.0-dev\n"
+"X-Generator: Weblate 3.6-dev\n"
 
-#, fuzzy
 msgid "Delivery or pickup method"
 msgstr "Méthode de livraison"
 
-#, fuzzy
 msgid "Basket displayed."
-msgstr "Ne pas afficher dans le menu"
+msgstr "Panier affiché."
 
-#, fuzzy
 msgid "Send buy request"
-msgstr "Envoyer une requête"
+msgstr "Envoyer une requête d'achat"
 
-#, fuzzy
 msgid "Delivery option updated."
-msgstr "Détruire le profil"
+msgstr "Option de livraison mise à jour."
 
-#, fuzzy
 msgid "Delivery or pickup"
-msgstr "Détruire le profil"
+msgstr "Livraison ou retrait"
 
-#, fuzzy
 msgid "Enable shopping basket"
-msgstr "Statut de formation"
+msgstr "Activer le panier d’achat"
 
-#, fuzzy
 msgid "Deliveries or pickups"
-msgstr "Détruire le profil"
+msgstr "Livraisons ou retraits"
 
-#, fuzzy
 msgid "shopping_cart|Change"
-msgstr "Statut de formation"
+msgstr "shopping_cart|Modifier"
 
-#, fuzzy
 msgid "Shopping basket"
-msgstr "Statut de formation"
+msgstr "Panier d’achat"
 
 #, fuzzy
 msgid "Shopping checkout"
 msgstr "Statut de formation"
 
-#, fuzzy
 msgid "[%s] Your buy request was performed successfully."
-msgstr "[%s] votre demande d'achat à bien été transmise."
+msgstr "[%s] votre requête d'achat à bien été transmise."
 
-#, fuzzy
 msgid "A shopping basket feature for enterprises"
-msgstr "Désactiver la recherche d'entreprises"
+msgstr "Une fonctionnalité de panier d'achat pour les entreprises"
 
 #: ../controllers/shopping_cart_plugin_controller.rb:138
 msgid ""
@@ -115,7 +104,7 @@ msgstr "Ajouter au panier"
 
 #: ../lib/shopping_cart_plugin/control_panel/shopping_preferences.rb:6
 msgid "Preferences"
-msgstr ""
+msgstr "Préférences"
 
 #: ../lib/shopping_cart_plugin/mailer.rb:36
 msgid "[%s] You have a new buy request from %s."
@@ -297,4 +286,4 @@ msgstr "Option du panier"
 
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
 msgid "Back to control panel"
-msgstr ""
+msgstr "Retour au panneau de contrôle"
