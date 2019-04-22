@@ -44,7 +44,7 @@ else
 fi
 
 echo ">>>>> PID VERIFICATION <<<<<"
-pidfile='/noosfero/tmp/pids/server.pid'
+pidfile='/noosfero/tmp/pids/*.*'
 if [ -f $pidfile ] ; then
   echo 'Server PID file exists. Removing it...'
   rm $pidfile

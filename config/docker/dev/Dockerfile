@@ -10,8 +10,6 @@ RUN apt-get update && apt-get install -y sudo cron nodejs postgresql-client
 WORKDIR /noosfero
 ADD . /noosfero/
 
-COPY config/database.yml.docker config/database.yml
-
 RUN echo "IRB.conf[:SAVE_HISTORY] = 100" >> .irbrc
 RUN echo "IRB.conf[:HISTORY_FILE] = '~/.irb-history'" >> .irbrc
 
