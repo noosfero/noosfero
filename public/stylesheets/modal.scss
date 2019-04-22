@@ -20,6 +20,8 @@
     max-width: 80%;
     min-width: 400px;
     overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
     @media only screen and (max-width: 540px) {
       width: 80%;
       min-width: 260px;

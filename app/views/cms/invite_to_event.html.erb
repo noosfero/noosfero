@@ -50,7 +50,7 @@
 
       <%= hidden_field_tag :back_to, @back_to %>
 
-      <%= profile_selector @profiles %>
+      <%= profile_selector checkbox_entry_to_profile_selector(@profiles) %>
 
       <%= labelled_form_field _('Message'), text_area(:data, :message,
             value: (_("Hello, come and join the ") + @article.title + ".")) %>

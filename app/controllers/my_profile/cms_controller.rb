@@ -465,6 +465,47 @@ class CmsController < MyProfileController
     end
   end
 
+  def sensitive_content
+    current_page = params[:page] ? Article.find(params[:page]) : nil
+    select_subdirectory = !params[:select_subdirectory].nil?
+
+    @sensitive_back = params[:not_back] ? (params[:not_back] == 'true') : false
+
+    @sensitive_content = SensitiveContent.new(
+                           user: user,
+                           page: current_page,
+                           profile: profile,
+                           select_subdirectory: select_subdirectory
+                         )
+
+    if params[:select_directory]
+        render :action => 'select_directory'
+    else
+        render :action => 'sensitive_content'
+    end
+  end
+
+  def select_profile
+    current_page = params[:page] ? Article.find(params[:page]) : nil
+
+    @sensitive_back = params[:back] ? params[:back] : false
+
+    @sensitive_content = SensitiveContent.new(user: user, page: current_page, profile: profile)
+
+    if params[:select_type].present?
+      case params[:select_type]
+      when 'community'
+        @profiles = user.communities_with_post_permisson
+      when 'enterprise'
+        @profiles = user.enterprises_with_post_permisson
+      else
+        @profiles = nil
+      end
+    else
+      @profiles = nil
+    end
+  end
+
   protected
 
   include CmsHelper
@@ -608,5 +649,6 @@ class CmsController < MyProfileController
       result << profile unless inviteds.find_by(guest: profile)
     end
     result
-   end
+  end
+
 end

@@ -75,4 +75,16 @@ class Folder < Article
     'folder'
   end
 
+  def self.subdirectories profile, folder=nil
+    if folder.nil?
+        Article.top_folders profile
+    else
+        Article.subfolders profile, folder
+    end
+  end
+
+  def has_subdirectories?
+    Article.subfolders(profile, self).present?
+  end
+
 end
