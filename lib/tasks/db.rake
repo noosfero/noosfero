@@ -12,4 +12,17 @@ namespace :db do
       exit 0
     end
   end
+
+  namespace :tables do
+    task :exists do
+      begin
+        # It will fail if the table 'environments' does not exist
+        Environment.count
+      rescue
+        exit 1
+      else
+        exit 0
+      end
+    end
+  end
 end

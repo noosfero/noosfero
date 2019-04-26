@@ -2,37 +2,6 @@ version: "3.5"
 
 services:
 
-  varnish:
-    container_name: varnish
-    privileged: true
-    build:
-      context: ./config/docker/prod/
-      dockerfile: ./Dockerfile-varnish
-    networks:
-      - noosfero-net
-    volumes:
-      - apache2:/etc/apache2/
-      - /var/lib/varnish/:/var/lib/varnish/
-      - /etc/default/:/etc/default/
-      - /etc/varnish/:/etc/varnish/
-    env_file:
-      - config/docker/prod/production.env
-    depends_on:
-      - apache2
-
-  apache2:
-    container_name: apache2
-    build:
-      context: ./config/docker/prod/
-      dockerfile: ./Dockerfile-apache2
-    networks:
-      - noosfero-net
-    restart: always
-    env_file:
-      - config/docker/prod/production.env
-    volumes:
-      - apache2:/etc/apache2/
-
   postgres:
     container_name: postgres
     image: postgres:9.4
@@ -52,16 +21,37 @@ services:
       - 3000:3000
     depends_on:
       - postgres
-    volumes:
-      - ./tmp/backup:/dump
     networks:
       - noosfero-net
     env_file:
       - config/docker/prod/production.env 
+    volumes:
+      - ./tmp/backup:/tmp/backup
+      - noosfero-public:/noosfero/public
+      - noosfero-log:/noosfero/log
+
+  nginx:
+    container_name: nginx
+    image: nginx:1.14
+    depends_on:      
+      - noosfero    
+    ports:      
+      - 80:80
+    networks:
+      - noosfero-net  
+    env_file:
+      - config/docker/prod/production.env
+    volumes:
+      - noosfero-public:/noosfero/public
+      - noosfero-log:/noosfero/log
+      - ./config/docker/prod/nginx-start.sh:/tmp/nginx-start.sh
+      - ./config/docker/prod/templates/nginx.template:/tmp/nginx.template
+    command: /tmp/nginx-start.sh
 
 volumes:
   pg-prod-data: {}
-  apache2:
+  noosfero-public:
+  noosfero-log:
 
 networks:
   noosfero-net:

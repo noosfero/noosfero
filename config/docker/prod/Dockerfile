@@ -1,19 +1,18 @@
-FROM ruby:2.4.4-jessie
-LABEL Maintainer="Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>"
+FROM ruby:2.3-stretch
 
+LABEL Maintainer="Noosfero Development Team <noosfero-dev@listas.softwarelivre.org>"
 LABEL Description="This dockerfile builds a noosfero production environment."
 
 EXPOSE 3000
 
-ENV RAILS_ENV production
 RUN apt-get update && apt-get install -y sudo cron nodejs postgresql-client
 
 WORKDIR /noosfero
 ADD . /noosfero/
-RUN ./script/quick-start -i
 
-RUN bundle install
+COPY config/database.yml.docker config/database.yml
 
-ENTRYPOINT ["/noosfero/config/docker/prod/entrypoint.sh"]
+RUN bundle install --jobs 20 --retry 5 --without development test 
 
-CMD ["/noosfero/script/production", "run"]
+ENTRYPOINT ["config/docker/prod/noosfero-entrypoint.sh"]
+CMD ["script/production", "run"]
