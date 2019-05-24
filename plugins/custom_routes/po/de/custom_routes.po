@@ -7,64 +7,64 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2018-06-20 11:30+0000\n"
-"Last-Translator: nimradium <nimra242001@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
-"custom_routes/de/>\n"
+"PO-Revision-Date: 2019-06-18 19:01+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/noosfero/"
+"plugin-custom_routes/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.0.1\n"
+"X-Generator: Weblate 3.7\n"
 
 msgid "Could not save the route mapping."
-msgstr ""
+msgstr "Die Routenzuordnung konnte nicht gespeichert werden."
 
 msgid "Could not update the route mapping."
-msgstr ""
+msgstr "Die Routenzuordnung konnte nicht aktualisiert werden."
 
 msgid "Custom Routes"
-msgstr ""
+msgstr "Benutzerdefinierte Routen"
 
 msgid "Add and manage custom route mappings"
-msgstr ""
+msgstr "Hinzufügen und Verwalten von benutzerdefinierten Routenzuordnungen"
 
 msgid "What is the custom route address?"
-msgstr ""
+msgstr "Wie lautet die benutzerdefinierte Routenadresse?"
 
 msgid "Where should this route point to?"
-msgstr ""
+msgstr "Wohin soll diese Route führen?"
 
 msgid "Enabled"
-msgstr ""
+msgstr "Aktiviert"
 
 msgid "Go back"
-msgstr ""
+msgstr "Zurückgehen"
 
 msgid "Save"
 msgstr "Speichern"
 
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 msgid "Custom Routes Plugin"
-msgstr ""
+msgstr "Benutzerdefiniertes Routen-Plugin"
 
 msgid "Edit Route Mapping"
-msgstr ""
+msgstr "Routenzuordnung bearbeiten"
 
 msgid "Custom Routes Plugin Settings"
-msgstr ""
+msgstr "Benutzerdefinierte Routen Plugin-Einstellungen"
 
 msgid "Custom Route Mappings"
-msgstr ""
+msgstr "Benutzerdefinierte Routenzuordnungen"
 
 msgid "New mapping"
-msgstr ""
+msgstr "Neue Zuordnung"
 
 msgid "New Route Mapping"
-msgstr ""
+msgstr "Neue Routenplanung"
