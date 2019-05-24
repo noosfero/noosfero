@@ -7,16 +7,16 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2017-01-23 21:42+0000\n"
-"Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
-"Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
-"custom-forms/de/>\n"
+"PO-Revision-Date: 2019-06-18 19:01+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/noosfero/"
+"plugin-custom-forms/de/>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.11-dev\n"
+"X-Generator: Weblate 3.7\n"
 
 #, fuzzy
 msgid "Multiple choice"
@@ -552,7 +552,7 @@ msgstr "Vorgewählt"
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:29
 #: ../views/custom_forms_plugin_profile/show.html.erb:9
 msgid "Remove"
-msgstr ""
+msgstr "Entfernen"
 
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:39
 #: ../views/custom_forms_plugin_myprofile/_poll.html.erb:56
@@ -665,7 +665,7 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/report.html.erb:65
 #: ../views/shared/_form.html.erb:23
 msgid "Go back"
-msgstr ""
+msgstr "Zurückgehen"
 
 #: ../views/custom_forms_plugin_myprofile/import.html.erb:34
 msgid "Import file"
@@ -833,7 +833,7 @@ msgstr ""
 
 #: ../views/custom_forms_plugin_profile/show.html.erb:7
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: ../views/custom_forms_plugin_profile/show.html.erb:31
 #: ../views/tasks/custom_forms_plugin/_membership_survey_accept_details.html.erb:8
