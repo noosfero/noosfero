@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2017-01-23 22:51+0000\n"
-"Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
+"PO-Revision-Date: 2019-06-16 14:35+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/noosfero/noosfero/"
 "de/>\n"
 "Language: de\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.11-dev\n"
+"X-Generator: Weblate 3.7-dev\n"
 
 #, fuzzy
 msgid "Kinds"
@@ -2307,7 +2307,7 @@ msgstr "Neuer Artikel"
 #: ../app/views/role/index.html.erb:14 ../app/views/role/show.html.erb:11
 #: ../app/views/trusted_sites/index.html.erb:20
 msgid "Edit"
-msgstr "Ändern"
+msgstr "Bearbeiten"
 
 #: ../app/helpers/article_helper.rb:162
 #: ../app/views/blocks/profile_info_actions/_circles.html.erb:7
@@ -2531,7 +2531,7 @@ msgstr "Sind Sie sicher, dass Sie diesen Kommentar als Spam markieren möchten?"
 #: ../app/views/trusted_sites/index.html.erb:21
 #: ../app/views/users/_users_list.html.erb:48
 msgid "Remove"
-msgstr "Entferne"
+msgstr "Entfernen"
 
 #: ../app/helpers/comment_helper.rb:109
 #: ../app/views/content_viewer/_comment.html.erb:73
@@ -4596,9 +4596,8 @@ msgid "photos"
 msgstr "Fotos"
 
 #: ../app/models/control_panel/preferences.rb:4
-#, fuzzy
 msgid "Preferences"
-msgstr "Referenz"
+msgstr "Einstellungen"
 
 #: ../app/models/control_panel/preferences.rb:20
 #, fuzzy
@@ -6416,7 +6415,7 @@ msgstr "Bestätigen Sie Ihr neues Passwort"
 #: ../app/views/spam/index.html.erb:10 ../app/views/spam/index.html.erb:24
 #: ../app/views/tasks/index.html.erb:44 ../app/views/tasks/index.html.erb:84
 msgid "Back to control panel"
-msgstr "Zurück zum Kontrollpanel"
+msgstr "Zurück zum Bedienfeld"
 
 #: ../app/views/account/forgot_password.html.erb:1
 msgid "Forgot your password?"
@@ -8059,7 +8058,7 @@ msgstr ""
 
 #: ../app/views/cms/upload_files.html.erb:22
 msgid "Uploading files to %s"
-msgstr "Lade Dateien auf %s"
+msgstr "Hochladen von Dateien in %s"
 
 #: ../app/views/cms/view.html.erb:4
 msgid "Content management"
@@ -8516,7 +8515,7 @@ msgstr ""
 #: ../app/views/shared/access_denied.html.erb:13
 #: ../app/views/shared/not_found.html.erb:8 ../public/500.html.erb:27
 msgid "Go back"
-msgstr "Zurück"
+msgstr "Zurückgehen"
 
 #: ../app/views/enterprise_registration/index.html.erb:16
 msgid ""
@@ -11011,11 +11010,9 @@ msgstr ""
 #~ msgid "Skip"
 #~ msgstr "Auslassen"
 
-#: ../app/models/profile.rb:95
 #~ msgid "Manage content"
 #~ msgstr "Inhalt verwalten"
 
-#: ../app/models/profile.rb:105
 #~ msgid "Publish content"
 #~ msgstr "Inhalt heraufladen"
 
