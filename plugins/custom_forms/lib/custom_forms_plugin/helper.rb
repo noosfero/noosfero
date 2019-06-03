@@ -55,14 +55,16 @@ module CustomFormsPlugin::Helper
   def type_options
     [
       [c_('Text'),   'text_field'  ],
-      [_('Select'), 'select_field']
+      [_('Select'), 'select_field'],
+      [_('Datetime'), 'datetime_field']
     ]
   end
 
   def type_to_label(type)
     map = {
       'text_field' => _('Text field'),
-      'select_field' => _('Select field')
+      'select_field' => _('Select field'),
+      'datetime_field' => _('Datetime field')
     }
     map[type_for_options(type)]
   end
@@ -99,6 +101,17 @@ module CustomFormsPlugin::Helper
     answer.present? ? answer.alternatives.map {|m| m.id.to_s} : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
   end
 
+  def display_date_time_field(field, answer, form)
+    html_options = {}
+    # puts("X"*100)
+    # puts(answer.value)
+    # puts("X"*100)
+    date_value = answer.present? ? answer.value : DateTime.now
+    if field.show_as == 'datetime'
+      date_field("datetime", date_value, {:disabled => display_disabled?(field, answer)}, html_options.merge({:id => :datetime_value, :style => "margin-left: 1em"}))
+    end
+  end
+
   def display_select_field(field, answer, form)
     case field.show_as
     when 'select'
@@ -111,7 +124,7 @@ module CustomFormsPlugin::Helper
     when 'multiple_select'
       selected = default_selected(field, answer)
       input_name = form.to_s + "[#{field.id}]"
-      
+
       inputs = hidden_field_tag(input_name, '0')
       inputs += select_tag input_name, options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected),
               :multiple => true, :title => _('Hold down Ctrl to select options'),

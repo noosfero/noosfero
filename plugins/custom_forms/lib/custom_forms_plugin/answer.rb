@@ -24,8 +24,13 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   end
 
   def value
+    puts("*"*100)
+    puts(field)
+    puts("*"*100)
     if field.is_a? CustomFormsPlugin::SelectField
       form_answers.map { |f| f.alternative_id }.join(',')
+    elsif field.is_a? CustomFormsPlugin::DateTimeField
+      form_answers.map { |f| f.datetime_value }.join(',')
     else
       self['value']
     end

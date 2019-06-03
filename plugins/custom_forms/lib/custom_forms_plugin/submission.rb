@@ -33,8 +33,12 @@ class CustomFormsPlugin::Submission < ApplicationRecord
   end
 
   def build_answers submission
+    puts("AKAOSDKOASKDKOAS" * 100)
     self.form.fields.each do |field|
       next unless value = submission[field.id.to_s]
+      puts("AKAOSDKOASKDKOAS" * 100)
+      puts(value)
+      puts("AKAOSDKOASKDKOAS" * 100)
       chosen_alternatives = chosen_alternatives_from_value(value)
       #keeping the value field for text answers.
       answer = self.answers.build :field => field, :value => value
@@ -50,7 +54,7 @@ class CustomFormsPlugin::Submission < ApplicationRecord
   def chosen_alternatives_from_value(value)
     begin
       alternatives = []
-      
+
       if value.kind_of?(String)
         alternatives << CustomFormsPlugin::Alternative.find(value) if (value.to_i > 0)
       end
