@@ -56,7 +56,7 @@ module CustomFormsPlugin::Helper
     [
       [c_('Text'),   'text_field'  ],
       [_('Select'), 'select_field'],
-      [_('Datetime'), 'datetime_field']
+      [_('DateTime'), 'date_time_field']
     ]
   end
 
@@ -64,7 +64,7 @@ module CustomFormsPlugin::Helper
     map = {
       'text_field' => _('Text field'),
       'select_field' => _('Select field'),
-      'datetime_field' => _('Datetime field')
+      'date_time_field' => _('Datetime field')
     }
     map[type_for_options(type)]
   end
@@ -109,7 +109,7 @@ module CustomFormsPlugin::Helper
         "submission[#{field.id}]",
         date_value,
         {:disabled => display_disabled?(field, answer)},
-        html_options.merge({:id => :datetime_value, :style => "margin-left: 1em"})
+        html_options.merge({:id => :datetime_value})
       )
     end
   end

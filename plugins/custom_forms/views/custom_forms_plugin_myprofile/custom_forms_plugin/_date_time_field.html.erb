@@ -2,14 +2,16 @@
   <div class="field-select-type">
     <%= _('Type:') %>
     <%= f.radio_button(:show_as, 'datetime') %>
-    <%= f.label(:show_as, _('DateTime'), :value => 'datetime') %>
+    <%= f.label(:show_as, _('Simple date'), :value => 'datetime') %>
   </div>
 
   <div class="field-text-default">
     <div class='formfieldline'>
       <% html_options = {} %>
-      <%= f.label(:value, _('Period:')) %>
-      <%= date_field("datetime", "", {}, html_options.merge({:id => :value, :style => "margin-left: 1em"})) %>
+      <%= f.label(:value, _('Default date:')) %>
+      <%= date_field(
+        "datetime", "", {}, html_options.merge({:id => :default_value})
+        ) %>
     </div>
   </div>
 <% end %>
