@@ -103,12 +103,14 @@ module CustomFormsPlugin::Helper
 
   def display_date_time_field(field, answer, form)
     html_options = {}
-    # puts("X"*100)
-    # puts(answer.value)
-    # puts("X"*100)
     date_value = answer.present? ? answer.value : DateTime.now
     if field.show_as == 'datetime'
-      date_field("datetime", date_value, {:disabled => display_disabled?(field, answer)}, html_options.merge({:id => :datetime_value, :style => "margin-left: 1em"}))
+      date_field(
+        "submission[#{field.id}]",
+        date_value,
+        {:disabled => display_disabled?(field, answer)},
+        html_options.merge({:id => :datetime_value, :style => "margin-left: 1em"})
+      )
     end
   end
 
