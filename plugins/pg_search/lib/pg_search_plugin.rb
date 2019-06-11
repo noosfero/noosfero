@@ -50,7 +50,7 @@ class PgSearchPlugin < Noosfero::Plugin
 
   def active_filters asset, scope, params, query = nil
     facets  = params[:facets] || {}
-    periods = params[:periods] || default_periods_for(asset)
+    periods = (params[:periods] || default_periods_for(asset)).to_h
     query ||= params[:query] || params[:q]
     block = Block.find_by id: params[:block]
 
@@ -108,7 +108,7 @@ class PgSearchPlugin < Noosfero::Plugin
     facets.each do |term, values|
       kind, klass = term.split('-')
       if kind == 'attribute' || kind == 'relation' || kind == 'metadata'
-        arguments = values.map {|value, check| value if check == '1'}.compact
+        arguments = values.to_h.map {|value, check| value if check == '1'}.compact
         arguments.map! {|argument| argument == ' ' ? nil : argument}
       else
         next
