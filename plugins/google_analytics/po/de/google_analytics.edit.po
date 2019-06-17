@@ -1,0 +1,31 @@
+# German translation of noosfero.
+# Copyright (C) 2009-2013 Josef Spillner
+# Copyright (C) 2009, 2011 Ronny Kursawe
+# This file is distributed under the same license as the noosfero package.
+# Josef Spillner <josef.spillner@tu-dresden.de>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"PO-Revision-Date: 2017-01-23 20:19+0000\n"
+"Last-Translator: Hannes Olszewski <sorro17@gmail.com>\n"
+"Language-Team: German <https://hosted.weblate.org/projects/noosfero/plugin-"
+"google-analytics/de/>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2.11-dev\n"
+
+#: ../lib/google_analytics_plugin.rb:13
+msgid "Tracking and web analytics to people and communities"
+msgstr "Nachverfolgung und Webanalyse für Personen und Gemeinschaften"
+
+#: ../views/profile-editor-extras.html.erb:2
+msgid "Google Analytics Profile ID"
+msgstr "Google Analytics Profil ID"
+
+#: ../views/profile-editor-extras.html.erb:3
+msgid "See how to configure statistics for your profile"
+msgstr "Sehen Sie, wie Sie die Statistiken für Ihr Profil konfigurieren können"

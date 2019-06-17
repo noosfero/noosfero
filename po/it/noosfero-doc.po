@@ -927,8 +927,7 @@ msgstr ""
 #: doc/noosfero/user/logout.en.xhtml:19
 #: doc/noosfero/user/sending-scraps.en.xhtml:25
 #: doc/noosfero/user/invite-contacts.en.xhtml:38
-#: doc/noosfero/user/commenting.en.xhtml:24
-#: doc/noosfero/user/login.en.xhtml:20
+#: doc/noosfero/user/commenting.en.xhtml:24 doc/noosfero/user/login.en.xhtml:20
 #: doc/noosfero/user/answering-scraps.en.xhtml:26
 #: doc/noosfero/user/deleting-profile.en.xhtml:24
 #: doc/noosfero/user/registering-new-user.en.xhtml:30
@@ -1236,8 +1235,7 @@ msgstr ""
 #: doc/noosfero/user/logout.en.xhtml:13
 #: doc/noosfero/user/sending-scraps.en.xhtml:13
 #: doc/noosfero/user/invite-contacts.en.xhtml:14
-#: doc/noosfero/user/commenting.en.xhtml:13
-#: doc/noosfero/user/login.en.xhtml:10
+#: doc/noosfero/user/commenting.en.xhtml:13 doc/noosfero/user/login.en.xhtml:10
 #: doc/noosfero/user/answering-scraps.en.xhtml:12
 #: doc/noosfero/user/deleting-profile.en.xhtml:13
 #: doc/noosfero/user/registering-new-user.en.xhtml:13
@@ -1596,8 +1594,7 @@ msgstr ""
 #: doc/noosfero/user/logout.en.xhtml:15
 #: doc/noosfero/user/sending-scraps.en.xhtml:18
 #: doc/noosfero/user/invite-contacts.en.xhtml:33
-#: doc/noosfero/user/commenting.en.xhtml:20
-#: doc/noosfero/user/login.en.xhtml:15
+#: doc/noosfero/user/commenting.en.xhtml:20 doc/noosfero/user/login.en.xhtml:15
 #: doc/noosfero/user/answering-scraps.en.xhtml:19
 #: doc/noosfero/user/deleting-profile.en.xhtml:19
 #: doc/noosfero/user/registering-new-user.en.xhtml:23
@@ -3959,8 +3956,7 @@ msgid ""
 msgstr ""
 
 #. type: Content of: <ul><li>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:23
-#: doc/noosfero/cms/toc.en.xhtml:6
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:23 doc/noosfero/cms/toc.en.xhtml:6
 msgid "<a href=\"/doc/cms/creating-blog\">Creating a blog</a>"
 msgstr ""
 

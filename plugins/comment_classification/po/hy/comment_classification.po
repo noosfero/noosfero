@@ -69,13 +69,11 @@ msgstr "Սկզբնական նյութի թարմացումը ձախողված է
 msgid "A plugin that allow classification of comments."
 msgstr "Ձեր խմբերը ցուցադրող բաժին"
 
-#, fuzzy
-msgid "Are you sure you want to remove this status?"
-msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
+msgid "Status"
+msgstr "Կարգավիճակ"
 
-#, fuzzy
-msgid "Reason enabled?"
-msgstr "%s ակտիվացված չէ:"
+msgid "Label..."
+msgstr ""
 
 #, fuzzy
 msgid "Comments classification options"
@@ -89,21 +87,19 @@ msgstr "Կառավարել անդամներին"
 msgid "Manage Status"
 msgstr "Կառավարել բովանդակությունը:"
 
-#, fuzzy
-msgid "(no status registered yet)"
-msgstr "սեռը գրանցված չէ"
+msgid "Name"
+msgstr "Անվանում"
 
-#, fuzzy
-msgid "Manage comments status"
-msgstr "Կառավարել բովանդակությունը:"
+msgid "Color"
+msgstr ""
 
 #, fuzzy
 msgid "Enable this label?"
 msgstr "Ակտիվացնել ձեռնարկությունը"
 
 #, fuzzy
-msgid "Reason:"
-msgstr "Տարածաշրջան"
+msgid "Add a new label"
+msgstr "Մեկ ձեռնարկություն"
 
 #, fuzzy
 msgid "Editing label %s"
@@ -117,68 +113,65 @@ msgstr "Կառավարել ընկերներին"
 msgid "(no label registered yet)"
 msgstr "սեռը գրանցված չէ"
 
-#, fuzzy
-msgid "Editing status %s"
-msgstr "Փոփոխում %s"
+msgid "Label"
+msgstr ""
 
-#, fuzzy
-msgid "Enable this status?"
-msgstr "Հատկություններ ակտիվացնել/դիզակտիվացնել"
+msgid "Enabled"
+msgstr "Ակտիվացված է"
 
-#, fuzzy
-msgid "Manage comment classification"
-msgstr "Տեղեկություններ ղեկավարության մասին"
+msgid "Actions"
+msgstr "Գործողություններ"
 
 #, fuzzy
 msgid "Are you sure you want to  remove this label?"
 msgstr "Ցանկանո՞ւմ եք արդյոք հեռացնել այս մեկնաբանությունը:"
 
 #, fuzzy
+msgid "Reason:"
+msgstr "Տարածաշրջան"
+
+#, fuzzy
 msgid "Status for comment"
 msgstr "Մեկ մեկնաբանություն"
+
+msgid "Comment Informations"
+msgstr ""
+
+msgid "added the status"
+msgstr ""
+
+#, fuzzy
+msgid "Reason"
+msgstr "Տարածաշրջան"
 
 #, fuzzy
 msgid "Add a new status"
 msgstr "Մեկ ձեռնարկություն"
 
 #, fuzzy
-msgid "Add a new label"
-msgstr "Մեկ ձեռնարկություն"
+msgid "Manage comment classification"
+msgstr "Տեղեկություններ ղեկավարության մասին"
 
-#: ../views/comment/comment_extra.html.erb:12
-#: ../views/comment_classification_plugin_myprofile/_status_form.html.erb:7
-#: ../views/comment_classification_plugin_status/index.html.erb:9
-msgid "Status"
-msgstr "Կարգավիճակ"
+#, fuzzy
+msgid "Enable this status?"
+msgstr "Հատկություններ ակտիվացնել/դիզակտիվացնել"
 
-#: ../views/comment/comments_labels_select.html.erb:3
-msgid "Label..."
-msgstr ""
+#, fuzzy
+msgid "Editing status %s"
+msgstr "Փոփոխում %s"
 
-#: ../views/comment_classification_plugin_labels/_form.html.erb:6
-#: ../views/comment_classification_plugin_status/_form.html.erb:6
-msgid "Name"
-msgstr "Անվանում"
+#, fuzzy
+msgid "Manage comments status"
+msgstr "Կառավարել բովանդակությունը:"
 
-#: ../views/comment_classification_plugin_labels/_form.html.erb:7
-#: ../views/comment_classification_plugin_labels/index.html.erb:10
-msgid "Color"
-msgstr ""
+#, fuzzy
+msgid "(no status registered yet)"
+msgstr "սեռը գրանցված չէ"
 
-#: ../views/comment_classification_plugin_labels/index.html.erb:9
-msgid "Label"
-msgstr ""
+#, fuzzy
+msgid "Reason enabled?"
+msgstr "%s ակտիվացված չէ:"
 
-#: ../views/comment_classification_plugin_labels/index.html.erb:11
-#: ../views/comment_classification_plugin_status/index.html.erb:10
-msgid "Enabled"
-msgstr "Ակտիվացված է"
-
-#: ../views/comment_classification_plugin_labels/index.html.erb:12
-#: ../views/comment_classification_plugin_status/index.html.erb:12
-msgid "Actions"
-msgstr "Գործողություններ"
-
-#: ../views/comment_classification_plugin_myprofile/add_status.html.erb:5
-msgid "Comment Informations"
-msgstr ""
+#, fuzzy
+msgid "Are you sure you want to remove this status?"
+msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"

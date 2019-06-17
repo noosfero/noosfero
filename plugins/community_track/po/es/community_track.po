@@ -21,158 +21,131 @@ msgstr ""
 msgid "Select one community to proceed"
 msgstr "Editar plantilla de comunidad"
 
-#, fuzzy
-msgid "View"
-msgstr "Ver todos"
+msgid "New kind of content for communities."
+msgstr "Nuevo tipo de contenido para las comunidades."
 
 #, fuzzy
 msgid "Step not allowed at this parent."
 msgstr "No tienes permitido ver esta página."
 
-#, fuzzy
-msgid "Create %s"
-msgstr "Crear Bsc"
+msgid "must be equal or after start date."
+msgstr ""
 
-#, fuzzy
-msgid "New Track"
-msgstr "Nuevo contrato"
+msgid "Step"
+msgstr "Paso"
 
-#, fuzzy
-msgid "Select Community"
-msgstr "Comunidad"
+msgid "Defines a step."
+msgstr "Definir un paso."
 
-#, fuzzy
-msgid "Expected Results:"
-msgstr "Buscar resultados"
+msgid "Soon"
+msgstr "Pronto"
 
-#, fuzzy
-msgid "Hidden Step"
-msgstr "Oculto"
+msgid "Closed"
+msgstr "Cerrado"
 
-#, fuzzy
-msgid "Tool type"
-msgstr "Tipo de etiquetable"
+msgid "Join!"
+msgstr "Unete!"
 
-#, fuzzy
-msgid "Select Categories"
-msgstr "Categorías de los productos"
+msgid "should not be blank."
+msgstr "no debe estar vacío."
 
 #, fuzzy
 msgid "Track"
 msgstr "Seguir"
 
+msgid "Defines a track."
+msgstr ""
+
+msgid "Track Card List"
+msgstr "Seguimiento de Lista de Tarjetas"
+
 #, fuzzy
-msgid "View All"
-msgstr "Ver todos"
+msgid "This block displays a list of most relevant tracks as cards."
+msgstr "Este bloque muestra las empresas donde este usuario trabaja."
+
+msgid "Track List"
+msgstr ""
 
 #, fuzzy
 msgid "This block displays a list of most relevant tracks."
 msgstr "Este bloque presenta una lista de tus productos."
 
 #, fuzzy
-msgid "This block displays a list of most relevant tracks as cards."
-msgstr "Este bloque muestra las empresas donde este usuario trabaja."
-
-#, fuzzy
 msgid "Hits"
 msgstr "aciertos"
+
+msgid "Random"
+msgstr ""
+
+msgid "Most Recent"
+msgstr ""
+
+msgid "Steps"
+msgstr ""
+
+msgid "hits"
+msgstr "aciertos"
+
+#, fuzzy
+msgid "View All"
+msgstr "Ver todos"
+
+msgid "Show more at another page"
+msgstr ""
+
+#, fuzzy
+msgid "Select Categories"
+msgstr "Categorías de los productos"
+
+msgid "Period"
+msgstr ""
+
+#, fuzzy
+msgid "Tool type"
+msgstr "Tipo de etiquetable"
+
+#, fuzzy
+msgid "Hidden Step"
+msgstr "Oculto"
+
+msgid "Goals:"
+msgstr ""
+
+#, fuzzy
+msgid "Expected Results:"
+msgstr "Buscar resultados"
+
+msgid "Tracks"
+msgstr ""
+
+#, fuzzy
+msgid "Select Community"
+msgstr "Comunidad"
+
+#, fuzzy
+msgid "New Track"
+msgstr "Nuevo contrato"
+
+msgid "Tool: "
+msgstr ""
+
+#, fuzzy
+msgid "Create %s"
+msgstr "Crear Bsc"
+
+#, fuzzy
+msgid "View"
+msgstr "Ver todos"
+
+msgid "Tool"
+msgstr ""
+
+msgid "Reorder Steps"
+msgstr ""
+
+msgid "Save Order"
+msgstr ""
 
 #, fuzzy
 msgid "Hidden Steps"
 msgstr "Oculto"
-
-#: ../lib/community_track_plugin.rb:8
-msgid "New kind of content for communities."
-msgstr "Nuevo tipo de contenido para las comunidades."
-
-#: ../lib/community_track_plugin/step.rb:35
-msgid "must be equal or after start date."
-msgstr ""
-
-#: ../lib/community_track_plugin/step.rb:40
-msgid "Step"
-msgstr "Paso"
-
-#: ../lib/community_track_plugin/step.rb:44
-msgid "Defines a step."
-msgstr "Definir un paso."
-
-#: ../lib/community_track_plugin/step_helper.rb:4
-msgid "Join!"
-msgstr "Unete!"
-
-#: ../lib/community_track_plugin/step_helper.rb:4
-msgid "Closed"
-msgstr "Cerrado"
-
-#: ../lib/community_track_plugin/step_helper.rb:4
-#: ../test/unit/community_track_plugin/step_helper_test.rb:33
-msgid "Soon"
-msgstr "Pronto"
-
-#: ../lib/community_track_plugin/track.rb:16
-msgid "should not be blank."
-msgstr "no debe estar vacío."
-
-#: ../lib/community_track_plugin/track.rb:28
-msgid "Defines a track."
-msgstr ""
-
-#: ../lib/community_track_plugin/track_card_list_block.rb:4
-#: ../lib/community_track_plugin/track_card_list_block.rb:12
-msgid "Track Card List"
-msgstr "Seguimiento de Lista de Tarjetas"
-
-#: ../lib/community_track_plugin/track_list_block.rb:13
-#: ../lib/community_track_plugin/track_list_block.rb:21
-msgid "Track List"
-msgstr ""
-
-#: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Random"
-msgstr ""
-
-#: ../lib/community_track_plugin/track_list_block.rb:92
-msgid "Most Recent"
-msgstr ""
-
-#: ../views/blocks/_track.html.erb:12 ../views/content_viewer/track.html.erb:9
-msgid "Steps"
-msgstr ""
-
-#: ../views/blocks/_track_card.html.erb:25
-msgid "hits"
-msgstr "aciertos"
-
-#: ../views/box_organizer/community_track_plugin/_track_list_block.html.erb:8
-msgid "Show more at another page"
-msgstr ""
-
-#: ../views/cms/community_track_plugin/_step.html.erb:5
-msgid "Period"
-msgstr ""
-
-#: ../views/cms/community_track_plugin/_track.html.erb:11
-msgid "Goals:"
-msgstr ""
-
-#: ../views/community_track_plugin_public/all_tracks.html.erb:1
-msgid "Tracks"
-msgstr ""
-
-#: ../views/content_viewer/_step_item.html.erb:16
-msgid "Tool: "
-msgstr ""
-
-#: ../views/content_viewer/step.html.erb:13
-#: ../views/content_viewer/step.html.erb:19
-msgid "Tool"
-msgstr ""
-
-#: ../views/content_viewer/track.html.erb:16
-msgid "Reorder Steps"
-msgstr ""
-
-#: ../views/content_viewer/track.html.erb:17
-msgid "Save Order"
-msgstr ""

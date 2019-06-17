@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 19:32+0000\n"
-"PO-Revision-Date: 2018-10-30 19:32+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -22,19 +22,19 @@ msgstr ""
 msgid "Product succesfully created"
 msgstr ""
 
-#: ../controllers/profile/products_plugin/page_controller.rb:145
+#: ../controllers/profile/products_plugin/page_controller.rb:153
 msgid "Product succesfully removed"
 msgstr ""
 
-#: ../controllers/profile/products_plugin/page_controller.rb:148
+#: ../controllers/profile/products_plugin/page_controller.rb:156
 msgid "Could not remove the product"
 msgstr ""
 
-#: ../controllers/profile/products_plugin/page_controller.rb:167
+#: ../controllers/profile/products_plugin/page_controller.rb:175
 msgid "The input was not found"
 msgstr ""
 
-#: ../controllers/profile/products_plugin/page_controller.rb:209
+#: ../controllers/profile/products_plugin/page_controller.rb:217
 #: ../models/products_plugin/certifier.rb:8
 #: ../models/products_plugin/product.rb:13
 #: ../models/products_plugin/qualifier.rb:8
@@ -320,15 +320,6 @@ msgstr ""
 #: ../views/person_notifier/mailer/_create_product.html.erb:9
 #: ../views/person_notifier/mailer/_remove_product.html.erb:8
 #: ../views/person_notifier/mailer/_update_product.html.erb:9
-#: ../views/profile/_create_product.html.erb:9
-#: ../views/profile/_remove_product.html.erb:8
-#: ../views/profile/_update_product.html.erb:9
-msgid "Are you sure you want to remove this activity and all its replies?"
-msgstr ""
-
-#: ../views/person_notifier/mailer/_create_product.html.erb:9
-#: ../views/person_notifier/mailer/_remove_product.html.erb:8
-#: ../views/person_notifier/mailer/_update_product.html.erb:9
 #: ../views/products_plugin/page/_display_input.html.erb:8
 #: ../views/products_plugin/page/_edit_price_details.html.erb:6
 #: ../views/products_plugin/page/index.html.erb:19
@@ -336,6 +327,15 @@ msgstr ""
 #: ../views/profile/_remove_product.html.erb:8
 #: ../views/profile/_update_product.html.erb:9
 msgid "Remove"
+msgstr ""
+
+#: ../views/person_notifier/mailer/_create_product.html.erb:9
+#: ../views/person_notifier/mailer/_remove_product.html.erb:8
+#: ../views/person_notifier/mailer/_update_product.html.erb:9
+#: ../views/profile/_create_product.html.erb:9
+#: ../views/profile/_remove_product.html.erb:8
+#: ../views/profile/_update_product.html.erb:9
+msgid "Are you sure you want to remove this activity and all its replies?"
 msgstr ""
 
 #: ../views/products_plugin/catalog/index.html.erb:7
@@ -406,14 +406,14 @@ msgid "Choose an input or raw material to this product:"
 msgstr ""
 
 #: ../views/products_plugin/page/_add_input.html.erb:14
-#: ../views/products_plugin/page/edit_category.html.erb:24
-#: ../views/products_plugin/page/new.html.erb:18
+#: ../views/products_plugin/page/edit_category.html.erb:25
+#: ../views/products_plugin/page/new.html.erb:19
 msgid "Save and continue"
 msgstr ""
 
 #: ../views/products_plugin/page/_add_input.html.erb:17
-#: ../views/products_plugin/page/edit_category.html.erb:27
-#: ../views/products_plugin/page/new.html.erb:21
+#: ../views/products_plugin/page/edit_category.html.erb:28
+#: ../views/products_plugin/page/new.html.erb:22
 msgid ""
 "This category does not allow registration of products, select a more specific "
 "category"
@@ -519,16 +519,16 @@ msgstr ""
 msgid "Inputs:"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_description.html.erb:8
+#: ../views/products_plugin/page/_edit_description.html.erb:9
 #: ../views/products_plugin/page/_form.html.erb:8
 msgid "Description:"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_description.html.erb:10
+#: ../views/products_plugin/page/_edit_description.html.erb:11
 #: ../views/products_plugin/page/_edit_image.html.erb:11
-#: ../views/products_plugin/page/_edit_info.html.erb:58
+#: ../views/products_plugin/page/_edit_info.html.erb:59
 #: ../views/products_plugin/page/_edit_input.html.erb:36
-#: ../views/products_plugin/page/_edit_name.html.erb:10
+#: ../views/products_plugin/page/_edit_name.html.erb:11
 #: ../views/products_plugin/page/_manage_product_details.html.erb:25
 msgid "Save"
 msgstr ""
@@ -537,47 +537,47 @@ msgstr ""
 msgid "Max size: %s (.jpg, .gif, .png)"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:13
+#: ../views/products_plugin/page/_edit_info.html.erb:14
 msgid "Price (%s)"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:17
+#: ../views/products_plugin/page/_edit_info.html.erb:18
 msgid "Discount (%s)"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:18
+#: ../views/products_plugin/page/_edit_info.html.erb:19
 msgid "If your product is on sale, fill this field with the discount value"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:21
+#: ../views/products_plugin/page/_edit_info.html.erb:22
 msgid "Available"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:22
+#: ../views/products_plugin/page/_edit_info.html.erb:23
 #: ../views/products_plugin/page/_edit_input.html.erb:20
 #: ../views/products_plugin/page/_edit_input.html.erb:29
 msgid "Yes"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:22
+#: ../views/products_plugin/page/_edit_info.html.erb:23
 #: ../views/products_plugin/page/_edit_input.html.erb:22
 #: ../views/products_plugin/page/_edit_input.html.erb:31
 msgid "No"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:25
+#: ../views/products_plugin/page/_edit_info.html.erb:26
 msgid "Highlight this product?"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:33
+#: ../views/products_plugin/page/_edit_info.html.erb:34
 msgid "Qualifier"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:34
+#: ../views/products_plugin/page/_edit_info.html.erb:35
 msgid "Certifier"
 msgstr ""
 
-#: ../views/products_plugin/page/_edit_info.html.erb:49
+#: ../views/products_plugin/page/_edit_info.html.erb:50
 msgid "Add new qualifier"
 msgstr ""
 
@@ -622,11 +622,11 @@ msgid "Image:"
 msgstr ""
 
 #: ../views/products_plugin/page/_form.html.erb:13
-msgid "Save changes"
+msgid "Create product"
 msgstr ""
 
 #: ../views/products_plugin/page/_form.html.erb:13
-msgid "Create product"
+msgid "Save changes"
 msgstr ""
 
 #: ../views/products_plugin/page/_manage_product_details.html.erb:9
@@ -675,11 +675,11 @@ msgstr ""
 msgid "Editing"
 msgstr ""
 
-#: ../views/products_plugin/page/edit_category.html.erb:17
+#: ../views/products_plugin/page/edit_category.html.erb:18
 msgid "Edit category of this product:"
 msgstr ""
 
-#: ../views/products_plugin/page/edit_category.html.erb:22
+#: ../views/products_plugin/page/edit_category.html.erb:23
 msgid "Back to product"
 msgstr ""
 
@@ -716,11 +716,11 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: ../views/products_plugin/page/new.html.erb:11
+#: ../views/products_plugin/page/new.html.erb:12
 msgid "Select the category of the new product or service"
 msgstr ""
 
-#: ../views/products_plugin/page/new.html.erb:16
+#: ../views/products_plugin/page/new.html.erb:17
 #: ../views/products_plugin/page/show.html.erb:72
 msgid "Back to the product listing"
 msgstr ""

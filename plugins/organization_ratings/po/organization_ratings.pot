@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 15:45+0000\n"
-"PO-Revision-Date: 2017-05-09 15:45+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -102,11 +102,11 @@ msgid "This block displays the organization ratings."
 msgstr ""
 
 #: ../lib/organization_ratings_config.rb:9
-msgid "Best Ratings"
+msgid "More Recent"
 msgstr ""
 
 #: ../lib/organization_ratings_config.rb:9
-msgid "More Recent"
+msgid "Best Ratings"
 msgstr ""
 
 #: ../lib/organization_ratings_plugin.rb:9
@@ -182,11 +182,11 @@ msgid "Back"
 msgstr ""
 
 #: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:34
-msgid "stars"
+msgid "Rated as"
 msgstr ""
 
 #: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:34
-msgid "Rated as"
+msgid "stars"
 msgstr ""
 
 #: ../views/organization_ratings_plugin_profile/_new_rating_fields.html.erb:41

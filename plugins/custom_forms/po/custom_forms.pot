@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 13:31+0000\n"
-"PO-Revision-Date: 2018-12-12 13:31+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -794,11 +794,11 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:22
-msgid "Partial results"
+msgid "Final results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:22
-msgid "Final results"
+msgid "Partial results"
 msgstr ""
 
 #: ../views/custom_forms_plugin_profile/_queries_content.html.erb:35
@@ -888,11 +888,11 @@ msgid "Your e-mail will be visible to this form's owners."
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Send"
+msgid "Vote!"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:15
-msgid "Vote!"
+msgid "Send"
 msgstr ""
 
 #: ../views/shared/_form.html.erb:18 ../views/shared/_form.html.erb:21

@@ -1,0 +1,96 @@
+# translation of noosfero.po to
+# Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
+# noosfero - Brazilian Portuguese translation
+# Copyright (C) 2007,
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Copyright (C) 2007,
+# Ynternet.org Foundation <http://www.ynternet.org/>
+# This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"PO-Revision-Date: 2019-01-08 14:07+0000\n"
+"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"plugin-pg-search/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.4-dev\n"
+
+#: ../lib/pg_search_plugin.rb:11
+msgid "Search engine that uses Postgres Full-Text Search."
+msgstr "Motor de busca que usa a Busca Full-Text do Postgres."
+
+#: ../lib/pg_search_plugin.rb:289
+msgid "True"
+msgstr "Verdadeiro"
+
+#: ../lib/pg_search_plugin.rb:289
+msgid "False"
+msgstr "Falso"
+
+#: ../lib/pg_search_plugin.rb:323
+msgid "Created at"
+msgstr "Criado em"
+
+#: ../lib/pg_search_plugin.rb:324
+msgid "Updated at"
+msgstr "Atualizado em"
+
+#: ../lib/pg_search_plugin.rb:325
+msgid "Extensions"
+msgstr "Extensões"
+
+#: ../lib/pg_search_plugin.rb:326
+msgid "Content types"
+msgstr "Tipos de conteúdo"
+
+#: ../lib/pg_search_plugin.rb:327
+msgid "Tags"
+msgstr "Etiquetas"
+
+#: ../lib/pg_search_plugin.rb:328
+msgid "Categories"
+msgstr "Categorias"
+
+#: ../lib/pg_search_plugin/search_helper.rb:6
+msgid "Refine options"
+msgstr "Refinar opções"
+
+#: ../lib/pg_search_plugin/search_helper.rb:18
+msgid "Undefined"
+msgstr "Indefinido"
+
+#: ../lib/pg_search_plugin/search_helper.rb:29
+msgid "Clear filters"
+msgstr "Limpar filtros"
+
+#: ../views/box_organizer/_profile_search_block.html.erb:3
+msgid "Enable advanced search"
+msgstr "Ativar busca avançada"
+
+#: ../views/box_organizer/_profile_search_block.html.erb:4
+msgid "Customized Search Fields"
+msgstr "Campos de Busca Customizados"
+
+#: ../views/profile_search/_facets.html.erb:3
+msgid "Advanced Search"
+msgstr "Busca Avançada"
+
+#~ msgid "Types"
+#~ msgstr "Formatos"
+
+#~ msgid "TextArticle"
+#~ msgstr "Artigo de Texto"
+
+#~ msgid "UploadedFile"
+#~ msgstr "Arquivo"
+
+#~ msgid "RSSFeed"
+#~ msgstr "RSS"

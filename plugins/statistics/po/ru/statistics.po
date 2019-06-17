@@ -18,17 +18,16 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#, fuzzy
-msgid "Show user counter"
-msgstr "Расположение:"
+msgid "Statistics for %s"
+msgstr "Статистика для %s"
 
 #, fuzzy
 msgid "This block presents some statistics about your context."
 msgstr "Данный блок представляет некоторую статистику вашей среды"
 
-#, fuzzy
-msgid "Show hit counter"
-msgstr "Весь контент"
+msgid ""
+"A plugin that adds a block where you can see statistics of it's context."
+msgstr ""
 
 #, fuzzy
 msgid "users"
@@ -38,25 +37,22 @@ msgstr "Пользователь"
 msgid "enterprises"
 msgstr "Компании"
 
-#, fuzzy
-msgid "Show comment counter"
-msgstr "Комментарий для автора"
+msgid "products"
+msgstr ""
 
-#, fuzzy
-msgid "Show tag counter"
-msgstr "Весь контент"
+msgid "communities"
+msgstr "Сообщества"
 
 #, fuzzy
 msgid "categories"
 msgstr "Категории"
 
-#, fuzzy
-msgid "Show category counter"
-msgstr "Новая категория"
+msgid "hits"
+msgstr ""
 
 #, fuzzy
-msgid "Show product counter"
-msgstr "Весь контент"
+msgid "Show user counter"
+msgstr "Расположение:"
 
 #, fuzzy
 msgid "Show community counter"
@@ -66,27 +62,25 @@ msgstr "В сообществе %s"
 msgid "Show enterprise counter"
 msgstr "%s: компании"
 
-#: ../lib/statistics_block.rb:24
-msgid "Statistics for %s"
-msgstr "Статистика для %s"
+#, fuzzy
+msgid "Show product counter"
+msgstr "Весь контент"
 
-#: ../lib/statistics_plugin.rb:10
-msgid ""
-"A plugin that adds a block where you can see statistics of it's context."
-msgstr ""
+#, fuzzy
+msgid "Show category counter"
+msgstr "Новая категория"
 
-#: ../views/blocks/statistics.html.erb:23
-msgid "products"
-msgstr ""
+#, fuzzy
+msgid "Show tag counter"
+msgstr "Весь контент"
 
-#: ../views/blocks/statistics.html.erb:30
-msgid "communities"
-msgstr "Сообщества"
+#, fuzzy
+msgid "Show comment counter"
+msgstr "Комментарий для автора"
 
-#: ../views/blocks/statistics.html.erb:58
-msgid "hits"
-msgstr ""
+#, fuzzy
+msgid "Show hit counter"
+msgstr "Весь контент"
 
-#: ../views/box_organizer/_statistics_block.html.erb:34
 msgid "Show counter for communities with template %s"
 msgstr ""

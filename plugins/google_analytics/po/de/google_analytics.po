@@ -18,14 +18,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
-#: ../lib/google_analytics_plugin.rb:13
 msgid "Tracking and web analytics to people and communities"
 msgstr "Nachverfolgung und Webanalyse für Personen und Gemeinschaften"
 
-#: ../views/profile-editor-extras.html.erb:2
 msgid "Google Analytics Profile ID"
 msgstr "Google Analytics Profil ID"
 
-#: ../views/profile-editor-extras.html.erb:3
 msgid "See how to configure statistics for your profile"
 msgstr "Sehen Sie, wie Sie die Statistiken für Ihr Profil konfigurieren können"

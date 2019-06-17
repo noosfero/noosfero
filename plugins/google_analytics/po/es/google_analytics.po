@@ -17,14 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.0-dev\n"
 
-#: ../lib/google_analytics_plugin.rb:13
 msgid "Tracking and web analytics to people and communities"
 msgstr "Seguimiento y análisis web para las personas y las comunidades"
 
-#: ../views/profile-editor-extras.html.erb:2
 msgid "Google Analytics Profile ID"
 msgstr ""
 
-#: ../views/profile-editor-extras.html.erb:3
 msgid "See how to configure statistics for your profile"
 msgstr ""

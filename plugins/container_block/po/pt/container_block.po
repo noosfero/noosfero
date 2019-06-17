@@ -23,9 +23,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.4-dev\n"
 
-msgid "Block successfully saved."
-msgstr "Bloco salvo com sucesso."
-
 msgid "A plugin that add a container block."
 msgstr "Um plugin que adiciona um bloco container."
 

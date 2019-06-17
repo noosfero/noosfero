@@ -12,34 +12,26 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.4-dev\n"
 
-#: ../lib/ext/profile.rb:53
 msgid "Manage orders"
 msgstr "Gerenciar pedidos"
 
-#: ../lib/orders_plugin/base.rb:15
 msgid "Shopping"
 msgstr "Compras"
 
-#: ../models/orders_plugin/order.rb:13
 msgid "Money"
 msgstr "Dinheiro"
 
-#: ../models/orders_plugin/order.rb:14
 msgid "shopping_cart|Check"
 msgstr "Cheque"
 
-#: ../models/orders_plugin/order.rb:15
 msgid "Credit card"
 msgstr "Cartão de crédito"
 
-#: ../models/orders_plugin/order.rb:16
 msgid "Bank transfer"
 msgstr "Transferência bancária"
 
-#: ../models/orders_plugin/order.rb:17
 msgid "Boleto"
 msgstr "Boleto bancário"
 
-#: ../views/orders_plugin_order/_delivery.html.erb:10
 msgid "Delivery or pickup method"
 msgstr "Forma de entrega ou retirada"

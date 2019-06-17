@@ -429,8 +429,8 @@ msgid ""
 "&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\">PUT</"
 "span> ID <span class=\"caps\">HERE</span>&gt;&#8217;"
 msgstr ""
-"&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\">"
-"COLOQUE </span> a ID <span class=\"caps\"> AQUI </span>&gt;&#8217;"
+"&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps"
+"\">COLOQUE </span> a ID <span class=\"caps\"> AQUI </span>&gt;&#8217;"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
@@ -1168,8 +1168,7 @@ msgstr ""
 #: doc/noosfero/user/logout.en.xhtml:19
 #: doc/noosfero/user/sending-scraps.en.xhtml:25
 #: doc/noosfero/user/invite-contacts.en.xhtml:38
-#: doc/noosfero/user/commenting.en.xhtml:24
-#: doc/noosfero/user/login.en.xhtml:20
+#: doc/noosfero/user/commenting.en.xhtml:24 doc/noosfero/user/login.en.xhtml:20
 #: doc/noosfero/user/answering-scraps.en.xhtml:26
 #: doc/noosfero/user/deleting-profile.en.xhtml:24
 #: doc/noosfero/user/registering-new-user.en.xhtml:30
@@ -1490,8 +1489,7 @@ msgstr "Gerenciar integrantes no painel de administrador"
 #: doc/noosfero/user/logout.en.xhtml:13
 #: doc/noosfero/user/sending-scraps.en.xhtml:13
 #: doc/noosfero/user/invite-contacts.en.xhtml:14
-#: doc/noosfero/user/commenting.en.xhtml:13
-#: doc/noosfero/user/login.en.xhtml:10
+#: doc/noosfero/user/commenting.en.xhtml:13 doc/noosfero/user/login.en.xhtml:10
 #: doc/noosfero/user/answering-scraps.en.xhtml:12
 #: doc/noosfero/user/deleting-profile.en.xhtml:13
 #: doc/noosfero/user/registering-new-user.en.xhtml:13
@@ -1573,8 +1571,8 @@ msgid ""
 "&#8220;<span class=\"caps\">XML</span>&#8221;."
 msgstr ""
 "Em &#8220;Gerenciar usuários&#8221;, escolha em qual formato você quer "
-"exportar a lista. Há duas opções: &#8220;<span class=\"caps\""
-">CSV</span>&#8221; e &#8220;<span class=\"caps\">XML</span>&#8221;."
+"exportar a lista. Há duas opções: &#8220;<span class=\"caps\">CSV</"
+"span>&#8221; e &#8220;<span class=\"caps\">XML</span>&#8221;."
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -1929,8 +1927,7 @@ msgstr "Ver todos os resultados da busca com exemplo"
 #: doc/noosfero/user/logout.en.xhtml:15
 #: doc/noosfero/user/sending-scraps.en.xhtml:18
 #: doc/noosfero/user/invite-contacts.en.xhtml:33
-#: doc/noosfero/user/commenting.en.xhtml:20
-#: doc/noosfero/user/login.en.xhtml:15
+#: doc/noosfero/user/commenting.en.xhtml:20 doc/noosfero/user/login.en.xhtml:15
 #: doc/noosfero/user/answering-scraps.en.xhtml:19
 #: doc/noosfero/user/deleting-profile.en.xhtml:19
 #: doc/noosfero/user/registering-new-user.en.xhtml:23
@@ -3859,9 +3856,9 @@ msgid ""
 msgstr ""
 "<strong>Leitor de Feed:</strong> Este bloco pode ser utilizado para listar "
 "as últimas notícias de qualquer site que desejar. Você só precisa informar o "
-"endereço de um feed <span class=\"caps\">RSS</span> clicando no botão "
-"&#8220;Editar&#8221;. Você também pode selecionar o número de itens que "
-"serão mostrados."
+"endereço de um feed <span class=\"caps\">RSS</span> clicando no botão &#8220;"
+"Editar&#8221;. Você também pode selecionar o número de itens que serão "
+"mostrados."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
@@ -4842,10 +4839,10 @@ msgid ""
 "\"caps\">HTML</span> code of your header/footer."
 msgstr ""
 "<strong>Editar código fonte <span class=\"caps\">HTML</span>:</strong> o "
-"texto escrito nesse editor é transformado em código <span class=\"caps\""
-">HTML</span>, para poder ser visualizado nos navegadores. Utilize esse botão "
-"para visualizar/editar o código <span class=\"caps\">HTML</span> do seu cabeç"
-"alho/rodapé."
+"texto escrito nesse editor é transformado em código <span class=\"caps"
+"\">HTML</span>, para poder ser visualizado nos navegadores. Utilize esse "
+"botão para visualizar/editar o código <span class=\"caps\">HTML</span> do "
+"seu cabeçalho/rodapé."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -4970,8 +4967,7 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
-#: doc/noosfero/cms/posting-on-blog.en.xhtml:23
-#: doc/noosfero/cms/toc.en.xhtml:6
+#: doc/noosfero/cms/posting-on-blog.en.xhtml:23 doc/noosfero/cms/toc.en.xhtml:6
 msgid "<a href=\"/doc/cms/creating-blog\">Creating a blog</a>"
 msgstr "<a href=\"/doc/cms/creating-blog\">Criar um blog</a>"
 
@@ -5114,8 +5110,8 @@ msgid ""
 msgstr ""
 "<em>Pasta, em informática, é uma estrutura utilizada para organizar "
 "ficheiros num computador e também pode ser chamada de diretório. Ela pode "
-"conter outros ficheiros e pastas, que podem conter também outros "
-"diretórios.</em>"
+"conter outros ficheiros e pastas, que podem conter também outros diretórios."
+"</em>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -5490,8 +5486,8 @@ msgid ""
 "Select the number of posts that will be listed in blog&#8217;s <span class="
 "\"caps\">RSS</span> feed."
 msgstr ""
-"Selecione a quantidade de posts que serão listados no feed <span class=\""
-"caps\">RSS</span> do blog."
+"Selecione a quantidade de posts que serão listados no feed <span class=\"caps"
+"\">RSS</span> do blog."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -5875,8 +5871,8 @@ msgid ""
 msgstr ""
 "<strong>Artigo de texto com linguagem de marcação Textile:</strong> essa "
 "opção facilita a edição de artigo por pessoas com deficiência visual. Para "
-"formatar o texto, é usada a linguagem de marcação <a href=\""
-"http://textile.thresholdstate.com/\">Textile</a>"
+"formatar o texto, é usada a linguagem de marcação <a href=\"http://textile."
+"thresholdstate.com/\">Textile</a>"
 
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
@@ -6004,10 +6000,10 @@ msgid ""
 "\"caps\">HTML</span> code of your article."
 msgstr ""
 "<strong>Editar código fonte <span class=\"caps\">HTML</span>:</strong> o "
-"texto escrito nesse editor é transformado em código <span class=\"caps\""
-">HTML</span>, para poder ser visualizado nos navegadores. Utilize esse botão "
-"para visualizar/editar o código <span class=\"caps\">HTML</span> do seu "
-"artigo."
+"texto escrito nesse editor é transformado em código <span class=\"caps"
+"\">HTML</span>, para poder ser visualizado nos navegadores. Utilize esse "
+"botão para visualizar/editar o código <span class=\"caps\">HTML</span> do "
+"seu artigo."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -6663,8 +6659,8 @@ msgid ""
 "the search results."
 msgstr ""
 "Digite no campo de busca o nome do usuário do sistema que você deseja "
-"adicionar ao empreendimento. A tabela do lado esquerdo do ecrã "
-"(&#8220;Usuários&#8221;) mostrará o resultado da busca."
+"adicionar ao empreendimento. A tabela do lado esquerdo do ecrã (&#8220;"
+"Usuários&#8221;) mostrará o resultado da busca."
 
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
@@ -7185,8 +7181,8 @@ msgid ""
 "You will be asked to confirm exclusion. Clickiing on &#8220;Ok&#8221; "
 "button, the comment will be removed"
 msgstr ""
-"Aparecerá o ecrã para confirmar a exclusão. Clicando no botão "
-"&#8220;Ok&#8221;, o comentário será removido"
+"Aparecerá o ecrã para confirmar a exclusão. Clicando no botão &#8220;"
+"Ok&#8221;, o comentário será removido"
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-comments.en.xhtml:13

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-14 13:36+0000\n"
-"PO-Revision-Date: 2016-09-14 13:36+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,11 +18,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../controllers/send_email_plugin_admin_controller.rb:7
+#: ../controllers/admin/send_email_plugin_admin_controller.rb:7
 msgid "Configurations was saved"
 msgstr ""
 
-#: ../controllers/send_email_plugin_admin_controller.rb:10
+#: ../controllers/admin/send_email_plugin_admin_controller.rb:10
 msgid "Configurations could not be saved"
 msgstr ""
 
@@ -31,7 +31,7 @@ msgstr ""
 msgid "Message sent"
 msgstr ""
 
-#: ../lib/send_email_plugin.rb:10
+#: ../lib/send_email_plugin.rb:8
 msgid "A plugin that allows sending e-mails via HTML forms."
 msgstr ""
 

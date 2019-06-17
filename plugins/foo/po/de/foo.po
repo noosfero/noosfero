@@ -18,6 +18,5 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.2-dev\n"
 
-#: ../lib/foo_plugin.rb:9
 msgid "A sample plugin to test autoload craziness."
 msgstr "Ein Beispiel-Plugin, um die Autoload-Verrücktheit zu überprüfen."

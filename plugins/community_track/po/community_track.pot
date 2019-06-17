@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 18:45+0000\n"
-"PO-Revision-Date: 2018-08-30 18:45+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../controllers/public/community_track_plugin_public_controller.rb:41
+#: ../controllers/public/community_track_plugin_public_controller.rb:36
 msgid "Select one community to proceed"
 msgstr ""
 
@@ -48,11 +48,11 @@ msgid "Soon"
 msgstr ""
 
 #: ../lib/community_track_plugin/step_helper.rb:4
-msgid "Join!"
+msgid "Closed"
 msgstr ""
 
 #: ../lib/community_track_plugin/step_helper.rb:4
-msgid "Closed"
+msgid "Join!"
 msgstr ""
 
 #: ../lib/community_track_plugin/track.rb:16

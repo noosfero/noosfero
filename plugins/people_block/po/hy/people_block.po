@@ -20,9 +20,8 @@ msgstr ""
 msgid "Clicking a friend takes you to his/her homepage"
 msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
 
-#, fuzzy
-msgid "Random people"
-msgstr "Բոլոր մարդիկ"
+msgid "friends"
+msgstr ""
 
 #, fuzzy
 msgid "{#} friend"
@@ -39,44 +38,35 @@ msgid "members"
 msgstr "Անդամներ"
 
 #, fuzzy
-msgid "A plugin that adds a people block"
-msgstr "Ձեր խմբերը ցուցադրող բաժին"
+msgid "{#} %s"
+msgstr "%{num} խմբեր"
+
+msgid "Show join leave button"
+msgstr ""
+
+msgid "Clicking a person takes you to his/her homepage"
+msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
 
 #, fuzzy
 msgid "{#} People"
 msgstr "Մարդիկ"
 
 #, fuzzy
-msgid "{#} %s"
-msgstr "%{num} խմբեր"
+msgid "Random people"
+msgstr "Բոլոր մարդիկ"
 
-#: ../lib/friends_block.rb:12
-msgid "friends"
-msgstr ""
+#, fuzzy
+msgid "A plugin that adds a people block"
+msgstr "Ձեր խմբերը ցուցադրող բաժին"
 
-#: ../lib/members_block.rb:38
-msgid "Show join leave button"
-msgstr ""
-
-#: ../lib/people_block.rb:8
-msgid "Clicking a person takes you to his/her homepage"
-msgstr "Տվյալ անձի նկարի վրա սեղմելով` կհայտնվեք նրա գլխավոր էջում:"
-
-#: ../views/blocks/footers/friends.html.erb:5
 msgid "Some suggestions for you"
 msgstr ""
 
-#: ../views/blocks/footers/friends.html.erb:10
 msgid "See all suggestions"
 msgstr ""
 
-#: ../views/blocks/people_base.html.erb:25
 msgid "This block has no content yet."
 msgstr ""
 
-#: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr ""
-
-#~ msgid "friends|View all"
-#~ msgstr "Տեսնել բոլորին"

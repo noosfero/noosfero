@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 19:32+0000\n"
-"PO-Revision-Date: 2018-10-30 19:32+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -218,12 +218,12 @@ msgstr ""
 
 #: ../views/mailing_list_plugin_admin/_groups_list.html.erb:18
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:34
-msgid "No"
+msgid "Yes"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/_groups_list.html.erb:18
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:34
-msgid "Yes"
+msgid "No"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/_groups_list.html.erb:23
@@ -324,16 +324,22 @@ msgstr ""
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:17
 #: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:17
 #: ../views/mailing_list_plugin_admin/manage_groups.html.erb:17
+msgid "Deploy all"
+msgstr ""
+
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:17
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:17
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:17
 msgid ""
 "This will create a mailing list for every %s on this network. It might take se"
 "veral minutes. This action isn't reversible. Are you sure you want to deploy t"
 "he mailing list on ALL %s?"
 msgstr ""
 
-#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:17
-#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:17
-#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:17
-msgid "Deploy all"
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
+msgid "Activate all"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
@@ -344,10 +350,10 @@ msgid ""
 "s?"
 msgstr ""
 
-#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:19
-#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:19
-#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:19
-msgid "Activate all"
+#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
+#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:20
+msgid "Deactivate all"
 msgstr ""
 
 #: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
@@ -356,12 +362,6 @@ msgstr ""
 msgid ""
 "Are you sure you want to deactivate the e-mail sending for mailing list on ALL"
 " %s?"
-msgstr ""
-
-#: ../views/mailing_list_plugin_admin/manage_communities.html.erb:20
-#: ../views/mailing_list_plugin_admin/manage_enterprises.html.erb:20
-#: ../views/mailing_list_plugin_admin/manage_groups.html.erb:20
-msgid "Deactivate all"
 msgstr ""
 
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:9
@@ -385,21 +385,21 @@ msgid "Subscribe"
 msgstr ""
 
 #: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:37
-msgid "Do you really want to unsubscribe?"
-msgstr ""
-
-#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:37
 msgid "Unsubscribe"
 msgstr ""
 
-#:
-#: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
-msgid "Type in a search term for blogs or forums"
+#: ../views/mailing_list_plugin_myprofile/_subscriptions_table.html.erb:37
+msgid "Do you really want to unsubscribe?"
 msgstr ""
 
 #:
 #: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
 msgid "Define which blogs or forums should send e-mails to the mailing list"
+msgstr ""
+
+#:
+#: ../views/mailing_list_plugin_myprofile_organization/_watched_contents.html.erb:1
+msgid "Type in a search term for blogs or forums"
 msgstr ""
 
 #: ../views/mailing_list_plugin_myprofile_organization/edit.html.erb:1

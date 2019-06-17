@@ -23,14 +23,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.4-dev\n"
 
-#: ../lib/remote_user_plugin.rb:8
 msgid "A plugin that add remote user support."
 msgstr "Um plugin que adiciona suporte a usuário remoto."
 
-#: ../lib/remote_user_plugin.rb:51
 msgid "Could not create the remote user."
 msgstr "Não foi possível criar o usuário remoto."
 
-#: ../lib/remote_user_plugin.rb:54
 msgid "Could not log in."
 msgstr "Não foi possível autenticar."

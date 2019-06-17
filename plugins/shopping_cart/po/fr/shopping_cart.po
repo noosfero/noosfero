@@ -8,8 +8,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "PO-Revision-Date: 2019-04-14 15:05+0000\n"
 "Last-Translator: farfadet46 <farfadet46@gmail.com>\n"
-"Language-Team: French <https://hosted.weblate.org/projects/noosfero/"
-"plugin-shopping-cart/fr/>\n"
+"Language-Team: French <https://hosted.weblate.org/projects/noosfero/plugin-"
+"shopping-cart/fr/>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,43 +17,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 3.6-dev\n"
 
-msgid "Delivery or pickup method"
-msgstr "Méthode de livraison"
-
-msgid "Basket displayed."
-msgstr "Panier affiché."
-
-msgid "Send buy request"
-msgstr "Envoyer une requête d'achat"
-
-msgid "Delivery option updated."
-msgstr "Option de livraison mise à jour."
-
-msgid "Delivery or pickup"
-msgstr "Livraison ou retrait"
-
-msgid "Enable shopping basket"
-msgstr "Activer le panier d’achat"
-
-msgid "Deliveries or pickups"
-msgstr "Livraisons ou retraits"
-
-msgid "shopping_cart|Change"
-msgstr "shopping_cart|Modifier"
-
-msgid "Shopping basket"
-msgstr "Panier d’achat"
-
-msgid "Shopping checkout"
-msgstr "Vérification d'achat"
-
-msgid "[%s] Your buy request was performed successfully."
-msgstr "[%s] votre requête d'achat à bien été transmise."
-
-msgid "A shopping basket feature for enterprises"
-msgstr "Une fonctionnalité de panier d'achat pour les entreprises"
-
-#: ../controllers/shopping_cart_plugin_controller.rb:138
 msgid ""
 "Your order has been sent successfully! You will receive a confirmation e-"
 "mail shortly."
@@ -61,11 +24,15 @@ msgstr ""
 "Votre commande à bien été transmise, Vous allez bientôt recevoir un email de "
 "confirmation."
 
-#: ../controllers/shopping_cart_plugin_controller.rb:178
+msgid "Basket displayed."
+msgstr "Panier affiché."
+
 msgid "Basket hidden."
 msgstr "Panier masqué."
 
-#: ../controllers/shopping_cart_plugin_controller.rb:220
+msgid "Delivery option updated."
+msgstr "Option de livraison mise à jour."
+
 msgid ""
 "Your basket contains items from '%{profile_name}'. Please empty the basket "
 "or checkout before adding items from here."
@@ -73,161 +40,140 @@ msgstr ""
 "Votre panier contiens des éléments de '%{profile_name}'. Veuillez vider ou "
 "vérifier votre panier avant d'ajouter des éléments."
 
-#: ../controllers/shopping_cart_plugin_controller.rb:234
 msgid "There is no basket."
 msgstr "Il n'y a pas de panier."
 
-#: ../controllers/shopping_cart_plugin_controller.rb:250
 msgid "This enterprise doesn't have this product."
 msgstr "Les entreprises qui n'ont pas ce produit."
 
-#: ../controllers/shopping_cart_plugin_controller.rb:264
 msgid "The basket doesn't have this product."
 msgstr "Le panier n'a pas ce produit."
 
-#: ../controllers/shopping_cart_plugin_controller.rb:278
 msgid "Invalid quantity."
 msgstr "Quantité invalide."
 
-#: ../controllers/shopping_cart_plugin_controller.rb:367
 msgid "Undefined product"
 msgstr "Produit sans catégorie"
 
-#: ../controllers/shopping_cart_plugin_controller.rb:369
 msgid "Wrong product id"
 msgstr "ID du produit incorrect"
 
-#: ../lib/shopping_cart_plugin/cart_helper.rb:11
+msgid "A shopping basket feature for enterprises"
+msgstr "Une fonctionnalité de panier d'achat pour les entreprises"
+
+msgid "Shopping"
+msgstr ""
+
 msgid "Add to basket"
 msgstr "Ajouter au panier"
 
-#: ../lib/shopping_cart_plugin/control_panel/shopping_preferences.rb:6
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ../lib/shopping_cart_plugin/mailer.rb:36
+msgid "[%s] Your buy request was performed successfully."
+msgstr "[%s] votre requête d'achat à bien été transmise."
+
 msgid "[%s] You have a new buy request from %s."
 msgstr "[%s] Vous avez une nouvelle demande d'achat de %s."
 
-#: ../views/public/_cart.html.erb:8
+msgid "Shopping checkout"
+msgstr "Vérification d'achat"
+
 msgid "Basket is empty"
 msgstr "Le panier est vide"
 
-#: ../views/public/_cart.html.erb:14
 msgid "Basket"
 msgstr "Panier"
 
-#: ../views/public/_cart.html.erb:16
 msgid "Clean basket"
 msgstr "vider le panier"
 
-#: ../views/public/_cart.html.erb:20
-#: ../views/shopping_cart_plugin/_items.html.erb:48
 msgid "Total:"
 msgstr "Total :"
 
-#: ../views/public/_cart.html.erb:23
 msgid "Show basket"
 msgstr "Voir le panier"
 
-#: ../views/public/_cart.html.erb:24
 msgid "Hide basket"
 msgstr "Cacher le panier"
 
-#: ../views/public/_cart.html.erb:44
 msgid "Ups... I had a problem to load the basket list."
 msgstr "Oups... Nous avons un problème pour charger votre panier."
 
-#: ../views/public/_cart.html.erb:46
 msgid "Did you want to reload this page?"
 msgstr "Voulez vous recharger cette page ?"
 
-#: ../views/public/_cart.html.erb:49
 msgid "Sorry, you can't have more then 100 kinds of items on this basket."
 msgstr ""
 "Désolé, vous ne pouvez pas avoir plus de 100 type d'élément dans votre "
 "panier."
 
-#: ../views/public/_cart.html.erb:51
 msgid "Oops, you must wait your last request to finish first!"
 msgstr ""
 "Oups, vous devez attendre la fin de votre requête avant de pouvoir continer !"
 
-#: ../views/public/_cart.html.erb:52
 msgid "Are you sure you want to remove this item?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer cet élément ?"
 
-#: ../views/public/_cart.html.erb:53
 msgid "Are you sure you want to clean your basket?"
 msgstr "Êtes-vous sûr(e) de vouloir vider votre panier ?"
 
-#: ../views/public/_cart.html.erb:54
 msgid "repeat order"
 msgstr "Répéter la commande"
 
-#: ../views/shopping_cart_plugin/_items.html.erb:7
 msgid "Item"
 msgstr "Elément"
 
-#: ../views/shopping_cart_plugin/_items.html.erb:10
 msgid "Qtty"
 msgstr "Quantité"
 
-#: ../views/shopping_cart_plugin/_items.html.erb:13
 msgid "Unit price"
 msgstr "Prix unitaire"
 
-#: ../views/shopping_cart_plugin/_items.html.erb:16
 msgid "Total"
 msgstr "Total"
 
-#: ../views/shopping_cart_plugin/buy.html.erb:3
-#: ../views/shopping_cart_plugin/buy.html.erb:46
 msgid "haven't finished yet: back to shopping"
 msgstr "Je n'ai pas fini, retour au magasin"
 
-#: ../views/shopping_cart_plugin/buy.html.erb:10
 msgid "Your Order"
 msgstr "Votre commande"
 
-#: ../views/shopping_cart_plugin/buy.html.erb:18
 msgid "Personal identification"
 msgstr "Identifiant"
 
-#: ../views/shopping_cart_plugin/buy.html.erb:21
 msgid "Name"
 msgstr "Nom"
 
-#: ../views/shopping_cart_plugin/buy.html.erb:22
 msgid "Email"
 msgstr "Email"
 
-#: ../views/shopping_cart_plugin/buy.html.erb:23
 msgid "Contact phone"
 msgstr "Téléphone de contact"
 
-#: ../views/shopping_cart_plugin/buy.html.erb:28
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 msgid "Payment's method"
 msgstr "Méthode de paiement"
 
-#: ../views/shopping_cart_plugin/buy.html.erb:31
-#: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
 msgid "Payment"
 msgstr "paiement"
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
-#: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
+msgid "shopping_cart|Change"
+msgstr "shopping_cart|Modifier"
+
+msgid "Delivery or pickup method"
+msgstr "Méthode de livraison"
+
+msgid "Send buy request"
+msgstr "Envoyer une requête d'achat"
+
 msgid "Hi %s!"
 msgstr "Bonjour %s !"
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
 msgid ""
 "This is a notification e-mail about your buy request on the enterprise %s."
 msgstr ""
 "Ceci est un email de notification pour votre achat auprès de l'entreprise %s."
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
 msgid ""
 "The enterprise already received your buy request and will contact you for "
 "confirmation."
@@ -235,54 +181,49 @@ msgstr ""
 "L'entreprise a déjà reçu votre demande d'achat et vas vous contacter pour "
 "confirmation."
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
 msgid "If you have any doubts about your order, write to us at: %s."
 msgstr "Si vous avez des questions sur votre commande, écrivez-nous à %s."
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:13
 msgid "Review below the informations of your order:"
 msgstr "Ci dessous les information de votre commande :"
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:19
-#: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
 msgid "Phone number"
 msgstr "Téléphone"
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:63
+msgid "Delivery or pickup"
+msgstr "Livraison ou retrait"
+
 msgid "Here are the products you bought:"
 msgstr "Voici les produits que vous avez acheté :"
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:67
 msgid "Thanks for buying with us!"
 msgstr "Merci d'avoir acheté chez nous !"
 
-#: ../views/shopping_cart_plugin/mailer/customer_notification.html.erb:70
-#: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:61
 msgid "A service of %s."
 msgstr "Un service de type «%s»."
 
-#: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:10
 msgid "This is a buy request made by %s."
 msgstr "Voici une demande d'achat de %s."
 
-#: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
 msgid "Below follows the customer informations:"
 msgstr "Ci dessous les information du client :"
 
-#: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:55
 msgid "And here are the items bought by this customer:"
 msgstr "Et ici les élément acheté par le client :"
 
-#: ../views/shopping_cart_plugin/mailer/supplier_notification.html.erb:59
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
 "Si vous avez le moindre problème avec cet email, veuillez contacter "
 "l'administrateur de %s."
 
-#: ../views/shopping_cart_plugin_myprofile/edit.html.erb:1
 msgid "Basket options"
 msgstr "Option du panier"
 
-#: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
+msgid "Enable shopping basket"
+msgstr "Activer le panier d’achat"
+
+msgid "Deliveries or pickups"
+msgstr "Livraisons ou retraits"
+
 msgid "Back to control panel"
 msgstr "Retour au panneau de contrôle"

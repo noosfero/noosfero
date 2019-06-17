@@ -569,7 +569,7 @@ DEPENDENCIES
   simplecov
   slim
   spring
-  sprockets-rails (~> 2.3.3)
+  sprockets-rails
   test-unit
   tinymce-rails (~> 4.8, >= 4.8.2)
   tinymce-rails-langs (~> 4.2)
@@ -583,4 +583,4 @@ DEPENDENCIES
   xss_terminate (= 0.0.0)!
 
 BUNDLED WITH
-   1.17.1
+   1.17.3

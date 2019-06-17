@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-23 22:22+0000\n"
-"PO-Revision-Date: 2018-05-23 22:22+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -31,20 +31,20 @@ msgid "Related Organizations"
 msgstr ""
 
 #: ../lib/related_organizations_block.rb:18
-msgid "\"{#} #{display_type[:title]} enterprise\""
-msgid_plural " \"{#} #{display_type[:title]} enterprises\""
+msgid "{#} #{display_type[:title]} enterprise"
+msgid_plural "{#} #{display_type[:title]} enterprises"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../lib/related_organizations_block.rb:20
-msgid "\"{#} #{display_type[:title]} community\""
-msgid_plural " \"{#} #{display_type[:title]} communities\""
+msgid "{#} #{display_type[:title]} community"
+msgid_plural "{#} #{display_type[:title]} communities"
 msgstr[0] ""
 msgstr[1] ""
 
 #: ../lib/related_organizations_block.rb:22
-msgid "\"{#} #{display_type[:title]} organization\""
-msgid_plural " \"{#} #{display_type[:title]} organizations\""
+msgid "{#} #{display_type[:title]} organization"
+msgid_plural "{#} #{display_type[:title]} organizations"
 msgstr[0] ""
 msgstr[1] ""
 

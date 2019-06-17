@@ -1,0 +1,39 @@
+# translation of noosfero.po to
+# Krishnamurti Lelis Lima Vieira Nunes <krishna@colivre.coop.br>, 2007.
+# noosfero - Brazilian Portuguese translation
+# Copyright (C) 2007,
+# Forum Brasileiro de Economia Solidaria <http://www.fbes.org.br/>
+# Copyright (C) 2007,
+# Ynternet.org Foundation <http://www.ynternet.org/>
+# This file is distributed under the same license as noosfero itself.
+# Joenio Costa <joenio@colivre.coop.br>, 2008.
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3~rc2-1-ga15645d\n"
+"PO-Revision-Date: 2018-12-19 17:09+0000\n"
+"Last-Translator: Rebeca Moura <rebecasm@movecode.com>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"plugin-container-block/pt/>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 3.4-dev\n"
+
+#: ../lib/container_block_plugin.rb:8
+msgid "A plugin that add a container block."
+msgstr "Um plugin que adiciona um bloco container."
+
+#: ../lib/container_block_plugin/container_block.rb:21
+msgid "Container"
+msgstr "Contêiner"
+
+#: ../lib/container_block_plugin/container_block.rb:25
+msgid "This block acts as a container for another blocks"
+msgstr "Este bloco age como um container para outros blocos"
+
+#~ msgid "Block successfully saved."
+#~ msgstr "Bloco salvo com sucesso."

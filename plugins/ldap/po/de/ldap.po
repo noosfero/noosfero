@@ -18,86 +18,65 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 2.11-dev\n"
 
-#: ../controllers/ldap_plugin_admin_controller.rb:10
 msgid "Ldap configuration updated successfully."
 msgstr "LDAP Konfiguration erfolgreich aktualisiert."
 
-#: ../controllers/ldap_plugin_admin_controller.rb:12
 msgid "Ldap configuration could not be saved."
 msgstr "Die LDAP Konfiguration konnte nicht gespeichert werden."
 
-#: ../lib/ldap_plugin.rb:11
 msgid "A plugin that add ldap support."
 msgstr "Ein Plugin, welches Unterstützung für LDAP hinzufügt."
 
-#: ../views/ldap_plugin_admin/index.html.erb:1
 msgid "Ldap Management"
 msgstr "LDAP Verwaltung"
 
-#: ../views/ldap_plugin_admin/index.html.erb:7
 msgid "LDAP Configuration"
 msgstr "LDAP Konfiguration"
 
-#: ../views/ldap_plugin_admin/index.html.erb:8
 msgid "Value"
 msgstr "Wert"
 
-#: ../views/ldap_plugin_admin/index.html.erb:11
 msgid "Host"
 msgstr "Host"
 
-#: ../views/ldap_plugin_admin/index.html.erb:15
 msgid "Port"
 msgstr "Port"
 
-#: ../views/ldap_plugin_admin/index.html.erb:19
 msgid "Account"
 msgstr "Account"
 
-#: ../views/ldap_plugin_admin/index.html.erb:23
 msgid "Account Password"
 msgstr "Account Passwort"
 
-#: ../views/ldap_plugin_admin/index.html.erb:27
 msgid "Base DN"
 msgstr "Base DN"
 
-#: ../views/ldap_plugin_admin/index.html.erb:31
 msgid "LDAP Filter"
 msgstr "LDAP Filter"
 
-#: ../views/ldap_plugin_admin/index.html.erb:35
 msgid "On the fly creation"
 msgstr "Schnell erstellen"
 
-#: ../views/ldap_plugin_admin/index.html.erb:39
 msgid "LDAPS"
 msgstr "LDAPS"
 
-#: ../views/ldap_plugin_admin/index.html.erb:46
 msgid "Attributes"
 msgstr "Attribute"
 
-#: ../views/ldap_plugin_admin/index.html.erb:47
 msgid "LDAP Field"
 msgstr "LDAP Feld"
 
-#: ../views/ldap_plugin_admin/index.html.erb:54
 msgid "Fullname"
 msgstr "Vollständiger Name"
 
-#: ../views/ldap_plugin_admin/index.html.erb:58
 msgid "Mail"
 msgstr "Mail"
 
-#: ../views/ldap_plugin_admin/index.html.erb:65
 msgid "Behaviour Configuration"
 msgstr "Verhaltenskonfiguration"
 
-#: ../views/ldap_plugin_admin/index.html.erb:70
 msgid "Allow password recovery"
 msgstr "Passwortwiederherstellung erlauben"
 
-#: ../views/ldap_plugin_admin/index.html.erb:78
 msgid "Back to plugins administration panel"
 msgstr "Zurück zum Plugins-Administrator-Panel"

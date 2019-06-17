@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-03 15:02+0000\n"
-"PO-Revision-Date: 2018-07-03 15:02+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -35,11 +35,11 @@ msgid "In the last month"
 msgstr ""
 
 #: ../lib/ext/article.rb:14
-msgid "In the last day"
+msgid "In the last week"
 msgstr ""
 
 #: ../lib/ext/article.rb:14
-msgid "In the last week"
+msgid "In the last day"
 msgstr ""
 
 #: ../lib/ext/product.rb:7
@@ -54,11 +54,11 @@ msgstr ""
 msgid "Situation"
 msgstr ""
 
-#: ../lib/ext/profile.rb:103
+#: ../lib/ext/profile.rb:104
 msgid "facets|Enabled"
 msgstr ""
 
-#: ../lib/ext/profile.rb:103
+#: ../lib/ext/profile.rb:104
 msgid "facets|Not enabled"
 msgstr ""
 

@@ -104,11 +104,11 @@ msgstr "Avaliações da Organização"
 msgid "This block displays the organization ratings."
 msgstr "Este bloco mostra as avaliações da organização."
 
-msgid "Best Ratings"
-msgstr "Melhores Avaliações"
-
 msgid "More Recent"
 msgstr "Mais Recentes"
+
+msgid "Best Ratings"
+msgstr "Melhores Avaliações"
 
 msgid "A plugin that allows you to rate a organization and comment about it."
 msgstr ""
@@ -165,11 +165,11 @@ msgstr "Quantidade de avaliações na página inicial"
 msgid "Back"
 msgstr "Voltar"
 
-msgid "stars"
-msgstr "estrelas"
-
 msgid "Rated as"
 msgstr "Avaliado em"
+
+msgid "stars"
+msgstr "estrelas"
 
 msgid "Comment (Optional):"
 msgstr "Comentário (Opcional):"

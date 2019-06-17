@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-12 13:31+0000\n"
-"PO-Revision-Date: 2018-12-12 13:31+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -18,15 +18,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:21
+#: ../controllers/newsletter_plugin_admin_controller.rb:22
 msgid "Newsletter updated."
 msgstr ""
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:24
+#: ../controllers/newsletter_plugin_admin_controller.rb:25
 msgid "Newsletter could not be saved."
 msgstr ""
 
-#: ../controllers/newsletter_plugin_admin_controller.rb:40
+#: ../controllers/newsletter_plugin_admin_controller.rb:41
 #: ../views/newsletter_plugin_admin/index.html.erb:31
 msgid "%s in %s"
 msgstr ""
@@ -83,13 +83,13 @@ msgid "click here"
 msgstr ""
 
 #: ../lib/newsletter_plugin/newsletter.rb:130
-msgid "cancel your subscription here"
-msgstr ""
-
-#: ../lib/newsletter_plugin/newsletter.rb:130
 msgid ""
 "This is an automatically generated email, please do not reply. If you do not w"
 "ish to receive future newsletter emails, %s."
+msgstr ""
+
+#: ../lib/newsletter_plugin/newsletter.rb:130
+msgid "cancel your subscription here"
 msgstr ""
 
 #: ../lib/newsletter_plugin/newsletter.rb:134

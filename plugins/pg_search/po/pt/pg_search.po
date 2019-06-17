@@ -23,74 +23,47 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 3.4-dev\n"
 
-#: ../lib/pg_search_plugin.rb:11
 msgid "Search engine that uses Postgres Full-Text Search."
 msgstr "Motor de busca que usa a Busca Full-Text do Postgres."
 
-#: ../lib/pg_search_plugin.rb:289
 msgid "True"
 msgstr "Verdadeiro"
 
-#: ../lib/pg_search_plugin.rb:289
 msgid "False"
 msgstr "Falso"
 
-#: ../lib/pg_search_plugin.rb:323
 msgid "Created at"
 msgstr "Criado em"
 
-#: ../lib/pg_search_plugin.rb:324
 msgid "Updated at"
 msgstr "Atualizado em"
 
-#: ../lib/pg_search_plugin.rb:325
 msgid "Extensions"
 msgstr "Extensões"
 
-#: ../lib/pg_search_plugin.rb:326
 msgid "Content types"
 msgstr "Tipos de conteúdo"
 
-#: ../lib/pg_search_plugin.rb:327
 msgid "Tags"
 msgstr "Etiquetas"
 
-#: ../lib/pg_search_plugin.rb:328
 msgid "Categories"
 msgstr "Categorias"
 
-#: ../lib/pg_search_plugin/search_helper.rb:6
 msgid "Refine options"
 msgstr "Refinar opções"
 
-#: ../lib/pg_search_plugin/search_helper.rb:18
 msgid "Undefined"
 msgstr "Indefinido"
 
-#: ../lib/pg_search_plugin/search_helper.rb:29
 msgid "Clear filters"
 msgstr "Limpar filtros"
 
-#: ../views/box_organizer/_profile_search_block.html.erb:3
 msgid "Enable advanced search"
 msgstr "Ativar busca avançada"
 
-#: ../views/box_organizer/_profile_search_block.html.erb:4
 msgid "Customized Search Fields"
 msgstr "Campos de Busca Customizados"
 
-#: ../views/profile_search/_facets.html.erb:3
 msgid "Advanced Search"
 msgstr "Busca Avançada"
-
-#~ msgid "Types"
-#~ msgstr "Formatos"
-
-#~ msgid "TextArticle"
-#~ msgstr "Artigo de Texto"
-
-#~ msgid "UploadedFile"
-#~ msgstr "Arquivo"
-
-#~ msgid "RSSFeed"
-#~ msgstr "RSS"

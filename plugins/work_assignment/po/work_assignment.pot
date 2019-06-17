@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-08-30 18:45+0000\n"
-"PO-Revision-Date: 2018-08-30 18:45+0000\n"
+"POT-Creation-Date: 2019-06-17 16:45+0000\n"
+"PO-Revision-Date: 2019-06-17 16:45+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -31,11 +31,7 @@ msgid "Notification not sent"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Name"
-msgstr ""
-
-#: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "e-Mail"
+msgid "Subject"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
@@ -43,7 +39,15 @@ msgid "Message"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/email_contact.rb:21
-msgid "Subject"
+msgid "e-Mail"
+msgstr ""
+
+#: ../lib/work_assignment_plugin/email_contact.rb:21
+msgid "Name"
+msgstr ""
+
+#: ../lib/work_assignment_plugin/helper.rb:8
+msgid "Author"
 msgstr ""
 
 #: ../lib/work_assignment_plugin/helper.rb:9
@@ -58,11 +62,11 @@ msgstr ""
 msgid "View all versions"
 msgstr ""
 
-#: ../lib/work_assignment_plugin/helper.rb:70
+#: ../lib/work_assignment_plugin/helper.rb:69
 msgid "Delete"
 msgstr ""
 
-#: ../lib/work_assignment_plugin/helper.rb:88
+#: ../lib/work_assignment_plugin/helper.rb:87
 msgid "Edit"
 msgstr ""
 

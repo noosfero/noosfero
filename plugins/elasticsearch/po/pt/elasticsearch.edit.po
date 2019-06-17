@@ -7,14 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2016-07-25 15:12+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2019-01-27 22:06+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
+"Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
+"plugin-elasticsearch/pt/>\n"
+"Language: pt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 3.5-dev\n"
 
 #: ../helpers/elasticsearch_helper.rb:5
 msgid "All results"
@@ -26,7 +28,7 @@ msgstr "Artigos"
 
 #: ../helpers/elasticsearch_helper.rb:7
 msgid "Files"
-msgstr "Arquivos"
+msgstr "Ficheiros"
 
 #: ../helpers/elasticsearch_helper.rb:8
 msgid "Communities"
@@ -94,7 +96,7 @@ msgstr "Resumo"
 
 #: ../views/elasticsearch_plugin/_uploaded_file_display.html.erb:6
 msgid "Type of file"
-msgstr "Tipo de arquivo"
+msgstr "Tipo de ficheiro"
 
 #: ../views/elasticsearch_plugin/search.html.erb:23
 msgid "Categories"
