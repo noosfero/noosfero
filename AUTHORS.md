@@ -178,11 +178,14 @@ Michel Felipe de Oliveira Ferreira <michel.ferreira@serpro.gov.br>
 Moises Machado <moises@colivre.coop.br>
 Murilo Duarte <muriloduartegoncalves@hotmail.com>
 Nanda Lopes <nanda.listas+psl@gmail.com>
+Nathan <bonnemainsnathan@gmail.com>
 Nathania Saphira <nathaniasaphira@gmail.com>
 Naíla Alves <naila@colivre.coop.br>
+NeverMine17 <dannevergame@gmail.com>
 Nicacio Arruda <nicacionetobsb@gmail.com>
 Nicolas Alvarado <naav972@gmail.com>
 Niemand Jedermann <predatorix@web.de>
+Nivaldo Neto <nivaldojsneto@gmail.com>
 Olivier Meinguet <olivier.meinguet@claroline.net>
 Omar Junior <omarroinuj@gmail.com>
 Parley Martins <parleypachecomartins@gmail.com>
