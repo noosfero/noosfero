@@ -1,4 +1,4 @@
-class RenameEnvironmentFeatureEnableOrganizationUrlChange < ActiveRecord::Migration
+class RenameEnvironmentFeatureEnableOrganizationUrlChange < ActiveRecord::Migration[4.2]
   $old_feature_name = :enable_organization_url_change_enabled
   $new_feature_name = :enable_profile_url_change_enabled
   def up

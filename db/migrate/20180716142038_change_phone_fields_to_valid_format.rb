@@ -1,4 +1,4 @@
-class ChangePhoneFieldsToValidFormat < ActiveRecord::Migration
+class ChangePhoneFieldsToValidFormat < ActiveRecord::Migration[4.2]
   def change
     Person.find_each do |person|
       unless person.valid?

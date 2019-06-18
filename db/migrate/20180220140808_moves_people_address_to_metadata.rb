@@ -1,4 +1,4 @@
-class MovesPeopleAddressToMetadata < ActiveRecord::Migration
+class MovesPeopleAddressToMetadata < ActiveRecord::Migration[4.2]
 
   FIELDS = %i[city state country zip_code district address_line2 address_reference]
 

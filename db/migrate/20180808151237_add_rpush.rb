@@ -19,7 +19,7 @@
 # approach. The constituent parts of this migration have been executed
 # many times, by many people!
 
-class AddRpush < ActiveRecord::Migration
+class AddRpush < ActiveRecord::Migration[5.1]
   def self.migrations
     [CreateRapnsNotifications, CreateRapnsFeedback,
      AddAlertIsJsonToRapnsNotifications, AddAppToRapns,
@@ -42,7 +42,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class CreateRapnsNotifications < ActiveRecord::Migration
+  class CreateRapnsNotifications < ActiveRecord::Migration[5.1]
     def self.up
       create_table :rapns_notifications do |t|
         t.integer   :badge,                 null: true
@@ -72,7 +72,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class CreateRapnsFeedback < ActiveRecord::Migration
+  class CreateRapnsFeedback < ActiveRecord::Migration[5.1]
     def self.up
       create_table :rapns_feedback do |t|
         t.string    :device_token,          null: false, limit: 64
@@ -91,7 +91,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class AddAlertIsJsonToRapnsNotifications < ActiveRecord::Migration
+  class AddAlertIsJsonToRapnsNotifications < ActiveRecord::Migration[5.1]
     def self.up
       add_column :rapns_notifications, :alert_is_json, :boolean, null: true, default: false
     end
@@ -101,7 +101,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class AddAppToRapns < ActiveRecord::Migration
+  class AddAppToRapns < ActiveRecord::Migration[5.1]
     def self.up
       add_column :rapns_notifications, :app, :string, null: true
       add_column :rapns_feedback, :app, :string, null: true
@@ -113,7 +113,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class CreateRapnsApps < ActiveRecord::Migration
+  class CreateRapnsApps < ActiveRecord::Migration[5.1]
     def self.up
       create_table :rapns_apps do |t|
         t.string    :key,             null: false
@@ -130,7 +130,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class AddGcm < ActiveRecord::Migration
+  class AddGcm < ActiveRecord::Migration[5.1]
     module Rapns
       class App < ActiveRecord::Base
         self.table_name = 'rapns_apps'
@@ -233,7 +233,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class AddWpns < ActiveRecord::Migration
+  class AddWpns < ActiveRecord::Migration[5.1]
     module Rapns
       class Notification < ActiveRecord::Base
         self.table_name = 'rapns_notifications'
@@ -250,7 +250,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class AddAdm < ActiveRecord::Migration
+  class AddAdm < ActiveRecord::Migration[5.1]
     module Rapns
       class Notification < ActiveRecord::Base
         self.table_name = 'rapns_notifications'
@@ -274,7 +274,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class RenameRapnsToRpush < ActiveRecord::Migration
+  class RenameRapnsToRpush < ActiveRecord::Migration[5.1]
     module Rpush
       class App < ActiveRecord::Base
         self.table_name = 'rpush_apps'
@@ -338,7 +338,7 @@ class AddRpush < ActiveRecord::Migration
     end
   end
 
-  class AddFailAfterToRpushNotifications < ActiveRecord::Migration
+  class AddFailAfterToRpushNotifications < ActiveRecord::Migration[5.1]
     def self.up
       add_column :rpush_notifications, :fail_after, :timestamp, null: true
     end
