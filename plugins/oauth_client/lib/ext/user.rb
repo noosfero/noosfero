@@ -34,7 +34,7 @@ class User
   alias_method :password_required?, :password_required_with_oauth?
 
   def make_activation_codes_with_oauth
-    @oauth_providers.blank? && oauth_providers.blank? ? make_activation_codes_without_oauth : nil
+    @oauth_providers.blank? && oauth_providers.blank? ? self.make_activation_code_without_oauth : nil
   end
 
   alias_method :make_activation_code_without_oauth, :make_activation_codes
