@@ -43,7 +43,12 @@ class CreateCommunity < Task
     community.image = image if image
     community.custom_values = custom_values
     community.environment = self.environment
-    community.save!
+    begin
+      community.save!
+    rescue ActiveRecord::RecordInvalid => e
+      self.errors.copy!(community.errors)
+      raise e
+    end
     community.add_admin(self.requestor)
   end
 
