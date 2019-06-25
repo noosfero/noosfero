@@ -1,4 +1,4 @@
-class FixMembershipsThroughWrongRoles < ActiveRecord::Migration
+class FixMembershipsThroughWrongRoles < ActiveRecord::Migration[4.2]
   def change
     Community.find_each do |group|
       m1 = group.members

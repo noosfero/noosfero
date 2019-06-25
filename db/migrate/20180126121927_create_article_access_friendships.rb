@@ -1,4 +1,4 @@
-class CreateArticleAccessFriendships < ActiveRecord::Migration
+class CreateArticleAccessFriendships < ActiveRecord::Migration[4.2]
   def up
     noosfero_env = ENV['RAILS_ENV']
     if noosfero_env != 'production'
@@ -6,7 +6,6 @@ class CreateArticleAccessFriendships < ActiveRecord::Migration
     else
       create_view :article_access_friendships, materialized: true
       ArticleAccessFriendship.refresh()
-      ArticleAccessMembership.refresh()
     end
   end
 

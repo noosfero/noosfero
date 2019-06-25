@@ -1,11 +1,10 @@
-class CreateProfileAccessMemberships < ActiveRecord::Migration
+class CreateProfileAccessMemberships < ActiveRecord::Migration[4.2]
   def up
     noosfero_env = ENV['RAILS_ENV']
     if noosfero_env != 'production'
       create_view :profile_access_memberships, materialized: false
     else
       create_view :profile_access_memberships, materialized: true
-      ProfileAccessFriendship.refresh()
       ProfileAccessMembership.refresh()
     end
   end

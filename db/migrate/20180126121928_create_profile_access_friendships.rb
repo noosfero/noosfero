@@ -1,4 +1,4 @@
-class CreateProfileAccessFriendships < ActiveRecord::Migration
+class CreateProfileAccessFriendships < ActiveRecord::Migration[4.2]
   def up
     noosfero_env = ENV['RAILS_ENV']
     if noosfero_env != 'production'

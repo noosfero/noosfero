@@ -1,5 +1,6 @@
-class CreateEmailTemplate < ActiveRecord::Migration
+class CreateEmailTemplate < ActiveRecord::Migration[4.2]
   def change
+    return if table_exists? :email_templates
     create_table :email_templates do |t|
       t.string :name
       t.string :template_type

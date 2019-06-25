@@ -1,4 +1,4 @@
-class UpdateAccessLevelSettings < ActiveRecord::Migration
+class UpdateAccessLevelSettings < ActiveRecord::Migration[4.2]
   def up
     valid_levels = {
       'visitors' => 0,

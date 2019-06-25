@@ -1,4 +1,4 @@
-class ConvertPublishedToContentAccess < ActiveRecord::Migration
+class ConvertPublishedToContentAccess < ActiveRecord::Migration[4.2]
   def up
     Article.where('published = ?', false)
       .update_all(access: Entitlement::Levels.levels[:self],

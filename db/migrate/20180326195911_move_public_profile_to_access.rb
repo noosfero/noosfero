@@ -1,5 +1,5 @@
-class MovePublicProfileToAccess < ActiveRecord::Migration
+class MovePublicProfileToAccess < ActiveRecord::Migration[4.2]
   def change
-    execute('UPDATE profiles SET access = 25 WHERE public_profile = FALSE')
+    execute('UPDATE profiles SET access = 20 WHERE public_profile = FALSE')
   end
 end

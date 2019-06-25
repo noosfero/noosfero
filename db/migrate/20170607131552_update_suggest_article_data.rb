@@ -1,4 +1,4 @@
-class UpdateSuggestArticleData < ActiveRecord::Migration
+class UpdateSuggestArticleData < ActiveRecord::Migration[4.2]
   def change
     say_with_time "Updating suggest article datas..." do
       SuggestArticle.pending.find_each do |suggest_article|
