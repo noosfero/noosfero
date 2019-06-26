@@ -24,7 +24,7 @@ services:
     networks:
       - noosfero-net
     env_file:
-      - config/docker/prod/production.env 
+      - config/docker/prod/production.env
     volumes:
       - ./tmp/backup:/tmp/backup
       - noosfero-public:/noosfero/public
@@ -33,12 +33,12 @@ services:
   nginx:
     container_name: nginx
     image: nginx:1.14
-    depends_on:      
-      - noosfero    
-    ports:      
+    depends_on:
+      - noosfero
+    ports:
       - 80:80
     networks:
-      - noosfero-net  
+      - noosfero-net
     env_file:
       - config/docker/prod/production.env
     volumes:

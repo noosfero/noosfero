@@ -48,7 +48,7 @@ test: &TEST
 production:
   adapter: postgresql
   encoding: unicode
-  database: noosfero_production
+  database: <%= (ENV['POSTGRES_DB'] || 'noosfero_production') %>
   template: template0
   username: <%= (ENV['POSTGRES_USER'] || 'noosfero') %>
   password: <%= (ENV['POSTGRES_PASSWORD'] || '') %>
