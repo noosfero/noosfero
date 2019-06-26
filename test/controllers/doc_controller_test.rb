@@ -52,10 +52,10 @@ class DocControllerTest < ActionController::TestCase
 
   should 'use environment theme' do
     e = Environment.default
-    e.theme = 'test-theme'
+    e.theme = 'butter'
     e.save
 
-    DocTopic.any_instance.expects(:html).with('test-theme')
+    DocTopic.any_instance.expects(:html).with('butter')
     get :topic, :section => 'user', :topic => 'accepting-friends'
   end
 
