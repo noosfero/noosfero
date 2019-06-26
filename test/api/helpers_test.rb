@@ -273,13 +273,13 @@ class Api::HelpersTest < ActiveSupport::TestCase
     assert 2, parse_parent_id(2)
   end
 
-  should 'return errors with balnk and invalid identifier' do
+  should 'return errors with blank and invalid identifier' do
     object = Person.new
     object.valid?
     hash = render_model_errors!(object.errors)
     expected = [
-      {error: :blank, full_message: "Identifier can't be blank"},
-      {error: :invalid, full_message: "Identifier is invalid"}
+      {error: :blank, full_message: "profile identifier can't be blank"},
+      {error: :invalid, full_message: "profile identifier is invalid"}
     ]
     assert_equal expected, hash.first[:errors][:identifier]
   end
@@ -290,7 +290,7 @@ class Api::HelpersTest < ActiveSupport::TestCase
     object.valid?
     hash = render_model_errors!(object.errors)
     expected = [
-      {error: :not_available, full_message: "Identifier is not available."}
+      {error: :not_available, full_message: "profile identifier is not available."}
     ]
     assert_equal expected, hash.first[:errors][:identifier]
   end
