@@ -5,7 +5,7 @@
       <%= block_title(block.title.blank? ? c_("Recent content") : block.title, block.subtitle ) %>
       <% if block.show_blog_picture and !block.root.image.nil? %>
         <div class="recent-content-cover">
-          <%= image_tag(block.root.image.public_filename(:big)) %>
+          <%= image_tag(block.root.image.public_filename()) %>
         </div>
       <% end %>
     </div>
