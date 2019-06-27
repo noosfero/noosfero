@@ -25,9 +25,9 @@ class AngularThemeTest < ActionDispatch::IntegrationTest
 
   should 'render index page for angular theme when access myprofile route of an angular profile' do
     Theme.stubs(:angular_theme?).with('noosfero').returns(false)
-    Theme.stubs(:angular_theme?).with('angular-default').returns(true)
+    Theme.stubs(:angular_theme?).with('butter').returns(true)
     profile = fast_create(Community)
-    profile.update_attribute(:theme, 'angular-default')
+    profile.update_attribute(:theme, 'butter')
     get "/myprofile/#{profile.identifier}/members"
     assert_response 200
   end
