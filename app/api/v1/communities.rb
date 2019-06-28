@@ -34,17 +34,30 @@ module Api
             params[:community][:custom_values][key]=params[:community].delete(key) if Community.custom_fields(environment).any?{|cf| cf.name==key}
           end
 
-          begin
-            community = Community.create_after_moderation(current_person, params[:community].merge({:environment => environment}))
-          rescue
-            community = Community.new(params[:community])
-            if !community.save
-              render_model_errors!(community.errors)
+	  future_identifier = params[:community].nil? ? '' : params[:community][:name].to_slug
+	  identifier_exists = Profile.exists?(identifier: future_identifier) || Task.pending_all_by_filter('CreateCommunity', future_identifier).exists?
+
+	  if identifier_exists
+            msg = {
+              :success => false,
+              :message => _('Your solicitation was not registered. Already exists a community with this name.'),
+              :code => Api::Status::ALREADY_EXIST
+            }
+
+            present msg, :with => Entities::Response
+          else
+            begin
+              community = Community.create_after_moderation(current_person, params[:community].merge({:environment => environment}))
+            rescue
+              community = Community.new(params[:community])
+              if !community.save
+                render_model_errors!(community.errors)
+              end
             end
-          end
 
-
-          present_partial community, :with => Entities::Community, :current_person => current_person
+            present_partial community, :with => Entities::Community, :current_person => current_person
+	  end
+	  
         end
 
         get ':id' do

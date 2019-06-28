@@ -24,8 +24,9 @@ class DisplayContentPlugin < Noosfero::Plugin
     true
   end
 
-  def js_files
-    ['/javascripts/jstree/_lib/jquery-1.8.3.js', '/javascripts/jstree/jquery.jstree.js']
-  end
+#FIXME comment javascript
+#  def js_files
+#    ['/javascripts/jstree/_lib/jquery-1.8.3.js', '/javascripts/jstree/jquery.jstree.js']
+#  end
 
 end
