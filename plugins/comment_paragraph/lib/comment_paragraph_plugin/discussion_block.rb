@@ -71,6 +71,7 @@ class CommentParagraphPlugin::DiscussionBlock < Block
   def api_content= params
     super
     self.total_items= params[:total_items]
+    self.discussion_status= params[:discussion_status]
     self.fixed_documents_ids= params[:fixed_documents_ids]
   end
 
