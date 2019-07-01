@@ -34,7 +34,7 @@ module Api
             params[:community][:custom_values][key]=params[:community].delete(key) if Community.custom_fields(environment).any?{|cf| cf.name==key}
           end
 
-	  future_identifier = params[:community].nil? ? '' : params[:community][:name].to_slug
+	  future_identifier = params[:community].nil? ? '' : params[:community][:name].to_s.to_slug
 	  identifier_exists = Profile.exists?(identifier: future_identifier) || Task.pending_all_by_filter('CreateCommunity', future_identifier).exists?
 
 	  if identifier_exists
