@@ -2212,91 +2212,75 @@ class CmsControllerTest < ActionDispatch::IntegrationTest
   end
 
   should 'render sensitive content view' do
-    post :sensitive_content, profile: profile.identifier
+    get sensitive_content_cms_index_path(profile: profile.identifier)
     assert_template 'sensitive_content'
-    assert_tag :span, :content => profile.name, :attributes => { :class => 'publish-profile' }
-    assert_no_tag :span, :attributes => { :class => 'publish-page' }
+    assert_select 'span.publish-profile', profile.name
+    assert_select 'span.publish-page', 0
   end
 
   should 'render sensitive content view with current page' do
     page = fast_create(Blog, profile_id: profile.id)
-    post :sensitive_content, profile: profile.identifier, page: page.id
+    get sensitive_content_cms_index_path(profile: profile.identifier, page: page.id)
     assert_template 'sensitive_content'
-    assert_tag :span, :content => profile.name, :attributes => { :class => 'publish-profile' }
-    assert_tag :span, :content => page.title, :attributes => { :class => 'publish-page' }
+    assert_select 'span.publish-profile', profile.name
+    assert_select 'span.publish-page', page.title
   end
 
   should 'render sensitive content view with user has\'t permission to publish in current page' do
     page = fast_create(Blog)
-    post :sensitive_content, profile: profile.identifier, page: page.id
+    get sensitive_content_cms_index_path(profile: profile.identifier, page: page.id)
     assert_template 'sensitive_content'
-    assert_tag :span, :content => profile.name, :attributes => { :class => 'publish-profile' }
-    assert_no_tag :span, :attributes => { :class => 'publish-page' }
+    assert_select 'span.publish-profile', profile.name
+    assert_select 'span.publish-page', 0
   end
 
   should 'render select directory view if pass select_directory param' do
-    post :sensitive_content, profile: profile.identifier, select_directory: true
+    get sensitive_content_cms_index_path(profile: profile.identifier, select_directory: true)
     assert_template 'select_directory'
-    assert_tag :span, :content => profile.name, :attributes => { :class => 'publish-profile' }
-    assert_no_tag :span, :attributes => { :class => 'publish-page' }
-    assert_no_tag :a, attributes: {
-      href: "/myprofile/#{profile.identifier}/cms/sensitive_content?select_directory=true" }
+    assert_select 'span.publish-profile', profile.name
+    assert_select 'span.publish-page', 0
+    assert_select "a[href='/myprofile/#{profile.identifier}/cms/sensitive_content?select_directory=true']", 0
   end
 
   should 'render select profile view' do
-    post :select_profile, profile: profile.identifier
+    get select_profile_cms_index_path(profile: profile.identifier)
     assert_template 'select_profile'
-    assert_tag :a, attributes: {
-      href: "/myprofile/#{profile.identifier}/cms/sensitive_content" }
-    assert_no_tag :a, attributes: {
-      href: "/myprofile/#{profile.identifier}/cms/select_profile" }
+    assert_select "a[href='/myprofile/#{profile.identifier}/cms/sensitive_content']", 1
+    assert_select "a[href='/myprofile/#{profile.identifier}/cms/select_profile']", 0
   end
 
   should 'render select profile view with communities option' do
     community = fast_create(Community)
     community.add_admin(profile)
-    post :select_profile, profile: profile.identifier
+    get select_profile_cms_index_path(profile.identifier)
     assert_template 'select_profile'
-    assert_tag :a, attributes: {
-      href: "/myprofile/#{profile.identifier}/cms/select_profile?select_type=community" }
-    assert_no_tag :a, attributes: {
-      href: "/myprofile/#{profile.identifier}/cms/select_profile" }
+    assert_select "a[href='/myprofile/#{profile.identifier}/cms/select_profile?select_type=community']", 1
+    assert_select "a[href='/myprofile/#{profile.identifier}/cms/select_profile']", 0
   end
 
   should 'render select profile view with enterprises option' do
     enterprise = fast_create(Enterprise)
     enterprise.add_admin(profile)
-    post :select_profile, profile: profile.identifier
+    get select_profile_cms_index_path(profile: profile.identifier)
     assert_template 'select_profile'
-    assert_tag :a, attributes: {
-      href: "/myprofile/#{profile.identifier}/cms/select_profile?select_type=enterprise" }
-    assert_no_tag :a, attributes: {
-      href: "/myprofile/#{profile.identifier}/cms/select_profile" }
+    assert_select "a[href='/myprofile/#{profile.identifier}/cms/select_profile?select_type=enterprise']", 1
+    assert_select "a[href='/myprofile/#{profile.identifier}/cms/select_profile']", 0
   end
 
   should 'show back button in sensitive_content' do
     page = fast_create(Blog, profile_id: profile.id)
-    post :sensitive_content, profile: profile.identifier, page: page.id, not_back: "false"
-
+    get sensitive_content_cms_index_path(profile: profile.identifier, page: page.id)
     assert_template 'sensitive_content'
-
-    assert_tag :a, :attributes => { 
-      :class => 'button icon-back with-text button option-back'}
-
-    assert_no_tag :a, :attributes => {
-      :class => 'button icon-none with-text button option-not-back'}
+    assert_select 'a.icon-back.option-back', 1
+    assert_select 'a.icon-none.option-not-back', 0
   end
 
   should 'not show back button in sensitive_content' do
     page = fast_create(Blog, profile_id: profile.id)
-    post :sensitive_content, profile: profile.identifier, page: page.id, not_back: "true"
+    get sensitive_content_cms_index_path(profile: profile.identifier, page: page.id, back: "true")
     assert_template 'sensitive_content'
-
-    assert_tag :a, :attributes => {
-      :class => 'button icon-none with-text button option-not-back'}
-
-    assert_no_tag :a, :attributes => {
-      :class => 'button icon-back with-text button option-back'}
+    assert_select 'a.icon-back.option-back', 1
+    assert_select 'a.icon-none.option-not-back', 0
   end
 
   protected

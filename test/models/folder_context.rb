@@ -57,7 +57,7 @@ class GenericContextTest < ActiveSupport::TestCase
     context = GenericContext.set_context(test_user, current_page,
                                           community_can_not_post)
 
-    assert_equal nil, context.directory_to_publish
+    assert_nil context.directory_to_publish
     assert_equal test_user, context.selected_profile
   end
 end
