@@ -5,8 +5,10 @@ class DocSectionTest < ActiveSupport::TestCase
 
   include Noosfero::DocTest
 
+
   def setup
     setup_doc_test
+    DocSection.stubs(:root_dir).returns(ROOT)
   end
 
   def tear_down

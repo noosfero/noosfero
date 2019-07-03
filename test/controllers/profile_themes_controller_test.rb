@@ -41,7 +41,7 @@ class ProfileThemesControllerTest < ActionDispatch::IntegrationTest
 
   should 'highlight current theme' do
     env = Environment.default
-    t1 = 'one'
+    t1 = 'butter'
     t2 = 'two'
     env.themes = [t1, t2]
     env.save
@@ -51,7 +51,7 @@ class ProfileThemesControllerTest < ActionDispatch::IntegrationTest
     get profile_themes_path('testinguser')
 
     assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
-    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/one" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/butter" }
   end
 
   should 'display list of my themes for edition' do

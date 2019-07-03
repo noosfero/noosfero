@@ -86,7 +86,8 @@ class CommunitiesTest < ActiveSupport::TestCase
     params[:community] = {:name => community.name}
     post "/api/v1/communities?#{params.to_query}"
     json = JSON.parse(last_response.body)
-    assert_equal 'not_available', json['errors']['identifier'].first['error']
+    assert !json['success']
+    assert_equal Api::Status::ALREADY_EXIST, json['code']
   end
 
   should 'return 400 status for invalid community creation to logged user ' do

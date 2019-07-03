@@ -69,7 +69,7 @@ integration:
 cucumber-1:
   <<: *retriable
   <<: *cache
-  script: SLICE=1/2 bundle exec cucumber --profile default
+  script: bundle exec rake noosfero:doc:build & SLICE=1/2 bundle exec cucumber --profile default
   stage: test-cucumber
 cucumber-2:
   <<: *retriable

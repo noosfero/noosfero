@@ -37,7 +37,11 @@ module Api
               task.send(action, current_person) if (task.status == Task::Status::ACTIVE)
               present_partial task, :with => Entities::Task
             rescue Exception => ex
-              render_api_error!(ex.message, 500)
+              if task.errors.details.empty?
+                render_api_error!(ex.message, 500)
+              else
+                render_model_errors!(task.errors)
+              end
             end
           end
         end

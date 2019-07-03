@@ -19,6 +19,7 @@ module Api
     LOGOUT = 291
     WAITING_FOR_REVIEW = 290
     ALREADY_FOLLOW = 289
+    ALREADY_EXIST = 288
 
     module Membership
       INVITATION_SENT_TO_BE_PROCESSED = 298

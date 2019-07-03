@@ -40,8 +40,8 @@ class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
 
   should 'highlight current theme' do
     env = Environment.default
-    t1 = 'one'
-    t2 = 'two'
+    t1 = 'butter'
+    t2 = 'chocolate'
     env.themes = [t1, t2]
     env.save
 
@@ -50,7 +50,7 @@ class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
     get environment_themes_path
 
     assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
-    !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/one" }
+    !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/butter" }
   end
 
   should 'save selection of theme' do
