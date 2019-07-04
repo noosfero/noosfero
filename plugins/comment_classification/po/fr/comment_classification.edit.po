@@ -201,16 +201,3 @@ msgstr "Raison activée ?"
 #: ../views/comment_classification_plugin_status/index.html.erb:21
 msgid "Are you sure you want to remove this status?"
 msgstr "Êtes-vous sûr(e) de vouloir supprimer ce statut ?"
-
-#~ msgid "[Select ...]"
-#~ msgstr "[Choisir...]"
-
-#~ msgid ""
-#~ "<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}"
-#~ "</i>."
-#~ msgstr ""
-#~ "<i>%{utilisateur}</i> ajout des statuts <i>%{nom_ du_statut}</i> à <i>"
-#~ "%{creer_a}</i>."
-
-#~ msgid "<i>Reason:</i> %s"
-#~ msgstr "<i>Raison:</i> %s"

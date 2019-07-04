@@ -201,16 +201,3 @@ msgstr "Razão habilitada?"
 #: ../views/comment_classification_plugin_status/index.html.erb:21
 msgid "Are you sure you want to remove this status?"
 msgstr "Tem certeza de que quer excluir este status?"
-
-#~ msgid "[Select ...]"
-#~ msgstr "[Selecione ...]"
-
-#~ msgid ""
-#~ "<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}"
-#~ "</i>."
-#~ msgstr ""
-#~ "<i>%{user}</i> adicionou o status <i>%{status_name}</i> às <i>"
-#~ "%{created_at}</i>."
-
-#~ msgid "<i>Reason:</i> %s"
-#~ msgstr "<i>Razão:</i> %s"

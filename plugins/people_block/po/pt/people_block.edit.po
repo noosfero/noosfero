@@ -84,9 +84,3 @@ msgstr "Esse bloco não tem conteúdo ainda."
 #: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr "Filtrar por papel:"
-
-#~ msgid "View all"
-#~ msgstr "Ver todos(as)"
-
-#~ msgid "friends|View all"
-#~ msgstr "Ver todos"

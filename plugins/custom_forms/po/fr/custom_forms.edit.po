@@ -941,21 +941,3 @@ msgstr ""
 #: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr ""
-
-#~ msgid "Manage Queries"
-#~ msgstr "Gérer"
-
-#~ msgid "Invalid string format of access."
-#~ msgstr "Format de chaîne d'accès non valide."
-
-#~ msgid "There is no profile with the provided id."
-#~ msgstr "Il n'y a pas le profil avec l'ID fourni."
-
-#~ msgid "Custom"
-#~ msgstr "En-tête sur-mesure"
-
-#~ msgid "Custom access definitions"
-#~ msgstr "En-tête sur-mesure"
-
-#~ msgid "Result Access"
-#~ msgstr "Accepter"

@@ -303,6 +303,3 @@ msgstr "Lieferungen oder Abholungen"
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
 msgid "Back to control panel"
 msgstr "Zurück zum Bedienfeld"
-
-#~ msgid "Shopping basket"
-#~ msgstr "Warenkorb"

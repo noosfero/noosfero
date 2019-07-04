@@ -36,21 +36,18 @@ msgid "Related Organizations"
 msgstr "Organizações Relacionadas"
 
 #: ../lib/related_organizations_block.rb:18
-#, fuzzy
 msgid "{#} #{display_type[:title]} enterprise"
 msgid_plural "{#} #{display_type[:title]} enterprises"
 msgstr[0] "\"{#} #{display_type[:title]} empreendimento\""
 msgstr[1] "\"{#} #{display_type[:title]} empreendimentos\""
 
 #: ../lib/related_organizations_block.rb:20
-#, fuzzy
 msgid "{#} #{display_type[:title]} community"
 msgid_plural "{#} #{display_type[:title]} communities"
 msgstr[0] "\"{#} #{display_type[:title]} comunidade\""
 msgstr[1] "\"{#} #{display_type[:title]} comunidades\""
 
 #: ../lib/related_organizations_block.rb:22
-#, fuzzy
 msgid "{#} #{display_type[:title]} organization"
 msgid_plural "{#} #{display_type[:title]} organizations"
 msgstr[0] "\"{#} #{display_type[:title]} organização\""
@@ -134,24 +131,3 @@ msgstr "Adicionar uma nova %s"
 #: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
 msgid "There are no sub-%s yet."
 msgstr "Não existe nenhuma sub-%s ainda."
-
-#: ../lib/related_organizations_block.rb:18
-#~ msgid "\"{#} #{display_type[:title]} enterprise\""
-#~ msgid_plural " \"{#} #{display_type[:title]} enterprises\""
-#~ msgstr[0] "\"{#} #{display_type[:title]} empreendimento\""
-#~ msgstr[1] "\"{#} #{display_type[:title]} empreendimentos\""
-
-#: ../lib/related_organizations_block.rb:20
-#~ msgid "\"{#} #{display_type[:title]} community\""
-#~ msgid_plural " \"{#} #{display_type[:title]} communities\""
-#~ msgstr[0] "\"{#} #{display_type[:title]} comunidade\""
-#~ msgstr[1] "\"{#} #{display_type[:title]} comunidades\""
-
-#: ../lib/related_organizations_block.rb:22
-#~ msgid "\"{#} #{display_type[:title]} organization\""
-#~ msgid_plural " \"{#} #{display_type[:title]} organizations\""
-#~ msgstr[0] "\"{#} #{display_type[:title]} organização\""
-#~ msgstr[1] "\"{#} #{display_type[:title]} organizações\""
-
-#~ msgid "Sub-groups"
-#~ msgstr "Sub-grupos"

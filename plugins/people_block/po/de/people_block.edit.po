@@ -79,6 +79,3 @@ msgstr "Dieser Block hat noch keinen Inhalt."
 #: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr "Nach Rolle filtern:"
-
-#~ msgid "friends|View all"
-#~ msgstr "friends|Zeige alle"

@@ -53,7 +53,7 @@ msgstr "Nome"
 
 #: ../lib/work_assignment_plugin/helper.rb:8
 msgid "Author"
-msgstr ""
+msgstr "Autor"
 
 #: ../lib/work_assignment_plugin/helper.rb:9
 msgid "Submission date"

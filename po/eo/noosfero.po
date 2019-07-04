@@ -65,6 +65,12 @@ msgstr ""
 msgid "The comment '%s' was removed."
 msgstr "Unu komento"
 
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "Unu komento"
+
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."

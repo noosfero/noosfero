@@ -134,12 +134,3 @@ msgstr "Título: "
 #: ../views/tasks/_approve_comment_accept_details.html.erb:11
 msgid "Paragraph: "
 msgstr "Parágrafo: "
-
-#~ msgid "Settings successfuly saved"
-#~ msgstr "Configurações gravadas com sucesso"
-
-#~ msgid "Deactivate Comments"
-#~ msgstr "Desativar Comentários"
-
-#~ msgid "Activate Comments"
-#~ msgstr "Ativar Comentários"

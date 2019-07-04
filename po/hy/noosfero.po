@@ -67,6 +67,12 @@ msgstr ""
 msgid "The comment '%s' was removed."
 msgstr "Այս անհատական էջը"
 
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "Համայնք"
+
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."

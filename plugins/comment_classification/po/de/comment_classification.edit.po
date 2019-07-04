@@ -196,16 +196,3 @@ msgstr "Grund aktiviert?"
 #: ../views/comment_classification_plugin_status/index.html.erb:21
 msgid "Are you sure you want to remove this status?"
 msgstr "Sind Sie sicher, dass Sie diesen Status entfernen möchten?"
-
-#~ msgid "[Select ...]"
-#~ msgstr "[Auswahl...]"
-
-#~ msgid ""
-#~ "<i>%{user}</i> added the status <i>%{status_name}</i> at <i>%{created_at}"
-#~ "</i>."
-#~ msgstr ""
-#~ "<i>%{user}</i> hat den Status <i>%{status_name}</i> am/um <i>%{created_at}"
-#~ "</i> hinzugefügt."
-
-#~ msgid "<i>Reason:</i> %s"
-#~ msgstr "<i>Grund:</i> %s"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-17 16:44+0000\n"
-"PO-Revision-Date: 2019-06-17 16:44+0000\n"
+"POT-Creation-Date: 2019-07-04 18:19+0000\n"
+"PO-Revision-Date: 2019-07-04 18:19+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -78,29 +78,35 @@ msgstr ""
 msgid "The comment '%s' was removed."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:72
+#: ../app/api/v1/communities.rb:43
+msgid ""
+"Your solicitation was not registered. Already exists a community with this nam"
+"e."
+msgstr ""
+
+#: ../app/api/v1/communities.rb:85
 msgid ""
 "Your invitation was registered. The community administrators are reviewing you"
 "r solicitation."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:89
+#: ../app/api/v1/communities.rb:102
 msgid "The contact was sent."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:92
+#: ../app/api/v1/communities.rb:105
 msgid "The contact was not sent."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:110
+#: ../app/api/v1/communities.rb:123
 msgid "You already request a membership for this community."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:113
+#: ../app/api/v1/communities.rb:126
 msgid "You already member of this community."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:116
+#: ../app/api/v1/communities.rb:129
 msgid ""
 "You are not member of this community and you did not made a membership request"
 "."
@@ -3936,32 +3942,32 @@ msgstr ""
 msgid "Welcome Page"
 msgstr ""
 
-#: ../app/models/create_community.rb:51
+#: ../app/models/create_community.rb:56
 msgid "New community"
 msgstr ""
 
-#: ../app/models/create_community.rb:65
+#: ../app/models/create_community.rb:70
 msgid "%{requestor} wants to create community %{subject} with no description."
 msgstr ""
 
-#: ../app/models/create_community.rb:67
+#: ../app/models/create_community.rb:72
 msgid ""
 "%{requestor} wants to create community %{subject} with this description:<p><em"
 ">%{description}</em></p>"
 msgstr ""
 
-#: ../app/models/create_community.rb:91
+#: ../app/models/create_community.rb:96
 msgid "%{requestor} wants to create community %{subject}"
 msgstr ""
 
-#: ../app/models/create_community.rb:95
+#: ../app/models/create_community.rb:100
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have to ap"
 "prove or reject it through the \"Pending Validations\" section in your control p"
 "anel.\n"
 msgstr ""
 
-#: ../app/models/create_community.rb:99
+#: ../app/models/create_community.rb:104
 msgid ""
 "Your request for registering community %{community} at %{environment} was just"
 " sent. Environment administrator will receive it and will approve or reject yo"
@@ -3971,7 +3977,7 @@ msgid ""
 " about your request."
 msgstr ""
 
-#: ../app/models/create_community.rb:105
+#: ../app/models/create_community.rb:110
 msgid ""
 "Your request for registering community %{community} at %{environment} was not "
 "approved by the environment administrator. The following explanation was given"
@@ -3980,7 +3986,7 @@ msgid ""
 "%{explanation}"
 msgstr ""
 
-#: ../app/models/create_community.rb:109
+#: ../app/models/create_community.rb:114
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. You ca"
 "n access %{environment} now and start using your new community."

@@ -82,15 +82,3 @@ msgstr "Campos de Busca Customizados"
 #: ../views/profile_search/_facets.html.erb:3
 msgid "Advanced Search"
 msgstr "Busca Avançada"
-
-#~ msgid "Types"
-#~ msgstr "Formatos"
-
-#~ msgid "TextArticle"
-#~ msgstr "Artigo de Texto"
-
-#~ msgid "UploadedFile"
-#~ msgstr "Arquivo"
-
-#~ msgid "RSSFeed"
-#~ msgstr "RSS"

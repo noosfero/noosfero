@@ -229,6 +229,3 @@ msgstr "%s не позволено"
 #, fuzzy
 msgid "Are you sure you want to remove this status?"
 msgstr "Вы уверены что хотите удалить этот элемент?"
-
-#~ msgid "[Select ...]"
-#~ msgstr "[Выберите...]"

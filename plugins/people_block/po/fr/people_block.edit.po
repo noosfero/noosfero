@@ -78,6 +78,3 @@ msgstr ""
 #: ../views/box_organizer/_people_block_base.html.erb:6
 msgid "Filter by role:"
 msgstr "Filtrer par rôle :"
-
-#~ msgid "friends|View all"
-#~ msgstr "Voir tout"
