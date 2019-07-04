@@ -6,81 +6,68 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2014-12-12 14:23+0200\n"
-"Last-Translator: Michal Čihař <michal@cihar.com>\n"
+"PO-Revision-Date: 2019-06-18 19:01+0000\n"
+"Last-Translator: NeverMine17 <dannevergame@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/"
-"noosfero/ru/>\n"
+"plugin-statistics/ru/>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.2-dev\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
+"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 3.7\n"
 
-msgid "Statistics for %s"
-msgstr "Статистика для %s"
+msgid "Show user counter"
+msgstr "Показать счетчик пользователя"
 
-#, fuzzy
 msgid "This block presents some statistics about your context."
-msgstr "Данный блок представляет некоторую статистику вашей среды"
+msgstr "Этот блок представляет некоторую статистику о вашем контексте."
 
+msgid "Show hit counter"
+msgstr "Показать счетчик посещений"
+
+msgid "users"
+msgstr "пользователи"
+
+msgid "enterprises"
+msgstr "компании"
+
+msgid "Show comment counter"
+msgstr "Показать счетчик комментариев"
+
+msgid "Show tag counter"
+msgstr "Показать счетчик тегов"
+
+msgid "categories"
+msgstr "категории"
+
+msgid "Show category counter"
+msgstr "Показать счетчик категорий"
+
+msgid "Show product counter"
+msgstr "Показать счетчик продуктов"
+
+msgid "Show community counter"
+msgstr "Показать счетчик сообщества"
+
+msgid "Show enterprise counter"
+msgstr "Показать счетчик предприятий"
+
+#: ../lib/statistics_plugin.rb:10
 msgid ""
 "A plugin that adds a block where you can see statistics of it's context."
 msgstr ""
+"Плагин, который добавляет блок, где вы можете увидеть статистику его "
+"контекста."
 
-#, fuzzy
-msgid "users"
-msgstr "Пользователь"
-
-#, fuzzy
-msgid "enterprises"
-msgstr "Компании"
-
+#: ../views/blocks/statistics.html.erb:23
 msgid "products"
-msgstr ""
+msgstr "продукты"
 
-msgid "communities"
-msgstr "Сообщества"
-
-#, fuzzy
-msgid "categories"
-msgstr "Категории"
-
+#: ../views/blocks/statistics.html.erb:58
 msgid "hits"
-msgstr ""
-
-#, fuzzy
-msgid "Show user counter"
-msgstr "Расположение:"
-
-#, fuzzy
-msgid "Show community counter"
-msgstr "В сообществе %s"
-
-#, fuzzy
-msgid "Show enterprise counter"
-msgstr "%s: компании"
-
-#, fuzzy
-msgid "Show product counter"
-msgstr "Весь контент"
-
-#, fuzzy
-msgid "Show category counter"
-msgstr "Новая категория"
-
-#, fuzzy
-msgid "Show tag counter"
-msgstr "Весь контент"
-
-#, fuzzy
-msgid "Show comment counter"
-msgstr "Комментарий для автора"
-
-#, fuzzy
-msgid "Show hit counter"
-msgstr "Весь контент"
+msgstr "просмотры"
 
 msgid "Show counter for communities with template %s"
-msgstr ""
+msgstr "Показать счетчик для сообществ с шаблоном %s"
