@@ -16,6 +16,8 @@ Noosfero::Application.routes.draw do
           get 'files'
           get 'search_tags'
           get 'update_categories'
+          get 'sensitive_content'
+          get 'select_profile'
 	  get 'search_article_privacy_exceptions'
 
         end

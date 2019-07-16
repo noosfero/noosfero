@@ -1,0 +1,52 @@
+<div id='new-sensitive-content'>
+  <div class='publish-container'>
+
+    <div class='publish-header'>
+      <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
+      <div class='publish-header-infos'>
+        <%= sensitive_context_message @sensitive_content, false %>
+        <%= sensitive_path_to_parents @sensitive_content %>
+      </div>
+    </div>
+
+    <div class='new-sensitive-content-container '>
+      <h2><%= _("In which directory do you want to publish?")%></h2>
+      <ul class="article-types scrollbar">
+        <% for directory in @sensitive_content.directory_options %>
+          <% if directory.has_subdirectories? %>
+            <div class='folder-dropdown 'style='position:relative'>
+              <%= link_to directory_option(directory), '#', id: "sub-directories-for-#{directory.id}",
+                    onclick: "openDropdown(this)", title: directory.name %>
+              <%= content_tag :ul, :class => "noosfero-dropdown-menu",
+                    :id => "sub-directories-for-#{directory.id}-dropdown" do %>
+                <%= content_tag :li do %>
+                  <%= modal_button(:ok, _('Publish here'), url_for(:controller => 'cms',
+                        :action => 'sensitive_content', :profile => @sensitive_content.profile.identifier,
+                        :page => directory.id), class: 'add-sensitive-history') %>
+                <% end %>
+                <%= content_tag :li do %>
+                  <%= modal_button(:folder_open, _('See subdirectories'), url_for(:controller => 'cms',
+                        :action => 'sensitive_content', :profile => @sensitive_content.profile.identifier,
+                        :page => directory.id, :select_directory => true, :select_subdirectory => true),
+                        class: 'add-sensitive-history') %>
+                <% end %>
+              <% end %>
+            </div>
+          <% else %>
+            <%= link_to(directory_option(directory), url_for(:controller => 'cms',
+                  :action => 'sensitive_content', :profile => @sensitive_content.profile.identifier,
+                  :page => directory.id), modal_options({class: 'add-sensitive-history', title: directory.name})) %>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class='publish-options'>
+      <%= sensitive_back_button @sensitive_back %>
+      <div class='sensitive-buttons'>
+        <%= select_profile_button @sensitive_content %>
+      </div>
+    </div>
+
+  </div>
+</div>

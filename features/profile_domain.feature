@@ -25,13 +25,13 @@ Feature: domain for profile
 
   Scenario: can't see profile if domain is different
     Given I am logged in as "joaosilva"
-    When I follow "Profile"
+    And I am on joaosilva's profile
     And I go to sample-community's homepage
     Then I should not see "Sample Community" within any "h1"
 
   Scenario: access user page
     Given I am logged in as "joaosilva"
-    When I follow "Profile"
+    And I am on joaosilva's profile
     Then I should be on joaosilva's profile
     And I should see "Joao Silva" within any "h1"
     And the page title should be "Joao Silva"

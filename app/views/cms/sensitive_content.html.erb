@@ -1,0 +1,28 @@
+<div id='new-sensitive-content'>
+  <div class='publish-container'>
+
+    <div class='publish-header'>
+      <%= link_to(profile_image(current_person, :minor), current_person.url) if logged_in? %>
+      <div class='publish-header-infos'>
+        <%= sensitive_context_message @sensitive_content %>
+        <%= sensitive_path_to_parents @sensitive_content %>
+      </div>
+    </div>
+
+    <div class='new-sensitive-content-container scrollbar'>
+      <h2><%= _('What do you want to publish?') %></h2>
+      <%= render :partial => 'cms/article_types', locals: {
+            article_types: @sensitive_content.content_types,
+            parent_id: @sensitive_content.directory.try(:id) } %>
+    </div>
+
+    <div class='publish-options'>
+      <%= sensitive_back_button @sensitive_back %>
+      <div class='sensitive-buttons'>
+        <%= select_directory_button @sensitive_content %>
+        <%= select_profile_button @sensitive_content %>
+      </div>
+    </div>
+
+  </div>
+</div>

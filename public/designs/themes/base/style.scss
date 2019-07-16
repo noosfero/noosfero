@@ -239,9 +239,38 @@ body, th, td, input {
         }
       }
 
-      &.user-home {
+      &.new-content-home,
+      &.user-pending-tasks {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          > a,
+          > a.button.without-text {
+            background: #fff;
+            color: #212e3c;
+            padding: 7px;
+            width: 17px;
+            height: 17px;
+            border-radius: 25px;
+            box-sizing: unset;
+            margin: 0;
+
+            > i.fa {
+                margin-right: 0px;
+            }
+
+            &:hover {
+                box-shadow: 2px 2px 10px #000;
+            }
+          }
           @media only screen and (max-width: 768px) {
-            a { font-size: 22px; }
+            a,
+            > a.button.without-text {
+              font-size: 20px;
+              background: none;
+              color: #fff;
+            }
           }
       }
 
