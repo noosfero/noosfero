@@ -71,7 +71,9 @@ module LayoutHelper
       output << stylesheet_link_tag(global_css_pub)
     end
 
-    output << stylesheet_link_tag(theme_stylesheet_path)
+    # if File.exists?(File.join(Rails.root.join, 'public', theme_stylesheet_path))
+      output << stylesheet_link_tag(theme_stylesheet_path)
+    # end
 
     # This output should be safe!
     output.join("\n").html_safe
@@ -84,6 +86,7 @@ module LayoutHelper
   def template_stylesheet_path
     File.join template_path, "/stylesheets/style.css"
   end
+
 
   def icon_theme_stylesheet_path
     theme_icon_themes = theme_option(:icon_theme) || []
