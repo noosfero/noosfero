@@ -1,26 +1,26 @@
+& {
+  background-color: #f9f9f9;
+  top: 0;
+  right: -5px;
+  bottom: 100px;
+  position: absolute;
+  border-left: 1px solid #DCE4E7;
+  border-bottom: 1px solid #DCE4E7;
+  z-index: 2;
+}
+&:hover {
+  right: 0;
+  width: 190px;
+  transition: width 0.3s ease-in;
+  .buddies {
+    top: 57px;
+    left: 15px;
+    right: 0;
+    transition: all 0.3s ease-in;
+  }
+}
 
 .buddies {
-  & {
-    background-color: #f9f9f9;
-    top: 0;
-    right: -5px;
-    bottom: 100px;
-    position: absolute;
-    border-left: 1px solid #DCE4E7;
-    border-bottom: 1px solid #DCE4E7;
-    z-index: 2;
-  }
-  &:hover {
-    right: 0;
-    width: 190px;
-    transition: width 0.3s ease-in;
-    .buddies {
-      top: 57px;
-      left: 15px;
-      right: 0;
-      transition: all 0.3s ease-in;
-    }
-  }
   position: absolute;
   bottom: 0;
   top: 25px;
@@ -62,10 +62,6 @@
 }
 
 .body{
-  &:hover{
-    top: 45px;
-    transition: top 0.3s ease-in;
-  }
   position: absolute;
   bottom: 0;
   right: 0;
@@ -74,13 +70,12 @@
   padding: 15px;
   transition: top 0.3s ease-in;
 }
+&:hover .body{
+  top: 45px;
+  transition: top 0.3s ease-in;
+}
 
 .search{
-  &:hover {
-    transition: all 0.3s ease-in 0.3;
-    height: 16px;
-    padding: 9px;
-  }
   width: 142px;
   padding: 0;
   height: 0;
@@ -88,5 +83,10 @@
   background-color: #dee1da;
   border: 0;
   transition: all 0.2s ease-in;
+}
+&:hover .search{
+  transition: all 0.3s ease-in 0.3;
+  height: 16px;
+  padding: 9px;
 }
 
