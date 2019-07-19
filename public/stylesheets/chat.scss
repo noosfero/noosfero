@@ -17,6 +17,9 @@
     height: 100%;
     position: relative;
     #conversations {
+      & {
+        height: 100%;
+      }
       @import "chat/conversation";
     }
     .history {
@@ -103,7 +106,30 @@
   #buddy-list {
     width: 0;
     transition: width 0.3s ease-in;
+    & {
+      background-color: #f9f9f9;
+      top: 0;
+      right: -5px;
+      bottom: 100px;
+      position: absolute;
+      border-left: 1px solid #DCE4E7;
+      border-bottom: 1px solid #DCE4E7;
+      z-index: 2;
+    }
+    &:hover {
+      right: 0;
+      width: 190px;
+      transition: width 0.3s ease-in;
+      .buddies {
+        top: 57px;
+        left: 15px;
+        right: 0;
+        transition: all 0.3s ease-in;
+      }
+    }
+
     @import "chat/buddy-list";
+
   }
   .occupant-list li a:hover {
     background-color: black;
