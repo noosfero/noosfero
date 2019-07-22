@@ -13,6 +13,7 @@
 
 ## Current Commiters
 
+* Álax Alves (@alaxalves)
 * Antonio Terceiro (@terceiro)
 * Aurélio Heckert (@aurium)
 * Bráulio Bhavamitra (@brauliobo)
