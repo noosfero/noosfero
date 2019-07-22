@@ -342,7 +342,7 @@ module Api
       table_name = class_type.table_name
 
       if class_type.new.is_a?(Event)
-        scope = scope.where("#{table_name}.#{attribute} >= ?", from_date) unless from_date.nil?
+        scope = scope.where(" (#{table_name}.#{attribute} >= ?) OR (#{table_name}.#{attribute} iS NULL)", from_date) unless from_date.nil?
         scope = scope.where("#{table_name}.#{attribute} <= ?", until_date) unless until_date.nil?
       else 
         scope = scope.where("#{table_name}.created_at >= ?", from_date) if !from_date.nil? && until_date.nil?
