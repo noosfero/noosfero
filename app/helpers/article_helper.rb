@@ -228,7 +228,7 @@ module ArticleHelper
       actions << link_to(content, url, { modal: true} ) if url
     end
 
-    if @page.allow_edit?(user) && @page.kind_of?(Event)
+    if @page.allow_edit?(user) && @page.kind_of?(Event) && !remove_content_button(:invite_friends, @page)
       content = font_awesome(:add_user, _('Invite Friends'))
       url = profile.admin_url.merge({controller: 'cms', action: 'invite_to_event', id: @page.id})
       actions << link_to(content, url) if url
@@ -246,12 +246,14 @@ module ArticleHelper
         actions << modal_link_to(font_awesome(:file, label_for_new_article(@page)), profile.admin_url.merge(controller: 'cms', action: 'new', parent_id: (@page.folder? ? @page : @page.parent))) unless remove_content_button(:new, @page)
       end
 
-      content = font_awesome(:clone, label_for_clone_article(@page))
-      url = profile.admin_url.merge({ controller: 'cms', action: 'new', id: @page.id, clone: true, parent_id: (@page.folder? ? @page : @page.parent), type: @page.class})
-      actions << expirable_content_reference(@page, :clone, content, url)
+      if !remove_content_button(:clone, @page)
+        content = font_awesome(:clone, label_for_clone_article(@page))
+        url = profile.admin_url.merge({ controller: 'cms', action: 'new', id: @page.id, clone: true, parent_id: (@page.folder? ? @page : @page.parent), type: @page.class})
+        actions << expirable_content_reference(@page, :clone, content, url)
+      end
     end
 
-    if @page.accept_uploads? && @page.allow_create?(user)
+    if @page.accept_uploads? && @page.allow_create?(user) && !remove_content_button(:upload, @page)
       actions << link_to(font_awesome(:upload, _('Upload files')), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) unless remove_content_button(:upload, @page)
     end
 
