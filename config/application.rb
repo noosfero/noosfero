@@ -68,8 +68,9 @@ module Noosfero
       clobber
       noosfero:translations:compile
       makemo
+      assets:precompile
     ]
-    if $PROGRAM_NAME =~ /rake$/ && (ignore_rake_commands.include?(ARGV.first))
+    if $PROGRAM_NAME =~ /rake|rails$/ && (ignore_rake_commands.include?(ARGV.first))
       Noosfero::Plugin.should_load = false
     else
       config.active_record.observers = :article_sweeper, :role_assignment_sweeper, :friendship_sweeper, :category_sweeper, :block_sweeper

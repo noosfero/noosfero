@@ -111,5 +111,13 @@ module Noosfero
     @development_url_options || {}
   end
 
+  def self.compiling_assets?
+    File.basename($0) =~ /rake|rails/ && ARGV.include?("assets:precompile")
+  end
+
+  def self.loading_schema?
+    File.basename($0) =~ /rake|rails/ && ARGV.include?("db:schema:load")
+  end
+
 end
 

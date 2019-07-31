@@ -9,7 +9,10 @@ Noosfero::Application.configure do
   # config.action_controller.perform_caching = true
 
   # Enable Rails's static asset server (Apache or nginx should do this)
-  config.serve_static_assets = false
+  # config.serve_static_assets = false
+
+  # Disable live compilation for the assets
+  # config.assets.compile = false
 
   # Compress JavaScripts (sass-rails enable compression of CSS by default)
   config.assets.js_compressor = :uglifier

@@ -22,7 +22,7 @@ Language.syntax = [ // XSL
 	},{
 	input : /(&lt;script.*?&gt;)(.*?)(&lt;\/script&gt;)/g,
 	output : '<strong>$1</strong><tt>$2</tt><strong>$3</strong>' // script tags
-	},{	
+	},{
 	input : /(&lt;xsl.*?&gt;|&lt;\/xsl.*?&gt;)/g,
 	output : '<xsl>$1</xsl>' // xsl
 	},{
@@ -33,7 +33,7 @@ Language.syntax = [ // XSL
 	output : '=<s>$1</s>' // atributes single quote
 	},{
 	input : /(&lt;!--.*?--&gt.)/g,
-	output : '<ins>$1</ins>' // comments 
+	output : '<ins>$1</ins>' // comments
 	},{
 	input : /\b(alert|window|document|break|continue|do|for|new|this|void|case|default|else|function|return|typeof|while|if|label|switch|var|with|catch|boolean|int|try|false|throws|null|true|goto)\b/g,
 	output : '<i>$1</i>' // script reserved words
@@ -54,9 +54,9 @@ Language.snippets = [
 	{input : 'input', output : '<input name="$0" id="" type="" value="" />' },
 	{input : 'label', output : '<label for="$0"></label>' },
 	{input : 'legend', output : '<legend>\n\t$0\n</legend>' },
-	{input : 'link', output : '<link rel="stylesheet" href="$0" type="text/css" media="screen" charset="utf-8" />' },		
-	{input : 'base', output : '<base href="$0" />' }, 
-	{input : 'body', output : '<body>\n\t$0\n</body>' }, 
+	{input : 'link', output : '<link rel="stylesheet" href="$0" type="text/css" media="screen" charset="utf-8" />' },
+	{input : 'base', output : '<base href="$0" />' },
+	{input : 'body', output : '<body>\n\t$0\n</body>' },
 	{input : 'css', output : '<link rel="stylesheet" href="$0" type="text/css" media="screen" charset="utf-8" />' },
 	{input : 'div', output : '<div>\n\t$0\n</div>' },
 	{input : 'divid', output : '<div id="$0">\n\t\n</div>' },
@@ -79,7 +79,7 @@ Language.snippets = [
 	{input : 'xsl:stylesheet', output : '<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">' },
 	{input : 'xsl:template', output : '<xsl:template>$0</xsl:template>' },
 	{input : 'xsl:for-each', output : '<xsl:for-each select="$0"></xsl:for-each>' },
-	{input : 'xsl:choose', output : '<xsl:choose>$0<\xsl:choose>' },
+	{input : 'xsl:choose', output : '<xsl:choose>$0</xsl:choose>' },
 	{input : 'xsl:param', output : '<xsl:param name="$0" />' },
 	{input : 'xsl:variable', output : '<xsl:variable name="$0"></xsl:variable>' },
 	{input : 'xsl:if', output : '<xsl:if test="$0"></xsl:if>' },
@@ -91,13 +91,13 @@ Language.snippets = [
 	{input : 'xsl:call-template', output : '<xsl:call-template name="$0">' }
 
 ];
-	
+
 Language.complete = [ // Auto complete only for 1 character
 	{input : '\'',output : '\'$0\'' },
 	{input : '"', output : '"$0"' },
 	{input : '(', output : '\($0\)' },
 	{input : '[', output : '\[$0\]' },
-	{input : '{', output : '{\n\t$0\n}' }		
+	{input : '{', output : '{\n\t$0\n}' }
 ];
 
 Language.shortcuts = [];
