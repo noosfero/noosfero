@@ -24,9 +24,8 @@ before_script:
 stages:
   - test
   - test-plugins
-  - acceptance-tests
   - code-quality
-  - docker-build-push
+  - build
 
 .cache: &cache
   cache:
@@ -71,49 +70,49 @@ cucumber-1:
   <<: *retriable
   <<: *cache
   script: bundle exec rake noosfero:doc:build & SLICE=1/2 bundle exec cucumber --profile default
-  stage: acceptance-tests
+  stage: test
 
 cucumber-2:
   <<: *retriable
   <<: *cache
   script: SLICE=2/2 bundle exec cucumber --profile default
-  stage: acceptance-tests
+  stage: test
 
 selenium-1:
   <<: *retriable
   <<: *cache
   script: SLICE=1/6 bundle exec rails selenium
-  stage: acceptance-tests
+  stage: test
 
 selenium-2:
   <<: *retriable
   <<: *cache
   script: SLICE=2/6 bundle exec rails selenium
-  stage: acceptance-tests
+  stage: test
 
 selenium-3:
   <<: *retriable
   <<: *cache
   script: SLICE=3/6 bundle exec rails selenium
-  stage: acceptance-tests
+  stage: test
 
 selenium-4:
   <<: *retriable
   <<: *cache
   script: SLICE=4/6 bundle exec rails selenium
-  stage: acceptance-tests
+  stage: test
 
 selenium-5:
   <<: *retriable
   <<: *cache
   script: SLICE=5/6 bundle exec rails selenium
-  stage: acceptance-tests
+  stage: test
 
 selenium-6:
   <<: *retriable
   <<: *cache
   script: SLICE=6/6 bundle exec rails selenium
-  stage: acceptance-tests
+  stage: test
 
 plugins-1:
   <<: *retriable
@@ -182,9 +181,9 @@ code_quality:
   only:
     - tags
 
-docker_push:
+build_image:
   image: docker:stable
-  stage: docker-build-push
+  stage: build
   services:
     - docker:dind
   before_script:
