@@ -15,10 +15,10 @@
     <% label = form.kind == 'poll' ? _('Vote!') : _('Send') %>
     <% if form.expired? %>
       <%= submit_button :save, label, disabled: '', class: 'disabled',
-                        data: { confirm: _('Are you sure your want to submit your vote?') } %>
+                        data: { confirm: _('Are you sure your want to submit your answer?') } %>
     <% else %>
       <%= submit_button :save, label,
-                        data: { confirm: _('Are you sure your want to submit your vote?') } %>
+                        data: { confirm: _('Are you sure your want to submit your answer?') } %>
     <% end %>
     <%= button :back, _('Go back'), controller: :profile, profile: profile.identifier %>
   <% end %>
