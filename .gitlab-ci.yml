@@ -26,6 +26,7 @@ stages:
   - test-plugins
   - code-quality
   - build
+  - deploy
 
 .cache: &cache
   cache:
@@ -158,6 +159,7 @@ rubocop:
   allow_failure: true
 
 code_quality:
+  stage: code-quality
   image: docker:stable
   variables:
     DOCKER_DRIVER: overlay2
@@ -172,14 +174,28 @@ code_quality:
       --volume "$PWD":/code
       --volume /var/run/docker.sock:/var/run/docker.sock
       "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+    - cat gl-code-quality-report.json | docker run -i stedolan/jq -c 
+      'map({check_name,fingerprint,location})|unique_by({fingerprint})' > codeclimate.json`
   artifacts:
     paths:
-      - gl-code-quality-report.json
+      - codeclimate.json
     reports:
-      codequality: gl-code-quality-report.json
-  stage: code-quality
+      codequality: codeclimate.json
   only:
-    - tags
+    - exposing-code-quality-report
+
+pages:
+  stage: deploy
+  dependencies:
+    - code_quality
+  script:
+    - cat codeclimate.json
+  #artifacts:
+  #  paths:
+  #    - public
+  #  expire_in: 30 days
+  only:
+    - exposing-code-quality-report
 
 build_image:
   image: docker:stable
