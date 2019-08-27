@@ -1,5 +1,6 @@
 require 'base64'
 require 'tempfile'
+require 'recaptcha'
 
 module Api
   module Helpers

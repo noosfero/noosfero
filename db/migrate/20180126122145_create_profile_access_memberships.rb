@@ -1,4 +1,4 @@
-class CreateProfileAccessMemberships < ActiveRecord::Migration
+class CreateProfileAccessMemberships < ActiveRecord::Migration[5.1]
   def up
     noosfero_env = ENV['RAILS_ENV']
     if noosfero_env != 'production'
