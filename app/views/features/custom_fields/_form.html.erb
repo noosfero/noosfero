@@ -4,7 +4,7 @@
 <fieldset class="fieldbox">
   <legend><%= format_name(field.format) %></legend>
   <%= required labelled_form_field _('Name'), text_field_tag("custom_fields[#{id}][name]", field.name, :size => 30) %>
-    <%= button_to_function :delete, _('Remove field'), "remove_content('##{id}');" %>
+    <%= button :delete, _('Remove field'), '#', onclick: "remove_content('##{id}'); return false;" %>
 
     <% if field.format != "list" %>
       <%= labelled_form_field  _('Default value'), text_field_tag("custom_fields[#{id}][default_value]", field.default_value, :size => 30) %>
