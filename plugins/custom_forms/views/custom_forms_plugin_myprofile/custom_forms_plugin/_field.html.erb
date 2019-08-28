@@ -4,6 +4,8 @@
   <%= render partial_for_class(CustomFormsPlugin::SelectField), :f => f %>
 <% when 'CustomFormsPlugin::TextField' %>
   <%= render partial_for_class(CustomFormsPlugin::TextField), :f => f %>
+<% when 'CustomFormsPlugin::DateTimeField' %>
+  <%= render partial_for_class(CustomFormsPlugin::DateTimeField), :f => f %>
 <% else %>
   <% raise 'This field has no valid type' %>
 <% end %>
