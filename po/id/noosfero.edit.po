@@ -79,29 +79,35 @@ msgstr ""
 msgid "The comment '%s' was removed."
 msgstr "Artikel telah dihapus."
 
-#: ../app/api/v1/communities.rb:72
+#: ../app/api/v1/communities.rb:43
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr ""
+
+#: ../app/api/v1/communities.rb:85
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:89
+#: ../app/api/v1/communities.rb:102
 msgid "The contact was sent."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:92
+#: ../app/api/v1/communities.rb:105
 msgid "The contact was not sent."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:110
+#: ../app/api/v1/communities.rb:123
 msgid "You already request a membership for this community."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:113
+#: ../app/api/v1/communities.rb:126
 msgid "You already member of this community."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:116
+#: ../app/api/v1/communities.rb:129
 msgid ""
 "You are not member of this community and you did not made a membership "
 "request."
@@ -3959,32 +3965,32 @@ msgstr ""
 msgid "Welcome Page"
 msgstr ""
 
-#: ../app/models/create_community.rb:51
+#: ../app/models/create_community.rb:56
 msgid "New community"
 msgstr ""
 
-#: ../app/models/create_community.rb:65
+#: ../app/models/create_community.rb:70
 msgid "%{requestor} wants to create community %{subject} with no description."
 msgstr ""
 
-#: ../app/models/create_community.rb:67
+#: ../app/models/create_community.rb:72
 msgid ""
 "%{requestor} wants to create community %{subject} with this description:"
 "<p><em>%{description}</em></p>"
 msgstr ""
 
-#: ../app/models/create_community.rb:91
+#: ../app/models/create_community.rb:96
 msgid "%{requestor} wants to create community %{subject}"
 msgstr ""
 
-#: ../app/models/create_community.rb:95
+#: ../app/models/create_community.rb:100
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have "
 "to approve or reject it through the \"Pending Validations\" section in your "
 "control panel.\n"
 msgstr ""
 
-#: ../app/models/create_community.rb:99
+#: ../app/models/create_community.rb:104
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "just sent. Environment administrator will receive it and will approve or "
@@ -3994,7 +4000,7 @@ msgid ""
 "position about your request."
 msgstr ""
 
-#: ../app/models/create_community.rb:105
+#: ../app/models/create_community.rb:110
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "not approved by the environment administrator. The following explanation was "
@@ -4003,7 +4009,7 @@ msgid ""
 "%{explanation}"
 msgstr ""
 
-#: ../app/models/create_community.rb:109
+#: ../app/models/create_community.rb:114
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
@@ -10618,20 +10624,3 @@ msgid ""
 "This site uses %{noosfero_url}, developed by %{colivre_url} and licensed "
 "under the %{agpl_url} version 3 or any later version."
 msgstr ""
-
-#: ../app/views/categories/_category.html.erb:12
-#, fuzzy
-#~ msgid "Show subcategories"
-#~ msgstr "Nonaktifkan kategori"
-
-#~ msgid "Hide subcategories"
-#~ msgstr "Nonaktifkan kategori"
-
-#~ msgid "<span class='login'>%s</span>"
-#~ msgstr "<span class='login'>%s</span>"
-
-#~ msgid "Generic category"
-#~ msgstr "Kategori umum"
-
-#~ msgid "Product"
-#~ msgstr "Produk"

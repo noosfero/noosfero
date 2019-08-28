@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2016-04-22 22:31+0000\n"
-"Last-Translator: Iryna Pruitt <jdpruitt2807@prodigy.net>\n"
+"PO-Revision-Date: 2019-06-18 19:01+0000\n"
+"Last-Translator: NeverMine17 <dannevergame@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/plugin-"
 "custom-forms/ru/>\n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.6-dev\n"
+"X-Generator: Weblate 3.7\n"
 
 msgid "There is no data to be downloaded"
 msgstr ""
@@ -421,7 +421,7 @@ msgid "This field will be added automatically to your survey"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #, fuzzy
 msgid "Add a new text field"

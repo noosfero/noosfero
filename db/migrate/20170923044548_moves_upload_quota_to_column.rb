@@ -1,4 +1,4 @@
-class MovesUploadQuotaToColumn < ActiveRecord::Migration
+class MovesUploadQuotaToColumn < ActiveRecord::Migration[4.2]
   def up
     add_column :profiles, :upload_quota, :string
     add_column :profiles, :disk_usage, :float

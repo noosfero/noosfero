@@ -322,7 +322,12 @@ class Task < ApplicationRecord
         where "LOWER(#{field}) LIKE ?", "%#{value.downcase}%"
       end
   }
-  scope :pending_all_by_filter, -> profile, filter_type, filter_text {
+
+  scope :pending_all_by_filter, -> filter_type, filter_text {
+    self.without_spam.pending.of(filter_type).like('data', filter_text)
+  }
+
+  scope :pending_all_by_profile_and_filter, -> profile, filter_type, filter_text {
     self.to(profile).without_spam.pending.of(filter_type).like('data', filter_text)
   }
 

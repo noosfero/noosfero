@@ -301,6 +301,3 @@ msgstr "Livraisons ou retraits"
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
 msgid "Back to control panel"
 msgstr "Retour au panneau de contrôle"
-
-#~ msgid "Shopping basket"
-#~ msgstr "Panier d’achat"

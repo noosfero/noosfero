@@ -310,6 +310,3 @@ msgstr "Precio de entrega"
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
 msgid "Back to control panel"
 msgstr ""
-
-#~ msgid "Shopping basket"
-#~ msgstr "Carrito de compras"

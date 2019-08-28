@@ -183,12 +183,3 @@ msgstr "Código %s"
 #: ../views/file_presenter/_video.html.erb:69
 msgid "display full output"
 msgstr "Mostrar toda a saída"
-
-#~ msgid "Queued to generate the web version. Come back soon."
-#~ msgstr "Encaminhado para gerar a versão para a web. Volte em breve."
-
-#~ msgid ""
-#~ "This video is not queued to the video conversor. Contact the site admin."
-#~ msgstr ""
-#~ "Esse vídeo não foi encaminhado para o conversor. Contate o administrador "
-#~ "do site."

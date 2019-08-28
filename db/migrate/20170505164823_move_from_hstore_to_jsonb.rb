@@ -1,4 +1,4 @@
-class MoveFromHstoreToJsonb < ActiveRecord::Migration
+class MoveFromHstoreToJsonb < ActiveRecord::Migration[4.2]
   def up
     %w[profiles articles tasks blocks users].each do |table|
       connection.execute "ALTER TABLE #{table} ALTER COLUMN metadata SET DEFAULT null"

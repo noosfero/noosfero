@@ -65,6 +65,11 @@ msgid "The comment '%s' was removed."
 msgstr "Artikel telah dihapus."
 
 msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr ""
+
+msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."
 msgstr ""

@@ -88,7 +88,14 @@ msgstr "Você agora está seguindo o artigo %s."
 msgid "The comment '%s' was removed."
 msgstr "O comentário '%s' foi removido."
 
-#: ../app/api/v1/communities.rb:72
+#: ../app/api/v1/communities.rb:43
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "comunidade"
+
+#: ../app/api/v1/communities.rb:85
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."
@@ -96,23 +103,23 @@ msgstr ""
 "Seu convite foi registrado. Os administradores da comunidade estão revisando "
 "a sua solicitação."
 
-#: ../app/api/v1/communities.rb:89
+#: ../app/api/v1/communities.rb:102
 msgid "The contact was sent."
 msgstr "O contato foi enviado."
 
-#: ../app/api/v1/communities.rb:92
+#: ../app/api/v1/communities.rb:105
 msgid "The contact was not sent."
 msgstr "O contato não foi enviado."
 
-#: ../app/api/v1/communities.rb:110
+#: ../app/api/v1/communities.rb:123
 msgid "You already request a membership for this community."
 msgstr "Você já requisitou a participação nessa comunidade."
 
-#: ../app/api/v1/communities.rb:113
+#: ../app/api/v1/communities.rb:126
 msgid "You already member of this community."
 msgstr "Você já é um membro dessa comunidade."
 
-#: ../app/api/v1/communities.rb:116
+#: ../app/api/v1/communities.rb:129
 msgid ""
 "You are not member of this community and you did not made a membership "
 "request."
@@ -290,9 +297,8 @@ msgstr "Não foi possível salvar a categoria."
 
 #: ../app/controllers/admin/environment_role_manager_controller.rb:17
 #: ../app/controllers/my_profile/profile_members_controller.rb:41
-#, fuzzy
 msgid "Roles successfully updated"
-msgstr "Papéis alterado com sucesso"
+msgstr "Papéis alterados com sucesso"
 
 #: ../app/controllers/admin/environment_role_manager_controller.rb:19
 #: ../app/controllers/my_profile/profile_members_controller.rb:44
@@ -355,7 +361,6 @@ msgid "There were some problems editing this kind"
 msgstr "Houve algum problema editando esse tipo"
 
 #: ../app/controllers/admin/kinds_controller.rb:40
-#, fuzzy
 msgid "Kind successfully removed"
 msgstr "Tipo removido com sucesso"
 
@@ -484,6 +489,14 @@ msgstr "Empreendimentos"
 #: ../app/controllers/admin/profile_quotas_controller.rb:114
 msgid "Sort by name"
 msgstr "Ordenar por nome"
+
+#: ../app/controllers/admin/profile_quotas_controller.rb:115
+msgid "Higher disk usage"
+msgstr "Maior uso do disco"
+
+#: ../app/controllers/admin/profile_quotas_controller.rb:116
+msgid "Lower disk usage"
+msgstr "Menor uso do disco"
 
 #: ../app/controllers/admin/role_controller.rb:18
 #: ../app/controllers/my_profile/profile_roles_controller.rb:20
@@ -656,6 +669,14 @@ msgstr ""
 msgid "Name"
 msgstr "Nome"
 
+#: ../app/controllers/my_profile/cms_controller.rb:412
+msgid "Size (bigger first)"
+msgstr "Tamanho (maior primeiro)"
+
+#: ../app/controllers/my_profile/cms_controller.rb:413
+msgid "Size (smaller first)"
+msgstr "Tamanho (menor primeiro)"
+
 #: ../app/controllers/my_profile/cms_controller.rb:442
 msgid "Are not you going to invite anyone?"
 msgstr "Você não irá convidar ninguém?"
@@ -792,7 +813,6 @@ msgid "Select at least one member."
 msgstr "Selecione ao menos um integrante."
 
 #: ../app/controllers/my_profile/profile_members_controller.rb:98
-#, fuzzy
 msgid "Member successfully unassociated"
 msgstr "Integrante desassociado com sucesso"
 
@@ -812,7 +832,6 @@ msgid "The members list was updated."
 msgstr "Lista de membros atualizada."
 
 #: ../app/controllers/my_profile/profile_roles_controller.rb:53
-#, fuzzy
 msgid "Role successfully removed!"
 msgstr "Papel removido com sucesso!"
 
@@ -1704,6 +1723,12 @@ msgstr "Código de incorporação"
 #: ../app/views/box_organizer/index.html.erb:12
 msgid "Help on this block"
 msgstr "Ajuda sobre este bloco"
+
+#: ../app/helpers/categories_helper.rb:6
+msgid "General category"
+msgid_plural "General categories"
+msgstr[0] "Categoria geral"
+msgstr[1] "Categorias gerais"
 
 #: ../app/helpers/categories_helper.rb:7
 #: ../app/views/enterprise_registration/index.html.erb:25
@@ -2920,6 +2945,50 @@ msgstr "Links do perfil"
 msgid "Filter profiles by name"
 msgstr "Filtrar perfis por nome"
 
+#: ../app/helpers/sanitize_helper.rb:7
+msgid "The id of the %s"
+msgstr "O id do %s"
+
+#: ../app/helpers/sanitize_helper.rb:66
+msgid "Title of the article"
+msgstr "Título do conteúdo"
+
+#: ../app/helpers/sanitize_helper.rb:70
+msgid "Name of article's profile"
+msgstr "Nome do perfil do conteúdo"
+
+#: ../app/helpers/sanitize_helper.rb:74
+msgid "Identifier of article's profile"
+msgstr "Identificador do perfil do conteúdo"
+
+#: ../app/helpers/sanitize_helper.rb:78
+msgid "Identifier of article's author"
+msgstr "Identificador do autor do conteúdo"
+
+#: ../app/helpers/sanitize_helper.rb:82
+msgid "Name of article's author"
+msgstr "Nome do autor do conteúdo"
+
+#: ../app/helpers/sanitize_helper.rb:86
+msgid "Email of article's author"
+msgstr "E-mail do autor do conteúdo"
+
+#: ../app/helpers/sanitize_helper.rb:95
+msgid "Identifier of the block's profile"
+msgstr "Identificador do perfil do bloco"
+
+#: ../app/helpers/sanitize_helper.rb:99
+msgid "Name of the block's profile"
+msgstr "Nome do perfil do bloco"
+
+#: ../app/helpers/sanitize_helper.rb:103
+msgid "Email of the block's profile"
+msgstr "E-mail do perfil do bloco"
+
+#: ../app/helpers/sanitize_helper.rb:107
+msgid "Title of the block"
+msgstr "Título do bloco"
+
 #: ../app/helpers/sanitize_helper.rb:111
 msgid "Identifier of the current person that is logged in the system"
 msgstr "O identificador da pessoas que está logada no sistema"
@@ -3452,12 +3521,10 @@ msgid "Language is already used"
 msgstr "Idioma já foi usado"
 
 #: ../app/models/article.rb:489
-#, fuzzy
 msgid "Language must be chosen"
-msgstr "É preciso escolher um idioma"
+msgstr "Linguagem deve ser escolhida"
 
 #: ../app/models/article.rb:495
-#, fuzzy
 msgid "A language must be chosen for the native article"
 msgstr "Um idioma deve ser escolhido para o artigo nativo"
 
@@ -3488,6 +3555,10 @@ msgstr "Criado em: "
 #: ../app/models/article.rb:880
 msgid "is archived!!"
 msgstr "está arquivado!!"
+
+#: ../app/models/article.rb:890
+msgid "Custom fields must have values"
+msgstr "Campos customizados precisam ter valores"
 
 #: ../app/models/article_block.rb:6
 msgid "Display one of your contents."
@@ -3682,6 +3753,10 @@ msgstr "Idioma"
 #: ../app/models/environment.rb:1160
 msgid "Invalid value"
 msgstr "Valor inválido"
+
+#: ../app/models/concerns/has_upload_quota.rb:28
+msgid "Must be greather or equal to zero"
+msgstr "Deve ser maior ou igual a zero"
 
 #: ../app/models/contact_list.rb:18
 msgid ""
@@ -3951,6 +4026,10 @@ msgstr "configurações"
 msgid "Privacy"
 msgstr "Privacidade"
 
+#: ../app/models/control_panel/regions.rb:4
+msgid "Regions"
+msgstr "Regiões"
+
 #: ../app/models/control_panel/roles.rb:4
 #: ../app/views/profile_roles/assign.html.erb:16
 msgid "Roles"
@@ -3981,15 +4060,15 @@ msgstr "revisão"
 msgid "Welcome Page"
 msgstr "Página de Boas-Vindas"
 
-#: ../app/models/create_community.rb:51
+#: ../app/models/create_community.rb:56
 msgid "New community"
 msgstr "Nova comunidade"
 
-#: ../app/models/create_community.rb:65
+#: ../app/models/create_community.rb:70
 msgid "%{requestor} wants to create community %{subject} with no description."
 msgstr "%{requestor} quer criar a comunidade %{subject} sem descrição."
 
-#: ../app/models/create_community.rb:67
+#: ../app/models/create_community.rb:72
 msgid ""
 "%{requestor} wants to create community %{subject} with this description:"
 "<p><em>%{description}</em></p>"
@@ -3997,11 +4076,11 @@ msgstr ""
 "%{requestor} deseja criar a comunidade %{subject} com essa descrição:<p><em>"
 "%{description}</em></p>"
 
-#: ../app/models/create_community.rb:91
+#: ../app/models/create_community.rb:96
 msgid "%{requestor} wants to create community %{subject}"
 msgstr "%{requestor} quer criar a comunidade %{subject}"
 
-#: ../app/models/create_community.rb:95
+#: ../app/models/create_community.rb:100
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have "
 "to approve or reject it through the \"Pending Validations\" section in your "
@@ -4011,7 +4090,7 @@ msgstr ""
 "tem que aprová-lo ou rejeitá-lo através da seção \"Validações Pendentes\" no "
 "seupainel de controle.\n"
 
-#: ../app/models/create_community.rb:99
+#: ../app/models/create_community.rb:104
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "just sent. Environment administrator will receive it and will approve or "
@@ -4027,7 +4106,7 @@ msgstr ""
 "      Você será notificado assim que o administrador do ambiente tiver uma "
 "posição sobre a sua requisição."
 
-#: ../app/models/create_community.rb:105
+#: ../app/models/create_community.rb:110
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "not approved by the environment administrator. The following explanation was "
@@ -4041,7 +4120,7 @@ msgstr ""
 "\n"
 "%{explanation}"
 
-#: ../app/models/create_community.rb:109
+#: ../app/models/create_community.rb:114
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
@@ -4666,6 +4745,10 @@ msgstr ""
 "Este bloco apresenta as pessoas que adicionaram um empreendimento como "
 "empreendimento favorito."
 
+#: ../app/models/fans_block.rb:20
+msgid "Fans"
+msgstr "Fãs"
+
 #: ../app/models/favorite_enterprise_person.rb:11
 msgid "favorites"
 msgstr "favoritos"
@@ -4735,7 +4818,6 @@ msgid "Invitation"
 msgstr "Convite"
 
 #: ../app/models/invitation.rb:41
-#, fuzzy
 msgid "You can't invite yourself"
 msgstr "Você não pode convidar a si mesmo"
 
@@ -5997,7 +6079,6 @@ msgid "Welcome to %s"
 msgstr "Bem-vindo a %s"
 
 #: ../app/views/account/welcome.html.erb:4
-#, fuzzy
 msgid ""
 "%s was successfully activated. Now you may go to your control panel or to "
 "the control panel of your enterprise"
@@ -6153,6 +6234,11 @@ msgstr "Editar modelos"
 #: ../app/views/admin_panel/index.html.erb:62
 msgid "Captcha"
 msgstr "Captcha"
+
+#: ../app/views/admin_panel/index.html.erb:68
+#: ../app/views/admin_panel/string_templates.html.erb:1
+msgid "Macros"
+msgstr "Macros"
 
 #: ../app/views/admin_panel/index.html.erb:73
 msgid "Profiles"
@@ -6310,6 +6396,43 @@ msgstr "Página de boas vindas após o registro"
 #: ../app/views/admin_panel/site_info.html.erb:18
 msgid "Signup introduction text"
 msgstr "Texto introdutório no registro de usuário"
+
+#: ../app/views/admin_panel/string_templates.html.erb:6
+msgid ""
+"The following macros can be used to access the attributes of the enclosing "
+"context. For blocks, macros are available in any attribute. For articles, "
+"macros are supported in the lead and body."
+msgstr ""
+"As seguintes macros podem ser usadas para acessar os atributos do contexto. "
+"Para blocos, macros estão disponíveis em todos os atributos. Para articgos, "
+"macros são suportadas no olho e no corpo."
+
+#: ../app/views/admin_panel/string_templates.html.erb:13
+msgid ""
+"To use one of these macros, just prepend a \"!\" symbol to the macro key, in "
+"any of the supported contexts. For example, you can use !profile-name on the "
+"title of a block, and it will be replaced by the name of the profile."
+msgstr ""
+"Para usar uma dessas macros, basta prefixar um símbolo de \"!\" para a chave "
+"da macro em qualquer dos contextos suportados. Por exemplo, você pode usar !"
+"profile-name no título de um bloco e isso será substituído pelo nome do "
+"perfil."
+
+#: ../app/views/admin_panel/string_templates.html.erb:20
+msgid "Note that macros are only supported in the contexts below"
+msgstr "Note que macros são suportadas apenas nos contextos abaixo"
+
+#: ../app/views/admin_panel/string_templates.html.erb:25
+msgid "Macros for %s"
+msgstr "Macros para %s"
+
+#: ../app/views/admin_panel/string_templates.html.erb:29
+msgid "Macro key"
+msgstr "Chave da macro"
+
+#: ../app/views/admin_panel/string_templates.html.erb:30
+msgid "Return Value"
+msgstr "Valor de retorno"
 
 #: ../app/views/api/index.html.erb:4
 msgid "api-playground|Try the %s"
@@ -7430,6 +7553,14 @@ msgstr "Enviando ficheiros para %s"
 msgid "Content management"
 msgstr "Gerenciamento de conteúdo"
 
+#: ../app/views/cms/view.html.erb:19
+msgid "Your files"
+msgstr "Seus arquivos"
+
+#: ../app/views/cms/view.html.erb:21
+msgid "(used %s of %s):"
+msgstr "(utilizado %s de %s)"
+
 #: ../app/views/cms/view.html.erb:40
 msgid "Last modified"
 msgstr "Última modificação"
@@ -7790,9 +7921,8 @@ msgid "New template"
 msgstr "Novo modelo"
 
 #: ../app/views/email_templates/new.html.erb:1
-#, fuzzy
 msgid "New Email Template"
-msgstr "Editar Modelos"
+msgstr "Novo Modelo de E-mail"
 
 #: ../app/views/embed/not_found.html.erb:3
 #: ../app/views/shared/not_found.html.erb:4
@@ -7897,14 +8027,14 @@ msgid "Enterprise registration: validator organization"
 msgstr "Registo do empreendimento: organização validadora"
 
 #: ../app/views/enterprise_registration/select_validator.html.erb:4
-#, fuzzy
 msgid ""
 "Select one organization to validate your enterprise registration request. "
 "Check the provided information about their validation methodology and "
 "criteria."
 msgstr ""
-"Selecione uma organização para validar seu pedido do registo da empresa. "
-"Verifique a informação fornecida sobre seu método de validação e critérios."
+"Selecione uma organização para validar seu pedido do registo da "
+"empreendimento. Verifique a informação fornecida sobre seu método de "
+"validação e critérios."
 
 #: ../app/views/enterprise_registration/select_validator.html.erb:13
 msgid "Validation Methodology:"
@@ -9626,11 +9756,23 @@ msgstr ""
 msgid "Quota"
 msgstr "Cota"
 
+#: ../app/views/profile_quotas/_profile_list.html.erb:6
+msgid "Usage"
+msgstr "Uso"
+
+#: ../app/views/profile_quotas/_profile_list.html.erb:16
+msgid "Unlimited"
+msgstr "Ilimitado"
+
 #: ../app/views/profile_quotas/_profile_list.html.erb:29
 #: ../app/views/profile_quotas/_quotas_by_kind.html.erb:21
 #: ../app/views/profile_quotas/_quotas_by_kind.html.erb:34
 msgid "Edit Quota"
 msgstr "Editar Cota"
+
+#: ../app/views/profile_quotas/_profile_list.html.erb:30
+msgid "Reset quota for this profile"
+msgstr "Resetar a cota para esse perfil"
 
 #: ../app/views/profile_quotas/_profile_list.html.erb:32
 msgid "This action will reset the quota for %s."
@@ -9657,6 +9799,11 @@ msgstr "Tipo de perfil"
 #: ../app/views/profile_quotas/_quotas_by_kind.html.erb:12
 msgid "Show/hide types"
 msgstr "Mostrar/Esconder tipos"
+
+#: ../app/views/profile_quotas/_quotas_by_kind.html.erb:23
+#: ../app/views/profile_quotas/_quotas_by_kind.html.erb:36
+msgid "Reset quota for all profiles"
+msgstr "Resetar cota para todos os perfis"
 
 #: ../app/views/profile_quotas/_quotas_by_kind.html.erb:25
 #: ../app/views/profile_quotas/_quotas_by_kind.html.erb:38
@@ -10357,6 +10504,11 @@ msgstr "Informações da Comunidade"
 msgid "I will not, thank you"
 msgstr "Eu não irei, obrigado"
 
+#: ../app/views/tasks/_invite_event_action_bar.html.erb:14
+#: ../app/views/tasks/index.html.erb:63
+msgid "Skip"
+msgstr "Pular"
+
 #: ../app/views/tasks/_suggest_article_accept_details.html.erb:2
 msgid "Sent by: "
 msgstr "Enviado por: "
@@ -10771,7 +10923,6 @@ msgid "memberships"
 msgstr "integrantes"
 
 #: ../lib/extensions/vote.rb:16
-#, fuzzy
 msgid "The target is achieved and can't accept votes"
 msgstr "O alvo está arquivado e não aceita votos"
 
@@ -10842,692 +10993,3 @@ msgid ""
 msgstr ""
 "Esse site usa o %{noosfero_url}, desenvolvido pela %{colivre_url} e é "
 "licenciado sob %{agpl_url} versão 3 or qualquer versão maior."
-
-#~ msgid "Higher disk usage"
-#~ msgstr "Maior uso do disco"
-
-#~ msgid "Lower disk usage"
-#~ msgstr "Menor uso do disco"
-
-#~ msgid "Size (bigger first)"
-#~ msgstr "Tamanho (maior primeiro)"
-
-#~ msgid "Size (smaller first)"
-#~ msgstr "Tamanho (menor primeiro)"
-
-#~ msgid "General category"
-#~ msgid_plural "General categories"
-#~ msgstr[0] "Categoria geral"
-
-#~ msgid "The id of the %s"
-#~ msgstr "O id do(a) %s"
-
-#~ msgid "Title of the article"
-#~ msgstr "Título do artigo"
-
-#~ msgid "Name of article's profile"
-#~ msgstr "Nome do perfil do artigo"
-
-#~ msgid "Identifier of article's profile"
-#~ msgstr "Identificador do perfil do artigo"
-
-#~ msgid "Identifier of article's author"
-#~ msgstr "Identificador do autor do artigo"
-
-#~ msgid "Name of article's author"
-#~ msgstr "Nome do autor do artigo"
-
-#~ msgid "Email of article's author"
-#~ msgstr "Email do autor do artigo"
-
-#~ msgid "Identifier of the block's profile"
-#~ msgstr "Identificador do perfil do bloco"
-
-#~ msgid "Name of the block's profile"
-#~ msgstr "Nome do perfil do bloco"
-
-#~ msgid "Email of the block's profile"
-#~ msgstr "Email do perfil do bloco"
-
-#~ msgid "Title of the block"
-#~ msgstr "Título do bloco"
-
-#~ msgid "Custom fields must have values"
-#~ msgstr "Campos customizados precisam ter valores"
-
-#~ msgid "Must be greather or equal to zero"
-#~ msgstr "Deve ser maior ou igual a zero"
-
-#~ msgid "Regions"
-#~ msgstr "Regiões"
-
-#~ msgid "Fans"
-#~ msgstr "Fãs"
-
-#~ msgid "Macros"
-#~ msgstr "Macros"
-
-#~ msgid ""
-#~ "The following macros can be used to access the attributes of the "
-#~ "enclosing context. For blocks, macros are available in any attribute. For "
-#~ "articles, macros are supported in the lead and body."
-#~ msgstr ""
-#~ "As seguintes macros podem ser usadas para acessar atributos do contexto "
-#~ "relacionado. Para blocos, as macros disponíveis são seus atributos. Para "
-#~ "artigos, as macros são suportadas no olho e no corpo."
-
-#~ msgid ""
-#~ "To use one of these macros, just prepend a \"!\" symbol to the macro key, "
-#~ "in any of the supported contexts. For example, you can use !profile-name "
-#~ "on the title of a block, and it will be replaced by the name of the "
-#~ "profile."
-#~ msgstr ""
-#~ "Para usar uma dessas macros, apenas adicione o símbolo \"!\" no começo da "
-#~ "chave da macro, em qualquer dos contextos suportados. Por exemplo, você "
-#~ "pode usar !profile-name no título de um bloco e ele será substituido pelo "
-#~ "nome do perfil."
-
-#~ msgid "Note that macros are only supported in the contexts below"
-#~ msgstr "Note que as macros só são suportadas nos contextos abaixo"
-
-#~ msgid "Macros for %s"
-#~ msgstr "Macros para %s"
-
-#~ msgid "Macro key"
-#~ msgstr "Chave da macro"
-
-#~ msgid "Return Value"
-#~ msgstr "Valor de Retorno"
-
-#~ msgid "Your files"
-#~ msgstr "Seus arquivos"
-
-#~ msgid "(used %s of %s):"
-#~ msgstr "(usado %s de %s):"
-
-#~ msgid "Usage"
-#~ msgstr "Uso"
-
-#~ msgid "Unlimited"
-#~ msgstr "Ilimitado"
-
-#~ msgid "Reset quota for this profile"
-#~ msgstr "Resetar a cota para esse perfil"
-
-#~ msgid "Reset quota for all profiles"
-#~ msgstr "Cota para perfis %s"
-
-#~ msgid "Skip"
-#~ msgstr "Pular"
-
-#: ../app/controllers/admin/environment_role_manager_controller.rb:17
-#: ../app/controllers/my_profile/profile_members_controller.rb:41
-#~ msgid "Roles successfuly updated"
-#~ msgstr "Papéis alterado com sucesso"
-
-#: ../app/controllers/admin/kinds_controller.rb:40
-#~ msgid "Kind sucessfully removed"
-#~ msgstr "Tipo removido com sucesso"
-
-#: ../app/controllers/my_profile/circles_controller.rb:29
-#~ msgid "The circle could not be saved"
-#~ msgstr "O círculo não pode ser salvo"
-
-#: ../app/controllers/my_profile/followers_controller.rb:33
-#~ msgid "Error: No profile to follow."
-#~ msgstr "Erro: Nenhum perfil para seguir."
-
-#: ../app/controllers/my_profile/profile_members_controller.rb:98
-#~ msgid "Member succesfully unassociated"
-#~ msgstr "Integrante desassociado com sucesso"
-
-#: ../app/controllers/my_profile/profile_roles_controller.rb:53
-#~ msgid "Role successfuly removed!"
-#~ msgstr "Papel removido com sucesso!"
-
-#: ../app/models/article.rb:484
-#~ msgid "Language must be choosen"
-#~ msgstr "É preciso escolher um idioma"
-
-#: ../app/models/article.rb:490
-#~ msgid "A language must be choosen for the native article"
-#~ msgstr "Um idioma deve ser escolhido para o artigo nativo"
-
-#: ../app/models/invitation.rb:41
-#~ msgid "You can't invite youself"
-#~ msgstr "Você não pode convidar a si mesmo"
-
-#: ../app/views/account/welcome.html.erb:4
-#~ msgid ""
-#~ "%s was successfuly activated. Now you may go to your control panel or to "
-#~ "the control panel of your enterprise"
-#~ msgstr ""
-#~ "%s foi ativado com sucesso. Agora você pode ir para o seu painel de "
-#~ "controle ou ao painel de controle do seu empreendimento"
-
-#: ../app/views/enterprise_registration/select_validator.html.erb:4
-#~ msgid ""
-#~ "Select one organization to validate your enterprise registration request. "
-#~ "Check the provided information about their validation methodoly and "
-#~ "criteria."
-#~ msgstr ""
-#~ "Selecione uma organização para validar seu pedido do registo da empresa. "
-#~ "Verifique a informação fornecida sobre seu método de validação e "
-#~ "critérios."
-
-#: ../app/views/shared/_redirect_via_javascript.html.erb:2
-#~ msgid "redirecting..."
-#~ msgstr "redirecionando..."
-
-#: ../lib/extensions/vote.rb:16
-#~ msgid "The target is achived and can't accept votes"
-#~ msgstr "O alvo está arquivado e não aceita votos"
-
-#~ msgid "Manage content"
-#~ msgstr "Gerenciar conteúdo"
-
-#~ msgid "Publish content"
-#~ msgstr "Publicar conteúdo"
-
-#~ msgid "Token is invalid"
-#~ msgstr "Token é inválido"
-
-#~ msgid "Attend"
-#~ msgstr "Participar"
-
-#~ msgid "Unattend"
-#~ msgstr "Abandonar"
-
-#~ msgid "Undergraduate"
-#~ msgstr "Graduação"
-
-#~ msgid "%s will attend this event."
-#~ msgstr "%s comparecerão a este evento."
-
-#~ msgid "No one attending this event yet."
-#~ msgstr "Ninguém aparecerá a este evento."
-
-#~ msgid "%s' Location"
-#~ msgstr "Localização de %s"
-
-#~ msgid "Address and Location"
-#~ msgstr "Endereço e Localização"
-
-#~ msgid "Drag the balloon to find the exact location."
-#~ msgstr "Arraste o balão para encontrar a localização exata."
-
-#~ msgid "Visible to other people"
-#~ msgstr "Visível para outras pessoas"
-
-#~ msgid "Private"
-#~ msgstr "Privado"
-
-#~ msgid "Limit visibility of this article"
-#~ msgstr "Limitar a visibilidade deste artigo"
-
-#~ msgid "Allow all community members to view this content"
-#~ msgstr "Permitir que todos os membros da comunidade vejam este conteúdo"
-
-#~ msgid "Allow all your friends to view this content"
-#~ msgstr "Permitir que todos os seus amigos vejam este conteúdo"
-
-#~ msgid "{#} community"
-#~ msgid_plural "{#} communities"
-#~ msgstr[0] "{#} comunidade"
-#~ msgstr[1] "{#} comunidades"
-
-#~ msgid "{#} enterprise"
-#~ msgid_plural "{#} enterprises"
-#~ msgstr[0] "{#} empreendimento"
-#~ msgstr[1] "{#} empreendimentos"
-
-#~ msgid "Public profile"
-#~ msgstr "Perfil público"
-
-#~ msgid "Private profile"
-#~ msgstr "Perfil privado"
-
-#~ msgid "RSS feed"
-#~ msgstr "Feed RSS"
-
-#~ msgid "Yes, I want to remove %s from my favorite enterprise list"
-#~ msgstr "Sim, quero remover %s da minha lista de empreendimentos favoritos"
-
-#~ msgid ""
-#~ "Filter followed, friends or group of friends to send them a private "
-#~ "scrap..."
-#~ msgstr ""
-#~ "Filter seguidores, amigos ou grupos de amigos para enviar-lhes um recado "
-#~ "privado..."
-
-#~ msgid "Share"
-#~ msgstr "Compartilhar"
-
-#~ msgid "Cancel e-mail"
-#~ msgstr "Cancelar e-mail"
-
-#~ msgid "Public &mdash; show my contents to all internet users"
-#~ msgstr ""
-#~ "Público &mdash; exibir meu conteúdo para todos os usuários da internet"
-
-#~ msgid "Private &mdash; show my contents only to friends"
-#~ msgstr "Privado &mdash; mostrar meu conteúdo apenas para amigos"
-
-#~ msgid "Public &mdash; show content of this group to all internet users"
-#~ msgstr ""
-#~ "Público &mdash; exibir conteúdo deste grupo para todos os usuários da "
-#~ "internet"
-
-#~ msgid "Private &mdash; show content of this group only to members"
-#~ msgstr "Privado &mdash; exibir conteúdo deste grupo apenas para membros"
-
-#~ msgid "Tasks that I requested"
-#~ msgstr "Tarefas que eu solicitei"
-
-#~ msgid "Status:"
-#~ msgstr "Estado:"
-
-#~ msgid "Set %s template as default"
-#~ msgstr "Definir o modelo %s como padrão"
-
-#~ msgid ""
-#~ "Secret &mdash; hide the community and all its contents for non members "
-#~ "and other people can't join this community unless they are invited to."
-#~ msgstr ""
-#~ "Secreta &mdash; ocultar esta comunidade e todo o seu conteúdo para não-"
-#~ "membros e outras pessoas não podem entrar na comunidade a não ser que "
-#~ "sejam convidadas."
-
-#~ msgid "Accept all tasks"
-#~ msgstr "Aceitar todas as tarefas"
-
-#~ msgid "People list [CSV]"
-#~ msgstr "Lista de pessoas [CSV]"
-
-#~ msgid "People list [XML]"
-#~ msgstr "Lista de pessoas [XML]"
-
-#~ msgid "\"profile|#{font_awesome(:reply, 'Comment')}\""
-#~ msgstr "profile|#{font_awesome(:reply, 'Comment')}"
-
-#~ msgid "profile|#{font_awesome(:reply, 'Comment')}"
-#~ msgstr "profile|#{font_awesome(:reply, 'Comment')}"
-
-#~ msgid ""
-#~ "The <label class='pseudoformlabel'>highlighted</label> fields are "
-#~ "mandatory."
-#~ msgstr ""
-#~ "Os campos <label class='pseudoformlabel'>realçados</label> são "
-#~ "obrigatórios."
-
-#~ msgid "Address (street and number)"
-#~ msgstr "Endereço (rua e número)"
-
-#~ msgid "{fn} must be checked in order to signup."
-#~ msgstr "{fn} deve ser verificado para efetivar inscrição."
-
-#~ msgid "Short"
-#~ msgstr "Curto"
-
-#~ msgid "Show subcategories"
-#~ msgstr "Mostrar subcategorias"
-
-#~ msgid "Hide subcategories"
-#~ msgstr "Esconder subcategorias"
-
-#~ msgid "Community Info and settings"
-#~ msgstr "Informações e Configurações da Comunidade"
-
-#~ msgid "Enterprise Info and settings"
-#~ msgstr "Informações e Configurações do Empreendimento"
-
-#~ msgid "Edit Profile"
-#~ msgstr "Editar perfil"
-
-#~ msgid "Profile Info and settings"
-#~ msgstr "Informações e Configurações do Perfil"
-
-#~ msgid "Notification options"
-#~ msgstr "Opções de notificação"
-
-#~ msgid "Profile settings for %s"
-#~ msgstr "Configurações do perfil para %s"
-
-#~ msgid "Privacy options"
-#~ msgstr "Opções de privacidade"
-
-#~ msgid ""
-#~ "Secret &mdash; hide the community and all its contents for non members \n"
-#~ "                             and other people can't join this community "
-#~ "unless they are invited to."
-#~ msgstr ""
-#~ "Secreto &mdash; esconde o grupo e todos os seus conteúdos para não-"
-#~ "membros \n"
-#~ "                             e outros pessoas não podem entrar no grupo"
-
-#~ msgid "Tags of your interest"
-#~ msgstr "Marcadores do seu interesse"
-
-#~ msgid "Categories of your interest"
-#~ msgstr "Categorias do seu interesse"
-
-#~ msgid "Location and Regions of Interest"
-#~ msgstr "Localização e Regiões de Interesse"
-
-#~ msgid "Mail settings"
-#~ msgstr "Configurações de e-mail"
-
-#~ msgid "Edit sideboxes"
-#~ msgstr "Editar blocos laterais"
-
-#~ msgid "Edit Appearance"
-#~ msgstr "Editar Aparência"
-
-#~ msgid "Edit Header and Footer"
-#~ msgstr "Editar Cabeçalho e Rodapé"
-
-#~ msgid "Manage Content"
-#~ msgstr "Gerenciar conteúdo"
-
-#~ msgid "Manage Roles"
-#~ msgstr "Gerenciar papéis"
-
-#~ msgid "Create blog"
-#~ msgstr "Criar blog"
-
-#~ msgid "Manage Members"
-#~ msgstr "Gerenciar Integrantes"
-
-#~ msgid "Enterprise Validation"
-#~ msgstr "Validações de empreendimento"
-
-#~ msgid "Manage followed profiles"
-#~ msgstr "Gerenciar perfis seguidos"
-
-#~ msgid "Control panel of this group"
-#~ msgstr "Painel de controle deste grupo"
-
-#~ msgid "Select a category and click on the Add button"
-#~ msgstr "Seleciona uma categoria e clique no botão Adicionar"
-
-#~ msgid "There are no categories selected yet."
-#~ msgstr "Nenhuma categoria foi selecionada ainda."
-
-#~ msgid "published an article: %{title}"
-#~ msgstr "publicou um artigo: %{title}"
-
-#~ msgid "has made 1 new friend:<br />%{name}"
-#~ msgid_plural "has made %{num} new friends:<br />%{name}"
-#~ msgstr[0] "fez 1 novo amigo:<br />%{name}"
-#~ msgstr[1] "fez %{num} novos amigos:<br />%{name}"
-
-#~ msgid "has 1 new follower:<br />%{name}"
-#~ msgid_plural "has %{num} new followers:<br />%{name}"
-#~ msgstr[0] "tem 1 novo seguidor:<br />%{name}"
-#~ msgstr[1] "tem %{num} novos seguidores:<br />%{name}"
-
-#~ msgid "has joined 1 community:<br />%{name}"
-#~ msgid_plural "has joined %{num} communities:<br />%{name}"
-#~ msgstr[0] "entrou em 1 comunidade:<br />%{name}"
-#~ msgstr[1] "entrou em %{num} comunidades:<br />%{name}"
-
-#~ msgid "has joined the community."
-#~ msgstr "entrou na comunidade."
-
-#~ msgid "uploaded 1 image"
-#~ msgid_plural "uploaded %d images"
-#~ msgstr[0] "adicionou 1 imagem"
-#~ msgstr[1] "adicionou %d imagens"
-
-#~ msgid "sent a message to %{receiver}: <br /> \"%{message}\""
-#~ msgstr "deixou um recado para %{receiver}: <br /> \"%{message}\""
-
-#~ msgid "replied to a scrap from %{receiver}: <br /> \"%{message}\""
-#~ msgstr "repondeu a um recado para %{receiver}: <br /> \"%{message}\""
-
-#~ msgid "wrote: <br /> \"%{text}\""
-#~ msgstr "escreveu: <br /> \"%{text}\""
-
-#~ msgid "favorited enterprise %{title}"
-#~ msgstr "favoritou o empreendimento %{title}"
-
-#~ msgid "Contents menu"
-#~ msgstr "Menu de conteúdos"
-
-#~ msgid "People menu"
-#~ msgstr "Menu de pessoas"
-
-#~ msgid "Communities menu"
-#~ msgstr "Menu de comunidades"
-
-#~ msgid "<span>Manage</span> %s"
-#~ msgstr "<span>Gerenciar</span> %s"
-
-#~ msgid "<span class='login'>%s</span>"
-#~ msgstr "<span class='login'>%s</span>"
-
-#~ msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
-#~ msgstr "<span class='or'>ou</span> <span class='signup'>%s</span>"
-
-#~ msgid "until"
-#~ msgstr "até"
-
-#~ msgid ""
-#~ "An internet forum, also called message board, where discussions can be "
-#~ "held."
-#~ msgstr ""
-#~ "Um fórum online, também chamado de quadro de mensagens, onde discussões "
-#~ "podem ser feitas."
-
-#~ msgid "Gray Up"
-#~ msgstr "Acima Cinza"
-
-#~ msgid "Gray Down"
-#~ msgstr "Abaixo Cinza"
-
-#~ msgid "Gray Left"
-#~ msgstr "Esquerda Cinza"
-
-#~ msgid "Red Up"
-#~ msgstr "Acima Vermelho"
-
-#~ msgid ""
-#~ "Choose your login name carefully! It will be your network access and you "
-#~ "will not be able to change it later."
-#~ msgstr ""
-#~ "Escolha o nome de usuário cuidadosamente! Ele será seu acesso à rede e "
-#~ "você não poderá alterá-lo depois."
-
-#~ msgid ""
-#~ "Choose a password that you can remember easily. It must have at least 4 "
-#~ "characters."
-#~ msgstr ""
-#~ "Escolha uma senha fácil de ser lembrada por você. Ela deve ter ao menos 4 "
-#~ "caracteres."
-
-#~ msgid ""
-#~ "We need to be sure that you filled in your password correctly. Confirm "
-#~ "you password."
-#~ msgstr ""
-#~ "Nós precisamos ter certeza que você preencheu sua senha corretamente. "
-#~ "Confirme sua senha."
-
-#~ msgid "This e-mail address will be used to contact you."
-#~ msgstr "Este endereço de e-mail será usado para contactar você."
-
-#~ msgid "Tell us your name, it will be used to identify yourself."
-#~ msgstr "Nos informe seu nome, ele será usado para identificar você."
-
-#~ msgid "communities|View all"
-#~ msgstr "Ver todas"
-
-#~ msgid "More files"
-#~ msgstr "Mais arquivos"
-
-#~ msgid "Documents, Images, Videos, Audio"
-#~ msgstr "Documentos, Imagens, Vídeos, Áudio"
-
-#~ msgid "Profile homepage:"
-#~ msgstr "Página inicial do perfil:"
-
-#~ msgid "Current folder: "
-#~ msgstr "Pasta atual: "
-
-#~ msgid "Last update"
-#~ msgstr "Última atualização"
-
-#~ msgid "parent folder"
-#~ msgstr "pasta superior"
-
-#~ msgid "Post a comment"
-#~ msgstr "Enviar um comentário"
-
-#~ msgid "Enter your comment"
-#~ msgstr "Digite seu comentário"
-
-#~ msgid "Follow this article"
-#~ msgstr "Seguir este artigo"
-
-#~ msgid "Post comment"
-#~ msgstr "Enviar comentário"
-
-#~ msgid "Please type the two words below"
-#~ msgstr "Por favor digite as duas palavras abaixo"
-
-#~ msgid "Viewed one time %{desc}"
-#~ msgid_plural "Viewed %{num} times %{desc}"
-#~ msgstr[0] "Visualizado uma vez"
-#~ msgstr[1] "Visualizado %{num} vezes"
-
-#~ msgid "Go back to %s"
-#~ msgstr "Voltar a %s"
-
-#~ msgid "This article's tags:"
-#~ msgstr "Tags deste artigo:"
-
-#~ msgid "Newest first"
-#~ msgstr "Data (mais recentes primeiro)"
-
-#~ msgid "Oldest first"
-#~ msgstr "Data (mais antigos primeiro)"
-
-#~ msgid "unfollow"
-#~ msgstr "deixar de seguir"
-
-#~ msgid "change category"
-#~ msgstr "alterar categoria"
-
-#~ msgid "More"
-#~ msgstr "Mais"
-
-#~ msgid "Your network activity"
-#~ msgstr "Sua atividade de rede"
-
-#~ msgid "Last update: %s."
-#~ msgstr "Última atualização: %s."
-
-#~ msgid "Separate tags with commas"
-#~ msgstr "Separe os marcadores com vírgulas"
-
-#~ msgid "Reported by %{reporter} %{time}."
-#~ msgstr "Reportado por %{reporter} %{time}."
-
-#~ msgid "View details"
-#~ msgstr "Ver os detalhes"
-
-#~ msgid "Classify your new friend:"
-#~ msgstr "Classifique seu(sua) novo(a) amigo(a):"
-
-#~ msgid "Title: "
-#~ msgstr "Título: "
-
-#~ msgid "Assign to:"
-#~ msgstr "Atribuir para:"
-
-#~ msgid "Assigned to:"
-#~ msgstr "Atribuído para:"
-
-#~ msgid "Apply!"
-#~ msgstr "Aplicar!"
-
-#~ msgid "Set all to: "
-#~ msgstr "Marque todos como: "
-
-#~ msgid "Max size: %s"
-#~ msgstr "Tamanho máximo: %s"
-
-#~ msgid "Your account has been activated, now you can log in!"
-#~ msgstr "Sua conta foi ativada, agora você pode fazer login!"
-
-#~ msgid "Thanks for registering. The administrators were notified."
-#~ msgstr ""
-#~ "Obrigado por se registrar. Os administradores da comunidade foram "
-#~ "notificados."
-
-#~ msgid ""
-#~ "It looks like you're trying to activate an account. Perhaps have already "
-#~ "activated this account?"
-#~ msgstr ""
-#~ "Parece que você esta tentando ativar uma conta. Talvez você ja tenha "
-#~ "ativado esta conta?"
-
-#~ msgid "Thanks for registering!"
-#~ msgstr "Obrigado por se cadastrar!"
-
-#~ msgid "%{month}/%{year}"
-#~ msgstr "%{month}/%{year}"
-
-#~ msgid "%{month_name}, %{year}"
-#~ msgstr "%{month_name}, %{year}"
-
-#~ msgid "%{month_name}"
-#~ msgstr "%{month_name}"
-
-#~ msgid "From:"
-#~ msgstr "De:"
-
-#~ msgid "Until:"
-#~ msgstr "Até:"
-
-#~ msgid "Define news amount on portal"
-#~ msgstr "Definir a quantidade de notícias no portal"
-
-#~ msgid "News amount on portal"
-#~ msgstr "Quantidade de notícias no portal"
-
-#~ msgid "Firstly, some tips for getting started:"
-#~ msgstr "Em primeiro lugar, algumas dicas para começar:"
-
-#~ msgid "Confirm your account!"
-#~ msgstr "Confirme sua conta!"
-
-#~ msgid ""
-#~ "You should receive a welcome email from us shortly. Please take a second "
-#~ "to follow the link within to confirm your account."
-#~ msgstr ""
-#~ "Você deve receber um e-mail de boas vindas em breve. Por favor, reserve "
-#~ "um segundo para seguir o link no e-mail e confirmar sua conta."
-
-#~ msgid "You won't appear as %s until your account is confirmed."
-#~ msgstr "Você não aparecerá como um %s até sua conta ser confirmada."
-
-#~ msgid "General Category"
-#~ msgstr "Categoria geral"
-
-#~ msgid "Generic category"
-#~ msgstr "Categoria genérica"
-
-#~ msgid "Product"
-#~ msgstr "Produto"
-
-#~ msgid "Show"
-#~ msgstr "Mostrar"
-
-#~ msgid "Hide"
-#~ msgstr "Esconder"
-
-#~ msgid "Your upload quota (used %s of %s):"
-#~ msgstr "A sua cota de upload (utilizado %s de %s):"
-
-#~ msgid "Reset quota for all profles"
-#~ msgstr "Resetar a cota para todos os perfis"

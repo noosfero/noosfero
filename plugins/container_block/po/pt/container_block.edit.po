@@ -34,6 +34,3 @@ msgstr "Contêiner"
 #: ../lib/container_block_plugin/container_block.rb:25
 msgid "This block acts as a container for another blocks"
 msgstr "Este bloco age como um container para outros blocos"
-
-#~ msgid "Block successfully saved."
-#~ msgstr "Bloco salvo com sucesso."

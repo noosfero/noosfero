@@ -1,4 +1,4 @@
-class AddTimestampsToCircles < ActiveRecord::Migration
+class AddTimestampsToCircles < ActiveRecord::Migration[4.2]
   def up
     add_column :circles, :created_at, :datetime
     add_column :circles, :updated_at, :datetime

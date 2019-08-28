@@ -84,31 +84,38 @@ msgstr "Article"
 msgid "The comment '%s' was removed."
 msgstr "Le commentaire n'a pas été supprimé."
 
-#: ../app/api/v1/communities.rb:72
+#: ../app/api/v1/communities.rb:43
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "Communauté"
+
+#: ../app/api/v1/communities.rb:85
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:89
+#: ../app/api/v1/communities.rb:102
 #, fuzzy
 msgid "The contact was sent."
 msgstr "Le contact n'a pas été envoyé"
 
-#: ../app/api/v1/communities.rb:92
+#: ../app/api/v1/communities.rb:105
 #, fuzzy
 msgid "The contact was not sent."
 msgstr "Le commentaire n'a pas été supprimé."
 
-#: ../app/api/v1/communities.rb:110
+#: ../app/api/v1/communities.rb:123
 msgid "You already request a membership for this community."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:113
+#: ../app/api/v1/communities.rb:126
 msgid "You already member of this community."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:116
+#: ../app/api/v1/communities.rb:129
 msgid ""
 "You are not member of this community and you did not made a membership "
 "request."
@@ -2299,6 +2306,11 @@ msgstr "Préc"
 msgid "Wk"
 msgstr "Trav"
 
+#: ../app/helpers/forms_helper.rb:255
+#, fuzzy
+msgid "From"
+msgstr "De"
+
 #: ../app/helpers/forms_helper.rb:256
 #, fuzzy
 msgid "Until"
@@ -4125,6 +4137,11 @@ msgstr "Paramètres de messagerie"
 msgid "Privacy"
 msgstr "Privé"
 
+#: ../app/models/control_panel/regions.rb:4
+#, fuzzy
+msgid "Regions"
+msgstr "Région"
+
 #: ../app/models/control_panel/roles.rb:4
 #: ../app/views/profile_roles/assign.html.erb:16
 msgid "Roles"
@@ -4159,16 +4176,16 @@ msgstr "Précédent"
 msgid "Welcome Page"
 msgstr "Ma page d'accueil"
 
-#: ../app/models/create_community.rb:51
+#: ../app/models/create_community.rb:56
 msgid "New community"
 msgstr "Nouvelle communauté"
 
-#: ../app/models/create_community.rb:65
+#: ../app/models/create_community.rb:70
 msgid "%{requestor} wants to create community %{subject} with no description."
 msgstr ""
 "%{requestor} veut créer une communauté %{subject} n'ayant aucune description."
 
-#: ../app/models/create_community.rb:67
+#: ../app/models/create_community.rb:72
 msgid ""
 "%{requestor} wants to create community %{subject} with this description:"
 "<p><em>%{description}</em></p>"
@@ -4176,11 +4193,11 @@ msgstr ""
 "%{requestor} veut créer une communauté %{subject} avec pour description :"
 "<p><em>%{description}</em></p>"
 
-#: ../app/models/create_community.rb:91
+#: ../app/models/create_community.rb:96
 msgid "%{requestor} wants to create community %{subject}"
 msgstr "%{requestor} veut créer une communauté %{subject}"
 
-#: ../app/models/create_community.rb:95
+#: ../app/models/create_community.rb:100
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have "
 "to approve or reject it through the \"Pending Validations\" section in your "
@@ -4190,7 +4207,7 @@ msgstr ""
 "devez approuver/rejeter dans la section \"Validations en attente\" dans "
 "votre panneau de contrôle.↵\n"
 
-#: ../app/models/create_community.rb:99
+#: ../app/models/create_community.rb:104
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "just sent. Environment administrator will receive it and will approve or "
@@ -4206,7 +4223,7 @@ msgstr ""
 "      Vous serez prévenu(e) dès que l'admin se sera prononcé sur votre "
 "requête."
 
-#: ../app/models/create_community.rb:105
+#: ../app/models/create_community.rb:110
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "not approved by the environment administrator. The following explanation was "
@@ -4219,7 +4236,7 @@ msgstr ""
 "\n"
 "%{explanation}"
 
-#: ../app/models/create_community.rb:109
+#: ../app/models/create_community.rb:114
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
@@ -10878,6 +10895,11 @@ msgstr "Invitation de la communauté"
 msgid "I will not, thank you"
 msgstr ""
 
+#: ../app/views/tasks/_invite_event_action_bar.html.erb:14
+#: ../app/views/tasks/index.html.erb:63
+msgid "Skip"
+msgstr ""
+
 #: ../app/views/tasks/_suggest_article_accept_details.html.erb:2
 msgid "Sent by: "
 msgstr "Envoyé par : "
@@ -11388,515 +11410,3 @@ msgid ""
 "This site uses %{noosfero_url}, developed by %{colivre_url} and licensed "
 "under the %{agpl_url} version 3 or any later version."
 msgstr ""
-
-#~ msgid "From"
-#~ msgstr "De"
-
-#~ msgid "Regions"
-#~ msgstr "Régions"
-
-#~ msgid "Skip"
-#~ msgstr "Sauter"
-
-#, fuzzy
-#~ msgid "The target is achived and can't accept votes"
-#~ msgstr "Jeu"
-
-#, fuzzy
-#~ msgid "News amount on portal"
-#~ msgstr "Nouveau dossier"
-
-#, fuzzy
-#~ msgid "Define news amount on portal"
-#~ msgstr "Nouveau dossier"
-
-#, fuzzy
-#~ msgid "Viewed one time %{desc}"
-#~ msgid_plural "Viewed %{num} times %{desc}"
-#~ msgstr[0] "Vu(e) une fois"
-#~ msgstr[1] "Vu(e) %{num} fois"
-
-#, fuzzy
-#~ msgid "The circle could not be saved"
-#~ msgstr "Le modèle n'a pas pu être sauvé"
-
-#, fuzzy
-#~ msgid "Error: No profile to follow."
-#~ msgstr " à "
-
-#, fuzzy
-#~ msgid "Allow all community members to view this content"
-#~ msgstr " à "
-
-#: ../app/controllers/admin/environment_role_manager_controller.rb:17
-#: ../app/controllers/my_profile/profile_members_controller.rb:41
-#~ msgid "Roles successfuly updated"
-#~ msgstr "Les rôles ont bien été mis à jour"
-
-#: ../app/controllers/admin/kinds_controller.rb:40
-#, fuzzy
-#~ msgid "Kind sucessfully removed"
-#~ msgstr "Rôle supprimé avec succès !"
-
-#: ../app/controllers/my_profile/profile_members_controller.rb:98
-#~ msgid "Member succesfully unassociated"
-#~ msgstr "Le membre a été dissocié avec succès"
-
-#: ../app/controllers/my_profile/profile_roles_controller.rb:53
-#~ msgid "Role successfuly removed!"
-#~ msgstr "Rôle supprimé avec succès !"
-
-#: ../app/helpers/forms_helper.rb:252
-#, fuzzy
-#~ msgid "From:"
-#~ msgstr "De"
-
-#: ../app/helpers/forms_helper.rb:253
-#, fuzzy
-#~ msgid "Until:"
-#~ msgstr "jusqu'à"
-
-#: ../app/models/article.rb:484
-#~ msgid "Language must be choosen"
-#~ msgstr "La langue doit être choisie"
-
-#: ../app/models/article.rb:490
-#~ msgid "A language must be choosen for the native article"
-#~ msgstr "Une langue doit être choisie pour l'article natif"
-
-#: ../app/models/invitation.rb:41
-#~ msgid "You can't invite youself"
-#~ msgstr "Vous ne pouvez pas vous inviter vous-même"
-
-#: ../app/views/account/welcome.html.erb:4
-#~ msgid ""
-#~ "%s was successfuly activated. Now you may go to your control panel or to "
-#~ "the control panel of your enterprise"
-#~ msgstr ""
-#~ "%s a été activée. Maintenant, vous pouvez vous rendre sur le panneau de "
-#~ "contrôle de votre entreprise"
-
-#: ../app/views/categories/_category.html.erb:12
-#, fuzzy
-#~ msgid "Show subcategories"
-#~ msgstr "Pas de sous-catégorie"
-
-#: ../app/views/enterprise_registration/select_validator.html.erb:4
-#~ msgid ""
-#~ "Select one organization to validate your enterprise registration request. "
-#~ "Check the provided information about their validation methodoly and "
-#~ "criteria."
-#~ msgstr ""
-#~ "Sélectionnez une organisation pour valider la demande d'enregistrement de "
-#~ "votre entreprise. Vérifiez les informations fournies sur leur méthode de "
-#~ "validation et leurs critères."
-
-#: ../app/views/profile_editor/edit.html.erb:79
-#, fuzzy
-#~ msgid "Categories of your interest"
-#~ msgstr "Catégorisez votre article"
-
-#: ../app/views/shared/_show_thumbnail.html.erb:2
-#, fuzzy
-#~ msgid "Preview"
-#~ msgstr "Précédent"
-
-#~ msgid "Manage content"
-#~ msgstr "Gérer le contenu"
-
-#~ msgid "Publish content"
-#~ msgstr "Publier le contenu"
-
-#~ msgid "No one attending this event yet."
-#~ msgstr "Non"
-
-#~ msgid "Undergraduate"
-#~ msgstr "Étudiant de licence"
-
-#~ msgid "%s' Location"
-#~ msgstr "Localisation"
-
-#~ msgid "Drag the balloon to find the exact location."
-#~ msgstr "Faites glisser le ballon pour trouver l'emplacement exact."
-
-#~ msgid "RSS feed"
-#~ msgstr "Flux RSS"
-
-#~ msgid ""
-#~ "Filter followed, friends or group of friends to send them a private "
-#~ "scrap..."
-#~ msgstr "Amis"
-
-#~ msgid "Cancel e-mail"
-#~ msgstr "Adresse électronique de contact"
-
-#~ msgid "Visible to other people"
-#~ msgstr "Public (visible par d'autres)"
-
-#~ msgid "Allow all your friends to view this content"
-#~ msgstr "Amis"
-
-#~ msgid "Private"
-#~ msgstr "Privé"
-
-#~ msgid "{#} community"
-#~ msgid_plural "{#} communities"
-#~ msgstr[0] "{#} communauté"
-#~ msgstr[1] "{#} communautés"
-
-#~ msgid "{#} enterprise"
-#~ msgid_plural "{#} enterprises"
-#~ msgstr[0] "{#} entreprise"
-#~ msgstr[1] "{#} entreprises"
-
-#~ msgid "Public profile"
-#~ msgstr "Profil public"
-
-#~ msgid "Private profile"
-#~ msgstr "Profil privé"
-
-#~ msgid "Yes, I want to remove %s from my favorite enterprise list"
-#~ msgstr "Oui, je veux retirer %s de ma liste d'entreprises préférées"
-
-#~ msgid "Share"
-#~ msgstr "Partager"
-
-#~ msgid "Public &mdash; show my contents to all internet users"
-#~ msgstr ""
-#~ "Site public &mdash; montrer mon contenu à tous les utilisateurs d'Internet"
-
-#~ msgid "Private &mdash; show my contents only to friends"
-#~ msgstr "Privé &mdash; montrer mon contenu seulement à mes amis"
-
-#~ msgid "Public &mdash; show content of this group to all internet users"
-#~ msgstr ""
-#~ "Site public &mdash; montrer le contenu de ce groupe à tous les "
-#~ "utilisateurs d'Internet"
-
-#~ msgid "Private &mdash; show content of this group only to members"
-#~ msgstr "Site privé &mdash; montrer le contenu de ce groupe qu'aux membres"
-
-#~ msgid "Tasks that I requested"
-#~ msgstr "Tâches que j'ai demandées"
-
-#~ msgid "Status:"
-#~ msgstr "Statut : "
-
-#~ msgid "Set %s template as default"
-#~ msgstr "Définir %s comme modèle par défaut"
-
-#~ msgid ""
-#~ "Secret &mdash; hide the community and all its contents for non members "
-#~ "and other people can't join this community unless they are invited to."
-#~ msgstr ""
-#~ "Secret & mdash; masquer la communauté et tous ses contenus pour les non "
-#~ "membres et les autres personnes qui  ne peuvent pas rejoindre cette "
-#~ "communauté à moins qu'ils s'y soient invités."
-
-#~ msgid ""
-#~ "The <label class='pseudoformlabel'>highlighted</label> fields are "
-#~ "mandatory."
-#~ msgstr ""
-#~ "Les champs <label class='pseudoformlabel'>mis en valeur</label> sont "
-#~ "obligatoires."
-
-#~ msgid "Address (street and number)"
-#~ msgstr "Adresse (n° et rue)"
-
-#~ msgid "{fn} must be checked in order to signup."
-#~ msgstr "{fn} doit être vérifié avant de s'inscrire."
-
-#~ msgid "Hide subcategories"
-#~ msgstr "Pas de sous-catégorie"
-
-#~ msgid "has 1 new follower:<br />%{name}"
-#~ msgid_plural "has %{num} new followers:<br />%{name}"
-#~ msgstr[0] "nom"
-
-#~ msgid "My friends"
-#~ msgstr "Mes amis"
-
-#~ msgid "Invite friends"
-#~ msgstr "Inviter mes amis"
-
-#~ msgid "<span class='welcome'>Welcome,</span> %s"
-#~ msgstr "<span class='welcome'>Bienvenue,</span> %s"
-
-#~ msgid "Community Info and settings"
-#~ msgstr "Informations et paramètres de la communauté"
-
-#~ msgid "Enterprise Info and settings"
-#~ msgstr "Informations et paramètres de l'entreprise"
-
-#~ msgid "Edit Profile"
-#~ msgstr "Éditer le profil"
-
-#~ msgid "Profile Info and settings"
-#~ msgstr "Informations et paramètres du profil"
-
-#~ msgid "enterprises|View all"
-#~ msgstr "Voir tout"
-
-#~ msgid "All content"
-#~ msgstr "Tout le contenu"
-
-#~ msgid "Notification options"
-#~ msgstr "Options de notification"
-
-#~ msgid "Profile settings for %s"
-#~ msgstr "Paramètres du profil pour %s"
-
-#~ msgid "Privacy options"
-#~ msgstr "Options de confidentialité"
-
-#~ msgid "Mail settings"
-#~ msgstr "Paramètres de messagerie"
-
-#~ msgid "Edit sideboxes"
-#~ msgstr "Éditer les boîtes latérales"
-
-#~ msgid "Edit Appearance"
-#~ msgstr "Éditer l'apparence"
-
-#~ msgid "Edit Header and Footer"
-#~ msgstr "Éditer les en-tête et pied de page"
-
-#~ msgid "Manage Content"
-#~ msgstr "Gérer le contenu"
-
-#~ msgid "Manage Roles"
-#~ msgstr "Gérer les rôles"
-
-#~ msgid "Create blog"
-#~ msgstr "Créer un blog"
-
-#~ msgid "Manage Members"
-#~ msgstr "Gérer les membres"
-
-#~ msgid "Enterprise Validation"
-#~ msgstr "Validation d'entreprises"
-
-#~ msgid "Control panel of this group"
-#~ msgstr "Panneau de contrôle de ce groupe"
-
-#~ msgid "User list as [CSV]"
-#~ msgstr "Liste utilsiateur en [CSV]"
-
-#~ msgid "User list as [XML]"
-#~ msgstr "Liste utilisateur en [XML]"
-
-#~ msgid ""
-#~ "We need to be sure that you filled in your password correctly. Confirm "
-#~ "you password."
-#~ msgstr ""
-#~ "Nous devons nous assurer que vous avez écrit correctement votre mot de "
-#~ "passe."
-
-#~ msgid "Profile homepage:"
-#~ msgstr "Profil|Page personnelle"
-
-#~ msgid "Current folder: "
-#~ msgstr "Catégorie courante :"
-
-#~ msgid "change category"
-#~ msgstr "Changer la catégorie"
-
-#~ msgid "uploaded 1 image"
-#~ msgid_plural "uploaded %d images"
-#~ msgstr[0] "Fichier téléversé"
-#~ msgstr[1] "Fichier téléversé"
-
-#~ msgid "favorited enterprise %{title}"
-#~ msgstr "Les entreprises préférées de <b>%s</b>"
-
-#~ msgid "has made 1 new friend:<br />%{name}"
-#~ msgid_plural "has made %{num} new friends:<br />%{name}"
-#~ msgstr[0] "a un(e) nouveau(elle) ami(e) :<br />%{name}"
-#~ msgstr[1] "a  %{num} nouveaux(elles) amis(es) :<br />%{name}"
-
-#~ msgid "has joined the community."
-#~ msgstr "a rejoint le groupe."
-
-#~ msgid "Contents menu"
-#~ msgstr "Menu des contenus"
-
-#~ msgid "People menu"
-#~ msgstr "Menu des personnes"
-
-#~ msgid "Communities menu"
-#~ msgstr "Menu des communautés"
-
-#~ msgid "<span>Manage</span> %s"
-#~ msgstr "<span>Gérer</span> %s"
-
-#~ msgid "<span class='login'>%s</span>"
-#~ msgstr "<span class='login'>%s</span>"
-
-#~ msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
-#~ msgstr "<span class='or'>ou</span> <span class='signup'>%s</span>"
-
-#~ msgid ""
-#~ "An internet forum, also called message board, where discussions can be "
-#~ "held."
-#~ msgstr ""
-#~ "Un forum Internet, aussi appelé babillard, où les discussions peuvent "
-#~ "être tenues."
-
-#~ msgid "Gray Up"
-#~ msgstr "Gris haut"
-
-#~ msgid "Gray Down"
-#~ msgstr "Gris bas"
-
-#~ msgid "Gray Left"
-#~ msgstr "Gris gauche"
-
-#~ msgid "Red Up"
-#~ msgstr "Rouge Haut"
-
-#~ msgid ""
-#~ "Choose your login name carefully! It will be your network access and you "
-#~ "will not be able to change it later."
-#~ msgstr ""
-#~ "Choisissez soigneusement votre nom de connexion ! Il permet d’accéder au "
-#~ "site et vous ne pourrez plus le changer plus tard."
-
-#~ msgid ""
-#~ "Choose a password that you can remember easily. It must have at least 4 "
-#~ "characters."
-#~ msgstr ""
-#~ "Choisissez un mot de passe dont vous vous souviendrez facilement. Il doit "
-#~ "comporter au moins 4 caractères."
-
-#~ msgid "This e-mail address will be used to contact you."
-#~ msgstr "Cet e-mail sera utilisé pour vous contacter."
-
-#~ msgid "communities|View all"
-#~ msgstr "Voir tout"
-
-#~ msgid "More files"
-#~ msgstr "Plus de documents"
-
-#~ msgid "Documents, Images, Videos, Audio"
-#~ msgstr "Documents, Images, Vidéos, Audio"
-
-#~ msgid "Last update"
-#~ msgstr "Dernière mise à jour"
-
-#~ msgid "parent folder"
-#~ msgstr "dossier parent"
-
-#~ msgid "Post a comment"
-#~ msgstr "Poster un commentaire"
-
-#~ msgid "Enter your comment"
-#~ msgstr "Entrez votre commentaire"
-
-#~ msgid "Post comment"
-#~ msgstr "Poster votre commentaire"
-
-#~ msgid "Go back to %s"
-#~ msgstr "Retour à %s"
-
-#~ msgid "This article's tags:"
-#~ msgstr "Les tags de cet article :"
-
-#~ msgid "Newest first"
-#~ msgstr "Plus récent en premier"
-
-#~ msgid "Last update: %s."
-#~ msgstr "Dernière mise à jour : %s."
-
-#~ msgid "Separate tags with commas"
-#~ msgstr "Séparez les tags par des virgules"
-
-#~ msgid "View details"
-#~ msgstr "Voir détails"
-
-#~ msgid "Classify your new friend:"
-#~ msgstr "Classez votre nouveau contact :"
-
-#~ msgid "Title: "
-#~ msgstr "Titre : "
-
-#~ msgid "Set all to: "
-#~ msgstr "Réglez tous : "
-
-#~ msgid "Your account has been activated, now you can log in!"
-#~ msgstr "Votre compte a été activé. Vous pouvez à présent vous connecter!"
-
-#~ msgid "Thanks for registering. The administrators were notified."
-#~ msgstr "Merci pour votre inscription. Les administrateurs ont été notifiés."
-
-#~ msgid "Thanks for registering!"
-#~ msgstr "Merci de vous être inscrit(e) !"
-
-#~ msgid "General Category"
-#~ msgstr "Catégorie générale"
-
-#~ msgid "%{month}/%{year}"
-#~ msgstr "%{month}/%{year}"
-
-#~ msgid "%{month_name}, %{year}"
-#~ msgstr "%{month_name}, %{year}"
-
-#~ msgid "%{month_name}"
-#~ msgstr "%{month_name}"
-
-#~ msgid "Generic category"
-#~ msgstr "Catégorie générique"
-
-#~ msgid "Product"
-#~ msgstr "Produit"
-
-#~ msgid "Show"
-#~ msgstr "Voir"
-
-#~ msgid "Hide"
-#~ msgstr "Cacher"
-
-#~ msgid "Confirm your account!"
-#~ msgstr "Confirmer votre compte !"
-
-#~ msgid "Click on this icon to go to the <b>%s</b>'s home page"
-#~ msgstr ""
-#~ "Cliquez sur cet icône pour vous rendre sur la page d'accueil de <b>%s</b>"
-
-#~ msgid "Ask captcha when a logged user comments too"
-#~ msgstr "Demander aussi un captcha pour un utilisateur authentifié"
-
-#~ msgid "until"
-#~ msgstr "jusqu'à"
-
-#~ msgid "Products/Services"
-#~ msgstr "Produits/services"
-
-#~ msgid "Allow organizations to change their URL"
-#~ msgstr "Les organisations peuvent changer leur URL"
-
-#~ msgid "tags"
-#~ msgstr "tags"
-
-#~ msgid ""
-#~ "Tags are created when you add some of them one to your contents. <p/>\n"
-#~ "       Try to add some tags to some articles and you'l see your tag cloud "
-#~ "growing."
-#~ msgstr ""
-#~ "Les tags sont créés lorsque vous en ajoutez à vos contenus. <p/>\n"
-#~ "       Essayer d'ajouter quelques tags à des articles et vous verrez le "
-#~ "nuage grossir."
-
-#~ msgid "Select the categories of your interest"
-#~ msgstr "Choisissez les catégories de vos centres d'intérêt"
-
-#~ msgid "Tagged with \"%s\""
-#~ msgstr "Associé au tag «%s»"
-
-#~ msgid "Back to tag cloud"
-#~ msgstr "Retour au nuage de tags"
-
-#~ msgid "Selected categories:"
-#~ msgstr "Sélectionner les catégories :"
-
-#~ msgid "Click to select a category"
-#~ msgstr "Cliquer pour choisir une catégorie"

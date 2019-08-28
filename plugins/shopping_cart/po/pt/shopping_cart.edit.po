@@ -303,6 +303,3 @@ msgstr "Formas de retirada ou entrega"
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
 msgid "Back to control panel"
 msgstr "Voltar ao painel de controle"
-
-#~ msgid "Shopping basket"
-#~ msgstr "Cesto de compras"

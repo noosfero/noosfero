@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2016-04-22 22:31+0000\n"
-"Last-Translator: Iryna Pruitt <jdpruitt2807@prodigy.net>\n"
+"PO-Revision-Date: 2019-06-18 19:01+0000\n"
+"Last-Translator: NeverMine17 <dannevergame@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/plugin-"
 "custom-forms/ru/>\n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.6-dev\n"
+"X-Generator: Weblate 3.7\n"
 
 #: ../controllers/custom_forms_plugin_admin_controller.rb:12
 msgid "There is no data to be downloaded"
@@ -581,7 +581,7 @@ msgstr ""
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:19
 #: ../views/shared/_form.html.erb:7
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ../views/custom_forms_plugin_myprofile/_survey.html.erb:33
 #, fuzzy
@@ -937,24 +937,3 @@ msgstr ""
 #: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr ""
-
-#~ msgid "Manage Queries"
-#~ msgstr "Управлять%s"
-
-#~ msgid "Invalid string format of access."
-#~ msgstr "Недействительный формат строки доступа."
-
-#~ msgid "There is no profile with the provided id."
-#~ msgstr "Со следующими файлами возникли проблемы:"
-
-#~ msgid "Invalid type format of access."
-#~ msgstr "Недействительный тип формата доступа."
-
-#~ msgid "Custom"
-#~ msgstr "Пользовательский заголовок"
-
-#~ msgid "Custom access definitions"
-#~ msgstr "Пользовательский заголовок"
-
-#~ msgid "Result Access"
-#~ msgstr "Подтвердить"

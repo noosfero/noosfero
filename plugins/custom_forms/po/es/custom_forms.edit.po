@@ -931,24 +931,3 @@ msgstr ""
 #: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr ""
-
-#~ msgid "Manage Queries"
-#~ msgstr "Administrar %s"
-
-#~ msgid "Invalid string format of access."
-#~ msgstr "Formato de texto inválido."
-
-#~ msgid "There is no profile with the provided id."
-#~ msgstr "No hay perfil con este id."
-
-#~ msgid "Invalid type format of access."
-#~ msgstr "Nombre nombre de ciudad o estado inválido."
-
-#~ msgid "Custom"
-#~ msgstr "Cliente"
-
-#~ msgid "Custom access definitions"
-#~ msgstr "Cliente"
-
-#~ msgid "Result Access"
-#~ msgstr "Accesor"

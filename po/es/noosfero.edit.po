@@ -86,7 +86,14 @@ msgstr "Nadie sigue este artículo todavía."
 msgid "The comment '%s' was removed."
 msgstr "El comentario '%s' fue eliminado."
 
-#: ../app/api/v1/communities.rb:72
+#: ../app/api/v1/communities.rb:43
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "comunidad"
+
+#: ../app/api/v1/communities.rb:85
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."
@@ -94,24 +101,24 @@ msgstr ""
 "Tu invitación fue registrada. Los administradores de la comunidad están "
 "revisando su solicitud."
 
-#: ../app/api/v1/communities.rb:89
+#: ../app/api/v1/communities.rb:102
 msgid "The contact was sent."
 msgstr "El contacto fue enviado."
 
 # borrado, exterminado, destruido?
-#: ../app/api/v1/communities.rb:92
+#: ../app/api/v1/communities.rb:105
 msgid "The contact was not sent."
 msgstr "El contacto no fue enviado."
 
-#: ../app/api/v1/communities.rb:110
+#: ../app/api/v1/communities.rb:123
 msgid "You already request a membership for this community."
 msgstr "Usted ya solicito una membresía para esta comunidad."
 
-#: ../app/api/v1/communities.rb:113
+#: ../app/api/v1/communities.rb:126
 msgid "You already member of this community."
 msgstr "Ya eres miembro de esta comunidad."
 
-#: ../app/api/v1/communities.rb:116
+#: ../app/api/v1/communities.rb:129
 msgid ""
 "You are not member of this community and you did not made a membership "
 "request."
@@ -4107,6 +4114,11 @@ msgstr "Editar ajustes"
 msgid "Privacy"
 msgstr "Privado"
 
+#: ../app/models/control_panel/regions.rb:4
+#, fuzzy
+msgid "Regions"
+msgstr "Región"
+
 #: ../app/models/control_panel/roles.rb:4
 #: ../app/views/profile_roles/assign.html.erb:16
 msgid "Roles"
@@ -4142,15 +4154,15 @@ msgstr "Avance"
 msgid "Welcome Page"
 msgstr "Mi página de inicio"
 
-#: ../app/models/create_community.rb:51
+#: ../app/models/create_community.rb:56
 msgid "New community"
 msgstr "Nueva comunidad"
 
-#: ../app/models/create_community.rb:65
+#: ../app/models/create_community.rb:70
 msgid "%{requestor} wants to create community %{subject} with no description."
 msgstr "%{requestor} quiere crear la comunidad %{subject} sin descripción."
 
-#: ../app/models/create_community.rb:67
+#: ../app/models/create_community.rb:72
 msgid ""
 "%{requestor} wants to create community %{subject} with this description:"
 "<p><em>%{description}</em></p>"
@@ -4158,11 +4170,11 @@ msgstr ""
 "%{requestor} quiere crear la comunidad %{subject} con esta descripción: "
 "<p><em>%{description}</em></p>"
 
-#: ../app/models/create_community.rb:91
+#: ../app/models/create_community.rb:96
 msgid "%{requestor} wants to create community %{subject}"
 msgstr "%{requestor} quiere crear la comunidad %{subject}"
 
-#: ../app/models/create_community.rb:95
+#: ../app/models/create_community.rb:100
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have "
 "to approve or reject it through the \"Pending Validations\" section in your "
@@ -4172,7 +4184,7 @@ msgstr ""
 "Debes aprobarla o rechazarla a través de la sección  \"Validaciones "
 "pendientes\" que está en tu panel de control\n"
 
-#: ../app/models/create_community.rb:99
+#: ../app/models/create_community.rb:104
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "just sent. Environment administrator will receive it and will approve or "
@@ -4187,7 +4199,7 @@ msgstr ""
 "\n"
 "      Serás notificado tan pronto como el administrador tenga una respuesta."
 
-#: ../app/models/create_community.rb:105
+#: ../app/models/create_community.rb:110
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
 "not approved by the environment administrator. The following explanation was "
@@ -4201,7 +4213,7 @@ msgstr ""
 "\n"
 "%{explanation}"
 
-#: ../app/models/create_community.rb:109
+#: ../app/models/create_community.rb:114
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
@@ -10672,6 +10684,11 @@ msgstr "Información de la comunidad"
 msgid "I will not, thank you"
 msgstr ""
 
+#: ../app/views/tasks/_invite_event_action_bar.html.erb:14
+#: ../app/views/tasks/index.html.erb:63
+msgid "Skip"
+msgstr ""
+
 #: ../app/views/tasks/_suggest_article_accept_details.html.erb:2
 msgid "Sent by: "
 msgstr "Enviado por: "
@@ -11167,592 +11184,3 @@ msgid ""
 msgstr ""
 "Esta página utiliza %{noosfero_url}, desarrollada por %{colivre_url} y "
 "licenciada bajo %{agpl_url} versión 3 o cualquier versión posterior."
-
-#~ msgid "Regions"
-#~ msgstr "Regiones"
-
-#~ msgid "Skip"
-#~ msgstr "Omitir"
-
-#: ../app/controllers/admin/environment_role_manager_controller.rb:17
-#: ../app/controllers/my_profile/profile_members_controller.rb:41
-#~ msgid "Roles successfuly updated"
-#~ msgstr "Los roles fueron actualizados correctamente"
-
-#: ../app/controllers/admin/kinds_controller.rb:40
-#~ msgid "Kind sucessfully removed"
-#~ msgstr "Tipo borrado correctamente"
-
-#: ../app/controllers/my_profile/circles_controller.rb:29
-#~ msgid "The circle could not be saved"
-#~ msgstr "El circulo no se pudo guardar"
-
-#: ../app/controllers/my_profile/followers_controller.rb:33
-#~ msgid "Error: No profile to follow."
-#~ msgstr "Error: No hay perfil a seguir."
-
-# desasociar o desvincular?
-#: ../app/controllers/my_profile/profile_members_controller.rb:98
-#~ msgid "Member succesfully unassociated"
-#~ msgstr "El miembro fue desvinculado correctamente"
-
-#: ../app/controllers/my_profile/profile_roles_controller.rb:53
-#~ msgid "Role successfuly removed!"
-#~ msgstr "¡Rol eliminado con éxito!"
-
-#: ../app/models/article.rb:484
-#~ msgid "Language must be choosen"
-#~ msgstr "El lenguaje debe ser elegido"
-
-#: ../app/models/article.rb:490
-#~ msgid "A language must be choosen for the native article"
-#~ msgstr "El lenguaje puede ser elegido para el artículo nativo"
-
-#: ../app/models/invitation.rb:41
-#~ msgid "You can't invite youself"
-#~ msgstr "No puedes invitarte a ti mismo."
-
-#: ../app/views/account/welcome.html.erb:4
-#~ msgid ""
-#~ "%s was successfuly activated. Now you may go to your control panel or to "
-#~ "the control panel of your enterprise"
-#~ msgstr ""
-#~ "%s fue correctamente activado. Ahora puedes ir a tu panel de control o el "
-#~ "de tu empresa"
-
-#: ../app/views/enterprise_registration/select_validator.html.erb:4
-#~ msgid ""
-#~ "Select one organization to validate your enterprise registration request. "
-#~ "Check the provided information about their validation methodoly and "
-#~ "criteria."
-#~ msgstr ""
-#~ "Selecciona una organización para validar tu solicitud de registro de la "
-#~ "empresa. Revisa la información proporcionada sobre su etodología de "
-#~ "validación y criterio."
-
-#: ../app/views/shared/_redirect_via_javascript.html.erb:2
-#~ msgid "redirecting..."
-#~ msgstr "redireccionando..."
-
-#: ../lib/extensions/vote.rb:16
-#~ msgid "The target is achived and can't accept votes"
-#~ msgstr "El objetivo se alcanza y no puede aceptar votos"
-
-#~ msgid "Manage content"
-#~ msgstr "Administrar contenido"
-
-#~ msgid "Publish content"
-#~ msgstr "Publicar contenido"
-
-#~ msgid "Token is invalid"
-#~ msgstr "El token es inválido"
-
-#~ msgid "Attend"
-#~ msgstr "Asistir"
-
-#~ msgid "Unattend"
-#~ msgstr "No asistir"
-
-#~ msgid "Undergraduate"
-#~ msgstr "Licenciatura"
-
-#~ msgid "%s will attend this event."
-#~ msgstr "%s asistirá al evento."
-
-#~ msgid "No one attending this event yet."
-#~ msgstr "Nadie está atendiendo este evento todavía."
-
-#~ msgid "%s' Location"
-#~ msgstr "Ubicación:"
-
-#~ msgid "Drag the balloon to find the exact location."
-#~ msgstr "Arrastra el globo para encontrar la localización exacta."
-
-#~ msgid "Visible to other people"
-#~ msgstr "Visible para otras personas"
-
-#~ msgid "Private"
-#~ msgstr "Privado"
-
-#~ msgid "Limit visibility of this article"
-#~ msgstr "Limitar la visibilidad de este artículo"
-
-#~ msgid "Allow all community members to view this content"
-#~ msgstr "Permitir que todos los miembros de la comunidad vean este contenido"
-
-#~ msgid "Allow all your friends to view this content"
-#~ msgstr "Permitir a todos tus amigos vean este contenido"
-
-#~ msgid "{#} community"
-#~ msgid_plural "{#} communities"
-#~ msgstr[0] "Una comunidad"
-#~ msgstr[1] "{#} comunidades"
-
-#~ msgid "{#} enterprise"
-#~ msgid_plural "{#} enterprises"
-#~ msgstr[0] "{#} empresa"
-#~ msgstr[1] "{#} empresas"
-
-#~ msgid "Private profile"
-#~ msgstr "Perfil privado"
-
-#~ msgid "Public profile"
-#~ msgstr "Perfil público"
-
-#~ msgid "RSS feed"
-#~ msgstr "Noticias RSS"
-
-#~ msgid "Yes, I want to remove %s from my favorite enterprise list"
-#~ msgstr "Si, quiero eliminar %s de mi lista de empresas favoritas"
-
-#~ msgid ""
-#~ "Filter followed, friends or group of friends to send them a private "
-#~ "scrap..."
-#~ msgstr ""
-#~ "Filtro de seguidos, amigos o grupo de amigos para enviarles un mensaje "
-#~ "privado ..."
-
-#~ msgid "Share"
-#~ msgstr "Compartir"
-
-#~ msgid "Cancel e-mail"
-#~ msgstr "Cancelar correo electrónico"
-
-#~ msgid "Public &mdash; show my contents to all internet users"
-#~ msgstr ""
-#~ "&mdash; público mostrar mis contenidos a todos los usuarios de Internet"
-
-#~ msgid "Private &mdash; show my contents only to friends"
-#~ msgstr "&mdash privado; mostrar mi contenido solo a amigos"
-
-#~ msgid "Public &mdash; show content of this group to all internet users"
-#~ msgstr ""
-#~ "&mdash; publico mostrar el contenido de este grupo a todos los usuarios "
-#~ "de Internet"
-
-#~ msgid "Private &mdash; show content of this group only to members"
-#~ msgstr "&mdash; privado mostrar el contenido de este grupo solo a miembros"
-
-#~ msgid "Tasks that I requested"
-#~ msgstr "Tareas que he solicitado"
-
-#~ msgid "Status:"
-#~ msgstr "Estado:"
-
-#~ msgid "Set %s template as default"
-#~ msgstr "Establecer la plantilla %s como predeterminada"
-
-#~ msgid ""
-#~ "Secret &mdash; hide the community and all its contents for non members "
-#~ "and other people can't join this community unless they are invited to."
-#~ msgstr ""
-#~ "&mdash secreto; ocultar la comunidad y su contenido a no-usuarios y otra "
-#~ "gente no puede unirse a menos que hayan sido invitados."
-
-#~ msgid "Accept all tasks"
-#~ msgstr "Aceptar todas las tareas"
-
-#~ msgid "\"profile|#{font_awesome(:reply, 'Comment')}\""
-#~ msgstr "\"perfil|#{font_awesome(:reply, 'Comment')}\""
-
-#~ msgid "Viewed one time %{desc}"
-#~ msgid_plural "Viewed %{num} times %{desc}"
-#~ msgstr[0] "Visto una vez %{desc}"
-#~ msgstr[1] "Visto %{num} veces %{desc}"
-
-#~ msgid "News amount on portal"
-#~ msgstr "Cantidad de noticias en el portal"
-
-#~ msgid "Define news amount on portal"
-#~ msgstr "Definir la cantidad de noticias en el portal"
-
-#~ msgid "Notification options"
-#~ msgstr "Opciones de notificación"
-
-#~ msgid "has 1 new follower:<br />%{name}"
-#~ msgid_plural "has %{num} new followers:<br />%{name}"
-#~ msgstr[0] "tiene 1 nuevo seguidor:<br />%{name}"
-#~ msgstr[1] "tiene %{num} nuevos seguidores<br />%{name}"
-
-#~ msgid "Categories of your interest"
-#~ msgstr "Categorías de su interés"
-
-#~ msgid "replied to a scrap from %{receiver}: <br /> \"%{message}\""
-#~ msgstr "respondió a un mensaje de %{receiver}: <br /> \"%{message}\""
-
-#~ msgid "Manage Roles"
-#~ msgstr "Administrar Roles"
-
-#~ msgid ""
-#~ "Leaving the size blank will set the upload quota as unlimited. Setting it "
-#~ "to zero will make it impossible for users to upload new files. Any other "
-#~ "numeric value is valid."
-#~ msgstr ""
-#~ "Dejar el espacio en blanco establecerá la cuota de carga como ilimitada. "
-#~ "Ponerlo en cero impedirá que los usuarios carguen nuevos archivos. "
-#~ "Cualquier otro valor numérico es válido."
-
-#~ msgid "Short"
-#~ msgstr "Corto"
-
-#~ msgid "Until:"
-#~ msgstr "Hasta:"
-
-#~ msgid "From:"
-#~ msgstr "De:"
-
-#~ msgid ""
-#~ "The <label class='pseudoformlabel'>highlighted</label> fields are "
-#~ "mandatory."
-#~ msgstr ""
-#~ "Los campos <label class='pseudoformlabel'>destacados</label> son "
-#~ "obligatorios."
-
-#~ msgid "Address (street and number)"
-#~ msgstr "Dirección (calle y número)"
-
-#~ msgid "{fn} must be checked in order to signup."
-#~ msgstr "%{fn} debe estar seleccionado para registrarse."
-
-#~ msgid "Show subcategories"
-#~ msgstr "Mostrar subcategorías"
-
-#~ msgid "Hide subcategories"
-#~ msgstr "Ocultar subcategorías"
-
-#~ msgid "Profile settings for %s"
-#~ msgstr "Ajustes de perfil para %s"
-
-#~ msgid "Privacy options"
-#~ msgstr "Opciones de privacidad"
-
-#~ msgid ""
-#~ "Secret &mdash; hide the community and all its contents for non members \n"
-#~ "                             and other people can't join this community "
-#~ "unless they are invited to."
-#~ msgstr ""
-#~ "Secreto &mdash; ocultar la comunidad y todos sus contenidos para los no "
-#~ "miembros\n"
-#~ "                             y otras personas no pueden unirse a esta "
-#~ "comunidad a menos que sean invitados."
-
-#~ msgid "Tags of your interest"
-#~ msgstr "Etiquetas de tu interés"
-
-#~ msgid "Location and Regions of Interest"
-#~ msgstr "Localización y Regiones de Interés"
-
-#~ msgid "Mail settings"
-#~ msgstr "Configuración del correo"
-
-#~ msgid "Edit sideboxes"
-#~ msgstr "Editar bandejas Laterales"
-
-#~ msgid "Select a category and click on the Add button"
-#~ msgstr "Selecciona una categoría y haz clic en el botón de añadir"
-
-#~ msgid "There are no categories selected yet."
-#~ msgstr "No hay categorías seleccionadas todavía."
-
-#~ msgid "Preview"
-#~ msgstr "Avance"
-
-#~ msgid "My friends"
-#~ msgstr "Mis amigos"
-
-#~ msgid "Invite friends"
-#~ msgstr "Invitar amigos"
-
-#~ msgid "<span class='welcome'>Welcome,</span> %s"
-#~ msgstr "<span class='welcome'>Bienvenido,</span> %s"
-
-#~ msgid "Community Info and settings"
-#~ msgstr "Información de la comunidad y ajustes"
-
-#~ msgid "Enterprise Info and settings"
-#~ msgstr "Información y configuración de la empresa"
-
-#~ msgid "Edit Profile"
-#~ msgstr "Editar perfil"
-
-#~ msgid "Profile Info and settings"
-#~ msgstr "Información y configuración de Perfil"
-
-#~ msgid "enterprises|View all"
-#~ msgstr "empresas|Ver todo"
-
-#~ msgid "All content"
-#~ msgstr "Todo el contenido"
-
-#~ msgid "Edit Appearance"
-#~ msgstr "Editar apariencia"
-
-#~ msgid "Edit Header and Footer"
-#~ msgstr "Editar encabezado y pie de página"
-
-#~ msgid "Manage Content"
-#~ msgstr "Gestión de contenido"
-
-#~ msgid "Create blog"
-#~ msgstr "Crear blog"
-
-#~ msgid "Manage Members"
-#~ msgstr "Administrar miembros"
-
-#~ msgid "Enterprise Validation"
-#~ msgstr "Validación de la empresa"
-
-#~ msgid "Manage followed profiles"
-#~ msgstr "Administrar perfiles que estoy siguiendo"
-
-#~ msgid "Control panel of this group"
-#~ msgstr "Panel de control de este grupo"
-
-#~ msgid "User list as [CSV]"
-#~ msgstr "Lista de usuarios en [CSV]"
-
-#~ msgid "User list as [XML]"
-#~ msgstr "Lista de usuarios en [XML]"
-
-#~ msgid "Profile homepage:"
-#~ msgstr "Página de incio del perfil:"
-
-#~ msgid "change category"
-#~ msgstr "Nueva categoría"
-
-#~ msgid "More"
-#~ msgstr "Ver más"
-
-#~ msgid "Your network activity"
-#~ msgstr "Actividad en la red de %s"
-
-#~ msgid "uploaded 1 image"
-#~ msgid_plural "uploaded %d images"
-#~ msgstr[0] "1 imagen subido"
-#~ msgstr[1] "%d imagenes subidos"
-
-#~ msgid "favorited enterprise %{title}"
-#~ msgstr "le gusta la empresa %{título}"
-
-#~ msgid "<span class='login'>%s</span>"
-#~ msgstr "<span class='welcome'>Bienvenido,</span> %s"
-
-#~ msgid "Title: "
-#~ msgstr "Título: %s"
-
-#~ msgid "Tell us your name, it will be used to identify yourself."
-#~ msgstr "Dinos tu nombre, se va a usarlo para indentificarte."
-
-#~ msgid ""
-#~ "We need to be sure that you filled in your password correctly. Confirm "
-#~ "you password."
-#~ msgstr ""
-#~ "Tenemos que asegurar de que llenaste correctamente tu contraseña. "
-#~ "Confirma tu contraseña."
-
-#~ msgid "published an article: %{title}"
-#~ msgstr "Artículo publicado: %{title}"
-
-#~ msgid "has made 1 new friend:<br />%{name}"
-#~ msgid_plural "has made %{num} new friends:<br />%{name}"
-#~ msgstr[0] "ha hecho un nuevo amigo: <br /> %{name}"
-#~ msgstr[1] "ha hecho %{num} nuevos amigos: <br />%{name}"
-
-#~ msgid "has joined 1 community:<br />%{name}"
-#~ msgid_plural "has joined %{num} communities:<br />%{name}"
-#~ msgstr[0] "se ha unido a una comunidad: <br /> %{name}"
-#~ msgstr[1] "se ha unido a %{num} comunidades:<br />%{name}"
-
-#~ msgid "has joined the community."
-#~ msgstr "se ha unido a la comunidad."
-
-#~ msgid "sent a message to %{receiver}: <br /> \"%{message}\""
-#~ msgstr "envió un mensaje a %{receiver}: <br /> \"%{message}\""
-
-#~ msgid "wrote: <br /> \"%{text}\""
-#~ msgstr "escribió: <br /> \"%{text}\""
-
-#~ msgid "Contents menu"
-#~ msgstr "Menú de contenido"
-
-#~ msgid "People menu"
-#~ msgstr "Menú de personas"
-
-#~ msgid "Communities menu"
-#~ msgstr "Menú comunidades"
-
-#~ msgid "<span>Manage</span> %s"
-#~ msgstr "<span>Administrar</span> %s"
-
-#~ msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
-#~ msgstr "<span class='or'>o</span> <span class='signup'>%s</span>"
-
-#~ msgid ""
-#~ "An internet forum, also called message board, where discussions can be "
-#~ "held."
-#~ msgstr ""
-#~ "Un foro de internet, también llamado tablero de mensajes, donde se "
-#~ "realiazan las discusiones."
-
-#~ msgid "Gray Up"
-#~ msgstr "Aumentar gris"
-
-#~ msgid "Gray Down"
-#~ msgstr "Disminuir gris"
-
-#~ msgid "Gray Left"
-#~ msgstr "Gris a la izquieda"
-
-#~ msgid "Red Up"
-#~ msgstr "Rojo"
-
-#~ msgid ""
-#~ "Choose your login name carefully! It will be your network access and you "
-#~ "will not be able to change it later."
-#~ msgstr ""
-#~ "¡Elige tu nombre de usuario cuidadosamente! Será tu acceso a la red y no "
-#~ "podrás cambiarlo después."
-
-#~ msgid ""
-#~ "Choose a password that you can remember easily. It must have at least 4 "
-#~ "characters."
-#~ msgstr ""
-#~ "Elige una contraseña que puedas recordar facilmente. Debe tener, por lo "
-#~ "menos 4 caracteres."
-
-#~ msgid "This e-mail address will be used to contact you."
-#~ msgstr "Esta dirección de correo electrónico será usada para contactarte."
-
-#~ msgid "communities|View all"
-#~ msgstr "Ver todas"
-
-#~ msgid "More files"
-#~ msgstr "Más Archivos"
-
-#~ msgid "Documents, Images, Videos, Audio"
-#~ msgstr "Documentos, imágenes, videos, audio"
-
-#~ msgid "Current folder: "
-#~ msgstr "Carpeta actual: "
-
-#~ msgid "Last update"
-#~ msgstr "Última actualización"
-
-#~ msgid "parent folder"
-#~ msgstr "Carpeta padre"
-
-#~ msgid "Post a comment"
-#~ msgstr "Publicar un comentario"
-
-#~ msgid "Enter your comment"
-#~ msgstr "Escribe tu comentario"
-
-#~ msgid "Follow this article"
-#~ msgstr "Seguir este artículo"
-
-#~ msgid "Post comment"
-#~ msgstr "Publicar comentario"
-
-#~ msgid "Please type the two words below"
-#~ msgstr "Por favor, escribe las dos palabras debajo"
-
-#~ msgid "Go back to %s"
-#~ msgstr "Regresar a %s"
-
-#~ msgid "This article's tags:"
-#~ msgstr "Etiquetas de este artículo:"
-
-#~ msgid "Oldest first"
-#~ msgstr "Más antiguo primero"
-
-#~ msgid "Newest first"
-#~ msgstr "Más reciente primero"
-
-#~ msgid "unfollow"
-#~ msgstr "dejar de seguir"
-
-#~ msgid "Last update: %s."
-#~ msgstr "Última actualización: %s."
-
-#~ msgid "Separate tags with commas"
-#~ msgstr "Separa las etiquetas con comas"
-
-#~ msgid "Reported by %{reporter} %{time}."
-#~ msgstr "Reportado por %{reporter} %{time}."
-
-#~ msgid "View details"
-#~ msgstr "Ver detalles"
-
-#~ msgid "Classify your new friend:"
-#~ msgstr "Clasificar a tu nuevo amigo:"
-
-#~ msgid "Assign to:"
-#~ msgstr "Asignar a:"
-
-#~ msgid "Assigned to:"
-#~ msgstr "Asignado a:"
-
-#~ msgid "Apply!"
-#~ msgstr "¡Aplicar!"
-
-#~ msgid "Set all to: "
-#~ msgstr "Ajustar todo a: "
-
-#~ msgid "Thanks for registering. The administrators were notified."
-#~ msgstr "Gracias por inscribirse. Los administradores fueron notificados."
-
-#~ msgid "Your account has been activated, now you can log in!"
-#~ msgstr "Tu cuenta ha sido activada, ¡ahora puedes iniciar sesión!"
-
-#~ msgid ""
-#~ "It looks like you're trying to activate an account. Perhaps have already "
-#~ "activated this account?"
-#~ msgstr ""
-#~ "Parece que estas intentando activar una cuenta. ¿Tal vez ya lo has hecho?"
-
-#~ msgid "Thanks for registering!"
-#~ msgstr "¡Gracias por inscribirte!"
-
-#~ msgid "%{month}/%{year}"
-#~ msgstr "%{month}/%{year}"
-
-#~ msgid "%{month_name}, %{year}"
-#~ msgstr "%{month_name}, %{year}"
-
-#~ msgid "%{month_name}"
-#~ msgstr "%{month_name}"
-
-#~ msgid "Firstly, some tips for getting started:"
-#~ msgstr "Antes que nada, algunos consejos para iniciar:"
-
-#~ msgid "Confirm your account!"
-#~ msgstr "¡Confirma tu cuenta!"
-
-#~ msgid ""
-#~ "You should receive a welcome email from us shortly. Please take a second "
-#~ "to follow the link within to confirm your account."
-#~ msgstr ""
-#~ "Tú deberías recibir un correo de bienvenida por parte nuestra en poco "
-#~ "tiempo. Por favor, tómate un segundo para seguir el enlace dentro para "
-#~ "confirmar tu cuenta."
-
-#~ msgid "You won't appear as %s until your account is confirmed."
-#~ msgstr "No aparecerás como %s hasta que tu cuenta sea confirmada."
-
-#~ msgid "General Category"
-#~ msgstr "Categoría General"
-
-#~ msgid "Generic category"
-#~ msgstr "Categoría genérica"
-
-#~ msgid "Product"
-#~ msgstr "Producto"
-
-#~ msgid "Show"
-#~ msgstr "Mostrar"
-
-#~ msgid "Hide"
-#~ msgstr "Ocultar"
-
-#~ msgid "Profile quotas"
-#~ msgstr "Perfil"

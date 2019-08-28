@@ -129,24 +129,3 @@ msgstr "%s hinzufügen"
 #: ../views/sub_organizations_plugin_profile/_related_organizations.html.erb:10
 msgid "There are no sub-%s yet."
 msgstr "Es sind noch keine Unter-%s vorhanden."
-
-#: ../lib/related_organizations_block.rb:18
-#~ msgid "\"{#} #{display_type[:title]} enterprise\""
-#~ msgid_plural " \"{#} #{display_type[:title]} enterprises\""
-#~ msgstr[0] "\"{#} #{display_type[:title]} Unternehmen\""
-#~ msgstr[1] "\"{#} #{display_type[:title]} Unternehmen\""
-
-#: ../lib/related_organizations_block.rb:20
-#~ msgid "\"{#} #{display_type[:title]} community\""
-#~ msgid_plural " \"{#} #{display_type[:title]} communities\""
-#~ msgstr[0] "\"{#} #{display_type[:title]} Community\""
-#~ msgstr[1] "\"{#} #{display_type[:title]} Communities\""
-
-#: ../lib/related_organizations_block.rb:22
-#~ msgid "\"{#} #{display_type[:title]} organization\""
-#~ msgid_plural " \"{#} #{display_type[:title]} organizations\""
-#~ msgstr[0] "\"{#} #{display_type[:title]} Organisation\""
-#~ msgstr[1] "\"{#} #{display_type[:title]} Organisationen\""
-
-#~ msgid "Sub-groups"
-#~ msgstr "Untergruppen"

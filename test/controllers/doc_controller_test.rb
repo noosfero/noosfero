@@ -6,6 +6,7 @@ class DocControllerTest < ActionController::TestCase
 
   def setup
     setup_doc_test
+    DocSection.stubs(:root_dir).returns(ROOT)
   end
 
   def tear_down
@@ -52,10 +53,10 @@ class DocControllerTest < ActionController::TestCase
 
   should 'use environment theme' do
     e = Environment.default
-    e.theme = 'test-theme'
+    e.theme = 'butter'
     e.save
 
-    DocTopic.any_instance.expects(:html).with('test-theme')
+    DocTopic.any_instance.expects(:html).with('butter')
     get :topic, :section => 'user', :topic => 'accepting-friends'
   end
 

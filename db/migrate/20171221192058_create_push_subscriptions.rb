@@ -1,4 +1,4 @@
-class CreatePushSubscriptions < ActiveRecord::Migration
+class CreatePushSubscriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :push_subscriptions do |t|
       t.string  :endpoint, null: false

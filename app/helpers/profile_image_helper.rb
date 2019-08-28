@@ -43,6 +43,17 @@ module ProfileImageHelper
     end
   end
 
+  def profile_default_image type, size=:minor
+      case type
+      when :person
+        "/images/icons-app/person-#{size.to_s}.png"
+      when :community
+        "/images/icons-app/community-#{size.to_s}.png"
+      when :enterprise
+        "/images/icons-app/enterprise-#{size.to_s}.png"
+      end
+  end
+
   def profile_icon( profile, size=:portrait, return_mimetype=false )
     filename, mimetype = '', 'image/png'
     if profile.image.present?

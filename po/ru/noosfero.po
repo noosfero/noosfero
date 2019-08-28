@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2016-11-08 03:54+0000\n"
-"Last-Translator: Nathania Saphira <nathaniasaphira@gmail.com>\n"
+"PO-Revision-Date: 2019-06-18 16:29+0000\n"
+"Last-Translator: NeverMine17 <dannevergame@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/ru/>\n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 2.9\n"
+"X-Generator: Weblate 3.7\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr ""
@@ -68,6 +68,12 @@ msgstr "Статья"
 #, fuzzy
 msgid "The comment '%s' was removed."
 msgstr "Текст был удален"
+
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "Сообщество"
 
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
@@ -124,7 +130,7 @@ msgid "Logout successfully."
 msgstr "Успешный логин"
 
 msgid "Email"
-msgstr "E-Mail"
+msgstr "Email"
 
 msgid "Login"
 msgstr "Логин"
@@ -4468,7 +4474,7 @@ msgid "Confirm your new Password"
 msgstr "Подтверждение нового пароля"
 
 msgid "Back to control panel"
-msgstr "Назад в панель управления"
+msgstr "Вернуться к панели управления"
 
 msgid "Forgot your password?"
 msgstr "Забыли пароль?"

@@ -48,6 +48,7 @@
 *= require upload-file.js
 *= require edit-in-place.js
 *= require invite_event.js
+*= require sensitive_content.js
 *
 * serviceworker
 *= require serviceworker-companion.js
@@ -1261,6 +1262,12 @@ function fullscreenPageLoad(itemId){
       toggle_fullwidth(itemId);
     }
   });
+}
+
+function openDropdown(element) {
+    event.stopPropagation();
+    dropdown = $('#' + $(element).attr('id') + '-dropdown')
+    dropdown.toggle(400)
 }
 
 $(document).ready(function() {

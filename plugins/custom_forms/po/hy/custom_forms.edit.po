@@ -936,15 +936,3 @@ msgstr ""
 #: ../views/shared/_form_submission.html.erb:8
 msgid "This was your answer."
 msgstr ""
-
-#~ msgid "Manage Queries"
-#~ msgstr "Կառավարել"
-
-#~ msgid "Custom"
-#~ msgstr "մասնակից"
-
-#~ msgid "Custom access definitions"
-#~ msgstr "մասնակից"
-
-#~ msgid "Result Access"
-#~ msgstr "Ընդունել"

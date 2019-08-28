@@ -71,6 +71,12 @@ msgstr "Nadie sigue este artículo todavía."
 msgid "The comment '%s' was removed."
 msgstr "El comentario '%s' fue eliminado."
 
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "comunidad"
+
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."

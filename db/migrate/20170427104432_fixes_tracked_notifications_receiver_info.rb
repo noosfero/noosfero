@@ -1,4 +1,4 @@
-class FixesTrackedNotificationsReceiverInfo < ActiveRecord::Migration
+class FixesTrackedNotificationsReceiverInfo < ActiveRecord::Migration[4.2]
   def up
     ActionTracker::Record.where(verb: 'reply_scrap_on_self').find_each do |n|
       if n.target

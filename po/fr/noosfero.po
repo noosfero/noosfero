@@ -69,6 +69,12 @@ msgstr "Article"
 msgid "The comment '%s' was removed."
 msgstr "Le commentaire n'a pas été supprimé."
 
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "Communauté"
+
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."

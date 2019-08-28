@@ -333,6 +333,18 @@ class Person < Profile
     memberships.communities
   end
 
+  def enterprises_with_post_permisson
+    enterprises.select do |enterprise|
+        has_permission?('publish_content', enterprise)
+    end
+  end
+
+  def communities_with_post_permisson
+    communities.select do |community|
+        has_permission?('publish_content', community)
+    end
+  end
+
   validates_presence_of :user_id
   validates_uniqueness_of :user_id
 

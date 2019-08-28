@@ -1,4 +1,4 @@
-class AddManageEnvironmentKindsToAdminRole < ActiveRecord::Migration
+class AddManageEnvironmentKindsToAdminRole < ActiveRecord::Migration[4.2]
   def self.up
     Environment.all.map(&:id).each do |id|
       role = Environment::Roles.admin(id)

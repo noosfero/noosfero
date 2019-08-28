@@ -217,10 +217,10 @@
 
   activerecord:
     attributes:
+      profile:
+        identifier: "profile identifier"
       user:
         terms_accepted: "Terms of use"
-
-  activerecord:
     errors:
       messages:
         <<: *errors_messages

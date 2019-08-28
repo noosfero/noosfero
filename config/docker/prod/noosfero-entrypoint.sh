@@ -50,7 +50,4 @@ if [ -f $pidfile ] ; then
   rm $pidfile
 fi
 
-echo ">>>>> COMPILING ASSETS <<<<<"
-bundle exec rake assets:precompile
-
 exec "$@"

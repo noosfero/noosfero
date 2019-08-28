@@ -1,4 +1,4 @@
-class CreateFollowersFromRoleAssignments < ActiveRecord::Migration
+class CreateFollowersFromRoleAssignments < ActiveRecord::Migration[4.2]
   def up
     # Create memberships curcle if it not exists
     execute("INSERT INTO circles(name, person_id, profile_type) "\

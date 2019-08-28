@@ -299,6 +299,3 @@ msgstr "Доставка или получение на месте"
 #: ../views/shopping_cart_plugin_myprofile/edit.html.erb:18
 msgid "Back to control panel"
 msgstr "Вернуться к панели управления"
-
-#~ msgid "Shopping basket"
-#~ msgstr "Корзина"

@@ -13,7 +13,7 @@
 
 <% else %>
 
-  <p><%= @page.terms_of_use %></p>
+  <%= @page.terms_of_use.html_safe %>
 
   <%= form_tag @page.url.merge(:terms_accepted => true) do %>
     <%= button_bar do %>

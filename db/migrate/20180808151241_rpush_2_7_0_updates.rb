@@ -1,4 +1,4 @@
-class Rpush270Updates < ActiveRecord::Migration
+class Rpush270Updates < ActiveRecord::Migration[5.1]
   def self.up
     return if column_exists? :rpush_notifications, :notification
     change_column :rpush_notifications, :alert, :text

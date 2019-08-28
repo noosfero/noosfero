@@ -44,5 +44,4 @@ module ModalHelper
 
     options
   end
-
 end

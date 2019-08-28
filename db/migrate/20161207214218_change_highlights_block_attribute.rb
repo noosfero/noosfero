@@ -1,4 +1,4 @@
-class ChangeHighlightsBlockAttribute < ActiveRecord::Migration
+class ChangeHighlightsBlockAttribute < ActiveRecord::Migration[4.2]
   def up
     HighlightsBlock.all.map do |block|
       block.settings[:block_images] = block.settings[:images]

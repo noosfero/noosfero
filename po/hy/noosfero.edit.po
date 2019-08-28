@@ -82,29 +82,36 @@ msgstr ""
 msgid "The comment '%s' was removed."
 msgstr "Այս անհատական էջը"
 
-#: ../app/api/v1/communities.rb:72
+#: ../app/api/v1/communities.rb:43
+#, fuzzy
+msgid ""
+"Your solicitation was not registered. Already exists a community with this "
+"name."
+msgstr "Համայնք"
+
+#: ../app/api/v1/communities.rb:85
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:89
+#: ../app/api/v1/communities.rb:102
 msgid "The contact was sent."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:92
+#: ../app/api/v1/communities.rb:105
 msgid "The contact was not sent."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:110
+#: ../app/api/v1/communities.rb:123
 msgid "You already request a membership for this community."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:113
+#: ../app/api/v1/communities.rb:126
 msgid "You already member of this community."
 msgstr ""
 
-#: ../app/api/v1/communities.rb:116
+#: ../app/api/v1/communities.rb:129
 msgid ""
 "You are not member of this community and you did not made a membership "
 "request."
@@ -4255,6 +4262,11 @@ msgstr ""
 msgid "Privacy"
 msgstr "Անձնական"
 
+#: ../app/models/control_panel/regions.rb:4
+#, fuzzy
+msgid "Regions"
+msgstr "Տարածաշրջան"
+
 #: ../app/models/control_panel/roles.rb:4
 #: ../app/views/profile_roles/assign.html.erb:16
 #, fuzzy
@@ -4290,27 +4302,27 @@ msgstr "Բովանդակության տեսակ"
 msgid "Welcome Page"
 msgstr "Իմ գլխավոր էջը"
 
-#: ../app/models/create_community.rb:51
+#: ../app/models/create_community.rb:56
 msgid "New community"
 msgstr ""
 
-#: ../app/models/create_community.rb:65
+#: ../app/models/create_community.rb:70
 #, fuzzy
 msgid "%{requestor} wants to create community %{subject} with no description."
 msgstr "%s-ը ցանկանում է %s-ի անդամ դառնալ:"
 
-#: ../app/models/create_community.rb:67
+#: ../app/models/create_community.rb:72
 msgid ""
 "%{requestor} wants to create community %{subject} with this description:"
 "<p><em>%{description}</em></p>"
 msgstr ""
 
-#: ../app/models/create_community.rb:91
+#: ../app/models/create_community.rb:96
 #, fuzzy
 msgid "%{requestor} wants to create community %{subject}"
 msgstr "%s-ը ցանկանում է %s-ի անդամ դառնալ:"
 
-#: ../app/models/create_community.rb:95
+#: ../app/models/create_community.rb:100
 #, fuzzy
 msgid ""
 "User \"%{user}\" just requested to create community %{community}. You have "
@@ -4321,7 +4333,7 @@ msgstr ""
 "համակարգին: Դուք պետք է հաստատեք կամ մերժեք նրա հայցը Ձեր կառավարման "
 "վահանակում գտվող \"Սպասում են հաստատման\" բաժնում:\n"
 
-#: ../app/models/create_community.rb:99
+#: ../app/models/create_community.rb:104
 #, fuzzy
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
@@ -4336,7 +4348,7 @@ msgstr ""
 "\n"
 "Դուք շուտով կտեղեկացվեք ընդունված որոշման վերաբերյալ:"
 
-#: ../app/models/create_community.rb:105
+#: ../app/models/create_community.rb:110
 #, fuzzy
 msgid ""
 "Your request for registering community %{community} at %{environment} was "
@@ -4350,7 +4362,7 @@ msgstr ""
 "\n"
 "%{explanation}"
 
-#: ../app/models/create_community.rb:109
+#: ../app/models/create_community.rb:114
 #, fuzzy
 msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
@@ -11602,276 +11614,3 @@ msgid ""
 "This site uses %{noosfero_url}, developed by %{colivre_url} and licensed "
 "under the %{agpl_url} version 3 or any later version."
 msgstr ""
-
-#~ msgid "Regions"
-#~ msgstr "Տարածաշրջան"
-
-#, fuzzy
-#~ msgid "Publish content"
-#~ msgstr "Հոդվածներ հրապարակել"
-
-#, fuzzy
-#~ msgid "Kind sucessfully removed"
-#~ msgstr "Դերերը հաջողությամբ թարմացված են"
-
-#, fuzzy
-#~ msgid "The circle could not be saved"
-#~ msgstr "Անհանատական էջի տվյալների բաժին"
-
-#, fuzzy
-#~ msgid "{fn} must be checked in order to signup."
-#~ msgstr "%{fn} պետք է ստուգվի մուտք գործելու համար:"
-
-#, fuzzy
-#~ msgid "Member succesfully unassociated"
-#~ msgstr "Անդամն արդեն փոխկապակցված չէ"
-
-#, fuzzy
-#~ msgid "Role successfuly removed!"
-#~ msgstr "Արտադրանքը հաջողությամբ հեռացված է"
-
-#, fuzzy
-#~ msgid "has 1 new follower:<br />%{name}"
-#~ msgid_plural "has %{num} new followers:<br />%{name}"
-#~ msgstr[0] "Անվանում"
-
-#, fuzzy
-#~ msgid "Allow all community members to view this content"
-#~ msgstr "Համայնք"
-
-#, fuzzy
-#~ msgid "View details"
-#~ msgstr "Մանրամասն"
-
-#, fuzzy
-#~ msgid ""
-#~ "Leaving the size blank will set the upload quota as unlimited. Setting it "
-#~ "to zero will make it impossible for users to upload new files. Any other "
-#~ "numeric value is valid."
-#~ msgstr "մասնակից"
-
-#, fuzzy
-#~ msgid "From:"
-#~ msgstr "Որտեղից"
-
-#, fuzzy
-#~ msgid "Red Up"
-#~ msgstr "Կարմիր"
-
-#, fuzzy
-#~ msgid "Categories of your interest"
-#~ msgstr "Ընտրեք կատեգորիաներ Ձեր հոդվածի համար"
-
-#, fuzzy
-#~ msgid "Invite friends"
-#~ msgstr "Կառավարել ընկերներին"
-
-#, fuzzy
-#~ msgid "News amount on portal"
-#~ msgstr "Նոր թղթապանակ"
-
-#, fuzzy
-#~ msgid "Define news amount on portal"
-#~ msgstr "Նոր թղթապանակ"
-
-#, fuzzy
-#~ msgid "{#} enterprise"
-#~ msgid_plural "{#} enterprises"
-#~ msgstr[0] "Մեկ ձեռնարկություն"
-#~ msgstr[1] "%{num} ձեռնարկություններ"
-
-#: ../app/controllers/admin/environment_role_manager_controller.rb:17
-#: ../app/controllers/my_profile/profile_members_controller.rb:41
-#~ msgid "Roles successfuly updated"
-#~ msgstr "Դերերը հաջողությամբ թարմացված են"
-
-#: ../app/views/categories/_category.html.erb:12
-#, fuzzy
-#~ msgid "Show subcategories"
-#~ msgstr "Ենթակատեգորիաներ չկան"
-
-#: ../app/views/enterprise_registration/select_validator.html.erb:4
-#~ msgid ""
-#~ "Select one organization to validate your enterprise registration request. "
-#~ "Check the provided information about their validation methodoly and "
-#~ "criteria."
-#~ msgstr ""
-#~ "Ընտրեք կազմակերպություն Ձեր ձեռնարկությունը վավերացնելու համար: Ծանոթացեք "
-#~ "նրա վավերացման մեթոդներին և չափանիշներին:"
-
-#~ msgid "Manage content"
-#~ msgstr "Կառավարել բովանդակությունը:"
-
-#~ msgid "Private profile"
-#~ msgstr "Փոփոխել անհատական էջը"
-
-#~ msgid "Allow all your friends to view this content"
-#~ msgstr "ընկերներ"
-
-#~ msgid "Cancel e-mail"
-#~ msgstr "էլ. հասցե"
-
-#~ msgid ""
-#~ "Filter followed, friends or group of friends to send them a private "
-#~ "scrap..."
-#~ msgstr "ընկերներ"
-
-#~ msgid "RSS feed"
-#~ msgstr "RSS հոսք"
-
-#~ msgid "Private"
-#~ msgstr "Անձնական"
-
-#~ msgid "{#} community"
-#~ msgid_plural "{#} communities"
-#~ msgstr[0] "{#} հանրություն"
-#~ msgstr[1] "{#} հանրություն"
-
-#~ msgid "Yes, I want to remove %s from my favorite enterprise list"
-#~ msgstr ""
-#~ "Այո, ես ցանկանում եմ հեռացնել %s իմ նախընտրած ձեռնարկությունների ցուցակից:"
-
-#~ msgid "My friends"
-#~ msgstr "ընկերներ"
-
-#~ msgid "Hide subcategories"
-#~ msgstr "Ենթակատեգորիաներ չկան"
-
-#~ msgid "Notification options"
-#~ msgstr "Կառավարման հատկություններ"
-
-#~ msgid "Manage Roles"
-#~ msgstr "Կառավարել"
-
-#~ msgid "enterprises|View all"
-#~ msgstr "Ձեռնարկություններ"
-
-#~ msgid "Control panel of this group"
-#~ msgstr "Կառավարման վահանակ"
-
-#~ msgid "Profile Info and settings"
-#~ msgstr "Անհանատական էջի տվյալների բաժին"
-
-#~ msgid "Enterprise Info and settings"
-#~ msgstr "Ձեռնարկությունների վավերացում"
-
-#~ msgid "Edit Profile"
-#~ msgstr "Փոփոխել իմ անհատական էջը"
-
-#~ msgid "All content"
-#~ msgstr "Ամբողջ բովանդակությունը"
-
-#~ msgid "Privacy options"
-#~ msgstr "Անձնական տվյալների հատկություններ"
-
-#~ msgid "Mail settings"
-#~ msgstr "Էլ. փոստի պարամետրեր"
-
-#~ msgid "Manage Content"
-#~ msgstr "Հետևել բովանդակությանը"
-
-#~ msgid "Manage Members"
-#~ msgstr "Կառավարել անդամներին"
-
-#~ msgid "Enterprise Validation"
-#~ msgstr "Ձեռնարկության հաստատում"
-
-#~ msgid "communities|View all"
-#~ msgstr "Բոլոր համայնքները"
-
-#~ msgid ""
-#~ "We need to be sure that you filled in your password correctly. Confirm "
-#~ "you password."
-#~ msgstr "Մենք պետք է համոզվենք, որ Ձեր ներմուծած գաղտնաբառը ճիշտ է:"
-
-#~ msgid "has joined the community."
-#~ msgstr "Միանալ այս համայնքին"
-
-#~ msgid "uploaded 1 image"
-#~ msgid_plural "uploaded %d images"
-#~ msgstr[0] "Վերբեռնած ֆայլ"
-#~ msgstr[1] "Վերբեռնած ֆայլ"
-
-#~ msgid "favorited enterprise %{title}"
-#~ msgstr "%s-ի նախընտրած ձեռնարկությունները"
-
-#~ msgid "Contents menu"
-#~ msgstr "Համայնքներ"
-
-#~ msgid "People menu"
-#~ msgstr "Մարդիկ"
-
-#~ msgid "Communities menu"
-#~ msgstr "Համայնքներ"
-
-#~ msgid "Profile homepage:"
-#~ msgstr "Անհատական էջ|Կայք"
-
-#~ msgid "Current folder: "
-#~ msgstr "Ներկայիս կատեգորիա"
-
-#~ msgid "parent folder"
-#~ msgstr "Ներկայիս կատեգորիա"
-
-#~ msgid "Go back to %s"
-#~ msgstr "Վերադառնալ"
-
-#~ msgid "change category"
-#~ msgstr "Նոր կատեգորիա"
-
-#~ msgid "Set all to: "
-#~ msgstr "Ընտրել կատեգորիա"
-
-#~ msgid "Title: "
-#~ msgstr "Վերնագիր"
-
-#~ msgid "Your network activity"
-#~ msgstr "Տնտեսական գործունեություն"
-
-#~ msgid "Post a comment"
-#~ msgstr "Մեկնաբանություն թողնել"
-
-#~ msgid "Enter your comment"
-#~ msgstr "Գրեք Ձեր մեկնաբանությունը"
-
-#~ msgid "Post comment"
-#~ msgstr "Մեկնաբանություն թողնել"
-
-#~ msgid "This article's tags:"
-#~ msgstr "Այս հոդվածի պիտակները:"
-
-#~ msgid "Last update: %s."
-#~ msgstr "Վերջինը թարմացվել է %s"
-
-#~ msgid "Separate tags with commas"
-#~ msgstr "Պիտակներն իրարից անջատեք ստորակետերով"
-
-#~ msgid "Classify your new friend:"
-#~ msgstr "Դասակարգեք Ձեր ընկերոջը"
-
-#~ msgid "Thanks for registering!"
-#~ msgstr "Շնորհակալություն գրանցվելու համար:"
-
-#~ msgid "Confirm your account!"
-#~ msgstr "Հաստատեք Ձեր նոր գաղտնաբառը"
-
-#~ msgid "%{month}/%{year}"
-#~ msgstr "%{month} %{year}"
-
-#~ msgid "%{month_name}"
-#~ msgstr "%{month} %{year}"
-
-#~ msgid "%{month_name}, %{year}"
-#~ msgstr "%{month} %{day}, %{year}"
-
-#~ msgid "Generic category"
-#~ msgstr "Ընդհանուր կատեգորիա"
-
-#~ msgid "General Category"
-#~ msgstr "Ընդհանուր կատեգորիա"
-
-#~ msgid "Product"
-#~ msgstr "Արտադրանք"
-
-#~ msgid "Profile quotas"
-#~ msgstr "Պրոֆայլ"

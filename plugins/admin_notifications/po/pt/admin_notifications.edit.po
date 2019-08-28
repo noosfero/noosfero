@@ -189,6 +189,3 @@ msgstr "Não mostrar mais"
 #: ../views/shared/show_notification.html.erb:35
 msgid "Hide for now"
 msgstr "Ocultar momentaneamente"
-
-#~ msgid "Manage Notifications"
-#~ msgstr "Gerenciar Notificações"
