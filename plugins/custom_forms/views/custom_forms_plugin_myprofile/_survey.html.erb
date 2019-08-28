@@ -32,4 +32,5 @@
 <div class="addition-buttons">
   <%= button(:add, _('Add a new text field'), '#', :onclick => "customFormsPlugin.addFields(this, 'fields', #{html_for_field(f, :fields, CustomFormsPlugin::TextField).to_json}); return false")%>
   <%= button(:add, _('Add a new select field'), '#', :onclick => "customFormsPlugin.addFields(this, 'fields', #{html_for_field(f, :fields, CustomFormsPlugin::SelectField).to_json}); return false")%>
+  <%= button(:add, _('Add a new datetime field'), '#', :onclick => "customFormsPlugin.addFields(this, 'fields', #{html_for_field(f, :fields, CustomFormsPlugin::DateTimeField).to_json}); return false")%>
 </div>

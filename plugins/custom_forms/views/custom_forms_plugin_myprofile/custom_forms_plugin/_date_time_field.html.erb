@@ -1,0 +1,11 @@
+<%= render :layout => 'field', :locals => { :f => f } do %>
+  <div class="field-text-default">
+    <div class='formfieldline'>
+      <%= f.label(:value, _('Default date:')) %>
+      <% html_options = {} %>
+      <%= date_field(
+        "datetime", "", {}, html_options.merge({:id => :default_value})
+        ) %>
+    </div>
+  </div>
+<% end %>
