@@ -3,10 +3,10 @@
 # array.safe_join instead of safe_join(array)
 #
 class Array
-  def safe_join sep=nil
+  def safe_join(sep = nil)
     sep = ERB::Util.unwrapped_html_escape sep
 
-    self.flatten.map!{ |i| ERB::Util.unwrapped_html_escape i }.join(sep).html_safe
+    self.flatten.map! { |i| ERB::Util.unwrapped_html_escape i }.join(sep).html_safe
   end
 end
 
@@ -18,7 +18,7 @@ end
 ActiveSupport::JSON::Encoding.escape_html_entities_in_json = true
 ActiveSupport::JSON.class_eval do
   module EncodeWithHtmlSafe
-    def encode *args
+    def encode(*args)
       super.html_safe
     end
   end

@@ -1,7 +1,5 @@
 module OrdersCyclePlugin::OrderHelper
-
   protected
 
-  include OrdersCyclePlugin::DisplayHelper
-
+    include OrdersCyclePlugin::DisplayHelper
 end

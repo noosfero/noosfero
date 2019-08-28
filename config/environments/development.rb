@@ -9,7 +9,7 @@ Noosfero::Application.configure do
   config.eager_load = true
 
   # Show full error reports and disable caching
-  config.action_controller.perform_caching             = false
+  config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -29,10 +29,8 @@ Noosfero::Application.configure do
   # we have a lot of assets
   config.assets.debug = false
 
-
   config.consider_all_requests_local = true
 
   # send emails to /tmp/mails
   config.action_mailer.delivery_method = :file
-
 end

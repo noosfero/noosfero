@@ -1,5 +1,4 @@
 class CreateOrdersCyclePluginTables < ActiveRecord::Migration
-
   def change
     # check if distribution plugin already moved the table
     return if ApplicationRecord.connection.table_exists? :orders_cycle_plugin_cycles
@@ -35,5 +34,4 @@ class CreateOrdersCyclePluginTables < ActiveRecord::Migration
     add_index :orders_cycle_plugin_cycles, [:profile_id]
     add_index :orders_cycle_plugin_cycles, [:status]
   end
-
 end

@@ -1,5 +1,4 @@
 class OrdersCyclePluginOrderController < OrdersPluginOrderController
-
   # FIXME: remove me when styles move from consumers_coop plugin
   include ConsumersCoopPlugin::ControllerHelper
   include OrdersCyclePlugin::TranslationHelper
@@ -23,7 +22,7 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
 
   def new
     if user.blank?
-      session[:notice] = t('orders_plugin.controllers.profile.consumer.please_login_first')
+      session[:notice] = t("orders_plugin.controllers.profile.consumer.please_login_first")
       redirect_to action: :index
       return
     end
@@ -50,7 +49,8 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
       @order.repeat_cycle = @cycle
       @repeat_order = OrdersCyclePlugin::Sale.new profile: profile, consumer: @consumer, cycle: @cycle
       @order.items.each do |item|
-        next unless item.repeat_product and item.repeat_product.available
+        next unless item.repeat_product && item.repeat_product.available
+
         @repeat_order.items.build sale: @repeat_order, product: item.repeat_product, quantity_consumer_ordered: item.quantity_consumer_ordered
       end
       @repeat_order.supplier_delivery = @order.supplier_delivery
@@ -58,24 +58,24 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
       redirect_to url_for(params.merge action: :edit, id: @repeat_order.id)
     else
       @orders = @cycle.consumer_previous_orders(@consumer).last(5).reverse
-      @orders.each{ |o| o.enable_product_diff }
-      @orders.each{ |o| o.repeat_cycle = @cycle }
-      render template: 'orders_plugin/repeat'
+      @orders.each { |o| o.enable_product_diff }
+      @orders.each { |o| o.repeat_cycle = @cycle }
+      render template: "orders_plugin/repeat"
     end
   end
 
   def edit
     return show_more if params[:page].present?
 
-    if request.xhr? and params[:order].present?
+    if request.xhr? && params[:order].present?
       status = params[:order][:status]
-      if status == 'ordered'
+      if status == "ordered"
         if @order.items.size > 0
           @order.to_yaml # most strange workaround to avoid a crash in the next line
           @order.update! params[:order]
-          session[:notice] = t('orders_plugin.controllers.profile.consumer.order_confirmed')
+          session[:notice] = t("orders_plugin.controllers.profile.consumer.order_confirmed")
         else
-          session[:notice] = t('orders_plugin.controllers.profile.consumer.can_not_confirm_your_')
+          session[:notice] = t("orders_plugin.controllers.profile.consumer.can_not_confirm_your_")
         end
       end
       return
@@ -84,6 +84,7 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
     if cycle_id = params[:cycle_id]
       @cycle = profile.orders_cycles.where(id: cycle_id).first
       return render_not_found unless @cycle
+
       @consumer = user
 
       # load the first order
@@ -94,19 +95,20 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
           redirect_to action: :edit, id: @order.id
         elsif @consumer_orders.size > 1
           # get the first open
-          @order = @consumer_orders.find{ |o| o.open? }
+          @order = @consumer_orders.find { |o| o.open? }
           redirect_to action: :edit, id: @order.id if @order
         end
       end
     else
       return render_not_found unless @order
+
       # an order was loaded on load_order
 
       @cycle = @order.cycle
 
       @consumer = @order.consumer
-      @admin_edit = (user and user.in?(profile.admins) and user != @consumer)
-      return render_access_denied unless @user_is_admin or @admin_edit or user == @consumer
+      @admin_edit = (user && user.in?(profile.admins) && (user != @consumer))
+      return render_access_denied unless @user_is_admin || @admin_edit || (user == @consumer)
 
       @consumer_orders = @cycle.sales.for_consumer @consumer
     end
@@ -117,14 +119,14 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
   end
 
   def reopen
-    @order.update! status: 'draft'
-    render 'edit'
+    @order.update! status: "draft"
+    render "edit"
   end
 
   def cancel
-    @order.update! status: 'cancelled'
-    session[:notice] = t('orders_plugin.controllers.profile.consumer.order_cancelled')
-    render 'edit'
+    @order.update! status: "cancelled"
+    session[:notice] = t("orders_plugin.controllers.profile.consumer.order_cancelled")
+    render "edit"
   end
 
   def remove
@@ -151,7 +153,7 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
     end
     load_products_for_order
 
-    render partial: 'filter', locals: {
+    render partial: "filter", locals: {
       order: @order, cycle: @cycle,
       products_for_order: @products,
     }
@@ -164,20 +166,20 @@ class OrdersCyclePluginOrderController < OrdersPluginOrderController
   def supplier_balloon
     @supplier = profile.suppliers.find params[:id]
   end
+
   def product_balloon
     @product = OrdersCyclePlugin::OfferedProduct.find params[:id]
   end
 
   protected
 
-  def load_products_for_order
-    scope = @cycle.products_for_order
-    page, per_page = params[:page].to_i, 20
-    page = 1 if page < 1
-    @products = OrdersCyclePlugin::OfferedProduct.search_scope(scope, params).paginate page: page, per_page: per_page
-  end
+    def load_products_for_order
+      scope = @cycle.products_for_order
+      page, per_page = params[:page].to_i, 20
+      page = 1 if page < 1
+      @products = OrdersCyclePlugin::OfferedProduct.search_scope(scope, params).paginate page: page, per_page: per_page
+    end
 
-  extend HMVC::ClassMethods
-  hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
-
+    extend HMVC::ClassMethods
+    hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
 end

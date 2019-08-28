@@ -1,5 +1,4 @@
 class RefactorOrdersCyclePluginCycleOrder < ActiveRecord::Migration
-
   def up
     rename_column :orders_cycle_plugin_cycle_orders, :order_id, :sale_id
     add_column :orders_cycle_plugin_cycle_orders, :purchase_id, :integer
@@ -11,5 +10,4 @@ class RefactorOrdersCyclePluginCycleOrder < ActiveRecord::Migration
   def down
     say "this migration can't be reverted"
   end
-
 end

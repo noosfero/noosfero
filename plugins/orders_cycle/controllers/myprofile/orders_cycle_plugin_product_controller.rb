@@ -1,5 +1,4 @@
 class OrdersCyclePluginProductController < SuppliersPlugin::ProductController
-
   no_design_blocks
 
   # FIXME: remove me when styles move from consumers_coop plugin
@@ -17,7 +16,8 @@ class OrdersCyclePluginProductController < SuppliersPlugin::ProductController
   def remove_from_order
     @offered_product = OrdersCyclePlugin::OfferedProduct.find params[:id]
     @order = OrdersCyclePlugin::Sale.find params[:order_id]
-    raise 'Order confirmed or cycle is closed for orders' unless @order.open?
+    raise "Order confirmed or cycle is closed for orders" unless @order.open?
+
     @item = @order.items.find_by product_id: @offered_product.id
     @item.destroy rescue render nothing: true
   end
@@ -35,12 +35,11 @@ class OrdersCyclePluginProductController < SuppliersPlugin::ProductController
   def cycle_destroy
     @product = OrdersCyclePlugin::OfferedProduct.find params[:id]
     @product.destroy
-    flash[:notice] = t('controllers.myprofile.product_controller.product_removed_from_')
+    flash[:notice] = t("controllers.myprofile.product_controller.product_removed_from_")
   end
 
   protected
 
-  extend HMVC::ClassMethods
-  hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
-
+    extend HMVC::ClassMethods
+    hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
 end

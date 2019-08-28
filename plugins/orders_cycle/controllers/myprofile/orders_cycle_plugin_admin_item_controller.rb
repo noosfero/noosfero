@@ -1,5 +1,4 @@
 class OrdersCyclePluginAdminItemController < OrdersPluginAdminItemController
-
   no_design_blocks
 
   # FIXME: remove me when styles move from consumers_coop plugin
@@ -11,7 +10,6 @@ class OrdersCyclePluginAdminItemController < OrdersPluginAdminItemController
 
   protected
 
-  extend HMVC::ClassMethods
-  hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
-
+    extend HMVC::ClassMethods
+    hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
 end

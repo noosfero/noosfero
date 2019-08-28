@@ -1,4 +1,4 @@
-require 'action_tracker_config'
+require "action_tracker_config"
 
 # ActionTracker plugin stuff
 

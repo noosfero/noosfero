@@ -1,9 +1,8 @@
 Noosfero::Application.routes.draw do
-
   resources :chat, only: [] do
-    collection do 
-      match '', to: 'chat#index', via: :get, as: :index
-      match 'avatar/(:id)', to: 'chat#avatar', via: :get, as: :avatar
+    collection do
+      match "", to: "chat#index", via: :get, as: :index
+      match "avatar/(:id)", to: "chat#avatar", via: :get, as: :avatar
       get :start_session
       get :toggle
       post :tab
@@ -19,5 +18,4 @@ Noosfero::Application.routes.draw do
       get :availabilities
     end
   end
-
 end

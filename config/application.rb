@@ -1,7 +1,7 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'pp'
-require 'rails/all'
+require "pp"
+require "rails/all"
 
 # Silence Rails 5 deprecation warnings
 ActiveSupport::Deprecation.silenced = true
@@ -9,21 +9,20 @@ ActiveSupport::Deprecation.silenced = true
 Bundler.require :default, :assets, Rails.env
 
 # init dependencies at vendor, loaded at the Gemfile
-$: << 'vendor/plugins'
-vendor = Dir['vendor/{,plugins/}*'] - ['vendor/plugins']
+$: << "vendor/plugins"
+vendor = Dir["vendor/{,plugins/}*"] - ["vendor/plugins"]
 vendor.each do |dir|
   init_rb = "#{dir}/init.rb"
   require_relative "../#{init_rb}" if File.file? init_rb
 end
 
-require_relative '../lib/extensions'
-require_relative '../lib/noosfero'
-require_relative '../lib/noosfero/plugin'
-require_relative '../lib/noosfero/multi_tenancy'
+require_relative "../lib/extensions"
+require_relative "../lib/noosfero"
+require_relative "../lib/noosfero/plugin"
+require_relative "../lib/noosfero/multi_tenancy"
 
 module Noosfero
   class Application < Rails::Application
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
@@ -32,12 +31,12 @@ module Noosfero
     # ALLOWED_TAGS and ALLOWED_ATTRIBUTES to make a sanitize with html.
 
     ALLOWED_TAGS = %w(object embed param table tr th td applet comment iframe audio video source
-    strong em b i p code pre tt samp kbd var sub sup dfn cite big small address hr br div span h1
-    h2 h3 h4 h5 h6 ul ol li dl dt dd abbr acronym a img blockquote del ins a)
+                      strong em b i p code pre tt samp kbd var sub sup dfn cite big small address hr br div span h1
+                      h2 h3 h4 h5 h6 ul ol li dl dt dd abbr acronym a img blockquote del ins a)
 
     ALLOWED_ATTRIBUTES = %w(name href cite class title src xml:lang height datetime alt abbr width
-      vspace hspace heigth value type data style target codebase archive data-macro data-macro-id
-      align border classid code flashvars scrolling frameborder controls autoplay colspan id rowspan)
+                            vspace hspace heigth value type data style target codebase archive data-macro data-macro-id
+                            align border classid code flashvars scrolling frameborder controls autoplay colspan id rowspan)
 
     config.action_view.sanitized_allowed_tags = ALLOWED_TAGS
     config.action_view.sanitized_allowed_attributes = ALLOWED_ATTRIBUTES
@@ -50,8 +49,8 @@ module Noosfero
 
     # Custom directories with classes and modules you want to be autoloadable.
     [config.eager_load_paths, config.autoload_paths].each do |path|
-      path << config.root.join('app')
-      path << config.root.join('app/sweepers')
+      path << config.root.join("app")
+      path << config.root.join("app/sweepers")
       path.concat Dir["#{config.root}/app/controllers/**/"]
     end
 
@@ -114,35 +113,34 @@ module Noosfero
     # disable strong_parameters before migration from protected_attributes
     config.action_controller.permit_all_parameters = true
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.0'
+    config.assets.version = "1.0"
 
     config.sass.preferred_syntax = :scss
     config.sass.cache = true
     config.sass.line_comments = false
 
     config.action_dispatch.session = {
-      :key    => '_noosfero_session',
+      key: "_noosfero_session",
     }
-    config.session_store :active_record_store, key: '_noosfero_session'
+    config.session_store :active_record_store, key: "_noosfero_session"
 
-    config.paths['config/routes.rb'] =
-      Dir['{baseplugins,config/plugins}/*/config/routes**.rb'] +
-      Dir['config/routes/*.rb'] +
-      Dir['config/routes/profile/*.rb'] +
-      Dir['config/routes/myprofile/*.rb'] +
-      Dir['config/routes/admin/*.rb'] +
-      Dir['config/routes/cms/*.rb'] +
-      Dir['config/routes/angular_theme/*.rb']
+    config.paths["config/routes.rb"] =
+      Dir["{baseplugins,config/plugins}/*/config/routes**.rb"] +
+      Dir["config/routes/*.rb"] +
+      Dir["config/routes/profile/*.rb"] +
+      Dir["config/routes/myprofile/*.rb"] +
+      Dir["config/routes/admin/*.rb"] +
+      Dir["config/routes/cms/*.rb"] +
+      Dir["config/routes/angular_theme/*.rb"]
 
-
-    config.paths['db/migrate'].concat Dir.glob("{baseplugins,config/plugins}/*/db/migrate")
+    config.paths["db/migrate"].concat Dir.glob("{baseplugins,config/plugins}/*/db/migrate")
     config.i18n.load_path.concat Dir.glob("{baseplugins,config/plugins}/*/locales/*.{rb,yml}")
 
     config.middleware.use Noosfero::MultiTenancy::Middleware
 
     Noosfero::Plugin.setup config
 
-    #config.eager_load_paths.concat config.autoload_paths
+    # config.eager_load_paths.concat config.autoload_paths
     config.eager_load = true
   end
 end
