@@ -8,6 +8,15 @@
   font-style: italic;
 }
 
+#person_fields_conf, #enterprise_fields_conf, #community_fields_conf {
+  tbody{
+    input {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
+
 .custom-field-item {
   position: relative;
   a.icon-delete {

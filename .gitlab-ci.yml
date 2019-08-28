@@ -6,6 +6,7 @@ variables:
   POSTGRES_DB: gitlab_ci_test
   POSTGRES_USER: gitlab_ci_runner
   POSTGRES_PASSWORD: ""
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
 
 services:
   - postgres:9.4
@@ -23,9 +24,8 @@ before_script:
 stages:
   - test
   - test-plugins
-  - test-cucumber
-  - test-selenium
   - code-quality
+  - build
 
 .cache: &cache
   cache:
@@ -70,65 +70,74 @@ cucumber-1:
   <<: *retriable
   <<: *cache
   script: bundle exec rake noosfero:doc:build & SLICE=1/2 bundle exec cucumber --profile default
-  stage: test-cucumber
+  stage: test
+
 cucumber-2:
   <<: *retriable
   <<: *cache
   script: SLICE=2/2 bundle exec cucumber --profile default
-  stage: test-cucumber
+  stage: test
 
 selenium-1:
   <<: *retriable
   <<: *cache
   script: SLICE=1/6 bundle exec rails selenium
-  stage: test-selenium
+  stage: test
+
 selenium-2:
   <<: *retriable
+  <<: *cache
   script: SLICE=2/6 bundle exec rails selenium
-  stage: test-selenium
+  stage: test
+
 selenium-3:
   <<: *retriable
   <<: *cache
   script: SLICE=3/6 bundle exec rails selenium
-  stage: test-selenium
+  stage: test
+
 selenium-4:
   <<: *retriable
   <<: *cache
   script: SLICE=4/6 bundle exec rails selenium
-  stage: test-selenium
+  stage: test
+
 selenium-5:
   <<: *retriable
   <<: *cache
   script: SLICE=5/6 bundle exec rails selenium
-  stage: test-selenium
+  stage: test
+
 selenium-6:
   <<: *retriable
   <<: *cache
   script: SLICE=6/6 bundle exec rails selenium
-  stage: test-selenium
+  stage: test
 
-# NOOSFERO_BUNDLE_OPTS=install makes migrations fails
-# probably because of rubygems-integration
 plugins-1:
   <<: *retriable
   <<: *cache
   script: SLICE=1/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: test-plugins
+
 plugins-2:
   <<: *retriable
   <<: *cache
   script: SLICE=2/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: test-plugins
+
 plugins-3:
   <<: *retriable
   <<: *cache
   script: SLICE=3/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: test-plugins
+
 plugins-4:
   <<: *retriable
   <<: *cache
   script: SLICE=4/5 bundle exec rails test:noosfero_plugins NOOSFERO_BUNDLE_OPTS=install
   stage: test-plugins
+
 plugins-5:
   <<: *retriable
   <<: *cache
@@ -149,7 +158,6 @@ rubocop:
   allow_failure: true
 
 code_quality:
-  <<: *retriable
   image: docker:stable
   variables:
     DOCKER_DRIVER: overlay2
@@ -160,15 +168,28 @@ code_quality:
     - export SP_VERSION=$(echo "$CI_SERVER_VERSION" | sed 's/^\([0-9]*\)\.\([0-9]*\).*/\1-\2-stable/')
   script:
     - docker run
-        --env SOURCE_CODE="$PWD"
-        --volume "$PWD":/code
-        --volume /var/run/docker.sock:/var/run/docker.sock
-        "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
+      --env SOURCE_CODE="$PWD"
+      --volume "$PWD":/code
+      --volume /var/run/docker.sock:/var/run/docker.sock
+      "registry.gitlab.com/gitlab-org/security-products/codequality:$SP_VERSION" /code
   artifacts:
     paths:
       - gl-code-quality-report.json
     reports:
       codequality: gl-code-quality-report.json
   stage: code-quality
+  only:
+    - tags
+
+build_image:
+  image: docker:stable
+  stage: build
+  services:
+    - docker:dind
+  before_script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+  script:
+    - docker build -f config/docker/prod/Dockerfile -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
   only:
     - tags
