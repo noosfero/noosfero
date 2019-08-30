@@ -22,7 +22,10 @@
 
   <br />
 
-  <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+
+  <% unless @profile.organization? %>
+    <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+  <% end  %>
   <%= button(:new, _('New template'), :action => :new) %>
   <%= button(:back, _('Back'), @back_to) %>
 </div>
