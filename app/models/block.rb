@@ -1,5 +1,4 @@
 class Block < ApplicationRecord
-
   attr_accessible :title, :subtitle, :display, :limit, :box_id, :posts_per_page,
                   :visualization_format, :language, :display_user, :position,
                   :box, :edit_modes, :move_modes, :mirror, :visualization, :images_builder, :api_content,
@@ -10,7 +9,7 @@ class Block < ApplicationRecord
   # Block-specific stuff
   include BlockHelper
 
-  delegate :environment, :to => :box, :allow_nil => true
+  delegate :environment, to: :box, allow_nil: true
 
   acts_as_list scope: :box_id
 
@@ -22,12 +21,12 @@ class Block < ApplicationRecord
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings
 
-  settings_items :visualization, :type => Hash, :default => {}
+  settings_items :visualization, type: Hash, default: {}
 
   store_accessor :metadata
   include MetadataScopes
 
-  scope :enabled, -> { where :enabled => true }
+  scope :enabled, -> { where enabled: true }
 
   after_save do |block|
     if block.owner.kind_of?(Profile) && block.owner.is_template? && block.mirror?
@@ -52,19 +51,18 @@ class Block < ApplicationRecord
   end
 
   def get_limit
-    [0,limit.to_i].max
+    [0, limit.to_i].max
   end
 
   def embed_code
     me = self
     proc do
-      content_tag('iframe', '',
-        :src => url_for(:controller => 'embed', :action => 'block', :id => me.id, :only_path => false),
-        :frameborder => 0,
-        :width => 1024,
-        :height => 768,
-        :class => "embed block #{me.class.name.to_css_class}"
-      )
+      content_tag("iframe", "",
+                  src: url_for(controller: "embed", action: "block", id: me.id, only_path: false),
+                  frameborder: 0,
+                  width: 1024,
+                  height: 768,
+                  class: "embed block #{me.class.name.to_css_class}")
     end
   end
 
@@ -76,10 +74,10 @@ class Block < ApplicationRecord
   # * <tt>:language</tt>: in which language the block will be displayed
   # * <tt>:user</tt>: the logged user
   def visible?(context = nil)
-    return false if display == 'never'
+    return false if display == "never"
 
     if context
-      return false if language != 'all' && language != context[:locale]
+      return false if language != "all" && language != context[:locale]
       return false unless display_to_user?(context[:user])
 
       begin
@@ -104,7 +102,7 @@ class Block < ApplicationRecord
   end
 
   def display_to_user?(user)
-    display_user == 'all' || (environment.present? && environment.admins.include?(user)) || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged') || (user && !self.owner.kind_of?(Environment) && display_user == 'followers' && owner.in_social_circle?(user) && self.owner.kind_of?(Profile))
+    display_user == "all" || (environment.present? && environment.admins.include?(user)) || (user.nil? && display_user == "not_logged") || (user && display_user == "logged") || (user && !self.owner.kind_of?(Environment) && display_user == "followers" && owner.in_social_circle?(user) && self.owner.kind_of?(Profile))
   end
 
   def display_always(context)
@@ -135,28 +133,27 @@ class Block < ApplicationRecord
   #   homepage of its owner.
   # * <tt>'except_home_page'</tt> the block is displayed only when viewing
   #   the homepage of its owner.
-  settings_items :display, :type => :string, :default => 'always'
-
+  settings_items :display, type: :string, default: "always"
 
   # The condition for displaying a block to users. It can assume the following values:
   #
   # * <tt>'all'</tt>: the block is always displayed
   # * <tt>'logged'</tt>: the block is displayed to logged users only
   # * <tt>'not_logged'</tt>: the block is displayed only to not logged users
-  settings_items :display_user, :type => :string, :default => 'all'
+  settings_items :display_user, type: :string, default: "all"
 
   # The block can be configured to be displayed in all languages or in just one language. It can assume any locale of the environment:
   #
   # * <tt>'all'</tt>: the block is always displayed
-  settings_items :language, :type => :string, :default => 'all'
+  settings_items :language, type: :string, default: "all"
 
   # The block can be configured to define the edition modes options. Only can be edited by environment admins
   # It can assume the following values:
   #
   # * <tt>'all'</tt>: the block owner has all edit options for this block
   # * <tt>'none'</tt>: the block owner can't do anything with the block
-  settings_items :edit_modes, :type => :string, :default => 'all'
-  settings_items :move_modes, :type => :string, :default => 'all'
+  settings_items :edit_modes, type: :string, default: "all"
+  settings_items :move_modes, type: :string, default: "all"
 
   # returns the description of the block, used when the user sees a list of
   # blocks to choose one to include in the design.
@@ -164,7 +161,7 @@ class Block < ApplicationRecord
   # Must be redefined in subclasses to match the description of each block
   # type.
   def self.description
-    '(dummy)'
+    "(dummy)"
   end
 
   def self.short_description
@@ -176,21 +173,21 @@ class Block < ApplicationRecord
   end
 
   def self.icon_path
-    basename = self.name.split('::').last.underscore
-    File.join('images', 'blocks', basename, 'icon.png')
+    basename = self.name.split("::").last.underscore
+    File.join("images", "blocks", basename, "icon.png")
   end
 
   def self.pretty_name
-    self.name.split('::').last.gsub('Block','')
+    self.name.split("::").last.gsub("Block", "")
   end
 
   def self.default_icon_path
-    '/images/icon_block.png'
+    "/images/icon_block.png"
   end
 
   def self.preview_path
-    base_name = self.name.split('::').last.underscore
-    File.join('blocks', base_name,'previews')
+    base_name = self.name.split("::").last.underscore
+    File.join("blocks", base_name, "previews")
   end
 
   def self.default_preview_path
@@ -198,7 +195,7 @@ class Block < ApplicationRecord
   end
 
   # Is this block editable? (Default to <tt>true</tt>)
-  def editable?(user=nil)
+  def editable?(user = nil)
     self.edit_modes == "all"
   end
 
@@ -216,7 +213,7 @@ class Block < ApplicationRecord
   end
 
   def default_title
-    ''
+    ""
   end
 
   def title
@@ -236,8 +233,8 @@ class Block < ApplicationRecord
   end
 
   alias :active_record_cache_key :cache_key
-  def cache_key(language='en', user=nil)
-    active_record_cache_key + '-' + language
+  def cache_key(language = "en", user = nil)
+    active_record_cache_key + "-" + language
   end
 
   def timeout
@@ -254,16 +251,16 @@ class Block < ApplicationRecord
   # Possible contexts are: :profile, :environment
   def self.expire_on
     {
-      :profile => [],
-      :environment => []
+      profile: [],
+      environment: []
     }
   end
 
   DISPLAY_OPTIONS = {
-    'always'           => _('In all pages'),
-    'home_page_only'   => _('Only in the homepage'),
-    'except_home_page' => _('In all pages, except in the homepage'),
-    'never'            => _('Don\'t display'),
+    "always" => _("In all pages"),
+    "home_page_only" => _("Only in the homepage"),
+    "except_home_page" => _("In all pages, except in the homepage"),
+    "never" => _("Don't display"),
   }
 
   def display_options_available
@@ -276,31 +273,30 @@ class Block < ApplicationRecord
 
   def display_user_options
     @display_user_options ||= {
-      'all'            => _('All users'),
-      'logged'         => _('Logged'),
-      'not_logged'     => _('Not logged'),
-      'followers'      => owner.class != Environment && owner.organization? ? _('Members') : _('Friends')
+      "all" => _("All users"),
+      "logged" => _("Logged"),
+      "not_logged" => _("Not logged"),
+      "followers" => owner.class != Environment && owner.organization? ? _("Members") : _("Friends")
     }
   end
 
   def edit_block_options
     @edit_options ||= {
-      'all'            => _('Can be modified'),
-      'none'           => _('Cannot be modified')
+      "all" => _("Can be modified"),
+      "none" => _("Cannot be modified")
     }
   end
 
   def move_block_options
     @move_options ||= {
-      'all'            => _('Can be moved'),
-      'none'           => _('Cannot be moved')
+      "all" => _("Can be moved"),
+      "none" => _("Cannot be moved")
     }
   end
 
-
   def duplicate
     duplicated_block = self.dup
-    duplicated_block.display = 'never'
+    duplicated_block.display = "never"
     duplicated_block.created_at = nil
     duplicated_block.updated_at = nil
     duplicated_block.save!
@@ -337,12 +333,13 @@ class Block < ApplicationRecord
     elsif self.owner.kind_of?(Environment)
       return person.has_permission?(:edit_environment_design, owner)
     end
+
     false
   end
 
   def images_builder=(raw_images)
     raw_images.each do |img|
-      if img[:remove_image] == true || img[:remove_image] == 'true'
+      if img[:remove_image] == true || img[:remove_image] == "true"
         images.find_by(id: img[:id]).destroy!
       elsif !img[:uploaded_data].blank?
         images.build(img)
@@ -352,19 +349,18 @@ class Block < ApplicationRecord
 
   private
 
-  def home_page_path
-    home_page_url = Noosfero.root('/')
+    def home_page_path
+      home_page_url = Noosfero.root("/")
 
-    if owner.kind_of?(Profile)
-      home_page_url += "profile/" if owner.home_page.nil?
-      home_page_url += owner.identifier
+      if owner.kind_of?(Profile)
+        home_page_url += "profile/" if owner.home_page.nil?
+        home_page_url += owner.identifier
+      end
+
+      return home_page_url
     end
 
-    return home_page_url
-  end
-
-  def home_page_path? path
-    return path == home_page_path || path == (home_page_path + '/')
-  end
-
+    def home_page_path?(path)
+      return path == home_page_path || path == (home_page_path + "/")
+    end
 end

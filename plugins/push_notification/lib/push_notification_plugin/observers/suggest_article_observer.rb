@@ -1,5 +1,4 @@
 module PushNotificationPlugin::Observers
-
   include ObserversHelper
 
   module SuggestArticleObserver
@@ -9,12 +8,11 @@ module PushNotificationPlugin::Observers
 
       send_to_users("suggest_article",
                     users,
-                    {:event => "Add Member",
-                     :requestor_id => requestor.id,
-                     :requestor_name => requestor.name,
-                     :article => suggest_article.article,
-                     :task_id => suggest_article.id}
-                   )
+                    event: "Add Member",
+                    requestor_id: requestor.id,
+                    requestor_name: requestor.name,
+                    article: suggest_article.article,
+                    task_id: suggest_article.id)
     end
 
     def suggest_article_after_save_callback(suggest_article)
@@ -23,17 +21,16 @@ module PushNotificationPlugin::Observers
 
       return false unless [Task::Status::FINISHED, Task::Status::CANCELLED].include?(suggest_article.status)
 
-      accepted = suggest_article.status==Task::Status::FINISHED
-      event= accepted ? "Article approved" : "Article rejected"
+      accepted = suggest_article.status == Task::Status::FINISHED
+      event = accepted ? "Article approved" : "Article rejected"
 
       send_to_users("suggest_article_result",
                     [requestor],
-                    {:event => event,
-                     :target_id => target.id,
-                     :target_name => target.name,
-                     :article => suggest_article.article,
-                     :task_id => suggest_article.id}
-                   )
+                    event: event,
+                    target_id: target.id,
+                    target_name: target.name,
+                    article: suggest_article.article,
+                    task_id: suggest_article.id)
     end
   end
 end

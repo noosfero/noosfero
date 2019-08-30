@@ -1,5 +1,4 @@
 class CommentMailer < ApplicationMailer
-
   def new_comment_for_author(comment)
     profile = comment.article.profile
     self.environment = profile.environment
@@ -28,7 +27,7 @@ class CommentMailer < ApplicationMailer
     @sender_link = comment.author_link
     @article_title = comment.article.title
     @comment_url = comment.url
-    @unsubscribe_url = comment.article.view_url.merge({:unfollow => true})
+    @unsubscribe_url = comment.article.view_url.merge(unfollow: true)
     @comment_title = comment.title
     @comment_body = comment.body
     @url = profile.environment.top_url

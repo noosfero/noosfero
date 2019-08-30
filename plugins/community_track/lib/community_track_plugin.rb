@@ -1,7 +1,6 @@
 class CommunityTrackPlugin < Noosfero::Plugin
-
   def self.plugin_name
-    'Community Track'
+    "Community Track"
   end
 
   def self.plugin_description
@@ -21,16 +20,15 @@ class CommunityTrackPlugin < Noosfero::Plugin
       types << CommunityTrackPlugin::Step if parent.kind_of?(CommunityTrackPlugin::Track)
       types
     else
-       [CommunityTrackPlugin::Track, CommunityTrackPlugin::Step]
+      [CommunityTrackPlugin::Track, CommunityTrackPlugin::Step]
     end
   end
 
   def self.extra_blocks
-    { CommunityTrackPlugin::TrackListBlock => {:position => 1}, CommunityTrackPlugin::TrackCardListBlock => {} }
+    { CommunityTrackPlugin::TrackListBlock => { position: 1 }, CommunityTrackPlugin::TrackCardListBlock => {} }
   end
 
   def content_remove_new(page)
     page.kind_of?(CommunityTrackPlugin::Track)
   end
-
 end

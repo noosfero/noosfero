@@ -1,13 +1,12 @@
 module ProductsPlugin
   class Input < ApplicationRecord
-
     self.table_name = :inputs
 
     attr_accessible :product, :product_id, :product_category, :product_category_id,
-      :amount_used, :unit_id, :price_per_unit, :relevant_to_price, :is_from_solidarity_economy
+                    :amount_used, :unit_id, :price_per_unit, :relevant_to_price, :is_from_solidarity_economy
 
     belongs_to :product_category, optional: true
-    
+
     belongs_to :product, optional: true
     acts_as_list scope: :product
 
@@ -41,13 +40,14 @@ module ProductsPlugin
     end
 
     def formatted_value(value)
-      ("%.2f" % self[value]).to_s.gsub('.', product.enterprise.environment.currency_separator) if self[value]
+      ("%.2f" % self[value]).to_s.gsub(".", product.enterprise.environment.currency_separator) if self[value]
     end
 
     def formatted_amount
       amount = self.amount_used
-      return '' if amount.blank? || amount.zero?
-      ("%.2f" % amount).to_s.gsub('.00', '').gsub('.', product.enterprise.environment.currency_separator)
+      return "" if amount.blank? || amount.zero?
+
+      ("%.2f" % amount).to_s.gsub(".00", "").gsub(".", product.enterprise.environment.currency_separator)
     end
 
     def has_price_details?
@@ -66,10 +66,10 @@ module ProductsPlugin
 
     def cost
       return 0 if self.amount_used.blank? || self.price_per_unit.blank?
+
       self.amount_used * self.price_per_unit
     end
 
     alias_method :price, :cost
-
   end
 end

@@ -1,6 +1,5 @@
 class ProfileRolesController < MyProfileController
-
-  protect 'manage_custom_roles', :profile
+  protect "manage_custom_roles", :profile
   before_action :ensure_organization
 
   def index
@@ -12,13 +11,13 @@ class ProfileRolesController < MyProfileController
   end
 
   def create
-    @role = Role.new({:name => params[:role][:name], :permissions => params[:role][:permissions], :environment => environment }, :without_protection => true)
+    @role = Role.new({ name: params[:role][:name], permissions: params[:role][:permissions], environment: environment }, { without_protection: true })
     if @role.save
       profile.custom_roles << @role
-      redirect_to :action => 'show', :id => @role
+      redirect_to action: "show", id: @role
     else
-      session[:notice] = _('Failed to create role')
-      render :action => 'new'
+      session[:notice] = _("Failed to create role")
+      render action: "new"
     end
   end
 
@@ -31,7 +30,8 @@ class ProfileRolesController < MyProfileController
   end
 
   def assign_role_by_members
-    return redirect_to "/" if params[:q].nil? or !request.xhr?
+    return redirect_to "/" if params[:q].nil? || !request.xhr?
+
     arg = params[:q].downcase
     result = find_by_contents(:people, environment, profile.members, params[:q])[:results]
     render plain: prepare_to_token_input(result).to_json
@@ -47,23 +47,23 @@ class ProfileRolesController < MyProfileController
   def remove
     @role = environment.roles.find(params[:id])
     @members = profile.members_by_role(@role)
-    member_roles = params[:roles] ? environment.roles.find(params[:roles].select{|r|!r.to_i.zero?}) : []
+    member_roles = params[:roles] ? environment.roles.find(params[:roles].select { |r| !r.to_i.zero? }) : []
     append_roles(@members, member_roles, profile)
     if @role.destroy
-      session[:notice] = _('Role successfully removed!')
+      session[:notice] = _("Role successfully removed!")
     else
-      session[:notice] = _('Failed to remove role!')
+      session[:notice] = _("Failed to remove role!")
     end
-    redirect_to :action => 'index'
+    redirect_to action: "index"
   end
 
   def update
     @role = environment.roles.find(params[:id])
     if @role.update(params[:role])
-      redirect_to :action => 'show', :id => @role
+      redirect_to action: "show", id: @role
     else
-      session[:notice] = _('Failed to edit role')
-      render :action => 'edit'
+      session[:notice] = _("Failed to edit role")
+      render action: "edit"
     end
   end
 
@@ -77,45 +77,44 @@ class ProfileRolesController < MyProfileController
     @role = environment.roles.find(params[:id])
     selected_role = params[:selected_role] ? environment.roles.find(params[:selected_role].to_i) : nil
     if params[:assign_role_by].eql? "members"
-      members_list = params[:person_id].split(',').collect {|id| environment.profiles.find(id.to_i)}
-      members_list.collect{|person| person.add_role(@role, profile)}
+      members_list = params[:person_id].split(",").collect { |id| environment.profiles.find(id.to_i) }
+      members_list.collect { |person| person.add_role(@role, profile) }
     elsif params[:assign_role_by].eql? "roles"
       members = profile.members_by_role(selected_role)
       replace_role(members, selected_role, @role, profile)
     else
       session[:notice] = _("Error")
     end
-    redirect_to :action => 'index'
+    redirect_to action: "index"
   end
 
   protected
 
-  def append_roles(members, roles, profile)
-    members.each do |person|
-      all_roles = person.find_roles(profile).map(&:role) + roles
-      person.define_roles(all_roles, profile)
+    def append_roles(members, roles, profile)
+      members.each do |person|
+        all_roles = person.find_roles(profile).map(&:role) + roles
+        person.define_roles(all_roles, profile)
+      end
     end
-  end
 
-  def all_roles(environment, profile)
-    Profile::Roles.organization_member_roles(environment.id) + profile.custom_roles
-  end
-
-  def replace_roles(members, roles, profile)
-    members.each do |person|
-      person.define_roles(roles, profile)
+    def all_roles(environment, profile)
+      Profile::Roles.organization_member_roles(environment.id) + profile.custom_roles
     end
-  end
 
-  def replace_role(members, role, new_role, profile)
-    members.each do |person|
-      person.remove_role(role, profile)
-      person.add_role(new_role, profile)
+    def replace_roles(members, roles, profile)
+      members.each do |person|
+        person.define_roles(roles, profile)
+      end
     end
-  end
 
-  def ensure_organization
-    render_not_found unless profile.organization?
-  end
+    def replace_role(members, role, new_role, profile)
+      members.each do |person|
+        person.remove_role(role, profile)
+        person.add_role(new_role, profile)
+      end
+    end
 
+    def ensure_organization
+      render_not_found unless profile.organization?
+    end
 end

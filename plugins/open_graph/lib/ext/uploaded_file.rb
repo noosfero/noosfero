@@ -1,8 +1,6 @@
-require_dependency 'uploaded_file'
+require_dependency "uploaded_file"
 
 class UploadedFile
-
   extend OpenGraphPlugin::AttachStories::ClassMethods
   open_graph_attach_stories only: [:add_an_image, :add_a_document]
-
 end

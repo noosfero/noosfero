@@ -1,22 +1,21 @@
 module AccountHelper
-
   def validation_classes
-    'available unavailable valid validated invalid checking'
+    "available unavailable valid validated invalid checking"
   end
 
   def checking_message(key)
     case key
     when :url
-      _('Checking availability of login name...')
+      _("Checking availability of login name...")
     when :email
-      _('Checking if e-mail address is already taken...')
+      _("Checking if e-mail address is already taken...")
     end
   end
 
-  def suggestion_based_on_username(requested_username='')
+  def suggestion_based_on_username(requested_username = "")
     return "" if requested_username.empty?
 
-    requested_username = requested_username.downcase.tr("^#{Profile::IDENTIFIER_FORMAT}", '')
+    requested_username = requested_username.downcase.tr("^#{Profile::IDENTIFIER_FORMAT}", "")
     usernames = []
     tries = 0
     3.times do
@@ -29,5 +28,4 @@ module AccountHelper
     end
     usernames
   end
-
 end

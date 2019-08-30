@@ -1,7 +1,6 @@
 class CommunityTrackPlugin::Track < Folder
-
-  settings_items :goals, :type => :string
-  settings_items :expected_results, :type => :string
+  settings_items :goals, type: :string
+  settings_items :expected_results, type: :string
 
   validate :validate_categories
 
@@ -13,11 +12,11 @@ class CommunityTrackPlugin::Track < Folder
   end
 
   def validate_categories
-    errors.add(:categories, _('should not be blank.')) if categories.empty? && pending_categorizations.blank?
+    errors.add(:categories, _("should not be blank.")) if categories.empty? && pending_categorizations.blank?
   end
 
   def self.icon_name(article = nil)
-    'community-track'
+    "community-track"
   end
 
   def self.short_description
@@ -25,16 +24,16 @@ class CommunityTrackPlugin::Track < Folder
   end
 
   def self.description
-    _('Defines a track.')
+    _("Defines a track.")
   end
 
   def steps
-    #XXX article default order is name (acts_as_filesystem) -> should use reorder (rails3)
-    steps_unsorted.sort_by(&:position).select{|s| !s.hidden}
+    # XXX article default order is name (acts_as_filesystem) -> should use reorder (rails3)
+    steps_unsorted.sort_by(&:position).select { |s| !s.hidden }
   end
 
   def hidden_steps
-    steps_unsorted.select{|s| s.hidden}
+    steps_unsorted.select { |s| s.hidden }
   end
 
   def reorder_steps(step_ids)
@@ -47,14 +46,14 @@ class CommunityTrackPlugin::Track < Folder
   end
 
   def steps_unsorted
-    children.where(:type => 'CommunityTrackPlugin::Step')
+    children.where(type: "CommunityTrackPlugin::Step")
   end
 
   def accept_comments?
     false
   end
 
-  def sum_children_comments node
+  def sum_children_comments(node)
     result = 0
     node.children.each do |c|
       result += c.comments_count
@@ -68,22 +67,22 @@ class CommunityTrackPlugin::Track < Folder
   end
 
   def first_paragraph
-    return '' if body.blank?
-    paragraphs = Nokogiri::HTML.fragment(body).css('p')
-    paragraphs.empty? ? '' : paragraphs.first.to_html
+    return "" if body.blank?
+
+    paragraphs = Nokogiri::HTML.fragment(body).css("p")
+    paragraphs.empty? ? "" : paragraphs.first.to_html
   end
 
   def category_name
     category = categories.first
     category = category.top_ancestor unless category.nil?
-    category.nil? ? '' : category.name
+    category.nil? ? "" : category.name
   end
 
   def to_html(options = {})
     track = self
     proc do
-      render :file => 'content_viewer/track', :locals => {:track => track}
+      render file: "content_viewer/track", locals: { track: track }
     end
   end
-
 end

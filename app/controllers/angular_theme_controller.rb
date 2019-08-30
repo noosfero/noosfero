@@ -7,6 +7,6 @@ class AngularThemeController < ApplicationController
   end
 
   def verify_angular_theme
-    render 'home/index' if Theme.angular_theme?(current_theme) && !request.path.starts_with?('/api/')
+    render "home/index" if Theme.angular_theme?(current_theme) && !request.path.starts_with?("/api/")
   end
 end

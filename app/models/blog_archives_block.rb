@@ -1,5 +1,4 @@
 class BlogArchivesBlock < Block
-
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers
@@ -8,11 +7,11 @@ class BlogArchivesBlock < Block
   include DatesHelper
 
   def self.description
-    _('Blog posts')
+    _("Blog posts")
   end
 
   def default_title
-    _('Blog posts')
+    _("Blog posts")
   end
 
   settings_items :blog_id, type: Integer
@@ -22,11 +21,10 @@ class BlogArchivesBlock < Block
   end
 
   def self.expire_on
-      { :profile => [:article], :environment => [:article] }
+    { profile: [:article], environment: [:article] }
   end
 
   def self.pretty_name
-    _('Blog posts')
+    _("Blog posts")
   end
-
 end

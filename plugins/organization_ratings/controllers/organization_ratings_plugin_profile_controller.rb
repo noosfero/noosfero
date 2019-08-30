@@ -5,9 +5,9 @@ class OrganizationRatingsPluginProfileController < ProfileController
   def new_rating
     @rating_available = user_can_rate_now?
     @users_ratings = get_ratings(profile.id).paginate(
-                      :per_page => env_organization_ratings_config.per_page,
-                      :page => params[:npage]
-                    )
+      per_page: env_organization_ratings_config.per_page,
+      page: params[:npage]
+    )
     if request.post?
       if @rating_available
         create_new_rate
@@ -19,51 +19,52 @@ class OrganizationRatingsPluginProfileController < ProfileController
 
   private
 
-  def user_can_rate_now?
-    return false unless user
-    ratings = OrganizationRating.where(
-      :organization_id => profile.id,
-      :person_id => user.id
-    )
+    def user_can_rate_now?
+      return false unless user
 
-    return false if (!ratings.empty? && env_organization_ratings_config.vote_once)
-
-    if ratings.empty?
-      true
-    else
-      elapsed_time_since_last_rating = Time.zone.now - ratings.last.created_at
-      elapsed_time_since_last_rating > env_organization_ratings_config.cooldown.hours
-    end
-  end
-
-  def create_new_rate
-    @rating = OrganizationRating.new(params[:organization_rating])
-    @rating.person = current_user.person
-    @rating.organization = profile
-    @rating.value = params[:organization_rating_value] if params[:organization_rating_value]
-
-    if @rating.save
-      @plugins.dispatch(:organization_ratings_plugin_rating_created, @rating, params)
-      create_rating_comment(@rating)
-      session[:notice] = _("%s successfully rated!") % profile.name
-      redirect_to profile.url
-    end
-  end
-
-  def create_rating_comment(rating)
-    if params[:comments].present? && params[:comments][:body].present?
-      comment_task = CreateOrganizationRatingComment.create!(
-        params[:comments].merge(
-          :requestor => rating.person,
-          :organization_rating_id => rating.id,
-          :target => rating.organization
-        )
+      ratings = OrganizationRating.where(
+        organization_id: profile.id,
+        person_id: user.id
       )
-      comment_task.finish unless env_organization_ratings_config.are_moderated
-    end
-  end
 
-  def permission
-    :manage_memberships
-  end
+      return false if (!ratings.empty? && env_organization_ratings_config.vote_once)
+
+      if ratings.empty?
+        true
+      else
+        elapsed_time_since_last_rating = Time.zone.now - ratings.last.created_at
+        elapsed_time_since_last_rating > env_organization_ratings_config.cooldown.hours
+      end
+    end
+
+    def create_new_rate
+      @rating = OrganizationRating.new(params[:organization_rating])
+      @rating.person = current_user.person
+      @rating.organization = profile
+      @rating.value = params[:organization_rating_value] if params[:organization_rating_value]
+
+      if @rating.save
+        @plugins.dispatch(:organization_ratings_plugin_rating_created, @rating, params)
+        create_rating_comment(@rating)
+        session[:notice] = _("%s successfully rated!") % profile.name
+        redirect_to profile.url
+      end
+    end
+
+    def create_rating_comment(rating)
+      if params[:comments].present? && params[:comments][:body].present?
+        comment_task = CreateOrganizationRatingComment.create!(
+          params[:comments].merge(
+            requestor: rating.person,
+            organization_rating_id: rating.id,
+            target: rating.organization
+          )
+        )
+        comment_task.finish unless env_organization_ratings_config.are_moderated
+      end
+    end
+
+    def permission
+      :manage_memberships
+    end
 end

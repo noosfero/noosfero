@@ -1,15 +1,15 @@
 class ControlPanel::ChangePassword < ControlPanel::Entry
   class << self
     def name
-      _('Change Password')
+      _("Change Password")
     end
 
     def section
-      'security'
+      "security"
     end
 
     def icon
-      'lock'
+      "lock"
     end
 
     def priority
@@ -17,10 +17,7 @@ class ControlPanel::ChangePassword < ControlPanel::Entry
     end
 
     def url(profile)
-     {:controller => 'account', :action => 'change_password'}
+      { controller: "account", action: "change_password" }
     end
   end
 end
-
-
-

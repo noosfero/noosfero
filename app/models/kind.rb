@@ -1,5 +1,5 @@
 class Kind < ActiveRecord::Base
-  self.inheritance_column = 'etype'
+  self.inheritance_column = "etype"
 
   attr_accessible :name, :type, :environment, :moderated
 
@@ -18,11 +18,12 @@ class Kind < ActiveRecord::Base
     return if profiles.include?(profile)
 
     if moderated
-      tasks = environment.tasks.pending.where(:type => 'ApproveKind').where(:requestor => profile)
+      tasks = environment.tasks.pending.where(type: "ApproveKind").where(requestor: profile)
       ApproveKind.create!(
-        :target => environment,
-        :requestor => profile,
-        :kind => self) unless tasks.any? {|task| task.kind == self}
+        target: environment,
+        requestor: profile,
+        kind: self
+      ) unless tasks.any? { |task| task.kind == self }
     else
       profiles << profile
     end
@@ -30,6 +31,7 @@ class Kind < ActiveRecord::Base
 
   def remove_profile(profile)
     return unless profiles.include?(profile)
+
     profiles.destroy profile
   end
 
@@ -39,7 +41,7 @@ class Kind < ActiveRecord::Base
 
   private
 
-  def super_upload_quota
-    environment.quota_for(type.constantize)
-  end
+    def super_upload_quota
+      environment.quota_for(type.constantize)
+    end
 end

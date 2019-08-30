@@ -2,7 +2,7 @@ class AddManageEnvironmentCaptchaToAdminRole < ActiveRecord::Migration[4.2]
   def self.up
     Environment.all.map(&:id).each do |id|
       role = Environment::Roles.admin(id)
-      role.permissions << 'manage_environment_captcha'
+      role.permissions << "manage_environment_captcha"
       role.save!
     end
   end
@@ -10,7 +10,7 @@ class AddManageEnvironmentCaptchaToAdminRole < ActiveRecord::Migration[4.2]
   def self.down
     Environment.all.map(&:id).each do |id|
       role = Environment::Roles.admin(id)
-      role.permissions -= ['manage_environment_captcha']
+      role.permissions -= ["manage_environment_captcha"]
       role.save!
     end
   end

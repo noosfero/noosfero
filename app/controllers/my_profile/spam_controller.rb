@@ -1,5 +1,4 @@
 class SpamController < MyProfileController
-
   protect :moderate_comments, :profile
 
   def index
@@ -26,7 +25,7 @@ class SpamController < MyProfileController
         if request.xhr?
           json_response(true)
         else
-          redirect_to :action => :index
+          redirect_to action: :index
         end
       rescue
         json_response(false)
@@ -34,14 +33,13 @@ class SpamController < MyProfileController
       return
     end
 
-    @comment_spam = profile.comments_received.spam.paginate({:page => params[:comments_page]})
-    @task_spam = Task.to(profile).spam.paginate({:page => params[:tasks_page]})
+    @comment_spam = profile.comments_received.spam.paginate(page: params[:comments_page])
+    @task_spam = Task.to(profile).spam.paginate(page: params[:tasks_page])
   end
 
   protected
 
-  def json_response(status)
-    render plain: {'ok' => status }.to_json, :content_type => 'application/json'
-  end
-
+    def json_response(status)
+      render plain: { "ok" => status }.to_json, content_type: "application/json"
+    end
 end

@@ -1,6 +1,5 @@
 module ProductsPlugin
   class CatalogController < ProfileController
-
     before_action :check_profile
 
     include CatalogHelper
@@ -11,10 +10,10 @@ module ProductsPlugin
 
     protected
 
-    def check_profile
-      return if profile.enterprise?
-      redirect_to controller: 'profile', profile: profile.identifier, action: 'index'
-    end
+      def check_profile
+        return if profile.enterprise?
 
+        redirect_to controller: "profile", profile: profile.identifier, action: "index"
+      end
   end
 end

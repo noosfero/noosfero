@@ -1,6 +1,6 @@
-require_dependency 'pg_search_plugin/search_scope'
+require_dependency "pg_search_plugin/search_scope"
 
-searchables = %w[ article comment national_region profile license scrap category ]
+searchables = %w[article comment national_region profile license scrap category]
 searchables.each do |class_file|
   require_dependency class_file
 

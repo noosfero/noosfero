@@ -1,7 +1,6 @@
-require 'noosfero/multi_tenancy'
+require "noosfero/multi_tenancy"
 
 class Domain < ApplicationRecord
-
   attr_accessible :name, :owner, :is_default
 
   # relationships
@@ -23,7 +22,7 @@ class Domain < ApplicationRecord
 
   def no_www
     if self.name =~ /^www\./
-      self.errors.add(:name, _('{fn} must not start with www.').fix_i18n)
+      self.errors.add(:name, _("{fn} must not start with www.").fix_i18n)
     end
   end
 
@@ -43,7 +42,7 @@ class Domain < ApplicationRecord
   # turns the argument (expected to be a String) into a domain name that is
   # accepted, by removing any leading 'www.' and turning the downcasing it.
   def self.extract_domain_name(name)
-    name.downcase.sub(/^www\./, '')
+    name.downcase.sub(/^www\./, "")
   end
 
   # detects the Environment to which this domain belongs, either if it's
@@ -79,11 +78,12 @@ class Domain < ApplicationRecord
   # requires restarting the application.
   def self.hosting_profile_at(domainname)
     return false unless domainname
+
     Noosfero::MultiTenancy.setup!(domainname)
     @hosting[domainname] ||=
       begin
         domain = Domain.by_name(domainname)
-        !domain.nil? && (domain.owner_type == 'Profile')
+        !domain.nil? && (domain.owner_type == "Profile")
       end
   end
 
@@ -95,7 +95,7 @@ class Domain < ApplicationRecord
   # Detects a domain's custom text domain chain if available based on a domain
   # served on multitenancy configuration or a registered domain.
   def self.custom_locale(domainname)
-    domain = Noosfero::MultiTenancy.mapping[domainname] || domainname[/(.*?)\./,1]
+    domain = Noosfero::MultiTenancy.mapping[domainname] || domainname[/(.*?)\./, 1]
     FastGettext.translation_repositories.keys.include?(domain) ? domain : FastGettext.default_text_domain
   end
 
@@ -106,5 +106,4 @@ class Domain < ApplicationRecord
   def self.by_context(name)
     self.by_name(name) || self.default || Domain.new(owner: Environment.default)
   end
-
 end

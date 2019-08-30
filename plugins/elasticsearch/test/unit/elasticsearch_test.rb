@@ -1,9 +1,8 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class ElasticsearchTest < ActionController::TestCase
-
-  should 'be return yellow for health status' do
-      cluster = Elasticsearch::Model.client.cluster
-      assert_equal 'yellow', cluster.health["status"]
+  should "be return yellow for health status" do
+    cluster = Elasticsearch::Model.client.cluster
+    assert_equal "yellow", cluster.health["status"]
   end
 end

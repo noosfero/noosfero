@@ -1,6 +1,6 @@
 class CreateCategoriesProfiles < ActiveRecord::Migration
   def self.up
-    create_table :categories_profiles, :id => false do |t|
+    create_table :categories_profiles, id: false do |t|
       t.integer :profile_id
       t.integer :category_id
     end

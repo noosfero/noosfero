@@ -1,5 +1,4 @@
 class NewsletterPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Newsletter"
   end
@@ -9,7 +8,7 @@ class NewsletterPlugin < Noosfero::Plugin
   end
 
   def js_files
-    'newsletter_plugin.js'
+    "newsletter_plugin.js"
   end
 
   def stylesheet?
@@ -21,20 +20,19 @@ class NewsletterPlugin < Noosfero::Plugin
       if newsletter.must_be_sent_today? && newsletter.has_posts_in_the_period?
         if newsletter.moderated
           NewsletterPlugin::ModerateNewsletter.create!(
-            :newsletter_id => newsletter.id,
-            :environment => newsletter.environment
+            newsletter_id: newsletter.id,
+            environment: newsletter.environment
           )
         else
           mailing = NewsletterPlugin::NewsletterMailing.create!(
-            :source => newsletter,
-            :subject => newsletter.subject,
-            :body => newsletter.body(mailing: true),
-            :person => newsletter.person,
-            :locale => newsletter.environment.default_locale,
+            source: newsletter,
+            subject: newsletter.subject,
+            body: newsletter.body(mailing: true),
+            person: newsletter.person,
+            locale: newsletter.environment.default_locale,
           )
         end
       end
     end
   end
-
 end

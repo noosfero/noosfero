@@ -3,8 +3,8 @@ class CreateSearchTermOccurrences < ActiveRecord::Migration
     create_table :search_term_occurrences do |t|
       t.references   :search_term
       t.datetime     :created_at
-      t.integer      :total, :default => 0
-      t.integer      :indexed, :default => 0
+      t.integer      :total, default: 0
+      t.integer      :indexed, default: 0
     end
     add_index :search_term_occurrences, :created_at
   end

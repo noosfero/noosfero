@@ -1,10 +1,10 @@
-require 'test_helper'
+require "test_helper"
 
 class WorkAssignmentTest < ActiveSupport::TestCase
-  should 'find or create sub-folder based on author identifier' do
+  should "find or create sub-folder based on author identifier" do
     profile = fast_create(Profile)
     author = fast_create(Person)
-    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Sample Work Assignment', :profile => profile)
+    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(name: "Sample Work Assignment", profile: profile)
     assert_nil work_assignment.children.find_by slug: author.identifier
 
     folder = work_assignment.find_or_create_author_folder(author)
@@ -12,12 +12,12 @@ class WorkAssignmentTest < ActiveSupport::TestCase
     assert_equal folder, work_assignment.find_or_create_author_folder(author)
   end
 
-  should 'return versioned name' do
+  should "return versioned name" do
     profile = fast_create(Profile)
-    folder = fast_create(Folder, :profile_id => profile)
-    a1 = Article.create!(:name => "Article 1", :profile => profile)
-    a2 = Article.create!(:name => "Article 2", :profile => profile)
-    a3 = Article.create!(:name => "Article 3", :profile => profile)
+    folder = fast_create(Folder, profile_id: profile)
+    a1 = Article.create!(name: "Article 1", profile: profile)
+    a2 = Article.create!(name: "Article 2", profile: profile)
+    a3 = Article.create!(name: "Article 3", profile: profile)
     klass = WorkAssignmentPlugin::WorkAssignment
 
     assert_equal "(V1) #{a1.name}", klass.versioned_name(a1, folder)
@@ -31,14 +31,13 @@ class WorkAssignmentTest < ActiveSupport::TestCase
     assert_equal "(V3) #{a3.name}", klass.versioned_name(a3, folder)
   end
 
-  should 'move submission to its correct author folder' do
+  should "move submission to its correct author folder" do
     organization = fast_create(Organization)
     author = fast_create(Person)
-    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Sample Work Assignment', :profile => organization)
-    submission = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :author => author)
+    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(name: "Sample Work Assignment", profile: organization)
+    submission = create(UploadedFile, uploaded_data: fixture_file_upload("/files/rails.png", "image/png"), profile: organization, parent: work_assignment, author: author)
 
     author_folder = work_assignment.find_or_create_author_folder(author)
     assert_equal author_folder, submission.parent
   end
-
 end

@@ -1,15 +1,14 @@
 class SuggestArticle < Task
-
   validates_presence_of :target_id
-  validates_presence_of :email, :name, :if => Proc.new { |task| task.requestor.blank? }
+  validates_presence_of :email, :name, if: Proc.new { |task| task.requestor.blank? }
   validates_associated :article_object
 
-  settings_items :email, :type => String
-  settings_items :name, :type => String
-  settings_items :ip_address, :type => String
-  settings_items :user_agent, :type => String
-  settings_items :referrer, :type => String
-  settings_items :article, :type => Hash, :default => {}
+  settings_items :email, type: String
+  settings_items :name, type: String
+  settings_items :ip_address, type: String
+  settings_items :user_agent, type: String
+  settings_items :referrer, type: String
+  settings_items :article, type: Hash, default: {}
 
   after_create :schedule_spam_checking
 
@@ -29,7 +28,7 @@ class SuggestArticle < Task
 
   def article_object
     if @article_object.nil?
-      @article_object = article_type.new(article.merge(target.present? ? {:profile => target} : {}).except(:type))
+      @article_object = article_type.new(article.merge(target.present? ? { profile: target } : {}).except(:type))
       if requestor.present?
         @article_object.author = requestor
       else
@@ -64,9 +63,9 @@ class SuggestArticle < Task
   end
 
   def information
-    variables = requestor.blank? ? {:requestor => sender} : {}
-    { :message => _('%{requestor} suggested the publication %{target_detail} of the article: %{subject}.').html_safe,
-      :variables => variables }
+    variables = requestor.blank? ? { requestor: sender } : {}
+    { message: _("%{requestor} suggested the publication %{target_detail} of the article: %{subject}.").html_safe,
+      variables: variables }
   end
 
   def accept_details
@@ -74,17 +73,17 @@ class SuggestArticle < Task
   end
 
   def icon
-    result = {:type => :defined_image, :src => '/images/icons-app/article-minor.png', :name => article_name}
+    result = { type: :defined_image, src: "/images/icons-app/article-minor.png", name: article_name }
   end
 
   def target_notification_description
-    _('%{requestor} suggested the publication of the article: %{article}.').html_safe %
-    {:requestor => sender, :article => article_name}
+    _("%{requestor} suggested the publication of the article: %{article}.").html_safe %
+      { requestor: sender, article: article_name }
   end
 
   def target_notification_message
     target_notification_description + "\n\n" +
-    _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
+      _("You need to login on %{system} in order to approve or reject this article.") % { system: target.environment.name }
   end
 
   def after_spam!
@@ -95,5 +94,4 @@ class SuggestArticle < Task
   def after_ham!
     self.delay.marked_as_ham
   end
-
 end

@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
 
-require 'daemons'
+require "daemons"
 
-script = File.join(__dir__, 'video_processor_foreground.rb')
-env = ENV['RAILS_ENV'] || 'development'
-tmp_folder = File.join(__dir__, '../../../tmp/')
+script = File.join(__dir__, "video_processor_foreground.rb")
+env = ENV["RAILS_ENV"] || "development"
+tmp_folder = File.join(__dir__, "../../../tmp/")
 Daemons.run(script, app_name: "video_processor.#{env}",
                     dir_mode: :normal,
                     dir: tmp_folder)

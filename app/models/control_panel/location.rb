@@ -1,15 +1,15 @@
 class ControlPanel::Location < ControlPanel::Entry
   class << self
     def name
-      _('Location')
+      _("Location")
     end
 
     def section
-      'profile'
+      "profile"
     end
 
     def icon
-      'map-marker-alt'
+      "map-marker-alt"
     end
 
     def priority
@@ -17,16 +17,16 @@ class ControlPanel::Location < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('address'), _('position'), _('map')]
+      [_("address"), _("position"), _("map")]
     end
 
     def url(profile)
-      {:controller => 'profile_editor', :action => 'locality'}
+      { controller: "profile_editor", action: "locality" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       (profile.active_fields & Profile::LOCATION_FIELDS).present? ||
-        profile.active_fields.include?('location')
+        profile.active_fields.include?("location")
     end
   end
 end

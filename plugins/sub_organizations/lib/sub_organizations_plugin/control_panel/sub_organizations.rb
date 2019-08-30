@@ -2,22 +2,22 @@ module SubOrganizationsPlugin::ControlPanel
   class SubOrganizations < ControlPanel::Entry
     class << self
       def name
-        _('Subgroups')
+        _("Subgroups")
       end
 
       def section
-        'relationships'
+        "relationships"
       end
 
       def icon
-        'sitemap'
+        "sitemap"
       end
 
       def url(profile)
-        {profile: profile.identifier, controller: :sub_organizations_plugin_myprofile}
+        { profile: profile.identifier, controller: :sub_organizations_plugin_myprofile }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.organization? && Organization.parentz(profile).blank?
       end
     end

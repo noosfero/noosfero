@@ -1,15 +1,15 @@
 class ControlPanel::HeaderAndFooter < ControlPanel::Entry
   class << self
     def name
-      _('Header and Footer')
+      _("Header and Footer")
     end
 
     def section
-      'design'
+      "design"
     end
 
     def icon
-      'header_footer'
+      "header_footer"
     end
 
     def priority
@@ -17,13 +17,13 @@ class ControlPanel::HeaderAndFooter < ControlPanel::Entry
     end
 
     def url(profile)
-     {:controller => 'profile_editor', :action => 'header_footer'}
+      { controller: "profile_editor", action: "header_footer" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       return false if (!user || !profile)
-      user.is_admin?(profile.environment) || (!profile.enterprise? && !profile.environment.enabled?('disable_header_and_footer'))
+
+      user.is_admin?(profile.environment) || (!profile.enterprise? && !profile.environment.enabled?("disable_header_and_footer"))
     end
   end
 end
-

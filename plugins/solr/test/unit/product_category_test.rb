@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class ProductCategoryTest < ActiveSupport::TestCase
   def setup
@@ -8,7 +8,7 @@ class ProductCategoryTest < ActiveSupport::TestCase
 
   attr_accessor :environment
 
-  should 'reindex products after save' do
+  should "reindex products after save" do
     product = mock
     ProductCategory.any_instance.stubs(:products).returns([product])
     ProductCategory.expects(:solr_batch_add).with(includes(product))
@@ -16,4 +16,3 @@ class ProductCategoryTest < ActiveSupport::TestCase
     pc.save!
   end
 end
-

@@ -1,7 +1,6 @@
 require_relative "../test_helper"
 
 class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
-
   def setup
     @controller = EnvironmentThemesController.new
 
@@ -19,29 +18,29 @@ class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
 
   TMP_THEMES_DIR = Rails.root.join("test", "tmp", "environment_themes_controller")
 
-  should 'display themes that can be applied' do
+  should "display themes that can be applied" do
     env = Environment.default
     Theme.stubs(:approved_themes).with(@env).returns([])
-    t1 = 't1'
-    t2 = 't2'
-    t3 = 't3'
+    t1 = "t1"
+    t2 = "t2"
+    t3 = "t3"
     env.themes = [t1, t2]
     env.save
 
     Theme.stubs(:system_themes).returns([Theme.new(t1), Theme.new(t2), Theme.new(t3)])
     get environment_themes_path
 
-    %w[ t1 t2 ].each do |item|
-      assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/#{item}" }
+    %w[t1 t2].each do |item|
+      assert_tag tag: "a", attributes: { href: "/admin/environment_themes/set/#{item}" }
     end
 
-    !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/t3" }
+    !assert_tag tag: "a", attributes: { href: "/admin/environment_themes/set/t3" }
   end
 
-  should 'highlight current theme' do
+  should "highlight current theme" do
     env = Environment.default
-    t1 = 'butter'
-    t2 = 'chocolate'
+    t1 = "butter"
+    t2 = "chocolate"
     env.themes = [t1, t2]
     env.save
 
@@ -49,40 +48,39 @@ class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
     env.update_theme(t1)
     get environment_themes_path
 
-    assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
-    !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set/butter" }
+    assert_tag attributes: { class: "theme-opt list-opt selected" }
+    !assert_tag tag: "a", attributes: { href: "/admin/environment_themes/set/butter" }
   end
 
-  should 'save selection of theme' do
-    get set_environment_theme_path(id: 'onetheme')
+  should "save selection of theme" do
+    get set_environment_theme_path(id: "onetheme")
     env = Environment.default
-    assert_equal 'onetheme', env.theme
+    assert_equal "onetheme", env.theme
   end
 
-
-  should 'unset selection of theme' do
+  should "unset selection of theme" do
     get unset_environment_themes_path
     env = Environment.default
-    assert_equal 'default', env.theme
+    assert_equal "default", env.theme
   end
 
-  should 'display link to use the default theme' do
+  should "display link to use the default theme" do
     env = Environment.default
-    env.themes = ['new-theme']
+    env.themes = ["new-theme"]
     env.save
 
-    Theme.stubs(:system_themes).returns([Theme.new('new-theme')])
+    Theme.stubs(:system_themes).returns([Theme.new("new-theme")])
 
     get environment_themes_path
-    assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/unset" }
+    assert_tag tag: "a", attributes: { href: "/admin/environment_themes/unset" }
   end
 
-  should 'point back to admin panel' do
+  should "point back to admin panel" do
     get environment_themes_path
-    assert_tag :tag => 'a', :attributes => { :href =>  '/admin' }, :content => 'Back'
+    assert_tag tag: "a", attributes: { href: "/admin" }, content: "Back"
   end
 
-  should 'list templates' do
+  should "list templates" do
     all = LayoutTemplate.all
 
     LayoutTemplate.expects(:all).returns(all)
@@ -90,39 +88,39 @@ class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
     assert_equivalent all, assigns(:layout_templates)
   end
 
-  should 'display links to set template' do
+  should "display links to set template" do
     env = Environment.default
-    env.layout_template = 'rightbar'
+    env.layout_template = "rightbar"
     env.save!
-    t1 = LayoutTemplate.find('default')
-    t2 = LayoutTemplate.find('leftbar')
+    t1 = LayoutTemplate.find("default")
+    t2 = LayoutTemplate.find("leftbar")
     LayoutTemplate.expects(:all).returns([t1, t2])
 
     get environment_themes_path
-    assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set_layout_template/default"}
-    assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set_layout_template/leftbar"}
+    assert_tag tag: "a", attributes: { href: "/admin/environment_themes/set_layout_template/default" }
+    assert_tag tag: "a", attributes: { href: "/admin/environment_themes/set_layout_template/leftbar" }
   end
 
-  should 'highlight current template' do
+  should "highlight current template" do
     env = Environment.default
-    env.update_attribute(:layout_template, 'default')
-    env.layout_template = 'default'
+    env.update_attribute(:layout_template, "default")
+    env.layout_template = "default"
 
-    t1 = LayoutTemplate.find('default')
-    t2 = LayoutTemplate.find('leftbar')
+    t1 = LayoutTemplate.find("default")
+    t2 = LayoutTemplate.find("leftbar")
     LayoutTemplate.expects(:all).returns([t1, t2])
 
     get environment_themes_path
-    assert_tag :attributes => { :class => 'template-opt list-opt selected' }
-    !assert_tag :tag => 'a', :attributes => { :href => "/admin/environment_themes/set_layout_template/default"}
+    assert_tag attributes: { class: "template-opt list-opt selected" }
+    !assert_tag tag: "a", attributes: { href: "/admin/environment_themes/set_layout_template/default" }
   end
 
-  should 'set template' do
+  should "set template" do
     env = Environment.default
-    post set_layout_template_environment_theme_path({id: 'leftbar'})
+    post set_layout_template_environment_theme_path(id: "leftbar")
     env.reload
-    assert_equal 'leftbar', env.layout_template
-    assert_redirected_to :action => 'index'
+    assert_equal "leftbar", env.layout_template
+    assert_redirected_to action: "index"
   end
 
   should 'not display the "Select themes" section if there are no themes to choose from' do
@@ -130,7 +128,6 @@ class EnvironmentThemesControllerTest < ActionDispatch::IntegrationTest
     env.themes = []; env.save!
     Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR) # an empty dir
     get environment_themes_path
-    !assert_tag :content => "Select theme"
+    !assert_tag content: "Select theme"
   end
-
 end

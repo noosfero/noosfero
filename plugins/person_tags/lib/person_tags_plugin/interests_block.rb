@@ -1,6 +1,6 @@
 class PersonTagsPlugin::InterestsBlock < Block
   def view_title
-    self.default_title 
+    self.default_title
   end
 
   def tags
@@ -12,15 +12,15 @@ class PersonTagsPlugin::InterestsBlock < Block
   end
 
   def self.description
-    _('Fields of Interest')
+    _("Fields of Interest")
   end
 
   def help
-    _('Things that this person is interested in')
+    _("Things that this person is interested in")
   end
 
   def default_title
-    _('Fields of Interest')
+    _("Fields of Interest")
   end
 
   def self.expire_on

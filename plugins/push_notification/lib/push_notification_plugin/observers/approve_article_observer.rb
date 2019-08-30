@@ -1,5 +1,4 @@
 module PushNotificationPlugin::Observers
-
   include ObserversHelper
 
   module ApproveArticleObserver
@@ -9,12 +8,11 @@ module PushNotificationPlugin::Observers
 
       send_to_users("approve_article",
                     users,
-                    {:event => "Approve Article",
-                     :requestor_id => requestor.id,
-                     :requestor_name => requestor.name,
-                     :article => approve_article.article,
-                     :task_id => approve_article.id}
-                   )
+                    event: "Approve Article",
+                    requestor_id: requestor.id,
+                    requestor_name: requestor.name,
+                    article: approve_article.article,
+                    task_id: approve_article.id)
     end
 
     def approve_article_after_save_callback(approve_article)
@@ -23,17 +21,16 @@ module PushNotificationPlugin::Observers
 
       return false unless [Task::Status::FINISHED, Task::Status::CANCELLED].include?(approve_article.status)
 
-      accepted = approve_article.status==Task::Status::FINISHED
-      event= accepted ? "Article approved" : "Article rejected"
+      accepted = approve_article.status == Task::Status::FINISHED
+      event = accepted ? "Article approved" : "Article rejected"
 
       send_to_users("approve_article_result",
                     [requestor],
-                    {:event => event,
-                     :target_id => target.id,
-                     :target_name => target.name,
-                     :article => approve_article.article,
-                     :task_id => approve_article.id}
-                   )
+                    event: event,
+                    target_id: target.id,
+                    target_name: target.name,
+                    article: approve_article.article,
+                    task_id: approve_article.id)
     end
   end
 end

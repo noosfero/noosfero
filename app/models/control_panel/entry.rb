@@ -1,8 +1,7 @@
 class ControlPanel::Entry
   class << self
-
     def identifier
-      to_s.split('::').last.to_slug
+      to_s.split("::").last.to_slug
     end
 
     def keywords
@@ -21,7 +20,7 @@ class ControlPanel::Entry
 
     # Icon identifier to be used.
     def icon
-      'exclamation'
+      "exclamation"
     end
 
     # Integer define in which position the button will be displayed.
@@ -41,7 +40,7 @@ class ControlPanel::Entry
 
     # Decides wether the button should be displayed based on the profile and
     # the request context.
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       true
     end
 

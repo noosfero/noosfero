@@ -1,14 +1,15 @@
 # encoding: UTF-8
+
 require_relative "../test_helper"
 
-#FIXME Find a way to test with a generic example
+# FIXME Find a way to test with a generic example
 
 class TimeScopesTest < ActiveSupport::TestCase
-  should 'fetch profiles older than a specific date' do
-    p1 = fast_create(Profile, :created_at => Time.now.in_time_zone)
-    p2 = fast_create(Profile, :created_at => Time.now.in_time_zone - 1.day)
-    p3 = fast_create(Profile, :created_at => Time.now.in_time_zone - 2.days)
-    p4 = fast_create(Profile, :created_at => Time.now.in_time_zone - 3.days)
+  should "fetch profiles older than a specific date" do
+    p1 = fast_create(Profile, created_at: Time.now.in_time_zone)
+    p2 = fast_create(Profile, created_at: Time.now.in_time_zone - 1.day)
+    p3 = fast_create(Profile, created_at: Time.now.in_time_zone - 2.days)
+    p4 = fast_create(Profile, created_at: Time.now.in_time_zone - 3.days)
 
     profiles = Profile.older_than(p2.created_at)
 
@@ -18,11 +19,11 @@ class TimeScopesTest < ActiveSupport::TestCase
     assert_includes profiles, p4
   end
 
-  should 'fetch profiles younger than a specific date' do
-    p1 = fast_create(Profile, :created_at => Time.now.in_time_zone)
-    p2 = fast_create(Profile, :created_at => Time.now.in_time_zone - 1.day)
-    p3 = fast_create(Profile, :created_at => Time.now.in_time_zone - 2.days)
-    p4 = fast_create(Profile, :created_at => Time.now.in_time_zone - 3.days)
+  should "fetch profiles younger than a specific date" do
+    p1 = fast_create(Profile, created_at: Time.now.in_time_zone)
+    p2 = fast_create(Profile, created_at: Time.now.in_time_zone - 1.day)
+    p3 = fast_create(Profile, created_at: Time.now.in_time_zone - 2.days)
+    p4 = fast_create(Profile, created_at: Time.now.in_time_zone - 3.days)
 
     profiles = Profile.younger_than(p3.created_at)
 

@@ -1,5 +1,4 @@
 class ShoppingCartPluginMyprofileController < MyProfileController
-
   helper DeliveryPlugin::DisplayHelper
 
   def edit
@@ -12,10 +11,10 @@ class ShoppingCartPluginMyprofileController < MyProfileController
 
   protected
 
-  def treat_cart_options(settings)
-    return if settings.blank?
-    settings[:enabled] = settings[:enabled] == '1'
-    settings
-  end
+    def treat_cart_options(settings)
+      return if settings.blank?
 
+      settings[:enabled] = settings[:enabled] == "1"
+      settings
+    end
 end

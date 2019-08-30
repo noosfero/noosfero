@@ -1,7 +1,5 @@
 module OrdersPlugin::TableHelper
-
   protected
 
-  include ToggleEdit::TableHelper
-
+    include ToggleEdit::TableHelper
 end

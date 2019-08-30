@@ -1,5 +1,5 @@
-Object.send :remove_const, :SearchController if defined? SearchController and not ActionController::Base.perform_caching
-require_dependency 'search_controller'
+Object.send :remove_const, :SearchController if defined? SearchController && (not ActionController::Base.perform_caching)
+require_dependency "search_controller"
 
 module SolrPlugin::FacetsBrowse
   def self.included(base)
@@ -17,9 +17,9 @@ module SolrPlugin::FacetsBrowse
       set_facets_variables
 
       @facet = @asset_class.map_facets_for(environment).find { |facet| facet[:id] == params[:facet_id] }
-      raise 'Facet not found' if @facet.nil?
+      raise "Facet not found" if @facet.nil?
 
-      render :layout => false
+      render layout: false
     end
   end
 end

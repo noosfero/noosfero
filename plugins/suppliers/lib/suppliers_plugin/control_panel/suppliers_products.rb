@@ -1,24 +1,23 @@
 module SuppliersPlugin::ControlPanel
   class SuppliersProducts < ControlPanel::Entry
     class << self
-
       def name
-        I18n.t('suppliers_plugin.views.control_panel.products')
+        I18n.t("suppliers_plugin.views.control_panel.products")
       end
 
       def section
-        'enterprise'
+        "enterprise"
       end
 
       def icon
-        'list-ol'
+        "list-ol"
       end
 
       def url(profile)
-        {controller: 'suppliers_plugin/product', action: :index}
+        { controller: "suppliers_plugin/product", action: :index }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.enterprise?
       end
     end

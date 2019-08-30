@@ -1,15 +1,15 @@
 class ControlPanel::Categories < ControlPanel::Entry
   class << self
     def name
-      _('Categories')
+      _("Categories")
     end
 
     def section
-      'interests'
+      "interests"
     end
 
     def icon
-      'certificate'
+      "certificate"
     end
 
     def priority
@@ -17,7 +17,7 @@ class ControlPanel::Categories < ControlPanel::Entry
     end
 
     def url(profile)
-     {:controller => 'profile_editor', :action => 'categories'}
+      { controller: "profile_editor", action: "categories" }
     end
   end
 end

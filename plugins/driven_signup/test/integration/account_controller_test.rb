@@ -1,23 +1,22 @@
-require 'test_helper'
+require "test_helper"
 
 # Re-raise errors caught by the controller.
 class AccountController; def rescue_action(e) raise e end; end
 
 class AccountControllerTest < ActionDispatch::IntegrationTest
-
   def setup
     @controller = AccountController.new
     @request    = ActionController::TestRequest.create(AccountController)
 
     e = Environment.default
-    e.enable 'skip_new_user_email_confirmation', true
+    e.enable "skip_new_user_email_confirmation", true
   end
 
-  should 'use the parameters' do
-    token = '131324'
+  should "use the parameters" do
+    token = "131324"
     Environment.default.driven_signup_auths.create! token: token
-    community = create Community, name: 'base', identifier: 'base1'
-    subcommunity = create Community, name: 'sub', identifier: 'base11'
+    community = create Community, name: "base", identifier: "base1"
+    subcommunity = create Community, name: "sub", identifier: "base11"
     subcommunity.reload
 
     # simulate DrivenSignupPlugin::AccountController
@@ -26,12 +25,11 @@ class AccountControllerTest < ActionDispatch::IntegrationTest
     session[:find_suborganization] = true
     session[:suborganization_members_limit] = 50
 
-    post url_for(controller: 'driven_signup_plugin/account', action: :signup, token: token, signup: {login: 'quire', name: 'quire', email: 'test@example.com'})
+    post url_for(controller: "driven_signup_plugin/account", action: :signup, token: token, signup: { login: "quire", name: "quire", email: "test@example.com" })
     assert_response :redirect
-    assert_redirected_to url_for(controller: '/account', action: :signup, user: {login: 'quire', email: 'test@example.com',},
-                                 profile_data: {name: 'quire'})
+    assert_redirected_to url_for(controller: "/account", action: :signup, user: { login: "quire", email: "test@example.com", },
+                                 profile_data: { name: "quire" })
   end
 
   private
-
 end

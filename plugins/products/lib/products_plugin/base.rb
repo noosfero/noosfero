@@ -1,17 +1,16 @@
 module ProductsPlugin
   class Base < Noosfero::Plugin
-
     def stylesheet?
       true
     end
 
     def js_files
-      %w[products].map{ |j| "javascripts/#{j}" }
+      %w[products].map { |j| "javascripts/#{j}" }
     end
 
     def self.extra_blocks
       {
-        ProductsBlock => {type: [Enterprise] },
+        ProductsBlock => { type: [Enterprise] },
       }
     end
 
@@ -21,7 +20,7 @@ module ProductsPlugin
 
     def profile_info_extra_contents
       lambda do
-        render 'profile_editor/products_profile_info_contents'
+        render "profile_editor/products_profile_info_contents"
       end
     end
 
@@ -30,9 +29,8 @@ module ProductsPlugin
     end
 
     def extra_category_types(plural)
-      [ [ n_('Product category', 'Product categories', plural), ProductCategory.sti_name ] ]
+      [[n_("Product category", "Product categories", plural), ProductCategory.sti_name]]
     end
-
   end
 end
 
@@ -54,4 +52,3 @@ ProductionCost     = ProductsPlugin::ProductionCost
 PriceDetail        = ProductsPlugin::PriceDetail
 
 EnterpriseHomepage = ProductsPlugin::EnterpriseHomepage
-

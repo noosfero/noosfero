@@ -1,6 +1,6 @@
-require 'base64'
-require 'tempfile'
-require 'recaptcha'
+require "base64"
+require "tempfile"
+require "recaptcha"
 
 module Api
   module Helpers
@@ -17,7 +17,7 @@ module Api
     include Recaptcha::Adapters::ControllerMethods
 
     def set_locale
-      I18n.locale = (params[:lang] || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')
+      I18n.locale = (params[:lang] || request.env["HTTP_ACCEPT_LANGUAGE"] || "en")
     end
 
     def init_noosfero_plugins
@@ -30,14 +30,14 @@ module Api
     end
 
     def reset_session
-      cookies.delete('_noosfero_api_session')
+      cookies.delete("_noosfero_api_session")
       cookies.delete(:auth_token)
       session.destroy unless session.nil?
       logout
     end
 
     def set_current_user
-      private_token = (params[PRIVATE_TOKEN_PARAM] || headers['Private-Token']).to_s
+      private_token = (params[PRIVATE_TOKEN_PARAM] || headers["Private-Token"]).to_s
       @current_user ||= User.where(private_token: private_token).includes(:person).first unless private_token.blank?
       @current_user ||= plugins.dispatch("api_custom_login", request).first
       @current_user = session.user if @current_user.blank? && session.present?
@@ -55,6 +55,7 @@ module Api
 
     def is_admin?(environment)
       return false unless current_user
+
       return current_person.is_admin?(environment)
     end
 
@@ -67,22 +68,22 @@ module Api
     end
 
     def present_partial(model, options)
-      if(params[:fields].present?)
+      if (params[:fields].present?)
         begin
-          fields = JSON.parse((params.to_hash[:fields] || params.to_hash['fields']).to_json)
+          fields = JSON.parse((params.to_hash[:fields] || params.to_hash["fields"]).to_json)
           if fields.present?
             fields = fields.symbolize_keys
-            options.merge!(:only => fields[:only]) if fields[:only].present?
-            options.merge!(:except => fields[:except]) if fields[:except].present?
+            options.merge!(only: fields[:only]) if fields[:only].present?
+            options.merge!(except: fields[:except]) if fields[:except].present?
           end
         rescue
           fields = params[:fields]
-          fields = fields.split(',') if fields.kind_of?(String)
+          fields = fields.split(",") if fields.kind_of?(String)
           options[:only] = Array.wrap(fields)
         end
       end
-      if params[:count].to_s == 'true' && model.respond_to?(:size)
-        value = {:count => model.size}
+      if params[:count].to_s == "true" && model.respond_to?(:size)
+        value = { count: model.size }
         present value
       else
         present model, options
@@ -94,13 +95,13 @@ module Api
     ####################################################################
     #### SEARCH
     ####################################################################
-    def multiple_search?(searches=nil)
-      ['index', 'category_index'].include?(params[:action]) || (searches && searches.size > 1)
+    def multiple_search?(searches = nil)
+      ["index", "category_index"].include?(params[:action]) || (searches && searches.size > 1)
     end
     ####################################################################
 
     def logger
-      logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
+      logger = Logger.new(File.join(Rails.root, "log", "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
       logger.formatter = GrapeLogging::Formatters::Default.new
       logger
     end
@@ -122,13 +123,15 @@ module Api
 
     def parse_content_type(content_type)
       return nil if content_type.blank?
-      content_type.split(',').map do |content_type|
+
+      content_type.split(",").map do |content_type|
         content_type.camelcase
       end
     end
 
     def parse_parent_id(parent_id)
       return nil if parent_id.blank?
+
       parent_id
     end
 
@@ -151,13 +154,13 @@ module Api
 
       article = klass_type.constantize.new(params[:article])
       article.last_changed_by = current_person
-      article.created_by= current_person
+      article.created_by = current_person
       article.profile = asset
 
       if !article.save
         render_model_errors!(article.errors)
       end
-      present_partial article, :with => Entities::Article
+      present_partial article, with: Entities::Article
     end
 
     def present_article(asset)
@@ -165,16 +168,16 @@ module Api
       present_partial article, with: Entities::Article, params: params, current_person: current_person
     end
 
-    def present_articles_for_asset(asset, method_or_relation = 'articles')
+    def present_articles_for_asset(asset, method_or_relation = "articles")
       articles = find_articles(asset, method_or_relation)
       present_articles(articles)
     end
 
     def present_articles(articles)
-      present_partial paginate(articles), :with => Entities::Article, :params => params, current_person: current_person
+      present_partial paginate(articles), with: Entities::Article, params: params, current_person: current_person
     end
 
-    def find_articles(asset, method_or_relation = 'articles')
+    def find_articles(asset, method_or_relation = "articles")
       articles = select_filtered_collection_of(asset, method_or_relation, params)
       if current_person.present?
         articles = articles.accessible_to(current_person)
@@ -192,55 +195,55 @@ module Api
     end
 
     def post_task(asset, params)
-      klass_type= params[:content_type].nil? ? 'Task' : params[:content_type]
+      klass_type = params[:content_type].nil? ? "Task" : params[:content_type]
       return forbidden! unless klass_type.constantize <= Task
       return forbidden! if !current_person.has_permission?(:perform_task, asset)
 
       task = klass_type.constantize.new(params[:task])
       task.requestor_id = current_person.id
       task.target_id = asset.id
-      task.target_type = 'Profile'
+      task.target_type = "Profile"
 
       if !task.save
         render_model_errors!(task.errors)
       end
-      present_partial task, :with => Entities::Task
+      present_partial task, with: Entities::Task
     end
 
-    def find_tasks(asset, method_or_relation = 'tasks')
+    def find_tasks(asset, method_or_relation = "tasks")
       return forbidden! if !current_person.has_permission?(:perform_task, asset)
+
       tasks = select_filtered_collection_of(asset, method_or_relation, params)
-      tasks = tasks.select {|t| current_person.has_permission?(t.permission, asset)}
+      tasks = tasks.select { |t| current_person.has_permission?(t.permission, asset) }
       tasks
     end
 
-    def present_task(asset, method_or_relation = 'tasks')
+    def present_task(asset, method_or_relation = "tasks")
       task = find_task(asset, method_or_relation, params[:id])
-      present_partial task, :with => Entities::Task
+      present_partial task, with: Entities::Task
       if task.kind_of?(AbuseComplaint)
-        present_partial task, :with => Entities::AbuseComplaint
+        present_partial task, with: Entities::AbuseComplaint
       else
-        present_partial task, :with => Entities::Task
+        present_partial task, with: Entities::Task
       end
     end
 
-    def present_tasks_for_asset(asset, method_or_relation = 'tasks')
+    def present_tasks_for_asset(asset, method_or_relation = "tasks")
       tasks = find_tasks(asset, method_or_relation)
       present_tasks(tasks)
     end
 
     def present_tasks(tasks)
-      present_partial tasks, :with => Entities::Task
+      present_partial tasks, with: Entities::Task
     end
 
     ###########################
     #        Activities       #
     ###########################
-    def find_activities(asset, method_or_relation = 'tracked_notifications')
-
+    def find_activities(asset, method_or_relation = "tracked_notifications")
       not_found! if asset.blank? || asset.secret || !asset.visible
       forbidden! unless asset.display_private_info_to?(current_person)
-      if method_or_relation == 'activities'
+      if method_or_relation == "activities"
         activities = select_filtered_collection_of(asset, method_or_relation, params)
         activities = activities.map(&:activity)
       else
@@ -249,31 +252,31 @@ module Api
       activities
     end
 
-    def present_activities_for_asset(asset, method_or_relation = 'tracked_notifications')
+    def present_activities_for_asset(asset, method_or_relation = "tracked_notifications")
       tasks = find_activities(asset, method_or_relation)
       present_activities(tasks)
     end
 
     def present_activities(activities)
-      present_partial activities, :with => Entities::Activity, :current_person => current_person
+      present_partial activities, with: Entities::Activity, current_person: current_person
     end
 
     ###########################
     #          Tags           #
     ###########################
 
-    def find_tags(asset, method_or_relation = 'tags')
+    def find_tags(asset, method_or_relation = "tags")
       tags = select_filtered_collection_of(asset, method_or_relation, params)
       tags
     end
 
-    def present_tags_for_asset(asset, method_or_relation = 'tags')
+    def present_tags_for_asset(asset, method_or_relation = "tags")
       tags = find_tags(asset, method_or_relation)
       present_tags(tags)
     end
 
     def present_tags(tags)
-      present_partial tags, :with => Entities::Tag, :current_person => current_person
+      present_partial tags, with: Entities::Tag, current_person: current_person
     end
 
     ###########################
@@ -281,7 +284,6 @@ module Api
     ###########################
 
     def make_conditions_with_parameter(params = {}, class_type = nil)
-
       parsed_params = class_type.nil? ? parser_params(params) : parser_params_by_type(class_type, params)
       conditions = {}
       from_date = DateTime.parse(parsed_params.delete(:from)) if parsed_params[:from]
@@ -300,19 +302,19 @@ module Api
 
     # changing make_order_with_parameters to avoid sql injection
     def make_order_with_parameters(params, class_type)
-      return_type = class_type == '' ? '' : (class_type.respond_to?(:table_name) ? class_type.table_name + '.' : '')
-      
+      return_type = class_type == "" ? "" : (class_type.respond_to?(:table_name) ? class_type.table_name + "." : "")
+
       order = "#{return_type}created_at DESC"
       unless params[:order].blank?
-        if params[:order].include? '\'' or params[:order].include? '"'
+        if params[:order].include?("'") || params[:order].include?('"')
           order = "#{return_type}created_at DESC"
-        elsif ['RANDOM()', 'RANDOM'].include? params[:order].upcase
-          order = 'RANDOM()'
+        elsif ["RANDOM()", "RANDOM"].include? params[:order].upcase
+          order = "RANDOM()"
         else
-          field_name, direction = params[:order].split(' ')
-          if !field_name.blank? and class_type
+          field_name, direction = params[:order].split(" ")
+          if !field_name.blank? && class_type
             if class_type.respond_to?(:attribute_names) && (class_type.attribute_names.include? field_name)
-              if direction.present? and ['ASC','DESC'].include? direction.upcase
+              if direction.present? && ["ASC", "DESC"].include?(direction.upcase)
                 order = "#{return_type}#{field_name} #{direction.upcase}"
               end
             end
@@ -327,7 +329,7 @@ module Api
       if params[:timestamp]
         datetime = DateTime.parse(params[:timestamp]).utc
         table_name = class_type.table_name
-        date_atrr = class_type.attribute_names.include?('updated_at') ? 'updated_at' : 'created_at'
+        date_atrr = class_type.attribute_names.include?("updated_at") ? "updated_at" : "created_at"
         timestamp = "#{table_name}.#{date_atrr} >= '#{datetime}'"
       end
 
@@ -336,6 +338,7 @@ module Api
 
     def by_period(scope, params, class_type, attribute)
       return scope if (class_type == NilClass || class_type.is_a?(String))
+
       from_param = "from_#{attribute}".to_sym
       until_param = "until_#{attribute}".to_sym
       from_date = DateTime.parse(params.delete(from_param)) if params[from_param]
@@ -345,7 +348,7 @@ module Api
       if class_type.new.is_a?(Event)
         scope = scope.where(" (#{table_name}.#{attribute} >= ?) OR (#{table_name}.#{attribute} iS NULL)", from_date) unless from_date.nil?
         scope = scope.where("#{table_name}.#{attribute} <= ?", until_date) unless until_date.nil?
-      else 
+      else
         scope = scope.where("#{table_name}.created_at >= ?", from_date) if !from_date.nil? && until_date.nil?
         scope = scope.where("#{table_name}.created_at <= ?", until_date) if !until_date.nil? && from_date.nil?
         scope = scope.where("#{table_name}.created_at BETWEEN ? AND ?", from_date, until_date) if !until_date.nil? && !from_date.nil?
@@ -377,12 +380,11 @@ module Api
       if category_ids.nil?
         scope
       else
-        scope.joins(:categories).where(:categories => {:id => category_ids})
+        scope.joins(:categories).where(categories: { id: category_ids })
       end
     end
 
     def select_filtered_collection_of(object, method_or_relation, params)
-
       conditions = make_conditions_with_parameter(params)
       assoc_class = extract_associated_classname(object, method_or_relation, conditions)
 
@@ -400,8 +402,8 @@ module Api
 
       if params[:search].present? || params[:tag].present?
         asset = objects.model.name.underscore.pluralize
-        objects = find_by_contents(asset, object, objects, params[:search], {:page => 1}, tag: params[:tag])[:results].reorder(order)
-      else 
+        objects = find_by_contents(asset, object, objects, params[:search], { page: 1 }, { tag: params[:tag] })[:results].reorder(order)
+      else
         objects = objects.reorder(order)
       end
 
@@ -428,7 +430,7 @@ module Api
     def attributes_for_keys(keys)
       attrs = {}
       keys.each do |key|
-        attrs[key] = params[key] if params[key].present? or (params.has_key?(key) and params[key] == false)
+        attrs[key] = params[key] if params[key].present? || (params.has_key?(key) && (params[key] == false))
       end
       attrs
     end
@@ -438,11 +440,11 @@ module Api
     ##########################################
 
     def not_found!
-      render_api_error!('404 Not found', Api::Status::Http::NOT_FOUND)
+      render_api_error!("404 Not found", Api::Status::Http::NOT_FOUND)
     end
 
     def forbidden!
-      render_api_error!('403 Forbidden', Api::Status::Http::FORBIDDEN)
+      render_api_error!("403 Forbidden", Api::Status::Http::FORBIDDEN)
     end
 
     def cant_be_saved_request!(attribute)
@@ -461,20 +463,20 @@ module Api
     end
 
     def unauthorized!
-      render_api_error!(_('Unauthorized'), Api::Status::Http::UNAUTHORIZED)
+      render_api_error!(_("Unauthorized"), Api::Status::Http::UNAUTHORIZED)
     end
 
     def not_allowed!
-      render_api_error!(_('Method Not Allowed'), Api::Status::Http::METHOD_NOT_ALLOWED)
+      render_api_error!(_("Method Not Allowed"), Api::Status::Http::METHOD_NOT_ALLOWED)
     end
 
     def render_api_error!(user_message, status = Api::Status::Http::BAD_REQUEST)
       log_message = "#{status}, User message: #{user_message}"
       logger.error log_message unless Rails.env.test?
       msg = {
-        :success => false,
-        :message => user_message,
-        :code => status
+        success: false,
+        message: user_message,
+        code: status
       }
       error!(msg, status)
     end
@@ -485,7 +487,7 @@ module Api
         message_hash[:errors] = active_record_errors.details
         message_hash[:errors].each do |field, errors|
           full_messages = active_record_errors.full_messages_for(field)
-          errors.each_with_index {|error, i| error[:full_message] = full_messages[i] }
+          errors.each_with_index { |error, i| error[:full_message] = full_messages[i] }
         end
       end
       error!(message_hash, Api::Status::Http::UNPROCESSABLE_ENTITY)
@@ -493,132 +495,133 @@ module Api
 
     protected
 
-    def set_session_cookie
-      if @current_user.present? && session.present?
-        session.data['user'] = @current_user.id
-	session.save!
-      end
-    end
-
-    def setup_multitenancy
-      Noosfero::MultiTenancy.setup!(request.host)
-    end
-
-    def detect_stuff_by_domain
-      @domain_hash ||= {}
-      @domain_hash[request.host] ||= { domain: Domain.by_name(request.host)}
-      @domain = @domain_hash[request.host][:domain]
-      if @domain.nil?
-        @domain_hash[request.host][:environment] ||= Environment.default
-	@environment = @domain_hash[request.host][:environment]
-        if @environment.nil? && Rails.env.development?
-          # This should only happen in development ...
-          @environment = Environment.create!(name: "Noosfero", is_default: true)
+      def set_session_cookie
+        if @current_user.present? && session.present?
+          session.data["user"] = @current_user.id
+          session.save!
         end
-      else
-        @domain_hash[request.host][:environment] ||= @domain.environment
-	@environment = @domain_hash[request.host][:environment]
       end
-    end
 
-    def filter_disabled_plugins_endpoints
-      not_found! if Api::App.endpoint_unavailable?(self, @environment)
-    end
+      def setup_multitenancy
+        Noosfero::MultiTenancy.setup!(request.host)
+      end
 
-    def asset_with_image params
-      asset_with_custom_image(:image, params)
-    end
+      def detect_stuff_by_domain
+        @domain_hash ||= {}
+        @domain_hash[request.host] ||= { domain: Domain.by_name(request.host) }
+        @domain = @domain_hash[request.host][:domain]
+        if @domain.nil?
+          @domain_hash[request.host][:environment] ||= Environment.default
+          @environment = @domain_hash[request.host][:environment]
+          if @environment.nil? && Rails.env.development?
+            # This should only happen in development ...
+            @environment = Environment.create!(name: "Noosfero", is_default: true)
+          end
+        else
+          @domain_hash[request.host][:environment] ||= @domain.environment
+          @environment = @domain_hash[request.host][:environment]
+        end
+      end
 
-    def asset_with_custom_image(field, params)
-      builder_field = "#{field}_builder".to_sym
-      if !params.nil? && params.has_key?(builder_field)
+      def filter_disabled_plugins_endpoints
+        not_found! if Api::App.endpoint_unavailable?(self, @environment)
+      end
+
+      def asset_with_image(params)
+        asset_with_custom_image(:image, params)
+      end
+
+      def asset_with_custom_image(field, params)
+        builder_field = "#{field}_builder".to_sym
+        if !params.nil? && params.has_key?(builder_field)
+          asset_api_params = params
+          asset_api_params[builder_field] = base64_to_uploadedfile(asset_api_params[builder_field])
+          return asset_api_params
+        end
+        params
+      end
+
+      def asset_with_images(params)
+        return params if params.nil? || !params.has_key?(:images_builder)
+
         asset_api_params = params
-        asset_api_params[builder_field] = base64_to_uploadedfile(asset_api_params[builder_field])
-        return asset_api_params
+        asset_api_params[:images_builder] = asset_api_params[:images_builder].map do |image_builder|
+          image_builder[:tempfile] ? base64_to_uploadedfile(image_builder) : image_builder
+        end
+        asset_api_params
       end
-      params
-    end
 
-    def asset_with_images params
-      return params if params.nil? || !params.has_key?(:images_builder)
-      asset_api_params = params
-      asset_api_params[:images_builder] = asset_api_params[:images_builder].map do |image_builder|
-        image_builder[:tempfile] ? base64_to_uploadedfile(image_builder) : image_builder
+      def base64_to_uploadedfile(base64_image)
+        tempfile = base64_to_tempfile base64_image
+        converted_image = base64_image
+        converted_image[:tempfile] = tempfile
+        return { uploaded_data: ActionDispatch::Http::UploadedFile.new(converted_image) }
       end
-      asset_api_params
-    end
 
-    def base64_to_uploadedfile(base64_image)
-      tempfile = base64_to_tempfile base64_image
-      converted_image = base64_image
-      converted_image[:tempfile] = tempfile
-      return {uploaded_data: ActionDispatch::Http::UploadedFile.new(converted_image)}
-    end
+      def base64_to_tempfile(base64_image)
+        base64_img_str = base64_image[:tempfile]
+        decoded_base64_str = Base64.decode64(base64_img_str)
+        tempfile = Tempfile.new(base64_image[:filename])
+        tempfile.write(decoded_base64_str.encode("ascii-8bit").force_encoding("utf-8"))
+        tempfile.rewind
+        tempfile
+      end
 
-    def base64_to_tempfile base64_image
-      base64_img_str = base64_image[:tempfile]
-      decoded_base64_str = Base64.decode64(base64_img_str)
-      tempfile = Tempfile.new(base64_image[:filename])
-      tempfile.write(decoded_base64_str.encode("ascii-8bit").force_encoding("utf-8"))
-      tempfile.rewind
-      tempfile
-    end
     private
 
-    def extract_associated_classname(object, method_or_relation, conditions)
-      if is_a_relation?(method_or_relation)
-        method_or_relation.blank? ? '' : method_or_relation.where(conditions).first.class
-      else
-        object.send(method_or_relation).where(conditions).first.class
+      def extract_associated_classname(object, method_or_relation, conditions)
+        if is_a_relation?(method_or_relation)
+          method_or_relation.blank? ? "" : method_or_relation.where(conditions).first.class
+        else
+          object.send(method_or_relation).where(conditions).first.class
+        end
       end
-    end
 
-    def is_a_relation?(method_or_relation)
-      method_or_relation.kind_of?(ActiveRecord::Relation)
-    end
-
-
-    def parser_params(params)
-      parsed_params = {}
-      params.map do |k,v|
-        parsed_params[k.to_sym] = v if ALLOWED_PARAMETERS.include?(k.to_sym)
+      def is_a_relation?(method_or_relation)
+        method_or_relation.kind_of?(ActiveRecord::Relation)
       end
-      parsed_params
-    end
 
-    def parser_params_by_type(class_type, params)
-      parsed_params = parser_params(params)
-      key = params[:key].to_sym if params[:key].present?
-      if key.present? && ALLOWED_KEY_PARAMETERS[class_type].include?(key)
-         parsed_params[key] = params[:id]
-      else
-         parsed_params[:id] = params[:id]
+      def parser_params(params)
+        parsed_params = {}
+        params.map do |k, v|
+          parsed_params[k.to_sym] = v if ALLOWED_PARAMETERS.include?(k.to_sym)
+        end
+        parsed_params
       end
-      parsed_params
-    end
 
-    def default_limit
-      20
-    end
-
-    def parse_content_type(content_type)
-      return nil if content_type.blank?
-      content_type.split(',').map do |content_type|
-        content_type.camelcase
+      def parser_params_by_type(class_type, params)
+        parsed_params = parser_params(params)
+        key = params[:key].to_sym if params[:key].present?
+        if key.present? && ALLOWED_KEY_PARAMETERS[class_type].include?(key)
+          parsed_params[key] = params[:id]
+        else
+          parsed_params[:id] = params[:id]
+        end
+        parsed_params
       end
-    end
 
-    def period(from_date, until_date)
-      begin_period = from_date.nil? ? Time.at(0).to_datetime : from_date
-      end_period = until_date.nil? ? DateTime.now : until_date
-      begin_period..end_period
-    end
+      def default_limit
+        20
+      end
 
-    def settings(owner)
-      blocks = owner.available_blocks(current_person)
-      settings = {:available_blocks => blocks}
-      settings
-    end
+      def parse_content_type(content_type)
+        return nil if content_type.blank?
 
+        content_type.split(",").map do |content_type|
+          content_type.camelcase
+        end
+      end
+
+      def period(from_date, until_date)
+        begin_period = from_date.nil? ? Time.at(0).to_datetime : from_date
+        end_period = until_date.nil? ? DateTime.now : until_date
+        begin_period..end_period
+      end
+
+      def settings(owner)
+        blocks = owner.available_blocks(current_person)
+        settings = { available_blocks: blocks }
+        settings
+      end
   end
 end

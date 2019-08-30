@@ -3,9 +3,9 @@ class CreateCategories < ActiveRecord::Migration
     create_table :categories do |t|
       t.column :name,      :string
       t.column :slug,      :string
-      t.column :path,      :text, :default => ''
+      t.column :path,      :text, default: ""
 
-      t.column :display_color,   :integer
+      t.column :display_color, :integer
 
       t.column :environment_id, :integer
       t.column :parent_id, :integer

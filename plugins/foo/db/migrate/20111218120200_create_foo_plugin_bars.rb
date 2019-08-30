@@ -5,6 +5,7 @@ class CreateFooPluginBars < ActiveRecord::Migration[5.1]
     end
     add_column :profiles, :bar_id, :integer
   end
+
   def self.down
     drop_table :foo_plugin_bars
     remove_column :profile, :bar_id

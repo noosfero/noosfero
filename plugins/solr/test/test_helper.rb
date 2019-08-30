@@ -1,12 +1,12 @@
 # Solr start/stop
 if not $test_helper_loaded
   ENV["RAILS_ENV"] = "test"
-	abort unless system 'rake -s solr:start'
-  at_exit { system 'rake -s solr:stop' }
+  abort unless system "rake -s solr:start"
+  at_exit { system "rake -s solr:stop" }
   $test_helper_loaded = true
 end
 
-require 'test_helper'
+require "test_helper"
 
 class ActsAsSolr::Post
   class << self
@@ -18,7 +18,6 @@ module ActsAsSolr::ParserMethods
 end
 
 class TestSolr
-
   def self.enable
     ActsAsSolr::Post.class_eval do
       def self.execute(*args)
@@ -32,7 +31,7 @@ class TestSolr
     end
 
     # clear index
-    ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
+    ActsAsSolr::Post.execute(Solr::Request::Delete.new(query: "*:*"))
 
     @solr_disabled = false
   end
@@ -53,7 +52,6 @@ class TestSolr
 
     @solr_disabled = true
   end
-
 end
 
 class ActiveSupport::TestCase

@@ -1,5 +1,4 @@
 class CreateDrivenSignupPluginToken < ActiveRecord::Migration[5.1]
-
   def change
     create_table :driven_signup_plugin_auths do |t|
       t.integer :environment_id
@@ -12,5 +11,4 @@ class CreateDrivenSignupPluginToken < ActiveRecord::Migration[5.1]
     add_index :driven_signup_plugin_auths, :token
     add_index :driven_signup_plugin_auths, [:environment_id, :token]
   end
-
 end

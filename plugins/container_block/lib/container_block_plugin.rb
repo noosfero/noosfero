@@ -1,5 +1,4 @@
 class ContainerBlockPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Container Block Plugin"
   end
@@ -17,7 +16,6 @@ class ContainerBlockPlugin < Noosfero::Plugin
   end
 
   def js_files
-    'container_block.js'
+    "container_block.js"
   end
-
 end

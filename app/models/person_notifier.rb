@@ -1,8 +1,7 @@
 # FIXME needed by test/units/application_helper.rb
-require_dependency 'application_helper'
+require_dependency "application_helper"
 
 class PersonNotifier
-
   def initialize(person)
     @person = person
   end
@@ -16,11 +15,12 @@ class PersonNotifier
   end
 
   def dispatch_notification_mail
-    Delayed::Job.enqueue(NotifyJob.new(@person.id), {:run_at => @person.notification_time.hours.from_now}) if @person.notification_time>0
+    Delayed::Job.enqueue(NotifyJob.new(@person.id), run_at: @person.notification_time.hours.from_now) if @person.notification_time > 0
   end
 
   def reschedule_next_notification_mail
     return nil unless @person.setting_changed?(:notification_time) || @person.setting_changed?(:last_notification)
+
     NotifyJob.find(@person.id).delete_all
     schedule_next_notification_mail
   end
@@ -32,7 +32,7 @@ class PersonNotifier
   def notify
     if @person.notification_time && @person.notification_time > 0
       notifications = @person.tracked_notifications.where("created_at > ?", notify_from)
-      tasks = Task.to(@person).without_spam.pending.where("created_at > ?", notify_from).order_by('created_at', 'asc')
+      tasks = Task.to(@person).without_spam.pending.where("created_at > ?", notify_from).order_by("created_at", "asc")
 
       if @person.valid?
         Noosfero.with_locale @person.environment.default_language do
@@ -52,12 +52,11 @@ class PersonNotifier
     end
 
     def perform
-      Person.find_each {|person| person.notifier.schedule_next_notification_mail }
+      Person.find_each { |person| person.notifier.schedule_next_notification_mail }
     end
   end
 
   class NotifyJob < Struct.new(:person_id)
-
     def self.exists?(person_id)
       !find(person_id).empty?
     end
@@ -69,11 +68,9 @@ class PersonNotifier
     def perform
       Person.find(person_id).notifier.notify
     end
-
   end
 
   class Mailer < ApplicationMailer
-
     helper ActionTrackerHelper
     helper do
       def render_activity(activity)
@@ -88,7 +85,7 @@ class PersonNotifier
     end
 
     def session
-      {:user_theme => nil}
+      { user_theme: nil }
     end
 
     def content_summary(person, notifications, tasks)
@@ -97,7 +94,7 @@ class PersonNotifier
         ApplicationMailer.default_url_options[:host] = person.environment.default_hostname
       end
 
-      @current_theme = 'default'
+      @current_theme = "default"
       @profile = person
       @recipient = @profile.nickname || @profile.name
       @notifications = notifications

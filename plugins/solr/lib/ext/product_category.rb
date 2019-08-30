@@ -1,6 +1,5 @@
-require_dependency 'product_category'
+require_dependency "product_category"
 
 class ProductCategory
-  after_save_reindex [:products], :with => :delayed_job
+  after_save_reindex [:products], with: :delayed_job
 end
-

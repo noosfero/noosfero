@@ -1,8 +1,7 @@
 class AddNewFeedStuff < ActiveRecord::Migration
-
   def self.up
-    add_column :blocks, :enabled, :boolean, :default => true
-    execute('update blocks set enabled = (1=1)')
+    add_column :blocks, :enabled, :boolean, default: true
+    execute("update blocks set enabled = (1=1)")
 
     add_column :blocks, :created_at, :datetime
     add_column :blocks, :updated_at, :datetime
@@ -14,8 +13,8 @@ class AddNewFeedStuff < ActiveRecord::Migration
     add_index :blocks, :type
 
     add_column :external_feeds, :error_message, :text
-    add_column :external_feeds, :update_errors, :integer, :default => 0
-    execute('update external_feeds set update_errors = 0')
+    add_column :external_feeds, :update_errors, :integer, default: 0
+    execute("update external_feeds set update_errors = 0")
 
     add_index :external_feeds, :enabled
     add_index :external_feeds, :fetched_at
@@ -35,6 +34,4 @@ class AddNewFeedStuff < ActiveRecord::Migration
     remove_column :external_feeds, :error_message
     remove_column :external_feeds, :update_errors
   end
-
 end
-

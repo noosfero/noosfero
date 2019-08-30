@@ -4,7 +4,7 @@ class RemovePublicArticle < ActiveRecord::Migration
   end
 
   def self.down
-    add_column :articles, :public_article, :boolean, :default => true
-    execute('update articles set public_article = (1>0)')
+    add_column :articles, :public_article, :boolean, default: true
+    execute("update articles set public_article = (1>0)")
   end
 end

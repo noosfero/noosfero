@@ -1,5 +1,4 @@
 module Categorization
-
   def add_category_to_object(category, object)
     if !self.where(object_id_column => object, :category_id => category).first
       connection.execute("insert into #{table_name} (category_id, #{object_id_column}) values(#{category.id}, #{object.id})")
@@ -17,5 +16,4 @@ module Categorization
   def remove_all_for(object)
     self.where(object_id_column => object.id).delete_all
   end
-
 end

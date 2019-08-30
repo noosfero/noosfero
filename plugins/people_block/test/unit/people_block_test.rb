@@ -1,96 +1,82 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class PeopleBlockTest < ActionView::TestCase
-
-  should 'inherit from Block' do
+  should "inherit from Block" do
     assert_kind_of Block, PeopleBlock.new
   end
 
-
-  should 'declare its default title' do
+  should "declare its default title" do
     assert_not_equal Block.new.default_title, PeopleBlock.new.default_title
   end
 
-
-  should 'describe itself' do
+  should "describe itself" do
     assert_not_equal Block.description, PeopleBlock.description
   end
 
-
-  should 'is editable' do
+  should "is editable" do
     block = PeopleBlock.new
     assert block.editable?
   end
 
-
-  should 'have field limit' do
+  should "have field limit" do
     block = PeopleBlock.new
     assert_respond_to block, :limit
   end
 
-
-  should 'default value of limit' do
+  should "default value of limit" do
     block = PeopleBlock.new
     assert_equal 6, block.limit
   end
 
-
-  should 'have field name' do
+  should "have field name" do
     block = PeopleBlock.new
     assert_respond_to block, :name
   end
 
-
-  should 'default value of name' do
+  should "default value of name" do
     block = PeopleBlock.new
     assert_equal "", block.name
   end
 
-
-  should 'have field address' do
+  should "have field address" do
     block = PeopleBlock.new
     assert_respond_to block, :address
   end
 
-
-  should 'default value of address' do
+  should "default value of address" do
     block = PeopleBlock.new
     assert_equal "", block.address
   end
 
-
-  should 'prioritize profiles with image by default' do
+  should "prioritize profiles with image by default" do
     assert PeopleBlock.new.prioritize_profiles_with_image
   end
 
-
-  should 'respect limit when listing people' do
+  should "respect limit when listing people" do
     env = fast_create(Environment)
 
-    p1 = create_user('p1', environment: env, activated_at: DateTime.now).person
-    p2 = create_user('p2', environment: env, activated_at: DateTime.now).person
-    p3 = create_user('p3', environment: env, activated_at: DateTime.now).person
-    p4 = create_user('p4', environment: env, activated_at: DateTime.now).person
+    p1 = create_user("p1", environment: env, activated_at: DateTime.now).person
+    p2 = create_user("p2", environment: env, activated_at: DateTime.now).person
+    p3 = create_user("p3", environment: env, activated_at: DateTime.now).person
+    p4 = create_user("p4", environment: env, activated_at: DateTime.now).person
 
-    block = PeopleBlock.new(:limit => 3)
+    block = PeopleBlock.new(limit: 3)
     block.stubs(:owner).returns(env)
 
     assert_equal 3, block.profile_list.size
   end
 
-
-  should 'accept a limit of people to be displayed' do
+  should "accept a limit of people to be displayed" do
     block = PeopleBlock.new
     block.limit = 20
     assert_equal 20, block.limit
   end
 
-
-  should 'count number of public and private people' do
+  should "count number of public and private people" do
     owner = fast_create(Environment)
 
-    private_p = fast_create(Person, :access => Entitlement::Levels.levels[:related], :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    public_p = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    private_p = fast_create(Person, access: Entitlement::Levels.levels[:related], environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    public_p = fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     friend = fast_create(Person)
     friend.add_friend(private_p)
@@ -102,11 +88,10 @@ class PeopleBlockTest < ActionView::TestCase
     assert_equal 2, block.profile_count(friend)
   end
 
-
-  should 'not count number of invisible people' do
+  should "not count number of invisible people" do
     owner = fast_create(Environment)
-    private_p = fast_create(Person, :visible => false, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    public_p = fast_create(Person, :visible => true, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    private_p = fast_create(Person, visible: false, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    public_p = fast_create(Person, visible: true, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
@@ -115,11 +100,11 @@ class PeopleBlockTest < ActionView::TestCase
   end
 
   protected
-  include NoosferoTestHelper
 
+    include NoosferoTestHelper
 end
 
-require 'boxes_helper'
+require "boxes_helper"
 
 class PeopleBlockViewTest < ActionView::TestCase
   include BoxesHelper
@@ -128,10 +113,10 @@ class PeopleBlockViewTest < ActionView::TestCase
     view.stubs(:user).returns(nil)
   end
 
-  should 'list people from environment' do
+  should "list people from environment" do
     owner = fast_create(Environment)
-    person1 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    person2 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person1 = fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person2 = fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = PeopleBlock.new
 
@@ -149,23 +134,23 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'link to "all people" on people block' do
     env = fast_create(Environment)
-    fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     block = PeopleBlock.new
     block.expects(:owner).returns(env).at_least_once
 
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     render_block_footer(block)
-    assert_select 'a.view-all' do |elements|
+    assert_select "a.view-all" do |elements|
       assert_select "[href=\"/search/people\"]"
     end
   end
 
   should 'show link to "all people" on friends block' do
     env = fast_create(Environment)
-    profile = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    friend = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    friend = fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     profile.add_friend(friend)
     profile.save!
     block = FriendsBlock.new
@@ -179,9 +164,9 @@ class PeopleBlockViewTest < ActionView::TestCase
 
   should 'show link to "all people" on members block' do
     env = fast_create(Environment)
-    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    relation = RoleAssignment.new(:resource_id => profile.id, :resource_type => 'Profile', :role_id => 3)
+    profile = fast_create(Community, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    relation = RoleAssignment.new(resource_id: profile.id, resource_type: "Profile", role_id: 3)
     relation.accessor = member
     relation.save
     block = MembersBlock.new
@@ -202,10 +187,9 @@ class PeopleBlockViewTest < ActionView::TestCase
     assert_equal "\n", render_block_footer(block)
   end
 
-
   should 'Not show link to "all members" if the members block is empty' do
     env = fast_create(Community)
-    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     block = MembersBlock.new
     block.expects(:owner).returns(profile).at_least_once
 
@@ -258,21 +242,21 @@ class PeopleBlockViewTest < ActionView::TestCase
   #   assert a1 > a2*NON_LINEAR_FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{NON_LINEAR_FACTOR}"
   # end
 
-  should 'list people api content' do
+  should "list people api content" do
     owner = fast_create(Environment)
-    person1 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    person2 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person1 = fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person2 = fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
     json = block.api_content
-    assert_equivalent [person1.identifier, person2.identifier], json["people"].map {|p| p[:identifier]}
+    assert_equivalent [person1.identifier, person2.identifier], json["people"].map { |p| p[:identifier] }
   end
 
-  should 'limit people list in api content' do
+  should "limit people list in api content" do
     owner = fast_create(Environment)
     5.times do
-      fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+      fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     end
     block = PeopleBlock.new(limit: 3)
     block.expects(:owner).returns(owner.reload).at_least_once
@@ -281,20 +265,20 @@ class PeopleBlockViewTest < ActionView::TestCase
     assert_equal 5, json["#"]
   end
 
-  should 'not list person template from environment' do
+  should "not list person template from environment" do
     owner = fast_create(Environment)
-    person1 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    person2 = fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    template = fast_create(Person, :environment_id => owner.id, is_template: true, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person1 = fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person2 = fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    template = fast_create(Person, environment_id: owner.id, is_template: true, user_id: fast_create(User, activated_at: DateTime.now).id)
     block = PeopleBlock.new
     block.expects(:owner).returns(owner).at_least_once
     assert_equal 2, block.profile_list.count
   end
 
-  should 'return people randomically in api content' do
+  should "return people randomically in api content" do
     owner = fast_create(Environment)
     5.times do
-      fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+      fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     end
     block = PeopleBlock.new(limit: 3)
     block.expects(:owner).returns(owner.reload).at_least_once
@@ -304,21 +288,21 @@ class PeopleBlockViewTest < ActionView::TestCase
     assert !(json_response_1 == json_response_2 && json_response_2 == json_response_3)
   end
 
-  should 'return people in order of name in api content' do
+  should "return people in order of name in api content" do
     owner = fast_create(Environment)
     3.times do
-      fast_create(Person, :environment_id => owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+      fast_create(Person, environment_id: owner.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     end
     block = PeopleBlock.new(limit: 3)
     block.expects(:owner).returns(owner.reload).at_least_once
     json_response = block.api_content
-    assert (json_response['people'][0][:name] < json_response['people'][1][:name]) && (json_response['people'][1][:name] < json_response['people'][2][:name])
+    assert (json_response["people"][0][:name] < json_response["people"][1][:name]) && (json_response["people"][1][:name] < json_response["people"][2][:name])
   end
 
-  should 'not list inactive people' do
+  should "not list inactive people" do
     owner = fast_create(Environment)
-    person1 = create_user('john', environment: owner).person
-    person2 = create_user('andrew', environment: owner).person
+    person1 = create_user("john", environment: owner).person
+    person2 = create_user("andrew", environment: owner).person
     person2.user.deactivate
     person2.reload
     block = PeopleBlock.new

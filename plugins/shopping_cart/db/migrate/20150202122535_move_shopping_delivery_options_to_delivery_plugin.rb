@@ -6,7 +6,7 @@ class MoveShoppingDeliveryOptionsToDeliveryPlugin < ActiveRecord::Migration
 
       free_over_price = settings.free_delivery_price
       settings.delivery_options.each do |name, price|
-        enterprise.delivery_methods.create! name: name, fixed_cost: price.to_f, delivery_type: 'deliver', free_over_price: free_over_price
+        enterprise.delivery_methods.create! name: name, fixed_cost: price.to_f, delivery_type: "deliver", free_over_price: free_over_price
       end
 
       settings.free_delivery_price = nil

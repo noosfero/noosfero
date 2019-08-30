@@ -1,7 +1,6 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class MetadataScopesTest < ActiveSupport::TestCase
-
   class FooPlugin < Noosfero::Plugin; end
   class Foo; end
 
@@ -12,7 +11,7 @@ class MetadataScopesTest < ActiveSupport::TestCase
     Foo.stubs(:attr_accessible)
   end
 
-  should 'return all profiles that defined a metadata' do
+  should "return all profiles that defined a metadata" do
     @profile1.metadata[:attr] = true; @profile1.save
     @profile2.metadata[:not_attr] = true; @profile2.save
     @profile3.metadata[:attr] = true; @profile3.save
@@ -20,7 +19,7 @@ class MetadataScopesTest < ActiveSupport::TestCase
     assert_equivalent [@profile1, @profile3], Profile.has_metadata(:attr)
   end
 
-  should 'return profiles with metadata that matches a value' do
+  should "return profiles with metadata that matches a value" do
     @profile1.metadata[:attr] = true; @profile1.save
     @profile2.metadata[:attr] = true
     @profile2.metadata[:not_attr] = false; @profile2.save
@@ -31,19 +30,19 @@ class MetadataScopesTest < ActiveSupport::TestCase
                       Profile.with_metadata(attr: true, not_attr: false)
   end
 
-  should 'return profiles with namespaced metadata that matches a value' do
+  should "return profiles with namespaced metadata that matches a value" do
     Noosfero::Plugin::Metadata.new(@profile1, FooPlugin, attr: true).save!
     Noosfero::Plugin::Metadata.new(@profile3, FooPlugin, attr: true,
-                                   not_attr: false).save!
+                                                         not_attr: false).save!
 
     assert_equivalent [@profile1, @profile3],
                       Profile.with_plugin_metadata(FooPlugin, attr: true)
     assert_equivalent [@profile3],
                       Profile.with_plugin_metadata(FooPlugin, attr: true,
-                                                   not_attr: false)
+                                                              not_attr: false)
   end
 
-  should 'define getters and setters for each metadata item' do
+  should "define getters and setters for each metadata item" do
     Foo.stubs(:scope) # mocks ActiveRecord methods
     Foo.class_eval do
       include MetadataScopes
@@ -59,5 +58,4 @@ class MetadataScopesTest < ActiveSupport::TestCase
     assert foo.respond_to? :item2
     assert foo.respond_to? :item2=
   end
-
 end

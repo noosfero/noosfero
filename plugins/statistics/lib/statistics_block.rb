@@ -1,13 +1,12 @@
 class StatisticsBlock < Block
-
-  settings_items :community_counter, :default => false
-  settings_items :user_counter, :default => true
-  settings_items :enterprise_counter, :default => false
-  settings_items :product_counter, :default => false
-  settings_items :category_counter, :default => false
-  settings_items :tag_counter, :default => true
-  settings_items :comment_counter, :default => true
-  settings_items :hit_counter, :default => false
+  settings_items :community_counter, default: false
+  settings_items :user_counter, default: true
+  settings_items :enterprise_counter, default: false
+  settings_items :product_counter, default: false
+  settings_items :category_counter, default: false
+  settings_items :tag_counter, default: true
+  settings_items :comment_counter, default: true
+  settings_items :hit_counter, default: false
   settings_items :templates_ids_counter, type: Hash, default: {}
 
   attr_accessible :comment_counter, :community_counter, :user_counter, :enterprise_counter, :product_counter, :category_counter, :tag_counter, :hit_counter, :templates_ids_counter
@@ -17,19 +16,19 @@ class StatisticsBlock < Block
   ENTERPRISE_COUNTERS = [:user_counter, :tag_counter, :comment_counter, :hit_counter]
 
   def self.description
-    c_('Statistics')
+    c_("Statistics")
   end
 
   def default_title
-    _('Statistics for %s') % owner.name
+    _("Statistics for %s") % owner.name
   end
 
-  def is_visible? counter
+  def is_visible?(counter)
     value = self.send(counter)
-    value == '1' || value == true
+    value == "1" || value == true
   end
 
-  def is_counter_available? counter
+  def is_counter_available?(counter)
     if owner.kind_of?(Environment)
       true
     elsif owner.kind_of?(Person)
@@ -39,11 +38,10 @@ class StatisticsBlock < Block
     elsif owner.kind_of?(Enterprise)
       ENTERPRISE_COUNTERS.include?(counter)
     end
-
   end
 
   def help
-    _('This block presents some statistics about your context.')
+    _("This block presents some statistics about your context.")
   end
 
   def timeout
@@ -64,8 +62,8 @@ class StatisticsBlock < Block
     self.environment.community_templates
   end
 
-  def is_template_counter_active? template_id
-    self.templates_ids_counter[template_id.to_s.to_sym].to_s == 'true'
+  def is_template_counter_active?(template_id)
+    self.templates_ids_counter[template_id.to_s.to_sym].to_s == "true"
   end
 
   def template_counter_count(template_id)
@@ -93,7 +91,8 @@ class StatisticsBlock < Block
   end
 
   def products
-    return [] unless environment.plugin_enabled?('ProductsPlugin')
+    return [] unless environment.plugin_enabled?("ProductsPlugin")
+
     if owner.kind_of?(Environment)
       owner.products.where("profiles.enabled = true and profiles.visible = true").count
     elsif owner.kind_of?(Enterprise)
@@ -149,5 +148,4 @@ class StatisticsBlock < Block
       0
     end
   end
-
 end

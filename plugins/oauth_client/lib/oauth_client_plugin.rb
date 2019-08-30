@@ -1,7 +1,6 @@
-require 'omniauth/strategies/noosfero_oauth2'
+require "omniauth/strategies/noosfero_oauth2"
 
 class OauthClientPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Oauth Client Plugin"
   end
@@ -13,7 +12,7 @@ class OauthClientPlugin < Noosfero::Plugin
   def login_extra_contents
     plugin = self
     proc do
-      render :partial => 'auth/oauth_login', :locals => {:providers => environment.oauth_providers.enabled}
+      render partial: "auth/oauth_login", locals: { providers: environment.oauth_providers.enabled }
     end
   end
 
@@ -22,29 +21,29 @@ class OauthClientPlugin < Noosfero::Plugin
 
     proc do
       if plugin.context.session[:oauth_data].present?
-        render :partial => 'account/oauth_signup'
+        render partial: "account/oauth_signup"
       else
-        ''
+        ""
       end
     end
   end
 
   PROVIDERS = {
-    :facebook => {
-      :name => 'Facebook',
-      :info_fields => 'name,email'
+    facebook: {
+      name: "Facebook",
+      info_fields: "name,email"
     },
-    :google_oauth2 => {
-      :name => 'Google'
+    google_oauth2: {
+      name: "Google"
     },
-    :noosfero_oauth2 => {
-      :name => 'Noosfero'
+    noosfero_oauth2: {
+      name: "Noosfero"
     },
-    :github => {
-      :name => 'Github'
+    github: {
+      name: "Github"
     },
-    :twitter => {
-      :name => 'Twitter'
+    twitter: {
+      name: "Twitter"
     }
   }
 
@@ -60,14 +59,14 @@ class OauthClientPlugin < Noosfero::Plugin
     PROVIDERS.each do |provider, options|
       setup = lambda { |env|
         request = Rack::Request.new(env)
-        strategy = env['omniauth.strategy']
+        strategy = env["omniauth.strategy"]
 
         Noosfero::MultiTenancy.setup!(request.host)
         domain = Domain.by_name(request.host)
         environment = domain.environment rescue Environment.default
 
-        provider_id = request.params['id']
-        provider_id ||= request.session['omniauth.params']['id'] if request.session['omniauth.params']
+        provider_id = request.params["id"]
+        provider_id ||= request.session["omniauth.params"]["id"] if request.session["omniauth.params"]
         provider = environment.oauth_providers.find(provider_id)
         strategy.options.merge! consumer_key: provider.client_id, consumer_secret: provider.client_secret
         strategy.options.merge! client_id: provider.client_id, client_secret: provider.client_secret
@@ -77,20 +76,20 @@ class OauthClientPlugin < Noosfero::Plugin
         request.session[:provider_id] = provider_id
       }
 
-      provider provider, :setup => setup,
-        :path_prefix => '/plugin/oauth_client',
-        :callback_path => "/plugin/oauth_client/public/callback/#{provider}",
-        :client_options => { :connection_opts => { :proxy => ENV["OAUTH_HTTP_PROXY"] } }
+      provider provider, setup: setup,
+                         path_prefix: "/plugin/oauth_client",
+                         callback_path: "/plugin/oauth_client/public/callback/#{provider}",
+                         client_options: { connection_opts: { proxy: ENV["OAUTH_HTTP_PROXY"] } }
     end
 
     unless Rails.env.production?
-      provider :developer, :path_prefix => "/plugin/oauth_client", :callback_path => "/plugin/oauth_client/public/callback/developer"
+      provider :developer, path_prefix: "/plugin/oauth_client", callback_path: "/plugin/oauth_client/public/callback/developer"
     end
   end
 
   def account_controller_filters
     {
-      type: 'before_action', method_name: 'check_email_on_oauth_signup',
+      type: "before_action", method_name: "check_email_on_oauth_signup",
       options: { only: :signup },
       block: proc {
         auth = session[:oauth_data]

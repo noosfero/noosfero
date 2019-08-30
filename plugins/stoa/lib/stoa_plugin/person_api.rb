@@ -8,11 +8,11 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def first_name
-    name.split(' ').first
+    name.split(" ").first
   end
 
   def surname
-    name.split(' ',2).last
+    name.split(" ", 2).last
   end
 
   def homepage
@@ -20,7 +20,7 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def birth_date
-    object.birth_date.present? ? object.birth_date.strftime('%F') : nil
+    object.birth_date.present? ? object.birth_date.strftime("%F") : nil
   end
 
   def image_base64
@@ -28,23 +28,23 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def tags
-    articles.published.tag_counts.order('count desc').limit(10).inject({}) do |memo,tag|
+    articles.published.tag_counts.order("count desc").limit(10).inject({}) do |memo, tag|
       memo[tag.name] = tag.count
       memo
     end
   end
 
   def communities
-    object.communities.accessible_to(user).map {|community| {:url => profile_homepage(context, community), :name => community.name}}
+    object.communities.accessible_to(user).map { |community| { url: profile_homepage(context, community), name: community.name } }
   end
 
   private
 
-  def profile_homepage(context, profile)
-    if context.respond_to?(:url_for)
-      context.url_for(profile.url)
-    else
-      profile.environment.top_url + '/' + profile.identifier
+    def profile_homepage(context, profile)
+      if context.respond_to?(:url_for)
+        context.url_for(profile.url)
+      else
+        profile.environment.top_url + "/" + profile.identifier
+      end
     end
-  end
 end

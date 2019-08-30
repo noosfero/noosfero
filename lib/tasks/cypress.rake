@@ -7,7 +7,7 @@ namespace :cypress do
     `rails s -b 0.0.0.0 -d -e test -P /tmp/noosfero.pid`
   end
 
-  task :prepareDB => :environment do
+  task prepareDB: :environment do
     p "Preparing test DB to run cypress tests"
     Rake::Task["cypress:stop"].invoke
     Rake::Task["db:test:prepare"].invoke

@@ -1,20 +1,19 @@
 require_relative "../test_helper"
 
 class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
-
-  should 'inherit from ProfileListBlock' do
+  should "inherit from ProfileListBlock" do
     assert_kind_of ProfileListBlock, FavoriteEnterprisesBlock.new
   end
 
-  should 'declare its default title' do
+  should "declare its default title" do
     assert_not_equal ProfileListBlock.new.default_title, FavoriteEnterprisesBlock.new.default_title
   end
 
-  should 'describe itself' do
+  should "describe itself" do
     assert_not_equal ProfileListBlock.description, FavoriteEnterprisesBlock.description
   end
 
-  should 'list owner favorite enterprises' do
+  should "list owner favorite enterprises" do
     owner = fast_create(Person)
     block = FavoriteEnterprisesBlock.new
     block.stubs(:owner).returns(owner)
@@ -25,11 +24,10 @@ class FavoriteEnterprisesBlockTest < ActiveSupport::TestCase
     owner.favorite_enterprises << e1
     owner.favorite_enterprises << e2
 
-    assert_equivalent [e1,e2], block.profiles
+    assert_equivalent [e1, e2], block.profiles
   end
 
-  should 'have Enterprise as base_class' do
+  should "have Enterprise as base_class" do
     assert_equal Enterprise, FavoriteEnterprisesBlock.new.send(:base_class)
   end
-
 end

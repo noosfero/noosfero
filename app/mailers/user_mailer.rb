@@ -1,5 +1,4 @@
 class UserMailer < ApplicationMailer
-
   include EmailTemplateHelper
 
   def activation_email_notify(user)
@@ -9,12 +8,12 @@ class UserMailer < ApplicationMailer
     @name = user.name
     @email = user_email
     @webmail = MailConf.webmail_url(user.login, user.email_domain)
-    @url = url_for(:host => user.environment.default_hostname, :controller => 'home')
+    @url = url_for(host: user.environment.default_hostname, controller: "home")
 
     mail(
       to: user_email,
       from: "#{user.environment.name} <#{user.environment.noreply_email}>".html_safe,
-      subject: _("[%{environment}] Welcome to %{environment} mail!").html_safe % { :environment => user.environment.name }
+      subject: _("[%{environment}] Welcome to %{environment} mail!").html_safe % { environment: user.environment.name }
     )
   end
 
@@ -40,10 +39,10 @@ class UserMailer < ApplicationMailer
   def signup_welcome_email(user)
     self.environment = user.environment
 
-    @body = user.environment.signup_welcome_text_body.gsub('{user_name}', user.name)
+    @body = user.environment.signup_welcome_text_body.gsub("{user_name}", user.name)
     email_subject = user.environment.signup_welcome_text_subject
     mail(
-      content_type: 'text/html',
+      content_type: "text/html",
       to: user.email,
       from: "#{user.environment.name} <#{user.environment.noreply_email}>".html_safe,
       subject: email_subject.blank? ? _("Welcome to environment %s").html_safe % [user.environment.name] : email_subject,
@@ -62,7 +61,7 @@ class UserMailer < ApplicationMailer
     @communities_suggestions = user.suggested_communities.sample(3)
 
     mail(
-      content_type: 'text/html',
+      content_type: "text/html",
       to: user.email,
       from: "#{user.environment.name} <#{user.environment.noreply_email}>".html_safe,
       subject: _("[%s] What about grow up your network?").html_safe % user.environment.name

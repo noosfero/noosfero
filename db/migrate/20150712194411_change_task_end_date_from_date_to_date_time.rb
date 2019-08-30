@@ -1,7 +1,6 @@
 class ChangeTaskEndDateFromDateToDateTime < ActiveRecord::Migration
-
   def up
-      change_column :tasks, :end_date, :datetime
+    change_column :tasks, :end_date, :datetime
   end
 
   def down

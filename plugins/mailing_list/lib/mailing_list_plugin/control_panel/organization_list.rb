@@ -1,24 +1,23 @@
 module MailingListPlugin::ControlPanel
   class OrganizationList < ControlPanel::Entry
     class << self
-
       def name
-        _('Mailing List')
+        _("Mailing List")
       end
 
       def section
-        'profile'
+        "profile"
       end
 
       def icon
-        'envelope-square'
+        "envelope-square"
       end
 
       def url(profile)
-        {:controller => 'mailing_list_plugin_myprofile_organization', :action => 'edit'}
+        { controller: "mailing_list_plugin_myprofile_organization", action: "edit" }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.organization?
       end
     end

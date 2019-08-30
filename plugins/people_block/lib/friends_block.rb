@@ -1,25 +1,25 @@
 class FriendsBlock < PeopleBlockBase
-
   def self.description
-    c_('Friends')
+    c_("Friends")
   end
 
   def help
-    _('Clicking a friend takes you to his/her homepage')
+    _("Clicking a friend takes you to his/her homepage")
   end
 
   def default_title
-    return _('friends') if profile_count == 0
-    n_('{#} friend', '{#} friends', profile_count)
+    return _("friends") if profile_count == 0
+
+    n_("{#} friend", "{#} friends", profile_count)
   end
 
   def base_profiles
     owner.friends
   end
 
-  def profiles(user=nil)
+  def profiles(user = nil)
     profiles = super
-    profiles.order('RANDOM()')
+    profiles.order("RANDOM()")
   end
 
   def suggestions
@@ -27,7 +27,6 @@ class FriendsBlock < PeopleBlockBase
   end
 
   def self.expire_on
-    { :profile => [:profile] }
+    { profile: [:profile] }
   end
-
 end

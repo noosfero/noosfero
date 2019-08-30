@@ -1,9 +1,8 @@
-require_dependency 'comment'
+require_dependency "comment"
 
 class Comment
-
-  has_many :read_comments, class_name:  'MarkCommentAsReadPlugin::ReadComments'
-  has_many :people, through:  :read_comments
+  has_many :read_comments, class_name: "MarkCommentAsReadPlugin::ReadComments"
+  has_many :people, through: :read_comments
 
   def mark_as_read(person)
     people << person
@@ -21,5 +20,4 @@ class Comment
   def self.marked_as_read(person)
     joins(:read_comments).where(author_id: person.id)
   end
-
 end

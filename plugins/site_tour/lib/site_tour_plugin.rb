@@ -1,7 +1,6 @@
 class SiteTourPlugin < Noosfero::Plugin
-
   def self.plugin_name
-    'SiteTourPlugin'
+    "SiteTourPlugin"
   end
 
   def self.plugin_description
@@ -13,12 +12,12 @@ class SiteTourPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['intro.min.js', 'main.js']
+    ["intro.min.js", "main.js"]
   end
 
   def user_data_extras
     proc do
-      logged_in? ? {:site_tour_plugin_actions => user.site_tour_plugin_actions}:{}
+      logged_in? ? { site_tour_plugin_actions: user.site_tour_plugin_actions } : {}
     end
   end
 
@@ -27,9 +26,9 @@ class SiteTourPlugin < Noosfero::Plugin
       tour_file = "/plugins/site_tour/tour/#{language}/tour.js"
       js_file = File.exists?(Rails.root.join("public#{tour_file}").to_s) ? tour_file : ""
       settings = Noosfero::Plugin::Settings.new(environment, SiteTourPlugin)
-      actions = (settings.actions||[]).select {|action| action[:language] == language}
+      actions = (settings.actions || []).select { |action| action[:language] == language }
 
-      render(:file => 'tour_actions', :locals => { :actions => actions, :group_triggers => settings.group_triggers, :js_file => js_file})
+      render(file: "tour_actions", locals: { actions: actions, group_triggers: settings.group_triggers, js_file: js_file })
     end
   end
 
@@ -40,5 +39,4 @@ class SiteTourPlugin < Noosfero::Plugin
   def self.actions_csv_default_setting
     'en,tour_plugin,.site-tour-plugin_tour-block .tour-button,"Click to start tour!"'
   end
-
 end

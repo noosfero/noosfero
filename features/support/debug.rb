@@ -1,17 +1,17 @@
-
 # `LAUNCHY=1 cucumber` to open page on failure
 After do |scenario|
-  save_and_open_page if ENV['LAUNCHY'] and scenario.failed?
+  save_and_open_page if ENV["LAUNCHY"] && scenario.failed?
 end
 
 # `FAST=1 cucumber` to stop on first failure
 After do |scenario|
-  Cucumber.wants_to_quit = ENV['FAST'] and scenario.failed?
+  (Cucumber.wants_to_quit = ENV["FAST"]) && scenario.failed?
 end
 
 # `DEBUG=1 cucumber` to drop into debugger
 Before do |scenario|
-  next unless ENV['DEBUG']
+  next unless ENV["DEBUG"]
+
   puts "Debugging scenario: #{scenario.title}"
   if respond_to? :debugger
     debugger
@@ -23,6 +23,5 @@ Before do |scenario|
 end
 
 Then /^I open pry$/ do
-  require'pry';binding.pry
+  require"pry"; binding.pry
 end
-

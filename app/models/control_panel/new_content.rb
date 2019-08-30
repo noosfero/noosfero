@@ -1,15 +1,15 @@
 class ControlPanel::NewContent < ControlPanel::Entry
   class << self
     def name
-      _('New')
+      _("New")
     end
 
     def section
-      'content'
+      "content"
     end
 
     def icon
-      'plus'
+      "plus"
     end
 
     def priority
@@ -17,18 +17,15 @@ class ControlPanel::NewContent < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('content'), _('create')]
+      [_("content"), _("create")]
     end
 
     def url(profile)
-      {controller: 'cms', action: 'new', cms: true}
+      { controller: "cms", action: "new", cms: true }
     end
 
     def options
-      {class: 'open-modal'}
+      { class: "open-modal" }
     end
   end
 end
-
-
-

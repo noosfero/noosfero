@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class CertifierTest < ActiveSupport::TestCase
   def setup
@@ -8,7 +8,7 @@ class CertifierTest < ActiveSupport::TestCase
 
   attr_accessor :environment
 
-  should 'reindex products after saving' do
+  should "reindex products after saving" do
     product = mock
     Certifier.any_instance.stubs(:products).returns([product])
     Certifier.expects(:solr_batch_add).with(includes(product))
@@ -16,4 +16,3 @@ class CertifierTest < ActiveSupport::TestCase
     cert.save!
   end
 end
-

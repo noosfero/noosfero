@@ -1,5 +1,4 @@
 class WorkAssignmentPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Work Assignment"
   end
@@ -9,8 +8,8 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   end
 
   def self.can_download_submission?(user, submission)
-      submission.published? || (user && (submission.author == user || user.has_permission?('view_private_content', submission.profile) ||
-      submission.display_to?(user)))
+    submission.published? || (user && (submission.author == user || user.has_permission?("view_private_content", submission.profile) ||
+    submission.display_to?(user)))
   end
 
   def self.is_submission?(content)
@@ -45,10 +44,10 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       end
     end
 
-    { :type => 'before_action',
-      :method_name => 'work_assingment_only_admin_or_owner_download',
-      :options => {:only => 'view_page'},
-      :block => block }
+    { type: "before_action",
+      method_name: "work_assingment_only_admin_or_owner_download",
+      options: { only: "view_page" },
+      block: block }
   end
 
   def cms_controller_filters
@@ -56,28 +55,28 @@ class WorkAssignmentPlugin < Noosfero::Plugin
       if request.post? && params[:uploaded_files]
         email_notification = params[:article_email_notification]
         unless !email_notification || email_notification.empty?
-          email_contact = WorkAssignmentPlugin::EmailContact.new(:subject => @parent.name, :receiver => email_notification, :sender => user)
+          email_contact = WorkAssignmentPlugin::EmailContact.new(subject: @parent.name, receiver: email_notification, sender: user)
           WorkAssignmentPlugin::EmailContact::EmailSender.build_mail_message(email_contact, @uploaded_files)
           if email_contact.deliver
-            session[:notice] = _('Notification successfully sent')
+            session[:notice] = _("Notification successfully sent")
           else
-            session[:notice] = _('Notification not sent')
+            session[:notice] = _("Notification not sent")
           end
         end
       end
     end
 
-    { :type => 'after_action',
-      :method_name => 'send_email_after_upload_file',
-      :options => {:only => 'upload_files'},
-      :block => block }
+    { type: "after_action",
+      method_name: "send_email_after_upload_file",
+      options: { only: "upload_files" },
+      block: block }
   end
 
   def upload_files_extra_fields(article)
     proc do
       @article = Article.find_by id: article
       if params[:parent_id] && !@article.nil? && @article.type == "WorkAssignmentPlugin::WorkAssignment"
-        render :partial => 'notify_text_field',  :locals => { :size => '45'}
+        render partial: "notify_text_field",  locals: { size: "45" }
       end
     end
   end

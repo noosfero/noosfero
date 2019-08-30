@@ -1,8 +1,8 @@
 class SpammerLogger < Logger
-  @logpath = Rails.root.join('log', "#{ENV['RAILS_ENV']}_spammers.log")
+  @logpath = Rails.root.join("log", "#{ENV['RAILS_ENV']}_spammers.log")
   @logger = new(@logpath)
 
-  def self.log(spammer_ip, object=nil)
+  def self.log(spammer_ip, object = nil)
     if object
       if object.kind_of?(Comment)
         @logger << "[#{Time.now.strftime('%F %T %z')}] Comment-id: #{object.id} IP: #{spammer_ip}\n"
@@ -10,7 +10,7 @@ class SpammerLogger < Logger
         @logger << "[#{Time.now.strftime('%F %T %z')}] SuggestArticle-id: #{object.id} IP: #{spammer_ip}\n"
       end
     else
-        @logger << "[#{Time.now.strftime('%F %T %z')}] IP: #{spammer_ip}\n"
+      @logger << "[#{Time.now.strftime('%F %T %z')}] IP: #{spammer_ip}\n"
     end
   end
 
@@ -22,5 +22,4 @@ class SpammerLogger < Logger
     clean_log
     @logger = new(@logpath)
   end
-
 end

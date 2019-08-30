@@ -1,21 +1,20 @@
 class CustomField < ApplicationRecord
-
   attr_accessible :name, :default_value, :format, :extras, :customized_type, :active, :required, :signup, :environment, :moderation_task
   serialize :customized_type
   serialize :extras
-  has_many :custom_field_values, dependent:  :delete_all
+  has_many :custom_field_values, dependent: :delete_all
   belongs_to :environment, optional: true
 
   validates_presence_of :name, :format, :customized_type, :environment
   validate :related_to_other?
   validate :unique?
-  
+
   before_validation do |custom_field|
     custom_field.signup = true if custom_field.required
   end
 
   def unique?
-    if environment.custom_fields.any?{|cf| cf.name==name && cf.environment == environment && cf.customized_type==customized_type && new_record?}
+    if environment.custom_fields.any? { |cf| cf.name == name && cf.environment == environment && cf.customized_type == customized_type && new_record? }
       errors.add(:body, N_("There is a field with the same name for this type in this environment"))
       return false
     end
@@ -36,4 +35,3 @@ class CustomField < ApplicationRecord
     true
   end
 end
-

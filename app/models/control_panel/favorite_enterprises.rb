@@ -1,15 +1,15 @@
 class ControlPanel::FavoriteEnterprises < ControlPanel::Entry
   class << self
     def name
-      _('Favorite Enterprises')
+      _("Favorite Enterprises")
     end
 
     def section
-      'relationships'
+      "relationships"
     end
 
     def icon
-      'briefcase'
+      "briefcase"
     end
 
     def priority
@@ -17,11 +17,11 @@ class ControlPanel::FavoriteEnterprises < ControlPanel::Entry
     end
 
     def url(profile)
-      {:controller => 'favorite_enterprises', :action => 'index'}
+      { controller: "favorite_enterprises", action: "index" }
     end
 
-    def display?(user, profile, context={})
-      profile.person? && !profile.environment.enabled?('disable_asset_enterprises')
+    def display?(user, profile, context = {})
+      profile.person? && !profile.environment.enabled?("disable_asset_enterprises")
     end
   end
 end

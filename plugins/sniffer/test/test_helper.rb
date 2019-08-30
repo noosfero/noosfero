@@ -1,2 +1,1 @@
-require_relative '../../products/test/test_helper'
-
+require_relative "../../products/test/test_helper"

@@ -1,7 +1,6 @@
 require_relative "../test_helper"
 
 class TranslatableContentTest < ActiveSupport::TestCase
-
   class Content
     attr_accessor :parent, :profile
     include TranslatableContent
@@ -12,18 +11,17 @@ class TranslatableContentTest < ActiveSupport::TestCase
   end
   attr_reader :content
 
-  should 'be translatable if no parent' do
+  should "be translatable if no parent" do
     assert content.translatable?
   end
 
-  should 'not be translatable if parent is a forum' do
+  should "not be translatable if parent is a forum" do
     content.parent = Forum.new
     refute content.translatable?
   end
 
-  should 'be translatable if parent is not a forum' do
+  should "be translatable if parent is not a forum" do
     content.parent = Blog.new
     assert content.translatable?
   end
-
 end

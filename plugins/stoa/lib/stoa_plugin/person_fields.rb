@@ -10,22 +10,23 @@ module StoaPlugin::PersonFields
   COMPLETE = FULL - HEAVY
 
   FIELDS = {
-    'none' => {},
-    'essential' => ESSENTIAL,
-    'average' => AVERAGE,
-    'full' => FULL,
-    'complete' => COMPLETE
+    "none" => {},
+    "essential" => ESSENTIAL,
+    "average" => AVERAGE,
+    "full" => FULL,
+    "complete" => COMPLETE
   }
 
   private
 
-  def selected_fields(kind, user)
-    fields = FIELDS[kind] || FIELDS['essential']
-    return fields.reject { |field| !FIELDS['essential'].include?(field) } unless user.person.public_profile
-    fields.reject do |field|
-      !user.person.public_fields.include?(field) &&
-      !FIELDS['essential'].include?(field) &&
-      !CUSTOM.include?(field)
+    def selected_fields(kind, user)
+      fields = FIELDS[kind] || FIELDS["essential"]
+      return fields.reject { |field| !FIELDS["essential"].include?(field) } unless user.person.public_profile
+
+      fields.reject do |field|
+        !user.person.public_fields.include?(field) &&
+          !FIELDS["essential"].include?(field) &&
+          !CUSTOM.include?(field)
+      end
     end
-  end
 end

@@ -4,7 +4,7 @@ class CreateArticleFollowers < ActiveRecord::Migration
     add_timestamps :article_followers
     add_index :article_followers, :person_id
     add_index :article_followers, :article_id
-    add_index :article_followers, [:person_id, :article_id], :unique => true
+    add_index :article_followers, [:person_id, :article_id], unique: true
   end
 
   def self.down

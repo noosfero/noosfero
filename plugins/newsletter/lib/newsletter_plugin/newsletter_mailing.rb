@@ -1,5 +1,4 @@
 class NewsletterPlugin::NewsletterMailing < EnvironmentMailing
-
   attr_accessible :source, :person, :locale
 
   validates_presence_of :person
@@ -7,7 +6,7 @@ class NewsletterPlugin::NewsletterMailing < EnvironmentMailing
   after_create :replace_mailing_url
 
   def replace_mailing_url
-    self.update_attribute(:body, self.body.gsub('%7Bmailing_url%7D', self.url))
+    self.update_attribute(:body, self.body.gsub("%7Bmailing_url%7D", self.url))
   end
 
   def url
@@ -28,5 +27,4 @@ class NewsletterPlugin::NewsletterMailing < EnvironmentMailing
     end
     super
   end
-
 end

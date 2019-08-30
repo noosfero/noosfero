@@ -1,5 +1,4 @@
 class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
-
   # we work use frozen attributes
   self.default_delegate_enable = false
 
@@ -9,8 +8,8 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
     false
   end
 
-  has_many :cycle_products, foreign_key: :product_id, class_name: 'OrdersCyclePlugin::CycleProduct'
-  has_one  :cycle_product,  foreign_key: :product_id, class_name: 'OrdersCyclePlugin::CycleProduct'
+  has_many :cycle_products, foreign_key: :product_id, class_name: "OrdersCyclePlugin::CycleProduct"
+  has_one  :cycle_product,  foreign_key: :product_id, class_name: "OrdersCyclePlugin::CycleProduct"
   has_many :cycles, through: :cycle_products
   has_one  :cycle,  through: :cycle_product
 
@@ -22,31 +21,31 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
   has_one  :sources_supplier_product,  through: :from_product,  source: :sources_from_product
   # necessary only due to the override of sources_supplier_products, as rails somehow caches the old reference
   # copied from suppliers/lib/ext/product
-  has_many :supplier_products, -> { order 'id ASC' }, through: :sources_supplier_products, source: :from_product
-  has_one  :supplier_product, -> { order 'id ASC' },  through: :sources_supplier_product,  source: :from_product, autosave: true
-  has_many :suppliers, -> { distinct.order 'id ASC' }, through: :sources_supplier_products
-  has_one  :supplier, -> { order 'id ASC' }, through: :sources_supplier_product
+  has_many :supplier_products, -> { order "id ASC" }, through: :sources_supplier_products, source: :from_product
+  has_one  :supplier_product, -> { order "id ASC" },  through: :sources_supplier_product,  source: :from_product, autosave: true
+  has_many :suppliers, -> { distinct.order "id ASC" }, through: :sources_supplier_products
+  has_one  :supplier, -> { order "id ASC" }, through: :sources_supplier_product
 
   instance_exec &OrdersPlugin::Item::DefineTotals
   extend CurrencyFields::ClassMethods
   has_currency :buy_price
 
   # test this before use!
-  #validates_presence_of :cycle
+  # validates_presence_of :cycle
 
   # override SuppliersPlugin::BaseProduct
-  def self.search_scope scope, params
+  def self.search_scope(scope, params)
     scope = scope.from_supplier_id params[:supplier_id] if params[:supplier_id].present?
-    scope = scope.with_available(if params[:available] == 'true' then true else false end) if params[:available].present?
+    scope = scope.with_available(if params[:available] == "true" then true else false end) if params[:available].present?
     scope = scope.name_like params[:name] if params[:name].present?
     scope = scope.with_product_category_id params[:category_id] if params[:category_id].present?
     scope
   end
 
-  def self.create_from product, cycle
+  def self.create_from(product, cycle)
     op = self.new
 
-    product.attributes.except('id').each{ |a,v| op.send "#{a}=", v }
+    product.attributes.except("id").each { |a, v| op.send "#{a}=", v }
     op.freeze_default_attributes product
     op.profile = product.profile
     op.type = self.name
@@ -60,10 +59,12 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
   # always recalculate in case something has changed
   # FIXME: really? it is already copied!
   def margin_percentage
-    return super if price.nil? or buy_price.nil? or price.zero? or buy_price.zero?
+    return super if price.nil? || buy_price.nil? || price.zero? || buy_price.zero?
+
     ((price / buy_price) - 1) * 100
   end
-  def margin_percentage= value
+
+  def margin_percentage=(value)
     super value
     self.price = self.price_with_margins buy_price
   end
@@ -79,9 +80,9 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
   end
 
   FROOZEN_DEFAULT_ATTRIBUTES = DEFAULT_ATTRIBUTES
-  def freeze_default_attributes from_product
+  def freeze_default_attributes(from_product)
     FROOZEN_DEFAULT_ATTRIBUTES.each do |attr|
-      self.send "#{attr}=", from_product.send(attr) if from_product[attr] or from_product.respond_to? attr
+      self.send "#{attr}=", from_product.send(attr) if from_product[attr] || from_product.respond_to?(attr)
     end
   end
 
@@ -91,13 +92,13 @@ class OrdersCyclePlugin::OfferedProduct < SuppliersPlugin::BaseProduct
 
   protected
 
-  after_update :sync_ordered
-  def sync_ordered
-    return unless self.price_changed?
-    self.items.each do |item|
-      item.calculate_prices self.price
-      item.save!
-    end
-  end
+    after_update :sync_ordered
+    def sync_ordered
+      return unless self.price_changed?
 
+      self.items.each do |item|
+        item.calculate_prices self.price
+        item.save!
+      end
+    end
 end

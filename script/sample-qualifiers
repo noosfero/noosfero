@@ -1,23 +1,23 @@
 #!/usr/bin/env ruby
 
-require_relative '../config/environment'
+require_relative "../config/environment"
 include SampleData
 
-QUALIFIERS = ['Organic', 'Ecological', 'Biodynamic farming', 'Sustainable', 'Agroecological', 'Craft', 'Free as in freedom']
-CERTIFIERS = ['FBES', 'Colivre', 'Circuito Fora do Eixo', 'Instituto Paulo Freire', 'Free Software Foundation', 'Linux Foundation', 'GNU', 'Perl Foundation']
+QUALIFIERS = ["Organic", "Ecological", "Biodynamic farming", "Sustainable", "Agroecological", "Craft", "Free as in freedom"]
+CERTIFIERS = ["FBES", "Colivre", "Circuito Fora do Eixo", "Instituto Paulo Freire", "Free Software Foundation", "Linux Foundation", "GNU", "Perl Foundation"]
 
 printf "Creating qualifiers and certifiers: "
 CERTIFIERS.each do |certifier_name|
-  save Certifier.new(:name => certifier_name, :environment => $environment)
+  save Certifier.new(name: certifier_name, environment: $environment)
 end
 
 QUALIFIERS.each do |qualifier_name|
-  save Qualifier.new(:name => qualifier_name, :environment => $environment)
+  save Qualifier.new(name: qualifier_name, environment: $environment)
 end
 
 $environment.qualifiers.each do |qualifier|
-  $environment.certifiers.sort_by{rand}.slice(0, CERTIFIERS.size / 2).each do |certifier|
-    save QualifierCertifier.new(:qualifier => qualifier, :certifier => certifier)
+  $environment.certifiers.sort_by { rand }.slice(0, CERTIFIERS.size / 2).each do |certifier|
+    save QualifierCertifier.new(qualifier: qualifier, certifier: certifier)
   end
 end
 done

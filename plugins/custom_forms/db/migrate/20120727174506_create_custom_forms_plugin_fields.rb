@@ -9,7 +9,7 @@ class CreateCustomFormsPluginFields < ActiveRecord::Migration[5.1]
       t.float  :minimum
       t.float  :maximum
       t.references :form
-      t.boolean :mandatory, :default => false
+      t.boolean :mandatory, default: false
       t.boolean :multiple
       t.boolean :list
     end

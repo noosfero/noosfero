@@ -1,6 +1,5 @@
 class EnterpriseValidationController < MyProfileController
-
-  protect 'validate_enterprise', :profile
+  protect "validate_enterprise", :profile
 
   def index
     @pending_validations = profile.pending_validations
@@ -18,7 +17,7 @@ class EnterpriseValidationController < MyProfileController
     @pending = profile.find_pending_validation(params[:id])
     if @pending
       @pending.approve
-      redirect_to :action => 'view_processed', :id => @pending.code
+      redirect_to action: "view_processed", id: @pending.code
     else
       render_not_found
     end
@@ -31,9 +30,9 @@ class EnterpriseValidationController < MyProfileController
       @pending.reject_explanation = params[:reject_explanation]
       begin
         @pending.reject
-        redirect_to :action => 'view_processed', :id => @pending.code
+        redirect_to action: "view_processed", id: @pending.code
       rescue ActiveRecord::RecordInvalid
-        render :action => 'details'
+        render action: "details"
       end
     else
       render_not_found
@@ -55,9 +54,8 @@ class EnterpriseValidationController < MyProfileController
     @info = profile.validation_info
     if request.post?
       if @info.update(params[:info])
-        redirect_to :action => 'index'
+        redirect_to action: "index"
       end
     end
   end
-
 end

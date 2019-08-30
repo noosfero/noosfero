@@ -1,12 +1,11 @@
 class VideoPlugin::VideoGallery < Folder
-
   def self.type_name
-    _('Video Gallery')
+    _("Video Gallery")
   end
 
-  settings_items :thumbnail_width, :type => :integer, :default => 50
-  settings_items :thumbnail_height, :type => :integer, :default => 50
-  settings_items :videos_per_row, :type => :integer, :default => 5
+  settings_items :thumbnail_width, type: :integer, default: 50
+  settings_items :thumbnail_height, type: :integer, default: 50
+  settings_items :videos_per_row, type: :integer, default: 5
 
   validate :not_belong_to_blog
 
@@ -17,7 +16,7 @@ class VideoPlugin::VideoGallery < Folder
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :setting
 
-  xss_terminate :only => [ :body ], with: :white_list, on: :validation
+  xss_terminate only: [:body], with: :white_list, on: :validation
 
   include WhiteListFilter
   filter_iframes :body
@@ -26,18 +25,18 @@ class VideoPlugin::VideoGallery < Folder
   end
 
   def self.short_description
-    _('Video Gallery')
+    _("Video Gallery")
   end
 
   def self.description
-    _('A gallery of link to videos that are hosted elsewhere.')
+    _("A gallery of link to videos that are hosted elsewhere.")
   end
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
     video_gallery = self
     proc do
-      render :partial => 'content_viewer/video_plugin/video_gallery', :locals => {:video_gallery => video_gallery}
+      render partial: "content_viewer/video_plugin/video_gallery", locals: { video_gallery: video_gallery }
     end
   end
 
@@ -54,6 +53,6 @@ class VideoPlugin::VideoGallery < Folder
   end
 
   def self.icon_name(article = nil)
-    'Video gallery'
+    "Video gallery"
   end
 end

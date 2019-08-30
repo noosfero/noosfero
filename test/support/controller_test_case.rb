@@ -1,6 +1,4 @@
-
 class ActionController::TestCase
-
   class_attribute :default_params
   self.default_params = {}
 
@@ -13,6 +11,4 @@ class ActionController::TestCase
     params = self.default_params.merge(params)
     super action, params: params, session: session, flash: flash
   end
-
 end
-

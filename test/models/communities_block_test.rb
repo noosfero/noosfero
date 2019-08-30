@@ -1,21 +1,20 @@
 require_relative "../test_helper"
 
 class CommunitiesBlockTest < ActiveSupport::TestCase
-
-  should 'inherit from ProfileListBlock' do
+  should "inherit from ProfileListBlock" do
     assert_kind_of ProfileListBlock, CommunitiesBlock.new
   end
 
-  should 'declare its default title' do
+  should "declare its default title" do
     CommunitiesBlock.any_instance.stubs(:profile_count).returns(0)
     assert_not_equal ProfileListBlock.new.default_title, CommunitiesBlock.new.default_title
   end
 
-  should 'describe itself' do
+  should "describe itself" do
     assert_not_equal ProfileListBlock.description, CommunitiesBlock.description
   end
 
-  should 'list owner communities' do
+  should "list owner communities" do
     owner = fast_create(Person)
     community1 = fast_create(Community)
     community2 = fast_create(Community)
@@ -25,16 +24,16 @@ class CommunitiesBlockTest < ActiveSupport::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(owner).at_least_once
     json = block.api_content
-    assert_equivalent [community1.identifier, community2.identifier], json["communities"].map {|p| p[:identifier]}
+    assert_equivalent [community1.identifier, community2.identifier], json["communities"].map { |p| p[:identifier] }
   end
 
-  should 'list non-public communities' do
-    user = create_user('testuser').person
+  should "list non-public communities" do
+    user = create_user("testuser").person
 
-    public_community = fast_create(Community, :environment_id => Environment.default.id)
+    public_community = fast_create(Community, environment_id: Environment.default.id)
     public_community.add_member(user)
 
-    private_community = fast_create(Community, :environment_id => Environment.default.id, :access => Entitlement::Levels.levels[:related])
+    private_community = fast_create(Community, environment_id: Environment.default.id, access: Entitlement::Levels.levels[:related])
     private_community.add_member(user)
 
     block = CommunitiesBlock.new
@@ -43,23 +42,22 @@ class CommunitiesBlockTest < ActiveSupport::TestCase
     assert_equivalent [public_community, private_community], block.profiles(user)
   end
 
-  should 'have Community as base class' do
+  should "have Community as base class" do
     assert_equal Community, CommunitiesBlock.new.send(:base_class)
   end
-
 end
 
-require 'boxes_helper'
+require "boxes_helper"
 
 class CommunitiesBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
-  should 'support profile as block owner' do
+  should "support profile as block owner" do
     env = fast_create(Environment)
-    community = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    profile = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    community = fast_create(Community, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
-    relation = RoleAssignment.new(:resource_id => community.id, :resource_type => 'Profile', :role_id => 3)
+    relation = RoleAssignment.new(resource_id: community.id, resource_type: "Profile", role_id: 3)
     relation.accessor = profile
     relation.save
 
@@ -70,7 +68,7 @@ class CommunitiesBlockViewTest < ActionView::TestCase
 
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     ActionView::Base.any_instance.stubs(:block_title).returns("")
-    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+    ActionView::Base.any_instance.stubs(:profile_image_link).returns("some name")
     ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     ActionView::Base.any_instance.stubs(:user).with(anything).returns(profile)
@@ -78,16 +76,16 @@ class CommunitiesBlockViewTest < ActionView::TestCase
 
     footer = render_block_footer(block)
 
-    assert_tag_in_string footer, tag: 'a', attributes: {href: "/profile/#{profile.identifier}/communities"}
+    assert_tag_in_string footer, tag: "a", attributes: { href: "/profile/#{profile.identifier}/communities" }
 
     ActionView::Base.any_instance.unstub(:user)
     ActionView::Base.any_instance.unstub(:profile)
   end
 
-  should 'support environment as block owner' do
+  should "support environment as block owner" do
     env = Environment.default
-    profile = fast_create(Community, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    member = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    profile = fast_create(Community, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    member = fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
 
     block = CommunitiesBlock.new
     block.box = env.boxes.first
@@ -96,29 +94,28 @@ class CommunitiesBlockViewTest < ActionView::TestCase
 
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View       All")
     ActionView::Base.any_instance.stubs(:block_title).returns("")
-    ActionView::Base.any_instance.stubs(:profile_image_link).returns('some name')
+    ActionView::Base.any_instance.stubs(:profile_image_link).returns("some name")
     ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
-
 
     ActionView::Base.any_instance.stubs(:user).with(anything).returns(profile)
     ActionView::Base.any_instance.stubs(:profile).with(anything).returns(env)
 
     footer = render_block_footer(block)
 
-    assert_tag_in_string footer, tag: 'a', attributes: {href: '/search/communities'}
+    assert_tag_in_string footer, tag: "a", attributes: { href: "/search/communities" }
 
     ActionView::Base.any_instance.unstub(:user)
     ActionView::Base.any_instance.unstub(:profile)
   end
 
-  should 'give empty footer on unsupported owner type' do
+  should "give empty footer on unsupported owner type" do
     block = CommunitiesBlock.new
     block.expects(:owner).returns(1).at_least_once
 
-    assert_equal '', render_block_footer(block)
+    assert_equal "", render_block_footer(block)
   end
 
-  should 'list communities in api content' do
+  should "list communities in api content" do
     owner = fast_create(Person)
     community1 = fast_create(Community)
     community2 = fast_create(Community)
@@ -127,10 +124,10 @@ class CommunitiesBlockViewTest < ActionView::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(owner).at_least_once
     json = block.api_content
-    assert_equivalent [community1.identifier, community2.identifier], json["communities"].map {|p| p[:identifier]}
+    assert_equivalent [community1.identifier, community2.identifier], json["communities"].map { |p| p[:identifier] }
   end
 
-  should 'limit communities list in api content' do
+  should "limit communities list in api content" do
     owner = fast_create(Person)
     5.times do
       community = fast_create(Community)
@@ -143,16 +140,15 @@ class CommunitiesBlockViewTest < ActionView::TestCase
     assert_equal 5, json["#"]
   end
 
-  should 'not list communities templates in api content' do
+  should "not list communities templates in api content" do
     owner = fast_create(Person)
     community1 = fast_create(Community)
-    community2 = fast_create(Community, :is_template => true)
+    community2 = fast_create(Community, is_template: true)
     community1.add_member(owner)
     community2.add_member(owner)
     block = CommunitiesBlock.new
     block.expects(:owner).returns(owner).at_least_once
     json = block.api_content
-    assert_equivalent [community1.identifier], json["communities"].map {|p| p[:identifier]}
+    assert_equivalent [community1.identifier], json["communities"].map { |p| p[:identifier] }
   end
-
 end

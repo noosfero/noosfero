@@ -1,5 +1,4 @@
 class Noosfero::Plugin::Manager
-
   attr_reader :environment
   attr_reader :context
 
@@ -8,7 +7,7 @@ class Noosfero::Plugin::Manager
     @context = context
   end
 
-  delegate :each, :to => :enabled_plugins
+  delegate :each, to: :enabled_plugins
   include Enumerable
 
   # Dispatches +event+ to each enabled plugin and collect the results.
@@ -37,6 +36,7 @@ class Noosfero::Plugin::Manager
     each do |plugin|
       method = plugin.method event
       next unless method.owner == plugin.class
+
       return method.call(*args)
     end
     Noosfero::Plugin.new.send event, *args
@@ -48,6 +48,7 @@ class Noosfero::Plugin::Manager
       method = plugin.method event
       next unless method.owner == plugin.class
       next unless method.call(*args) != default
+
       return plugin.class
     end
     nil
@@ -58,13 +59,14 @@ class Noosfero::Plugin::Manager
       result = Array(plugin.send event, *args)
       result = result.kind_of?(Array) ? result : [result]
       raise ArgumentError, "Pipeline broken by #{plugin.class.name} on #{event} with #{result.length} arguments instead of #{args.length}." if result.length != args.length
+
       args = result
     end
     args.length < 2 ? args.first : args
   end
 
   def filter(property, data)
-    inject(data) {|data, plugin| data = plugin.send(property, data)}
+    inject(data) { |data, plugin| data = plugin.send(property, data) }
   end
 
   def parse_macro(macro_name, macro, source = nil)
@@ -94,5 +96,4 @@ class Noosfero::Plugin::Manager
       plugin.kind_of?(class_name.constantize)
     end.first
   end
-
 end

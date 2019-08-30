@@ -1,17 +1,16 @@
 class ProductsPlugin::Product < ApplicationRecord
-
   ##
   # Keep compatibility with previous core name
   #
   def self.sti_name
-    'Product'
+    "Product"
   end
 
   self.table_name = :products
 
   SEARCHABLE_FIELDS = {
-    name: {label: _('Name'), weight: 10},
-    description: {label: _('Description'), weight: 1},
+    name: { label: _("Name"), weight: 10 },
+    description: { label: _("Description"), weight: 1 },
   }
 
   SEARCH_FILTERS = {
@@ -20,15 +19,15 @@ class ProductsPlugin::Product < ApplicationRecord
   }
 
   attr_accessible :name, :product_category, :profile, :profile_id, :enterprise,
-    :highlighted, :price, :image_builder, :description, :available, :qualifiers, :unit_id, :discount, :inputs, :qualifiers_list, :unit
+                  :highlighted, :price, :image_builder, :description, :available, :qualifiers, :unit_id, :discount, :inputs, :qualifiers_list, :unit
 
   def self.default_search_display
-    'full'
+    "full"
   end
 
   belongs_to :profile, optional: true
   # backwards compatibility
-  belongs_to :enterprise, foreign_key: :profile_id, class_name: 'Enterprise', optional: true
+  belongs_to :enterprise, foreign_key: :profile_id, class_name: "Enterprise", optional: true
   alias_method :enterprise=, :profile=
   alias_method :enterprise, :profile
 
@@ -48,7 +47,7 @@ class ProductsPlugin::Product < ApplicationRecord
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :data
 
-  track_actions :create_product, :after_create, keep_params: [:name, :url ], if: Proc.new { |a| a.notifiable? }, custom_user: :action_tracker_user
+  track_actions :create_product, :after_create, keep_params: [:name, :url], if: Proc.new { |a| a.notifiable? }, custom_user: :action_tracker_user
   track_actions :update_product, :before_update, keep_params: [:name, :url], if: Proc.new { |a| a.notifiable? }, custom_user: :action_tracker_user
   track_actions :remove_product, :before_destroy, keep_params: [:name], if: Proc.new { |a| a.notifiable? }, custom_user: :action_tracker_user
 
@@ -61,25 +60,26 @@ class ProductsPlugin::Product < ApplicationRecord
   validates_numericality_of :discount, allow_nil: true
   validate :valid_discount
 
-  scope :more_recent, -> { order 'created_at DESC' }
+  scope :more_recent, -> { order "created_at DESC" }
 
-  scope :from_category, -> category {
-    joins(:product_category).where('categories.path LIKE ?', "%#{category.slug}%") if category
+  scope :from_category, ->category {
+    joins(:product_category).where("categories.path LIKE ?", "%#{category.slug}%") if category
   }
 
-  scope :recent, -> limit=nil { order('id DESC').limit(limit) }
+  scope :recent, ->limit = nil { order("id DESC").limit(limit) }
 
   after_update :save_image
 
   def lat
     self.profile.lat
   end
+
   def lng
     self.profile.lng
   end
 
-  xss_terminate only: [ :name ], on: :validation
-  xss_terminate only: [ :description ], with: :white_list, on: :validation
+  xss_terminate only: [:name], on: :validation
+  xss_terminate only: [:description], with: :white_list, on: :validation
 
   belongs_to :unit, optional: true
 
@@ -108,8 +108,8 @@ class ProductsPlugin::Product < ApplicationRecord
     self[:name].blank?
   end
 
-  def default_image(size='thumb')
-    image ? image.public_filename(size) : '/images/icons-app/product-default-pic-%s.png' % size
+  def default_image(size = "thumb")
+    image ? image.public_filename(size) : "/images/icons-app/product-default-pic-%s.png" % size
   end
 
   extend ActsAsHavingImage::ClassMethods
@@ -120,11 +120,11 @@ class ProductsPlugin::Product < ApplicationRecord
   end
 
   def category_name
-    product_category ? product_category.name : _('Uncategorized product')
+    product_category ? product_category.name : _("Uncategorized product")
   end
 
   def url
-    self.profile.public_profile_url.merge(controller: 'products_plugin/page', action: 'show', id: id)
+    self.profile.public_profile_url.merge(controller: "products_plugin/page", action: "show", id: id)
   end
 
   def public?
@@ -133,7 +133,7 @@ class ProductsPlugin::Product < ApplicationRecord
 
   def formatted_value(method)
     value = self[method] || self.send(method)
-    ("%.2f" % value).to_s.gsub('.', self.profile.environment.currency_separator) if value
+    ("%.2f" % value).to_s.gsub(".", self.profile.environment.currency_separator) if value
   end
 
   def price_with_discount
@@ -158,6 +158,7 @@ class ProductsPlugin::Product < ApplicationRecord
 
   def inputs_prices?
     return false if self.inputs.count <= 0
+
     self.inputs.each do |input|
       return false if input.has_price_details? == false
     end
@@ -166,6 +167,7 @@ class ProductsPlugin::Product < ApplicationRecord
 
   def any_inputs_details?
     return false if self.inputs.count <= 0
+
     self.inputs.each do |input|
       return true if input.has_all_price_details? == true
     end
@@ -182,7 +184,7 @@ class ProductsPlugin::Product < ApplicationRecord
   def qualifiers_list=(qualifiers)
     self.product_qualifiers.destroy_all
     qualifiers.each do |qualifier_id, certifier_id|
-      if qualifier_id != 'nil'
+      if qualifier_id != "nil"
         product_qualifier = ProductsPlugin::ProductQualifier.new
         product_qualifier.product = self
         product_qualifier.qualifier_id = qualifier_id
@@ -210,16 +212,19 @@ class ProductsPlugin::Product < ApplicationRecord
 
   def inputs_cost
     return 0 if inputs.empty?
-    inputs.relevant_to_price.map(&:cost).inject { |sum,price| sum + price }
+
+    inputs.relevant_to_price.map(&:cost).inject { |sum, price| sum + price }
   end
 
   def total_production_cost
     return inputs_cost if price_details.empty?
-    inputs_cost + price_details.map(&:price).inject(0){ |sum,price| sum + price }
+
+    inputs_cost + price_details.map(&:price).inject(0) { |sum, price| sum + price }
   end
 
   def price_described?
-    return false if price.blank? or price == 0
+    return false if price.blank? || (price == 0)
+
     (price - total_production_cost.to_f).zero?
   end
 
@@ -234,6 +239,7 @@ class ProductsPlugin::Product < ApplicationRecord
 
   def price_description_percentage
     return 0 if price.blank? || price.zero?
+
     total_production_cost * 100 / price
   end
 
@@ -243,19 +249,19 @@ class ProductsPlugin::Product < ApplicationRecord
 
   include Rails.application.routes.url_helpers
   def price_composition_bar_display_url
-    url_for({host: self.profile.default_hostname, controller: 'products_plugin/page', action: 'display_price_composition_bar', profile: self.profile.identifier, id: self.id }.merge(Noosfero.url_options))
+    url_for({ host: self.profile.default_hostname, controller: "products_plugin/page", action: "display_price_composition_bar", profile: self.profile.identifier, id: self.id }.merge(Noosfero.url_options))
   end
 
   def inputs_cost_update_url
-    url_for({host: self.profile.default_hostname, controller: 'products_plugin/page', action: 'display_inputs_cost', profile: self.profile.identifier, id: self.id }.merge(Noosfero.url_options))
+    url_for({ host: self.profile.default_hostname, controller: "products_plugin/page", action: "display_inputs_cost", profile: self.profile.identifier, id: self.id }.merge(Noosfero.url_options))
   end
 
   def percentage_from_solidarity_economy
     se_i = t_i = 0
-    self.inputs.each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy }
+    self.inputs.each { |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy }
     t_i = 1 if t_i == 0 # avoid division by 0
-    p = case (se_i.to_f/t_i)*100
-        when 0 then [0, '']
+    p = case (se_i.to_f / t_i) * 100
+        when 0 then [0, ""]
         when 0..24.999 then [0, _("0%")];
         when 25..49.999 then [25, _("25%")];
         when 50..74.999 then [50, _("50%")];
@@ -268,23 +274,22 @@ class ProductsPlugin::Product < ApplicationRecord
 
   protected
 
-  def validate_uniqueness_of_column_name?
-    true
-  end
-
-  def notifiable?
-    # shopping_cart create products without profile
-    self.profile.present?
-  end
-
-  def action_tracker_user
-    self.profile
-  end
-
-  def valid_discount
-    if discount && (price.blank? || discount > price)
-      self.errors.add(:discount, _("should not be bigger than the price"))
+    def validate_uniqueness_of_column_name?
+      true
     end
-  end
 
+    def notifiable?
+      # shopping_cart create products without profile
+      self.profile.present?
+    end
+
+    def action_tracker_user
+      self.profile
+    end
+
+    def valid_discount
+      if discount && (price.blank? || discount > price)
+        self.errors.add(:discount, _("should not be bigger than the price"))
+      end
+    end
 end

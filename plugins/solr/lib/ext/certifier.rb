@@ -1,6 +1,5 @@
-require_dependency 'certifier'
+require_dependency "certifier"
 
 class Certifier
-  after_save_reindex [:products], :with => :delayed_job
+  after_save_reindex [:products], with: :delayed_job
 end
-

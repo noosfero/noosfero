@@ -1,4 +1,4 @@
-require_relative 'ldap_authentication.rb'
+require_relative "ldap_authentication.rb"
 
 class LdapPlugin < Noosfero::Plugin
   include Noosfero::Plugin::HotSpot
@@ -36,7 +36,7 @@ class LdapPlugin < Noosfero::Plugin
   end
 
   def allow_password_recovery
-    context.environment.ldap_plugin['allow_password_recovery']
+    context.environment.ldap_plugin["allow_password_recovery"]
   end
 
   def alternative_authentication
@@ -74,7 +74,7 @@ class LdapPlugin < Noosfero::Plugin
         user = nil
       end
     rescue
-      #User not saved
+      # User not saved
     end
 
     user
@@ -97,12 +97,11 @@ class LdapPlugin < Noosfero::Plugin
 
   def login_extra_contents
     proc do
-      @person = Person.new(:environment => @environment)
+      @person = Person.new(environment: @environment)
       @profile_data = @person
       labelled_fields_for :profile_data, @person do |f|
-        render :partial => 'profile_editor/person_form', :locals => {:f => f}
+        render partial: "profile_editor/person_form", locals: { f: f }
       end
     end
   end
-
 end

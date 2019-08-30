@@ -1,16 +1,16 @@
 module DocHelper
   def display_doc(text)
     content_tag(
-      'div',
+      "div",
       wrap_main_content(
-        render(:partial => 'path') +
+        render(partial: "path") +
         content_tag(
-          'div',
+          "div",
           text,
-          :id => 'online-doc-text'
+          id: "online-doc-text"
         )
       ),
-      :id => 'online-doc'
+      id: "online-doc"
     )
   end
 end

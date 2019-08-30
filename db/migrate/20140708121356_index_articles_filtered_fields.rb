@@ -8,5 +8,4 @@ class IndexArticlesFilteredFields < ActiveRecord::Migration
     add_index :articles, [:type, :parent_id]
     add_index :articles, [:type, :profile_id]
   end
-
 end

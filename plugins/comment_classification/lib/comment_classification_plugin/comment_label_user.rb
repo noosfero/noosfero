@@ -3,7 +3,7 @@ class CommentClassificationPlugin::CommentLabelUser < ApplicationRecord
 
   belongs_to :profile, optional: true
   belongs_to :comment, optional: true
-  belongs_to :label, class_name: 'CommentClassificationPlugin::Label', optional: true
+  belongs_to :label, class_name: "CommentClassificationPlugin::Label", optional: true
 
   attr_accessible :profile, :comment, :label
 

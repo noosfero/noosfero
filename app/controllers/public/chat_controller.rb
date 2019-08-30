@@ -1,25 +1,24 @@
 class ChatController < PublicController
-
   before_action :login_required
   before_action :check_environment_feature
-  before_action :can_send_message, :only => :register_message
+  before_action :can_send_message, only: :register_message
 
   def start_session
     login = user.jid
     password = current_user.crypted_password
-    session[:chat] ||= {:rooms => []}
+    session[:chat] ||= { rooms: [] }
     begin
       jid, sid, rid = RubyBOSH.initialize_session(login, password, "http://#{environment.default_hostname}/http-bind",
-                                                  :wait => 30, :hold => 1, :window => 5)
-      session_data = { :jid => jid, :sid => sid, :rid => rid }
-      render plain: session_data.to_json, :layout => false, :content_type => 'application/javascript'
+                                                  wait: 30, hold: 1, window: 5)
+      session_data = { jid: jid, sid: sid, rid: rid }
+      render plain: session_data.to_json, layout: false, content_type: "application/javascript"
     rescue
-      render :action => 'start_session_error', :layout => false, :status => 500
+      render action: "start_session_error", layout: false, status: 500
     end
   end
 
   def toggle
-    session[:chat][:status] = session[:chat][:status] == 'opened' ? 'closed' : 'opened'
+    session[:chat][:status] = session[:chat][:status] == "opened" ? "closed" : "opened"
     head :ok
   end
 
@@ -40,7 +39,7 @@ class ChatController < PublicController
   end
 
   def my_session
-    render plain: session[:chat].to_json, :layout => false
+    render plain: session[:chat].to_json, layout: false
   end
 
   def avatar
@@ -50,8 +49,8 @@ class ChatController < PublicController
       if filename =~ /^(https?:)?\/\//
         redirect_to filename
       else
-        data = File.read(File.join(Rails.root, 'public', filename))
-        render plain: data, :layout => false, :content_type => mimetype
+        data = File.read(File.join(Rails.root, "public", filename))
+        render plain: data, layout: false, content_type: mimetype
         expires_in 24.hours
       end
     else
@@ -60,7 +59,7 @@ class ChatController < PublicController
   end
 
   def avatars
-    profiles = environment.profiles.where(:identifier => params[:profiles])
+    profiles = environment.profiles.where(identifier: params[:profiles])
     avatar_map = profiles.inject({}) do |result, profile|
       result[profile.identifier] = profile_icon(profile, :minor)
       result
@@ -71,21 +70,21 @@ class ChatController < PublicController
 
   def update_presence_status
     if request.xhr?
-      current_user.update({:chat_status_at => DateTime.now}.merge(params[:status] || {}))
+      current_user.update({ chat_status_at: DateTime.now }.merge(params[:status] || {}))
     end
     head :ok
   end
 
   def save_message
     if request.post?
-      to = environment.profiles.where(:identifier => params[:to]).first
+      to = environment.profiles.where(identifier: params[:to]).first
       body = params[:body]
 
       begin
-        ChatMessage.create!(:to => to, :from => user, :body => body)
-        return render_json({:status => 0})
+        ChatMessage.create!(to: to, from: user, body: body)
+        return render_json(status: 0)
       rescue Exception => exception
-        return render_json({:status => 3, :message => exception.to_s, :backtrace => exception.backtrace})
+        return render_json(status: 3, message: exception.to_s, backtrace: exception.backtrace)
       end
     end
   end
@@ -93,34 +92,34 @@ class ChatController < PublicController
   def recent_messages
     other = environment.profiles.find_by(identifier: params[:identifier])
     if other.kind_of?(Organization)
-      messages = ChatMessage.where('to_id=:other', :other => other.id)
+      messages = ChatMessage.where("to_id=:other", other: other.id)
     else
-      messages = ChatMessage.where('(to_id=:other and from_id=:me) or (to_id=:me and from_id=:other)', {:me => user.id, :other => other.id})
+      messages = ChatMessage.where("(to_id=:other and from_id=:me) or (to_id=:me and from_id=:other)", me: user.id, other: other.id)
     end
 
-    messages = messages.order('created_at DESC').includes(:to, :from).offset(params[:offset]).limit(20)
+    messages = messages.order("created_at DESC").includes(:to, :from).offset(params[:offset]).limit(20)
     messages_json = messages.map do |message|
       {
-        :body => message.body,
-        :to => {:id => message.to.identifier, :name => message.to.name},
-        :from => {:id => message.from.identifier, :name => message.from.name},
-        :created_at => message.created_at
+        body: message.body,
+        to: { id: message.to.identifier, name: message.to.name },
+        from: { id: message.from.identifier, name: message.from.name },
+        created_at: message.created_at
       }
     end
-    render :json => messages_json.reverse
+    render json: messages_json.reverse
   end
 
   def recent_conversations
     profiles = Profile.find_by_sql("select profiles.* from profiles inner join (select distinct r.id as id, MAX(r.created_at) as created_at from (select from_id, to_id, created_at, (case when from_id=#{user.id} then to_id else from_id end) as id from chat_messages where from_id=#{user.id} or to_id=#{user.id}) as r group by id order by created_at desc, id) as t on profiles.id=t.id order by t.created_at desc")
     jids = profiles.map(&:jid).reverse
-    render :json => jids.to_json
+    render json: jids.to_json
   end
 
-  #TODO Ideally this is done through roster table on ejabberd.
+  # TODO Ideally this is done through roster table on ejabberd.
   def rosters
-    rooms = user.memberships.map {|m| {:jid => m.jid, :name => m.name}}
-    friends = user.friends.map {|f| {:jid => f.jid, :name => f.name}}
-    rosters = {:rooms => rooms, :friends => friends}
+    rooms = user.memberships.map { |m| { jid: m.jid, name: m.name } }
+    friends = user.friends.map { |f| { jid: f.jid, name: f.name } }
+    rosters = { rooms: rooms, friends: friends }
     render plain: rosters.to_json
   end
 
@@ -128,29 +127,29 @@ class ChatController < PublicController
     current_user.update_column(:chat_status_at, DateTime.now)
     availabilities = user.friends.map do |friend|
       status = friend.user.chat_status
-      status = 'offline' if status.blank? || !friend.user.chat_alive?
-      {:jid => friend.jid, :status => status}
+      status = "offline" if status.blank? || !friend.user.chat_alive?
+      { jid: friend.jid, status: status }
     end
     render plain: availabilities.to_json
   end
 
   protected
 
-  def check_environment_feature
-    unless environment.enabled?('xmpp_chat')
-      render_not_found
-      return
+    def check_environment_feature
+      unless environment.enabled?("xmpp_chat")
+        render_not_found
+        return
+      end
     end
-  end
 
-  def can_send_message
-    return render_json({:status => 1, :message => 'Missing parameters!'}) if params[:from].nil? || params[:to].nil? || params[:message].nil?
-    return render_json({:status => 2, :message => 'You can not send message as another user!'}) if params[:from] != user.jid
-    # TODO Maybe register the jid in a table someday to avoid this below
-    return render_json({:status => 3, :messsage => 'You can not send messages to strangers!'}) if user.friends.where(:identifier => params[:to].split('@').first).blank?
-  end
+    def can_send_message
+      return render_json(status: 1, message: "Missing parameters!") if params[:from].nil? || params[:to].nil? || params[:message].nil?
+      return render_json(status: 2, message: "You can not send message as another user!") if params[:from] != user.jid
+      # TODO Maybe register the jid in a table someday to avoid this below
+      return render_json(status: 3, messsage: "You can not send messages to strangers!") if user.friends.where(identifier: params[:to].split("@").first).blank?
+    end
 
-  def render_json(result)
-    render plain: result.to_json
-  end
+    def render_json(result)
+      render plain: result.to_json
+    end
 end

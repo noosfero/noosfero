@@ -1,5 +1,4 @@
 class AddTitleAndIsBotToAnalyticsPluginPageView < ActiveRecord::Migration
-
   def up
     add_column :analytics_plugin_page_views, :title, :text
     add_column :analytics_plugin_page_views, :is_bot, :boolean
@@ -36,5 +35,4 @@ class AddTitleAndIsBotToAnalyticsPluginPageView < ActiveRecord::Migration
   def down
     say "this migration can't be reverted"
   end
-
 end

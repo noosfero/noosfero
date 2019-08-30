@@ -19,6 +19,6 @@ class AntiSpamPlugin::Wrapper < SimpleDelegator
   end
 end
 
-Dir.glob(File.join(AntiSpamPlugin.root_path, 'lib', 'anti_spam_plugin', '*_wrapper.rb')) do |file|
+Dir.glob(File.join(AntiSpamPlugin.root_path, "lib", "anti_spam_plugin", "*_wrapper.rb")) do |file|
   load(file)
 end

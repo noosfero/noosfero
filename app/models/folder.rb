@@ -1,7 +1,6 @@
 class Folder < Article
-
   def self.type_name
-    _('Folder')
+    _("Folder")
   end
 
   validate :not_belong_to_blog
@@ -13,7 +12,7 @@ class Folder < Article
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :setting
 
-  xss_terminate only: [ :name, :body ], with: :white_list, on: :validation
+  xss_terminate only: [:name, :body], with: :white_list, on: :validation
 
   include WhiteListFilter
   filter_iframes :body
@@ -22,22 +21,22 @@ class Folder < Article
   end
 
   def self.short_description
-    _('Folder')
+    _("Folder")
   end
 
   def self.description
-    _('A folder, inside which you can put other articles.')
+    _("A folder, inside which you can put other articles.")
   end
 
   def self.icon_name(article = nil)
-    'folder'
+    "folder"
   end
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
     folder = self
     proc do
-      render :file => 'content_viewer/folder', :locals => {:folder => folder}
+      render file: "content_viewer/folder", locals: { folder: folder }
     end
   end
 
@@ -58,33 +57,31 @@ class Folder < Article
   end
 
   has_many :images, -> {
-    order('articles.type, articles.name').
-    where("articles.type = 'UploadedFile' and articles.content_type in (?) or articles.type in ('Folder','Gallery')", UploadedFile.content_types)
-  }, class_name: 'Article', foreign_key: 'parent_id'
-
+    order("articles.type, articles.name")
+      .where("articles.type = 'UploadedFile' and articles.content_type in (?) or articles.type in ('Folder','Gallery')", UploadedFile.content_types)
+  }, class_name: "Article", foreign_key: "parent_id"
 
   def accept_uploads?
     !self.has_posts? || self.gallery?
   end
 
   def mime_type
-    'application/folder'
+    "application/folder"
   end
 
   def icon
-    'folder'
+    "folder"
   end
 
-  def self.subdirectories profile, folder=nil
+  def self.subdirectories(profile, folder = nil)
     if folder.nil?
-        Article.top_folders profile
+      Article.top_folders profile
     else
-        Article.subfolders profile, folder
+      Article.subfolders profile, folder
     end
   end
 
   def has_subdirectories?
     Article.subfolders(profile, self).present?
   end
-
 end

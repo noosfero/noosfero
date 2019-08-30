@@ -13,11 +13,11 @@ class RecentActivitiesPlugin::ActivitiesBlock < Block
   end
 
   def extra_option
-    { }
+    {}
   end
 
   def self.description
-    _('Display the latest activities by the owner of the context where the block is available.')
+    _("Display the latest activities by the owner of the context where the block is available.")
   end
 
   def help
@@ -25,11 +25,11 @@ class RecentActivitiesPlugin::ActivitiesBlock < Block
   end
 
   def default_title
-    _('Recent activities')
+    _("Recent activities")
   end
 
   def api_content(options = {})
-    {:activities => Api::Entities::Activity.represent(activities)}.as_json
+    { activities: Api::Entities::Activity.represent(activities) }.as_json
   end
 
   def display_api_content_by_default?

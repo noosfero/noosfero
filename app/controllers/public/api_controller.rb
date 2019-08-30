@@ -1,5 +1,4 @@
 class ApiController < PublicController
-
   no_design_blocks
 
   helper_method :endpoints
@@ -12,8 +11,7 @@ class ApiController < PublicController
 
   private
 
-  def endpoints
-    Api::App.endpoints(environment)
-  end
-
+    def endpoints
+      Api::App.endpoints(environment)
+    end
 end

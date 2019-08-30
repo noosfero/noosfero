@@ -1,8 +1,7 @@
 class ToleranceTimePlugin::Publication < ApplicationRecord
-
   belongs_to :target, polymorphic:  true, optional: true
   validates_presence_of :target_id, :target_type
-  validates_uniqueness_of :target_id, :scope => :target_type
+  validates_uniqueness_of :target_id, scope: :target_type
   attr_accessible :target
 
   class << self
@@ -17,12 +16,12 @@ class ToleranceTimePlugin::Publication < ApplicationRecord
     content_tolerance = profile_tolerance ? profile_tolerance.content_tolerance : nil
     comment_tolerance = profile_tolerance ? profile_tolerance.comment_tolerance : nil
     if target.kind_of?(Article)
-      tolerance_time = content_tolerance || 1.0/0
+      tolerance_time = content_tolerance || 1.0 / 0
     elsif target.kind_of?(Comment)
-      tolerance_time = comment_tolerance || 1.0/0
+      tolerance_time = comment_tolerance || 1.0 / 0
     else
-      tolerance_time = 1.0/0
+      tolerance_time = 1.0 / 0
     end
-    created_at.to_f.to_i+tolerance_time < Time.now.to_i
+    created_at.to_f.to_i + tolerance_time < Time.now.to_i
   end
 end

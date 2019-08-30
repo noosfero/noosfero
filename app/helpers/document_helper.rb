@@ -1,5 +1,4 @@
 module DocumentHelper
-
   # displays an icon corresponding to the document passed in +doc+.
   #
   # The class of the document can define its icon by providing an +icon+
@@ -7,16 +6,15 @@ module DocumentHelper
   def icon_for_document(doc)
     icon =
       case doc
-        when Article
-          'text-x-generic'
+      when Article
+        "text-x-generic"
+      else
+        if doc.class.respond_to?(:icon)
+          doc.class.icon
         else
-          if doc.class.respond_to?(:icon)
-            doc.class.icon
-          else
-            'none'
-          end
+          "none"
+        end
         end
     design_display_icon(icon)
   end
-
 end

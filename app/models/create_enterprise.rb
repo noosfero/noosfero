@@ -1,18 +1,17 @@
 class CreateEnterprise < Task
-
-  N_('Identifier')
-  N_('Name')
-  N_('Address')
-  N_('Contact phone')
-  N_('Contact person')
-  N_('Acronym')
-  N_('Foundation year')
-  N_('Legal form')
-  N_('Economic activity')
-  N_('Management information')
+  N_("Identifier")
+  N_("Name")
+  N_("Address")
+  N_("Contact phone")
+  N_("Contact person")
+  N_("Acronym")
+  N_("Foundation year")
+  N_("Legal form")
+  N_("Economic activity")
+  N_("Management information")
 
   DATA_FIELDS = Enterprise.fields + %w[ name identifier region_id address
-    zip_code city state country district lat lng ] - [ 'location' ]
+                                        zip_code city state country district lat lng ] - ["location"]
   DATA_FIELDS.each do |field|
     settings_items field.to_sym
   end
@@ -20,24 +19,24 @@ class CreateEnterprise < Task
   # checks for virtual attributes
   validates_presence_of :name, :identifier
 
-  #checks if the validation method is region to validates
-  validates_presence_of :region_id, :if => lambda { |obj| obj.environment.organization_approval_method == :region }
+  # checks if the validation method is region to validates
+  validates_presence_of :region_id, if: lambda { |obj| obj.environment.organization_approval_method == :region }
 
-  validates_numericality_of :foundation_year, only_integer: true, if: -> o { o.foundation_year.present? }
+  validates_numericality_of :foundation_year, only_integer: true, if: ->o { o.foundation_year.present? }
 
   # checks for actual attributes
   validates_presence_of :requestor_id, :target_id
 
-  validates :requestor, kind_of: {kind: Person}
+  validates :requestor, kind_of: { kind: Person }
 
   # checks for admins required attributes
   DATA_FIELDS.each do |attribute|
-    validates_presence_of attribute, :if => lambda { |obj| obj.environment.required_enterprise_fields.include?(attribute) }
+    validates_presence_of attribute, if: lambda { |obj| obj.environment.required_enterprise_fields.include?(attribute) }
   end
 
   # check for explanation when rejecting
-  validates_presence_of :reject_explanation, :if => (lambda { |record| record.status == Task::Status::CANCELLED } )
-  xss_terminate only: [ :acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name ], on: :validation
+  validates_presence_of :reject_explanation, if: (lambda { |record| record.status == Task::Status::CANCELLED })
+  xss_terminate only: [:acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name], on: :validation
 
   validate :validator_correct_region
   validate :not_used_identifier
@@ -49,18 +48,17 @@ class CreateEnterprise < Task
     end
   end
 
-
   def validator_correct_region
     if self.region && self.target
       unless self.region.validators.include?(self.target) || self.target_type == "Environment"
-        self.errors.add(:target, _('{fn} is not a validator for the chosen region').fix_i18n)
+        self.errors.add(:target, _("{fn} is not a validator for the chosen region").fix_i18n)
       end
     end
   end
 
   def not_used_identifier
-    if self.status != Task::Status::CANCELLED && self.identifier && Profile.exists?(:identifier => self.identifier)
-      errors.add(:identifier, _('{fn} is already being as identifier by another enterprise, organization or person.').fix_i18n)
+    if self.status != Task::Status::CANCELLED && self.identifier && Profile.exists?(identifier: self.identifier)
+      errors.add(:identifier, _("{fn} is already being as identifier by another enterprise, organization or person.").fix_i18n)
     end
   end
 
@@ -75,7 +73,7 @@ class CreateEnterprise < Task
   def enterprise_valid?
     enterprise = Enterprise.new
 
-    DATA_FIELDS.reject{|field| field == "reject_explanation"}.each do |field|
+    DATA_FIELDS.reject { |field| field == "reject_explanation" }.each do |field|
       enterprise.send("#{field}=", self.send(field))
     end
 
@@ -83,7 +81,7 @@ class CreateEnterprise < Task
 
     unless enterprise.valid?
       errors.add(:data, :invalid) unless enterprise.errors[:identifier].present? &&
-                                          enterprise.errors.count == 1
+                                         enterprise.errors.count == 1
     end
   end
 
@@ -162,7 +160,7 @@ class CreateEnterprise < Task
   def perform
     enterprise = Enterprise.new
 
-    DATA_FIELDS.reject{|field| field == "reject_explanation"}.each do |field|
+    DATA_FIELDS.reject { |field| field == "reject_explanation" }.each do |field|
       enterprise.send("#{field}=", self.send(field))
     end
     enterprise.environment = environment
@@ -177,7 +175,7 @@ class CreateEnterprise < Task
   end
 
   def icon
-    {:type => :defined_image, :src => '/images/icons-app/enterprise-minor.png', :name => name}
+    { type: :defined_image, src: "/images/icons-app/enterprise-minor.png", name: name }
   end
 
   def subject
@@ -185,7 +183,7 @@ class CreateEnterprise < Task
   end
 
   def information
-    {:message => _('%{requestor} wants to create enterprise %{subject}.').html_safe}
+    { message: _("%{requestor} wants to create enterprise %{subject}.").html_safe }
   end
 
   def reject_details
@@ -194,24 +192,22 @@ class CreateEnterprise < Task
 
   def task_created_message
     _('Your request for registering enterprise "%{enterprise}" at %{environment} was just received. It will be reviewed by the validator organization of your choice, according to its methods and criteria.
-
-      You will be notified as soon as the validator organization has a position about your request.') % { :enterprise => self.name, :environment => self.environment }
+      You will be notified as soon as the validator organization has a position about your request.') % { enterprise: self.name, environment: self.environment }
   end
 
   def task_finished_message
-    _('Your request for registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and provide start providing all relevant information your new enterprise.') % { :enterprise => self.name, :environment => self.environment }
+    _('Your request for registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and provide start providing all relevant information your new enterprise.') % { enterprise: self.name, environment: self.environment }
   end
 
   def task_cancelled_message
-    _("Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization. The following explanation was given: \n\n%{explanation}") % { :enterprise => self.name, :environment => self.environment, :explanation => self.reject_explanation }
+    _("Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization. The following explanation was given: \n\n%{explanation}") % { enterprise: self.name, environment: self.environment, explanation: self.reject_explanation }
   end
 
   def target_notification_message
     msg = ""
-    msg << _("Enterprise \"%{enterprise}\" just requested to enter %{environment}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :enterprise => self.name, :environment => self.environment }
+    msg << _("Enterprise \"%{enterprise}\" just requested to enter %{environment}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { enterprise: self.name, environment: self.environment }
     msg << "\n"
     msg << _("The data provided by the enterprise was the following:\n") << "\n"
-
 
     msg << (_("Name: %s") % self.name) << "\n"
     msg << (_("Acronym: %s") % self.acronym) << "\n"
@@ -225,17 +221,16 @@ class CreateEnterprise < Task
     msg << (_("Contact phone: %s") % self.contact_phone) << "\n"
     msg << (_("Contact person: %s") % self.contact_person) << "\n"
 
-    msg << _('CreateEnterprise|Identifier')
+    msg << _("CreateEnterprise|Identifier")
 
     msg
   end
 
   def target_notification_description
-    _('%{requestor} wants to create enterprise %{subject}.') % {:requestor => requestor.name, :subject => subject}
+    _("%{requestor} wants to create enterprise %{subject}.") % { requestor: requestor.name, subject: subject }
   end
 
   def permission
     :validate_enterprise
   end
-
 end

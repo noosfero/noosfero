@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby
-require_relative '../config/environment'
-require_relative '../lib/sample_data'
+require_relative "../config/environment"
+require_relative "../lib/sample_data"
 include SampleData
 
-id = ARGV.first || ''
-system('./script/sample-categories', id)
-system('./script/sample-profiles', id)
-system('./script/sample-enterprises', id)
-system('./script/sample-articles', id)
+id = ARGV.first || ""
+system("./script/sample-categories", id)
+system("./script/sample-profiles", id)
+system("./script/sample-enterprises", id)
+system("./script/sample-articles", id)

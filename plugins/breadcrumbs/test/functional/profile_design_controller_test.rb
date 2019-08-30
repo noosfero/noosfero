@@ -1,42 +1,41 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class ProfileDesignControllerTest < ActionController::TestCase
-
   def setup
     @environment = Environment.default
-    @environment.enabled_plugins = ['BreadcrumbsPlugin']
+    @environment.enabled_plugins = ["BreadcrumbsPlugin"]
     @environment.save!
 
-    @profile = fast_create(Community, :environment_id => @environment.id)
-    @page = fast_create(Folder, :profile_id => @profile.id)
+    @profile = fast_create(Community, environment_id: @environment.id)
+    @page = fast_create(Folder, profile_id: @profile.id)
 
-    box = create(Box, :owner => @profile)
-    @block = create(BreadcrumbsPlugin::ContentBreadcrumbsBlock, :box => box)
+    box = create(Box, owner: @profile)
+    @block = create(BreadcrumbsPlugin::ContentBreadcrumbsBlock, box: box)
 
-    user = create_user('testinguser')
+    user = create_user("testinguser")
     @profile.add_admin(user.person)
     login_as(user.login)
   end
 
-  should 'be able to edit breadcrumbs block' do
-    get :edit, :id => @block.id, :profile => @profile.identifier
-    assert_tag :tag => 'input', :attributes => { :id => 'block_title' }
-    assert_tag :tag => 'input', :attributes => { :id => 'block_show_cms_action' }
-    assert_tag :tag => 'input', :attributes => { :id => 'block_show_profile' }
+  should "be able to edit breadcrumbs block" do
+    get :edit, id: @block.id, profile: @profile.identifier
+    assert_tag tag: "input", attributes: { id: "block_title" }
+    assert_tag tag: "input", attributes: { id: "block_show_cms_action" }
+    assert_tag tag: "input", attributes: { id: "block_show_profile" }
   end
 
-  should 'be able to save breadcrumbs block' do
-    get :edit, :id => @block.id, :profile => @profile.identifier
-    post :save, :id => @block.id, :profile => @profile.identifier, :block => {:title => 'breadcrumbs', :show_cms_action => false, :show_profile => false}
+  should "be able to save breadcrumbs block" do
+    get :edit, id: @block.id, profile: @profile.identifier
+    post :save, id: @block.id, profile: @profile.identifier, block: { title: "breadcrumbs", show_cms_action: false, show_profile: false }
     @block.reload
-    assert_equal 'breadcrumbs', @block.title
+    assert_equal "breadcrumbs", @block.title
     refute @block.show_profile
     refute @block.show_cms_action
   end
 
-  should 'be able save breadcrumbs block with show_section_name option' do
-    get :edit, :id => @block.id, :profile => @profile.identifier
-    post :save, :id => @block.id, :profile => @profile.identifier, :block => {:title => 'breadcrumbs', :show_cms_action => false, :show_profile => true, :show_section_name => true }
+  should "be able save breadcrumbs block with show_section_name option" do
+    get :edit, id: @block.id, profile: @profile.identifier
+    post :save, id: @block.id, profile: @profile.identifier, block: { title: "breadcrumbs", show_cms_action: false, show_profile: true, show_section_name: true }
     assert @block.show_section_name
   end
 end

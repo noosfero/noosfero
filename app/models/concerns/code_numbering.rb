@@ -1,6 +1,6 @@
 module CodeNumbering
   module ClassMethods
-    def code_numbering field, options = {}
+    def code_numbering(field, options = {})
       class_attribute :code_numbering_field
       class_attribute :code_numbering_options
 
@@ -14,7 +14,6 @@ module CodeNumbering
   end
 
   module InstanceMethods
-
     def code
       self.attributes[self.code_numbering_field.to_s]
     end
@@ -37,7 +36,7 @@ module CodeNumbering
 
     def code_max
       max = nil
-           
+
       if self.code_numbering_options[:start]
         max = self.code_numbering_options[:start].to_i - 1
       end
@@ -48,7 +47,7 @@ module CodeNumbering
     def create_code_numbering
       max = code_max
       max = self.code_maximum
-      self.send "#{self.code_numbering_field}=", max+1
+      self.send "#{self.code_numbering_field}=", max + 1
     end
 
     def reset_scope_code_numbering
@@ -61,7 +60,5 @@ module CodeNumbering
       end
       self.reload
     end
-
   end
 end
-

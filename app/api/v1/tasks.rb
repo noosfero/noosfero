@@ -6,7 +6,6 @@ module Api
       MAX_PER_PAGE = 50
 
       resource :tasks do
-
         paginate max_per_page: MAX_PER_PAGE
         # Collect all tasks that current person has permission
         #
@@ -23,9 +22,9 @@ module Api
         end
 
         desc "Return the task id"
-        get ':id' do
+        get ":id" do
           task = find_task(current_person, Task.to(current_person), params[:id])
-          present_partial task, :with => Entities::Task, display_api_content: true, current_person: current_person, api_content_params: params.except("id"), :params => params
+          present_partial task, with: Entities::Task, display_api_content: true, current_person: current_person, api_content_params: params.except("id"), params: params
         end
 
         %w[finish cancel].each do |action|
@@ -35,7 +34,7 @@ module Api
             begin
               task.update(params[:task])
               task.send(action, current_person) if (task.status == Task::Status::ACTIVE)
-              present_partial task, :with => Entities::Task
+              present_partial task, with: Entities::Task
             rescue Exception => ex
               if task.errors.details.empty?
                 render_api_error!(ex.message, 500)
@@ -55,13 +54,13 @@ module Api
               get do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
                 tasks = find_tasks(profile, Task.to(current_person))
-                present_partial tasks, :with => Entities::Task
+                present_partial tasks, with: Entities::Task
               end
 
-              get ':id' do
+              get ":id" do
                 profile = environment.send(kind.pluralize).find(params["#{kind}_id"])
                 task = find_task(profile, :tasks, params[:id])
-                present_partial task, :with => Entities::Task
+                present_partial task, with: Entities::Task
               end
 
               post do

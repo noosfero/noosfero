@@ -1,5 +1,4 @@
 class SnifferPluginMyprofileController < MyProfileController
-
   include SnifferPlugin::Helper
   helper SnifferPlugin::Helper
   helper CmsHelper
@@ -7,7 +6,7 @@ class SnifferPluginMyprofileController < MyProfileController
   def edit
     if request.post?
       if @profile.update params[:profile_data]
-        session[:notice] = _('Consumer interests updated')
+        session[:notice] = _("Consumer interests updated")
       end
     end
   end
@@ -15,18 +14,17 @@ class SnifferPluginMyprofileController < MyProfileController
   def product_category_search
     query = params[:q] || params[:term]
 
-    @categories = find_by_contents(:categories, @profile, environment.product_categories, query, {per_page: 10, page: 1})[:results]
+    @categories = find_by_contents(:categories, @profile, environment.product_categories, query, per_page: 10, page: 1)[:results]
 
     autocomplete = params.has_key?(:term)
-    render json: @categories.map { |i| autocomplete ? {value: i.id, label: i.name} : {id: i.id, name: i.name} }
+    render json: @categories.map { |i| autocomplete ? { value: i.id, label: i.name } : { id: i.id, name: i.name } }
   end
 
   def product_category_add
     product_category = environment.categories.find params[:id]
     response = { productCategory: {
-        :id   => product_category.id
-      }
-    }
+      id: product_category.id
+    } }
     response[:enterprises] = product_category.sniffer_plugin_enterprises.enabled.visible.map do |enterprise|
       profile_data = filter_visible_attr_profile(enterprise)
       profile_data[:balloonUrl] = url_for controller: :sniffer_plugin_myprofile, action: :map_balloon, id: enterprise[:id], escape: false
@@ -53,8 +51,8 @@ class SnifferPluginMyprofileController < MyProfileController
 
     @categories = categories_with_interest_type(suppliers_categories, consumers_categories)
 
-    suppliers = suppliers_products.group_by{ |p| target_profile_id(p) }
-    consumers = consumers_products.group_by{ |p| target_profile_id(p) }
+    suppliers = suppliers_products.group_by { |p| target_profile_id(p) }
+    consumers = consumers_products.group_by { |p| target_profile_id(p) }
 
     @profiles_data = {}
     suppliers.each do |id, products|
@@ -93,60 +91,59 @@ class SnifferPluginMyprofileController < MyProfileController
 
   protected
 
-  def fetch_profiles(products)
-    profiles = Profile.where id: products.map{ |p| target_profile_id p }
-    profiles_by_id = {}
-    profiles.each do |p|
-      p.sniffer_plugin_distance = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, p.lat, p.lng)
-      profiles_by_id[p.id] ||= p
-    end
-    profiles_by_id
-  end
-
-  def build_products(data)
-    id_products, id_knowledges = {}, {}
-
-    results = {}
-    return results if data.blank?
-
-    grab_id = proc{ |field| data.map{ |h| h[field].to_i }.uniq }
-
-    id_profiles = fetch_profiles(data)
-
-    products = Product.where(id: grab_id.call('id')).includes(:enterprise, :product_category)
-    products.each{ |p| id_products[p.id] ||= p }
-    knowledges = Article.where(id: grab_id.call('knowledge_id'))
-    knowledges.each{ |k| id_knowledges[k.id] ||= k}
-
-    data.each do |attributes|
-      profile = id_profiles[target_profile_id(attributes)]
-
-      results[profile.id] ||= []
-      results[profile.id] << {
-        partial: attributes['view'],
-        product: id_products[attributes['id'].to_i],
-        knowledge: id_knowledges[attributes['knowledge_id'].to_i]
-      }
-    end
-    results
-  end
-
-  def target_profile_id(product)
-    p = product.is_a?(Hash) ? product : product.attributes
-    p.delete_if { |key, value| value.blank? }
-    (p['consumer_profile_id'] || p['supplier_profile_id'] || p['profile_id']).to_i
-  end
-
-  def categories_with_interest_type(suppliers_categories, consumers_categories)
-    (suppliers_categories + consumers_categories).sort_by(&:name).uniq.map do |category|
-      c = {id: category.id, name: category.name}
-      if suppliers_categories.include?(category) && consumers_categories.include?(category)
-        c[:interest_type] = :both
-      else
-        suppliers_categories.include?(category) ? c[:interest_type] = :supplier : c[:interest_type] = :consumer
+    def fetch_profiles(products)
+      profiles = Profile.where id: products.map { |p| target_profile_id p }
+      profiles_by_id = {}
+      profiles.each do |p|
+        p.sniffer_plugin_distance = Noosfero::GeoRef.dist(@profile.lat, @profile.lng, p.lat, p.lng)
+        profiles_by_id[p.id] ||= p
       end
-      c
+      profiles_by_id
     end
-  end
 
+    def build_products(data)
+      id_products, id_knowledges = {}, {}
+
+      results = {}
+      return results if data.blank?
+
+      grab_id = proc { |field| data.map { |h| h[field].to_i }.uniq }
+
+      id_profiles = fetch_profiles(data)
+
+      products = Product.where(id: grab_id.call("id")).includes(:enterprise, :product_category)
+      products.each { |p| id_products[p.id] ||= p }
+      knowledges = Article.where(id: grab_id.call("knowledge_id"))
+      knowledges.each { |k| id_knowledges[k.id] ||= k }
+
+      data.each do |attributes|
+        profile = id_profiles[target_profile_id(attributes)]
+
+        results[profile.id] ||= []
+        results[profile.id] << {
+          partial: attributes["view"],
+          product: id_products[attributes["id"].to_i],
+          knowledge: id_knowledges[attributes["knowledge_id"].to_i]
+        }
+      end
+      results
+    end
+
+    def target_profile_id(product)
+      p = product.is_a?(Hash) ? product : product.attributes
+      p.delete_if { |key, value| value.blank? }
+      (p["consumer_profile_id"] || p["supplier_profile_id"] || p["profile_id"]).to_i
+    end
+
+    def categories_with_interest_type(suppliers_categories, consumers_categories)
+      (suppliers_categories + consumers_categories).sort_by(&:name).uniq.map do |category|
+        c = { id: category.id, name: category.name }
+        if suppliers_categories.include?(category) && consumers_categories.include?(category)
+          c[:interest_type] = :both
+        else
+          suppliers_categories.include?(category) ? c[:interest_type] = :supplier : c[:interest_type] = :consumer
+        end
+        c
+      end
+    end
 end

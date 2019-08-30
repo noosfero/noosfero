@@ -1,12 +1,10 @@
 class VolunteersPluginMyprofileController < MyProfileController
-
   no_design_blocks
 
   # remove fake dependency
   helper OrdersPlugin::DateHelper
 
   def index
-
   end
 
   def toggle_assign
@@ -25,9 +23,8 @@ class VolunteersPluginMyprofileController < MyProfileController
       @period.assignments.reload
     end
 
-    render partial: 'volunteering', locals: {period: @period}
+    render partial: "volunteering", locals: { period: @period }
   end
 
   protected
-
 end

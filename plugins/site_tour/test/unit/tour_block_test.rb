@@ -1,7 +1,6 @@
-require 'test_helper'
+require "test_helper"
 
 class TrackListBlockTest < ActionView::TestCase
-
   ActionView::Base.send :include, ApplicationHelper
   include BoxesHelper
 
@@ -11,33 +10,32 @@ class TrackListBlockTest < ActionView::TestCase
 
   attr_accessor :block
 
-  should 'do not save empty actions' do
-    block.actions = [{:group_name => '', :selector => nil, :description => ' '}]
+  should "do not save empty actions" do
+    block.actions = [{ group_name: "", selector: nil, description: " " }]
     block.save!
     assert_equal [], block.actions
   end
 
-  should 'render script tag in visualization mode' do
+  should "render script tag in visualization mode" do
     controller.expects(:boxes_editor?).returns(false)
-    assert_tag_in_string render_block_content(block), :tag => 'script'
+    assert_tag_in_string render_block_content(block), tag: "script"
   end
 
-  should 'do not render script tag when editing' do
+  should "do not render script tag when editing" do
     controller.expects(:boxes_editor?).returns(true)
     controller.expects(:uses_design_blocks?).returns(true)
-    assert_no_tag_in_string render_block_content(block), :tag => 'script'
+    assert_no_tag_in_string render_block_content(block), tag: "script"
   end
 
-  should 'display help button' do
+  should "display help button" do
     controller.expects(:boxes_editor?).returns(false)
-    assert_tag_in_string render_block_content(block), :tag => 'a',
-      :attributes => {:class => 'button icon-help with-text tour-button'}
+    assert_tag_in_string render_block_content(block), tag: "a",
+                                                      attributes: { class: "button icon-help with-text tour-button" }
   end
 
-  should 'do not display help button when display_button is false' do
+  should "do not display help button when display_button is false" do
     block.display_button = false
     controller.expects(:boxes_editor?).returns(false)
-    assert_no_tag_in_string render_block_content(block), :tag => 'a', :attributes => {:class => 'button with-text tour-button'}
+    assert_no_tag_in_string render_block_content(block), tag: "a", attributes: { class: "button with-text tour-button" }
   end
-
 end

@@ -1,15 +1,14 @@
 require_relative "../test_helper"
 
 class ProfileThemesControllerTest < ActionDispatch::IntegrationTest
-
   def setup
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
 
-    @profile = create_user('testinguser').person
-    login_as_rails5('testinguser')
+    @profile = create_user("testinguser").person
+    login_as_rails5("testinguser")
 
     @env = Environment.default
-    @env.enable('user_themes')
+    @env.enable("user_themes")
     @env.enable_default_features
     @env.save!
   end
@@ -21,330 +20,329 @@ class ProfileThemesControllerTest < ActionDispatch::IntegrationTest
 
   TMP_THEMES_DIR = Rails.root.join("test", "tmp", "profile_themes_controller")
 
-  should 'display themes that can be applied' do
+  should "display themes that can be applied" do
     env = Environment.default
-    Theme.stubs(:approved_themes).with(@profile).returns([Theme.new('t1', :name => 't1')])
-    t2 = 't2'
-    t3 = 't3'
+    Theme.stubs(:approved_themes).with(@profile).returns([Theme.new("t1", name: "t1")])
+    t2 = "t2"
+    t3 = "t3"
     env.themes = [t2]
     env.save
 
     Theme.stubs(:system_themes).returns([Theme.new(t2), Theme.new(t3)])
-    get profile_themes_path('testinguser')
+    get profile_themes_path("testinguser")
 
-    %w[ t1 t2 ].each do |item|
-      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/#{item}" }
+    %w[t1 t2].each do |item|
+      assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/set/#{item}" }
     end
 
-    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/t3" }
+    !assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/set/t3" }
   end
 
-  should 'highlight current theme' do
+  should "highlight current theme" do
     env = Environment.default
-    t1 = 'butter'
-    t2 = 'two'
+    t1 = "butter"
+    t2 = "two"
     env.themes = [t1, t2]
     env.save
 
     Theme.stubs(:system_themes).returns([Theme.new(t1), Theme.new(t2)])
     profile.update_theme(t1)
-    get profile_themes_path('testinguser')
+    get profile_themes_path("testinguser")
 
-    assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
-    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/butter" }
+    assert_tag attributes: { class: "theme-opt list-opt selected" }
+    !assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/set/butter" }
   end
 
-  should 'display list of my themes for edition' do
-    Theme.create('three', :owner => profile)
-    Theme.create('four', :owner => profile)
+  should "display list of my themes for edition" do
+    Theme.create("three", owner: profile)
+    Theme.create("four", owner: profile)
 
-    get profile_themes_path('testinguser')
+    get profile_themes_path("testinguser")
 
-    %w[ three four ].each do |item|
-      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/edit/#{item}" }
+    %w[three four].each do |item|
+      assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/edit/#{item}" }
     end
   end
 
-  should 'save selection of theme' do
-    get set_profile_theme_path('testinguser', 'onetheme')
+  should "save selection of theme" do
+    get set_profile_theme_path("testinguser", "onetheme")
     profile = Profile.find(@profile.id)
-    assert_equal 'onetheme', profile.theme
+    assert_equal "onetheme", profile.theme
   end
 
-  should 'save selection of theme even if model is invalid' do
+  should "save selection of theme even if model is invalid" do
     @profile.sex = nil
     @profile.save!
-    @profile.environment.custom_person_fields = { 'sex' => {'required' => 'true', 'active' => 'true'} }; @profile.environment.save!
+    @profile.environment.custom_person_fields = { "sex" => { "required" => "true", "active" => "true" } }; @profile.environment.save!
 
-    get set_profile_theme_path('testinguser', 'onetheme')
+    get set_profile_theme_path("testinguser", "onetheme")
     profile = Profile.find(@profile.id)
-    assert_equal 'onetheme', profile.theme
+    assert_equal "onetheme", profile.theme
   end
 
-  should 'unset selection of theme' do
-    get unset_profile_themes_path('testinguser')
+  should "unset selection of theme" do
+    get unset_profile_themes_path("testinguser")
     assert_nil profile.theme
   end
 
-  should 'display link to use the default theme' do
+  should "display link to use the default theme" do
     env = Environment.default
-    env.themes = ['new-theme']
+    env.themes = ["new-theme"]
     env.save
 
-    Theme.stubs(:system_themes).returns([Theme.new('new-theme')])
+    Theme.stubs(:system_themes).returns([Theme.new("new-theme")])
 
-    get profile_themes_path('testinguser')
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/unset" }
+    get profile_themes_path("testinguser")
+    assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/unset" }
   end
 
-  should 'point back to control panel' do
-    get profile_themes_path('testinguser')
-    assert_tag :tag => 'a', :attributes => { :href =>  '/myprofile/testinguser' }, :content => 'Back to control panel'
+  should "point back to control panel" do
+    get profile_themes_path("testinguser")
+    assert_tag tag: "a", attributes: { href: "/myprofile/testinguser" }, content: "Back to control panel"
   end
 
-  should 'display screen for creating new theme' do
-    get new_profile_themes_path('testinguser')
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/new', :method => /post/i }, :descendant => { :tag => 'input', :attributes => { :type => 'text', :name => 'name' } }
+  should "display screen for creating new theme" do
+    get new_profile_themes_path("testinguser")
+    assert_tag tag: "form", attributes: { action: "/myprofile/testinguser/profile_themes/new", method: /post/i }, descendant: { tag: "input", attributes: { type: "text", name: "name" } }
   end
 
-  should 'create a new theme' do
-    post new_profile_themes_path('testinguser'), params: {:name => 'My theme'}
+  should "create a new theme" do
+    post new_profile_themes_path("testinguser"), params: { name: "My theme" }
 
-    ok('theme should be created') do
-      profile.themes.first.id == 'my-theme'
+    ok("theme should be created") do
+      profile.themes.first.id == "my-theme"
     end
   end
 
-  should 'edit a theme' do
-    theme = Theme.create('mytheme', :owner => profile)
-    get edit_profile_theme_path('testinguser', 'mytheme')
+  should "edit a theme" do
+    theme = Theme.create("mytheme", owner: profile)
+    get edit_profile_theme_path("testinguser", "mytheme")
 
     assert_equal theme, assigns(:theme)
   end
 
-  should 'list CSS files in theme' do
-    theme = Theme.create('mytheme', :owner => profile)
-    theme.add_css('one.css')
-    theme.add_css('two.css')
+  should "list CSS files in theme" do
+    theme = Theme.create("mytheme", owner: profile)
+    theme.add_css("one.css")
+    theme.add_css("two.css")
 
-    get edit_profile_theme_path('testinguser', 'mytheme')
+    get edit_profile_theme_path("testinguser", "mytheme")
 
-    %w[ one.css two.css ].each do |item|
+    %w[one.css two.css].each do |item|
       assert_includes assigns(:css_files), item
-      assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => item}
+      assert_tag tag: "li", descendant: { tag: "a", content: item }
     end
   end
 
-  should 'display dialog for creating new CSS' do
-    theme = Theme.create('mytheme', :owner => profile)
-    get add_css_profile_theme_path('testinguser', 'mytheme'), xhr: true
+  should "display dialog for creating new CSS" do
+    theme = Theme.create("mytheme", owner: profile)
+    get add_css_profile_theme_path("testinguser", "mytheme"), xhr: true
 
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/add_css/mytheme', :method => /post/i}
-    assert_tag :tag => 'input', :attributes => { :name => 'css', :type => 'text' }
-    assert_tag :tag => 'input', :attributes => { :type => 'submit' }
+    assert_tag tag: "form", attributes: { action: "/myprofile/testinguser/profile_themes/add_css/mytheme", method: /post/i }
+    assert_tag tag: "input", attributes: { name: "css", type: "text" }
+    assert_tag tag: "input", attributes: { type: "submit" }
   end
 
-  should 'be able to add new CSS to theme' do
-    theme = Theme.create('mytheme', :owner => profile)
-    post add_css_profile_theme_path('testinguser', 'mytheme'), params: {:css => 'test.css'}
+  should "be able to add new CSS to theme" do
+    theme = Theme.create("mytheme", owner: profile)
+    post add_css_profile_theme_path("testinguser", "mytheme"), params: { css: "test.css" }
 
     assert_response :redirect
 
-    reloaded_theme = Theme.find('mytheme')
-    assert_includes reloaded_theme.css_files, 'test.css'
+    reloaded_theme = Theme.find("mytheme")
+    assert_includes reloaded_theme.css_files, "test.css"
   end
 
-  should 'load code from a given CSS file' do
-    theme = Theme.create('mytheme', :owner => profile); theme.update_css('test.css', '/* sample code */')
-    get css_editor_profile_theme_path('testinguser', 'mytheme'), params: {:css => 'test.css'}
+  should "load code from a given CSS file" do
+    theme = Theme.create("mytheme", owner: profile); theme.update_css("test.css", "/* sample code */")
+    get css_editor_profile_theme_path("testinguser", "mytheme"), params: { css: "test.css" }
 
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/update_css/mytheme' }, :descendant => { :tag => 'textarea', :content => /\/\* sample code \*\// }
+    assert_tag tag: "form", attributes: { action: "/myprofile/testinguser/profile_themes/update_css/mytheme" }, descendant: { tag: "textarea", content: /\/\* sample code \*\// }
   end
 
-  should 'be able to save CSS code' do
-    theme = Theme.create('mytheme', :owner => profile); theme.update_css('test.css', '/* sample code */')
-    get css_editor_profile_theme_path('testinguser', 'mytheme'), params: {:css => 'test.css'}
+  should "be able to save CSS code" do
+    theme = Theme.create("mytheme", owner: profile); theme.update_css("test.css", "/* sample code */")
+    get css_editor_profile_theme_path("testinguser", "mytheme"), params: { css: "test.css" }
 
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/update_css/mytheme' }, :descendant => { :tag => 'input', :attributes => { :type => 'submit' } }
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/update_css/mytheme' }, :descendant => { :tag => 'input', :attributes => { :type => 'hidden', :name => 'css', :value => 'test.css' } }
+    assert_tag tag: "form", attributes: { action: "/myprofile/testinguser/profile_themes/update_css/mytheme" }, descendant: { tag: "input", attributes: { type: "submit" } }
+    assert_tag tag: "form", attributes: { action: "/myprofile/testinguser/profile_themes/update_css/mytheme" }, descendant: { tag: "input", attributes: { type: "hidden", name: "css", value: "test.css" } }
   end
 
-  should 'update css code when saving' do
-    theme = Theme.create('mytheme', :owner => profile); theme.update_css('test.css', '/* sample code */')
-    post update_css_profile_theme_path('testinguser', 'mytheme'), params: {:css => 'test.css', :csscode => 'body { background: white; }'}
-    assert_equal 'body { background: white; }', theme.read_css('test.css')
+  should "update css code when saving" do
+    theme = Theme.create("mytheme", owner: profile); theme.update_css("test.css", "/* sample code */")
+    post update_css_profile_theme_path("testinguser", "mytheme"), params: { css: "test.css", csscode: "body { background: white; }" }
+    assert_equal "body { background: white; }", theme.read_css("test.css")
   end
 
-  should 'list image files in theme' do
-    theme = Theme.create('mytheme', :owner => profile)
-    theme.add_image('one.png', 'FAKE IMAGE DATA 1')
-    theme.add_image('two.png', 'FAKE IMAGE DATA 2')
+  should "list image files in theme" do
+    theme = Theme.create("mytheme", owner: profile)
+    theme.add_image("one.png", "FAKE IMAGE DATA 1")
+    theme.add_image("two.png", "FAKE IMAGE DATA 2")
 
-    get edit_profile_theme_path('testinguser', :id => 'mytheme')
+    get edit_profile_theme_path("testinguser", id: "mytheme")
 
-    assert_tag :tag => 'img', :attributes => { :src => '/user_themes/mytheme/images/one.png' }
-    assert_tag :tag => 'img', :attributes => { :src => '/user_themes/mytheme/images/two.png' }
+    assert_tag tag: "img", attributes: { src: "/user_themes/mytheme/images/one.png" }
+    assert_tag tag: "img", attributes: { src: "/user_themes/mytheme/images/two.png" }
   end
 
   should 'display "add image" button' do
-    theme = Theme.create('mytheme', :owner => profile)
-    get edit_profile_theme_path('testinguser', 'mytheme')
+    theme = Theme.create("mytheme", owner: profile)
+    get edit_profile_theme_path("testinguser", "mytheme")
 
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/add_image/mytheme' }
+    assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/add_image/mytheme" }
   end
 
   should 'display the "add image" dialog' do
-    theme = Theme.create('mytheme', :owner => profile)
+    theme = Theme.create("mytheme", owner: profile)
 
-    get add_image_profile_theme_path('testinguser', 'mytheme'), xhr: true
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/add_image/mytheme', :method => /post/i, :enctype => 'multipart/form-data' }, :descendant => { :tag => 'input', :attributes => { :name => 'image', :type => 'file' } }
+    get add_image_profile_theme_path("testinguser", "mytheme"), xhr: true
+    assert_tag tag: "form", attributes: { action: "/myprofile/testinguser/profile_themes/add_image/mytheme", method: /post/i, enctype: "multipart/form-data" }, descendant: { tag: "input", attributes: { name: "image", type: "file" } }
   end
 
-  should 'be able to add new image to theme' do
-    theme = Theme.create('mytheme', :owner => profile)
+  should "be able to add new image to theme" do
+    theme = Theme.create("mytheme", owner: profile)
     @request.stubs(:xhr?).returns(false)
 
-    post add_image_profile_theme_path('testinguser', 'mytheme'), params: {:image => fixture_file_upload('/files/rails.png', 'image/png', :binary)}
-    assert_redirected_to :action => "edit", :id => 'mytheme'
-    assert theme.image_files.include?('rails.png')
-    assert(system('diff', Rails.root.join('test', 'fixtures', 'files','rails.png').to_s, TMP_THEMES_DIR.join('mytheme/images/rails.png').to_s), 'should put the correct uploaded file in the right place')
+    post add_image_profile_theme_path("testinguser", "mytheme"), params: { image: fixture_file_upload("/files/rails.png", "image/png", :binary) }
+    assert_redirected_to action: "edit", id: "mytheme"
+    assert theme.image_files.include?("rails.png")
+    assert(system("diff", Rails.root.join("test", "fixtures", "files", "rails.png").to_s, TMP_THEMES_DIR.join("mytheme/images/rails.png").to_s), "should put the correct uploaded file in the right place")
   end
 
   should 'link to "test theme"' do
-    Theme.create('one', :owner => profile)
-    Theme.create('two', :owner => profile)
-    get profile_themes_path('testinguser')
+    Theme.create("one", owner: profile)
+    Theme.create("two", owner: profile)
+    get profile_themes_path("testinguser")
 
-    %w[ one two ].each do |item|
-      assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/start_test/' + item }
+    %w[one two].each do |item|
+      assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/start_test/" + item }
     end
   end
 
-  should 'start testing theme' do
-    theme = Theme.create('theme-under-test', :owner => profile)
-    post start_test_profile_theme_path('testinguser', 'theme-under-test')
+  should "start testing theme" do
+    theme = Theme.create("theme-under-test", owner: profile)
+    post start_test_profile_theme_path("testinguser", "theme-under-test")
 
-    assert_equal 'theme-under-test', session[:user_theme]
-    assert_redirected_to :controller => 'content_viewer', :profile => 'testinguser', :action => 'view_page'
+    assert_equal "theme-under-test", session[:user_theme]
+    assert_redirected_to controller: "content_viewer", profile: "testinguser", action: "view_page"
   end
 
-  should 'stop testing theme' do
-    theme = Theme.create('theme-under-test', :owner => profile)
-    post stop_test_profile_theme_path('testinguser', 'theme-under-test')
+  should "stop testing theme" do
+    theme = Theme.create("theme-under-test", owner: profile)
+    post stop_test_profile_theme_path("testinguser", "theme-under-test")
 
     assert_nil session[:user_theme]
-    assert_redirected_to :action => 'index'
+    assert_redirected_to action: "index"
   end
 
-  should 'list templates' do
+  should "list templates" do
     all = LayoutTemplate.all
 
     LayoutTemplate.expects(:all).returns(all)
-    get profile_themes_path('testinguser')
+    get profile_themes_path("testinguser")
     assert_equal all, assigns(:layout_templates)
   end
 
-  should 'display links to set template' do
-    profile.layout_template = 'rightbar'
+  should "display links to set template" do
+    profile.layout_template = "rightbar"
     profile.save!
-    t1 = LayoutTemplate.find('default')
-    t2 = LayoutTemplate.find('leftbar')
+    t1 = LayoutTemplate.find("default")
+    t2 = LayoutTemplate.find("leftbar")
     LayoutTemplate.expects(:all).returns([t1, t2])
 
-    get profile_themes_path('testinguser')
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set_layout_template/default"}
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set_layout_template/leftbar"}
+    get profile_themes_path("testinguser")
+    assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/set_layout_template/default" }
+    assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/set_layout_template/leftbar" }
   end
 
-  should 'highlight current template' do
-    profile.layout_template = 'default'
+  should "highlight current template" do
+    profile.layout_template = "default"
     profile.save!
 
-    t1 = LayoutTemplate.find('default')
-    t2 = LayoutTemplate.find('leftbar')
+    t1 = LayoutTemplate.find("default")
+    t2 = LayoutTemplate.find("leftbar")
     LayoutTemplate.expects(:all).returns([t1, t2])
 
-    get profile_themes_path('testinguser')
-    assert_tag :attributes => { :class => 'template-opt list-opt selected' }
-    !assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set_layout_template/default"}
+    get profile_themes_path("testinguser")
+    assert_tag attributes: { class: "template-opt list-opt selected" }
+    !assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/set_layout_template/default" }
   end
 
-  should 'set template' do
-    post set_layout_template_profile_theme_path('testinguser', 'leftbar')
+  should "set template" do
+    post set_layout_template_profile_theme_path("testinguser", "leftbar")
     profile = Profile.find(@profile.id)
-    assert_equal 'leftbar', profile.layout_template
-    assert_redirected_to :action => 'index'
+    assert_equal "leftbar", profile.layout_template
+    assert_redirected_to action: "index"
   end
 
-  should 'set template even if the model is invalid' do
+  should "set template even if the model is invalid" do
     @profile.sex = nil
     @profile.save!
-    @profile.environment.custom_person_fields = { 'sex' => {'required' => 'true', 'active' => 'true'} }; @profile.environment.save!
+    @profile.environment.custom_person_fields = { "sex" => { "required" => "true", "active" => "true" } }; @profile.environment.save!
 
-    post set_layout_template_profile_theme_path('testinguser', 'leftbar')
+    post set_layout_template_profile_theme_path("testinguser", "leftbar")
     profile = Profile.find(@profile.id)
-    assert_equal 'leftbar', profile.layout_template
-    assert_redirected_to :action => 'index'
+    assert_equal "leftbar", profile.layout_template
+    assert_redirected_to action: "index"
   end
 
   should 'not display "new theme" button when user themes are disabled' do
-    env.disable('user_themes')
+    env.disable("user_themes")
     env.save!
-    get profile_themes_path('testinguser')
-    !assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/new' }
+    get profile_themes_path("testinguser")
+    !assert_tag tag: "a", attributes: { href: "/myprofile/testinguser/profile_themes/new" }
   end
 
   should 'not display the "Select themes" section if there are no themes to choose from' do
     env.themes = []; env.save!
     Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR) # an empty dir
     get profile_themes_path("testinguser")
-    !assert_tag :content => "Select theme"
+    !assert_tag content: "Select theme"
   end
 
-  should 'not duplicate themes that are included by the user and by the environment' do
-    t1 = Theme.create('theme1')
-    t2 = Theme.create('theme2')
-    Environment.any_instance.stubs('themes').returns([t1,t2])
+  should "not duplicate themes that are included by the user and by the environment" do
+    t1 = Theme.create("theme1")
+    t2 = Theme.create("theme2")
+    Environment.any_instance.stubs("themes").returns([t1, t2])
     Theme.stubs(:approved_themes).returns([t2])
 
     get profile_themes_path("testinguser")
     assert_equivalent [t1, t2], assigns(:themes)
   end
 
-  should 'sort themes by name' do
-    t1 = Theme.create('bill-theme')
-    t2 = Theme.create('ana-theme')
-    Theme.stubs(:approved_themes).returns([t1,t2])
+  should "sort themes by name" do
+    t1 = Theme.create("bill-theme")
+    t2 = Theme.create("ana-theme")
+    Theme.stubs(:approved_themes).returns([t1, t2])
 
     get profile_themes_path("testinguser")
     assert_equal [t2, t1], assigns(:themes)
   end
 
-  should 'user cant edit appearance if environment dont permit' do
+  should "user cant edit appearance if environment dont permit" do
     environment = Environment.default
-    environment.disable('enable_appearance')
+    environment.disable("enable_appearance")
     environment.save!
 
-    user = create_user('user').person
-    login_as_rails5('user')
+    user = create_user("user").person
+    login_as_rails5("user")
 
     post profile_themes_path(user.identifier)
     assert_response :redirect
   end
 
-  should 'admin can edit appearance if environment dont permit' do
-    user = create_user('user').person
+  should "admin can edit appearance if environment dont permit" do
+    user = create_user("user").person
 
     environment = Environment.default
     environment.add_admin(user)
-    environment.disable('enable_appearance')
+    environment.disable("enable_appearance")
     environment.save!
 
     logout_rails5
-    login_as_rails5('user')
+    login_as_rails5("user")
 
     post profile_themes_path(user.identifier)
     assert_response :success
   end
-
 end

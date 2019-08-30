@@ -1,8 +1,7 @@
-require_dependency File.dirname(__FILE__) + '/profile_members_headlines_block'
-require 'ext/person'
+require_dependency File.dirname(__FILE__) + "/profile_members_headlines_block"
+require "ext/person"
 
 class ProfileMembersHeadlinesPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Profile Members Headlines Plugin"
   end
@@ -12,12 +11,10 @@ class ProfileMembersHeadlinesPlugin < Noosfero::Plugin
   end
 
   def self.extra_blocks
-    { ProfileMembersHeadlinesBlock => { :type => [Community], :position =>
-['1'] }}
+    { ProfileMembersHeadlinesBlock => { type: [Community], position: ["1"] } }
   end
 
   def stylesheet?
     true
   end
-
 end

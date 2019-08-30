@@ -1,66 +1,66 @@
 #!/usr/bin/env ruby
 
-require_relative '../config/environment'
-require_relative '../lib/sample_data'
+require_relative "../config/environment"
+require_relative "../lib/sample_data"
 include SampleData
 
 categories = $environment.categories
 
 places = [
-  { :country=>'BR', :state=>'Bahia',        :city=>'Salvador',
-    :lat=>-12.94032, :lng=>-38.58398  },
-  { :country=>'BR', :state=>'Bahia',        :city=>'Feira de Santana',
-    :lat=>-12.25547, :lng=>-38.95430  },
-  { :country=>'BR', :state=>'São Paulo',    :city=>'São Paulo',
-    :lat=>-23.54894, :lng=>-46.63881  },
-  { :country=>'BR', :state=>'Rio de Janeiro', :city=>'Petrópolis',
-    :lat=>-22.50462, :lng=>-43.18232  },
-  { :country=>'AR', :state=>'A.C.',         :city=>'Buenos Aires',
-    :lat=>-34.61088, :lng=>-58.39782  },
-  { :country=>'AR', :state=>'Buenos Aires', :city=>'Mar del Plata',
-    :lat=>-37.98317, :lng=>-57.59513  },
-  { :country=>'MX', :state=>'Guerrero',     :city=>'Acapulco',
-    :lat=>16.86369,  :lng=>-99.88151  },
-  { :country=>'US', :state=>'California',   :city=>'Los Angeles',
-    :lat=>34.02307,  :lng=>-118.24310 },
-  { :country=>'US', :state=>'Florida',      :city=>'Jacksonville',
-    :lat=>30.33217,  :lng=>-81.65566 },
-  { :country=>'IT', :city=>'Roma',
-    :lat=>41.89512,  :lng=>12.48184   },
-  { :country=>'IN', :city=>'Mumbai',
-    :lat=>19.01798,  :lng=>72.85583   },
-  { :country=>'CN', :city=>'Shanghai',
-    :lat=>31.23041,  :lng=>121.47308  },
-  { :country=>'JP', :city=>'Tokyo',
-    :lat=>35.68964,  :lng=>139.69116  },
-  { :country=>'FR', :city=>'Paris',
-    :lat=>48.85658,  :lng=>2.351074   },
-  { :country=>'BW', :city=>'Sowa',
-    :lat=>-20.56891, :lng=>26.22367   }
+  { country: "BR", state: "Bahia",        city: "Salvador",
+    lat: -12.94032, lng: -38.58398  },
+  { country: "BR", state: "Bahia",        city: "Feira de Santana",
+    lat: -12.25547, lng: -38.95430  },
+  { country: "BR", state: "S\u00E3o Paulo", city: "S\u00E3o Paulo",
+    lat: -23.54894, lng: -46.63881  },
+  { country: "BR", state: "Rio de Janeiro", city: "Petr\u00F3polis",
+    lat: -22.50462, lng: -43.18232  },
+  { country: "AR", state: "A.C.",         city: "Buenos Aires",
+    lat: -34.61088, lng: -58.39782  },
+  { country: "AR", state: "Buenos Aires", city: "Mar del Plata",
+    lat: -37.98317, lng: -57.59513  },
+  { country: "MX", state: "Guerrero",     city: "Acapulco",
+    lat: 16.86369,  lng: -99.88151  },
+  { country: "US", state: "California",   city: "Los Angeles",
+    lat: 34.02307,  lng: -118.24310 },
+  { country: "US", state: "Florida",      city: "Jacksonville",
+    lat: 30.33217,  lng: -81.65566 },
+  { country: "IT", city: "Roma",
+    lat: 41.89512,  lng: 12.48184   },
+  { country: "IN", city: "Mumbai",
+    lat: 19.01798,  lng: 72.85583   },
+  { country: "CN", city: "Shanghai",
+    lat: 31.23041,  lng: 121.47308  },
+  { country: "JP", city: "Tokyo",
+    lat: 35.68964,  lng: 139.69116  },
+  { country: "FR", city: "Paris",
+    lat: 48.85658,  lng: 2.351074   },
+  { country: "BW", city: "Sowa",
+    lat: -20.56891, lng: 26.22367   }
 ]
 
 people = []
-NAMES = %w[ José João Antonio Paulo Maria Joana Paula Angela ]
-SURNAMES = %w[ Silva Santos Abreu Oliveira Machado Bonfim  ]
+NAMES = %w[José João Antonio Paulo Maria Joana Paula Angela]
+SURNAMES = %w[Silva Santos Abreu Oliveira Machado Bonfim]
 print "Creating users: "
 for name in NAMES
   for surname in SURNAMES
-    full_name = [name, surname].join(' ')
-    user = User.new({
-      :login => full_name.to_slug,
-      :email => full_name.to_slug + '@localhost.localdomain',
-      :password => 'test',
-      :password_confirmation => 'test',
-      :environment => $environment,
-    })
+    full_name = [name, surname].join(" ")
+    user = User.new(
+      login: full_name.to_slug,
+      email: full_name.to_slug + "@localhost.localdomain",
+      password: "test",
+      password_confirmation: "test",
+      environment: $environment,
+    )
     save user do
       user.person.name = full_name
       place = places[rand(places.length)]
       user.person.data[:country] = place[:country]
       user.person.state = place[:state]
       user.person.city = place[:city]
-      user.person.lat = place[:lat] + (rand/100)-0.005
-      user.person.lng = place[:lng] + (rand/100)-0.005
+      user.person.lat = place[:lat] + (rand / 100) - 0.005
+      user.person.lng = place[:lng] + (rand / 100) - 0.005
       user.person.save!
       if categories.present?
         2.times do
@@ -71,35 +71,35 @@ for name in NAMES
     end
   end
 end
-ze = User.new({
-  :login => "ze",
-  :email => 'root@localhost.localdomain',
-  :password => 'test',
-  :password_confirmation => 'test',
-  :environment => $environment,
-})
+ze = User.new(
+  login: "ze",
+  email: "root@localhost.localdomain",
+  password: "test",
+  password_confirmation: "test",
+  environment: $environment,
+)
 save ze do
   $environment.add_admin(ze.person)
 end
 
-admin = User.new({
-  :login => "adminuser",
-  :email => 'adminuser@localhost.localdomain',
-  :password => 'admin',
-  :password_confirmation => 'admin',
-  :environment => $environment,
-})
+admin = User.new(
+  login: "adminuser",
+  email: "adminuser@localhost.localdomain",
+  password: "admin",
+  password_confirmation: "admin",
+  environment: $environment,
+)
 save admin do
   $environment.add_admin(admin.person)
 end
 
-guest = User.new({
-  :login => "guest",
-  :email => 'guest@localhost.localdomain',
-  :password => 'test',
-  :password_confirmation => 'test',
-  :environment => $environment,
-})
+guest = User.new(
+  login: "guest",
+  email: "guest@localhost.localdomain",
+  password: "test",
+  password_confirmation: "test",
+  environment: $environment,
+)
 save guest
 
 done
@@ -107,7 +107,7 @@ done
 print "Activating users: "
 User.where("login NOT LIKE '%%_template'").each do |user|
   user.activate!
-  print '.'
+  print "."
 end
 done
 
@@ -117,25 +117,24 @@ rand(people.size * 3).times do
   from = people.sample
   to = people.sample
   if from != to && !from.friends.include?(to)
-    task = AddFriend.new(:requestor => to, :target => from)
+    task = AddFriend.new(requestor: to, target: from)
     save task do
       task.finish
     end
   end
-  print '.'
+  print "."
 end
 done
 
-
 communities = []
-VERBS = ['Save', 'I like', 'Use', 'Lovers of', 'Rehabilitate']
-STUFF = ['Free Software', 'Organic food', 'the wales', 'the environment', 'Vegan Food', 'Vegetarians']
+VERBS = ["Save", "I like", "Use", "Lovers of", "Rehabilitate"]
+STUFF = ["Free Software", "Organic food", "the wales", "the environment", "Vegan Food", "Vegetarians"]
 print "Creating communities: "
 for verb in VERBS
   for stuff in STUFF
-    name = [verb, stuff].join(' ')
-    community = Community.new(:name => name, :environment => $environment)
-    if rand(2)==1 # not all communities must have a place
+    name = [verb, stuff].join(" ")
+    community = Community.new(name: name, environment: $environment)
+    if rand(2) == 1 # not all communities must have a place
       place = places[rand(places.length)]
       community.data[:country] = place[:country]
       community.state = place[:state]
@@ -152,7 +151,7 @@ for verb in VERBS
         community.add_category(category)
       end
     end
-    print '.'
+    print "."
   end
 end
 

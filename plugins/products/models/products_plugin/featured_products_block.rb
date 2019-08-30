@@ -1,18 +1,17 @@
 class ProductsPlugin::FeaturedProductsBlock < Block
-
   ##
   # Keep compatibility with previous core name
   #
   def self.sti_name
-    'FeaturedProductsBlock'
+    "FeaturedProductsBlock"
   end
 
   attr_accessible :product_ids, :groups_of, :speed, :reflect
 
-  settings_items :product_ids, :type => Array, :default => []
-  settings_items :groups_of, :type => :integer, :default => 3
-  settings_items :speed, :type => :integer, :default => 1000
-  settings_items :reflect, :type => :boolean, :default => true
+  settings_items :product_ids, type: Array, default: []
+  settings_items :groups_of, type: :integer, default: 3
+  settings_items :speed, type: :integer, default: 1000
+  settings_items :reflect, type: :boolean, default: true
 
   before_save do |block|
     if block.owner.kind_of?(Environment) && block.product_ids.blank?
@@ -24,11 +23,11 @@ class ProductsPlugin::FeaturedProductsBlock < Block
   end
 
   def self.description
-    _('Featured Products')
+    _("Featured Products")
   end
 
   def self.pretty_name
-    _('Featured Products')
+    _("Featured Products")
   end
 
   def products
@@ -38,5 +37,4 @@ class ProductsPlugin::FeaturedProductsBlock < Block
   def products_for_selection
     self.owner.highlighted_products_with_image
   end
-
 end

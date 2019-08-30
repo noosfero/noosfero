@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class MailingListPlugin::UnsubscribeAllJobTest < ActiveSupport::TestCase
   def setup
@@ -8,7 +8,7 @@ class MailingListPlugin::UnsubscribeAllJobTest < ActiveSupport::TestCase
 
   attr_accessor :client
 
-  should 'create a comment on an article if uuid belongs to article' do
+  should "create a comment on an article if uuid belongs to article" do
     person = fast_create(Person)
     c1 = fast_create(Community)
     c2 = fast_create(Community)

@@ -1,4 +1,4 @@
-require_dependency 'profile'
+require_dependency "profile"
 
 Profile.class_eval do
   def bar

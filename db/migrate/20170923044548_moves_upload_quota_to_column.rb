@@ -4,7 +4,7 @@ class MovesUploadQuotaToColumn < ActiveRecord::Migration[4.2]
     add_column :profiles, :disk_usage, :float
     add_column :kinds, :upload_quota, :string
 
-    ['profiles', 'kinds'].each do |table_name|
+    ["profiles", "kinds"].each do |table_name|
       execute("UPDATE #{table_name} "\
               "SET upload_quota = metadata->>'quota' "\
               "WHERE (metadata->>'quota') IS NOT NULL")

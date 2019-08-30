@@ -1,19 +1,18 @@
 require_relative "../test_helper"
 
 class CommentTest < ActiveSupport::TestCase
-
   def setup
   end
 
-  should 'have a name but not require it' do
+  should "have a name but not require it" do
     assert_optional(Comment.new, :title)
   end
 
-  should 'have a body and require it' do
+  should "have a body and require it" do
     assert_mandatory(Comment.new, :body)
   end
 
-  should 'have a polymorphic relationship with source' do
+  should "have a polymorphic relationship with source" do
     c = Comment.new
     assert_nothing_raised do
       c.source = Article.new
@@ -23,7 +22,7 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-  should 'record authenticated author' do
+  should "record authenticated author" do
     c = Comment.new
     assert_raise ActiveRecord::AssociationTypeMismatch do
       c.author = 1
@@ -36,144 +35,143 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-  should 'record unauthenticated author' do
-
+  should "record unauthenticated author" do
     assert_optional Comment.new, :name
     assert_optional Comment.new, :email
 
     # if given name, require email
     c1 = Comment.new
-    c1.name = 'My Name'
-    assert_mandatory c1, :email, 'my@email.com'
+    c1.name = "My Name"
+    assert_mandatory c1, :email, "my@email.com"
 
     # if given email, require name
     c2 = Comment.new
-    c2.email = 'my@email.com'
+    c2.email = "my@email.com"
     assert_mandatory c2, :name
   end
 
-  should 'accept either an authenticated or unauthenticated author' do
+  should "accept either an authenticated or unauthenticated author" do
     assert_mandatory Comment.new, :author_id
 
     c1 = Comment.new
-    c1.author = create_user('someperson').person
-    c1.name = 'my name'
+    c1.author = create_user("someperson").person
+    c1.name = "my name"
     c1.valid?
     assert c1.errors[:name.to_s].present?
     assert_no_match /\{fn\}/, c1.errors[:name].first
   end
 
-  should 'update counter cache in article' do
-    owner = create_user('testuser').person
-    art = create(TextArticle, :profile_id => owner.id)
+  should "update counter cache in article" do
+    owner = create_user("testuser").person
+    art = create(TextArticle, profile_id: owner.id)
     cc = art.comments_count
 
-    comment = create(Comment, :source => art, :author_id => owner.id)
+    comment = create(Comment, source: art, author_id: owner.id)
     assert_equal cc + 1, Article.find(art.id).comments_count
   end
 
-  should 'update counter cache in article activity' do
-    User.current = user = create_user 'testuser'
+  should "update counter cache in article activity" do
+    User.current = user = create_user "testuser"
     owner = user.person
-    article = create(TextArticle, :profile_id => owner.id)
+    article = create(TextArticle, profile_id: owner.id)
 
     action = article.activity
     cc = action.comments_count
-    comment = create(Comment, :source => action, :author_id => owner.id)
+    comment = create(Comment, source: action, author_id: owner.id)
     assert_equal cc + 1, ActionTracker::Record.find(action.id).comments_count
   end
 
-  should 'update counter cache in general activity when add a comment' do
+  should "update counter cache in general activity when add a comment" do
     person = fast_create(Person)
     community = fast_create(Community)
 
-    activity = create ActionTracker::Record, :user => person, :target => community, :verb => 'add_member_in_community'
+    activity = create ActionTracker::Record, user: person, target: community, verb: "add_member_in_community"
 
     cc = activity.comments_count
 
-    comment = create(Comment, :source => activity, :author_id => person.id)
+    comment = create(Comment, source: activity, author_id: person.id)
     assert_equal cc + 1, ActionTracker::Record.find(activity.id).comments_count
   end
 
-  should 'try add a comment to a archived article' do
+  should "try add a comment to a archived article" do
     person = fast_create(Person)
-    article = Article.create!(:name => 'Test', :profile => person, :archived => true)
+    article = Article.create!(name: "Test", profile: person, archived: true)
 
     err = assert_raises ActiveRecord::RecordInvalid do
-      comment = create(Comment, :source => article, :author_id => person.id)
+      comment = create(Comment, source: article, author_id: person.id)
     end
 
-    assert_match 'Article associated with this comment is archived', err.message
+    assert_match "Article associated with this comment is archived", err.message
   end
 
-  should 'provide author name for authenticated authors' do
-    owner = create_user('testuser').person
-    assert_equal 'testuser', build(Comment, :author => owner).author_name
+  should "provide author name for authenticated authors" do
+    owner = create_user("testuser").person
+    assert_equal "testuser", build(Comment, author: owner).author_name
   end
 
-  should 'provide author name for unauthenticated author' do
-    assert_equal 'anonymous coward', build(Comment, :name => 'anonymous coward').author_name
+  should "provide author name for unauthenticated author" do
+    assert_equal "anonymous coward", build(Comment, name: "anonymous coward").author_name
   end
 
-  should 'provide empty text for author name if user was removed ' do
-    assert_equal '', build(Comment, :author_id => 9999).author_name
+  should "provide empty text for author name if user was removed " do
+    assert_equal "", build(Comment, author_id: 9999).author_name
   end
 
   should "provide author e-mail for athenticated authors" do
-    owner = create_user('testuser').person
-    assert_equal owner.email, build(Comment, :author => owner).author_email
+    owner = create_user("testuser").person
+    assert_equal owner.email, build(Comment, author: owner).author_email
   end
 
   should "provide author e-mail for unauthenticated author" do
-    assert_equal 'my@email.com', build(Comment, :email => 'my@email.com').author_email
+    assert_equal "my@email.com", build(Comment, email: "my@email.com").author_email
   end
 
-  should 'provide author link for authenticated author' do
+  should "provide author link for authenticated author" do
     author = Person.new
-    author.expects(:url).returns('http://blabla.net/author')
-    assert_equal  'http://blabla.net/author', build(Comment, :author => author).author_link
+    author.expects(:url).returns("http://blabla.net/author")
+    assert_equal "http://blabla.net/author", build(Comment, author: author).author_link
   end
 
-  should 'provide author e-mail as author link for unauthenticated author' do
-    assert_equal 'my@email.com', build(Comment, :email => 'my@email.com').author_link
+  should "provide author e-mail as author link for unauthenticated author" do
+    assert_equal "my@email.com", build(Comment, email: "my@email.com").author_link
   end
 
-  should 'provide url to comment' do
+  should "provide url to comment" do
     art = Article.new
-    art.expects(:url).returns({ :controller => 'lala', :action => 'something' })
-    comment = build(Comment, :article => art)
+    art.expects(:url).returns(controller: "lala", action: "something")
+    comment = build(Comment, article: art)
     comment.expects(:id).returns(9876)
 
-    assert_equal({ :controller => 'lala', :action => 'something', :anchor => 'comment-9876'}, comment.url)
+    assert_equal({ controller: "lala", action: "something", anchor: "comment-9876" }, comment.url)
   end
 
-  should 'provide anchor' do
+  should "provide anchor" do
     comment = Comment.new
     comment.expects(:id).returns(4321)
-    assert_equal 'comment-4321', comment.anchor
+    assert_equal "comment-4321", comment.anchor
   end
 
-  should 'be able to find recent comments' do
+  should "be able to find recent comments" do
     Comment.delete_all
 
-    owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
+    owner = create_user("testuser").person
+    art = owner.articles.build(name: "ytest"); art.save!
     comments = []
     3.times do
-      comments.unshift create(Comment, :article => art, :title => 'a test comment', :body => 'bla', :author => owner)
+      comments.unshift create(Comment, article: art, title: "a test comment", body: "bla", author: owner)
     end
 
     assert_equal comments, Comment.recent
   end
 
-  should 'be able to find recent comments with limit' do
+  should "be able to find recent comments with limit" do
     Comment.delete_all
 
-    owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
+    owner = create_user("testuser").person
+    art = owner.articles.build(name: "ytest"); art.save!
     comments = []
     3.times do
-      comments.unshift create(Comment, :article => art, :title => 'a test comment', :body => 'bla', :author => owner)
+      comments.unshift create(Comment, article: art, title: "a test comment", body: "bla", author: owner)
     end
 
     comments.pop
@@ -181,61 +179,61 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal comments, Comment.recent(2)
   end
 
-  should 'not accept invalid email' do
-    c = build(Comment, :name => 'My Name', :email => 'my@invalid')
+  should "not accept invalid email" do
+    c = build(Comment, name: "My Name", email: "my@invalid")
     c.valid?
     assert c.errors[:email.to_s].present?
   end
 
-  should 'generate links to comments on images with view set to true' do
-    owner = create_user('testuser').person
-    image = create(UploadedFile, :profile => owner, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    comment = create(Comment, :article => image, :author => owner, :title => 'a random comment', :body => 'just another comment')
+  should "generate links to comments on images with view set to true" do
+    owner = create_user("testuser").person
+    image = create(UploadedFile, profile: owner, uploaded_data: fixture_file_upload("/files/rails.png", "image/png"))
+    comment = create(Comment, article: image, author: owner, title: "a random comment", body: "just another comment")
 
     assert comment.url[:view]
   end
 
-  should 'not fill fields with javascript' do
-    owner = create_user('testuser').person
-    article = owner.articles.create!(:name => 'test', :body => '...')
+  should "not fill fields with javascript" do
+    owner = create_user("testuser").person
+    article = owner.articles.create!(name: "test", body: "...")
     javascript = "<script>alert('XSS')</script>"
-    comment = Comment.new(:source => article, :name => javascript, :title => javascript, :body => javascript, :email => 'cracker@test.org')
+    comment = Comment.new(source: article, name: javascript, title: javascript, body: javascript, email: "cracker@test.org")
     comment.valid?
     assert_no_match(/<script>/, comment.name)
   end
 
-  should 'sanitize required fields before validation' do
-    owner = create_user('testuser').person
-    article = owner.articles.create(:name => 'test', :body => '...')
-    comment = build(Comment, :article => article, :title => '<h1 title </h1>', :body => '<h1 body </h1>', :name => '<h1 name </h1>', :email => 'cracker@test.org')
+  should "sanitize required fields before validation" do
+    owner = create_user("testuser").person
+    article = owner.articles.create(name: "test", body: "...")
+    comment = build(Comment, article: article, title: "<h1 title </h1>", body: "<h1 body </h1>", name: "<h1 name </h1>", email: "cracker@test.org")
     comment.valid?
 
     assert comment.errors[:name.to_s].present?
     assert comment.errors[:body.to_s].present?
   end
 
-  should 'use an existing image for deleted comments' do
+  should "use an existing image for deleted comments" do
     image = Comment.new.removed_user_image[1..-1]
-    assert File.exists?(Rails.root.join('public', image)), "#{image} does not exist."
+    assert File.exists?(Rails.root.join("public", image)), "#{image} does not exist."
   end
 
-  should 'have the action_tracker_target defined' do
+  should "have the action_tracker_target defined" do
     assert Comment.method_defined?(:action_tracker_target)
   end
 
   should "get children of a comment" do
     c = fast_create(Comment)
-    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c1 = fast_create(Comment, reply_of_id: c.id)
     c2 = fast_create(Comment)
-    c3 = fast_create(Comment, :reply_of_id => c.id)
-    assert_equal [c1,c3], c.children
+    c3 = fast_create(Comment, reply_of_id: c.id)
+    assert_equal [c1, c3], c.children
   end
 
   should "get parent of a comment" do
     c = fast_create(Comment)
-    c1 = fast_create(Comment, :reply_of_id => c.id)
-    c2 = fast_create(Comment, :reply_of_id => c1.id)
-    c3 = fast_create(Comment, :reply_of_id => c.id)
+    c1 = fast_create(Comment, reply_of_id: c.id)
+    c2 = fast_create(Comment, reply_of_id: c1.id)
+    c3 = fast_create(Comment, reply_of_id: c.id)
     c4 = fast_create(Comment)
     assert_equal c, c1.reply_of
     assert_equal c, c3.reply_of
@@ -243,14 +241,14 @@ class CommentTest < ActiveSupport::TestCase
     assert_nil c4.reply_of
   end
 
-  should 'destroy replies when comment is removed' do
+  should "destroy replies when comment is removed" do
     Comment.delete_all
-    owner = create_user('testuser').person
-    article = owner.articles.create!(:name => 'test', :body => '...')
-    c =  create(Comment, :article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org')
-    c1 = create(Comment, :article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org', :reply_of_id => c.id)
-    c2 = create(Comment, :article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org')
-    c3 = create(Comment, :article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org', :reply_of_id => c.id)
+    owner = create_user("testuser").person
+    article = owner.articles.create!(name: "test", body: "...")
+    c =  create(Comment, article: article, name: "foo", title: "bar", body: "my comment", email: "cracker@test.org")
+    c1 = create(Comment, article: article, name: "foo", title: "bar", body: "my comment", email: "cracker@test.org", reply_of_id: c.id)
+    c2 = create(Comment, article: article, name: "foo", title: "bar", body: "my comment", email: "cracker@test.org")
+    c3 = create(Comment, article: article, name: "foo", title: "bar", body: "my comment", email: "cracker@test.org", reply_of_id: c.id)
     assert_equal 4, Comment.count
     c.destroy
     assert_equal [c2], Comment.all
@@ -258,44 +256,44 @@ class CommentTest < ActiveSupport::TestCase
 
   should "get children if replies are not loaded" do
     c = fast_create(Comment)
-    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c1 = fast_create(Comment, reply_of_id: c.id)
     c2 = fast_create(Comment)
-    c3 = fast_create(Comment, :reply_of_id => c.id)
-    assert_nil c.instance_variable_get('@replies')
-    assert_equal [c1,c3], c.replies
+    c3 = fast_create(Comment, reply_of_id: c.id)
+    assert_nil c.instance_variable_get("@replies")
+    assert_equal [c1, c3], c.replies
   end
 
   should "get replies if they are loaded" do
     c = fast_create(Comment)
-    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c1 = fast_create(Comment, reply_of_id: c.id)
     c2 = fast_create(Comment)
-    c3 = fast_create(Comment, :reply_of_id => c.id)
+    c3 = fast_create(Comment, reply_of_id: c.id)
     c.replies = [c2]
-    assert_not_nil c.instance_variable_get('@replies')
+    assert_not_nil c.instance_variable_get("@replies")
     assert_equal [c2], c.replies
   end
 
   should "set replies" do
     c = fast_create(Comment)
-    c1 = fast_create(Comment, :reply_of_id => c.id)
+    c1 = fast_create(Comment, reply_of_id: c.id)
     c2 = fast_create(Comment)
-    c3 = fast_create(Comment, :reply_of_id => c.id)
+    c3 = fast_create(Comment, reply_of_id: c.id)
     c.replies = []
     c.replies << c2
-    assert_equal [c2], c.instance_variable_get('@replies')
+    assert_equal [c2], c.instance_variable_get("@replies")
     assert_equal [c2], c.replies
-    assert_equal [c1,c3], c.reload.children
+    assert_equal [c1, c3], c.reload.children
   end
 
   should "return activities comments as a thread" do
     User.current = user = create_user
     person = user.person
-    a = TextArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
-    c0 = Comment.create!(:source => a, :body => 'My comment', :author => person)
-    c1 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
-    c2 = Comment.create!(:reply_of_id => c1.id, :source => a, :body => 'bla', :author => person)
-    c3 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
-    c4 = Comment.create!(:source => a, :body => 'My comment', :author => person)
+    a = TextArticle.create!(profile: person, name: "My article", body: "Article body")
+    c0 = Comment.create!(source: a, body: "My comment", author: person)
+    c1 = Comment.create!(reply_of_id: c0.id, source: a, body: "bla", author: person)
+    c2 = Comment.create!(reply_of_id: c1.id, source: a, body: "bla", author: person)
+    c3 = Comment.create!(reply_of_id: c0.id, source: a, body: "bla", author: person)
+    c4 = Comment.create!(source: a, body: "My comment", author: person)
     result = a.activity.comments
     assert result.present?
     assert_equal c0, result[0]
@@ -308,12 +306,12 @@ class CommentTest < ActiveSupport::TestCase
   should "return activities comments when some comment on thread is spam and not display its replies" do
     User.current = user = create_user
     person = user.person
-    a = TextArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
-    c0 = Comment.create(:source => a, :body => 'Root comment', :author => person)
-    c1 = Comment.create(:reply_of_id => c0.id, :source => a, :body => 'c1', :author => person)
-    c2 = Comment.create(:source => a, :body => 'c2', :author => person)
-    spam = create(Comment, :spam => true, :reply_of_id => c2.id, :source => a, :body => 'spam', :author => person)
-    spam_reply = Comment.create(:reply_of_id => spam.id, :source => a, :body => 'spam reply', :author => person)
+    a = TextArticle.create!(profile: person, name: "My article", body: "Article body")
+    c0 = Comment.create(source: a, body: "Root comment", author: person)
+    c1 = Comment.create(reply_of_id: c0.id, source: a, body: "c1", author: person)
+    c2 = Comment.create(source: a, body: "c2", author: person)
+    spam = create(Comment, spam: true, reply_of_id: c2.id, source: a, body: "spam", author: person)
+    spam_reply = Comment.create(reply_of_id: spam.id, source: a, body: "spam reply", author: person)
     result = a.activity.comments
     assert_equal c0, result[0]
     assert_equal [c1], result[0].replies.without_spam
@@ -321,17 +319,17 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal [], result[1].replies.without_spam
   end
 
-  should 'provide author url for authenticated user' do
+  should "provide author url for authenticated user" do
     author = Person.new
-    author.expects(:url).returns('http://blabla.net/author')
-    assert_equal  'http://blabla.net/author', build(Comment, :author => author).author_url
+    author.expects(:url).returns("http://blabla.net/author")
+    assert_equal "http://blabla.net/author", build(Comment, author: author).author_url
   end
 
-  should 'not provide author url for unauthenticated user' do
-    assert_nil build(Comment, :email => 'my@email.com').author_url
+  should "not provide author url for unauthenticated user" do
+    assert_nil build(Comment, email: "my@email.com").author_url
   end
 
-  should 'be able to reject a comment' do
+  should "be able to reject a comment" do
     c = Comment.new
     refute c.rejected?
 
@@ -339,37 +337,37 @@ class CommentTest < ActiveSupport::TestCase
     assert c.rejected?
   end
 
-  should 'not subscribe user as follower of an article automatically on new comment' do
-    owner = create_user('owner_of_article').person
-    person = create_user('follower').person
-    article = fast_create(Article, :profile_id => owner.id)
+  should "not subscribe user as follower of an article automatically on new comment" do
+    owner = create_user("owner_of_article").person
+    person = create_user("follower").person
+    article = fast_create(Article, profile_id: owner.id)
     assert_not_includes article.person_followers, person
-    create(Comment, :source => article, :author => person, :title => 'new comment', :body => 'new comment')
+    create(Comment, source: article, author: person, title: "new comment", body: "new comment")
     assert_not_includes article.reload.person_followers, person
   end
 
-  should 'not subscribe guest user as follower of an article on new comment' do
-    article = fast_create(Article, :profile_id => create_user('article_owner').person.id)
+  should "not subscribe guest user as follower of an article on new comment" do
+    article = fast_create(Article, profile_id: create_user("article_owner").person.id)
     old_num_followers = article.reload.person_followers.size
-    create(Comment, :source => article, :name => 'follower', :email => 'follower@example.com', :title => 'new comment', :body => 'new comment')
+    create(Comment, source: article, name: "follower", email: "follower@example.com", title: "new comment", body: "new comment")
     assert_equal old_num_followers, article.reload.person_followers.size
   end
 
-  should 'not subscribe owner as follower of an article on new comment' do
-    owner = create_user('owner_of_article').person
-    article = fast_create(Article, :profile_id => owner.id)
-    create(Comment, :source => article, :author => owner, :title => 'new comment', :body => 'new comment')
+  should "not subscribe owner as follower of an article on new comment" do
+    owner = create_user("owner_of_article").person
+    article = fast_create(Article, profile_id: owner.id)
+    create(Comment, source: article, author: owner, title: "new comment", body: "new comment")
     assert_not_includes article.reload.person_followers, owner
   end
 
-  should 'not subscribe admins as follower of an article on new comment' do
+  should "not subscribe admins as follower of an article on new comment" do
     owner = fast_create(Community)
-    follower = create_user('follower').person
-    admin = create_user('admin_of_community').person
+    follower = create_user("follower").person
+    admin = create_user("admin_of_community").person
     owner.add_admin(admin)
-    article = fast_create(Article, :profile_id => owner.id)
-    create(Comment, :source => article, :author => follower, :title => 'new comment', :body => 'new comment')
-    create(Comment, :source => article, :author => admin, :title => 'new comment', :body => 'new comment')
+    article = fast_create(Article, profile_id: owner.id)
+    create(Comment, source: article, author: follower, title: "new comment", body: "new comment")
+    create(Comment, source: article, author: admin, title: "new comment", body: "new comment")
 
     article.person_followers += [follower]
     article.save!
@@ -379,13 +377,13 @@ class CommentTest < ActiveSupport::TestCase
     assert_includes article.reload.person_followers, follower
   end
 
-  should 'update article activity when add a comment' do
+  should "update article activity when add a comment" do
     now = Time.now
     Time.stubs(:now).returns(now)
 
-    User.current = user = create_user 'testuser'
+    User.current = user = create_user "testuser"
     profile = user.person
-    article = create(TextArticle, :profile => profile)
+    article = create(TextArticle, profile: profile)
 
     ActionTracker::Record.record_timestamps = false
     article.activity.update_attribute(:updated_at, Time.now - 1.day)
@@ -393,23 +391,23 @@ class CommentTest < ActiveSupport::TestCase
 
     time = article.activity.updated_at
 
-    comment = create(Comment, :source => article, :author => profile)
+    comment = create(Comment, source: article, author: profile)
     assert_equal time + 1.day, article.activity.updated_at
   end
 
-  should 'create a new activity when add a comment and the activity was removed' do
-    User.current = user = create_user 'testuser'
+  should "create a new activity when add a comment and the activity was removed" do
+    User.current = user = create_user "testuser"
     profile = user.person
-    article = create(TextArticle, :profile => profile)
+    article = create(TextArticle, profile: profile)
     article.activity.destroy
 
     assert_nil article.activity
 
-    comment = create(Comment, :source => article, :author => profile)
+    comment = create(Comment, source: article, author: profile)
     assert_not_nil article.activity
   end
 
-  should 'be able to mark comments as spam/ham/unknown' do
+  should "be able to mark comments as spam/ham/unknown" do
     c = Comment.new
     c.spam = true
     assert c.spam?
@@ -424,45 +422,45 @@ class CommentTest < ActiveSupport::TestCase
     refute c.ham?
   end
 
-  should 'be able to select non-spam comments' do
+  should "be able to select non-spam comments" do
     Comment.destroy_all
     c1 = fast_create(Comment)
-    c2 = fast_create(Comment, :spam => false)
-    c3 = fast_create(Comment, :spam => true)
+    c2 = fast_create(Comment, spam: false)
+    c3 = fast_create(Comment, spam: true)
 
-    assert_equivalent [c1,c2], Comment.without_spam
+    assert_equivalent [c1, c2], Comment.without_spam
   end
 
-  should 'be able to mark as spam atomically' do
+  should "be able to mark as spam atomically" do
     c1 = create_comment
     c1.spam!
     c1.reload
     assert c1.spam?
   end
 
-  should 'be able to select spammy comments' do
+  should "be able to select spammy comments" do
     c1 = fast_create(Comment)
-    c2 = fast_create(Comment, :spam => false)
-    c3 = fast_create(Comment, :spam => true)
+    c2 = fast_create(Comment, spam: false)
+    c3 = fast_create(Comment, spam: true)
 
     assert_equivalent [c3], Comment.spam
   end
 
-  should 'be able to mark as ham atomically' do
+  should "be able to mark as ham atomically" do
     c1 = create_comment
     c1.ham!
     c1.reload
     assert c1.ham?
   end
 
-  should 'notify by email' do
+  should "notify by email" do
     c1 = create_comment
     c1.expects(:send_notifications)
     c1.verify_and_notify
   end
 
-  should 'not notify by email when comment is spam' do
-    c1 = create_comment(:spam => true)
+  should "not notify by email when comment is spam" do
+    c1 = create_comment(spam: true)
     c1.expects(:send_notifications).never
     c1.verify_and_notify
   end
@@ -473,8 +471,8 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-  should 'delegate spam detection to plugins' do
-    Noosfero::Plugin.stubs(:all).returns(['CommentTest::EverythingIsSpam'])
+  should "delegate spam detection to plugins" do
+    Noosfero::Plugin.stubs(:all).returns(["CommentTest::EverythingIsSpam"])
     Environment.default.enable_plugin(EverythingIsSpam)
 
     c1 = create_comment
@@ -499,8 +497,8 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-  should 'notify plugins of comments being marked as spam' do
-    Noosfero::Plugin.stubs(:all).returns(['CommentTest::SpamNotification'])
+  should "notify plugins of comments being marked as spam" do
+    Noosfero::Plugin.stubs(:all).returns(["CommentTest::SpamNotification"])
     Environment.default.enable_plugin(SpamNotification)
 
     c = create_comment
@@ -511,8 +509,8 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal c, SpamNotification.marked_as_spam
   end
 
-  should 'notify plugins of comments being marked as ham' do
-    Noosfero::Plugin.stubs(:all).returns(['CommentTest::SpamNotification'])
+  should "notify plugins of comments being marked as ham" do
+    Noosfero::Plugin.stubs(:all).returns(["CommentTest::SpamNotification"])
     Environment.default.enable_plugin(SpamNotification)
 
     c = create_comment
@@ -523,61 +521,61 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal c, SpamNotification.marked_as_ham
   end
 
-  should 'store User-Agent' do
-    c = build(Comment, :user_agent => 'foo')
-    assert_equal 'foo', c.user_agent
+  should "store User-Agent" do
+    c = build(Comment, user_agent: "foo")
+    assert_equal "foo", c.user_agent
   end
 
-  should 'store referrer' do
-    c = build(Comment, :referrer => 'bar')
-    assert_equal 'bar', c.referrer
+  should "store referrer" do
+    c = build(Comment, referrer: "bar")
+    assert_equal "bar", c.referrer
   end
 
-  should 'delegate environment to article' do
-    profile = fast_create(Profile, :environment_id => Environment.default)
-    article = fast_create(Article, :profile_id => profile.id)
-    comment = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
+  should "delegate environment to article" do
+    profile = fast_create(Profile, environment_id: Environment.default)
+    article = fast_create(Article, profile_id: profile.id)
+    comment = fast_create(Comment, source_id: article.id, source_type: "Article")
 
     assert_equal Environment.default, comment.environment
   end
 
-  should 'log spammer ip after marking comment as spam' do
-    comment = create_comment(:ip_address => '192.168.0.1')
+  should "log spammer ip after marking comment as spam" do
+    comment = create_comment(ip_address: "192.168.0.1")
     comment.spam!
-    log = File.open('log/test_spammers.log')
+    log = File.open("log/test_spammers.log")
     assert_match "Comment-id: #{comment.id} IP: 192.168.0.1", log.read
   end
 
-  should 'not need moderation if article is not moderated' do
+  should "not need moderation if article is not moderated" do
     article = Article.new
-    comment = build(Comment, :article => article)
+    comment = build(Comment, article: article)
 
     refute comment.need_moderation?
   end
 
-  should 'not need moderation if the comment author is the article author' do
+  should "not need moderation if the comment author is the article author" do
     author = Person.new
     article = Article.new
 
     article.stubs(:author).returns(author)
     article.moderate_comments = true
 
-    comment = build(Comment, :article => article)
+    comment = build(Comment, article: article)
     comment.stubs(:author).returns(author)
 
     refute comment.need_moderation?
   end
 
-  should 'need moderation if article is moderated and the comment has no author' do
+  should "need moderation if article is moderated and the comment has no author" do
     article = Article.new
     article.stubs(:moderate_comments?).returns(true)
 
-    comment = build(Comment, :article => article)
+    comment = build(Comment, article: article)
 
     assert comment.need_moderation?
   end
 
-  should 'need moderation if article is moderated and the comment author is different from article author' do
+  should "need moderation if article is moderated and the comment author is different from article author" do
     article_author = Person.new
     comment_author = Person.new
 
@@ -585,182 +583,182 @@ class CommentTest < ActiveSupport::TestCase
     article.stubs(:author).returns(article_author)
     article.stubs(:moderate_comments?).returns(true)
 
-    comment = build(Comment, :article => article)
+    comment = build(Comment, article: article)
     comment.stubs(:author).returns(comment_author)
 
     assert comment.need_moderation?
   end
 
-  should 'not be able to destroy comment without user' do
+  should "not be able to destroy comment without user" do
     comment = Comment.new
 
     refute comment.can_be_destroyed_by?(nil)
   end
 
-  should 'anonymous has no allow_destroy? permission' do
+  should "anonymous has no allow_destroy? permission" do
     comment = Comment.new
 
     refute comment.allow_destroy?(nil)
   end
 
-  should 'not be able to destroy comment' do
+  should "not be able to destroy comment" do
     user = Person.new
     profile = Profile.new
-    article = build(Article, :profile => profile)
-    comment = build(Comment, :article => article)
+    article = build(Article, profile: profile)
+    comment = build(Comment, article: article)
     user.expects(:has_permission?).with(:moderate_comments, profile).returns(false)
 
     refute comment.can_be_destroyed_by?(user)
   end
 
-  should 'be able to destroy comment if is the author' do
+  should "be able to destroy comment if is the author" do
     user = Person.new
-    comment = build(Comment, :author => user)
+    comment = build(Comment, author: user)
 
     assert comment.can_be_destroyed_by?(user)
   end
 
-  should 'be able to destroy comment if is the profile' do
+  should "be able to destroy comment if is the profile" do
     user = Person.new
-    article = build(Article, :profile => user)
-    comment = build(Comment, :article => article)
+    article = build(Article, profile: user)
+    comment = build(Comment, article: article)
 
     assert comment.can_be_destroyed_by?(user)
   end
 
-  should 'be able to destroy comment if can moderate_comments on the profile' do
+  should "be able to destroy comment if can moderate_comments on the profile" do
     user = Person.new
     profile = Profile.new
-    article = build(Article, :profile => profile)
-    comment = build(Comment, :article => article)
+    article = build(Article, profile: profile)
+    comment = build(Comment, article: article)
 
     user.expects(:has_permission?).with(:moderate_comments, profile).returns(true)
 
     assert comment.can_be_destroyed_by?(user)
   end
 
-  should 'not be able to mark comment as spam without user' do
+  should "not be able to mark comment as spam without user" do
     comment = Comment.new
 
     refute comment.can_be_marked_as_spam_by?(nil)
   end
 
-  should 'not be able to mark comment as spam' do
+  should "not be able to mark comment as spam" do
     user = Person.new
     profile = Profile.new
-    article = build(Article, :profile => profile)
-    comment = build(Comment, :article => article)
+    article = build(Article, profile: profile)
+    comment = build(Comment, article: article)
     user.expects(:has_permission?).with(:moderate_comments, profile).returns(false)
 
     refute comment.can_be_marked_as_spam_by?(user)
   end
 
-  should 'be able to mark comment as spam if is the profile' do
+  should "be able to mark comment as spam if is the profile" do
     user = Person.new
-    article = build(Article, :profile => user)
-    comment = build(Comment, :article => article)
+    article = build(Article, profile: user)
+    comment = build(Comment, article: article)
 
     assert comment.can_be_marked_as_spam_by?(user)
   end
 
-  should 'be able to mark comment as spam if can moderate_comments on the profile' do
+  should "be able to mark comment as spam if can moderate_comments on the profile" do
     user = Person.new
     profile = Profile.new
-    article = build(Article, :profile => profile)
-    comment = build(Comment, :article => article)
+    article = build(Article, profile: profile)
+    comment = build(Comment, article: article)
 
     user.expects(:has_permission?).with(:moderate_comments, profile).returns(true)
 
     assert comment.can_be_marked_as_spam_by?(user)
   end
 
-  should 'not be able to update comment without user' do
+  should "not be able to update comment without user" do
     comment = Comment.new
 
     refute comment.can_be_updated_by?(nil)
   end
 
-  should 'not be able to update comment' do
+  should "not be able to update comment" do
     user = Person.new
     comment = Comment.new
 
     refute comment.can_be_updated_by?(user)
   end
 
-  should 'be able to update comment if is the author' do
+  should "be able to update comment if is the author" do
     user = Person.new
-    comment = build(Comment, :author => user)
+    comment = build(Comment, author: user)
 
     assert comment.can_be_updated_by?(user)
   end
 
-  should 'get comment root' do
+  should "get comment root" do
     c1 = Comment.new
-    c2 = build(Comment, :reply_of => c1)
-    c3 = build(Comment, :reply_of => c2)
+    c2 = build(Comment, reply_of: c1)
+    c3 = build(Comment, reply_of: c2)
 
     assert_equal c1, c3.comment_root
     assert_equal c1, c2.comment_root
     assert_equal c1, c1.comment_root
   end
 
-  should 'be able to select non-reply comments' do
+  should "be able to select non-reply comments" do
     Comment.destroy_all
     c1 = fast_create(Comment)
-    c2 = fast_create(Comment, :reply_of_id => c1.id)
-    c3 = fast_create(Comment, :reply_of_id => c2.id)
+    c2 = fast_create(Comment, reply_of_id: c1.id)
+    c3 = fast_create(Comment, reply_of_id: c2.id)
     c4 = fast_create(Comment)
 
-    assert_equivalent [c1,c4], Comment.without_reply
+    assert_equivalent [c1, c4], Comment.without_reply
   end
 
-  should 'vote in a comment' do
+  should "vote in a comment" do
     comment = create_comment
-    person = create_user('voter').person
+    person = create_user("voter").person
     person.vote(comment, 5)
     assert_equal 1, comment.voters_who_voted.length
     assert_equal 5, comment.votes_total
   end
 
-  should 'like a comment' do
+  should "like a comment" do
     comment = create_comment
-    person = create_user('voter').person
+    person = create_user("voter").person
     refute comment.voted_by?(person, true)
     person.vote_for(comment)
     assert comment.voted_by?(person, true)
     refute comment.voted_by?(person, false)
   end
 
-  should 'count voters for' do
+  should "count voters for" do
     comment = create_comment
-    person = create_user('voter').person
-    person2 = create_user('voter2').person
-    person3 = create_user('voter3').person
+    person = create_user("voter").person
+    person2 = create_user("voter2").person
+    person3 = create_user("voter3").person
     person.vote_for(comment)
     person2.vote_for(comment)
     person3.vote_against(comment)
     assert_equal 2, comment.votes_for
   end
 
-  should 'count votes againts' do
+  should "count votes againts" do
     comment = create_comment
-    person = create_user('voter').person
-    person2 = create_user('voter2').person
-    person3 = create_user('voter3').person
+    person = create_user("voter").person
+    person2 = create_user("voter2").person
+    person3 = create_user("voter3").person
     person.vote_against(comment)
     person2.vote_against(comment)
     person3.vote_for(comment)
     assert_equal 2, comment.votes_against
   end
 
-  should 'be able to remove a voted comment' do
+  should "be able to remove a voted comment" do
     comment = create_comment
-    person = create_user('voter').person
+    person = create_user("voter").person
     person.vote(comment, 5)
     comment.destroy
   end
 
-  should 'not double escape html content after validation' do
+  should "not double escape html content after validation" do
     comment = create_comment
     body = 'Comment with "quotes"'
     comment.body = body
@@ -774,10 +772,9 @@ class CommentTest < ActiveSupport::TestCase
 
   private
 
-  def create_comment(args = {})
-    owner = create_user('testuser').person
-    article = create(TextArticle, :profile_id => owner.id)
-    create(Comment, { :name => 'foo', :email => 'foo@example.com', :source => article }.merge(args))
-  end
-
+    def create_comment(args = {})
+      owner = create_user("testuser").person
+      article = create(TextArticle, profile_id: owner.id)
+      create(Comment, { name: "foo", email: "foo@example.com", source: article }.merge(args))
+    end
 end

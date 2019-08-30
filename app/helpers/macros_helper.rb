@@ -1,12 +1,11 @@
 module MacrosHelper
-
   # FIXME Don't has diferrence between macro_in_menu and macros_with_buttons
   def macros_in_menu
-    @plugins.dispatch(:macros).reject{ |macro| macro.configuration[:icon_path] }
+    @plugins.dispatch(:macros).reject { |macro| macro.configuration[:icon_path] }
   end
 
   def macros_with_buttons
-    @plugins.dispatch(:macros).reject{ |macro| !macro.configuration[:icon_path] }
+    @plugins.dispatch(:macros).reject { |macro| !macro.configuration[:icon_path] }
   end
 
   def macro_title(macro)
@@ -55,59 +54,56 @@ module MacrosHelper
         [macro.configuration[:css_files]].flatten.map { |css| plugins_css << macro.plugin.public_path(css) }
       end
     end
-    plugins_css.join(',')
+    plugins_css.join(",")
   end
 
   protected
 
-  def macro_generator(macro)
-    if macro.configuration[:generator]
-      if macro.configuration[:generator].respond_to?(:call)
-        macro.configuration[:generator].call(macro)
+    def macro_generator(macro)
+      if macro.configuration[:generator]
+        if macro.configuration[:generator].respond_to?(:call)
+          macro.configuration[:generator].call(macro)
+        else
+          macro.configuration[:generator]
+        end
       else
-        macro.configuration[:generator]
+        macro_default_generator(macro)
       end
-    else
-      macro_default_generator(macro)
-    end
-
-  end
-
-  def macro_default_generator(macro)
-    code = "var params = {};"
-    macro.configuration[:params].map do |field|
-      code += "params.#{field[:name]} = jQuery('*[name=#{field[:name]}]', dialog).val();"
-    end
-    code + "
-      var html = jQuery('<div class=\"macro mceNonEditable\" data-macro=\"#{macro.identifier}\">'+#{macro_title(macro).to_json}+'</div>')[0];
-      for(key in params) html.setAttribute('data-macro-'+key,params[key]);
-      return html.outerHTML;
-    "
-  end
-
-  def macro_configuration_dialog(macro)
-    macro.configuration[:params].map do |field|
-      label_name = field[:label] || field[:name].to_s.humanize
-      case field[:type]
-      when 'text'
-        labelled_form_field(label_name, text_field_tag(field[:name], field[:default]))
-      when 'select'
-        labelled_form_field(label_name, select_tag(field[:name], options_for_select(field[:values], field[:default])))
       end
-    end.join("\n")
-  end
 
-  def macros_setup
-    setup = "function(ed) {"
-    macros_with_buttons.each do |macro|
-      setup += "ed.addButton('#{macro.identifier}', {
-                  title: #{macro_title(macro).to_json},
-                  onclick: #{generate_macro_config_dialog macro},
-                  image : '#{macro.configuration[:icon_path]}'
-                });"
+    def macro_default_generator(macro)
+      code = "var params = {};"
+      macro.configuration[:params].map do |field|
+        code += "params.#{field[:name]} = jQuery('*[name=#{field[:name]}]', dialog).val();"
+      end
+      code + "
+        var html = jQuery('<div class=\"macro mceNonEditable\" data-macro=\"#{macro.identifier}\">'+#{macro_title(macro).to_json}+'</div>')[0];
+        for(key in params) html.setAttribute('data-macro-'+key,params[key]);
+        return html.outerHTML;
+      "
     end
-    setup += "}"
-  end
 
+    def macro_configuration_dialog(macro)
+      macro.configuration[:params].map do |field|
+        label_name = field[:label] || field[:name].to_s.humanize
+        case field[:type]
+        when "text"
+          labelled_form_field(label_name, text_field_tag(field[:name], field[:default]))
+        when "select"
+          labelled_form_field(label_name, select_tag(field[:name], options_for_select(field[:values], field[:default])))
+        end
+      end.join("\n")
+    end
 
+    def macros_setup
+      setup = "function(ed) {"
+      macros_with_buttons.each do |macro|
+        setup += "ed.addButton('#{macro.identifier}', {
+                    title: #{macro_title(macro).to_json},
+                    onclick: #{generate_macro_config_dialog macro},
+                    image : '#{macro.configuration[:icon_path]}'
+                  });"
+      end
+      setup += "}"
+    end
 end

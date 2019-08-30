@@ -1,4 +1,4 @@
-require_dependency 'api/entities'
+require_dependency "api/entities"
 
 module Api
   module Entities

@@ -1,6 +1,6 @@
 namespace :cache do
-  task :private_files => :environment do
-    require 'sdbm'
+  task private_files: :environment do
+    require "sdbm"
 
     hash = {}
     UploadedFile.where("access > #{Entitlement::Levels.levels[:visitors]}").find_each do |uploaded_file|

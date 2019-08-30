@@ -1,4 +1,4 @@
-require_dependency 'comment'
+require_dependency "comment"
 
 class Comment
   after_save :solr_plugin_notify_article

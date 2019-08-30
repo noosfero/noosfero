@@ -9,6 +9,6 @@ class AddMoreTrustedSitesForEnvironments < ActiveRecord::Migration
   end
 
   def self.down
-    say 'Warning: This migration cant recover old data'
+    say "Warning: This migration cant recover old data"
   end
 end

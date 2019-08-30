@@ -1,28 +1,28 @@
 class EnvironmentRoleManagerController < AdminController
-  protect 'manage_environment_roles', :environment
+  protect "manage_environment_roles", :environment
 
   def index
-    @admins = Person.where('role_assignments.resource_type = ?', 'Environment').includes(:role_assignments)
+    @admins = Person.where("role_assignments.resource_type = ?", "Environment").includes(:role_assignments)
   end
 
   def change_roles
     @admin = Person.find(params[:id])
-    @roles = Role.all.select{ |r| r.has_kind?(:environment) }
+    @roles = Role.all.select { |r| r.has_kind?(:environment) }
   end
 
   def update_roles
     @roles = params[:roles] ? Role.find(params[:roles]) : []
     @person = Person.find(params[:person])
     if @person.define_roles(@roles, environment)
-      session[:notice] = _('Roles successfully updated')
+      session[:notice] = _("Roles successfully updated")
     else
-      session[:notice] = _('Couldn\'t change the roles')
+      session[:notice] = _("Couldn't change the roles")
     end
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
   def change_role
-    @roles = Role.all.select{ |r| r.has_kind?(:environment) }
+    @roles = Role.all.select { |r| r.has_kind?(:environment) }
     @admin = Person.find(params[:id])
     @associations = @admin.find_roles(environment)
   end
@@ -31,36 +31,36 @@ class EnvironmentRoleManagerController < AdminController
     @person = Person.find(params[:person])
     @role = Role.find(params[:role])
     if environment.affiliate(@person, @role)
-      redirect_to :action => 'index'
+      redirect_to action: "index"
     else
       @admin = Person.find(params[:person])
-      @roles = Role.all.select{ |r| r.has_kind?(:environment) }
-      render :action => 'affiliate'
+      @roles = Role.all.select { |r| r.has_kind?(:environment) }
+      render action: "affiliate"
     end
   end
 
   def remove_role
     @association = RoleAssignment.find(params[:id])
     if @association.destroy
-      session[:notice] = _('Member succefully unassociated')
+      session[:notice] = _("Member succefully unassociated")
     else
-      session[:notice] = _('Failed to unassociate member')
+      session[:notice] = _("Failed to unassociate member")
     end
-    redirect_to :aciton => 'index'
+    redirect_to aciton: "index"
   end
 
   def unassociate
     @association = RoleAssignment.find(params[:id])
     if @association.destroy
-      session[:notice] = _('Member succefully unassociated')
+      session[:notice] = _("Member succefully unassociated")
     else
-      session[:notice] = _('Failed to unassociate member')
+      session[:notice] = _("Failed to unassociate member")
     end
-    redirect_to :aciton => 'index'
+    redirect_to aciton: "index"
   end
 
   def make_admin
     @people = Person.all
-    @roles = Role.all.select{|r|r.has_kind?(:environment)}
+    @roles = Role.all.select { |r| r.has_kind?(:environment) }
   end
 end

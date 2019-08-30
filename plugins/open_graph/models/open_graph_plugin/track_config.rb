@@ -1,11 +1,10 @@
 class OpenGraphPlugin::TrackConfig < OpenGraphPlugin::Track
-
   Types = {
-    activity: 'ActivityTrackConfig',
-    enterprise: 'EnterpriseTrackConfig',
-    community: 'CommunityTrackConfig',
+    activity: "ActivityTrackConfig",
+    enterprise: "EnterpriseTrackConfig",
+    community: "CommunityTrackConfig",
     # TODO: not yet implemented
-    #friend: 'FriendTrackConfig',
+    # friend: 'FriendTrackConfig',
   }
 
   # define on subclasses (required)
@@ -19,31 +18,31 @@ class OpenGraphPlugin::TrackConfig < OpenGraphPlugin::Track
   class_attribute :static_trackers
   self.static_trackers = false
 
-  def self.enabled? context, actor
+  def self.enabled?(context, actor)
     settings = actor.send "#{context}_settings"
     settings.send "#{self.track_name}_track_enabled"
   end
 
-  scope :tracks_to_profile, lambda { |profile, exclude_actor=nil|
+  scope :tracks_to_profile, lambda { |profile, exclude_actor = nil|
     scope = where object_data_id: profile.id, object_data_type: profile.class.base_class
     scope = scope.where context: OpenGraphPlugin.context
     scope = scope.includes :tracker
-    scope = scope.where ['tracker_id <> ?', exclude_actor.id] if exclude_actor
+    scope = scope.where ["tracker_id <> ?", exclude_actor.id] if exclude_actor
     scope
   }
 
   # redefine on subclasses
-  def self.trackers_to_profile profile
+  def self.trackers_to_profile(profile)
     tracks = self.tracks_to_profile profile
     tracks = tracks.where type: self
     tracks.map(&:tracker)
   end
 
-  def self.profile_tracks profile
+  def self.profile_tracks(profile)
     profile.send self.association
   end
-  def self.profile_track_objects profile
+
+  def self.profile_track_objects(profile)
     self.profile_tracks(profile).map(&:object_data).compact
   end
-
 end

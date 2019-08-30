@@ -1,5 +1,4 @@
 class PushSubscription < ApplicationRecord
-
   validates_presence_of :endpoint, :keys, :owner
   validate :contains_keys
 
@@ -15,14 +14,13 @@ class PushSubscription < ApplicationRecord
 
   private
 
-  def contains_keys
-    if keys['p256dh'].blank? || keys['auth'].blank?
-      errors.add(:keys, 'must contain p256dh and auth keys')
+    def contains_keys
+      if keys["p256dh"].blank? || keys["auth"].blank?
+        errors.add(:keys, "must contain p256dh and auth keys")
+      end
     end
-  end
 
-  def add_owner_environment
-    self.environment = owner.environment
-  end
-
+    def add_owner_environment
+      self.environment = owner.environment
+    end
 end

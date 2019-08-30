@@ -1,5 +1,4 @@
 module NeedsProfile
-
   module ClassMethods
     def needs_profile
       before_action :load_profile
@@ -20,21 +19,20 @@ module NeedsProfile
 
   protected
 
-  def load_profile
-    if params[:profile]
-      params[:profile].downcase!
-      @profile ||= environment.profiles.where(identifier: params[:profile]).first
-    end
-
-    if @profile
-      profile_hostname = @profile.hostname
-      if profile_hostname && profile_hostname != request.host
-        params.delete(:profile)
-        redirect_to(Noosfero.url_options.merge(params).merge(:host => profile_hostname))
+    def load_profile
+      if params[:profile]
+        params[:profile].downcase!
+        @profile ||= environment.profiles.where(identifier: params[:profile]).first
       end
-    else
-      render_not_found
-    end
-  end
 
+      if @profile
+        profile_hostname = @profile.hostname
+        if profile_hostname && profile_hostname != request.host
+          params.delete(:profile)
+          redirect_to(Noosfero.url_options.merge(params).merge(host: profile_hostname))
+        end
+      else
+        render_not_found
+      end
+    end
 end

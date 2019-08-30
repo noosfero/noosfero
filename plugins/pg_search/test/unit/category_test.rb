@@ -1,8 +1,7 @@
-require_relative '../../../../test/test_helper'
+require_relative "../../../../test/test_helper"
 
 class CategoryTest < ActiveSupport::TestCase
-
-  should 'return facets for profiles' do
+  should "return facets for profiles" do
     profile = fast_create(Profile)
     region = fast_create(Region)
     category = fast_create(Category)
@@ -17,7 +16,7 @@ class CategoryTest < ActiveSupport::TestCase
                       Category.pg_search_plugin_profiles_facets(Profile.all)
   end
 
-  should 'return facets for articles' do
+  should "return facets for articles" do
     article = fast_create(Article)
     region = fast_create(Region)
     category = fast_create(Category)
@@ -32,7 +31,7 @@ class CategoryTest < ActiveSupport::TestCase
                       Category.pg_search_plugin_articles_facets(Article.all)
   end
 
-  should 'include virtual categories when generating facets' do
+  should "include virtual categories when generating facets" do
     article = fast_create(Article)
     parent = fast_create(Category)
     category = fast_create(Category, parent_id: parent.id)
@@ -42,12 +41,12 @@ class CategoryTest < ActiveSupport::TestCase
                       Category.pg_search_plugin_articles_facets(Article.all)
   end
 
-  should 'only include categories of contents in the scope' do
-    article1 = fast_create(Article, name: 'in scope')
+  should "only include categories of contents in the scope" do
+    article1 = fast_create(Article, name: "in scope")
     category1 = fast_create(Category)
-    article2 = fast_create(Article, name: 'in scope too')
+    article2 = fast_create(Article, name: "in scope too")
     category2 = fast_create(Category)
-    article3 = fast_create(Article, name: 'out of scope')
+    article3 = fast_create(Article, name: "out of scope")
     category3 = fast_create(Category)
 
     article1.add_category(category1)

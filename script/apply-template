@@ -1,16 +1,16 @@
 #!/usr/bin/env ruby
 
-require_relative '../config/environment'
+require_relative "../config/environment"
 include GetText
-ActionController::Base.init_gettext 'noosfero'
-set_locale_all 'pt_BR'
+ActionController::Base.init_gettext "noosfero"
+set_locale_all "pt_BR"
 
 env = Environment.default
 
 def move_articles_to_blog(profile)
   profile.articles.each { |article|
     if !article.blog? && !article.is_a?(RssFeed) && article.published?
-      puts 'including ' + article.path + ' in the blog'
+      puts "including " + article.path + " in the blog"
       article.parent = profile.blog
       article.save!
     end
@@ -26,7 +26,7 @@ def report_done
 end
 
 case $ARGV[0]
-when 'inactive-enterprise'
+when "inactive-enterprise"
   offset = 0
   excluded = [env.inactive_enterprise_template, env.enterprise_template]
   template = excluded.first
@@ -42,16 +42,16 @@ when 'inactive-enterprise'
     # bring it on ...
     offset = offset + 1
   end
-when 'active-enterprise'
+when "active-enterprise"
   active_enterprises = Enterprise.where(enabled: true).all - [env.enterprise_template, env.enterprise_template]
   active_enterprises.each do |enterprise|
     old_home = enterprise.home_page
     enterprise.apply_template(env.enterprise_template)
-    enterprise.home_page.update!(:body => old_home.body)
+    enterprise.home_page.update!(body: old_home.body)
     enterprise.save!
   end
-when 'community'
-  excluded = ['espaco', 'anarquismo']
+when "community"
+  excluded = ["espaco", "anarquismo"]
   template = env.community_template
   offset = 0
   while community = Community.order(:id).offset(offset)
@@ -63,7 +63,7 @@ when 'community'
     end
     offset = offset + 1
   end
-when 'person'
+when "person"
   template = env.person_template
   offset = 0
   while person = Person.order(:id).offset(offset).first

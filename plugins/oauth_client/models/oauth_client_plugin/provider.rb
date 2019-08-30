@@ -1,5 +1,4 @@
 class OauthClientPlugin::Provider < ApplicationRecord
-
   belongs_to :environment, optional: true
 
   validates_presence_of :name, :strategy
@@ -14,9 +13,8 @@ class OauthClientPlugin::Provider < ApplicationRecord
   settings_items :client_options, type: Hash
 
   attr_accessible :name, :strategy, :enabled, :site, :image_builder,
-    :environment, :environment_id, :options,
-    :client_id, :client_secret, :client_options
+                  :environment, :environment_id, :options,
+                  :client_id, :client_secret, :client_options
 
   scope :enabled, -> { where enabled: true }
-
 end

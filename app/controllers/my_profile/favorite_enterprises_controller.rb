@@ -1,6 +1,5 @@
 class FavoriteEnterprisesController < MyProfileController
-
-#  protect 'manage_favorite_enterprises', :profile
+  #  protect 'manage_favorite_enterprises', :profile
 
   requires_profile_class Person
 
@@ -12,7 +11,7 @@ class FavoriteEnterprisesController < MyProfileController
     @favorite_enterprise = Enterprise.find(params[:id])
     if request.post? && params[:confirmation]
       profile.favorite_enterprises << @favorite_enterprise
-      redirect_to :action => 'index'
+      redirect_to action: "index"
     end
   end
 
@@ -20,7 +19,7 @@ class FavoriteEnterprisesController < MyProfileController
     @favorite_enterprise = profile.favorite_enterprises.find(params[:id])
     if request.post? && params[:confirmation]
       profile.favorite_enterprises.delete(@favorite_enterprise)
-      redirect_to :action => 'index'
+      redirect_to action: "index"
     end
   end
 
@@ -29,5 +28,4 @@ class FavoriteEnterprisesController < MyProfileController
     def per_page
       10
     end
-
 end

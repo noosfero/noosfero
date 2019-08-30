@@ -6,7 +6,7 @@ class ClassifyMembersPluginAdminController < PluginsController
 
     if request.post?
       @settings.save!
-      redirect_to :controller => 'plugins', :action => 'index'
+      redirect_to controller: "plugins", action: "index"
     end
   end
 end

@@ -1,7 +1,7 @@
 ENV["RAILS_ENV"] ||= "cucumber"
-require 'simplecov'
+require "simplecov"
 
-require 'cucumber/rails'
+require "cucumber/rails"
 
 Capybara.ignore_hidden_elements = true
 
@@ -58,13 +58,13 @@ Cucumber::Rails::World.use_transactional_tests = true
 Before do
   fixture_set = ActiveRecord::FixtureSet
   fixture_set.reset_cache
-  fixtures_folder = Rails.root.join('test', 'fixtures')
-  fixtures = ['environments', 'roles']
+  fixtures_folder = Rails.root.join("test", "fixtures")
+  fixtures = ["environments", "roles"]
   fixture_set.create_fixtures(fixtures_folder, fixtures)
 
   # The same browser session is used across tests, so expire caching
   # can create changes from scenario to another.
-  e=Environment.default
+  e = Environment.default
   e.home_cache_in_minutes    = 0
   e.general_cache_in_minutes = 0
   e.profile_cache_in_minutes = 0

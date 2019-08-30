@@ -1,4 +1,4 @@
-require 'yaml'
+require "yaml"
 
 class MailingListPlugin::Client
   def initialize(settings)
@@ -10,7 +10,7 @@ class MailingListPlugin::Client
   attr_accessor :client, :config
 
   def list
-    client.complex_lists.map {|object| object.listAddress.split('@').first}
+    client.complex_lists.map { |object| object.listAddress.split("@").first }
   end
 
   def review(group)
@@ -19,7 +19,7 @@ class MailingListPlugin::Client
     rescue SOAP::FaultError
       subscribers = []
     end
-    subscribers == ['no_subscribers'] ? [] : subscribers
+    subscribers == ["no_subscribers"] ? [] : subscribers
   end
 
   def group_list_members(group)
@@ -41,7 +41,7 @@ class MailingListPlugin::Client
 
   def treat_identifier(identifier)
     while identifier.size > 50 && identifier =~ /-/
-      identifier = identifier.split('-')[0..-2].join('-')
+      identifier = identifier.split("-")[0..-2].join("-")
     end
 
     if identifier.size > 50
@@ -52,7 +52,7 @@ class MailingListPlugin::Client
   end
 
   def create_list_for_group(group)
-    create_list(treat_identifier(group.identifier), _('Mailing list of %s') % group.name.transliterate) unless group_list_exist?(group)
+    create_list(treat_identifier(group.identifier), _("Mailing list of %s") % group.name.transliterate) unless group_list_exist?(group)
     group.members.each do |member|
       subscribe_person_on_group_list(member, group)
     end
@@ -77,7 +77,7 @@ class MailingListPlugin::Client
 
   def deploy_list_for_group(group)
     create_list_for_group(group)
-    add(@settings.administrator_email, treat_identifier(group.identifier), _('Administrator')) unless review(group).include?(@settings.administrator_email)
+    add(@settings.administrator_email, treat_identifier(group.identifier), _("Administrator")) unless review(group).include?(@settings.administrator_email)
   end
 
   def group_list_email(group)

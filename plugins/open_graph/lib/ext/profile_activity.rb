@@ -1,7 +1,6 @@
-require_dependency 'profile_activity'
+require_dependency "profile_activity"
 
 class ProfileActivity
-
   # update happens with grouped ActionTracker
   after_save :open_graph_publish
 
@@ -11,9 +10,8 @@ class ProfileActivity
       verb = self.activity.verb.to_sym
       return unless object = self.activity.target
       return unless stories = OpenGraphPlugin::Stories::TrackerStories[verb]
+
       OpenGraphPlugin::Stories.publish object, stories
     end
   end
-
 end
-

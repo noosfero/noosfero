@@ -1,5 +1,5 @@
 class RoleController < AdminController
-  protect 'manage_environment_roles', :environment
+  protect "manage_environment_roles", :environment
 
   def index
     @roles = environment.roles.where profile_id: nil
@@ -11,12 +11,12 @@ class RoleController < AdminController
 
   def create
     params[:role] ||= {}
-    @role = Role.new :name => params[:role][:name], :permissions => params[:role][:permissions], :environment => environment
+    @role = Role.new name: params[:role][:name], permissions: params[:role][:permissions], environment: environment
     if @role.save
-      redirect_to :action => 'show', :id => @role
+      redirect_to action: "show", id: @role
     else
-      session[:notice] = _('Failed to create role')
-      render :action => 'new'
+      session[:notice] = _("Failed to create role")
+      render action: "new"
     end
   end
 
@@ -31,11 +31,10 @@ class RoleController < AdminController
   def update
     @role = environment.roles.find(params[:id])
     if @role.update(params[:role])
-      redirect_to :action => 'show', :id => @role
+      redirect_to action: "show", id: @role
     else
-      session[:notice] = _('Failed to edit role')
-      render :action => 'edit'
+      session[:notice] = _("Failed to edit role")
+      render action: "edit"
     end
   end
-
 end

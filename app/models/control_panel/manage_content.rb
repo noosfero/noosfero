@@ -1,15 +1,15 @@
 class ControlPanel::ManageContent < ControlPanel::Entry
   class << self
     def name
-      _('Manage')
+      _("Manage")
     end
 
     def section
-      'content'
+      "content"
     end
 
     def icon
-      'folder'
+      "folder"
     end
 
     def priority
@@ -17,15 +17,11 @@ class ControlPanel::ManageContent < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('content'), _('cms')]
+      [_("content"), _("cms")]
     end
 
     def url(profile)
-      {controller: 'cms', action: 'index'}
+      { controller: "cms", action: "index" }
     end
   end
 end
-
-
-
-

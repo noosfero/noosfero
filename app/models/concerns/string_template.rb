@@ -1,5 +1,4 @@
 module StringTemplate
-
   include SanitizeHelper
 
   def title
@@ -9,7 +8,7 @@ module StringTemplate
   def to_html(options = {})
     article, content = self, super
     if content.is_a? Proc
-      -> context { article.parse_string_params(article, self.instance_exec(context, &content)) }
+      ->context { article.parse_string_params(article, self.instance_exec(context, &content)) }
     else
       parse_string_params(article, content)
     end
@@ -18,5 +17,4 @@ module StringTemplate
   def abstract
     parse_string_params(self, super)
   end
-
 end

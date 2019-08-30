@@ -1,14 +1,13 @@
 class ChangeCategoryDisplayColorToString < ActiveRecord::Migration
-
-  COLORS = ['ffa500', '00FF00', 'a020f0', 'ff0000', '006400', '191970', '0000ff', 'a52a2a', '32cd32', 'add8e6', '483d8b', 'b8e9ee', 'f5f5dc', 'ffff00', 'f4a460']
+  COLORS = ["ffa500", "00FF00", "a020f0", "ff0000", "006400", "191970", "0000ff", "a52a2a", "32cd32", "add8e6", "483d8b", "b8e9ee", "f5f5dc", "ffff00", "f4a460"]
 
   def self.up
     change_table :categories do |t|
-      t.string :display_color_tmp, :limit => 6
+      t.string :display_color_tmp, limit: 6
     end
 
     COLORS.each_with_index do |color, i|
-      Category.where(display_color: i+1).update_all display_color_tmp: color
+      Category.where(display_color: i + 1).update_all display_color_tmp: color
     end
 
     change_table :categories do |t|
@@ -25,7 +24,7 @@ class ChangeCategoryDisplayColorToString < ActiveRecord::Migration
     end
 
     COLORS.each_with_index do |color, i|
-      Category.where(display_color: color).update_all display_color_tmp: i+1
+      Category.where(display_color: color).update_all display_color_tmp: i + 1
     end
 
     change_table :categories do |t|

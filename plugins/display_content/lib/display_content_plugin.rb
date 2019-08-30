@@ -1,7 +1,6 @@
-require_dependency File.dirname(__FILE__) + '/display_content_block'
+require_dependency File.dirname(__FILE__) + "/display_content_block"
 
 class DisplayContentPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Display Content Plugin"
   end
@@ -24,9 +23,8 @@ class DisplayContentPlugin < Noosfero::Plugin
     true
   end
 
-#FIXME comment javascript
-#  def js_files
-#    ['/javascripts/jstree/_lib/jquery-1.8.3.js', '/javascripts/jstree/jquery.jstree.js']
-#  end
-
+  # FIXME comment javascript
+  #  def js_files
+  #    ['/javascripts/jstree/_lib/jquery-1.8.3.js', '/javascripts/jstree/jquery.jstree.js']
+  #  end
 end

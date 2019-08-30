@@ -1,5 +1,4 @@
 class AddPositionToArticle < ActiveRecord::Migration
-
   def self.up
     add_column :articles, :position, :integer
     add_column :article_versions, :position, :integer
@@ -9,5 +8,4 @@ class AddPositionToArticle < ActiveRecord::Migration
     remove_column :articles, :position
     remove_column :article_versions, :position
   end
-
 end

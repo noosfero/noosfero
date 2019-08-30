@@ -1,3 +1,2 @@
 class FooPluginAdminBarController < PluginAdminController
 end
-

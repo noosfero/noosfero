@@ -1,5 +1,4 @@
 class SendEmailPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "SendEmailPlugin"
   end
@@ -16,12 +15,11 @@ class SendEmailPlugin < Noosfero::Plugin
     if context.profile
       html.gsub!(/({|%7[Bb])sendemail(}|%7[Dd])/, "/profile/#{context.profile.identifier}/plugin/send_email/deliver")
     else
-      html.gsub!(/({|%7[Bb])sendemail(}|%7[Dd])/, '/plugin/send_email/deliver')
+      html.gsub!(/({|%7[Bb])sendemail(}|%7[Dd])/, "/plugin/send_email/deliver")
     end
     [html, source]
   end
-
 end
 
-require_dependency 'send_email_plugin/mail'
-require_dependency 'send_email_plugin/sender'
+require_dependency "send_email_plugin/mail"
+require_dependency "send_email_plugin/sender"

@@ -1,6 +1,7 @@
 class FilePresenter::Image < FilePresenter
   def self.accepts?(f)
     return nil unless f.respond_to? :image?
+
     f.image? ? 10 : nil
   end
 
@@ -13,11 +14,11 @@ class FilePresenter::Image < FilePresenter
   end
 
   def short_description
-    _('Image (%s)') % content_type.split('/')[1].upcase
+    _("Image (%s)") % content_type.split("/")[1].upcase
   end
 
-  #Overwriting method from FilePresenter to allow download of images
+  # Overwriting method from FilePresenter to allow download of images
   def download?(view = nil)
-    view.blank? || view == 'false'
+    view.blank? || view == "false"
   end
 end

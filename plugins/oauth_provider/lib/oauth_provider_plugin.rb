@@ -1,5 +1,4 @@
 class OauthProviderPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Oauth Provider Plugin"
   end
@@ -18,7 +17,7 @@ class OauthProviderPlugin < Noosfero::Plugin
     resource_owner_authenticator do
       domain = Domain.by_name(request.host)
       environment = domain ? domain.environment : Environment.default
-      environment.users.find_by(id: session[:user]) || redirect_to('/account/login')
+      environment.users.find_by(id: session[:user]) || redirect_to("/account/login")
     end
 
     admin_authenticator do
@@ -26,7 +25,7 @@ class OauthProviderPlugin < Noosfero::Plugin
       environment = domain ? domain.environment : Environment.default
       user = environment.users.find_by id: session[:user]
       unless user && user.person.is_admin?(environment)
-        redirect_to('/account/login')
+        redirect_to("/account/login")
       end
       user
     end
@@ -36,12 +35,12 @@ class OauthProviderPlugin < Noosfero::Plugin
 
   Rails.configuration.to_param do
     Rails.application.routes.prepend do
-      scope 'oauth_provider' do
+      scope "oauth_provider" do
         use_doorkeeper do
           controllers ({
-            :applications => 'oauth_provider_applications',
-            :authorized_applications => 'oauth_provider_authorized_applications',
-            :authorizations => 'oauth_provider_authorizations'
+            applications: "oauth_provider_applications",
+            authorized_applications: "oauth_provider_authorized_applications",
+            authorizations: "oauth_provider_authorizations"
           })
         end
       end
@@ -49,7 +48,6 @@ class OauthProviderPlugin < Noosfero::Plugin
   end
 
   SCOPE_TRANSLATION = {
-    'public' => _('Access your public data')
+    "public" => _("Access your public data")
   }
-
 end

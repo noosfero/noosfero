@@ -1,6 +1,5 @@
 class CirclesController < MyProfileController
-
-  before_action :accept_only_post, :only => [:create, :update]
+  before_action :accept_only_post, only: [:create, :update]
 
   def index
     @circles = profile.circles
@@ -11,22 +10,22 @@ class CirclesController < MyProfileController
   end
 
   def create
-    @circle = Circle.new(params[:circle].merge({ :person => profile }))
+    @circle = Circle.new(params[:circle].merge(person: profile))
     if @circle.save
-      redirect_to :action => 'index'
+      redirect_to action: "index"
     else
-      render :action => 'new'
+      render action: "new"
     end
   end
 
   def xhr_create
     if request.xhr?
-      circle = Circle.new(params[:circle].merge({:person => profile }))
+      circle = Circle.new(params[:circle].merge(person: profile))
       if circle.save
-        render :partial => "circle_checkbox", :locals => { :circle => circle },
-               :status => 201
+        render partial: "circle_checkbox", locals: { circle: circle },
+               status: 201
       else
-        render plain: 'The circle could not be saved', :status => 400
+        render plain: "The circle could not be saved", status: 400
       end
     else
       render_not_found
@@ -43,16 +42,17 @@ class CirclesController < MyProfileController
     return render_not_found if @circle.nil?
 
     if @circle.update(params[:circle])
-      redirect_to :action => 'index'
+      redirect_to action: "index"
     else
-      render :action => 'edit'
+      render action: "edit"
     end
   end
 
   def destroy
     @circle = Circle.find_by_id(params[:id])
     return render_not_found if @circle.nil?
+
     @circle.destroy
-    redirect_to :action => 'index'
+    redirect_to action: "index"
   end
 end

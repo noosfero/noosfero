@@ -1,19 +1,18 @@
 class GalleryBlock < Block
-
   attr_accessible :gallery_id, :groups_of, :speed, :interval
 
-  settings_items :gallery_id, :type => :integer
-  settings_items :groups_of, :type => :integer, :default => 3
-  settings_items :speed, :type => :integer, :default => 1000
+  settings_items :gallery_id, type: :integer
+  settings_items :groups_of, type: :integer, default: 3
+  settings_items :speed, type: :integer, default: 1000
 
-  settings_items :interval, :type => 'integer', :default => 10
+  settings_items :interval, type: "integer", default: 10
 
   before_save do |block|
     block.groups_of = block.groups_of.to_i
   end
 
   def self.description
-    _('Gallery block')
+    _("Gallery block")
   end
 
   def gallery

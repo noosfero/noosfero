@@ -1,1 +1,1 @@
-system 'gem install fcm'
+system "gem install fcm"

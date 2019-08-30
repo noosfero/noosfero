@@ -1,15 +1,15 @@
 class ControlPanel::Spam < ControlPanel::Entry
   class << self
     def name
-      _('Spam')
+      _("Spam")
     end
 
     def section
-      'profile'
+      "profile"
     end
 
     def icon
-      'bug'
+      "bug"
     end
 
     def priority
@@ -17,7 +17,7 @@ class ControlPanel::Spam < ControlPanel::Entry
     end
 
     def url(profile)
-      {:controller => 'spam', :action => 'index'}
+      { controller: "spam", action: "index" }
     end
   end
 end

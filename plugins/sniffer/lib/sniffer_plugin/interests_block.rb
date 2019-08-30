@@ -1,5 +1,4 @@
 class SnifferPlugin::InterestsBlock < Block
-
   def self.description
     _("Lists declared and inputs interests")
   end
@@ -9,7 +8,7 @@ class SnifferPlugin::InterestsBlock < Block
   end
 
   def default_title
-    _('Interests')
+    _("Interests")
   end
 
   def help
@@ -24,13 +23,11 @@ class SnifferPlugin::InterestsBlock < Block
       results = profile.sniffer_opportunities
       results |= profile.inputs if profile.enterprise?
     else # Environment
-      results = SnifferPlugin::Opportunity.product_categories.limit(5).order('created_at DESC').all
-      results += Input.limit(5).order('created_at DESC').all
-      results.sort{ |a, b| -1 * a.created_at.to_i <=> b.created_at.to_i }
+      results = SnifferPlugin::Opportunity.product_categories.limit(5).order("created_at DESC").all
+      results += Input.limit(5).order("created_at DESC").all
+      results.sort { |a, b| -1 * a.created_at.to_i <=> b.created_at.to_i }
     end
 
     return results
   end
-
 end
-

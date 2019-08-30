@@ -29,6 +29,6 @@ class CreateFollowersFromRoleAssignments < ActiveRecord::Migration[4.2]
   end
 
   def down
-    say 'This migration cannot be reverted'
+    say "This migration cannot be reverted"
   end
 end

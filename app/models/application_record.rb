@@ -1,5 +1,4 @@
 class ApplicationRecord < ActiveRecord::Base
-
   extend PostgresqlAttachmentFu::ClassMethods
   extend ActiveRecord::Attributes
 
@@ -26,10 +25,10 @@ class ApplicationRecord < ActiveRecord::Base
   def cache_key
     key = [Noosfero::VERSION, meta_cache_key]
     key.unshift ApplicationRecord.connection.schema_search_path
-    key.join('/')
+    key.join("/")
   end
 
-  def self.like_search(query, options={})
+  def self.like_search(query, options = {})
     if defined?(self::SEARCHABLE_FIELDS) || options[:fields].present?
       fields_per_table = {}
       fields_per_table[table_name] = (options[:fields].present? ? options[:fields] : self::SEARCHABLE_FIELDS.keys.map(&:to_s)) & column_names
@@ -42,12 +41,12 @@ class ApplicationRecord < ActiveRecord::Base
       end
 
       query = query.downcase.strip
-      fields_per_table.delete_if { |table,fields| fields.blank? }
-      conditions = fields_per_table.map do |table,fields|
+      fields_per_table.delete_if { |table, fields| fields.blank? }
+      conditions = fields_per_table.map do |table, fields|
         fields.map do |field|
           "lower(#{table}.#{field}) LIKE '%#{query}%'"
-        end.join(' OR ')
-      end.join(' OR ')
+        end.join(" OR ")
+      end.join(" OR ")
 
       if options[:joins].present?
         joins(options[:joins]).where(conditions)
@@ -68,6 +67,4 @@ class ApplicationRecord < ActiveRecord::Base
       hash
     end
   end
-
 end
-

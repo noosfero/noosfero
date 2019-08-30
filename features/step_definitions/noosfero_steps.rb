@@ -5,7 +5,7 @@ Given /^the following users?$/ do |table|
     person_data.delete("login")
     category = Category.find_by slug: person_data.delete("category")
     email = item[:email] || item[:login] + "@example.com"
-    user = User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => email, :person_data => person_data)
+    user = User.create!(login: item[:login], password: "123456", password_confirmation: "123456", email: email, person_data: person_data)
     user.activate!
     p = user.person
     p.categories << category if category
@@ -15,15 +15,15 @@ Given /^the following users?$/ do |table|
 end
 
 Given /^"(.+)" is (invisible|visible)$/ do |user, visibility|
-  User.find_by(login: user).person.update({visible: (visibility == 'visible')}, without_protection: true)
+  User.find_by(login: user).person.update({ visible: (visibility == "visible") }, { without_protection: true })
 end
 
 Given /^"(.+)" is (online|offline|busy) in chat$/ do |user, status|
-  status = {'online' => 'chat', 'offline' => '', 'busy' => 'dnd'}[status]
-  User.find_by(login: user).update(:chat_status => status, :chat_status_at => DateTime.now)
+  status = { "online" => "chat", "offline" => "", "busy" => "dnd" }[status]
+  User.find_by(login: user).update(chat_status: status, chat_status_at: DateTime.now)
 end
 
-Given /^the following (community|communities|enterprises?|organizations?)$/ do |kind,table|
+Given /^the following (community|communities|enterprises?|organizations?)$/ do |kind, table|
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
     owner = row.delete("owner")
@@ -31,13 +31,13 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
     category = row.delete("category")
     img_name = row.delete("img")
     city = row.delete("region")
-    organization = klass.create!(row, :without_protection => true)
+    organization = klass.create!(row, without_protection: true)
     if owner
       organization.add_admin(Profile[owner])
     end
     if domain
-      d = Domain.new :name => domain, :owner => organization
-      d.save(:validate => false)
+      d = Domain.new name: domain, owner: organization
+      d.save(validate: false)
     end
     if city
       c = City.find_by name: city
@@ -48,7 +48,7 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
       ProfileCategorization.add_category_to_profile(cat, organization)
     end
     if img_name
-      img = Image.create!(:uploaded_data => fixture_file_upload('/files/'+img_name+'.png', 'image/png'))
+      img = Image.create!(uploaded_data: fixture_file_upload("/files/" + img_name + ".png", "image/png"))
       organization.image = img
     end
     organization.save!
@@ -70,7 +70,7 @@ Then /^"([^\"]*)" should be associated with "([^\"]*)"$/ do |enterprise, bsc|
 end
 
 Given /^the folllowing "([^\"]*)" from "([^\"]*)"$/ do |kind, plugin, table|
-  klass = (plugin.camelize+'::'+kind.singularize.camelize).constantize
+  klass = (plugin.camelize + "::" + kind.singularize.camelize).constantize
   table.hashes.each do |row|
     owner = row.delete("owner")
     domain = row.delete("domain")
@@ -79,38 +79,38 @@ Given /^the folllowing "([^\"]*)" from "([^\"]*)"$/ do |kind, plugin, table|
       organization.add_admin(Profile[owner])
     end
     if domain
-      d = Domain.new :name => domain, :owner => organization
-      d.save(:validate => false)
+      d = Domain.new name: domain, owner: organization
+      d.save(validate: false)
     end
   end
 end
 
 Given /^the following blocks$/ do |table|
-  table.hashes.map{|item| item.dup}.each do |item|
-    klass = item.delete('type')
-    owner_type = item.delete('owner')
-    owner = owner_type == 'environment' ? Environment.default : Profile[owner_type]
+  table.hashes.map { |item| item.dup }.each do |item|
+    klass = item.delete("type")
+    owner_type = item.delete("owner")
+    owner = owner_type == "environment" ? Environment.default : Profile[owner_type]
     if owner.boxes.empty?
-      owner.boxes<< Box.new
+      owner.boxes << Box.new
       owner.boxes.first.blocks << MainBlock.new
     end
     box = owner.boxes.first
-    klass.constantize.create!(item.merge(:box => box))
+    klass.constantize.create!(item.merge(box: box))
   end
 end
 
 Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded files|rss feeds)$/ do |content, table|
   klass = {
-    'articles' => TextArticle,
-    'events' => Event,
-    'blogs' => Blog,
-    'folders' => Folder,
-    'forums' => Forum,
-    'galleries' => Gallery,
-    'uploaded files' => UploadedFile,
-    'rss feeds' => RssFeed,
+    "articles" => TextArticle,
+    "events" => Event,
+    "blogs" => Blog,
+    "folders" => Folder,
+    "forums" => Forum,
+    "galleries" => Gallery,
+    "uploaded files" => UploadedFile,
+    "rss feeds" => RssFeed,
   }[content] || raise("Don't know how to build %s" % content)
-  table.hashes.map{|item| item.dup}.each do |item|
+  table.hashes.map { |item| item.dup }.each do |item|
     owner_identifier = item.delete("owner")
     parent = item.delete("parent")
     owner = Profile[owner_identifier]
@@ -118,7 +118,7 @@ Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded f
     language = item.delete("language")
     category = item.delete("category")
     filename = item.delete("filename")
-    mime = item.delete("mime") || 'binary/octet-stream'
+    mime = item.delete("mime") || "binary/octet-stream"
     translation_of_id = nil
     if item["translation_of"]
       if item["translation_of"] != "nil"
@@ -128,11 +128,12 @@ Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded f
       item.delete("translation_of")
     end
     item.merge!(
-      :profile => owner,
-      :language => language,
-      :translation_of_id => translation_of_id)
+      profile: owner,
+      language: language,
+      translation_of_id: translation_of_id
+    )
     if !filename.blank?
-      item.merge!(:uploaded_data => fixture_file_upload("/files/#{filename}", mime))
+      item.merge!(uploaded_data: fixture_file_upload("/files/#{filename}", mime))
     end
     result = klass.new(item)
     if !parent.blank?
@@ -145,7 +146,7 @@ Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded f
       end
     end
     result.save!
-    if home == 'true'
+    if home == "true"
       owner.home_page = result
       owner.save!
     end
@@ -156,7 +157,7 @@ Given /^the following files$/ do |table|
   table.hashes.each do |item|
     owner = Profile[item[:owner]]
     file = "/files/#{item[:file]}"
-    article = UploadedFile.new(:profile => owner, :uploaded_data => fixture_file_upload(file, item[:mime]))
+    article = UploadedFile.new(profile: owner, uploaded_data: fixture_file_upload(file, item[:mime]))
     if item[:parent]
       article.parent = Article.find_by slug: item[:parent]
     end
@@ -172,14 +173,14 @@ Given /^the following articles? with images?$/ do |table|
   table.hashes.each do |item|
     owner = Profile[item[:owner]]
     file = item[:image]
-    img = { :src => "/images/#{file}", :alt => file }
-    img[:width] = item[:dimensions].split('x')[0] if item[:dimensions]
-    img[:height] = item[:dimensions].split('x')[1] if item[:dimensions]
+    img = { src: "/images/#{file}", alt: file }
+    img[:width] = item[:dimensions].split("x")[0] if item[:dimensions]
+    img[:height] = item[:dimensions].split("x")[1] if item[:dimensions]
     img[:style] = item[:style] if item[:style]
     img_tag = "<img "
     img.each { |attr, value| img_tag += "#{attr}=\"#{value}\" " }
     img_tag += "/>"
-    article = TextArticle.new(:profile => owner, :name => item[:name], :body => img_tag)
+    article = TextArticle.new(profile: owner, name: item[:name], body: img_tag)
     if item[:parent]
       article.parent = Article.find_by slug: item[:parent]
     end
@@ -195,9 +196,9 @@ Given /^the following states$/ do |table|
   table.hashes.each do |item|
     data = item.dup
     if validator = Enterprise.find_by(name: data.delete("validator_name"))
-      State.create!(data.merge(:environment => Environment.default, :validators => [validator]), :without_protection => true)
+      State.create!(data.merge(environment: Environment.default, validators: [validator]), without_protection: true)
     else
-      r = State.create!(data.merge(:environment => Environment.default))
+      r = State.create!(data.merge(environment: Environment.default))
     end
   end
 end
@@ -206,19 +207,19 @@ Given /^the following validation info$/ do |table|
   table.hashes.each do |item|
     data = item.dup
     organization = Organization.find_by name: data.delete("organization_name")
-    ValidationInfo.create!(data.merge(:organization => organization))
+    ValidationInfo.create!(data.merge(organization: organization))
   end
 end
 
-Given /^the following (product_categories|product_category|category|categories|regions?)$/ do |kind,table|
+Given /^the following (product_categories|product_category|category|categories|regions?)$/ do |kind, table|
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
     parent = row.delete("parent")
     if !parent.blank?
       parent = Category.find_by slug: parent.to_slug
-      row.merge!({:parent_id => parent.id})
+      row.merge!(parent_id: parent.id)
     end
-    category = klass.create!({:environment => Environment.default}.merge(row))
+    category = klass.create!({ environment: Environment.default }.merge(row))
   end
 end
 
@@ -241,7 +242,7 @@ Given /^"([^"]*)" is environment admin$/ do |person|
 end
 
 Given /^I am logged in as admin$/ do
-  user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
+  user = User.create!(login: "admin_user", password: "123456", password_confirmation: "123456", email: "admin_user@example.com")
   user.activate!
   e = Environment.default
   e.add_admin(user.person)
@@ -254,7 +255,7 @@ Given /^I am logged in as admin$/ do
 end
 
 Given /^I am not logged in$/ do
-  visit('/account/logout')
+  visit("/account/logout")
 end
 
 Given /^feature "(.+)" is (enabled|disabled) on environment$/ do |feature, status|
@@ -274,7 +275,7 @@ Given /^"(.+)" is a member of "(.+)"$/ do |person, profile|
   profile.affiliate person, Profile::Roles.member(profile.environment.id)
 end
 
-Then /^"(.+)" should be a member of "(.+)"$/ do |person,profile|
+Then /^"(.+)" should be a member of "(.+)"$/ do |person, profile|
   Profile.find_by(name: profile).members.should include(Person.find_by(name: person))
 end
 
@@ -302,7 +303,7 @@ Then /^"(.+)" should be admin of "(.+)"$/ do |person, organization|
   org.admins.should include(user)
 end
 
-Then /^"(.+)" should be moderator of "(.+)"$/ do |person,profile|
+Then /^"(.+)" should be moderator of "(.+)"$/ do |person, profile|
   profile = Profile.find_by name: profile
   person = Person.find_by name: person
   profile.members_by_role(Profile::Roles.moderator(profile.environment.id)).should include(person)
@@ -316,9 +317,9 @@ Given /^the following (\w+) fields are (\w+) fields$/ do |klass, status, table|
   env = Environment.default
   fields = table.raw.inject({}) do |hash, line|
     hash[line.first] = {}
-    hash[line.first].merge!({ "active" => 'true' })   if status == "active"
-    hash[line.first].merge!({ "required" => 'true'})  if status == "required"
-    hash[line.first].merge!({ "signup" => 'true'})    if status == "signup"
+    hash[line.first].merge!("active" => "true") if status == "active"
+    hash[line.first].merge!("required" => "true")  if status == "required"
+    hash[line.first].merge!("signup" => "true")    if status == "signup"
     hash
   end
 
@@ -369,7 +370,7 @@ Then /^The page should not contain "(.*)"$/ do |selector|
 end
 
 Then /^The page should contain only (\d+) "(.*)"$/ do |count, selector|
-  page.should have_css(selector, :count => count)
+  page.should have_css(selector, count: count)
 end
 
 Given /^the mailbox is empty$/ do
@@ -378,12 +379,12 @@ end
 
 Given /^the (.+) mail (?:is|has) (.+) (.+)$/ do |position, field, value|
   mail = if /^[0-9]+$/ =~ position then ActionMailer::Base.deliveries[position.to_i] else ActionMailer::Base.deliveries.send position end
-  mail and mail[field].to_s == value
+  mail && (mail[field].to_s == value)
 end
 
 Given /^the (.+) mail (.+) is like (.+)$/ do |position, field, regexp|
   mail = if /^[0-9]+$/ =~ position then ActionMailer::Base.deliveries[position.to_i] else ActionMailer::Base.deliveries.send position end
-  mail and Regexp.new(regexp) =~ mail[field.to_sym]
+  mail && Regexp.new(regexp) =~ (mail[field.to_sym])
 end
 
 Given /^the following environment configuration$/ do |table|
@@ -395,13 +396,13 @@ Given /^the following environment configuration$/ do |table|
 end
 
 Then /^I should be logged in as "(.+)"$/ do |username|
-   step %{I go to #{username}'s control panel}
-   step %{I should be on #{username}'s control panel}
+  step %{I go to #{username}'s control panel}
+  step %{I should be on #{username}'s control panel}
 end
 
 Then /^I should not be logged in as "(.+)"$/ do |username|
-   step %{I go to #{username}'s control panel}
-   step %{I should be on login page}
+  step %{I go to #{username}'s control panel}
+  step %{I should be on login page}
 end
 
 Given /^the profile "(.+)" has no blocks$/ do |profile|
@@ -437,39 +438,39 @@ Given /^the community "(.+)" is closed$/ do |community|
 end
 
 Given /^someone suggested the following article to be published$/ do |table|
-  table.hashes.map{|item| item.dup}.each do |item|
-    target = Community[item.delete('target')]
-    article = {:name => item.delete('name'), :body => item.delete('body')}
-    person = Profile[item.delete('person')]
-    task = SuggestArticle.create!(:target => target, :article => article, :requestor => person)
+  table.hashes.map { |item| item.dup }.each do |item|
+    target = Community[item.delete("target")]
+    article = { name: item.delete("name"), body: item.delete("body") }
+    person = Profile[item.delete("person")]
+    task = SuggestArticle.create!(target: target, article: article, requestor: person)
   end
 end
 
 Given /^the following units?$/ do |table|
   table.hashes.each do |row|
-    Unit.create!(row.merge(:environment_id => 1), :without_protection => true)
+    Unit.create!(row.merge(environment_id: 1), without_protection: true)
   end
 end
 
 Given /^"([^\"]*)" asked to join "([^\"]*)"$/ do |person, organization|
   person = Person.find_by name: person
   organization = Organization.find_by name: organization
-  AddMember.create!(:person => person, :organization => organization)
+  AddMember.create!(person: person, organization: organization)
 end
 
 Given /^that the default environment have (.+) templates?$/ do |option|
   env = Environment.default
   case option
-  when 'all profile'
+  when "all profile"
     env.create_templates
-  when 'no Inactive Enterprise'
+  when "no Inactive Enterprise"
     env.inactive_enterprise_template && env.inactive_enterprise_template.destroy
   end
 end
 
 Given /^the environment domain is "([^\"]*)"$/ do |domain|
-  d = Domain.new :name => domain, :owner => Environment.default
-  d.save(:validate => false)
+  d = Domain.new name: domain, owner: Environment.default
+  d.save(validate: false)
 end
 
 When /^([^\']*)'s account is activated$/ do |person|
@@ -479,12 +480,12 @@ end
 Then /^I should receive an e-mail on (.*)$/ do |address|
   last_mail = ActionMailer::Base.deliveries.last
   last_mail.nil?.should be_falsey
-  last_mail['to'].to_s.should == address
+  last_mail["to"].to_s.should == address
 end
 
 Given /^"([^\"]*)" plugin is (enabled|disabled)$/ do |plugin_name, status|
   environment = Environment.default
-  environment.send(status.chop + '_plugin', plugin_name+'Plugin')
+  environment.send(status.chop + "_plugin", plugin_name + "Plugin")
 end
 
 Then /^there should be an? (.+) named "([^\"]*)"$/ do |klass_name, profile_name|
@@ -512,15 +513,15 @@ Then /^"([^\"]*)" profile should not exist$/ do |profile_selector|
   end
 end
 
-When 'I log off' do
-  visit '/account/logout'
+When "I log off" do
+  visit "/account/logout"
 end
 
 Given /^the following enterprise homepages?$/ do |table|
   # table is a Cucumber::Ast::Table
   table.hashes.each do |item|
     data = item.dup
-    home = EnterpriseHomepage.new(:name => data[:name])
+    home = EnterpriseHomepage.new(name: data[:name])
     ent = Enterprise.find_by(identifier: data[:enterprise])
     ent.articles << home
   end
@@ -532,10 +533,9 @@ And /^I want to add "([^\"]*)" as cost$/ do |string|
   prompt.accept
 end
 
-Given /^([^\s]+) (enabled|disabled) translation redirection in (?:his|her) profile$/ do
-  |login, status|
+Given /^([^\s]+) (enabled|disabled) translation redirection in (?:his|her) profile$/ do |login, status|
   profile = Profile[login]
-  profile.redirect_l10n = ( status == "enabled" )
+  profile.redirect_l10n = (status == "enabled")
   profile.save
 end
 
@@ -543,9 +543,9 @@ Given /^the following cities$/ do |table|
   table.hashes.each do |item|
     state = State.find_by acronym: item[:state]
     if !state
-      state = State.create!(:name => item[:state], :acronym => item[:state], :environment_id => Environment.default.id)
+      state = State.create!(name: item[:state], acronym: item[:state], environment_id: Environment.default.id)
     end
-    city = City.create!(:name => item[:name], :environment_id => Environment.default.id)
+    city = City.create!(name: item[:name], environment_id: Environment.default.id)
     city.parent = state
     city.save!
   end
@@ -600,21 +600,21 @@ Given /^the article "([^\"]*)" is updated with$/ do |article, table|
 end
 
 Given /^the cache is turned (on|off)$/ do |state|
-  ActionController::Base.perform_caching = (state == 'on')
+  ActionController::Base.perform_caching = (state == "on")
 end
 
 Given /^the environment is configured to (.*) after login$/ do |option|
   redirection = case option
-    when 'stay on the same page'
-      'keep_on_same_page'
-    when 'redirect to site homepage'
-      'site_homepage'
-    when 'redirect to user profile page'
-      'user_profile_page'
-    when 'redirect to profile homepage'
-      'user_homepage'
-    when 'redirect to profile control panel'
-      'user_control_panel'
+                when "stay on the same page"
+                  "keep_on_same_page"
+                when "redirect to site homepage"
+                  "site_homepage"
+                when "redirect to user profile page"
+                  "user_profile_page"
+                when "redirect to profile homepage"
+                  "user_homepage"
+                when "redirect to profile control panel"
+                  "user_control_panel"
   end
   environment = Environment.default
   environment.redirection_after_login = redirection
@@ -623,16 +623,16 @@ end
 
 Given /^the profile (.*) is configured to (.*) after login$/ do |profile, option|
   redirection = case option
-    when 'stay on the same page'
-      'keep_on_same_page'
-    when 'redirect to site homepage'
-      'site_homepage'
-    when 'redirect to user profile page'
-      'user_profile_page'
-    when 'redirect to profile homepage'
-      'user_homepage'
-    when 'redirect to profile control panel'
-      'user_control_panel'
+                when "stay on the same page"
+                  "keep_on_same_page"
+                when "redirect to site homepage"
+                  "site_homepage"
+                when "redirect to user profile page"
+                  "user_profile_page"
+                when "redirect to profile homepage"
+                  "user_homepage"
+                when "redirect to profile control panel"
+                  "user_control_panel"
   end
   profile = Profile.find_by identifier: profile
   profile.redirection_after_login = redirection
@@ -641,18 +641,18 @@ end
 
 Given /^the environment is configured to (.*) after signup$/ do |option|
   redirection = case option
-    when 'stay on the same page'
-      'keep_on_same_page'
-    when 'redirect to site homepage'
-      'site_homepage'
-    when 'redirect to user profile page'
-      'user_profile_page'
-    when 'redirect to profile homepage'
-      'user_homepage'
-    when 'redirect to profile control panel'
-      'user_control_panel'
-    when 'redirect to welcome page'
-      'welcome_page'
+                when "stay on the same page"
+                  "keep_on_same_page"
+                when "redirect to site homepage"
+                  "site_homepage"
+                when "redirect to user profile page"
+                  "user_profile_page"
+                when "redirect to profile homepage"
+                  "user_homepage"
+                when "redirect to profile control panel"
+                  "user_control_panel"
+                when "redirect to welcome page"
+                  "welcome_page"
   end
   environment = Environment.default
   environment.redirection_after_signup = redirection
@@ -664,7 +664,7 @@ When /^I click "(.*?)"$/ do |selector|
 end
 
 Then /^the element "(.*)" has class "(.*)"$/ do |el_selector, el_class|
-  class_list = find(el_selector)[:class].split(' ')
+  class_list = find(el_selector)[:class].split(" ")
   class_list.should include(el_class)
 end
 
@@ -681,5 +681,5 @@ Given /^the field (.*) is public for all users$/ do |field|
 end
 
 When(/^I press "(.*?)" by selector$/) do |selector|
-   page.execute_script("jQuery('#{selector}').click();")
+  page.execute_script("jQuery('#{selector}').click();")
 end

@@ -1,15 +1,15 @@
 class ControlPanel::Circles < ControlPanel::Entry
   class << self
     def name
-      _('Circles')
+      _("Circles")
     end
 
     def section
-      'relationships'
+      "relationships"
     end
 
     def icon
-      'user-circle'
+      "user-circle"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::Circles < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('friends')]
+      [_("friends")]
     end
 
     def url(profile)
-      {:controller => 'circles', :action => 'index'}
+      { controller: "circles", action: "index" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.person?
     end
   end

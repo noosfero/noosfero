@@ -1,5 +1,4 @@
 class LattesCurriculumPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Lattes Curriculum Plugin"
   end
@@ -20,11 +19,11 @@ class LattesCurriculumPlugin < Noosfero::Plugin
     fields = []
 
     lattes_url = {
-      :name => 'lattes_url',
-      :label => 'Lattes URL',
-      :object_name => :academic_infos,
-      :method => :lattes_url,
-      :value => context.profile.nil? ? "" : context.profile.academic_info.lattes_url
+      name: "lattes_url",
+      label: "Lattes URL",
+      object_name: :academic_infos,
+      method: :lattes_url,
+      value: context.profile.nil? ? "" : context.profile.academic_info.lattes_url
     }
 
     fields << lattes_url
@@ -37,10 +36,10 @@ class LattesCurriculumPlugin < Noosfero::Plugin
       href = context.profile.academic_info.lattes_url
       html_parser = Html_parser.new
       {
-        :title => _("Lattes"),
-        :id => 'lattes_tab',
-        :content => lambda{html_parser.get_html(href)},
-        :start => false
+        title: _("Lattes"),
+        id: "lattes_tab",
+        content: lambda { html_parser.get_html(href) },
+        start: false
       }
     end
   end
@@ -60,7 +59,7 @@ class LattesCurriculumPlugin < Noosfero::Plugin
         if !parameters[:academic_infos].blank?
           @profile_data = profile
 
-          academic_infos = {"academic_info_attributes" => parameters[:academic_infos]}
+          academic_infos = { "academic_info_attributes" => parameters[:academic_infos] }
 
           params_profile_data = parameters[:profile_data]
           params_profile_data = params_profile_data.merge(academic_infos)
@@ -71,8 +70,8 @@ class LattesCurriculumPlugin < Noosfero::Plugin
           @possible_domains = profile.possible_domains
 
           unless AcademicInfo.matches?(parameters[:academic_infos])
-            @profile_data.errors.add(:lattes_url, _(' Invalid lattes url'))
-            render :action => :informations, :profile => profile.identifier
+            @profile_data.errors.add(:lattes_url, _(" Invalid lattes url"))
+            render action: :informations, profile: profile.identifier
           end
         end
       end
@@ -84,14 +83,14 @@ class LattesCurriculumPlugin < Noosfero::Plugin
       end
     end
 
-    [{:type => 'before_action',
-      :method_name => 'validate_lattes_url',
-      :options => {:only => 'informations'},
-      :block => validate_lattes_url_block },
-    {:type => 'before_action',
-      :method_name => 'create_academic_info',
-      :options => {:only => 'informations'},
-      :block => create_academic_info_block }]
+    [{ type: "before_action",
+       method_name: "validate_lattes_url",
+       options: { only: "informations" },
+       block: validate_lattes_url_block },
+     { type: "before_action",
+       method_name: "create_academic_info",
+       options: { only: "informations" },
+       block: create_academic_info_block }]
   end
 
   def account_controller_filters
@@ -105,8 +104,8 @@ class LattesCurriculumPlugin < Noosfero::Plugin
           @person = Person.new(parameters[:profile_data])
           @person.environment = environment
           @user = User.new(parameters[:user])
-          @person.errors.add(:lattes_url, _(' Invalid lattes url'))
-          render :action => :signup
+          @person.errors.add(:lattes_url, _(" Invalid lattes url"))
+          render action: :signup
         end
       end
     end
@@ -117,25 +116,25 @@ class LattesCurriculumPlugin < Noosfero::Plugin
       end
     end
 
-    [{:type => 'before_action',
-      :method_name => 'validate_lattes_url',
-      :options => {:only => 'signup'},
-      :block => validate_lattes_url_block },
-    {:type => 'before_action',
-      :method_name => 'create_academic_info',
-      :options => {:only => 'informations'},
-      :block => create_academic_info_block }]
+    [{ type: "before_action",
+       method_name: "validate_lattes_url",
+       options: { only: "signup" },
+       block: validate_lattes_url_block },
+     { type: "before_action",
+       method_name: "create_academic_info",
+       options: { only: "informations" },
+       block: create_academic_info_block }]
   end
 
   protected
 
-  def academic_info_transaction
-    AcademicInfo.transaction do
-      context.profile.academic_info.update!(context.params[:academic_infos])
+    def academic_info_transaction
+      AcademicInfo.transaction do
+        context.profile.academic_info.update!(context.params[:academic_infos])
+      end
     end
-  end
 
-  def show_lattes_tab?
-    return context.profile.person? && !context.profile.academic_info.nil? && !context.profile.academic_info.lattes_url.blank? && context.profile.public_fields.include?("lattes_url")
-  end
+    def show_lattes_tab?
+      return context.profile.person? && !context.profile.academic_info.nil? && !context.profile.academic_info.lattes_url.blank? && context.profile.public_fields.include?("lattes_url")
+    end
 end

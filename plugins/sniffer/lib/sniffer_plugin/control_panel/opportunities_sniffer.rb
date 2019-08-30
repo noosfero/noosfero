@@ -1,29 +1,28 @@
 module SnifferPlugin::ControlPanel
   class OpportunitiesSniffer < ControlPanel::Entry
     class << self
-
       def name
-        _('Opportunities Sniffer')
+        _("Opportunities Sniffer")
       end
 
       def section
-        'enterprise'
+        "enterprise"
       end
 
       def icon
-        'bullhorn'
+        "bullhorn"
       end
 
       def url(profile)
-        {:controller => 'sniffer_plugin_myprofile', :action => 'search'}
+        { controller: "sniffer_plugin_myprofile", action: "search" }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.enterprise?
       end
 
       def options
-        { data: {'skip-pjax' => true} }
+        { data: { "skip-pjax" => true } }
       end
     end
   end

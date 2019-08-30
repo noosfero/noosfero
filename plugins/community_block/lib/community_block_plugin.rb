@@ -1,7 +1,6 @@
-require_dependency File.dirname(__FILE__) + '/community_block'
+require_dependency File.dirname(__FILE__) + "/community_block"
 
 class CommunityBlockPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Community Block Plugin"
   end
@@ -12,7 +11,7 @@ class CommunityBlockPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-      CommunityBlock => {:type => Community}
+      CommunityBlock => { type: Community }
     }
   end
 
@@ -23,5 +22,4 @@ class CommunityBlockPlugin < Noosfero::Plugin
   def stylesheet?
     true
   end
-
 end

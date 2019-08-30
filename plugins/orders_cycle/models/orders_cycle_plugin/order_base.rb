@@ -46,8 +46,5 @@ module OrdersCyclePlugin::OrderBase
     def available_products
       self.cycle.products
     end
-
-    protected
-
   end
 end

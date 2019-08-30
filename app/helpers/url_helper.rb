@@ -1,7 +1,6 @@
 module UrlHelper
-
   def back_url
-    'javascript:history.back()'
+    "javascript:history.back()"
   end
 
   def default_url_options
@@ -11,5 +10,4 @@ module UrlHelper
 
     options
   end
-
 end

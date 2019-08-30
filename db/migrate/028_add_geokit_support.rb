@@ -1,6 +1,5 @@
 class AddGeokitSupport < ActiveRecord::Migration
-
-  TABLES = [ :profiles, :categories ]
+  TABLES = [:profiles, :categories]
 
   def self.up
     TABLES.each do |table|

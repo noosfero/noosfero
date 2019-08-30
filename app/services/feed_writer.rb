@@ -1,15 +1,14 @@
 class FeedWriter
-
   include Rails.application.routes.url_helpers
 
   def write(articles, options = {})
     result = ""
-    xml = Builder::XmlMarkup.new(:target => result)
+    xml = Builder::XmlMarkup.new(target: result)
 
-    xml.instruct! :xml, :version=>"1.0"
-    xml.rss(:version=>"2.0") do
+    xml.instruct! :xml, version: "1.0"
+    xml.rss(version: "2.0") do
       xml.channel do
-        xml.title(options[:title] || _('Feed'))
+        xml.title(options[:title] || _("Feed"))
         if options[:link]
           xml.link(options[:link])
         end
@@ -31,10 +30,10 @@ class FeedWriter
             xml.link(url_for(article.url))
             xml.guid(url_for(article.url))
             if article.filename
-              url = url_for(article.url.merge(download:true))
+              url = url_for(article.url.merge(download: true))
               length = article.size
               type = article.mime_type
-              xml.enclosure(nil, url:url, length:length, type:type)
+              xml.enclosure(nil, url: url, length: length, type: type)
             end
           end
         end

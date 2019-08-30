@@ -1,4 +1,4 @@
-require_dependency 'article'
+require_dependency "article"
 
 class Article
   before_validation :work_assignment_save_into_author_folder
@@ -16,7 +16,7 @@ class Article
     if WorkAssignmentPlugin.is_submission?(self)
       related_work_assignment = self.parent.parent
 
-      if(!related_work_assignment.publish_submissions)
+      if (!related_work_assignment.publish_submissions)
         self.show_to_followers = false
       end
 

@@ -1,5 +1,4 @@
 class SpaminatorPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Spaminator"
   end
@@ -15,7 +14,7 @@ class SpaminatorPlugin < Noosfero::Plugin
   def self.schedule_scan(environment)
     settings = Noosfero::Plugin::Settings.new(environment, self)
     if !settings.scanning
-      job = Delayed::Job.enqueue(SpaminatorPlugin::ScanJob.new(environment.id), :run_at => settings.period.to_i.days.from_now)
+      job = Delayed::Job.enqueue(SpaminatorPlugin::ScanJob.new(environment.id), run_at: settings.period.to_i.days.from_now)
       settings.scheduled_scan = job.id
       settings.save!
     end
@@ -24,5 +23,4 @@ class SpaminatorPlugin < Noosfero::Plugin
   def stylesheet?
     true
   end
-
 end

@@ -9,12 +9,11 @@ class AddLanguageAndTranslationOfIdToArticle < ActiveRecord::Migration
     add_index  :articles, :translation_of_id
 
     select_all("select id, setting from articles where type = 'Blog'").each do |blog|
-      settings = YAML.load(blog['setting'] || {}.to_yaml)
+      settings = YAML.load(blog["setting"] || {}.to_yaml)
       settings[:display_posts_in_current_language] = true
-      assignments = ApplicationRecord.sanitize_sql_for_assignment(:setting => settings.to_yaml)
-      update("update articles set %s where id = %d" % [assignments, blog['id']])
+      assignments = ApplicationRecord.sanitize_sql_for_assignment(setting: settings.to_yaml)
+      update("update articles set %s where id = %d" % [assignments, blog["id"]])
     end
-
   end
 
   def self.down

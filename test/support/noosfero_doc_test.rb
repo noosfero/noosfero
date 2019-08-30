@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 module Noosfero::DocTest
-
   unless defined?(ROOT)
     ROOT = Rails.root.join("test", "tmp", "doc")
   end
@@ -19,26 +18,26 @@ module Noosfero::DocTest
     FileUtils.mkdir_p(ROOT)
 
     # root
-    create_doc('', 'index', 'en', 'Noosfero online manual')
-    create_doc('', 'toc', 'en', '', '<ul><li><a href="/doc/user">User features</a></li><li><a href="/doc/cms">Content Management</a></li></ul>')
+    create_doc("", "index", "en", "Noosfero online manual")
+    create_doc("", "toc", "en", "", '<ul><li><a href="/doc/user">User features</a></li><li><a href="/doc/cms">Content Management</a></li></ul>')
     # cms
-    create_doc('cms', 'index', 'en', 'Content Management')
-    create_doc('cms', 'index', 'pt', 'Gerenciamento de conteúdo')
-    create_doc('cms', 'toc', 'en', '')
-    create_doc('cms', 'toc', 'pt', '')
-    create_doc('cms', 'adding-pictures', 'en', 'Adding pictures to gallery')
-    create_doc('cms', 'adding-pictures', 'pt', 'Adicionando fotos na galeria')
-    create_doc('cms', 'creating-a-blog', 'en', 'Creating a blog')
-    create_doc('cms', 'creating-a-blog', 'pt', 'Criando um blog')
+    create_doc("cms", "index", "en", "Content Management")
+    create_doc("cms", "index", "pt", "Gerenciamento de conte\u00FAdo")
+    create_doc("cms", "toc", "en", "")
+    create_doc("cms", "toc", "pt", "")
+    create_doc("cms", "adding-pictures", "en", "Adding pictures to gallery")
+    create_doc("cms", "adding-pictures", "pt", "Adicionando fotos na galeria")
+    create_doc("cms", "creating-a-blog", "en", "Creating a blog")
+    create_doc("cms", "creating-a-blog", "pt", "Criando um blog")
     # user
-    create_doc('user', 'index', 'en', 'User features')
-    create_doc('user', 'index', 'pt', 'Funcionalidades de Usuário')
-    create_doc('user', 'toc', 'en', '<ul><li><a href="/doc/user/commenting-articles">Commenting articles</a></li><li><a href="/doc/user/acceptins-friends">Accepting friends</a></li></ul>')
-    create_doc('user', 'toc', 'pt', '')
-    create_doc('user', 'accepting-friends', 'en', 'Accepting friends')
-    create_doc('user', 'accepting-friends', 'pt', 'Aceitando amigos')
-    create_doc('user', 'commenting-articles', 'en', 'Commenting articles', 'How to access')
-    create_doc('user', 'commenting-articles', 'pt', 'Comentando artigos')
+    create_doc("user", "index", "en", "User features")
+    create_doc("user", "index", "pt", "Funcionalidades de Usu\u00E1rio")
+    create_doc("user", "toc", "en", '<ul><li><a href="/doc/user/commenting-articles">Commenting articles</a></li><li><a href="/doc/user/acceptins-friends">Accepting friends</a></li></ul>')
+    create_doc("user", "toc", "pt", "")
+    create_doc("user", "accepting-friends", "en", "Accepting friends")
+    create_doc("user", "accepting-friends", "pt", "Aceitando amigos")
+    create_doc("user", "commenting-articles", "en", "Commenting articles", "How to access")
+    create_doc("user", "commenting-articles", "pt", "Comentando artigos")
   end
 
   def tear_down_doc_test

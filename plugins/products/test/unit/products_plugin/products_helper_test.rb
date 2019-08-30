@@ -1,7 +1,6 @@
 require_relative "../../test_helper"
 
 class ProductsHelperTest < ActionView::TestCase
-
   include ProductsPlugin::ProductsHelper
   include ContentViewerHelper
   include ArticleHelper
@@ -9,142 +8,141 @@ class ProductsHelperTest < ActionView::TestCase
   include ApplicationHelper
 
   def setup
-    stubs(:show_date).returns('')
+    stubs(:show_date).returns("")
     @environment = Environment.default
-    @profile     = create_user('blog_helper_test').person
-    @category    = create ProductCategory, name: 'Category 1', environment_id: @environment.id
+    @profile     = create_user("blog_helper_test").person
+    @category    = create ProductCategory, name: "Category 1", environment_id: @environment.id
   end
 
   attr_accessor :category
 
-  should 'display select for categories' do
-    create(ProductCategory, name: 'Category 2.1', environment_id: @environment.id, parent: category)
-    create(ProductCategory, name: 'Category 2.2', environment_id: @environment.id, parent: category)
+  should "display select for categories" do
+    create(ProductCategory, name: "Category 2.1", environment_id: @environment.id, parent: category)
+    create(ProductCategory, name: "Category 2.2", environment_id: @environment.id, parent: category)
 
-    assert_tag_in_string select_for_categories(category.children, 1), tag: 'select', attributes: {id: 'category_id'}
+    assert_tag_in_string select_for_categories(category.children, 1), tag: "select", attributes: { id: "category_id" }
   end
 
   include ActionView::Helpers::NumberHelper
-  should 'format price to environment currency' do
+  should "format price to environment currency" do
     @environment.default_language = "pt"
     @environment.save
-    assert_equal 'R$ 10,00', float_to_currency(10.0)
+    assert_equal "R$ 10,00", float_to_currency(10.0)
   end
 
-  should 'not display link to edit product when user does not have permission' do
+  should "not display link to edit product when user does not have permission" do
     user = mock
     user.expects(:has_permission?).with(anything, anything).returns(false)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
     @controller.expects(:profile).returns(mock)
     product = fast_create(Product, product_category_id: category.id)
-    assert_equal '', edit_product_link_to_remote(product, 'field', 'link to edit')
+    assert_equal "", edit_product_link_to_remote(product, "field", "link to edit")
   end
 
-  should 'display link to edit product when user has permission' do
-    user = User.new(:email => 'display-link@email.invalid.com')
+  should "display link to edit product when user has permission" do
+    user = User.new(email: "display-link@email.invalid.com")
     user.expects(:has_permission?).with(anything, anything).returns(true)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
     @controller.expects(:profile).returns(mock)
     product = fast_create(Product, product_category_id: category.id)
 
-    expects(:link_to_remote).with('link to edit', {update: "product-name", loading: "loading_for_button('#link-edit-product-name')", url: {controller: 'products_plugin/page', action: 'edit', id: product.id, field: 'name'}, method: :get}, anything).returns('LINK')
+    expects(:link_to_remote).with("link to edit", { update: "product-name", loading: "loading_for_button('#link-edit-product-name')", url: { controller: "products_plugin/page", action: "edit", id: product.id, field: "name" }, method: :get }, anything).returns("LINK")
 
-    assert_equal 'LINK', edit_product_link_to_remote(product, 'name', 'link to edit')
+    assert_equal "LINK", edit_product_link_to_remote(product, "name", "link to edit")
   end
 
-  should 'not display link to edit product category when user does not have permission' do
-    user = User.new(:email => 'not-display-link@email.invalid.com')
+  should "not display link to edit product category when user does not have permission" do
+    user = User.new(email: "not-display-link@email.invalid.com")
     user.expects(:has_permission?).with(anything, anything).returns(false)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
     @controller.expects(:profile).returns(mock)
     product = fast_create(Product, product_category_id: category.id)
-    assert_equal '', edit_link('link to edit category', { action: 'edit_category', id: product.id })
+    assert_equal "", edit_link("link to edit category", action: "edit_category", id: product.id)
   end
 
-  should 'display link to edit product category when user has permission' do
-    user = User.new(:email => 'display-link@email.invalid.com')
+  should "display link to edit product category when user has permission" do
+    user = User.new(email: "display-link@email.invalid.com")
     user.expects(:has_permission?).with(anything, anything).returns(true)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
     @controller.expects(:profile).returns(mock)
     product = fast_create(Product, product_category_id: category.id)
 
-    expects(:link_to).with('link to edit category', { action: 'edit_category', id: product.id }, {} ).returns('LINK')
+    expects(:link_to).with("link to edit category", { action: "edit_category", id: product.id }, {}).returns("LINK")
 
-    assert_equal 'LINK', edit_link('link to edit category', { action: 'edit_category', id: product.id })
+    assert_equal "LINK", edit_link("link to edit category", action: "edit_category", id: product.id)
   end
 
-  should 'not display ui_button to edit product when user does not have permission' do
-    user = User.new(:email => 'not-display-uibutton@email.invalid.com')
+  should "not display ui_button to edit product when user does not have permission" do
+    user = User.new(email: "not-display-uibutton@email.invalid.com")
     user.expects(:has_permission?).with(anything, anything).returns(false)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
     @controller.expects(:profile).returns(mock)
     product = fast_create(Product, product_category_id: category.id)
-    assert_equal '', edit_ui_button(product, 'field', 'link to edit')
+    assert_equal "", edit_ui_button(product, "field", "link to edit")
   end
 
-  should 'display ui_button_to_remote to edit product when user has permission' do
-    user = User.new(:email => 'display-uibuttontoremote@email.invalid.com')
+  should "display ui_button_to_remote to edit product when user has permission" do
+    user = User.new(email: "display-uibuttontoremote@email.invalid.com")
     user.expects(:has_permission?).with(anything, anything).returns(true)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
     @controller.expects(:profile).returns(mock)
     product = fast_create(Product, product_category_id: category.id)
 
-    expects(:ui_button_to_remote).with('link to edit', {update: "product-info", url: {controller: 'products_plugin/page', action: 'edit', id: product.id, field: 'info'}, complete: "jQuery('#edit-product-button-ui-info').hide()", method: :get, loading: "loading_for_button('#edit-product-remote-button-ui-info')", }, id: 'edit-product-remote-button-ui-info').returns('LINK')
+    expects(:ui_button_to_remote).with("link to edit", { update: "product-info", url: { controller: "products_plugin/page", action: "edit", id: product.id, field: "info" }, complete: "jQuery('#edit-product-button-ui-info').hide()", method: :get, loading: "loading_for_button('#edit-product-remote-button-ui-info')", }, { id: "edit-product-remote-button-ui-info" }).returns("LINK")
 
-    assert_equal 'LINK', edit_product_ui_button_to_remote(product, 'info', 'link to edit')
+    assert_equal "LINK", edit_product_ui_button_to_remote(product, "info", "link to edit")
   end
 
-
-  should 'display ui_button to edit product when user has permission' do
-    user = User.new(:email => 'display-uibutton@email.invalid.com')
+  should "display ui_button to edit product when user has permission" do
+    user = User.new(email: "display-uibutton@email.invalid.com")
     user.expects(:has_permission?).with(anything, anything).returns(true)
     @controller = mock
     @controller.expects(:user).returns(user).at_least_once
     @controller.expects(:profile).returns(mock)
     product = fast_create(Product, product_category_id: category.id)
 
-    expects(:ui_button).with('link to edit', { action: 'add_input', id: product.id }, {}).returns('LINK')
+    expects(:ui_button).with("link to edit", { action: "add_input", id: product.id }, {}).returns("LINK")
 
-    assert_equal 'LINK', edit_ui_button('link to edit', {action: 'add_input', id: product.id})
+    assert_equal "LINK", edit_ui_button("link to edit", action: "add_input", id: product.id)
   end
 
-  should 'show unit on label of amount selection' do
+  should "show unit on label of amount selection" do
     input = build(Input)
-    input.expects(:product).returns(build(Product, unit: Unit.new(singular: 'Meter')))
-    assert_equal 'Amount used by meter of this product or service', label_amount_used(input)
+    input.expects(:product).returns(build(Product, unit: Unit.new(singular: "Meter")))
+    assert_equal "Amount used by meter of this product or service", label_amount_used(input)
   end
 
-  should 'not show unit on label of amount selection if product has no unit selected' do
+  should "not show unit on label of amount selection if product has no unit selected" do
     input = build(Input)
     input.expects(:product).returns(Product.new)
-    assert_equal 'Amount used in this product or service', label_amount_used(input)
+    assert_equal "Amount used in this product or service", label_amount_used(input)
   end
 
-  should 'sort qualifiers by name' do
-    fast_create(Qualifier, name: 'Organic')
-    fast_create(Qualifier, name: 'Non Organic')
+  should "sort qualifiers by name" do
+    fast_create(Qualifier, name: "Organic")
+    fast_create(Qualifier, name: "Non Organic")
     result = qualifiers_for_select
-    assert_equal ["Select...", "Non Organic", "Organic"], result.map{|i| i[0]}
+    assert_equal ["Select...", "Non Organic", "Organic"], result.map { |i| i[0] }
   end
 
-  should 'sort certifiers by name' do
-    qualifier = fast_create(Qualifier, name: 'Organic')
-    fbes = fast_create(Certifier, name: 'FBES')
-    colivre = fast_create(Certifier, name: 'Colivre')
+  should "sort certifiers by name" do
+    qualifier = fast_create(Qualifier, name: "Organic")
+    fbes = fast_create(Certifier, name: "FBES")
+    colivre = fast_create(Certifier, name: "Colivre")
     create(QualifierCertifier, qualifier: qualifier, certifier: colivre)
     create(QualifierCertifier, qualifier: qualifier, certifier: fbes)
 
     result = certifiers_for_select(qualifier)
-    assert_equal ["Self declared", "Colivre", "FBES"], result.map{|i| i[0]}
+    assert_equal ["Self declared", "Colivre", "FBES"], result.map { |i| i[0] }
   end
 
-  should 'list qualifiers and certifiers of a product' do
+  should "list qualifiers and certifiers of a product" do
     product = fast_create(Product)
     qualifier = fast_create(Qualifier)
     certifier = fast_create(Certifier)
@@ -152,7 +150,7 @@ class ProductsHelperTest < ActionView::TestCase
     assert_match /✔ Qualifier \d+ certified by Certifier \d+/, display_qualifiers(product)
   end
 
-  should 'product survive to a Qualifier deletation' do
+  should "product survive to a Qualifier deletation" do
     product = fast_create(Product)
     qualifier = fast_create(Qualifier)
     certifier = fast_create(Certifier)
@@ -163,7 +161,7 @@ class ProductsHelperTest < ActionView::TestCase
     end
   end
 
-  should 'delete product Qualifier self-declared when Certifier is deleted' do
+  should "delete product Qualifier self-declared when Certifier is deleted" do
     product = fast_create(Product)
     qualifier = fast_create(Qualifier)
     certifier = fast_create(Certifier)
@@ -177,6 +175,7 @@ class ProductsHelperTest < ActionView::TestCase
   end
 
   protected
-  include NoosferoTestHelper
-  include ActionView::Helpers::TextHelper
+
+    include NoosferoTestHelper
+    include ActionView::Helpers::TextHelper
 end

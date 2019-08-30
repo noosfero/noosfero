@@ -1,7 +1,6 @@
 class RelevantContentPlugin < Noosfero::Plugin
-
   def self.plugin_name
-      "Relevant Content Plugin"
+    "Relevant Content Plugin"
   end
 
   def self.plugin_description
@@ -10,12 +9,11 @@ class RelevantContentPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-     RelevantContentPlugin::RelevantContentBlock => {}
+      RelevantContentPlugin::RelevantContentBlock => {}
     }
   end
 
   def stylesheet?
     true
   end
-
 end

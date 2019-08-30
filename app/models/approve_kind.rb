@@ -5,7 +5,7 @@ class ApproveKind < Task
     Kind.find_by id: data[:kind_id]
   end
 
-  def kind= kind
+  def kind=(kind)
     data[:kind_id] = kind.id
   end
 
@@ -18,15 +18,15 @@ class ApproveKind < Task
   end
 
   def icon
-    {:type => :profile_image, :profile => requestor, :url => requestor.url}
+    { type: :profile_image, profile: requestor, url: requestor.url }
   end
 
   def task_message
-    _('%{requestor} wants to be defined as "%{kind}".') % {:kind => kind.name, :requestor => requestor.name}
+    _('%{requestor} wants to be defined as "%{kind}".') % { kind: kind.name, requestor: requestor.name }
   end
 
   def information
-    {:message => task_message}
+    { message: task_message }
   end
 
   def reject_details
@@ -48,7 +48,7 @@ class ApproveKind < Task
   def task_cancelled_message
     message = _('Your request to be defined as "%s" was rejected.') % kind.name
     if !reject_explanation.blank?
-      message += " " + _("Here is the reject explanation left by the administrator who rejected your request: \n\n%{reject_explanation}") % {:reject_explanation => reject_explanation}
+      message += " " + _("Here is the reject explanation left by the administrator who rejected your request: \n\n%{reject_explanation}") % { reject_explanation: reject_explanation }
     end
     message
   end

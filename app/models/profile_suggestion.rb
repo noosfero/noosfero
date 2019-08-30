@@ -1,13 +1,12 @@
 class ProfileSuggestion < ApplicationRecord
-
   belongs_to :person, optional: true
-  belongs_to :suggestion, class_name: 'Profile', foreign_key: :suggestion_id, optional: true
+  belongs_to :suggestion, class_name: "Profile", foreign_key: :suggestion_id, optional: true
 
   attr_accessible :person, :suggestion, :suggestion_type, :categories, :enabled
 
-  has_many :suggestion_connections, foreign_key: 'suggestion_id'
-  has_many :profile_connections, through: :suggestion_connections, source:  :connection, :source_type => 'Profile'
-  has_many :tag_connections, through: :suggestion_connections, source:  :connection, :source_type => 'ActsAsTaggableOn::Tag'
+  has_many :suggestion_connections, foreign_key: "suggestion_id"
+  has_many :profile_connections, through: :suggestion_connections, source: :connection, source_type: "Profile"
+  has_many :tag_connections, through: :suggestion_connections, source: :connection, source_type: "ActsAsTaggableOn::Tag"
 
   before_create do |profile_suggestion|
     profile_suggestion.suggestion_type = self.suggestion.class.to_s
@@ -20,29 +19,29 @@ class ProfileSuggestion < ApplicationRecord
   extend ActsAsHavingSettings::ClassMethods
   acts_as_having_settings field: :categories
 
-  validate :must_be_a_valid_category, :on => :create
+  validate :must_be_a_valid_category, on: :create
   def must_be_a_valid_category
-    if categories.keys.map { |cat| self.respond_to?(cat)}.include?(false)
-      errors.add(:categories, 'Category must be valid')
+    if categories.keys.map { |cat| self.respond_to?(cat) }.include?(false)
+      errors.add(:categories, "Category must be valid")
     end
   end
 
-  validates_uniqueness_of :suggestion_id, :scope => [ :person_id ]
-  scope :of_person, -> { where suggestion_type: 'Person' }
-  scope :of_community, -> { where suggestion_type: 'Community' }
+  validates_uniqueness_of :suggestion_id, scope: [:person_id]
+  scope :of_person, -> { where suggestion_type: "Person" }
+  scope :of_community, -> { where suggestion_type: "Community" }
   scope :enabled, -> { where enabled: true }
 
   # {:category_type => ['category-icon', 'category-label']}
   CATEGORIES = {
-    :people_with_common_friends => ['menu-people', _('Friends in common')],
-    :people_with_common_communities => ['menu-community',_('Communities in common')],
-    :people_with_common_tags => ['edit', _('Tags in common')],
-    :communities_with_common_friends => ['menu-people', _('Friends in common')],
-    :communities_with_common_tags => ['edit', _('Tags in common')]
+    people_with_common_friends: ["menu-people", _("Friends in common")],
+    people_with_common_communities: ["menu-community", _("Communities in common")],
+    people_with_common_tags: ["edit", _("Tags in common")],
+    communities_with_common_friends: ["menu-people", _("Friends in common")],
+    communities_with_common_tags: ["edit", _("Tags in common")]
   }
 
   def category_icon(category)
-    'icon-' + ProfileSuggestion::CATEGORIES[category][0]
+    "icon-" + ProfileSuggestion::CATEGORIES[category][0]
   end
 
   def category_label(category)
@@ -50,20 +49,20 @@ class ProfileSuggestion < ApplicationRecord
   end
 
   RULES = {
-    :people_with_common_communities => {
-      :threshold => 2, :weight => 1, :connection => 'Profile'
+    people_with_common_communities: {
+      threshold: 2, weight: 1, connection: "Profile"
     },
-    :people_with_common_friends => {
-      :threshold => 2, :weight => 1, :connection => 'Profile'
+    people_with_common_friends: {
+      threshold: 2, weight: 1, connection: "Profile"
     },
-    :people_with_common_tags => {
-      :threshold => 2, :weight => 1, :connection => 'Tag'
+    people_with_common_tags: {
+      threshold: 2, weight: 1, connection: "Tag"
     },
-    :communities_with_common_friends => {
-      :threshold => 2, :weight => 1, :connection => 'Profile'
+    communities_with_common_friends: {
+      threshold: 2, weight: 1, connection: "Profile"
     },
-    :communities_with_common_tags => {
-      :threshold => 2, :weight => 1, :connection => 'Tag'
+    communities_with_common_tags: {
+      threshold: 2, weight: 1, connection: "Tag"
     }
   }
 
@@ -119,13 +118,13 @@ class ProfileSuggestion < ApplicationRecord
     suggested_profiles = suggested_profiles.where.not(id: person.memberships.map { |p| p.id } | person.friends.map { |f| f.id })
     already_suggested_profiles = person.suggested_profiles
     suggested_profiles = suggested_profiles.where.not(id: already_suggested_profiles)
-    #TODO suggested_profiles = suggested_profiles.order('score DESC')
+    # TODO suggested_profiles = suggested_profiles.order('score DESC')
     suggested_profiles = suggested_profiles.limit(N_SUGGESTIONS)
     return if suggested_profiles.blank?
 
     suggested_profiles.each do |suggested_profile|
       suggestion   = person.suggested_profiles.find_by suggestion_id: suggested_profile.id
-      suggestion ||= person.suggested_profiles.build({suggestion_id: suggested_profile.id}, without_protection: true)
+      suggestion ||= person.suggested_profiles.build({ suggestion_id: suggested_profile.id }, { without_protection: true })
       RULES.each do |rule, options|
         begin
           value = suggested_profile.send("#{rule}_count").to_i
@@ -136,8 +135,9 @@ class ProfileSuggestion < ApplicationRecord
         connections = suggested_profile.send("#{rule}_connections") || []
         connections = connections[1..-2] if connections.present?
         connections.each do |connection_id|
-          next if SuggestionConnection.where(:suggestion_id => suggestion.id, :connection_id => connection_id, :connection_type => options[:connection]).present?
-          SuggestionConnection.create!(:suggestion => suggestion, :connection_id => connection_id, :connection_type => options[:connection])
+          next if SuggestionConnection.where(suggestion_id: suggestion.id, connection_id: connection_id, connection_type: options[:connection]).present?
+
+          SuggestionConnection.create!(suggestion: suggestion, connection_id: connection_id, connection_type: options[:connection])
         end
 
         suggestion.send("#{rule}=", value)
@@ -151,6 +151,7 @@ class ProfileSuggestion < ApplicationRecord
     person_friends = person.friends.map(&:id)
     rule = "people_with_common_friends"
     return if person_friends.blank?
+
     "SELECT person_id as #{profile_id(rule)},
             array_agg(friend_id) as #{connections(rule)},
             count(person_id) as #{counter(rule)}
@@ -163,6 +164,7 @@ class ProfileSuggestion < ApplicationRecord
     person_communities = person.communities.map(&:id)
     rule = "people_with_common_communities"
     return if person_communities.blank?
+
     "SELECT common_members.accessor_id as #{profile_id(rule)},
             array_agg(common_members.resource_id) as #{connections(rule)},
             count(common_members.accessor_id) as #{counter(rule)}
@@ -175,9 +177,10 @@ class ProfileSuggestion < ApplicationRecord
   end
 
   def self.people_with_common_tags(person)
-    profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
+    profile_tags = person.articles.select("tags.id").joins(:tags).map(&:id)
     rule = "people_with_common_tags"
     return if profile_tags.blank?
+
     "SELECT results.profiles_id as #{profile_id(rule)},
             array_agg(results.tags_id) as #{connections(rule)},
             count(results.profiles_id) as #{counter(rule)}
@@ -194,6 +197,7 @@ class ProfileSuggestion < ApplicationRecord
     person_friends = person.friends.map(&:id)
     rule = "communities_with_common_friends"
     return if person_friends.blank?
+
     "SELECT common_communities.resource_id as #{profile_id(rule)},
             array_agg(common_communities.accessor_id) as #{connections(rule)},
             count(common_communities.resource_id) as #{counter(rule)}
@@ -206,9 +210,10 @@ class ProfileSuggestion < ApplicationRecord
   end
 
   def self.communities_with_common_tags(person)
-    profile_tags = person.articles.select('tags.id').joins(:tags).map(&:id)
+    profile_tags = person.articles.select("tags.id").joins(:tags).map(&:id)
     rule = "communities_with_common_tags"
     return if profile_tags.blank?
+
     "SELECT results.profiles_id as #{profile_id(rule)},
             array_agg(results.tags_id) as #{connections(rule)},
             count(results.profiles_id) as #{counter(rule)}
@@ -255,14 +260,14 @@ class ProfileSuggestion < ApplicationRecord
 
     return if valid_rules.blank?
 
-    select_string = select_string.compact.join(',')
+    select_string = select_string.compact.join(",")
     join_string = "INNER JOIN (SELECT * FROM #{suggestions_join.compact.join(' ')}) AS suggestions ON profiles.id = suggestions.#{profile_id(valid_rules.first)}"
-    where_string = where_string.compact.join(' OR ')
+    where_string = where_string.compact.join(" OR ")
 
-    person.environment.profiles.
-      select(select_string).
-      joins(join_string).
-      where(where_string)
+    person.environment.profiles
+          .select(select_string)
+          .joins(join_string)
+          .where(where_string)
   end
 
   def disable
@@ -277,6 +282,7 @@ class ProfileSuggestion < ApplicationRecord
 
   def self.generate_profile_suggestions(person, force = false)
     return if person.suggested_profiles.enabled.count >= MIN_LIMIT && !force
+
     Delayed::Job.enqueue ProfileSuggestionsJob.new(person.id) unless ProfileSuggestionsJob.exists?(person.id)
   end
 
@@ -286,8 +292,7 @@ class ProfileSuggestion < ApplicationRecord
     end
 
     def perform
-      Person.find_each {|person| ProfileSuggestion.generate_profile_suggestions(person) }
+      Person.find_each { |person| ProfileSuggestion.generate_profile_suggestions(person) }
     end
   end
-
 end

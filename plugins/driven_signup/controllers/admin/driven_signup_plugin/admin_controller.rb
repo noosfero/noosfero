@@ -1,11 +1,9 @@
 class DrivenSignupPlugin::AdminController < AdminController
-
   no_design_blocks
 
-  protect 'edit_environment_features', :environment
+  protect "edit_environment_features", :environment
 
   def index
-
   end
 
   def new
@@ -22,5 +20,4 @@ class DrivenSignupPlugin::AdminController < AdminController
     @auth = environment.driven_signup_auths.where(token: params[:token]).first
     @auth.destroy if @auth
   end
-
 end

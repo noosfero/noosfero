@@ -1,15 +1,15 @@
 class ControlPanel::ConfigureBlog < ControlPanel::Entry
   class << self
     def name
-      _('Configure Blog')
+      _("Configure Blog")
     end
 
     def section
-      'content'
+      "content"
     end
 
     def icon
-      'file-alt'
+      "file-alt"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::ConfigureBlog < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('post')]
+      [_("post")]
     end
 
     def url(profile)
-      {:controller => 'cms', :action => 'edit', :id => profile.blog}
+      { controller: "cms", action: "edit", id: profile.blog }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.blogs.count > 0
     end
   end

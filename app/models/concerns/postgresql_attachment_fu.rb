@@ -1,5 +1,4 @@
 module PostgresqlAttachmentFu
-
   module ClassMethods
     def postgresql_attachment_fu
       send :include, InstanceMethods
@@ -13,6 +12,4 @@ module PostgresqlAttachmentFu
       Rails.root.join(file_system_path, *partitioned_path(thumbnail_name_for(thumbnail))).to_s
     end
   end
-
 end
-

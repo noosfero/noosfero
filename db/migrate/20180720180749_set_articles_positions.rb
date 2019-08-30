@@ -4,6 +4,6 @@ class SetArticlesPositions < ActiveRecord::Migration[5.1]
   end
 
   def down
-    say 'this migration cannot be reverted'
+    say "this migration cannot be reverted"
   end
 end

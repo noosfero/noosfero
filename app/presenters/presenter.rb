@@ -11,7 +11,7 @@ class Presenter
   def self.for(instance)
     return instance if instance.is_a?(Presenter) || !available?(instance)
 
-    klass = subclasses.sort_by {|class_instance|
+    klass = subclasses.sort_by { |class_instance|
       class_instance.accepts?(instance) || 0
     }.last
 

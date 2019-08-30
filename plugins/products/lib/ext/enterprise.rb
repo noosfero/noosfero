@@ -1,7 +1,6 @@
-require_dependency 'enterprise'
+require_dependency "enterprise"
 
 class Enterprise
-
   attr_accessible :products_per_catalog_page
 
   settings_items :products_per_catalog_page, type: :integer, default: 6
@@ -14,16 +13,15 @@ class Enterprise
 
   def default_set_of_blocks
     links = [
-      {name: _("Enterprises's profile"), address: '/profile/{profile}', icon: 'ok'},
-      {name: _('Blog'), address: '/{profile}/blog', icon: 'edit'},
-      {name: _('Products'), address: '/profile/{profile}/plugin/products/catalog', icon: 'new'},
+      { name: _("Enterprises's profile"), address: "/profile/{profile}", icon: "ok" },
+      { name: _("Blog"), address: "/{profile}/blog", icon: "edit" },
+      { name: _("Products"), address: "/profile/{profile}/plugin/products/catalog", icon: "new" },
     ]
     blocks = [
       [MainBlock.new],
-      [ ProfileImageBlock.new,
-        LinkListBlock.new(links: links),
-        ProductCategoriesBlock.new
-      ],
+      [ProfileImageBlock.new,
+       LinkListBlock.new(links: links),
+       ProductCategoriesBlock.new],
       [LocationBlock.new]
     ]
     blocks[2].unshift ProductsBlock.new
@@ -31,11 +29,10 @@ class Enterprise
   end
 
   def catalog_url
-    {profile: identifier, controller: 'products_plugin/catalog'}
+    { profile: identifier, controller: "products_plugin/catalog" }
   end
 
   def create_product?
     true
   end
-
 end

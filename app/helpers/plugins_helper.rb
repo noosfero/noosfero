@@ -1,8 +1,7 @@
 module PluginsHelper
-
   def plugins_product_tabs
     @plugins.dispatch(:product_tabs, @product).map do |tab|
-      {:title => tab[:title], :id => tab[:id], :content => instance_eval(&tab[:content])}
+      { title: tab[:title], id: tab[:id], content: instance_eval(&tab[:content]) }
     end
   end
 
@@ -19,5 +18,4 @@ module PluginsHelper
       [:title, :icon, :url].each { |param| raise "No #{param} was passed as parameter for #{action}" unless action.has_key?(param) }
     end
   end
-
 end

@@ -1,27 +1,26 @@
 class CustomFormsPlugin::SurveyBlock < Block
-
   attr_accessible :metadata
 
   validate :valid_status
 
   def default_title
-    _('Surveys')
+    _("Surveys")
   end
 
   def self.description
-    _('Surveys list in profile')
+    _("Surveys list in profile")
   end
 
   def self.pretty_name
-   _('Surveys')
+    _("Surveys")
   end
 
   def type
-    'survey'
+    "survey"
   end
 
   def help
-    _('This block show last surveys peformed in profile.')
+    _("This block show last surveys peformed in profile.")
   end
 
   def cacheable?
@@ -29,6 +28,4 @@ class CustomFormsPlugin::SurveyBlock < Block
   end
 
   include CustomFormsPlugin::ListBlock
-
 end
-

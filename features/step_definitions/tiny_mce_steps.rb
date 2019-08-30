@@ -10,6 +10,5 @@ And /^The tinymce "(.+)" should contain "(.+)"$/ do |item, content|
 end
 
 Given(/^I type "(.*?)" in TinyMCE field "(.*?)"$/) do |content, field|
-          page.evaluate_script("tinyMCE.get('#{field}').setContent('#{content}');")
+  page.evaluate_script("tinyMCE.get('#{field}').setContent('#{content}');")
 end
-

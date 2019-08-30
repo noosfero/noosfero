@@ -1,5 +1,4 @@
 class ProductsPlugin::PriceDetail < ApplicationRecord
-
   self.table_name = :price_details
 
   attr_accessible :price, :production_cost_id
@@ -13,7 +12,7 @@ class ProductsPlugin::PriceDetail < ApplicationRecord
   validates_uniqueness_of :production_cost_id, scope: :product_id
 
   def name
-    production_cost.nil? ? _('Other costs') : production_cost.name
+    production_cost.nil? ? _("Other costs") : production_cost.name
   end
 
   def price
@@ -30,7 +29,6 @@ class ProductsPlugin::PriceDetail < ApplicationRecord
   end
 
   def formatted_value(value)
-    ("%.2f" % self[value]).to_s.gsub('.', product.enterprise.environment.currency_separator) if self[value]
+    ("%.2f" % self[value]).to_s.gsub(".", product.enterprise.environment.currency_separator) if self[value]
   end
-
 end

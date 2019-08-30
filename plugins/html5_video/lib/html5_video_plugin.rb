@@ -1,5 +1,4 @@
 class Html5VideoPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "HTML5 Video"
   end
@@ -9,7 +8,7 @@ class Html5VideoPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['video-channel.js']
+    ["video-channel.js"]
   end
 
   def self.plugin_description
@@ -17,7 +16,7 @@ class Html5VideoPlugin < Noosfero::Plugin
   end
 
   def self.config
-    @config ||= YAML.load_file(File.join(root_path, 'config.yml'))
+    @config ||= YAML.load_file(File.join(root_path, "config.yml"))
                     .with_indifferent_access
   end
 
@@ -26,8 +25,8 @@ class Html5VideoPlugin < Noosfero::Plugin
   end
 
   def view_page_layout(controller, page)
-    if FilePresenter.for(page).is_a? FilePresenter::Video and controller.params[:display] == 'iframe'
-      'html5_video_plugin_iframe'
+    if FilePresenter.for(page).is_a?(FilePresenter::Video) && (controller.params[:display] == "iframe")
+      "html5_video_plugin_iframe"
     end
   end
 

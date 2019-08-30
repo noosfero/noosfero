@@ -2,11 +2,11 @@ class OrganizationRatingsBlock < Block
   include RatingsHelper
 
   def self.description
-    _('Organization Ratings')
+    _("Organization Ratings")
   end
 
   def help
-    _('This block displays the organization ratings.')
+    _("This block displays the organization ratings.")
   end
 
   def limit_number_of_ratings

@@ -1,50 +1,49 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 class DiscussionBlockTest < ActiveSupport::TestCase
-
   def setup
     @environment = Environment.default
     @environment.enable_plugin(CommentParagraphPlugin)
-    @user = create_user('testuser').person
+    @user = create_user("testuser").person
   end
 
   attr_reader :environment, :user
 
-  should 'describe itself' do
+  should "describe itself" do
     assert_not_equal Block.description, CommentParagraphPlugin::DiscussionBlock.description
   end
 
-  should 'holder be nil if there is no box' do
+  should "holder be nil if there is no box" do
     b = CommentParagraphPlugin::DiscussionBlock.new
     assert_nil b.holder
   end
 
-  should 'holder be nil if there is no box owner to the box' do
+  should "holder be nil if there is no box owner to the box" do
     b = CommentParagraphPlugin::DiscussionBlock.new
     box = Box.new
     b.box = box
     assert_nil b.holder
   end
 
-  should 'holder be the environment if there is no portal community in environment' do
+  should "holder be the environment if there is no portal community in environment" do
     b = CommentParagraphPlugin::DiscussionBlock.new
-    environment.boxes<< Box.new
+    environment.boxes << Box.new
     b.box = environment.boxes.last
     assert_nil environment.portal_community
     assert_equal environment, b.holder
   end
 
-  should 'holder be the portal community for environments blocks when use_portal_community is true' do
+  should "holder be the portal community for environments blocks when use_portal_community is true" do
     community = fast_create(Community)
-    environment.portal_community= community
+    environment.portal_community = community
     environment.save!
-    environment.boxes<< Box.new
+    environment.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.use_portal_community = true
     b.box = environment.boxes.last
     assert_equal environment.portal_community, b.holder
   end
 
-  should 'holder be the person for people blocks' do
+  should "holder be the person for people blocks" do
     person = fast_create(Person)
     person.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
@@ -52,7 +51,7 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     assert_equal person, b.holder
   end
 
-  should 'holder be the community for communities blocks' do
+  should "holder be the community for communities blocks" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
@@ -60,7 +59,7 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     assert_equal community, b.holder
   end
 
-  should 'holder be the enterprise for enterprises blocks' do
+  should "holder be the enterprise for enterprises blocks" do
     enterprise = fast_create(Enterprise)
     enterprise.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
@@ -68,25 +67,25 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     assert_equal enterprise, b.holder
   end
 
-  should 'discussions be empty when holder is nil' do
+  should "discussions be empty when holder is nil" do
     b = CommentParagraphPlugin::DiscussionBlock.new
     assert b.discussions.blank?
   end
 
-  should 'discussions return only discussion articles' do
+  should "discussions return only discussion articles" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = community.boxes.last
     b.save
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
-    fast_create(Event, :profile_id => community.id)
-    fast_create(TextArticle, :profile_id => community.id)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id)
+    fast_create(Event, profile_id: community.id)
+    fast_create(TextArticle, profile_id: community.id)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id)
     assert_equivalent [a1, a2], b.discussions
   end
 
-  should 'discussions return only article with user permissions' do
+  should "discussions return only article with user permissions" do
     puts user.inspect
     # assert false
     community = fast_create(Community)
@@ -94,12 +93,12 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = community.boxes.last
     b.save
-    a1 = fast_create(CommentParagraphPlugin::Discussion, access: Entitlement::Levels.levels[:admin],  :profile_id => community.id)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, access: Entitlement::Levels.levels[:admin], profile_id: community.id)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id)
     assert_equivalent [a2], b.discussions(user)
   end
 
-  should 'return only not opened discussions if discussion status is not opened odered by end_date' do
+  should "return only not opened discussions if discussion status is not opened odered by end_date" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
@@ -107,43 +106,43 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_NOT_OPENED
     b.save
     current_date = DateTime.now + 1
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 7.day)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 3.day)
-    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 1.day)
-    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 4.day)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now + 7.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now + 3.day)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now + 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now + 4.day)
     assert_equal [a3, a2, a4, a1], b.discussions
   end
 
-  should 'return only not opened discussions if discussion status is not opened' do
+  should "return only not opened discussions if discussion status is not opened" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = community.boxes.last
     b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_NOT_OPENED
     b.save
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now + 1.day)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now )
-    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 1.day)
-    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 2.day, :end_date => DateTime.now - 1.day)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now + 1.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now - 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now - 2.day, end_date: DateTime.now - 1.day)
     assert_equivalent [a1], b.discussions
   end
 
-  should 'return only available discussions if discussion status is available' do
+  should "return only available discussions if discussion status is available" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = community.boxes.last
     b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_AVAILABLE
     b.save
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now + 1.day)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now )
-    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 1.day)
-    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 2.day, :end_date => DateTime.now - 1.day)
-    a5 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :end_date => DateTime.now + 1.day)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now + 1.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now - 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now - 2.day, end_date: DateTime.now - 1.day)
+    a5 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, end_date: DateTime.now + 1.day)
     assert_equivalent [a2, a3, a5], b.discussions
   end
 
-  should 'return only available discussions if discussion status is available odered by end_date' do
+  should "return only available discussions if discussion status is available odered by end_date" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
@@ -151,28 +150,28 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_AVAILABLE
     b.save
     current_date = DateTime.now
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 7.day)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 3.day)
-    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 1.day)
-    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now + 4.day)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now + 7.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now + 3.day)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now + 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now + 4.day)
     assert_equal [a3, a2, a4, a1], b.discussions
   end
 
-  should 'return only closed discussions if discussion status is closed' do
+  should "return only closed discussions if discussion status is closed" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = community.boxes.last
     b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_CLOSED
     b.save
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now + 1.day)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now )
-    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 1.day)
-    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => DateTime.now - 2.day, :end_date => DateTime.now - 1.day)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now + 1.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now - 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: DateTime.now - 2.day, end_date: DateTime.now - 1.day)
     assert_equivalent [a4], b.discussions
   end
 
-  should 'return only closed discussions if discussion status is closed odered by end_date' do
+  should "return only closed discussions if discussion status is closed odered by end_date" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
@@ -180,26 +179,25 @@ class DiscussionBlockTest < ActiveSupport::TestCase
     b.discussion_status = CommentParagraphPlugin::DiscussionBlock::STATUS_CLOSED
     b.save
     current_date = DateTime.now - 10
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now - 7.day)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now - 3.day)
-    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now - 1.day)
-    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, :start_date => current_date, :end_date => DateTime.now - 4.day)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now - 7.day)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now - 3.day)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now - 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: current_date, end_date: DateTime.now - 4.day)
     assert_equal [a1, a4, a2, a3], b.discussions
   end
-
 end
 
-require 'boxes_helper'
+require "boxes_helper"
 
 class DiscussionBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
-  should 'show the title and the child titles when the block is set to title only mode' do
-    profile = create_user('testuser').person
+  should "show the title and the child titles when the block is set to title only mode" do
+    profile = create_user("testuser").person
 
     block = CommentParagraphPlugin::DiscussionBlock.new
     block.stubs(:holder).returns(profile)
-    block.presentation_mode = 'title_only'
+    block.presentation_mode = "title_only"
 
     ActionView::Base.any_instance.stubs(:block_title).returns("Block Title")
     ActionView::Base.any_instance.stubs(:profile).returns(profile)
@@ -210,12 +208,12 @@ class DiscussionBlockViewTest < ActionView::TestCase
     assert_no_match /discussion-abstract/, content
   end
 
-  should 'show the title and the child titles and abstracts when the block is set to title and abstract mode' do
-    profile = create_user('testuser').person
+  should "show the title and the child titles and abstracts when the block is set to title and abstract mode" do
+    profile = create_user("testuser").person
 
     block = CommentParagraphPlugin::DiscussionBlock.new
     block.stubs(:holder).returns(profile)
-    block.presentation_mode = 'title_and_abstract'
+    block.presentation_mode = "title_and_abstract"
 
     ActionView::Base.any_instance.stubs(:block_title).returns("Block Title")
     ActionView::Base.any_instance.stubs(:profile).returns(profile)
@@ -225,12 +223,12 @@ class DiscussionBlockViewTest < ActionView::TestCase
     assert_match /discussion-abstract/, content
   end
 
-  should 'show the title and the child full content when the block has no mode set' do
-    profile = create_user('testuser').person
+  should "show the title and the child full content when the block has no mode set" do
+    profile = create_user("testuser").person
 
     block = CommentParagraphPlugin::DiscussionBlock.new
     block.stubs(:holder).returns(profile)
-    block.presentation_mode = ''
+    block.presentation_mode = ""
 
     ActionView::Base.any_instance.stubs(:block_title).returns("Block Title")
     ActionView::Base.any_instance.stubs(:profile).returns(profile)
@@ -240,44 +238,43 @@ class DiscussionBlockViewTest < ActionView::TestCase
     assert_match /discussion-full/, content
   end
 
-  should 'return discussions in api_content' do
+  should "return discussions in api_content" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = community.boxes.last
     b.save
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
-    fast_create(Event, :profile_id => community.id)
-    fast_create(TextArticle, :profile_id => community.id)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
-    assert_equivalent [a2.id, a1.id], b.api_content['articles'].map {|a| a[:id]}
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id)
+    fast_create(Event, profile_id: community.id)
+    fast_create(TextArticle, profile_id: community.id)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id)
+    assert_equivalent [a2.id, a1.id], b.api_content["articles"].map { |a| a[:id] }
   end
 
-  should 'return fixed_documents in api_content' do
+  should "return fixed_documents in api_content" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = community.boxes.last
     b.save
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id)
     b.fixed_documents_ids = [a1.id]
-    fast_create(Event, :profile_id => community.id)
-    fast_create(TextArticle, :profile_id => community.id)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id)
-    assert_equivalent [a1.id], b.api_content['fixed_documents'].map {|a| a[:id]}
+    fast_create(Event, profile_id: community.id)
+    fast_create(TextArticle, profile_id: community.id)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id)
+    assert_equivalent [a1.id], b.api_content["fixed_documents"].map { |a| a[:id] }
   end
 
-  should 'sort discussions by start_date, end_date and created_at' do
+  should "sort discussions by start_date, end_date and created_at" do
     community = fast_create(Community)
     community.boxes << Box.new
     b = CommentParagraphPlugin::DiscussionBlock.new
     b.box = community.boxes.last
     b.save
-    a1 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now)
-    a2 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now)
-    a3 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now + 1.day)
-    a4 = fast_create(CommentParagraphPlugin::Discussion, :profile_id => community.id, start_date: Time.now + 1, end_date: Time.now + 1.day)
+    a1 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: Time.now)
+    a2 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: Time.now + 1, end_date: Time.now)
+    a3 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: Time.now + 1, end_date: Time.now + 1.day)
+    a4 = fast_create(CommentParagraphPlugin::Discussion, profile_id: community.id, start_date: Time.now + 1, end_date: Time.now + 1.day)
     assert_equal [a4.id, a3.id, a2.id, a1.id], b.discussions.map(&:id)
   end
-
 end

@@ -4,7 +4,7 @@
 # required.
 
 module Entitlement::Judge
-  def entitles?(user=nil, action = :access)
+  def entitles?(user = nil, action = :access)
     entitlement(user) >= requirement(action)
   end
 
@@ -15,7 +15,7 @@ module Entitlement::Judge
   end
 
   def ordered_checks
-    @ordered_checks ||= checks.sort_by {|check| check.class.level}.reverse
+    @ordered_checks ||= checks.sort_by { |check| check.class.level }.reverse
   end
 
   def entitlement(user)

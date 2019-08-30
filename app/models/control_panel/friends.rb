@@ -1,15 +1,15 @@
 class ControlPanel::Friends < ControlPanel::Entry
   class << self
     def name
-      _('Friends')
+      _("Friends")
     end
 
     def section
-      'relationships'
+      "relationships"
     end
 
     def icon
-      'users'
+      "users"
     end
 
     def priority
@@ -17,14 +17,11 @@ class ControlPanel::Friends < ControlPanel::Entry
     end
 
     def url(profile)
-      {:controller => 'friends', :action => 'index'}
+      { controller: "friends", action: "index" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.person?
     end
   end
 end
-
-
-

@@ -1,23 +1,21 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class VideoGaleryBlockTest < ActiveSupport::TestCase
-
   should "define its description" do
-    assert_equal VideoPlugin::VideoGalleryBlock.description, _('Display a Video Gallery')
+    assert_equal VideoPlugin::VideoGalleryBlock.description, _("Display a Video Gallery")
   end
 
   should "define its help description" do
-    assert_equal VideoPlugin::VideoGalleryBlock.new.help, _('This block presents a video gallery')
+    assert_equal VideoPlugin::VideoGalleryBlock.new.help, _("This block presents a video gallery")
   end
-
 end
 
-require 'boxes_helper'
+require "boxes_helper"
 
 class VideoGalleryBlockViewTest < ActionView::TestCase
   include BoxesHelper
 
-  should 'render nothing without a video_gallery_id' do
+  should "render nothing without a video_gallery_id" do
     block = VideoPlugin::VideoGalleryBlock.new
 
     content = render_block_content(block)
@@ -25,7 +23,7 @@ class VideoGalleryBlockViewTest < ActionView::TestCase
     assert_equal content, ""
   end
 
-  should 'render nothing with an empty gallery message when there are no children' do
+  should "render nothing with an empty gallery message when there are no children" do
     block = VideoPlugin::VideoGalleryBlock.new
     block.video_gallery_id = 42
 
@@ -37,10 +35,10 @@ class VideoGalleryBlockViewTest < ActionView::TestCase
 
     content = render_block_content(block)
 
-    assert_tag_in_string content, tag: 'em', content: _('(empty video gallery)')
+    assert_tag_in_string content, tag: "em", content: _("(empty video gallery)")
   end
 
-  should 'render the body and a empty gallery message when there are no children' do
+  should "render the body and a empty gallery message when there are no children" do
     block = VideoPlugin::VideoGalleryBlock.new
     block.video_gallery_id = 42
 
@@ -53,6 +51,6 @@ class VideoGalleryBlockViewTest < ActionView::TestCase
     content = render_block_content(block)
 
     assert_match body, content
-    assert_tag_in_string content, tag: 'em', content: _('(empty video gallery)')
+    assert_tag_in_string content, tag: "em", content: _("(empty video gallery)")
   end
 end

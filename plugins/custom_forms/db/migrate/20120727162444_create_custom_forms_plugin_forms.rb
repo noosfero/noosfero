@@ -7,11 +7,11 @@ class CreateCustomFormsPluginForms < ActiveRecord::Migration[5.1]
       t.references :profile
       t.datetime :beginning
       t.datetime :ending
-      t.boolean :report_submissions, :default => false
-      t.boolean :on_membership, :default => false
+      t.boolean :report_submissions, default: false
+      t.boolean :on_membership, default: false
       t.string :access
       t.timestamps
-    end 
+    end
   end
 
   def self.down

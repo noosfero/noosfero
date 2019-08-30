@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 module TagsHelper
-
   module Cloud
     MAX_SIZE = 32
     MIN_SIZE = 12
@@ -30,9 +29,8 @@ module TagsHelper
   # courtesy of Aurelio: http://www.colivre.coop.br/Aurium/Nuvem
   # (pt_BR only).
   def tag_cloud(tags, tagname_option, url, options = {})
-
-    return content_tag('em', _('No tags yet.') + ' ') +
-      link_to(content_tag(:span, _('What are tags?')),_('http://en.wikipedia.org/wiki/Tag_%28metadata%29')) if tags.empty?
+    return content_tag("em", _("No tags yet.") + " ") +
+           link_to(content_tag(:span, _("What are tags?")), _("http://en.wikipedia.org/wiki/Tag_%28metadata%29")) if tags.empty?
 
     max_size = options[:max_size] || Cloud::MAX_SIZE
     min_size = options[:min_size] || Cloud::MIN_SIZE
@@ -45,35 +43,33 @@ module TagsHelper
     # This way variant characters falls on the same level as their base characters and don't end up
     # at the end of the tag list.
     # Example: AA ÁA AB Z instead of AA AB Z ÁA
-    tags.collect{ |k,v| [ActiveSupport::Inflector.transliterate(k).downcase, [k,v]] }.sort.collect { |ascii, t| t }.map do |tag,count|
-# FIXME see if merge could be done	    
+    tags.collect { |k, v| [ActiveSupport::Inflector.transliterate(k).downcase, [k, v]] }.sort.collect { |ascii, t| t }.map do |tag, count|
+      # FIXME see if merge could be done
       destination = url.merge(tagname_option => tag)
-#      destination = url
+      #      destination = url
 
       if options[:show_count]
         display_count = options[:show_count] ? "<small><sup>(#{count})</sup></small>" : ""
         link_to (tag + display_count).html_safe, destination,
-                 {:class => 'tag-cloud-item', :data => { :items => count }}
+                class: "tag-cloud-item", data: { items: count }
       else
-        link_to h(tag) , destination,
-          { :title => n_( 'one item', '%d items', count ) % count,
-            :class => 'tag-cloud-item', :data => { :items => count }}
+        link_to h(tag), destination,
+                title: n_("one item", "%d items", count) % count,
+                class: "tag-cloud-item", data: { items: count }
       end
-
     end.join("\n").html_safe
   end
 
   def linked_article_tags(article)
     if @profile
       # We are rendering a page inside a profile, so link to the profile tag search.
-      url = { :controller => 'profile', :profile => @profile.identifier, :action => 'tags' }
+      url = { controller: "profile", profile: @profile.identifier, action: "tags" }
       tagname_option = :id
     else
       # We are rendering a page outside a profile, so link to the global tag search.
-      url = { :action => 'tag' }
+      url = { action: "tag" }
       tagname_option = :tag
     end
-    article.tags.map { |t| link_to(t, url.merge(tagname_option=>t.name) ) }.join("\n")
+    article.tags.map { |t| link_to(t, url.merge(tagname_option => t.name)) }.join("\n")
   end
-
 end

@@ -1,61 +1,60 @@
-require 'test_helper'
+require "test_helper"
 
 class MarkCommentAsReadPluginTest < ActionView::TestCase
-
   include ButtonsHelper
 
   def setup
     @plugin = MarkCommentAsReadPlugin.new
-    @person = create_user('user').person
-    @article = TextArticle.create!(:profile => @person, :name => 'An article')
-    @comment = Comment.create!(:source => @article, :author => @person, :body => 'test')
+    @person = create_user("user").person
+    @article = TextArticle.create!(profile: @person, name: "An article")
+    @comment = Comment.create!(source: @article, author: @person, body: "test")
     self.stubs(:user).returns(@person)
     self.stubs(:profile).returns(@person)
   end
 
   attr_reader :plugin, :comment
 
-  should 'show link when person is logged in' do
+  should "show link when person is logged in" do
     action = @plugin.comment_actions(@comment)
     link = self.instance_eval(&action)
     assert link
   end
 
-  should 'do not show link when person is not logged in' do
+  should "do not show link when person is not logged in" do
     self.stubs(:user).returns(nil)
     action = @plugin.comment_actions(@comment)
     link = self.instance_eval(&action)
     refute link
   end
 
-  should 'return actions when comment is not read' do
+  should "return actions when comment is not read" do
     action = @plugin.comment_actions(@comment)
     links = self.instance_eval(&action)
     assert_equal 3, links.size
   end
 
-  should 'return actions when comment is read' do
+  should "return actions when comment is read" do
     @comment.mark_as_read(@person)
     action = @plugin.comment_actions(@comment)
     links = self.instance_eval(&action)
     assert_equal 3, links.size
   end
 
-  should 'do not return any id when user is not logged in' do
+  should "do not return any id when user is not logged in" do
     self.stubs(:user).returns(nil)
     action = @plugin.check_comment_actions(@comment)
     id = self.instance_eval(&action)
     refute id
   end
 
-  should 'return id of mark as not read link when comment is read' do
+  should "return id of mark as not read link when comment is read" do
     @comment.mark_as_read(@person)
     action = @plugin.check_comment_actions(@comment)
     id = self.instance_eval(&action)
     assert_equal "#comment-action-mark-as-not-read-#{@comment.id}", id
   end
 
-  should 'return id of mark as read link when comment is not read' do
+  should "return id of mark as read link when comment is not read" do
     action = @plugin.check_comment_actions(@comment)
     id = self.instance_eval(&action)
     assert_equal "#comment-action-mark-as-read-#{@comment.id}", id
@@ -64,5 +63,4 @@ class MarkCommentAsReadPluginTest < ActionView::TestCase
   def link_to_function(content, url, options = {})
     link_to(content, url, options)
   end
-
 end

@@ -1,4 +1,4 @@
-require 'csv'
+require "csv"
 
 class Exporter
   attr_reader :base_fields, :related_fields, :method_fields
@@ -25,29 +25,29 @@ class Exporter
 
   private
 
-  def csv_columns
-    (base_fields + method_fields +
-       @related_fields.map { |_, cols| cols }.flatten).map { |field| _(field.humanize) }
-  end
-
-  def csv_line_for(entry)
-    field_values = (base_fields + method_fields).map do |field|
-      entry.send(field)
+    def csv_columns
+      (base_fields + method_fields +
+         @related_fields.map { |_, cols| cols }.flatten).map { |field| _(field.humanize) }
     end
 
-    related_fields.each do |relation, fields|
-      fields.each do |field|
-        field_values << entry.send(relation).send(field)
+    def csv_line_for(entry)
+      field_values = (base_fields + method_fields).map do |field|
+        entry.send(field)
       end
+
+      related_fields.each do |relation, fields|
+        fields.each do |field|
+          field_values << entry.send(relation).send(field)
+        end
+      end
+
+      field_values
     end
 
-    field_values
-  end
-
-  def xml_fields
-    fields = related_fields.map do |rel, cols|
-      [:include, { rel => { only: cols } }]
-    end.to_h
-    fields.merge(only: base_fields, methods: method_fields)
-  end
+    def xml_fields
+      fields = related_fields.map do |rel, cols|
+        [:include, { rel => { only: cols } }]
+      end.to_h
+      fields.merge(only: base_fields, methods: method_fields)
+    end
 end

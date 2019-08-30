@@ -1,3 +1,2 @@
-system 'script/noosfero-plugins -q enable products'
+system "script/noosfero-plugins -q enable products"
 exit $?.exitstatus
-

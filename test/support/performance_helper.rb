@@ -1,5 +1,4 @@
 module PerformanceHelper
-
   # Testing blog page display. It should not present a linear increase in time
   # needed to display a blog page with the increase in number of posts.
   #
@@ -17,7 +16,5 @@ module PerformanceHelper
   # On the travis/gitlab CI this can vary with servers' IO load, so
   # we soften to avoid failures
   #
-  NON_LINEAR_FACTOR = unless ENV['CI'] then 1.8 else 0 end
-
+  NON_LINEAR_FACTOR = unless ENV["CI"] then 1.8 else 0 end
 end
-

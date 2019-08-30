@@ -6,12 +6,10 @@
 #   pub.publish_story f, u, :favorite_a_sse_initiative
 #
 class FbAppPlugin::Publisher < OpenGraphPlugin::Publisher
-
-  def publish_story object_data, actor, story
+  def publish_story(object_data, actor, story)
     OpenGraphPlugin.context = FbAppPlugin::Activity.context
     a = FbAppPlugin::Activity.new object_data: object_data, actor: actor, story: story
     a.dispatch_publications
     a.save
   end
-
 end

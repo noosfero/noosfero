@@ -1,7 +1,7 @@
 Given /^I fill in "([^\"]*)" with code of "([^\"]*)"$/ do |field, enterprise|
   enterprise = Enterprise.find_by(name: enterprise)
-  value = EnterpriseActivation.all.select { |task| task.enterprise == enterprise}.first.code
-  fill_in(field, :with => value)
+  value = EnterpriseActivation.all.select { |task| task.enterprise == enterprise }.first.code
+  fill_in(field, with: value)
 end
 
 Given /^enterprise "([^\"]*)" should be enabled$/ do |enterprise|
@@ -12,10 +12,10 @@ Given /^"([^\"]*)" is the active enterprise template$/ do |enterprise|
   template = Enterprise.find_by(name: enterprise)
   template.boxes.destroy_all
   template.boxes << Box.new
-  template.layout_template = 'leftbar'
-  template.theme = 'template_theme'
-  template.custom_header = 'template header'
-  template.custom_footer = 'template_footer'
+  template.layout_template = "leftbar"
+  template.theme = "template_theme"
+  template.custom_header = "template header"
+  template.custom_footer = "template_footer"
   template.save!
 
   e = Environment.default
@@ -44,7 +44,7 @@ Given /^"([^\"]*)" doesnt have "([^\"]*)" as template$/ do |ent, templ|
 end
 
 Given /^enterprise "([^\"]*)" is enabled$/ do |enterprise|
-  Enterprise.find_by(name: enterprise).update_attribute(:enabled,true)
+  Enterprise.find_by(name: enterprise).update_attribute(:enabled, true)
   Enterprise.find_by(name: enterprise).enabled?.should be_truthy
 end
 

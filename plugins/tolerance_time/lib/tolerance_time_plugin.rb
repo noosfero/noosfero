@@ -1,5 +1,4 @@
 class ToleranceTimePlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Tolerance Time"
   end
@@ -13,7 +12,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
 
     expirable = content.kind_of?(Comment) || (!content.folder? && content.published?)
     publication = ToleranceTimePlugin::Publication.find_by target: content
-    publication = ToleranceTimePlugin::Publication.create!(:target => content) if expirable && publication.nil?
+    publication = ToleranceTimePlugin::Publication.create!(target: content) if expirable && publication.nil?
     person_article = content.kind_of?(Article) && content.profile.kind_of?(Person)
 
     !person_article && expirable && publication.expired?
@@ -35,10 +34,10 @@ class ToleranceTimePlugin < Noosfero::Plugin
         redirect_to content.url
       end
     end
-    { :type => 'before_action',
-      :method_name => 'expired_content',
-      :options => {:only => 'edit'},
-      :block => block }
+    { type: "before_action",
+      method_name: "expired_content",
+      options: { only: "edit" },
+      block: block }
   end
 
   def content_viewer_controller_filters
@@ -49,25 +48,25 @@ class ToleranceTimePlugin < Noosfero::Plugin
         redirect_to content.article.url
       end
     end
-    { :type => 'before_action',
-      :method_name => 'expired_content',
-      :options => {:only => 'edit_comment'},
-      :block => block }
+    { type: "before_action",
+      method_name: "expired_content",
+      options: { only: "edit_comment" },
+      block: block }
   end
 
   def content_expire_edit(content)
-    content_expire_for(content, _('editing'))
+    content_expire_for(content, _("editing"))
   end
 
   def content_expire_clone(content)
-    content_expire_for(content, _('cloning'))
+    content_expire_for(content, _("cloning"))
   end
 
   private
 
-  def content_expire_for(content, action)
-    if ToleranceTimePlugin.expired?(content)
-      _('The tolerance time for %s this content is over.') % action
+    def content_expire_for(content, action)
+      if ToleranceTimePlugin.expired?(content)
+        _("The tolerance time for %s this content is over.") % action
+      end
     end
-  end
 end

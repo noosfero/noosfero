@@ -12,9 +12,9 @@ When /^I choose the following communities to spread$/ do |table|
     page.execute_script("jQuery('#token-input-search-communities-to-publish').trigger('focus').val('#{name}').trigger('keydown')")
 
     # We use this to wait for the search
-    page.should have_selector('.token-input-dropdown li')
+    page.should have_selector(".token-input-dropdown li")
 
     page.execute_script ("jQuery('.token-input-dropdown li:contains(\"#{name}\")').trigger('mousedown');")
-    page.should have_selector('li.token-input-token')
+    page.should have_selector("li.token-input-token")
   end
 end

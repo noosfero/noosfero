@@ -4,6 +4,6 @@ class RemoveLockVersion < ActiveRecord::Migration
   end
 
   def self.down
-    add_column  :articles, :lock_version, :integer, :default => 0
+    add_column :articles, :lock_version, :integer, default: 0
   end
 end

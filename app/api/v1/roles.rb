@@ -1,17 +1,16 @@
 module Api
   module V1
     class Roles < Grape::API::Instance
-
       MAX_PER_PAGE = 50
 
       resource :profiles do
         segment "/:id" do
           resource :roles do
-
             paginate max_per_page: MAX_PER_PAGE
             get do
               profile = environment.profiles.find(params[:id])
               return forbidden! unless profile.kind_of?(Organization)
+
               roles = Profile::Roles.organization_member_and_custom_roles(profile.environment.id, profile.id)
               person_roles = []
               if params[:person_id].present?
@@ -34,7 +33,6 @@ module Api
                 present_partial paginate(person_roles), with: Entities::Role
               end
             end
-
           end
         end
       end

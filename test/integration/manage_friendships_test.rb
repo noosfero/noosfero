@@ -1,30 +1,29 @@
 require_relative "../test_helper"
 
 class ManageFriendshipsTest < ActionDispatch::IntegrationTest
-
   def setup
-    FriendsController.any_instance.stubs(:get_layout).returns('application')
-    ProfileController.any_instance.stubs(:get_layout).returns('application')
+    FriendsController.any_instance.stubs(:get_layout).returns("application")
+    ProfileController.any_instance.stubs(:get_layout).returns("application")
 
     Friendship.delete_all
     Person.delete_all
-    @person = create_user("albert", :password => 'test',
-      :password_confirmation => 'test').person
+    @person = create_user("albert", password: "test",
+                                    password_confirmation: "test").person
     @person.user.activate!
 
-    @friend = fast_create(Person, :identifier => "isaac")
+    @friend = fast_create(Person, identifier: "isaac")
 
-    login(@person.identifier, 'test')
+    login(@person.identifier, "test")
   end
 
-  should 'remove friendships' do
+  should "remove friendships" do
     @person.add_friend(@friend)
     @friend.add_friend(@person)
 
     get "/myprofile/#{@person.identifier}/friends/remove/#{@friend.id}"
     assert_response :success
 
-    post "/myprofile/#{@person.identifier}/friends/remove/#{@friend.id}", params: { confirmation: '1'}
+    post "/myprofile/#{@person.identifier}/friends/remove/#{@friend.id}", params: { confirmation: "1" }
 
     follow_redirect!
 

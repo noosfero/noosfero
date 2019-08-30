@@ -1,10 +1,9 @@
 class SuppliersPluginMyprofileController < MyProfileController
-
   include SuppliersPlugin::TranslationHelper
 
   no_design_blocks
 
-  protect 'edit_profile', :profile
+  protect "edit_profile", :profile
 
   before_action :load_new, only: [:index, :new]
 
@@ -13,17 +12,17 @@ class SuppliersPluginMyprofileController < MyProfileController
 
   def index
     @suppliers = search_scope(profile.suppliers.except_self).paginate(per_page: 30, page: params[:page])
-    @is_search = params[:name] or params[:active]
+    (@is_search = params[:name]) || params[:active]
 
     if request.xhr?
-      render partial: 'suppliers_plugin_myprofile/suppliers_list', locals: {suppliers: @suppliers}
+      render partial: "suppliers_plugin_myprofile/suppliers_list", locals: { suppliers: @suppliers }
     end
   end
 
   def new
     @new_supplier.update! params[:supplier]
     @supplier = @new_supplier
-    session[:notice] = t('controllers.myprofile.supplier_created')
+    session[:notice] = t("controllers.myprofile.supplier_created")
   end
 
   def add
@@ -42,7 +41,7 @@ class SuppliersPluginMyprofileController < MyProfileController
       profile.save
       profile.supplier_products_default_margins if params[:apply_to_all]
 
-      render partial: 'suppliers_plugin/shared/pagereload'
+      render partial: "suppliers_plugin/shared/pagereload"
     end
   end
 
@@ -58,25 +57,24 @@ class SuppliersPluginMyprofileController < MyProfileController
 
   def search
     @query = params[:query].downcase
-    @enterprises = environment.enterprises.enabled.accessible_to(user).limit(12).order('name ASC').
-      where('name ILIKE ? OR name ILIKE ? OR identifier LIKE ?', "#{@query}%", "% #{@query}%", "#{@query}%")
+    @enterprises = environment.enterprises.enabled.accessible_to(user).limit(12).order("name ASC")
+                              .where("name ILIKE ? OR name ILIKE ? OR identifier LIKE ?", "#{@query}%", "% #{@query}%", "#{@query}%")
     @enterprises -= profile.suppliers.collect(&:profile)
   end
 
   protected
 
-  def load_new
-    @new_supplier = SuppliersPlugin::Supplier.new_dummy consumer: profile
-    @new_profile = @new_supplier.profile
-  end
+    def load_new
+      @new_supplier = SuppliersPlugin::Supplier.new_dummy consumer: profile
+      @new_profile = @new_supplier.profile
+    end
 
-  def search_scope scope
-    scope = scope.by_active params[:active] if params[:active].present?
-    scope = scope.with_name params[:name] if params[:name].present?
-    scope
-  end
+    def search_scope(scope)
+      scope = scope.by_active params[:active] if params[:active].present?
+      scope = scope.with_name params[:name] if params[:name].present?
+      scope
+    end
 
-  extend HMVC::ClassMethods
-  hmvc OrdersPlugin
-
+    extend HMVC::ClassMethods
+    hmvc OrdersPlugin
 end

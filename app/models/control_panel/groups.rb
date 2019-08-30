@@ -1,15 +1,15 @@
 class ControlPanel::Groups < ControlPanel::Entry
   class << self
     def name
-      _('Groups')
+      _("Groups")
     end
 
     def section
-      'relationships'
+      "relationships"
     end
 
     def icon
-      'sitemap'
+      "sitemap"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::Groups < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('communities'), _('enterprises'), _('organizations')]
+      [_("communities"), _("enterprises"), _("organizations")]
     end
 
     def url(profile)
-      {:controller => 'memberships', :action => 'index'}
+      { controller: "memberships", action: "index" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.person?
     end
   end

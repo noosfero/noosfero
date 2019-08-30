@@ -1,7 +1,6 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class PeopleBlockPluginTest < ActiveSupport::TestCase
-
   should "return PeopleBlock in extra_blocks class method" do
     assert PeopleBlockPlugin.extra_blocks.keys.include?(PeopleBlock)
   end
@@ -21,5 +20,4 @@ class PeopleBlockPluginTest < ActiveSupport::TestCase
   should "return false for class method stylesheet?" do
     assert PeopleBlockPlugin.new.stylesheet?
   end
-
 end

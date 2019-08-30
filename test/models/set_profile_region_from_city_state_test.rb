@@ -1,33 +1,32 @@
 require_relative "../test_helper"
 
 class SetProfileRegionFromCityStateTest < ActiveSupport::TestCase
-
-  should 'set city and state from names' do
-    c, _ = create_city_in_state('Pindamonhangaba', 'Sao Paulo', 'SP')
+  should "set city and state from names" do
+    c, _ = create_city_in_state("Pindamonhangaba", "Sao Paulo", "SP")
 
     p = fast_create(Person, user_id: fast_create(User).id)
-    p.state = 'SP'
-    p.city = 'Pindamonhangaba'
+    p.state = "SP"
+    p.city = "Pindamonhangaba"
     p.save!
     assert_equal p.region, c
   end
 
-  should 'set region to null if city not found' do
-    create_city_in_state(nil, 'Sao Paulo', 'SP')
+  should "set region to null if city not found" do
+    create_city_in_state(nil, "Sao Paulo", "SP")
 
     p = fast_create(Person, user_id: fast_create(User).id)
-    p.state = 'SP'
-    p.city = 'Pindamonhangaba'
+    p.state = "SP"
+    p.city = "Pindamonhangaba"
     p.save!
     assert_nil p.region
   end
 
-  should 'set region to null if state not found' do
-    create_city_in_state('Pindamonhangaba', 'Sao Paulo', 'SP')
+  should "set region to null if state not found" do
+    create_city_in_state("Pindamonhangaba", "Sao Paulo", "SP")
 
     p = fast_create(Person, user_id: fast_create(User).id)
-    p.state = 'RJ'
-    p.city = 'Pindamonhangaba'
+    p.state = "RJ"
+    p.city = "Pindamonhangaba"
     p.save!
     assert_nil p.region
   end
@@ -48,5 +47,4 @@ class SetProfileRegionFromCityStateTest < ActiveSupport::TestCase
 
     return [city, state]
   end
-
 end

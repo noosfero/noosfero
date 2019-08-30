@@ -1,7 +1,6 @@
 class CreateComments < ActiveRecord::Migration
   def self.up
     create_table :comments do |t|
-
       # acts as filesystem
       t.column :title, :string
       t.column :body, :text
@@ -15,9 +14,8 @@ class CreateComments < ActiveRecord::Migration
       t.column :email, :string
 
       # keep track of changes
-      t.column :created_on,  :datetime 
+      t.column :created_on, :datetime
     end
-
   end
 
   def self.down

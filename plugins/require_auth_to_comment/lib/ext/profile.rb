@@ -1,7 +1,7 @@
-require_dependency 'profile'
+require_dependency "profile"
 
 class Profile
-  settings_items :allow_unauthenticated_comments, :type => :boolean
+  settings_items :allow_unauthenticated_comments, type: :boolean
   attr_accessible :allow_unauthenticated_comments
 
   descendants.each do |descendant|

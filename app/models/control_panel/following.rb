@@ -1,15 +1,15 @@
 class ControlPanel::Following < ControlPanel::Entry
   class << self
     def name
-      _('Following')
+      _("Following")
     end
 
     def section
-      'relationships'
+      "relationships"
     end
 
     def icon
-      'chevron-circle-right'
+      "chevron-circle-right"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::Following < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('followers'), _('subscription')]
+      [_("followers"), _("subscription")]
     end
 
     def url(profile)
-      {:controller => 'followers', :action => 'index'}
+      { controller: "followers", action: "index" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.person?
     end
   end

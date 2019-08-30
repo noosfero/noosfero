@@ -1,6 +1,5 @@
 class DeliveryPlugin::Method < ApplicationRecord
-
-  Types = ['pickup', 'deliver']
+  Types = ["pickup", "deliver"]
 
   # see also: Profile::LOCATION_FIELDS
   AddressFields = %w[
@@ -8,18 +7,18 @@ class DeliveryPlugin::Method < ApplicationRecord
   ].map(&:to_sym)
 
   attr_accessible :profile, :delivery_type, :name, :description,
-    :fixed_cost, :free_over_price, :distribution_margin_percentage, :distribution_margin_fixed
+                  :fixed_cost, :free_over_price, :distribution_margin_percentage, :distribution_margin_fixed
 
   belongs_to :profile, optional: true
 
-  has_many :delivery_options, class_name: 'DeliveryPlugin::Option', foreign_key: :delivery_method_id, dependent: :destroy
+  has_many :delivery_options, class_name: "DeliveryPlugin::Option", foreign_key: :delivery_method_id, dependent: :destroy
 
   validates_presence_of :profile
   validates_presence_of :name
   validates_inclusion_of :delivery_type, in: Types
 
-  scope :pickup, -> { where delivery_type: 'pickup' }
-  scope :delivery, -> { where delivery_type: 'deliver'}
+  scope :pickup, -> { where delivery_type: "pickup" }
+  scope :delivery, -> { where delivery_type: "deliver" }
 
   extend CurrencyFields::ClassMethods
   has_currency :fixed_cost
@@ -28,41 +27,43 @@ class DeliveryPlugin::Method < ApplicationRecord
   has_currency :distribution_margin_fixed
 
   def pickup?
-    self.delivery_type == 'pickup'
+    self.delivery_type == "pickup"
   end
+
   def deliver?
-    self.delivery_type == 'deliver'
+    self.delivery_type == "deliver"
   end
 
   def has_distribution_margin?
-    (self.distribution_margin_percentage.present? and self.distribution_margin_percentage.nonzero?) or
-      (self.distribution_margin_fixed.present? and self.distribution_margin_fixed.nonzero?)
+    (self.distribution_margin_percentage.present? && self.distribution_margin_percentage.nonzero?) ||
+      (self.distribution_margin_fixed.present? && self.distribution_margin_fixed.nonzero?)
   end
 
-  def has_fixed_cost? order_price=nil
-    if order_price.present? and order_price.nonzero? and self.free_over_price.present? and self.free_over_price.nonzero?
+  def has_fixed_cost?(order_price = nil)
+    if order_price.present? && order_price.nonzero? && self.free_over_price.present? && self.free_over_price.nonzero?
       order_price <= self.free_over_price
     else
-      self.fixed_cost.present? and self.fixed_cost.nonzero?
+      self.fixed_cost.present? && self.fixed_cost.nonzero?
     end
   end
 
-  def distribution_margin order_price
+  def distribution_margin(order_price)
     value = 0
     value += self.distribution_margin_fixed if self.distribution_margin_fixed.present?
-    value += order_price * (self.distribution_margin_percentage/100) if self.distribution_margin_percentage.present?
+    value += order_price * (self.distribution_margin_percentage / 100) if self.distribution_margin_percentage.present?
     value
   end
 
-  def has_cost? order_price=nil
+  def has_cost?(order_price = nil)
     has_cost = self.has_distribution_margin?
     has_cost ||= self.has_fixed_cost? order_price
   end
-  def free? order_price=nil
+
+  def free?(order_price = nil)
     !self.has_cost?
   end
 
-  def cost order_price=nil
+  def cost(order_price = nil)
     value = 0
     value += self.fixed_cost if self.has_fixed_cost? order_price
     value += self.distribution_margin order_price if self.has_distribution_margin?
@@ -71,5 +72,4 @@ class DeliveryPlugin::Method < ApplicationRecord
   has_currency :cost
 
   protected
-
 end

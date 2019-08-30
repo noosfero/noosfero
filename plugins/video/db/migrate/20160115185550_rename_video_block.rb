@@ -7,4 +7,3 @@ class RenameVideoBlock < ActiveRecord::Migration[5.1]
     say "this migration can't be reverted"
   end
 end
-

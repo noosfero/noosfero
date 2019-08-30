@@ -4,7 +4,7 @@ class CreateMarkCommentAsReadPlugin < ActiveRecord::Migration[5.1]
       t.integer :comment_id
       t.integer :person_id
     end
-    add_index :mark_comment_as_read_plugin, [:comment_id, :person_id], :unique => true
+    add_index :mark_comment_as_read_plugin, [:comment_id, :person_id], unique: true
   end
 
   def self.down

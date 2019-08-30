@@ -1,7 +1,5 @@
-
 module OpenGraphPlugin::DisplayHelper
-
   def blah
-    puts 'here'
+    puts "here"
   end
 end

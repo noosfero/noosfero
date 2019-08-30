@@ -4,9 +4,9 @@ class CreateExternalFeeds < ActiveRecord::Migration
       t.string     :feed_title
       t.date       :fetched_at
       t.string     :address
-      t.integer    :blog_id,   :null => false
-      t.boolean    :enabled,   :null => false, :default => true
-      t.boolean    :only_once, :null => false, :default => true
+      t.integer    :blog_id,   null: false
+      t.boolean    :enabled,   null: false, default: true
+      t.boolean    :only_once, null: false, default: true
       t.timestamps
     end
   end

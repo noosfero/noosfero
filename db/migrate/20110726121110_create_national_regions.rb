@@ -8,8 +8,8 @@ class CreateNationalRegions < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index(:national_regions, :national_region_code, {:name => "code_index"})
-    add_index(:national_regions, :name, {:name => "name_index"})
+    add_index(:national_regions, :national_region_code, name: "code_index")
+    add_index(:national_regions, :name, name: "name_index")
   end
 
   def self.down

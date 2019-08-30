@@ -1,5 +1,4 @@
 module PushNotificationPlugin::Observers::ObserversHelper
-
   def get_target_and_requestor(article)
     target = article.target, requestor = article.requestor
   end
@@ -8,8 +7,7 @@ module PushNotificationPlugin::Observers::ObserversHelper
     if target.person?
       users = [target.user]
     elsif target.organization?
-      users = target.admins.map{|person| person.user}
+      users = target.admins.map { |person| person.user }
     end
   end
-
 end

@@ -1,7 +1,5 @@
 module ActsAsFilesystem
-
   module ActsMethods
-
     # Declares the ActiveRecord model to acts like a filesystem: objects are
     # arranged in a tree (liks acts_as_tree), and . The underlying table must
     # have the following fields:
@@ -15,7 +13,7 @@ module ActsAsFilesystem
     # * children_count - a cache of the number of children elements.
     def acts_as_filesystem
       # a filesystem is a tree
-      acts_as_tree :counter_cache => :children_count
+      acts_as_tree counter_cache: :children_count
 
       extend ClassMethods
       include InstanceMethods
@@ -27,12 +25,10 @@ module ActsAsFilesystem
 
       before_save :set_ancestry
     end
-
   end
 
   module ClassMethods
-
-    def build_ancestry(parent_id = nil, ancestry = '')
+    def build_ancestry(parent_id = nil, ancestry = "")
       ActiveRecord::Base.transaction do
         self.base_class.where(parent_id: parent_id).each do |node|
           node.update_column :ancestry, ancestry
@@ -42,23 +38,23 @@ module ActsAsFilesystem
         end
       end
 
-      #raise "Couldn't reach and set ancestry on every record" if self.base_class.where('ancestry is null').count != 0
+      # raise "Couldn't reach and set ancestry on every record" if self.base_class.where('ancestry is null').count != 0
     end
 
     def has_path?
-      (['name', 'slug', 'path'] - self.column_names).blank?
+      (["name", "slug", "path"] - self.column_names).blank?
     end
-
   end
 
   module InstanceMethods
-
     def ancestry_column
-      'ancestry'
+      "ancestry"
     end
+
     def ancestry_sep
-      '.'
+      "."
     end
+
     def has_ancestry?
       self.class.column_names.include? self.ancestry_column
     end
@@ -70,24 +66,29 @@ module ActsAsFilesystem
     def ancestry
       self[ancestry_column]
     end
+
     def ancestor_ids
-      return nil if !has_ancestry? or ancestry.nil?
-      @ancestor_ids ||= ancestry.split(ancestry_sep).map{ |id| id.to_i }
+      return nil if !has_ancestry? || ancestry.nil?
+
+      @ancestor_ids ||= ancestry.split(ancestry_sep).map { |id| id.to_i }
     end
 
     def ancestry=(value)
       self[ancestry_column] = value
     end
+
     def set_ancestry
       return unless self.has_ancestry?
-      if self.ancestry.nil? or (new_record? or parent_id_changed?) or recalculate_path
-        self.ancestry = self.hierarchy(true)[0...-1].map{ |p| p.formatted_ancestry_id }.join(ancestry_sep)
+
+      if self.ancestry.nil? || (new_record? || parent_id_changed?) || recalculate_path
+        self.ancestry = self.hierarchy(true)[0...-1].map { |p| p.formatted_ancestry_id }.join(ancestry_sep)
       end
     end
 
     def descendents_options
       ["#{self.ancestry_column} LIKE ?", "%#{self.formatted_ancestry_id}%"]
     end
+
     def descendents
       self.class.where descendents_options
     end
@@ -119,14 +120,15 @@ module ActsAsFilesystem
     end
 
     def top_ancestor
-      if has_ancestry? and !ancestry.blank?
+      if has_ancestry? && !ancestry.blank?
         self.class.base_class.find_by id: self.top_ancestor_id
       else
         self.hierarchy.first
       end
     end
+
     def top_ancestor_id
-      if has_ancestry? and !ancestry.nil?
+      if has_ancestry? && !ancestry.nil?
         self.ancestor_ids.first
       else
         self.hierarchy.first.id
@@ -141,14 +143,14 @@ module ActsAsFilesystem
     # when the ActiveRecord object was modified in some way, or just after
     # changing parent)
     def hierarchy(reload = false)
-      @hierarchy = nil if reload or recalculate_path
+      @hierarchy = nil if reload || recalculate_path
 
       if @hierarchy.nil?
         @hierarchy = []
 
-        if !reload and !recalculate_path and ancestor_ids
+        if !reload && !recalculate_path && ancestor_ids
           objects = self.class.base_class.where(id: ancestor_ids)
-          ancestor_ids.each{ |id| @hierarchy << objects.find{ |t| t.id == id } }
+          ancestor_ids.each { |id| @hierarchy << objects.find { |t| t.id == id } }
           @hierarchy << self
         else
           item = self
@@ -168,8 +170,9 @@ module ActsAsFilesystem
 
       while !current_level.empty?
         result += current_level
-        ids = current_level.select {|item| item.children_count > 0}.map(&:id)
+        ids = current_level.select { |item| item.children_count > 0 }.map(&:id)
         break if ids.empty?
+
         current_level = self.class.base_class.where(parent_id: ids)
       end
       block ||= (lambda { |x| x })
@@ -193,13 +196,15 @@ module ActsAsFilesystem
 
       # calculates the full path to this record using parent's path.
       def calculate_path
-        self.hierarchy.map{ |obj| obj.slug }.join('/')
+        self.hierarchy.map { |obj| obj.slug }.join("/")
       end
+
       def set_path
         if self.path == self.slug && !self.top_level?
           self.path = self.calculate_path
         end
       end
+
       def explode_path
         path.split(/\//)
       end
@@ -224,14 +229,14 @@ module ActsAsFilesystem
       #       Record "C"
       #
       # Then Record "C" will have "A/B/C" as its full name.
-      def full_name(sep = '/')
-        self.hierarchy.map {|item| item.name || '?' }.join(sep)
+      def full_name(sep = "/")
+        self.hierarchy.map { |item| item.name || "?" }.join(sep)
       end
 
       # gets the name without leading parents. Useful when dividing records
       # in top-level groups and full names must not include the top-level
       # record which is already a emphasized label
-      def full_name_without_leading(count, sep = '/')
+      def full_name_without_leading(count, sep = "/")
         parts = self.full_name(sep).split(sep)
         count.times { parts.shift }
         parts.join(sep)
@@ -262,4 +267,3 @@ module ActsAsFilesystem
     end
   end
 end
-

@@ -1,5 +1,4 @@
 class SuppliersPlugin::Consumer < SuppliersPlugin::Supplier
-
   self.table_name = :suppliers_plugin_suppliers
 
   belongs_to :profile, foreign_key: :consumer_id, optional: true
@@ -9,5 +8,4 @@ class SuppliersPlugin::Consumer < SuppliersPlugin::Supplier
   def name
     self.profile.name
   end
-
 end

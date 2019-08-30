@@ -1,8 +1,7 @@
 class OrdersPlugin::Item < ApplicationRecord
-
   attr_accessible :order, :sale, :purchase,
-    :product, :product_id,
-    :price, :name
+                  :product, :product_id,
+                  :price, :name
 
   # flag used by items to compare them with products
   attr_accessor :product_diff
@@ -16,11 +15,11 @@ class OrdersPlugin::Item < ApplicationRecord
 
   # should be Order, but can't reference it here so it would create a cyclic reference
   StatusAccessMap = {
-    'ordered' => :consumer,
-    'accepted' => :supplier,
-    'separated' => :supplier,
-    'delivered' => :supplier,
-    'received' => :consumer,
+    "ordered" => :consumer,
+    "accepted" => :supplier,
+    "separated" => :supplier,
+    "delivered" => :supplier,
+    "received" => :consumer,
   }
   StatusDataMap = {}; StatusAccessMap.each do |status, access|
     StatusDataMap[status] = "#{access}_#{status}"
@@ -35,32 +34,32 @@ class OrdersPlugin::Item < ApplicationRecord
 
   serialize :data
 
-  belongs_to :order, class_name: '::OrdersPlugin::Order', foreign_key: :order_id, touch: true, optional: true
-  belongs_to :sale, class_name: '::OrdersPlugin::Sale', foreign_key: :order_id, touch: true, optional: true
-  belongs_to :purchase, class_name: '::OrdersPlugin::Purchase', foreign_key: :order_id, touch: true, optional: true
+  belongs_to :order, class_name: "::OrdersPlugin::Order", foreign_key: :order_id, touch: true, optional: true
+  belongs_to :sale, class_name: "::OrdersPlugin::Sale", foreign_key: :order_id, touch: true, optional: true
+  belongs_to :purchase, class_name: "::OrdersPlugin::Purchase", foreign_key: :order_id, touch: true, optional: true
 
-  belongs_to :product, class_name: '::ProductsPlugin::Product', optional: true
+  belongs_to :product, class_name: "::ProductsPlugin::Product", optional: true
   has_one :supplier, through: :product
 
   has_one :profile, through: :order
   has_one :consumer, through: :order
 
   # FIXME: don't work because of load order
-  #if defined? SuppliersPlugin
-    has_many :from_products, through: :product
-    has_one :from_product, through: :product
-    has_many :to_products, through: :product
-    has_one :to_product, through: :product
-    has_many :sources_supplier_products, through: :product
-    has_one :sources_supplier_product, through: :product
-    has_many :supplier_products, through: :product, class_name: "ProductsPlugin::Product"
-    has_one :supplier_product, through: :product
-    has_many :suppliers, through: :product
-    has_one :supplier, through: :product
-  #end
+  # if defined? SuppliersPlugin
+  has_many :from_products, through: :product
+  has_one :from_product, through: :product
+  has_many :to_products, through: :product
+  has_one :to_product, through: :product
+  has_many :sources_supplier_products, through: :product
+  has_one :sources_supplier_product, through: :product
+  has_many :supplier_products, through: :product, class_name: "ProductsPlugin::Product"
+  has_one :supplier_product, through: :product
+  has_many :suppliers, through: :product
+  has_one :supplier, through: :product
+  # end
 
-  scope :ordered, -> { joins(:order).where 'orders_plugin_orders.status = ?', 'ordered' }
-  scope :for_product, -> (product) { where product_id: product.id }
+  scope :ordered, -> { joins(:order).where "orders_plugin_orders.status = ?", "ordered" }
+  scope :for_product, ->(product) { where product_id: product.id }
 
   default_scope -> { includes :product }
 
@@ -79,13 +78,13 @@ class OrdersPlugin::Item < ApplicationRecord
       quantity = "quantity_#{data}".to_sym
       price = "price_#{data}".to_sym
 
-      self.send :define_method, "total_#{quantity}" do |items=nil|
+      self.send :define_method, "total_#{quantity}" do |items = nil|
         items ||= (self.ordered_items rescue nil) || self.items
-        items.collect(&quantity).inject(0){ |sum, q| sum + q.to_f }
+        items.collect(&quantity).inject(0) { |sum, q| sum + q.to_f }
       end
-      self.send :define_method, "total_#{price}" do |items=nil|
+      self.send :define_method, "total_#{price}" do |items = nil|
         items ||= (self.ordered_items rescue nil) || self.items
-        items.collect(&price).inject(0){ |sum, p| sum + p.to_f }
+        items.collect(&price).inject(0) { |sum, p| sum + p.to_f }
       end
 
       has_number_with_locale "total_#{quantity}"
@@ -110,21 +109,27 @@ class OrdersPlugin::Item < ApplicationRecord
   def name
     self[:name] || (self.product.name rescue nil)
   end
+
   def price
     self[:price] || (self.product.price_with_discount || 0 rescue nil)
   end
+
   def price_without_margins
     self.product.price_without_margins rescue self.price
   end
+
   def unit
     self.product.unit
   end
+
   def unit_name
     self.unit.singular if self.unit
   end
+
   def supplier
     self.product.supplier rescue self.order.profile.self_supplier
   end
+
   def supplier_name
     if self.product.supplier
       self.product.supplier.abbreviation_or_name
@@ -136,10 +141,11 @@ class OrdersPlugin::Item < ApplicationRecord
   def calculated_status
     status = self.order.status
     index = Statuses.index status
-    next_status = Statuses[index+1] if index
+    next_status = Statuses[index + 1] if index
     next_quantity = "quantity_#{StatusDataMap[next_status]}" if next_status
-    if next_status and self.send next_quantity then next_status else status end
+    if next_status && self.send(next_quantity) then next_status else status end
   end
+
   def on_next_status?
     self.order.status != self.calculated_status
   end
@@ -150,26 +156,29 @@ class OrdersPlugin::Item < ApplicationRecord
     self.product
   end
 
-  def next_status_quantity_field actor_name
-    status = StatusDataMap[self.order.next_status actor_name] || 'consumer_ordered'
+  def next_status_quantity_field(actor_name)
+    status = StatusDataMap[self.order.next_status actor_name] || "consumer_ordered"
     "quantity_#{status}"
   end
-  def next_status_quantity actor_name
+
+  def next_status_quantity(actor_name)
     self.send self.next_status_quantity_field(actor_name)
   end
-  def next_status_quantity_set actor_name, value
+
+  def next_status_quantity_set(actor_name, value)
     self.send "#{self.next_status_quantity_field actor_name}=", value
   end
 
   def status_quantity_field
     @status_quantity_field ||= begin
-      status = StatusDataMap[self.status] || 'consumer_ordered'
+      status = StatusDataMap[self.status] || "consumer_ordered"
       "quantity_#{status}"
     end
   end
+
   def status_price_field
     @status_price_field ||= begin
-      status = StatusDataMap[self.status] || 'consumer_ordered'
+      status = StatusDataMap[self.status] || "consumer_ordered"
       "price_#{status}"
     end
   end
@@ -177,14 +186,16 @@ class OrdersPlugin::Item < ApplicationRecord
   def status_quantity
     self.send self.status_quantity_field
   end
-  def status_quantity= value
+
+  def status_quantity=(value)
     self.send "#{self.status_quantity_field}=", value
   end
 
   def status_price
     self.send self.status_price_field
   end
-  def status_price= value
+
+  def status_price=(value)
     self.send "#{self.status_price_field}=", value
   end
 
@@ -201,8 +212,8 @@ class OrdersPlugin::Item < ApplicationRecord
     end
   end
 
-  def quantity_price_data actor_name
-    data = {flags: {}}
+  def quantity_price_data(actor_name)
+    data = { flags: {} }
     statuses = ::OrdersPlugin::Order::Statuses
     statuses_data = data[:statuses] = {}
 
@@ -214,7 +225,7 @@ class OrdersPlugin::Item < ApplicationRecord
     new_price = nil
     # compare with product
     if self.product_diff
-      if self.repeat_product and self.repeat_product.available
+      if self.repeat_product && self.repeat_product.available
         if self.price != self.repeat_product.price
           new_price = self.repeat_product.price
           data[:new_price] = self.repeat_product.price_as_currency_number
@@ -249,7 +260,7 @@ class OrdersPlugin::Item < ApplicationRecord
 
       if i == current
         status_data[:flags][:current] = true
-      elsif i == next_index and goto_next
+      elsif (i == next_index) && goto_next
         status_data[:flags][:admin] = true
       end
 
@@ -259,7 +270,7 @@ class OrdersPlugin::Item < ApplicationRecord
     # Set flags according to past/future data
     # Present flags are used as classes
     statuses_data.each.with_index do |(status, status_data), i|
-      prev_status_data = statuses_data[statuses[i-1]] unless i.zero?
+      prev_status_data = statuses_data[statuses[i - 1]] unless i.zero?
 
       if prev_status_data
         if status_data[:quantity] == prev_status_data[:quantity]
@@ -276,27 +287,27 @@ class OrdersPlugin::Item < ApplicationRecord
 
     # reverse_each is necessary to set overwritten with intermediate not_modified
     statuses_data.reverse_each.with_index do |(status, status_data), i|
-      prev_status_data = statuses_data[statuses[-i-1]]
-      if status_data[:not_modified] or
-          (prev_status_data and prev_status_data[:flags][:filled] and status_data[:quantity] != prev_status_data[:quantity])
+      prev_status_data = statuses_data[statuses[-i - 1]]
+      if status_data[:not_modified] ||
+         (prev_status_data && prev_status_data[:flags][:filled] && (status_data[:quantity] != prev_status_data[:quantity]))
         status_data[:flags][:overwritten] = true
       end
     end
 
     # Set access
     statuses_data.each.with_index do |(status, status_data), i|
-      #consumer_may_edit = actor_name == :consumer and status == 'ordered' and self.order.open?
+      # consumer_may_edit = actor_name == :consumer and status == 'ordered' and self.order.open?
       if StatusAccessMap[status] == actor_name
         status_data[:flags][:editable] = true
       end
       # only allow last status
-      #status_data[:flags][:editable] = true if status_data[:access] == actor_name and (status_data[:flags][:admin] or self.order.open?)
+      # status_data[:flags][:editable] = true if status_data[:access] == actor_name and (status_data[:flags][:admin] or self.order.open?)
     end
 
     data
   end
 
-  def calculate_prices price
+  def calculate_prices(price)
     self.price = price
     self.save_calculated_prices
   end
@@ -305,37 +316,38 @@ class OrdersPlugin::Item < ApplicationRecord
   def fill_status
     status = self.calculated_status
     return if self.status == status
+
     self.update_column :status, status
-    self.order.update_column :building_next_status, true if self.order.status != status and not self.order.building_next_status
+    self.order.update_column :building_next_status, true if (self.order.status != status) && (not self.order.building_next_status)
   end
 
   protected
 
-  def save_calculated_prices
-    StatusDataMap.each do |status, data|
-      price = "price_#{data}".to_sym
-      self.send "#{price}=", self.send("calculated_#{price}")
+    def save_calculated_prices
+      StatusDataMap.each do |status, data|
+        price = "price_#{data}".to_sym
+        self.send "#{price}=", self.send("calculated_#{price}")
+      end
     end
-  end
 
-  def set_defaults
-    self.status ||= Statuses.first
-  end
+    def set_defaults
+      self.status ||= Statuses.first
+    end
 
-  def step_status
-    status = self.calculated_status
-    return if self.status == status
-    self.status = status
-    self.order.update_column :building_next_status, true if self.order.status != status and not self.order.building_next_status
-  end
+    def step_status
+      status = self.calculated_status
+      return if self.status == status
 
-  def has_order
-    self.order or self.sale or self.purchase
-  end
+      self.status = status
+      self.order.update_column :building_next_status, true if (self.order.status != status) && (not self.order.building_next_status)
+    end
 
-  def sync_fields
-    self.name = self.product.name
-    self.price = self.product.price
-  end
+    def has_order
+      self.order || self.sale || self.purchase
+    end
 
+    def sync_fields
+      self.name = self.product.name
+      self.price = self.product.price
+    end
 end

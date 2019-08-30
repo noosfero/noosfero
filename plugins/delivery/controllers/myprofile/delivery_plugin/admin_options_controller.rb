@@ -1,9 +1,8 @@
 class DeliveryPlugin::AdminOptionsController < DeliveryPlugin::AdminMethodController
-
   helper DeliveryPlugin::FieldHelper
   helper DeliveryPlugin::DisplayHelper
 
-  protect 'edit_profile', :profile
+  protect "edit_profile", :profile
   before_action :load_context
   before_action :load_owner
 
@@ -31,14 +30,13 @@ class DeliveryPlugin::AdminOptionsController < DeliveryPlugin::AdminMethodContro
 
   protected
 
-  def load_owner
-    @owner_id = params[:owner_id]
-    @owner_type = params[:owner_type]
-    @owner = @owner_type.constantize.find @owner_id
-  end
+    def load_owner
+      @owner_id = params[:owner_id]
+      @owner_type = params[:owner_type]
+      @owner = @owner_type.constantize.find @owner_id
+    end
 
-  def load_context
-    @delivery_context = 'delivery_plugin/admin_options'
-  end
-
+    def load_context
+      @delivery_context = "delivery_plugin/admin_options"
+    end
 end

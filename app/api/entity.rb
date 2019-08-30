@@ -1,6 +1,5 @@
 module Api
   class Entity < Grape::Entity
-
     def initialize(object, options = {})
       object = nil if object.is_a? Exception
       super object, options
@@ -16,12 +15,11 @@ module Api
           }
         else
           data = data.serializable_hash if data.is_a? Entity
-          data.merge ok: true, error: { type: 'Success', message: '' }
+          data.merge ok: true, error: { type: "Success", message: "" }
         end
       else
         super objects, options
       end
     end
-
   end
 end

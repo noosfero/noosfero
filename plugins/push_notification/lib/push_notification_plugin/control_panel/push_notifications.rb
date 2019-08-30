@@ -1,17 +1,16 @@
 module PushNotificationPlugin::ControlPanel
   class PushNotifications < ControlPanel::Entry
     class << self
-
       def name
         I18n.t("push_notification_plugin.lib.plugin.panel_button")
       end
 
       def section
-        'profile'
+        "profile"
       end
 
       def icon
-        'bell'
+        "bell"
       end
 
       def priority
@@ -19,10 +18,10 @@ module PushNotificationPlugin::ControlPanel
       end
 
       def url(profile)
-        {controller: 'push_notification_plugin_myprofile', action: 'index'}
+        { controller: "push_notification_plugin_myprofile", action: "index" }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.person?
       end
     end

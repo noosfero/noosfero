@@ -1,12 +1,10 @@
-
 class VolunteersPlugin < Noosfero::Plugin
-
   def self.plugin_name
-    I18n.t('volunteers_plugin.lib.plugin.name')
+    I18n.t("volunteers_plugin.lib.plugin.name")
   end
 
   def self.plugin_description
-    I18n.t('volunteers_plugin.lib.plugin.description')
+    I18n.t("volunteers_plugin.lib.plugin.description")
   end
 
   def stylesheet?
@@ -14,7 +12,6 @@ class VolunteersPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['volunteers.js'].map{ |j| "javascripts/#{j}" }
+    ["volunteers.js"].map { |j| "javascripts/#{j}" }
   end
-
 end

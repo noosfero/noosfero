@@ -1,5 +1,4 @@
 class InviteController < PublicController
-
   needs_profile
   before_action :login_required
   before_action :check_permissions_to_invite
@@ -8,15 +7,15 @@ class InviteController < PublicController
     @import_from = params[:import_from] || "manual"
     @mail_template = params[:mail_template] || environment.invitation_mail_template(profile)
 
-    labels = Profile::SEARCHABLE_FIELDS.except(:nickname).merge(User::SEARCHABLE_FIELDS).map { |name,info| info[:label].downcase }
+    labels = Profile::SEARCHABLE_FIELDS.except(:nickname).merge(User::SEARCHABLE_FIELDS).map { |name, info| info[:label].downcase }
     last = labels.pop
-    label = labels.join(', ')
+    label = labels.join(", ")
     @search_fields = "#{label} #{_('or')} #{last}"
 
     if request.post?
       contact_list = ContactList.create
-      Delayed::Job.enqueue GetEmailContactsJob.new(@import_from, params[:login], params[:password], contact_list.id) if @import_from != 'manual'
-      redirect_to :action => 'select_friends', :contact_list => contact_list.id, :import_from => @import_from
+      Delayed::Job.enqueue GetEmailContactsJob.new(@import_from, params[:login], params[:password], contact_list.id) if @import_from != "manual"
+      redirect_to action: "select_friends", contact_list: contact_list.id, import_from: @import_from
     end
   end
 
@@ -30,15 +29,15 @@ class InviteController < PublicController
       contacts_to_invite = Invitation.join_contacts(manual_import_addresses, webmail_import_addresses)
       if !contacts_to_invite.empty?
         Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, params[:mail_template], profile.id, @contact_list.id, locale)
-        session[:notice] = _('Your invitations are being sent.')
+        session[:notice] = _("Your invitations are being sent.")
         if profile.person?
-          redirect_to :controller => 'profile', :action => 'friends'
+          redirect_to controller: "profile", action: "friends"
         else
-          redirect_to :controller => 'profile', :action => 'members'
+          redirect_to controller: "profile", action: "members"
         end
         return
       else
-        session[:notice] = _('Please enter a valid email address.')
+        session[:notice] = _("Please enter a valid email address.")
       end
       @manual_import_addresses = manual_import_addresses || ""
       @webmail_import_addresses = webmail_import_addresses || []
@@ -47,34 +46,34 @@ class InviteController < PublicController
 
   def invitation_data
     contact_list = ContactList.find(params[:contact_list])
-    render plain: contact_list.data.to_json, :layout => false, :content_type => "application/javascript"
+    render plain: contact_list.data.to_json, layout: false, content_type: "application/javascript"
   end
 
   def add_contact_list
     contact_list = ContactList.find(params[:contact_list])
     contacts = contact_list.list
-    render :partial => 'invite/contact_list', :locals => {:contacts => contacts}
+    render partial: "invite/contact_list", locals: { contacts: contacts }
   end
 
   def cancel_fetching_emails
     contact_list = ContactList.find(params[:contact_list])
     contact_list.destroy
-    redirect_to :action => 'invite_friends'
+    redirect_to action: "invite_friends"
   end
 
   def invite_registered_friend
-    contacts_to_invite = params['q'].split(',')
+    contacts_to_invite = params["q"].split(",")
     if !contacts_to_invite.empty? && request.post?
-      Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, '', profile.id, nil, locale)
-      session[:notice] = _('Your invitations are being sent.')
+      Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, "", profile.id, nil, locale)
+      session[:notice] = _("Your invitations are being sent.")
       if profile.person?
-        redirect_to :controller => 'profile', :action => 'friends'
+        redirect_to controller: "profile", action: "friends"
       else
-        redirect_to :controller => 'profile', :action => 'members'
+        redirect_to controller: "profile", action: "members"
       end
     else
-      redirect_to :action => 'invite_friends'
-      session[:notice] = _('Please enter a valid profile.')
+      redirect_to action: "invite_friends"
+      session[:notice] = _("Please enter a valid profile.")
     end
   end
 
@@ -84,13 +83,13 @@ class InviteController < PublicController
     scope = scope.not_friends_of(profile) if profile.person?
     scope = scope.distinct(false).group("profiles.id")
 
-    results = find_by_contents(:people, environment, scope, params['q'], {:page => 1}, {:joins => :user})[:results]
+    results = find_by_contents(:people, environment, scope, params["q"], { page: 1 }, { joins: :user })[:results]
     render plain: prepare_to_token_input(results).to_json
   end
 
   protected
 
-  def check_permissions_to_invite
-    render_access_denied if !profile.allow_invitation_from?(user)
-  end
+    def check_permissions_to_invite
+      render_access_denied if !profile.allow_invitation_from?(user)
+    end
 end

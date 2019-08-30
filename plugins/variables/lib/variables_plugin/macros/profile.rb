@@ -2,18 +2,17 @@
 Loofah::HTML5::WhiteList::ALLOWED_ATTRIBUTES.merge %w[data-macro]
 
 class VariablesPlugin::Profile < Noosfero::Plugin::Macro
-
   def self.configuration
     {
-      :title => _('Variables'),
-      :skip_dialog => false,
-      :generator => method(:macro_default_generator),
-      :params => [
+      title: _("Variables"),
+      skip_dialog: false,
+      generator: method(:macro_default_generator),
+      params: [
         {
-          :name   => 'variable',
-          :label  => _('Select the desired variable'),
-          :type   => 'select',
-          :values => ['{profile}', '{name}']
+          name: "variable",
+          label: _("Select the desired variable"),
+          type: "select",
+          values: ["{profile}", "{name}"]
         }
       ],
     }
@@ -34,5 +33,4 @@ class VariablesPlugin::Profile < Noosfero::Plugin::Macro
     end
     inner_html
   end
-
 end

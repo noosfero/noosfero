@@ -1,12 +1,11 @@
 module VideoProcessor
   module Recorder
-
-    RAILS_ENV = ENV['RAILS_ENV'] ? ENV['RAILS_ENV'] : 'development'
+    RAILS_ENV = ENV["RAILS_ENV"] ? ENV["RAILS_ENV"] : "development"
 
     def register_conversion_start(env_id, video_info, video_id)
       videos = { OGV: { tiny: {}, nice: {} }, WEBM: { tiny: {}, nice: {} } }
       [:OGV, :WEBM].product([:nice, :tiny]).each do |format, size|
-        videos[format][size][:status] = 'started'
+        videos[format][size][:status] = "started"
       end
 
       info = video_info.clone
@@ -30,6 +29,7 @@ module VideoProcessor
       responses.each do |format, sizes|
         sizes.each do |size, result|
           next if result.nil?
+
           conf = responses[format][size][:conf]
 
           if result[:error][:code] == 0
@@ -37,22 +37,22 @@ module VideoProcessor
             conf.delete :in
             conf.delete :out
             videos[format][size].merge! conf
-            videos[format][size][:status] = 'done'
+            videos[format][size][:status] = "done"
           else
             videos[format][size].merge! conf
-            videos[format][size][:status] = 'error converting'
+            videos[format][size][:status] = "error converting"
             videos[format][size][:error] = result[:error]
           end
         end
       end
 
-       save_hash(env_id, video_id, :web_versions, videos)
+      save_hash(env_id, video_id, :web_versions, videos)
     end
 
     def register_errors(env_id, video_id, error)
       videos = { OGV: { tiny: {}, nice: {} }, WEBM: { tiny: {}, nice: {} } }
       [:OGV, :WEBM].product([:nice, :tiny]).each do |format, size|
-        videos[format][size][:status] = 'error'
+        videos[format][size][:status] = "error"
         videos[format][size][:error] = error
       end
 
@@ -67,13 +67,13 @@ module VideoProcessor
 
     private
 
-    def save_hash(env_id, video_id, attr, hash)
-      `DISABLE_SPRING=1 rails runner -e #{RAILS_ENV} "\
-       env = Environment.find(#{env_id}); \
-       file = env.articles.find(#{video_id}); \
-       video = FilePresenter.for(file); \
-       video.#{attr} = #{hash.to_s.gsub('"', "'")}; \
-       video.save"`
-    end
+      def save_hash(env_id, video_id, attr, hash)
+        `DISABLE_SPRING=1 rails runner -e #{RAILS_ENV} "\
+         env = Environment.find(#{env_id}); \
+         file = env.articles.find(#{video_id}); \
+         video = FilePresenter.for(file); \
+         video.#{attr} = #{hash.to_s.gsub('"', "'")}; \
+         video.save"`
+      end
   end
 end

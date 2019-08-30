@@ -1,17 +1,16 @@
 module Entitlement
   class Levels
-    LABELS = { visitors: _('Visitors'), users: _('Logged users'),
-               related: _('Friends / Members'),
-               self: _('Me / Administrators'),
-               nobody: _('Nobody')}
-    PERSON_LABELS = LABELS.merge({related: _('Friends'),
-                                  self: _('Me'),
-                                  follower: _('Followers')})
-    GROUP_LABELS = LABELS.merge({related: _('Members'),
-                                 self: _('Administrators')})
+    LABELS = { visitors: _("Visitors"), users: _("Logged users"),
+               related: _("Friends / Members"),
+               self: _("Me / Administrators"),
+               nobody: _("Nobody") }
+    PERSON_LABELS = LABELS.merge(related: _("Friends"),
+                                 self: _("Me"),
+                                 follower: _("Followers"))
+    GROUP_LABELS = LABELS.merge(related: _("Members"),
+                                self: _("Administrators"))
 
     class << self
-
       def min_level
         0
       end
@@ -43,7 +42,7 @@ module Entitlement
         levels.values.find_index(level)
       end
 
-      def range_options(base=0, top=-2)
+      def range_options(base = 0, top = -2)
         levels.keys[base..top]
       end
 

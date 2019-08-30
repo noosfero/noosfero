@@ -1,25 +1,24 @@
 class CustomFormsPlugin::Form < ApplicationRecord
-
   belongs_to :profile, optional: true
 
-  has_many :fields, -> { order 'custom_forms_plugin_fields.position' },
-    class_name: 'CustomFormsPlugin::Field', dependent: :destroy
-  accepts_nested_attributes_for :fields, :allow_destroy => true
+  has_many :fields, -> { order "custom_forms_plugin_fields.position" },
+           class_name: "CustomFormsPlugin::Field", dependent: :destroy
+  accepts_nested_attributes_for :fields, allow_destroy: true
 
   has_many :submissions,
-    class_name: 'CustomFormsPlugin::Submission', dependent: :destroy
+           class_name: "CustomFormsPlugin::Submission", dependent: :destroy
 
   validates_presence_of :profile, :name, :identifier
-  validates_uniqueness_of :slug, :scope => :profile_id
-  validates_uniqueness_of :identifier, :scope => :profile_id
+  validates_uniqueness_of :slug, scope: :profile_id
+  validates_uniqueness_of :identifier, scope: :profile_id
   validate :period_range,
-    :if => Proc.new { |f| f.beginning.present? && f.ending.present? }
+           if: Proc.new { |f| f.beginning.present? && f.ending.present? }
   validate :valid_poll_alternatives
 
   # We are using a belongs_to relation, to avoid change the UploadedFile schema.
   # With the belongs_to instead of the has_one, we keep the change only on the
   # CustomFormsPlugin::Form schema.
-  belongs_to :article, class_name: 'UploadedFile', dependent: :destroy, optional: true
+  belongs_to :article, class_name: "UploadedFile", dependent: :destroy, optional: true
 
   attr_accessible :name, :profile, :for_admission, :access, :beginning, :kind,
                   :ending, :description, :fields_attributes, :profile_id,
@@ -31,22 +30,22 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   KINDS = %w(survey poll)
   # Dynamic Translations
-  _('Survey')
-  _('Surveys')
-  _('survey')
-  _('surveys')
-  _('Poll')
-  _('Polls')
-  _('poll')
-  _('polls')
+  _("Survey")
+  _("Surveys")
+  _("survey")
+  _("surveys")
+  _("Poll")
+  _("Polls")
+  _("poll")
+  _("polls")
 
   validates :kind, inclusion: { in: KINDS, message: _("%{value} is not a valid kind.") }
 
   SEARCHABLE_FIELDS = {
-    :name => {:label => _('Name'), :weight => 10},
-    :slug => {:label => _('Slug'), :weight => 5},
-    :identifier => {:label => _('identifier'), :weight => 5},
-    :description => {:label => _('Description'), :weight => 3},
+    name: { label: _("Name"), weight: 10 },
+    slug: { label: _("Slug"), weight: 5 },
+    identifier: { label: _("identifier"), weight: 5 },
+    description: { label: _("Description"), weight: 3 },
   }
 
   before_validation do |form|
@@ -57,37 +56,39 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   after_destroy do |form|
     tasks = CustomFormsPlugin::MembershipSurvey.opened.select { |t| t.form_id == form.id }
-    tasks.each {|task| task.cancel}
+    tasks.each { |task| task.cancel }
   end
 
-  scope :from_profile, -> profile { where profile_id: profile.id }
+  scope :from_profile, ->profile { where profile_id: profile.id }
   scope :on_memberships, -> { where on_membership: true, for_admission: false }
   scope :for_admissions, -> { where for_admission: true }
-  scope :by_kind, -> kind { where kind: kind.to_s }
+  scope :by_kind, ->kind { where kind: kind.to_s }
 
-  scope :closed, -> { where('ending <= ?', DateTime.now) }
-  scope :not_open_yet, -> { where('beginning > ?', DateTime.now) }
-  scope :not_closed, -> { where('(beginning < ? OR beginning IS NULL) AND '\
-                          '(ending > ? OR ending IS NULL)',
-                          DateTime.now, DateTime.now) }
+  scope :closed, -> { where("ending <= ?", DateTime.now) }
+  scope :not_open_yet, -> { where("beginning > ?", DateTime.now) }
+  scope :not_closed, -> {
+                       where("(beginning < ? OR beginning IS NULL) AND "\
+                          "(ending > ? OR ending IS NULL)",
+                             DateTime.now, DateTime.now)
+                     }
 
   scope :with_public_results, -> { where access_result_options: "public" }
   scope :with_private_results, -> { where access_result_options: "private" }
   scope :with_public_results_after_ends, -> { where access_result_options: "public_after_ends" }
-  scope :by_status, -> status {
+  scope :by_status, ->status {
     case status
-    when 'opened'
-      where('(beginning IS NULL OR beginning <= ?) AND (ending IS NULL OR ending > ?)', Time.now, Time.now)
-    when 'closed'
-      where('ending IS NOT NULL AND ending < ?', Time.now)
-    when 'to-come'
-      where('beginning IS NOT NULL AND beginning > ?', Time.now)
+    when "opened"
+      where("(beginning IS NULL OR beginning <= ?) AND (ending IS NULL OR ending > ?)", Time.now, Time.now)
+    when "closed"
+      where("ending IS NOT NULL AND ending < ?", Time.now)
+    when "to-come"
+      where("beginning IS NOT NULL AND beginning > ?", Time.now)
     end
   }
 
   # TODO Fix this
-  scope :accessible_to, -> user, profile {
-    where('access <= ?', profile.entitlement(user))
+  scope :accessible_to, ->user, profile {
+    where("access <= ?", profile.entitlement(user))
   }
 
   def display_to?(user)
@@ -149,30 +150,31 @@ class CustomFormsPlugin::Form < ApplicationRecord
 
   def show_results_for(person)
     (result_access.blank?) ||
-    (result_access == 'public') ||
-    (
-      result_access == 'public_after_ends' && 
-      ((ending.present? && (ending < DateTime.now)) || can_view?(person))
-    ) ||
-    ((result_access == 'private') && can_view?(person))
+      (result_access == "public") ||
+      (
+        result_access == "public_after_ends" &&
+        ((ending.present? && (ending < DateTime.now)) || can_view?(person))
+      ) ||
+      ((result_access == "private") && can_view?(person))
   end
 
   private
-  def can_view?(person)
-    (person == profile ||
-    person.in?(profile.admins) ||
-    person.in?(profile.environment.admins))
-  end
 
-  def period_range
-    errors.add(:base, _('The time range selected is invalid.')) if ending < beginning
-  end
-
-  def valid_poll_alternatives
-    if kind == "poll" && fields.first.present? && fields.first.alternatives.size < 2
-      errors.add(:poll_alternatives, _('can\'t be less than 2'))
-      false
+    def can_view?(person)
+      (person == profile ||
+      person.in?(profile.admins) ||
+      person.in?(profile.environment.admins))
     end
-    true
-  end
+
+    def period_range
+      errors.add(:base, _("The time range selected is invalid.")) if ending < beginning
+    end
+
+    def valid_poll_alternatives
+      if kind == "poll" && fields.first.present? && fields.first.alternatives.size < 2
+        errors.add(:poll_alternatives, _("can't be less than 2"))
+        false
+      end
+      true
+    end
 end

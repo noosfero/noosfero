@@ -1,4 +1,4 @@
-require_dependency 'person'
+require_dependency "person"
 
 class Person
   def can_see_summary?(profile)

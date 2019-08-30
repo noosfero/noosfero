@@ -1,10 +1,9 @@
 module NestedProfile
-
   def self.hash
     {
-      :id             => { type: :integer },
-      :visible        => { type: :boolean },
-      :public_profile => { type: :boolean }
+      id: { type: :integer },
+      visible: { type: :boolean },
+      public_profile: { type: :boolean }
     }
   end
 
@@ -15,7 +14,7 @@ module NestedProfile
           path: "profile",
           query: {
             bool: {
-              must:[
+              must: [
                 { term: { "profile.visible" => true } },
                 { term: { "profile.public_profile" => true } }
               ],
@@ -25,5 +24,4 @@ module NestedProfile
       }
     }
   end
-
 end

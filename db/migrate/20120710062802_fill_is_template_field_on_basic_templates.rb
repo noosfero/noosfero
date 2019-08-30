@@ -4,6 +4,6 @@ class FillIsTemplateFieldOnBasicTemplates < ActiveRecord::Migration
   end
 
   def self.down
-    say('This migration can\'t be reverted.')
+    say("This migration can't be reverted.")
   end
 end

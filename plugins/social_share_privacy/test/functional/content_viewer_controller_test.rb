@@ -1,51 +1,50 @@
-require 'test_helper'
-require_relative '../../../../app/controllers/public/invite_controller'
+require "test_helper"
+require_relative "../../../../app/controllers/public/invite_controller"
 
 class ContentViewerControllerTest < ActionController::TestCase
-
   def setup
     @controller = ContentViewerController.new
 
-    @profile = create_user('testinguser').person
+    @profile = create_user("testinguser").person
     @environment = @profile.environment
-    @environment.enabled_plugins = ['SocialSharePrivacyPlugin']
+    @environment.enabled_plugins = ["SocialSharePrivacyPlugin"]
     @environment.save!
   end
 
-  should 'add social content on content view page' do
-    page = @profile.articles.build(:name => 'test')
+  should "add social content on content view page" do
+    page = @profile.articles.build(name: "test")
     page.save!
 
-    get :view_page, :profile => @profile.identifier, :page => ['test']
+    get :view_page, profile: @profile.identifier, page: ["test"]
 
-    assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/socialshareprivacy\.js\??\d*/}
-    assert_tag :tag => 'div', :attributes => {:class => "social-buttons"}
+    assert_tag tag: "script", attributes: { src: /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/socialshareprivacy\.js\??\d*/ }
+    assert_tag tag: "div", attributes: { class: "social-buttons" }
   end
 
-  should 'add social share privacy modules acording to networks settings' do
-    page = @profile.articles.build(:name => 'test')
+  should "add social share privacy modules acording to networks settings" do
+    page = @profile.articles.build(name: "test")
     page.save!
-    Noosfero::Plugin::Settings.new(@environment, SocialSharePrivacyPlugin, :networks => ['twitter', 'gplus']).save!
+    Noosfero::Plugin::Settings.new(@environment, SocialSharePrivacyPlugin, networks: ["twitter", "gplus"]).save!
 
-    get :view_page, :profile => @profile.identifier, :page => ['test']
+    get :view_page, profile: @profile.identifier, page: ["test"]
 
-    assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/modules\/twitter\.js\??\d*/}
-    assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/modules\/gplus\.js\??\d*/}
+    assert_tag tag: "script", attributes: { src: /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/modules\/twitter\.js\??\d*/ }
+    assert_tag tag: "script", attributes: { src: /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/modules\/gplus\.js\??\d*/ }
   end
 
-  should 'add javascript with string translations if not english' do
-    page = @profile.articles.build(:name => 'test')
+  should "add javascript with string translations if not english" do
+    page = @profile.articles.build(name: "test")
     page.save!
-    FastGettext.stubs(:locale).returns('pt')
+    FastGettext.stubs(:locale).returns("pt")
 
-    get :view_page, :profile => @profile.identifier, :page => ['test']
+    get :view_page, profile: @profile.identifier, page: ["test"]
 
-    assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.pt\.js\??\d*/}
+    assert_tag tag: "script", attributes: { src: /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.pt\.js\??\d*/ }
 
-    FastGettext.stubs(:locale).returns('en')
+    FastGettext.stubs(:locale).returns("en")
 
-    get :view_page, :profile => @profile.identifier, :page => ['test']
+    get :view_page, profile: @profile.identifier, page: ["test"]
 
-    !assert_tag :tag => 'script', :attributes => {:src => /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.en\.js\??\d*/}
+    !assert_tag tag: "script", attributes: { src: /\/plugins\/social_share_privacy\/socialshareprivacy\/javascripts\/locale\/jquery\.socialshareprivacy\.min\.en\.js\??\d*/ }
   end
 end

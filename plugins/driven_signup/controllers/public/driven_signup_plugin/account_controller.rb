@@ -1,7 +1,6 @@
 class DrivenSignupPlugin::AccountController < PublicController
-
   def signup
-    return render_access_denied unless Rails.env.development? or request.post?
+    return render_access_denied unless Rails.env.development? || request.post?
     return render_access_denied unless self.environment.driven_signup_auths.where(token: params[:token]).first
 
     session[:driven_signup] = true
@@ -14,7 +13,7 @@ class DrivenSignupPlugin::AccountController < PublicController
     user_params = params[:signup].slice *user_attributes
     profile_params = params[:signup].except *user_attributes
 
-    if current_user and user_params[:email].squish == current_user.email
+    if current_user && (user_params[:email].squish == current_user.email)
       current_user.driven_signup_complete
       redirect_to session.delete(:after_signup_redirect_to)
     else
@@ -25,11 +24,10 @@ class DrivenSignupPlugin::AccountController < PublicController
 
   protected
 
-  # inherit routes from core skipping use_relative_controller!
-  def url_for options
-    options[:controller] = "/#{options[:controller]}" if options.is_a? Hash
-    super options
-  end
-  helper_method :url_for
-
+    # inherit routes from core skipping use_relative_controller!
+    def url_for(options)
+      options[:controller] = "/#{options[:controller]}" if options.is_a? Hash
+      super options
+    end
+    helper_method :url_for
 end

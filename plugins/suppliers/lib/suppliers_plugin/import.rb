@@ -1,10 +1,9 @@
-require 'csv'
-require 'charlock_holmes'
+require "csv"
+require "charlock_holmes"
 
 class SuppliersPlugin::Import
-
-  def self.product_columns header
-    keys = I18n.t'suppliers_plugin.lib.import.keys'
+  def self.product_columns(header)
+    keys = I18n.t "suppliers_plugin.lib.import.keys"
     columns = []
     header.each do |name|
       c = nil; keys.each do |key, regex|
@@ -13,19 +12,21 @@ class SuppliersPlugin::Import
           break
         end
       end
-      raise "duplicate column match '#{name}' already added as :#{c}" if c and c.in? columns
+      raise "duplicate column match '#{name}' already added as :#{c}" if c && c.in?(columns)
+
       columns << c
     end
     # check required fields
     return if ([:supplier_name, :product_name, :price] - columns).present?
+
     columns
   end
 
-  def self.products consumer, csv
-    default_product_category = consumer.environment.product_categories.find_by slug: 'software-livre'
+  def self.products(consumer, csv)
+    default_product_category = consumer.environment.product_categories.find_by slug: "software-livre"
 
     detection = CharlockHolmes::EncodingDetector.detect csv
-    csv = CharlockHolmes::Converter.convert csv, detection[:encoding], 'UTF-8'
+    csv = CharlockHolmes::Converter.convert csv, detection[:encoding], "UTF-8"
     data = {}
     rows = []
     columns = []
@@ -47,6 +48,7 @@ class SuppliersPlugin::Import
     rows.each do |row|
       attrs = {}; row.each.with_index do |value, i|
         next unless c = columns[i]
+
         value = value.to_s.squish
         attrs[c] = if value.present? then value else nil end
       end
@@ -61,14 +63,16 @@ class SuppliersPlugin::Import
       attrs[:name] = attrs.delete :product_name
       unless attrs[:product_category].blank?
         attrs[:product_category] = ProductCategory.find_by_solr(
-          attrs[:product_category], query_fields: ['name']).first
+          attrs[:product_category], query_fields: ["name"]
+        ).first
       end
       attrs[:product_category] ||= default_product_category
       if qualifiers = attrs[:qualifiers]
         qualifiers = JSON.parse qualifiers
         qualifiers.map! do |q|
           next if q.blank?
-          Qualifier.find_by_solr(q, query_fields: ['name']).first
+
+          Qualifier.find_by_solr(q, query_fields: ["name"]).first
         end.compact!
         attrs[:qualifiers] = qualifiers
       end
@@ -88,9 +92,10 @@ class SuppliersPlugin::Import
 
       # treat URLs
       profile = nil
-      if product_url = attrs.delete(:product_url) and /manage_products\/show\/(\d+)/ =~ product_url
+      if (product_url = attrs.delete(:product_url)) && /manage_products\/show\/(\d+)/ =~ product_url
         product = Product.where(id: $1).first
         next if product.blank?
+
         attrs[:record] = product
         profile = product.profile
       end
@@ -123,7 +128,7 @@ class SuppliersPlugin::Import
         product ||= supplier.profile.products.where(name: attrs[:name]).first
         product ||= supplier.profile.products.build attrs
         # let update happen only on dummy suppliers
-        if product.persisted? and supplier.dummy?
+        if product.persisted? && supplier.dummy?
           product.update! attrs
         elsif product.new_record?
           # create products as not available
@@ -135,5 +140,4 @@ class SuppliersPlugin::Import
       end
     end
   end
-
 end

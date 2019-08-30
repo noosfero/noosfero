@@ -1,15 +1,15 @@
 namespace :db do
   namespace :data do
     task :minimal do
-      name = ENV['ENVIRONMENT_NAME'] || 'Noosfero'
-      theme = ENV['ENVIRONMENT_THEME'] ||'default'
-      email = ENV['ADMIN_EMAIL'] ||'noosfero@localhost.localdomain'
-      sh 'rails', 'runner', "Environment.create!(:name => '#{name}', :theme => '#{theme}', :contact_email => '#{email}', :is_default => true) unless Environment.default"
-      unless ENV['NOOSFERO_DOMAIN'].blank?
-        sh 'rails', 'runner', "Environment.default.domains << Domain.new(:name => ENV['NOOSFERO_DOMAIN'])"
+      name = ENV["ENVIRONMENT_NAME"] || "Noosfero"
+      theme = ENV["ENVIRONMENT_THEME"] || "default"
+      email = ENV["ADMIN_EMAIL"] || "noosfero@localhost.localdomain"
+      sh "rails", "runner", "Environment.create!(:name => '#{name}', :theme => '#{theme}', :contact_email => '#{email}', :is_default => true) unless Environment.default"
+      unless ENV["NOOSFERO_DOMAIN"].blank?
+        sh "rails", "runner", "Environment.default.domains << Domain.new(:name => ENV['NOOSFERO_DOMAIN'])"
       end
-      if !ENV['ADMIN_LOGIN'].blank? && !ENV['ADMIN_EMAIL'].blank? && !ENV['ADMIN_PASSWORD'].blank?
-        sh 'rails', 'runner', "admin = User.create!(
+      if !ENV["ADMIN_LOGIN"].blank? && !ENV["ADMIN_EMAIL"].blank? && !ENV["ADMIN_PASSWORD"].blank?
+        sh "rails", "runner", "admin = User.create!(
                                  :login => ENV['ADMIN_LOGIN'],
                                  :email => ENV['ADMIN_EMAIL'],
                                  :password => ENV['ADMIN_PASSWORD'],

@@ -1,8 +1,8 @@
 class CommentClassificationPluginMyprofileController < MyProfileController
-  append_view_path File.join(File.dirname(__FILE__) + '/../views')
+  append_view_path File.join(File.dirname(__FILE__) + "/../views")
 
   before_action :organizations_only
-  protect 'moderate_comments', :profile
+  protect "moderate_comments", :profile
 
   def index
     @comments = Comment.all
@@ -11,7 +11,7 @@ class CommentClassificationPluginMyprofileController < MyProfileController
   def add_status
     @comment = Comment.find(params[:id])
     @statuses = CommentClassificationPlugin::Status.enabled
-    @status = CommentClassificationPlugin::CommentStatusUser.new(:profile => user, :comment => @comment)
+    @status = CommentClassificationPlugin::CommentStatusUser.new(profile: user, comment: @comment)
     if request.post? && params[:status]
       @status.update(params[:status])
       @status.save
@@ -20,7 +20,7 @@ class CommentClassificationPluginMyprofileController < MyProfileController
 
   private
 
-  def organizations_only
-    render_not_found if !profile.organization?
-  end
+    def organizations_only
+      render_not_found if !profile.organization?
+    end
 end

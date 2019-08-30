@@ -1,15 +1,15 @@
 class ControlPanel::ConfigureForum < ControlPanel::Entry
   class << self
     def name
-      _('Configure Forum')
+      _("Configure Forum")
     end
 
     def section
-      'content'
+      "content"
     end
 
     def icon
-      'comments'
+      "comments"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::ConfigureForum < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('discussion'), _('debate')]
+      [_("discussion"), _("debate")]
     end
 
     def url(profile)
-      {:controller => 'cms', :action => 'edit', :id => profile.forum}
+      { controller: "cms", action: "edit", id: profile.forum }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.forums.count > 0
     end
   end

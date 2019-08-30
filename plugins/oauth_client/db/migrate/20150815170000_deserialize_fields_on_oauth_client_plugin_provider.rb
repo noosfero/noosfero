@@ -1,5 +1,4 @@
 class DeserializeFieldsOnOauthClientPluginProvider < ActiveRecord::Migration[5.1]
-
   def up
     add_column :oauth_client_plugin_providers, :client_id, :text
     add_column :oauth_client_plugin_providers, :client_secret, :text
@@ -16,5 +15,4 @@ class DeserializeFieldsOnOauthClientPluginProvider < ActiveRecord::Migration[5.1
   def down
     say "this migration can't be reverted"
   end
-
 end

@@ -7,9 +7,9 @@ module Entitlement::Checks::Profile
     end
 
     def self.filter_condition(user)
-<<-eos
+      <<-eos
       when member_id = #{user.id} then #{level}
-eos
+      eos
     end
 
     def entitles?(user)

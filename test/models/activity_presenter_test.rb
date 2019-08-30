@@ -9,21 +9,21 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     @target.stubs(:wall_access).returns(Entitlement::Levels.levels[:users])
   end
 
-  should 'be available for ActionTracker::Record' do
+  should "be available for ActionTracker::Record" do
     assert ActivityPresenter.available?(ActionTracker::Record.new)
   end
 
-  should 'be available for ProfileActivity' do
+  should "be available for ProfileActivity" do
     assert ActivityPresenter.available?(ProfileActivity.new)
   end
 
-  should 'return correct target for ActionTracker::Record' do
+  should "return correct target for ActionTracker::Record" do
     activity = ActionTracker::Record.new
     activity.stubs(:target).returns(@target)
     assert_equal @target, ActivityPresenter.target(activity)
   end
 
-  should 'return correct target for ProfileActivity' do
+  should "return correct target for ProfileActivity" do
     notification = ProfileActivity.new
     record = ActionTracker::Record.new
     notification.stubs(:activity).returns(record)
@@ -32,20 +32,20 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     assert_equal @target, ActivityPresenter.target(notification)
   end
 
-  should 'return correct owner for ActionTracker::Record' do
+  should "return correct owner for ActionTracker::Record" do
     activity = ActionTracker::Record.new
     activity.stubs(:user).returns(@owner)
     assert_equal @owner, ActivityPresenter.owner(activity)
   end
 
-  should 'return correct owner for ProfileActivity' do
+  should "return correct owner for ProfileActivity" do
     notification = ProfileActivity.new
     notification.stubs(:profile).returns(@owner)
 
     assert_equal @owner, ActivityPresenter.owner(notification)
   end
 
-  should 'not be hidden for user if target does not respond to display_to' do
+  should "not be hidden for user if target does not respond to display_to" do
     presenter = ActivityPresenter.new(@target)
     profile = fast_create(Profile)
 
@@ -56,7 +56,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     refute presenter.hidden_for?(@user)
   end
 
-  should 'be hidden for user based on target display_to' do
+  should "be hidden for user based on target display_to" do
     presenter = ActivityPresenter.new(@target)
     @target.stubs(:display_to?).returns(true)
     @target.stubs(:is_a?).with(Profile).returns(true)
@@ -69,7 +69,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     refute presenter.hidden_for?(@user)
   end
 
-  should 'be hidden if user disabled the followers feature' do
+  should "be hidden if user disabled the followers feature" do
     presenter = ActivityPresenter.new(@target)
     @target.stubs(:display_to?).returns(true)
     @target.stubs(:is_a?).with(Profile).returns(true)
@@ -82,7 +82,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     refute presenter.hidden_for?(@user)
   end
 
-  should 'verify if user is involved as target with the activity' do
+  should "verify if user is involved as target with the activity" do
     user = mock
     presenter = ActivityPresenter.new(@target)
     presenter.stubs(:target).returns(user)
@@ -90,7 +90,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     assert presenter.involved?(user)
   end
 
-  should 'verify if user is involved as owner with the activity' do
+  should "verify if user is involved as owner with the activity" do
     user = mock
     presenter = ActivityPresenter.new(@target)
     presenter.stubs(:target).returns(nil)
@@ -98,7 +98,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     assert presenter.involved?(user)
   end
 
-  should 'refute if user is not involved' do
+  should "refute if user is not involved" do
     user = mock
     presenter = ActivityPresenter.new(@target)
     presenter.stubs(:target).returns(nil)
@@ -106,7 +106,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     refute presenter.involved?(user)
   end
 
-  should 'be hidden if the target is a profile with a restricted wall' do
+  should "be hidden if the target is a profile with a restricted wall" do
     target = create_user.person
     presenter = ActivityPresenter.new(target)
 
@@ -114,7 +114,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     assert presenter.hidden_for?(@user)
   end
 
-  should 'not be hidden if the target is a profile with a public wall' do
+  should "not be hidden if the target is a profile with a public wall" do
     target = create_user.person
     presenter = ActivityPresenter.new(target)
 
@@ -122,7 +122,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     refute presenter.hidden_for?(@user)
   end
 
-  should 'be hidden if the target is an article whose profile has a restricted wall' do
+  should "be hidden if the target is an article whose profile has a restricted wall" do
     profile = fast_create(Community)
     article = fast_create(Article, profile_id: profile.id)
     presenter = ActivityPresenter.new(article)
@@ -131,7 +131,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     assert presenter.hidden_for?(@user)
   end
 
-  should 'not be hidden if the target is an article whose profile has a public wall' do
+  should "not be hidden if the target is an article whose profile has a public wall" do
     profile = fast_create(Community)
     article = fast_create(Article, profile_id: profile.id)
     presenter = ActivityPresenter.new(article)
@@ -140,7 +140,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     refute presenter.hidden_for?(@user)
   end
 
-  should 'be hidden if the target is a scrap whose receiver has a restricted wall' do
+  should "be hidden if the target is a scrap whose receiver has a restricted wall" do
     receiver = create_user.person
     scrap = fast_create(Scrap, receiver_id: receiver.id)
     presenter = ActivityPresenter.new(scrap)
@@ -149,7 +149,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     assert presenter.hidden_for?(@user)
   end
 
-  should 'not be hidden if the target is a scrap whose receiver has a public wall' do
+  should "not be hidden if the target is a scrap whose receiver has a public wall" do
     receiver = create_user.person
     scrap = fast_create(Scrap, receiver_id: receiver.id)
     presenter = ActivityPresenter.new(scrap)
@@ -158,7 +158,7 @@ class ActivityPresenterTest < ActiveSupport::TestCase
     refute presenter.hidden_for?(@user)
   end
 
-  should 'use the owner as target profile if the target class is unknown' do
+  should "use the owner as target profile if the target class is unknown" do
     target = fast_create(ProfileFollower, profile_id: @user.id)
     presenter = ActivityPresenter.new(target)
 

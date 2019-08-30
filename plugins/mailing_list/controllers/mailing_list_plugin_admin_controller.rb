@@ -1,5 +1,5 @@
 class MailingListPluginAdminController < PluginAdminController
-  append_view_path File.join(File.dirname(__FILE__) + '/../views')
+  append_view_path File.join(File.dirname(__FILE__) + "/../views")
 
   def index
     load_client
@@ -28,15 +28,14 @@ class MailingListPluginAdminController < PluginAdminController
       begin
         MailingListPlugin::Client.new(@settings)
         if @settings.save!
-          session[:notice] = _('The settings were saved successfully')
+          session[:notice] = _("The settings were saved successfully")
           redirect_to action: :index
         else
-          session[:notice] = _('There were some problems saving the settings')
+          session[:notice] = _("There were some problems saving the settings")
         end
-
       rescue Exception => exception
         logger.error("[E] #{exception.class.name}: #{exception.message}")
-        session[:notice] = _('Could not connect to the Sympa API')
+        session[:notice] = _("Could not connect to the Sympa API")
       end
     end
   end
@@ -46,9 +45,9 @@ class MailingListPluginAdminController < PluginAdminController
       load_profile_settings
       @profile_settings.enabled = true
       @profile_settings.save!
-      session[:notice] = _('The mailing list is now sending emails!')
+      session[:notice] = _("The mailing list is now sending emails!")
     rescue
-      session[:notice] = _('The mailing list could not be activated')
+      session[:notice] = _("The mailing list could not be activated")
     end
     redirect_to action: :index
   end
@@ -62,7 +61,7 @@ class MailingListPluginAdminController < PluginAdminController
       rescue
       end
     end
-    session[:notice] = _('All %s mailing lists are activated') % params[:kind]
+    session[:notice] = _("All %s mailing lists are activated") % params[:kind]
     redirect_to action: "manage_#{params[:kind]}"
   end
 
@@ -71,9 +70,9 @@ class MailingListPluginAdminController < PluginAdminController
       load_profile_settings
       @profile_settings.enabled = false
       @profile_settings.save!
-      session[:notice] = _('The mailing list is not sending any emails now')
+      session[:notice] = _("The mailing list is not sending any emails now")
     rescue
-      session[:notice] = _('The mailing list could not be deactivated')
+      session[:notice] = _("The mailing list could not be deactivated")
     end
     redirect_to action: :index
   end
@@ -87,7 +86,7 @@ class MailingListPluginAdminController < PluginAdminController
       rescue
       end
     end
-    session[:notice] = _('All %s mailing lists are deactivated') % params[:kind]
+    session[:notice] = _("All %s mailing lists are deactivated") % params[:kind]
     redirect_to action: "manage_#{params[:kind]}"
   end
 
@@ -96,9 +95,9 @@ class MailingListPluginAdminController < PluginAdminController
       load_profile_settings
       load_client
       @client.deploy_list_for_group(@profile)
-      session[:notice] = _('The mailing list is now deployed!')
+      session[:notice] = _("The mailing list is now deployed!")
     rescue
-      session[:notice] = _('The mailing list could not be deployed')
+      session[:notice] = _("The mailing list could not be deployed")
     end
     redirect_to action: :index
   end
@@ -110,7 +109,7 @@ class MailingListPluginAdminController < PluginAdminController
       @environment_settings.send("deploying_#{params[:kind]}=", true)
       @environment_settings.save!
 
-      session[:notice] = _('The mailing lists are being deployed. This may take several minutes.')
+      session[:notice] = _("The mailing lists are being deployed. This may take several minutes.")
     end
 
     redirect_to action: "manage_#{params[:kind]}"
@@ -118,32 +117,32 @@ class MailingListPluginAdminController < PluginAdminController
 
   private
 
-  def per_page
-    20
-  end
-
-  def load_client
-    begin
-     @environment_settings = Noosfero::Plugin::Settings.new environment, MailingListPlugin
-     @client = MailingListPlugin::Client.new(@environment_settings)
-     @connection = true
-    rescue
-      @connection = false
+    def per_page
+      20
     end
-  end
 
-  def load_profile_settings
-    @profile = environment.profiles.find params[:id]
-    @profile_settings = Noosfero::Plugin::Settings.new profile, MailingListPlugin
-  end
-
-  def load_groups
-    if @connection
-      @collection = environment.send(@kind).no_templates.order('name ASC').paginate(:per_page => per_page, :page => params[:npage])
-      @subscribed = @client.list
-    else
-      session[:notice] = _('The mailing list external server is offline.')
-      redirect_to action: :index
+    def load_client
+      begin
+        @environment_settings = Noosfero::Plugin::Settings.new environment, MailingListPlugin
+        @client = MailingListPlugin::Client.new(@environment_settings)
+        @connection = true
+      rescue
+        @connection = false
+      end
     end
-  end
+
+    def load_profile_settings
+      @profile = environment.profiles.find params[:id]
+      @profile_settings = Noosfero::Plugin::Settings.new profile, MailingListPlugin
+    end
+
+    def load_groups
+      if @connection
+        @collection = environment.send(@kind).no_templates.order("name ASC").paginate(per_page: per_page, page: params[:npage])
+        @subscribed = @client.list
+      else
+        session[:notice] = _("The mailing list external server is offline.")
+        redirect_to action: :index
+      end
+    end
 end

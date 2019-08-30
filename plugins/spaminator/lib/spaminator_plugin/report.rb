@@ -1,5 +1,4 @@
 class SpaminatorPlugin::Report < ApplicationRecord
-
   serialize :failed, Hash
 
   belongs_to :environment, optional: true
@@ -8,10 +7,10 @@ class SpaminatorPlugin::Report < ApplicationRecord
 
   attr_accessible :environment
 
-  scope :from_environment, -> environment { where :environment_id => environment }
+  scope :from_environment, ->environment { where environment_id: environment }
 
   after_initialize do |report|
-    report.failed = {:people => [], :comments => []} if report.failed.blank?
+    report.failed = { people: [], comments: [] } if report.failed.blank?
   end
 
   def spams
@@ -30,5 +29,4 @@ class SpaminatorPlugin::Report < ApplicationRecord
     # TODO Implement some decent visualization
     inspect
   end
-
 end

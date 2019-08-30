@@ -1,5 +1,4 @@
 class GoogleCsePlugin < Noosfero::Plugin
-
   def self.plugin_name
     "GoogleCsePlugin"
   end
@@ -13,13 +12,12 @@ class GoogleCsePlugin < Noosfero::Plugin
   end
 
   def self.results_url_path
-    '/plugin/google_cse/results'
+    "/plugin/google_cse/results"
   end
 
   def body_beginning
     unless google_id.blank?
-      expanded_template('search-box.rhtml', {:selector => '#top-search, #footer-search', :plugin => self})
+      expanded_template("search-box.rhtml", selector: "#top-search, #footer-search", plugin: self)
     end
   end
-
 end

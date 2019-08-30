@@ -1,15 +1,15 @@
 class ControlPanel::Tasks < ControlPanel::Entry
   class << self
     def name
-      _('Tasks')
+      _("Tasks")
     end
 
     def section
-      'profile'
+      "profile"
     end
 
     def icon
-      'tasks'
+      "tasks"
     end
 
     def priority
@@ -17,11 +17,11 @@ class ControlPanel::Tasks < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('actions'), _('moderate'), _('review')]
+      [_("actions"), _("moderate"), _("review")]
     end
 
     def url(profile)
-      {:controller => 'tasks', :action => 'index'}
+      { controller: "tasks", action: "index" }
     end
   end
 end

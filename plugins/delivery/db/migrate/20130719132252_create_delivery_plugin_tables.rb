@@ -34,7 +34,6 @@ class CreateDeliveryPluginTables < ActiveRecord::Migration[5.1]
     add_index :delivery_plugin_options, [:owner_id]
     add_index :delivery_plugin_options, [:owner_type]
     add_index :delivery_plugin_options, [:owner_id, :owner_type]
-
   end
 
   def self.down

@@ -1,10 +1,9 @@
 class Contact
-
   include ActiveModel::Validations
 
   def initialize(attributes = nil)
     if attributes
-      attributes.each do |attr,value|
+      attributes.each do |attr, value|
         self.send("#{attr}=", value)
       end
     end
@@ -20,18 +19,18 @@ class Contact
   attr_accessor :dest
   attr_accessor :sender
 
-  N_('Subject'); N_('Message'); N_('City and state'); N_('e-Mail'); N_('Name')
+  N_("Subject"); N_("Message"); N_("City and state"); N_("e-Mail"); N_("Name")
 
   validates_presence_of :subject, :email, :message, :name
-  validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|o| !o.email.blank?})
+  validates_format_of :email, with: Noosfero::Constants::EMAIL_FORMAT, if: (lambda { |o| !o.email.blank? })
 
   def deliver
     return false unless self.valid?
+
     Contact::Sender.notification(self).deliver
   end
 
   class Sender < ApplicationMailer
-
     def notification(contact)
       self.environment = contact.dest.environment
 
@@ -40,11 +39,11 @@ class Contact
       @city = contact.city
       @state = contact.state
       @message = contact.message
-      @url = url_for(:host => contact.dest.environment.default_hostname, :controller => 'home')
+      @url = url_for(host: contact.dest.environment.default_hostname, controller: "home")
       @target = contact.dest.name
 
       options = {
-        content_type: 'text/html',
+        content_type: "text/html",
         to: contact.dest.notification_emails,
         reply_to: contact.email,
         subject: "[#{contact.dest.short_name(30)}] #{contact.subject}".html_safe,
@@ -52,7 +51,7 @@ class Contact
       }
 
       if contact.sender
-        options.merge!('X-Noosfero-Sender' => contact.sender.identifier)
+        options.merge!("X-Noosfero-Sender" => contact.sender.identifier)
       end
 
       if contact.receive_a_copy
@@ -62,5 +61,4 @@ class Contact
       mail(options)
     end
   end
-
 end

@@ -1,5 +1,4 @@
 module ScopeTool
-
   # Sum scope results by SQL, allowing post filtering of the group.
   def union(*scopes)
     model = scopes.first.klass.name.constantize
@@ -11,5 +10,4 @@ module ScopeTool
     # Allows to use `ScopeTool.method()` anywhere.
     include ScopeTool
   end
-
 end

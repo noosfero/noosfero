@@ -1,8 +1,7 @@
 class InviteMember < Invitation
-
   before_create :check_for_invitation_existence
 
-  settings_items :community_id, :type => :integer
+  settings_items :community_id, type: :integer
   validates_presence_of :community_id
 
   def community
@@ -22,11 +21,11 @@ class InviteMember < Invitation
   end
 
   def linked_subject
-    {:text => community.name, :url => community.public_profile_url}
+    { text: community.name, url: community.public_profile_url }
   end
 
   def information
-    {:message => _('%{requestor} invited you to join %{linked_subject}.').html_safe}
+    { message: _("%{requestor} invited you to join %{linked_subject}.").html_safe }
   end
 
   def url
@@ -34,16 +33,16 @@ class InviteMember < Invitation
   end
 
   def icon
-    {:type => :profile_image, :profile => community, :url => community.url}
+    { type: :profile_image, profile: community, url: community.url }
   end
 
   def target_notification_description
-    (_('%{requestor} invited you to join %{community}.') % {:requestor => requestor.name, :community => community.name}).html_safe
+    (_("%{requestor} invited you to join %{community}.") % { requestor: requestor.name, community: community.name }).html_safe
   end
 
   def target_notification_message
     if friend
-      _('%{requestor} is inviting you to join "%{community}" on %{system}.') % { :system => target.environment.name, :requestor => requestor.name, :community => community.name }
+      _('%{requestor} is inviting you to join "%{community}" on %{system}.') % { system: target.environment.name, requestor: requestor.name, community: community.name }
     else
       super
     end
@@ -55,20 +54,20 @@ class InviteMember < Invitation
 
   # Default message send to friend when user use invite a friend feature
   def self.mail_template
-    [ _('Hello <friend>,'),
-      _('<user> is inviting you to join "<community>" on <environment>.'),
-      _('To accept the invitation, please follow this link:'),
-      '<url>',
-      "--\n<environment>",
-    ].join("\n\n")
+    [_("Hello <friend>,"),
+     _('<user> is inviting you to join "<community>" on <environment>.'),
+     _("To accept the invitation, please follow this link:"),
+     "<url>",
+     "--\n<environment>",].join("\n\n")
   end
 
   private
 
-  def check_for_invitation_existence
-    return unless friend && friend.tasks.pending.of("InviteMember")
-                                  .where(requestor_id: person.id)
-                                  .any? { |t| t.data[:community_id] == community_id }
-    throw(:abort)
-  end
+    def check_for_invitation_existence
+      return unless friend && friend.tasks.pending.of("InviteMember")
+                                    .where(requestor_id: person.id)
+                                    .any? { |t| t.data[:community_id] == community_id }
+
+      throw(:abort)
+    end
 end

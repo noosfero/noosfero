@@ -1,11 +1,10 @@
 module ProductsPlugin
   class ProductCategory < ::Category
-
     ##
     # Keep compatibility with previous core name
     #
     def self.sti_name
-      'ProductCategory'
+      "ProductCategory"
     end
 
     has_many :products
@@ -13,13 +12,13 @@ module ProductsPlugin
 
     attr_accessible :name, :parent, :environment
 
-    scope :unique, -> { select 'DISTINCT ON (path) categories.*' }
-    scope :by_enterprise, -> enterprise {
-      distinct.joins(:products).
-      where('products.profile_id = ?', enterprise.id)
+    scope :unique, -> { select "DISTINCT ON (path) categories.*" }
+    scope :by_enterprise, ->enterprise {
+      distinct.joins(:products)
+              .where("products.profile_id = ?", enterprise.id)
     }
-    scope :by_environment, -> environment {
-      where 'environment_id = ?', environment.id
+    scope :by_environment, ->environment {
+      where "environment_id = ?", environment.id
     }
 
     def all_products
@@ -27,12 +26,11 @@ module ProductsPlugin
     end
 
     def recent_products(limit = 10)
-      self.products.reorder('created_at DESC, id DESC').paginate(page: 1, per_page: limit)
+      self.products.reorder("created_at DESC, id DESC").paginate(page: 1, per_page: limit)
     end
 
     def self.menu_categories(top_category, env)
-      top_category ? top_category.children : top_level_for(env).select{|c|c.kind_of?(ProductCategory)}
+      top_category ? top_category.children : top_level_for(env).select { |c| c.kind_of?(ProductCategory) }
     end
-
   end
 end

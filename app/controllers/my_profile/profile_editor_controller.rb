@@ -1,14 +1,13 @@
 class ProfileEditorController < MyProfileController
-
-  protect 'edit_profile', :profile, :except => [:destroy_profile]
-  protect 'destroy_profile', :profile, :only => [:destroy_profile]
+  protect "edit_profile", :profile, except: [:destroy_profile]
+  protect "destroy_profile", :profile, only: [:destroy_profile]
 
   skip_before_action :verify_authenticity_token, only: [:google_map]
-  before_action :access_welcome_page, :only => [:welcome_page]
+  before_action :access_welcome_page, only: [:welcome_page]
   before_action :back_to
-  before_action :forbid_destroy_profile, :only => [:destroy_profile]
-  before_action :check_user_can_edit_header_footer, :only => [:header_footer]
-  before_action :location_active, :only => [:locality]
+  before_action :forbid_destroy_profile, only: [:destroy_profile]
+  before_action :check_user_can_edit_header_footer, only: [:header_footer]
+  before_action :location_active, only: [:locality]
   helper_method :has_welcome_page
   helper CustomFieldsHelper
 
@@ -23,7 +22,7 @@ class ProfileEditorController < MyProfileController
 
   def informations
     @profile_data = profile
-    @kinds = environment.kinds.where(:type => profile.type)
+    @kinds = environment.kinds.where(type: profile.type)
     profile_params = params[:profile_data].to_h
 
     if request.post?
@@ -36,7 +35,7 @@ class ProfileEditorController < MyProfileController
 
             # TODO: This is unsafe! Add sanitizer
             @profile_data.update!(profile_params)
-            redirect_to :action => 'index', :profile => profile.identifier
+            redirect_to action: "index", profile: profile.identifier
           rescue
             profile.identifier = params[:profile] if profile.identifier.blank?
           end
@@ -49,29 +48,29 @@ class ProfileEditorController < MyProfileController
     if request.post?
       if profile.update(params[:profile_data])
         if params.has_key?(:field)
-          response = render_to_string(partial: 'profile_editor/edit_in_place_field',
-                                      locals: {:field => params[:field],
-                                               :type => params[:type],
-                                               :content => profile.send(params[:field])})
+          response = render_to_string(partial: "profile_editor/edit_in_place_field",
+                                      locals: { field: params[:field],
+                                                type: params[:type],
+                                                content: profile.send(params[:field]) })
         else
-          response = render_to_string(partial: 'blocks/profile_big_image')
+          response = render_to_string(partial: "blocks/profile_big_image")
         end
         respond_to do |format|
           format.js do
-            render :json => {
-                :html => response,
-                :response => 'success'
-             }
+            render json: {
+              html: response,
+              response: "success"
+            }
           end
         end
       else
         key, error = profile.errors.first
         respond_to do |format|
           format.js do
-            render :json => {
-                :response => 'error',
-                :msg => "Sorry, #{key} #{error}"
-             }
+            render json: {
+              response: "error",
+              msg: "Sorry, #{key} #{error}"
+            }
           end
         end
       end
@@ -83,13 +82,13 @@ class ProfileEditorController < MyProfileController
   end
 
   def categories
-    regions = profile.categories.where(type: 'Region').map(&:id).map(&:to_s)
+    regions = profile.categories.where(type: "Region").map(&:id).map(&:to_s)
     params[:profile_data][:category_ids] += regions if params[:profile_data].present?
     update_profile_data
   end
 
   def regions
-    categories = profile.categories.where(type: 'Category').map(&:id).map(&:to_s)
+    categories = profile.categories.where(type: "Category").map(&:id).map(&:to_s)
     params[:profile_data][:category_ids] += categories if params[:profile_data].present?
     update_profile_data
   end
@@ -101,7 +100,7 @@ class ProfileEditorController < MyProfileController
   def privacy
     if params[:profile_data].present?
       profile.update_access_level(params[:profile_data].delete(:access))
-      profile.update_access_level(params[:profile_data].delete(:wall_access), 'wall')
+      profile.update_access_level(params[:profile_data].delete(:wall_access), "wall")
     end
     update_profile_data
   end
@@ -119,11 +118,11 @@ class ProfileEditorController < MyProfileController
         end
 
         if profile.update!(params[:profile_data])
-          BlockSweeper.expire_blocks profile.blocks.select{ |b| b.class == LocationBlock }
-          session[:notice] = _('Address was updated successfully!')
+          BlockSweeper.expire_blocks profile.blocks.select { |b| b.class == LocationBlock }
+          session[:notice] = _("Address was updated successfully!")
         end
       rescue
-        session[:notice] = _('Address could not be saved!')
+        session[:notice] = _("Address could not be saved!")
       end
     end
   end
@@ -131,20 +130,20 @@ class ProfileEditorController < MyProfileController
   def enable
     @to_enable = profile
     if request.post? && params[:confirmation]
-      unless @to_enable.update_attribute('enabled', true)
-        session[:notice] = _('%s was not enabled.') % @to_enable.name
+      unless @to_enable.update_attribute("enabled", true)
+        session[:notice] = _("%s was not enabled.") % @to_enable.name
       end
-      redirect_to :action => 'index'
+      redirect_to action: "index"
     end
   end
 
   def disable
     @to_disable = profile
     if request.post? && params[:confirmation]
-      unless @to_disable.update_attribute('enabled', false)
-        session[:notice] = _('%s was not disabled.') % @to_disable.name
+      unless @to_disable.update_attribute("enabled", false)
+        session[:notice] = _("%s was not disabled.") % @to_disable.name
       end
-      redirect_to :action => 'index'
+      redirect_to action: "index"
     end
   end
 
@@ -152,7 +151,7 @@ class ProfileEditorController < MyProfileController
     @no_design_blocks = true
     if request.post?
       @profile.update_header_and_footer(params[:custom_header], params[:custom_footer])
-      redirect_to :action => 'index'
+      redirect_to action: "index"
     else
       @header = boxes_holder.custom_header
       @footer = boxes_holder.custom_footer
@@ -162,29 +161,29 @@ class ProfileEditorController < MyProfileController
   def destroy_profile
     if request.post?
       if @profile.destroy
-        session[:notice] = _('The profile was deleted.')
-        if(params[:return_to])
+        session[:notice] = _("The profile was deleted.")
+        if (params[:return_to])
           redirect_to url_for(params[:return_to])
         else
-          redirect_to :controller => 'home'
+          redirect_to controller: "home"
         end
       else
-        session[:notice] = _('Could not delete profile')
+        session[:notice] = _("Could not delete profile")
       end
     end
   end
 
   def welcome_page
-    @welcome_page = profile.welcome_page || TextArticle.new(:name => 'Welcome Page', :profile => profile, :published => false)
+    @welcome_page = profile.welcome_page || TextArticle.new(name: "Welcome Page", profile: profile, published: false)
     if request.post?
       begin
         @welcome_page.update!(params[:welcome_page])
         profile.welcome_page = @welcome_page
         profile.save!
-        session[:notice] = _('Welcome page saved successfully.')
-        redirect_to :action => 'index'
+        session[:notice] = _("Welcome page saved successfully.")
+        redirect_to action: "index"
       rescue Exception => exception
-        session[:notice] = _('Welcome page could not be saved.')
+        session[:notice] = _("Welcome page could not be saved.")
       end
     end
   end
@@ -196,7 +195,7 @@ class ProfileEditorController < MyProfileController
         profile.save
         session[:notice] = _("The profile '%s' was deactivated.") % profile.name
       else
-        session[:notice] = _('Could not deactivate profile.')
+        session[:notice] = _("Could not deactivate profile.")
       end
     end
 
@@ -210,7 +209,7 @@ class ProfileEditorController < MyProfileController
       if profile.enable
         session[:notice] = _("The profile '%s' was activated.") % profile.name
       else
-        session[:notice] = _('Could not activate the profile.')
+        session[:notice] = _("Could not activate the profile.")
       end
     end
 
@@ -226,58 +225,58 @@ class ProfileEditorController < MyProfileController
 
   protected
 
-  def redirect_to_previous_location
-    redirect_to @back_to
-  end
+    def redirect_to_previous_location
+      redirect_to @back_to
+    end
 
-  #TODO Consider using this as a general controller feature to be available on every action.
-  def back_to
-    @back_to = params[:back_to] || request.referer || "/"
-  end
+    # TODO Consider using this as a general controller feature to be available on every action.
+    def back_to
+      @back_to = params[:back_to] || request.referer || "/"
+    end
 
   private
 
-  def update_profile_data
-    @profile_data = profile
-    if request.post?
-      begin
-        @profile_data.update!(params[:profile_data])
-        redirect_to :action => 'index', :profile => profile.identifier
-        session[:notice] = _('Changes applied correctly')
-      rescue
-        profile.identifier = params[:profile] if profile.identifier.blank?
-        session[:notice] = _('Something wrong happened! Changes could not be save!')
+    def update_profile_data
+      @profile_data = profile
+      if request.post?
+        begin
+          @profile_data.update!(params[:profile_data])
+          redirect_to action: "index", profile: profile.identifier
+          session[:notice] = _("Changes applied correctly")
+        rescue
+          profile.identifier = params[:profile] if profile.identifier.blank?
+          session[:notice] = _("Something wrong happened! Changes could not be save!")
+        end
       end
     end
-  end
 
-  def has_welcome_page
-    profile.is_template
-  end
-
-  def access_welcome_page
-    unless has_welcome_page
-      render_access_denied
+    def has_welcome_page
+      profile.is_template
     end
-  end
 
-  def forbid_destroy_profile
-    if environment.enabled?('forbid_destroy_profile') && !current_person.is_admin?(environment)
-      session[:notice] = _('You can not destroy the profile.')
-      redirect_to_previous_location
+    def access_welcome_page
+      unless has_welcome_page
+        render_access_denied
+      end
     end
-  end
 
-  def check_user_can_edit_header_footer
-    user_can_not_edit_header_footer = !user.is_admin?(environment) && environment.enabled?('disable_header_and_footer')
-    redirect_to back_to if user_can_not_edit_header_footer
-  end
-
-  def location_active
-    unless (profile.active_fields & Profile::LOCATION_FIELDS).present? ||
-           profile.active_fields.include?('location')
-      session[:notice] = _('Location is disabled on the environment.')
-      redirect_to action: 'index'
+    def forbid_destroy_profile
+      if environment.enabled?("forbid_destroy_profile") && !current_person.is_admin?(environment)
+        session[:notice] = _("You can not destroy the profile.")
+        redirect_to_previous_location
+      end
     end
-  end
+
+    def check_user_can_edit_header_footer
+      user_can_not_edit_header_footer = !user.is_admin?(environment) && environment.enabled?("disable_header_and_footer")
+      redirect_to back_to if user_can_not_edit_header_footer
+    end
+
+    def location_active
+      unless (profile.active_fields & Profile::LOCATION_FIELDS).present? ||
+             profile.active_fields.include?("location")
+        session[:notice] = _("Location is disabled on the environment.")
+        redirect_to action: "index"
+      end
+    end
 end

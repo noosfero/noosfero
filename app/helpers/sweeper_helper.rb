@@ -1,5 +1,4 @@
 module SweeperHelper
-
   def expire_fragment(*args)
     ActionController::Base.new().expire_fragment(*args)
   end
@@ -8,14 +7,14 @@ module SweeperHelper
 
   def expire_friends(profile)
     # public friends page
-    pages =  profile.friends.count / Noosfero::Constants::PROFILE_PER_PAGE + 1
+    pages = profile.friends.count / Noosfero::Constants::PROFILE_PER_PAGE + 1
     (1..pages).each do |i|
-      expire_timeout_fragment(profile.friends_cache_key(:npage => i.to_s))
+      expire_timeout_fragment(profile.friends_cache_key(npage: i.to_s))
     end
     # manage friends page
-    pages =  profile.friends.count / Noosfero::Constants::PROFILE_PER_PAGE + 1
+    pages = profile.friends.count / Noosfero::Constants::PROFILE_PER_PAGE + 1
     (1..pages).each do |i|
-      expire_timeout_fragment(profile.manage_friends_cache_key(:npage => i.to_s))
+      expire_timeout_fragment(profile.manage_friends_cache_key(npage: i.to_s))
     end
 
     expire_blocks_cache(profile, [:profile])
@@ -23,19 +22,19 @@ module SweeperHelper
 
   def expire_communities(profile)
     # public communities page
-    pages =  profile.communities.count / Noosfero::Constants::PROFILE_PER_PAGE + 1
+    pages = profile.communities.count / Noosfero::Constants::PROFILE_PER_PAGE + 1
     (1..pages).each do |i|
-      expire_timeout_fragment(profile.communities_cache_key(:npage => i.to_s))
+      expire_timeout_fragment(profile.communities_cache_key(npage: i.to_s))
     end
 
     # communities block
-    blocks = profile.blocks.select{|b| b.kind_of?(CommunitiesBlock)}
+    blocks = profile.blocks.select { |b| b.kind_of?(CommunitiesBlock) }
     BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_enterprises(profile)
     # enterprises and favorite enterprises blocks
-    blocks = profile.blocks.select {|b| [EnterprisesBlock, FavoriteEnterprisesBlock].any?{|klass| b.kind_of?(klass)} }
+    blocks = profile.blocks.select { |b| [EnterprisesBlock, FavoriteEnterprisesBlock].any? { |klass| b.kind_of?(klass) } }
     BlockSweeper.expire_blocks(blocks)
   end
 
@@ -59,16 +58,15 @@ module SweeperHelper
 
     blocks_to_expire = []
     if profile
-      profile.blocks.each {|block|
+      profile.blocks.each { |block|
         blocks_to_expire << block if expire_block?(block, causes)
       }
     end
-    environment.blocks.each {|block|
+    environment.blocks.each { |block|
       blocks_to_expire << block if expire_block?(block, causes)
     }
 
     blocks_to_expire.uniq!
     BlockSweeper.expire_blocks(blocks_to_expire)
   end
-
 end

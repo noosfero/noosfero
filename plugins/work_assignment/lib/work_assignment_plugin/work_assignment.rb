@@ -1,23 +1,22 @@
 class WorkAssignmentPlugin::WorkAssignment < Folder
-
-  settings_items :publish_submissions, :type => :boolean, :default => false
-  settings_items :default_email, :type => :string, :default => ""
-  settings_items :allow_visibility_edition, :type => :boolean, :default => false
+  settings_items :publish_submissions, type: :boolean, default: false
+  settings_items :default_email, type: :string, default: ""
+  settings_items :allow_visibility_edition, type: :boolean, default: false
 
   attr_accessible :publish_submissions
   attr_accessible :default_email
   attr_accessible :allow_visibility_edition
 
   def self.icon_name(article = nil)
-    'work-assignment'
+    "work-assignment"
   end
 
   def self.short_description
-    _('Work Assignment')
+    _("Work Assignment")
   end
 
   def self.description
-    _('Defines a work to be done by the members and receives their submissions about this work.')
+    _("Defines a work to be done by the members and receives their submissions about this work.")
   end
 
   def self.versioned_name(submission, folder)
@@ -33,20 +32,20 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def to_html(options = {})
-    -> context { render :file => 'content_viewer/work_assignment.html.erb' }
+    ->context { render file: "content_viewer/work_assignment.html.erb" }
   end
 
   def find_or_create_author_folder(author)
     children.find_by(slug: author.name.to_slug) || Folder.create!(
-                                                                  {
-                                                                    :name => author.name,
-                                                                    :parent => self,
-                                                                    :profile => profile,
-                                                                    :author => author,
-                                                                    :published => publish_submissions,
-                                                                  },
-                                                                  :without_protection => true
-                                                                 )
+      {
+        name: author.name,
+        parent: self,
+        profile: profile,
+        author: author,
+        published: publish_submissions,
+      },
+      { without_protection: true }
+    )
   end
 
   def submissions

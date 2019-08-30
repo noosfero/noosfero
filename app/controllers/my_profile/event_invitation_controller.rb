@@ -1,7 +1,5 @@
 class EventInvitationController < MyProfileController
-
   def change_invitation_decision
-
     if params.has_key?(:invitation)
       invitation = EventInvitation.find(params[:invitation])
       invitation.decision = params[:event_invitation][:decision]
@@ -17,22 +15,21 @@ class EventInvitationController < MyProfileController
     if invitation && invitation.save
       respond_to do |format|
         format.js do
-          render :json => {
-              :render_target => "invitation-#{invitation.id}",
-              :html => render_to_string(:partial => 'events/event_invitations',
-                                        :locals => { event: invitation.event }),
-              :msg => 'ok'
-           }
+          render json: {
+            render_target: "invitation-#{invitation.id}",
+            html: render_to_string(partial: "events/event_invitations",
+                                   locals: { event: invitation.event }),
+            msg: "ok"
+          }
         end
       end
     else
       respond_to do |format|
         format.js do
-          render :json => { :render_target => nil,
-                            :msg => _('Sorry, we can not record your decision.') }
+          render json: { render_target: nil,
+                         msg: _("Sorry, we can not record your decision.") }
         end
       end
     end
   end
-
 end

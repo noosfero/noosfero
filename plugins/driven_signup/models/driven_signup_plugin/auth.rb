@@ -1,5 +1,4 @@
 class DrivenSignupPlugin::Auth < ApplicationRecord
-
   attr_accessible :name, :token
 
   belongs_to :environment, optional: true
@@ -11,5 +10,4 @@ class DrivenSignupPlugin::Auth < ApplicationRecord
   def token
     self[:token] ||= SecureRandom.hex 16
   end
-
 end

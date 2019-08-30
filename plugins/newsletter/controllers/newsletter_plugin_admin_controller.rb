@@ -1,12 +1,11 @@
 class NewsletterPluginAdminController < PluginAdminController
-
   def index
     @newsletter = NewsletterPlugin::Newsletter.where(environment_id: environment.id).first_or_initialize
 
     if request.post?
       # token input gives the param as a comma separated string
       params[:newsletter] = {} if params[:newsletter].blank?
-      params[:newsletter][:blog_ids] = (params[:newsletter][:blog_ids] || '').split(',')
+      params[:newsletter][:blog_ids] = (params[:newsletter][:blog_ids] || "").split(",")
       @newsletter.person_id = user.id
 
       file = params[:file]
@@ -15,34 +14,33 @@ class NewsletterPluginAdminController < PluginAdminController
       end
 
       if !@newsletter.errors.any? && @newsletter.update_attributes(params[:newsletter])
-        if params['visualize']
+        if params["visualize"]
           @message = @newsletter.body
-          render :file => 'mailing/sender/notification', :layout => false
+          render file: "mailing/sender/notification", layout: false
         else
-          session[:notice] = _('Newsletter updated.')
+          session[:notice] = _("Newsletter updated.")
         end
       else
-        session[:notice] = _('Newsletter could not be saved.')
+        session[:notice] = _("Newsletter could not be saved.")
       end
     end
 
     @blogs = Blog.includes(:profile).where id: @newsletter.blog_ids
   end
 
-  #TODO: Make this query faster
+  # TODO: Make this query faster
   def search_profiles
     profiles = environment.profiles
-    blogs = Blog.joins(:profile).where(profiles: {environment_id: environment.id})
+    blogs = Blog.joins(:profile).where(profiles: { environment_id: environment.id })
 
-    found_profiles = find_by_contents(:profiles, environment, profiles, params['q'], {:page => 1})[:results]
-    found_blogs = find_by_contents(:blogs, environment, blogs, params['q'], {:page => 1})[:results]
+    found_profiles = find_by_contents(:profiles, environment, profiles, params["q"], page: 1)[:results]
+    found_blogs = find_by_contents(:blogs, environment, blogs, params["q"], page: 1)[:results]
 
     results = (found_blogs + found_profiles.map(&:blogs).flatten).uniq
-    render plain: results.map { |blog| {:id => blog.id, :name => _("%s in %s") % [blog.name, blog.profile.name]} }.to_json
+    render plain: results.map { |blog| { id: blog.id, name: _("%s in %s") % [blog.name, blog.profile.name] } }.to_json
   end
 
   def recipients
     @additional_recipients = NewsletterPlugin::Newsletter.where(environment_id: environment.id).first_or_initialize.additional_recipients
   end
-
 end

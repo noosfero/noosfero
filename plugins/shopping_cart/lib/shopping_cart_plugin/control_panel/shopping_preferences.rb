@@ -1,17 +1,16 @@
 module ShoppingCartPlugin::ControlPanel
   class ShoppingPreferences < ControlPanel::Entry
     class << self
-
       def name
-        _('Preferences')
+        _("Preferences")
       end
 
       def section
-        'shopping'
+        "shopping"
       end
 
       def icon
-        'shopping-bag'
+        "shopping-bag"
       end
 
       def priority
@@ -19,10 +18,10 @@ module ShoppingCartPlugin::ControlPanel
       end
 
       def url(profile)
-        {:controller => 'shopping_cart_plugin_myprofile', :action => 'edit'}
+        { controller: "shopping_cart_plugin_myprofile", action: "edit" }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.enterprise?
       end
     end

@@ -1,15 +1,15 @@
 class ControlPanel::EnterpriseValidation < ControlPanel::Entry
   class << self
     def name
-      _('Validation')
+      _("Validation")
     end
 
     def section
-      'enterprise'
+      "enterprise"
     end
 
     def icon
-      'certificate'
+      "certificate"
     end
 
     def priority
@@ -17,15 +17,15 @@ class ControlPanel::EnterpriseValidation < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('validate'), _('enterprise')]
+      [_("validate"), _("enterprise")]
     end
 
     def url(profile)
-      {:controller => 'enterprise_validation', :action => 'index'}
+      { controller: "enterprise_validation", action: "index" }
     end
 
-    def display?(user, profile, context={})
-      !profile.environment.enabled?('disable_asset_enterprises') && profile.is_validation_entity?
+    def display?(user, profile, context = {})
+      !profile.environment.enabled?("disable_asset_enterprises") && profile.is_validation_entity?
     end
   end
 end

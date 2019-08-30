@@ -1,1 +1,1 @@
-require 'benchmark'
+require "benchmark"

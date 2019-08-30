@@ -1,6 +1,6 @@
 class AddArchivedToArticles < ActiveRecord::Migration
   def up
-    add_column :articles, :archived, :boolean, :default => false
+    add_column :articles, :archived, :boolean, default: false
   end
 
   def down

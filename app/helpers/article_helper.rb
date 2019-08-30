@@ -1,185 +1,175 @@
 module ArticleHelper
-
   include TokenHelper
   include FormsHelper
 
   def article_reported_version(article)
-    search_path = Rails.root.join('app', 'views', 'shared', 'reported_versions')
-    partial_path = File.join('shared', 'reported_versions', 'profile', partial_for_class_in_view_path(article.class, search_path))
-    render_to_string(:partial => partial_path, :locals => {:article => article})
+    search_path = Rails.root.join("app", "views", "shared", "reported_versions")
+    partial_path = File.join("shared", "reported_versions", "profile", partial_for_class_in_view_path(article.class, search_path))
+    render_to_string(partial: partial_path, locals: { article: article })
   end
 
   def custom_options_for_article(article, tokenized_children)
     @article = article
 
     visibility_options(@article, tokenized_children) +
-    topic_creation(@article) +
-    content_tag('h4', _('Options')) +
-    content_tag('div',
-      content_tag(
-        'div',
-        check_box(:article, :archived) +
-        content_tag('label', _('Do not allow new content on this article and its children'), :for => 'article_archived_true')
-      ) +
-
-      (article.profile.has_members? ?
-      content_tag(
-        'div',
-        check_box(:article, :allow_members_to_edit) +
-        content_tag('label', _('Allow all members to edit this article'), :for => 'article_allow_members_to_edit')
-      ) :
-      '') +
-
-      content_tag(
-        'div',
-        check_box(:article, :accept_comments) +
-        content_tag('label', (article.parent && article.parent.forum? ? _('This topic is opened for replies') : _('I want to receive comments about this article')), :for => 'article_accept_comments')
-      ) +
-
-      content_tag(
-        'div',
-        check_box(:article, :notify_comments) +
-        content_tag('label', _('I want to receive a notification of each comment written by e-mail'), :for => 'article_notify_comments') +
-        observe_field(:article_accept_comments, :function => "jQuery('#article_notify_comments')[0].disabled = ! jQuery('#article_accept_comments')[0].checked;jQuery('#article_moderate_comments')[0].disabled = ! jQuery('#article_accept_comments')[0].checked")
-      ) +
-
-      content_tag(
-        'div',
-        check_box(:article, :moderate_comments) +
-        content_tag('label', _('I want to approve comments on this article'), :for => 'article_moderate_comments')
-      ) +
-
-      (article.can_display_hits? ?
-      content_tag(
-        'div',
-        check_box(:article, :display_hits) +
-        content_tag('label', _('I want this article to display the number of hits it received'), :for => 'article_display_hits')
-      ) : '') +
-
-      (article.can_display_versions? ?
-      content_tag(
-        'div',
-        check_box(:article, :display_versions) +
-        content_tag('label', _('I want this article to display a link to older versions'), :for => 'article_display_versions')
-      ) : '') +
-
-      (self.respond_to?(:extra_options) ? self.extra_options : "")
-    )
+      topic_creation(@article) +
+      content_tag("h4", _("Options")) +
+      content_tag("div",
+                  content_tag(
+                    "div",
+                    check_box(:article, :archived) +
+                    content_tag("label", _("Do not allow new content on this article and its children"), for: "article_archived_true")
+                  ) +
+                            (article.profile.has_members? ?
+                  content_tag(
+                    "div",
+                    check_box(:article, :allow_members_to_edit) +
+                    content_tag("label", _("Allow all members to edit this article"), for: "article_allow_members_to_edit")
+                  ) :
+                  "") +
+                            content_tag(
+                              "div",
+                              check_box(:article, :accept_comments) +
+                              content_tag("label", (article.parent && article.parent.forum? ? _("This topic is opened for replies") : _("I want to receive comments about this article")), for: "article_accept_comments")
+                            ) +
+                            content_tag(
+                              "div",
+                              check_box(:article, :notify_comments) +
+                              content_tag("label", _("I want to receive a notification of each comment written by e-mail"), for: "article_notify_comments") +
+                              observe_field(:article_accept_comments, function: "jQuery('#article_notify_comments')[0].disabled = ! jQuery('#article_accept_comments')[0].checked;jQuery('#article_moderate_comments')[0].disabled = ! jQuery('#article_accept_comments')[0].checked")
+                            ) +
+                            content_tag(
+                              "div",
+                              check_box(:article, :moderate_comments) +
+                              content_tag("label", _("I want to approve comments on this article"), for: "article_moderate_comments")
+                            ) +
+                            (article.can_display_hits? ?
+                  content_tag(
+                    "div",
+                    check_box(:article, :display_hits) +
+                    content_tag("label", _("I want this article to display the number of hits it received"), for: "article_display_hits")
+                  ) : "") +
+                            (article.can_display_versions? ?
+                  content_tag(
+                    "div",
+                    check_box(:article, :display_versions) +
+                    content_tag("label", _("I want this article to display a link to older versions"), for: "article_display_versions")
+                  ) : "") +
+                            (self.respond_to?(:extra_options) ? self.extra_options : ""))
   end
 
   def visibility_options(article, tokenized_children)
-    content_tag('h4', _('Post access')) +
-    content_tag( 'small', _('Who will be able to see your post?')) +
-    access_slider_field_tag('post-access', 'article[access]',
-                            article, article.default_slider_value,
-                            article.access_levels) +
-    content_tag('div', privacity_exceptions(@article, tokenized_children),
-                :class => 'access-items')
+    content_tag("h4", _("Post access")) +
+      content_tag("small", _("Who will be able to see your post?")) +
+      access_slider_field_tag("post-access", "article[access]",
+                              article, article.default_slider_value,
+                              article.access_levels) +
+      content_tag("div", privacity_exceptions(@article, tokenized_children),
+                  class: "access-items")
   end
 
   def topic_creation(article)
-    return '' unless article.forum?
+    return "" unless article.forum?
 
-    content_tag('h4', _('Topic creation')) +
-    content_tag( 'small', _('Who will be able to create new topics on this forum?')) +
-    access_slider_field_tag('topic-creation', 'article[topic_creation]', article.profile, article.topic_creation, article.topic_creation_access)
+    content_tag("h4", _("Topic creation")) +
+      content_tag("small", _("Who will be able to create new topics on this forum?")) +
+      access_slider_field_tag("topic-creation", "article[topic_creation]", article.profile, article.topic_creation, article.topic_creation_access)
   end
 
   def privacity_exceptions(article, tokenized_children)
-    content_tag('div',
-      content_tag('div',
-        (
-          if article.profile
-            add_option_to_followers(article, tokenized_children)
-          else
-            ''
-          end
-        )
-      ),
-      :style => "margin-left:10px"
-    )
+    content_tag("div",
+                content_tag("div",
+                            (
+                              if article.profile
+                                add_option_to_followers(article, tokenized_children)
+                              else
+                                ""
+                              end
+                            )),
+                style: "margin-left:10px")
   end
 
   def add_option_to_followers(article, tokenized_children)
     return if article.profile.person?
-    label_message = _('Community members will not view this content')
+
+    label_message = _("Community members will not view this content")
 
     check_box(
       :article,
       :show_to_followers,
-      {:class => "custom_privacy_option"},
+      { class: "custom_privacy_option" },
       "0",
       "1"
     ) +
-    content_tag(
-      'label',
-      label_message,
-      :for => 'article_show_to_followers',
-      :id => 'label_show_to_followers'
-    ) +
-    (article.profile.community? ?
       content_tag(
-        'div',
+        "label",
+        label_message,
+        for: "article_show_to_followers",
+        id: "label_show_to_followers"
+      ) +
+      (article.profile.community? ?
         content_tag(
-          'label',
-          _('Allow only community members entered below to view this content'),
-          :id => "text-input-search-exception-users"
-        ) +
-        token_input_field_tag(
-          :q,
-          'search-article-privacy-exceptions',
-          {:action => 'search_article_privacy_exceptions'},
-          {
-            :focus => false,
-            :hint_text => _('Type in a name of a community member'),
-            :pre_populate => tokenized_children
-          }
-        )
-      ) : '')
+          "div",
+          content_tag(
+            "label",
+            _("Allow only community members entered below to view this content"),
+            id: "text-input-search-exception-users"
+          ) +
+          token_input_field_tag(
+            :q,
+            "search-article-privacy-exceptions",
+            { action: "search_article_privacy_exceptions" },
+            {
+              focus: false,
+              hint_text: _("Type in a name of a community member"),
+              pre_populate: tokenized_children
+            }
+          )
+        ) : "")
   end
 
   def prepare_to_token_input(array)
-    array.map { |object| {:id => object.id, :name => object.name} }
+    array.map { |object| { id: object.id, name: object.name } }
   end
 
   def prepare_to_token_input_by_label(array)
-    array.map { |object| {:label => object.name, :value => object.name} }
+    array.map { |object| { label: object.name, value: object.name } }
   end
 
   def prepare_to_token_input_by_class(array)
-    array.map { |object| {:id => "#{object.class.name}_#{object.id || object.name}", :name => "#{object.name} (#{_(object.class.name)})", :class => object.class.name}}
+    array.map { |object| { id: "#{object.class.name}_#{object.id || object.name}", name: "#{object.name} (#{_(object.class.name)})", class: object.class.name } }
   end
 
   def cms_label_for_new_children
-    _('New article')
+    _("New article")
   end
 
   def cms_label_for_edit
-    _('Edit')
+    _("Edit")
   end
 
   def follow_button_text(article)
-    font_awesome(:add, _('Follow'))
+    font_awesome(:add, _("Follow"))
   end
 
   def unfollow_button_text(article)
-    font_awesome(:minus, _('Unfollow'))
+    font_awesome(:minus, _("Unfollow"))
   end
 
   def following_button(page, user)
-    if !user.blank? and user != page.author
+    if !user.blank? && (user != page.author)
       if page.is_followed_by? user
         link_to unfollow_button_text(page), { controller: :profile,
                                               profile: page.profile.identifier,
                                               action: :unfollow_article,
                                               article_id: page.id },
-                                              { title: "Unfollow" }
+                { title: "Unfollow" }
       else
         link_to follow_button_text(page), { controller: :profile,
                                             profile: page.profile.identifier,
                                             action: :follow_article,
                                             article_id: page.id },
-                                            { title: "Follow" }
+                { title: "Follow" }
       end
     end
   end
@@ -187,7 +177,7 @@ module ArticleHelper
   def filter_html(html, source)
     if @plugins && source && source.has_macro?
       html = convert_macro(html, source) unless @plugins.enabled_macros.blank?
-      #TODO This parse should be done through the macro infra, but since there
+      # TODO This parse should be done through the macro infra, but since there
       #     are old things that do not support it we are keeping this hot spot.
       html = @plugins.pipeline(:parse_content, html, source).first
     end
@@ -195,7 +185,7 @@ module ArticleHelper
   end
 
   def article_to_html(article, options = {})
-    options.merge!(:page => params[:npage])
+    options.merge!(page: params[:npage])
     content = article.to_html(options)
     content = content.kind_of?(Proc) ? self.instance_eval(&content).html_safe : content.html_safe
     filter_html(content, article)
@@ -216,56 +206,56 @@ module ArticleHelper
     end
 
     if @page != profile.home_page && !@page.has_posts? && @page.allow_delete?(user) && !remove_content_button(:delete, @page)
-      content = font_awesome(:trash, _('Delete'))
-      url = profile.admin_url.merge({ controller: 'cms', action: 'destroy', id: @page.id})
-      options = { method: :post, 'data-confirm' => delete_article_message(@page) }
+      content = font_awesome(:trash, _("Delete"))
+      url = profile.admin_url.merge(controller: "cms", action: "destroy", id: @page.id)
+      options = { method: :post, "data-confirm" => delete_article_message(@page) }
       actions << link_to(content, url, options)
     end
 
     if @page.allow_spread?(user) && !remove_content_button(:spread, @page)
-      content = font_awesome(:spread, _('Spread'))
+      content = font_awesome(:spread, _("Spread"))
       url = publish_cms_path(profile.identifier, @page.id)
-      actions << link_to(content, url, { modal: true} ) if url
+      actions << link_to(content, url, modal: true) if url
     end
 
     if @page.allow_edit?(user) && @page.kind_of?(Event) && !remove_content_button(:invite_friends, @page)
-      content = font_awesome(:add_user, _('Invite Friends'))
-      url = profile.admin_url.merge({controller: 'cms', action: 'invite_to_event', id: @page.id})
+      content = font_awesome(:add_user, _("Invite Friends"))
+      url = profile.admin_url.merge(controller: "cms", action: "invite_to_event", id: @page.id)
       actions << link_to(content, url) if url
     end
 
     if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user)))
       if @page.translatable? && !@page.native_translation.language.blank? && !remove_content_button(:locale, @page)
-        content = font_awesome(:language, _('Add translation'))
+        content = font_awesome(:language, _("Add translation"))
         parent_id = (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent))
-        url = profile.admin_url.merge(controller: 'cms', action: 'new', parent_id: parent_id, type: @page.type, article: { translation_of_id: @page.native_translation.id })
+        url = profile.admin_url.merge(controller: "cms", action: "new", parent_id: parent_id, type: @page.type, article: { translation_of_id: @page.native_translation.id })
         actions << link_to(content, url_for(url).html_safe)
       end
 
       if !@page.archived?
-        actions << modal_link_to(font_awesome(:file, label_for_new_article(@page)), profile.admin_url.merge(controller: 'cms', action: 'new', parent_id: (@page.folder? ? @page : @page.parent))) unless remove_content_button(:new, @page)
+        actions << modal_link_to(font_awesome(:file, label_for_new_article(@page)), profile.admin_url.merge(controller: "cms", action: "new", parent_id: (@page.folder? ? @page : @page.parent))) unless remove_content_button(:new, @page)
       end
 
       if !remove_content_button(:clone, @page)
         content = font_awesome(:clone, label_for_clone_article(@page))
-        url = profile.admin_url.merge({ controller: 'cms', action: 'new', id: @page.id, clone: true, parent_id: (@page.folder? ? @page : @page.parent), type: @page.class})
+        url = profile.admin_url.merge(controller: "cms", action: "new", id: @page.id, clone: true, parent_id: (@page.folder? ? @page : @page.parent), type: @page.class)
         actions << expirable_content_reference(@page, :clone, content, url)
       end
     end
 
     if @page.accept_uploads? && @page.allow_create?(user) && !remove_content_button(:upload, @page)
-      actions << link_to(font_awesome(:upload, _('Upload files')), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) unless remove_content_button(:upload, @page)
+      actions << link_to(font_awesome(:upload, _("Upload files")), profile.admin_url.merge(controller: "cms", action: "upload_files", parent_id: (@page.folder? ? @page : @page.parent))) unless remove_content_button(:upload, @page)
     end
 
     if !@page.allow_create?(user) && profile.organization? && (@page.blog? || @page.parent && @page.parent.blog?) && !remove_content_button(:suggest, @page)
-      content = font_awesome(:lightbulb, _('Suggest an article'))
-      url = profile.admin_url.merge({ controller: 'cms', action: 'suggest_an_article' })
-      options = { id: 'suggest-article-link' }
+      content = font_awesome(:lightbulb, _("Suggest an article"))
+      url = profile.admin_url.merge(controller: "cms", action: "suggest_an_article")
+      options = { id: "suggest-article-link" }
       actions << link_to(content, url, options)
     end
 
     if @page.display_versions?
-      actions << link_to(font_awesome(:clock, _('All versions')), { controller: 'content_viewer', profile: profile.identifier, action: 'article_versions' }, id: 'article-versions-link')
+      actions << link_to(font_awesome(:clock, _("All versions")), { controller: "content_viewer", profile: profile.identifier, action: "article_versions" }, { id: "article-versions-link" })
     end
 
     plugins_toolbar_actions_for_article(@page).each do |plugin_button|
@@ -278,18 +268,18 @@ module ArticleHelper
     actions << fullscreen_buttons("#article") << report_abuse(profile, :link, @page)
   end
 
-  def path_to_parents(article=nil, display_article_name=false)
+  def path_to_parents(article = nil, display_article_name = false)
     if article
-      path = link_to(article.profile.name, article.profile.url, class: 'path-to-parent')
+      path = link_to(article.profile.name, article.profile.url, class: "path-to-parent")
       parents = article.hierarchy.select { |parent| parent != article }
       parents.each do |parent|
-          path += link_to(font_awesome(:angle_right, parent.name), parent.url, class: 'path-to-parent')
+        path += link_to(font_awesome(:angle_right, parent.name), parent.url, class: "path-to-parent")
       end
       path += link_to(font_awesome(:angle_right, article.name),
-                      '#', class: 'path-to-parent') if display_article_name
+                      "#", class: "path-to-parent") if display_article_name
     else
-      path = link_to(profile.name, profile.url, class: 'path-to-parent')
+      path = link_to(profile.name, profile.url, class: "path-to-parent")
     end
-    content_tag(:div, path, class: 'path-to-parents')
+    content_tag(:div, path, class: "path-to-parents")
   end
 end

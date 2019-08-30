@@ -11,7 +11,7 @@ class ActivityPresenter < Presenter
     if instance.kind_of?(ProfileActivity)
       target(instance.activity)
     elsif instance.kind_of?(ActionTracker::Record)
-       instance.target
+      instance.target
     else
       instance
     end
@@ -32,8 +32,8 @@ class ActivityPresenter < Presenter
   def hidden_for?(user)
     (target.respond_to?(:display_to?) &&
     !target.display_to?(user)) ||
-    !target_profile.display_to?(user, :wall) ||
-    !target_profile.allow_followers?
+      !target_profile.display_to?(user, :wall) ||
+      !target_profile.allow_followers?
   end
 
   def involved?(user)
@@ -42,20 +42,20 @@ class ActivityPresenter < Presenter
 
   private
 
-  def target_profile
-    if target.is_a? Profile
-      target
-    elsif target.is_a? Article
-      target.profile
-    elsif target.is_a? Scrap
-      target.receiver
-    else
-      owner
+    def target_profile
+      if target.is_a? Profile
+        target
+      elsif target.is_a? Article
+        target.profile
+      elsif target.is_a? Scrap
+        target.receiver
+      else
+        owner
+      end
     end
-  end
 end
 
 # Preload ActivityPresenter subclasses to allow `Presenter.for()` to work
-Dir.glob(File.join('app', 'presenters', 'activity', '*.rb')) do |file|
+Dir.glob(File.join("app", "presenters", "activity", "*.rb")) do |file|
   load file
 end

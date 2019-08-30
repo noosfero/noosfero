@@ -4,8 +4,8 @@ class AddPriceRelatedColumnsToInputs < ActiveRecord::Migration
     add_column :inputs, :unit, :string
     add_column :inputs, :price_per_unit, :decimal
     add_column :inputs, :amount_used, :decimal
-    add_column :inputs, :relevant_to_price, :boolean, :default => true
-    add_column :inputs, :is_from_solidarity_economy, :boolean, :default => false
+    add_column :inputs, :relevant_to_price, :boolean, default: true
+    add_column :inputs, :is_from_solidarity_economy, :boolean, default: false
   end
 
   def self.down

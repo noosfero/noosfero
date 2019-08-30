@@ -1,5 +1,5 @@
 class AddThemeAttribute < ActiveRecord::Migration
-  TABLE = [ :profiles, :environments ]
+  TABLE = [:profiles, :environments]
 
   def self.up
     TABLE.each do |table|

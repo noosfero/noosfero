@@ -1,21 +1,20 @@
 class CommentParagraphPlugin::DiscussionBlock < Block
-
-  settings_items :presentation_mode, :type => String, :default => 'title_only'
-  settings_items :total_items, :type => Integer, :default => 5
-  settings_items :fixed_documents_ids, :type => Array, :default => []
-  settings_items :discussion_status, :type => Integer
-  settings_items :use_portal_community, :type => :boolean, :default => false
+  settings_items :presentation_mode, type: String, default: "title_only"
+  settings_items :total_items, type: Integer, default: 5
+  settings_items :fixed_documents_ids, type: Array, default: []
+  settings_items :discussion_status, type: Integer
+  settings_items :use_portal_community, type: :boolean, default: false
 
   attr_accessible :presentation_mode, :discussion_status, :use_portal_community, :total_items
 
-  DISCUSSION = ['CommentParagraphPlugin::Discussion']
+  DISCUSSION = ["CommentParagraphPlugin::Discussion"]
 
   STATUS_NOT_OPENED = 0
   STATUS_AVAILABLE = 1
   STATUS_CLOSED = 2
 
   def self.description
-    c_('Discussion Articles')
+    c_("Discussion Articles")
   end
 
   def help
@@ -24,12 +23,14 @@ class CommentParagraphPlugin::DiscussionBlock < Block
 
   def discussions(person = nil)
     amount = self.total_items - self.fixed_documents_ids.length
-    if(amount <= 0 )
+    if (amount <= 0)
       return [];
     end
+
     current_time = Time.now
     return [] if holder.blank?
-    discussions = holder.articles.accessible_to(person).where(type: DISCUSSION).order('start_date DESC, end_date ASC, created_at DESC').limit(amount)
+
+    discussions = holder.articles.accessible_to(person).where(type: DISCUSSION).order("start_date DESC, end_date ASC, created_at DESC").limit(amount)
     case discussion_status
     when STATUS_NOT_OPENED
       discussions = discussions.where("start_date > ?", current_time)
@@ -43,11 +44,12 @@ class CommentParagraphPlugin::DiscussionBlock < Block
   end
 
   def fixed_documents
-    holder.articles.where(type: DISCUSSION, id: self.fixed_documents_ids).order('start_date DESC, end_date ASC, created_at DESC')
+    holder.articles.where(type: DISCUSSION, id: self.fixed_documents_ids).order("start_date DESC, end_date ASC, created_at DESC")
   end
 
   def holder
     return nil if self.box.nil? || self.box.owner.nil?
+
     if environment_owner?
       use_portal_community ? self.box.owner.portal_community : self.box.owner
     else
@@ -68,11 +70,11 @@ class CommentParagraphPlugin::DiscussionBlock < Block
     }.as_json
   end
 
-  def api_content= params
+  def api_content=(params)
     super
-    self.total_items= params[:total_items]
-    self.discussion_status= params[:discussion_status]
-    self.fixed_documents_ids= params[:fixed_documents_ids]
+    self.total_items = params[:total_items]
+    self.discussion_status = params[:discussion_status]
+    self.fixed_documents_ids = params[:fixed_documents_ids]
   end
 
   def display_api_content_by_default?

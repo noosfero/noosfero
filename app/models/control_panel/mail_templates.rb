@@ -1,15 +1,15 @@
 class ControlPanel::MailTemplates < ControlPanel::Entry
   class << self
     def name
-      _('Templates')
+      _("Templates")
     end
 
     def section
-      'mail'
+      "mail"
     end
 
     def icon
-      'envelope-open'
+      "envelope-open"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::MailTemplates < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('email')]
+      [_("email")]
     end
 
     def url(profile)
-      {:controller => 'profile_email_templates', :action => 'index'}
+      { controller: "profile_email_templates", action: "index" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.organization?
     end
   end

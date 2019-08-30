@@ -1,18 +1,17 @@
 require_relative "../test_helper"
 
 class EventsHelperTest < ActionView::TestCase
-
   include EventsHelper
 
-  should 'list events' do
-    user = create_user('userwithevents').person
+  should "list events" do
+    user = create_user("userwithevents").person
     stubs(:user).returns(user)
 
-    event1 = Event.new(name: "Event 1", start_date: Date.today, end_date: (Date.today + 1.day), address: 'The Shire')
+    event1 = Event.new(name: "Event 1", start_date: Date.today, end_date: (Date.today + 1.day), address: "The Shire")
     event1.profile = user
     event1.save
 
-    event2 = Event.new(name: 'Event 2', start_date: Date.today, end_date: (Date.today + 1.day), address: 'Valfenda')
+    event2 = Event.new(name: "Event 2", start_date: Date.today, end_date: (Date.today + 1.day), address: "Valfenda")
     event2.profile = user
     event2.save
 
@@ -22,89 +21,89 @@ class EventsHelperTest < ActionView::TestCase
     assert_match /Event 2/, result
   end
 
-  should 'populate calendar with links on days that have events' do
-    user = create_user('userwithevents').person
+  should "populate calendar with links on days that have events" do
+    user = create_user("userwithevents").person
     stubs(:user).returns(user)
-    event = fast_create(Event, :profile_id => user.id)
+    event = fast_create(Event, profile_id: user.id)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, true, true]
   end
 
-  should 'hide private events from guests' do
-    user = create_user('userwithevents').person
+  should "hide private events from guests" do
+    user = create_user("userwithevents").person
     stubs(:user).returns(nil)
-    event = fast_create(Event, :profile_id => user.id, :access => Entitlement::Levels.levels[:self])
+    event = fast_create(Event, profile_id: user.id, access: Entitlement::Levels.levels[:self])
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, false, true]
   end
 
-  should 'hide events from invisible profiles from guests' do
-    user = create_user('usernonvisible', {}, {:visible => false}).person
+  should "hide events from invisible profiles from guests" do
+    user = create_user("usernonvisible", {}, { visible: false }).person
     stubs(:user).returns(nil)
-    event = fast_create(Event, :profile_id => user.id,
-                        :published => true,
-                        :access => 25)
+    event = fast_create(Event, profile_id: user.id,
+                               published: true,
+                               access: 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, false, true]
   end
 
-  should 'hide events from private profiles from guests' do
-    user = create_user('usernonvisible', {}, {:visible => false}).person
+  should "hide events from private profiles from guests" do
+    user = create_user("usernonvisible", {}, { visible: false }).person
     stubs(:user).returns(nil)
-    event = fast_create(Event, :profile_id => user.id,
-                        :published => true,
-                        :access => 25)
+    event = fast_create(Event, profile_id: user.id,
+                               published: true,
+                               access: 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, false, true]
   end
 
-  should 'show private events to owner' do
-    user = create_user('userwithevents').person
+  should "show private events to owner" do
+    user = create_user("userwithevents").person
     stubs(:user).returns(user)
-    event = fast_create(Event, :profile_id => user.id,
-                        :published => true,
-                        :access => 25)
+    event = fast_create(Event, profile_id: user.id,
+                               published: true,
+                               access: 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, true, true]
   end
 
-  should 'show events from invisible profiles to owner' do
-    user = create_user('usernonvisible', {}, {:visible => false}).person
+  should "show events from invisible profiles to owner" do
+    user = create_user("usernonvisible", {}, { visible: false }).person
     stubs(:user).returns(user)
-    event = fast_create(Event, :profile_id => user.id,
-                        :published => true,
-                        :access => 25)
+    event = fast_create(Event, profile_id: user.id,
+                               published: true,
+                               access: 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, true, true]
   end
 
-  should 'show events from private profiles to owner' do
-    user = create_user('usernonvisible', {}, {:visible => false}).person
+  should "show events from private profiles to owner" do
+    user = create_user("usernonvisible", {}, { visible: false }).person
     stubs(:user).returns(user)
-    event = fast_create(Event, :profile_id => user.id,
-                        :published => true,
-                        :access => 25)
+    event = fast_create(Event, profile_id: user.id,
+                               published: true,
+                               access: 25)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, true, true]
   end
 
-  should 'populate calendar for dates with timezone' do
-    user = create_user('userwithevents').person
+  should "populate calendar for dates with timezone" do
+    user = create_user("userwithevents").person
     stubs(:user).returns(user)
-    event = fast_create(Event, :profile_id => user.id, :start_date => ActiveSupport::TimeZone.new('Brasilia').now)
+    event = fast_create(Event, profile_id: user.id, start_date: ActiveSupport::TimeZone.new("Brasilia").now)
     date = event.start_date
     calendar = populate_calendar(date, Environment.default.events)
     assert_includes calendar, [date.to_date, true, true]
   end
 
   protected
-  include NoosferoTestHelper
 
+    include NoosferoTestHelper
 end

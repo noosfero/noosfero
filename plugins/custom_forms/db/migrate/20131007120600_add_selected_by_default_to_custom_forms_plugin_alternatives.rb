@@ -1,6 +1,6 @@
 class AddSelectedByDefaultToCustomFormsPluginAlternatives < ActiveRecord::Migration[5.1]
   def self.up
-    add_column :custom_forms_plugin_alternatives, :selected_by_default, :boolean, :null => false, :default => false
+    add_column :custom_forms_plugin_alternatives, :selected_by_default, :boolean, null: false, default: false
     CustomFormsPlugin::Field.find_each do |f|
       f.alternatives.each do |a|
         a.update_attribute(:selected_by_default, true) if a.label == f.default_value

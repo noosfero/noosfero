@@ -1,5 +1,4 @@
 class AdminNotificationsPluginPublicController < PublicController
-
   helper AdminNotificationsPlugin::NotificationHelper
   include AdminNotificationsPlugin::NotificationHelper
 
@@ -44,5 +43,4 @@ class AdminNotificationsPluginPublicController < PublicController
 
     render json: result
   end
-
 end

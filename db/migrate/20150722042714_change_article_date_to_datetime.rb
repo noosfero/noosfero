@@ -1,5 +1,4 @@
 class ChangeArticleDateToDatetime < ActiveRecord::Migration
-
   def up
     change_table :articles do |t|
       t.change :start_date, :datetime
@@ -23,5 +22,4 @@ class ChangeArticleDateToDatetime < ActiveRecord::Migration
       t.change :end_date, :date
     end
   end
-
 end

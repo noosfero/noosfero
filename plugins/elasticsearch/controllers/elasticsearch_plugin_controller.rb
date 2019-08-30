@@ -1,5 +1,5 @@
-require_relative '../helpers/elasticsearch_helper'
-require_relative '../helpers/elasticsearch_plugin_helper'
+require_relative "../helpers/elasticsearch_helper"
+require_relative "../helpers/elasticsearch_plugin_helper"
 
 class ElasticsearchPluginController < ApplicationController
   no_design_blocks
@@ -16,7 +16,7 @@ class ElasticsearchPluginController < ApplicationController
     define_categories
     define_results
     respond_to do |format|
-      format.html { render :action => 'search' }
+      format.html { render action: "search" }
       format.js
       params["format"] = ""
     end
@@ -43,5 +43,4 @@ class ElasticsearchPluginController < ApplicationController
     @categories = Category.where(parent: nil)
     @selected_categories = (params[:categories] || "").split(",")
   end
-
 end

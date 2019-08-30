@@ -1,9 +1,8 @@
 class RssFeed < Article
-
   attr_accessible :limit, :enabled, :language, :include, :feed_item_description
 
   def self.type_name
-    _('RssFeed')
+    _("RssFeed")
   end
 
   # i dont know why before filter dont work here
@@ -28,10 +27,10 @@ class RssFeed < Article
     self.body[:feed_item_description] = feed_item_description
   end
 
-  settings_items :limit, :type => :integer, :default => 10
+  settings_items :limit, type: :integer, default: 10
 
   def limit_with_body_change=(value)
-    #UPGRADE Leandro: I add this line to save the serialize attribute
+    # UPGRADE Leandro: I add this line to save the serialize attribute
     self.body_will_change!
     self.limit_without_body_change = value
   end
@@ -41,7 +40,7 @@ class RssFeed < Article
 
   # FIXME this should be validates_numericality_of, but Rails 2.0.2 does not
   # support validates_numericality_of with virtual attributes
-  validates_format_of :limit, :with => /\d+/, :if => :limit
+  validates_format_of :limit, with: /\d+/, if: :limit
 
   # determinates what to include in the feed. Possible values are +:all+
   # (include everything from the profile) and :parent_and_children (include
@@ -51,10 +50,11 @@ class RssFeed < Article
   def include
     settings[:include]
   end
+
   def include=(value)
     settings[:include] = value
   end
-  validates_inclusion_of :include, :in => [ 'all', 'parent_and_children' ], :if => :include
+  validates_inclusion_of :include, in: ["all", "parent_and_children"], if: :include
 
   # TODO
   def to_html(options = {})
@@ -63,7 +63,7 @@ class RssFeed < Article
 
   # RSS feeds have type =text/xml=.
   def mime_type
-    'text/xml'
+    "text/xml"
   end
 
   def download?(view = nil)
@@ -73,24 +73,25 @@ class RssFeed < Article
   include Rails.application.routes.url_helpers
   def fetch_articles
     if parent && parent.has_posts?
-      language = self.language.blank? ? {} : { :language => self.language }
-      return parent.posts.where({access: Entitlement::Levels.levels[:visitors], published: true}.merge language).limit(self.limit).order('id desc')
+      language = self.language.blank? ? {} : { language: self.language }
+      return parent.posts.where({ access: Entitlement::Levels.levels[:visitors], published: true }.merge language).limit(self.limit).order("id desc")
     end
 
     articles =
-      if (self.include == 'parent_and_children') && self.parent
+      if (self.include == "parent_and_children") && self.parent
         self.parent.map_traversal
       else
         profile.last_articles(self.limit)
       end
   end
+
   def data
     articles = fetch_articles.select { |a| a != self }
     FeedWriter.new.write(
       articles,
-      :title => _("%s's RSS feed") % (self.profile.name),
-      :description => _("%s's content published at %s") % [self.profile.name, self.profile.environment.name],
-      :link => url_for(self.profile.url)
+      title: _("%s's RSS feed") % (self.profile.name),
+      description: _("%s's content published at %s") % [self.profile.name, self.profile.environment.name],
+      link: url_for(self.profile.url)
     )
   end
 
@@ -103,15 +104,15 @@ class RssFeed < Article
   end
 
   def self.short_description
-    _('RSS Feed')
+    _("RSS Feed")
   end
 
   def self.description
-    _('Provides a news feed of your more recent articles.')
+    _("Provides a news feed of your more recent articles.")
   end
 
   def self.icon_name(article = nil)
-    'rss-feed'
+    "rss-feed"
   end
 
   def can_display_hits?
@@ -119,7 +120,6 @@ class RssFeed < Article
   end
 
   def icon
-    'rss'
+    "rss"
   end
-
 end

@@ -1,9 +1,9 @@
 #!/usr/bin/env ruby
 
-require 'yaml'
-require 'erb'
+require "yaml"
+require "erb"
 
-config = YAML.load(ERB.new(File.read(File.dirname(__FILE__) + '/../config/database.yml')).result)['production']
+config = YAML.load(ERB.new(File.read(File.dirname(__FILE__) + "/../config/database.yml")).result)["production"]
 
 puts "[PostgreSQLEjabberdNoosfero]"
 puts "Description      = PostgreSQL Noosfero ejabberd database"

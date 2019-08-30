@@ -1,4 +1,5 @@
 # encoding: UTF-8
+
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -12,7 +13,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 20180808151241) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.integer  "version"
     t.string   "name"
     t.string   "slug"
-    t.text     "path",                 default: ""
+    t.text     "path", default: ""
     t.integer  "parent_id"
     t.text     "body"
     t.text     "abstract"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.integer  "hits",                 default: 0
     t.datetime "published_at"
     t.string   "source"
-    t.boolean  "highlighted",          default: false
+    t.boolean  "highlighted", default: false
     t.string   "external_link"
     t.boolean  "thumbnails_processed", default: false
     t.boolean  "is_image",             default: false
@@ -110,7 +110,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.integer  "license_id"
     t.integer  "image_id"
     t.integer  "position"
-    t.integer  "spam_comments_count",  default: 0
+    t.integer  "spam_comments_count", default: 0
     t.integer  "author_id"
     t.integer  "created_by_id"
   end
@@ -124,7 +124,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   create_table "articles", force: :cascade do |t|
     t.string   "name"
     t.string   "slug"
-    t.text     "path",                 default: ""
+    t.text     "path", default: ""
     t.integer  "parent_id"
     t.text     "body"
     t.text     "abstract"
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.integer  "hits",                 default: 0
     t.datetime "published_at"
     t.string   "source"
-    t.boolean  "highlighted",          default: false
+    t.boolean  "highlighted", default: false
     t.string   "external_link"
     t.boolean  "thumbnails_processed", default: false
     t.boolean  "is_image",             default: false
@@ -192,7 +192,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   create_table "articles_categories", id: false, force: :cascade do |t|
     t.integer "article_id"
     t.integer "category_id"
-    t.boolean "virtual",     default: false
+    t.boolean "virtual", default: false
   end
 
   add_index "articles_categories", ["article_id"], name: "index_articles_categories_on_article_id", using: :btree
@@ -204,11 +204,11 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.string   "type"
     t.text     "settings"
     t.integer  "position"
-    t.boolean  "enabled",         default: true
+    t.boolean  "enabled", default: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.datetime "fetched_at"
-    t.boolean  "mirror",          default: false
+    t.boolean  "mirror", default: false
     t.integer  "mirror_block_id"
     t.integer  "observers_id"
     t.string   "subtitle",        default: ""
@@ -233,10 +233,10 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   create_table "categories", force: :cascade do |t|
     t.string  "name"
     t.string  "slug"
-    t.text    "path",                      default: ""
+    t.text    "path", default: ""
     t.integer "environment_id"
     t.integer "parent_id"
-    t.string  "type",                      default: "Category"
+    t.string  "type", default: "Category"
     t.float   "lat"
     t.float   "lng"
     t.boolean "display_in_menu",           default: false
@@ -245,7 +245,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.integer "image_id"
     t.string  "acronym"
     t.string  "abbreviation"
-    t.string  "display_color",   limit: 6
+    t.string  "display_color", limit: 6
     t.text    "ancestry"
   end
 
@@ -254,14 +254,14 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   create_table "categories_profiles", id: false, force: :cascade do |t|
     t.integer "profile_id"
     t.integer "category_id"
-    t.boolean "virtual",     default: false
+    t.boolean "virtual", default: false
   end
 
   add_index "categories_profiles", ["category_id"], name: "index_categories_profiles_on_category_id", using: :btree
   add_index "categories_profiles", ["profile_id"], name: "index_categories_profiles_on_profile_id", using: :btree
 
   create_table "certifiers", force: :cascade do |t|
-    t.string   "name",           null: false
+    t.string   "name", null: false
     t.text     "description"
     t.string   "link"
     t.integer  "environment_id"
@@ -306,7 +306,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.string   "user_agent"
     t.string   "referrer"
     t.text     "settings"
-    t.jsonb    "metadata",    default: {}
+    t.jsonb    "metadata", default: {}
   end
 
   add_index "comments", ["metadata"], name: "index_comments_on_metadata", using: :gin
@@ -315,7 +315,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   create_table "contact_lists", force: :cascade do |t|
     t.text     "list"
     t.string   "error_fetching"
-    t.boolean  "fetched",        default: false
+    t.boolean  "fetched", default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -369,7 +369,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.string  "name"
     t.string  "owner_type"
     t.integer "owner_id"
-    t.boolean "is_default",      default: false
+    t.boolean "is_default", default: false
     t.string  "google_maps_key"
   end
 
@@ -397,11 +397,11 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.text     "design_data"
     t.text     "custom_header"
     t.text     "custom_footer"
-    t.string   "theme",                        default: "default",              null: false
+    t.string   "theme", default: "default", null: false
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "reports_lower_bound",          default: 0,                      null: false
+    t.integer  "reports_lower_bound",          default: 0, null: false
     t.string   "redirection_after_login",      default: "keep_on_same_page"
     t.text     "signup_welcome_text"
     t.string   "languages"
@@ -500,9 +500,9 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   create_table "kinds", force: :cascade do |t|
     t.string  "name"
     t.string  "type"
-    t.boolean "moderated",      default: false
+    t.boolean "moderated", default: false
     t.integer "environment_id"
-    t.jsonb   "metadata",       default: {}
+    t.jsonb   "metadata", default: {}
     t.string  "upload_quota"
   end
 
@@ -555,7 +555,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   add_index "national_regions", ["national_region_code"], name: "code_index", using: :btree
 
   create_table "price_details", force: :cascade do |t|
-    t.decimal  "price",              default: 0.0
+    t.decimal  "price", default: 0.0
     t.integer  "product_id"
     t.integer  "production_cost_id"
     t.datetime "created_at"
@@ -602,7 +602,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.integer  "image_id"
     t.string   "type"
     t.text     "data"
-    t.boolean  "archived",            default: false
+    t.boolean  "archived", default: false
   end
 
   add_index "products", ["created_at"], name: "index_products_on_created_at", using: :btree
@@ -641,7 +641,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.string   "type"
     t.string   "identifier"
     t.integer  "environment_id"
-    t.boolean  "active",                             default: true
+    t.boolean  "active", default: true
     t.string   "address"
     t.string   "contact_phone"
     t.integer  "home_page_id"
@@ -652,20 +652,20 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
-    t.boolean  "enabled",                            default: true
-    t.string   "nickname",                limit: 16
+    t.boolean  "enabled", default: true
+    t.string   "nickname", limit: 16
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                            default: true
+    t.boolean  "visible", default: true
     t.integer  "image_id"
-    t.boolean  "validated",                          default: true
+    t.boolean  "validated", default: true
     t.string   "cnpj"
     t.string   "national_region_code"
-    t.boolean  "is_template",                        default: false
+    t.boolean  "is_template", default: false
     t.integer  "template_id"
     t.string   "redirection_after_login"
     t.integer  "friends_count",                      default: 0,          null: false
@@ -679,11 +679,11 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.boolean  "secret",                             default: false
     t.string   "editor",                             default: "tiny_mce", null: false
     t.integer  "top_image_id"
-    t.jsonb    "metadata",                           default: {}
+    t.jsonb    "metadata", default: {}
     t.string   "upload_quota"
     t.float    "disk_usage"
     t.string   "cropped_image"
-    t.integer  "access",                             default: 0
+    t.integer  "access", default: 0
   end
 
   add_index "profiles", ["activities_count"], name: "index_profiles_on_activities_count", using: :btree
@@ -707,11 +707,11 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   add_index "profiles_circles", ["profile_id", "circle_id"], name: "profiles_circles_composite_key_index", unique: true, using: :btree
 
   create_table "push_subscriptions", force: :cascade do |t|
-    t.string   "endpoint",                    null: false
-    t.jsonb    "keys",           default: {}, null: false
+    t.string   "endpoint", null: false
+    t.jsonb    "keys", default: {}, null: false
     t.integer  "owner_id"
     t.string   "owner_type"
-    t.integer  "environment_id",              null: false
+    t.integer  "environment_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -722,7 +722,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   end
 
   create_table "qualifiers", force: :cascade do |t|
-    t.string   "name",           null: false
+    t.string   "name", null: false
     t.integer  "environment_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -748,11 +748,11 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   end
 
   create_table "role_assignments", force: :cascade do |t|
-    t.integer  "accessor_id",   null: false
+    t.integer  "accessor_id", null: false
     t.string   "accessor_type"
     t.integer  "resource_id"
     t.string   "resource_type"
-    t.integer  "role_id",       null: false
+    t.integer  "role_id", null: false
     t.boolean  "is_global"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -761,21 +761,21 @@ ActiveRecord::Schema.define(version: 20180808151241) do
   create_table "roles", force: :cascade do |t|
     t.string  "name"
     t.string  "key"
-    t.boolean "system",         default: false
+    t.boolean "system", default: false
     t.text    "permissions"
     t.integer "environment_id"
     t.integer "profile_id"
   end
 
   create_table "rpush_apps", force: :cascade do |t|
-    t.string   "name",                                null: false
+    t.string   "name", null: false
     t.string   "environment"
     t.text     "certificate"
     t.string   "password"
-    t.integer  "connections",             default: 1, null: false
+    t.integer  "connections", default: 1, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "type",                                null: false
+    t.string   "type", null: false
     t.string   "auth_key"
     t.string   "client_id"
     t.string   "client_secret"
@@ -795,34 +795,34 @@ ActiveRecord::Schema.define(version: 20180808151241) do
 
   create_table "rpush_notifications", force: :cascade do |t|
     t.integer  "badge"
-    t.string   "device_token",      limit: 64
-    t.string   "sound",                        default: "default"
+    t.string   "device_token", limit: 64
+    t.string   "sound", default: "default"
     t.text     "alert"
     t.text     "data"
     t.integer  "expiry",                       default: 86400
-    t.boolean  "delivered",                    default: false,     null: false
+    t.boolean  "delivered",                    default: false, null: false
     t.datetime "delivered_at"
-    t.boolean  "failed",                       default: false,     null: false
+    t.boolean  "failed", default: false, null: false
     t.datetime "failed_at"
     t.integer  "error_code"
     t.text     "error_description"
     t.datetime "deliver_after"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "alert_is_json",                default: false
-    t.string   "type",                                             null: false
+    t.boolean  "alert_is_json", default: false
+    t.string   "type", null: false
     t.string   "collapse_key"
-    t.boolean  "delay_while_idle",             default: false,     null: false
+    t.boolean  "delay_while_idle", default: false, null: false
     t.text     "registration_ids"
-    t.integer  "app_id",                                           null: false
-    t.integer  "retries",                      default: 0
+    t.integer  "app_id", null: false
+    t.integer  "retries", default: 0
     t.string   "uri"
     t.datetime "fail_after"
-    t.boolean  "processing",                   default: false,     null: false
+    t.boolean  "processing", default: false, null: false
     t.integer  "priority"
     t.text     "url_args"
     t.string   "category"
-    t.boolean  "content_available",            default: false
+    t.boolean  "content_available", default: false
     t.text     "notification"
   end
 
@@ -888,7 +888,7 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.datetime "created_at"
     t.integer  "tagger_id"
     t.string   "tagger_type"
-    t.string   "context",       limit: 128
+    t.string   "context", limit: 128
   end
 
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true, using: :btree
@@ -913,15 +913,15 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.datetime "end_date"
     t.integer  "requestor_id"
     t.integer  "target_id"
-    t.string   "code",           limit: 40
+    t.string   "code", limit: 40
     t.string   "type"
     t.datetime "created_at"
     t.string   "target_type"
     t.integer  "image_id"
-    t.boolean  "spam",                      default: false
+    t.boolean  "spam", default: false
     t.integer  "responsible_id"
     t.integer  "closed_by_id"
-    t.jsonb    "metadata",                  default: {}
+    t.jsonb    "metadata", default: {}
   end
 
   add_index "tasks", ["metadata"], name: "index_tasks_on_metadata", using: :gin
@@ -968,20 +968,20 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
     t.text     "terms_of_use"
-    t.string   "terms_accepted",             limit: 1
+    t.string   "terms_accepted", limit: 1
     t.integer  "environment_id"
     t.string   "password_type"
     t.boolean  "enable_email",                          default: false
     t.string   "last_chat_status",                      default: ""
     t.string   "chat_status",                           default: ""
     t.datetime "chat_status_at"
-    t.string   "activation_code",            limit: 40
+    t.string   "activation_code", limit: 40
     t.datetime "activated_at"
     t.string   "return_to"
     t.datetime "last_login_at"
     t.string   "private_token"
     t.datetime "private_token_generated_at"
-    t.jsonb    "metadata",                              default: {}
+    t.jsonb    "metadata", default: {}
   end
 
   add_index "users", ["metadata"], name: "index_users_on_metadata", using: :gin
@@ -1042,8 +1042,8 @@ ActiveRecord::Schema.define(version: 20180808151241) do
     WHERE articles.access > #{Entitlement::Levels.levels[:users]};
   SQL
 
-  noosfero_env = ENV['RAILS_ENV']
-  if noosfero_env != 'production'
+  noosfero_env = ENV["RAILS_ENV"]
+  if noosfero_env != "production"
     create_view "profile_access_friendships", sql_definition: profile_friendships_table
     create_view "profile_access_memberships", sql_definition: profile_memberships_table
     create_view "article_access_friendships", sql_definition: article_friendships_table

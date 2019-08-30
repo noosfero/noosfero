@@ -1,14 +1,13 @@
-require_dependency 'comment'
+require_dependency "comment"
 
 class Comment
-
   scope :without_paragraph, -> { where paragraph_uuid: nil }
 
-  settings_items :comment_paragraph_selected_area, :type => :string
-  settings_items :comment_paragraph_selected_content, :type => :string
+  settings_items :comment_paragraph_selected_area, type: :string
+  settings_items :comment_paragraph_selected_content, type: :string
 
-  scope :in_paragraph, -> paragraph_uuid {
-    where 'paragraph_uuid = ?', paragraph_uuid
+  scope :in_paragraph, ->paragraph_uuid {
+    where "paragraph_uuid = ?", paragraph_uuid
   }
 
   attr_accessible :paragraph_uuid, :comment_paragraph_selected_area, :id, :comment_paragraph_selected_content
@@ -17,5 +16,4 @@ class Comment
     comment.comment_paragraph_selected_area = nil if comment.comment_paragraph_selected_area.blank?
     comment.comment_paragraph_selected_content = nil if comment_paragraph_selected_content.blank?
   end
-
 end
