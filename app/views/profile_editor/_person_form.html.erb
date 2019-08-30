@@ -17,9 +17,9 @@
 <%= optional_field(@person, 'comercial_phone', f.text_field(:comercial_phone, :rel => _('Comercial phone'), :placeholder => _('With area code, only numbers'))) %>
 <%= optional_field(@person, 'jabber_id', f.text_field(:jabber_id, :rel => _('Jabber'))) %>
 <%= optional_field(@person, 'personal_website', f.text_field(:personal_website, :rel => _('Personal website'))) %>
-<%= optional_field(@person, 'sex', f.radio_group(:profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')] ])) %>
-<%= optional_field(@person, 'birth_date', labelled_form_field(_('Birth date'), date_field('profile_data[birth_date]', @profile_data. birth_date, {:change_month => true, :change_year => true, :year_range => '-100:-5', :date_format => 'yy-mm-dd'}, {:id => 'profile_data_birth_date'}))) %>
-<%= optional_field(@person, 'nationality', f.text_field(:nationality, :rel => _('Nationality'))) %>
+<%= optional_field(@person, 'sex', f.radio_group(:profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')], ['other',_('Other')] ])) %>
+<%= optional_field(@person, 'birth_date', labelled_form_field(_('Birth date'), date_field('profile_data[birth_date]', @profile_data. birth_date, {:change_month => true, :change_year => true, :year_range => '-100:-5'}, {:id => 'profile_data_birth_date'}))) %>
+<%= optional_field(@person, 'nationality', labelled_form_field(_('Nationality'), select_nationality('profile_data', 'nationality', {:class => 'select-nationality'}) )) %>
 <%= optional_field(@person, 'image', labelled_form_field(_('Image'), file_field(:file, :image, :rel => _('Image')))) %>
 
 <%= render partial: 'shared/location_form', locals: { f: f, profile: @person } unless editing_profile %>
