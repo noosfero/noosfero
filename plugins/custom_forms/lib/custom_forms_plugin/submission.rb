@@ -50,7 +50,8 @@ class CustomFormsPlugin::Submission < ApplicationRecord
   def chosen_alternatives_from_value(value)
     begin
       alternatives = []
-
+      value = value.to_h if value.kind_of?(::ActionController::Parameters)
+      
       if value.kind_of?(String)
         alternatives << CustomFormsPlugin::Alternative.find(value) if (value.to_i > 0)
       end

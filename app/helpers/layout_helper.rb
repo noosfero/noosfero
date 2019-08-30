@@ -48,8 +48,9 @@ module LayoutHelper
 
   def noosfero_stylesheets
     plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin|
-      plugin.class.public_path('style.css', true)
+      plugin.class.public_path('style', true)
     }
+
     global_css_pub = "/designs/themes/#{session[:theme] || environment.theme}/global.css"
     global_css_at_fs = Rails.root.join 'public' + global_css_pub
 
