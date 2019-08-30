@@ -1,5 +1,5 @@
-require 'test_helper'
-require_relative '../../controllers/spaminator_plugin_admin_controller'
+require "test_helper"
+require_relative "../../controllers/spaminator_plugin_admin_controller"
 
 class SpaminatorPluginAdminControllerTest < ActionController::TestCase
   def setup
@@ -12,14 +12,14 @@ class SpaminatorPluginAdminControllerTest < ActionController::TestCase
 
   attr_accessor :settings, :environment
 
-  should 'deploy spaminator' do
+  should "deploy spaminator" do
     SpaminatorPlugin.expects(:schedule_scan).with(environment)
     get :deploy
     reload_settings
     assert settings.deployed
   end
 
-  should 'deploy spaminator when already deployed' do
+  should "deploy spaminator when already deployed" do
     settings.deployed = true
     settings.save!
     SpaminatorPlugin.expects(:scheduled_scan).never
@@ -27,7 +27,7 @@ class SpaminatorPluginAdminControllerTest < ActionController::TestCase
     get :deploy
   end
 
-  should 'withhold spaminator' do
+  should "withhold spaminator" do
     settings.deployed = true
     settings.save!
 
@@ -37,7 +37,7 @@ class SpaminatorPluginAdminControllerTest < ActionController::TestCase
     refute settings.deployed
   end
 
-  should 'make spaminator scan' do
+  should "make spaminator scan" do
     Delayed::Job.expects(:enqueue)
 
     get :scan
@@ -46,7 +46,7 @@ class SpaminatorPluginAdminControllerTest < ActionController::TestCase
     assert settings.scanning
   end
 
-  should 'not scan if already scanning' do
+  should "not scan if already scanning" do
     settings.scanning = true
     settings.save!
     Delayed::Job.expects(:enqueue).never
@@ -54,7 +54,7 @@ class SpaminatorPluginAdminControllerTest < ActionController::TestCase
     get :scan
   end
 
-  should 'remove scheduled scan' do
+  should "remove scheduled scan" do
     SpaminatorPlugin.schedule_scan(environment)
     reload_settings
 
@@ -71,8 +71,8 @@ class SpaminatorPluginAdminControllerTest < ActionController::TestCase
 
   private
 
-  def reload_settings
-    environment.reload
-    settings = Noosfero::Plugin::Settings.new(environment, SpaminatorPlugin)
-  end
+    def reload_settings
+      environment.reload
+      settings = Noosfero::Plugin::Settings.new(environment, SpaminatorPlugin)
+    end
 end

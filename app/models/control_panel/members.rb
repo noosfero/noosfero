@@ -1,15 +1,15 @@
 class ControlPanel::Members < ControlPanel::Entry
   class << self
     def name
-      _('Members')
+      _("Members")
     end
 
     def section
-      'relationships'
+      "relationships"
     end
 
     def icon
-      'users'
+      "users"
     end
 
     def priority
@@ -17,15 +17,11 @@ class ControlPanel::Members < ControlPanel::Entry
     end
 
     def url(profile)
-      {:controller => 'profile_members', :action => 'index'}
+      { controller: "profile_members", action: "index" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.organization? && user.has_permission?(:manage_memberships, profile)
     end
   end
 end
-
-
-
-

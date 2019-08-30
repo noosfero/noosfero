@@ -1,6 +1,5 @@
 module Api
   module Status
- 
     module Http
       # HTTP Status
       BAD_REQUEST = 400
@@ -33,6 +32,5 @@ module Api
       WAITING_FOR_APPROVAL = 293
       FRIEND = 292
     end
-
   end
 end

@@ -1,15 +1,14 @@
 class FansBlock < ProfileListBlock
-
   def self.description
-    _('Displays the people who like the enterprise')
+    _("Displays the people who like the enterprise")
   end
 
   def default_title
-    n_('{#} fan', '{#} fans', profile_count)
+    n_("{#} fan", "{#} fans", profile_count)
   end
 
   def help
-    _('This block presents the fans of an enterprise.')
+    _("This block presents the fans of an enterprise.")
   end
 
   def base_profiles
@@ -17,13 +16,12 @@ class FansBlock < ProfileListBlock
   end
 
   def self.pretty_name
-      _('Fans')
+    _("Fans")
   end
 
   private
 
-  def base_class
-    Person
-  end
-
+    def base_class
+      Person
+    end
 end

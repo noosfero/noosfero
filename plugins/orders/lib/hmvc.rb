@@ -1,12 +1,10 @@
 module HMVC
-
   # controller_paths by context and controller
   mattr_accessor :paths_by_context
   self.paths_by_context = {}
 
   module ClassMethods
-
-    def hmvc context, options = {}
+    def hmvc(context, options = {})
       class_attribute :inherit_templates
       class_attribute :hmvc_inheritable
       class_attribute :hmvc_context
@@ -21,7 +19,7 @@ module HMVC
       self.hmvc_orders_context = options[:orders_context] || self.superclass.hmvc_orders_context rescue nil
 
       # initialize other context's controllers paths
-      controllers = [self] + context.controllers.map{ |controller| controller.constantize }
+      controllers = [self] + context.controllers.map { |controller| controller.constantize }
 
       controllers.each do |klass|
         context_klass = klass
@@ -34,21 +32,17 @@ module HMVC
       helper UrlHelpers
     end
 
-    def hmvc_lookup_path controller_path
+    def hmvc_lookup_path(controller_path)
       self.hmvc_paths[controller_path] || controller_path
     end
-
   end
 
   module InstanceMethods
-
     protected
-
   end
 
   module UrlHelpers
-
-    def url_for options = {}
+    def url_for(options = {})
       return super unless options.is_a? Hash
 
       controller_path = options[:controller]
@@ -60,7 +54,5 @@ module HMVC
 
       super
     end
-
   end
-
 end

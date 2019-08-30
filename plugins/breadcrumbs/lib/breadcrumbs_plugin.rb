@@ -1,5 +1,4 @@
 class BreadcrumbsPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "BreadcrumbsPlugin"
   end
@@ -9,15 +8,14 @@ class BreadcrumbsPlugin < Noosfero::Plugin
   end
 
   def self.pretty_name
-    _('Breadcrumbs')
+    _("Breadcrumbs")
   end
 
   def self.extra_blocks
-    { BreadcrumbsPlugin::ContentBreadcrumbsBlock => {:type => [Community, Person, Enterprise] } }
+    { BreadcrumbsPlugin::ContentBreadcrumbsBlock => { type: [Community, Person, Enterprise] } }
   end
 
   def stylesheet?
     true
   end
-
 end

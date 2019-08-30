@@ -1,6 +1,5 @@
 class PushSubscriptionsController < PublicController
-
-  before_action :accept_only_post, :only => :create
+  before_action :accept_only_post, only: :create
 
   def create
     return head :unauthorized unless current_person.present?
@@ -19,8 +18,7 @@ class PushSubscriptionsController < PublicController
 
   private
 
-  def subscription_params
-    params.require(:subscription).permit(:endpoint, keys: [:auth, :p256dh])
-  end
-
+    def subscription_params
+      params.require(:subscription).permit(:endpoint, keys: [:auth, :p256dh])
+    end
 end

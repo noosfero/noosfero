@@ -1,13 +1,13 @@
 module Noosfero
-  PROJECT = 'noosfero'
-  VERSION = '2.10.0'
+  PROJECT = "noosfero"
+  VERSION = "2.10.0"
 end
 
-root = File.expand_path(File.dirname(__FILE__) + '/../..')
-if File.exist?(File.join(root, '.git')) && system('which git >/dev/null')
-  git_version = Dir.chdir(root) { `git describe --tags 2>/dev/null`.to_s.strip.sub('-rc', '~rc') }
-  if git_version != ''
-    version_sort = IO.popen(['sort', '--version-sort'], 'w+')
+root = File.expand_path(File.dirname(__FILE__) + "/../..")
+if File.exist?(File.join(root, ".git")) && system("which git >/dev/null")
+  git_version = Dir.chdir(root) { `git describe --tags 2>/dev/null`.to_s.strip.sub("-rc", "~rc") }
+  if git_version != ""
+    version_sort = IO.popen(["sort", "--version-sort"], "w+")
     version_sort.puts(Noosfero::VERSION)
     version_sort.puts(git_version)
     version_sort.close_write

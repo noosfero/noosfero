@@ -1,7 +1,7 @@
 class AssociateFieldsToAlternatives < ActiveRecord::Migration[5.1]
   class CustomFormsPlugin::Field < ApplicationRecord
     self.table_name = :custom_forms_plugin_fields
-    has_many :alternatives, :class_name => 'CustomFormsPlugin::Alternative'
+    has_many :alternatives, class_name: "CustomFormsPlugin::Alternative"
     serialize :choices, Hash
   end
 
@@ -10,7 +10,7 @@ class AssociateFieldsToAlternatives < ActiveRecord::Migration[5.1]
 
     CustomFormsPlugin::Field.find_each do |f|
       f.choices.each do |key, value|
-        CustomFormsPlugin::Alternative.create!(:label => key, :field_id => f.id)
+        CustomFormsPlugin::Alternative.create!(label: key, field_id: f.id)
       end
     end
 
@@ -18,12 +18,12 @@ class AssociateFieldsToAlternatives < ActiveRecord::Migration[5.1]
       # Avoid crash due to database possible inconsistency on submissions without form
       begin
         labels = []
-        answer.value.split(',').each do |value|
+        answer.value.split(",").each do |value|
           labels << answer.field.choices.invert[value]
         end
         labels.compact!
         if labels.present?
-          answer.value = answer.field.alternatives.where('label IN (?)', labels).map(&:id).join(',')
+          answer.value = answer.field.alternatives.where("label IN (?)", labels).map(&:id).join(",")
           answer.save!
         end
       rescue

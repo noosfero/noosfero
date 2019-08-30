@@ -1,12 +1,12 @@
 class NewsletterPluginNewsletters < ActiveRecord::Migration[5.1]
   def up
     create_table :newsletter_plugin_newsletters do |t|
-      t.references :environment, :null => false, index: {:name => 'index_aasfegR6', :unique => true }
-      t.references :person, :null => false
-      t.boolean :enabled, :default => false
+      t.references :environment, null: false, index: { name: "index_aasfegR6", unique: true }
+      t.references :person, null: false
+      t.boolean :enabled, default: false
       t.string :subject
-      t.integer :periodicity, :default => 0
-      t.integer :posts_per_blog, :default => 0
+      t.integer :periodicity, default: 0
+      t.integer :posts_per_blog, default: 0
       t.integer :image_id
       t.text :footer
       t.text :blog_ids

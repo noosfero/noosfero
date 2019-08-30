@@ -1,5 +1,5 @@
 class Entitlement::Check
-  def initialize(object=nil)
+  def initialize(object = nil)
     @object = object
   end
 

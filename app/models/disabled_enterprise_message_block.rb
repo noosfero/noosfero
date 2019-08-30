@@ -1,18 +1,17 @@
 class DisabledEnterpriseMessageBlock < Block
-
   def self.description
     _('"Disabled enterprise" message')
   end
 
   def help
-    _('Shows a message for disabled enterprises.')
+    _("Shows a message for disabled enterprises.")
   end
 
   def default_title
-    _('Message')
+    _("Message")
   end
 
-  def editable?(user=nil)
+  def editable?(user = nil)
     false
   end
 
@@ -21,6 +20,6 @@ class DisabledEnterpriseMessageBlock < Block
   end
 
   def self.pretty_name
-      _('Disabled enterprise')
+    _("Disabled enterprise")
   end
 end

@@ -4,6 +4,6 @@ class SetActivationCodeToNilIfAlreadyActivated < ActiveRecord::Migration
   end
 
   def self.down
-    say('Can not be reverted.')
+    say("Can not be reverted.")
   end
 end

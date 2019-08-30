@@ -1,9 +1,8 @@
 module CommunityTrackPlugin::TrackHelper
-
   include CategoriesHelper
 
   def category_class(track)
-    'category_' + (track.categories.empty? ? 'not_defined' : track.categories.first.name.to_slug)
+    "category_" + (track.categories.empty? ? "not_defined" : track.categories.first.name.to_slug)
   end
 
   def track_card_lead(track)
@@ -17,7 +16,6 @@ module CommunityTrackPlugin::TrackHelper
 
   def track_name_color_style(track)
     category = track.categories.empty? ? nil : track.categories.first.with_color
-    category ? "color: ##{category.display_color};" : ''
+    category ? "color: ##{category.display_color};" : ""
   end
-
 end

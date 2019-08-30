@@ -1,5 +1,4 @@
 class CommunitiesBlock < ProfileListBlock
-
   attr_accessible :accessor_id, :accessor_type, :role_id, :resource_id, :resource_type
 
   def self.description
@@ -7,23 +6,24 @@ class CommunitiesBlock < ProfileListBlock
   end
 
   def self.short_description
-    _('Communities')
+    _("Communities")
   end
 
   def self.pretty_name
-    _('Communities Block')
+    _("Communities Block")
   end
 
   def default_title
-    _('{#} Communities')
+    _("{#} Communities")
   end
 
   def help
-    _('This block displays the communities in which the user is a member.')
+    _("This block displays the communities in which the user is a member.")
   end
 
   def suggestions
     return nil unless owner.kind_of?(Profile)
+
     owner.profile_suggestions.of_community.enabled.limit(3).includes(:suggestion)
   end
 
@@ -34,14 +34,14 @@ class CommunitiesBlock < ProfileListBlock
   def api_content(params = {})
     communities = profiles(params[:current_person])
     content = {}
-    content['communities'] = Api::Entities::Community.represent(communities.limit(self.limit)).as_json
-    content['#'] = communities.count
+    content["communities"] = Api::Entities::Community.represent(communities.limit(self.limit)).as_json
+    content["#"] = communities.count
     content
   end
 
   private
 
-  def base_class
-    Community
-  end
+    def base_class
+      Community
+    end
 end

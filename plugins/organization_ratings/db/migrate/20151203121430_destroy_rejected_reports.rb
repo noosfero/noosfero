@@ -2,7 +2,7 @@ class DestroyRejectedReports < ActiveRecord::Migration[5.1]
   def up
     comments = []
     select_all("SELECT data FROM tasks WHERE type = 'CreateOrganizationRatingComment' AND status = 2").each do |task|
-      settings = YAML.load(task['data'])
+      settings = YAML.load(task["data"])
       comments << settings[:organization_rating_comment_id]
     end
     if !comments.empty?

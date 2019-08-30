@@ -1,5 +1,4 @@
 class EnterpriseActivation < Task
-
   alias :person :requestor
   alias :person= :requestor=
 
@@ -8,7 +7,7 @@ class EnterpriseActivation < Task
 
   validates_presence_of :enterprise
 
-  validates :target, kind_of: {kind: Enterprise}
+  validates :target, kind_of: { kind: Enterprise }
 
   def perform
     self.enterprise.enable self.requestor
@@ -19,31 +18,30 @@ class EnterpriseActivation < Task
   end
 
   def linked_subject
-    {:text => target.name, :url => target.public_profile_url}
+    { text: target.name, url: target.public_profile_url }
   end
 
   def information
     if self.requestor
-      {:message => _('%{requestor} wants to activate enterprise %{linked_subject}.')}
+      { message: _("%{requestor} wants to activate enterprise %{linked_subject}.") }
     else
-      {:message => _('Pending activation of enterprise %{linked_subject}.')}
+      { message: _("Pending activation of enterprise %{linked_subject}.") }
     end
   end
 
   def icon
     if self.requestor
-      {:type => :profile_image, :profile => self.requestor, :url => self.requestor.url}
+      { type: :profile_image, profile: self.requestor, url: self.requestor.url }
     else
-      {:type => :profile_image, :profile => self.enterprise, :url => self.enterprise.url}
+      { type: :profile_image, profile: self.enterprise, url: self.enterprise.url }
     end
   end
 
   def target_notification_description
     if self.requestor
-      _('%{requestor} wants to activate enterprise %{enterprise}.') % {:requestor => self.requestor.name, :enterprise => self.enterprise.name}
+      _("%{requestor} wants to activate enterprise %{enterprise}.") % { requestor: self.requestor.name, enterprise: self.enterprise.name }
     else
-      _('Pending activation of enterprise %{enterprise}.') % {:enterprise => self.enterprise.name}
+      _("Pending activation of enterprise %{enterprise}.") % { enterprise: self.enterprise.name }
     end
   end
-
 end

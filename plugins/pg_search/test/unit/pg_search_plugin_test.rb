@@ -1,4 +1,4 @@
-require_relative '../../../../test/test_helper'
+require_relative "../../../../test/test_helper"
 
 class PgSearchPluginTest < ActiveSupport::TestCase
   def setup
@@ -9,20 +9,20 @@ class PgSearchPluginTest < ActiveSupport::TestCase
 
   attr_accessor :environment, :plugin
 
-  should 'locate profile' do
-    profile = fast_create(Profile, :name => 'John', :identifier => 'waterfall')
-    assert_includes search(Profile, 'John'), profile
-    assert_includes search(Profile, 'john'), profile
-    assert_includes search(Profile, 'waterfall'), profile
-    assert_includes search(Profile, 'water'), profile
+  should "locate profile" do
+    profile = fast_create(Profile, name: "John", identifier: "waterfall")
+    assert_includes search(Profile, "John"), profile
+    assert_includes search(Profile, "john"), profile
+    assert_includes search(Profile, "waterfall"), profile
+    assert_includes search(Profile, "water"), profile
   end
 
-  should 'rank profiles based on the search entry' do
-    profile1 = fast_create(Profile, :identifier => 'profile1', :name => 'debugger')
-    profile2 = fast_create(Profile, :identifier => 'profile2', :name => 'profile admin debugger')
-    profile3 = fast_create(Profile, :identifier => 'profile3', :name => 'admin debugger')
-    profile4 = fast_create(Profile, :identifier => 'profile4', :name => 'simple user')
-    assert_equal [profile2, profile3], search(Profile, 'profile admin deb')
+  should "rank profiles based on the search entry" do
+    profile1 = fast_create(Profile, identifier: "profile1", name: "debugger")
+    profile2 = fast_create(Profile, identifier: "profile2", name: "profile admin debugger")
+    profile3 = fast_create(Profile, identifier: "profile3", name: "admin debugger")
+    profile4 = fast_create(Profile, identifier: "profile4", name: "simple user")
+    assert_equal [profile2, profile3], search(Profile, "profile admin deb")
   end
 
   # TODO This feature is available only on Postgresql 9.0
@@ -35,82 +35,82 @@ class PgSearchPluginTest < ActiveSupport::TestCase
   #   assert_includes search(Profile, 'colmeia'), profile
   # end
 
-  should 'get attribute identifier' do
-    assert_equal "attribute-type", plugin.send(:attribute_identifier, Article, {:attribute => 'type'})
-    assert_equal "attribute-editor", plugin.send(:attribute_identifier, Article, {:attribute => 'editor'})
+  should "get attribute identifier" do
+    assert_equal "attribute-type", plugin.send(:attribute_identifier, Article, attribute: "type")
+    assert_equal "attribute-editor", plugin.send(:attribute_identifier, Article, attribute: "editor")
   end
 
-  should 'get relation identifier' do
+  should "get relation identifier" do
     assert_equal "relation-category", plugin.send(:relation_identifier, Category, {})
     assert_equal "relation-acts_as_taggable_on/tag", plugin.send(:relation_identifier, Tag, {})
   end
 
-  should 'get attribute label' do
-    assert_equal "Types", plugin.send(:attribute_label, Article, {:attribute => 'type'})
-    assert_equal "Editors", plugin.send(:attribute_label, Article, {:attribute => 'editor'})
+  should "get attribute label" do
+    assert_equal "Types", plugin.send(:attribute_label, Article, attribute: "type")
+    assert_equal "Editors", plugin.send(:attribute_label, Article, attribute: "editor")
   end
 
-  should 'get relation label' do
+  should "get relation label" do
     assert_equal "Categories", plugin.send(:relation_label, Category, {})
     assert_equal "Tags", plugin.send(:relation_label, Tag, {})
   end
 
-  should 'get attribute option name' do
-    assert_equal 'Text article', plugin.send(:attribute_option_name, 'TextArticle', Article, {:attribute => 'type'})
-    assert_equal 'TinyMce', plugin.send(:attribute_option_name, 'TinyMce', Article, {:attribute => 'editor'})
+  should "get attribute option name" do
+    assert_equal "Text article", plugin.send(:attribute_option_name, "TextArticle", Article, attribute: "type")
+    assert_equal "TinyMce", plugin.send(:attribute_option_name, "TinyMce", Article, attribute: "editor")
   end
 
-  should 'get friendly mime for content_type option name' do
-    assert_equal 'ODT', plugin.send(:attribute_option_name, 'application/vnd.oasis.opendocument.text', Article, {:attribute => 'content_type'})
-    assert_equal 'PDF', plugin.send(:attribute_option_name, 'application/pdf', Article, {:attribute => 'content_type'})
+  should "get friendly mime for content_type option name" do
+    assert_equal "ODT", plugin.send(:attribute_option_name, "application/vnd.oasis.opendocument.text", Article, attribute: "content_type")
+    assert_equal "PDF", plugin.send(:attribute_option_name, "application/pdf", Article, attribute: "content_type")
   end
 
-  should 'get relation option name' do
-    assert_equal 'Banana', plugin.send(:relation_option_name, 'Banana', Category, {})
-    assert_equal 'Orange', plugin.send(:relation_option_name, 'Orange', Tag, {})
+  should "get relation option name" do
+    assert_equal "Banana", plugin.send(:relation_option_name, "Banana", Category, {})
+    assert_equal "Orange", plugin.send(:relation_option_name, "Orange", Tag, {})
   end
 
-  should 'get relation result label' do
+  should "get relation result label" do
     klass = mock
-    klass.stubs(:name).returns('ActsAsTaggableOn::Tag')
+    klass.stubs(:name).returns("ActsAsTaggableOn::Tag")
     klass.stubs(:superclass).returns(ActiveRecord::Base)
     result = mock
     result.stubs(:class).returns(klass)
-    result.stubs(:name).returns('cool')
-    assert_equal 'cool', plugin.send(:relation_result_label, result)
+    result.stubs(:name).returns("cool")
+    assert_equal "cool", plugin.send(:relation_result_label, result)
   end
 
-  should 'get relation result label for category' do
-    parent_category = Category.create!(:name => 'Fruit', :environment => environment)
-    result = Category.create!(:name => 'Orange', :parent => parent_category, :environment => environment)
-    assert_equal 'Fruit &rarr; Orange', plugin.send(:relation_result_label, result)
+  should "get relation result label for category" do
+    parent_category = Category.create!(name: "Fruit", environment: environment)
+    result = Category.create!(name: "Orange", parent: parent_category, environment: environment)
+    assert_equal "Fruit &rarr; Orange", plugin.send(:relation_result_label, result)
   end
 
-  should 'get attribute results' do
+  should "get attribute results" do
     scope = mock
-    params = {:attribute => 'type'}
+    params = { attribute: "type" }
     query = mock
-    query.stubs(:count).returns({'TextArticle' => 5, 'Event' => 8, 'Blog' => 3})
+    query.stubs(:count).returns("TextArticle" => 5, "Event" => 8, "Blog" => 3)
     klass = mock
     klass.stubs(:pg_search_plugin_attribute_facets).with(scope, params[:attribute]).returns(query)
 
     result = plugin.send(:attribute_results, klass, scope, params)
 
-    assert_equal 'TextArticle', result[0][:name]
-    assert_equal 'TextArticle', result[0][:value]
+    assert_equal "TextArticle", result[0][:name]
+    assert_equal "TextArticle", result[0][:value]
     assert_equal 5, result[0][:count]
 
-    assert_equal 'Event', result[1][:name]
-    assert_equal 'Event', result[1][:value]
+    assert_equal "Event", result[1][:name]
+    assert_equal "Event", result[1][:value]
     assert_equal 8, result[1][:count]
 
-    assert_equal 'Blog', result[2][:name]
-    assert_equal 'Blog', result[2][:value]
+    assert_equal "Blog", result[2][:name]
+    assert_equal "Blog", result[2][:value]
     assert_equal 3, result[2][:count]
   end
 
-  should 'get relation results' do
-    params = {:filter => :pg_search_plugin_articles_facets}
+  should "get relation results" do
+    params = { filter: :pg_search_plugin_articles_facets }
     scope = mock
     r1 = mock
     r1.stubs(:id).returns(1)
@@ -124,22 +124,22 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     query.stubs(:select).returns(subquery)
     klass = mock
     klass.stubs(params[:filter]).with(scope).returns(query)
-    klass.stubs(:table_name).returns('table_name')
-    plugin.stubs(:relation_result_label).with(r1).returns('Result 1')
-    plugin.stubs(:relation_result_label).with(r2).returns('Result 2')
+    klass.stubs(:table_name).returns("table_name")
+    plugin.stubs(:relation_result_label).with(r1).returns("Result 1")
+    plugin.stubs(:relation_result_label).with(r2).returns("Result 2")
 
     result = plugin.send(:relation_results, klass, scope, params)
 
-    assert_equal 'Result 1', result[0][:name]
+    assert_equal "Result 1", result[0][:name]
     assert_equal 1, result[0][:value]
     assert_equal 5, result[0][:count]
 
-    assert_equal 'Result 2', result[1][:name]
+    assert_equal "Result 2", result[1][:name]
     assert_equal 2, result[1][:value]
     assert_equal 8, result[1][:count]
   end
 
-  should 'get generic attribute facet' do
+  should "get generic attribute facet" do
     a11 = fast_create(TextArticle)
     a12 = fast_create(TextArticle)
     a13 = fast_create(TextArticle)
@@ -147,39 +147,39 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     a22 = fast_create(Event)
     a31 = fast_create(Blog)
 
-    scope = Article.where(:id => [a11.id, a12.id, a13.id, a21.id, a22.id, a31.id])
+    scope = Article.where(id: [a11.id, a12.id, a13.id, a21.id, a22.id, a31.id])
     klass = Article
     selected_facets = {}
     kind = :attribute
 
-    results = plugin.send(:generic_facet, klass, scope, selected_facets, kind, {:attribute => :type})
-    text_article = results[:options].select {|opt| opt[:label] == 'Text article'}.first
-    event = results[:options].select {|opt| opt[:label] == 'Event'}.first
-    blog = results[:options].select {|opt| opt[:label] == 'Blog'}.first
+    results = plugin.send(:generic_facet, klass, scope, selected_facets, kind, attribute: :type)
+    text_article = results[:options].select { |opt| opt[:label] == "Text article" }.first
+    event = results[:options].select { |opt| opt[:label] == "Event" }.first
+    blog = results[:options].select { |opt| opt[:label] == "Blog" }.first
 
     assert_equal 3, results[:options].count
 
     assert_equal 3, text_article[:count]
-    assert_equal 'TextArticle', text_article[:value]
+    assert_equal "TextArticle", text_article[:value]
 
     assert_equal 2, event[:count]
-    assert_equal 'Event', event[:value]
+    assert_equal "Event", event[:value]
 
     assert_equal 1, blog[:count]
-    assert_equal 'Blog', blog[:value]
+    assert_equal "Blog", blog[:value]
   end
 
-  should 'filter by facets' do
+  should "filter by facets" do
     c1 = fast_create(Category)
     c2 = fast_create(Category)
     profile = fast_create(Profile)
 
-    a11 = fast_create(TextArticle, :profile_id => profile.id)
-    a12 = fast_create(TextArticle, :profile_id => profile.id)
-    a13 = fast_create(TextArticle, :profile_id => profile.id)
-    a21 = fast_create(Event, :profile_id => profile.id)
-    a22 = fast_create(Event, :profile_id => profile.id)
-    a31 = fast_create(Blog, :profile_id => profile.id)
+    a11 = fast_create(TextArticle, profile_id: profile.id)
+    a12 = fast_create(TextArticle, profile_id: profile.id)
+    a13 = fast_create(TextArticle, profile_id: profile.id)
+    a21 = fast_create(Event, profile_id: profile.id)
+    a22 = fast_create(Event, profile_id: profile.id)
+    a31 = fast_create(Blog, profile_id: profile.id)
 
     a11.categories << c1
     a12.categories << c1
@@ -195,72 +195,72 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     a22.save!
     a31.save!
 
-    scope = Article.where(:id => [a11.id, a12.id, a13.id, a21.id, a22.id, a31.id])
-    facets = {'attribute-type' => [['Blog', '0'], ['Event', '0'], ['TextArticle', '1']], 'relation-category' => [[c1.id, '1'], [c2.id, '0']]}
+    scope = Article.where(id: [a11.id, a12.id, a13.id, a21.id, a22.id, a31.id])
+    facets = { "attribute-type" => [["Blog", "0"], ["Event", "0"], ["TextArticle", "1"]], "relation-category" => [[c1.id, "1"], [c2.id, "0"]] }
 
     plugin.stubs(:register_search_facet_occurrence)
     assert_equivalent [a11, a12], plugin.send(:filter_by_facets, scope, facets)
   end
 
-  should 'filter by periods' do
-    a1 = fast_create(TextArticle, :created_at => 9.days.ago, :published_at => 6.days.ago)
-    a2 = fast_create(TextArticle, :created_at => 8.days.ago, :published_at => 5.days.ago)
-    a3 = fast_create(TextArticle, :created_at => 7.days.ago, :published_at => 4.days.ago)
-    a4 = fast_create(TextArticle, :created_at => 6.days.ago, :published_at => 3.days.ago)
-    a5 = fast_create(TextArticle, :created_at => 5.days.ago, :published_at => 2.days.ago)
-    a6 = fast_create(TextArticle, :created_at => 4.days.ago, :published_at => 1.days.ago)
+  should "filter by periods" do
+    a1 = fast_create(TextArticle, created_at: 9.days.ago, published_at: 6.days.ago)
+    a2 = fast_create(TextArticle, created_at: 8.days.ago, published_at: 5.days.ago)
+    a3 = fast_create(TextArticle, created_at: 7.days.ago, published_at: 4.days.ago)
+    a4 = fast_create(TextArticle, created_at: 6.days.ago, published_at: 3.days.ago)
+    a5 = fast_create(TextArticle, created_at: 5.days.ago, published_at: 2.days.ago)
+    a6 = fast_create(TextArticle, created_at: 4.days.ago, published_at: 1.days.ago)
 
-    scope = Article.where(:id => [a1.id, a2.id, a3.id, a4.id, a5.id, a6.id])
-    periods = {created_at: {'start_date' => 10.days.ago.to_s, 'end_date' => 5.days.ago.to_s},
-               published_at: {'start_date' => 4.days.ago.to_s, 'end_date' => 1.day.ago.to_s}}
+    scope = Article.where(id: [a1.id, a2.id, a3.id, a4.id, a5.id, a6.id])
+    periods = { created_at: { "start_date" => 10.days.ago.to_s, "end_date" => 5.days.ago.to_s },
+                published_at: { "start_date" => 4.days.ago.to_s, "end_date" => 1.day.ago.to_s } }
 
     assert_equivalent [a3, a4], plugin.send(:filter_by_periods, scope, periods)
   end
 
-  should 'register attribute search facet occurrence' do
-    occurrence = plugin.send(:register_search_facet_occurrence, environment, :articles, 'attribute', 'type', 'TextArticle')
-    assert_equal 'articles', occurrence.asset
+  should "register attribute search facet occurrence" do
+    occurrence = plugin.send(:register_search_facet_occurrence, environment, :articles, "attribute", "type", "TextArticle")
+    assert_equal "articles", occurrence.asset
     assert_equal environment, occurrence.environment
-    assert_equal 'type', occurrence.attribute_name
-    assert_equal 'TextArticle', occurrence.value
+    assert_equal "type", occurrence.attribute_name
+    assert_equal "TextArticle", occurrence.value
     assert_nil occurrence.target
   end
 
-  should 'register relation search facet occurrence' do
-    category = Category.create!(:name => 'Fruit', :environment => environment)
-    occurrence = plugin.send(:register_search_facet_occurrence, environment, :people, 'relation', 'category', category)
-    assert_equal 'people', occurrence.asset
+  should "register relation search facet occurrence" do
+    category = Category.create!(name: "Fruit", environment: environment)
+    occurrence = plugin.send(:register_search_facet_occurrence, environment, :people, "relation", "category", category)
+    assert_equal "people", occurrence.asset
     assert_equal environment, occurrence.environment
     assert_equal category, occurrence.target
     assert_nil occurrence.attribute_name
     assert_nil occurrence.value
   end
 
-  should 'not load facets and periods eagerly on profile pages' do
+  should "not load facets and periods eagerly on profile pages" do
     block = mock
     block.stubs(:advanced_search).returns(true)
 
     @plugin.expects(:active_filters).never
-    @plugin.profile_search_block_extra_content(block, { controller: 'profile' })
+    @plugin.profile_search_block_extra_content(block, controller: "profile")
   end
 
-  should 'load facets and periods eagerly on profile search pages' do
+  should "load facets and periods eagerly on profile search pages" do
     block = mock
     block.stubs(:advanced_search).returns(true)
     block.stubs(:owner).returns(block)
     block.stubs(:articles).returns([])
 
     @plugin.expects(:active_filters).once
-    @plugin.profile_search_block_extra_content(block, { controller: 'profile_search' })
+    @plugin.profile_search_block_extra_content(block, controller: "profile_search")
   end
 
-  should 'filter by metadata text field' do
+  should "filter by metadata text field" do
     a1 = fast_create(Article, metadata: '{ "custom_fields" : { "text-field" : { "name" : "Text Field", "type" : "text", "value" : "text", "public" : "1" } } }')
     a2 = fast_create(Article, metadata: '{ "custom_fields" : { "text-field" : { "name" : "Text Field", "type" : "text", "value" : "text", "public" : "1" } } }')
     a3 = fast_create(Article, metadata: '{ "custom_fields" : { "text-field" : { "name" : "Text Field", "type" : "text", "value" : "some stuff", "public" : "1" } } }')
     a4 = fast_create(Article)
 
-    articles = Article.pg_search_plugin_by_metadata('Text Field', 'text').map(&:id)
+    articles = Article.pg_search_plugin_by_metadata("Text Field", "text").map(&:id)
 
     assert_includes articles, a1.id
     assert_includes articles, a2.id
@@ -268,7 +268,7 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     refute_includes articles, a4.id
   end
 
-  should 'filter by metadata boolean field' do
+  should "filter by metadata boolean field" do
     a1 = fast_create(Article, metadata: '{ "custom_fields" : { "boolean-field" : { "name" : "Boolean Field", "type" : "boolean", "value" : "1", "public" : "1" } } }')
     a2 = fast_create(Article, metadata: '{ "custom_fields" : { "boolean-field" : { "name" : "Boolean Field", "type" : "boolean", "value" : "1", "public" : "1" } } }')
     a3 = fast_create(Article, metadata: '{ "custom_fields" : { "boolean-field" : { "name" : "Boolean Field", "type" : "boolean", "value" : "0", "public" : "1" } } }')
@@ -276,7 +276,7 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     a5 = fast_create(Article, metadata: '{ "custom_fields" : { "text-field" : { "name" : "Text Field", "type" : "text", "value" : "some stuff", "public" : "1" } } }')
     a6 = fast_create(Article)
 
-    articles = Article.pg_search_plugin_by_metadata('Boolean Field', '1').map(&:id)
+    articles = Article.pg_search_plugin_by_metadata("Boolean Field", "1").map(&:id)
 
     assert_includes articles, a1.id
     assert_includes articles, a2.id
@@ -286,7 +286,7 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     refute_includes articles, a6.id
   end
 
-  should 'filter by metadata date field' do
+  should "filter by metadata date field" do
     a1 = fast_create(Article, metadata: '{ "custom_fields" : {"date-field" : { "name" : "Date Field", "type" : "date", "value" : "2017-08-06", "public" : "1" } } }')
     a2 = fast_create(Article, metadata: '{ "custom_fields" : {"date-field" : { "name" : "Date Field", "type" : "date", "value" : "2017-08-03", "public" : "1" } } }')
     a3 = fast_create(Article, metadata: '{ "custom_fields" : {"date-field" : { "name" : "Date Field", "type" : "date", "value" : "2017-07-30", "public" : "1" } } }')
@@ -300,7 +300,7 @@ class PgSearchPluginTest < ActiveSupport::TestCase
 
     a9 = fast_create(Article)
 
-    articles = Article.pg_search_plugin_by_metadata_period('Date Field', '2017-07-30', '2017-08-06').map(&:id)
+    articles = Article.pg_search_plugin_by_metadata_period("Date Field", "2017-07-30", "2017-08-06").map(&:id)
 
     assert_includes articles, a1.id
     assert_includes articles, a2.id
@@ -313,10 +313,10 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     refute_includes articles, a9.id
   end
 
-  should 'inlcude parent categories in category facets' do
-    category1 = fast_create(Category, name: 'A')
-    category2 = environment.categories.create(name: 'B', parent: category1)
-    category3 = environment.categories.create(name: 'C', parent: category2)
+  should "inlcude parent categories in category facets" do
+    category1 = fast_create(Category, name: "A")
+    category2 = environment.categories.create(name: "B", parent: category1)
+    category3 = environment.categories.create(name: "C", parent: category2)
     names = [category1, category2, category3].map do |category|
       plugin.send(:relation_result_label_for_category, category)
     end
@@ -326,13 +326,13 @@ class PgSearchPluginTest < ActiveSupport::TestCase
 
     plugin.instance_variable_set(:@base_scope, Article.all)
     facets = plugin.send(:articles_facets, Article.all, {})
-    category_facet = facets.find{ |f| f && f[:name] == 'Categories' }
-    assert_equivalent names, category_facet[:options].map{ |f| f[:label] }
+    category_facet = facets.find { |f| f && f[:name] == "Categories" }
+    assert_equivalent names, category_facet[:options].map { |f| f[:label] }
   end
 
-  should 'not count twice the same categorization for article facets' do
-    category1 = fast_create(Category, name: 'A')
-    category2 = environment.categories.create(name: 'B', parent: category1)
+  should "not count twice the same categorization for article facets" do
+    category1 = fast_create(Category, name: "A")
+    category2 = environment.categories.create(name: "B", parent: category1)
 
     article = fast_create(TextArticle)
     article.add_category(category1)
@@ -340,14 +340,14 @@ class PgSearchPluginTest < ActiveSupport::TestCase
 
     plugin.instance_variable_set(:@base_scope, Article.all)
     facets = plugin.send(:articles_facets, Article.all, {})
-    category_facet = facets.find{ |f| f && f[:name] == 'Categories' }
+    category_facet = facets.find { |f| f && f[:name] == "Categories" }
     options = category_facet[:options].map { |f| [f[:label], f[:count]] }.to_h
     assert_equal 1, options[category1.name]
   end
 
-  should 'not count twice the same categorization for profile facets' do
-    category1 = fast_create(Category, name: 'A')
-    category2 = environment.categories.create(name: 'B', parent: category1)
+  should "not count twice the same categorization for profile facets" do
+    category1 = fast_create(Category, name: "A")
+    category2 = environment.categories.create(name: "B", parent: category1)
 
     person = fast_create(Person)
     person.add_category(category1)
@@ -355,14 +355,14 @@ class PgSearchPluginTest < ActiveSupport::TestCase
 
     plugin.instance_variable_set(:@base_scope, Person.all)
     facets = plugin.send(:people_facets, Person.all, {})
-    category_facet = facets.find{ |f| f && f[:name] == 'Categories' }
+    category_facet = facets.find { |f| f && f[:name] == "Categories" }
     options = category_facet[:options].map { |f| [f[:label], f[:count]] }.to_h
     assert_equal 1, options[category1.name]
   end
 
   private
 
-  def search(scope, query)
-    scope.pg_search_plugin_search(query)
-  end
+    def search(scope, query)
+      scope.pg_search_plugin_search(query)
+    end
 end

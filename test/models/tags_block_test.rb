@@ -1,12 +1,11 @@
 require_relative "../test_helper"
 
 class TagsCloudBlockTest < ActiveSupport::TestCase
-
   def setup
-    @user = create_user('testinguser').person
-    @user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
-    @user.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
-    @user.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
+    @user = create_user("testinguser").person
+    @user.articles.build(name: "article 1", tag_list: "first-tag").save!
+    @user.articles.build(name: "article 2", tag_list: "first-tag, second-tag").save!
+    @user.articles.build(name: "article 3", tag_list: "first-tag, second-tag, third-tag").save!
 
     box = Box.new
     box.owner = @user
@@ -17,29 +16,29 @@ class TagsCloudBlockTest < ActiveSupport::TestCase
   end
   attr_reader :block
 
-  should 'describe itself' do
+  should "describe itself" do
     assert_not_equal Block.description, TagsCloudBlock.description
   end
 
-  should 'provide a default title' do
+  should "provide a default title" do
     assert_not_equal Block.new.default_title, TagsCloudBlock.new.default_title
   end
 
   include BoxesHelper
 
-  should 'return the max value in the range between zero and limit' do
+  should "return the max value in the range between zero and limit" do
     block = TagsCloudBlock.new
     assert_equal 12, block.get_limit
   end
 
-  should '' do
+  should "" do
     block = TagsCloudBlock.new
     block.limit = -5
     assert_equal 0, block.get_limit
   end
 end
 
-require 'tags_helper'
+require "tags_helper"
 
 class TagsCloudBlockViewTest < ActionView::TestCase
   include BoxesHelper
@@ -47,10 +46,10 @@ class TagsCloudBlockViewTest < ActionView::TestCase
   ActionView::Base.send :include, TagsHelper
 
   def setup
-    @user = create_user('testinguser').person
-    @user.articles.build(:name => 'article 1', :tag_list => 'first-tag').save!
-    @user.articles.build(:name => 'article 2', :tag_list => 'first-tag, second-tag').save!
-    @user.articles.build(:name => 'article 3', :tag_list => 'first-tag, second-tag, third-tag').save!
+    @user = create_user("testinguser").person
+    @user.articles.build(name: "article 1", tag_list: "first-tag").save!
+    @user.articles.build(name: "article 2", tag_list: "first-tag, second-tag").save!
+    @user.articles.build(name: "article 3", tag_list: "first-tag, second-tag, third-tag").save!
 
     box = Box.new
     box.owner = @user
@@ -61,18 +60,18 @@ class TagsCloudBlockViewTest < ActionView::TestCase
   end
   attr_reader :block
 
-  should 'return (none) when no tags to display' do
+  should "return (none) when no tags to display" do
     ActionView::Base.any_instance.stubs(:block_title).returns("")
     block.owner.expects(:article_tags).returns([])
     assert_equal "\n\n\n", render_block_content(block)
   end
 
-  should 'order tags alphabetically' do
+  should "order tags alphabetically" do
     ActionView::Base.any_instance.stubs(:block_title).returns("")
     assert /\/first-tag".*\/second-tag".*\/third-tag"/m =~ render_block_content(block)
   end
 
-  should 'generate links to tags' do
+  should "generate links to tags" do
     ActionView::Base.any_instance.stubs(:block_title).returns("")
     content = render_block_content(block)
     assert_match /profile\/testinguser\/tags\/first-tag/,  content
@@ -80,12 +79,12 @@ class TagsCloudBlockViewTest < ActionView::TestCase
     assert_match /profile\/testinguser\/tags\/third-tag/,  content
   end
 
-  should 'generate links to tags on a environment page' do
-    @otheruser = create_user('othertestinguser').person
-    @otheruser.articles.build(:name => 'article A', :tag_list => 'other-tag').save!
-    @otheruser.articles.build(:name => 'article B', :tag_list => 'other-tag, second-tag').save!
-    box = create(Box, :owner => Environment.default)
-    @block = create(TagsCloudBlock, :box => box)
+  should "generate links to tags on a environment page" do
+    @otheruser = create_user("othertestinguser").person
+    @otheruser.articles.build(name: "article A", tag_list: "other-tag").save!
+    @otheruser.articles.build(name: "article B", tag_list: "other-tag, second-tag").save!
+    box = create(Box, owner: Environment.default)
+    @block = create(TagsCloudBlock, box: box)
     ActionView::Base.any_instance.stubs(:block_title).returns("")
 
     content = render_block_content(block)
@@ -95,9 +94,8 @@ class TagsCloudBlockViewTest < ActionView::TestCase
     assert_match /2 item[^>]+\/tag\/other-tag"/,  content
   end
 
-
-  should 'generate links when profile has own hostname' do
-    @user.domains << Domain.new(:name => 'testuser.net'); @user.save!
+  should "generate links when profile has own hostname" do
+    @user.domains << Domain.new(name: "testuser.net"); @user.save!
     ActionView::Base.any_instance.stubs(:block_title).returns("")
     assert_match /profile\/testinguser\/tags\/first-tag/, render_block_content(block)
   end

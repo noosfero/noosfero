@@ -1,5 +1,4 @@
 class PeopleBlockPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "People Block Plugin"
   end
@@ -10,9 +9,9 @@ class PeopleBlockPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-      PeopleBlock => {:type => Environment},
-      MembersBlock => {:type => Community},
-      FriendsBlock => {:type => Person}
+      PeopleBlock => { type: Environment },
+      MembersBlock => { type: Community },
+      FriendsBlock => { type: Person }
     }
   end
 
@@ -23,5 +22,4 @@ class PeopleBlockPlugin < Noosfero::Plugin
   def stylesheet?
     true
   end
-
 end

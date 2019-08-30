@@ -1,11 +1,10 @@
 class EmailActivation < Task
-
   validates_presence_of :requestor_id, :target_id
 
-  validates :requestor, kind_of: {kind: Person}
-  validates :target, kind_of: {kind: Environment}
+  validates :requestor, kind_of: { kind: Person }
+  validates :target, kind_of: { kind: Environment }
 
-  validate :already_requested, :on => :create
+  validate :already_requested, on: :create
 
   will_notify :activation_email_notify, mailer: UserMailer
 
@@ -14,7 +13,7 @@ class EmailActivation < Task
 
   def already_requested
     if !self.requestor.nil? && self.requestor.person? && self.requestor.user.email_activation_pending?
-      self.errors.add(:base, _('You have already requested activation of your mailbox.'))
+      self.errors.add(:base, _("You have already requested activation of your mailbox."))
     end
   end
 
@@ -23,15 +22,15 @@ class EmailActivation < Task
   end
 
   def subject
-    person.email_addresses.join(', ')
+    person.email_addresses.join(", ")
   end
 
   def information
-    {:message => _("%{requestor} wants to activate the following email: %{subject}.")}
+    { message: _("%{requestor} wants to activate the following email: %{subject}.") }
   end
 
   def icon
-    {:type => :profile_image, :profile => requestor, :url => requestor.url}
+    { type: :profile_image, profile: requestor, url: requestor.url }
   end
 
   def perform
@@ -46,5 +45,4 @@ class EmailActivation < Task
   def sends_email?
     false
   end
-
 end

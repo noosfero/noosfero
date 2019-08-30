@@ -1,6 +1,5 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 class VideoBlockTest < ActiveSupport::TestCase
-
   should "display api_content enabled by default" do
     block = VideoPlugin::VideoBlock.new
     assert block.display_api_content_by_default?
@@ -20,8 +19,8 @@ class VideoBlockTest < ActiveSupport::TestCase
   should "api_content video_type is youtube" do
     block = VideoPlugin::VideoBlock.new
     block.url = "https://youtube.com/?v=XXXXX"
-    assert block.api_content[:video_type] == 'youtube'
-    assert_includes block.api_content[:url_formatted], 'www.youtube-nocookie.com'
+    assert block.api_content[:video_type] == "youtube"
+    assert_includes block.api_content[:url_formatted], "www.youtube-nocookie.com"
   end
 
   should "is_youtube return true when the url contains http://youtube.com" do
@@ -80,35 +79,35 @@ class VideoBlockTest < ActiveSupport::TestCase
 
   should "extract youtube id from youtube video url's if it's a valid youtube full url" do
     block = VideoPlugin::VideoBlock.new
-    id = 'oi43jre2d2'
+    id = "oi43jre2d2"
     block.url = "youtube.com/?v=#{id}"
-    assert_equal id, block.send('extract_youtube_id')
+    assert_equal id, block.send("extract_youtube_id")
   end
 
   should "extract youtube id from youtube video url's if it has underline and hyphen" do
     block = VideoPlugin::VideoBlock.new
-    id = 'oi43_re-d2'
+    id = "oi43_re-d2"
     block.url = "youtube.com/?v=#{id}"
-    assert_equal id, block.send('extract_youtube_id')
+    assert_equal id, block.send("extract_youtube_id")
   end
 
   should "extract youtube id from youtube video url's if it's a valid youtube short url" do
     block = VideoPlugin::VideoBlock.new
-    id = 'oi43jre2d2'
+    id = "oi43jre2d2"
     block.url = "youtu.be/#{id}"
-    assert_equal id, block.send('extract_youtube_id')
+    assert_equal id, block.send("extract_youtube_id")
   end
 
   should "extract_youtube_id return nil if the url it's not a valid youtube url" do
     block = VideoPlugin::VideoBlock.new
     block.url = "http://www.yt.com/?v=XXXXX"
-    assert_nil block.send('extract_youtube_id')
+    assert_nil block.send("extract_youtube_id")
   end
 
   should "extract_youtube_id return nil if youtue url there is no id" do
     block = VideoPlugin::VideoBlock.new
     block.url = "youtube.com/"
-    assert_nil block.send('extract_youtube_id')
+    assert_nil block.send("extract_youtube_id")
   end
 
   #### Tests for Vimeo Videos
@@ -125,8 +124,8 @@ class VideoBlockTest < ActiveSupport::TestCase
   should "api_content video_type is vimeo" do
     block = VideoPlugin::VideoBlock.new
     block.url = "http://vimeo.com/98979"
-    assert block.api_content[:video_type] == 'vimeo'
-    assert_includes block.api_content[:url_formatted], '//player.vimeo.com/'
+    assert block.api_content[:video_type] == "vimeo"
+    assert_includes block.api_content[:url_formatted], "//player.vimeo.com/"
   end
 
   should "is_vimeo return true when the url contains http://vimeo.com" do
@@ -191,21 +190,21 @@ class VideoBlockTest < ActiveSupport::TestCase
 
   should "extract vimeo id from vimeo video url's if it's a valid vimeo url" do
     block = VideoPlugin::VideoBlock.new
-    id = '23048239432'
+    id = "23048239432"
     block.url = "vimeo.com/#{id}"
-    assert_equal id, block.send('extract_vimeo_id')
+    assert_equal id, block.send("extract_vimeo_id")
   end
 
   should "extract_vimeo_id return nil if the url it's not a valid vimeo url" do
     block = VideoPlugin::VideoBlock.new
     block.url = "http://www.yt.com/XXXXX"
-    assert_nil block.send('extract_vimeo_id')
+    assert_nil block.send("extract_vimeo_id")
   end
 
   should "extract_vimeo_id return nil if vimeo url there is no id" do
     block = VideoPlugin::VideoBlock.new
     block.url = "vimeo.com/"
-    assert_nil block.send('extract_youtube_id')
+    assert_nil block.send("extract_youtube_id")
   end
 
   # Other video formats
@@ -222,7 +221,7 @@ class VideoBlockTest < ActiveSupport::TestCase
   should "api_content video_type is video" do
     block = VideoPlugin::VideoBlock.new
     block.url = "http://www.vmsd.com/98979.mp4"
-    assert block.api_content[:video_type] == 'video'
+    assert block.api_content[:video_type] == "video"
     assert_includes block.api_content[:url_formatted], block.url
   end
 
@@ -261,5 +260,4 @@ class VideoBlockTest < ActiveSupport::TestCase
     block.url = "http://www.vmsd.com/98979.webmr"
     refute block.is_video_file?
   end
-
 end

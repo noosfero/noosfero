@@ -1,5 +1,4 @@
 class OrdersCyclePluginVolunteersController < VolunteersPluginMyprofileController
-
   no_design_blocks
   include OrdersCyclePlugin::TranslationHelper
 
@@ -7,7 +6,6 @@ class OrdersCyclePluginVolunteersController < VolunteersPluginMyprofileControlle
 
   protected
 
-  extend HMVC::ClassMethods
-  hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
-
+    extend HMVC::ClassMethods
+    hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
 end

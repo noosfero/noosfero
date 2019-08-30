@@ -1,11 +1,11 @@
 Noosfero::Application.routes.draw do
   scope :myprofile do
-    scope ':profile', profile: /[^\/]+/ do
+    scope ":profile", profile: /[^\/]+/ do
       resources :profile_email_templates do
-        collection do 
+        collection do
           get :show_parsed
         end
-        member do 
+        member do
           get :show_parsed
         end
       end

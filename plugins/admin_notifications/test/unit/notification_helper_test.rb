@@ -1,14 +1,14 @@
-require 'test_helper'
+require "test_helper"
 
 class NotificationHelperTest < ActiveSupport::TestCase
   def setup
     @env = Environment.default
-    @env.enable_plugin('AdminNotificationsPlugin')
+    @env.enable_plugin("AdminNotificationsPlugin")
 
-    @user = User.create!(:environment_id => @env.id, :email => "user@domain.com", :login   => "new_user", :password => "test", :password_confirmation => "test", :name => "UserName")
+    @user = User.create!(environment_id: @env.id, email: "user@domain.com", login: "new_user", password: "test", password_confirmation: "test", name: "UserName")
   end
 
-  should 'substitute all email variables to the current user email' do
+  should "substitute all email variables to the current user email" do
     message = "Hello user with email %{email}! please, update your current email (%{email})."
 
     new_message = AdminNotificationsPlugin::NotificationHelper.substitute_variables(message, @user)
@@ -17,7 +17,7 @@ class NotificationHelperTest < ActiveSupport::TestCase
     assert_equal new_message, "Hello user with email user@domain.com! please, update your current email (user@domain.com)."
   end
 
-  should 'not substitute emails variables if there is no current user' do
+  should "not substitute emails variables if there is no current user" do
     message = "Hello user with email %{email}! please, update your current email (%{email})."
 
     new_message = AdminNotificationsPlugin::NotificationHelper.substitute_variables(message, nil)
@@ -26,7 +26,7 @@ class NotificationHelperTest < ActiveSupport::TestCase
     assert_not_includes new_message, "user@domain.com"
   end
 
-   should 'substitute all name variables to the current user name' do
+  should "substitute all name variables to the current user name" do
     message = "Hello %{name}! is %{name} your real name?."
 
     new_message = AdminNotificationsPlugin::NotificationHelper.substitute_variables(message, @user)
@@ -35,7 +35,7 @@ class NotificationHelperTest < ActiveSupport::TestCase
     assert_equal new_message, "Hello UserName! is UserName your real name?."
   end
 
-  should 'not substitute name variables if there is no current user' do
+  should "not substitute name variables if there is no current user" do
     message = "Hello %{name}! is %{name} your real name?."
 
     new_message = AdminNotificationsPlugin::NotificationHelper.substitute_variables(message, nil)

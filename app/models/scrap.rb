@@ -1,5 +1,4 @@
 class Scrap < ApplicationRecord
-
   include SanitizeHelper
   include Noosfero::Plugin::HotSpot
   include Notifiable
@@ -7,34 +6,34 @@ class Scrap < ApplicationRecord
   attr_accessible :content, :sender_id, :receiver_id, :scrap_id, :marked_people
 
   SEARCHABLE_FIELDS = {
-    :content => {:label => _('Content'), :weight => 1},
+    content: { label: _("Content"), weight: 1 },
   }
   validates_presence_of :content
   validates_presence_of :sender_id, :receiver_id
 
-  belongs_to :receiver, class_name: 'Profile', foreign_key: 'receiver_id', optional: true
-  belongs_to :sender, class_name: 'Person', foreign_key: 'sender_id', optional: true
-  has_many :replies, class_name: 'Scrap', foreign_key: 'scrap_id', dependent: :destroy
-  belongs_to :root, class_name: 'Scrap', foreign_key: 'scrap_id', optional:true
+  belongs_to :receiver, class_name: "Profile", foreign_key: "receiver_id", optional: true
+  belongs_to :sender, class_name: "Person", foreign_key: "sender_id", optional: true
+  has_many :replies, class_name: "Scrap", foreign_key: "scrap_id", dependent: :destroy
+  belongs_to :root, class_name: "Scrap", foreign_key: "scrap_id", optional: true
 
   has_many :profile_activities, -> {
-    where profile_activities: {activity_type: 'Scrap'}
+    where profile_activities: { activity_type: "Scrap" }
   }, foreign_key: :activity_id, dependent: :destroy
 
-  has_and_belongs_to_many :marked_people, :join_table => :private_scraps, class_name:  'Person'
+  has_and_belongs_to_many :marked_people, join_table: :private_scraps, class_name: "Person"
 
   after_create :create_activity
   after_update :update_activity
 
-  scope :all_scraps, -> profile { limit(30).where("receiver_id = ? OR sender_id = ?", profile, profile) }
+  scope :all_scraps, ->profile { limit(30).where("receiver_id = ? OR sender_id = ?", profile, profile) }
 
   scope :not_replies, -> { where scrap_id: nil }
 
-  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender != s.top_root.receiver}, :custom_target => :action_tracker_target, :custom_user => :sender
+  track_actions :leave_scrap, :after_create, keep_params: ["sender.name", "content", "receiver.name", "receiver.url"], if: Proc.new { |s| s.sender != s.receiver && s.sender != s.top_root.receiver }, custom_target: :action_tracker_target, custom_user: :sender
 
-  track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender == s.receiver}, :custom_user => :sender
+  track_actions :leave_scrap_to_self, :after_create, keep_params: ["sender.name", "content"], if: Proc.new { |s| s.sender == s.receiver }, custom_user: :sender
 
-  track_actions :reply_scrap_on_self, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender == s.top_root.receiver}, :custom_user => :sender
+  track_actions :reply_scrap_on_self, :after_create, keep_params: ["sender.name", "content", "receiver.name", "receiver.url"], if: Proc.new { |s| s.sender != s.receiver && s.sender == s.top_root.receiver }, custom_user: :sender
 
   after_create :send_notification
 
@@ -81,29 +80,29 @@ class Scrap < ApplicationRecord
 
   protected
 
-  def create_activity
-    # do not scrap replies (when scrap_id is not nil)
-    return if self.scrap_id.present?
-    ProfileActivity.create! profile_id: self.receiver_id, activity: self
-  end
+    def create_activity
+      # do not scrap replies (when scrap_id is not nil)
+      return if self.scrap_id.present?
 
-  def update_activity
-    ProfileActivity.update_activity self
-  end
-
-  def send_notification
-    self.root.update_attribute('updated_at', DateTime.now) unless self.root.nil?
-    notify(:new_scrap, self) if self.send_notification?
-  end
-
-  def new_scrap_notification
-    if self.receiver.respond_to?(:push_subscriptions)
-      {
-        title: _('You got a new scrap'),
-        body: _('%s left a scrap in your wall.') % self.sender.name,
-        recipients: [self.receiver]
-      }
+      ProfileActivity.create! profile_id: self.receiver_id, activity: self
     end
-  end
 
+    def update_activity
+      ProfileActivity.update_activity self
+    end
+
+    def send_notification
+      self.root.update_attribute("updated_at", DateTime.now) unless self.root.nil?
+      notify(:new_scrap, self) if self.send_notification?
+    end
+
+    def new_scrap_notification
+      if self.receiver.respond_to?(:push_subscriptions)
+        {
+          title: _("You got a new scrap"),
+          body: _("%s left a scrap in your wall.") % self.sender.name,
+          recipients: [self.receiver]
+        }
+      end
+    end
 end

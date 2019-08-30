@@ -1,21 +1,20 @@
 module ActsAsHavingPosts
-
   module ClassMethods
     def acts_as_having_posts(scope = nil)
       has_many :posts, -> {
-        s = order('published_at DESC, id DESC').where('articles.type != ?', 'RssFeed')
+        s = order("published_at DESC, id DESC").where("articles.type != ?", "RssFeed")
         s = s.instance_exec(&scope) if scope
         s
-      }, class_name: 'Article', foreign_key: 'parent_id', source: :children
+      }, class_name: "Article", foreign_key: "parent_id", source: :children
 
       attr_accessor :feed_attrs
 
       after_create do |blog|
-        blog.children << RssFeed.new(:name => 'feed', :profile => blog.profile)
+        blog.children << RssFeed.new(name: "feed", profile: blog.profile)
         blog.feed = blog.feed_attrs
       end
 
-      settings_items :posts_per_page, :type => :integer, :default => 5
+      settings_items :posts_per_page, type: :integer, default: 5
 
       self.send(:include, ActsAsHavingPosts)
     end
@@ -26,7 +25,7 @@ module ActsAsHavingPosts
   end
 
   def feed
-    children.where(:type => 'RssFeed').first
+    children.where(type: "RssFeed").first
   end
 
   def feed=(attrs)
@@ -44,6 +43,4 @@ module ActsAsHavingPosts
     self.set_name(value)
     self.slug = self.slug.blank? ? self.name.to_slug : self.slug.to_slug
   end
-
 end
-

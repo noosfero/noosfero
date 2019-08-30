@@ -3,7 +3,6 @@ require "uri"
 module Api
   module V1
     class Session < Grape::API::Instance
-
       # Login to get token
       #
       # Parameters:
@@ -24,8 +23,9 @@ module Api
         end
 
         return unauthorized! unless user
+
         @current_user = user
-        present user, :with => Entities::UserLogin, :current_person => current_person
+        present user, with: Entities::UserLogin, current_person: current_person
       end
 
       # Logout to remove all user information from session
@@ -35,21 +35,23 @@ module Api
       post "/logout" do
         if current_user
           current_user.forget_me
-          current_user.update({:chat_status_at => DateTime.now}.merge({:last_chat_status => current_user.chat_status, :chat_status => 'offline'}))
+          current_user.update({ chat_status_at: DateTime.now }.merge(last_chat_status: current_user.chat_status, chat_status: "offline"))
         end
-	reset_session
-        output = {:success => true}
-	output[:message] = _('Logout successfully.')
+        reset_session
+        output = { success: true }
+        output[:message] = _("Logout successfully.")
         output[:code] = Api::Status::LOGOUT
-        present output, :with => Entities::Response
+        present output, with: Entities::Response
       end
 
       post "/login_from_cookie" do
         return unauthorized! if (!session.present? || session[:user_id].blank?)
+
         user = session.user
         return unauthorized! unless user && user.activated?
+
         @current_user = user
-        present user, :with => Entities::UserLogin, :current_person => current_person
+        present user, with: Entities::UserLogin, current_person: current_person
       end
 
       # Create user.
@@ -70,7 +72,7 @@ module Api
         attrs = attributes_for_keys [:email, :login, :password, :password_confirmation, :captcha] + environment.signup_person_fields
         name = params[:name].present? ? params[:name] : attrs[:email]
         attrs[:password_confirmation] = attrs[:password] if !attrs.has_key?(:password_confirmation)
-        user = User.new(attrs.merge(:name => name))
+        user = User.new(attrs.merge(name: name))
 
         begin
           if !verify_recaptcha(model: user, attribute: :captcha, secret_key: Recaptcha.configuration.secret_key, response: user.captcha)
@@ -79,9 +81,9 @@ module Api
 
           user.signup!
           user.generate_private_token! if user.activated?
-          
-          present user, :with => Entities::UserLogin, :current_person => user.person
-        rescue ActiveRecord::RecordInvalid 
+
+          present user, with: Entities::UserLogin, current_person: user.person
+        rescue ActiveRecord::RecordInvalid
           render_model_errors!(user.errors)
         rescue ArgumentError
           render_model_errors!(user.errors)
@@ -107,19 +109,19 @@ module Api
           if user.activate(params[:short_activation_code])
             if user.activated?
               user.generate_private_token!
-              present user, :with => Entities::UserLogin, :current_person => current_person
+              present user, with: Entities::UserLogin, current_person: current_person
             else
               status 202
-              output = {:success => true}
-	            output[:message] = _('Waiting for admin moderate user registration')
+              output = { success: true }
+              output[:message] = _("Waiting for admin moderate user registration")
               output[:code] = Api::Status::Http::OK
-              present output, :with => Entities::Response
+              present output, with: Entities::Response
             end
           else
-            render_api_error!(_('Activation code is invalid'), 412)
+            render_api_error!(_("Activation code is invalid"), 412)
           end
         else
-          render_api_error!(_('Activation token is invalid'), 412)
+          render_api_error!(_("Activation token is invalid"), 412)
         end
       end
 
@@ -132,15 +134,15 @@ module Api
       post "/forgot_password" do
         requestors = fetch_requestors(params[:value])
         not_found! if requestors.blank?
-        remote_ip = (request.respond_to?(:remote_ip) && request.remote_ip) || (env && env['REMOTE_ADDR'])
+        remote_ip = (request.respond_to?(:remote_ip) && request.remote_ip) || (env && env["REMOTE_ADDR"])
         requestors.each do |requestor|
-          ChangePassword.create!(:requestor => requestor)
+          ChangePassword.create!(requestor: requestor)
         end
 
-        output = {:success => true}
-	      output[:message] = _('All change password requests were sent.')
+        output = { success: true }
+        output[:message] = _("All change password requests were sent.")
         output[:code] = Api::Status::Http::OK
-        present output, :with => Entities::Response
+        present output, with: Entities::Response
       end
 
       # Resend activation code.
@@ -152,11 +154,11 @@ module Api
       post "/resend_activation_code" do
         requestors = fetch_requestors(params[:value])
         not_found! if requestors.blank?
-        remote_ip = (request.respond_to?(:remote_ip) && request.remote_ip) || (env && env['REMOTE_ADDR'])
+        remote_ip = (request.respond_to?(:remote_ip) && request.remote_ip) || (env && env["REMOTE_ADDR"])
         requestors.each do |requestor|
           requestor.user.resend_activation_code
         end
-        present requestors.map(&:user), :with => Entities::UserLogin
+        present requestors.map(&:user), with: Entities::UserLogin
       end
 
       params do
@@ -173,16 +175,15 @@ module Api
       patch "/new_password" do
         begin
           change_password = ChangePassword.find_by! code: params[:code]
-          change_password.update_attributes!(:password => params[:password], :password_confirmation => params[:password_confirmation])
+          change_password.update_attributes!(password: params[:password], password_confirmation: params[:password_confirmation])
           change_password.finish
-          present change_password.requestor.user, :with => Entities::UserLogin, :current_person => current_person
+          present change_password.requestor.user, with: Entities::UserLogin, current_person: current_person
         rescue ActiveRecord::RecordInvalid => ex
           render_model_errors!(change_password.errors)
         rescue Exception => ex
           render_api_error!(ex.message, Api::Status::Http::BAD_REQUEST)
         end
       end
-
     end
   end
 end

@@ -1,9 +1,8 @@
 class AddMember < Task
-
   validates_presence_of :requestor_id, :target_id
 
-  validates :requestor, kind_of: {kind: Person}
-  validates :target, kind_of: {kind: Organization}
+  validates :requestor, kind_of: { kind: Person }
+  validates :target, kind_of: { kind: Organization }
 
   alias :person :requestor
   alias :person= :requestor=
@@ -19,15 +18,15 @@ class AddMember < Task
 
   include Noosfero::Plugin::HotSpot
 
-   def environment
-     organization.try(:environment)
-   end
+  def environment
+    organization.try(:environment)
+  end
 
   def perform
-    if !self.roles or (self.roles.uniq.compact.length == 1 and self.roles.uniq.compact.first.to_i.zero?)
+    if !self.roles || ((self.roles.uniq.compact.length == 1) && self.roles.uniq.compact.first.to_i.zero?)
       self.roles = [Profile::Roles.member(organization.environment.id).id]
     end
-    target.affiliate(requestor, self.roles.select{|r| !r.to_i.zero? }.map{|i| Role.find(i)})
+    target.affiliate(requestor, self.roles.select { |r| !r.to_i.zero? }.map { |i| Role.find(i) })
     plugins.dispatch(:member_added, organization, person)
   end
 
@@ -36,8 +35,8 @@ class AddMember < Task
   end
 
   def information
-    {:message => _("%{requestor} wants to be a member of '%{target}'."),
-     variables: {requestor: requestor.name, target: target.name}}
+    { message: _("%{requestor} wants to be a member of '%{target}'."),
+      variables: { requestor: requestor.name, target: target.name } }
   end
 
   def accept_details
@@ -53,7 +52,7 @@ class AddMember < Task
   end
 
   def icon
-    {:type => :profile_image, :profile => requestor, :url => requestor.url}
+    { type: :profile_image, profile: requestor, url: requestor.url }
   end
 
   def permission
@@ -63,12 +62,12 @@ class AddMember < Task
   def target_notification_description
     requestor_email = " (#{requestor.email})" if requestor.may_display_field_to?("email")
 
-    _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'.").html_safe % {:requestor => requestor.name, :requestor_email => requestor_email, :organization => organization.name}
+    _("%{requestor}%{requestor_email} wants to be a member of '%{organization}'.").html_safe % { requestor: requestor.name, requestor_email: requestor_email, organization: organization.name }
   end
 
   def target_notification_message
     target_notification_description + "\n\n" +
-    _('You will need login to %{system} in order to accept or reject %{requestor} as a member of %{organization}.') % { :system => target.environment.name, :requestor => requestor.name, :organization => organization.name }
+      _("You will need login to %{system} in order to accept or reject %{requestor} as a member of %{organization}.") % { system: target.environment.name, requestor: requestor.name, organization: organization.name }
   end
 
   def remove_from_suggestion_list(task)
@@ -78,14 +77,14 @@ class AddMember < Task
 
   def task_finished_message
     _("You have been accepted at \"%{target}\" with the profile \"%{requestor}\"") %
-      {:target => self.target.name,
-       :requestor => self.requestor.name}
+      { target: self.target.name,
+        requestor: self.requestor.name }
   end
 
   def task_cancelled_message
     _("Your request to enter community \"%{target}\" with the profile \"%{requestor}\" was not accepted. Please contact any profile admin from %{target} for more information. The following explanation was given: \n\n\"%{explanation}\"") %
-    {:target => self.target.name,
-     :requestor => self.requestor.name,
-     :explanation => self.reject_explanation}
+      { target: self.target.name,
+        requestor: self.requestor.name,
+        explanation: self.reject_explanation }
   end
 end

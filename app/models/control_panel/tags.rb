@@ -1,15 +1,15 @@
 class ControlPanel::Tags < ControlPanel::Entry
   class << self
     def name
-      _('Tags')
+      _("Tags")
     end
 
     def section
-      'interests'
+      "interests"
     end
 
     def icon
-      'tags'
+      "tags"
     end
 
     def priority
@@ -17,7 +17,7 @@ class ControlPanel::Tags < ControlPanel::Entry
     end
 
     def url(profile)
-     {:controller => 'profile_editor', :action => 'tags'}
+      { controller: "profile_editor", action: "tags" }
     end
   end
 end

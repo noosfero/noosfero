@@ -7,6 +7,7 @@ class AddCustomRolesPermissionToAdminRoles < ActiveRecord::Migration
     environment_admin.save!
     profile_admin.save!
   end
+
   def self.down
     environment_admin = Role.find_by(key: "environment_administrator")
     profile_admin = Role.find_by(key: "profile_admin")

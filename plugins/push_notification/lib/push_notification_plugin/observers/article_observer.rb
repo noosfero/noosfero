@@ -1,7 +1,7 @@
 module PushNotificationPlugin::Observers
   module ArticleObserver
     def article_after_create_callback(article)
-      users=[]
+      users = []
 
       if article.profile.organization?
         article.profile.members.each do |person|
@@ -13,12 +13,12 @@ module PushNotificationPlugin::Observers
 
       send_to_users("new_article",
                     users,
-                    {:event => "New article",
-                     :article => article.id,
-                     :article_body => article.body,
-                     :article_title => article.title,
-                     :article_name => article.name,
-                     :author => article.author_name})
+                    event: "New article",
+                    article: article.id,
+                    article_body: article.body,
+                    article_title: article.title,
+                    article_name: article.name,
+                    author: article.author_name)
     end
   end
 end

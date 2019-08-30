@@ -1,15 +1,15 @@
 class ControlPanel::Roles < ControlPanel::Entry
   class << self
     def name
-      _('Roles')
+      _("Roles")
     end
 
     def section
-      'relationships'
+      "relationships"
     end
 
     def icon
-      'id-badge'
+      "id-badge"
     end
 
     def priority
@@ -17,12 +17,11 @@ class ControlPanel::Roles < ControlPanel::Entry
     end
 
     def url(profile)
-      {:controller => 'profile_roles', :action => 'index'}
+      { controller: "profile_roles", action: "index" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.organization?
     end
   end
 end
-

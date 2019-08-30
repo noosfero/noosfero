@@ -7,13 +7,12 @@ class CreateSuppliersPluginSourceProduct < ActiveRecord::Migration[5.1]
       t.integer  "from_product_id"
       t.integer  "to_product_id"
       t.integer  "supplier_id"
-      t.decimal  "quantity", :default => 0.0
+      t.decimal  "quantity", default: 0.0
       t.timestamps
     end
 
     add_index :suppliers_plugin_source_products, [:from_product_id]
     add_index :suppliers_plugin_source_products, [:to_product_id]
-
   end
 
   def self.down

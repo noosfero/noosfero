@@ -1,7 +1,6 @@
 require_relative "../test_helper"
 
 class MacroTest < ActiveSupport::TestCase
-
   class Plugin1 < Noosfero::Plugin
   end
 
@@ -15,28 +14,28 @@ class MacroTest < ActiveSupport::TestCase
 
   def setup
     @macro = Plugin1::Macro.new
-    @macro_element = Nokogiri::HTML.fragment(MACRO).css('.macro').first
+    @macro_element = Nokogiri::HTML.fragment(MACRO).css(".macro").first
   end
 
   attr_reader :macro, :macro_element
 
-  should 'access plugin' do
+  should "access plugin" do
     assert_equal Plugin1, Plugin1::Macro.plugin
   end
 
-  should 'parse attributes' do
+  should "parse attributes" do
     attributes = macro.attributes(macro_element)
-    assert_equal '1', attributes['attr1']
-    assert_equal '2', attributes['attr2']
-    assert_equal '3', attributes['attr3']
+    assert_equal "1", attributes["attr1"]
+    assert_equal "2", attributes["attr2"]
+    assert_equal "3", attributes["attr3"]
   end
 
-  should 'convert macro' do
-    assert_equal 'Testing: It works!', macro.convert(macro_element, nil)
+  should "convert macro" do
+    assert_equal "Testing: It works!", macro.convert(macro_element, nil)
   end
 
-  should 'include element classes when parsing macro' do
-    macro.expects(:parse).with(has_entry('classes', 'macro nonEdit'),
+  should "include element classes when parsing macro" do
+    macro.expects(:parse).with(has_entry("classes", "macro nonEdit"),
                                anything, anything)
     macro.convert(macro_element, nil)
   end

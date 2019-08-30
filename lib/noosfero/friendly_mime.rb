@@ -1,7 +1,7 @@
-require 'csv'
+require "csv"
 
 class Noosfero::FriendlyMIME
-  VERSION = '1.0.2'
+  VERSION = "1.0.2"
 
   class << self
     attr_accessor :mimes
@@ -10,7 +10,7 @@ class Noosfero::FriendlyMIME
     #
     def load
       self.mimes = {}
-      CSV.foreach(File.expand_path(File.join(File.dirname(__FILE__), 'mimes.csv')), :headers => false) do |row|
+      CSV.foreach(File.expand_path(File.join(File.dirname(__FILE__), "mimes.csv")), headers: false) do |row|
         self.mimes[row[0]] = row[2]
       end
     end
@@ -26,7 +26,8 @@ class Noosfero::FriendlyMIME
     #
     def find(mime)
       return nil if mime.nil?
-      self.mimes[mime.to_s.downcase] || '.'+mime.split('/').last
+
+      self.mimes[mime.to_s.downcase] || "." + mime.split("/").last
     end
   end
 end

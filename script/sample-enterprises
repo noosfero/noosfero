@@ -1,23 +1,23 @@
 #!/usr/bin/env ruby
 
-require_relative '../config/environment'
-require_relative '../lib/sample_data'
+require_relative "../config/environment"
+require_relative "../lib/sample_data"
 include SampleData
 
 categories = $environment.categories
 
 def rand_position(type)
   range = {
-    :lat => [-33.52, 4.6],
-    :lng => [-72.9, -32.41],
+    lat: [-33.52, 4.6],
+    lng: [-72.9, -32.41],
   }[type]
   amplitude = (range.last - range.first)
   range.first + rand() * amplitude
 end
 
-groups = ['Associação', 'Empresa Solidária', 'Cooperativa']
-what = ['de Produção de Alimentos', 'de Serviços', 'de Artesanato', 'de Comercialização']
-places = ['de Caximbinha do Sul', 'de Bonito', 'de Reviravolta do Serrado']
+groups = ["Associa\u00E7\u00E3o", "Empresa Solid\u00E1ria", "Cooperativa"]
+what = ["de Produ\u00E7\u00E3o de Alimentos", "de Servi\u00E7os", "de Artesanato", "de Comercializa\u00E7\u00E3o"]
+places = ["de Caximbinha do Sul", "de Bonito", "de Reviravolta do Serrado"]
 
 start_time = Time.now
 
@@ -25,32 +25,33 @@ print "Creating enterprises: "
 groups.each do |group|
   what.each do |production|
     places.each do |place|
-      name = [group, production, place].join(' ') + " - #{$environment.name}"
+      name = [group, production, place].join(" ") + " - #{$environment.name}"
       enterprise = Enterprise.new(
-        :name => name,
-        :identifier => name.to_slug,
-        :foundation_year => (1990..2008).to_a[rand(18)],
-        :lat => rand_position(:lat),
-        :lng => rand_position(:lng)
+        name: name,
+        identifier: name.to_slug,
+        foundation_year: (1990..2008).to_a[rand(18)],
+        lat: rand_position(:lat),
+        lng: rand_position(:lng)
       )
       next if Profile[enterprise.identifier]
+
       save enterprise do
         2.times do
           category = categories.sample
           enterprise.add_category category
         end
       end
-      print '.'
+      print "."
     end
   end
 end
 done
 
-EnterpriseActivation.where('created_at > ?', start_time).each do |activation|
+EnterpriseActivation.where("created_at > ?", start_time).each do |activation|
   enterprise = activation.enterprise
 end
 
-ze = Person['ze']
+ze = Person["ze"]
 # give admin rights for 'ze' in some enterprises
 $environment.enterprises.sample.add_admin(ze)
 $environment.enterprises.sample.add_admin(ze)

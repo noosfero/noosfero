@@ -1,11 +1,9 @@
-require_dependency 'open_graph_plugin/stories'
+require_dependency "open_graph_plugin/stories"
 
 # This is used when ActionTracker is not compartible with the way
 module OpenGraphPlugin::AttachStories
-
   module ClassMethods
-
-    def open_graph_attach_stories options={}
+    def open_graph_attach_stories(options = {})
       if stories = Array(options[:only])
         callbacks = {}
         stories.each do |story|
@@ -27,18 +25,15 @@ module OpenGraphPlugin::AttachStories
 
         self.send "after_#{on}", method
         # buggy with rails 3.2
-        #self.send "after_commit", method, on: on
+        # self.send "after_commit", method, on: on
 
         define_method method do
           OpenGraphPlugin::Stories.publish self, stories
         end
       end
     end
-
   end
 
   module InstanceMethods
-
   end
-
 end

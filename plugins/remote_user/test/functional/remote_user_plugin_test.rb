@@ -1,35 +1,35 @@
-require 'test_helper'
+require "test_helper"
 
 class AccountControllerTest < ActionController::TestCase
   def setup
     @controller = AccountController.new
 
     @environment = Environment.default
-    @environment.enabled_plugins = ['RemoteUserPlugin']
+    @environment.enabled_plugins = ["RemoteUserPlugin"]
     @environment.save
 
     @another_environment = Environment.new(name: "AnotherEnvironment")
-    @another_environment.enabled_plugins = ['RemoteUserPlugin']
+    @another_environment.enabled_plugins = ["RemoteUserPlugin"]
     @another_environment.save
   end
 
-  should 'not authenticate user if there is no remote user' do
+  should "not authenticate user if there is no remote user" do
     get :index
     assert_nil session[:user]
   end
 
-  should 'authenticate user if its a valid remote user' do
-    user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+  should "authenticate user if its a valid remote user" do
+    user = create_user("testuser", email: "testuser@example.com", password: "test", password_confirmation: "test")
     user.activate!
     @request.env["HTTP_REMOTE_USER"] = user.login
     get :index
     assert session[:user]
   end
 
-  should 'authenticate another user if the remote user doesnt belong to the current user' do
-    user1 = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+  should "authenticate another user if the remote user doesnt belong to the current user" do
+    user1 = create_user("testuser", email: "testuser@example.com", password: "test", password_confirmation: "test")
     user1.activate!
-    user2 = create_user('anotheruser', :email => 'anotheruser@example.com', :password => 'test', :password_confirmation => 'test')
+    user2 = create_user("anotheruser", email: "anotheruser@example.com", password: "test", password_confirmation: "test")
     user2.activate!
 
     login_as user1.login
@@ -41,7 +41,7 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal user2.id, session[:user]
   end
 
-  should 'create a new user with remote_user_data if the remote user does not exist' do
+  should "create a new user with remote_user_data if the remote user does not exist" do
     User.destroy_all
 
     assert_equal 0, User.count
@@ -59,15 +59,15 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal "testuser@domain.com", User.last.email
   end
 
-  should 'create a new user with remote_user_data even if there is a logged user but the remote user is different' do
+  should "create a new user with remote_user_data even if there is a logged user but the remote user is different" do
     users = User.count
 
-    user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+    user = create_user("testuser", email: "testuser@example.com", password: "test", password_confirmation: "test")
     user.activate!
 
     login_as user.login
 
-    @request.env["HTTP_REMOTE_USER"] = 'another_user'
+    @request.env["HTTP_REMOTE_USER"] = "another_user"
     @request.env["CONTENT_TYPE"] = "application/json"
     @request.env["HTTP_REMOTE_USER_DATA"] = '{"email":"another_user@domain.com", "name":"Another User"}'
     get :index
@@ -80,7 +80,7 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal "another_user@domain.com", User.last.email
   end
 
-  should 'create a new user without remote_user_data if the remote user does not exist' do
+  should "create a new user without remote_user_data if the remote user does not exist" do
     User.destroy_all
 
     assert_equal 0, User.count
@@ -96,15 +96,15 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal "testuser@remote.user", User.last.email
   end
 
-  should 'create a new user without remote_user_data even if there is a logged user but the remote user is different' do
+  should "create a new user without remote_user_data even if there is a logged user but the remote user is different" do
     users = User.count
 
-    user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+    user = create_user("testuser", email: "testuser@example.com", password: "test", password_confirmation: "test")
     user.activate!
 
     login_as user.login
 
-    @request.env["HTTP_REMOTE_USER"] = 'another_user'
+    @request.env["HTTP_REMOTE_USER"] = "another_user"
     get :index
 
     assert_equal users + 2, User.count
@@ -115,8 +115,8 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal "another_user@remote.user", User.last.email
   end
 
-  should 'logout if there is a current logged user but not a remote user' do
-    user1 = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+  should "logout if there is a current logged user but not a remote user" do
+    user1 = create_user("testuser", email: "testuser@example.com", password: "test", password_confirmation: "test")
     user1.activate!
 
     login_as user1.login
@@ -131,7 +131,7 @@ class AccountControllerTest < ActionController::TestCase
     assert session[:user].blank?
   end
 
-  should 'not create a new user if his informations is invalid' do
+  should "not create a new user if his informations is invalid" do
     @request.env["HTTP_REMOTE_USER"] = "*%&invalid user name&%*"
     get :index
 
@@ -149,15 +149,15 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should "create an user in both environments" do
-    user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
+    user = create_user("testuser", email: "testuser@example.com", password: "test", password_confirmation: "test")
     @controller.stubs(:environment).returns(@another_environment)
     @request.env["HTTP_REMOTE_USER"] = "testuser"
 
-    users = User.where(:login => 'testuser')
+    users = User.where(login: "testuser")
     assert_equal users.count, 1
 
     get :index
-    users = User.where(:login => 'testuser')
+    users = User.where(login: "testuser")
     assert_equal users.count, 2
   end
 end

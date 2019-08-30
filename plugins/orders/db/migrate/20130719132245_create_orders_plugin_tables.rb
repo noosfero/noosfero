@@ -25,19 +25,18 @@ class CreateOrdersPluginTables < ActiveRecord::Migration
     create_table :orders_plugin_products do |t|
       t.integer  :product_id
       t.integer  :order_id
-      t.decimal  :quantity_asked,     :default => 0.0
-      t.decimal  :quantity_allocated, :default => 0.0
-      t.decimal  :quantity_payed,     :default => 0.0
-      t.decimal  :price_asked,        :default => 0.0
-      t.decimal  :price_allocated,    :default => 0.0
-      t.decimal  :price_payed,        :default => 0.0
+      t.decimal  :quantity_asked,     default: 0.0
+      t.decimal  :quantity_allocated, default: 0.0
+      t.decimal  :quantity_payed,     default: 0.0
+      t.decimal  :price_asked,        default: 0.0
+      t.decimal  :price_allocated,    default: 0.0
+      t.decimal  :price_payed,        default: 0.0
       t.datetime :created_at
       t.datetime :updated_at
     end
 
     add_index :orders_plugin_products, [:order_id]
     add_index :orders_plugin_products, [:product_id]
-
   end
 
   def self.down

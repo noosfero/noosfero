@@ -1,7 +1,6 @@
 require_relative "../test_helper"
 
 class EmbedControllerTest < ActionController::TestCase
-
   def setup
     @user = create_admin_user(Environment.default)
     login_as(@user)
@@ -14,29 +13,27 @@ class EmbedControllerTest < ActionController::TestCase
 
   attr_reader :user
 
-  should 'be able to get embed block' do
-    get :block, :id => @block.id
-    assert_tag :tag => 'div', :attributes => { :id => "block-#{@block.id}" }
+  should "be able to get embed block" do
+    get :block, id: @block.id
+    assert_tag tag: "div", attributes: { id: "block-#{@block.id}" }
   end
 
-  should 'display error message when not found block' do
+  should "display error message when not found block" do
     Block.delete_all
-    get :block, :id => 1
-    assert_tag :tag => 'div', :attributes => { :id => "not-found" }
+    get :block, id: 1
+    assert_tag tag: "div", attributes: { id: "not-found" }
   end
 
-  should 'display error message when block is not visible/public' do
-    @block.display = 'never'
+  should "display error message when block is not visible/public" do
+    @block.display = "never"
     assert @block.save
-    get :block, :id => @block.id
-    assert_tag :tag => 'div', :attributes => { :id => "unavailable" }
+    get :block, id: @block.id
+    assert_tag tag: "div", attributes: { id: "unavailable" }
   end
 
-  should 'display error message when block is not embedable' do
+  should "display error message when block is not embedable" do
     @block.class.any_instance.stubs(:embedable?).returns(false)
-    get :block, :id => @block.id
-    assert_tag :tag => 'div', :attributes => { :id => "unavailable" }
+    get :block, id: @block.id
+    assert_tag tag: "div", attributes: { id: "unavailable" }
   end
-
-
 end

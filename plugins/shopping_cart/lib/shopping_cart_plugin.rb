@@ -1,5 +1,4 @@
 class ShoppingCartPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Shopping Basket"
   end
@@ -13,13 +12,13 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def js_files
-    'cart.js'
+    "cart.js"
   end
 
   def body_beginning
     lambda do
-    	extend ShoppingCartPlugin::CartHelper
-      render 'public/cart' unless cart_minimized
+      extend ShoppingCartPlugin::CartHelper
+      render "public/cart" unless cart_minimized
     end
   end
 
@@ -28,12 +27,13 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def control_panel_sections
-    [shopping: {name: _('Shopping'), priority: 71}]
+    [shopping: { name: _("Shopping"), priority: 71 }]
   end
 
-  def add_to_cart_button item, options = {}
+  def add_to_cart_button(item, options = {})
     profile = item.profile
-    return unless profile.shopping_cart_enabled and item.available
+    return unless profile.shopping_cart_enabled && item.available
+
     lambda do
       extend ShoppingCartPlugin::CartHelper
       add_to_cart_button item, options
@@ -45,16 +45,16 @@ class ShoppingCartPlugin < Noosfero::Plugin
   alias :asset_product_extras :add_to_cart_button
 
   # We now think that it's not a good idea to have the basket in the same time.
-  #def catalog_autocomplete_item_extras product
+  # def catalog_autocomplete_item_extras product
   #  add_to_cart_button product, with_text: false
-  #end
+  # end
 
   def catalog_search_extras_begin
     return unless profile.shopping_cart_enabled
+
     lambda do
       extend ShoppingCartPlugin::CartHelper
-      content_tag 'li', render('public/cart'), :class => 'catalog-cart'
+      content_tag "li", render("public/cart"), class: "catalog-cart"
     end
   end
-
 end

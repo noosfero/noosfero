@@ -1,7 +1,7 @@
 class ChangeCertifierDescriptionToText < ActiveRecord::Migration
   def self.up
     change_table :certifiers do |t|
-      t.change :description, :text, :limit => nil
+      t.change :description, :text, limit: nil
     end
   end
 

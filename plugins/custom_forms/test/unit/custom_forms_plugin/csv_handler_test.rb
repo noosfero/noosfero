@@ -1,13 +1,13 @@
-require 'test_helper'
+require "test_helper"
 
 class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
   def setup
     @profile = fast_create(Profile)
-    @form = @profile.forms.create!(name: 'Free Software', identifier: 'free')
+    @form = @profile.forms.create!(name: "Free Software", identifier: "free")
   end
 
-  should 'include the profile fields in the template' do
-    profile_fields = ['name', 'email', 'city', 'cell_phone']
+  should "include the profile fields in the template" do
+    profile_fields = ["name", "email", "city", "cell_phone"]
     handler = CustomFormsPlugin::CsvHandler.new(@form, profile_fields)
     template = handler.generate_template
     profile_fields.each do |col|
@@ -15,20 +15,20 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     end
   end
 
-  should 'include all fields in the generated template' do
+  should "include all fields in the generated template" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    f1 = CustomFormsPlugin::TextField.create!(form: @form, name: 'Priority')
-    f2 = CustomFormsPlugin::TextField.create!(form: @form, name: 'Description')
+    f1 = CustomFormsPlugin::TextField.create!(form: @form, name: "Priority")
+    f2 = CustomFormsPlugin::TextField.create!(form: @form, name: "Description")
     template = handler.generate_template
     assert /#{f1.name}/, template
     assert /#{f2.name}/, template
   end
 
-  should 'include field and alternatives for select fields' do
+  should "include field and alternatives for select fields" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    field = CustomFormsPlugin::SelectField.new(form: @form, name: 'OS')
-    a1 = field.alternatives.new(label: 'Debian')
-    a2 = field.alternatives.new(label: 'Ubuntu')
+    field = CustomFormsPlugin::SelectField.new(form: @form, name: "OS")
+    a1 = field.alternatives.new(label: "Debian")
+    a2 = field.alternatives.new(label: "Ubuntu")
     field.alternatives = [a1, a2]
     field.save!
 
@@ -38,10 +38,10 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     assert_match /#{a2.label}/, template
   end
 
-  should 'include profile field values in the generated CSV' do
-    profile_fields = ['name', 'email', 'city', 'cell_phone']
+  should "include profile field values in the generated CSV" do
+    profile_fields = ["name", "email", "city", "cell_phone"]
     handler = CustomFormsPlugin::CsvHandler.new(@form, profile_fields)
-    person = create_user('testuser', email: 'ze@mail.com').person
+    person = create_user("testuser", email: "ze@mail.com").person
     submission = @form.submissions.create!(profile: person)
     content = handler.generate_csv
 
@@ -51,37 +51,37 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     end
   end
 
-  should 'include field names in the generated CSV' do
+  should "include field names in the generated CSV" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    f1 = CustomFormsPlugin::TextField.create!(form: @form, name: 'Priority')
-    f2 = CustomFormsPlugin::TextField.create!(form: @form, name: 'Description')
+    f1 = CustomFormsPlugin::TextField.create!(form: @form, name: "Priority")
+    f2 = CustomFormsPlugin::TextField.create!(form: @form, name: "Description")
     content = handler.generate_csv
     assert_match /#{f1.name}/, content
     assert_match /#{f2.name}/, content
   end
 
- should 'include all submissions in the generated CSV' do
+  should "include all submissions in the generated CSV" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
     submission1 = @form.submissions.create!(profile: fast_create(Person))
-    submission2 = @form.submissions.create!(author_name: 'some author',
-                                            author_email: 'author@mail.com')
+    submission2 = @form.submissions.create!(author_name: "some author",
+                                            author_email: "author@mail.com")
 
-    f1 = CustomFormsPlugin::TextField.create!(form: @form, name: 'Priority')
-    answer1 = submission1.answers.create(field: f1, value: 'High')
-    answer2 = submission2.answers.create(field: f1, value: 'Low')
+    f1 = CustomFormsPlugin::TextField.create!(form: @form, name: "Priority")
+    answer1 = submission1.answers.create(field: f1, value: "High")
+    answer2 = submission2.answers.create(field: f1, value: "Low")
 
-    f2 = CustomFormsPlugin::SelectField.new(form: @form, name: 'OS')
-    alt1 = f2.alternatives.new(label: 'Debian')
-    alt2 = f2.alternatives.new(label: 'Ubuntu')
+    f2 = CustomFormsPlugin::SelectField.new(form: @form, name: "OS")
+    alt1 = f2.alternatives.new(label: "Debian")
+    alt2 = f2.alternatives.new(label: "Ubuntu")
     f2.alternatives = [alt1, alt2]
     f2.save!
     answer3 = submission1.answers.create!(field: f2, value: alt2.id)
     answer4 = submission2.answers.create!(field: f2, value: alt1.id)
 
-    form_answer1 =CustomFormsPlugin::FormAnswer.create!(alternative_id: alt2.id, answer_id: answer3.id)
+    form_answer1 = CustomFormsPlugin::FormAnswer.create!(alternative_id: alt2.id, answer_id: answer3.id)
     answer3.form_answers << form_answer1
     answer3.save!
-    form_answer2 =CustomFormsPlugin::FormAnswer.create!(alternative_id: alt1.id, answer_id: answer4.id)
+    form_answer2 = CustomFormsPlugin::FormAnswer.create!(alternative_id: alt1.id, answer_id: answer4.id)
     answer4.form_answers << form_answer2
     answer4.save!
 
@@ -96,10 +96,10 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     assert_match /#{alt2.label}/, content
   end
 
-  should 'include any additional fields passed to the handler' do
-    handler = CustomFormsPlugin::CsvHandler.new(@form, ['city'])
+  should "include any additional fields passed to the handler" do
+    handler = CustomFormsPlugin::CsvHandler.new(@form, ["city"])
     person = fast_create(Person)
-    person.city = 'Valhalla'
+    person.city = "Valhalla"
 
     @form.submissions.create!(profile: person)
 
@@ -107,10 +107,10 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     assert_match /#{person.city}/, content
   end
 
-  should 'import submissions from CSV' do
+  should "import submissions from CSV" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 1')
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 2')
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 1")
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 2")
 
     csv_content = "Name,Email,Question 1,Question 2\n"
     csv_content += "rosa,rosa@mail.com,answer 1,answer 2\n"
@@ -120,17 +120,17 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
       handler.import_csv(csv_content)
     end
 
-    answers = @form.submissions.map{ |s| s.answers.map{ |a| a.value } }
+    answers = @form.submissions.map { |s| s.answers.map { |a| a.value } }
     answers = answers.flatten
     ["answer 1", "answer 2", "answer 3", "answer 4"].each do |answer|
       assert_includes answers, answer
     end
   end
 
-  should 'flag imported submissions from CSV' do
+  should "flag imported submissions from CSV" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 1')
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 2')
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 1")
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 2")
 
     csv_content = "Name,Email,Question 1,Question 2\n"
     csv_content += "rosa,rosa@mail.com,answer 1,answer 2\n"
@@ -141,12 +141,12 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     assert answers.all?(&:imported)
   end
 
-  should 'accept multiple alternatives for select fields during import' do
+  should "accept multiple alternatives for select fields during import" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    field = CustomFormsPlugin::SelectField.new(form: @form, name: 'OS',
-                                               show_as: 'check_box')
-    alt1 = field.alternatives.new(label: 'Debian')
-    alt2 = field.alternatives.new(label: 'Ubuntu')
+    field = CustomFormsPlugin::SelectField.new(form: @form, name: "OS",
+                                               show_as: "check_box")
+    alt1 = field.alternatives.new(label: "Debian")
+    alt2 = field.alternatives.new(label: "Ubuntu")
     field.alternatives = [alt1, alt2]
     field.save!
 
@@ -157,17 +157,17 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     end
 
     answer = @form.submissions.last.answer_for(field)
-    answers = answer.value.split(',')
-                    .map{ |id| CustomFormsPlugin::Alternative.find(id) }
+    answers = answer.value.split(",")
+                    .map { |id| CustomFormsPlugin::Alternative.find(id) }
     assert_equivalent [alt1, alt2], answers
   end
 
-  should 'ignore errors and generate report' do
+  should "ignore errors and generate report" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 1')
-    field = CustomFormsPlugin::SelectField.new(form: @form, name: 'OS')
-    alt1 = field.alternatives.new(label: 'Debian')
-    alt2 = field.alternatives.new(label: 'Ubuntu')
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 1")
+    field = CustomFormsPlugin::SelectField.new(form: @form, name: "OS")
+    alt1 = field.alternatives.new(label: "Debian")
+    alt2 = field.alternatives.new(label: "Ubuntu")
     field.alternatives = [alt1, alt2]
     field.save!
 
@@ -181,10 +181,10 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     assert_equal 2, report[:errors].size
   end
 
-  should 'save row number and content of errored lines' do
+  should "save row number and content of errored lines" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 1')
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 2')
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 1")
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 2")
 
     row = "rosa,rosa@mail.com,Foo,Bar"
     csv_content = "Name,Email,Question 1,OS\n"
@@ -195,17 +195,17 @@ class CustomFormsPlugin::CsvHandlerTest < ActiveSupport::TestCase
     report = handler.import_csv(csv_content)
     error = report[:errors].first
     assert_equal 4, error[:row_number]
-    assert_equal row.split(','), error[:row]
+    assert_equal row.split(","), error[:row]
   end
 
-  should 'a' do
+  should "a" do
     handler = CustomFormsPlugin::CsvHandler.new(@form)
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 1')
-    CustomFormsPlugin::TextField.create!(form: @form, name: 'Question 2',
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 1")
+    CustomFormsPlugin::TextField.create!(form: @form, name: "Question 2",
                                          mandatory: true)
-    field = CustomFormsPlugin::SelectField.new(form: @form, name: 'OS')
-    alt1 = field.alternatives.new(label: 'Debian')
-    alt2 = field.alternatives.new(label: 'Ubuntu')
+    field = CustomFormsPlugin::SelectField.new(form: @form, name: "OS")
+    alt1 = field.alternatives.new(label: "Debian")
+    alt2 = field.alternatives.new(label: "Ubuntu")
     field.alternatives = [alt1, alt2]
     field.save!
 

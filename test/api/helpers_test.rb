@@ -1,8 +1,7 @@
-require_relative 'test_helper'
-require 'base64'
+require_relative "test_helper"
+require "base64"
 
 class Api::HelpersTest < ActiveSupport::TestCase
-
   include Api::Helpers
 
   def setup
@@ -12,40 +11,39 @@ class Api::HelpersTest < ActiveSupport::TestCase
 
   attr_accessor :headers
 
-  should 'get the current user with valid token' do
+  should "get the current user with valid token" do
     login_api
-    self.params = {:private_token => user.private_token}
+    self.params = { private_token: user.private_token }
     set_current_user
     assert_equal user, current_user
   end
 
-  should 'get the current user with valid token in header' do
+  should "get the current user with valid token in header" do
     login_api
-    headers['Private-Token'] = user.private_token
+    headers["Private-Token"] = user.private_token
     set_current_user
     assert_equal user, current_user
   end
 
-  should 'get the current user even with expired token' do
+  should "get the current user even with expired token" do
     login_api
     user.private_token_generated_at = DateTime.now.prev_year
     user.save
-    self.params = {:private_token => user.private_token}
+    self.params = { private_token: user.private_token }
     set_current_user
     assert_equal user, current_user
   end
 
-  should 'get the person of current user' do
+  should "get the person of current user" do
     login_api
-    self.params = {:private_token => user.private_token}
+    self.params = { private_token: user.private_token }
     assert_equal user.person, current_person
   end
 
-  should 'get the current user from plugins' do
-
+  should "get the current user from plugins" do
     class CoolPlugin < Noosfero::Plugin
-      def api_custom_login request
-        user = User.create!(:login => 'zombie', :password => 'zombie', :password_confirmation => 'zombie', :email => 'zombie@brains.org', :environment => environment)
+      def api_custom_login(request)
+        user = User.create!(login: "zombie", password: "zombie", password_confirmation: "zombie", email: "zombie@brains.org", environment: environment)
         user.activate!
         user
       end
@@ -57,197 +55,197 @@ class Api::HelpersTest < ActiveSupport::TestCase
     get "/api/v1/people/me"
 
     json = JSON.parse(last_response.body)
-    assert_equal "zombie", json['name']
+    assert_equal "zombie", json["name"]
   end
 
-  should 'limit be defined as the params limit value' do
+  should "limit be defined as the params limit value" do
     local_limit = 30
-    self.params= {:limit => local_limit}
+    self.params = { limit: local_limit }
     assert_equal local_limit, limit
   end
 
-  should 'return default limit if the limit parameter is minor than zero' do
-    self.params= {:limit => -1}
+  should "return default limit if the limit parameter is minor than zero" do
+    self.params = { limit: -1 }
     assert_equal 20, limit
   end
 
-  should 'the default limit be 20' do
+  should "the default limit be 20" do
     assert_equal 20, limit
   end
 
-  should 'the beginning of the period be the first existent date if no from date is passsed as parameter' do
+  should "the beginning of the period be the first existent date if no from date is passsed as parameter" do
     assert_equal Time.at(0).to_datetime, period(nil, nil).to_a[0]
   end
 
-  should 'the beginning of the period be from date passsed as parameter' do
+  should "the beginning of the period be from date passsed as parameter" do
     from = DateTime.now
     assert_equal from, period(from, nil).min
   end
 
-  should 'the end of the period be now if no until date is passsed as parameter' do
+  should "the end of the period be now if no until date is passsed as parameter" do
     assert_in_delta DateTime.now, period(nil, nil).max
   end
 
-  should 'the end of the period be until date passsed as parameter' do
+  should "the end of the period be until date passsed as parameter" do
     until_date = DateTime.now
     assert_equal until_date, period(nil, until_date).max
   end
 
-  should 'parse_content_type return nil if its blank' do
+  should "parse_content_type return nil if its blank" do
     assert_nil parse_content_type("")
   end
 
-  should 'parse_content_type be an array' do
+  should "parse_content_type be an array" do
     assert_kind_of Array, parse_content_type("text_article")
   end
 
-  should 'parse_content_type return all content types as an array' do
-    assert_equivalent ['Event','TextArticle'], parse_content_type("Event,TextArticle")
+  should "parse_content_type return all content types as an array" do
+    assert_equivalent ["Event", "TextArticle"], parse_content_type("Event,TextArticle")
   end
 
-  should 'find_article return article by id in list passed for user with permission' do
+  should "find_article return article by id in list passed for user with permission" do
     login_api
-    a = fast_create(Article, :profile_id => user.person.id)
-    fast_create(Article, :profile_id => user.person.id)
-    fast_create(Article, :profile_id => user.person.id)
+    a = fast_create(Article, profile_id: user.person.id)
+    fast_create(Article, profile_id: user.person.id)
+    fast_create(Article, profile_id: user.person.id)
 
-    self.params = {private_token: user.private_token}
+    self.params = { private_token: user.private_token }
     result = mock()
     result.expects(:includes).with(:person).returns([user])
     User.expects(:where).with(private_token: user.private_token).returns(result)
     set_current_user
-    assert_equal a, find_article(user.person.articles,{:id => a.id})
+    assert_equal a, find_article(user.person.articles, id: a.id)
   end
 
-  should 'find_article return forbidden when a user try to access an article without permission' do
+  should "find_article return forbidden when a user try to access an article without permission" do
     login_api
     p = fast_create(Profile)
-    a = fast_create(Article, :published => false, :access => Entitlement::Levels.levels[:self], :profile_id => p.id)
-    fast_create(Article, :profile_id => p.id)
+    a = fast_create(Article, published: false, access: Entitlement::Levels.levels[:self], profile_id: p.id)
+    fast_create(Article, profile_id: p.id)
 
-    self.params = {private_token: user.private_token}
+    self.params = { private_token: user.private_token }
     result = mock()
     result.expects(:includes).with(:person).returns([user])
     User.expects(:where).with(private_token: user.private_token).returns(result)
     set_current_user
-    assert_equal 403, find_article(p.articles, {:id => a.id}).last
+    assert_equal 403, find_article(p.articles, id: a.id).last
   end
 
-  should 'make_conditions_with_parameter return no created at parameter if it was not defined from or until parameters' do
+  should "make_conditions_with_parameter return no created at parameter if it was not defined from or until parameters" do
     assert_nil make_conditions_with_parameter[:created_at]
   end
 
-  should 'make_conditions_with_parameter return created_at parameter if from period is defined' do
-    assert_not_nil make_conditions_with_parameter(:from => '2010-10-10')[:created_at]
+  should "make_conditions_with_parameter return created_at parameter if from period is defined" do
+    assert_not_nil make_conditions_with_parameter(from: "2010-10-10")[:created_at]
   end
 
-  should 'make_conditions_with_parameter return created_at parameter if from period is defined as string' do
-    assert_not_nil make_conditions_with_parameter('from' => '2010-10-10')[:created_at]
+  should "make_conditions_with_parameter return created_at parameter if from period is defined as string" do
+    assert_not_nil make_conditions_with_parameter("from" => "2010-10-10")[:created_at]
   end
 
-  should 'make_conditions_with_parameter return created_at parameter if until period is defined' do
-    assert_not_nil make_conditions_with_parameter(:until => '2010-10-10')[:created_at]
+  should "make_conditions_with_parameter return created_at parameter if until period is defined" do
+    assert_not_nil make_conditions_with_parameter(until: "2010-10-10")[:created_at]
   end
 
-  should 'make_conditions_with_parameter return created_at parameter if until period is defined as string' do
-    assert_not_nil make_conditions_with_parameter('until' => '2010-10-10')[:created_at]
+  should "make_conditions_with_parameter return created_at parameter if until period is defined as string" do
+    assert_not_nil make_conditions_with_parameter("until" => "2010-10-10")[:created_at]
   end
 
-  should 'make_conditions_with_parameter return created_at as the first existent date as parameter if only until is defined' do
-    assert_equal Time.at(0).to_datetime, make_conditions_with_parameter(:until => '2010-10-10')[:created_at].min
+  should "make_conditions_with_parameter return created_at as the first existent date as parameter if only until is defined" do
+    assert_equal Time.at(0).to_datetime, make_conditions_with_parameter(until: "2010-10-10")[:created_at].min
   end
 
-  should 'make_conditions_with_parameter: the minimal created_at date be the from date passed as parameter' do
-    date = '2010-10-10'
-    assert_equal DateTime.parse(date), make_conditions_with_parameter(:from => date)[:created_at].min
+  should "make_conditions_with_parameter: the minimal created_at date be the from date passed as parameter" do
+    date = "2010-10-10"
+    assert_equal DateTime.parse(date), make_conditions_with_parameter(from: date)[:created_at].min
   end
 
-  should 'make_conditions_with_parameter: the maximum created_at date be the until date passed as parameter' do
-    date = '2010-10-10'
-    assert_equal DateTime.parse(date), make_conditions_with_parameter(:until => date)[:created_at].max
+  should "make_conditions_with_parameter: the maximum created_at date be the until date passed as parameter" do
+    date = "2010-10-10"
+    assert_equal DateTime.parse(date), make_conditions_with_parameter(until: date)[:created_at].max
   end
 
-  should 'make_conditions_with_parameter return the until date passed as parameter' do
-    date = '2010-10-10'
-    assert_equal DateTime.parse(date), make_conditions_with_parameter(:from => '2010-10-10')[:created_at].min
+  should "make_conditions_with_parameter return the until date passed as parameter" do
+    date = "2010-10-10"
+    assert_equal DateTime.parse(date), make_conditions_with_parameter(from: "2010-10-10")[:created_at].min
   end
 
-  should 'make_conditions_with_parameter return no type parameter if it was not defined any content type' do
+  should "make_conditions_with_parameter return no type parameter if it was not defined any content type" do
     assert_nil make_conditions_with_parameter[:type]
   end
 
-  should 'make_conditions_with_parameter return archived parameter if archived was defined' do
-    assert_not_nil make_conditions_with_parameter('archived' => true)[:archived]
+  should "make_conditions_with_parameter return archived parameter if archived was defined" do
+    assert_not_nil make_conditions_with_parameter("archived" => true)[:archived]
   end
 
-  #test_should_make_order_with_parameters_return_order_if attribute_is_found_at_object_association
-  should 'make_order_with_parameters return order if attribute is found at object association' do
+  # test_should_make_order_with_parameters_return_order_if attribute_is_found_at_object_association
+  should "make_order_with_parameters return order if attribute is found at object association" do
     environment = Environment.new
-    params = {:order => "name ASC"}
+    params = { order: "name ASC" }
     assert_equal "articles.name ASC", make_order_with_parameters(params, Article)
   end
 
   # test added to check for eventual sql injection vunerabillity
-  #test_should_make_order_with_parameters_return_default_order_if_attributes_not_exists
-  should 'make_order_with_parameters return default order if attributes not exists' do
+  # test_should_make_order_with_parameters_return_default_order_if_attributes_not_exists
+  should "make_order_with_parameters return default order if attributes not exists" do
     environment = Environment.new
-    params = {:order => "CRAZY_FIELD ASC"} # quote used to check sql injection vunerabillity
+    params = { order: "CRAZY_FIELD ASC" } # quote used to check sql injection vunerabillity
     assert_equal "articles.created_at DESC", make_order_with_parameters(params, Article)
   end
 
-  should 'make_order_with_parameters return default order if sql injection detected' do
+  should "make_order_with_parameters return default order if sql injection detected" do
     environment = Environment.new
-    params = {:order => "name' ASC"} # quote used to check sql injection vunerabillity
+    params = { order: "name' ASC" } # quote used to check sql injection vunerabillity
     assert_equal "articles.created_at DESC", make_order_with_parameters(params, Article)
   end
 
-  should 'make_order_with_parameters return RANDOM() if random is passed' do
+  should "make_order_with_parameters return RANDOM() if random is passed" do
     environment = Environment.new
-    params = {:order => "random"} # quote used to check sql injection vunerabillity
+    params = { order: "random" } # quote used to check sql injection vunerabillity
     assert_equal "RANDOM()", make_order_with_parameters(params, Article)
   end
 
-  should 'make_order_with_parameters return RANDOM() if random function is passed' do
+  should "make_order_with_parameters return RANDOM() if random function is passed" do
     environment = Environment.new
-    params = {:order => "random()"} # quote used to check sql injection vunerabillity
+    params = { order: "random()" } # quote used to check sql injection vunerabillity
     assert_equal "RANDOM()", make_order_with_parameters(params, Article)
   end
 
-  should 'render not_found if endpoint is unavailable' do
+  should "render not_found if endpoint is unavailable" do
     Api::App.stubs(:endpoint_unavailable?).returns(true)
     self.expects(:not_found!)
 
     filter_disabled_plugins_endpoints
   end
 
-  should 'not touch in options when no fields parameter is passed' do
+  should "not touch in options when no fields parameter is passed" do
     model = mock
     expects(:present).with(model, {})
     present_partial(model, {})
   end
 
-  should 'fallback to array when fields parameter is not a json when calling present partial' do
+  should "fallback to array when fields parameter is not a json when calling present partial" do
     model = mock
-    params[:fields] = ['name']
-    expects(:present).with(model, {:only => ['name']})
+    params[:fields] = ["name"]
+    expects(:present).with(model, only: ["name"])
     present_partial(model, {})
   end
 
-  should 'fallback to comma separated string when fields parameter is not an array when calling present partial' do
+  should "fallback to comma separated string when fields parameter is not an array when calling present partial" do
     model = mock
-    params[:fields] = 'name,description'
-    expects(:present).with(model, {:only => ['name', 'description']})
+    params[:fields] = "name,description"
+    expects(:present).with(model, only: ["name", "description"])
     present_partial(model, {})
   end
 
-  should 'accept json as fields parameter when calling present partial' do
+  should "accept json as fields parameter when calling present partial" do
     model = mock
-    params[:fields] = {only: [:name, {user: [:login]}]}
-    expects(:present).with(model, {:only => ['name', {'user' => ['login']}]})
+    params[:fields] = { only: [:name, { user: [:login] }] }
+    expects(:present).with(model, only: ["name", { "user" => ["login"] }])
     present_partial(model, {})
   end
 
-  should 'create a :uploaded_data hash, expected by image_builder ' do
+  should "create a :uploaded_data hash, expected by image_builder " do
     base64_image = create_base64_image
     uploadedfile = base64_to_uploadedfile base64_image
     assert uploadedfile.has_key? :uploaded_data
@@ -256,66 +254,65 @@ class Api::HelpersTest < ActiveSupport::TestCase
     assert uploadedfile[:uploaded_data].tempfile
   end
 
-  should 'return a params copy with a UploadedFile object' do
+  should "return a params copy with a UploadedFile object" do
     base64_image = create_base64_image
     params = {}
-    params.merge!({image_builder: base64_image})
+    params.merge!(image_builder: base64_image)
     asset_params = asset_with_image params
     assert !asset_params[:image_builder][:uploaded_data].nil?
     assert asset_params[:image_builder][:uploaded_data].is_a? ActionDispatch::Http::UploadedFile
   end
 
-  should 'parse_parent_id return nil' do
+  should "parse_parent_id return nil" do
     assert_nil parse_parent_id("")
   end
 
-  should 'parse_parent_id return number' do
+  should "parse_parent_id return number" do
     assert 2, parse_parent_id(2)
   end
 
-  should 'return errors with blank and invalid identifier' do
+  should "return errors with blank and invalid identifier" do
     object = Person.new
     object.valid?
     hash = render_model_errors!(object.errors)
     expected = [
-      {error: :blank, full_message: "profile identifier can't be blank"},
-      {error: :invalid, full_message: "profile identifier is invalid"}
+      { error: :blank, full_message: "profile identifier can't be blank" },
+      { error: :invalid, full_message: "profile identifier is invalid" }
     ]
     assert_equal expected, hash.first[:errors][:identifier]
   end
 
-  should 'return errors when identifier is reserved' do
+  should "return errors when identifier is reserved" do
     object = Person.new
-    object.identifier = 'admin'
+    object.identifier = "admin"
     object.valid?
     hash = render_model_errors!(object.errors)
     expected = [
-      {error: :not_available, full_message: "profile identifier is not available."}
+      { error: :not_available, full_message: "profile identifier is not available." }
     ]
     assert_equal expected, hash.first[:errors][:identifier]
   end
 
-  should 'get the current user from rails session' do
+  should "get the current user from rails session" do
     user = create_user
-    session = create(Session, session_id: 'some_id', data: { 'user' => user.id })
+    session = create(Session, session_id: "some_id", data: { "user" => user.id })
     stubs(:request)
-    stubs(:cookies).returns({_noosfero_session: session.session_id})
+    stubs(:cookies).returns(_noosfero_session: session.session_id)
     set_current_user
     assert_equal user, current_user
   end
 
   protected
 
-  def error!(info, status)
-    [info, status]
-  end
+    def error!(info, status)
+      [info, status]
+    end
 
-  def params
-    @params ||= {}
-  end
+    def params
+      @params ||= {}
+    end
 
-  def params= value
-    @params = value
-  end
-
+    def params=(value)
+      @params = value
+    end
 end

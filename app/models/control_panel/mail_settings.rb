@@ -1,15 +1,15 @@
 class ControlPanel::MailSettings < ControlPanel::Entry
   class << self
     def name
-      _('Settings')
+      _("Settings")
     end
 
     def section
-      'mail'
+      "mail"
     end
 
     def icon
-      'envelope'
+      "envelope"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::MailSettings < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('email')]
+      [_("email")]
     end
 
     def url(profile)
-      {:controller => 'mailconf', :action => 'index'}
+      { controller: "mailconf", action: "index" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.person? && MailConf.enabled?
     end
   end

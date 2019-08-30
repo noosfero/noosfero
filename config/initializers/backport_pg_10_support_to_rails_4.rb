@@ -1,4 +1,4 @@
-require 'active_record/connection_adapters/postgresql/schema_statements'
+require "active_record/connection_adapters/postgresql/schema_statements"
 
 #
 # Monkey-patch the refused Rails 4.2 patch at https://github.com/rails/rails/pull/31330
@@ -12,7 +12,7 @@ module ActiveRecord
       module SchemaStatements
         # Resets the sequence of a table's primary key to the maximum value.
         def reset_pk_sequence!(table, pk = nil, sequence = nil) #:nodoc:
-          unless pk and sequence
+          unless pk && sequence
             default_pk, default_sequence = pk_and_sequence_for(table)
 
             pk ||= default_pk
@@ -34,7 +34,7 @@ module ActiveRecord
               end
             end
 
-            select_value <<-end_sql, 'SCHEMA'
+            select_value <<-end_sql, "SCHEMA"
               SELECT setval(#{quote(quoted_sequence)}, #{max_pk ? max_pk : minvalue}, #{max_pk ? true : false})
             end_sql
           end

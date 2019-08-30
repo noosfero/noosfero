@@ -1,5 +1,4 @@
 class OrdersCyclePlugin::Sale < OrdersPlugin::Sale
-
   include OrdersCyclePlugin::OrderBase
 
   has_many :cycles, through: :cycle_sales, source: :cycle
@@ -9,26 +8,29 @@ class OrdersCyclePlugin::Sale < OrdersPlugin::Sale
   before_destroy :remove_purchases_items, if: :cycle
 
   def current_status
-    return 'forgotten' if self.forgotten?
+    return "forgotten" if self.forgotten?
+
     super
   end
 
   def delivery?
     self.cycle.delivery?
   end
+
   def forgotten?
-    self.draft? and !self.cycle.orders?
+    self.draft? && !self.cycle.orders?
   end
 
   def open?
-    super and self.cycle.orders?
+    super && self.cycle.orders?
   end
 
   def change_purchases
     return unless self.status_was.present?
-    if self.ordered_at_was.nil? and self.ordered_at.present?
+
+    if self.ordered_at_was.nil? && self.ordered_at.present?
       self.add_purchases_items
-    elsif self.ordered_at_was.present? and self.ordered_at.nil?
+    elsif self.ordered_at_was.present? && self.ordered_at.nil?
       self.remove_purchases_items
     end
   end
@@ -72,5 +74,4 @@ class OrdersCyclePlugin::Sale < OrdersPlugin::Sale
 
   handle_asynchronously :add_purchases_items
   handle_asynchronously :remove_purchases_items
-
 end

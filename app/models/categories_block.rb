@@ -1,6 +1,5 @@
 class CategoriesBlock < Block
-
-  settings_items :category_types, :type => Array, :default => []
+  settings_items :category_types, type: Array, default: []
 
   attr_accessible :category_types
 
@@ -13,7 +12,7 @@ class CategoriesBlock < Block
   end
 
   def help
-    _('This block presents the categories like a web site menu.')
+    _("This block presents the categories like a web site menu.")
   end
 
   def selected_categories
@@ -21,6 +20,6 @@ class CategoriesBlock < Block
   end
 
   def self.expire_on
-      { :profile => [], :environment => [:category] }
+    { profile: [], environment: [:category] }
   end
 end

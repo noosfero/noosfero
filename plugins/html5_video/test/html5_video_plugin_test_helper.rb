@@ -1,5 +1,4 @@
 module Html5VideoPluginTestHelper
-
   def setup
     rm_tmp_dir
     super
@@ -10,7 +9,7 @@ module Html5VideoPluginTestHelper
     rm_tmp_dir
   end
 
-  def create_video(file, mime, profile=nil)
+  def create_video(file, mime, profile = nil)
     profile ||= create_user.person
     data = fixture_file_upload("/videos/#{file}", mime)
     UploadedFile.create!(uploaded_data: data, profile: profile)
@@ -22,7 +21,7 @@ module Html5VideoPluginTestHelper
     file = video.filename
     if @@videos[file].blank?
       ffmpeg = VideoProcessor::Ffmpeg.new
-      logger =  mock
+      logger = mock
       logger.expects(:info).at_least(0)
       converter = VideoProcessor::Converter.new(ffmpeg, video.full_filename, video.id)
       converter.logger = logger
@@ -50,7 +49,7 @@ module Html5VideoPluginTestHelper
         conf.delete :in
         conf.delete :out
         web_versions[format][size] = conf
-        web_versions[format][size][:status] = 'done'
+        web_versions[format][size][:status] = "done"
       end
     end
     web_versions
@@ -61,5 +60,4 @@ module Html5VideoPluginTestHelper
     pool = VideoProcessor::PoolManager.new(Rails.root.to_s)
     FileUtils.rmtree(pool.path)
   end
-
 end

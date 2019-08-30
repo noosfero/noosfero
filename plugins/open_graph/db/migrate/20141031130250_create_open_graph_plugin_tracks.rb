@@ -27,7 +27,7 @@ class CreateOpenGraphPluginTracks < ActiveRecord::Migration
     add_index :open_graph_plugin_tracks, [:object_type]
     add_index :open_graph_plugin_tracks, [:enabled]
     add_index :open_graph_plugin_tracks, [:object_data_url]
-    add_index :open_graph_plugin_tracks, [:object_data_id, :object_data_type], name: 'index_open_graph_plugin_tracks_object_data_id_type'
+    add_index :open_graph_plugin_tracks, [:object_data_id, :object_data_type], name: "index_open_graph_plugin_tracks_object_data_id_type"
   end
 
   def down

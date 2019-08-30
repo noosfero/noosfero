@@ -21,5 +21,4 @@ class CustomRoutesPlugin::CustomRoutes
       nil
     end
   end
-
 end

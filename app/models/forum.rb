@@ -1,17 +1,16 @@
 class Forum < Folder
-
   extend ActsAsHavingPosts::ClassMethods
-  acts_as_having_posts -> { reorder 'updated_at DESC' }
+  acts_as_having_posts -> { reorder "updated_at DESC" }
 
   include PostsLimit
   include Entitlement::ForumJudge
 
   attr_accessible :has_terms_of_use, :terms_of_use, :topic_creation
 
-  settings_items :terms_of_use, :type => :string, :default => ""
-  settings_items :has_terms_of_use, :type => :boolean, :default => false
-  settings_items :topic_creation, :type => :integer, :default => Entitlement::Levels.levels[:self]
-  has_and_belongs_to_many :users_with_agreement, :class_name => 'Person', :join_table => 'terms_forum_people'
+  settings_items :terms_of_use, type: :string, default: ""
+  settings_items :has_terms_of_use, type: :boolean, default: false
+  settings_items :topic_creation, type: :integer, default: Entitlement::Levels.levels[:self]
+  has_and_belongs_to_many :users_with_agreement, class_name: "Person", join_table: "terms_forum_people"
 
   before_save do |forum|
     if forum.has_terms_of_use
@@ -25,35 +24,34 @@ class Forum < Folder
   end
 
   def self.type_name
-    _('Forum')
+    _("Forum")
   end
 
   def self.short_description
-    _('Forum')
+    _("Forum")
   end
 
   def self.description
-    _('An internet forum where discussions can be held.')
+    _("An internet forum where discussions can be held.")
   end
 
   module TopicCreation
     BASE = {}
-    BASE['users'] = _('Logged users')
+    BASE["users"] = _("Logged users")
 
     PERSON = {}
-    PERSON['self'] = _('Me')
-    PERSON['related'] = _('Friends')
+    PERSON["self"] = _("Me")
+    PERSON["related"] = _("Friends")
 
     GROUP = {}
-    GROUP['self'] = _('Administrators')
-    GROUP['related'] = _('Members')
-
+    GROUP["self"] = _("Administrators")
+    GROUP["related"] = _("Members")
   end
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
     proc do
-      render :file => 'content_viewer/forum_page'
+      render file: "content_viewer/forum_page"
     end
   end
 
@@ -62,7 +60,7 @@ class Forum < Folder
   end
 
   def self.icon_name(article = nil)
-    'forum'
+    "forum"
   end
 
   def notifiable?
@@ -70,9 +68,10 @@ class Forum < Folder
   end
 
   def first_paragraph
-    return '' if body.blank?
-    paragraphs = Nokogiri::HTML.fragment(body).css('p')
-    paragraphs.empty? ? '' : paragraphs.first.to_html
+    return "" if body.blank?
+
+    paragraphs = Nokogiri::HTML.fragment(body).css("p")
+    paragraphs.empty? ? "" : paragraphs.first.to_html
   end
 
   def add_agreed_user(user)
@@ -83,6 +82,7 @@ class Forum < Folder
   def agrees_with_terms?(user)
     return true unless self.has_terms_of_use
     return false unless user
+
     self.users_with_agreement.exists? user.id
   end
 
@@ -95,6 +95,6 @@ class Forum < Folder
   end
 
   def icon
-    'comments'
+    "comments"
   end
 end

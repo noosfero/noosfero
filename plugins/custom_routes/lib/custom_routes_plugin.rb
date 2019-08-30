@@ -1,5 +1,4 @@
 class CustomRoutesPlugin < Noosfero::Plugin
-
   def self.plugin_name
     _("Custom Routes")
   end
@@ -13,7 +12,6 @@ class CustomRoutesPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['js/custom_routes.js']
+    ["js/custom_routes.js"]
   end
-
 end

@@ -4,10 +4,9 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
-
-require 'uri'
-require 'cgi'
-require_relative '../support/paths'
+require "uri"
+require "cgi"
+require_relative "../support/paths"
 
 module WithinHelpers
   def with_scope(locator)
@@ -33,7 +32,7 @@ end
 
 When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
   with_scope(selector) do
-    click_button(button, :match => :prefer_exact)
+    click_button(button, match: :prefer_exact)
   end
 end
 
@@ -50,13 +49,13 @@ end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
-    fill_in(field, :with => value, :match => :prefer_exact)
+    fill_in(field, with: value, match: :prefer_exact)
   end
 end
 
 When /^(?:|I )fill in "([^"]*)" for "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
   with_scope(selector) do
-    fill_in(field, :with => value)
+    fill_in(field, with: value)
   end
 end
 
@@ -94,7 +93,7 @@ end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"(?: within "([^"]*)")?$/ do |value, field, selector|
   with_scope(selector) do
-    select(value, :from => field)
+    select(value, from: field)
   end
 end
 
@@ -112,12 +111,12 @@ end
 
 When /^(?:|I )choose "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
   with_scope(selector) do
-    choose(field, :match => :prefer_exact)
+    choose(field, match: :prefer_exact)
   end
 end
 
 When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"(?: within "([^"]*)")?$/ do |path, field, selector|
-  path = File.expand_path(path).gsub('/', File::ALT_SEPARATOR || File::SEPARATOR)
+  path = File.expand_path(path).gsub("/", File::ALT_SEPARATOR || File::SEPARATOR)
   with_scope(selector) do
     attach_file(field, path, make_visible: true)
   end
@@ -125,7 +124,7 @@ When /^(?:|I )attach the file "([^"]*)" to "([^"]*)"(?: within "([^"]*)")?$/ do 
 end
 
 Then /^(?:|I )should see JSON:$/ do |expected_json|
-  require 'json'
+  require "json"
   expected = JSON.pretty_generate(JSON.parse(expected_json))
   actual   = JSON.pretty_generate(JSON.parse(response.body))
   expected.should == actual
@@ -140,18 +139,17 @@ Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
         alert_text = page.driver.browser.switch_to.alert.text
         alert_text.should == text
       rescue Selenium::WebDriver::Error::NoAlertPresentError => e
-        puts 'exception NoAlertPresentError'
+        puts "exception NoAlertPresentError"
       end
     end
   end
 end
 
-
 Then /^(?:|I )should see "([^"]*)" within any "([^"]*)"?$/ do |text, selector|
   if page.respond_to? :should
-    page.should have_css(selector, :text => text)
+    page.should have_css(selector, text: text)
   else
-    assert page.has_css?(selector, :text => text)
+    assert page.has_css?(selector, text: text)
   end
 end
 
@@ -159,9 +157,9 @@ Then /^(?:|I )should see \/([^\/]*)\/(?: within "([^"]*)")?$/ do |regexp, select
   regexp = Regexp.new(regexp)
   with_scope(selector) do
     if page.respond_to? :should
-      page.should have_xpath('//*', :text => regexp)
+      page.should have_xpath("//*", text: regexp)
     else
-      assert page.has_xpath?('//*', :text => regexp)
+      assert page.has_xpath?("//*", text: regexp)
     end
   end
 end
@@ -180,25 +178,25 @@ Then /^(?:|I )should not see \/([^\/]*)\/(?: within "([^"]*)")?$/ do |regexp, se
   regexp = Regexp.new(regexp)
   with_scope(selector) do
     if page.respond_to? :should
-      page.should have_no_xpath('//*', :text => regexp)
+      page.should have_no_xpath("//*", text: regexp)
     else
-      assert page.has_no_xpath?('//*', :text => regexp)
+      assert page.has_no_xpath?("//*", text: regexp)
     end
   end
 end
 
 Then /^(?:|I )should not see "([^"]*)" within any "([^"]*)"?$/ do |text, selector|
   if page.respond_to? :should
-    page.should have_no_css(selector, :text => text)
+    page.should have_no_css(selector, text: text)
   else
-    assert page.has_no_css?(selector, :text => text)
+    assert page.has_no_css?(selector, text: text)
   end
 end
 
 Then /^the "([^"]*)" field(?: within "([^"]*)")? should contain "([^"]*)"$/ do |field, selector, value|
   with_scope(selector) do
     field = find_field(field)
-    field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    field_value = (field.tag_name == "textarea") ? field.text : field.value
     if field_value.respond_to? :should
       field_value.should =~ /#{value}/
     else
@@ -210,7 +208,7 @@ end
 Then /^the "([^"]*)" field(?: within "([^"]*)")? should not contain "([^"]*)"$/ do |field, selector, value|
   with_scope(selector) do
     field = find_field(field)
-    field_value = (field.tag_name == 'textarea') ? field.text : field.value
+    field_value = (field.tag_name == "textarea") ? field.text : field.value
     if field_value.respond_to? :should_not
       field_value.should_not =~ /#{value}/
     else
@@ -221,7 +219,7 @@ end
 
 Then /^the "([^"]*)" (?:checkbox|radio button)(?: within "([^"]*)")? should be checked$/ do |label, selector|
   with_scope(selector) do
-    field_checked = find_field(label)['checked']
+    field_checked = find_field(label)["checked"]
     if field_checked.respond_to? :should
       field_checked.should be_truthy
     else
@@ -232,7 +230,7 @@ end
 
 Then /^the "([^"]*)" (?:checkbox|radio button)(?: within "([^"]*)")? should not be checked$/ do |label, selector|
   with_scope(selector) do
-    field_checked = find_field(label)['checked']
+    field_checked = find_field(label)["checked"]
     if field_checked.respond_to? :should
       field_checked.should be_falsey
     else
@@ -264,7 +262,7 @@ Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}
   expected_params = {}
-  expected_pairs.rows_hash.each_pair{|k,v| expected_params[k] = v.split(',')}
+  expected_pairs.rows_hash.each_pair { |k, v| expected_params[k] = v.split(",") }
 
   if actual_params.respond_to? :should
     actual_params.should == expected_params
@@ -305,7 +303,7 @@ end
 
 When /^(?:|I )follow exact "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   with_scope(selector) do
-    find("a", :text => /\A#{link}\z/).click
+    find("a", text: /\A#{link}\z/).click
   end
 end
 

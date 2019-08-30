@@ -1,5 +1,4 @@
 class MailingListPlugin < Noosfero::Plugin
-
   def self.plugin_name
     _("Mailing List")
   end
@@ -17,15 +16,15 @@ class MailingListPlugin < Noosfero::Plugin
   end
 
   def member_added(group, person)
-     @environment_settings = Noosfero::Plugin::Settings.new group.environment, MailingListPlugin
-     @client = MailingListPlugin::Client.new(@environment_settings)
-     @client.subscribe_person_on_group_list(person, group)
+    @environment_settings = Noosfero::Plugin::Settings.new group.environment, MailingListPlugin
+    @client = MailingListPlugin::Client.new(@environment_settings)
+    @client.subscribe_person_on_group_list(person, group)
   end
 
   def member_removed(group, person)
-     @environment_settings = Noosfero::Plugin::Settings.new group.environment, MailingListPlugin
-     @client = MailingListPlugin::Client.new(@environment_settings)
-     @client.unsubscribe_person_from_group_list(person, group)
+    @environment_settings = Noosfero::Plugin::Settings.new group.environment, MailingListPlugin
+    @client = MailingListPlugin::Client.new(@environment_settings)
+    @client.unsubscribe_person_from_group_list(person, group)
   end
 
   def article_after_create_callback(article)
@@ -38,32 +37,32 @@ class MailingListPlugin < Noosfero::Plugin
 
   private
 
-  def watched_content_creation(content, parent)
-    content_metadata = Noosfero::Plugin::Metadata.new content, self.class
-    return if content_metadata.uuid.present?
+    def watched_content_creation(content, parent)
+      content_metadata = Noosfero::Plugin::Metadata.new content, self.class
+      return if content_metadata.uuid.present?
 
-    if parent.present?
-      profile_settings = Noosfero::Plugin::Settings.new parent.profile, self.class
-      parent_metadata = Noosfero::Plugin::Metadata.new parent, self.class
-      if profile_settings.enabled && parent_metadata.watched
-        if content.kind_of?(Comment)
-          uuid = content.mailing_list_plugin_uuid
-          reference = content.reply_of || content.source
-          reference_metadata = Noosfero::Plugin::Metadata.new reference, self.class
-          return if reference_metadata.uuid.blank?
+      if parent.present?
+        profile_settings = Noosfero::Plugin::Settings.new parent.profile, self.class
+        parent_metadata = Noosfero::Plugin::Metadata.new parent, self.class
+        if profile_settings.enabled && parent_metadata.watched
+          if content.kind_of?(Comment)
+            uuid = content.mailing_list_plugin_uuid
+            reference = content.reply_of || content.source
+            reference_metadata = Noosfero::Plugin::Metadata.new reference, self.class
+            return if reference_metadata.uuid.blank?
+          end
+
+          uuid ||= SecureRandom.uuid + "@" + content.environment.default_hostname
+
+          content_metadata.uuid = uuid
+          content_metadata.save!
+
+          # Ensure comments created by e-mails sent to the list are not sent once
+          # again to the list by Noosfero.
+          return if content.kind_of?(Comment) && content.mailing_list_plugin_from_list
+
+          MailingListPlugin::Mailer.reply_email(content).deliver
         end
-
-        uuid ||= SecureRandom.uuid + '@' + content.environment.default_hostname
-
-        content_metadata.uuid = uuid
-        content_metadata.save!
-
-        # Ensure comments created by e-mails sent to the list are not sent once
-        # again to the list by Noosfero.
-        return if content.kind_of?(Comment) && content.mailing_list_plugin_from_list
-
-        MailingListPlugin::Mailer.reply_email(content).deliver
       end
     end
-  end
 end

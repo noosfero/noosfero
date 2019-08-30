@@ -1,15 +1,15 @@
 class ControlPanel::EnableEnterprise < ControlPanel::Entry
   class << self
     def name
-      _('Enable')
+      _("Enable")
     end
 
     def section
-      'enterprise'
+      "enterprise"
     end
 
     def icon
-      'check-square'
+      "check-square"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::EnableEnterprise < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('enterprise')]
+      [_("enterprise")]
     end
 
     def url(profile)
-      {:controller => 'profile_editor', :action => 'enable'}
+      { controller: "profile_editor", action: "enable" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.enterprise? && !profile.enabled?
     end
   end

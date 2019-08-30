@@ -1,9 +1,7 @@
 module Api
   module V1
     class Enterprises < Grape::API::Instance
-
       resource :enterprises do
-
         # Collect enterprises from environment
         #
         # Parameters:
@@ -16,41 +14,32 @@ module Api
         #  GET /enterprises?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10
         #  GET /enterprises?reference_id=10&limit=10&oldest
         get do
-          enterprises = select_filtered_collection_of(environment, 'enterprises', params)
+          enterprises = select_filtered_collection_of(environment, "enterprises", params)
           enterprises = enterprises.visible
           enterprises = enterprises.by_location(params) # Must be the last. May return Exception obj.
-          present enterprises, :with => Entities::Enterprise, :current_person => current_person, :params => params
+          present enterprises, with: Entities::Enterprise, current_person: current_person, params: params
         end
 
         desc "Return one enterprise by id"
-        get ':id' do
+        get ":id" do
           enterprise = environment.enterprises.visible.find_by(id: params[:id])
           not_found! unless enterprise.present?
-          present enterprise, :with => Entities::Enterprise, :current_person => current_person, :params => params
+          present enterprise, with: Entities::Enterprise, current_person: current_person, params: params
         end
-
       end
 
       resource :people do
-
-        segment '/:person_id' do
-
+        segment "/:person_id" do
           resource :enterprises do
-
             get do
               person = environment.people.find(params[:person_id])
-              enterprises = select_filtered_collection_of(person, 'enterprises', params)
+              enterprises = select_filtered_collection_of(person, "enterprises", params)
               enterprises = enterprises.visible.by_location(params)
-              present enterprises, :with => Entities::Enterprise, :current_person => current_person, :params => params
+              present enterprises, with: Entities::Enterprise, current_person: current_person, params: params
             end
-
           end
-
         end
-
       end
-
-
     end
   end
 end

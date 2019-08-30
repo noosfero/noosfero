@@ -1,6 +1,5 @@
 class AddCustomHeaderAndFooterToProfile < ActiveRecord::Migration
-
-  TABLES = [ :profiles, :environments ]
+  TABLES = [:profiles, :environments]
 
   def self.up
     TABLES.each do |item|

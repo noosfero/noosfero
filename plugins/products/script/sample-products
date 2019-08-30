@@ -1,21 +1,22 @@
 #!/usr/bin/env ruby
 #
-require_relative '../../../config/environment'
-require_relative '../../../lib/sample_data'
+require_relative "../../../config/environment"
+require_relative "../../../lib/sample_data"
 include SampleData
 
 enterprises = $environment.enterprises
 categories = $environment.product_categories
 
 print "Creating products: "
-THINGS = %w[ Car House Bicycle Book Pen Computer Webcam ]
-COLORS = %w[ Black Red White Blue Green Purple ]
+THINGS = %w[Car House Bicycle Book Pen Computer Webcam]
+COLORS = %w[Black Red White Blue Green Purple]
 for thing in THINGS
   for color in COLORS
-    name = [color, thing].join(' ')
+    name = [color, thing].join(" ")
     rand(10).times do |i|
       profile = enterprises.sample
-      next if profile.products.where(:name => name).first
+      next if profile.products.where(name: name).first
+
       product = Product.new
       product.name = name
       product.profile_id = profile.id
@@ -28,18 +29,18 @@ end
 done
 
 print "Creating qualifiers and certifier: "
-QUALIFIERS = ['Organic', 'Free as in Freedom', 'Regional']
-CERTIFIERS = ['FBES', 'Colivre', 'Institute Paulo Freire', 'Fora do Eixo']
+QUALIFIERS = ["Organic", "Free as in Freedom", "Regional"]
+CERTIFIERS = ["FBES", "Colivre", "Institute Paulo Freire", "Fora do Eixo"]
 for qualifier in QUALIFIERS
-  save Qualifier.new(:name => qualifier, :environment => $environment)
+  save Qualifier.new(name: qualifier, environment: $environment)
 end
 for certifier in CERTIFIERS
-  save Certifier.new(:name => certifier, :environment => $environment)
+  save Certifier.new(name: certifier, environment: $environment)
 end
 done
 
 print "Creating units: "
-[['Litre', 'Litres'], ['Kilo', 'Kilos'], ['Meter', 'Meters']].each do |unit|
-  save Unit.new(:singular => unit[0], :plural => unit[1], :environment => $environment)
+[["Litre", "Litres"], ["Kilo", "Kilos"], ["Meter", "Meters"]].each do |unit|
+  save Unit.new(singular: unit[0], plural: unit[1], environment: $environment)
 end
 done

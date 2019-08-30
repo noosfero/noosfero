@@ -1,5 +1,4 @@
 class PersonTagsPlugin < Noosfero::Plugin
-
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::FormTagHelper
   include FormsHelper
@@ -13,7 +12,7 @@ class PersonTagsPlugin < Noosfero::Plugin
   end
 
   def profile_editor_informations
-    expanded_template('profile-editor-extras.html.erb').html_safe
+    expanded_template("profile-editor-extras.html.erb").html_safe
   end
 
   def self.api_mount_points

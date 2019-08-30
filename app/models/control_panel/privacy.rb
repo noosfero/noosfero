@@ -1,15 +1,15 @@
 class ControlPanel::Privacy < ControlPanel::Entry
   class << self
     def name
-      _('Privacy')
+      _("Privacy")
     end
 
     def section
-      'security'
+      "security"
     end
 
     def icon
-      'user-secret'
+      "user-secret"
     end
 
     def priority
@@ -17,9 +17,7 @@ class ControlPanel::Privacy < ControlPanel::Entry
     end
 
     def url(profile)
-     {:controller => 'profile_editor', :action => 'privacy'}
+      { controller: "profile_editor", action: "privacy" }
     end
   end
 end
-
-

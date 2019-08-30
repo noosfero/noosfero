@@ -1,4 +1,4 @@
-require 'zip'
+require "zip"
 
 class CustomFormsPluginAdminController < AdminController
   before_action :set_profiles
@@ -9,7 +9,7 @@ class CustomFormsPluginAdminController < AdminController
     profiles = @profiles.where(id: params[:profile_ids])
 
     if profiles.blank?
-      session[:notice] = _('There is no data to be downloaded')
+      session[:notice] = _("There is no data to be downloaded")
       redirect_to action: :index
       return
     end
@@ -27,15 +27,15 @@ class CustomFormsPluginAdminController < AdminController
       end
     end
 
-    timestamp = DateTime.now.strftime('%Y-%m-%d %H+%M')
-    send_data zip_data.string, type: 'application/zip',
+    timestamp = DateTime.now.strftime("%Y-%m-%d %H+%M")
+    send_data zip_data.string, type: "application/zip",
                                filename: "#{_('Queries report - %s') %
                                             timestamp}.zip"
   end
 
   private
 
-  def set_profiles
-    @profiles = environment.profiles.joins(:forms).distinct
-  end
+    def set_profiles
+      @profiles = environment.profiles.joins(:forms).distinct
+    end
 end

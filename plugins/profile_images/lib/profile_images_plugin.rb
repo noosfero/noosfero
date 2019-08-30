@@ -1,10 +1,10 @@
 class ProfileImagesPlugin < Noosfero::Plugin
   def self.plugin_name
-    'ProfileImagesPlugin'
+    "ProfileImagesPlugin"
   end
 
   def self.plugin_description
-    _('Adds a block that lists all images inside a profile.')
+    _("Adds a block that lists all images inside a profile.")
   end
 
   def self.extra_blocks

@@ -1,5 +1,4 @@
 class GoogleAnalyticsPlugin < Noosfero::Plugin
-
   include ActionView::Helpers::JavaScriptHelper
   include ActionView::Helpers::FormHelper
   include ActionView::Helpers::UrlHelper
@@ -19,15 +18,14 @@ class GoogleAnalyticsPlugin < Noosfero::Plugin
 
   def head_ending
     unless profile_id.blank?
-      expanded_template('tracking-code.html.erb',{:profile_id => profile_id})
+      expanded_template("tracking-code.html.erb", profile_id: profile_id)
     end
   end
 
   def profile_editor_informations
     analytics_id = profile_id
     lambda {
-      render :file => 'profile-editor-extras', :locals => { :profile_id => analytics_id }
+      render file: "profile-editor-extras", locals: { profile_id: analytics_id }
     }
   end
-
 end

@@ -1,7 +1,6 @@
-require_dependency 'user'
+require_dependency "user"
 
 class User
-
   has_many :oauth_auths, through: :person
   has_many :oauth_providers, through: :oauth_auths, source: :provider
 
@@ -39,5 +38,4 @@ class User
 
   alias_method :make_activation_code_without_oauth, :make_activation_codes
   alias_method :make_activation_codes, :make_activation_codes_with_oauth
-
 end

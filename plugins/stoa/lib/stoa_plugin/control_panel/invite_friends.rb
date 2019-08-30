@@ -1,17 +1,16 @@
 module StoaPlugin::ControlPanel
   class InviteFriends < ControlPanel::Entry
     class << self
-
       def name
-        c_('Invite friends')
+        c_("Invite friends")
       end
 
       def section
-        'relationships'
+        "relationships"
       end
 
       def icon
-        'envelope-open'
+        "envelope-open"
       end
 
       def priority
@@ -19,10 +18,10 @@ module StoaPlugin::ControlPanel
       end
 
       def url(profile)
-        {:controller => 'invite', :action => 'invite_friends'}
+        { controller: "invite", action: "invite_friends" }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         user == profile && user.usp_id.present?
       end
     end

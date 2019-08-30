@@ -1,7 +1,6 @@
 class AddDatesToArticles < ActiveRecord::Migration
-
   def self.each_table
-    [ :articles, :article_versions ].each do |table|
+    [:articles, :article_versions].each do |table|
       yield(table)
     end
   end

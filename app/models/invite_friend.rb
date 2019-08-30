@@ -1,5 +1,4 @@
 class InviteFriend < Invitation
-
   settings_items :group_for_person, :group_for_friend
   before_create :check_for_invitation_existence
 
@@ -13,7 +12,7 @@ class InviteFriend < Invitation
   end
 
   def information
-    {:message => _('%{requestor} wants to be your friend.').html_safe}
+    { message: _("%{requestor} wants to be your friend.").html_safe }
   end
 
   def accept_details
@@ -21,11 +20,11 @@ class InviteFriend < Invitation
   end
 
   def icon
-    {:type => :profile_image, :profile => requestor, :url => requestor.url}
+    { type: :profile_image, profile: requestor, url: requestor.url }
   end
 
   def target_notification_description
-    (_('%{requestor} wants to be your friend.') % {:requestor => requestor.name}).html_safe
+    (_("%{requestor} wants to be your friend.") % { requestor: requestor.name }).html_safe
   end
 
   def permission
@@ -34,20 +33,20 @@ class InviteFriend < Invitation
 
   # Default message send to friend when user use invite a friend feature
   def self.mail_template
-    [ _('Hello <friend>,'),
-      _('<user> is inviting you to participate on <environment>.'),
-      _('To accept the invitation, please follow this link:'),
-      '<url>',
-      "--\n<environment>",
-    ].join("\n\n")
+    [_("Hello <friend>,"),
+     _("<user> is inviting you to participate on <environment>."),
+     _("To accept the invitation, please follow this link:"),
+     "<url>",
+     "--\n<environment>",].join("\n\n")
   end
 
   private
-  def check_for_invitation_existence
-    return unless friend && friend.tasks.pending.of("InviteFriend")
-                                  .where(requestor_id: person.id, target_id: friend.id)
-                                  .present?
-    throw(:abort)
-  end
 
+    def check_for_invitation_existence
+      return unless friend && friend.tasks.pending.of("InviteFriend")
+                                    .where(requestor_id: person.id, target_id: friend.id)
+                                    .present?
+
+      throw(:abort)
+    end
 end

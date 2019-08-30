@@ -1,9 +1,8 @@
 class Article < ApplicationRecord
-
   module Editor
-    TEXTILE = 'textile'
-    TINY_MCE = 'tiny_mce'
-    RAW_HTML = 'raw_html'
+    TEXTILE = "textile"
+    TINY_MCE = "tiny_mce"
+    RAW_HTML = "raw_html"
   end
 
   include SanitizeHelper
@@ -29,19 +28,19 @@ class Article < ApplicationRecord
   include Noosfero::Plugin::HotSpot
 
   SEARCHABLE_FIELDS = {
-    :name => {:label => _('Name'), :weight => 10},
-    :abstract => {:label => _('Abstract'), :weight => 3},
-    :body => {:label => _('Content'), :weight => 2},
-    :slug => {:label => _('Slug'), :weight => 1},
-    :filename => {:label => _('Filename'), :weight => 1},
+    name: { label: _("Name"), weight: 10 },
+    abstract: { label: _("Abstract"), weight: 3 },
+    body: { label: _("Content"), weight: 2 },
+    slug: { label: _("Slug"), weight: 1 },
+    filename: { label: _("Filename"), weight: 1 },
   }
 
   SEARCH_FILTERS = {
-    :order => %w[more_recent more_popular more_comments more_relevant],
-    :display => %w[full]
+    order: %w[more_recent more_popular more_comments more_relevant],
+    display: %w[full]
   }
 
-  N_('article')
+  N_("article")
 
   def self.inherited(subclass)
     subclass.prepend StringTemplate
@@ -58,19 +57,19 @@ class Article < ApplicationRecord
   end
 
   def self.default_search_display
-    'full'
+    "full"
   end
 
-  #FIXME This is necessary because html is being generated on the model...
+  # FIXME This is necessary because html is being generated on the model...
   include ActionView::Helpers::TagHelper
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
   def self.type_name
-    _('Content')
+    _("Content")
   end
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :title, :url, :lead, :first_image], :if => Proc.new { |a| a.notifiable? }
+  track_actions :create_article, :after_create, keep_params: [:name, :title, :url, :lead, :first_image], if: Proc.new { |a| a.notifiable? }
 
   before_create do |article|
     if article.author
@@ -80,29 +79,29 @@ class Article < ApplicationRecord
 
   belongs_to :profile, optional: true
   validates_presence_of :profile_id, :name
-  validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
+  validates_presence_of :slug, :path, if: lambda { |article| !article.name.blank? }
 
-  validates_length_of :name, :maximum => 150
+  validates_length_of :name, maximum: 150
   validate :validate_custom_fields
 
   before_save :sanitize_custom_field_keys
 
-  validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
+  validates_uniqueness_of :slug, scope: ["profile_id", "parent_id"], message: N_("The title (article name) is already being used by another article, please use another title."), if: lambda { |article| !article.slug.blank? }
 
-  belongs_to :author, class_name: 'Person', optional: true
-  belongs_to :last_changed_by, class_name: 'Person', foreign_key: 'last_changed_by_id', optional: true
-  belongs_to :created_by, class_name: 'Person', foreign_key: 'created_by_id', optional: true
+  belongs_to :author, class_name: "Person", optional: true
+  belongs_to :last_changed_by, class_name: "Person", foreign_key: "last_changed_by_id", optional: true
+  belongs_to :created_by, class_name: "Person", foreign_key: "created_by_id", optional: true
 
-  has_many :comments, -> { order 'created_at asc' }, class_name: 'Comment', as: 'source', dependent: :destroy
+  has_many :comments, -> { order "created_at asc" }, class_name: "Comment", as: "source", dependent: :destroy
 
   has_many :article_followers, dependent: :destroy
-  has_many :person_followers, class_name: 'Person', through: :article_followers, source: :person
-  has_many :person_followers_emails, -> { select :email }, class_name: 'User', through: :person_followers, source: :user
+  has_many :person_followers, class_name: "Person", through: :article_followers, source: :person
+  has_many :person_followers_emails, -> { select :email }, class_name: "User", through: :person_followers, source: :user
 
-  has_many :article_categorizations, -> { where 'articles_categories.virtual = ?', false }
+  has_many :article_categorizations, -> { where "articles_categories.virtual = ?", false }
   has_many :categories, through: :article_categorizations
 
-  has_many :article_categorizations_including_virtual, class_name: 'ArticleCategorization'
+  has_many :article_categorizations_including_virtual, class_name: "ArticleCategorization"
   has_many :categories_including_virtual, through: :article_categorizations_including_virtual, source: :category
 
   extend ActsAsHavingSettings::ClassMethods
@@ -111,18 +110,18 @@ class Article < ApplicationRecord
   store_accessor :metadata
   include MetadataScopes
 
-  settings_items :display_hits, :type => :boolean, :default => true
-  settings_items :author_name, :type => :string, :default => ""
-  settings_items :allow_members_to_edit, :type => :boolean, :default => false
-  settings_items :moderate_comments, :type => :boolean, :default => false
-  has_and_belongs_to_many :article_privacy_exceptions, class_name:  'Person', :join_table => 'article_privacy_exceptions'
+  settings_items :display_hits, type: :boolean, default: true
+  settings_items :author_name, type: :string, default: ""
+  settings_items :allow_members_to_edit, type: :boolean, default: false
+  settings_items :moderate_comments, type: :boolean, default: false
+  has_and_belongs_to_many :article_privacy_exceptions, class_name: "Person", join_table: "article_privacy_exceptions"
 
-  belongs_to :reference_article, class_name: "Article", foreign_key: 'reference_article_id', optional: true
+  belongs_to :reference_article, class_name: "Article", foreign_key: "reference_article_id", optional: true
 
   belongs_to :license, optional: true
 
-  has_many :translations, class_name: 'Article', foreign_key: :translation_of_id
-  belongs_to :translation_of, class_name: 'Article', foreign_key: :translation_of_id, optional: true
+  has_many :translations, class_name: "Article", foreign_key: :translation_of_id
+  belongs_to :translation_of, class_name: "Article", foreign_key: :translation_of_id, optional: true
   before_destroy :rotate_translations
 
   acts_as_voteable
@@ -139,7 +138,6 @@ class Article < ApplicationRecord
     if article.created_by
       article.author_name = article.created_by.name
     end
-
   end
 
   after_destroy :destroy_activity
@@ -149,13 +147,13 @@ class Article < ApplicationRecord
 
   after_destroy :destroy_link_article
   def destroy_link_article
-    Article.where(reference_article_id: self.id, type: 'LinkArticle').destroy_all
+    Article.where(reference_article_id: self.id, type: "LinkArticle").destroy_all
   end
 
-  xss_terminate only: [ :name ], on: :validation, with: :white_list
+  xss_terminate only: [:name], on: :validation, with: :white_list
 
-  scope :in_category, -> category {
-    includes('categories_including_virtual').where('categories.id' => category.id)
+  scope :in_category, ->category {
+    includes("categories_including_virtual").where("categories.id" => category.id)
   }
 
   scope :relevant_as_recent, -> {
@@ -166,20 +164,20 @@ class Article < ApplicationRecord
 
   include TimeScopes
 
-  scope :by_range, -> range {
-    where 'articles.published_at BETWEEN :start_date AND :end_date', { start_date: range.first, end_date: range.last }
+  scope :by_range, ->range {
+    where "articles.published_at BETWEEN :start_date AND :end_date", start_date: range.first, end_date: range.last
   }
 
   URL_FORMAT = /\A(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?\Z/ix
 
-  validates_format_of :external_link, :with => URL_FORMAT, :if => lambda { |article| !article.external_link.blank? }
+  validates_format_of :external_link, with: URL_FORMAT, if: lambda { |article| !article.external_link.blank? }
   validate :known_language
   validate :used_translation
   validate :native_translation_must_have_language
   validate :translation_must_have_language
 
   validate :no_self_reference
-  validate :no_cyclical_reference, :if => 'parent_id.present?'
+  validate :no_cyclical_reference, if: "parent_id.present?"
 
   validate :parent_archived?
 
@@ -192,12 +190,12 @@ class Article < ApplicationRecord
   ]
 
   def valid_slug
-    errors.add(:title, _('is not available as article name.')) unless Article.is_slug_available?(slug)
+    errors.add(:title, _("is not available as article name.")) unless Article.is_slug_available?(slug)
   end
 
   def access_value
     if profile.present? && access < profile.access
-      self.errors.add(:access, _('can not be less restrictive than this profile access which is: %s.') % Entitlement::Levels.label(profile.access, profile))
+      self.errors.add(:access, _("can not be less restrictive than this profile access which is: %s.") % Entitlement::Levels.label(profile.access, profile))
     end
   end
 
@@ -206,14 +204,14 @@ class Article < ApplicationRecord
   end
 
   def no_self_reference
-    errors.add(:parent_id, _('self-reference is not allowed.')) if id && parent_id == id
+    errors.add(:parent_id, _("self-reference is not allowed.")) if id && parent_id == id
   end
 
   def no_cyclical_reference
     current_parent = Article.find(parent_id)
     while current_parent
       if current_parent == self
-        errors.add(:parent_id, _('cyclical reference is not allowed.'))
+        errors.add(:parent_id, _("cyclical reference is not allowed."))
         break
       end
       current_parent = current_parent.parent
@@ -222,7 +220,7 @@ class Article < ApplicationRecord
 
   def external_link=(link)
     if !link.blank? && link !~ /^[a-z]+:\/\//i
-      link = 'http://' + link
+      link = "http://" + link
     end
     self[:external_link] = link
   end
@@ -231,10 +229,10 @@ class Article < ApplicationRecord
     self.profile
   end
 
-  def self.human_attribute_name_with_customization(attrib, options={})
+  def self.human_attribute_name_with_customization(attrib, options = {})
     case attrib.to_sym
     when :name
-      _('Title')
+      _("Title")
     else
       _(self.human_attribute_name_without_customization(attrib))
     end
@@ -249,7 +247,7 @@ class Article < ApplicationRecord
   end
 
   def css_class_name
-    [css_class_list].flatten.compact.join(' ')
+    [css_class_list].flatten.compact.join(" ")
   end
 
   def pending_categorizations
@@ -283,20 +281,20 @@ class Article < ApplicationRecord
   end
 
   acts_as_taggable
-  N_('Tag list')
+  N_("Tag list")
 
   extend ActsAsFilesystem::ActsMethods
   acts_as_filesystem
 
   acts_as_versioned
-  self.non_versioned_columns << 'setting'
+  self.non_versioned_columns << "setting"
 
   def version_condition_met?
-    (['name', 'body', 'abstract', 'filename', 'start_date', 'end_date', 'image_id', 'license_id'] & changed).length > 0
+    (["name", "body", "abstract", "filename", "start_date", "end_date", "image_id", "license_id"] & changed).length > 0
   end
 
   def comment_data
-    comments.map {|item| [item.title, item.body].join(' ') }.join(' ')
+    comments.map { |item| [item.title, item.body].join(" ") }.join(" ")
   end
 
   before_update do |article|
@@ -306,19 +304,19 @@ class Article < ApplicationRecord
   before_save do |article|
     article.parent = article.parent_id ? Article.find(article.parent_id) : nil
     parent_path = article.parent ? article.parent.path : nil
-    article.path = [parent_path, article.slug].compact.join('/')
+    article.path = [parent_path, article.slug].compact.join("/")
   end
 
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
-  scope :top_level_for, -> profile {
-    where 'parent_id is null and profile_id = ?', profile.id
+  scope :top_level_for, ->profile {
+    where "parent_id is null and profile_id = ?", profile.id
   }
 
   # retrives the most commented articles, sorted by the comment count (largest
   # first)
   def self.most_commented(limit)
-    order('comments_count DESC').paginate(page: 1, per_page: limit)
+    order("comments_count DESC").paginate(page: 1, per_page: limit)
   end
 
   # produces the HTML code that is to be displayed as this article's contents.
@@ -328,13 +326,13 @@ class Article < ApplicationRecord
   # views of themselves.
   # (To override short format representation, override the lead method)
   def to_html(options = {})
-    if options[:format] == 'short'
+    if options[:format] == "short"
       article = self
       proc do
         display_short_format(article)
       end
     else
-      body || ''
+      body || ""
     end
   end
 
@@ -350,7 +348,7 @@ class Article < ApplicationRecord
   #
   # FIXME use mime_type and generate this name dinamically
   def self.icon_name(article = nil)
-    'text-html'
+    "text-html"
   end
 
   # TODO Migrate the class method icon_name to instance methods.
@@ -359,11 +357,11 @@ class Article < ApplicationRecord
   end
 
   def mime_type
-    'text/html'
+    "text/html"
   end
 
   def mime_type_description
-    _('HTML Text document')
+    _("HTML Text document")
   end
 
   def self.description
@@ -380,27 +378,27 @@ class Article < ApplicationRecord
 
   include ActionView::Helpers::TextHelper
   def short_title
-    truncate self.title, :length => 15, :omission => '...'
+    truncate self.title, length: 15, omission: "..."
   end
 
   def belongs_to_blog?
-    self.parent and self.parent.blog?
+    self.parent && self.parent.blog?
   end
 
   def belongs_to_forum?
-    self.parent and self.parent.forum?
+    self.parent && self.parent.forum?
   end
 
   def person_followers_email_list
-    person_followers_emails.map{|p|p.email}
+    person_followers_emails.map { |p| p.email }
   end
 
   def info_from_last_update
     last_comment = comments.last
     if last_comment
-      {:date => last_comment.created_at, :author_name => last_comment.author_name, :author_url => last_comment.author_url}
+      { date: last_comment.created_at, author_name: last_comment.author_name, author_url: last_comment.author_url }
     else
-      {:date => updated_at, :author_name => author_name, :author_url => author_url}
+      { date: updated_at, author_name: author_name, author_url: author_url }
     end
   end
 
@@ -409,22 +407,22 @@ class Article < ApplicationRecord
   end
 
   def url
-    @url ||= self.profile.url.merge(:page => path.split('/'))
+    @url ||= self.profile.url.merge(page: path.split("/"))
   end
 
   def page_path
-    path.split('/')
+    path.split("/")
   end
 
   def view_url
-    @view_url ||= is_a?(UploadedFile) ? url.merge(:view => true) : url
+    @view_url ||= is_a?(UploadedFile) ? url.merge(view: true) : url
   end
 
   def comment_url_structure(comment, action = :edit)
     if comment.new_record?
-      profile.url.merge(:page => path.split("/"), :controller => :comment, :action => :create)
+      profile.url.merge(page: path.split("/"), controller: :comment, action: :create)
     else
-      profile.url.merge(:page => path.split("/"), :controller => :comment, :action => action || :edit, :id => comment.id)
+      profile.url.merge(page: path.split("/"), controller: :comment, action: action || :edit, id: comment.id)
     end
   end
 
@@ -436,7 +434,7 @@ class Article < ApplicationRecord
     false
   end
 
-  def download? view = nil
+  def download?(view = nil)
     false
   end
 
@@ -445,18 +443,18 @@ class Article < ApplicationRecord
   end
 
   def download_disposition
-    'inline'
+    "inline"
   end
 
   def download_headers
-    { :filename => filename, :type => mime_type, :disposition => download_disposition}
+    { filename: filename, type: mime_type, disposition: download_disposition }
   end
 
   def alternate_languages
     self.translations.map(&:language)
   end
 
-  scope :native_translations, -> { where :translation_of_id => nil }
+  scope :native_translations, -> { where translation_of_id: nil }
 
   def translatable?
     false
@@ -474,25 +472,25 @@ class Article < ApplicationRecord
 
   def known_language
     unless self.language.blank?
-      errors.add(:language, N_('Language not supported by the environment.')) unless environment.locales.key?(self.language)
+      errors.add(:language, N_("Language not supported by the environment.")) unless environment.locales.key?(self.language)
     end
   end
 
   def used_translation
-    unless self.language.blank? or self.translation_of.nil?
-      errors.add(:language, N_('Language is already used')) unless self.possible_translations.include?(self.language)
+    unless self.language.blank? || self.translation_of.nil?
+      errors.add(:language, N_("Language is already used")) unless self.possible_translations.include?(self.language)
     end
   end
 
   def translation_must_have_language
     unless self.translation_of.nil?
-      errors.add(:language, N_('Language must be chosen')) if self.language.blank?
+      errors.add(:language, N_("Language must be chosen")) if self.language.blank?
     end
   end
 
   def native_translation_must_have_language
     unless self.translation_of.nil?
-      errors.add(:base, N_('A language must be chosen for the native article')) if self.translation_of.language.blank?
+      errors.add(:base, N_("A language must be chosen for the native article")) if self.translation_of.language.blank?
     end
   end
 
@@ -511,7 +509,7 @@ class Article < ApplicationRecord
     elsif self.native_translation.language == locale
       self.native_translation
     else
-      self.native_translation.translations.where(:language => locale).first
+      self.native_translation.translations.where(language: locale).first
     end
   end
 
@@ -524,45 +522,50 @@ class Article < ApplicationRecord
   end
 
   def self.folder_types
-    ['Folder', 'Blog', 'Forum', 'Gallery']
+    ["Folder", "Blog", "Forum", "Gallery"]
   end
 
-  scope :published, -> { where 'articles.published = ?', true }
-  scope :folders, -> profile { where 'articles.type IN (?)', profile.folder_types }
-  scope :no_folders, -> profile { where 'articles.type NOT IN (?)', profile.folder_types }
-  scope :top_folders, -> profile { where 'articles.type IN (?) and profile_id = ? and ' +
-                                         'parent_id IS NULL', profile.folder_types, profile }
-  scope :subfolders, -> profile, parent { where 'articles.type IN (?) and profile_id = ? and ' +
-                                          'parent_id = ?', profile.folder_types, profile, parent }
+  scope :published, -> { where "articles.published = ?", true }
+  scope :folders, ->profile { where "articles.type IN (?)", profile.folder_types }
+  scope :no_folders, ->profile { where "articles.type NOT IN (?)", profile.folder_types }
+  scope :top_folders, ->profile {
+                        where "articles.type IN (?) and profile_id = ? and " +
+                              "parent_id IS NULL", profile.folder_types, profile
+                      }
+  scope :subfolders, ->profile, parent {
+                       where "articles.type IN (?) and profile_id = ? and " +
+                             "parent_id = ?", profile.folder_types, profile, parent
+                     }
   scope :galleries, -> { where "articles.type IN ('Gallery')" }
-  scope :images, -> { where :is_image => true }
-  scope :no_images, -> { where :is_image => false }
-  scope :files, -> { where :type => 'UploadedFile' }
+  scope :images, -> { where is_image: true }
+  scope :no_images, -> { where is_image: false }
+  scope :files, -> { where type: "UploadedFile" }
   scope :no_files, -> { where "type != 'UploadedFile'" }
-  scope :with_types, -> types { where 'articles.type IN (?)', types }
+  scope :with_types, ->types { where "articles.type IN (?)", types }
 
-  scope :more_popular, -> { order 'articles.hits DESC' }
+  scope :more_popular, -> { order "articles.hits DESC" }
   scope :more_comments, -> { order "articles.comments_count DESC" }
   scope :more_recent, -> { order "articles.created_at DESC, articles.id DESC" }
 
-  scope :news, -> profile, limit, highlight {
-      no_folders(profile).
-      no_files.
-      where(highlighted: highlight).
-      limit(limit).
-      order("articles.metadata->'order' NULLS FIRST, published_at DESC")
+  scope :news, ->profile, limit, highlight {
+    no_folders(profile)
+      .no_files
+      .where(highlighted: highlight)
+      .limit(limit)
+      .order("articles.metadata->'order' NULLS FIRST, published_at DESC")
   }
 
   def allow_post_content?(user = nil)
     return true if allow_edit_topic?(user)
+
     user && profile.allow_post_content?(user)
   end
 
   def allow_view_private_content?(user = nil)
-    user && user.has_permission?('view_private_content', profile)
+    user && user.has_permission?("view_private_content", profile)
   end
 
-  alias :allow_delete?  :allow_post_content?
+  alias :allow_delete? :allow_post_content?
 
   def allow_spread?(user = nil)
     user
@@ -574,6 +577,7 @@ class Article < ApplicationRecord
 
   def allow_edit?(user)
     return true if allow_edit_topic?(user)
+
     allow_post_content?(user) || user && allow_members_to_edit && user.is_member_of?(profile)
   end
 
@@ -598,7 +602,7 @@ class Article < ApplicationRecord
     attrs.merge!(options)
     object = self.class.new
     attrs.each do |key, value|
-      object.send(key.to_s+'=', value)
+      object.send(key.to_s + "=", value)
     end
     object
   end
@@ -633,12 +637,12 @@ class Article < ApplicationRecord
   ]
 
   def self.find_by_old_path(old_path)
-    self.includes(:versions).where('article_versions.path = ?', old_path).order('article_versions.id DESC').first
+    self.includes(:versions).where("article_versions.path = ?", old_path).order("article_versions.id DESC").first
   end
 
   def hit
     if !archived?
-      self.class.connection.execute('update articles set hits = hits + 1 where id = %d' % self.id.to_i)
+      self.class.connection.execute("update articles set hits = hits + 1 where id = %d" % self.id.to_i)
       self.hits += 1
     end
   end
@@ -651,7 +655,7 @@ class Article < ApplicationRecord
         article.hits += 1
       end
     end
-    Article.where(:id => ids).update_all('hits = hits + 1') if !ids.empty?
+    Article.where(id: ids).update_all("hits = hits + 1") if !ids.empty?
   end
 
   def can_display_hits?
@@ -663,14 +667,14 @@ class Article < ApplicationRecord
   end
 
   def display_media_panel?
-    can_display_media_panel? && environment.enabled?('media_panel')
+    can_display_media_panel? && environment.enabled?("media_panel")
   end
 
   def can_display_media_panel?
     false
   end
 
-  settings_items :display_preview, :type => :boolean, :default => false
+  settings_items :display_preview, type: :boolean, default: false
 
   def display_preview?
     false
@@ -704,7 +708,7 @@ class Article < ApplicationRecord
     false
   end
 
-  settings_items :display_versions, :type => :boolean, :default => false
+  settings_items :display_versions, type: :boolean, default: false
 
   def can_display_versions?
     false
@@ -715,11 +719,12 @@ class Article < ApplicationRecord
   end
 
   def get_version(version_number = nil)
-    if version_number then self.versions.order('version').offset(version_number - 1).first else self.versions.earliest end
+    if version_number then self.versions.order("version").offset(version_number - 1).first else self.versions.earliest end
   end
 
   def author_by_version(version_number = nil)
     return author unless version_number
+
     author_id = get_version(version_number).last_changed_by_id
     profile.environment.people.where(id: author_id).first
   end
@@ -743,30 +748,30 @@ class Article < ApplicationRecord
     person ? person.id : nil
   end
 
-  #FIXME make this test
+  # FIXME make this test
   def author_custom_image(size = :icon)
     author ? author.profile_custom_image(size) : nil
   end
 
   def version_license(version_number = nil)
     return license if version_number.nil?
+
     profile.environment.licenses.find_by(id: get_version(version_number).license_id)
   end
 
   alias :active_record_cache_key :cache_key
-  def cache_key(params = {}, the_profile = nil, language = 'en')
-    active_record_cache_key+'-'+language +
-      (allow_post_content?(the_profile) ? "-owner" : '') +
-      (params[:npage] ? "-npage-#{params[:npage]}" : '') +
-      (params[:year] ? "-year-#{params[:year]}" : '') +
-      (params[:month] ? "-month-#{params[:month]}" : '') +
-      (params[:version] ? "-version-#{params[:version]}" : '')
-
+  def cache_key(params = {}, the_profile = nil, language = "en")
+    active_record_cache_key + "-" + language +
+      (allow_post_content?(the_profile) ? "-owner" : "") +
+      (params[:npage] ? "-npage-#{params[:npage]}" : "") +
+      (params[:year] ? "-year-#{params[:year]}" : "") +
+      (params[:month] ? "-month-#{params[:month]}" : "") +
+      (params[:version] ? "-version-#{params[:version]}" : "")
   end
 
   def first_paragraph
-    paragraphs = Nokogiri::HTML.fragment(to_html).css('p')
-    paragraphs.empty? ? '' : paragraphs.first.to_html
+    paragraphs = Nokogiri::HTML.fragment(to_html).css("p")
+    paragraphs.empty? ? "" : paragraphs.first.to_html
   end
 
   def lead(length = nil)
@@ -775,7 +780,7 @@ class Article < ApplicationRecord
   end
 
   def short_lead
-    truncate sanitize_html(self.lead), :length => 170, :omission => '...'
+    truncate sanitize_html(self.lead), length: 170, omission: "..."
   end
 
   def notifiable?
@@ -787,8 +792,8 @@ class Article < ApplicationRecord
   end
 
   def body_images_paths
-    paths = Nokogiri::HTML.fragment(self.body.to_s).css('img[src]').collect do |i|
-      src = i['src']
+    paths = Nokogiri::HTML.fragment(self.body.to_s).css("img[src]").collect do |i|
+      src = i["src"]
       src = URI.escape src if self.new_record? # xss_terminate runs on save
       (self.profile && self.profile.environment) ? URI.join(self.profile.environment.top_url, src).to_s : src
     end
@@ -799,50 +804,48 @@ class Article < ApplicationRecord
   def more_comments_label
     amount = self.comments_count
     {
-      0 => _('no comments'),
-      1 => _('one comment')
+      0 => _("no comments"),
+      1 => _("one comment")
     }[amount] || _("%s comments") % amount
-
   end
 
   def more_popular_label
     amount = self.hits
     {
-      0 => _('no views'),
-      1 => _('one view')
+      0 => _("no views"),
+      1 => _("one view")
     }[amount] || _("%s views") % amount
-
   end
 
   def more_recent_label
-    _('Created at: ')
+    _("Created at: ")
   end
 
   def activity
-    ActionTracker::Record.where(target_type: 'Article', target_id: self.id).first
+    ActionTracker::Record.where(target_type: "Article", target_id: self.id).first
   end
 
   def create_activity
     if notifiable? && !image?
-      save_action_for_verb 'create_article', [:name, :title, :url, :lead, :first_image], Proc.new{}, :author
+      save_action_for_verb "create_article", [:name, :title, :url, :lead, :first_image], Proc.new {}, :author
     end
   end
 
   def first_image
-    img = ( image.present? && { 'src' => File.join([Noosfero.root, image.public_filename(:uploaded)].join) } ) ||
-      Nokogiri::HTML.fragment(self.lead.to_s).css('img[src]').first ||
-      Nokogiri::HTML.fragment(self.body.to_s).search('img').first
-    img.nil? ? '' : img['src']
+    img = (image.present? && { "src" => File.join([Noosfero.root, image.public_filename(:uploaded)].join) }) ||
+          Nokogiri::HTML.fragment(self.lead.to_s).css("img[src]").first ||
+          Nokogiri::HTML.fragment(self.body.to_s).search("img").first
+    img.nil? ? "" : img["src"]
   end
 
-  delegate :lat, :lng, :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
+  delegate :lat, :lng, :region, :region_id, :environment, :environment_id, to: :profile, allow_nil: true
 
   def has_macro?
     true
   end
 
   def to_liquid
-    HashWithIndifferentAccess.new :name => name, :abstract => abstract, :body => body, :id => id, :parent_id => parent_id, :author => author
+    HashWithIndifferentAccess.new name: name, abstract: abstract, body: body, id: id, parent_id: parent_id, author: author
   end
 
   def self.can_display_blocks?
@@ -854,7 +857,7 @@ class Article < ApplicationRecord
   end
 
   def icon
-    'file'
+    "file"
   end
 
   def custom_title
@@ -867,10 +870,10 @@ class Article < ApplicationRecord
 
     ActiveRecord::Base.transaction do
       first_order = first_article.position
-      where('profile_id = ?', first_article.profile_id)
-        .where('position > ? OR (position = ? AND published_at > ?)',
-            first_order, first_order, first_article.published_at)
-        .update_all('position = (position + 1)')
+      where("profile_id = ?", first_article.profile_id)
+        .where("position > ? OR (position = ? AND published_at > ?)",
+               first_order, first_order, first_article.published_at)
+        .update_all("position = (position + 1)")
 
       first_article.update!(position: first_order)
       second_article.update!(position: first_order + 1)
@@ -879,31 +882,31 @@ class Article < ApplicationRecord
 
   private
 
-  def parent_archived?
-    if self.parent_id_changed? && self.parent && self.parent.archived?
-      errors.add(:parent_folder, N_('is archived!!'))
+    def parent_archived?
+      if self.parent_id_changed? && self.parent && self.parent.archived?
+        errors.add(:parent_folder, N_("is archived!!"))
+      end
     end
-  end
 
-  def validate_custom_fields
-    if metadata.has_key?('custom_fields')
-      custom_fields = metadata['custom_fields']
-      if custom_fields.present?
-        custom_fields.each do |key, field|
-          if field['value'].blank?
-            errors.add(:metadata, _('Custom fields must have values'))
+    def validate_custom_fields
+      if metadata.has_key?("custom_fields")
+        custom_fields = metadata["custom_fields"]
+        if custom_fields.present?
+          custom_fields.each do |key, field|
+            if field["value"].blank?
+              errors.add(:metadata, _("Custom fields must have values"))
+            end
           end
         end
       end
     end
-  end
 
-  def sanitize_custom_field_keys
-    if metadata.has_key?('custom_fields')
-      custom_fields = metadata['custom_fields'] || {}
-      metadata['custom_fields'] = custom_fields.keys.map do |field|
-        [field.to_slug, metadata['custom_fields'][field]]
-      end.to_h
+    def sanitize_custom_field_keys
+      if metadata.has_key?("custom_fields")
+        custom_fields = metadata["custom_fields"] || {}
+        metadata["custom_fields"] = custom_fields.keys.map do |field|
+          [field.to_slug, metadata["custom_fields"][field]]
+        end.to_h
+      end
     end
-  end
 end

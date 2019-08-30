@@ -2,15 +2,15 @@ module AnalyticsPlugin::ControlPanel
   class AccessTracking < ControlPanel::Entry
     class << self
       def name
-        I18n.t('analytics_plugin.lib.plugin.panel_button')
+        I18n.t("analytics_plugin.lib.plugin.panel_button")
       end
 
       def section
-        'profile'
+        "profile"
       end
 
       def icon
-        'chart-line'
+        "chart-line"
       end
 
       def priority
@@ -18,10 +18,10 @@ module AnalyticsPlugin::ControlPanel
       end
 
       def url(profile)
-        {controller: 'analytics_plugin/stats', profile: profile.identifier, action: :index}
+        { controller: "analytics_plugin/stats", profile: profile.identifier, action: :index }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         user.is_admin? profile.environment
       end
     end

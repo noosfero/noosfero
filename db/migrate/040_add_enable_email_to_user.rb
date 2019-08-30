@@ -1,6 +1,6 @@
 class AddEnableEmailToUser < ActiveRecord::Migration
   def self.up
-    add_column :users, :enable_email, :boolean, :default => false
+    add_column :users, :enable_email, :boolean, default: false
   end
 
   def self.down

@@ -1,5 +1,4 @@
 class ProductsPlugin::Unit < ApplicationRecord
-
   self.table_name = :units
 
   acts_as_list scope: :environment
@@ -15,8 +14,8 @@ class ProductsPlugin::Unit < ApplicationRecord
   def name
     self.singular
   end
+
   def name=(value)
     self.singular = value
   end
-
 end

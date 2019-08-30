@@ -1,11 +1,10 @@
 class MetadataPlugin::Base < Noosfero::Plugin
-
   def self.plugin_name
-    _('Export metadata')
+    _("Export metadata")
   end
 
   def self.plugin_description
-    _('Export metadata for models on meta tags')
+    _("Export metadata for models on meta tags")
   end
 
   def self.config
@@ -28,8 +27,8 @@ class MetadataPlugin::Base < Noosfero::Plugin
       return unless variable
 
       return unless object = case variable
-        when Proc then instance_exec(&variable)
-        else instance_variable_get variable
+                             when Proc then instance_exec(&variable)
+                             else instance_variable_get variable
         end
       return unless specs = (object.class.metadata_specs rescue nil)
 
@@ -48,8 +47,9 @@ class MetadataPlugin::Base < Noosfero::Plugin
           Array(values).each do |value|
             value = value.call(object, plugin) if value.is_a? Proc rescue nil
             next if value.blank?
+
             value = h value unless value.html_safe?
-            r << tag(:meta, {key_attr => key, value_attr => value.to_s}, false, false)
+            r << tag(:meta, { key_attr => key, value_attr => value.to_s }, false, false)
           end
         end
       end
@@ -64,11 +64,9 @@ class MetadataPlugin::Base < Noosfero::Plugin
   end
 
   protected
-
 end
 
 ActiveSupport.run_load_hooks :metadata_plugin, MetadataPlugin
 ActiveSupport.on_load :active_record do
   ActiveRecord::Base.extend MetadataPlugin::Specs::ClassMethods
 end
-

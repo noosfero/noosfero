@@ -7,6 +7,6 @@ class DefineInitialValueForProfilesFriendsCount < ActiveRecord::Migration
   end
 
   def self.down
-      execute("UPDATE profiles SET friends_count=0;")
+    execute("UPDATE profiles SET friends_count=0;")
   end
 end

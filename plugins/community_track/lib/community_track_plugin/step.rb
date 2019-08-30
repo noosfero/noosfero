@@ -1,7 +1,6 @@
 class CommunityTrackPlugin::Step < Folder
-
-  settings_items :hidden, :type => :boolean, :default => false
-  settings_items :tool_type, :type => String
+  settings_items :hidden, type: :boolean, default: false
+  settings_items :tool_type, type: String
 
   attr_accessible :start_date, :end_date, :tool_type, :hidden
 
@@ -32,7 +31,7 @@ class CommunityTrackPlugin::Step < Folder
 
   def end_date_equal_or_after_start_date
     if end_date && start_date
-      errors.add(:end_date, _('must be equal or after start date.')) unless end_date >= start_date
+      errors.add(:end_date, _("must be equal or after start date.")) unless end_date >= start_date
     end
   end
 
@@ -41,7 +40,7 @@ class CommunityTrackPlugin::Step < Folder
   end
 
   def self.description
-    _('Defines a step.')
+    _("Defines a step.")
   end
 
   def accept_comments?
@@ -55,7 +54,7 @@ class CommunityTrackPlugin::Step < Folder
   def to_html(options = {})
     step = self
     proc do
-      render :file => 'content_viewer/step', :locals => {:step => step}
+      render file: "content_viewer/step", locals: { step: step }
     end
   end
 
@@ -72,11 +71,12 @@ class CommunityTrackPlugin::Step < Folder
   end
 
   def schedule_activation
-    return if !changes['start_date'] && !changes['end_date']
+    return if !changes["start_date"] && !changes["end_date"]
+
     if DateTime.now <= end_date || accept_comments
       schedule_date = !accept_comments ? start_date : end_date + 1.day
       CommunityTrackPlugin::ActivationJob.find(id).destroy_all
-      Delayed::Job.enqueue(CommunityTrackPlugin::ActivationJob.new(self.id), :run_at => schedule_date)
+      Delayed::Job.enqueue(CommunityTrackPlugin::ActivationJob.new(self.id), run_at: schedule_date)
     end
   end
 
@@ -88,7 +88,7 @@ class CommunityTrackPlugin::Step < Folder
 
   def self.toggle_activation(article, accept_comments)
     article.update_attribute(:accept_comments, accept_comments)
-    article.children.each {|a| toggle_activation(a, accept_comments)}
+    article.children.each { |a| toggle_activation(a, accept_comments) }
   end
 
   def tool_class
@@ -98,5 +98,4 @@ class CommunityTrackPlugin::Step < Folder
   def tool
     tools.where(type: tool_type).first
   end
-
 end

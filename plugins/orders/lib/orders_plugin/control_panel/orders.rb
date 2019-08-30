@@ -1,17 +1,16 @@
 module OrdersPlugin::ControlPanel
   class Orders < ControlPanel::Entry
     class << self
-
       def name
         I18n.t("orders_plugin.lib.plugin.person_panel_button")
       end
 
       def section
-        'shopping'
+        "shopping"
       end
 
       def icon
-        'list-ol'
+        "list-ol"
       end
 
       def priority
@@ -19,10 +18,10 @@ module OrdersPlugin::ControlPanel
       end
 
       def url(profile)
-        {:controller => :orders_plugin_admin, :action => :index}
+        { controller: :orders_plugin_admin, action: :index }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.person?
       end
     end

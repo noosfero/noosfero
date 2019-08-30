@@ -1,15 +1,15 @@
 class ControlPanel::Informations < ControlPanel::Entry
   class << self
     def name
-      _('Informations')
+      _("Informations")
     end
 
     def section
-      'profile'
+      "profile"
     end
 
     def icon
-      'id-card'
+      "id-card"
     end
 
     def priority
@@ -17,11 +17,11 @@ class ControlPanel::Informations < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('personal')]
+      [_("personal")]
     end
 
     def url(profile)
-      {:controller => 'profile_editor', :action => 'informations'}
+      { controller: "profile_editor", action: "informations" }
     end
   end
 end

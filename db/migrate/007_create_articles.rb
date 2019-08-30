@@ -1,11 +1,10 @@
 class CreateArticles < ActiveRecord::Migration
   def self.up
     create_table :articles do |t|
-
       # acts as filesystem
       t.column :name, :string
       t.column :slug, :string
-      t.column :path, :text, :default => ''
+      t.column :path, :text, default: ""
       t.column :parent_id, :integer # acts as tree included
 
       # main data
@@ -17,7 +16,7 @@ class CreateArticles < ActiveRecord::Migration
 
       # keep track of changes
       t.column :updated_on,  :datetime
-      t.column :created_on,  :datetime 
+      t.column :created_on,  :datetime
       t.column :last_changed_by_id, :integer
 
       # acts as versioned
@@ -35,7 +34,6 @@ class CreateArticles < ActiveRecord::Migration
       # attachment_fu data for images
       t.column :height,       :integer  # in pixels
       t.column :width,        :integer  # in pixels
-
     end
 
     Article.create_versioned_table

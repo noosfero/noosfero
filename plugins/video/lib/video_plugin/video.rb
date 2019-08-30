@@ -1,26 +1,25 @@
-require 'application_helper'
-require 'net/http'
+require "application_helper"
+require "net/http"
 
 class VideoPlugin::Video < Article
-
-  settings_items :video_url,    :type => :string, :default => 'http://'
-  settings_items :video_width,  :type => :integer, :default => 499
-  settings_items :video_height, :type => :integer, :default => 353
-  #Video Providers are: youtube, vimeo, file
-  settings_items :video_provider,    :type => :string
-  settings_items :video_format,      :type => :string
-  settings_items :video_id,          :type => :string
-  settings_items :video_thumbnail_url,    :type => :string, :default => '/plugins/video/images/video_generic_thumbnail.jpg'
-  settings_items :video_thumbnail_width,  :type=> :integer, :default => 239
-  settings_items :video_thumbnail_height, :type=> :integer, :default => 210
-  settings_items :video_duration, :type=> :integer, :default => 0
+  settings_items :video_url,    type: :string, default: "http://"
+  settings_items :video_width,  type: :integer, default: 499
+  settings_items :video_height, type: :integer, default: 353
+  # Video Providers are: youtube, vimeo, file
+  settings_items :video_provider,    type: :string
+  settings_items :video_format,      type: :string
+  settings_items :video_id,          type: :string
+  settings_items :video_thumbnail_url,    type: :string, default: "/plugins/video/images/video_generic_thumbnail.jpg"
+  settings_items :video_thumbnail_width,  type: :integer, default: 239
+  settings_items :video_thumbnail_height, type: :integer, default: 210
+  settings_items :video_duration, type: :integer, default: 0
 
   attr_accessible :video_url
 
   before_save :fill_video_properties
 
   def self.type_name
-    _('Video')
+    _("Video")
   end
 
   def can_display_versions?
@@ -28,11 +27,11 @@ class VideoPlugin::Video < Article
   end
 
   def self.short_description
-    _('Embedded Video')
+    _("Embedded Video")
   end
 
   def self.description
-    _('Display embedded videos.')
+    _("Display embedded videos.")
   end
 
   def is_youtube?
@@ -44,10 +43,10 @@ class VideoPlugin::Video < Article
   end
 
   include ActionView::Helpers::TagHelper
-  def to_html(options={})
+  def to_html(options = {})
     article = self
     proc do
-      render :partial => 'content_viewer/video_plugin/video', :locals => {:article => article}
+      render partial: "content_viewer/video_plugin/video", locals: { article: article }
     end
   end
 
@@ -101,6 +100,7 @@ class VideoPlugin::Video < Article
 
   def self.extract_youtube_id(video_url)
     return nil unless self.is_youtube?(video_url)
+
     youtube_match = video_url.match("v=([#{YOUTUBE_ID_FORMAT}]*)")
     youtube_match ||= video_url.match("youtu.be\/([#{YOUTUBE_ID_FORMAT}]*)")
     youtube_match[1] unless youtube_match.nil?
@@ -108,19 +108,20 @@ class VideoPlugin::Video < Article
 
   def self.extract_vimeo_id(video_url)
     return nil unless self.is_vimeo?(video_url)
-    vimeo_match = video_url.match('([[:digit:]]*)$')
+
+    vimeo_match = video_url.match("([[:digit:]]*)$")
     vimeo_match[1] unless vimeo_match.nil?
   end
 
   def self.mime_type(video_url)
-    video_type = 'video/unknown'
+    video_type = "video/unknown"
 
-    if /.mp4/i =~ video_url or /.mov/i =~ video_url
-      video_type='video/mp4'
+    if /.mp4/i =~ video_url || /.mov/i =~ video_url
+      video_type = "video/mp4"
     elsif /.webm/i =~ video_url
-      video_type='video/webm'
+      video_type = "video/webm"
     elsif /.og[vg]/i =~ video_url
-      video_type='video/ogg'
+      video_type = "video/ogg"
     end
 
     video_type
@@ -128,58 +129,57 @@ class VideoPlugin::Video < Article
 
   private
 
-  YOUTUBE_ID_FORMAT = '\w-'
+    YOUTUBE_ID_FORMAT = '\w-'
 
-  def fill_video_properties
-    if is_youtube?
-      fill_youtube_video_properties
-    elsif is_vimeo?
-      fill_vimeo_video_properties
-    elsif true
-      self.video_format = mime_type
-      self.video_provider = 'file'
+    def fill_video_properties
+      if is_youtube?
+        fill_youtube_video_properties
+      elsif is_vimeo?
+        fill_vimeo_video_properties
+      elsif true
+        self.video_format = mime_type
+        self.video_provider = "file"
+      end
     end
-  end
 
-  def fill_youtube_video_properties
-    self.video_provider = 'youtube'
-    self.video_id = extract_youtube_id
-    url = "http://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch?v%3D#{self.video_id}&format=json"
-    resp = Net::HTTP.get_response(URI.parse(url))
-    buffer = resp.body
-    vid = JSON.parse(buffer)
-    self.video_thumbnail_url = vid['thumbnail_url']
-    self.video_width = vid['width']
-    self.video_height = vid['height']
-    self.video_thumbnail_width = vid['thumbnail_width']
-    self.video_thumbnail_height = vid['thumbnail_height']
-  end
+    def fill_youtube_video_properties
+      self.video_provider = "youtube"
+      self.video_id = extract_youtube_id
+      url = "http://www.youtube.com/oembed?url=http%3A//www.youtube.com/watch?v%3D#{self.video_id}&format=json"
+      resp = Net::HTTP.get_response(URI.parse(url))
+      buffer = resp.body
+      vid = JSON.parse(buffer)
+      self.video_thumbnail_url = vid["thumbnail_url"]
+      self.video_width = vid["width"]
+      self.video_height = vid["height"]
+      self.video_thumbnail_width = vid["thumbnail_width"]
+      self.video_thumbnail_height = vid["thumbnail_height"]
+    end
 
-  def fill_vimeo_video_properties
-    self.video_provider = 'vimeo'
-    self.video_id = extract_vimeo_id
-    url = "http://vimeo.com/api/v2/video/#{self.video_id}.json"
-    resp = Net::HTTP.get_response(URI.parse(url))
-    buffer = resp.body
-    vid = JSON.parse(buffer)
-    vid = vid[0]
-    self.video_thumbnail_url = vid['thumbnail_large']
-    self.video_width = vid['width']
-    self.video_height = vid['height']
-    self.video_thumbnail_width = 640
-    self.video_thumbnail_height = 360
-  end
+    def fill_vimeo_video_properties
+      self.video_provider = "vimeo"
+      self.video_id = extract_vimeo_id
+      url = "http://vimeo.com/api/v2/video/#{self.video_id}.json"
+      resp = Net::HTTP.get_response(URI.parse(url))
+      buffer = resp.body
+      vid = JSON.parse(buffer)
+      vid = vid[0]
+      self.video_thumbnail_url = vid["thumbnail_large"]
+      self.video_width = vid["width"]
+      self.video_height = vid["height"]
+      self.video_thumbnail_width = 640
+      self.video_thumbnail_height = 360
+    end
 
-  def mime_type
-    VideoPlugin::Video.mime_type(self.video_url)
-  end
+    def mime_type
+      VideoPlugin::Video.mime_type(self.video_url)
+    end
 
-  def extract_youtube_id
-    VideoPlugin::Video.extract_youtube_id(self.video_url)
-  end
+    def extract_youtube_id
+      VideoPlugin::Video.extract_youtube_id(self.video_url)
+    end
 
-  def extract_vimeo_id
-    VideoPlugin::Video.extract_vimeo_id(self.video_url)
-  end
-
+    def extract_vimeo_id
+      VideoPlugin::Video.extract_vimeo_id(self.video_url)
+    end
 end

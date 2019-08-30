@@ -1,8 +1,8 @@
 #!/usr/bin/env rake
 
-require_relative 'config/application'
+require_relative "config/application"
 
-require 'rake/testtask'
+require "rake/testtask"
 
 Noosfero::Application.load_tasks
 
@@ -14,5 +14,4 @@ Noosfero::Application.load_tasks
   Dir.glob(pattern).sort
 end.flatten.each do |taskfile|
   load taskfile
-end 
-
+end

@@ -1,6 +1,5 @@
 class PushNotificationPlugin::NotificationSettings < ApplicationRecord
-
-  NOTIFICATIONS= {
+  NOTIFICATIONS = {
     "add_friend" => 0x1,
     "new_comment" => 0x2,
     "add_member" => 0x4,
@@ -33,37 +32,36 @@ class PushNotificationPlugin::NotificationSettings < ApplicationRecord
   end
 
   def active_notifications
-    NOTIFICATIONS.keys.select{|notification| active?(notification)}
+    NOTIFICATIONS.keys.select { |notification| active?(notification) }
   end
 
   def inactive_notifications
-    NOTIFICATIONS.keys.select{|notification| !active?(notification)}
+    NOTIFICATIONS.keys.select { |notification| !active?(notification) }
   end
 
-  def active? notification
-    ((self.notifications & NOTIFICATIONS[notification])!=0)
+  def active?(notification)
+    ((self.notifications & NOTIFICATIONS[notification]) != 0)
   end
 
-  def activate_notification notification
+  def activate_notification(notification)
     self.notifications |= NOTIFICATIONS[notification]
   end
 
-  def set_notifications notifications
+  def set_notifications(notifications)
     NOTIFICATIONS.keys.each do |event|
       set_notification_state event, notifications[event]
     end
   end
 
-  def deactivate_notification notification
+  def deactivate_notification(notification)
     self.notifications &= ~NOTIFICATIONS[notification]
   end
 
-  def set_notification_state notification, state
+  def set_notification_state(notification, state)
     if state.blank? || (state == 0) || (state == "0") || state == false
       deactivate_notification notification
     else
       activate_notification notification
     end
   end
-
 end

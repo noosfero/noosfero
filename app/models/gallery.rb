@@ -1,25 +1,24 @@
 class Gallery < Folder
-
-  settings_items :allow_download, :type => :boolean, :default => false
+  settings_items :allow_download, type: :boolean, default: false
   attr_accessible :allow_download
 
   def self.type_name
-    _('Gallery')
+    _("Gallery")
   end
 
   def self.short_description
-    _('Gallery')
+    _("Gallery")
   end
 
   def self.description
-    _('A gallery, inside which you can put images.')
+    _("A gallery, inside which you can put images.")
   end
 
   include ActionView::Helpers::TagHelper
-  def to_html(options={})
+  def to_html(options = {})
     article = self
     proc do
-      render :file => 'content_viewer/image_gallery', :locals => {:article => article}
+      render file: "content_viewer/image_gallery", locals: { article: article }
     end
   end
 
@@ -28,11 +27,10 @@ class Gallery < Folder
   end
 
   def self.icon_name(article = nil)
-    'gallery'
+    "gallery"
   end
 
   def icon
-   'image'
+    "image"
   end
-
 end

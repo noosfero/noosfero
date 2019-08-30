@@ -1,15 +1,15 @@
 class ControlPanel::Regions < ControlPanel::Entry
   class << self
     def name
-      _('Regions')
+      _("Regions")
     end
 
     def section
-      'interests'
+      "interests"
     end
 
     def icon
-      'map'
+      "map"
     end
 
     def priority
@@ -17,8 +17,7 @@ class ControlPanel::Regions < ControlPanel::Entry
     end
 
     def url(profile)
-     {:controller => 'profile_editor', :action => 'regions'}
+      { controller: "profile_editor", action: "regions" }
     end
   end
 end
-

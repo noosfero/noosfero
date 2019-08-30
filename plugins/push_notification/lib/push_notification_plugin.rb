@@ -1,5 +1,4 @@
 class PushNotificationPlugin < Noosfero::Plugin
-
   include Noosfero::Plugin::HotSpot
   include PushNotificationPlugin::Observers
 
@@ -7,21 +6,22 @@ class PushNotificationPlugin < Noosfero::Plugin
     I18n.t("push_notification_plugin.lib.plugin.name")
   end
 
-  def self.subscribe environment, notification, klass
+  def self.subscribe(environment, notification, klass)
     return nil unless PushNotificationPlugin::NotificationSettings::NOTIFICATIONS.keys.include?(notification)
     return nil unless klass.name.constantize.respond_to?("push_notification_#{notification}_additional_users".to_sym)
 
-    notification_subscription = PushNotificationPlugin::NotificationSubscription.where(:notification => notification).first
-    notification_subscription ||= PushNotificationPlugin::NotificationSubscription.new({:notification => notification,
-      :environment => environment, :subscribers => [klass.name]})
+    notification_subscription = PushNotificationPlugin::NotificationSubscription.where(notification: notification).first
+    notification_subscription ||= PushNotificationPlugin::NotificationSubscription.new(notification: notification,
+                                                                                       environment: environment, subscribers: [klass.name])
 
     notification_subscription.subscribers |= [klass.name]
     notification_subscription.save
   end
 
-  def self.unsubscribe environment, notification, klass
+  def self.unsubscribe(environment, notification, klass)
     return nil unless PushNotificationPlugin::NotificationSettings::NOTIFICATIONS.keys.include?(notification)
-    notification_subscription = PushNotificationPlugin::NotificationSubscription.where(:notification => notification, :environment => environment).first
+
+    notification_subscription = PushNotificationPlugin::NotificationSubscription.where(notification: notification, environment: environment).first
     unless notification_subscription.blank?
       if notification_subscription.subscribers.include?(klass.name)
         notification_subscription.subscribers -= [klass.name]
@@ -31,11 +31,13 @@ class PushNotificationPlugin < Noosfero::Plugin
     return false
   end
 
-  def self.subscribers environment, notification
+  def self.subscribers(environment, notification)
     return nil unless PushNotificationPlugin::NotificationSettings::NOTIFICATIONS.keys.include?(notification)
-    notification_subscription = PushNotificationPlugin::NotificationSubscription.where(:notification =>  notification, :environment => environment)
+
+    notification_subscription = PushNotificationPlugin::NotificationSubscription.where(notification: notification, environment: environment)
     return [] if notification_subscription.blank?
-    notification_subscription.first.subscribers.map{|s| s.constantize}
+
+    notification_subscription.first.subscribers.map { |s| s.constantize }
   end
 
   def self.api_mount_points

@@ -1,15 +1,14 @@
 module AuthenticatedTestHelper
-
   # Sets the current user in the session from the user fixtures.
   def login_as(user)
-    @request.session[:user] = User.find_by(login: user.to_s).id 
+    @request.session[:user] = User.find_by(login: user.to_s).id
   end
 
   def login_as_rails5(user)
     old_controller = @controller
     @controller = AccountController.new
 
-    post login_account_index_path, params: { user: { login: user, password: '123456'} }
+    post login_account_index_path, params: { user: { login: user, password: "123456" } }
     @controller = old_controller
   end
 
@@ -26,7 +25,7 @@ module AuthenticatedTestHelper
   end
 
   def content_type(type)
-    @request.env['Content-Type'] = type
+    @request.env["Content-Type"] = type
   end
 
   def accept(accept)
@@ -36,8 +35,8 @@ module AuthenticatedTestHelper
   def authorize_as(user)
     if user
       @request.env["HTTP_AUTHORIZATION"] = "Basic #{Base64.encode64("#{users(user).login}:test")}"
-      accept       'application/xml'
-      content_type 'application/xml'
+      accept       "application/xml"
+      content_type "application/xml"
     else
       @request.env["HTTP_AUTHORIZATION"] = nil
       accept       nil
@@ -75,6 +74,7 @@ class BaseLoginProxy
   end
 
   private
+
     def authenticated
       raise NotImplementedError
     end
@@ -93,19 +93,21 @@ end
 
 class HttpLoginProxy < BaseLoginProxy
   protected
+
     def authenticate
       @controller.login_as @login if @login
     end
 
     def check
-      @controller.assert_redirected_to :controller => 'account', :action => 'login'
+      @controller.assert_redirected_to controller: "account", action: "login"
     end
 end
 
 class XmlLoginProxy < BaseLoginProxy
   protected
+
     def authenticate
-      @controller.accept 'application/xml'
+      @controller.accept "application/xml"
       @controller.authorize_as @login if @login
     end
 

@@ -1,7 +1,7 @@
 require_relative "../../test_helper"
 
 class ActivityPresenter::GenericTest < ActiveSupport::TestCase
-  should 'accept everything' do
+  should "accept everything" do
     activity = ActionTracker::Record.new
 
     activity.stubs(:target).returns(Profile.new)

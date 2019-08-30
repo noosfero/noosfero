@@ -1,10 +1,10 @@
 class RecentActivitiesPlugin < Noosfero::Plugin
   def self.plugin_name
-    'RecentActivitiesPlugin'
+    "RecentActivitiesPlugin"
   end
 
   def self.plugin_description
-    _('Adds a block that lists recent profile activity.')
+    _("Adds a block that lists recent profile activity.")
   end
 
   def self.extra_blocks

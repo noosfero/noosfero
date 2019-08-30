@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class RoleControllerTest < ActionDispatch::IntegrationTest
   all_fixtures
@@ -17,7 +17,7 @@ class RoleControllerTest < ActionDispatch::IntegrationTest
   def test_show_should_fetch_role
     get role_path(@role)
     assert_response :success
-    assert_template 'show'
+    assert_template "show"
     assert assigns(:role)
     assert_equal @role.id, assigns(:role).id
   end
@@ -50,44 +50,43 @@ class RoleControllerTest < ActionDispatch::IntegrationTest
   end
 
   def test_should_create_new_role
-    assert_difference 'Role.count' do
-      post role_index_path, params: {:role => { :name => 'Test Role', :permissions => ["test"] }}
+    assert_difference "Role.count" do
+      post role_index_path, params: { role: { name: "Test Role", permissions: ["test"] } }
     end
-    assert_redirected_to :action => 'show', :id => Role.last.id
+    assert_redirected_to action: "show", id: Role.last.id
   end
 
   def test_should_not_create_new_role
-    assert_no_difference 'Role.count' do
-      post role_index_path, params: {:role => { }}
+    assert_no_difference "Role.count" do
+      post role_index_path, params: { role: {} }
     end
     assert_template :new
   end
 
-  should 'not crash when editing role with no permissions' do
-    role = Role.create!(:name => 'test_role', :environment => Environment.default)
+  should "not crash when editing role with no permissions" do
+    role = Role.create!(name: "test_role", environment: Environment.default)
 
     assert_nothing_raised do
       get edit_role_path(role)
     end
   end
 
-  should 'display permissions for both environment and profile when editing a environment role' do
-    role = Role.create!(:name => 'environment_role', :key => 'environment_role', :environment => Environment.default)
+  should "display permissions for both environment and profile when editing a environment role" do
+    role = Role.create!(name: "environment_role", key: "environment_role", environment: Environment.default)
     get edit_role_path(role)
-    ['Environment', 'Profile'].each do |key|
+    ["Environment", "Profile"].each do |key|
       ApplicationRecord::PERMISSIONS[key].each do |permission, value|
         assert_select ".permissions.#{key.downcase} input##{permission}"
       end
     end
   end
 
-  should 'display permissions only for profile when editing a profile role' do
-    role = Role.create!(:name => 'profile_role', :key => 'profile_role', :environment => Environment.default)
+  should "display permissions only for profile when editing a profile role" do
+    role = Role.create!(name: "profile_role", key: "profile_role", environment: Environment.default)
     get edit_role_path(role)
-    ApplicationRecord::PERMISSIONS['Profile'].each do |permission, value|
+    ApplicationRecord::PERMISSIONS["Profile"].each do |permission, value|
       assert_select "input##{permission}"
     end
     assert_select ".permissions.environment", false
   end
-
 end

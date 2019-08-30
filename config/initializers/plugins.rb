@@ -1,2 +1,1 @@
 Noosfero::Plugin.initialize!
-

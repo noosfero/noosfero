@@ -1,11 +1,10 @@
-require_dependency File.dirname(__FILE__) + '/related_organizations_block'
+require_dependency File.dirname(__FILE__) + "/related_organizations_block"
 
 class SubOrganizationsPlugin < Noosfero::Plugin; end;
 
-require_dependency 'sub_organizations_plugin/search_helper'
+require_dependency "sub_organizations_plugin/search_helper"
 
 class SubOrganizationsPlugin < Noosfero::Plugin
-
   include SearchHelper
 
   DISPLAY_LIMIT = 12
@@ -49,21 +48,21 @@ class SubOrganizationsPlugin < Noosfero::Plugin
 
   def new_community_hidden_fields
     parent_to_be = context.params[:sub_organizations_plugin_parent_to_be]
-    {'sub_organizations_plugin_parent_to_be' => parent_to_be} if parent_to_be.present?
+    { "sub_organizations_plugin_parent_to_be" => parent_to_be } if parent_to_be.present?
   end
 
   def enterprise_registration_hidden_fields
     parent_to_be = context.params[:sub_organizations_plugin_parent_to_be]
-    {'sub_organizations_plugin_parent_to_be' => parent_to_be} if parent_to_be.present?
+    { "sub_organizations_plugin_parent_to_be" => parent_to_be } if parent_to_be.present?
   end
 
   def self.limit(organizations)
-    organizations.limit(DISPLAY_LIMIT).order('updated_at DESC').sort_by{ rand }
+    organizations.limit(DISPLAY_LIMIT).order("updated_at DESC").sort_by { rand }
   end
 
   def self.extra_blocks
     {
-      RelatedOrganizationsBlock => {:type => [Enterprise, Community], :position => ['1', '2', '3']}
+      RelatedOrganizationsBlock => { type: [Enterprise, Community], position: ["1", "2", "3"] }
     }
   end
 end

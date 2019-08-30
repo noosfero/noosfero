@@ -22,7 +22,8 @@ Noosfero::Application.configure do
 
   # pre-compile every asset
   config.assets.precompile = Dir.glob("app/assets/**/*").map do |file|
-    next unless File.exists?(file) and File.file?(file)
+    next unless File.exists?(file) && File.file?(file)
+
     File.basename file
   end.compact
 
@@ -40,14 +41,13 @@ Noosfero::Application.configure do
   # config.log_level = :debug
 
   # Prepend all log lines with the following tags
-  config.log_tags = [ :subdomain, :uuid ]
-
+  config.log_tags = [:subdomain, :uuid]
 
   #  # Use a different logger for distributed setups
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production
-  config.cache_store = :dalli_store, "127.0.0.1:11211", { :namespace => "noosfero/#{Noosfero::VERSION}" }
+  config.cache_store = :dalli_store, "127.0.0.1:11211", { namespace: "noosfero/#{Noosfero::VERSION}" }
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host                  = "http://assets.example.com"
@@ -65,4 +65,3 @@ Noosfero::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
-

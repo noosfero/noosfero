@@ -1,17 +1,16 @@
-require 'redcloth' unless RUBY_ENGINE == 'jruby'
+require "redcloth" unless RUBY_ENGINE == "jruby"
 
 # a base class for all text article types.
 class TextArticle < Article
-
   def self.short_description
-    _('Text article')
+    _("Text article")
   end
 
   def self.description
-    _('Text article to create user content.')
+    _("Text article to create user content.")
   end
 
-  xss_terminate only: [ :name, :body, :abstract ], with: :white_list, on: :validation, :if => lambda { |a| !a.editor?(Article::Editor::TEXTILE) && !a.editor?(Article::Editor::RAW_HTML) }
+  xss_terminate only: [:name, :body, :abstract], with: :white_list, on: :validation, if: lambda { |a| !a.editor?(Article::Editor::TEXTILE) && !a.editor?(Article::Editor::RAW_HTML) }
 
   include WhiteListFilter
   filter_iframes :abstract, :body
@@ -20,7 +19,7 @@ class TextArticle < Article
   end
 
   def self.type_name
-    _('Article')
+    _("Article")
   end
 
   include TranslatableContent
@@ -53,8 +52,8 @@ class TextArticle < Article
 
   def set_relative_path
     parsed = Nokogiri::HTML.fragment(self.body.to_s)
-    parsed.css('img[src]').each { |i| change_element_path(i, 'src') }
-    parsed.css('a[href]').each { |i| change_element_path(i, 'href') }
+    parsed.css("img[src]").each { |i| change_element_path(i, "src") }
+    parsed.css("a[href]").each { |i| change_element_path(i, "href") }
     self.body = parsed.to_html
   end
 
@@ -71,7 +70,7 @@ class TextArticle < Article
     parent && parent.kind_of?(Blog) && parent.display_preview
   end
 
-  def to_html(options ={})
+  def to_html(options = {})
     content = super(options)
     content = convert_textile_to_html(content) if self.editor?(Article::Editor::TEXTILE)
     content
@@ -85,10 +84,9 @@ class TextArticle < Article
 
   protected
 
-  def convert_textile_to_html(textile)
-    converter = RedCloth.new(textile|| '')
-    converter.hard_breaks = false
-    sanitize_html(converter.to_html, :white_list)
-  end
-
+    def convert_textile_to_html(textile)
+      converter = RedCloth.new(textile || "")
+      converter.hard_breaks = false
+      sanitize_html(converter.to_html, :white_list)
+    end
 end

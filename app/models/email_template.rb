@@ -1,5 +1,4 @@
 class EmailTemplate < ApplicationRecord
-
   belongs_to :owner, polymorphic: true, optional: true
 
   attr_accessible :template_type, :subject, :body, :owner, :name
@@ -20,16 +19,16 @@ class EmailTemplate < ApplicationRecord
 
   def self.available_types
     {
-      :task_rejection => {:description => _('Task Rejection'), :owner_type => Profile},
-      :task_acceptance => {:description => _('Task Acceptance'), :owner_type => Profile},
-      :organization_members => {:description => _('Organization Members'), :owner_type => Profile},
-      :user_activation => {:description => _('User Activation'), :unique => true, :owner_type => Environment},
-      :user_change_password => {:description => _('Change User Password'), :unique => true, :owner_type => Environment}
+      task_rejection: { description: _("Task Rejection"), owner_type: Profile },
+      task_acceptance: { description: _("Task Acceptance"), owner_type: Profile },
+      organization_members: { description: _("Organization Members"), owner_type: Profile },
+      user_activation: { description: _("User Activation"), unique: true, owner_type: Environment },
+      user_change_password: { description: _("Change User Password"), unique: true, owner_type: Environment }
     }
   end
 
   def available_types
-    HashWithIndifferentAccess.new EmailTemplate.available_types.select {|k, v| owner.kind_of?(v[:owner_type])}
+    HashWithIndifferentAccess.new EmailTemplate.available_types.select { |k, v| owner.kind_of?(v[:owner_type]) }
   end
 
   def type_description
@@ -42,9 +41,8 @@ class EmailTemplate < ApplicationRecord
 
   protected
 
-  def parse(source, params)
-    template = Liquid::Template.parse(source)
-    template.render(HashWithIndifferentAccess.new(params))
-  end
-
+    def parse(source, params)
+      template = Liquid::Template.parse(source)
+      template.render(HashWithIndifferentAccess.new(params))
+    end
 end

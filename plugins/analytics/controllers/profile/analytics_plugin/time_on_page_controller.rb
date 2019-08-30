@@ -1,5 +1,4 @@
 class AnalyticsPlugin::TimeOnPageController < ProfileController
-
   before_action :skip_page_view
 
   def page_load
@@ -26,8 +25,7 @@ class AnalyticsPlugin::TimeOnPageController < ProfileController
 
   protected
 
-  def skip_page_view
-    @analytics_skip_page_view = true
-  end
-
+    def skip_page_view
+      @analytics_skip_page_view = true
+    end
 end

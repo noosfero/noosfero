@@ -1,5 +1,4 @@
 class VotePlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Vote Plugin"
   end
@@ -13,7 +12,7 @@ class VotePlugin < Noosfero::Plugin
   end
 
   def js_files
-    'vote_actions.js'
+    "vote_actions.js"
   end
 
   def self.enable_vote_article_default_setting
@@ -34,7 +33,7 @@ class VotePlugin < Noosfero::Plugin
     like = vote_partial(comment)
     dislike = vote_partial(comment, false)
     proc do
-      [{:link => instance_eval(&dislike), :action_bar => true}, {:link => instance_eval(&like), :action_bar => true}]
+      [{ link: instance_eval(&dislike), action_bar: true }, { link: instance_eval(&like), action_bar: true }]
     end
   end
 
@@ -42,8 +41,7 @@ class VotePlugin < Noosfero::Plugin
     like = vote_partial(article)
     dislike = vote_partial(article, false)
     proc do
-      content_tag('div', instance_eval(&dislike) + instance_eval(&like), :class => 'vote-actions')
+      content_tag("div", instance_eval(&dislike) + instance_eval(&like), class: "vote-actions")
     end
   end
-
 end

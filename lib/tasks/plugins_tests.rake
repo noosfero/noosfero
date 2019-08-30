@@ -9,13 +9,13 @@ $broken_plugins = %w[
   variables
 ]
 
-@all_plugins = Dir.glob('plugins/*').map { |f| File.basename(f) } - ['template']
+@all_plugins = Dir.glob("plugins/*").map { |f| File.basename(f) } - ["template"]
 @all_plugins.sort!
 
 @all_tasks = [:units, :api, :functionals, :integration, :cucumber, :selenium]
 
 def enabled_plugins
-  Dir.glob('{baseplugins,config/plugins}/*').map { |f| File.basename(f) } - ['README']
+  Dir.glob("{baseplugins,config/plugins}/*").map { |f| File.basename(f) } - ["README"]
 end
 
 @original_enabled_plugins = enabled_plugins
@@ -26,17 +26,17 @@ end
 
 def enable_plugins(plugins)
   plugins = Array(plugins)
-  command = ['./script/noosfero-plugins', '-q', 'enable', *plugins]
-  puts plugins.join(' ')
+  command = ["./script/noosfero-plugins", "-q", "enable", *plugins]
+  puts plugins.join(" ")
   Bundler.clean_system *command
 end
 
-def disable_plugins(plugins = '*')
-  if plugins == '*'
-    sh './script/noosfero-plugins', '-q', 'disableall'
+def disable_plugins(plugins = "*")
+  if plugins == "*"
+    sh "./script/noosfero-plugins", "-q", "disableall"
   else
     plugins = Array(plugins)
-    sh './script/noosfero-plugins', '-q', 'disable', *plugins
+    sh "./script/noosfero-plugins", "-q", "disable", *plugins
   end
 end
 
@@ -47,12 +47,12 @@ def rollback_plugins_state
   enable_plugins(@original_enabled_plugins)
 end
 
-task 'db:test:plugins:prepare' do
-  if Dir.glob('config/plugins/*/db/migrate/*.rb').empty?
+task "db:test:plugins:prepare" do
+  if Dir.glob("config/plugins/*/db/migrate/*.rb").empty?
     puts "I: skipping database setup, enabled plugins have no migrations"
   else
-    Rake::Task['db:test:prepare'].execute
-    sh 'rake db:migrate RAILS_ENV=test SCHEMA=/dev/null'
+    Rake::Task["db:test:prepare"].execute
+    sh "rake db:migrate RAILS_ENV=test SCHEMA=/dev/null"
   end
 end
 
@@ -61,7 +61,7 @@ def plugin_name(plugin)
 end
 
 def plugin_enabled?(plugin)
-  File.exist?(File.join('config', 'plugins', plugin)) || File.exist?(File.join('baseplugins', plugin))
+  File.exist?(File.join("config", "plugins", plugin)) || File.exist?(File.join("baseplugins", plugin))
 end
 
 def plugin_disabled_warning(plugin)
@@ -78,28 +78,28 @@ def task2profile(task, plugin)
   elsif task == :selenium
     return "#{plugin}_selenium"
   else
-    return 'default'
+    return "default"
   end
 end
 
 def filename2plugin(filename)
-  filename.split('/')[1]
+  filename.split("/")[1]
 end
 
 def task2folder(task)
   result = case task.to_sym
-  when :units
-    :unit
-  when :api
-    :api
-  when :functionals
-    :functional
-  when :integration
-    :integration
-  when :cucumber
-    :features
-  when :selenium
-    :features
+           when :units
+             :unit
+           when :api
+             :api
+           when :functionals
+             :functional
+           when :integration
+             :integration
+           when :cucumber
+             :features
+           when :selenium
+             :features
   end
 
   return result
@@ -115,16 +115,16 @@ def run_test(name, files)
   end
 end
 
-def run_minitest files
-  files = files.map{|f| File.join(Rails.root, f)}
-  sh 'ruby', '-Itest', '-e ARGV.each{|f| require f}', *files
+def run_minitest(files)
+  files = files.map { |f| File.join(Rails.root, f) }
+  sh "ruby", "-Itest", "-e ARGV.each{|f| require f}", *files
 end
 
 def run_cucumber(profile, files)
-  sh 'ruby', '-S', 'cucumber', '--profile', profile.to_s, '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *files
+  sh "ruby", "-S", "cucumber", "--profile", profile.to_s, "--format", ENV["CUCUMBER_FORMAT"] || "progress", *files
 end
 
-def custom_run(name, files, run=:all)
+def custom_run(name, files, run = :all)
   case run
   when :all
     run_test name, files
@@ -136,7 +136,7 @@ def custom_run(name, files, run=:all)
   end
 end
 
-def run_tests(name, plugins, run=:all)
+def run_tests(name, plugins, run = :all)
   plugins = Array(plugins)
   if name == :cucumber || name == :selenium
     glob =  "plugins/{#{plugins.join(',')}}/#{task2folder(name)}/**/*.#{task2ext(name)}"
@@ -154,15 +154,16 @@ end
 def test_sequence(plugins, tasks)
   failed = {}
   disable_plugins
-  plugins = @all_plugins if plugins == '*'
+  plugins = @all_plugins if plugins == "*"
   plugins = Array(plugins)
   tasks = Array(tasks)
   plugins.each do |plugin|
     failed[plugin] = []
     enable_plugins(plugin)
     next if !plugin_enabled?(plugin)
+
     begin
-      Rake::Task['db:test:plugins:prepare' ].execute
+      Rake::Task["db:test:plugins:prepare"].execute
     rescue Exception => ex
       failed[plugin] << :migration
     end
@@ -185,10 +186,10 @@ def test_sequence(plugins, tasks)
   end
   rollback_plugins_state
   yield(failed) if block_given?
-  fail 'There are broken tests to be fixed!' if fail_flag
+  fail "There are broken tests to be fixed!" if fail_flag
 end
 
-def plugin_test_task(plugin, task, run=:all)
+def plugin_test_task(plugin, task, run = :all)
   desc "Run #{task} tests for #{plugin_name(plugin)}"
   task task do
     test_sequence(plugin, task)
@@ -221,8 +222,8 @@ namespace :test do
   desc "Run all tests for all plugins"
   task :noosfero_plugins do
     plugins    = @all_plugins - $broken_plugins
-    if slice   = ENV['SLICE']
-      sel,size = slice.split '/'
+    if slice   = ENV["SLICE"]
+      sel, size = slice.split "/"
       size     = (plugins.size / size.to_f).ceil
       plugins  = plugins.each_slice(size).to_a[sel.to_i - 1]
     end
@@ -237,11 +238,11 @@ def plugins_status_report(failed)
   w = @all_plugins.map { |s| s.size }.max
 
   puts
-  printf ('=' * (w + 21)) + "\n"
-  puts 'Plugins status report'
-  printf ('=' * (w + 21)) + "\n"
+  printf ("=" * (w + 21)) + "\n"
+  puts "Plugins status report"
+  printf ("=" * (w + 21)) + "\n"
   printf "%-#{w}s %s\n", "Plugin", "Status"
-  printf ('-' * w) + ' ' + ('-' * 20) + "\n"
+  printf ("-" * w) + " " + ("-" * 20) + "\n"
 
   @all_plugins.each do |plugin|
     if $broken_plugins.include?(plugin)
@@ -255,6 +256,6 @@ def plugins_status_report(failed)
     end
     printf "%-#{w}s %s\n", plugin, status
   end
-  printf ('=' * (w + 21)) + "\n"
+  printf ("=" * (w + 21)) + "\n"
   puts
 end

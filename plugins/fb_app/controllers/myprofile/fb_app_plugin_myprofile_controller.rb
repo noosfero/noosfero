@@ -1,5 +1,4 @@
 class FbAppPluginMyprofileController < OpenGraphPlugin::MyprofileController
-
   no_design_blocks
 
   before_action :load_provider
@@ -18,7 +17,7 @@ class FbAppPluginMyprofileController < OpenGraphPlugin::MyprofileController
     @logged_auth = FbAppPlugin::Auth.new params[:auth]
     @logged_auth.fetch_user
     if @auth.connected?
-      render partial: 'identity', locals: {auth: @logged_auth}
+      render partial: "identity", locals: { auth: @logged_auth }
     else
       render nothing: true
     end
@@ -30,30 +29,29 @@ class FbAppPluginMyprofileController < OpenGraphPlugin::MyprofileController
       @auth.attributes = params[:auth]
       @auth.save! if @auth.changed?
     else
-      @auth.destroy if @auth and @auth.persisted?
+      @auth.destroy if @auth && @auth.persisted?
       @auth = new_auth
     end
 
-    render partial: 'settings'
+    render partial: "settings"
   end
 
   protected
 
-  def load_provider
-    @provider = FbAppPlugin.oauth_provider_for environment
-  end
+    def load_provider
+      @provider = FbAppPlugin.oauth_provider_for environment
+    end
 
-  def load_auth
-    @auth = FbAppPlugin::Auth.where(profile_id: profile.id, provider_id: @provider.id).first
-    @auth ||= new_auth
-  end
+    def load_auth
+      @auth = FbAppPlugin::Auth.where(profile_id: profile.id, provider_id: @provider.id).first
+      @auth ||= new_auth
+    end
 
-  def new_auth
-    FbAppPlugin::Auth.new profile: profile, provider: @provider
-  end
+    def new_auth
+      FbAppPlugin::Auth.new profile: profile, provider: @provider
+    end
 
-  def context
-    :fb_app
-  end
-
+    def context
+      :fb_app
+    end
 end

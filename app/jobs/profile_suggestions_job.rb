@@ -1,5 +1,4 @@
 class ProfileSuggestionsJob < Struct.new(:person_id)
-
   def self.exists?(person_id)
     !find(person_id).empty?
   end
@@ -18,5 +17,4 @@ class ProfileSuggestionsJob < Struct.new(:person_id)
       logger.error("Error with suggestions for person ID %d: %s" % [person_id, exception.to_s])
     end
   end
-
 end

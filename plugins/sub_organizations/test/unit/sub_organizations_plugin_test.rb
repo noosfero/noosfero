@@ -1,14 +1,13 @@
-require 'test_helper'
+require "test_helper"
 
 class SubOrganizationsPluginTest < ActiveSupport::TestCase
-
   def setup
     @plugin = SubOrganizationsPlugin.new
   end
 
   attr_reader :plugin
 
-  should 'include sub-organizations members in the parent organization' do
+  should "include sub-organizations members in the parent organization" do
     org1 = fast_create(Organization)
     org2 = fast_create(Organization)
     org3 = fast_create(Organization)
@@ -24,8 +23,8 @@ class SubOrganizationsPluginTest < ActiveSupport::TestCase
     org2.add_member(member3)
     org3.add_member(member4)
     org3.add_member(member5)
-    SubOrganizationsPlugin::Relation.create!(:parent => org1, :child => org2)
-    SubOrganizationsPlugin::Relation.create!(:parent => org1, :child => org3)
+    SubOrganizationsPlugin::Relation.create!(parent: org1, child: org2)
+    SubOrganizationsPlugin::Relation.create!(parent: org1, child: org3)
 
     org1_members = plugin.organization_members(org1)
 
@@ -45,7 +44,7 @@ class SubOrganizationsPluginTest < ActiveSupport::TestCase
     assert org3_members.blank?
   end
 
-  should 'include parent-organizations in persons memberships' do
+  should "include parent-organizations in persons memberships" do
     org1 = fast_create(Organization)
     org2 = fast_create(Organization)
     org3 = fast_create(Organization)
@@ -53,8 +52,8 @@ class SubOrganizationsPluginTest < ActiveSupport::TestCase
     person2 = fast_create(Person)
     org1.add_member(person2)
     org2.add_member(person1)
-    SubOrganizationsPlugin::Relation.create!(:parent => org1, :child => org2)
-    SubOrganizationsPlugin::Relation.create!(:parent => org1, :child => org3)
+    SubOrganizationsPlugin::Relation.create!(parent: org1, child: org2)
+    SubOrganizationsPlugin::Relation.create!(parent: org1, child: org3)
 
     person1_memberships = plugin.person_memberships(person1)
     person2_memberships = plugin.person_memberships(person2)
@@ -66,7 +65,7 @@ class SubOrganizationsPluginTest < ActiveSupport::TestCase
     assert person2_memberships.blank?
   end
 
-  should 'return blank for person memberships with no organization ' do
+  should "return blank for person memberships with no organization " do
     person1 = fast_create(Person)
 
     person1_memberships = plugin.person_memberships(person1)
@@ -74,29 +73,29 @@ class SubOrganizationsPluginTest < ActiveSupport::TestCase
     assert person1_memberships.blank?
   end
 
-  should 'grant permission that user has on parent organizations over children orgnaizations' do
-    person = create_user('admin-user').person
+  should "grant permission that user has on parent organizations over children orgnaizations" do
+    person = create_user("admin-user").person
     org1 = fast_create(Organization)
     org2 = fast_create(Organization)
-    SubOrganizationsPlugin::Relation.add_children(org1,org2)
-    person.stubs('has_permission_without_plugins?').with(:make_ice_cream, org1).returns(true)
-    person.stubs('has_permission_without_plugins?').with(:make_ice_cream, org2).returns(false)
+    SubOrganizationsPlugin::Relation.add_children(org1, org2)
+    person.stubs("has_permission_without_plugins?").with(:make_ice_cream, org1).returns(true)
+    person.stubs("has_permission_without_plugins?").with(:make_ice_cream, org2).returns(false)
 
     assert plugin.has_permission?(person, :make_ice_cream, org2)
   end
 
-  should 'not crash if receives an environment as target of has permission' do
+  should "not crash if receives an environment as target of has permission" do
     assert_nothing_raised do
       plugin.has_permission?(fast_create(Person), :make_ice_cream, fast_create(Environment))
     end
   end
 
-  should 'display control panel entry only to organizations with no parent' do
+  should "display control panel entry only to organizations with no parent" do
     person = fast_create(Person)
     org1 = fast_create(Organization)
     org2 = fast_create(Organization)
     profile = fast_create(Profile)
-    SubOrganizationsPlugin::Relation.add_children(org1,org2)
+    SubOrganizationsPlugin::Relation.add_children(org1, org2)
 
     assert SubOrganizationsPlugin::ControlPanel::SubOrganizations.display?(person, org1)
     refute SubOrganizationsPlugin::ControlPanel::SubOrganizations.display?(person, org2)

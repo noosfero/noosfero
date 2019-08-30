@@ -1,13 +1,13 @@
 class CustomFormsPlugin::SelectField < CustomFormsPlugin::Field
   self.table_name = :custom_forms_plugin_fields
-  validates_inclusion_of :show_as, :in => %w(radio check_box select multiple_select)
-  validates_length_of :alternatives, :minimum => 1, :message => 'can\'t be empty'
+  validates_inclusion_of :show_as, in: %w(radio check_box select multiple_select)
+  validates_length_of :alternatives, minimum: 1, message: "can't be empty"
 
   after_initialize do
-    self.show_as ||= 'radio'
+    self.show_as ||= "radio"
   end
 
   def description
-    self.accept_multiple_answers? ? _('Multiple Choice') : _('Single Choice')
+    self.accept_multiple_answers? ? _("Multiple Choice") : _("Single Choice")
   end
 end

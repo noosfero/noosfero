@@ -5,6 +5,6 @@ module PeopleBlockHelper
   end
 
   def set_address_protocol(address)
-    !URI.parse(address).scheme ? 'http://'+address : address
+    !URI.parse(address).scheme ? "http://" + address : address
   end
 end

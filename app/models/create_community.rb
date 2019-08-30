@@ -1,10 +1,9 @@
 class CreateCommunity < Task
-
   validates_presence_of :requestor_id, :target_id
   validates_presence_of :name
 
-  validates :requestor, kind_of: {kind: Person}
-  validates :target, kind_of: {kind: Environment}
+  validates :requestor, kind_of: { kind: Person }
+  validates :target, kind_of: { kind: Environment }
 
   alias :environment :target
   alias :environment= :target=
@@ -16,7 +15,7 @@ class CreateCommunity < Task
   acts_as_having_image
 
   DATA_FIELDS = Community.fields + %w[ name closed description address
-    zip_code city state country district lat lng ]
+                                       zip_code city state country district lat lng ]
   DATA_FIELDS.each do |field|
     settings_items field.to_sym
     attr_accessible field.to_sym
@@ -36,7 +35,7 @@ class CreateCommunity < Task
   def perform
     community = Community.new
     community_data = self.data.reject do |key, value|
-      ! DATA_FIELDS.include?(key.to_s)
+      !DATA_FIELDS.include?(key.to_s)
     end
 
     community.update(community_data)
@@ -57,8 +56,8 @@ class CreateCommunity < Task
   end
 
   def icon
-    src = image ? image.public_filename(:minor) : '/images/icons-app/community-minor.png'
-    {:type => :defined_image, :src => src, :name => name}
+    src = image ? image.public_filename(:minor) : "/images/icons-app/community-minor.png"
+    { type: :defined_image, src: src, name: name }
   end
 
   def subject
@@ -67,10 +66,10 @@ class CreateCommunity < Task
 
   def information
     if description.blank?
-      { :message => _('%{requestor} wants to create community %{subject} with no description.').html_safe }
+      { message: _("%{requestor} wants to create community %{subject} with no description.").html_safe }
     else
-      { :message => _('%{requestor} wants to create community %{subject} with this description:<p><em>%{description}</em></p>').html_safe,
-        :variables => {:description => description} }
+      { message: _("%{requestor} wants to create community %{subject} with this description:<p><em>%{description}</em></p>").html_safe,
+        variables: { description: description } }
     end
   end
 
@@ -93,25 +92,23 @@ class CreateCommunity < Task
   end
 
   def target_notification_description
-    _('%{requestor} wants to create community %{subject}') % {:requestor => requestor.name, :subject => subject}
+    _("%{requestor} wants to create community %{subject}") % { requestor: requestor.name, subject: subject }
   end
 
   def target_notification_message
-    _("User \"%{user}\" just requested to create community %{community}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :user => self.requestor.name, :community => self.name }
+    _("User \"%{user}\" just requested to create community %{community}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { user: self.requestor.name, community: self.name }
   end
 
   def task_created_message
     _("Your request for registering community %{community} at %{environment} was just sent. Environment administrator will receive it and will approve or reject your request according to his methods and creteria.
-
-      You will be notified as soon as environment administrator has a position about your request.") % { :community => self.name, :environment => self.target }
+      You will be notified as soon as environment administrator has a position about your request.") % { community: self.name, environment: self.target }
   end
 
   def task_cancelled_message
-    _("Your request for registering community %{community} at %{environment} was not approved by the environment administrator. The following explanation was given: \n\n%{explanation}") % { :community => self.name, :environment => self.environment, :explanation => self.reject_explanation }
+    _("Your request for registering community %{community} at %{environment} was not approved by the environment administrator. The following explanation was given: \n\n%{explanation}") % { community: self.name, environment: self.environment, explanation: self.reject_explanation }
   end
 
   def task_finished_message
-    _('Your request for registering the community "%{community}" was approved. You can access %{environment} now and start using your new community.') % { :community => self.name, :environment => self.environment }
+    _('Your request for registering the community "%{community}" was approved. You can access %{environment} now and start using your new community.') % { community: self.name, environment: self.environment }
   end
-
 end

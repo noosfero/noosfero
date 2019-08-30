@@ -1,7 +1,7 @@
 class AddMirrorToBlock < ActiveRecord::Migration
   def up
     change_table :blocks do |t|
-      t.boolean :mirror, :default => false
+      t.boolean :mirror, default: false
       t.references :mirror_block
       t.references :observers
     end

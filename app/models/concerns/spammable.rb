@@ -1,20 +1,19 @@
 module Spammable
-
   def self.included(recipient)
-    #TODO This line crashes the migration which includes the spam attribute to
+    # TODO This line crashes the migration which includes the spam attribute to
     #     Task...  =P
     #     No fail-safe until someone find out how to use this without crashing
     #     the migration process
-    #raise "This model (#{recipient.to_s}) should have a spam attribute!" if !recipient.new.respond_to?('spam=')
+    # raise "This model (#{recipient.to_s}) should have a spam attribute!" if !recipient.new.respond_to?('spam=')
     recipient.extend(ClassMethods)
   end
 
   module ClassMethods
-    def self.extended base
+    def self.extended(base)
       if base.respond_to?(:scope)
         base.class_eval do
-          scope :without_spam, -> { where 'spam IS NULL OR spam = ?', false }
-          scope :spam, -> { where 'spam = ?', true }
+          scope :without_spam, -> { where "spam IS NULL OR spam = ?", false }
+          scope :spam, -> { where "spam = ?", true }
         end
       end
     end
@@ -45,9 +44,11 @@ module Spammable
   end
 
   def after_spam!; end
+
   def before_spam!; end
 
   def after_ham!; end
+
   def before_ham!; end
 
   def marked_as_spam
@@ -61,5 +62,4 @@ module Spammable
   def check_for_spam
     plugins.dispatch :check_for_spam, self
   end
-
 end

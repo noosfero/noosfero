@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
-require_relative '../../config/boot'
-require 'commands/process/inspector'
+require_relative "../../config/boot"
+require "commands/process/inspector"

@@ -1,7 +1,6 @@
-require 'csv'
+require "csv"
 
 class SiteTourPluginAdminController < PluginAdminController
-
   no_design_blocks
 
   def index
@@ -20,31 +19,32 @@ class SiteTourPluginAdminController < PluginAdminController
       @settings.settings.delete(:group_triggers_csv)
 
       @settings.save!
-      session[:notice] = 'Settings succefully saved.'
-      redirect_to :action => 'index'
+      session[:notice] = "Settings succefully saved."
+      redirect_to action: "index"
     end
   end
 
   protected
 
-  def convert_to_csv(actions)
-    CSV.generate do |csv|
-      (actions||[]).each { |action| csv << action.values }
+    def convert_to_csv(actions)
+      CSV.generate do |csv|
+        (actions || []).each { |action| csv << action.values }
+      end
     end
-  end
 
-  def convert_actions_from_csv(actions_csv)
-    return [] if actions_csv.blank?
-    CSV.parse(actions_csv).map do |action|
-      {:language => action[0], :group_name => action[1], :selector => action[2], :description => action[3]}
+    def convert_actions_from_csv(actions_csv)
+      return [] if actions_csv.blank?
+
+      CSV.parse(actions_csv).map do |action|
+        { language: action[0], group_name: action[1], selector: action[2], description: action[3] }
+      end
     end
-  end
 
-  def convert_group_triggers_from_csv(group_triggers_csv)
-    return [] if group_triggers_csv.blank?
-    CSV.parse(group_triggers_csv).map do |group|
-      {:group_name => group[0], :selector => group[1], :event => group[2]}
+    def convert_group_triggers_from_csv(group_triggers_csv)
+      return [] if group_triggers_csv.blank?
+
+      CSV.parse(group_triggers_csv).map do |group|
+        { group_name: group[0], selector: group[1], event: group[2] }
+      end
     end
-  end
-
 end

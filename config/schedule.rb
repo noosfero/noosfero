@@ -29,7 +29,7 @@ every 30.days do
   runner "ProfileSuggestion.generate_all_profile_suggestions"
 end
 
-if ENV['RAILS_ENV'] == 'production'
+if ENV["RAILS_ENV"] == "production"
   every 1.minute do
     runner "ArticleAccessFriendship.refresh"
     runner "ArticleAccessMembership.refresh"

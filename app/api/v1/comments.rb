@@ -3,7 +3,6 @@ module Api
     class Comments < Grape::API::Instance
       MAX_PER_PAGE = 20
 
-
       resource :articles do
         paginate max_per_page: MAX_PER_PAGE
         # Collect comments from articles
@@ -16,52 +15,53 @@ module Api
         # Example Request:
         #  GET /articles/12/comments?oldest&limit=10&reference_id=23
         get ":id/comments" do
-          article = find_article(environment.articles, {:id => params[:id]})
+          article = find_article(environment.articles, id: params[:id])
           comments = select_filtered_collection_of(article, :comments, params)
           comments = comments.without_spam
-          comments = comments.without_reply if(params[:without_reply].present?)
+          comments = comments.without_reply if (params[:without_reply].present?)
           comments = plugins.filter(:unavailable_comments, comments)
-          present_partial paginate(comments), :with => Entities::Comment, :current_person => current_person
+          present_partial paginate(comments), with: Entities::Comment, current_person: current_person
         end
 
         get ":id/comments/:comment_id" do
-          article = find_article(environment.articles, {:id => params[:id]})
-          present_partial article.comments.find(params[:comment_id]), :with => Entities::Comment, :current_person => current_person
+          article = find_article(environment.articles, id: params[:id])
+          present_partial article.comments.find(params[:comment_id]), with: Entities::Comment, current_person: current_person
         end
 
         # Example Request:
         #  POST api/v1/articles/12/comments?private_token=2298743290432&body=new comment&title=New
         post ":id/comments" do
           authenticate!
-          article = find_article(environment.articles, {:id => params[:id]})
+          article = find_article(environment.articles, id: params[:id])
           return forbidden! unless article.accept_comments?
+
           options = params[:comment] || {}
-	  options.merge!(:author => current_person, :source => article)
+          options.merge!(author: current_person, source: article)
           begin
             comment = Comment.create!(options)
           rescue ActiveRecord::RecordInvalid => e
             render_api_error!(e.message, Api::Status::Http::BAD_REQUEST)
           end
-          present_partial comment, :with => Entities::Comment, :current_person => current_person
+          present_partial comment, with: Entities::Comment, current_person: current_person
         end
 
         delete ":id/comments/:comment_id" do
-          article = find_article(environment.articles, {:id => params[:id]})
+          article = find_article(environment.articles, id: params[:id])
           comment = article.comments.find_by_id(params[:comment_id])
           return not_found! if comment.nil?
           return forbidden! unless comment.can_be_destroyed_by?(current_person)
+
           begin
             comment.destroy
-            output = {:success => true}
-	    output[:message] = _("The comment '%s' was removed.") % comment.body
+            output = { success: true }
+            output[:message] = _("The comment '%s' was removed.") % comment.body
             output[:code] = Api::Status::Http::NO_CONTENT
-            present output, :with => Entities::Response
+            present output, with: Entities::Response
           rescue => e
             render_api_error!(e.message, 500)
           end
         end
       end
-
     end
   end
 end

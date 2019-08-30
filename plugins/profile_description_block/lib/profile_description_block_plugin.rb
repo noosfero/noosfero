@@ -1,5 +1,4 @@
 class ProfileDescriptionBlockPlugin < Noosfero::Plugin
-
   def self.plugin_name
     # FIXME
     "Profile Description Block"
@@ -7,10 +6,9 @@ class ProfileDescriptionBlockPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-      ProfileDescriptionBlock  => { :type => [Community, Person] }
+      ProfileDescriptionBlock => { type: [Community, Person] }
     }
   end
-
 
   def self.plugin_description
     # FIXME
@@ -20,5 +18,4 @@ class ProfileDescriptionBlockPlugin < Noosfero::Plugin
   def stylesheet?
     true
   end
-
 end

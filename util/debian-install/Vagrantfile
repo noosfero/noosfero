@@ -4,13 +4,13 @@
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
 
-require 'fileutils'
+require "fileutils"
 debs = `find ../../pkg/ -name '*.deb' | sort -t _ -V`.split
 if debs.empty?
   puts "W: no debs built in ../../pkg/; will either install existing local"
   puts "   ones, or the ones from the remote repository"
 else
-  local_debs = Dir.glob('*.deb')
+  local_debs = Dir.glob("*.deb")
   debs.each do |f|
     fn = File.basename(f)
 
@@ -18,7 +18,7 @@ else
 
     if !File.exist?(fn) || File.stat(f) != File.stat(fn)
       FileUtils::Verbose.rm_f(fn)
-      FileUtils::Verbose.ln f, '.'
+      FileUtils::Verbose.ln f, "."
     end
   end
   local_debs.each do |f|
@@ -28,6 +28,6 @@ end
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box = "debian/jessie64"
-  config.vm.provision :shell, path: 'install', args: [ENV['REPOSITORY']].compact
-  config.vm.provision :shell, path: 'test'
+  config.vm.provision :shell, path: "install", args: [ENV["REPOSITORY"]].compact
+  config.vm.provision :shell, path: "test"
 end

@@ -1,15 +1,15 @@
 class ControlPanel::Preferences < ControlPanel::Entry
   class << self
     def name
-      _('Preferences')
+      _("Preferences")
     end
 
     def section
-      'profile'
+      "profile"
     end
 
     def icon
-      'sliders-h'
+      "sliders-h"
     end
 
     def priority
@@ -17,11 +17,11 @@ class ControlPanel::Preferences < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('options'), _('settings')]
+      [_("options"), _("settings")]
     end
 
     def url(profile)
-      {:controller => 'profile_editor', :action => 'preferences'}
+      { controller: "profile_editor", action: "preferences" }
     end
   end
 end

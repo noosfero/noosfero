@@ -1,5 +1,5 @@
 Given /^the search index is empty$/ do
-  ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
+  ActsAsSolr::Post.execute(Solr::Request::Delete.new(query: "*:*"))
 end
 
 # This could be merged with "the following categories"
@@ -8,7 +8,7 @@ Given /^the following categories as facets$/ do |table|
   table.hashes.each do |item|
     cat = Category.find_by name: item[:name]
     if cat.nil?
-      cat = Category.create!(:environment_id => Environment.default.id, :name => item[:name])
+      cat = Category.create!(environment_id: Environment.default.id, name: item[:name])
     end
     ids << cat.id
   end

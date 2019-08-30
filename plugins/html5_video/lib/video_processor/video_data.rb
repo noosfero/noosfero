@@ -1,5 +1,4 @@
 class VideoProcessor::VideoData
-
   attr_reader :info, :size, :brate
 
   def initialize(info)
@@ -17,20 +16,19 @@ class VideoProcessor::VideoData
   end
 
   def is_ogv
-    @info[:type] == 'ogv' &&
-    @info.video_stream[0][:codec] == 'theora' &&
-    @info.audio_stream[0][:codec] == 'vorbis'
+    @info[:type] == "ogv" &&
+      @info.video_stream[0][:codec] == "theora" &&
+      @info.audio_stream[0][:codec] == "vorbis"
   end
 
   def is_mp4
-    @info[:type] == 'mp4' &&
-    @info.video_stream[0][:codec] == 'libx264' &&
-    @info.audio_stream[0][:codec] == 'libfaac'
+    @info[:type] == "mp4" &&
+      @info.video_stream[0][:codec] == "libx264" &&
+      @info.audio_stream[0][:codec] == "libfaac"
   end
 
   def is_webm
-    @info[:type] == 'webm' &&
-    @info.video_stream[0][:codec] == 'libvpx'
+    @info[:type] == "webm" &&
+      @info.video_stream[0][:codec] == "libvpx"
   end
-
 end

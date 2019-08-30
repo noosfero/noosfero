@@ -1,5 +1,5 @@
 # This migration comes from acts_as_taggable_on_engine (originally 6)
-if ActiveRecord.gem_version >= Gem::Version.new('5.0')
+if ActiveRecord.gem_version >= Gem::Version.new("5.0")
   class AddMissingIndexesOnTaggings < ActiveRecord::Migration[4.2]; end
 else
   class AddMissingIndexesOnTaggings < ActiveRecord::Migration; end
@@ -16,8 +16,8 @@ AddMissingIndexesOnTaggings.class_eval do
       add_index :taggings, [:tagger_id, :tagger_type]
     end
 
-    unless index_exists? :taggings, [:taggable_id, :taggable_type, :tagger_id, :context], name: 'taggings_idy'
-      add_index :taggings, [:taggable_id, :taggable_type, :tagger_id, :context], name: 'taggings_idy'
+    unless index_exists? :taggings, [:taggable_id, :taggable_type, :tagger_id, :context], name: "taggings_idy"
+      add_index :taggings, [:taggable_id, :taggable_type, :tagger_id, :context], name: "taggings_idy"
     end
   end
 end

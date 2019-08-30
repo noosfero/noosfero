@@ -1,5 +1,4 @@
 class OrdersCyclePluginMessageController < OrdersPluginMessageController
-
   no_design_blocks
 
   # FIXME: remove me when styles move from consumers_coop plugin
@@ -10,5 +9,4 @@ class OrdersCyclePluginMessageController < OrdersPluginMessageController
   helper OrdersPlugin::FieldHelper
 
   protected
-
 end

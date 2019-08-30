@@ -1,5 +1,4 @@
 class ScrapMailer < ApplicationMailer
-
   def new_scrap(scrap)
     sender, receiver = scrap.sender, scrap.receiver
     self.environment = sender.environment

@@ -1,19 +1,18 @@
 class OrganizationMailing < Mailing
-
   def generate_from
     "#{person.name} <#{source.environment.noreply_email}>"
   end
 
-  def recipients(offset=0, limit=100)
+  def recipients(offset = 0, limit = 100)
     result = source.members.order(:id).offset(offset).limit(limit)
 
-    if data.present? and data.is_a?(Hash) and data[:members_filtered]
-      result = result.where('profiles.id IN (?)', data[:members_filtered])
+    if data.present? && data.is_a?(Hash) && data[:members_filtered]
+      result = result.where("profiles.id IN (?)", data[:members_filtered])
     end
 
     if result.blank?
       result = result.joins("LEFT OUTER JOIN mailing_sents m ON (m.mailing_id = #{id} AND m.person_id = profiles.id)")
-      .where("m.person_id" => nil)
+                     .where("m.person_id" => nil)
     end
     result
   end
@@ -30,7 +29,7 @@ class OrganizationMailing < Mailing
   end
 
   def signature_message
-    _('Sent by community %s.').html_safe % source.name
+    _("Sent by community %s.").html_safe % source.name
   end
 
   include Rails.application.routes.url_helpers

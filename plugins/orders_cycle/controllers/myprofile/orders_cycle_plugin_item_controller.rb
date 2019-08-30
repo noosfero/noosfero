@@ -1,5 +1,4 @@
 class OrdersCyclePluginItemController < OrdersPluginItemController
-
   no_design_blocks
 
   # FIXME: remove me when styles move from consumers_coop plugin
@@ -13,17 +12,18 @@ class OrdersCyclePluginItemController < OrdersPluginItemController
     @offered_product = Product.find params[:offered_product_id]
     @consumer = user
     return render_not_found unless @offered_product
-    raise 'Please login to place an order' if @consumer.blank?
+    raise "Please login to place an order" if @consumer.blank?
 
-    if params[:order_id] == 'new'
+    if params[:order_id] == "new"
       @cycle = @offered_product.cycle
-      raise 'Cycle closed for orders' unless @cycle.may_order? @consumer
+      raise "Cycle closed for orders" unless @cycle.may_order? @consumer
+
       @order = OrdersCyclePlugin::Sale.create! cycle: @cycle, profile: profile, consumer: @consumer
     else
       @order = OrdersCyclePlugin::Sale.find params[:order_id]
       @cycle = @order.cycle
-      raise 'Order confirmed or cycle is closed for orders' unless @order.open?
-      raise 'You are not the owner of this order' unless @order.may_edit? @consumer, @admin
+      raise "Order confirmed or cycle is closed for orders" unless @order.open?
+      raise "You are not the owner of this order" unless @order.may_edit? @consumer, @admin
     end
 
     @item = OrdersCyclePlugin::Item.where(order_id: @order.id, product_id: @offered_product.id).first
@@ -37,6 +37,7 @@ class OrdersCyclePluginItemController < OrdersPluginItemController
 
   def edit
     return redirect_to url_for(params.merge action: :admin_edit) if @admin_edit
+
     super
     @offered_product = @item.product
     @cycle = @order.cycle
@@ -47,8 +48,8 @@ class OrdersCyclePluginItemController < OrdersPluginItemController
     @order = @item.order
     @cycle = @order.cycle
 
-    #update on association for total
-    @order.items.each{ |i| i.attributes = params[:item] if i.id == @item.id }
+    # update on association for total
+    @order.items.each { |i| i.attributes = params[:item] if i.id == @item.id }
 
     @item.update params[:item]
   end
@@ -61,7 +62,6 @@ class OrdersCyclePluginItemController < OrdersPluginItemController
 
   protected
 
-  extend HMVC::ClassMethods
-  hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
-
+    extend HMVC::ClassMethods
+    hmvc OrdersCyclePlugin, orders_context: OrdersCyclePlugin
 end

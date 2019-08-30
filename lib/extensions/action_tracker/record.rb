@@ -1,14 +1,13 @@
-require_relative '../../cache_counter'
+require_relative "../../cache_counter"
 
 class ActionTracker::Record
-
   extend CacheCounter
 
   def comments
-    type, id = if self.target_type == 'Article' then ['Article', self.target_id] else [self.class.to_s, self.id] end
-    Comment.order('created_at ASC').
-      where('comments.spam IS NOT TRUE AND comments.reply_of_id IS NULL').
-      where('source_type = ? AND source_id = ?', type, id)
+    type, id = if self.target_type == "Article" then ["Article", self.target_id] else [self.class.to_s, self.id] end
+    Comment.order("created_at ASC")
+           .where("comments.spam IS NOT TRUE AND comments.reply_of_id IS NULL")
+           .where("source_type = ? AND source_id = ?", type, id)
   end
 
   after_create do |record|
@@ -19,7 +18,7 @@ class ActionTracker::Record
   end
 
   has_many :profile_activities, -> {
-    where profile_activities: {activity_type: 'ActionTracker::Record'}
+    where profile_activities: { activity_type: "ActionTracker::Record" }
   }, foreign_key: :activity_id, dependent: :destroy
 
   after_create :create_activity
@@ -36,14 +35,15 @@ class ActionTracker::Record
 
   protected
 
-  def create_activity
-    target = if self.target.is_a? Profile then self.target else self.target.profile rescue self.user end
-    return if !target
-    return if self.verb.in? target.exclude_verbs_on_activities
-    ProfileActivity.create! profile: target, activity: self
-  end
-  def update_activity
-    ProfileActivity.update_activity self
-  end
+    def create_activity
+      target = if self.target.is_a? Profile then self.target else self.target.profile rescue self.user end
+      return if !target
+      return if self.verb.in? target.exclude_verbs_on_activities
 
+      ProfileActivity.create! profile: target, activity: self
+    end
+
+    def update_activity
+      ProfileActivity.update_activity self
+    end
 end

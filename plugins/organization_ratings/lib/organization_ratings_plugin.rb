@@ -22,35 +22,35 @@ class OrganizationRatingsPlugin < Noosfero::Plugin
       nil
     end
 
-    def organization_ratings_plugin_task_extra_fields user_rating
+    def organization_ratings_plugin_task_extra_fields(user_rating)
       nil
     end
 
-    def organization_ratings_plugin_container_extra_fields user_rating
+    def organization_ratings_plugin_container_extra_fields(user_rating)
       nil
     end
 
-    def organization_ratings_plugin_rating_created rating, params
+    def organization_ratings_plugin_rating_created(rating, params)
       nil
     end
   end
 
   # Plugin Hotspot to display the average rating
-  def display_organization_average_rating organization
+  def display_organization_average_rating(organization)
     unless organization.nil?
       average_rating = OrganizationRating.average_rating organization.id
 
       Proc::new {
-        render :file => 'blocks/display_organization_average_rating',
-               :locals => {
-                 :profile_identifier => organization.identifier,
-                 :average_rating => average_rating
+        render file: "blocks/display_organization_average_rating",
+               locals: {
+                 profile_identifier: organization.identifier,
+                 average_rating: average_rating
                }
       }
     end
   end
 
-  def more_comments_count owner
+  def more_comments_count(owner)
     if owner.kind_of?(Environment) then
       owner.profiles.sum(:comments_count)
     elsif owner.kind_of?(Profile) then
@@ -62,8 +62,8 @@ class OrganizationRatingsPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-      OrganizationRatingsBlock => {:type => [Enterprise, Community], :position => ['1']},
-      AverageRatingBlock => {:type => [Enterprise, Community]}
+      OrganizationRatingsBlock => { type: [Enterprise, Community], position: ["1"] },
+      AverageRatingBlock => { type: [Enterprise, Community] }
     }
   end
 
@@ -77,5 +77,4 @@ class OrganizationRatingsPlugin < Noosfero::Plugin
       organization_rating_management.js
     )
   end
-
 end

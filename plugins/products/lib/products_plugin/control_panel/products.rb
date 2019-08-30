@@ -2,15 +2,15 @@ module ProductsPlugin::ControlPanel
   class Products < ControlPanel::Entry
     class << self
       def name
-        ('Products/Services')
+        ("Products/Services")
       end
 
       def section
-        'enterprise'
+        "enterprise"
       end
 
       def icon
-        'list-alt'
+        "list-alt"
       end
 
       def priority
@@ -18,10 +18,10 @@ module ProductsPlugin::ControlPanel
       end
 
       def url(profile)
-        {controller: 'products_plugin/page'}
+        { controller: "products_plugin/page" }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.enterprise?
       end
     end

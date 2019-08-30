@@ -1,5 +1,4 @@
 module ActiveRecordExtension
-
   module ClassMethods
     def reflect_on_association(name)
       reflection = super
@@ -8,7 +7,6 @@ module ActiveRecordExtension
       end
       reflection
     end
-
   end
 end
 

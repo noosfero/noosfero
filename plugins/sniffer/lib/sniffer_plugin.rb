@@ -1,5 +1,4 @@
 class SnifferPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Opportunity Sniffer"
   end
@@ -19,5 +18,4 @@ class SnifferPlugin < Noosfero::Plugin
   def self.extra_blocks
     { SnifferPlugin::InterestsBlock => {} }
   end
-
 end

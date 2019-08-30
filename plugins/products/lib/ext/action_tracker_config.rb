@@ -1,5 +1,4 @@
-ActionTrackerConfig.verbs.merge!({
-
+ActionTrackerConfig.verbs.merge!(
   create_product: {
   },
 
@@ -8,5 +7,4 @@ ActionTrackerConfig.verbs.merge!({
 
   remove_product: {
   },
-
-})
+)

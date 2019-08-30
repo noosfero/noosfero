@@ -1,6 +1,5 @@
 class OpenGraphPlugin::Settings < Noosfero::Plugin::Settings
-
-  def self.new base, attrs = {}
+  def self.new(base, attrs = {})
     super base, self.parents.first, attrs
   end
 
@@ -9,6 +8,4 @@ class OpenGraphPlugin::Settings < Noosfero::Plugin::Settings
       super ActiveRecord::Type::Boolean.new.send :cast_value, value
     end
   end
-
 end
-

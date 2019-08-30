@@ -13,16 +13,15 @@
 # The feed updaters is controlled by script/feed-updater, which starts and
 # stops the process.
 class FeedUpdater
-
   class ExceptionNotification < ActionMailer::Base
-    def mail container, error
+    def mail(container, error)
       environment = Environment.default
 
-      recipients NOOSFERO_CONF['exception_recipients']
+      recipients NOOSFERO_CONF["exception_recipients"]
       from       environment.noreply_email
       reply_to   environment.noreply_email
       subject    "[#{environment.name}] Feed-updater: #{error.message}"
-      body       render(:text => "
+      body       render(text: "
 Container:
 #{container.inspect}
 
@@ -49,7 +48,7 @@ Backtrace:
   end
 
   def start
-    ['TERM', 'INT'].each do |signal|
+    ["TERM", "INT"].each do |signal|
       Signal.trap(signal) do
         stop
         puts "Feed updater exiting gracefully ..."
@@ -85,14 +84,16 @@ Backtrace:
       if !running
         break
       end
+
       source.expired.all.each do |container|
         if !running
           break
         end
+
         begin
           feed_handler.process(container)
         rescue Exception => e
-          FeedUpdater::ExceptionNotification.deliver_mail container, e if NOOSFERO_CONF['exception_recipients'].present?
+          FeedUpdater::ExceptionNotification.deliver_mail container, e if NOOSFERO_CONF["exception_recipients"].present?
         end
       end
     end

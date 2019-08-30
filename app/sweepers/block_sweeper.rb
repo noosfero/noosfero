@@ -1,5 +1,4 @@
 class BlockSweeper < ActiveRecord::Observer
-
   observe :block
 
   class << self
@@ -8,8 +7,9 @@ class BlockSweeper < ActiveRecord::Observer
     # Expire block's all languages cache
     def expire_block(block)
       return if !block.environment
-      regex = '-[a-z]*$'
-      clean_ck = block.cache_key.gsub(/#{regex}/,'')
+
+      regex = "-[a-z]*$"
+      clean_ck = block.cache_key.gsub(/#{regex}/, "")
 
       block.environment.locales.keys.each do |locale|
         expire_timeout_fragment("#{clean_ck}-#{locale}")
@@ -24,5 +24,4 @@ class BlockSweeper < ActiveRecord::Observer
   def after_save(block)
     self.class.expire_block(block)
   end
-
 end

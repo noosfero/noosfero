@@ -1,5 +1,5 @@
-require 'feedparser'
-require 'open-uri'
+require "feedparser"
+require "open-uri"
 
 # This class is responsible for processing feeds and pass the items to the
 # respective container.
@@ -14,7 +14,6 @@ require 'open-uri'
 #
 # For the update interval, see FeedUpdater.
 class FeedHandler
-
   # The maximum number
   cattr_accessor :max_errors
   cattr_accessor :disabled_period
@@ -24,8 +23,9 @@ class FeedHandler
 
   def parse(content)
     raise FeedHandler::ParseError, "Content is nil" if content.nil?
+
     begin
-      return FeedParser::Feed::new(content.force_encoding('utf-8'))
+      return FeedParser::Feed::new(content.force_encoding("utf-8"))
     rescue Exception => ex
       raise FeedHandler::ParseError, "Invalid feed format."
     end
@@ -36,12 +36,13 @@ class FeedHandler
       content = ""
       block = lambda { |s| content = s.read }
       content =
-        if Rails.env == 'test' && File.exists?(address)
+        if Rails.env == "test" && File.exists?(address)
           File.read(address)
         else
           if !valid_url?(address)
             raise InvalidUrl.new("\"%s\" is not a valid URL" % address)
           end
+
           header.merge!("User-Agent" => "Noosfero/#{Noosfero::VERSION}")
           open(address, header, &block)
         end
@@ -54,11 +55,11 @@ class FeedHandler
   def fetch_through_proxy(address, environment)
     header = {}
     if address.starts_with?("https://")
-      header.merge!(:proxy => environment.https_feed_proxy) if environment.https_feed_proxy
+      header.merge!(proxy: environment.https_feed_proxy) if environment.https_feed_proxy
     else
-      header.merge!(:proxy => environment.http_feed_proxy) if environment.http_feed_proxy
+      header.merge!(proxy: environment.http_feed_proxy) if environment.http_feed_proxy
     end
-    header.merge!(:ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE) if environment.disable_feed_ssl
+    header.merge!(ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE) if environment.disable_feed_ssl
     fetch(address, header)
   end
 
@@ -71,6 +72,7 @@ class FeedHandler
           container.save
         end
         next unless container.enabled
+
         actually_process_container(container)
         container.update_errors = 0
         container.finish_fetch
@@ -100,31 +102,30 @@ class FeedHandler
 
   protected
 
-  def actually_process_container(container)
-    container.clear
-    if container.environment.enable_feed_proxy
-      content = fetch_through_proxy(container.address, container.environment)
-    else
-      content = fetch(container.address)
+    def actually_process_container(container)
+      container.clear
+      if container.environment.enable_feed_proxy
+        content = fetch_through_proxy(container.address, container.environment)
+      else
+        content = fetch(container.address)
+      end
+      container.fetched_at = Time.now
+      parsed_feed = parse(content)
+      container.feed_title = parsed_feed.title
+      parsed_feed.items[0..container.limit - 1].reverse.each do |item|
+        container.add_item(item.title, item.link, item.date, item.content)
+      end
     end
-    container.fetched_at = Time.now
-    parsed_feed = parse(content)
-    container.feed_title = parsed_feed.title
-    parsed_feed.items[0..container.limit-1].reverse.each do |item|
-      container.add_item(item.title, item.link, item.date, item.content)
+
+    def valid_url?(url)
+      url =~ URI.regexp("http") || url =~ URI.regexp("https")
     end
-  end
 
-  def valid_url?(url)
-    url =~ URI.regexp('http') || url =~ URI.regexp('https')
-  end
+    def failed_too_many_times(container)
+      container.update_errors > FeedHandler.max_errors
+    end
 
-  def failed_too_many_times(container)
-    container.update_errors > FeedHandler.max_errors
-  end
-
-  def enough_time_since_last_failure(container)
-    container.fetched_at.nil? || container.fetched_at < (Time.now - FeedHandler.disabled_period)
-  end
-
+    def enough_time_since_last_failure(container)
+      container.fetched_at.nil? || container.fetched_at < (Time.now - FeedHandler.disabled_period)
+    end
 end

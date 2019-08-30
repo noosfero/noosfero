@@ -29,6 +29,7 @@ class AddRpush < ActiveRecord::Migration[5.1]
 
   def self.up
     return if table_exists? :rpush_apps
+
     migrations.map(&:up)
   end
 
@@ -61,12 +62,12 @@ class AddRpush < ActiveRecord::Migration[5.1]
         t.timestamps
       end
 
-      add_index :rapns_notifications, [:delivered, :failed, :deliver_after], name: 'index_rapns_notifications_multi'
+      add_index :rapns_notifications, [:delivered, :failed, :deliver_after], name: "index_rapns_notifications_multi"
     end
 
     def self.down
-      if index_name_exists?(:rapns_notifications, 'index_rapns_notifications_multi', true)
-        remove_index :rapns_notifications, name: 'index_rapns_notifications_multi'
+      if index_name_exists?(:rapns_notifications, "index_rapns_notifications_multi", true)
+        remove_index :rapns_notifications, name: "index_rapns_notifications_multi"
       end
       drop_table :rapns_notifications
     end
@@ -133,12 +134,12 @@ class AddRpush < ActiveRecord::Migration[5.1]
   class AddGcm < ActiveRecord::Migration[5.1]
     module Rapns
       class App < ActiveRecord::Base
-        self.table_name = 'rapns_apps'
+        self.table_name = "rapns_apps"
       end
 
       class Notification < ActiveRecord::Base
         belongs_to :app
-        self.table_name = 'rapns_notifications'
+        self.table_name = "rapns_notifications"
       end
     end
 
@@ -146,18 +147,18 @@ class AddRpush < ActiveRecord::Migration[5.1]
       add_column :rapns_notifications, :type, :string, null: true
       add_column :rapns_apps, :type, :string, null: true
 
-      AddGcm::Rapns::Notification.update_all type: 'Rapns::Apns::Notification'
-      AddGcm::Rapns::App.update_all type: 'Rapns::Apns::App'
+      AddGcm::Rapns::Notification.update_all type: "Rapns::Apns::Notification"
+      AddGcm::Rapns::App.update_all type: "Rapns::Apns::App"
 
       change_column :rapns_notifications, :type, :string, null: false
       change_column :rapns_apps, :type, :string, null: false
-      change_column :rapns_notifications, :device_token, :string, { null: true, limit: 64 }
-      change_column :rapns_notifications, :expiry, :integer, { null: true, default: 1.day.to_i }
+      change_column :rapns_notifications, :device_token, :string, null: true, limit: 64
+      change_column :rapns_notifications, :expiry, :integer, null: true, default: 1.day.to_i
       change_column :rapns_apps, :environment, :string, null: true
       change_column :rapns_apps, :certificate, :text, null: true, default: nil
 
       change_column :rapns_notifications, :error_description, :text, null: true, default: nil
-      change_column :rapns_notifications, :sound, :string, default: 'default'
+      change_column :rapns_notifications, :sound, :string, default: "default"
 
       rename_column :rapns_notifications, :attributes_for_device, :data
       rename_column :rapns_apps, :key, :name
@@ -167,7 +168,7 @@ class AddRpush < ActiveRecord::Migration[5.1]
       add_column :rapns_notifications, :collapse_key, :string, null: true
       add_column :rapns_notifications, :delay_while_idle, :boolean, null: false, default: false
 
-      reg_ids_type = ActiveRecord::Base.connection.adapter_name.include?('Mysql') ? :mediumtext : :text
+      reg_ids_type = ActiveRecord::Base.connection.adapter_name.include?("Mysql") ? :mediumtext : :text
       add_column :rapns_notifications, :registration_ids, reg_ids_type, null: true
       add_column :rapns_notifications, :app_id, :integer, null: true
       add_column :rapns_notifications, :retries, :integer, null: true, default: 0
@@ -191,18 +192,18 @@ class AddRpush < ActiveRecord::Migration[5.1]
     end
 
     def self.down
-      AddGcm::Rapns::Notification.where(type: 'Rapns::Gcm::Notification').delete_all
+      AddGcm::Rapns::Notification.where(type: "Rapns::Gcm::Notification").delete_all
 
       remove_column :rapns_notifications, :type
       remove_column :rapns_apps, :type
 
-      change_column :rapns_notifications, :device_token, :string, { null: false, limit: 64 }
-      change_column :rapns_notifications, :expiry, :integer, { null: false, default: 1.day.to_i }
+      change_column :rapns_notifications, :device_token, :string, null: false, limit: 64
+      change_column :rapns_notifications, :expiry, :integer, null: false, default: 1.day.to_i
       change_column :rapns_apps, :environment, :string, null: false
       change_column :rapns_apps, :certificate, :text, null: false
 
       change_column :rapns_notifications, :error_description, :string, null: true, default: nil
-      change_column :rapns_notifications, :sound, :string, default: '1.aiff'
+      change_column :rapns_notifications, :sound, :string, default: "1.aiff"
 
       rename_column :rapns_notifications, :data, :attributes_for_device
       rename_column :rapns_apps, :name, :key
@@ -224,7 +225,7 @@ class AddRpush < ActiveRecord::Migration[5.1]
       end
 
       if index_name_exists?(:rapns_notifications, :index_rapns_notifications_multi, true)
-          remove_index :rapns_notifications, name: :index_rapns_notifications_multi
+        remove_index :rapns_notifications, name: :index_rapns_notifications_multi
       end
 
       remove_column :rapns_notifications, :app_id
@@ -236,7 +237,7 @@ class AddRpush < ActiveRecord::Migration[5.1]
   class AddWpns < ActiveRecord::Migration[5.1]
     module Rapns
       class Notification < ActiveRecord::Base
-        self.table_name = 'rapns_notifications'
+        self.table_name = "rapns_notifications"
       end
     end
 
@@ -245,7 +246,7 @@ class AddRpush < ActiveRecord::Migration[5.1]
     end
 
     def self.down
-      AddWpns::Rapns::Notification.where(type: 'Rapns::Wpns::Notification').delete_all
+      AddWpns::Rapns::Notification.where(type: "Rapns::Wpns::Notification").delete_all
       remove_column :rapns_notifications, :uri
     end
   end
@@ -253,7 +254,7 @@ class AddRpush < ActiveRecord::Migration[5.1]
   class AddAdm < ActiveRecord::Migration[5.1]
     module Rapns
       class Notification < ActiveRecord::Base
-        self.table_name = 'rapns_notifications'
+        self.table_name = "rapns_notifications"
       end
     end
 
@@ -265,7 +266,7 @@ class AddRpush < ActiveRecord::Migration[5.1]
     end
 
     def self.down
-      AddAdm::Rapns::Notification.where(type: 'Rapns::Adm::Notification').delete_all
+      AddAdm::Rapns::Notification.where(type: "Rapns::Adm::Notification").delete_all
 
       remove_column :rapns_apps, :client_id
       remove_column :rapns_apps, :client_secret
@@ -277,11 +278,11 @@ class AddRpush < ActiveRecord::Migration[5.1]
   class RenameRapnsToRpush < ActiveRecord::Migration[5.1]
     module Rpush
       class App < ActiveRecord::Base
-        self.table_name = 'rpush_apps'
+        self.table_name = "rpush_apps"
       end
 
       class Notification < ActiveRecord::Base
-        self.table_name = 'rpush_notifications'
+        self.table_name = "rpush_notifications"
       end
     end
 
@@ -302,27 +303,27 @@ class AddRpush < ActiveRecord::Migration[5.1]
         rename_index :rpush_feedback, :index_rapns_feedback_on_device_token, :index_rpush_feedback_on_device_token
       end
 
-      update_type(RenameRapnsToRpush::Rpush::Notification, 'Rapns::Apns::Notification', 'Rpush::Apns::Notification')
-      update_type(RenameRapnsToRpush::Rpush::Notification, 'Rapns::Gcm::Notification', 'Rpush::Gcm::Notification')
-      update_type(RenameRapnsToRpush::Rpush::Notification, 'Rapns::Adm::Notification', 'Rpush::Adm::Notification')
-      update_type(RenameRapnsToRpush::Rpush::Notification, 'Rapns::Wpns::Notification', 'Rpush::Wpns::Notification')
+      update_type(RenameRapnsToRpush::Rpush::Notification, "Rapns::Apns::Notification", "Rpush::Apns::Notification")
+      update_type(RenameRapnsToRpush::Rpush::Notification, "Rapns::Gcm::Notification", "Rpush::Gcm::Notification")
+      update_type(RenameRapnsToRpush::Rpush::Notification, "Rapns::Adm::Notification", "Rpush::Adm::Notification")
+      update_type(RenameRapnsToRpush::Rpush::Notification, "Rapns::Wpns::Notification", "Rpush::Wpns::Notification")
 
-      update_type(RenameRapnsToRpush::Rpush::App, 'Rapns::Apns::App', 'Rpush::Apns::App')
-      update_type(RenameRapnsToRpush::Rpush::App, 'Rapns::Gcm::App', 'Rpush::Gcm::App')
-      update_type(RenameRapnsToRpush::Rpush::App, 'Rapns::Adm::App', 'Rpush::Adm::App')
-      update_type(RenameRapnsToRpush::Rpush::App, 'Rapns::Wpns::App', 'Rpush::Wpns::App')
+      update_type(RenameRapnsToRpush::Rpush::App, "Rapns::Apns::App", "Rpush::Apns::App")
+      update_type(RenameRapnsToRpush::Rpush::App, "Rapns::Gcm::App", "Rpush::Gcm::App")
+      update_type(RenameRapnsToRpush::Rpush::App, "Rapns::Adm::App", "Rpush::Adm::App")
+      update_type(RenameRapnsToRpush::Rpush::App, "Rapns::Wpns::App", "Rpush::Wpns::App")
     end
 
     def self.down
-      update_type(RenameRapnsToRpush::Rpush::Notification, 'Rpush::Apns::Notification', 'Rapns::Apns::Notification')
-      update_type(RenameRapnsToRpush::Rpush::Notification, 'Rpush::Gcm::Notification', 'Rapns::Gcm::Notification')
-      update_type(RenameRapnsToRpush::Rpush::Notification, 'Rpush::Adm::Notification', 'Rapns::Adm::Notification')
-      update_type(RenameRapnsToRpush::Rpush::Notification, 'Rpush::Wpns::Notification', 'Rapns::Wpns::Notification')
+      update_type(RenameRapnsToRpush::Rpush::Notification, "Rpush::Apns::Notification", "Rapns::Apns::Notification")
+      update_type(RenameRapnsToRpush::Rpush::Notification, "Rpush::Gcm::Notification", "Rapns::Gcm::Notification")
+      update_type(RenameRapnsToRpush::Rpush::Notification, "Rpush::Adm::Notification", "Rapns::Adm::Notification")
+      update_type(RenameRapnsToRpush::Rpush::Notification, "Rpush::Wpns::Notification", "Rapns::Wpns::Notification")
 
-      update_type(RenameRapnsToRpush::Rpush::App, 'Rpush::Apns::App', 'Rapns::Apns::App')
-      update_type(RenameRapnsToRpush::Rpush::App, 'Rpush::Gcm::App', 'Rapns::Gcm::App')
-      update_type(RenameRapnsToRpush::Rpush::App, 'Rpush::Adm::App', 'Rapns::Adm::App')
-      update_type(RenameRapnsToRpush::Rpush::App, 'Rpush::Wpns::App', 'Rapns::Wpns::App')
+      update_type(RenameRapnsToRpush::Rpush::App, "Rpush::Apns::App", "Rapns::Apns::App")
+      update_type(RenameRapnsToRpush::Rpush::App, "Rpush::Gcm::App", "Rapns::Gcm::App")
+      update_type(RenameRapnsToRpush::Rpush::App, "Rpush::Adm::App", "Rapns::Adm::App")
+      update_type(RenameRapnsToRpush::Rpush::App, "Rpush::Wpns::App", "Rapns::Wpns::App")
 
       if index_name_exists?(:rpush_notifications, :index_rpush_notifications_multi, true)
         rename_index :rpush_notifications, :index_rpush_notifications_multi, :index_rapns_notifications_multi

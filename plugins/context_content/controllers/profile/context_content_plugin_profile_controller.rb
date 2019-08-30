@@ -1,5 +1,5 @@
 class ContextContentPluginProfileController < ProfileController
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
+  append_view_path File.join(File.dirname(__FILE__) + "/../../views")
 
   def view_content
     block = Block.find(params[:id])
@@ -15,7 +15,7 @@ class ContextContentPluginProfileController < ProfileController
         format.js
       end
     else
-      render plain: "Invalid page", :status => 500
+      render plain: "Invalid page", status: 500
     end
    end
 end

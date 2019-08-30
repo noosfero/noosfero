@@ -12,19 +12,19 @@ class ProfileImagesPlugin::ProfileImagesBlock < Block
   end
 
   def extra_option
-    { }
+    {}
   end
 
   def self.description
-    _('Display the images inside the context where the block is available.')
+    _("Display the images inside the context where the block is available.")
   end
 
   def help
-    _('This block lists the images inside this profile.')
+    _("This block lists the images inside this profile.")
   end
 
   def default_title
-    _('Profile images')
+    _("Profile images")
   end
 
   def api_content(params = {})

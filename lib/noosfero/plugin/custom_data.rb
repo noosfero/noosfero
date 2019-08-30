@@ -1,10 +1,9 @@
 class Noosfero::Plugin::CustomData
-
   def initialize(base, plugin, attributes = nil, type = nil)
     @base = base
     @plugin = plugin
     attributes ||= {}
-    attributes.each do |k,v|
+    attributes.each do |k, v|
       if type.present?
         self.send("#{k}=", v, type.try("[]", k))
       else
@@ -14,15 +13,15 @@ class Noosfero::Plugin::CustomData
   end
 
   def data_field_name
-    raise 'must be overridden by child class'
+    raise "must be overridden by child class"
   end
 
   def get_custom_data(field_name)
-    raise 'must be overridden by child class'
+    raise "must be overridden by child class"
   end
 
   def set_custom_data(field_name, value, type)
-    raise 'must be overridden by child class'
+    raise "must be overridden by child class"
   end
 
   def method_missing(method, *args, &block)
@@ -44,5 +43,4 @@ class Noosfero::Plugin::CustomData
       nil
     end
   end
-
 end

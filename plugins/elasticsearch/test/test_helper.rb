@@ -1,8 +1,7 @@
-require 'test_helper'
-require_relative '../../../test/api/test_helper.rb'
+require "test_helper"
+require_relative "../../../test/api/test_helper.rb"
 
 module ElasticsearchTestHelper
-
   def setup
     setup_environment
     create_instances
@@ -16,7 +15,7 @@ module ElasticsearchTestHelper
   end
 
   def import_instancies
-    indexed_models.each {|model|
+    indexed_models.each { |model|
       model.__elasticsearch__.create_index! force: true
       model.import
     }
@@ -32,8 +31,7 @@ module ElasticsearchTestHelper
     []
   end
 
-  def indexed_fields model
+  def indexed_fields(model)
     model.mappings.to_hash[model.name.underscore.to_sym][:properties]
   end
-
 end

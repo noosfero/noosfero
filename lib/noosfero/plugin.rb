@@ -1,15 +1,14 @@
-require_relative 'plugin/macro'
-require_relative 'plugin/hot_spot'
-require_relative 'plugin/manager'
-require_relative 'plugin/parent_methods'
-require_relative 'plugin/settings'
-require_relative 'plugin/metadata'
+require_relative "plugin/macro"
+require_relative "plugin/hot_spot"
+require_relative "plugin/manager"
+require_relative "plugin/parent_methods"
+require_relative "plugin/settings"
+require_relative "plugin/metadata"
 
 class Noosfero::Plugin
-
   attr_accessor :context
 
-  def initialize(context=nil)
+  def initialize(context = nil)
     self.context = context
   end
 
@@ -22,7 +21,6 @@ class Noosfero::Plugin
   end
 
   class << self
-
     include Noosfero::Plugin::ParentMethods
 
     attr_writer :should_load
@@ -50,6 +48,7 @@ class Noosfero::Plugin
 
     def setup(config)
       return if !should_load
+
       available_plugins.each do |dir|
         setup_plugin(dir, config)
       end
@@ -59,7 +58,7 @@ class Noosfero::Plugin
       plugin_name = File.basename(dir)
 
       plugin_dependencies_ok = true
-      plugin_dependencies_file = File.join(dir, 'dependencies.rb')
+      plugin_dependencies_file = File.join(dir, "dependencies.rb")
       if File.exists?(plugin_dependencies_file)
         begin
           require plugin_dependencies_file
@@ -80,17 +79,17 @@ class Noosfero::Plugin
         end
 
         # add view path
-        config.paths['app/views'].unshift File.join(dir, 'views')
+        config.paths["app/views"].unshift File.join(dir, "views")
       end
     end
 
-    def load_plugin_identifier identifier
+    def load_plugin_identifier(identifier)
       klass = identifier.to_s.camelize.constantize
       klass = klass.const_get :Base if klass.class == Module
       klass
     end
 
-    def load_plugin public_name
+    def load_plugin(public_name)
       load_plugin_identifier "#{public_name.to_s.camelize}Plugin"
     end
 
@@ -98,12 +97,12 @@ class Noosfero::Plugin
     # plugin to a specific controller
     def load_plugin_filters(plugin)
       ActiveSupport::Reloader.to_prepare do
-        filters = plugin.new.send 'application_controller_filters' rescue []
+        filters = plugin.new.send "application_controller_filters" rescue []
         Noosfero::Plugin.add_controller_filters ApplicationController, plugin, filters
 
-        plugin_methods = plugin.instance_methods.select {|m| m.to_s.end_with?('_filters')}
+        plugin_methods = plugin.instance_methods.select { |m| m.to_s.end_with?("_filters") }
         plugin_methods.each do |plugin_method|
-          controller_class = plugin_method.to_s.gsub('_filters', '').camelize.constantize
+          controller_class = plugin_method.to_s.gsub("_filters", "").camelize.constantize
 
           filters = plugin.new.send(plugin_method)
           Noosfero::Plugin.add_controller_filters controller_class, plugin, filters
@@ -144,16 +143,16 @@ class Noosfero::Plugin
 
     def load_plugin_extensions(dir)
       ActiveSupport::Reloader.to_prepare do
-        Dir[File.join(dir, 'lib', 'ext', '**', '*.rb')].each{ |file| require_dependency file }
+        Dir[File.join(dir, "lib", "ext", "**", "*.rb")].each { |file| require_dependency file }
       end
     end
 
     def available_plugins
       unless @available_plugins
-        path = File.join(Rails.root, '{baseplugins,config/plugins}', '*')
-        @available_plugins = Dir.glob(path).select{ |i| File.directory?(i) }
-        if (Rails.env.test? || Rails.env.cucumber?) && !@available_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
-          @available_plugins << File.join(Rails.root, 'plugins', 'foo')
+        path = File.join(Rails.root, "{baseplugins,config/plugins}", "*")
+        @available_plugins = Dir.glob(path).select { |i| File.directory?(i) }
+        if (Rails.env.test? || Rails.env.cucumber?) && !@available_plugins.include?(File.join(Rails.root, "config", "plugins", "foo"))
+          @available_plugins << File.join(Rails.root, "plugins", "foo")
         end
       end
       @available_plugins
@@ -164,7 +163,7 @@ class Noosfero::Plugin
     end
 
     def all
-      @all ||= available_plugins.map{ |dir| (File.basename(dir) + "_plugin").camelize }
+      @all ||= available_plugins.map { |dir| (File.basename(dir) + "_plugin").camelize }
     end
   end
 
@@ -173,31 +172,32 @@ class Noosfero::Plugin
   end
 
   def expanded_template(file_path, locals = {})
-    views_path = Rails.root.join('plugins', "#{self.class.public_name}", 'views')
+    views_path = Rails.root.join("plugins", "#{self.class.public_name}", "views")
     ERB.new(File.read("#{views_path}/#{file_path}")).result(binding)
   end
 
   def extra_blocks(params = {})
     return [] if self.class.extra_blocks.nil?
+
     blocks = self.class.extra_blocks.map do |block, options|
       type = options[:type]
       type = type.is_a?(Array) ? type : [type].compact
       type = type.map do |x|
         x.is_a?(String) ? x.capitalize.constantize : x
       end
-      raise "This is not a valid type" if !type.empty? && (type.any?{|t| !(t < Profile) && t != Environment })
+      raise "This is not a valid type" if !type.empty? && (type.any? { |t| !(t < Profile) && t != Environment })
 
       position = options[:position]
       position = position.is_a?(Array) ? position : [position].compact
-      position = position.map{|p| p.to_i}
-      raise "This is not a valid position" if !position.empty? && ![1,2,3].detect{|m| position.include?(m)}
+      position = position.map { |p| p.to_i }
+      raise "This is not a valid position" if !position.empty? && ![1, 2, 3].detect { |m| position.include?(m) }
 
       if !type.empty? && (params[:type] != :all)
         block = type.include?(params[:type]) ? block : nil
       end
 
       if !position.empty? && !params[:position].nil?
-        block = position.detect{ |p| [params[:position]].flatten.include?(p)} ? block : nil
+        block = position.detect { |p| [params[:position]].flatten.include?(p) } ? block : nil
       end
 
       block
@@ -209,7 +209,7 @@ class Noosfero::Plugin
   def macros
     self.class.constants.map do |constant_name|
       self.class.const_get(constant_name)
-    end.select {|const| const.is_a?(Class) && const < Noosfero::Plugin::Macro}
+    end.select { |const| const.is_a?(Class) && const < Noosfero::Plugin::Macro }
   end
 
   # Here the developer may specify the events to which the plugins can
@@ -235,7 +235,7 @@ class Noosfero::Plugin
   # Ex: a plugin may want that Communities receive comments themselves
   # as evaluations
   # returns = the number of comments to be sum on the statistics
-  def more_comments_count owner
+  def more_comments_count(owner)
     nil
   end
 
@@ -260,7 +260,7 @@ class Noosfero::Plugin
   #   title   = name that will be displayed.
   #   id      = div id.
   #   content = lambda block that creates html code.
-  def product_tabs product
+  def product_tabs(product)
     nil
   end
 
@@ -272,7 +272,7 @@ class Noosfero::Plugin
 
   # -> Filters the types of organizations that are shown on manage organizations
   # returns a scope filtered by the specified type
-  def filter_manage_organization_scope type
+  def filter_manage_organization_scope(type)
     nil
   end
 
@@ -282,6 +282,7 @@ class Noosfero::Plugin
   def organization_types_filter_options
     nil
   end
+
   # -> Adds content to profile editor info and settings
   # returns = lambda block that creates html code or raw rhtml/html.erb
   def profile_editor_informations
@@ -587,21 +588,21 @@ class Noosfero::Plugin
   # returns = {:results => [a, b, c, ...], ...}
   # P.S.: The plugin might add other informations on the return hash for its
   # own use in specific views
-  def find_by_contents(asset, scope, query, paginate_options={}, options={})
+  def find_by_contents(asset, scope, query, paginate_options = {}, options = {})
     scope = scope.like_search(query, options) unless query.blank?
-    scope = scope.send(options[:order]) unless options[:order].blank? || options[:order] == 'more_relevant'
-    {:results => scope.paginate(paginate_options)}
+    scope = scope.send(options[:order]) unless options[:order].blank? || options[:order] == "more_relevant"
+    { results: scope.paginate(paginate_options) }
   end
 
-  def autocomplete asset, scope, query, paginate_options={:page => 1}, options={:field => 'name'}
+  def autocomplete(asset, scope, query, paginate_options = { page: 1 }, options = { field: "name" })
     nil
   end
 
-  def catalog_autocomplete_item_extras product
+  def catalog_autocomplete_item_extras(product)
     nil
   end
 
-  def search_order asset
+  def search_order(asset)
     nil
   end
 
@@ -615,13 +616,13 @@ class Noosfero::Plugin
 
   # -> Suggests terms based on asset and query
   # returns = [a, b, c, ...]
-  def find_suggestions(query, context, asset, options={:limit => 5})
-    context.search_terms.
-      where(:asset => asset).
-      where("search_terms.term like ?", "%#{query}%").
-      where('search_terms.score > 0').
-      order('search_terms.score DESC').
-      limit(options[:limit]).map(&:term)
+  def find_suggestions(query, context, asset, options = { limit: 5 })
+    context.search_terms
+           .where(asset: asset)
+           .where("search_terms.term like ?", "%#{query}%")
+           .where("search_terms.score > 0")
+           .order("search_terms.score DESC")
+           .limit(options[:limit]).map(&:term)
   end
 
   # -> Adds aditional fields for change_password
@@ -736,7 +737,7 @@ class Noosfero::Plugin
     nil
   end
 
-  def api_custom_login request
+  def api_custom_login(request)
     nil
   end
 
@@ -805,7 +806,7 @@ class Noosfero::Plugin
     # -> Generic hotspot to add extra contents to a block.
     # Returns proc or string with the html of extra content.
     elsif method.to_s =~ /^(.+)_block_extra_content$/
-      ''
+      ""
     elsif context.respond_to?(method)
       context.send(method)
     else
@@ -815,11 +816,9 @@ class Noosfero::Plugin
 
   private
 
-  def content_actions
-    #FIXME 'new' and 'upload' only works for content_remove. It should work for
-    #content_expire too.
-    %w[edit delete spread locale suggest home new upload undo clone invite_friends]
-  end
-
+    def content_actions
+      # FIXME 'new' and 'upload' only works for content_remove. It should work for
+      # content_expire too.
+      %w[edit delete spread locale suggest home new upload undo clone invite_friends]
+    end
 end
-

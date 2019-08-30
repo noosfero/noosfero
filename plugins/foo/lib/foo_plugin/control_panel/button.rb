@@ -1,11 +1,11 @@
 class FooPlugin::Button < ControlPanel::Entry
   class << self
     def name
-      'Foo plugin button'
+      "Foo plugin button"
     end
 
     def section
-      'others'
+      "others"
     end
   end
 end

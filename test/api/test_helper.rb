@@ -1,7 +1,6 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class ActiveSupport::TestCase
-
   include Rack::Test::Methods
 
   USER_PASSWORD = "testapi"
@@ -13,7 +12,7 @@ class ActiveSupport::TestCase
 
   def create_and_activate_user
     @environment = Environment.default
-    @user = User.create!(:login => USER_LOGIN, :password => USER_PASSWORD, :password_confirmation => USER_PASSWORD, :email => 'test@test.org', :environment => @environment)
+    @user = User.create!(login: USER_LOGIN, password: USER_PASSWORD, password_confirmation: USER_PASSWORD, email: "test@test.org", environment: @environment)
     @user.activate!
     @person = @user.person
     @params = {}
@@ -39,9 +38,8 @@ class ActiveSupport::TestCase
 
   private
 
-  def json_response_ids(kind = nil)
-    json = JSON.parse(last_response.body)
-    kind.nil? ? json.map {|c| c['id']} : json[kind.to_s].map {|c| c['id']}
-  end
-
+    def json_response_ids(kind = nil)
+      json = JSON.parse(last_response.body)
+      kind.nil? ? json.map { |c| c["id"] } : json[kind.to_s].map { |c| c["id"] }
+    end
 end

@@ -20,6 +20,7 @@ module Entitlement::ProfileJudge
 
   def access_requirement
     return Entitlement::Levels.levels[:self] if !visible
+
     if secret
       [Entitlement::Levels.levels[:related], access].max
     else

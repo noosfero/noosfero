@@ -1,5 +1,4 @@
 class ShoppingCartPlugin::LineItem
-
   attr_accessor :product_id, :quantity
 
   def initialize(product_id, name)
@@ -19,5 +18,4 @@ class ShoppingCartPlugin::LineItem
   def ==(other)
     self.product == other.product && self.name == other.name && self.quantity == other.quantity
   end
-
 end

@@ -1,36 +1,35 @@
-require_relative 'noosfero/version'
-require_relative 'noosfero/constants'
+require_relative "noosfero/version"
+require_relative "noosfero/constants"
 
 module Noosfero
-
   def self.root(default = nil)
-    ENV.fetch('RAILS_RELATIVE_URL_ROOT', default)
+    ENV.fetch("RAILS_RELATIVE_URL_ROOT", default)
   end
 
   def self.pattern_for_controllers_in_directory(dir)
-    disjunction = controllers_in_directory(dir).join('|')
+    disjunction = controllers_in_directory(dir).join("|")
 
-    #FIXME should not load a controller twice with diferrents routing files
+    # FIXME should not load a controller twice with diferrents routing files
     exclude_controllers = %w(account chat circles cms comment content_viewer environment_design environment_themes event_invitation events features mailconf profile_design profile_editor profile_email_templates profile_quotas profile_roles profile_search profile_themes role)
     exclude_controllers.map do |name|
-      disjunction.gsub!(name,'')
+      disjunction.gsub!(name, "")
     end
-    pattern = disjunction.blank? ? '' : ('(' + disjunction + ')')
+    pattern = disjunction.blank? ? "" : ("(" + disjunction + ")")
     Regexp.new(pattern)
   end
 
   class << self
     def locales
       @locales ||= {
-        'en' => 'English',
-        'pt' => 'Português',
-        'fr' => 'Français',
-        'hy' => 'հայերեն լեզու',
-        'de' => 'Deutsch',
-        'ru' => 'русский язык',
-        'es' => 'Español',
-        'eo' => 'Esperanto',
-        'it' => 'Italiano'
+        "en" => "English",
+        "pt" => "Portugu\u00EAs",
+        "fr" => "Fran\u00E7ais",
+        "hy" => "\u0570\u0561\u0575\u0565\u0580\u0565\u0576 \u056C\u0565\u0566\u0578\u0582",
+        "de" => "Deutsch",
+        "ru" => "\u0440\u0443\u0441\u0441\u043A\u0438\u0439 \u044F\u0437\u044B\u043A",
+        "es" => "Espa\u00F1ol",
+        "eo" => "Esperanto",
+        "it" => "Italiano"
       }
     end
     attr_writer :locales
@@ -40,17 +39,19 @@ module Noosfero
         begin
           locales_list = locales.keys
           # move English to the beginning
-          if locales_list.include?('en')
-            locales_list = ['en'] + (locales_list - ['en']).sort
+          if locales_list.include?("en")
+            locales_list = ["en"] + (locales_list - ["en"]).sort
           end
           locales_list
         end
     end
+
     def each_locale
       locales.keys.sort.each do |key|
         yield(key, locales[key])
       end
     end
+
     def with_locale(locale)
       orig_locale = FastGettext.locale
       FastGettext.set_locale(locale)
@@ -59,13 +60,13 @@ module Noosfero
     end
 
     def session_secret
-      require 'fileutils'
-      target_dir = File.join(File.dirname(__FILE__), '../tmp')
+      require "fileutils"
+      target_dir = File.join(File.dirname(__FILE__), "../tmp")
       FileUtils.mkdir_p(target_dir) unless File.exist?(target_dir) || File.symlink?(target_dir)
-      file = File.join(target_dir, 'session.secret')
+      file = File.join(target_dir, "session.secret")
       if !File.exists?(file)
-        secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
-        File.open(file, 'w') do |f|
+        secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join("")
+        File.open(file, "w") do |f|
           f.puts secret
         end
       end
@@ -84,40 +85,38 @@ module Noosfero
   end
 
   def self.default_hostname
-    Environment.table_exists? && Environment.default ? Environment.default.default_hostname : 'localhost'
+    Environment.table_exists? && Environment.default ? Environment.default.default_hostname : "localhost"
   end
 
   private
 
-  def self.controllers_in_directory(dir)
-    app_controller_path = Dir.glob(Rails.root.join('app', 'controllers', dir, '*_controller.rb'))
-    app_controller_path.map do |item|
-      item.gsub(/^.*\/([^\/]+)_controller.rb$/, '\1')
-    end
-  end
-
-  def self.url_options
-    case Rails.env
-    when 'development'
-      development_url_options
-    when 'cucumber'
-      if Capybara.current_driver == :selenium
-        { :host => Capybara.current_session.server.host, :port => Capybara.current_session.server.port }
+    def self.controllers_in_directory(dir)
+      app_controller_path = Dir.glob(Rails.root.join("app", "controllers", dir, "*_controller.rb"))
+      app_controller_path.map do |item|
+        item.gsub(/^.*\/([^\/]+)_controller.rb$/, '\1')
       end
-    end || { }
-  end
+    end
 
-  def self.development_url_options
-    @development_url_options || {}
-  end
+    def self.url_options
+      case Rails.env
+      when "development"
+        development_url_options
+      when "cucumber"
+        if Capybara.current_driver == :selenium
+          { host: Capybara.current_session.server.host, port: Capybara.current_session.server.port }
+        end
+      end || {}
+    end
 
-  def self.compiling_assets?
-    File.basename($0) =~ /rake|rails/ && ARGV.include?("assets:precompile")
-  end
+    def self.development_url_options
+      @development_url_options || {}
+    end
 
-  def self.loading_schema?
-    File.basename($0) =~ /rake|rails/ && ARGV.include?("db:schema:load")
-  end
+    def self.compiling_assets?
+      File.basename($0) =~ /rake|rails/ && ARGV.include?("assets:precompile")
+    end
 
+    def self.loading_schema?
+      File.basename($0) =~ /rake|rails/ && ARGV.include?("db:schema:load")
+    end
 end
-

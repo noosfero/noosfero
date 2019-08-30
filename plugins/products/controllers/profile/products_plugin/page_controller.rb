@@ -1,9 +1,8 @@
 module ProductsPlugin
   class PageController < ProfileController
-
     helper ProductsHelper
 
-    protect 'manage_products', :profile, except: [:show]
+    protect "manage_products", :profile, except: [:show]
     before_action :login_required, except: [:show]
     before_action :create_product?, only: [:new]
 
@@ -14,7 +13,7 @@ module ProductsPlugin
     def show
       @product = @profile.products.find(params[:id])
       @inputs = @product.inputs
-      @allowed_user = user && user.has_permission?('manage_products', profile)
+      @allowed_user = user && user.has_permission?("manage_products", profile)
     end
 
     def categories_for_selection
@@ -27,7 +26,7 @@ module ProductsPlugin
         @categories = ProductCategory.top_level_for(environment)
         @level = 0
       end
-      render partial: 'categories_for_selection', locals: { categories: @categories, level: @level }
+      render partial: "categories_for_selection", locals: { categories: @categories, level: @level }
     end
 
     def new
@@ -38,15 +37,15 @@ module ProductsPlugin
       @level = 0
       if request.post?
         if @product.save
-          session[:notice] = _('Product succesfully created')
-	  respond_to do |format|
+          session[:notice] = _("Product succesfully created")
+          respond_to do |format|
             format.js do
-              render action: 'redirect_to_product'
+              render action: "redirect_to_product"
             end
-            format.html {redirect_back_or_default action: 'index'}
+            format.html { redirect_back_or_default action: "index" }
           end
         else
-          render_dialog_error_messages 'product'
+          render_dialog_error_messages "product"
         end
       end
     end
@@ -57,12 +56,12 @@ module ProductsPlugin
       if request.post?
         begin
           @product.update!(params[:products_plugin_product])
-          render partial: "display_#{field}", locals: {product: @product}
+          render partial: "display_#{field}", locals: { product: @product }
         rescue
-          render partial: "edit_#{field}", locals: {product: @product, errors: true}
+          render partial: "edit_#{field}", locals: { product: @product, errors: true }
         end
       else
-        render partial: "edit_#{field}", locals: {product: @product, errors: false}
+        render partial: "edit_#{field}", locals: { product: @product, errors: false }
       end
     end
 
@@ -73,30 +72,30 @@ module ProductsPlugin
       @edit = true
       @level = @category.level
       if request.post?
-        if @product.update({product_category_id: params[:selected_category_id]}, without_protection: true)
-	  respond_to do |format|
+        if @product.update({ product_category_id: params[:selected_category_id] }, { without_protection: true })
+          respond_to do |format|
             format.js do
-              render action: 'redirect_to_product'
+              render action: "redirect_to_product"
             end
-            format.html {redirect_back_or_default action: 'index'}
+            format.html { redirect_back_or_default action: "index" }
           end
         else
-          render_dialog_error_messages 'product'
+          render_dialog_error_messages "product"
         end
       end
     end
 
     def show_category_tree
       @category = environment.categories.find params[:category_id]
-      render partial: 'selected_category_tree'
+      render partial: "selected_category_tree"
     end
 
     def search_categories
       @term = params[:term].downcase
-      conditions = ['LOWER(name) LIKE ? OR LOWER(name) LIKE ?', "#{@term}%", "% #{@term}%"]
+      conditions = ["LOWER(name) LIKE ? OR LOWER(name) LIKE ?", "#{@term}%", "% #{@term}%"]
       @categories = ProductCategory.where(conditions).limit(10)
       render json: (@categories.map do |category|
-        {label: category.name, value: category.id}
+        { label: category.name, value: category.id }
       end)
     end
 
@@ -108,12 +107,12 @@ module ProductsPlugin
       if request.post?
         if @input.update(product_category_id: params[:selected_category_id])
           @inputs = @product.inputs
-          render partial: 'display_inputs'
+          render partial: "display_inputs"
         else
-          render_dialog_error_messages 'product'
+          render_dialog_error_messages "product"
         end
       else
-        render partial: 'add_input'
+        render partial: "add_input"
       end
     end
 
@@ -121,9 +120,9 @@ module ProductsPlugin
       @product = @profile.products.find(params[:id])
       if request.post?
         @product.update_price_details(params[:price_details]) if params[:price_details]
-        render partial: 'display_price_details'
+        render partial: "display_price_details"
       else
-        render partial: 'manage_product_details'
+        render partial: "manage_product_details"
       end
     end
 
@@ -139,7 +138,7 @@ module ProductsPlugin
 
     def display_price_composition_bar
       @product = @profile.products.find(params[:id])
-      render partial: 'price_composition_bar'
+      render partial: "price_composition_bar"
     end
 
     def display_inputs_cost
@@ -150,11 +149,11 @@ module ProductsPlugin
     def destroy
       @product = @profile.products.find(params[:id])
       if @product.destroy
-        session[:notice] = _('Product succesfully removed')
-        redirect_back_or_default action: 'index'
+        session[:notice] = _("Product succesfully removed")
+        redirect_back_or_default action: "index"
       else
-        session[:notice] = _('Could not remove the product')
-        redirect_back_or_default action: 'show', id: @product
+        session[:notice] = _("Could not remove the product")
+        redirect_back_or_default action: "show", id: @product
       end
     end
 
@@ -164,15 +163,15 @@ module ProductsPlugin
         if @input
           if request.post?
             if @input.update(params[:input])
-              render partial: 'display_input', locals: {input: @input}
+              render partial: "display_input", locals: { input: @input }
             else
-              render partial: 'edit_input'
+              render partial: "edit_input"
             end
           else
-            render partial: 'edit_input'
+            render partial: "edit_input"
           end
         else
-          render text: _('The input was not found')
+          render text: _("The input was not found")
         end
       end
     end
@@ -189,9 +188,9 @@ module ProductsPlugin
       if request.post?
         if @input.destroy
           @inputs = @product.inputs
-          render partial: 'display_inputs'
+          render partial: "display_inputs"
         else
-          render_dialog_error_messages 'input'
+          render_dialog_error_messages "input"
         end
       end
     end
@@ -209,24 +208,22 @@ module ProductsPlugin
         cost.save
         render json: {  name: cost.name,
                         id: cost.id,
-                        ok: true
-                     }
+                        ok: true }
       else
         render json: {
-                        ok: false,
-                        error_msg: _(cost.errors['name'].join('\n')) % {fn: _('Name')}
-                     }
+          ok: false,
+          error_msg: _(cost.errors["name"].join('\n')) % { fn: _("Name") }
+        }
       end
     end
 
     protected
 
-    def create_product?
-      if !profile.create_product?
-        render_access_denied
-        return
+      def create_product?
+        if !profile.create_product?
+          render_access_denied
+          return
+        end
       end
-    end
-
   end
 end

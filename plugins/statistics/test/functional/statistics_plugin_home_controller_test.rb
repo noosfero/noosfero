@@ -1,17 +1,16 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class HomeControllerTest < ActionController::TestCase
-
   def setup
     @environment = Environment.default
-    @environment.enabled_plugins = ['StatisticsPlugin']
+    @environment.enabled_plugins = ["StatisticsPlugin"]
     @environment.save!
 
-    user = create_user('testinguser')
+    user = create_user("testinguser")
     @environment.add_admin(user.person)
 
     StatisticsBlock.delete_all
-    @box1 = Box.create!(:owner => @environment)
+    @box1 = Box.create!(owner: @environment)
     @environment.boxes = [@box1]
 
     @block = StatisticsBlock.new
@@ -23,134 +22,134 @@ class HomeControllerTest < ActionController::TestCase
 
   attr_accessor :block
 
-  should 'display statistics-block class in environment block edition' do
+  should "display statistics-block class in environment block edition" do
     get :index
 
-    assert_tag :div, :attributes => {:class => 'statistics-block'}
+    assert_tag :div, attributes: { class: "statistics-block" }
   end
 
-  should 'display users class in statistics-block block' do
+  should "display users class in statistics-block block" do
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'users'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "users" } }
   end
 
-  should 'not display users class in statistics-block block' do
+  should "not display users class in statistics-block block" do
     @block.user_counter = false
     @block.save!
     get :index
 
-    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'users'} }
+    !assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "users" } }
   end
 
-  should 'display communities class in statistics-block block' do
+  should "display communities class in statistics-block block" do
     @block.community_counter = true
     @block.save!
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'communities'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "communities" } }
   end
 
-  should 'not display communities class in statistics-block block' do
+  should "not display communities class in statistics-block block" do
     get :index
 
-    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'communities'} }
+    !assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "communities" } }
   end
 
-  should 'display enterprises class in statistics-block block' do
+  should "display enterprises class in statistics-block block" do
     @block.enterprise_counter = true
     @block.save!
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'enterprises'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "enterprises" } }
   end
 
-  should 'not display enterprises class in statistics-block block' do
+  should "not display enterprises class in statistics-block block" do
     get :index
 
-    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'enterprises'} }
+    !assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "enterprises" } }
   end
 
-  should 'display products class in statistics-block block' do
+  should "display products class in statistics-block block" do
     @block.product_counter = true
-    @environment.enable('products_for_enterprises')
+    @environment.enable("products_for_enterprises")
     @block.save!
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'products'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "products" } }
   end
 
-  should 'not display products class in statistics-block block' do
+  should "not display products class in statistics-block block" do
     @block.product_counter = true
-    @environment.disable('products_for_enterprises')
+    @environment.disable("products_for_enterprises")
     @block.save!
     get :index
 
-    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'products'} }
+    !assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "products" } }
   end
 
-  should 'display categories class in statistics-block block' do
+  should "display categories class in statistics-block block" do
     @block.category_counter = true
     @block.save!
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'categories'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "categories" } }
   end
 
-  should 'not display categories class in statistics-block block' do
+  should "not display categories class in statistics-block block" do
     get :index
 
-    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'categories'} }
+    !assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "categories" } }
   end
 
-  should 'display tags class in statistics-block block' do
+  should "display tags class in statistics-block block" do
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'tags'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "tags" } }
   end
 
-  should 'not display tags class in statistics-block block' do
+  should "not display tags class in statistics-block block" do
     @block.tag_counter = false
     @block.save!
     get :index
 
-    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'tags'} }
+    !assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "tags" } }
   end
 
-  should 'display comments class in statistics-block block' do
+  should "display comments class in statistics-block block" do
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'comments'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "comments" } }
   end
 
-  should 'not display comments class in statistics-block block' do
+  should "not display comments class in statistics-block block" do
     @block.comment_counter = false
     @block.save!
     get :index
 
-    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'comments'} }
+    !assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "comments" } }
   end
 
-  should 'display hits class in statistics-block block' do
+  should "display hits class in statistics-block block" do
     @block.hit_counter = true
     @block.save!
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'hits'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "hits" } }
   end
 
-  should 'not display hits class in statistics-block block' do
+  should "not display hits class in statistics-block block" do
     get :index
 
-    !assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'hits'} }
+    !assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "hits" } }
   end
 
-  should 'display template name in class in statistics-block block' do
-    template = fast_create(Community, :name => 'Councils', :is_template => true, :environment_id => @environment.id)
-    @block.templates_ids_counter = {template.id.to_s => 'true'}
+  should "display template name in class in statistics-block block" do
+    template = fast_create(Community, name: "Councils", is_template: true, environment_id: @environment.id)
+    @block.templates_ids_counter = { template.id.to_s => "true" }
     @block.save!
     get :index
 
-    assert_tag :tag => 'div', :attributes => {:class => 'statistics-block'}, :descendant => { :tag => 'li', :attributes => {:class => 'councils'} }
+    assert_tag tag: "div", attributes: { class: "statistics-block" }, descendant: { tag: "li", attributes: { class: "councils" } }
   end
 end

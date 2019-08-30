@@ -1,15 +1,14 @@
 class EnterprisesBlock < ProfileListBlock
-
   def default_title
-    _('{#} Enterprises')
+    _("{#} Enterprises")
   end
 
   def help
-    _('This block displays the enterprises where this user works.')
+    _("This block displays the enterprises where this user works.")
   end
 
   def self.description
-    _('Enterprises')
+    _("Enterprises")
   end
 
   def base_profiles
@@ -18,8 +17,7 @@ class EnterprisesBlock < ProfileListBlock
 
   private
 
-  def base_class
-    Enterprise
-  end
-
+    def base_class
+      Enterprise
+    end
 end

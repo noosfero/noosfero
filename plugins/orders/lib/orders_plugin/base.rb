@@ -4,7 +4,7 @@ class OrdersPlugin::Base < Noosfero::Plugin
   end
 
   def js_files
-    ['locale', 'toggle_edit', 'sortable-table', 'help', 'orders'].map{ |j| "javascripts/#{j}" }
+    ["locale", "toggle_edit", "sortable-table", "help", "orders"].map { |j| "javascripts/#{j}" }
   end
 
   def control_panel_entries
@@ -12,6 +12,6 @@ class OrdersPlugin::Base < Noosfero::Plugin
   end
 
   def control_panel_sections
-    [{shopping: {name: _('Shopping'), priority: 71}}]
+    [{ shopping: { name: _("Shopping"), priority: 71 } }]
   end
 end

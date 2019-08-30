@@ -1,12 +1,12 @@
-require 'test_helper'
+require "test_helper"
 
 class ClassifyMembersPluginTest < ActiveSupport::TestCase
   def setup
     @env = fast_create(Environment)
-    @p1  = fast_create(Person, :environment_id => @env.id)
-    @c1  = fast_create(Community, :environment_id => @env.id)
-    @c2  = fast_create(Community, :environment_id => @env.id)
-    @c3  = fast_create(Community, :environment_id => @env.id)
+    @p1  = fast_create(Person, environment_id: @env.id)
+    @c1  = fast_create(Community, environment_id: @env.id)
+    @c2  = fast_create(Community, environment_id: @env.id)
+    @c3  = fast_create(Community, environment_id: @env.id)
     @plugin = ClassifyMembersPlugin.new self
   end
 
@@ -14,21 +14,21 @@ class ClassifyMembersPluginTest < ActiveSupport::TestCase
     @env
   end
 
-  should 'not crash for nil setting' do
+  should "not crash for nil setting" do
     assert_equal [], @plugin.find_community(@p1)
   end
 
-  should 'list all classification communities' do
+  should "list all classification communities" do
     @plugin.settings.communities = "
     #{@c1.identifier}: Tag1
     #{@c2.identifier}
     "
     @env.save!
 
-    assert_equal [[@c1, 'Tag1'], [@c2, @c2.name]], @plugin.communities
+    assert_equal [[@c1, "Tag1"], [@c2, @c2.name]], @plugin.communities
   end
 
-  should 'list the classification communities for a person' do
+  should "list the classification communities for a person" do
     @c1.add_member @p1
     @c2.add_member @p1
     @p1.stubs(:is_member_of?).returns(false)
@@ -41,6 +41,6 @@ class ClassifyMembersPluginTest < ActiveSupport::TestCase
     "
     @env.save!
 
-    assert_equal [[@c1, 'Tag1'], [@c2, 'Tag2']], @plugin.find_community(@p1)
+    assert_equal [[@c1, "Tag1"], [@c2, "Tag2"]], @plugin.find_community(@p1)
   end
 end

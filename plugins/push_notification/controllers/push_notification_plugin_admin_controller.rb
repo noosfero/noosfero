@@ -1,7 +1,7 @@
 require_relative "../lib/notification_settings"
 
 class PushNotificationPluginAdminController < PluginAdminController
-  append_view_path File.join(File.dirname(__FILE__) + '/../views')
+  append_view_path File.join(File.dirname(__FILE__) + "/../views")
 
   def index
     @server_settings = Noosfero::Plugin::Settings.new(environment, PushNotificationPlugin)
@@ -13,7 +13,6 @@ class PushNotificationPluginAdminController < PluginAdminController
     data[:notifications] = params[:settings]
     @server_settings = Noosfero::Plugin::Settings.new(environment, PushNotificationPlugin, data)
     @server_settings.save!
-    redirect_to :action => "index"
+    redirect_to action: "index"
   end
-
 end

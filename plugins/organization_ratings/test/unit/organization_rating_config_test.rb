@@ -1,10 +1,9 @@
-require 'test_helper'
+require "test_helper"
 
 class OrganizationRatingConfigTest < ActiveSupport::TestCase
-
   def setup
     @environment = Environment.default
-    @environment.enabled_plugins = ['OrganizationRatingsPlugin']
+    @environment.enabled_plugins = ["OrganizationRatingsPlugin"]
     @environment.save
     @organization_ratings_config = OrganizationRatingsConfig.instance
   end

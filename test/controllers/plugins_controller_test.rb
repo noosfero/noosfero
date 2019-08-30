@@ -1,7 +1,6 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class PluginsControllerTest < ActionController::TestCase
-
   all_fixtures
   def setup
     @controller = PluginsController.new
@@ -11,12 +10,13 @@ class PluginsControllerTest < ActionController::TestCase
   end
   attr_reader :environment
 
-  should 'list system active plugins' do
+  should "list system active plugins" do
     class Plugin1 < Noosfero::Plugin
       class << self
         def plugin_name
-        "Plugin1"
+          "Plugin1"
         end
+
         def plugin_description
           "This plugin is from hell!"
         end
@@ -26,8 +26,9 @@ class PluginsControllerTest < ActionController::TestCase
     class Plugin2 < Noosfero::Plugin
       class << self
         def plugin_name
-        "Plugin2"
+          "Plugin2"
         end
+
         def plugin_description
           "This plugin is from heaven!"
         end
@@ -38,17 +39,16 @@ class PluginsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert_tag :tag => 'td', :content => /#{Plugin1.plugin_name}/
-    assert_tag :tag => 'td', :content => /#{Plugin1.plugin_description}/
-    assert_tag :tag => 'td', :content => /#{Plugin2.plugin_name}/
-    assert_tag :tag => 'td', :content => /#{Plugin2.plugin_description}/
+    assert_tag tag: "td", content: /#{Plugin1.plugin_name}/
+    assert_tag tag: "td", content: /#{Plugin1.plugin_description}/
+    assert_tag tag: "td", content: /#{Plugin2.plugin_name}/
+    assert_tag tag: "td", content: /#{Plugin2.plugin_description}/
   end
 
-  should 'enable or disable plugins' do
-    assert_not_equal ['Plugin1'], environment.enabled_plugins
-    post :update, :environment => { :enabled_plugins => ['Plugin1']}
+  should "enable or disable plugins" do
+    assert_not_equal ["Plugin1"], environment.enabled_plugins
+    post :update, environment: { enabled_plugins: ["Plugin1"] }
     environment.reload
-    assert_equal ['Plugin1'], environment.enabled_plugins
+    assert_equal ["Plugin1"], environment.enabled_plugins
   end
-
 end

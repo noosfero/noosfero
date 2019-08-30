@@ -1,6 +1,6 @@
 module Entitlement::SliderHelper
-  def update_access_level(slider_level, access_kind=nil)
-    access_attribute = access_kind.present? ? "#{access_kind}_access=" : 'access='
+  def update_access_level(slider_level, access_kind = nil)
+    access_attribute = access_kind.present? ? "#{access_kind}_access=" : "access="
     access_level = convert_slider_to_default_level(slider_level)
     self.send(access_attribute, access_level)
   end
@@ -12,9 +12,9 @@ module Entitlement::SliderHelper
     levels_access_value
   end
 
-  def default_slider_value(access_kind=nil)
+  def default_slider_value(access_kind = nil)
     range = Entitlement::Levels.levels.keys
-    access_attr = access_kind.present? ? "#{access_kind}_access" : 'access'
+    access_attr = access_kind.present? ? "#{access_kind}_access" : "access"
     current_access_key = Entitlement::Levels.levels.invert[self.send(access_attr)]
     current_access_index = range.index(current_access_key)
     current_access_index

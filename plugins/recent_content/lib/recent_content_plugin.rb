@@ -1,7 +1,6 @@
-require_dependency File.dirname(__FILE__) + '/recent_content_block'
+require_dependency File.dirname(__FILE__) + "/recent_content_block"
 
 class RecentContentPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Recent Content Plugin"
   end
@@ -12,7 +11,7 @@ class RecentContentPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-      RecentContentBlock => {:position => ['1','2','3'] }
+      RecentContentBlock => { position: ["1", "2", "3"] }
     }
   end
 
@@ -23,5 +22,4 @@ class RecentContentPlugin < Noosfero::Plugin
   def stylesheet?
     true
   end
-
 end

@@ -6,11 +6,10 @@ class PushNotificationPlugin::DeviceToken < ApplicationRecord
 
   private
 
-  def check_notification_settings
-    if user.notification_settings.nil?
-      user.notification_settings=PushNotificationPlugin::NotificationSettings.new
-      user.save
+    def check_notification_settings
+      if user.notification_settings.nil?
+        user.notification_settings = PushNotificationPlugin::NotificationSettings.new
+        user.save
+      end
     end
-  end
-
 end

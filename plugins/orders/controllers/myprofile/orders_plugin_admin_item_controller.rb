@@ -1,10 +1,9 @@
 class OrdersPluginAdminItemController < MyProfileController
-
   include OrdersPlugin::TranslationHelper
 
   no_design_blocks
 
-  protect 'edit_profile', :profile
+  protect "edit_profile", :profile
   before_action :set_admin
 
   helper OrdersPlugin::DisplayHelper
@@ -24,11 +23,11 @@ class OrdersPluginAdminItemController < MyProfileController
     @scope = @order.available_products.limit(10)
     @scope = @scope.includes :suppliers if defined? SuppliersPlugin
     # FIXME: do not work cycles
-    #@products = autocomplete(:catalog, @scope, @query, {per_page: 10, page: 1}, {})[:results]
-    @products = @scope.where('name ILIKE ? OR name ILIKE ?', "#{@query}%", "% #{@query}%")
+    # @products = autocomplete(:catalog, @scope, @query, {per_page: 10, page: 1}, {})[:results]
+    @products = @scope.where("name ILIKE ? OR name ILIKE ?", "#{@query}%", "% #{@query}%")
 
-    render json: @products.map{ |p|
-      {value: p.id, label: "#{p.name} (#{if p.respond_to? :supplier then p.supplier.name else p.profile.short_name end})"}
+    render json: @products.map { |p|
+      { value: p.id, label: "#{p.name} (#{if p.respond_to? :supplier then p.supplier.name else p.profile.short_name end})" }
     }
   end
 
@@ -45,11 +44,10 @@ class OrdersPluginAdminItemController < MyProfileController
 
   protected
 
-  def set_admin
-    @admin = true
-  end
+    def set_admin
+      @admin = true
+    end
 
-  extend HMVC::ClassMethods
-  hmvc OrdersPlugin, orders_context: OrdersPlugin
-
+    extend HMVC::ClassMethods
+    hmvc OrdersPlugin, orders_context: OrdersPlugin
 end

@@ -1,17 +1,16 @@
 module CustomFormsPlugin::ControlPanel
   class NewPoll < ControlPanel::Entry
     class << self
-
       def name
-        _('New Poll')
+        _("New Poll")
       end
 
       def section
-        'custom_form_plugin_queries'
+        "custom_form_plugin_queries"
       end
 
       def icon
-        'check-square'
+        "check-square"
       end
 
       def priority
@@ -19,7 +18,7 @@ module CustomFormsPlugin::ControlPanel
       end
 
       def url(profile)
-        {profile: profile.identifier, controller: 'custom_forms_plugin_myprofile', action: 'new', kind: 'poll'}
+        { profile: profile.identifier, controller: "custom_forms_plugin_myprofile", action: "new", kind: "poll" }
       end
     end
   end

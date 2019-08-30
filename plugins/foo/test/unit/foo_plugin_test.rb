@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class FooPluginTest < ActiveSupport::TestCase
   def test_foo

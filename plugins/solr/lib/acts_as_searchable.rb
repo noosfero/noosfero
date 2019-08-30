@@ -1,5 +1,4 @@
 module ActsAsSearchable
-
   module ClassMethods
     ACTS_AS_SEARCHABLE_ENABLED = true unless defined? ACTS_AS_SEARCHABLE_ENABLED
 
@@ -7,10 +6,10 @@ module ActsAsSearchable
       return if !ACTS_AS_SEARCHABLE_ENABLED
 
       if options[:fields]
-        options[:fields] << {:schema_name => :string}
+        options[:fields] << { schema_name: :string }
       else
         options[:additional_fields] ||= []
-        options[:additional_fields] << {:schema_name => :string}
+        options[:additional_fields] << { schema_name: :string }
       end
 
       acts_as_solr options
@@ -26,16 +25,15 @@ module ActsAsSearchable
       # replace solr_id from vendor/plugins/acts_as_solr_reloaded/lib/acts_as_solr/instance_methods.rb
       # to include schema_name
       def solr_id
-         id = "#{self.class.name}:#{record_id(self)}"
-         id.insert(0, "#{schema_name}:") unless schema_name.blank?
-         id
+        id = "#{self.class.name}:#{record_id(self)}"
+        id.insert(0, "#{schema_name}:") unless schema_name.blank?
+        id
       end
     end
 
     module FindByContents
-
       def schema_name
-        (Noosfero::MultiTenancy.on? and ApplicationRecord.postgresql?) ? ApplicationRecord.connection.schema_search_path : ''
+        (Noosfero::MultiTenancy.on? && ApplicationRecord.postgresql?) ? ApplicationRecord.connection.schema_search_path : ""
       end
 
       def find_by_contents(query, pg_options = {}, options = {}, db_options = {})
@@ -54,7 +52,7 @@ module ActsAsSearchable
         solr_result = find_by_solr(query, options)
         if all_facets_enabled
           options[:facets][:browse] = nil
-          all_facets = find_by_solr(query, options.merge(:per_page => 0)).facets
+          all_facets = find_by_solr(query, options.merge(per_page: 0)).facets
         end
 
         if !solr_result.nil?
@@ -63,7 +61,7 @@ module ActsAsSearchable
           if db_options.empty?
             results = solr_result
           else
-            ids = solr_result.results.map{ |r| r[:id].to_i }
+            ids = solr_result.results.map { |r| r[:id].to_i }
             if ids.empty?
               ids << -1
             end
@@ -78,11 +76,10 @@ module ActsAsSearchable
           end
         end
 
-        {:results => results, :facets => facets, :all_facets => all_facets}
+        { results: results, facets: facets, all_facets: all_facets }
       end
     end
   end
 end
 
 ApplicationRecord.extend ActsAsSearchable::ClassMethods
-

@@ -16,21 +16,19 @@ class ArticleSweeper < ActiveRecord::Observer
     end
   end
 
+  protected
 
-protected
+    def expire_caches(article)
+      expire_blocks_cache(article.profile, [:article])
 
-  def expire_caches(article)
-    expire_blocks_cache(article.profile, [:article])
+      return if !article.environment
 
-    return if !article.environment
-
-    article.hierarchy(true).each { |a| a.touch if a != article }
-    env = article.profile.environment
-    if env && (env.portal_community == article.profile)
-      article.environment.locales.keys.each do |locale|
-        expire_fragment(env.portal_news_cache_key(locale))
+      article.hierarchy(true).each { |a| a.touch if a != article }
+      env = article.profile.environment
+      if env && (env.portal_community == article.profile)
+        article.environment.locales.keys.each do |locale|
+          expire_fragment(env.portal_news_cache_key(locale))
+        end
       end
     end
-  end
-
 end

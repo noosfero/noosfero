@@ -1,8 +1,8 @@
 source "https://rubygems.org"
 
-gem 'omniauth'
-gem 'omniauth-facebook'
-gem 'omniauth-twitter'
+gem "omniauth"
+gem "omniauth-facebook"
+gem "omniauth-twitter"
 gem "omniauth-google-oauth2"
 gem "omniauth-oauth2"
 gem "omniauth-github"

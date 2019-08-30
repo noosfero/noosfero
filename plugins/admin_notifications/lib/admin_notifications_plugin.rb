@@ -1,5 +1,4 @@
 class AdminNotificationsPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Notifications Plugin"
   end
@@ -14,19 +13,19 @@ class AdminNotificationsPlugin < Noosfero::Plugin
 
   def js_files
     %w(
-    admin_notifications_plugin.js
+      admin_notifications_plugin.js
     )
   end
 
   def body_beginning
     lambda do
       extend AdminNotificationsPlugin::NotificationHelper
-      render template: 'shared/show_notification'
+      render template: "shared/show_notification"
     end
   end
 
   def admin_panel_links
-    {:title => _('Notification Manager'), :url => {:controller => 'admin_notifications_plugin_admin', :action => 'index'}}
+    { title: _("Notification Manager"), url: { controller: "admin_notifications_plugin_admin", action: "index" } }
   end
 
   def control_panel_entries
@@ -41,10 +40,10 @@ class AdminNotificationsPlugin < Noosfero::Plugin
     end
 
     [{
-      :type => "after_action",
-      :method_name => "clean_hide_notifications_cookie",
-      :options => { },
-      :block => block
+      type: "after_action",
+      method_name: "clean_hide_notifications_cookie",
+      options: {},
+      block: block
     }]
   end
 end

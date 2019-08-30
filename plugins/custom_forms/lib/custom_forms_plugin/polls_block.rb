@@ -1,27 +1,26 @@
 class CustomFormsPlugin::PollsBlock < Block
-
   attr_accessible :metadata
 
   validate :valid_status
 
   def default_title
-    _('Polls')
+    _("Polls")
   end
 
   def self.description
-    _('Polls list in profile')
+    _("Polls list in profile")
   end
 
   def self.pretty_name
-    _('Polls')
+    _("Polls")
   end
 
   def type
-    'poll'
+    "poll"
   end
 
   def help
-    _('This block show last polls performed in profile.')
+    _("This block show last polls performed in profile.")
   end
 
   def cacheable?
@@ -29,5 +28,4 @@ class CustomFormsPlugin::PollsBlock < Block
   end
 
   include CustomFormsPlugin::ListBlock
-
 end

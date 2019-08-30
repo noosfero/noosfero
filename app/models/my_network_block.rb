@@ -1,17 +1,16 @@
 class MyNetworkBlock < Block
-
   attr_accessible :display, :box
 
   def self.description
-    _('My network')
+    _("My network")
   end
 
   def default_title
-    _('My network')
+    _("My network")
   end
 
   def help
-    _('This block displays some info about your networking.')
+    _("This block displays some info about your networking.")
   end
 
   def cacheable?
@@ -19,7 +18,6 @@ class MyNetworkBlock < Block
   end
 
   def self.pretty_name
-      _('My network')
+    _("My network")
   end
-
 end

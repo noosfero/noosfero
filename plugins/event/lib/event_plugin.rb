@@ -1,5 +1,4 @@
 class EventPlugin < Noosfero::Plugin
-
   def self.plugin_name
     _("Event Extras")
   end
@@ -9,7 +8,7 @@ class EventPlugin < Noosfero::Plugin
   end
 
   def self.extra_blocks
-    { EventPlugin::EventBlock => { :type => [Community, Person, Enterprise, Environment] } }
+    { EventPlugin::EventBlock => { type: [Community, Person, Enterprise, Environment] } }
   end
 
   def stylesheet?
@@ -17,7 +16,6 @@ class EventPlugin < Noosfero::Plugin
   end
 
   def js_files
-    'event.js'
+    "event.js"
   end
-
 end

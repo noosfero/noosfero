@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
-require_relative '../../config/boot'
-require 'commands/process/reaper'
+require_relative "../../config/boot"
+require "commands/process/reaper"

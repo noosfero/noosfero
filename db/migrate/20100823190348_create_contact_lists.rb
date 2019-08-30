@@ -3,7 +3,7 @@ class CreateContactLists < ActiveRecord::Migration
     create_table :contact_lists do |t|
       t.text :list
       t.string :error_fetching
-      t.boolean :fetched, :default => false
+      t.boolean :fetched, default: false
       t.timestamps
     end
   end

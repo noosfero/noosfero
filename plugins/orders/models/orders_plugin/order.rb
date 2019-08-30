@@ -1,7 +1,6 @@
 class OrdersPlugin::Order < ApplicationRecord
-
   # if abstract_class is true then it will trigger https://github.com/rails/rails/issues/20871
-  #self.abstract_class = true
+  # self.abstract_class = true
 
   Statuses = ::OrdersPlugin::Item::Statuses
   DbStatuses = ::OrdersPlugin::Item::DbStatuses
@@ -10,11 +9,11 @@ class OrdersPlugin::Order < ApplicationRecord
 
   # oh, we need a payments plugin!
   PaymentMethods = {
-    money: proc{ _'Money' },
-    check: proc{ _'shopping_cart|Check' },
-    credit_card: proc{ _'Credit card' },
-    bank_transfer: proc{ _'Bank transfer' },
-    boleto: proc{ _'Boleto' },
+    money: proc { _"Money" },
+    check: proc { _"shopping_cart|Check" },
+    credit_card: proc { _ "Credit card" },
+    bank_transfer: proc { _ "Bank transfer" },
+    boleto: proc { _ "Boleto" },
   }
 
   # remember to translate on changes
@@ -36,73 +35,73 @@ class OrdersPlugin::Order < ApplicationRecord
   StatusAccessMap = ::OrdersPlugin::Item::StatusAccessMap
 
   StatusesByActor = {
-    consumer: StatusAccessMap.map{ |s, a| s if a == :consumer }.compact,
-    supplier: StatusAccessMap.map{ |s, a| s if a == :supplier }.compact,
+    consumer: StatusAccessMap.map { |s, a| s if a == :consumer }.compact,
+    supplier: StatusAccessMap.map { |s, a| s if a == :supplier }.compact,
   }
 
   attr_accessible :status, :consumer, :profile,
-    :supplier_delivery_id, :consumer_delivery_id, :supplier_delivery_data, :consumer_delivery_data
+                  :supplier_delivery_id, :consumer_delivery_id, :supplier_delivery_data, :consumer_delivery_data
 
   belongs_to :profile, optional: true
   # may be override by subclasses
-  belongs_to :supplier, foreign_key: :profile_id, class_name: 'Profile', optional: true
-  belongs_to :consumer, class_name: 'Profile', optional: true
+  belongs_to :supplier, foreign_key: :profile_id, class_name: "Profile", optional: true
+  belongs_to :consumer, class_name: "Profile", optional: true
 
-  belongs_to :session, primary_key: :session_id, foreign_key: :session_id, class_name: 'Session', optional: true
+  belongs_to :session, primary_key: :session_id, foreign_key: :session_id, class_name: "Session", optional: true
 
-  has_many :items, -> { order 'name ASC' }, class_name: 'OrdersPlugin::Item', foreign_key: :order_id, dependent: :destroy
+  has_many :items, -> { order "name ASC" }, class_name: "OrdersPlugin::Item", foreign_key: :order_id, dependent: :destroy
   has_many :products, through: :items
 
-  belongs_to :supplier_delivery, class_name: 'DeliveryPlugin::Method', optional: true
-  belongs_to :consumer_delivery, class_name: 'DeliveryPlugin::Method', optional: true
+  belongs_to :supplier_delivery, class_name: "DeliveryPlugin::Method", optional: true
+  belongs_to :consumer_delivery, class_name: "DeliveryPlugin::Method", optional: true
 
-  scope :alphabetical, -> { joins(:consumer).reorder 'profiles.name ASC' }
-  scope :latest, -> { reorder 'code ASC' }
-  scope :default_order, -> { reorder 'code DESC' }
+  scope :alphabetical, -> { joins(:consumer).reorder "profiles.name ASC" }
+  scope :latest, -> { reorder "code ASC" }
+  scope :default_order, -> { reorder "code DESC" }
 
-  scope :of_session, -> session_id { where session_id: session_id }
-  scope :of_user, -> session_id, consumer_id=nil do
+  scope :of_session, ->session_id { where session_id: session_id }
+  scope :of_user, ->session_id, consumer_id = nil do
     orders = OrdersPlugin::Order.arel_table
     cond = orders[:session_id].eq(session_id)
     cond = cond.or orders[:consumer_id].eq(consumer_id) if consumer_id
     where cond
   end
 
-  scope :latest, -> { order 'created_at DESC' }
+  scope :latest, -> { order "created_at DESC" }
 
-  scope :draft,     -> { where status: 'draft' }
-  scope :planned,   -> { where status: 'planned' }
-  scope :cancelled, -> { where status: 'cancelled' }
+  scope :draft,     -> { where status: "draft" }
+  scope :planned,   -> { where status: "planned" }
+  scope :cancelled, -> { where status: "cancelled" }
   scope :not_cancelled, -> { where "status <> 'cancelled'" }
-  scope :ordered,   -> { where 'ordered_at IS NOT NULL' }
-  scope :confirmed, -> { where 'ordered_at IS NOT NULL' }
-  scope :accepted,  -> { where 'accepted_at IS NOT NULL' }
-  scope :separated, -> { where 'separated_at IS NOT NULL' }
-  scope :delivered, -> { where 'delivered_at IS NOT NULL' }
-  scope :received,  -> { where 'received_at IS NOT NULL' }
+  scope :ordered,   -> { where "ordered_at IS NOT NULL" }
+  scope :confirmed, -> { where "ordered_at IS NOT NULL" }
+  scope :accepted,  -> { where "accepted_at IS NOT NULL" }
+  scope :separated, -> { where "separated_at IS NOT NULL" }
+  scope :delivered, -> { where "delivered_at IS NOT NULL" }
+  scope :received,  -> { where "received_at IS NOT NULL" }
 
-  scope :for_profile, -> (profile) { where profile_id: profile.id }
-  scope :for_profile_id, -> (profile_id) { where profile_id: profile_id }
-  scope :for_supplier, -> (profile) { where profile_id: profile.id }
-  scope :for_supplier_id, -> (profile_id) { where profile_id: profile_id }
-  scope :for_consumer, -> (consumer) { where consumer_id: (consumer.id rescue nil) }
-  scope :for_consumer_id, -> (consumer_id) { where consumer_id: consumer_id }
+  scope :for_profile, ->(profile) { where profile_id: profile.id }
+  scope :for_profile_id, ->(profile_id) { where profile_id: profile_id }
+  scope :for_supplier, ->(profile) { where profile_id: profile.id }
+  scope :for_supplier_id, ->(profile_id) { where profile_id: profile_id }
+  scope :for_consumer, ->(consumer) { where consumer_id: (consumer.id rescue nil) }
+  scope :for_consumer_id, ->(consumer_id) { where consumer_id: consumer_id }
 
-  scope :months, -> { select('DISTINCT(EXTRACT(months FROM orders_plugin_orders.created_at)) as month').order('month DESC') }
-  scope :years, -> { select('DISTINCT(EXTRACT(YEAR FROM orders_plugin_orders.created_at)) as year').order('year DESC') }
+  scope :months, -> { select("DISTINCT(EXTRACT(months FROM orders_plugin_orders.created_at)) as month").order("month DESC") }
+  scope :years, -> { select("DISTINCT(EXTRACT(YEAR FROM orders_plugin_orders.created_at)) as year").order("year DESC") }
 
-  scope :by_month, -> (month) {
-    where 'EXTRACT(month FROM orders_plugin_orders.created_at) <= :month AND EXTRACT(month FROM orders_plugin_orders.created_at) >= :month', month: month
+  scope :by_month, ->(month) {
+    where "EXTRACT(month FROM orders_plugin_orders.created_at) <= :month AND EXTRACT(month FROM orders_plugin_orders.created_at) >= :month", month: month
   }
-  scope :by_year, -> (year) {
-    where 'EXTRACT(year FROM orders_plugin_orders.created_at) <= :year AND EXTRACT(year FROM orders_plugin_orders.created_at) >= :year', year: year
+  scope :by_year, ->(year) {
+    where "EXTRACT(year FROM orders_plugin_orders.created_at) <= :year AND EXTRACT(year FROM orders_plugin_orders.created_at) >= :year", year: year
   }
-  scope :by_range, -> (start_time, end_time) {
-    where 'orders_plugin_orders.created_at >= :start AND orders_plugin_orders.created_at <= :end', start: start_time, end: end_time
+  scope :by_range, ->(start_time, end_time) {
+    where "orders_plugin_orders.created_at >= :start AND orders_plugin_orders.created_at <= :end", start: start_time, end: end_time
   }
 
-  scope :with_status, -> (status) { where status: status }
-  scope :with_code, -> (code) { where code: code }
+  scope :with_status, ->(status) { where status: status }
+  scope :with_code, ->(code) { where code: code }
 
   validates_presence_of :profile
   # consumer is optional, as orders can be made by unlogged users
@@ -119,10 +118,10 @@ class OrdersPlugin::Order < ApplicationRecord
 
   extend SerializedSyncedData::ClassMethods
   sync_serialized_field :profile do |profile|
-    {name: profile.name, email: profile.contact_email, contact_phone: profile.contact_phone} if profile
+    { name: profile.name, email: profile.contact_email, contact_phone: profile.contact_phone } if profile
   end
   sync_serialized_field :consumer do |consumer|
-    {name: consumer.name, email: consumer.contact_email, contact_phone: consumer.contact_phone} if consumer
+    { name: consumer.name, email: consumer.contact_email, contact_phone: consumer.contact_phone } if consumer
   end
   sync_serialized_field :supplier_delivery
   sync_serialized_field :consumer_delivery do |consumer_delivery_data|
@@ -139,7 +138,7 @@ class OrdersPlugin::Order < ApplicationRecord
   alias_method :supplier, :profile
   alias_method :supplier_data, :profile_data
 
-  def self.search_scope scope, params
+  def self.search_scope(scope, params)
     scope = scope.with_status params[:status] if params[:status].present?
     scope = scope.for_consumer_id params[:consumer_id] if params[:consumer_id].present?
     scope = scope.for_profile_id params[:supplier_id] if params[:supplier_id].present?
@@ -150,9 +149,9 @@ class OrdersPlugin::Order < ApplicationRecord
     scope
   end
 
-  def self.products_of orders
+  def self.products_of(orders)
     # offered products in case of orders inside cycles
-    Product.join(:items).includes(:suppliers).where(orders_plugin_items: {order_id: orders.map(&:id)})
+    Product.join(:items).includes(:suppliers).where(orders_plugin_items: { order_id: orders.map(&:id) })
   end
 
   # for cycle we have situation like this
@@ -167,7 +166,7 @@ class OrdersPlugin::Order < ApplicationRecord
   #
   # *suppliers usually don't distribute using cycles, so they only have Product
   #
-  def self.supplier_products_by_suppliers orders
+  def self.supplier_products_by_suppliers(orders)
     products_by_supplier = {}
     items = self.parent::Item.where(order_id: orders.map(&:id)).includes(sources_supplier_products: [:supplier, :from_product])
     items.each do |item|
@@ -198,7 +197,7 @@ class OrdersPlugin::Order < ApplicationRecord
 
   # define on subclasses
   def orders_name
-    raise 'undefined'
+    raise "undefined"
   end
 
   # override on subclasses
@@ -211,32 +210,32 @@ class OrdersPlugin::Order < ApplicationRecord
     self.profile.products
   end
 
-  def actor_data actor_name
+  def actor_data(actor_name)
     data = {}; self.send("#{actor_name}_data").each do |k, v|
-      data[k] = v if OrdersPlugin::Order::ActorData.include? k and v.present?
+      data[k] = v if OrdersPlugin::Order::ActorData.include?(k) && v.present?
     end
-    data = {} if data.size == 1 and data[:name].present?
+    data = {} if (data.size == 1) && data[:name].present?
     data
   end
 
-  def actor_delivery_data actor_name
+  def actor_delivery_data(actor_name)
     data = {}; self.send("#{actor_name}_delivery_data").each do |k, v|
-      data[k] = v if OrdersPlugin::Order::DeliveryData.include? k and v.present?
+      data[k] = v if OrdersPlugin::Order::DeliveryData.include?(k) && v.present?
     end
     data
   end
 
-  def delivery_data actor_name=nil
+  def delivery_data(actor_name = nil)
     return actor_delivery_data actor_name if actor_name
 
     supplier_data = actor_delivery_data :supplier
     case self.supplier_delivery_data[:delivery_type]
-    when 'delivery'
+    when "delivery"
       consumer_data = actor_delivery_data :consumer
       data = consumer_data.dup
       data[:name] = supplier_data[:name]
       data[:description] = supplier_data[:description]
-    when 'pickup'
+    when "pickup"
       data = supplier_data.dup
     end
     data
@@ -254,37 +253,42 @@ class OrdersPlugin::Order < ApplicationRecord
   end
 
   def draft?
-    self.status == 'draft'
+    self.status == "draft"
   end
   alias_method :open?, :draft?
   def planned?
-    self.status == 'planned'
+    self.status == "planned"
   end
+
   def cancelled?
-    self.status == 'cancelled'
+    self.status == "cancelled"
   end
+
   def ordered?
     self.ordered_at.present?
   end
+
   def pre_order?
     not self.ordered?
   end
   alias_method :confirmed?, :ordered?
 
-  def status_on? status
+  def status_on?(status)
     UserStatuses.index(self.current_status) >= UserStatuses.index(status) rescue false
   end
 
   def current_status
-    return @current_status if @current_status #cache
-    return @current_status = 'open' if self.open?
-    @current_status = self['status']
+    return @current_status if @current_status # cache
+    return @current_status = "open" if self.open?
+
+    @current_status = self["status"]
   end
+
   def status_message
     I18n.t StatusText[current_status]
   end
 
-  def next_status actor_name
+  def next_status(actor_name)
     # allow supplier to confirm and receive orders if admin is true
     actor_statuses = if actor_name == :supplier then Statuses else StatusesByActor[actor_name] end
     # if no status was found go to the first (-1 to 0)
@@ -293,11 +297,12 @@ class OrdersPlugin::Order < ApplicationRecord
     next_status if actor_statuses.index next_status rescue false
   end
 
-  def step actor_name
+  def step(actor_name)
     new_status = self.next_status actor_name
     self.status = new_status if new_status
   end
-  def step! actor_name
+
+  def step!(actor_name)
     # don't crash on errors as some suppliers may have been deleted and this order may not be valid anymore
     self.save if self.step actor_name
   end
@@ -313,27 +318,28 @@ class OrdersPlugin::Order < ApplicationRecord
     statuses
   end
 
-  def may_view? user
-    @may_view ||= self.profile.admins.include?(user) or ((self.consumer == user)) and self.profile.members.include? user
+  def may_view?(user)
+    (@may_view ||= self.profile.admins.include?(user)) || ((self.consumer == user)) && self.profile.members.include?(user)
   end
 
   # cache is done independent of user as model cache is per request
-  def may_edit? user, admin_action = false
-    @may_edit ||= (admin_action and user.in? self.profile.admins) or (self.open? and self.consumer == user and user.in? self.profile.members) rescue false
+  def may_edit?(user, admin_action = false)
+    (@may_edit ||= (admin_action && user.in?(self.profile.admins))) || (self.open? && (self.consumer == user) && user.in?(self.profile.members)) rescue false
   end
 
-  def verify_actor? profile, actor_name
-    (actor_name == :supplier and self.profile == profile) or (actor_name == :consumer and self.consumer == profile)
+  def verify_actor?(profile, actor_name)
+    ((actor_name == :supplier) && (self.profile == profile)) || ((actor_name == :consumer) && (self.consumer == profile))
   end
 
   # ShoppingCart format
   def products_list
     hash = {}; self.items.map do |item|
-      hash[item.product_id] = {quantity: item.quantity_consumer_ordered, name: item.name, price: item.price}
+      hash[item.product_id] = { quantity: item.quantity_consumer_ordered, name: item.name, price: item.price }
     end
     hash
   end
-  def products_list= hash
+
+  def products_list=(hash)
     self.items = hash.map do |id, data|
       data[:quantity_consumer_ordered] = data.delete(:quantity)
       i = OrdersPlugin::Item.new data
@@ -344,14 +350,14 @@ class OrdersPlugin::Order < ApplicationRecord
   end
 
   def items_summary
-    self.items.map{ |item| "#{item.name} (#{item.quantity_consumer_ordered_localized})" }.join ', '
+    self.items.map { |item| "#{item.name} (#{item.quantity_consumer_ordered_localized})" }.join ", "
   end
 
   extend CurrencyFields::ClassMethods
   instance_exec &OrdersPlugin::Item::DefineTotals
 
   # total_price considering last state
-  def total_price actor_name = :consumer, admin = false
+  def total_price(actor_name = :consumer, admin = false)
     # for admins, we want the next_status while we concluded the finish status change
     if admin
       price = :status_price
@@ -361,28 +367,29 @@ class OrdersPlugin::Order < ApplicationRecord
     end
 
     items ||= (self.ordered_items rescue nil) || self.items
-    items.collect(&price).inject(0){ |sum, p| sum + p.to_f }
+    items.collect(&price).inject(0) { |sum, p| sum + p.to_f }
   end
   has_currency :total_price
 
-  def total actor_name = :consumer, admin = false
+  def total(actor_name = :consumer, admin = false)
     t = self.total_price actor_name, admin
     t += self.supplier_delivery.cost t if self.supplier_delivery.present?
     t
   end
   has_currency :total
 
-  def fill_items from_status, to_status, save = false
+  def fill_items(from_status, to_status, save = false)
     # check for status advance
     return if (Statuses.index(to_status) <= Statuses.index(from_status) rescue true)
 
     from_data = StatusDataMap[from_status]
     to_data = StatusDataMap[to_status]
-    return unless from_data.present? and to_data.present?
+    return unless from_data.present? && to_data.present?
 
     self.items.each do |item|
       # already filled?
       next if (quantity = item.send "quantity_#{to_data}").present?
+
       item.send "quantity_#{to_data}=", item.send("quantity_#{from_data}")
       item.send "price_#{to_data}=", item.send("price_#{from_data}")
       item.save if save
@@ -390,48 +397,47 @@ class OrdersPlugin::Order < ApplicationRecord
   end
 
   def enable_product_diff
-    self.items.each{ |i| i.product_diff = true }
+    self.items.each { |i| i.product_diff = true }
   end
 
   protected
 
-  def check_status
-    self.status ||= 'draft'
-    # backwards compatibility
-    self.status = 'ordered' if self.status == 'confirmed'
-  end
+    def check_status
+      self.status ||= "draft"
+      # backwards compatibility
+      self.status = "ordered" if self.status == "confirmed"
+    end
 
-  def change_status
-    return if self.status_was == self.status
+    def change_status
+      return if self.status_was == self.status
 
-    self.fill_items self.status_was, self.status, true
-    self.items.update_all status: self.status
-    self.building_next_status = false
+      self.fill_items self.status_was, self.status, true
+      self.items.update_all status: self.status
+      self.building_next_status = false
 
-    # fill dates on status advance
-    if self.status_on? 'ordered'
-      Statuses.each do |status|
-        self.send "#{self.status}_at=", Time.now if self.status_was != status and self.status == status
-      end
-    else
-      # status rewind for draft, planned, forgotten, cancelled, etc
-      Statuses.each do |status|
-        self.send "#{status}_at=", nil
+      # fill dates on status advance
+      if self.status_on? "ordered"
+        Statuses.each do |status|
+          self.send "#{self.status}_at=", Time.now if (self.status_was != status) && (self.status == status)
+        end
+      else
+        # status rewind for draft, planned, forgotten, cancelled, etc
+        Statuses.each do |status|
+          self.send "#{status}_at=", nil
+        end
       end
     end
-  end
 
-  def send_notifications
-    # shopping_cart has its notifications
-    return if source == 'shopping_cart_plugin'
-    # ignore when status is being rewinded
-    return if (Statuses.index(self.status) <= Statuses.index(self.status_was) rescue false)
+    def send_notifications
+      # shopping_cart has its notifications
+      return if source == "shopping_cart_plugin"
+      # ignore when status is being rewinded
+      return if (Statuses.index(self.status) <= Statuses.index(self.status_was) rescue false)
 
-    if self.status == 'ordered' and self.status_was != 'ordered'
-      OrdersPlugin::Mailer.order_confirmation(self).deliver
-    elsif self.status == 'cancelled' and self.status_was != 'cancelled'
-      OrdersPlugin::Mailer.order_cancellation(self).deliver
+      if (self.status == "ordered") && (self.status_was != "ordered")
+        OrdersPlugin::Mailer.order_confirmation(self).deliver
+      elsif (self.status == "cancelled") && (self.status_was != "cancelled")
+        OrdersPlugin::Mailer.order_cancellation(self).deliver
+      end
     end
-  end
-
 end

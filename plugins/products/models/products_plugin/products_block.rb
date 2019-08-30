@@ -1,10 +1,9 @@
 class ProductsPlugin::ProductsBlock < Block
-
   ##
   # Keep compatibility with previous core name
   #
   def self.sti_name
-    'ProductsBlock'
+    "ProductsBlock"
   end
 
   attr_accessible :product_ids
@@ -15,15 +14,15 @@ class ProductsPlugin::ProductsBlock < Block
   include Rails.application.routes.url_helpers
 
   def self.description
-    _('Products')
+    _("Products")
   end
 
   def default_title
-    _('Products')
+    _("Products")
   end
 
   def help
-    _('This block presents a list of your products.')
+    _("This block presents a list of your products.")
   end
 
   settings_items :product_ids, type: Array
@@ -36,10 +35,9 @@ class ProductsPlugin::ProductsBlock < Block
 
   def products(reload = false)
     if product_ids.blank?
-      owner.products.order('RANDOM()').limit([4,owner.products.count].min)
+      owner.products.order("RANDOM()").limit([4, owner.products.count].min)
     else
-      owner.products.where(:id => product_ids)
+      owner.products.where(id: product_ids)
     end.compact
   end
-
 end

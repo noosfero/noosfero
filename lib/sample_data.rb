@@ -4,27 +4,27 @@ module SampleData
 
   environment_id = ARGV.first
   $environment = unless environment_id.blank?
-    Environment.find(environment_id)
-  else
-    Environment.default || Environment.create!(name: 'Noosfero', is_default: true)
+                   Environment.find(environment_id)
+                 else
+                   Environment.default || Environment.create!(name: "Noosfero", is_default: true)
   end
 
   def save(obj, &block)
     begin
-     if obj.save!
-       print '.'
-       instance_eval &block if block
-       return obj
-     else
-       print 'F'
-     end
+      if obj.save!
+        print "."
+        instance_eval &block if block
+        return obj
+      else
+        print "F"
+      end
     rescue
-      print 'E'
+      print "E"
     end
     return nil
   end
 
   def done
-    puts ' done!'
+    puts " done!"
   end
 end

@@ -1,15 +1,15 @@
 class ControlPanel::DisableEnterprise < ControlPanel::Entry
   class << self
     def name
-      _('Disable')
+      _("Disable")
     end
 
     def section
-      'enterprise'
+      "enterprise"
     end
 
     def icon
-      'window-close'
+      "window-close"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::DisableEnterprise < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('enterprise')]
+      [_("enterprise")]
     end
 
     def url(profile)
-      {:controller => 'profile_editor', :action => 'disable'}
+      { controller: "profile_editor", action: "disable" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.enterprise? && profile.enabled?
     end
   end

@@ -1,5 +1,4 @@
 class OrdersCyclePluginIndexFilteredFields < ActiveRecord::Migration
-
   def up
     add_index :orders_cycle_plugin_cycle_orders, [:cycle_id]
     add_index :orders_cycle_plugin_cycle_orders, [:order_id]
@@ -15,5 +14,4 @@ class OrdersCyclePluginIndexFilteredFields < ActiveRecord::Migration
   def down
     say "this migration can't be reverted"
   end
-
 end

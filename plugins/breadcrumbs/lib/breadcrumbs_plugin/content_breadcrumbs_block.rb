@@ -1,8 +1,7 @@
 class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
-
-  settings_items :show_cms_action, :type => :boolean, :default => true
-  settings_items :show_profile, :type => :boolean, :default => true
-  settings_items :show_section_name, :type => :boolean, :default => true
+  settings_items :show_cms_action, type: :boolean, default: true
+  settings_items :show_profile, type: :boolean, default: true
+  settings_items :show_section_name, type: :boolean, default: true
 
   attr_accessible :show_cms_action, :show_profile, :show_section_name
 
@@ -11,15 +10,15 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
   end
 
   def self.short_description
-    N_('Breadcrumb')
+    N_("Breadcrumb")
   end
 
   def self.pretty_name
-    N_('Breadcrumbs Block')
+    N_("Breadcrumbs Block")
   end
 
   def help
-    N_('This block displays breadcrumb trail.')
+    N_("This block displays breadcrumb trail.")
   end
 
   def cacheable?
@@ -36,22 +35,26 @@ class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
 
   private
 
-  def profile_link(params)
-    return nil if (params || {})[:profile].blank?
-    profile = environment.profiles.find_by(identifier: params[:profile])
-    return nil if profile.blank?
-    { :name => profile.name, :url => "/#{profile.identifier}" }
-  end
+    def profile_link(params)
+      return nil if (params || {})[:profile].blank?
 
-  def page_links(params)
-    return nil if (params || {})[:page].blank?
-    page = owner.articles.find_by(path: params[:page])
-    return nil if page.blank?
-    page_trail(page)
-  end
+      profile = environment.profiles.find_by(identifier: params[:profile])
+      return nil if profile.blank?
 
-  def page_trail(page)
-    links = page.ancestors.reverse.map { |p| { :name => p.title, :url => p.full_path } } || []
-    links << { :name => page.title, :url => page.full_path }
-  end
+      { name: profile.name, url: "/#{profile.identifier}" }
+    end
+
+    def page_links(params)
+      return nil if (params || {})[:page].blank?
+
+      page = owner.articles.find_by(path: params[:page])
+      return nil if page.blank?
+
+      page_trail(page)
+    end
+
+    def page_trail(page)
+      links = page.ancestors.reverse.map { |p| { name: p.title, url: p.full_path } } || []
+      links << { name: page.title, url: page.full_path }
+    end
 end

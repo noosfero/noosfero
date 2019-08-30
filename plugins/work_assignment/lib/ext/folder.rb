@@ -1,5 +1,5 @@
-require_dependency 'article'
-require_dependency 'folder'
+require_dependency "article"
+require_dependency "folder"
 
 class Folder < Article
   after_save do |folder|

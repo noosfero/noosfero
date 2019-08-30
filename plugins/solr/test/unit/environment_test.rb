@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class EnvironmentTest < ActiveSupport::TestCase
   def setup
@@ -8,22 +8,22 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   attr_accessor :environment
 
-  should 'find by contents from articles' do
+  should "find by contents from articles" do
     TestSolr.enable
     env = fast_create(Environment)
     env.enable_plugin(SolrPlugin)
     assert_nothing_raised do
-      env.articles.find_by_contents('')[:results]
+      env.articles.find_by_contents("")[:results]
     end
   end
 
-  should 'return more than 10 enterprises by contents' do
+  should "return more than 10 enterprises by contents" do
     TestSolr.enable
     Enterprise.destroy_all
-    ('1'..'20').each do |n|
-      Enterprise.create!(:name => 'test ' + n, :identifier => 'test_' + n)
+    ("1".."20").each do |n|
+      Enterprise.create!(name: "test " + n, identifier: "test_" + n)
     end
 
-    assert_equal 20, environment.enterprises.find_by_contents('test')[:results].total_entries
+    assert_equal 20, environment.enterprises.find_by_contents("test")[:results].total_entries
   end
 end

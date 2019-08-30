@@ -1,1 +1,1 @@
-require 'postgresql_attachment_fu'
+require "postgresql_attachment_fu"

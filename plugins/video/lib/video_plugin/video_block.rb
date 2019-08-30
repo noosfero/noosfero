@@ -1,10 +1,9 @@
 class VideoPlugin::VideoBlock < Block
-
   attr_accessible :url, :width, :height
 
-  settings_items :url, :type => :string, :default => ""
-  settings_items :width, :type => :integer, :default => 400
-  settings_items :height, :type => :integer, :default => 315
+  settings_items :url, type: :string, default: ""
+  settings_items :width, type: :integer, default: 400
+  settings_items :height, type: :integer, default: 315
 
   YOUTUBE_ID_FORMAT = '\w-'
 
@@ -29,25 +28,25 @@ class VideoPlugin::VideoBlock < Block
   end
 
   def self.description
-    _('Display a Video')
+    _("Display a Video")
   end
 
   def help
-    _('This block presents a video from youtube, vimeo and some video formats (mp4, ogg, ogv and webm)')
+    _("This block presents a video from youtube, vimeo and some video formats (mp4, ogg, ogv and webm)")
   end
 
   def api_content(params = {})
-    content = {:url => self.url}
+    content = { url: self.url }
     content[:mime_type] = VideoPlugin::Video.mime_type(self.url) if VideoPlugin::Video.is_video_file?(self.url)
     if is_youtube?
-      content[:video_type] = 'youtube' 
+      content[:video_type] = "youtube"
       content[:url_formatted] = format_embed_video_url_for_youtube
     elsif is_vimeo?
       content[:video_type] = "vimeo"
       content[:url_formatted] = format_embed_video_url_for_vimeo
     else is_video_file?
-      content[:video_type] = "video"
-      content[:url_formatted] = self.url
+         content[:video_type] = "video"
+         content[:url_formatted] = self.url
     end
     content
   end
@@ -58,12 +57,11 @@ class VideoPlugin::VideoBlock < Block
 
   private
 
-  def extract_youtube_id
-    VideoPlugin::Video.extract_youtube_id(url)
-  end
+    def extract_youtube_id
+      VideoPlugin::Video.extract_youtube_id(url)
+    end
 
-  def extract_vimeo_id
-    VideoPlugin::Video.extract_vimeo_id(url)
-  end
-
+    def extract_vimeo_id
+      VideoPlugin::Video.extract_vimeo_id(url)
+    end
 end

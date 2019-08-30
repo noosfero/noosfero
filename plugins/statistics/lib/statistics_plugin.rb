@@ -1,7 +1,6 @@
-require_dependency File.dirname(__FILE__) + '/statistics_block'
+require_dependency File.dirname(__FILE__) + "/statistics_block"
 
 class StatisticsPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Statistics Plugin"
   end
@@ -19,5 +18,4 @@ class StatisticsPlugin < Noosfero::Plugin
   def stylesheet?
     true
   end
-
 end

@@ -1,7 +1,7 @@
 Then /^I should be taken to "([^\"]*)" product page$/ do |product_name|
   product = Product.find_by name: product_name
-  path = url_for(product.enterprise.public_profile_url.merge(controller: 'products_plugin/page', action: 'show', id: product, only_path: true))
-  if response.class.to_s == 'Webrat::SeleniumResponse'
+  path = url_for(product.enterprise.public_profile_url.merge(controller: "products_plugin/page", action: "show", id: product, only_path: true))
+  if response.class.to_s == "Webrat::SeleniumResponse"
     URI.parse(response.selenium.get_location).path.should == path_to(path)
   else
     URI.parse(current_url).path.should == path_to(path)
@@ -10,18 +10,18 @@ end
 
 Then /^I should see ([^\"]*)'s product image$/ do |product_name|
   p = Product.find_by name: product_name
-  path = url_for(p.enterprise.public_profile_url.merge(controller: 'products_plugin/page', action: 'show', id: p))
+  path = url_for(p.enterprise.public_profile_url.merge(controller: "products_plugin/page", action: "show", id: p))
 
-  with_scope('.zoomable-image') do
+  with_scope(".zoomable-image") do
     page.should have_xpath("a[@href=\"#{path}\"][@class='search-image-pic']")
   end
 end
 
 Then /^I should not see ([^\"]*)'s product image$/ do |product_name|
   p = Product.find_by name: product_name
-  path = url_for(p.enterprise.public_profile_url.merge(controller: 'products_plugin/page', action: 'show', id: p))
+  path = url_for(p.enterprise.public_profile_url.merge(controller: "products_plugin/page", action: "show", id: p))
 
-  with_scope('.zoomable-image') do
+  with_scope(".zoomable-image") do
     page.should have_no_xpath("a[@href=\"#{path}\"][@class='search-image-pic']")
   end
 end
@@ -38,10 +38,10 @@ Given /^the following products?$/ do |table|
       data.merge!(qualifiers: [qualifier])
     end
 
-    img = data.delete('img')
+    img = data.delete("img")
     product = Product.create!(data, without_protection: true)
     if img.present?
-      product.create_image(uploaded_data: fixture_file_upload("/files/#{img}.png", 'image/png'))
+      product.create_image(uploaded_data: fixture_file_upload("/files/#{img}.png", "image/png"))
     end
   end
 end
@@ -55,22 +55,22 @@ Given /^the following inputs?$/ do |table|
     solidary = data.delete("solidary")
     input = Input.create!(data.merge(product: product, product_category: category, unit: unit,
                                      is_from_solidarity_economy: solidary), without_protection: true)
-    input.update_attribute(:position,  data['position'])
+    input.update_attribute(:position, data["position"])
   end
 end
 
 Given /^the following production costs?$/ do |table|
-  table.hashes.map{|item| item.dup}.each do |item|
-    owner_type = item.delete('owner')
-    owner = owner_type == 'environment' ? Environment.default : Profile[owner_type]
+  table.hashes.map { |item| item.dup }.each do |item|
+    owner_type = item.delete("owner")
+    owner = owner_type == "environment" ? Environment.default : Profile[owner_type]
     ProductionCost.create!(item.merge(owner: owner))
   end
 end
 
 Given /^the following price details?$/ do |table|
-  table.hashes.map{|item| item.dup}.each do |item|
-    product = Product.find_by name: item.delete('product')
-    production_cost = ProductionCost.find_by name: item.delete('production_cost')
+  table.hashes.map { |item| item.dup }.each do |item|
+    product = Product.find_by name: item.delete("product")
+    production_cost = ProductionCost.find_by name: item.delete("production_cost")
     product.price_details.create!(item.merge(production_cost: production_cost))
   end
 end
@@ -86,9 +86,8 @@ Given /^the following certifiers$/ do |table|
     row = row.dup
     qualifiers_list = row.delete("qualifiers")
     if qualifiers_list
-      row["qualifiers"] = qualifiers_list.split(', ').map{ |i| Qualifier.find_by name: i }
+      row["qualifiers"] = qualifiers_list.split(", ").map { |i| Qualifier.find_by name: i }
     end
     Certifier.create!(row.merge(environment_id: 1), without_protection: true)
   end
 end
-

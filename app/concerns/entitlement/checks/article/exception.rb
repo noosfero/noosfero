@@ -7,9 +7,9 @@ module Entitlement::Checks::Article
     end
 
     def self.filter_condition(user)
-<<-eos
+      <<-eos
       when article_privacy_exceptions.person_id = #{user.id} then #{level}
-eos
+      eos
     end
 
     def entitles?(user)

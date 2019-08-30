@@ -1,10 +1,9 @@
-require_dependency 'profile'
+require_dependency "profile"
 
 class Profile
-
-  def shopping_cart_settings attrs = {}
+  def shopping_cart_settings(attrs = {})
     @shopping_cart_settings ||= Noosfero::Plugin::Settings.new self, ShoppingCartPlugin, attrs
-    attrs.each{ |a, v| @shopping_cart_settings.send "#{a}=", v }
+    attrs.each { |a, v| @shopping_cart_settings.send "#{a}=", v }
     @shopping_cart_settings
   end
 
@@ -17,8 +16,7 @@ class Profile
     if self.contact_email.present?
       [self.contact_email]
     else
-      self.admins.collect(&:contact_email).select{ |email| email.present? }
+      self.admins.collect(&:contact_email).select { |email| email.present? }
     end
   end
-
 end

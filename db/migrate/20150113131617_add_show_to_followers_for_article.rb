@@ -1,6 +1,6 @@
 class AddShowToFollowersForArticle < ActiveRecord::Migration
   def up
-    add_column :articles, :show_to_followers, :boolean, :default => false
+    add_column :articles, :show_to_followers, :boolean, default: false
   end
 
   def down

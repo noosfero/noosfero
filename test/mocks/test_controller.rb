@@ -1,20 +1,19 @@
 class TestController < ApplicationController
-
   def index
-    render plain: 'index', :layout => true
+    render plain: "index", layout: true
   end
 
-  post_only 'post_only'
+  post_only "post_only"
   def post_only
-    render html: '<span>post_only</span>'
+    render html: "<span>post_only</span>"
   end
 
   def help_with_string
-    render :inline => '<%= help "my_help_message" %>'
+    render inline: '<%= help "my_help_message" %>'
   end
 
   def help_with_block
-    render :inline => '
+    render inline: '
       <% help do %>
         my_help_message
       <% end %>
@@ -22,11 +21,11 @@ class TestController < ApplicationController
   end
 
   def help_textile_with_string
-    render :inline => '<%= help_textile "*my_bold_help_message*".html_safe %>'
+    render inline: '<%= help_textile "*my_bold_help_message*".html_safe %>'
   end
 
   def help_textile_with_block
-    render :inline => '
+    render inline: '
       <% help_textile do %>
         *my_bold_help_message*
       <% end %>
@@ -34,9 +33,8 @@ class TestController < ApplicationController
   end
 
   def help_without_block
-    render :inline => '
+    render inline: '
       <% help %>
     '
   end
-
 end

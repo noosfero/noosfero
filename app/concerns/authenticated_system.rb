@@ -1,5 +1,4 @@
 module AuthenticatedSystem
-
   protected
 
     extend ActiveSupport::Concern
@@ -23,7 +22,7 @@ module AuthenticatedSystem
     end
 
     # Accesses the current user from the session.
-    def current_user user_id = session[:user]
+    def current_user(user_id = session[:user])
       @current_user ||= begin
         user = User.find_by id: user_id if user_id
         user.session = session if user
@@ -84,7 +83,6 @@ module AuthenticatedSystem
     #   skip_before_filter :login_required
     #
     def login_required
-      
       username, passwd = get_auth_data
       if username && passwd
         self.current_user ||= User.authenticate(username, passwd) || nil
@@ -94,7 +92,7 @@ module AuthenticatedSystem
         true
       else
         if params[:require_login_popup]
-          render :json => { :require_login_popup => true }
+          render json: { require_login_popup: true }
         else
           access_denied
         end
@@ -113,16 +111,16 @@ module AuthenticatedSystem
       respond_to do |accepts|
         accepts.html do
           if request.xhr?
-            render :plain => _('Access denied'), :status => 401
+            render plain: _("Access denied"), status: 401
           else
             store_location
-            redirect_to :controller => '/account', :action => 'login'
+            redirect_to controller: "/account", action: "login"
           end
         end
         accepts.xml do
           headers["Status"]           = "Unauthorized"
           headers["WWW-Authenticate"] = %(Basic realm="Web Password")
-          render plain: "Could't authenticate you", :status => '401 Unauthorized'
+          render plain: "Could't authenticate you", status: "401 Unauthorized"
         end
       end
       false
@@ -147,7 +145,8 @@ module AuthenticatedSystem
 
     def override_user
       return if params[:override_user].blank?
-      return unless logged_in? and user.is_admin? environment
+      return unless logged_in? && user.is_admin?(environment)
+
       @current_user = nil
       current_user params[:override_user]
     end
@@ -155,22 +154,23 @@ module AuthenticatedSystem
     # When called with before_filter :login_from_cookie will check for an :auth_token
     # cookie and log the user back in if appropriate
     def login_from_cookie
-      return if cookies[:auth_token].blank? or logged_in?
+      return if cookies[:auth_token].blank? || logged_in?
 
       token = cookies[:auth_token].to_s.match(/auth_token=(.*);/)
       token = token ? token[1] : nil
 
       user = User.where(remember_token: token).first
 
-      self.current_user = user if user and user.remember_token?
+      self.current_user = user if user && user.remember_token?
     end
 
   private
+
     @@http_auth_headers = %w(X-HTTP_AUTHORIZATION HTTP_AUTHORIZATION Authorization)
     # gets BASIC auth info
     def get_auth_data
       auth_key  = @@http_auth_headers.detect { |h| request.env.has_key?(h) }
       auth_data = request.env[auth_key].to_s.split unless auth_key.blank?
-      return auth_data && auth_data[0] == 'Basic' ? Base64.decode64(auth_data[1]).split(':')[0..1] : [nil, nil]
+      return auth_data && auth_data[0] == "Basic" ? Base64.decode64(auth_data[1]).split(":")[0..1] : [nil, nil]
     end
 end

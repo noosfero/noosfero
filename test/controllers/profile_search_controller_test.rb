@@ -1,4 +1,4 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class ProfileSearchControllerTest < ActionController::TestCase
   def setup
@@ -8,94 +8,93 @@ class ProfileSearchControllerTest < ActionController::TestCase
   end
   attr_reader :person
 
-  should 'espape xss attack' do
+  should "espape xss attack" do
     @controller.expects(:profile).returns(person).at_least_once
-    get 'index', :profile => person.identifier, :q => '<wslite>'
-    !assert_tag :tag => 'wslite'
+    get "index", profile: person.identifier, q: "<wslite>"
+    !assert_tag tag: "wslite"
   end
 
-  should 'render success in search' do
-    get :index, :profile => person.identifier, :q => 'something not important'
+  should "render success in search" do
+    get :index, profile: person.identifier, q: "something not important"
     assert_response :success
   end
 
-  should 'search for articles' do
-    article = TextArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
+  should "search for articles" do
+    article = TextArticle.create(name: "My article", body: "Article to test profile search", profile: person)
 
-    get 'index', :profile => person.identifier, :q => 'article to test'
+    get "index", profile: person.identifier, q: "article to test"
     assert_includes assigns(:results), article
   end
 
-  should 'not display articles from another profile' do
-    article = TextArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
-    article2 = TextArticle.create(:name => 'Another article', :body => 'Article from someone else', :profile => fast_create(Person))
+  should "not display articles from another profile" do
+    article = TextArticle.create(name: "My article", body: "Article to test profile search", profile: person)
+    article2 = TextArticle.create(name: "Another article", body: "Article from someone else", profile: fast_create(Person))
 
-    get 'index', :profile => person.identifier, :q => 'article'
+    get "index", profile: person.identifier, q: "article"
     assert_includes assigns(:results), article
     assert_not_includes assigns(:results), article2
-	end
+  end
 
-  should 'display search results' do
-    article1 = fast_create(Article, {:body => '<p>Article to test profile search</p>', :profile_id => person.id}, :search => true)
-    article2 = fast_create(Article, {:body => '<p>Another article to test profile search</p>', :profile_id => person.id}, :search => true)
+  should "display search results" do
+    article1 = fast_create(Article, { body: "<p>Article to test profile search</p>", profile_id: person.id }, { search: true })
+    article2 = fast_create(Article, { body: "<p>Another article to test profile search</p>", profile_id: person.id }, { search: true })
 
-    get 'index', :profile => person.identifier, :q => 'article'
+    get "index", profile: person.identifier, q: "article"
 
     [article1, article2].each do |article|
-      assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => article.short_lead, :attributes => { :class => /article-details/ }}
+      assert_tag tag: "li", descendant: { tag: "a", content: article.short_lead, attributes: { class: /article-details/ } }
     end
   end
 
-  should 'paginate results listing' do
+  should "paginate results listing" do
     (1..11).each do |i|
-      TextArticle.create!(:name => "Article #{i}", :profile => person, :language => 'en')
+      TextArticle.create!(name: "Article #{i}", profile: person, language: "en")
     end
 
-    get 'index', :profile => person.identifier, :q => 'Article'
+    get "index", profile: person.identifier, q: "Article"
 
-    assert_equal 10, assigns('results').size
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{person.identifier}/search?page=2&amp;q=Article", :rel => 'next' }
+    assert_equal 10, assigns("results").size
+    assert_tag tag: "a", attributes: { href: "/profile/#{person.identifier}/search?page=2&amp;q=Article", rel: "next" }
   end
 
-  should 'display abstract if given' do
-    article1 = TextArticle.create(:name => 'Article 1', :abstract => 'Abstract to test', :body => '<p>Article to test profile search</p>', :profile => person)
-    article2 = TextArticle.create(:name => 'Article 2', :body => '<p>Another article to test profile search</p>', :profile => person)
+  should "display abstract if given" do
+    article1 = TextArticle.create(name: "Article 1", abstract: "Abstract to test", body: "<p>Article to test profile search</p>", profile: person)
+    article2 = TextArticle.create(name: "Article 2", body: "<p>Another article to test profile search</p>", profile: person)
 
-    get 'index', :profile => person.identifier, :q => 'article to test'
+    get "index", profile: person.identifier, q: "article to test"
 
-    assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => article1.abstract, :attributes => { :class => /article-details/ }}
-    !assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Article to test profile search', :attributes => { :class => /article-details/ }}
+    assert_tag tag: "li", descendant: { tag: "a", content: article1.abstract, attributes: { class: /article-details/ } }
+    !assert_tag tag: "li", descendant: { tag: "a", content: "Article to test profile search", attributes: { class: /article-details/ } }
 
-    assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Another article to test profile search', :attributes => { :class => /article-details/ }}
+    assert_tag tag: "li", descendant: { tag: "a", content: "Another article to test profile search", attributes: { class: /article-details/ } }
   end
 
-  should 'display nothing if search is blank' do
-    article1 = TextArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :profile => person)
-    article2 = TextArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
+  should "display nothing if search is blank" do
+    article1 = TextArticle.create(name: "Article 1", body: "Article to test profile search", profile: person)
+    article2 = TextArticle.create(name: "Article 2", body: "Another article to test profile search", profile: person)
 
-    get 'index', :profile => person.identifier, :q => ''
+    get "index", profile: person.identifier, q: ""
 
-    !assert_tag :tag => 'ul', :attributes => { :id => 'profile-search-results'}, :descendant => { :tag => 'li' }
+    !assert_tag tag: "ul", attributes: { id: "profile-search-results" }, descendant: { tag: "li" }
   end
 
-  should 'not display private articles' do
-    article1 = TextArticle.create(:name => 'Article 1', :body => '<p>Article to test profile search</p>', :profile => person, :published => false)
-    article2 = TextArticle.create(:name => 'Article 2', :body => '<p>Another article to test profile search</p>', :profile => person)
+  should "not display private articles" do
+    article1 = TextArticle.create(name: "Article 1", body: "<p>Article to test profile search</p>", profile: person, published: false)
+    article2 = TextArticle.create(name: "Article 2", body: "<p>Another article to test profile search</p>", profile: person)
 
-    get 'index', :profile => person.identifier, :q => 'article to test'
+    get "index", profile: person.identifier, q: "article to test"
 
-    !assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Article to test profile search', :attributes => { :class => /article-details/ }}
+    !assert_tag tag: "li", descendant: { tag: "a", content: "Article to test profile search", attributes: { class: /article-details/ } }
 
-    assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => 'Another article to test profile search', :attributes => { :class => /article-details/ }}
+    assert_tag tag: "li", descendant: { tag: "a", content: "Another article to test profile search", attributes: { class: /article-details/ } }
   end
 
-  should 'display number of results found' do
-    article1 = TextArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :profile => person)
-    article2 = TextArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
+  should "display number of results found" do
+    article1 = TextArticle.create(name: "Article 1", body: "Article to test profile search", profile: person)
+    article2 = TextArticle.create(name: "Article 2", body: "Another article to test profile search", profile: person)
 
-    get 'index', :profile => person.identifier, :q => 'article to test'
+    get "index", profile: person.identifier, q: "article to test"
 
-    assert_tag :tag => 'div', :attributes => { :class => 'results-found-message' }, :content => /2 results found/
+    assert_tag tag: "div", attributes: { class: "results-found-message" }, content: /2 results found/
   end
-
 end

@@ -1,5 +1,4 @@
 class HomeController < PublicController
-
   before_action :require_admin, only: :reorder
 
   def index
@@ -26,7 +25,7 @@ class HomeController < PublicController
   end
 
   def reorder
-    if params[:index].blank? || !params[:direction].in?(['up', 'down'])
+    if params[:index].blank? || !params[:direction].in?(["up", "down"])
       head :bad_request
       return
     end
@@ -35,9 +34,9 @@ class HomeController < PublicController
     news = environment.portal_community.news(amount, true)
 
     case params[:direction]
-    when 'up'
+    when "up"
       move_article_up(news, params[:index].to_i)
-    when 'down'
+    when "down"
       move_article_down(news, params[:index].to_i)
     end
 
@@ -46,21 +45,23 @@ class HomeController < PublicController
 
   private
 
-  def move_article_up(news, index)
-    return unless index > 0 && index < news.size
-    article = news[index]
-    next_article = news[index - 1]
-    Article.switch_orders(next_article, article)
-  end
+    def move_article_up(news, index)
+      return unless index > 0 && index < news.size
 
-  def move_article_down(news, index)
-    return unless index >= 0 && index < (news.size - 1)
-    article = news[index]
-    previous_article = news[index + 1]
-    Article.switch_orders(article, previous_article)
-  end
+      article = news[index]
+      next_article = news[index - 1]
+      Article.switch_orders(next_article, article)
+    end
 
-  def require_admin
-    head :forbidden unless environment.admins.include? current_person
-  end
+    def move_article_down(news, index)
+      return unless index >= 0 && index < (news.size - 1)
+
+      article = news[index]
+      previous_article = news[index + 1]
+      Article.switch_orders(article, previous_article)
+    end
+
+    def require_admin
+      head :forbidden unless environment.admins.include? current_person
+    end
 end

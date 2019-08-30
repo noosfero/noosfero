@@ -1,17 +1,15 @@
 module ContainerBlockPluginController
-
   def saveWidths
     container = boxes_holder.blocks.find(params[:id])
-    pairs = params[:widths].split('|')
+    pairs = params[:widths].split("|")
     settings = container.children_settings
     pairs.each do |pair|
-      id, width = pair.split(',')
-      settings[id.to_i] = {:width => width.to_i}
+      id, width = pair.split(",")
+      settings[id.to_i] = { width: width.to_i }
     end
     container.children_settings = settings
     container.save!
 
-    render plain: 'Block successfully saved.'
+    render plain: "Block successfully saved."
   end
-
 end

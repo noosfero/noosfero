@@ -1,14 +1,13 @@
 class AgendaContext < GenericContext
-
   def content_types
     [
-        Event
+      Event
     ]
   end
 
   class Directory
     def initialize(args = {})
-      @name = _('Agenda')
+      @name = _("Agenda")
       @profile = args[:profile]
     end
 
@@ -21,12 +20,11 @@ class AgendaContext < GenericContext
     end
 
     def hierarchy
-        []
+      []
     end
   end
 
   def directory_to_publish
     Directory.new(profile: selected_profile)
   end
-
 end

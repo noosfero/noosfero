@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class MailingListPlugin::SubscribeMemberTest < ActiveSupport::TestCase
   def setup
@@ -6,7 +6,7 @@ class MailingListPlugin::SubscribeMemberTest < ActiveSupport::TestCase
     @group = fast_create(Organization)
     @person = fast_create(Person)
     @task = MailingListPlugin::SubscribeMember.new(requestor: requestor, target: @person)
-    @task.metadata['group_id'] = @group.id
+    @task.metadata["group_id"] = @group.id
     task_mailer = mock
     task_mailer.stubs(:deliver)
     TaskMailer.stubs(:target_notification).returns(task_mailer)
@@ -15,18 +15,18 @@ class MailingListPlugin::SubscribeMemberTest < ActiveSupport::TestCase
 
   attr_accessor :group, :person, :task
 
-  should 'get group' do
+  should "get group" do
     assert_equal group, task.group
   end
 
-  should 'subscribe person on list on perform' do
+  should "subscribe person on list on perform" do
     client = mock
     client.expects(:subscribe_person_on_group_list).with(person, group)
     client = MailingListPlugin::Client.stubs(:new).returns(client)
     task.perform
   end
 
-  should 'check if there is an ongoing subscription' do
+  should "check if there is an ongoing subscription" do
     assert MailingListPlugin::SubscribeMember.ongoing_subscription?(person, group)
 
     client = mock

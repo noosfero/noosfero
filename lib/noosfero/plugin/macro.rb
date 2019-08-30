@@ -1,6 +1,5 @@
 class Noosfero::Plugin
   class Macro
-
     attr_accessor :context
 
     class << self
@@ -21,7 +20,7 @@ class Noosfero::Plugin
       end
 
       def plugin
-        name.split('::')[0...-1].join('::').constantize
+        name.split("::")[0...-1].join("::").constantize
       end
 
       def identifier
@@ -29,32 +28,33 @@ class Noosfero::Plugin
       end
     end
 
-    def initialize(context=nil)
+    def initialize(context = nil)
       self.context = context
     end
 
     def attributes(macro)
-      macro.attributes.to_hash.
-        select {|key, value| key[0..10] == 'data-macro-' || value.value[0..10] == 'data-macro-' }.
-        inject({}){|result, a|
-        result.merge({(a[0][11..-1] || a[0] )  => a[1].to_s})}.
-        with_indifferent_access
+      macro.attributes.to_hash
+           .select { |key, value| key[0..10] == "data-macro-" || value.value[0..10] == "data-macro-" }
+           .inject({}) { |result, a|
+        result.merge((a[0][11..-1] || a[0]) => a[1].to_s)
+      }
+           .with_indifferent_access
     end
 
     def convert(macro, source)
-      macro_name = macro['data-macro']
+      macro_name = macro["data-macro"]
       attrs = attributes(macro)
-      attrs['classes'] = macro.attr('class')
+      attrs["classes"] = macro.attr("class")
 
       begin
         content = parse(attrs, macro.inner_html, source)
-        macro['class'] = "parsed-macro #{macro_name}"
+        macro["class"] = "parsed-macro #{macro_name}"
       rescue Exception => exception
         content = _("Unsupported macro %s!") % macro_name
-        macro['class'] = "failed-macro #{macro_name}"
+        macro["class"] = "failed-macro #{macro_name}"
       end
 
-      attrs.each {|key, value| macro.remove_attribute("data-macro-#{key}")}
+      attrs.each { |key, value| macro.remove_attribute("data-macro-#{key}") }
       content
     end
 
@@ -62,6 +62,5 @@ class Noosfero::Plugin
     def parse(attrs, inner_html, source)
       raise
     end
-
   end
 end

@@ -1,7 +1,6 @@
 require_relative "../test_helper"
 
 class FeedHandlerTest < ActiveSupport::TestCase
-
   def setup
     @handler = FeedHandler.new
     @container = nil
@@ -11,89 +10,88 @@ class FeedHandlerTest < ActiveSupport::TestCase
     @container ||= create(:feed_reader_block)
   end
 
-  should 'fetch feed content with proxy disabled and SSL enabled' do
+  should "fetch feed content with proxy disabled and SSL enabled" do
     content = handler.fetch(container.address)
     assert_match /<description>Feed content<\/description>/, content
     assert_match /<title>Feed for unit tests<\/title>/, content
   end
 
-  should 'parse feed content' do
+  should "parse feed content" do
     content = ""
     open(container.address) do |s| content = s.read end
     parse = handler.parse(content)
-    assert_equal 'Feed for unit tests', parse.title
-    assert_equal 'http://localhost/feed-test', parse.link
-    assert_equal 'Last POST', parse.items[0].title
+    assert_equal "Feed for unit tests", parse.title
+    assert_equal "http://localhost/feed-test", parse.link
+    assert_equal "Last POST", parse.items[0].title
   end
 
-  should 'process feed and populate container' do
+  should "process feed and populate container" do
     container.stubs(:environment).returns(Environment.new)
     handler.process(container)
-    assert_equal 'Feed for unit tests', container.feed_title
-    assert_equivalent ["First POST", "Second POST", "Last POST"], container.feed_items.map {|item| item[:title]}
+    assert_equal "Feed for unit tests", container.feed_title
+    assert_equivalent ["First POST", "Second POST", "Last POST"], container.feed_items.map { |item| item[:title] }
   end
 
-  should 'raise exception when parser nil' do
+  should "raise exception when parser nil" do
     handler = FeedHandler.new
     assert_raise FeedHandler::ParseError do
       handler.parse(nil)
     end
   end
 
-  should 'raise exception when parser invalid content' do
+  should "raise exception when parser invalid content" do
     handler = FeedHandler.new
     assert_raise FeedHandler::ParseError do
-      handler.parse('<invalid>content</invalid>')
+      handler.parse("<invalid>content</invalid>")
     end
   end
 
-  should 'raise exception when fetch nil' do
+  should "raise exception when fetch nil" do
     handler = FeedHandler.new
     assert_raise FeedHandler::FetchError do
       handler.fetch(nil)
     end
   end
 
-  should 'raise exception when fetch invalid address' do
+  should "raise exception when fetch invalid address" do
     handler = FeedHandler.new
     assert_raise FeedHandler::FetchError do
-      handler.fetch('bli://invalid@address')
+      handler.fetch("bli://invalid@address")
     end
   end
 
-  should 'save only latest N posts from feed' do
+  should "save only latest N posts from feed" do
     container.stubs(:environment).returns(Environment.new)
     container.limit = 1
     handler.process(container)
     assert_equal 1, container.feed_items.size
   end
 
-  should 'clear the container before processing' do
+  should "clear the container before processing" do
     container.expects(:clear)
     handler.process(container)
   end
 
-  should 'finish fetch after processing' do
+  should "finish fetch after processing" do
     container.expects(:finish_fetch)
     handler.process(container)
   end
 
-  should 'finish fetch even in case of crash' do
+  should "finish fetch even in case of crash" do
     container.expects(:clear).raises(Exception.new("crash"))
     container.expects(:finish_fetch)
     handler.process(container)
   end
 
-  should 'identifies itself as noosfero user agent' do
-    handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}"}, anything).returns('bli content')
+  should "identifies itself as noosfero user agent" do
+    handler.expects(:open).with("http://site.org/feed.xml", { "User-Agent" => "Noosfero/#{Noosfero::VERSION}" }, anything).returns("bli content")
 
-    assert_equal 'bli content', handler.fetch('http://site.org/feed.xml')
+    assert_equal "bli content", handler.fetch("http://site.org/feed.xml")
   end
 
   [:external_feed, :feed_reader_block].each do |container_class|
-
     should "reset the errors count after a successful run (#{container_class})" do
-      container = create(container_class, :update_errors => 1, :address => Rails.root.join('test/fixtures/files/feed.xml'))
+      container = create(container_class, update_errors: 1, address: Rails.root.join("test/fixtures/files/feed.xml"))
       handler.expects(:actually_process_container).with(container)
       handler.process(container)
       assert_equal 0, container.update_errors
@@ -107,13 +105,13 @@ class FeedHandlerTest < ActiveSupport::TestCase
 
       # in the first 4 errors, we are ok
       4.times { handler.process(container) }
-      refute container.error_message.blank?, 'should set the error message for the first <max_errors> errors (%s)' % container_class
-      assert container.enabled, 'must keep container enabled during the first <max_errors> errors (%s)' % container_class
+      refute container.error_message.blank?, "should set the error message for the first <max_errors> errors (%s)" % container_class
+      assert container.enabled, "must keep container enabled during the first <max_errors> errors (%s)" % container_class
 
       # 5 errors it too much
       handler.process(container)
-      refute container.error_message.blank?, 'must set error message in container after <max_errors> errors (%s)' % container_class
-      refute container.enabled, 'must disable continer after <max_errors> errors (%s)' % container_class
+      refute container.error_message.blank?, "must set error message in container after <max_errors> errors (%s)" % container_class
+      refute container.enabled, "must disable continer after <max_errors> errors (%s)" % container_class
     end
 
     should "reenable after <disabled_period> (#{container_class})" do
@@ -133,7 +131,7 @@ class FeedHandlerTest < ActiveSupport::TestCase
       container.expects(:finish_fetch)
       handler.process(container)
 
-      assert container.enabled, 'must reenable container after <disabled_period> (%s)' % container_class
+      assert container.enabled, "must reenable container after <disabled_period> (%s)" % container_class
     end
 
     should "handle a feed that was never fetched successfully (#{container_class})" do
@@ -145,60 +143,60 @@ class FeedHandlerTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not crash even when finish fetch fails' do
+  should "not crash even when finish fetch fails" do
     container.stubs(:finish_fetch).raises(Exception.new("crash"))
     assert_nothing_raised do
       handler.process(container)
     end
   end
 
-  should 'set proxy when http_feed_proxy is setted from env' do
+  should "set proxy when http_feed_proxy is setted from env" do
     env = Environment.new
     env.expects(:disable_feed_ssl).returns(false)
-    env.expects(:http_feed_proxy).twice.returns('http://127.0.0.1:3128')
+    env.expects(:http_feed_proxy).twice.returns("http://127.0.0.1:3128")
 
-    handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.1:3128'}, anything).returns('bli content')
+    handler.expects(:open).with("http://site.org/feed.xml", { "User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => "http://127.0.0.1:3128" }, anything).returns("bli content")
 
-    assert_equal 'bli content', handler.fetch_through_proxy('http://site.org/feed.xml', env)
+    assert_equal "bli content", handler.fetch_through_proxy("http://site.org/feed.xml", env)
   end
 
-  should 'set proxy when https_feed_proxy is setted from env' do
+  should "set proxy when https_feed_proxy is setted from env" do
     env = Environment.new
     env.expects(:disable_feed_ssl).returns(false)
-    env.expects(:https_feed_proxy).twice.returns('http://127.0.0.1:3128')
+    env.expects(:https_feed_proxy).twice.returns("http://127.0.0.1:3128")
 
-    handler.expects(:open).with('https://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.1:3128'}, anything).returns('bli content')
+    handler.expects(:open).with("https://site.org/feed.xml", { "User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => "http://127.0.0.1:3128" }, anything).returns("bli content")
 
-    assert_equal 'bli content', handler.fetch_through_proxy('https://site.org/feed.xml', env)
+    assert_equal "bli content", handler.fetch_through_proxy("https://site.org/feed.xml", env)
   end
 
-  should 'use https proxy for https address when both env variables were defined' do
+  should "use https proxy for https address when both env variables were defined" do
     env = Environment.new
     env.expects(:disable_feed_ssl).returns(false)
-    env.expects(:https_feed_proxy).twice.returns('http://127.0.0.2:3128')
+    env.expects(:https_feed_proxy).twice.returns("http://127.0.0.2:3128")
 
-    handler.expects(:open).with('https://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.2:3128'}, anything).returns('bli content')
+    handler.expects(:open).with("https://site.org/feed.xml", { "User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => "http://127.0.0.2:3128" }, anything).returns("bli content")
 
-    assert_equal 'bli content', handler.fetch_through_proxy('https://site.org/feed.xml', env)
+    assert_equal "bli content", handler.fetch_through_proxy("https://site.org/feed.xml", env)
   end
 
-  should 'use http proxy for http address when both env variables were defined' do
+  should "use http proxy for http address when both env variables were defined" do
     env = Environment.new
     env.expects(:disable_feed_ssl).returns(false)
-    env.expects(:http_feed_proxy).twice.returns('http://127.0.0.1:3128')
+    env.expects(:http_feed_proxy).twice.returns("http://127.0.0.1:3128")
 
-    handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => 'http://127.0.0.1:3128'}, anything).returns('bli content')
+    handler.expects(:open).with("http://site.org/feed.xml", { "User-Agent" => "Noosfero/#{Noosfero::VERSION}", :proxy => "http://127.0.0.1:3128" }, anything).returns("bli content")
 
-    assert_equal 'bli content', handler.fetch_through_proxy('http://site.org/feed.xml', env)
+    assert_equal "bli content", handler.fetch_through_proxy("http://site.org/feed.xml", env)
   end
 
-  should 'not verify ssl when define env parameter SSL_VERIFY_NONE' do
+  should "not verify ssl when define env parameter SSL_VERIFY_NONE" do
     env = Environment.new
     env.expects(:disable_feed_ssl).returns(true)
 
-    handler.expects(:open).with('http://site.org/feed.xml', {"User-Agent" => "Noosfero/#{Noosfero::VERSION}", :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE}, anything)
+    handler.expects(:open).with("http://site.org/feed.xml", { "User-Agent" => "Noosfero/#{Noosfero::VERSION}", :ssl_verify_mode => OpenSSL::SSL::VERIFY_NONE }, anything)
 
-    handler.fetch_through_proxy('http://site.org/feed.xml', env)
+    handler.fetch_through_proxy("http://site.org/feed.xml", env)
   end
 
   [:external_feed, :feed_reader_block].each do |container_class|
@@ -220,5 +218,4 @@ class FeedHandlerTest < ActiveSupport::TestCase
       handler.process(container_another)
     end
   end
-
 end

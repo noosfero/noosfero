@@ -2,11 +2,11 @@ class CreateSearchTerms < ActiveRecord::Migration
   def up
     create_table :search_terms do |t|
       t.string      :term
-      t.references  :context, :polymorphic => true
-      t.string      :asset, :default => 'all'
-      t.float       :score, :default => 0
-      t.float       :relevance_score, :default => 0
-      t.float       :occurrence_score, :default => 0
+      t.references  :context, polymorphic: true
+      t.string      :asset, default: "all"
+      t.float       :score, default: 0
+      t.float       :relevance_score, default: 0
+      t.float       :occurrence_score, default: 0
     end
 
     add_index :search_terms, :term

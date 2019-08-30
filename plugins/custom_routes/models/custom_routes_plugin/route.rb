@@ -1,7 +1,6 @@
-require 'uri'
+require "uri"
 
 class CustomRoutesPlugin::Route < ApplicationRecord
-
   belongs_to :environment, optional: true
 
   attr_accessible :environment_id, :source_url, :target_url, :enabled
@@ -22,9 +21,9 @@ class CustomRoutesPlugin::Route < ApplicationRecord
     [:target_url, :source_url].each do |attr|
       begin
         url = URI.parse(self.send(attr))
-        errors.add(attr, 'must be a relative URL') unless url.relative?
+        errors.add(attr, "must be a relative URL") unless url.relative?
       rescue URI::InvalidURIError
-        errors.add(attr, 'must be a valid URL')
+        errors.add(attr, "must be a valid URL")
       end
     end
   end
@@ -34,7 +33,7 @@ class CustomRoutesPlugin::Route < ApplicationRecord
       self.metadata = Rails.application.routes.recognize_path(target_url)
     rescue ActionController::RoutingError => e
       # Pretty much any URL will be valid because of the view_page, but still
-      errors.add(:target_url, 'must be valid within the server')
+      errors.add(:target_url, "must be valid within the server")
       raise ActiveRecord::RecordInvalid.new(self)
     end
   end
@@ -42,5 +41,4 @@ class CustomRoutesPlugin::Route < ApplicationRecord
   def reload_routes
     CustomRoutesPlugin::CustomRoutes.reload
   end
-
 end

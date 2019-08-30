@@ -2,14 +2,13 @@ module Entitlement::AccessibleTo
   def self.included(base)
     base.class_eval do
       scope :accessible_to, lambda { |user|
-	      
         # Visitors
-	if user.nil?
-	  conditions = where("#{table_name}.access = #{Entitlement::Levels.levels[:visitors]}") 
-        end
+        if user.nil?
+          conditions = where("#{table_name}.access = #{Entitlement::Levels.levels[:visitors]}")
+              end
 
         # Environment administrators can access anything
-	if !user.nil? && !user.environment.admins.include?(user)
+        if !user.nil? && !user.environment.admins.include?(user)
 
           # This score_table is in the following format:
           #
@@ -27,14 +26,14 @@ module Entitlement::AccessibleTo
           #   * The object's owner is the user OR
           #   * The object has an access requirement lower or equal to level "users" OR
           #   * The user has an access level higher than the object requires.
-          conditions = joins("left join #{score_table(user)}").
-          where("
+          conditions = joins("left join #{score_table(user)}")
+                       .where("
             #{profile_id_column} = #{user.id} OR
             #{table_name}.access <= #{Entitlement::Levels.levels[:users]} OR
             #{table_name}.access <= score")
-	
-        end 
-	conditions
+
+              end
+        conditions
       }
     end
   end

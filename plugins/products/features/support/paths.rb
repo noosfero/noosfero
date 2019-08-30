@@ -1,9 +1,9 @@
 module NavigationHelpers
   module ProductsPlugin
-    def path_to page_name
+    def path_to(page_name)
       case page_name
       when /^(.*)'s products page$/
-        '/catalog/%s' % $1
+        "/catalog/%s" % $1
       else
         super
       end
@@ -12,4 +12,3 @@ module NavigationHelpers
 
   prepend ProductsPlugin
 end
-

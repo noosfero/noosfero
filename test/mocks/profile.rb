@@ -3,4 +3,3 @@ class Profile
     "#{self.class.name}/#{id}/#{identifier}"
   end
 end
-

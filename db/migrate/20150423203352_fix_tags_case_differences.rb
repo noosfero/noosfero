@@ -1,9 +1,9 @@
 class FixTagsCaseDifferences < ActiveRecord::Migration
   def up
-    tags = ActsAsTaggableOn::Tag.joins('LEFT JOIN tags as b on LOWER(tags.name) = b.name').where('b.id is null')
+    tags = ActsAsTaggableOn::Tag.joins("LEFT JOIN tags as b on LOWER(tags.name) = b.name").where("b.id is null")
     tags.find_each do |tag|
-      unless ActsAsTaggableOn::Tag.exists?(:name => tag.name.mb_chars.downcase)
-        ActsAsTaggableOn::Tag.create(:name => tag.name.mb_chars.downcase)
+      unless ActsAsTaggableOn::Tag.exists?(name: tag.name.mb_chars.downcase)
+        ActsAsTaggableOn::Tag.create(name: tag.name.mb_chars.downcase)
       end
     end
 
@@ -14,6 +14,6 @@ class FixTagsCaseDifferences < ActiveRecord::Migration
   end
 
   def down
-    say 'This migration is irreversible.'
+    say "This migration is irreversible."
   end
 end

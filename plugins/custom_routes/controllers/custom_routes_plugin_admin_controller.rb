@@ -1,6 +1,5 @@
 class CustomRoutesPluginAdminController < AdminController
-
-  before_action :accept_only_post, :only => [:create, :update, :destroy]
+  before_action :accept_only_post, only: [:create, :update, :destroy]
 
   def index
     @routes = environment.custom_routes.all
@@ -17,7 +16,7 @@ class CustomRoutesPluginAdminController < AdminController
     if @route.save
       redirect_to action: :index
     else
-      session[:notice] = _('Could not save the route mapping.')
+      session[:notice] = _("Could not save the route mapping.")
       render action: :new
     end
   end
@@ -35,7 +34,7 @@ class CustomRoutesPluginAdminController < AdminController
     if @route.update(params[:route])
       redirect_to action: :index
     else
-      session[:notice] = _('Could not update the route mapping.')
+      session[:notice] = _("Could not update the route mapping.")
       render action: :edit
     end
   end
@@ -43,11 +42,10 @@ class CustomRoutesPluginAdminController < AdminController
   def destroy
     begin
       environment.custom_routes.destroy(params[:route_id])
-      render :json => { msg: 'ok' }, status: 200
+      render json: { msg: "ok" }, status: 200
     rescue
-      render :json => { msg: 'Could not remove this route mapping' },
+      render json: { msg: "Could not remove this route mapping" },
              status: 400
     end
   end
-
 end

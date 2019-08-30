@@ -1,7 +1,5 @@
 class MyProfileController < ApplicationController
-
   needs_profile
-
 
   before_action :login_required
 
@@ -24,8 +22,7 @@ class MyProfileController < ApplicationController
 
   def search_article_privacy_exceptions
     arg = params[:q].downcase
-    result = profile.members.where('LOWER(name) LIKE ?', "%#{arg}%")
+    result = profile.members.where("LOWER(name) LIKE ?", "%#{arg}%")
     render plain: prepare_to_token_input(result).to_json
   end
-
 end

@@ -1,5 +1,4 @@
 class TemplatePlugin < Noosfero::Plugin
-
   def self.plugin_name
     # FIXME
     "TemplatePlugin"
@@ -9,5 +8,4 @@ class TemplatePlugin < Noosfero::Plugin
     # FIXME
     _("A plugin that does this and that.")
   end
-
 end

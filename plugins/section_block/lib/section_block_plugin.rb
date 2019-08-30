@@ -1,5 +1,4 @@
 class SectionBlockPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Section Block Plugin"
   end
@@ -15,5 +14,4 @@ class SectionBlockPlugin < Noosfero::Plugin
   def stylesheet?
     true
   end
-
 end

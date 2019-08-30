@@ -1,24 +1,23 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class CommunityBlockPluginTest < ActiveSupport::TestCase
-
   def setup
     @plugin = CommunityBlockPlugin.new
   end
 
-  should 'be a noosfero plugin' do
+  should "be a noosfero plugin" do
     assert_kind_of Noosfero::Plugin, @plugin
   end
 
-  should 'have name' do
-    assert_equal 'Community Block Plugin', CommunityBlockPlugin.plugin_name
+  should "have name" do
+    assert_equal "Community Block Plugin", CommunityBlockPlugin.plugin_name
   end
 
-  should 'have description' do
+  should "have description" do
     assert_equal "A plugin that adds a block to show community description", CommunityBlockPlugin.plugin_description
   end
 
-  should 'have stylesheet' do
+  should "have stylesheet" do
     assert @plugin.stylesheet?
   end
 
@@ -29,5 +28,4 @@ class CommunityBlockPluginTest < ActiveSupport::TestCase
   should "return false for class method has_admin_url?" do
     assert  !CommunityBlockPlugin.has_admin_url?
   end
-
 end

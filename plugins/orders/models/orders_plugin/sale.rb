@@ -1,20 +1,21 @@
 class OrdersPlugin::Sale < OrdersPlugin::Order
-
   before_validation :fill_default_supplier_delivery
 
   def orders_name
-    'sales'
+    "sales"
   end
+
   def actor_name
     :consumer
   end
 
   def purchase_quantity_total
-    #TODO
+    # TODO
     self.total_quantity_consumer_ordered
   end
+
   def purchase_price_total
-    #TODO
+    # TODO
     self.total_price_consumer_ordered
   end
 
@@ -24,6 +25,7 @@ class OrdersPlugin::Sale < OrdersPlugin::Order
   def supplier_delivery
     super || (self.delivery_methods.first rescue nil)
   end
+
   def supplier_delivery_id
     self[:supplier_delivery_id] || (self.supplier_delivery.id rescue nil)
   end
@@ -33,5 +35,4 @@ class OrdersPlugin::Sale < OrdersPlugin::Order
   end
 
   protected
-
 end

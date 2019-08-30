@@ -1,9 +1,8 @@
 class Session < ActiveRecord::SessionStore::Session
-
   attr_accessible :session_id, :data
 
   # removed and redefined on super class
-  def self.find_by_session_id session_id
+  def self.find_by_session_id(session_id)
     super
   end
 
@@ -13,8 +12,7 @@ class Session < ActiveRecord::SessionStore::Session
 
   protected
 
-  def copy_to_columns
-    self.user_id = self.data['user']
-  end
-
+    def copy_to_columns
+      self.user_id = self.data["user"]
+    end
 end

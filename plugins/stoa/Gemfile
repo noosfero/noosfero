@@ -1,5 +1,5 @@
-gem 'sinatra'
+gem "sinatra"
 
 group :test do
-  gem 'sqlite3'
+  gem "sqlite3"
 end

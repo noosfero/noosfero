@@ -1,9 +1,7 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class EventPluginTest < ActiveSupport::TestCase
-
-  should 'not crash' do
+  should "not crash" do
     EventPlugin.new
   end
-
 end

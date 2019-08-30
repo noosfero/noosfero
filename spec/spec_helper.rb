@@ -1,31 +1,30 @@
-require_relative '../config/environment'
-require 'rspec/rails'
+require_relative "../config/environment"
+require "rspec/rails"
 
-require_relative 'support/factories'
-require_relative 'concerns/metadata_scopes_spec'
+require_relative "support/factories"
+require_relative "concerns/metadata_scopes_spec"
 
-require 'database_cleaner'
-require 'mocha/setup'
+require "database_cleaner"
+require "mocha/setup"
 
 RSpec.configure do |config|
-
-  config.fixture_path = 'spec/fixtures'
+  config.fixture_path = "spec/fixtures"
   config.global_fixtures = :all
 
   config.include Noosfero::Factory
 
-# This cleaning method is important when you have annomalous data created on
-# the database but it consumes a lot of time.
-#
-#   config.before(:suite) do
-#    DatabaseCleaner.clean_with(:truncation)
-#  end
+  # This cleaning method is important when you have annomalous data created on
+  # the database but it consumes a lot of time.
+  #
+  #   config.before(:suite) do
+  #    DatabaseCleaner.clean_with(:truncation)
+  #  end
 
   config.before(:each) do
     DatabaseCleaner.strategy = :transaction
   end
 
-  config.before(:each, :js => true) do
+  config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
 

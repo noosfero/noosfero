@@ -1,3 +1,1 @@
-
-gem 'jsonify-rails'
-
+gem "jsonify-rails"

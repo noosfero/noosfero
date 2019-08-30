@@ -1,5 +1,4 @@
 class AntiSpamPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "AntiSpam"
   end
@@ -9,7 +8,7 @@ class AntiSpamPlugin < Noosfero::Plugin
   end
 
   def self.host_default_setting
-    'rest.akismet.com'
+    "rest.akismet.com"
   end
 
   def check_for_spam(object)
@@ -29,14 +28,13 @@ class AntiSpamPlugin < Noosfero::Plugin
 
   protected
 
-  def rakismet_call(submission, environment, op)
-    settings = Noosfero::Plugin::Settings.new(environment, self.class)
+    def rakismet_call(submission, environment, op)
+      settings = Noosfero::Plugin::Settings.new(environment, self.class)
 
-    Rakismet.host = settings.host
-    Rakismet.key = settings.api_key
-    Rakismet.url = environment.top_url
+      Rakismet.host = settings.host
+      Rakismet.key = settings.api_key
+      Rakismet.url = environment.top_url
 
-    submission.send(op)
-  end
-
+      submission.send(op)
+    end
 end

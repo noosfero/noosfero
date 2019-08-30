@@ -11,17 +11,17 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
   end
   attr_reader :profile, :category
 
-  should 'refer to products' do
+  should "refer to products" do
     profile = fast_create(Enterprise)
     products = []
-    3.times {|n| products.push(create(Product, :name => "product #{n}", :profile_id => profile.id, :product_category_id => category.id)) }
-    featured_products_block = create(FeaturedProductsBlock, :product_ids => products.map(&:id))
+    3.times { |n| products.push(create(Product, name: "product #{n}", profile_id: profile.id, product_category_id: category.id)) }
+    featured_products_block = create(FeaturedProductsBlock, product_ids: products.map(&:id))
     assert_equal products, featured_products_block.products
   end
 
   should "have method products_for_selection" do
     block = FeaturedProductsBlock.new
-    assert_respond_to block, 'products_for_selection'
+    assert_respond_to block, "products_for_selection"
   end
 
   should " the defaul product_ids be an empty array" do
@@ -34,7 +34,7 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
     assert_equal 3, block.groups_of
   end
 
-  should 'default interval between transitions is 1000 miliseconds' do
+  should "default interval between transitions is 1000 miliseconds" do
     block = FeaturedProductsBlock.new
     assert_equal 1000, block.speed
   end
@@ -44,7 +44,7 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
     assert_equal true, block.reflect
   end
 
-  should 'describe itself' do
+  should "describe itself" do
     assert_not_equal Block.description, FeaturedProductsBlock.description
   end
 
@@ -55,76 +55,74 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
     block.save
     block.reload
     assert_kind_of Integer, block.groups_of
-    block.groups_of = '2'
+    block.groups_of = "2"
     block.save
     block.reload
     assert_kind_of Integer, block.groups_of
   end
 
   should "an environment block collect product automatically" do
-    block = build(FeaturedProductsBlock, )
+    block = build(FeaturedProductsBlock,)
     block.product_ids = []
-    enterprise = create(Enterprise, :name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
-    3.times {|n|
-      create(Product, :name => "product #{n}", :profile_id => enterprise.id,
-        :highlighted => true, :product_category_id => category.id,
-        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
-      )
+    enterprise = create(Enterprise, name: "My enterprise", identifier: "myenterprise", environment: @environment)
+    3.times { |n|
+      create(Product, name: "product #{n}", profile_id: enterprise.id,
+                      highlighted: true, product_category_id: category.id,
+                      image_builder: { uploaded_data: fixture_file_upload("/files/rails.png", "image/png") })
     }
-    @environment.boxes.first.blocks<< block
+    @environment.boxes.first.blocks << block
 
     assert_not_equal [], block.product_ids
   end
 
   should "an environment block collect just product with image automatically" do
-    block = build(FeaturedProductsBlock, )
+    block = build(FeaturedProductsBlock,)
     block.product_ids = []
-    enterprise = create(Enterprise, :name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
-    3.times {|n|
-      create(Product, :name => "product #{n}", :profile_id => enterprise.id, :highlighted => true, :product_category_id => category.id)
+    enterprise = create(Enterprise, name: "My enterprise", identifier: "myenterprise", environment: @environment)
+    3.times { |n|
+      create(Product, name: "product #{n}", profile_id: enterprise.id, highlighted: true, product_category_id: category.id)
     }
-    @environment.boxes.first.blocks<< block
+    @environment.boxes.first.blocks << block
 
     assert_equal [], block.product_ids
   end
 
   should "an environment block collect just highlighted product automatically" do
-    block = build(FeaturedProductsBlock, )
+    block = build(FeaturedProductsBlock,)
     block.product_ids = []
-    enterprise = create(Enterprise, :name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
-    3.times {|n|
-      create(Product, :name => "product #{n}", :profile_id => enterprise.id, :product_category_id => category.id, :image_builder => {
-        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      })
+    enterprise = create(Enterprise, name: "My enterprise", identifier: "myenterprise", environment: @environment)
+    3.times { |n|
+      create(Product, name: "product #{n}", profile_id: enterprise.id, product_category_id: category.id, image_builder: {
+               uploaded_data: fixture_file_upload("/files/rails.png", "image/png")
+             })
     }
-    @environment.boxes.first.blocks<< block
+    @environment.boxes.first.blocks << block
 
     assert_equal [], block.product_ids
   end
 
-  should 'display feature products block' do
+  should "display feature products block" do
     block = FeaturedProductsBlock.new
 
-    self.expects(:render).with(template: 'blocks/featured_products', locals: {block: block})
+    self.expects(:render).with(template: "blocks/featured_products", locals: { block: block })
     render_block_content(block)
   end
 
   should "return just highlighted products with image for selection" do
-    block = build(FeaturedProductsBlock, )
+    block = build(FeaturedProductsBlock,)
     block.product_ids = []
-    enterprise = create(Enterprise, :name => "My enterprise", :identifier => 'myenterprise', :environment => @environment)
+    enterprise = create(Enterprise, name: "My enterprise", identifier: "myenterprise", environment: @environment)
     products = []
-    3.times {|n|
-      products.push(create(Product, :name => "product #{n}", :profile_id => enterprise.id,
-        :highlighted => true, :product_category_id => category.id,
-        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
-      ))
+    3.times { |n|
+      products.push(create(Product, name: "product #{n}", profile_id: enterprise.id,
+                                    highlighted: true, product_category_id: category.id,
+                                    image_builder: { uploaded_data: fixture_file_upload("/files/rails.png", "image/png") }))
     }
-    create(Product, :name => "product 4", :profile_id => enterprise.id, :product_category_id => category.id, :highlighted => true)
-    create(Product, :name => "product 5", :profile_id => enterprise.id, :product_category_id => category.id, :image_builder => {
-        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      })
-    @environment.boxes.first.blocks<< block
+    create(Product, name: "product 4", profile_id: enterprise.id, product_category_id: category.id, highlighted: true)
+    create(Product, name: "product 5", profile_id: enterprise.id, product_category_id: category.id, image_builder: {
+             uploaded_data: fixture_file_upload("/files/rails.png", "image/png")
+           })
+    @environment.boxes.first.blocks << block
 
     products_for_selection = block.products_for_selection
 
@@ -132,5 +130,4 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
       assert_includes products_for_selection, product
     end
   end
-
 end

@@ -1,6 +1,5 @@
 module TokenHelper
-
-  def jquery_token_input_messages_json(hintText = _('Type in an keyword'), noResultsText = _('No results'), searchingText = _('Searching...'))
+  def jquery_token_input_messages_json(hintText = _("Type in an keyword"), noResultsText = _("No results"), searchingText = _("Searching..."))
     "hintText: '#{hintText}', noResultsText: '#{noResultsText}', searchingText: '#{searchingText}'"
   end
 
@@ -9,23 +8,23 @@ module TokenHelper
     options[:hint_text] ||= _("Type in a search term")
     options[:no_results_text] ||= _("No results")
     options[:searching_text] ||= _("Searching...")
-    options[:placeholder] ||= ''
+    options[:placeholder] ||= ""
     options[:search_delay] ||= 1000
-    options[:prevent_duplicates] ||=  true
+    options[:prevent_duplicates] ||= true
     options[:backspace_delete_item] ||= false
     options[:zindex] ||= 999
     options[:focus] ||= false
     options[:avoid_enter] ||= true
-    options[:on_result] ||= 'null'
-    options[:on_add] ||= 'null'
-    options[:on_delete] ||= 'null'
-    options[:on_ready] ||= 'null'
-    options[:query_param] ||= 'q'
-    options[:theme] ||= 'null'
-    options[:results_formatter] ||= 'null'
-    options[:token_formatter] ||= 'null'
+    options[:on_result] ||= "null"
+    options[:on_add] ||= "null"
+    options[:on_delete] ||= "null"
+    options[:on_ready] ||= "null"
+    options[:query_param] ||= "q"
+    options[:theme] ||= "null"
+    options[:results_formatter] ||= "null"
+    options[:token_formatter] ||= "null"
 
-    result = text_field_tag(name, nil, text_field_options.merge(html_options.merge({:id => element_id})))
+    result = text_field_tag(name, nil, text_field_options.merge(html_options.merge(id: element_id)))
     result += javascript_tag("jQuery('##{element_id}')
       .tokenInput('#{url_for(search_action)}', {
         minChars: #{options[:min_chars].to_json},
@@ -58,5 +57,4 @@ module TokenHelper
     end
     result
   end
-
 end

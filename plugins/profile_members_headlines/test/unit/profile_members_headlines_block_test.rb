@@ -1,8 +1,7 @@
-require 'test_helper'
-require 'boxes_helper'
+require "test_helper"
+require "boxes_helper"
 
 class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
-
   include Noosfero::Plugin::HotSpot
   include BoxesHelper
 
@@ -18,65 +17,64 @@ class ProfileMembersHeadlinesBlockTest < ActiveSupport::TestCase
   end
   attr_accessor :environment, :community, :member1, :member2
 
-  should 'inherit from Block' do
+  should "inherit from Block" do
     assert_kind_of Block, ProfileMembersHeadlinesBlock.new
   end
 
-  should 'describe itself' do
+  should "describe itself" do
     assert_not_equal Block.description, ProfileMembersHeadlinesBlock.description
   end
 
-  should 'provide a default title' do
+  should "provide a default title" do
     assert_not_equal Block.new.default_title, ProfileMembersHeadlinesBlock.new.default_title
   end
 
-  should 'not have authors if they have no blog' do
+  should "not have authors if they have no blog" do
     block = ProfileMembersHeadlinesBlock.create
     block.stubs(:owner).returns(community)
 
-    self.expects(:render).with(:template => 'blocks/profile_members_headlines', :locals => { :block => block }).returns('file-without-authors-and-headlines')
-    assert_equal 'file-without-authors-and-headlines', render_block_content(block)
+    self.expects(:render).with(template: "blocks/profile_members_headlines", locals: { block: block }).returns("file-without-authors-and-headlines")
+    assert_equal "file-without-authors-and-headlines", render_block_content(block)
   end
 
-  should 'display headlines file' do
+  should "display headlines file" do
     block = ProfileMembersHeadlinesBlock.create
     block.stubs(:owner).returns(community)
-    blog = fast_create(Blog, :profile_id => member1.id)
-    post = fast_create(TextArticle, :name => 'headlines', :profile_id => member1.id, :parent_id => blog.id)
-    self.expects(:render).with(:template => 'blocks/profile_members_headlines', :locals => { :block => block }).returns('file-with-authors-and-headlines')
-    assert_equal 'file-with-authors-and-headlines', render_block_content(block)
+    blog = fast_create(Blog, profile_id: member1.id)
+    post = fast_create(TextArticle, name: "headlines", profile_id: member1.id, parent_id: blog.id)
+    self.expects(:render).with(template: "blocks/profile_members_headlines", locals: { block: block }).returns("file-with-authors-and-headlines")
+    assert_equal "file-with-authors-and-headlines", render_block_content(block)
   end
 
-  should 'select only authors with articles and selected roles to display' do
-    role = Role.create!(:name => 'role1')
+  should "select only authors with articles and selected roles to display" do
+    role = Role.create!(name: "role1")
     community.affiliate(member1, role)
-    block = ProfileMembersHeadlinesBlock.new(:limit => 1, :filtered_roles => [role.id])
+    block = ProfileMembersHeadlinesBlock.new(limit: 1, filtered_roles: [role.id])
     block.expects(:owner).returns(community)
-    blog = fast_create(Blog, :profile_id => member1.id)
-    post = fast_create(TextArticle, :name => 'headlines', :profile_id => member1.id, :parent_id => blog.id)
+    blog = fast_create(Blog, profile_id: member1.id)
+    post = fast_create(TextArticle, name: "headlines", profile_id: member1.id, parent_id: blog.id)
     assert_equal [member1], block.authors_list(member1)
   end
 
-  should 'not select private authors to display' do
-    block = ProfileMembersHeadlinesBlock.new(:limit => 1)
+  should "not select private authors to display" do
+    block = ProfileMembersHeadlinesBlock.new(limit: 1)
     block.expects(:owner).returns(community)
-    private_author = fast_create(Person, :access => Entitlement::Levels.levels[:self])
-    blog = fast_create(Blog, :profile_id => private_author.id)
-    post = fast_create(TextArticle, :name => 'headlines', :profile_id => private_author.id, :parent_id => blog.id)
+    private_author = fast_create(Person, access: Entitlement::Levels.levels[:self])
+    blog = fast_create(Blog, profile_id: private_author.id)
+    post = fast_create(TextArticle, name: "headlines", profile_id: private_author.id, parent_id: blog.id)
     assert_equal [], block.authors_list(nil)
   end
 
-  should 'filter authors by roles to display' do
-    role = Role.create!(:name => 'role1')
+  should "filter authors by roles to display" do
+    role = Role.create!(name: "role1")
     author = fast_create(Person)
     community.affiliate(author, role)
 
-    block = ProfileMembersHeadlinesBlock.new(:limit => 3, :filtered_roles =>
-[role.id])
+    block = ProfileMembersHeadlinesBlock.new(limit: 3, filtered_roles: [role.id])
     block.stubs(:owner).returns(community)
     community.members.each do |member|
-      blog = fast_create(Blog, :profile_id => member.id)
-      post = fast_create(TextArticle, :name => 'headlines', :profile_id => member.id, :parent_id => blog.id)
+      blog = fast_create(Blog, profile_id: member.id)
+      post = fast_create(TextArticle, name: "headlines", profile_id: member.id, parent_id: blog.id)
     end
     assert_equal [author], block.authors_list(author)
   end

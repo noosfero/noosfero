@@ -1,30 +1,30 @@
 class Theme
-
   class << self
     def system_themes
-      Dir.glob(File.join(system_themes_dir, '*')).map do |path|
-        config_file = File.join(path, 'theme.yml')
+      Dir.glob(File.join(system_themes_dir, "*")).map do |path|
+        config_file = File.join(path, "theme.yml")
         config = File.exists?(config_file) ? YAML.load_file(config_file) : {}
         new(File.basename(path), config)
       end
     end
 
     def user_themes_dir
-      Rails.root.join('public', 'user_themes')
+      Rails.root.join("public", "user_themes")
     end
 
     def system_themes_dir
-      Rails.root.join('public', relative_themes_dir)
+      Rails.root.join("public", relative_themes_dir)
     end
 
     def relative_themes_dir
-      File.join('designs', 'themes')
+      File.join("designs", "themes")
     end
 
     def create(id, attributes = {})
       if find(id) || system_themes.map(&:id).include?(id)
         raise DuplicatedIdentifier
       end
+
       Theme.new(id, attributes).save
     end
 
@@ -34,7 +34,7 @@ class Theme
 
     def angular_theme?(theme_id)
       theme = Theme.find_system_theme(theme_id)
-      !theme.nil? && theme.config['angular_theme']
+      !theme.nil? && theme.config["angular_theme"]
     end
 
     def find(the_id)
@@ -46,27 +46,28 @@ class Theme
     end
 
     def find_by_owner(owner)
-      Dir.glob(File.join(user_themes_dir, '*', 'theme.yml')).select do |desc|
+      Dir.glob(File.join(user_themes_dir, "*", "theme.yml")).select do |desc|
         config = YAML.load_file(desc)
-        (config['owner_type'] == owner.class.base_class.name) && (config['owner_id'] == owner.id)
+        (config["owner_type"] == owner.class.base_class.name) && (config["owner_id"] == owner.id)
       end.map do |desc|
         Theme.find(File.basename(File.dirname(desc)))
       end
     end
 
     def approved_themes(owner)
-      Dir.glob(File.join(system_themes_dir, '*')).map do |item|
-        next unless File.exists? File.join(item, 'theme.yml')
-        id = File.basename item
-        config = YAML.load_file File.join(item, 'theme.yml')
+      Dir.glob(File.join(system_themes_dir, "*")).map do |item|
+        next unless File.exists? File.join(item, "theme.yml")
 
-        approved = config['public']
+        id = File.basename item
+        config = YAML.load_file File.join(item, "theme.yml")
+
+        approved = config["public"]
         unless approved
           begin
-            approved = owner.kind_of?(config['owner_type'].constantize)
+            approved = owner.kind_of?(config["owner_type"].constantize)
           rescue
           end
-          approved &&= config['owner_id'] == owner.id if config['owner_id'].present?
+          approved &&= config["owner_id"] == owner.id if config["owner_id"].present?
         end
 
         [id, config] if approved
@@ -84,38 +85,38 @@ class Theme
   def initialize(id, attributes = {})
     @id = id
     load_config
-    attributes.each do |k,v|
+    attributes.each do |k, v|
       self.send("#{k}=", v) if self.respond_to?("#{k}=")
     end
-    config['id'] = id
+    config["id"] = id
   end
 
   def name
-    config['name'] || id
+    config["name"] || id
   end
 
   def name=(value)
-    config['name'] = value
+    config["name"] = value
   end
 
   def public
-    config['public'] || false
+    config["public"] || false
   end
 
   def public=(value)
-    config['public'] = value
+    config["public"] = value
   end
 
   def angular_theme
-    config['angular_theme'] || false
+    config["angular_theme"] || false
   end
 
   def angular_theme=(value)
-    config['angular_theme'] = value
+    config["angular_theme"] = value
   end
 
   def public_path
-    File.join('/', self.class.relative_themes_dir, self.id)
+    File.join("/", self.class.relative_themes_dir, self.id)
   end
 
   def filesystem_path
@@ -133,7 +134,7 @@ class Theme
 
   def update_css(filename, content)
     add_css(filename)
-    File.open(stylesheet_path(filename), 'w') do |f|
+    File.open(stylesheet_path(filename), "w") do |f|
       f.write(content)
     end
   end
@@ -143,30 +144,30 @@ class Theme
   end
 
   def css_files
-    Dir.glob(File.join(stylesheets_directory, '*.css')).map { |f| File.basename(f) }
+    Dir.glob(File.join(stylesheets_directory, "*.css")).map { |f| File.basename(f) }
   end
 
   def add_image(filename, data)
     FileUtils.mkdir_p(images_directory)
-    File.open(image_path(filename), 'wb') do |f|
+    File.open(image_path(filename), "wb") do |f|
       f.write(data)
     end
   end
 
   def image_files
-    Dir.glob(image_path('*')).map {|item| File.basename(item)}
+    Dir.glob(image_path("*")).map { |item| File.basename(item) }
   end
 
   def stylesheet_path(filename)
-    suffix = ''
+    suffix = ""
     unless filename =~ /\.css$/
-      suffix = '.css'
+      suffix = ".css"
     end
     File.join(stylesheets_directory, filename + suffix)
   end
 
   def stylesheets_directory
-    File.join(Theme.user_themes_dir, self.id, 'stylesheets')
+    File.join(Theme.user_themes_dir, self.id, "stylesheets")
   end
 
   def image_path(filename)
@@ -174,13 +175,13 @@ class Theme
   end
 
   def images_directory
-    File.join(self.class.user_themes_dir, id, 'images')
+    File.join(self.class.user_themes_dir, id, "images")
   end
 
   def save
     FileUtils.mkdir_p(self.class.user_themes_dir)
     FileUtils.mkdir_p(File.join(self.class.user_themes_dir, id))
-    %w[ common help menu article button search blocks forms login-box ].each do |item|
+    %w[common help menu article button search blocks forms login-box].each do |item|
       add_css(item)
     end
     write_config
@@ -188,30 +189,30 @@ class Theme
   end
 
   def owner
-    return nil unless config['owner_type'] && config['owner_id']
-    @owner ||= config['owner_type'].constantize.find(config['owner_id'])
+    return nil unless config["owner_type"] && config["owner_id"]
+
+    @owner ||= config["owner_type"].constantize.find(config["owner_id"])
   end
 
   def owner=(model)
-    config['owner_type'] = model.class.base_class.name
-    config['owner_id'] = model.id
+    config["owner_type"] = model.class.base_class.name
+    config["owner_id"] = model.id
     @owner = model
   end
 
   protected
 
-  def write_config
-    File.open(File.join(self.class.user_themes_dir, self.id, 'theme.yml'), 'w') do |f|
-      f.write(config.to_yaml)
+    def write_config
+      File.open(File.join(self.class.user_themes_dir, self.id, "theme.yml"), "w") do |f|
+        f.write(config.to_yaml)
+      end
     end
-  end
 
-  def load_config
-    if File.exists?(File.join(self.class.user_themes_dir, self.id, 'theme.yml'))
-      @config = YAML.load_file(File.join(self.class.user_themes_dir, self.id, 'theme.yml'))
-    else
-      @config = {}
+    def load_config
+      if File.exists?(File.join(self.class.user_themes_dir, self.id, "theme.yml"))
+        @config = YAML.load_file(File.join(self.class.user_themes_dir, self.id, "theme.yml"))
+      else
+        @config = {}
+      end
     end
-  end
-
 end

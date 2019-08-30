@@ -1,78 +1,76 @@
 require_relative "../test_helper"
 
 class ContactTest < ActiveSupport::TestCase
-
-  should 'validates required fields' do
+  should "validates required fields" do
     contact = Contact.new
     refute contact.valid?
 
-    contact.subject = 'Hi'
+    contact.subject = "Hi"
     refute contact.valid?
 
-    contact.name = 'john'
+    contact.name = "john"
     refute contact.valid?
 
-    contact.email = 'visitor@invalid.com'
+    contact.email = "visitor@invalid.com"
     refute contact.valid?
 
-    contact.message = 'Hi, all'
+    contact.message = "Hi, all"
     assert contact.valid?
   end
 
-  should 'validates format of email only if not empty' do
+  should "validates format of email only if not empty" do
     contact = Contact.new
     contact.valid?
     assert_match(/can't be blank/, contact.errors[:email].first)
   end
 
-  should 'inicialize fields on instanciate' do
+  should "inicialize fields on instanciate" do
     assert_nothing_raised do
-      Contact.new(:name => 'john', :email => 'contact@invalid.com')
+      Contact.new(name: "john", email: "contact@invalid.com")
     end
   end
 
-  should 'deliver message' do
-    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
-    c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
+  should "deliver message" do
+    ent = fast_create(Enterprise, name: "my enterprise", identifier: "myent")
+    c = Contact.new(name: "john", email: "john@invalid.com", subject: "hi", message: "hi, all", dest: ent)
     assert c.deliver
   end
 
-  should 'not deliver message if contact is invalid' do
-    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
-    c = Contact.new(:name => 'john', :subject => 'hi', :message => 'hi, all', :dest => ent)
+  should "not deliver message if contact is invalid" do
+    ent = fast_create(Enterprise, name: "my enterprise", identifier: "myent")
+    c = Contact.new(name: "john", subject: "hi", message: "hi, all", dest: ent)
     refute c.valid?
     refute c.deliver
   end
 
-  should 'use sender name and environment noreply_email on from' do
-    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
+  should "use sender name and environment noreply_email on from" do
+    ent = fast_create(Enterprise, name: "my enterprise", identifier: "myent")
     env = ent.environment
-    env.noreply_email = 'noreply@sample.org'
+    env.noreply_email = "noreply@sample.org"
     env.save!
-    c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
+    c = Contact.new(name: "john", email: "john@invalid.com", subject: "hi", message: "hi, all", dest: ent)
     email = c.deliver
-    assert_equal "#{c.name} <#{ent.environment.noreply_email}>", email['from'].to_s
+    assert_equal "#{c.name} <#{ent.environment.noreply_email}>", email["from"].to_s
   end
 
-  should 'add dest name on subject' do
-    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
-    c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
+  should "add dest name on subject" do
+    ent = fast_create(Enterprise, name: "my enterprise", identifier: "myent")
+    c = Contact.new(name: "john", email: "john@invalid.com", subject: "hi", message: "hi, all", dest: ent)
     email = c.deliver
-    assert_equal "[#{ent.short_name(30)}] #{c.subject}", email['subject'].to_s
+    assert_equal "[#{ent.short_name(30)}] #{c.subject}", email["subject"].to_s
   end
 
-  should 'add sender email on reply_to' do
-    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
-    c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
+  should "add sender email on reply_to" do
+    ent = fast_create(Enterprise, name: "my enterprise", identifier: "myent")
+    c = Contact.new(name: "john", email: "john@invalid.com", subject: "hi", message: "hi, all", dest: ent)
     email = c.deliver
     assert_equal c.email, email.reply_to.first.to_s
   end
 
-  should 'not escape html tags in message' do
-    ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
-    c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => '<b>hi, all</b>', :dest => ent)
+  should "not escape html tags in message" do
+    ent = fast_create(Enterprise, name: "my enterprise", identifier: "myent")
+    c = Contact.new(name: "john", email: "john@invalid.com", subject: "hi", message: "<b>hi, all</b>", dest: ent)
     email = c.deliver
     assert_match /<b>hi, all<\/b>/, email.body.to_s
   end
-
 end

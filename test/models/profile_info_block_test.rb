@@ -1,9 +1,8 @@
 require_relative "../test_helper"
 
 class ProfileInfoBlockTest < ActiveSupport::TestCase
-
   def setup
-    @profile = create_user('mytestuser').person
+    @profile = create_user("mytestuser").person
 
     @block = ProfileInfoBlock.new
     @profile.boxes.first.blocks << @block
@@ -12,15 +11,14 @@ class ProfileInfoBlockTest < ActiveSupport::TestCase
   end
   attr_reader :block, :profile
 
-  should 'provide description' do
+  should "provide description" do
     assert_not_equal Block.description, ProfileInfoBlock.description
   end
 
   include BoxesHelper
 
-  should 'display profile information' do
-    self.expects(:render).with(template: 'blocks/profile_info', locals: { block: block })
+  should "display profile information" do
+    self.expects(:render).with(template: "blocks/profile_info", locals: { block: block })
     render_block_content(block)
   end
-
 end

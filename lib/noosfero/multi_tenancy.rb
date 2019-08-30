@@ -1,6 +1,5 @@
 module Noosfero
   class MultiTenancy
-
     def self.mapping
       @mapping ||= self.load_map
     end
@@ -18,6 +17,7 @@ module Noosfero
 
     def self.setup!(host)
       return unless Noosfero::MultiTenancy.on?
+
       Noosfero::MultiTenancy.db_by_host = host
     end
 
@@ -35,22 +35,22 @@ module Noosfero
 
     private
 
-    def self.load_map
-      db_file = Rails.root.join('config', 'database.yml')
-      db_config = YAML.load(ERB.new(File.read(db_file)).result)
-      map = { }
-      db_config.each do |env, attr|
-        next unless env.match(/_#{Rails.env}$/) and attr['adapter'] =~ /^postgresql$/i
-        attr['domains'].each { |d| map[d] = attr['schema_search_path'] }
+      def self.load_map
+        db_file = Rails.root.join("config", "database.yml")
+        db_config = YAML.load(ERB.new(File.read(db_file)).result)
+        map = {}
+        db_config.each do |env, attr|
+          next unless env.match(/_#{Rails.env}$/) && attr["adapter"] =~ (/^postgresql$/i)
+
+          attr["domains"].each { |d| map[d] = attr["schema_search_path"] }
+        end
+        map
       end
-      map
-    end
 
-    def self.is_hosted_environment?
-      db_file = Rails.root.join('config', 'database.yml')
-      db_config = YAML.load(ERB.new(File.read(db_file)).result)
-      db_config.select{ |env, attr| Rails.env.to_s.match(/_#{env}$/) }.any?
-    end
-
+      def self.is_hosted_environment?
+        db_file = Rails.root.join("config", "database.yml")
+        db_config = YAML.load(ERB.new(File.read(db_file)).result)
+        db_config.select { |env, attr| Rails.env.to_s.match(/_#{env}$/) }.any?
+      end
   end
 end

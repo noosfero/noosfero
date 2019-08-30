@@ -1,54 +1,53 @@
-require 'test_helper'
-require_relative '../../../../app/controllers/public/account_controller'
+require "test_helper"
+require_relative "../../../../app/controllers/public/account_controller"
 
 class AccountControllerTest < ActionController::TestCase
-
-  SALT=YAML::load(File.open(StoaPlugin.root_path + 'config.yml'))['salt']
+  SALT = YAML::load(File.open(StoaPlugin.root_path + "config.yml"))["salt"]
 
   def setup
     @controller = AccountController.new
-    StoaPlugin::UspUser.create!({:codpes => 12345678, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :birth_date => '1970-01-30'}, :without_protection => true)
+    StoaPlugin::UspUser.create!({ codpes: 12345678, cpf: Digest::MD5.hexdigest(SALT + "12345678"), birth_date: "1970-01-30" }, { without_protection: true })
     Environment.default.enable_plugin(StoaPlugin.name)
-    @user = create_user('joao-stoa', {:password => 'pass', :password_confirmation => 'pass'},:usp_id=>'87654321')
+    @user = create_user("joao-stoa", { password: "pass", password_confirmation: "pass" }, { usp_id: "87654321" })
     @user.activate!
   end
 
-  should 'fail if confirmation value doesn\'t match' do
-    #StoaPlugin::UspUser.stubs(:matches?).returns(false)
-    post :signup, :profile_data => {:usp_id => '12345678'}, :confirmation_field => 'cpf', :cpf => '00000000'
+  should "fail if confirmation value doesn't match" do
+    # StoaPlugin::UspUser.stubs(:matches?).returns(false)
+    post :signup, profile_data: { usp_id: "12345678" }, confirmation_field: "cpf", cpf: "00000000"
     assert_not_nil assigns(:person).errors[:usp_id]
   end
 
-  should 'pass if confirmation value matches' do
-    #StoaPlugin::UspUser.stubs(:matches?).returns(true)
-    post :signup, :profile_data => {:usp_id => '12345678'}, :confirmation_field => 'cpf', :cpf => '12345678'
+  should "pass if confirmation value matches" do
+    # StoaPlugin::UspUser.stubs(:matches?).returns(true)
+    post :signup, profile_data: { usp_id: "12345678" }, confirmation_field: "cpf", cpf: "12345678"
     refute assigns(:person).errors.include?(:usp_id)
   end
 
-  should 'include invitation_code param in the person\'s attributes' do
-    get :signup, :invitation_code => 12345678
-    assert assigns(:person).invitation_code == '12345678'
+  should "include invitation_code param in the person's attributes" do
+    get :signup, invitation_code: 12345678
+    assert assigns(:person).invitation_code == "12345678"
   end
 
-  should 'authenticate with usp id' do
-    post :login, :usp_id_login => '87654321', :password => 'pass'
+  should "authenticate with usp id" do
+    post :login, usp_id_login: "87654321", password: "pass"
     assert session[:user]
     assert_equal @user.login, assigns(:current_user).login
   end
 
-  should 'not authenticate with wrong password' do
-    post :login, :usp_id_login => '87654321', :password => 'pass123'
+  should "not authenticate with wrong password" do
+    post :login, usp_id_login: "87654321", password: "pass123"
     assert_nil session[:user]
   end
 
-  should 'authenticate with username' do
-    post :login, :usp_id_login => 'joao-stoa', :password => 'pass'
+  should "authenticate with username" do
+    post :login, usp_id_login: "joao-stoa", password: "pass"
     assert session[:user]
     assert_equal @user.login, assigns(:current_user).login
   end
 
-  should 'be able to recover password with usp_id' do
-    post :forgot_password, :value => '87654321'
-    assert_template 'password_recovery_sent'
+  should "be able to recover password with usp_id" do
+    post :forgot_password, value: "87654321"
+    assert_template "password_recovery_sent"
   end
 end

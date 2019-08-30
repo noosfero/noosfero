@@ -1,5 +1,4 @@
 class SuppliersPlugin::DistributedProduct < SuppliersPlugin::BaseProduct
-
   attr_accessible :from_products
 
   # missed from lib/ext/product.rb because of STI
@@ -19,8 +18,10 @@ class SuppliersPlugin::DistributedProduct < SuppliersPlugin::BaseProduct
 
     self.price_with_margins base_price
   end
-  def price= value
+
+  def price=(value)
     return super if value.blank?
+
     value = value.to_f
     base_price = self.supplier_price
     return super if base_price.blank?
@@ -30,5 +31,4 @@ class SuppliersPlugin::DistributedProduct < SuppliersPlugin::BaseProduct
   end
 
   protected
-
 end

@@ -1,6 +1,6 @@
 class AddEnabledToProfile < ActiveRecord::Migration
   def self.up
-    add_column :profiles, :enabled, :boolean, :default => true
+    add_column :profiles, :enabled, :boolean, default: true
   end
 
   def self.down

@@ -1,7 +1,6 @@
-raise 'I18n version 0.6.0 is needed for a good string interpolation' unless I18n::VERSION >= '0.6.0'
+raise "I18n version 0.6.0 is needed for a good string interpolation" unless I18n::VERSION >= "0.6.0"
 
 module TermsHelper
-
   extend ActiveSupport::Concern
 
   included do
@@ -18,15 +17,13 @@ module TermsHelper
     alias_method :t, :translate
   end
 
-  I18nSeparator = '.'
+  I18nSeparator = "."
 
   Terms = [:profile, :supplier, :consumer]
   Auxiliars = [
     nil,
-    #
     :it, :one,
     :to_it,
-    #
     :article, :undefined_article,
     :in, :which, :this, :your,
     :at, :at_article,
@@ -63,15 +60,16 @@ module TermsHelper
   end
 
   # FIXME: move from here
-  def self.hash_diff h1, h2, inverse = true, path = [], &block
-    block ||= proc{ |v1, v2| v1 == v2 }
+  def self.hash_diff(h1, h2, inverse = true, path = [], &block)
+    block ||= proc { |v1, v2| v1 == v2 }
 
     h1.each do |k1, v1|
       v2 = h2[k1] rescue nil
       new_path = path + [k1]
-      next self.hash_diff v1, v2, inverse, new_path, &block if v1.is_a? Hash and v2.present?
+      next self.hash_diff v1, v2, inverse, new_path, &block if v1.is_a?(Hash) && v2.present?
 
       next if block.call v1, v2
+
       puts "[#{new_path.map(&:inspect).join ']['}]"
       puts "+ #{v1.inspect}"
       puts "- #{v2.inspect}"
@@ -79,67 +77,67 @@ module TermsHelper
 
     self.hash_diff h2, h1, false, [], &block if inverse
   end
-  def self.compare_locales l1, l2
+
+  def self.compare_locales(l1, l2)
     I18n.backend.send :init_translations
     trs = I18n.backend.send :translations
     self.hash_diff trs[l1], trs[l2], false do |v1, v2|
-      ! (v1.present? and v2.blank?)
+      !(v1.present? && v2.blank?)
     end
   end
 
   protected
 
-  def translate_with_transformation key, options = {}
-    translation = translate_without_transformation key, options
+    def translate_with_transformation(key, options = {})
+      translation = translate_without_transformation key, options
 
-    transformation = options[:transformation]
-    translation = translation.send transformation if transformation
+      transformation = options[:transformation]
+      translation = translation.send transformation if transformation
 
-    translation
-  end
-
-  def translate_with_terms_cache key, options = {}
-    # we don't support cache with custom options
-    return translate_without_terms_cache key, options if options.present?
-
-    cache = (TermsHelper.cache[I18n.locale] ||= {})
-    cache = (cache[i18n_scope] ||= {})
-
-    hit = cache[key]
-    return hit if hit.present?
-
-    cache[key] = translate_without_terms_cache key, options
-  end
-
-  def translate_with_terms key, options = {}
-    translation = translate_without_terms key, options
-    if translation.nil? or not translation.is_a? String
-      # FIXME: don't raise errors unless specified to do so
-      #raise "Invalid or empty value for #{key}"
-      ""
-    else
-      translation % translated_terms
+      translation
     end
-  end
+
+    def translate_with_terms_cache(key, options = {})
+      # we don't support cache with custom options
+      return translate_without_terms_cache key, options if options.present?
+
+      cache = (TermsHelper.cache[I18n.locale] ||= {})
+      cache = (cache[i18n_scope] ||= {})
+
+      hit = cache[key]
+      return hit if hit.present?
+
+      cache[key] = translate_without_terms_cache key, options
+    end
+
+    def translate_with_terms(key, options = {})
+      translation = translate_without_terms key, options
+      if translation.nil? || (not translation.is_a? String)
+        # FIXME: don't raise errors unless specified to do so
+        # raise "Invalid or empty value for #{key}"
+        ""
+      else
+        translation % translated_terms
+      end
+    end
 
   private
 
-  def translated_terms keys = Keys, translations = TermsHelper.translations, transformations = Transformations, sep = I18nSeparator
-    translated_terms = (translations[I18n.locale] ||= {})
-    translated_terms = (translated_terms[i18n_scope] ||= {})
+    def translated_terms(keys = Keys, translations = TermsHelper.translations, transformations = Transformations, sep = I18nSeparator)
+      translated_terms = (translations[I18n.locale] ||= {})
+      translated_terms = (translated_terms[i18n_scope] ||= {})
 
-    return translated_terms if translated_terms.present?
+      return translated_terms if translated_terms.present?
 
-    keys.each do |key|
-      translation = self.translate_with_auto_scope "terms#{sep}#{key}", raise: true rescue nil
-      next unless translation.is_a? String
+      keys.each do |key|
+        translation = self.translate_with_auto_scope "terms#{sep}#{key}", raise: true rescue nil
+        next unless translation.is_a? String
 
-      translated_terms["terms#{sep}#{key}".to_sym] = translation
-      transformations.each do |transformation|
-        translated_terms["terms#{sep}#{key}#{sep}#{transformation}".to_sym] = translation.send transformation
+        translated_terms["terms#{sep}#{key}".to_sym] = translation
+        transformations.each do |transformation|
+          translated_terms["terms#{sep}#{key}#{sep}#{transformation}".to_sym] = translation.send transformation
+        end
       end
+      translated_terms
     end
-    translated_terms
-  end
-
 end

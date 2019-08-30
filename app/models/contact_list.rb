@@ -1,5 +1,4 @@
 class ContactList < ApplicationRecord
-
   serialize :list, Array
 
   def list
@@ -15,17 +14,16 @@ class ContactList < ApplicationRecord
   end
 
   def register_auth_error
-    msg = _('There was an error while authenticating. Did you enter correct login and password?')
+    msg = _("There was an error while authenticating. Did you enter correct login and password?")
     self.fetched = true
     self.error_fetching = msg
     self.save!
   end
 
   def register_error
-    msg = _('There was an error while looking for your contact list. Please, try again')
+    msg = _("There was an error while looking for your contact list. Please, try again")
     self.fetched = true
     self.error_fetching = msg
     self.save!
   end
-
 end

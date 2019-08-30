@@ -1,10 +1,9 @@
 require_relative "../test_helper"
 
 class FriendshipTest < ActiveSupport::TestCase
-
-  should 'connect a person to another' do
-    p1 = create_user('person_test').person
-    p2 = create_user('person_test_2').person
+  should "connect a person to another" do
+    p1 = create_user("person_test").person
+    p2 = create_user("person_test_2").person
 
     f = Friendship.new
     assert_raise ActiveRecord::AssociationTypeMismatch do
@@ -19,52 +18,51 @@ class FriendshipTest < ActiveSupport::TestCase
     end
 
     f.save!
-
   end
 
-  should 'create tracked action' do
-    a, b, c = create_user('a').person, create_user('b').person, create_user('c').person
+  should "create tracked action" do
+    a, b, c = create_user("a").person, create_user("b").person, create_user("c").person
     f = Friendship.new
     f.person = a
     f.friend = b
     f.save!
-    ta = ActionTracker::Record.where(:target_type => "Friendship").last
+    ta = ActionTracker::Record.where(target_type: "Friendship").last
     assert_equal a, ta.user
-    assert_equal 'b', ta.get_friend_name[0]
+    assert_equal "b", ta.get_friend_name[0]
     f = Friendship.new
     f.person = a
     f.friend = c
     f.save!
-    ta = ActionTracker::Record.where(:target_type => "Friendship").last
+    ta = ActionTracker::Record.where(target_type: "Friendship").last
     assert_equal a, ta.user
-    assert_equal 'c', ta.get_friend_name[1]
+    assert_equal "c", ta.get_friend_name[1]
   end
 
-  should 'create tracked action for both people' do
-    a, b = create_user('a').person, create_user('b').person
+  should "create tracked action for both people" do
+    a, b = create_user("a").person, create_user("b").person
     f = Friendship.new
     f.person = a
     f.friend = b
     f.save!
-    ta = ActionTracker::Record.where(:target_type => "Friendship").last
+    ta = ActionTracker::Record.where(target_type: "Friendship").last
     assert_equal a, ta.user
-    assert_equal ['b'], ta.get_friend_name
+    assert_equal ["b"], ta.get_friend_name
     f = Friendship.new
     f.person = b
     f.friend = a
     f.save!
-    ta = ActionTracker::Record.where(:target_type => "Friendship").last
+    ta = ActionTracker::Record.where(target_type: "Friendship").last
     assert_equal b, ta.user
-    assert_equal ['a'], ta.get_friend_name
+    assert_equal ["a"], ta.get_friend_name
   end
 
-  should 'remove friendships when a friend removal occurs' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-    p1.add_friend(p2, 'friends')
-    p2.add_friend(p1, 'friends')
+  should "remove friendships when a friend removal occurs" do
+    p1 = create_user("testuser1").person
+    p2 = create_user("testuser2").person
+    p1.add_friend(p2, "friends")
+    p2.add_friend(p1, "friends")
 
-    assert_difference 'Friendship.count', -2 do
+    assert_difference "Friendship.count", -2 do
       Friendship.remove_friendship(p1, p2)
     end
 
@@ -72,25 +70,25 @@ class FriendshipTest < ActiveSupport::TestCase
     assert_not_includes p2.friends, p1
   end
 
-  should 'add follower when adding friend' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
+  should "add follower when adding friend" do
+    p1 = create_user("testuser1").person
+    p2 = create_user("testuser2").person
 
-    assert_difference 'ProfileFollower.count', 2 do
-      p1.add_friend(p2, 'friends')
-      p2.add_friend(p1, 'friends')
+    assert_difference "ProfileFollower.count", 2 do
+      p1.add_friend(p2, "friends")
+      p2.add_friend(p1, "friends")
     end
 
     assert_includes p1.followers, p2
     assert_includes p2.followers, p1
   end
 
-  should 'remove follower when a friend removal occurs' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
+  should "remove follower when a friend removal occurs" do
+    p1 = create_user("testuser1").person
+    p2 = create_user("testuser2").person
 
-    p1.add_friend(p2, 'friends')
-    p2.add_friend(p1, 'friends')
+    p1.add_friend(p2, "friends")
+    p2.add_friend(p1, "friends")
 
     Friendship.remove_friendship(p1, p2)
 
@@ -98,12 +96,12 @@ class FriendshipTest < ActiveSupport::TestCase
     assert_not_includes p2.followers, p1
   end
 
-  should 'keep friendship intact when stop following' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
+  should "keep friendship intact when stop following" do
+    p1 = create_user("testuser1").person
+    p2 = create_user("testuser2").person
 
-    p1.add_friend(p2, 'friends')
-    p2.add_friend(p1, 'friends')
+    p1.add_friend(p2, "friends")
+    p2.add_friend(p1, "friends")
     p1.friends.reload
     p2.friends.reload
 
@@ -113,12 +111,12 @@ class FriendshipTest < ActiveSupport::TestCase
     assert_includes p2.friends, p1
   end
 
-  should 'do not add friendship when start following' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
+  should "do not add friendship when start following" do
+    p1 = create_user("testuser1").person
+    p2 = create_user("testuser2").person
 
-    circle1 = Circle.create!(:person=> p1, :name => "Zombies", :profile_type => 'Person')
-    circle2 = Circle.create!(:person=> p2, :name => "Zombies", :profile_type => 'Person')
+    circle1 = Circle.create!(person: p1, name: "Zombies", profile_type: "Person")
+    circle2 = Circle.create!(person: p2, name: "Zombies", profile_type: "Person")
     p1.follow(p2, circle1)
     p2.follow(p1, circle2)
     p1.friends.reload

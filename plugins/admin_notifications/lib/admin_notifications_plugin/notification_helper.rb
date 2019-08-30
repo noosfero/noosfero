@@ -1,5 +1,4 @@
 module AdminNotificationsPlugin::NotificationHelper
-
   def hide_notifications
     invalid_id = -1
     hide_notifications_ids = [invalid_id]
@@ -14,5 +13,4 @@ module AdminNotificationsPlugin::NotificationHelper
 
     message
   end
-
 end

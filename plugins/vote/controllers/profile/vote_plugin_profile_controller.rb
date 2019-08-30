@@ -1,7 +1,7 @@
 class VotePluginProfileController < ProfileController
   helper VotePluginHelper
 
-  before_action :login_required, :only => [:vote]
+  before_action :login_required, only: [:vote]
 
   def vote
     @model = params[:model].to_sym
@@ -37,21 +37,20 @@ class VotePluginProfileController < ProfileController
 
   protected
 
-  def target(model)
-    case model
+    def target(model)
+      case model
       when :article
         profile.articles.find(params[:id])
       when :comment
         profile.comments_received.find(params[:id])
+      end
     end
-  end
 
-  def vote_target(object, vote)
-    old_vote = user.votes.for_voteable(object).first
-    user.votes.for_voteable(object).each { |v| v.destroy }
-    if old_vote.nil? || old_vote.vote != vote
-      user.vote(object, vote)
+    def vote_target(object, vote)
+      old_vote = user.votes.for_voteable(object).first
+      user.votes.for_voteable(object).each { |v| v.destroy }
+      if old_vote.nil? || old_vote.vote != vote
+        user.vote(object, vote)
+      end
     end
-  end
-
 end

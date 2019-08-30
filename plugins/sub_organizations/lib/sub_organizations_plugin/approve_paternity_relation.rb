@@ -1,5 +1,4 @@
 class SubOrganizationsPlugin::ApprovePaternityRelation < ApplicationRecord
-
   belongs_to :task, optional: true
   belongs_to :parent, polymorphic: true, optional: true
   belongs_to :child, polymorphic: true, optional: true
@@ -13,5 +12,4 @@ class SubOrganizationsPlugin::ApprovePaternityRelation < ApplicationRecord
       find_by_task_id(task.id).parent
     end
   end
-
 end

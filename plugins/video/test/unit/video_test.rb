@@ -1,7 +1,6 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class VideoTest < ActiveSupport::TestCase
-
   include AuthenticatedTestHelper
   fixtures :users, :environments
 
@@ -10,7 +9,7 @@ class VideoTest < ActiveSupport::TestCase
   end
 
   should "define its type_name as video" do
-    assert_equal VideoPlugin::Video.type_name, _('Video')
+    assert_equal VideoPlugin::Video.type_name, _("Video")
   end
 
   should "display version" do
@@ -18,11 +17,11 @@ class VideoTest < ActiveSupport::TestCase
   end
 
   should "define its short_description" do
-    assert_equal VideoPlugin::Video.short_description, _('Embedded Video')
+    assert_equal VideoPlugin::Video.short_description, _("Embedded Video")
   end
 
   should "define its description" do
-    assert_equal VideoPlugin::Video.description, _('Display embedded videos.')
+    assert_equal VideoPlugin::Video.description, _("Display embedded videos.")
   end
 
   should "define a fitted_width" do
@@ -55,7 +54,6 @@ class VideoTest < ActiveSupport::TestCase
   should "show a no_browser_support_message" do
     assert_equal @video.no_browser_support_message, '<p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>'
   end
-
 
   ### Tests for YouTube
 
@@ -93,27 +91,26 @@ class VideoTest < ActiveSupport::TestCase
 
   should "mime-type return video/webm if url ends with webm" do
     url = "http://www.vmsd.com/98979.webm"
-    assert_equal 'video/webm', @video.class.mime_type(url)
+    assert_equal "video/webm", @video.class.mime_type(url)
   end
 
   should "mime-type return video/ogg if url ends with ogg" do
     url = "http://www.vmsd.com/98979.ogg"
-    assert_equal 'video/ogg', @video.class.mime_type(url)
+    assert_equal "video/ogg", @video.class.mime_type(url)
   end
 
   should "mime-type return video/unknown if platform is youtube" do
     url = "https://youtube.com/?v=XXXXX"
-    assert_equal 'video/unknown', @video.class.mime_type(url)
+    assert_equal "video/unknown", @video.class.mime_type(url)
   end
 
   should "mime-type return video/unknown if platform is vimeo" do
     url = "http://vimeo.com/98979"
-    assert_equal 'video/unknown', @video.class.mime_type(url)
+    assert_equal "video/unknown", @video.class.mime_type(url)
   end
 
   should "mime-type return video/mp4 if url ends with mp4" do
     url = "http://www.vmsd.com/98979.mp4"
-    assert_equal 'video/mp4', @video.class.mime_type(url)
+    assert_equal "video/mp4", @video.class.mime_type(url)
   end
-
 end

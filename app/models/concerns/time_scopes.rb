@@ -11,9 +11,9 @@ module TimeScopes
   end
 
   module ClassMethods
-    def self.extended (base)
+    def self.extended(base)
       if base.respond_to?(:scope)
-        if base.attribute_names.include?('created_at')
+        if base.attribute_names.include?("created_at")
           base.class_eval do
             scope :younger_than, lambda { |created_at|
               where "#{table_name}.created_at > ?", created_at
@@ -29,7 +29,7 @@ module TimeScopes
         attributes.each do |attribute|
           if base.attribute_names.include?(attribute)
             base.class_eval do
-              scope attribute, -> start_date, end_date {
+              scope attribute, ->start_date, end_date {
                 if start_date.present?
                   start_date = DateTime.parse(start_date) unless start_date.kind_of?(DateTime)
                   start_term = "#{table_name}.#{attribute} > ?"
@@ -44,7 +44,7 @@ module TimeScopes
                   end_date = nil
                 end
 
-                where [start_term, end_term].compact.join(' AND '), *[start_date, end_date].compact
+                where [start_term, end_term].compact.join(" AND "), *[start_date, end_date].compact
               }
             end
           end

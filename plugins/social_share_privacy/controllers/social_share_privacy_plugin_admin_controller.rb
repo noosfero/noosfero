@@ -1,7 +1,7 @@
 class SocialSharePrivacyPluginAdminController < AdminController
-  append_view_path File.join(File.dirname(__FILE__) + '/../views')
+  append_view_path File.join(File.dirname(__FILE__) + "/../views")
 
-  protect 'edit_environment_features', :environment
+  protect "edit_environment_features", :environment
 
   include SocialSharePrivacyPluginHelper
 
@@ -16,12 +16,11 @@ class SocialSharePrivacyPluginAdminController < AdminController
     if request.post?
       begin
         @settings.save!
-        session[:notice] = _('Option updated successfully.')
+        session[:notice] = _("Option updated successfully.")
       rescue Exception => exception
-        session[:notice] = _('Option wasn\'t updated successfully.')
+        session[:notice] = _("Option wasn't updated successfully.")
       end
-      redirect_to :controller => 'plugins', :action => 'index'
+      redirect_to controller: "plugins", action: "index"
     end
   end
-
 end

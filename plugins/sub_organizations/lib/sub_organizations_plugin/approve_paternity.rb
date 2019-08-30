@@ -5,7 +5,7 @@ class SubOrganizationsPlugin::ApprovePaternity < Task
   settings_items :temp_parent_type
 
   after_create do |task|
-    r = SubOrganizationsPlugin::ApprovePaternityRelation.create!(:task => task, :parent => task.temp_parent, :child => task.target)
+    r = SubOrganizationsPlugin::ApprovePaternityRelation.create!(task: task, parent: task.temp_parent, child: task.target)
   end
 
   def temp_parent
@@ -21,11 +21,11 @@ class SubOrganizationsPlugin::ApprovePaternity < Task
   end
 
   def linked_subject
-    {:text => parent.name, :url => parent.url}
+    { text: parent.name, url: parent.url }
   end
 
   def information
-    {:message => _('%{requestor} wants to add this organization as a sub-organization of %{linked_subject}.')}
+    { message: _("%{requestor} wants to add this organization as a sub-organization of %{linked_subject}.") }
   end
 
   def reject_details
@@ -33,25 +33,24 @@ class SubOrganizationsPlugin::ApprovePaternity < Task
   end
 
   def icon
-    {:type => :profile_image, :profile => parent, :url => parent.url}
+    { type: :profile_image, profile: parent, url: parent.url }
   end
 
   def task_created_message
-    ('%{requestor} wants to add your organization %{target} as a sub-organization of %{parent}.') % {:requestor => requestor.name, :target => target.name, :parent => temp_parent.name}
+    ("%{requestor} wants to add your organization %{target} as a sub-organization of %{parent}.") % { requestor: requestor.name, target: target.name, parent: temp_parent.name }
   end
 
   def task_finished_message
-    ('%{target} accepted your request to add it as a sub-organization of %{parent}.') % {:target => target.name, :parent => parent.name}
+    ("%{target} accepted your request to add it as a sub-organization of %{parent}.") % { target: target.name, parent: parent.name }
   end
 
   def task_cancelled_message
-    ('%{target} refused your request to add it as a sub-organization of %{parent}.') % {:target => target.name, :parent => parent.name}
+    ("%{target} refused your request to add it as a sub-organization of %{parent}.") % { target: target.name, parent: parent.name }
   end
 
   protected
 
-  def perform
-    SubOrganizationsPlugin::Relation.add_children(parent, target)
-  end
-
+    def perform
+      SubOrganizationsPlugin::Relation.add_children(parent, target)
+    end
 end

@@ -1,22 +1,23 @@
 class EventPlugin::EventBlock < Block
   attr_accessible :all_env_events, :limit, :future_only, :date_distance_limit, :display_as_calendar
 
-  settings_items :all_env_events, :type => :boolean, :default => false
-  settings_items :limit, :type => :integer, :default => 4
-  settings_items :future_only, :type => :boolean, :default => true
-  settings_items :date_distance_limit, :type => :integer, :default => 0
-  settings_items :display_as_calendar, :type => :boolean, :default => false
+  settings_items :all_env_events, type: :boolean, default: false
+  settings_items :limit, type: :integer, default: 4
+  settings_items :future_only, type: :boolean, default: true
+  settings_items :date_distance_limit, type: :integer, default: 0
+  settings_items :display_as_calendar, type: :boolean, default: false
 
   def self.description
-    _('Events')
+    _("Events")
   end
 
   def help
-    _('Show the profile events or all environment events.')
+    _("Show the profile events or all environment events.")
   end
 
   def events_source
     return environment if all_env_events
+
     if self.owner.kind_of? Environment
       environment.portal_community ? environment.portal_community : environment
     else
@@ -25,18 +26,18 @@ class EventPlugin::EventBlock < Block
   end
 
   def events(user = nil)
-    events = events_source.events.order('start_date')
+    events = events_source.events.order("start_date")
     events = events.accessible_to(user)
 
     if future_only
-      events = events.where('start_date >= ?', DateTime.now.beginning_of_day)
+      events = events.where("start_date >= ?", DateTime.now.beginning_of_day)
     end
 
     if date_distance_limit > 0
       events = events.by_range([
-        DateTime.now.beginning_of_day - date_distance_limit,
-        DateTime.now.beginning_of_day + date_distance_limit
-      ])
+                                 DateTime.now.beginning_of_day - date_distance_limit,
+                                 DateTime.now.beginning_of_day + date_distance_limit
+                               ])
     end
 
     event_list = []
@@ -49,7 +50,7 @@ class EventPlugin::EventBlock < Block
   end
 
   def self.expire_on
-      { :profile => [:article], :environment => [:article] }
+    { profile: [:article], environment: [:article] }
   end
 
   def api_content(params = {})

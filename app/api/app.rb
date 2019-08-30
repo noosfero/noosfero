@@ -1,9 +1,8 @@
-require_dependency 'api/helpers'
+require_dependency "api/helpers"
 
 module Api
   class App < Grape::API::Instance
-
-    logger = Logger.new(File.join(Rails.root, 'log', "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
+    logger = Logger.new(File.join(Rails.root, "log", "#{ENV['RAILS_ENV'] || 'production'}_api.log"))
     logger.formatter = GrapeLogging::Formatters::Default.new
 
     rescue_from :all do |e|
@@ -16,12 +15,12 @@ module Api
       if @@NOOSFERO_CONF
         @@NOOSFERO_CONF
       else
-        file = Rails.root.join('config', 'noosfero.yml')
+        file = Rails.root.join("config", "noosfero.yml")
         @@NOOSFERO_CONF = File.exists?(file) ? YAML.load_file(file)[Rails.env] || {} : {}
       end
     end
 
-    before { set_locale  }
+    before { set_locale }
     before { setup_multitenancy }
     before { detect_stuff_by_domain }
     before { set_current_user }
@@ -29,7 +28,7 @@ module Api
     before { init_noosfero_plugins }
     after { set_session_cookie }
 
-    version 'v1'
+    version "v1"
     format :json
     content_type :txt, "text/plain"
 
@@ -55,12 +54,12 @@ module Api
     mount V1::Settings
 
     # hook point which allow plugins to add Grape::API extensions to Api::App
-    #finds for plugins which has api mount points classes defined (the class should extends Grape::API)
-    @plugins = Noosfero::Plugin.all.map{|p| p.constantize if Object.const_defined?(p) }.compact
+    # finds for plugins which has api mount points classes defined (the class should extends Grape::API)
+    @plugins = Noosfero::Plugin.all.map { |p| p.constantize if Object.const_defined?(p) }.compact
     @plugins.each do |klass|
       if klass.public_methods.include? :api_mount_points
         klass.api_mount_points.each do |mount_class|
-          mount mount_class if mount_class && ( mount_class < Grape::API::Instance )
+          mount mount_class if mount_class && (mount_class < Grape::API::Instance)
         end
       end
     end

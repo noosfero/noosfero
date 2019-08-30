@@ -1,5 +1,4 @@
 class CommentParagraphPlugin < Noosfero::Plugin
-
   def self.plugin_name
     "Comment Paragraph"
   end
@@ -17,10 +16,10 @@ class CommentParagraphPlugin < Noosfero::Plugin
     paragraph_uuid = comment.paragraph_uuid || args[:paragraph_uuid]
     proc {
       arr = []
-      arr << hidden_field_tag('comment[id]', comment.id)
-      arr << hidden_field_tag('comment[paragraph_uuid]', paragraph_uuid) if paragraph_uuid
-      arr << hidden_field_tag('comment[comment_paragraph_selected_area]', comment.comment_paragraph_selected_area) unless comment.comment_paragraph_selected_area.blank?
-      arr << hidden_field_tag('comment[comment_paragraph_selected_content]', comment.comment_paragraph_selected_content) unless comment.comment_paragraph_selected_content.blank?
+      arr << hidden_field_tag("comment[id]", comment.id)
+      arr << hidden_field_tag("comment[paragraph_uuid]", paragraph_uuid) if paragraph_uuid
+      arr << hidden_field_tag("comment[comment_paragraph_selected_area]", comment.comment_paragraph_selected_area) unless comment.comment_paragraph_selected_area.blank?
+      arr << hidden_field_tag("comment[comment_paragraph_selected_content]", comment.comment_paragraph_selected_content) unless comment.comment_paragraph_selected_content.blank?
       arr
     }
   end
@@ -28,12 +27,12 @@ class CommentParagraphPlugin < Noosfero::Plugin
   def comment_extra_contents(args)
     comment = args[:comment]
     proc {
-      render :file => 'comment_paragraph_plugin_profile/comment_extra', :locals => {:comment => comment}
+      render file: "comment_paragraph_plugin_profile/comment_extra", locals: { comment: comment }
     }
   end
 
   def js_files
-    ['comment_paragraph_macro', 'rangy-core', 'rangy-cssclassapplier', 'rangy-serializer']
+    ["comment_paragraph_macro", "rangy-core", "rangy-cssclassapplier", "rangy-serializer"]
   end
 
   def stylesheet?
@@ -41,7 +40,7 @@ class CommentParagraphPlugin < Noosfero::Plugin
   end
 
   def self.activation_mode_default_setting
-    'manual'
+    "manual"
   end
 
   def article_extra_toolbar_buttons(article)
@@ -50,12 +49,12 @@ class CommentParagraphPlugin < Noosfero::Plugin
 
     buttons = []
 
-    buttons << { :title => _('Export Comments'),
-                 :url => { :controller => 'comment_paragraph_plugin_profile',
-                           :profile => article.profile.identifier,
-                           :action => 'export_comments',
-                           :id => article.id },
-                 :icon => 'download' }
+    buttons << { title: _("Export Comments"),
+                 url: { controller: "comment_paragraph_plugin_profile",
+                        profile: article.profile.identifier,
+                        action: "export_comments",
+                        id: article.id },
+                 icon: "download" }
     buttons
   end
 
@@ -65,14 +64,13 @@ class CommentParagraphPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-      CommentParagraphPlugin::DiscussionBlock => {:position => ['1','2','3'] }
+      CommentParagraphPlugin::DiscussionBlock => { position: ["1", "2", "3"] }
     }
   end
 
   def content_types
     [CommentParagraphPlugin::Discussion]
   end
-
 end
 
-require_dependency 'comment_paragraph_plugin/macros/allow_comment'
+require_dependency "comment_paragraph_plugin/macros/allow_comment"

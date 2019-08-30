@@ -1,5 +1,4 @@
 class InitAnalyticsPlugin < ActiveRecord::Migration
-
   def up
     create_table :analytics_plugin_visits do |t|
       t.integer :profile_id
@@ -43,5 +42,4 @@ class InitAnalyticsPlugin < ActiveRecord::Migration
     drop_table :analytics_plugin_visits
     drop_table :analytics_plugin_page_views
   end
-
 end

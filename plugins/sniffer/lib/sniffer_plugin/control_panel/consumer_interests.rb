@@ -1,21 +1,20 @@
 module SnifferPlugin::ControlPanel
   class ConsumerInterests < ControlPanel::Entry
     class << self
-
       def name
-        _('Consumer Interests')
+        _("Consumer Interests")
       end
 
       def section
-        'enterprise'
+        "enterprise"
       end
 
       def icon
-        'check-square'
+        "check-square"
       end
 
       def url(profile)
-        {:controller => 'sniffer_plugin_myprofile', :action => 'edit'}
+        { controller: "sniffer_plugin_myprofile", action: "edit" }
       end
     end
   end

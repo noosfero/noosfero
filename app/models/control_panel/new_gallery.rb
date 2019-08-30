@@ -1,15 +1,15 @@
 class ControlPanel::NewGallery < ControlPanel::Entry
   class << self
     def name
-      _('New Gallery')
+      _("New Gallery")
     end
 
     def section
-      'content'
+      "content"
     end
 
     def icon
-      'camera'
+      "camera"
     end
 
     def priority
@@ -17,14 +17,14 @@ class ControlPanel::NewGallery < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('create'), _('photos'), _('images')]
+      [_("create"), _("photos"), _("images")]
     end
 
     def url(profile)
-      {:controller => 'cms', :action => 'new', :type => 'Gallery'}
+      { controller: "cms", action: "new", type: "Gallery" }
     end
 
-    def display?(user, profile, context={})
+    def display?(user, profile, context = {})
       profile.galleries.count == 0
     end
   end

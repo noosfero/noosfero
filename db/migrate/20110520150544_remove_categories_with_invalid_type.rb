@@ -1,5 +1,4 @@
 class RemoveCategoriesWithInvalidType < ActiveRecord::Migration
-
   def self.remove_invalid(category)
     if category.class != ProductCategory && !category.class.ancestors.include?(ProductCategory)
       execute("update categories set type='ProductCategory' where id=#{category.id}")
@@ -10,7 +9,7 @@ class RemoveCategoriesWithInvalidType < ActiveRecord::Migration
 
   def self.up
     select_all("SELECT id from categories WHERE type = 'ProductCategory'").each do |product_category|
-      category = ProductCategory.find(product_category['id'])
+      category = ProductCategory.find(product_category["id"])
       remove_invalid(category)
     end
   end

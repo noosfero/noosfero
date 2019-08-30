@@ -1,14 +1,14 @@
-require 'test_helper'
+require "test_helper"
 
 class ProfileControllerTest < ActionController::TestCase
   def setup
     @env = Environment.default
-    @env.enable_plugin('ClassifyMembersPlugin')
+    @env.enable_plugin("ClassifyMembersPlugin")
 
-    @p1  = fast_create(Person, :environment_id => @env.id)
-    @p2  = fast_create(Person, :environment_id => @env.id)
-    @c1  = fast_create(Community, :environment_id => @env.id)
-    @c2  = fast_create(Community, :environment_id => @env.id)
+    @p1  = fast_create(Person, environment_id: @env.id)
+    @p2  = fast_create(Person, environment_id: @env.id)
+    @c1  = fast_create(Community, environment_id: @env.id)
+    @c2  = fast_create(Community, environment_id: @env.id)
 
     # Register cassification communities:
     ClassifyMembersPlugin.new(self).settings.communities = "#{@c1.identifier}: Test-Tag"
@@ -23,16 +23,16 @@ class ProfileControllerTest < ActionController::TestCase
     @env
   end
 
-  should 'add classification to the <html>' do
-    get :index, :profile => @p1.identifier
+  should "add classification to the <html>" do
+    get :index, profile: @p1.identifier
 
-    assert_select 'html.member-of-' + @c1.identifier
-    assert_select 'html.member-of-' + @c2.identifier, false
+    assert_select "html.member-of-" + @c1.identifier
+    assert_select "html.member-of-" + @c2.identifier, false
   end
 
-  should 'not add classification to a non member' do
-    get :index, :profile=>@p2.identifier
+  should "not add classification to a non member" do
+    get :index, profile: @p2.identifier
 
-    assert_select 'html.member-of-' + @c1.identifier, false
+    assert_select "html.member-of-" + @c1.identifier, false
   end
 end

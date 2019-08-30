@@ -1,7 +1,6 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class AllowCommentTest < ActiveSupport::TestCase
-
   def setup
     @macro = CommentParagraphPlugin::AllowComment.new
     @environment = Environment.default
@@ -9,48 +8,47 @@ class AllowCommentTest < ActiveSupport::TestCase
 
     @profile = fast_create(Community)
 
-    @article = create(CommentParagraphPlugin::Discussion, :profile_id => profile.id, :name => 'some title', :start_date => DateTime.now)
+    @article = create(CommentParagraphPlugin::Discussion, profile_id: profile.id, name: "some title", start_date: DateTime.now)
 
-    @comment = fast_create(Comment, :paragraph_uuid => 1, :source_id => article.id)
+    @comment = fast_create(Comment, paragraph_uuid: 1, source_id: article.id)
     @controller = mock
   end
 
   attr_reader :macro, :profile, :article, :controller, :comment, :environment
 
-  should 'have a configuration' do
+  should "have a configuration" do
     assert CommentParagraphPlugin::AllowComment.configuration
   end
 
-  should 'parse contents to include comment paragraph view' do
-    attrs = { id: comment.paragraph_uuid, classes: 'custom-class' }
+  should "parse contents to include comment paragraph view" do
+    attrs = { id: comment.paragraph_uuid, classes: "custom-class" }
     content = macro.parse(attrs, article.body, article)
     controller.expects(:kind_of?).with(ContentViewerController).returns(true)
 
-    expects(:render).with({:partial => 'comment_paragraph_plugin_profile/comment_paragraph', :locals => {:classes => 'custom-class', :paragraph_uuid => comment.paragraph_uuid, :article_id => article.id, :inner_html => article.body, :count => 1, :profile_identifier => profile.identifier} })
+    expects(:render).with(partial: "comment_paragraph_plugin_profile/comment_paragraph", locals: { classes: "custom-class", paragraph_uuid: comment.paragraph_uuid, article_id: article.id, inner_html: article.body, count: 1, profile_identifier: profile.identifier })
     instance_eval(&content)
   end
 
-  should 'not parse contents outside content viewer controller' do
-    article = fast_create(TextArticle, :profile_id => profile.id, :body => 'inner')
-    content = macro.parse({:paragraph_uuid => comment.paragraph_uuid}, article.body, article)
+  should "not parse contents outside content viewer controller" do
+    article = fast_create(TextArticle, profile_id: profile.id, body: "inner")
+    content = macro.parse({ paragraph_uuid: comment.paragraph_uuid }, article.body, article)
     controller.expects(:kind_of?).with(ContentViewerController).returns(false)
-    assert_equal 'inner', instance_eval(&content)
+    assert_equal "inner", instance_eval(&content)
   end
 
-  should 'not parse contents if comment_paragraph is not activated' do
-    article = fast_create(TextArticle, :profile_id => profile.id, :body => 'inner')
-    content = macro.parse({:paragraph_uuid => comment.paragraph_uuid}, article.body, article)
+  should "not parse contents if comment_paragraph is not activated" do
+    article = fast_create(TextArticle, profile_id: profile.id, body: "inner")
+    content = macro.parse({ paragraph_uuid: comment.paragraph_uuid }, article.body, article)
     controller.expects(:kind_of?).with(ContentViewerController).returns(true)
-    assert_equal 'inner', instance_eval(&content)
+    assert_equal "inner", instance_eval(&content)
   end
 
-  should 'preload comment counts when parsing content' do
-    3.times { fast_create(Comment, :paragraph_uuid => '2', :source_id => article.id) }
-    content = macro.parse({:paragraph_uuid => comment.paragraph_uuid}, article.body, article)
+  should "preload comment counts when parsing content" do
+    3.times { fast_create(Comment, paragraph_uuid: "2", source_id: article.id) }
+    content = macro.parse({ paragraph_uuid: comment.paragraph_uuid }, article.body, article)
     paragraph_comments_counts = macro.instance_variable_get(:@paragraph_comments_counts)
-    assert_equivalent ['1', '2'], paragraph_comments_counts.keys
-    assert_equal 1, paragraph_comments_counts['1']
-    assert_equal 3, paragraph_comments_counts['2']
+    assert_equivalent ["1", "2"], paragraph_comments_counts.keys
+    assert_equal 1, paragraph_comments_counts["1"]
+    assert_equal 3, paragraph_comments_counts["2"]
   end
-
 end

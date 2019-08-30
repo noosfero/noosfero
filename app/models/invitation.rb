@@ -1,17 +1,16 @@
 class Invitation < Task
-
   settings_items :message, :friend_name, :friend_email
 
   validates_presence_of :requestor_id
 
-  validates_presence_of :target_id, :if => Proc.new{|invite| invite.friend_email.blank?}
+  validates_presence_of :target_id, if: Proc.new { |invite| invite.friend_email.blank? }
 
-  validates :requestor, kind_of: {kind: Person}
+  validates :requestor, kind_of: { kind: Person }
 
-  validates_presence_of :friend_email, :if => Proc.new{|invite| invite.target_id.blank?}
-  validates_format_of :friend_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => Proc.new{|invite| invite.target_id.blank?}
+  validates_presence_of :friend_email, if: Proc.new { |invite| invite.target_id.blank? }
+  validates_format_of :friend_email, with: Noosfero::Constants::EMAIL_FORMAT, if: Proc.new { |invite| invite.target_id.blank? }
 
-  validates_presence_of :message, :if => Proc.new{|invite| invite.target_id.blank?}
+  validates_presence_of :message, if: Proc.new { |invite| invite.target_id.blank? }
 
   validate :not_invite_yourself
 
@@ -32,7 +31,7 @@ class Invitation < Task
   end
 
   def title
-    _('Invitation')
+    _("Invitation")
   end
 
   def not_invite_yourself
@@ -56,7 +55,7 @@ class Invitation < Task
       find_by_profile_id = false
       if contact_to_invite.match(/^\d*$/)
         find_by_profile_id = true
-      elsif match = contact_to_invite.match(/(.*)<(.*)>/) and match[2].match(Noosfero::Constants::EMAIL_FORMAT)
+      elsif (match = contact_to_invite.match(/(.*)<(.*)>/)) && match[2].match(Noosfero::Constants::EMAIL_FORMAT)
         friend_name = match[1].strip
         friend_email = match[2]
       elsif match = contact_to_invite.strip.match(Noosfero::Constants::EMAIL_FORMAT)
@@ -73,17 +72,17 @@ class Invitation < Task
       end
 
       task_args = if user.nil? && !find_by_profile_id
-        {:person => person, :friend_name => friend_name, :friend_email => friend_email, :message => message}
-      elsif user.present? && !(user.person.is_a_friend?(person) && profile.person?)
-        {:person => person, :target => user.person}
+                    { person: person, friend_name: friend_name, friend_email: friend_email, message: message }
+                  elsif user.present? && !(user.person.is_a_friend?(person) && profile.person?)
+                    { person: person, target: user.person }
       end
 
       if profile.person?
         InviteFriend.create(task_args) if user.nil? || !user.person.is_a_friend?(person)
       elsif profile.community?
-        InviteMember.create(task_args.merge(:community_id => profile.id)) if user.nil? || !user.person.is_member_of?(profile)
+        InviteMember.create(task_args.merge(community_id: profile.id)) if user.nil? || !user.person.is_member_of?(profile)
       else
-        raise NotImplementedError, 'Don\'t know how to invite people to a %s' % profile.class.to_s
+        raise NotImplementedError, "Don't know how to invite people to a %s" % profile.class.to_s
       end
     end
   end
@@ -98,9 +97,9 @@ class Invitation < Task
     when "hotmail"
       email_service = Contacts::Hotmail.new(login, password)
     when "manual"
-      #do nothing
+      # do nothing
     else
-      raise NotImplementedError, 'Unknown source to get contacts'
+      raise NotImplementedError, "Unknown source to get contacts"
     end
     if email_service
       contact_list.list = email_service.contacts.map { |contact| contact + ["#{contact[0]} <#{contact[1]}>"] }
@@ -130,11 +129,11 @@ class Invitation < Task
   end
 
   def mail_template
-    raise 'You should implement mail_template in a subclass'
+    raise "You should implement mail_template in a subclass"
   end
 
   def self.default_message_to_accept_invitation
-    "\n\n" + _('To accept invitation, please follow this link: <url>')
+    "\n\n" + _("To accept invitation, please follow this link: <url>")
   end
 
   def environment
@@ -144,5 +143,4 @@ class Invitation < Task
       nil
     end
   end
-
 end

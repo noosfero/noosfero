@@ -1,5 +1,4 @@
 module AttachmentFuAssistant
-
   module ClassMethods
     def attachment_fu_thumbnails
       include AttachmentFuAssistant::InstanceMethods
@@ -11,7 +10,7 @@ module AttachmentFuAssistant
         # ensure there is a fname
         fname = fname || file.filename
         fname, thumb_suffix = fname.split(/(_big|_icon|_minor|_portrait|_thumb)$/) if file.try(:thumbnail?)
-        thumb_suffix ||= ''
+        thumb_suffix ||= ""
         # makes filename secure for FS manipulation and URLs
         file.filename = fname.to_slug + thumb_suffix + ext.to_s.to_slug
       end
@@ -45,12 +44,12 @@ module AttachmentFuAssistant
       end
     end
 
-    def public_filename(size=nil)
+    def public_filename(size = nil)
       force, size = true, nil if size == :uploaded
       if !self.thumbnailable? || self.thumbnails_processed || force
         super size
       else
-        self.full_filename.to_s.gsub %r(^#{Regexp.escape(base_path)}), ''
+        self.full_filename.to_s.gsub %r(^#{Regexp.escape(base_path)}), ""
       end
     end
 
@@ -67,7 +66,7 @@ module AttachmentFuAssistant
     end
 
     def thumbnailable?
-        super && (File.extname(temp_path) != '.ico')
+      super && (File.extname(temp_path) != ".ico")
     end
   end
 end

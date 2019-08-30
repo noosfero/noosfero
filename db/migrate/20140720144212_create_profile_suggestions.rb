@@ -5,8 +5,8 @@ class CreateProfileSuggestions < ActiveRecord::Migration
       t.references :suggestion
       t.string :suggestion_type
       t.text :categories
-      t.boolean :enabled, :default => true
-      t.float :score, :default => 0
+      t.boolean :enabled, default: true
+      t.float :score, default: 0
 
       t.timestamps
     end

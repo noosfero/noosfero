@@ -1,5 +1,4 @@
 class OrdersPluginOrderController < ProfileController
-
   include OrdersPlugin::TranslationHelper
 
   no_design_blocks
@@ -18,31 +17,30 @@ class OrdersPluginOrderController < ProfileController
 
   protected
 
-  def load_order
-    @order = hmvc_orders_context::Sale.find_by id: params[:id]
-    render_access_denied if @order.present? and (not @user_is_admin or not @order.may_view? user)
-  end
-
-  def check_access access = 'view'
-    unless @order.send "may_#{access}?", user
-      session[:notice] = if user.blank? then t('orders_plugin.controllers.profile.consumer.login_first') else session[:notice] = t('orders_plugin.controllers.profile.consumer.you_are_not_the_owner') end
-      redirect_to action: :index
-      false
-    else
-      true
+    def load_order
+      @order = hmvc_orders_context::Sale.find_by id: params[:id]
+      render_access_denied if @order.present? && ((not @user_is_admin) || (not @order.may_view? user))
     end
-  end
 
-  # default value, may be overwriten
-  def set_actor_name
-    @actor_name = :consumer
-  end
+    def check_access(access = "view")
+      unless @order.send "may_#{access}?", user
+        session[:notice] = if user.blank? then t("orders_plugin.controllers.profile.consumer.login_first") else session[:notice] = t("orders_plugin.controllers.profile.consumer.you_are_not_the_owner") end
+        redirect_to action: :index
+        false
+      else
+        true
+      end
+    end
 
-  extend HMVC::ClassMethods
-  hmvc OrdersPlugin, orders_context: OrdersPlugin
+    # default value, may be overwriten
+    def set_actor_name
+      @actor_name = :consumer
+    end
 
-  def disable_purechat
-    @disable_purechat = true
-  end
+    extend HMVC::ClassMethods
+    hmvc OrdersPlugin, orders_context: OrdersPlugin
 
+    def disable_purechat
+      @disable_purechat = true
+    end
 end

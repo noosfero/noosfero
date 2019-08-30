@@ -4,10 +4,9 @@ class NationalRegionTypes < ActiveRecord::Migration
       t.string :name
     end
 
-    NationalRegionType.create  :name => "Country"
-    NationalRegionType.create  :name => "State"
-    NationalRegionType.create  :name => "City"
-
+    NationalRegionType.create  name: "Country"
+    NationalRegionType.create  name: "State"
+    NationalRegionType.create  name: "City"
   end
 
   def self.down

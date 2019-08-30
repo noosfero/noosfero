@@ -13,17 +13,17 @@ class Environment < ApplicationRecord
 end
 
 class EnableProductsPluginOnEnvironments < ActiveRecord::Migration
-
   def up
     environments  = Environment.all
-    products_used = environments.any?{ |e| e.products.count > 0 }
+    products_used = environments.any? { |e| e.products.count > 0 }
     return unless products_used
 
-    Bundler.clean_system 'script/noosfero-plugins enable products'
+    Bundler.clean_system "script/noosfero-plugins enable products"
     environments.each do |e|
-      products = e.products.where('profiles.visible = true')
+      products = e.products.where("profiles.visible = true")
       next unless products.count > 0
-      e.enabled_plugins << 'ProductsPlugin'
+
+      e.enabled_plugins << "ProductsPlugin"
       e.save!
     end
   end
@@ -31,5 +31,4 @@ class EnableProductsPluginOnEnvironments < ActiveRecord::Migration
   def down
     say "this migration can't be reverted"
   end
-
 end

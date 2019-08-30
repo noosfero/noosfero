@@ -1,9 +1,8 @@
-require_relative 'custom_data'
+require_relative "custom_data"
 
 class Noosfero::Plugin::Metadata < Noosfero::Plugin::CustomData
-
   def data_field_name
-    'metadata'
+    "metadata"
   end
 
   def metadata
@@ -21,5 +20,4 @@ class Noosfero::Plugin::Metadata < Noosfero::Plugin::CustomData
   def set_custom_data(name, value, type = nil)
     metadata[name.to_s] = value
   end
-
 end

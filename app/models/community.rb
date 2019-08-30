@@ -1,16 +1,15 @@
 class Community < Organization
-
   attr_accessible :accessor_id, :accessor_type, :role_id, :resource_id,
-    :resource_type, :address_reference, :district, :language, :description
+                  :resource_type, :address_reference, :district, :language, :description
 
   after_destroy :check_invite_member_for_destroy
 
   def self.type_name
-    _('Community')
+    _("Community")
   end
 
-  N_('community')
-  N_('Language')
+  N_("community")
+  N_("Language")
 
   settings_items :language
 
@@ -18,11 +17,11 @@ class Community < Organization
   set_profile_region_from_city_state
 
   before_create do |community|
-    community.moderated_articles = true if community.environment.enabled?('organizations_are_moderated_by_default')
+    community.moderated_articles = true if community.environment.enabled?("organizations_are_moderated_by_default")
   end
 
   def check_invite_member_for_destroy
-      InviteMember.pending.select { |task| task.community_id == self.id }.map(&:destroy)
+    InviteMember.pending.select { |task| task.community_id == self.id }.map(&:destroy)
   end
 
   # Since it's not a good idea to add the environment as accessible through
@@ -33,8 +32,8 @@ class Community < Organization
     environment = attributes[:environment]
     community = Community.new(attributes)
     community.environment = environment
-    if community.environment.enabled?('admin_must_approve_new_communities')
-      CreateCommunity.create!(attributes.merge(:requestor => requestor, :environment => environment))
+    if community.environment.enabled?("admin_must_approve_new_communities")
+      CreateCommunity.create!(attributes.merge(requestor: requestor, environment: environment))
     else
       community.save!
       community.add_admin(requestor)
@@ -42,7 +41,7 @@ class Community < Organization
     community
   end
 
-  xss_terminate only: [ :name, :address, :contact_phone, :description ], on: :validation
+  xss_terminate only: [:name, :address, :contact_phone, :description], on: :validation
 
   FIELDS = %w[
     language
@@ -78,7 +77,7 @@ class Community < Organization
             .reorder("articles.position DESC, published_at DESC")
   end
 
-  def each_member(offset=0)
+  def each_member(offset = 0)
     while member = self.members.order(:id).offset(offset).first
       yield member
       offset = offset + 1
@@ -91,6 +90,7 @@ class Community < Organization
 
   def default_set_of_blocks
     return angular_theme_default_set_of_blocks if Theme.angular_theme?(environment.theme)
+
     links = set_links
     [
       [MainBlock.new],
@@ -100,11 +100,10 @@ class Community < Organization
 
   def angular_theme_default_set_of_blocks
     @boxes_limit = 2
-    self.layout_template = 'rightbar'
+    self.layout_template = "rightbar"
     [
       [MenuBlock.new, MainBlock.new],
       [CommunitiesBlock.new, TagsCloudBlock.new]
     ]
   end
-
 end

@@ -1,22 +1,21 @@
 module ToleranceTimePlugin::ControlPanel
-  class Tolerance <  ControlPanel::Entry
+  class Tolerance < ControlPanel::Entry
     class << self
-
       def name
-       _('Tolerance Adjustements')
+        _("Tolerance Adjustements")
       end
 
       def section
-        'content'
+        "content"
       end
 
       def icon
-        'stopwatch'
+        "stopwatch"
       end
 
       # Url button points to.
       def url(profile)
-        {:controller => 'tolerance_time_plugin_myprofile', :profile => profile.identifier}
+        { controller: "tolerance_time_plugin_myprofile", profile: profile.identifier }
       end
     end
   end

@@ -1,6 +1,6 @@
 class TermsForumPeople < ActiveRecord::Migration
   def self.up
-    create_table :terms_forum_people, :id => false do |t|
+    create_table :terms_forum_people, id: false do |t|
       t.integer :forum_id
       t.integer :person_id
     end
@@ -11,5 +11,4 @@ class TermsForumPeople < ActiveRecord::Migration
     remove_index :terms_forum_people, [:forum_id, :person_id]
     drop_table :terms_forum_people
   end
-
 end

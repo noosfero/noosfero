@@ -1,7 +1,6 @@
 # encoding: UTF-8
 
 module CountriesHelper
-
   class Object
     include ::CountriesHelper
     include Singleton
@@ -257,7 +256,7 @@ module CountriesHelper
     ["Zimbabwe", "ZW"]
   ]
 
-  COUNTRIES_HASH = COUNTRIES.inject({}) do |hash,entry|
+  COUNTRIES_HASH = COUNTRIES.inject({}) do |hash, entry|
     hash[entry[1]] = entry[0]
     hash
   end
@@ -267,11 +266,10 @@ module CountriesHelper
   end
 
   def countries
-    CountriesHelper.countries.map {|item| [gettext(item[0]), item[1] ]}.sort_by { |entry| entry.first.transliterate }
+    CountriesHelper.countries.map { |item| [gettext(item[0]), item[1]] }.sort_by { |entry| entry.first.transliterate }
   end
 
   def lookup(code)
     gettext(COUNTRIES_HASH[code])
   end
-
 end

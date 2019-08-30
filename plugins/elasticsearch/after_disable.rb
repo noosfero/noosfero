@@ -1,11 +1,11 @@
-require 'rake'
+require "rake"
 
-tasks_dir = File.join(File.dirname(__FILE__), 'Rakefile')
+tasks_dir = File.join(File.dirname(__FILE__), "Rakefile")
 
 Dir[tasks_dir].each do |file|
   load file
 end
 
-unless ENV['TRAVIS']
-  Rake.application['stop'].invoke
+unless ENV["TRAVIS"]
+  Rake.application["stop"].invoke
 end

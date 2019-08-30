@@ -1,10 +1,9 @@
 class WorkAssignmentPlugin::EmailContact
-
   include ActiveModel::Validations
 
   def initialize(attributes = nil)
     if attributes
-      attributes.each do |attr,value|
+      attributes.each do |attr, value|
         self.send("#{attr}=", value)
       end
     end
@@ -18,18 +17,18 @@ class WorkAssignmentPlugin::EmailContact
   attr_accessor :sender
   attr_accessor :receiver
 
-  N_('Subject'); N_('Message'); N_('e-Mail'); N_('Name')
+  N_("Subject"); N_("Message"); N_("e-Mail"); N_("Name")
 
   validates_presence_of :receiver, :subject, :message, :sender
-  validates_format_of :receiver, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|o| !o.email.blank?})
+  validates_format_of :receiver, with: Noosfero::Constants::EMAIL_FORMAT, if: (lambda { |o| !o.email.blank? })
 
   def deliver
     return false unless self.valid?
+
     WorkAssignmentPlugin::EmailContact::EmailSender.notification(self).deliver
   end
 
   class EmailSender < ApplicationMailer
-
     def notification(email_contact)
       self.environment = email_contact.sender.environment
 
@@ -39,7 +38,7 @@ class WorkAssignmentPlugin::EmailContact
       target = email_contact.receiver
 
       options = {
-        content_type: 'text/html',
+        content_type: "text/html",
         to: target,
         reply_to: email,
         subject: email_contact.subject,

@@ -1,4 +1,4 @@
-require_relative './rspec'
+require_relative "./rspec"
 
 # FIXME: should syntax is DEPRECATED
 RSpec.configure do |config|

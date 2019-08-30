@@ -13,7 +13,7 @@ class AggressiveIndexingStrategy3 < ActiveRecord::Migration
 
     add_index :friendships, :person_id
     add_index :friendships, :friend_id
-    add_index :friendships, [:person_id, :friend_id], :uniq => true
+    add_index :friendships, [:person_id, :friend_id], uniq: true
 
     add_index :external_feeds, :blog_id
   end

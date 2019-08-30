@@ -14,5 +14,4 @@ class CommentHandler < Struct.new(:comment_id, :method, :locale)
   rescue ActiveRecord::RecordNotFound
     # just ignore non-existing comments
   end
-
 end

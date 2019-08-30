@@ -1,24 +1,23 @@
 module AdminNotificationsPlugin::ControlPanel
   class AdminNotifications < ControlPanel::Entry
     class << self
-
       def name
-        _('Admin Notifications')
+        _("Admin Notifications")
       end
 
       def section
-        'profile'
+        "profile"
       end
 
       def icon
-        'bell'
+        "bell"
       end
 
       def url(profile)
-        {:controller => 'admin_notifications_plugin_myprofile', :action => 'index'}
+        { controller: "admin_notifications_plugin_myprofile", action: "index" }
       end
 
-      def display?(user, profile, context={})
+      def display?(user, profile, context = {})
         profile.organization?
       end
     end

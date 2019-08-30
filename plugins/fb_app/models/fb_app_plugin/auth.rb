@@ -1,9 +1,8 @@
 class FbAppPlugin::Auth < OauthClientPlugin::Auth
-
   module Status
-    Connected = 'connected'
-    NotAuthorized = 'not_authorized'
-    Unknown = 'unknown'
+    Connected = "connected"
+    NotAuthorized = "not_authorized"
+    Unknown = "unknown"
   end
 
   settings_items :signed_request
@@ -20,18 +19,20 @@ class FbAppPlugin::Auth < OauthClientPlugin::Auth
   validates_presence_of :provider_user_id
   validates_uniqueness_of :provider_user_id, scope: :profile_id
 
-  def self.parse_signed_request signed_request, credentials = FbAppPlugin.page_tab_app_credentials
-    secret = credentials[:secret] rescue ''
+  def self.parse_signed_request(signed_request, credentials = FbAppPlugin.page_tab_app_credentials)
+    secret = credentials[:secret] rescue ""
     request = Facebook::SignedRequest.new signed_request, secret: secret
     request.data
   end
 
   def status
-    if self.access_token.present? and self.not_expired? then Status::Connected else Status::NotAuthorized end
+    if self.access_token.present? && self.not_expired? then Status::Connected else Status::NotAuthorized end
   end
+
   def not_authorized?
     self.status == Status::NotAuthorized
   end
+
   def connected?
     self.status == Status::Connected
   end
@@ -62,28 +63,27 @@ class FbAppPlugin::Auth < OauthClientPlugin::Auth
     fb_user = FbGraph2::User.me self.access_token
     self.fb_user = fb_user.fetch
   end
+
   def update_user
     self.fb_user = self.fetch_user
   end
 
   protected
 
-  def destroy_page_tabs
-    self.profile.fb_app_page_tabs.destroy_all
-  end
+    def destroy_page_tabs
+      self.profile.fb_app_page_tabs.destroy_all
+    end
 
-  def exchange_token_and_reschedule!
-    self.exchange_token!
-    self.schedule_exchange_token
-  end
+    def exchange_token_and_reschedule!
+      self.exchange_token!
+      self.schedule_exchange_token
+    end
 
-  def schedule_exchange_token
-    self.delay(run_at: self.expires_at - 2.weeks).exchange_token_and_reschedule!
-  end
+    def schedule_exchange_token
+      self.delay(run_at: self.expires_at - 2.weeks).exchange_token_and_reschedule!
+    end
 
-  def set_enabled
-    self.enabled = self.not_expired?
-  end
-
+    def set_enabled
+      self.enabled = self.not_expired?
+    end
 end
-

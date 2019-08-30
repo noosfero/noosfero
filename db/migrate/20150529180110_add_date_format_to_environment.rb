@@ -1,6 +1,6 @@
 class AddDateFormatToEnvironment < ActiveRecord::Migration
   def up
-    add_column :environments, :date_format, :string, :default => 'month_name_with_year'
+    add_column :environments, :date_format, :string, default: "month_name_with_year"
   end
 
   def down

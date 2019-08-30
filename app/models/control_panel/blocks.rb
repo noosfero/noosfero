@@ -1,15 +1,15 @@
 class ControlPanel::Blocks < ControlPanel::Entry
   class << self
     def name
-      _('Blocks')
+      _("Blocks")
     end
 
     def section
-      'design'
+      "design"
     end
 
     def icon
-      'th-large'
+      "th-large"
     end
 
     def priority
@@ -17,13 +17,11 @@ class ControlPanel::Blocks < ControlPanel::Entry
     end
 
     def custom_keywords
-      [_('sideblocks')]
+      [_("sideblocks")]
     end
 
     def url(profile)
-     {:controller => 'profile_design', :action => 'index'}
+      { controller: "profile_design", action: "index" }
     end
   end
 end
-
-

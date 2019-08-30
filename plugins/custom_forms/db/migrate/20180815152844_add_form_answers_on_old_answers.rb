@@ -9,7 +9,7 @@ class AddFormAnswersOnOldAnswers < ActiveRecord::Migration[5.1]
       INNER JOIN custom_forms_plugin_fields AS f ON a.field_id = f.id
       LEFT JOIN custom_forms_plugin_form_answers AS fa ON fa.answer_id = a.id
       INNER JOIN custom_forms_plugin_alternatives AS al ON al.id IN
-      (SELECT regexp_split_to_table(nullif(a.value, ''), ',')::int) WHERE fa.id IS NULL 
+      (SELECT regexp_split_to_table(nullif(a.value, ''), ',')::int) WHERE fa.id IS NULL
       AND f.type = 'CustomFormsPlugin::SelectField';"
     )
 

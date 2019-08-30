@@ -1,57 +1,55 @@
-require_relative '../../test_helper'
+require_relative "../../test_helper"
 
 class ProductsBlockTest < ActiveSupport::TestCase
-
   def setup
     @block = ProductsBlock.new
-    @product_category = create(ProductCategory, :name => 'Products')
+    @product_category = create(ProductCategory, name: "Products")
   end
   attr_reader :block
 
-  should 'be inherit from block' do
+  should "be inherit from block" do
     assert_kind_of Block, block
   end
 
-  should 'provide default title' do
+  should "provide default title" do
     assert_not_equal Block.new.default_title, ProductsBlock.new.default_title
   end
 
-  should 'provide default description' do
+  should "provide default description" do
     assert_not_equal Block.description, ProductsBlock.description
   end
 
-  should 'list 4 random products by default' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product three', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product four', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product five', :product_category => @product_category)
+  should "list 4 random products by default" do
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    create(Product, enterprise: enterprise, name: "product one", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product two", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product three", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product four", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product five", product_category: @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
     assert_equal 4, block.products.size
   end
 
-  should 'list all products if less than 4 by default' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product three', :product_category => @product_category)
+  should "list all products if less than 4 by default" do
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    create(Product, enterprise: enterprise, name: "product one", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product two", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product three", product_category: @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
     assert_equal 3, block.products.size
   end
 
-
-  should 'be able to set product_ids and have them listed' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    p1 = create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    p2 = create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
-    p3 = create(Product, :enterprise => enterprise, :name => 'product three', :product_category => @product_category)
-    p4 = create(Product, :enterprise => enterprise, :name => 'product four', :product_category => @product_category)
-    p5 = create(Product, :enterprise => enterprise, :name => 'product five', :product_category => @product_category)
+  should "be able to set product_ids and have them listed" do
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    p1 = create(Product, enterprise: enterprise, name: "product one", product_category: @product_category)
+    p2 = create(Product, enterprise: enterprise, name: "product two", product_category: @product_category)
+    p3 = create(Product, enterprise: enterprise, name: "product three", product_category: @product_category)
+    p4 = create(Product, enterprise: enterprise, name: "product four", product_category: @product_category)
+    p5 = create(Product, enterprise: enterprise, name: "product five", product_category: @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
@@ -59,10 +57,10 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_equivalent [p1, p3, p5], block.products
   end
 
-  should 'save product_ids' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    p1 = create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    p2 = create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+  should "save product_ids" do
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    p1 = create(Product, enterprise: enterprise, name: "product one", product_category: @product_category)
+    p2 = create(Product, enterprise: enterprise, name: "product two", product_category: @product_category)
 
     block = ProductsBlock.new
     enterprise.boxes.first.blocks << block
@@ -72,18 +70,18 @@ class ProductsBlockTest < ActiveSupport::TestCase
     assert_equal [p1.id, p2.id], ProductsBlock.find(block.id).product_ids
   end
 
-  should 'accept strings in product_ids but store integers' do
+  should "accept strings in product_ids but store integers" do
     block = ProductsBlock.new
-    block.product_ids = [ '1', '2']
+    block.product_ids = ["1", "2"]
     assert_equal [1, 2], block.product_ids
   end
 
-  should 'not repeat products' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    p1 = create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    p2 = create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
-    p3 = create(Product, :enterprise => enterprise, :name => 'product three', :product_category => @product_category)
-    p4 = create(Product, :enterprise => enterprise, :name => 'product four', :product_category => @product_category)
+  should "not repeat products" do
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    p1 = create(Product, enterprise: enterprise, name: "product one", product_category: @product_category)
+    p2 = create(Product, enterprise: enterprise, name: "product two", product_category: @product_category)
+    p3 = create(Product, enterprise: enterprise, name: "product three", product_category: @product_category)
+    p4 = create(Product, enterprise: enterprise, name: "product four", product_category: @product_category)
 
     block = ProductsBlock.new
     enterprise.boxes.first.blocks << block
@@ -95,8 +93,8 @@ class ProductsBlockTest < ActiveSupport::TestCase
   end
 end
 
-require 'boxes_helper'
-require 'block_helper'
+require "boxes_helper"
+require "block_helper"
 
 class ProductsBlockViewTest < ActionView::TestCase
   include BoxesHelper
@@ -105,59 +103,59 @@ class ProductsBlockViewTest < ActionView::TestCase
 
   def setup
     @block = ProductsBlock.new
-    @product_category = create(ProductCategory, :name => 'Products')
+    @product_category = create(ProductCategory, name: "Products")
   end
   attr_reader :block
 
   should "list owner products" do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    create(Product, enterprise: enterprise, name: "product one", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product two", product_category: @product_category)
 
     block.expects(:products).returns(enterprise.products)
 
     content = render_block_content(block)
 
-    assert_tag_in_string content, :content => 'Products'
+    assert_tag_in_string content, content: "Products"
 
-    assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product one/ }
-    assert_tag_in_string content, :tag => 'li', :attributes => { :class => 'product' }, :descendant => { :tag => 'a', :content => /product two/ }
+    assert_tag_in_string content, tag: "li", attributes: { class: "product" }, descendant: { tag: "a", content: /product one/ }
+    assert_tag_in_string content, tag: "li", attributes: { class: "product" }, descendant: { tag: "a", content: /product two/ }
   end
 
-  should 'display the thumbnail image if thumbnails were processed' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    create(Product, :enterprise => enterprise, :name => 'product', :product_category => @product_category, :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+  should "display the thumbnail image if thumbnails were processed" do
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    create(Product, enterprise: enterprise, name: "product", product_category: @product_category, image_builder: { uploaded_data: fixture_file_upload("/files/rails.png", "image/png") })
 
     process_delayed_job_queue
     block.expects(:products).returns(enterprise.products.reload)
     ActionView::Base.any_instance.stubs(:block_title).returns("")
 
     content = render_block_content(block)
-    assert_tag_in_string content, :tag => 'a', :attributes => { :style => /rails_minor.png/ }
+    assert_tag_in_string content, tag: "a", attributes: { style: /rails_minor.png/ }
   end
 
-  should 'point to all products in footer' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+  should "point to all products in footer" do
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    create(Product, enterprise: enterprise, name: "product one", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product two", product_category: @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
     footer = render_block_footer(block)
 
-    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /profile\/testenterprise\/plugin\/products\/catalog$/ }, :content => 'View all products'
+    assert_tag_in_string footer, tag: "a", attributes: { href: /profile\/testenterprise\/plugin\/products\/catalog$/ }, content: "View all products"
   end
 
-  should 'generate footer when enterprise has own hostname' do
-    enterprise = create(Enterprise, :name => 'testenterprise', :identifier => 'testenterprise')
-    enterprise.domains << Domain.new(:name => 'sometest.com'); enterprise.save!
-    create(Product, :enterprise => enterprise, :name => 'product one', :product_category => @product_category)
-    create(Product, :enterprise => enterprise, :name => 'product two', :product_category => @product_category)
+  should "generate footer when enterprise has own hostname" do
+    enterprise = create(Enterprise, name: "testenterprise", identifier: "testenterprise")
+    enterprise.domains << Domain.new(name: "sometest.com"); enterprise.save!
+    create(Product, enterprise: enterprise, name: "product one", product_category: @product_category)
+    create(Product, enterprise: enterprise, name: "product two", product_category: @product_category)
 
     block.stubs(:owner).returns(enterprise)
 
     footer = render_block_footer(block)
 
-    assert_tag_in_string footer, :tag => 'a', :attributes => { :href => /profile\/testenterprise\/plugin\/products\/catalog$/ }, :content => 'View all products'
+    assert_tag_in_string footer, tag: "a", attributes: { href: /profile\/testenterprise\/plugin\/products\/catalog$/ }, content: "View all products"
   end
 end

@@ -1,66 +1,65 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
 class FriendsBlockTest < ActionView::TestCase
-
-  should 'inherit from Block' do
+  should "inherit from Block" do
     assert_kind_of Block, FriendsBlock.new
   end
 
-  should 'declare its default title' do
+  should "declare its default title" do
     FriendsBlock.any_instance.expects(:profile_count).returns(0)
     assert_not_equal Block.new.default_title, FriendsBlock.new.default_title
   end
 
-  should 'describe itself' do
+  should "describe itself" do
     assert_not_equal Block.description, FriendsBlock.description
   end
 
-  should 'is editable' do
+  should "is editable" do
     block = FriendsBlock.new
     assert block.editable?
   end
 
-  should 'have field limit' do
+  should "have field limit" do
     block = FriendsBlock.new
     assert_respond_to block, :limit
   end
 
-  should 'default value of limit' do
+  should "default value of limit" do
     block = FriendsBlock.new
     assert_equal 6, block.limit
   end
 
-  should 'have field name' do
+  should "have field name" do
     block = FriendsBlock.new
     assert_respond_to block, :name
   end
 
-  should 'default value of name' do
+  should "default value of name" do
     block = FriendsBlock.new
     assert_equal "", block.name
   end
 
-  should 'have field address' do
+  should "have field address" do
     block = FriendsBlock.new
     assert_respond_to block, :address
   end
 
-  should 'default value of address' do
+  should "default value of address" do
     block = FriendsBlock.new
     assert_equal "", block.address
   end
 
-  should 'prioritize profiles with image by default' do
+  should "prioritize profiles with image by default" do
     assert FriendsBlock.new.prioritize_profiles_with_image
   end
 
-  should 'accept a limit of people to be displayed' do
+  should "accept a limit of people to be displayed" do
     block = FriendsBlock.new
     block.limit = 20
     assert_equal 20, block.limit
   end
 
-  should 'count number of owner friends' do
+  should "count number of owner friends" do
     owner = fast_create(Person)
     friend1 = fast_create(Person)
     friend2 = fast_create(Person)
@@ -75,7 +74,7 @@ class FriendsBlockTest < ActionView::TestCase
     assert_equal 3, block.profile_count
   end
 
-  should 'count number of public and private friends' do
+  should "count number of public and private friends" do
     owner = fast_create(Person)
     private_p = fast_create(Person, access: Entitlement::Levels.levels[:related])
     public_p = fast_create(Person)
@@ -90,10 +89,10 @@ class FriendsBlockTest < ActionView::TestCase
     assert_equal 2, block.profile_count(owner)
   end
 
-  should 'not count number of invisible friends' do
+  should "not count number of invisible friends" do
     owner = fast_create(Person)
-    private_p = fast_create(Person, {:visible => false})
-    public_p = fast_create(Person, {:visible => true})
+    private_p = fast_create(Person, visible: false)
+    public_p = fast_create(Person, visible: true)
 
     owner.add_friend(private_p)
     owner.add_friend(public_p)
@@ -104,18 +103,18 @@ class FriendsBlockTest < ActionView::TestCase
     assert_equal 1, block.profile_count
   end
 
-  should 'list owner\'s friends suggestions' do
+  should "list owner's friends suggestions" do
     owner = fast_create(Person)
-    suggestion1 = ProfileSuggestion.create!(:suggestion => fast_create(Person), :person => owner)
-    suggestion2 = ProfileSuggestion.create!(:suggestion => fast_create(Person), :person => owner)
+    suggestion1 = ProfileSuggestion.create!(suggestion: fast_create(Person), person: owner)
+    suggestion2 = ProfileSuggestion.create!(suggestion: fast_create(Person), person: owner)
 
     block = FriendsBlock.new
     block.stubs(:owner).returns(owner)
 
-    assert_equivalent block.suggestions, [suggestion1,suggestion2]
+    assert_equivalent block.suggestions, [suggestion1, suggestion2]
   end
 
-  should 'not list templates as friends' do
+  should "not list templates as friends" do
     owner = fast_create(Person)
     friend1 = fast_create(Person)
     template = fast_create(Person, is_template: true)
@@ -127,11 +126,11 @@ class FriendsBlockTest < ActionView::TestCase
   end
 
   protected
-  include NoosferoTestHelper
 
+    include NoosferoTestHelper
 end
 
-require 'boxes_helper'
+require "boxes_helper"
 
 class FriendsBlockViewTest < ActionView::TestCase
   include BoxesHelper
@@ -140,7 +139,7 @@ class FriendsBlockViewTest < ActionView::TestCase
     view.stubs(:user).returns(nil)
   end
 
-  should 'list friends from person' do
+  should "list friends from person" do
     owner = fast_create(Person)
     u = create_user
     u.activate!
@@ -150,7 +149,6 @@ class FriendsBlockViewTest < ActionView::TestCase
     u.activate!
     friend2 = u.person
 
-
     owner.add_friend(friend1)
     owner.add_friend(friend2)
 
@@ -159,7 +157,7 @@ class FriendsBlockViewTest < ActionView::TestCase
     block.expects(:owner).returns(owner).at_least_once
     ActionView::Base.any_instance.expects(:profile_image_link).with(friend1, :minor).returns(friend1.name)
     ActionView::Base.any_instance.expects(:profile_image_link).with(friend2, :minor).returns(friend2.name)
-    ActionView::Base.any_instance.expects(:block_title).with(anything, anything).returns('')
+    ActionView::Base.any_instance.expects(:block_title).with(anything, anything).returns("")
     ActionView::Base.any_instance.stubs(:theme_option).returns(nil)
 
     content = render_block_content(block)
@@ -170,8 +168,8 @@ class FriendsBlockViewTest < ActionView::TestCase
 
   should 'link to "all friends"' do
     env = fast_create(Environment)
-    person1 = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
-    friend = fast_create(Person, :environment_id => env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    person1 = fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
+    friend = fast_create(Person, environment_id: env.id, user_id: fast_create(User, activated_at: DateTime.now).id)
     person1.add_friend(friend)
     person1.save!
 
@@ -179,7 +177,7 @@ class FriendsBlockViewTest < ActionView::TestCase
     block.stubs(:suggestions).returns([])
     block.expects(:owner).returns(person1).at_least_once
     ActionView::Base.any_instance.stubs(:font_awesome).returns("View All")
-    assert_tag_in_string render_block_footer(block), tag: 'a', attributes: {class: 'view-all', href: "/profile/#{person1.identifier}/friends" }
+    assert_tag_in_string render_block_footer(block), tag: "a", attributes: { class: "view-all", href: "/profile/#{person1.identifier}/friends" }
   end
 
   # FIXME: This test is currently not reliable in the CI. We should rewrite it.
@@ -222,7 +220,7 @@ class FriendsBlockViewTest < ActionView::TestCase
   #   assert a1 > a2*NON_LINEAR_FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{NON_LINEAR_FACTOR}"
   # end
 
-  should 'list friends in api content' do
+  should "list friends in api content" do
     owner = fast_create(Person)
     friend1 = fast_create(Person)
     friend2 = fast_create(Person)
@@ -231,10 +229,10 @@ class FriendsBlockViewTest < ActionView::TestCase
     block = FriendsBlock.new
     block.expects(:owner).returns(owner).at_least_once
     json = block.api_content
-    assert_equivalent [friend1.identifier, friend2.identifier], json["people"].map {|p| p[:identifier]}
+    assert_equivalent [friend1.identifier, friend2.identifier], json["people"].map { |p| p[:identifier] }
   end
 
-  should 'limit friends list in api content' do
+  should "limit friends list in api content" do
     owner = fast_create(Person)
     5.times do
       friend = fast_create(Person)
@@ -247,10 +245,10 @@ class FriendsBlockViewTest < ActionView::TestCase
     assert_equal 5, json["#"]
   end
 
-  should 'return friends randomically in api content' do
+  should "return friends randomically in api content" do
     owner = fast_create(Person)
     10.times do |n|
-      friend = fast_create(Person, :name => "Person #{n}")
+      friend = fast_create(Person, name: "Person #{n}")
       owner.add_friend(friend)
     end
     block = FriendsBlock.new(limit: 3)
@@ -262,16 +260,15 @@ class FriendsBlockViewTest < ActionView::TestCase
     assert_not_equal json_response_2, json_response_3
   end
 
-  should 'return friends in order of name in api content' do
+  should "return friends in order of name in api content" do
     owner = fast_create(Person)
     10.times do |n|
-      friend = fast_create(Person, :name => "Person #{n}")
+      friend = fast_create(Person, name: "Person #{n}")
       owner.add_friend(friend)
     end
     block = FriendsBlock.new(limit: 3)
     block.expects(:owner).returns(owner.reload).at_least_once
     json_response = block.api_content
-    assert (json_response['people'][0][:name] < json_response['people'][1][:name]) && (json_response['people'][1][:name] < json_response['people'][2][:name])
+    assert (json_response["people"][0][:name] < json_response["people"][1][:name]) && (json_response["people"][1][:name] < json_response["people"][2][:name])
   end
-
 end
