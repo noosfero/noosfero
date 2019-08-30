@@ -34,7 +34,7 @@
       <% tabs << { title: font_awesome(:network, _('Network')), id: 'profile-network', content: (render partial: 'profile_network') } if @profile == user %>
     <% end %>
     <% profile_type = @profile.type == 'Person' ? 'User' : @profile.type %>
-    <% information_tab = profile_type + " info" %>
+    <% information_tab = _('Profile Info') %>
     <% tabs << { title: font_awesome(:info, _(information_tab)), id: kind, content: (render partial: kind.gsub('-', '_')) } %>
 
     <% tabs += plugins_tabs.select { |tab| !tab[:start] } %>
