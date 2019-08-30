@@ -47,7 +47,9 @@ module ActionTrackerHelper
       tag(:hr) +
       ta.collect_group_with_index(:thumbnail_path) do |t,i|
         if total == 1
-          link_to image_tag(t), ta.get_view_url[i], class: 'upimg'
+          link_to '&nbsp;'.html_safe, ta.get_view_url[i],
+            style: "background-image:url(#{t})",
+            class: "upimg"
         else
           pos = total-i;
           morethen2 = pos>2 ? 'morethen2' : ''

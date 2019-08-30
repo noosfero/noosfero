@@ -26,6 +26,8 @@ class CustomFormsPlugin::Answer < ApplicationRecord
   def value
     if field.is_a? CustomFormsPlugin::SelectField
       form_answers.map { |f| f.alternative_id }.join(',')
+    elsif field.is_a? CustomFormsPlugin::DateTimeField
+      self['value'].to_date
     else
       self['value']
     end
