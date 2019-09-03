@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2016-12-22 12:57+0000\n"
-"Last-Translator: Olivier Meinguet <olivier.meinguet@claroline.net>\n"
+"PO-Revision-Date: 2019-09-04 06:23+0000\n"
+"Last-Translator: Swann Martinet <swann.ranskassa@laposte.net>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
 "fr/>\n"
 "Language: fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.10\n"
+"X-Generator: Weblate 3.9-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr "(Requête non valide) %s ne peut être sauvegardée"
@@ -33,9 +33,8 @@ msgstr "Produit sans catégorie"
 msgid "Method Not Allowed"
 msgstr "Méthode non-autorisée"
 
-#, fuzzy
 msgid "The article %s was removed."
-msgstr "L'article a été supprimé."
+msgstr "L'article %s a été retiré."
 
 #, fuzzy
 msgid ""
@@ -65,9 +64,8 @@ msgstr "Article"
 msgid "You are now following the article %s."
 msgstr "Article"
 
-#, fuzzy
 msgid "The comment '%s' was removed."
-msgstr "Le commentaire n'a pas été supprimé."
+msgstr "Le commentaire « %s » a été retiré."
 
 #, fuzzy
 msgid ""
@@ -80,19 +78,17 @@ msgid ""
 "your solicitation."
 msgstr ""
 
-#, fuzzy
 msgid "The contact was sent."
-msgstr "Le contact n'a pas été envoyé"
+msgstr "Le contact a été envoyé."
 
-#, fuzzy
 msgid "The contact was not sent."
-msgstr "Le commentaire n'a pas été supprimé."
+msgstr "Le contact n'a pas été envoyé."
 
 msgid "You already request a membership for this community."
 msgstr ""
 
 msgid "You already member of this community."
-msgstr ""
+msgstr "Vous êtes déjà membre de la communauté."
 
 msgid ""
 "You are not member of this community and you did not made a membership "
