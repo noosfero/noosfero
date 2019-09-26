@@ -1,11 +1,15 @@
-
 [![pipeline status](https://gitlab.com/noosfero/noosfero/badges/master/pipeline.svg)](https://gitlab.com/noosfero/noosfero/commits/master)
 [![Code Climate](https://codeclimate.com/github/Noosfero/noosfero.png)](https://codeclimate.com/github/Noosfero/noosfero)
 
 Noosfero - a web-based social platform
 ======================================
 
-http://www.noosfero.org
+Communication
+-------------
+
+There is a Telegram group where you can reach the commity: https://t.me/noosferodev.
+
+Don't be shy to hop in and ask for questions.
 
 Documentation
 -------------
