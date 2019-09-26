@@ -1277,6 +1277,14 @@ class Profile < ApplicationRecord
     person.kind_of?(Profile) && person.has_permission?("post_content", self)
   end
 
+  def allow_post_scrap?(person = nil)
+    if self.kind_of?(Person) && person.kind_of?(Person)
+      self.is_a_friend?(person)
+    else 
+      person.kind_of?(Profile) && person.has_permission?("post_content", self)
+    end
+  end
+
   def allow_edit?(person = nil)
     person.kind_of?(Profile) && person.has_permission?("edit_profile", self)
   end
