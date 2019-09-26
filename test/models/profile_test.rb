@@ -2563,4 +2563,50 @@ class ProfileTest < ActiveSupport::TestCase
       assert_includes Profile.accessible_to(with_permission), profile
       assert_not_includes Profile.accessible_to(without_permission), profile
     end
+
+
+    should "return true to allow_post_scrap? when user is a friend of person profile" do
+      person = fast_create(Person)
+      friend = fast_create(Person)
+      person.add_friend(friend)
+
+      assert person.send("allow_post_scrap?", friend)
+    end
+
+    should "return false to allow_post_scrap? when user is not a friend of person profile" do
+      person = fast_create(Person)
+      friend = fast_create(Person)
+
+      assert !person.send("allow_post_scrap?", friend)
+    end
+
+    should "return false to allow_post_scrap? when user is null in person profile" do
+      person = fast_create(Person)
+      friend = fast_create(Person)
+
+      assert !person.send("allow_post_scrap?", nil)
+    end
+
+    should "return true to allow_post_scrap? when user has permission to post content" do
+      profile = fast_create(Profile)
+      person = fast_create(Person)
+
+      give_permission(person, 'post_content', profile)
+
+      assert profile.send("allow_post_scrap?", person)
+    end
+
+    should "return false to allow_post_scrap? when user has no permission to post content in profile" do
+      profile = fast_create(Person)
+      person = fast_create(Person)
+
+      assert !profile.send("allow_post_scrap?", person)
+    end
+
+    should "return false to allow_post_scrap? when user is null to access profile" do
+      profile = fast_create(Person)
+
+      assert !profile.send("allow_post_scrap?", nil)
+    end
+
 end

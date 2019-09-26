@@ -141,7 +141,7 @@ module Api
       expose :layout_template
       expose :permissions do |profile, options|
         Entities.permissions_for_entity(profile, options[:current_person],
-                                        :allow_post_content?, :allow_edit?, :allow_destroy?, :allow_edit_design?)
+                                        :allow_post_content?, :allow_edit?, :allow_destroy?, :allow_edit_design? , :allow_post_scrap?)
       end
       expose :theme do |profile, options|
         profile.theme || profile.environment.theme
@@ -347,9 +347,23 @@ module Api
         type_map.first.represent(activity.target) unless type_map.nil?
       end
       expose :params, if: lambda { |activity, options| activity.kind_of?(ActionTracker::Record) }
-      expose :content, if: lambda { |activity, options| activity.kind_of?(Scrap) }
+      expose :content, if: lambda { |activity, options| activity.kind_of?(::Scrap) }
       expose :verb do |activity, options|
-        activity.kind_of?(Scrap) ? "leave_scrap" : activity.verb
+        activity.kind_of?(::Scrap) ? "leave_scrap" : activity.verb
+      end
+
+      expose :comments_count do |activity, opts|
+        activity.kind_of?(::Scrap) ? activity.replies.count : activity.comments_count
+      end
+    end
+
+    class Scrap < Entity
+      expose :id, :created_at, :updated_at, :scrap_id
+      expose :receiver, using: Profile
+      expose :sender, using: Profile      
+      expose :content
+      expose :replies_count do |scrap, opts|
+        scrap.replies.count
       end
     end
 
