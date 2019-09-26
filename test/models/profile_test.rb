@@ -2564,13 +2564,18 @@ class ProfileTest < ActiveSupport::TestCase
       assert_not_includes Profile.accessible_to(without_permission), profile
     end
 
-
     should "return true to allow_post_scrap? when user is a friend of person profile" do
       person = fast_create(Person)
       friend = fast_create(Person)
       person.add_friend(friend)
 
       assert person.send("allow_post_scrap?", friend)
+    end
+
+    should "return true to allow_post_scrap? when user is the profile's owner" do
+      person = fast_create(Person)
+
+      assert person.send("allow_post_scrap?", person)
     end
 
     should "return false to allow_post_scrap? when user is not a friend of person profile" do
