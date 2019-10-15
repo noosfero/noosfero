@@ -12,6 +12,11 @@ class ProfileMembersController < MyProfileController
     @data[:members] = profile.members_by(field, @filters[:name]).by_role(@filters[:roles])
     session[:members_filtered] = @data[:members].map { |m| m.id } if request.post?
     @data[:roles] = all_roles
+
+    respond_to do |f|
+      f.html
+      f.js
+    end
   end
 
   def send_mail
@@ -181,6 +186,6 @@ class ProfileMembersController < MyProfileController
 
     result = profile.members_like field, params[:filter_name]
     result = result.select { |member| member.public_fields.include?("email") } if field == "email"
-    render json: result.map { |member| { label: "#{member.name}#{member.can_view_field?(current_person, "email") ? " <#{member.email}>" : ""}", value: member.name } }
+    render json: result.map { |member| { label: "#{member.name} <#{member.email}>", value: member.name } }
   end
 end
