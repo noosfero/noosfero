@@ -37,7 +37,7 @@ module Api
     end
 
     def set_current_user
-      private_token = (params[PRIVATE_TOKEN_PARAM] || headers["Private-Token"]).to_s
+      private_token = (params[PRIVATE_TOKEN_PARAM] || headers["Private-Token"] || headers["Authorization"]).to_s
       @current_user ||= User.where(private_token: private_token).includes(:person).first unless private_token.blank?
       @current_user ||= plugins.dispatch("api_custom_login", request).first
       @current_user = session.user if @current_user.blank? && session.present?

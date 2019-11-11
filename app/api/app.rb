@@ -53,6 +53,7 @@ module Api
     mount V1::Domains
     mount V1::Settings
     mount V1::Scraps
+    mount V1::UploadedFiles
 
     # hook point which allow plugins to add Grape::API extensions to Api::App
     # finds for plugins which has api mount points classes defined (the class should extends Grape::API)
