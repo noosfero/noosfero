@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-01-15 12:25+0000\n"
+"PO-Revision-Date: 2020-01-16 17:21+0000\n"
 "Last-Translator: Tymofij Lytvynenko <till.svit@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/uk/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11-dev\n"
+"X-Generator: Weblate 3.10.2-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr "(Некоректний запит) %s не вдалося зберегти"
@@ -96,141 +96,143 @@ msgstr "Ви вже є членом цієї спільноти."
 msgid ""
 "You are not member of this community and you did not made a membership "
 "request."
-msgstr ""
+msgstr "Ви не є членом цієї спільноти, і ви не зробили заявку на членство."
 
 msgid "You already request a friendship solicitation to %s."
-msgstr ""
+msgstr "Ви вже запитуєте клопотання про дружбу до %s."
 
 msgid "You already a %s's friend"
-msgstr ""
+msgstr "Ви вже є другом %s"
 
 msgid "You are not a %s's friend and you did not made a friendship request."
-msgstr ""
+msgstr "Ви не є другом %s, і ви не зробили запит на дружбу."
 
 msgid "Your friendship request is waiting for approval."
-msgstr ""
+msgstr "Ваш запит про дружбу чекає затвердження."
 
 msgid "The friendship with %s was removed."
-msgstr ""
+msgstr "Дружба з %s була вилучена."
 
 msgid "You already make a membership solicitation"
-msgstr ""
+msgstr "Ви вже просите членство"
 
 msgid "Your membership request is waiting for approval."
-msgstr ""
+msgstr "Ваш запит на членство чекає затвердження."
 
 msgid "The profile %s was removed."
-msgstr ""
+msgstr "Профіль %s було видалено."
 
 msgid "Logout successfully."
-msgstr ""
+msgstr "Ви успішно вийшли."
 
 msgid "Email"
-msgstr ""
+msgstr "Е-пошта"
 
 msgid "Login"
-msgstr ""
+msgstr "Логін"
 
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 msgid "Activation token"
-msgstr ""
+msgstr "Токен активації"
 
 msgid "Short activation code"
-msgstr ""
+msgstr "Короткий код активації"
 
 msgid "Waiting for admin moderate user registration"
-msgstr ""
+msgstr "В очікуванні на схвалення реєстрації користувача управителем"
 
 msgid "Activation code is invalid"
-msgstr ""
+msgstr "Код активації недійсний"
 
 msgid "Activation token is invalid"
-msgstr ""
+msgstr "Токен активації недійсний"
 
 msgid "All change password requests were sent."
-msgstr ""
+msgstr "Всі запити на зміну паролів були відправлені."
 
 msgid "Forgot password code"
-msgstr ""
+msgstr "Забули пароль"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Відмовлено в доступі"
 
 msgid "Logged users"
-msgstr ""
+msgstr "Зареєстровані користувачі"
 
 msgid "Visitors"
-msgstr ""
+msgstr "Відвідувачі"
 
 msgid "Friends / Members"
-msgstr ""
+msgstr "Друзі / Учасники"
 
 msgid "Me / Administrators"
-msgstr ""
+msgstr "Я / Управителі"
 
 msgid "Nobody"
-msgstr ""
+msgstr "Ніхто"
 
 msgid "Friends"
-msgstr ""
+msgstr "Друзі"
 
 msgid "Me"
-msgstr ""
+msgstr "Я"
 
 msgid "Followers"
-msgstr ""
+msgstr "Підписники"
 
 msgid "Members"
-msgstr ""
+msgstr "Учасники"
 
 msgid "Administrators"
-msgstr ""
+msgstr "Управителі"
 
 msgid "Environment settings updated"
-msgstr ""
+msgstr "Налаштування середовища оновлено"
 
 msgid ""
 "Community not found. You must insert the identifier of a community from this "
 "environment"
 msgstr ""
+"Спільноту не знайдено. Ви повинні вставити ідентифікатор спільноти з цього "
+"середовища"
 
 msgid "Saved the portal folders"
-msgstr ""
+msgstr "Збережено теки порталу"
 
 msgid "Saved the number of news on folders"
-msgstr ""
+msgstr "Збережено кількість новин у теках"
 
 msgid "Category %s saved."
-msgstr ""
+msgstr "Категорію %З збережено."
 
 msgid "Could not save category."
-msgstr ""
+msgstr "Не вдалося зберегти категорію."
 
 msgid "Roles successfully updated"
-msgstr ""
+msgstr "Ролі успішно оновлено"
 
 msgid "Couldn't change the roles"
-msgstr ""
+msgstr "Не вдалося змінити ролі"
 
 msgid "Member succefully unassociated"
-msgstr ""
+msgstr "Учасника успішно вигнано"
 
 msgid "Failed to unassociate member"
-msgstr ""
+msgstr "Неможливо вигнати учасника"
 
 msgid "Features updated successfully."
-msgstr ""
+msgstr "Можливості успішно оновлено."
 
 msgid "Person fields updated successfully."
-msgstr ""
+msgstr "Поля учасника оновлено успішно."
 
 msgid "Person fields not updated successfully."
-msgstr ""
+msgstr "Поля учасника не оновлено успішно."
 
 msgid "Enterprise fields updated successfully."
-msgstr ""
+msgstr "Поля компанії успішно оновлено."
 
 msgid "Enterprise fields not updated successfully."
 msgstr ""
@@ -6558,7 +6560,7 @@ msgid "Quota"
 msgstr ""
 
 msgid "Usage"
-msgstr ""
+msgstr "Використання"
 
 msgid "Unlimited"
 msgstr ""
