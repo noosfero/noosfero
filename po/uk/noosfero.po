@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-01-16 17:21+0000\n"
+"PO-Revision-Date: 2020-01-19 16:21+0000\n"
 "Last-Translator: Tymofij Lytvynenko <till.svit@gmail.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/uk/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
 "4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.10.2-dev\n"
+"X-Generator: Weblate 3.10.2\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr "(Некоректний запит) %s не вдалося зберегти"
@@ -235,70 +235,70 @@ msgid "Enterprise fields updated successfully."
 msgstr "Поля компанії успішно оновлено."
 
 msgid "Enterprise fields not updated successfully."
-msgstr ""
+msgstr "Поля підприємства не оновлено успішно."
 
 msgid "Community fields updated successfully."
-msgstr ""
+msgstr "Поля спільноти успішно оновлено."
 
 msgid "Community fields not updated successfully."
-msgstr ""
+msgstr "Поля спільноти не оновлено успішно."
 
 msgid "Kind successfully created"
-msgstr ""
+msgstr "Вид успішно створений"
 
 msgid "There were some problems creating this new kind"
-msgstr ""
+msgstr "Були деякі проблеми при створенні цього нового виду"
 
 msgid "Kind successfully updated"
-msgstr ""
+msgstr "Вид успішно оновлений"
 
 msgid "There were some problems editing this kind"
-msgstr ""
+msgstr "У редагуванні цього виду були деякі проблеми"
 
 msgid "Kind successfully removed"
-msgstr ""
+msgstr "Вид успішно видалено"
 
 msgid "There were some problems deleting this kind"
-msgstr ""
+msgstr "Були деякі проблеми з видаленням цього виду"
 
 msgid "License created"
-msgstr ""
+msgstr "Ліцензію створено"
 
 msgid "License could not be created"
-msgstr ""
+msgstr "Не вдалося створити ліцензію"
 
 msgid "License updated"
-msgstr ""
+msgstr "Ліцензію оновлено"
 
 msgid "License could not be updated"
-msgstr ""
+msgstr "Не вдалося оновити ліцензію"
 
 msgid "License removed"
-msgstr ""
+msgstr "Ліцензію вилучено"
 
 msgid "License could not be removed"
-msgstr ""
+msgstr "Ліцензію не вдалося видалити"
 
 msgid "Organization profiles"
-msgstr ""
+msgstr "Профілі організації"
 
 msgid "Community"
-msgstr ""
+msgstr "Спільнота"
 
 msgid "Enterprise"
-msgstr ""
+msgstr "Підприємство"
 
 msgid "All"
-msgstr ""
+msgstr "Усі"
 
 msgid "%s enabled"
-msgstr ""
+msgstr "%s увімкнено"
 
 msgid "%s could not be enabled"
-msgstr ""
+msgstr "%s неможливо ввімкнути"
 
 msgid "%s disabled"
-msgstr ""
+msgstr "%s вимкнено"
 
 msgid "%s could not be disable"
 msgstr ""
