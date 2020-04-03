@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2016-12-22 12:57+0000\n"
-"Last-Translator: Olivier Meinguet <olivier.meinguet@claroline.net>\n"
+"PO-Revision-Date: 2020-04-03 20:53+0000\n"
+"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/"
 "documentation/fr/>\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 2.10\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -37,7 +37,7 @@ msgstr ""
 #: doc/noosfero/plugins/google_cse.en.xhtml:3
 #: doc/noosfero/plugins/google_analytics.en.xhtml:3
 msgid "Usage"
-msgstr "Utilisation"
+msgstr "Usage"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -1480,7 +1480,7 @@ msgstr ""
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:18
 #: doc/noosfero/quotas/index.en.xhtml:3
 msgid "Upload quotas"
-msgstr ""
+msgstr "Quotas de téléversement"
 
 #. type: Content of: <p>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:6
