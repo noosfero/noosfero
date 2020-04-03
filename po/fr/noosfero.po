@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2019-09-04 06:23+0000\n"
-"Last-Translator: Swann Martinet <swann.ranskassa@laposte.net>\n"
+"PO-Revision-Date: 2020-04-03 20:53+0000\n"
+"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
 "fr/>\n"
 "Language: fr\n"
@@ -15,20 +15,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.9-dev\n"
+"X-Generator: Weblate 4.0-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr "(Requête non valide) %s ne peut être sauvegardée"
 
 msgid "(Invalid request) %s not given"
-msgstr ""
+msgstr "(Demande invalide) %s non donné"
 
 msgid "Something wrong happened"
-msgstr ""
+msgstr "Quelque chose s'est mal passé"
 
-#, fuzzy
 msgid "Unauthorized"
-msgstr "Produit sans catégorie"
+msgstr "Non autorisé"
 
 msgid "Method Not Allowed"
 msgstr "Méthode non-autorisée"
@@ -36,33 +35,33 @@ msgstr "Méthode non-autorisée"
 msgid "The article %s was removed."
 msgstr "L'article %s a été retiré."
 
-#, fuzzy
 msgid ""
 "The article couldn't be removed due to some problem. Please contact the "
 "administrator."
-msgstr "Contact"
+msgstr ""
+"Cet article n'a pas pu être retiré à cause d'un problème. Veuillez contacter "
+"l'administrateur."
 
 msgid ""
 "Your abuse report was registered. The administrators are reviewing your "
 "report."
 msgstr ""
+"Votre signalement a été enregistré. Les administrateurs sont en train de "
+"l'évaluer."
 
 msgid ""
 "Your report couldn't be saved due to some problem. Please contact the "
 "administrator."
 msgstr ""
 
-#, fuzzy
 msgid "Your vote was created."
-msgstr "Créer"
+msgstr "Votre vote a été créé."
 
-#, fuzzy
 msgid "You already follow this article."
-msgstr "Article"
+msgstr "Vous suivez déjà cet article."
 
-#, fuzzy
 msgid "You are now following the article %s."
-msgstr "Article"
+msgstr "Vous suivez maintenant l'article %s."
 
 msgid "The comment '%s' was removed."
 msgstr "Le commentaire « %s » a été retiré."
@@ -128,7 +127,7 @@ msgid "Logout successfully."
 msgstr "Connexion réussie"
 
 msgid "Email"
-msgstr "Email"
+msgstr "Courriel"
 
 msgid "Login"
 msgstr "Connexion"
@@ -137,7 +136,7 @@ msgid "Password"
 msgstr "Mot de passe"
 
 msgid "Activation token"
-msgstr ""
+msgstr "Jeton d'activation"
 
 #, fuzzy
 msgid "Short activation code"
@@ -363,13 +362,13 @@ msgid "New template created"
 msgstr "Nouveau modèle créé"
 
 msgid "Name has already been taken"
-msgstr ""
+msgstr "Le nom a déjà été pris"
 
 msgid "Community not found. The template could no be changed."
 msgstr "Communauté introuvable. Le modèle ne peut être modifié."
 
 msgid "%s defined as default"
-msgstr ""
+msgstr "%s défini par défaut"
 
 msgid "Person not found. The template could no be changed."
 msgstr "Personne introuvable. Le modèle ne peut être modifié."
@@ -487,13 +486,11 @@ msgstr "Images"
 msgid "Files"
 msgstr "Fichiers"
 
-#, fuzzy
 msgid "Email template was successfully created."
-msgstr "Email"
+msgstr "Le modèle de courriel a été créé avec succès."
 
-#, fuzzy
 msgid "Email template was successfully updated."
-msgstr "Email"
+msgstr "Le modèle de courriel a été mis à jour avec succès."
 
 msgid "Sorry, we can not record your decision."
 msgstr ""
@@ -730,7 +727,7 @@ msgid "Your invitations are being sent."
 msgstr "Votre invitation a été envoyée."
 
 msgid "Please enter a valid email address."
-msgstr "Entrez une adresse e-mail valide SVP."
+msgstr "Entrez une adresse courriel valide SVP."
 
 msgid "Please enter a valid profile."
 msgstr "Veuillez saisir un profil valide."
@@ -761,7 +758,7 @@ msgid "You are already following %s."
 msgstr "Vous êtes déjà ami avec %s."
 
 msgid "You are now following %s"
-msgstr ""
+msgstr "Vous suivez maintenant %s"
 
 #, fuzzy
 msgid "Select at least one circle to follow %s."
@@ -1108,7 +1105,7 @@ msgid "New article"
 msgstr "Nouvel article"
 
 msgid "Edit"
-msgstr "Éditer"
+msgstr "Modifier"
 
 msgid "Follow"
 msgstr ""
@@ -1207,10 +1204,10 @@ msgid "General category"
 msgid_plural "General categories"
 msgstr[0] "Catégorie générale"
 
-#, fuzzy
 msgid "Region"
 msgid_plural "Regions"
 msgstr[0] "Région"
+msgstr[1] "Régions"
 
 msgid "Type of category"
 msgstr "Type de catégorie"
@@ -1245,7 +1242,7 @@ msgid "Are you sure you want to mark this comment as SPAM?"
 msgstr "Êtes-vous sûr que vous voulez marquer ce commentaire comme un SPAM ?"
 
 msgid "Remove"
-msgstr "Supprimer"
+msgstr "Retirer"
 
 msgid "Are you sure you want to remove this comment and all its replies?"
 msgstr ""
@@ -1290,7 +1287,7 @@ msgid "List"
 msgstr ""
 
 msgid "Checkbox"
-msgstr ""
+msgstr "Vérification"
 
 msgid "Yes"
 msgstr "Oui"
@@ -2052,9 +2049,8 @@ msgstr ""
 msgid "Name of article's author"
 msgstr ""
 
-#, fuzzy
 msgid "Email of article's author"
-msgstr "Limite d'articles"
+msgstr "Courriel de l'auteur·e de l'article"
 
 msgid "Identifier of the block's profile"
 msgstr ""
@@ -2063,7 +2059,7 @@ msgid "Name of the block's profile"
 msgstr ""
 
 msgid "Email of the block's profile"
-msgstr ""
+msgstr "Courriel du profil du bloc"
 
 #, fuzzy
 msgid "Title of the block"
@@ -2272,10 +2268,9 @@ msgstr "Nouveau membre"
 msgid "%{requestor} wants to be a member of '%{target}'."
 msgstr " à "
 
-#, fuzzy
 msgid ""
 "%{requestor}%{requestor_email} wants to be a member of '%{organization}'."
-msgstr "%{requestor} veut être membre de cette communauté."
+msgstr "%{requestor}%{requestor_email} veut être membre de « %{organization} »."
 
 msgid ""
 "You will need login to %{system} in order to accept or reject %{requestor} "
@@ -2609,7 +2604,7 @@ msgstr ""
 "%s↵\n"
 "↵\n"
 "Si vous n'avez pas demandé le changement de votre mot de passe, veuillez "
-"ignorer cet email."
+"ignorer ce courriel."
 
 msgid "Circle"
 msgstr ""
@@ -2693,9 +2688,8 @@ msgstr ""
 msgid "Security"
 msgstr ""
 
-#, fuzzy
 msgid "E-mail"
-msgstr "Email"
+msgstr "Courriel"
 
 msgid "Appearance"
 msgstr "Apparence"
@@ -2792,13 +2786,11 @@ msgstr "description"
 msgid "Groups"
 msgstr "Sols"
 
-#, fuzzy
 msgid "communities"
-msgstr "Communautés"
+msgstr "communautés"
 
-#, fuzzy
 msgid "enterprises"
-msgstr "Entreprise"
+msgstr "entreprises"
 
 #, fuzzy
 msgid "organizations"
@@ -2835,9 +2827,8 @@ msgstr "Carte"
 msgid "Settings"
 msgstr "Paramètres de messagerie"
 
-#, fuzzy
 msgid "email"
-msgstr "courrier électronique"
+msgstr "courriel"
 
 #, fuzzy
 msgid "Templates"
@@ -2850,37 +2841,30 @@ msgstr "Gérer %s"
 msgid "cms"
 msgstr ""
 
-#, fuzzy
 msgid "New Blog"
-msgstr "Mon blog"
+msgstr "Nouveau blog"
 
-#, fuzzy
 msgid "posts"
-msgstr "Articles"
+msgstr "publications"
 
-#, fuzzy
 msgid "create"
-msgstr "Créer"
+msgstr "créer"
 
-#, fuzzy
 msgid "New Forum"
-msgstr "Forum"
+msgstr "Nouveau forum"
 
-#, fuzzy
 msgid "New Gallery"
-msgstr "Galerie"
+msgstr "Nouvelle galerie"
 
-#, fuzzy
 msgid "photos"
-msgstr "Photos"
+msgstr "photos"
 
 #, fuzzy
 msgid "images"
 msgstr "Images"
 
-#, fuzzy
 msgid "Preferences"
-msgstr "Url de Référence"
+msgstr "Préférences"
 
 #, fuzzy
 msgid "options"
@@ -3137,10 +3121,10 @@ msgid "You have already requested activation of your mailbox."
 msgstr "Vous avez déjà demandé l'activation de votre boite à lettres."
 
 msgid "Email activation"
-msgstr "Activation par e-Mail"
+msgstr "Activation par courriel"
 
 msgid "%{requestor} wants to activate the following email: %{subject}."
-msgstr "%{requestor} veut activer l'e-mai suivant : %{subject}."
+msgstr "%{requestor} veut activer le courriel suivant : %{subject}."
 
 #, fuzzy
 msgid "Task Rejection"
@@ -3256,9 +3240,8 @@ msgstr "Éditer l'apparence"
 msgid "Edit Raw HTML block"
 msgstr "HTML Brut"
 
-#, fuzzy
 msgid "Manage Email Templates"
-msgstr "Modèle"
+msgstr "Gérer les modèles de courriel"
 
 msgid "Environment Administrator"
 msgstr "L'Environnement de l'Administrateur"
@@ -3687,7 +3670,7 @@ msgid "Description"
 msgstr "Description"
 
 msgid "Contact email"
-msgstr "e-Mail de contact"
+msgstr "Courriel de contact"
 
 #, fuzzy
 msgid "person"
@@ -3794,7 +3777,7 @@ msgid "Create a comment"
 msgstr "Poster un commentaire"
 
 msgid "Make email contact"
-msgstr ""
+msgstr "Entrer un courriel de contact"
 
 #, fuzzy
 msgid "Report an abuse"
@@ -4092,6 +4075,8 @@ msgid ""
 "The user \"%{login}\" is not activated! Please check your email to activate "
 "your user"
 msgstr ""
+"L'utilisateur « %{login} » n'est pas activé ! Veuillez vérifiez vos "
+"courriels pour activer l'utilisateur"
 
 msgid "does not match."
 msgstr "ne correspond pas."
@@ -4166,9 +4151,8 @@ msgstr "Nom de fichier"
 msgid "E.g.: Maria Silva"
 msgstr ""
 
-#, fuzzy
 msgid "Email Address"
-msgstr "Adresse invalide"
+msgstr "Adresse courriel"
 
 msgid "E.g.: maria.silva@mail.com"
 msgstr ""
@@ -4267,7 +4251,6 @@ msgstr "partie 1 sur 3"
 msgid "Pay atention! You have only one chance!"
 msgstr "Attention vous n'avez qu'une seule chance !"
 
-#, fuzzy
 msgid ""
 "This is a question to know if you really are part of this enterprise. Pay "
 "atention because you have only one chance to answer right and activate your "
@@ -4279,8 +4262,8 @@ msgstr ""
 "vraiment partie de cette entreprise. Attention : vous n'avez qu'une seule "
 "chance de donner la bonne réponse pour activer votre entreprise. Si voter "
 "réponse est fausse, vous ne pourrez pas activer votre entreprise "
-"automatiquement et devrez contacter un administrateur de %s par messagerie "
-"électronique ou par téléphone."
+"automatiquement et devrez contacter un administrateur de %s par courriel ou "
+"par téléphone."
 
 #, fuzzy
 msgid ""
@@ -4343,6 +4326,8 @@ msgid ""
 "After clicking the button above, you will receive an email with a link to a "
 "page where you will be able to create a new password."
 msgstr ""
+"Après avoir cliquer sur le bouton ci-dessus, vous recevrez un courriel avec "
+"un lien vers une page où vous pourrez créer un nouveau mot de passe."
 
 msgid "Account options"
 msgstr "Options du compte"
@@ -4531,7 +4516,7 @@ msgid "Site name"
 msgstr "Nom du site"
 
 msgid "No reply email"
-msgstr "Email de non-réponse"
+msgstr "Courriel de non-réponse"
 
 msgid "Theme"
 msgstr "Thème"
@@ -4592,9 +4577,8 @@ msgstr "Licences"
 msgid "Trusted sites"
 msgstr "Sites de confiance"
 
-#, fuzzy
 msgid "Email templates"
-msgstr "Éditer les modèles"
+msgstr "Modèles de courriel"
 
 msgid "Captcha"
 msgstr ""
@@ -4711,7 +4695,7 @@ msgid "Terms of use"
 msgstr "Conditions d'utilisation"
 
 msgid "Signup welcome email"
-msgstr "Email de bienvenue après inscription"
+msgstr "Courriel de bienvenue après inscription"
 
 msgid "Signup welcome page"
 msgstr "Message de bienvenue après inscription"
@@ -5333,9 +5317,8 @@ msgstr "Chercher"
 msgid "Write words about the file you are looking for"
 msgstr "Saisir des mots pour effectuer une recherche sur %s"
 
-#, fuzzy
 msgid "Publish date"
-msgstr "Publier le contenu"
+msgstr "Date de publication"
 
 msgid "Textile markup quick reference"
 msgstr ""
@@ -5405,9 +5388,8 @@ msgstr "Utiliser comme page d'accueil"
 msgid "Reset homepage"
 msgstr "Utiliser comme page d'accueil"
 
-#, fuzzy
 msgid "Remove field"
-msgstr "Supprimer"
+msgstr "Retirer le champ"
 
 #, fuzzy
 msgid "Value"
@@ -5448,9 +5430,8 @@ msgstr "Catégorisez votre article"
 msgid "Back to Content Management"
 msgstr "Retour au management des rôles"
 
-#, fuzzy
 msgid "Sort by"
-msgstr "Envoyé par : "
+msgstr "Classer par"
 
 #, fuzzy
 msgid "Going"
@@ -5843,17 +5824,15 @@ msgstr "Jeu"
 msgid "Body:"
 msgstr "Corps :"
 
-#, fuzzy
 msgid "Email Templates"
-msgstr "Éditer les modèles"
+msgstr "Modèles de courriel"
 
 #, fuzzy
 msgid "New template"
 msgstr "Choisissez le modèle :"
 
-#, fuzzy
 msgid "New Email Template"
-msgstr "Éditer les modèles"
+msgstr "Nouveau modèle de courriel"
 
 msgid "You may have clicked an expired link or mistyped the address."
 msgstr ""
@@ -6160,9 +6139,8 @@ msgstr ""
 msgid "Default"
 msgstr ""
 
-#, fuzzy
 msgid "Add option"
-msgstr "Ajouter"
+msgstr "Ajouter une option"
 
 msgid "System features"
 msgstr "Fonctionnalités système"
@@ -6530,7 +6508,7 @@ msgid "Go to content"
 msgstr "Aller au contenu"
 
 msgid "Play"
-msgstr "Play"
+msgstr "Lire"
 
 msgid "Stop"
 msgstr "Stop"
@@ -6845,11 +6823,10 @@ msgstr "travail"
 msgid "To join %s, you must:"
 msgstr ", "
 
-#, fuzzy
 msgid ""
 "Authorize the visibility of your email address to the community "
 "administrator."
-msgstr "Auteur"
+msgstr "Autoriser l'administrateur de communauté à voir votre adresse courriel."
 
 #, fuzzy
 msgid "Authorize"
@@ -6919,13 +6896,11 @@ msgstr ""
 msgid "Moderation options"
 msgstr "Options de modération"
 
-#, fuzzy
 msgid "Email Configuration:"
-msgstr "Configuration"
+msgstr "Configuration du courriel :"
 
-#, fuzzy
 msgid "Send administrator Email for every task"
-msgstr "Email"
+msgstr "Envoyer un courriel à l'administrateur pour chaque tâche"
 
 msgid "Invitation moderation:"
 msgstr "Modérer les invitations :"
@@ -6938,9 +6913,10 @@ msgstr ""
 "Permettre aux membres d'inviter que des amis (par défaut: tous les "
 "utilisateurs)"
 
-#, fuzzy
 msgid "New members must allow email visibility to the profile admin"
-msgstr "Nouveau membre"
+msgstr ""
+"Les nouveaux membres doivent autoriser les administrateurs de profil à voir "
+"leur adresse courriel"
 
 msgid "New articles posted by members of this group must be approved:"
 msgstr ""
@@ -7129,7 +7105,7 @@ msgid "This profile is a template"
 msgstr "Ce profil est un modèle"
 
 msgid "Change picture"
-msgstr "Modifiez l'image"
+msgstr "Modifier l'image"
 
 msgid "Max size: %s (.jpg, .gif, .png)"
 msgstr "Taille max : %s (.jpg, .gif, .png)"
@@ -7175,7 +7151,7 @@ msgid "Suggestions"
 msgstr "Suggestions"
 
 msgid "Send me relationship suggestions by email"
-msgstr "Envoyez-moi des suggestions de relation par e-mail"
+msgstr "Envoyez-moi des suggestions de relation par courriel"
 
 #, fuzzy
 msgid "Files upload"
@@ -7247,9 +7223,8 @@ msgstr "Ajouter des membres"
 msgid "Type in a search term for users"
 msgstr ""
 
-#, fuzzy
 msgid "Name or Email"
-msgstr "Email"
+msgstr "Nom ou courriel"
 
 msgid "Current members"
 msgstr "Les membres actuels"
@@ -7278,9 +7253,8 @@ msgstr ""
 msgid "Quota"
 msgstr ""
 
-#, fuzzy
 msgid "Usage"
-msgstr "Image"
+msgstr "Usage"
 
 msgid "Unlimited"
 msgstr ""
@@ -7335,9 +7309,8 @@ msgstr "Profils au hasard"
 msgid "Quota for %s"
 msgstr "Evénements pour %s"
 
-#, fuzzy
 msgid "Upload quotas"
-msgstr "Téléverser (upload) des fichiers"
+msgstr "Quotas de téléversement"
 
 msgid "Quotas by profile kind"
 msgstr ""
@@ -7675,9 +7648,8 @@ msgstr "Article non sélectionné."
 msgid "Change image"
 msgstr "Modifier l'image"
 
-#, fuzzy
 msgid "Remove image"
-msgstr "Ôter le membre"
+msgstr "Retirer l'image"
 
 msgid "You are not allowed to view this page."
 msgstr "Vous n'êtes pas autorisé(e) à voir cette page."
@@ -7823,9 +7795,8 @@ msgstr "Classez votre nouveau contact :"
 msgid "Suggestions: %s"
 msgstr "Suggestions : %s"
 
-#, fuzzy
 msgid "Select an acceptance email template:"
-msgstr "courrier électronique"
+msgstr "Sélectionner un modèle de courriel d'acceptation :"
 
 msgid "Create a link"
 msgstr "Créé un lien"
@@ -7853,7 +7824,7 @@ msgid "Sent by: "
 msgstr "Envoyé par : "
 
 msgid "Email: %s"
-msgstr "E-mail: %s"
+msgstr "Courriel : %s"
 
 msgid "Assign to..."
 msgstr ""
@@ -7879,9 +7850,8 @@ msgstr "Géré le :"
 msgid "Closed by:"
 msgstr "Fermer"
 
-#, fuzzy
 msgid "Select a rejection email template:"
-msgstr "courrier électronique"
+msgstr "Sélectionner un modèle de courriel de rejet :"
 
 msgid "%s's pending tasks"
 msgstr "Les tâches de %s en attente"
@@ -7920,9 +7890,8 @@ msgstr "Pour : "
 msgid "%s's processed tasks"
 msgstr "Les tâches gérées par %s"
 
-#, fuzzy
 msgid "Status"
-msgstr "Statut : "
+msgstr "Statut"
 
 #, fuzzy
 msgid "Text Filter:"
@@ -8079,7 +8048,7 @@ msgid "Your activation code is: %s"
 msgstr ""
 
 msgid "Your email %s was just activated."
-msgstr "Votre adresse e-mail %s vient d'être activée."
+msgstr "Votre adresse courriel %s vient d'être activée."
 
 msgid "You can access your e-mail from anywhere, using the following address:"
 msgstr ""
