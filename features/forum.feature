@@ -175,3 +175,13 @@ Feature: forum
        | Post one | joaosilva | Hi all | Hi all |
    When I go to /joaosilva/forum
    Then I should see "Joao Silva" within ".forum-post-last-answer"
+
+  Scenario: link to parent when viewing a forum topic
+    Given the following forums
+       | owner     | name        |
+       | joaosilva | Silva Forum |
+    And the following articles
+       | owner     | name     | parent       |
+       | joaosilva | Post one | Silva Forum  |
+   When I go to /joaosilva/silva-forum/post-one
+   Then I should see "Silva Forum" within ".path-to-parents"

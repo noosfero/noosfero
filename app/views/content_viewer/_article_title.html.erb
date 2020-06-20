@@ -6,6 +6,7 @@
       <%= link_to(@page.name, @page.url) %>
     <% end %>
   </h1>
+  <%= path_to_parents @page %>
   <%= render :partial => "publishing_info", :locals => {:article => @page }%>
   <% if @page.display_preview? %>
     <div class="preview">
