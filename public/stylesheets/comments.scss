@@ -129,7 +129,7 @@ form.comment_form {
     list-style: none;
     background-color: #fff;
     border-top: 1px solid #e8e8e8;
-    padding: 25px 0;
+    padding: 25px 0 0;
     width: 100%;
     .comment-item {
       display: flex;
@@ -518,7 +518,7 @@ a.comment-picture {
 }
 
 #article .article-comments-list .comment-replies {
-  padding-left: 74px;
+  padding-left: 6%;
   margin-top: 2px;
 }
 
