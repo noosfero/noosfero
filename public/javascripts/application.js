@@ -1203,8 +1203,23 @@ function update_image(input_field) {
   img_name.html($(input_field).val().split('\\').pop())
 }
 
+var submit_form_loading = null;
 function submit_form(element) {
+  $(element).css('background-image', 'url(/images/loading-small.gif)');
+  $(element).css('background-repeat', 'no-repeat');
+  $(element).css('background-position', '94% center');
+  $(element).css('cursor', 'progress');
   $(element).prev().click();
+  submit_form_loading = $(element);
+}
+function submit_form_loading_done() {
+  if (submit_form_loading) {
+    $(submit_form_loading).css('background-image', '');
+    $(submit_form_loading).css('background-repeat', '');
+    $(submit_form_loading).css('background-position', '');
+    $(submit_form_loading).css('cursor', '');
+    submit_form_loading = null;
+  }
 }
 
 function add_new_file_fields() {

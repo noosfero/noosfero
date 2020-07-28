@@ -48,6 +48,7 @@
       DEFAULT_LOADING_MESSAGE = <%="'#{ _('loading...') }'".html_safe %>;
       PERMANENT_NOTIFICATIONS = <%= @environment.permanent_notifications %>;
       noosfero.profile = <%= (@profile.identifier if @profile).to_json.html_safe %>
+      submit_form_loading_done();
     </script>
 
     <% if current_editor_is?(Article::Editor::TINY_MCE) %>
