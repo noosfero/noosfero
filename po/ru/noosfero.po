@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2019-06-18 16:29+0000\n"
-"Last-Translator: NeverMine17 <dannevergame@gmail.com>\n"
+"PO-Revision-Date: 2020-09-03 21:36+0000\n"
+"Last-Translator: Artem <KovalevArtem.ru@gmail.com>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/ru/>\n"
 "Language: ru\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.7\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr ""
@@ -2710,7 +2710,7 @@ msgid "Password Confirmation"
 msgstr "Подтверждение пароля"
 
 msgid "Change password"
-msgstr "Сменить пароль"
+msgstr "Изменить пароль"
 
 msgid "%{requestor} wants to change its password."
 msgstr ""
@@ -2834,7 +2834,7 @@ msgid "sideblocks"
 msgstr "Редактировать боковую панель"
 
 msgid "Change Password"
-msgstr "Сменить пароль"
+msgstr "Изменить пароль"
 
 #, fuzzy
 msgid "Circles"
@@ -4496,7 +4496,7 @@ msgid "Account options"
 msgstr "Опции аккаунта"
 
 msgid "Change password."
-msgstr "Сменить пароль"
+msgstr "Изменить пароль."
 
 msgid "It is a good idea to change your password from times to times."
 msgstr "Менять иногда пароль - хорошо для безопасности"
