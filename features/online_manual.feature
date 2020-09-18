@@ -1,4 +1,5 @@
 @docs
+@fixme
 Feature: online manual
   As a user
   I want to read the manual

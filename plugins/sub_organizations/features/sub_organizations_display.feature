@@ -23,7 +23,7 @@ Feature: sub_organizations_display
    And I go to springfield's control panel
    When I follow "Blocks" within "#section-design"
 
-    @selenium
+    @selenium-fixme
     Scenario: Display the sub organization block when there is a sub enterprise and communitys
       When I go to springfield's control panel
       And I follow "Subgroups" within "#section-relationships"

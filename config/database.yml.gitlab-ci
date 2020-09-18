@@ -3,4 +3,4 @@ test: &TEST
   host: postgres
   database: gitlab_ci_test
   username: gitlab_ci_runner
-  password:
+  password: gitlab_ci_password
