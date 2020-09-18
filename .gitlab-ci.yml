@@ -5,13 +5,14 @@ variables:
   SELENIUM_DRIVER: chrome
   POSTGRES_DB: gitlab_ci_test
   POSTGRES_USER: gitlab_ci_runner
-  POSTGRES_PASSWORD: ""
+  POSTGRES_PASSWORD: gitlab_ci_password
   IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_TAG
 
 services:
   - postgres:9.4
 
 before_script:
+  - wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
   - apt update
   - ./script/silent-quick-start -i
   - mkdir -p tmp/pids tmp/cache cache
