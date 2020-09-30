@@ -8,15 +8,17 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 18:19+0000\n"
-"PO-Revision-Date: 2019-07-04 18:19+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-10-01 18:41+0000\n"
+"Last-Translator: Atrate <Atrate@protonmail.com>\n"
+"Language-Team: Polish <https://hosted.weblate.org/projects/noosfero/noosfero/"
+"pl/>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 #: ../app/api/helpers.rb:448
 msgid "(Invalid request) %s can't be saved"
@@ -27,12 +29,13 @@ msgid "(Invalid request) %s not given"
 msgstr ""
 
 #: ../app/api/helpers.rb:458
+#, fuzzy
 msgid "Something wrong happened"
-msgstr ""
+msgstr "Stało się coś złego"
 
 #: ../app/api/helpers.rb:463
 msgid "Unauthorized"
-msgstr ""
+msgstr "Nieautoryzowany"
 
 #: ../app/api/helpers.rb:467
 msgid "Method Not Allowed"
@@ -40,7 +43,7 @@ msgstr ""
 
 #: ../app/api/v1/articles.rb:67
 msgid "The article %s was removed."
-msgstr ""
+msgstr "Artykuł %s został usunięty."
 
 #: ../app/api/v1/articles.rb:71
 msgid ""
@@ -54,6 +57,8 @@ msgid ""
 "Your abuse report was registered. The administrators are reviewing your report"
 "."
 msgstr ""
+"Twoje zgłoszenie nadużycia zostało zarejestrowane. Administratorzy "
+"przeglądają twoje zgłoszenie."
 
 #: ../app/api/v1/articles.rb:106
 #: ../app/controllers/public/profile_controller.rb:425
