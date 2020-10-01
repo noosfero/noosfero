@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2019-01-27 22:06+0000\n"
+"PO-Revision-Date: 2020-10-02 20:41+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 3.5-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -1343,7 +1343,7 @@ msgstr "<a href=\"#description\">Descrição</a>"
 #: doc/noosfero/user/accepting-friends.en.xhtml:10
 #: doc/noosfero/user/editing-person-info.en.xhtml:10
 msgid "Find your user menu on top bar:"
-msgstr "Localize seu menu de usuário na barra superior:"
+msgstr "Localize seu menu de utilizador na barra superior:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -1389,7 +1389,7 @@ msgstr "Menu superior"
 #: doc/noosfero/admin/send-email-members.en.xhtml:10
 #: doc/noosfero/admin/export-users-list.en.xhtml:10
 msgid "In user menu, click on Administration:"
-msgstr "No menu de usuário, clique em Administração:"
+msgstr "No menu de utilizador, clique em Administração:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -1431,7 +1431,7 @@ msgstr "Painel de controle no menu"
 #: doc/noosfero/admin/send-email-members.en.xhtml:11
 #: doc/noosfero/admin/export-users-list.en.xhtml:11
 msgid "Then, click on &#8220;Manage users&#8221; link:"
-msgstr "Depois, clique em &#8220;Gerenciar usuários&#8221;:"
+msgstr "Depois, clique em &#8220;Gerenciar utilizadores&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -1510,14 +1510,14 @@ msgid ""
 "In &#8220;Manage users&#8221;, click on &#8220;Send e-mail to users&#8221; "
 "link:"
 msgstr ""
-"Em &#8220;Gerenciar usuários&#8221;, clique no link &#8220;Enviar e-mail "
-"para os usuários&#8221;:"
+"Em &#8220;Gerenciar utilizadores&#8221;, clique no link &#8220;Enviar e-mail "
+"para os utilizadores&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/admin/send-email-members.en.xhtml:15
 msgid "Send e-mail link on manage users"
-msgstr "Link enviar e-mail em gerenciar usuários"
+msgstr "Link enviar e-mail em gerenciar utilizadores"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -1548,7 +1548,7 @@ msgstr "Funcionalidades do administrador"
 #. type: Content of: <h1>
 #: doc/noosfero/admin/export-users-list.en.xhtml:1
 msgid "Export the list of users"
-msgstr "Exportar a lista de usuários"
+msgstr "Exportar a lista de utilizadores"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -1559,7 +1559,7 @@ msgid ""
 "formats.</em>"
 msgstr ""
 "<em>Se você é um administrador de ambiente, você pode exportar a lista de "
-"todos os usuários nos formatos <span class=\"caps\">XML</span> ou <span "
+"todos os utilizadores nos formatos <span class=\"caps\">XML</span> ou <span "
 "class=\"caps\">CSV</span>.</em>"
 
 # type: Content of: <p>
@@ -1570,9 +1570,9 @@ msgid ""
 "list. There are 2 options, &#8220;<span class=\"caps\">CSV</span>&#8221; and "
 "&#8220;<span class=\"caps\">XML</span>&#8221;."
 msgstr ""
-"Em &#8220;Gerenciar usuários&#8221;, escolha em qual formato você quer "
-"exportar a lista. Há duas opções: &#8220;<span class=\"caps\">CSV</"
-"span>&#8221; e &#8220;<span class=\"caps\">XML</span>&#8221;."
+"Em &#8220;Gerenciar utilizadores&#8221;, escolha em qual formato você quer "
+"exportar a lista. Há duas opções: &#8220;<span class=\"caps\""
+">CSV</span>&#8221; e &#8220;<span class=\"caps\">XML</span>&#8221;."
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -1584,7 +1584,7 @@ msgstr "Clique no link do formato que você escolheu e baixe a lista:"
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/admin/export-users-list.en.xhtml:15
 msgid "Download list of users link on manage users"
-msgstr "Link para download da lista de usuários em gerenciar usuários"
+msgstr "Link para download da lista de utilizadores em gerenciar utilizadores"
 
 #. type: Content of: <h1>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:1
@@ -1730,8 +1730,8 @@ msgstr ""
 "O valor padrão para a conta de upload é ilimitado, a não ser que um valor "
 "personalizado tenha sido definido para o tipo do perfil. Se o perfil tiver "
 "vários tipos com diferentes cotas, o maior valor será considerado. Se uma "
-"cota personalizada foi definida diretamente para o usuário, este valor será "
-"sempre usado, e as cotas dos tipos serão sobrescritas."
+"cota personalizada foi definida diretamente para o utilizador, este valor "
+"será sempre usado, e as cotas dos tipos serão sobrescritas."
 
 #. type: Content of: <h1>
 #: doc/noosfero/quotas/index.en.xhtml:1
@@ -1776,8 +1776,8 @@ msgid ""
 "services, an user in the system, can do a search.</em>"
 msgstr ""
 "<em>Para encontrar artigos, comunidades, pessoas, empreendimentos ou "
-"produtos e serviços, o usuário que está navegando no sistema pode fazer uma "
-"busca.</em>"
+"produtos e serviços, o utilizador que está navegando no sistema pode fazer "
+"uma busca.</em>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -2049,8 +2049,8 @@ msgid ""
 "<em>When an user is navigating on the system, he can see details of a person "
 "and become a friend quickly.</em>"
 msgstr ""
-"<em>Quando um usuário está navegando no ambiente, ele poderá ver detalhes da "
-"pessoa e requisitar amizade rapidamente.</em>"
+"<em>Quando um utilizador está navegando no ambiente, ele poderá ver detalhes "
+"da pessoa e requisitar amizade rapidamente.</em>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -2135,8 +2135,8 @@ msgid ""
 "<em>When an user is navigating on the system, he can see details of a "
 "community and become a member quickly.</em>"
 msgstr ""
-"<em>Quando um usuário está navegando no ambiente, ele poderá ver detalhes de "
-"uma comunidade e pedir para ser membro rapidamente.</em>"
+"<em>Quando um utilizador está navegando no ambiente, ele poderá ver detalhes "
+"de uma comunidade e pedir para ser membro rapidamente.</em>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -2514,8 +2514,8 @@ msgid ""
 "articles, communities, people, enterprises or products.</em>"
 msgstr ""
 "<em>Para encontrar artigos, comunidades, pessoas, empreendimentos ou "
-"produtos e serviços, o usuário que está navegando no sistema pode fazer uma "
-"busca no sistema.</em>"
+"produtos e serviços, o utilizador que está navegando no sistema pode fazer "
+"uma busca no sistema.</em>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -2719,7 +2719,7 @@ msgid ""
 "<em>To find an user in the system, you can use the search specific for "
 "people.</em>"
 msgstr ""
-"<em>Para encontrar um usuário no sistema você pode utilizar a busca "
+"<em>Para encontrar um utilizador no sistema você pode utilizar a busca "
 "específica para pessoas. Isto será explicado neste artigo.</em>"
 
 # type: Content of: <p>
@@ -3217,7 +3217,7 @@ msgstr ""
 #: doc/noosfero/user/editing-header-footer.en.xhtml:11
 #: doc/noosfero/user/editing-person-info.en.xhtml:11
 msgid "In user menu, click on Control Panel:"
-msgstr "No menu de usuário, clique em Painel de Controle:"
+msgstr "No menu de utilizador, clique em Painel de Controle:"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -3384,7 +3384,7 @@ msgstr ""
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:10
 #: doc/noosfero/user/editing-header-footer.en.xhtml:10
 msgid "Find you user menu on top bar:"
-msgstr "Encontre seu menu de usuário na barra superior:"
+msgstr "Encontre seu menu de utilizador na barra superior:"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -3420,7 +3420,7 @@ msgstr "Depois, clique em &#8220;Editar Aparência&#8221;:"
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:14
 #: doc/noosfero/user/editing-appearance.en.xhtml:12
 msgid "Edit appearance on user control panel"
-msgstr "Editar aparência no painel de controle do usuário"
+msgstr "Editar aparência no painel de controle do utilizador"
 
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:18
@@ -3544,8 +3544,8 @@ msgid ""
 msgstr ""
 "<em>Se você for administrador de uma comunidade, você pode convidar seus "
 "contatos de e-mail para entrarem na sua comunidade. Se o e-mail estiver "
-"cadastrado no sistema, o usuário irá receber o convite pelo sistema. Se não "
-"estiver cadastrado, o usuário receberá um convite pelo e-mail.</em>"
+"cadastrado no sistema, o utilizador irá receber o convite pelo sistema. Se "
+"não estiver cadastrado, o utilizador receberá um convite pelo e-mail.</em>"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -3627,8 +3627,8 @@ msgid ""
 msgstr ""
 "<strong>Importando</strong>: Escolha uma das outras opções para importar "
 "seus contatos a partir de seu e-mail. Preencha os campos com o nome de "
-"usuário e palavra-passe que você utiliza para acessar seu e-mail e clique em "
-"&#8220;Próximo&#8221;."
+"utilizador e palavra-passe que você utiliza para acessar seu e-mail e clique "
+"em &#8220;Próximo&#8221;."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
@@ -4004,8 +4004,8 @@ msgid ""
 "In the bottom of each block you will see some buttons. Passing mouse over "
 "the button, the name of the button function is displayed."
 msgstr ""
-"Na parte inferior de cada bloco você poderá ver alguns botões. Passando o "
-"mouse sobre o botão, aparecerá o nome da função do botão."
+"Na parte inferior de cada bloco poderá ver alguns botões. Passando o rato "
+"sobre o botão, aparecerá o nome da função do botão."
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -4169,14 +4169,14 @@ msgstr "Criar uma comunidade"
 #: doc/noosfero/community/creating-community.en.xhtml:2
 msgid "<em>You can create communities to interact to others users</em>"
 msgstr ""
-"<em>Você pode criar comunidades para interagir com outros usuários</em>"
+"<em>Você pode criar comunidades para interagir com outros utilizadores</em>"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:11
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:11
 msgid "In user menu, click on Control Panel"
-msgstr "No menu de usuário, clique em Painel de Controle"
+msgstr "No menu de utilizador, clique em Painel de Controle"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -4481,8 +4481,8 @@ msgid ""
 "formatting your text. Passing mouse over the button, the name of the button "
 "function is displayed."
 msgstr ""
-"Na parte superior das caixas você poderá ver alguns botões que lhe ajudarão "
-"a formatar seu texto. Passando o mouse sobre o botão, aparecerá o nome da "
+"Na parte superior das caixas poderá ver alguns botões que lhe ajudarão a "
+"formatar o seu texto. Passando o rato sobre o botão, aparecerá o nome da "
 "função do botão."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
@@ -4879,8 +4879,8 @@ msgid ""
 "To display the manual about a given topic, first choose a section in the "
 "left menu, and then choose a topic within the section."
 msgstr ""
-"Para exibir o manual sobre um dado tópico, primeiro escolha uma seção no "
-"menu à esquerda, e então escolha um tópico na seção."
+"Para exibir o manual sobre um dado tópico, primeiro escolha uma secção no "
+"menu à esquerda, e então escolha um tópico na secção."
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -4909,7 +4909,7 @@ msgstr ""
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:11
 msgid "To find your blog, first find you user menu on top bar:"
 msgstr ""
-"Para encontrar seu blog, primeiro localize seu menu de usuário na barra "
+"Para encontrar seu blog, primeiro localize seu menu de utilizador na barra "
 "superior:"
 
 # type: Content of: <ol><li>
@@ -5014,7 +5014,7 @@ msgstr "Através do Gerenciador de Conteúdo"
 #: doc/noosfero/cms/creating-blog.en.xhtml:10
 #: doc/noosfero/cms/writing-article.en.xhtml:10
 msgid "Find your menu on top bar:"
-msgstr "Localize seu menu de usuário na barra superior:"
+msgstr "Localize seu menu de utilizador na barra superior:"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ul><li><ol><li>
@@ -5121,8 +5121,8 @@ msgid ""
 "videos, poems, recipes, payments or the way the user prefers.</em>"
 msgstr ""
 "<em>Normalmente é usada para reunir ficheiros da mesmo categoria, como "
-"músicas, vídeos, poesias, receitas, pagamentos ou da da forma que o usuário "
-"preferir.</em>"
+"músicas, vídeos, poesias, receitas, pagamentos ou da da forma que o "
+"utilizador preferir.</em>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -5275,7 +5275,7 @@ msgid ""
 "the others users"
 msgstr ""
 "<strong>Visualização pública:</strong> Mostra como a pasta será visualizada "
-"por outros usuários;"
+"por outros utilizadores;"
 
 # type: Content of: <ol><li><ol><li><ul><li>
 #. type: Content of: <ol><li><ol><li>
@@ -5364,8 +5364,8 @@ msgstr ""
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11
 msgid "To find your image gallery, first find your user menu on top bar:"
 msgstr ""
-"Para encontrar sua galeria de imagens, primeiro localize seu menu de usuário "
-"na barra superior:"
+"Para encontrar sua galeria de imagens, primeiro localize seu menu de "
+"utilizador na barra superior:"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -5637,7 +5637,7 @@ msgid ""
 "mouse over the link."
 msgstr ""
 "<strong>Título:</strong> defina o que aparecerá quando uma pessoa passar o "
-"mouse sobre o link."
+"rato sobre a ligação."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
@@ -5744,7 +5744,7 @@ msgid ""
 "Using your mouse, click and drag the image to the part of the text where it "
 "will be inserted."
 msgstr ""
-"Com o mouse, clique e arraste a imagem para a parte do texto onde ela será "
+"Com o rato, clique e arraste a imagem para a parte do texto onde ela será "
 "inserida."
 
 # type: Attribute 'alt' of: <ul><li><p><img>
@@ -5978,9 +5978,9 @@ msgid ""
 "that will help you formatting your text. Passing mouse over the button, the "
 "name of the button function is displayed."
 msgstr ""
-"Na parte superior do espaço para o texto você poderá ver alguns botões que "
-"lhe ajudará a formatar seu texto. Passando o mouse sobre o botão, aparecerá "
-"o nome da função do botão."
+"Na parte superior do espaço para o texto poderá ver alguns botões que lhe "
+"ajudará a formatar o seu texto. Passando o rato sobre o botão, aparecerá o "
+"nome da função do botão."
 
 # type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ol><li><ol><li><ol><li>
@@ -6048,7 +6048,7 @@ msgstr ""
 "Lista de marcadores: preencha com marcadores. Marcadores são palavras-chave "
 "ou termos associados ao seu artigo. Também é utilizado para aumentar a "
 "possibilidade de outras pessoas acessá-lo, já que ele será listado quando um "
-"usuário clicar em um dos marcadores que ele possui."
+"utilizador clicar em um dos marcadores que ele possui."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -6342,7 +6342,7 @@ msgstr ""
 #: doc/noosfero/user/toc.en.xhtml:3
 msgid "<a href=\"/doc/user/registering-new-user\">Registering a new user</a>"
 msgstr ""
-"<a href=\"/doc/user/registering-new-user\">Cadastrar um novo usuário</a>"
+"<a href=\"/doc/user/registering-new-user\">Cadastrar um novo utilizador</a>"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -6619,7 +6619,7 @@ msgid ""
 "<strong>Edit user role:</strong> Choose the role the member will have in the "
 "enterprise. Each role is associated to some permissions."
 msgstr ""
-"<strong>Editar o papel do usuário:</strong> Escolha o papel que o membro "
+"<strong>Editar o papel do utilizador:</strong> Escolha o papel que o membro "
 "terá na comunidade. Cada papel é associado a algumas permissões."
 
 # type: Attribute 'alt' of: <ol><li><ol><li><p><img>
@@ -6635,8 +6635,8 @@ msgid ""
 "<strong>Remove user:</strong> Clicking on the button, the user will be "
 "removed from the enterprise."
 msgstr ""
-"<strong>Remover usuário:</strong> Clicando no botão, o usuário será removido "
-"da comunidade."
+"<strong>Remover utilizador:</strong> Clicando no botão, o utilizador será "
+"removido da comunidade."
 
 # type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
@@ -6658,9 +6658,9 @@ msgid ""
 "enterprise. The table in the left side (&#8220;Users&#8221;) will display "
 "the search results."
 msgstr ""
-"Digite no campo de busca o nome do usuário do sistema que você deseja "
-"adicionar ao empreendimento. A tabela do lado esquerdo do ecrã (&#8220;"
-"Usuários&#8221;) mostrará o resultado da busca."
+"Digite no campo de busca o nome do utilizador do sistema que você deseja "
+"adicionar ao empreendimento. A tabela do lado esquerdo do ecrã "
+"(&#8220;Utilizadors&#8221;) mostrará o resultado da busca."
 
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
@@ -6670,7 +6670,7 @@ msgid ""
 "the table on the right side (&#8220;Current members&#8221;) will be updated "
 "with the new member."
 msgstr ""
-"Clique no botão &#8220;+&#8221; para adicionar o usuário. Após clicar no "
+"Clique no botão &#8220;+&#8221; para adicionar o utilizador. Após clicar no "
 "botão, a tabela do lado direito (&#8220;Membros atuais&#8221;) será "
 "atualizada com o novo membro."
 
@@ -6812,7 +6812,7 @@ msgid ""
 msgstr ""
 "<strong>Opções de privacidade:</strong> Escolha se o perfil do "
 "empreendimento será público ou privado. Quando um empreendimento é privado, "
-"os usuários que não são amigos e tentam visualizar o perfil do "
+"os utilizadores que não são amigos e tentam visualizar o perfil do "
 "empreendimento ou seu conteúdo serão redirecionado para a página que mostra "
 "apenas informações gerais."
 
@@ -7270,7 +7270,8 @@ msgstr "Confirmação para remover amigo"
 msgid ""
 "After confirmation, the user will not be listed on your friends list anymore."
 msgstr ""
-"Após a confirmação, o usuário não será mais listado na sua lista de amigos."
+"Após a confirmação, o utilizador não será mais listado na sua lista de "
+"amigos."
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -7331,7 +7332,7 @@ msgstr ""
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/logout.en.xhtml:11
 msgid "In user menu, click on &#8220;Logout&#8221;"
-msgstr "No seu menu de usuário, clique em &#8220;Sair&#8221;"
+msgstr "No seu menu de utilizador, clique em &#8220;Sair&#8221;"
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/logout.en.xhtml:11
@@ -7401,7 +7402,7 @@ msgid ""
 "field and press the &#8220;Leave a scrap&#8221; button"
 msgstr ""
 "Na página do perfil, quando você clica na aba &#8220;Mural&#8221;, os "
-"recados enviados para o usuários serão listados. Para deixar seu recado, "
+"recados enviados para o utilizadores serão listados. Para deixar seu recado, "
 "preencha o campo e clique no botão &#8220;Deixar um recado&#8221;"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
@@ -7454,8 +7455,8 @@ msgid ""
 "invitation on his e-mail.</em>"
 msgstr ""
 "<em>Você pode convidar seus contatos de e-mail para serem seus amigos no "
-"sistema. Se o e-mail estiver cadastrado no sistema, o usuário irá receber o "
-"convite pelo sistema. Se não estiver cadastrado, o usuário receberá um "
+"sistema. Se o e-mail estiver cadastrado no sistema, o utilizador irá receber "
+"o convite pelo sistema. Se não estiver cadastrado, o utilizador receberá um "
 "convite pelo e-mail. </em>"
 
 # type: Content of: <ol><li>
@@ -7469,31 +7470,31 @@ msgstr "Você verá sua lista de amigos e o botão de convite. Clique no botão.
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:17
 msgid "User&#39;s friends list"
-msgstr "Lista de amigos do usuário"
+msgstr "Lista de amigos do utilizador"
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:20
 msgid "Manually invitation for user. Step 1"
-msgstr "Convite manual para usuário. Passo 1"
+msgstr "Convite manual para utilizador. Passo 1"
 
 # type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><ul><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:23
 msgid "Manually invitation for user. Step 2"
-msgstr "Convite manual para usuário. Passo 2"
+msgstr "Convite manual para utilizador. Passo 2"
 
 # type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:25
 msgid "Import invitation for user. Step 1"
-msgstr "Convite de importação para usuário. Passo 1"
+msgstr "Convite de importação para utilizador. Passo 1"
 
 # type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><ul><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:29
 msgid "Import invitation for user. Step 2"
-msgstr "Convite de importação para usuário. Passo 2"
+msgstr "Convite de importação para utilizador. Passo 2"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -7547,9 +7548,9 @@ msgid ""
 "<strong>Logged in user:</strong> Click the button and a comment form will be "
 "displayed. You will see the title and body comment fields:"
 msgstr ""
-"<strong>Usuário logado:</strong> Clique no botão e aparecerá um formulário "
-"para você escrever o comentário. Você verá os campos de título e o corpo do "
-"comentário:"
+"<strong>Utilizador logado:</strong> Clique no botão e aparecerá um "
+"formulário para você escrever o comentário. Você verá os campos de título e "
+"o corpo do comentário:"
 
 #. type: Attribute 'alt' of: <ul><li><img>
 #: doc/noosfero/user/commenting.en.xhtml:15
@@ -7563,8 +7564,8 @@ msgid ""
 "<strong>Not logged in user:</strong> If you are not logged in, you will see "
 "name and e-mail fields to identify yourself:"
 msgstr ""
-"<strong>Usuário não logado:</strong> Se você não estiver logado aparecerão "
-"campos de nome e e-mail para que você se identifique:"
+"<strong>Utilizador não logado:</strong> Se você não estiver logado "
+"aparecerão campos de nome e e-mail para que você se identifique:"
 
 #. type: Attribute 'alt' of: <ul><li><img>
 #: doc/noosfero/user/commenting.en.xhtml:16
@@ -7598,8 +7599,8 @@ msgstr "Logar no sistema"
 msgid ""
 "<em>Some system features only can be used when the user is logged in.</em>"
 msgstr ""
-"<em>Algumas funções da rede social só podem ser utilizadas quando o usuário "
-"está logado no sistema.</em>"
+"<em>Algumas funções da rede social só podem ser utilizadas quando o "
+"utilizador está logado no sistema.</em>"
 
 # type: Content of: <p>
 #. type: Content of: <ol><li>
@@ -7640,7 +7641,8 @@ msgstr ""
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/login.en.xhtml:17
 msgid "<a href=\"/doc/user/registering-new-user\">Registering new user</a>"
-msgstr "<a href=\"/doc/user/registering-new-user\">Cadastrar novo usuário</a>"
+msgstr ""
+"<a href=\"/doc/user/registering-new-user\">Cadastrar novo utilizador</a>"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -7679,8 +7681,8 @@ msgid ""
 "When you hover the mouse on the scrap, click on the &#8220;Reply&#8221; "
 "button that will be displayed"
 msgstr ""
-"Quando você passar o mouse sobre o recado, clique no botão &#8220;"
-"Responder&#8221; que aparecerá"
+"Quando passar o rato sobre o recado, clique no botão &#8220;Responder&#8221; "
+"que aparecerá"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -7772,13 +7774,13 @@ msgstr "Confirmação para remover perfil"
 #. type: Content of: <h1>
 #: doc/noosfero/user/index.en.xhtml:1
 msgid "User features"
-msgstr "Funcionalidades de Usuário"
+msgstr "Funcionalidades de Utilizador"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/registering-new-user.en.xhtml:1
 msgid "Registering a new user"
-msgstr "Cadastrar um novo usuário"
+msgstr "Cadastrar um novo utilizador"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -7796,7 +7798,7 @@ msgstr ""
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/registering-new-user.en.xhtml:11
 msgid "Click on &#8220;New user&#8221;:"
-msgstr "Clique no botão &#8220;Novo usuário&#8221;:"
+msgstr "Clique no botão &#8220;Novo utilizador&#8221;:"
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/registering-new-user.en.xhtml:11
@@ -7876,7 +7878,7 @@ msgid ""
 "most recent activities of the user will be listed"
 msgstr ""
 "Na página do perfil, quando você clica na aba &#8220;Atividade&#8221;, as "
-"atividades mais recentes do usuários serão listadas"
+"atividades mais recentes do utilizadores serão listadas"
 
 # type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -7898,7 +7900,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:12
 msgid "Edit sideboxes on user control panel"
-msgstr "Editar blocos laterais no painel de controle do usuário"
+msgstr "Editar blocos laterais no painel de controle do utilizador"
 
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
@@ -7977,7 +7979,7 @@ msgid ""
 "<strong>Communities:</strong> Displays the communities in which the user is "
 "a member. You can choose how many communities will be displayed."
 msgstr ""
-"<strong>Comunidades:</strong> Apresenta as comunidades que o usuário é "
+"<strong>Comunidades:</strong> Apresenta as comunidades que o utilizador é "
 "membro. Você pode escolher quantas comunidades serão mostradas."
 
 # type: Attribute 'alt' of: <p><img>
@@ -8024,7 +8026,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:34
 msgid "User network block"
-msgstr "Bloco da rede do usuário"
+msgstr "Bloco da rede do utilizador"
 
 # type: Content of: <ol><li><ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
@@ -8069,7 +8071,7 @@ msgid ""
 "the user is a member. You can choose how many enterprises will be listed."
 msgstr ""
 "<strong>Empreendimentos:</strong> Este bloco apresenta os empreendimento que "
-"o usuário é membro. Você pode escolher quantos empreendimentos serão "
+"o utilizador é membro. Você pode escolher quantos empreendimentos serão "
 "listados."
 
 # type: Content of: <h1>
@@ -8098,8 +8100,8 @@ msgid ""
 "<em>To interact with other system users, you can send messages through the "
 "system. The messages will be received by email.</em>"
 msgstr ""
-"<em>Para interagir com outros usuários da rede, você pode mandar mensagens "
-"através do sistema. As mensagens serão recebidas por e-mail.</em>"
+"<em>Para interagir com outros utilizadores da rede, você pode mandar "
+"mensagens através do sistema. As mensagens serão recebidas por e-mail.</em>"
 
 # type: Content of: <ol><li><p>
 #. type: Content of: <ol><li>
@@ -8108,7 +8110,7 @@ msgid ""
 "Find the user you want to send a message using the <a href=\"/doc/navigation/"
 "searching-people\">search</a> and click to view his/her profile."
 msgstr ""
-"Localize o usuário que deseja enviar uma mensagem utilizando a <a href=\"/"
+"Localize o utilizador que deseja enviar uma mensagem utilizando a <a href=\"/"
 "doc/navigation/searching-people\">busca</a> e clique para visualizá-lo."
 
 # type: Content of: <ol><li><p>
@@ -8224,8 +8226,8 @@ msgid ""
 "<em>To interact with others system users, you can include them in your "
 "contact list, adding them as friends.</em>"
 msgstr ""
-"<em>Para interagir com outros usuários da rede, você pode incluí-los na sua "
-"lista de contatos adicionando-os como amigos.</em>"
+"<em>Para interagir com outros utilizadores da rede, você pode incluí-los na "
+"sua lista de contatos adicionando-os como amigos.</em>"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -8234,8 +8236,8 @@ msgid ""
 "In the users page, click on &#8220;Add friend&#8221; button that you will "
 "see below the user picture"
 msgstr ""
-"Na página do usuário, clique no botão &#8220;Adicionar amigo&#8221; que você "
-"verá abaixo da foto do usuário"
+"Na página do utilizador, clique no botão &#8220;Adicionar amigo&#8221; que "
+"você verá abaixo da foto do utilizador"
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/adding-friends.en.xhtml:12
@@ -8272,7 +8274,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/editing-header-footer.en.xhtml:12
 msgid "Edit header and footer on user control panel"
-msgstr "Editar cabeçalho e rodapé no controle de painel do usuário"
+msgstr "Editar cabeçalho e rodapé no controle de painel do utilizador"
 
 # type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
@@ -8292,7 +8294,7 @@ msgstr ""
 #. type: Content of: <h1>
 #: doc/noosfero/user/editing-person-info.en.xhtml:1
 msgid "Editing user settings"
-msgstr "Alterar informações/configurações de um usuário"
+msgstr "Alterar informações/configurações de um utilizador"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -8354,7 +8356,7 @@ msgid ""
 msgstr ""
 "<strong>Opções de privacidade:</strong> Escolha se o perfil do "
 "empreendimento será público ou privado. Quando um empreendimento é privado, "
-"os usuários que não são amigos e tentam visualizar o perfil do "
+"os utilizadores que não são amigos e tentam visualizar o perfil do "
 "empreendimento ou seu conteúdo serão redirecionado para a página que mostra "
 "apenas informações gerais."
 
@@ -8427,7 +8429,7 @@ msgstr ""
 #: doc/noosfero/admin/toc.en.xhtml:4
 msgid "<a href=\"/doc/admin/export-users-list\">Export the list of users</a>"
 msgstr ""
-"<a href=\"/doc/admin/export-users-list\">Exportar lista de usuários</a>"
+"<a href=\"/doc/admin/export-users-list\">Exportar lista de utilizadores</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -8582,7 +8584,7 @@ msgstr "<a href=\"/doc/user/deleting-profile\">Deletar um perfil</a>"
 msgid "<a href=\"/doc/user/editing-person-info\">Editing user settings</a>"
 msgstr ""
 "<a href=\"/doc/user/editing-person-info\">Editar informações/configurações "
-"do usuário</a>"
+"do utilizador</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -8682,7 +8684,7 @@ msgstr "<a href=\"/doc/enterprise\">Funcionalidades do empreendimento</a>"
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:10
 msgid "<a href=\"/doc/user\">User features</a>"
-msgstr "<a href=\"/doc/user\">Funcionalidades do usuário</a>"
+msgstr "<a href=\"/doc/user\">Funcionalidades do utilizador</a>"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #, fuzzy
