@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2019-01-08 14:07+0000\n"
-"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"PO-Revision-Date: 2020-10-05 12:12+0000\n"
+"Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "plugin-comment-classification/pt/>\n"
 "Language: pt\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 4.3-dev\n"
 
 msgid "Label created"
 msgstr "Marcador criado"
@@ -42,22 +42,22 @@ msgid "Label could not be removed"
 msgstr "Marcador não pode ser removido"
 
 msgid "Status created"
-msgstr "Status criado"
+msgstr "Estado criado"
 
 msgid "Status could not be created"
-msgstr "Status não pôde ser criado"
+msgstr "O estado não pôde ser criado"
 
 msgid "Status updated"
-msgstr "Status atualizado"
+msgstr "Estado atualizado"
 
 msgid "Failed to edit status"
-msgstr "Falhou em editar o status"
+msgstr "Falhou em editar o estado"
 
 msgid "Status removed"
-msgstr "Status removido"
+msgstr "Estado removido"
 
 msgid "Status could not be removed"
-msgstr "Status não pôde ser removido"
+msgstr "Estado não pôde ser removido"
 
 msgid "A plugin that allow classification of comments."
 msgstr "Um plugin que permite a classificação de comentários."
@@ -75,7 +75,7 @@ msgid "Manage Labels"
 msgstr "Gerenciar Marcadores"
 
 msgid "Manage Status"
-msgstr "Gerenciar Status"
+msgstr "Gerir estado"
 
 msgid "Name"
 msgstr "Nome"
@@ -108,13 +108,13 @@ msgid "Actions"
 msgstr "Ações"
 
 msgid "Are you sure you want to  remove this label?"
-msgstr "Tem certeza que quer excluir este marcador?"
+msgstr "Tem certeza que quer apagar este marcador?"
 
 msgid "Reason:"
 msgstr "Razão:"
 
 msgid "Status for comment"
-msgstr "Status para comentário"
+msgstr "Estado para comentário"
 
 msgid "Comment Informations"
 msgstr "Informações de Comentário"
@@ -126,25 +126,25 @@ msgid "Reason"
 msgstr "Razão"
 
 msgid "Add a new status"
-msgstr "Adicionar novo status"
+msgstr "Adicionar novo estado"
 
 msgid "Manage comment classification"
 msgstr "Gerenciar classificação de comentário"
 
 msgid "Enable this status?"
-msgstr "Habilitar esse status?"
+msgstr "Ativar este estado?"
 
 msgid "Editing status %s"
-msgstr "Editando status %s"
+msgstr "A editar estado %s"
 
 msgid "Manage comments status"
-msgstr "Gerenciar status de comentários"
+msgstr "Gerir estado de comentários"
 
 msgid "(no status registered yet)"
-msgstr "(nenhum status registrado ainda)"
+msgstr "(nenhum estado ainda registado)"
 
 msgid "Reason enabled?"
 msgstr "Razão habilitada?"
 
 msgid "Are you sure you want to remove this status?"
-msgstr "Tem certeza de que quer excluir este status?"
+msgstr "Tem certeza de que quer apagar este estado?"
