@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2020-10-02 20:41+0000\n"
+"PO-Revision-Date: 2020-10-05 12:12+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
@@ -1757,10 +1757,10 @@ msgid ""
 "profile will only be able to upload new files if its quota is increased, or "
 "if old files are deleted in order to free some of the used space."
 msgstr ""
-"Se um perfil exceder a sua cota de upload, ele não será capaz de enviar mais "
-"ficheiros para o servidor. Os ficheiros enviados anteriormente continuarão "
+"Se um perfil exceder a sua cota de envio, não será capaz de enviar mais "
+"ficheiros ao servidor. Os ficheiros enviados anteriormente continuarão "
 "disponíveis. O perfil somente será capaz de enviar novos ficheiros se a cota "
-"for aumentada, ou se ficheiros antigos forem excluídos para liberar espaço."
+"for aumentada, ou se ficheiros antigos forem apagados para liberar espaço."
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -7166,8 +7166,8 @@ msgid ""
 "Next to each comment of the article, photo or event you will see a trash "
 "icon. To delete one, click on the trash icon."
 msgstr ""
-"Ao lado de cada comentário do artigo, foto ou evento você verá um ícone de "
-"lixeira. Para excluir algum item, clique no ícone de lixeira."
+"Ao lado de cada comentário do artigo, foto ou evento verá um ícone do lixo. "
+"Para apagar algum item, clique no ícone do lixo."
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-comments.en.xhtml:12
@@ -7181,8 +7181,8 @@ msgid ""
 "You will be asked to confirm exclusion. Clickiing on &#8220;Ok&#8221; "
 "button, the comment will be removed"
 msgstr ""
-"Aparecerá o ecrã para confirmar a exclusão. Clicando no botão &#8220;"
-"Ok&#8221;, o comentário será removido"
+"Aparecerá o ecrã para confirmar apagar. A clicar no botão &#8220;Ok&#8221;, "
+"o comentário será removido"
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-comments.en.xhtml:13
@@ -7235,10 +7235,9 @@ msgid ""
 "you want to remove from your contact list and click on trash icon next to "
 "the picture of the person you want to remove."
 msgstr ""
-"No ecrã de gerenciar amigos, você irá visualizar a sua lista de amigos. "
-"Encontre o amigo que deseja excluir da sua lista de contatos e clique no "
-"ícone com formato de lixeira ao lado da foto da pessoa que você deseja "
-"remover."
+"No ecrã de gerir amigos, irá ver a sua lista de amigos. Encontre o amigo que "
+"deseja apagar da sua lista de contactos e clique no ícone com formato de "
+"lixo ao lado da foto da pessoa que deseja remover."
 
 # #-#-#-#-#  noosfero-doc.po (PACKAGE VERSION)  #-#-#-#-#
 # type: Attribute 'alt' of: <ol><li><div><img>
@@ -7256,8 +7255,8 @@ msgid ""
 "You will be asked to confirm the exclusion. Confirm that you want to remove "
 "your friend."
 msgstr ""
-"Aparecerá um ecrã pedindo que confirme a exclusão. Confirme que deseja "
-"remover o amigo."
+"Aparecerá um ecrã pedindo que confirme apagar. Confirme que deseja remover o "
+"amigo."
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:19
