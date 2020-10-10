@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 18:19+0000\n"
-"PO-Revision-Date: 2020-10-01 18:41+0000\n"
+"PO-Revision-Date: 2020-10-11 20:26+0000\n"
 "Last-Translator: Atrate <Atrate@protonmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/noosfero/noosfero/"
 "pl/>\n"
@@ -948,48 +948,49 @@ msgstr ""
 
 #: ../app/controllers/public/comment_controller.rb:46
 msgid "Comment was rejected"
-msgstr ""
+msgstr "Komentarz został odrzucony"
 
 #: ../app/controllers/public/comment_controller.rb:70
 msgid "Your comment is waiting for approval."
-msgstr ""
+msgstr "Twój komentarz czeka na zatwierdzenie."
 
 #: ../app/controllers/public/comment_controller.rb:86
 msgid "Comment successfully created."
-msgstr ""
+msgstr "Komentarz został pomyślnie utworzony."
 
 #: ../app/controllers/public/comment_controller.rb:98
 msgid "The comment was not removed."
-msgstr ""
+msgstr "Komentarz nie został usunięty."
 
 #: ../app/controllers/public/comment_controller.rb:109
 msgid "You couldn't mark this comment as spam."
-msgstr ""
+msgstr "Nie można było oznaczyć tego komentarza jako spam."
 
 #: ../app/controllers/public/contact_controller.rb:14
 msgid "Contact successfully sent"
-msgstr ""
+msgstr "Kontakt wysłany pomyślnie"
 
 #: ../app/controllers/public/contact_controller.rb:17
 msgid "Contact not sent"
-msgstr ""
+msgstr "Kontakt nie został wysłany"
 
 #: ../app/controllers/public/content_viewer_controller.rb:262
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr ""
+"Powiadomienie o nowych komentarzach do „% s” zostało pomyślnie anulowane"
 
 #: ../app/controllers/public/invite_controller.rb:33
 #: ../app/controllers/public/invite_controller.rb:69
 msgid "Your invitations are being sent."
-msgstr ""
+msgstr "Twoje zaproszenia są wysyłane."
 
 #: ../app/controllers/public/invite_controller.rb:41
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "Proszę podać prawidłowy adres e-mail."
 
 #: ../app/controllers/public/invite_controller.rb:77
 msgid "Please enter a valid profile."
-msgstr ""
+msgstr "Proszę wprowadzić prawidłowy profil."
 
 #: ../app/controllers/public/profile_controller.rb:64
 #: ../app/controllers/public/profile_controller.rb:65
@@ -1000,19 +1001,19 @@ msgstr ""
 #: ../app/controllers/public/profile_controller.rb:120
 #: ../app/controllers/public/profile_controller.rb:130
 msgid "%s administrator still needs to accept you as member."
-msgstr ""
+msgstr "Administrator %s nadal musi zaakceptować cię jako członka."
 
 #: ../app/controllers/public/profile_controller.rb:132
 msgid "You just became a member of %s."
-msgstr ""
+msgstr "Właśnie zostałeś członkiem %s."
 
 #: ../app/controllers/public/profile_controller.rb:135
 msgid "You are already a member of %s."
-msgstr ""
+msgstr "Jesteś już członkiem %s."
 
 #: ../app/controllers/public/profile_controller.rb:157
 msgid "You are not a member of %s."
-msgstr ""
+msgstr "Nie jesteś członkiem %s."
 
 #: ../app/controllers/public/profile_controller.rb:177
 msgid "%s still needs to accept being your friend."
@@ -1020,15 +1021,15 @@ msgstr ""
 
 #: ../app/controllers/public/profile_controller.rb:179
 msgid "You are already a friend of %s."
-msgstr ""
+msgstr "Jesteś już znajomym %s."
 
 #: ../app/controllers/public/profile_controller.rb:185
 msgid "You are already following %s."
-msgstr ""
+msgstr "Już obserwujesz %s."
 
 #: ../app/controllers/public/profile_controller.rb:190
 msgid "You are now following %s"
-msgstr ""
+msgstr "Obserwujesz teraz %s"
 
 #: ../app/controllers/public/profile_controller.rb:192
 msgid "Select at least one circle to follow %s."
@@ -1044,7 +1045,7 @@ msgstr ""
 
 #: ../app/controllers/public/profile_controller.rb:255
 msgid "Message successfully sent."
-msgstr ""
+msgstr "Wiadomość wysłana pomyślnie."
 
 #: ../app/controllers/public/profile_controller.rb:255
 msgid "You can't leave an empty message."
@@ -1052,7 +1053,7 @@ msgstr ""
 
 #: ../app/controllers/public/profile_controller.rb:266
 msgid "Comment successfully added."
-msgstr ""
+msgstr "Komentarz został pomyślnie dodany."
 
 #: ../app/controllers/public/profile_controller.rb:266
 msgid "You can't leave an empty comment."
