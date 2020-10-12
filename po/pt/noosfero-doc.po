@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2020-10-05 12:12+0000\n"
+"PO-Revision-Date: 2020-10-13 13:26+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
@@ -528,8 +528,8 @@ msgid ""
 "Accept default options, save and take note of your <em>Web Property ID</em> "
 "(eg.: UA-23455430-3)"
 msgstr ""
-"Aceite as opções padrão, salve e anote seu  <em>Web Property ID</em> (ex.: "
-"UA-23455430-3)"
+"Aceite as opções predefinidas, grave e anote o seu <em>Web Property ID</em> "
+"(ex.: UA-23455430-3)"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -1623,7 +1623,7 @@ msgstr "Gerenciando cotas por tipo"
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:18
 #: doc/noosfero/quotas/index.en.xhtml:3
 msgid "Upload quotas"
-msgstr "Cotas de upload"
+msgstr "Cotas de envio"
 
 #. type: Content of: <p>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:6
@@ -1711,7 +1711,7 @@ msgstr ""
 #. type: Content of: <p>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:19
 msgid "After choosing the quota value, just click &#8220;Save&#8221;."
-msgstr "Após definir o valor da cota, clique no botão  &#8220;1Salvar&#8221;2."
+msgstr "Após definir o valor da cota, clique no botão &#8220;1Gravar&#8221;2."
 
 #. type: Content of: <h2>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:20
@@ -2059,8 +2059,8 @@ msgid ""
 "If enabled on environment, wherever a person appears you can click on the "
 "top-left corner to see the person balloon"
 msgstr ""
-"Se habilitado no ambiente, em todos os lugares que a pessoa aparecer você "
-"poderá clicar no canto superior esquerdo para ver o balão da pessoa"
+"Se ativado no ambiente, em todos os lugares que a pessoa aparecer poderá "
+"clicar no canto superior esquerdo para ver o balão da pessoa"
 
 # type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -2145,8 +2145,8 @@ msgid ""
 "If enabled on environment, wherever a community appears you can click on the "
 "top-left corner to see the community balloon"
 msgstr ""
-"Se habilitado pelo ambiente, em todos os lugares que a comunidade aparecer "
-"você poderá clicar no canto superior esquerdo para ver o balão de comunidade"
+"Se ativado pelo ambiente, em todos os lugares que a comunidade aparecer "
+"poderá clicar no canto superior esquerdo para ver o balão de comunidade"
 
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:9
@@ -2203,8 +2203,8 @@ msgid ""
 "Leave: if you are a member of community, you can quickly leave it clicking "
 "on this link"
 msgstr ""
-"Sair:  se você é membro da comunidade, você rapidamente sairá da comunidade "
-"clicando nesse link"
+"Sair: se é membro da comunidade, rapidamente sairá da comunidade clicando "
+"nesta ligação"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -3000,9 +3000,9 @@ msgid ""
 "most active first. Below the profile&#8217;s picture, you will see the "
 "number of articles created by the community"
 msgstr ""
-"As comunidades serão listadas ordenadas por número de conteúdo criado  com "
-"os mais ativos primeiro. Abaixo da imagem do perfil, você verá o número de "
-"artigos criados pela comunidade"
+"As comunidades serão listadas ordenadas por número de conteúdo criado com os "
+"mais ativos primeiro. Abaixo da imagem do perfil, verá o número de artigos "
+"criados pela comunidade"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -5121,8 +5121,8 @@ msgid ""
 "videos, poems, recipes, payments or the way the user prefers.</em>"
 msgstr ""
 "<em>Normalmente é usada para reunir ficheiros da mesmo categoria, como "
-"músicas, vídeos, poesias, receitas, pagamentos ou da da forma que o "
-"utilizador preferir.</em>"
+"músicas, vídeos, poesias, receitas, pagamentos ou da forma que o utilizador "
+"preferir.</em>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -6534,14 +6534,14 @@ msgid ""
 "<strong>&#8220;Disabled enterprise&#8221; message:</strong> Shows a message "
 "for disabled enterprises."
 msgstr ""
-"<strong>Mensagem &#8220;Empreendimento desabilitado&#8221;:</strong> "
-"Apresenta uma mensagem para empreendimentos desabilitados."
+"<strong>Mensagem &#8220;Empresa desativada&#8221;:</strong> Apresenta uma "
+"mensagem para empresas desativadas."
 
 # type: Content of: <h1>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:39
 msgid "Disabled enterprise block"
-msgstr "Bloco de empreendimentos desabilitados"
+msgstr "Bloco de empresas desativadas"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -6831,7 +6831,7 @@ msgid ""
 "<strong>Categories:</strong> If enabled on the system, you can choose the "
 "categories that the enterprise will have."
 msgstr ""
-"<strong>Categorias:</strong> Se habilitado no sistema, você pode definir as "
+"<strong>Categorias:</strong> Se ativado no sistema, pode definir as "
 "categorias das quais o empreendimento fará parte."
 
 # type: Content of: <ol><li>
@@ -6965,10 +6965,10 @@ msgid ""
 "page you can change the product&#8217;s category, name, unit, image, basic "
 "information and add inputs clicking on the link indicated by numbers"
 msgstr ""
-"Então você verá o produto que você acabou de criar. Por padrão o nome do "
-"produto é o mesmo da categoria. Nessa página você pode alterar a categoria,  "
-"nome, unidade, imagem, informações básicas e adicionar insumos para o seu "
-"produto clicando nos links indicados pelos números"
+"Depois verá o produto que acabou de criar. Por padrão o nome do produto é o "
+"mesmo da categoria. Nessa página pode alterar a categoria, nome, unidade, "
+"imagem, informações básicas e adicionar entradas para o seu produto clicando "
+"nas ligações indicadas por números"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -7653,8 +7653,7 @@ msgstr "Respondendo recados enviados por amigos"
 #. type: Content of: <p>
 #: doc/noosfero/user/answering-scraps.en.xhtml:2
 msgid "<em>When a friend sends a scrap to you, you can answer it.</em>"
-msgstr ""
-"<em>Quando um amigo envia um recado para você, você pode responder.</em>"
+msgstr "<em>Quando um amigo lhe envia um recado, pode respondê-lo.</em>"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -8366,8 +8365,8 @@ msgid ""
 "<strong>Categories:</strong> If enabled in the system, you can choose the "
 "categories that the person will have."
 msgstr ""
-"<strong>Categorias:</strong> Se habilitado no sistema, você pode definir as "
-"categorias que o você fará parte."
+"<strong>Categorias:</strong> Se ativado no sistema, pode definir as "
+"categorias de que a pessoa fará parte."
 
 # type: Attribute 'alt' of: <ol><li><ul><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
