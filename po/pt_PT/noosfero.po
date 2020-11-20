@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 18:19+0000\n"
-"PO-Revision-Date: 2019-07-04 18:19+0000\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2020-11-21 17:29+0000\n"
+"Last-Translator: Tatiana Filipa Costa Aires <tatiana.20000@live.com.pt>\n"
+"Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
+"noosfero/noosfero/pt_PT/>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #: ../app/api/helpers.rb:448
 msgid "(Invalid request) %s can't be saved"
@@ -27,15 +29,15 @@ msgstr ""
 
 #: ../app/api/helpers.rb:458
 msgid "Something wrong happened"
-msgstr ""
+msgstr "Algo de errado aconteceu"
 
 #: ../app/api/helpers.rb:463
 msgid "Unauthorized"
-msgstr ""
+msgstr "Não autorizado"
 
 #: ../app/api/helpers.rb:467
 msgid "Method Not Allowed"
-msgstr ""
+msgstr "Método sem permissão"
 
 #: ../app/api/v1/articles.rb:67
 msgid "The article %s was removed."
@@ -46,6 +48,8 @@ msgid ""
 "The article couldn't be removed due to some problem. Please contact the admini"
 "strator."
 msgstr ""
+"O artigo não pôde ser removido devido a algum problema. Por favor contacte o "
+"administrador."
 
 #: ../app/api/v1/articles.rb:99
 #: ../app/controllers/public/profile_controller.rb:417
@@ -60,10 +64,12 @@ msgid ""
 "Your report couldn't be saved due to some problem. Please contact the administ"
 "rator."
 msgstr ""
+"O seu relatório não pôde ser salvo devido a algum problema. Por favor "
+"contacte o administrador."
 
 #: ../app/api/v1/articles.rb:138
 msgid "Your vote was created."
-msgstr ""
+msgstr "O seu voto foi criado."
 
 #: ../app/api/v1/articles.rb:164
 msgid "You already follow this article."
