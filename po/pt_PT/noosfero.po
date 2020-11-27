@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 18:19+0000\n"
-"PO-Revision-Date: 2020-11-21 17:29+0000\n"
+"PO-Revision-Date: 2020-11-28 19:29+0000\n"
 "Last-Translator: Tatiana Filipa Costa Aires <tatiana.20000@live.com.pt>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "noosfero/noosfero/pt_PT/>\n"
@@ -21,11 +21,11 @@ msgstr ""
 
 #: ../app/api/helpers.rb:448
 msgid "(Invalid request) %s can't be saved"
-msgstr ""
+msgstr "(Pedido inválido) %s não podem ser salvas"
 
 #: ../app/api/helpers.rb:453
 msgid "(Invalid request) %s not given"
-msgstr ""
+msgstr "(Pedido inválido) %s não dadas"
 
 #: ../app/api/helpers.rb:458
 msgid "Something wrong happened"
@@ -41,7 +41,7 @@ msgstr "Método sem permissão"
 
 #: ../app/api/v1/articles.rb:67
 msgid "The article %s was removed."
-msgstr ""
+msgstr "O artigo %s foi removido."
 
 #: ../app/api/v1/articles.rb:71
 msgid ""
@@ -57,6 +57,8 @@ msgid ""
 "Your abuse report was registered. The administrators are reviewing your report"
 "."
 msgstr ""
+"O seu relatório de abuso foi registado. Os administradores estão a rever o "
+"seu relatório."
 
 #: ../app/api/v1/articles.rb:106
 #: ../app/controllers/public/profile_controller.rb:425
@@ -73,85 +75,88 @@ msgstr "O seu voto foi criado."
 
 #: ../app/api/v1/articles.rb:164
 msgid "You already follow this article."
-msgstr ""
+msgstr "Já segue este artigo."
 
 #: ../app/api/v1/articles.rb:173
 msgid "You are now following the article %s."
-msgstr ""
+msgstr "Está agora a seguir o artigo %s."
 
 #: ../app/api/v1/comments.rb:56
 msgid "The comment '%s' was removed."
-msgstr ""
+msgstr "O comentário '%s' foi removido."
 
 #: ../app/api/v1/communities.rb:43
 msgid ""
 "Your solicitation was not registered. Already exists a community with this nam"
 "e."
 msgstr ""
+"A sua solicitação não foi registada. Já existe uma comunidade com este nome."
 
 #: ../app/api/v1/communities.rb:85
 msgid ""
 "Your invitation was registered. The community administrators are reviewing you"
 "r solicitation."
 msgstr ""
+"O seu convite foi registado. Os administradores da comunidade estão a rever "
+"a sua solicitação."
 
 #: ../app/api/v1/communities.rb:102
 msgid "The contact was sent."
-msgstr ""
+msgstr "O contacto foi enviado."
 
 #: ../app/api/v1/communities.rb:105
 msgid "The contact was not sent."
-msgstr ""
+msgstr "O contacto não foi enviado."
 
 #: ../app/api/v1/communities.rb:123
 msgid "You already request a membership for this community."
-msgstr ""
+msgstr "Já solicitou uma adesão para esta comunidade."
 
 #: ../app/api/v1/communities.rb:126
 msgid "You already member of this community."
-msgstr ""
+msgstr "Já é membro desta comunidade."
 
 #: ../app/api/v1/communities.rb:129
 msgid ""
 "You are not member of this community and you did not made a membership request"
 "."
-msgstr ""
+msgstr "Não é membro desta comunidade e não fez um pedido de adesão."
 
 #: ../app/api/v1/people.rb:114
 msgid "You already request a friendship solicitation to %s."
-msgstr ""
+msgstr "Já solicitou uma solicitação de amizade a %s."
 
 #: ../app/api/v1/people.rb:117
 msgid "You already a %s's friend"
-msgstr ""
+msgstr "Você já é amigo de um %s"
 
 #: ../app/api/v1/people.rb:120
 msgid "You are not a %s's friend and you did not made a friendship request."
-msgstr ""
+msgstr "Não é amigo de uma %s e não fez um pedido de amizade."
 
 #: ../app/api/v1/people.rb:136
 msgid "Your friendship request is waiting for approval."
-msgstr ""
+msgstr "O seu pedido de amizade está à espera de aprovação."
 
 #: ../app/api/v1/people.rb:152
 msgid "The friendship with %s was removed."
-msgstr ""
+msgstr "A amizade com %s foi removida."
 
 #: ../app/api/v1/people.rb:178
 msgid "You already make a membership solicitation"
-msgstr ""
+msgstr "Já fez uma solicitação de adesão"
 
 #: ../app/api/v1/people.rb:181
 msgid "Your membership request is waiting for approval."
-msgstr ""
+msgstr "O seu pedido de adesão está à espera de aprovação."
 
 #: ../app/api/v1/profiles.rb:69
 msgid "The profile %s was removed."
-msgstr ""
+msgstr "O perfil %s foi removido."
 
 #: ../app/api/v1/session.rb:42
 msgid "Logout successfully."
-msgstr ""
+msgstr "Saiu com sucesso."
 
 #: ../app/api/v1/session.rb:64 ../app/helpers/forgot_password_helper.rb:21
 #: ../app/models/user.rb:28 ../app/models/user.rb:47
@@ -160,7 +165,7 @@ msgstr ""
 #: ../app/views/invite/invite_friends.html.erb:15
 #: ../app/views/spam/_suggest_article.html.erb:9
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: ../app/api/v1/session.rb:65 ../app/helpers/application_helper.rb:999
 #: ../app/helpers/link_list_block_helper.rb:22
@@ -168,82 +173,82 @@ msgstr ""
 #: ../app/views/account/login_block.html.erb:4
 #: ../app/views/shared/user_menu.html.erb:61
 msgid "Login"
-msgstr ""
+msgstr "Entrar"
 
 #: ../app/api/v1/session.rb:66 ../app/models/change_password.rb:8
 #: ../app/models/user.rb:22 ../app/views/account/_signup_form.html.erb:40
 #: ../app/views/account/_signup_form.html.erb:48
 #: ../app/views/invite/_select_address_book.html.erb:34
 msgid "Password"
-msgstr ""
+msgstr "Palavra-passe"
 
 #: ../app/api/v1/session.rb:92
 msgid "Activation token"
-msgstr ""
+msgstr "Ativação do token"
 
 #: ../app/api/v1/session.rb:94
 msgid "Short activation code"
-msgstr ""
+msgstr "Código de activação curto"
 
 #: ../app/api/v1/session.rb:114
 msgid "Waiting for admin moderate user registration"
-msgstr ""
+msgstr "Aguardando o registo do utilizador moderado pelo administrador"
 
 #: ../app/api/v1/session.rb:119
 msgid "Activation code is invalid"
-msgstr ""
+msgstr "O código de activação é inválido"
 
 #: ../app/api/v1/session.rb:122
 msgid "Activation token is invalid"
-msgstr ""
+msgstr "O token de activação é inválido"
 
 #: ../app/api/v1/session.rb:141
 msgid "All change password requests were sent."
-msgstr ""
+msgstr "Todos os pedidos de alteração de senha foram enviados."
 
 #: ../app/api/v1/session.rb:163
 msgid "Forgot password code"
-msgstr ""
+msgstr "Esqueci-me da palavra-passe"
 
 #: ../app/concerns/authenticated_system.rb:116
 #: ../app/views/shared/access_denied.html.erb:3
 msgid "Access denied"
-msgstr ""
+msgstr "Acesso negado"
 
 #: ../app/concerns/entitlement/levels.rb:3 ../app/models/forum.rb:41
 msgid "Logged users"
-msgstr ""
+msgstr "Utilizadores registados"
 
 #: ../app/concerns/entitlement/levels.rb:3
 msgid "Visitors"
-msgstr ""
+msgstr "Visitantes"
 
 #: ../app/concerns/entitlement/levels.rb:4
 msgid "Friends / Members"
-msgstr ""
+msgstr "Amigos / Membros"
 
 #: ../app/concerns/entitlement/levels.rb:5
 msgid "Me / Administrators"
-msgstr ""
+msgstr "Eu / Administradores"
 
 #: ../app/concerns/entitlement/levels.rb:6
 msgid "Nobody"
-msgstr ""
+msgstr "Ninguém"
 
 #: ../app/concerns/entitlement/levels.rb:7
 #: ../app/helpers/profile_image_helper.rb:92 ../app/models/block.rb:282
 #: ../app/models/control_panel/friends.rb:4 ../app/models/forum.rb:45
 msgid "Friends"
-msgstr ""
+msgstr "Amigos"
 
 #: ../app/concerns/entitlement/levels.rb:8 ../app/models/forum.rb:44
 msgid "Me"
-msgstr ""
+msgstr "Eu"
 
 #: ../app/concerns/entitlement/levels.rb:9
 #: ../app/views/profile_editor/privacy.html.erb:18
 msgid "Followers"
-msgstr ""
+msgstr "Seguidores"
 
 #: ../app/concerns/entitlement/levels.rb:10 ../app/helpers/profile_helper.rb:97
 #: ../app/helpers/profile_image_helper.rb:100
@@ -251,86 +256,88 @@ msgstr ""
 #: ../app/models/control_panel/members.rb:4 ../app/models/forum.rb:49
 #: ../app/views/profile_roles/assign.html.erb:13
 msgid "Members"
-msgstr ""
+msgstr "Membros"
 
 #: ../app/concerns/entitlement/levels.rb:11 ../app/models/forum.rb:48
 msgid "Administrators"
-msgstr ""
+msgstr "Administradores"
 
 #: ../app/controllers/admin/admin_panel_controller.rb:18
 msgid "Environment settings updated"
-msgstr ""
+msgstr "Definições ambientais actualizadas"
 
 #: ../app/controllers/admin/admin_panel_controller.rb:48
 msgid ""
 "Community not found. You must insert the identifier of a community from this e"
 "nvironment"
 msgstr ""
+"Comunidade não encontrada. É necessário inserir o identificador de uma "
+"comunidade deste ambiente"
 
 #: ../app/controllers/admin/admin_panel_controller.rb:62
 msgid "Saved the portal folders"
-msgstr ""
+msgstr "Salvou as pastas do portal"
 
 #: ../app/controllers/admin/admin_panel_controller.rb:71
 msgid "Saved the number of news on folders"
-msgstr ""
+msgstr "Guardou o número de notícias em pastas"
 
 #: ../app/controllers/admin/categories_controller.rb:41
 msgid "Category %s saved."
-msgstr ""
+msgstr "Categoria %s guardadas."
 
 #: ../app/controllers/admin/categories_controller.rb:45
 msgid "Could not save category."
-msgstr ""
+msgstr "Não foi possível salvar a categoria."
 
 #: ../app/controllers/admin/environment_role_manager_controller.rb:17
 #: ../app/controllers/my_profile/profile_members_controller.rb:41
 msgid "Roles successfully updated"
-msgstr ""
+msgstr "Funções actualizadas com sucesso"
 
 #: ../app/controllers/admin/environment_role_manager_controller.rb:19
 #: ../app/controllers/my_profile/profile_members_controller.rb:44
 msgid "Couldn't change the roles"
-msgstr ""
+msgstr "Não foi possível alterar os papéis"
 
 #: ../app/controllers/admin/environment_role_manager_controller.rb:45
 #: ../app/controllers/admin/environment_role_manager_controller.rb:55
 msgid "Member succefully unassociated"
-msgstr ""
+msgstr "Membro desassociado com sucesso"
 
 #: ../app/controllers/admin/environment_role_manager_controller.rb:47
 #: ../app/controllers/admin/environment_role_manager_controller.rb:57
 #: ../app/controllers/my_profile/profile_members_controller.rb:100
 msgid "Failed to unassociate member"
-msgstr ""
+msgstr "Falhou ao membro não-associado"
 
 #: ../app/controllers/admin/features_controller.rb:12
 msgid "Features updated successfully."
-msgstr ""
+msgstr "Características atualizadas com sucesso."
 
 #: ../app/controllers/admin/features_controller.rb:28
 msgid "Person fields updated successfully."
-msgstr ""
+msgstr "Campos pessoais atualizados com sucesso."
 
 #: ../app/controllers/admin/features_controller.rb:30
 msgid "Person fields not updated successfully."
-msgstr ""
+msgstr "Os campos pessoais não foram atualizados com sucesso."
 
 #: ../app/controllers/admin/features_controller.rb:38
 msgid "Enterprise fields updated successfully."
-msgstr ""
+msgstr "Campos empresariais atualizados com sucesso."
 
 #: ../app/controllers/admin/features_controller.rb:40
 msgid "Enterprise fields not updated successfully."
-msgstr ""
+msgstr "Os campos da empresa não foram atualizados com sucesso."
 
 #: ../app/controllers/admin/features_controller.rb:48
 msgid "Community fields updated successfully."
-msgstr ""
+msgstr "Campos comunitários atualizados com sucesso."
 
 #: ../app/controllers/admin/features_controller.rb:50
 msgid "Community fields not updated successfully."
-msgstr ""
+msgstr "Campos comunitários atualizados sem sucesso."
 
 #: ../app/controllers/admin/kinds_controller.rb:16
 msgid "Kind successfully created"
@@ -358,94 +365,94 @@ msgstr ""
 
 #: ../app/controllers/admin/licenses_controller.rb:14
 msgid "License created"
-msgstr ""
+msgstr "Licença criada"
 
 #: ../app/controllers/admin/licenses_controller.rb:17
 msgid "License could not be created"
-msgstr ""
+msgstr "A licença não pôde ser criada"
 
 #: ../app/controllers/admin/licenses_controller.rb:27
 msgid "License updated"
-msgstr ""
+msgstr "Licença atualizada"
 
 #: ../app/controllers/admin/licenses_controller.rb:30
 msgid "License could not be updated"
-msgstr ""
+msgstr "A licença não pôde ser actualizada"
 
 #: ../app/controllers/admin/licenses_controller.rb:40
 msgid "License removed"
-msgstr ""
+msgstr "Licença removida"
 
 #: ../app/controllers/admin/licenses_controller.rb:42
 #: ../app/controllers/admin/licenses_controller.rb:45
 msgid "License could not be removed"
-msgstr ""
+msgstr "A licença não pôde ser removida"
 
 #: ../app/controllers/admin/organizations_controller.rb:7
 msgid "Organization profiles"
-msgstr ""
+msgstr "Perfis da organização"
 
 #: ../app/controllers/admin/organizations_controller.rb:9
 #: ../app/models/circle.rb:31 ../app/models/community.rb:9
 #: ../app/views/templates/index.html.erb:6
 msgid "Community"
-msgstr ""
+msgstr "Comunidade"
 
 #: ../app/controllers/admin/organizations_controller.rb:9
 #: ../app/helpers/link_list_block_helper.rb:34 ../app/models/circle.rb:32
 #: ../app/models/control_panel.rb:18 ../app/models/enterprise.rb:13
 #: ../app/views/templates/index.html.erb:7
 msgid "Enterprise"
-msgstr ""
+msgstr "Empresa"
 
 #: ../app/controllers/admin/organizations_controller.rb:9
 #: ../app/views/cms/_blog.html.erb:73 ../app/views/cms/_rss_feed.html.erb:9
 #: ../app/views/memberships/index.html.erb:10
 #: ../app/views/tasks/index.html.erb:6 ../app/views/tasks/processed.html.erb:8
 msgid "All"
-msgstr ""
+msgstr "Todos"
 
 #: ../app/controllers/admin/organizations_controller.rb:37
 msgid "%s enabled"
-msgstr ""
+msgstr "%s activadas"
 
 #: ../app/controllers/admin/organizations_controller.rb:39
 msgid "%s could not be enabled"
-msgstr ""
+msgstr "%s não puderam ser ativadas"
 
 #: ../app/controllers/admin/organizations_controller.rb:46
 msgid "%s disabled"
-msgstr ""
+msgstr "%s desativada"
 
 #: ../app/controllers/admin/organizations_controller.rb:48
 msgid "%s could not be disable"
-msgstr ""
+msgstr "%s não puderam ser desativadas"
 
 #: ../app/controllers/admin/organizations_controller.rb:56
 msgid "%s removed"
-msgstr ""
+msgstr "%s removido"
 
 #: ../app/controllers/admin/organizations_controller.rb:58
 msgid "%s could not be removed"
-msgstr ""
+msgstr "%s não pôde ser removido"
 
 #: ../app/controllers/admin/plugins_controller.rb:12
 msgid "Plugins updated successfully."
-msgstr ""
+msgstr "Plugins atualizados com sucesso."
 
 #: ../app/controllers/admin/plugins_controller.rb:14
 msgid "Plugins were not updated successfully."
-msgstr ""
+msgstr "Os plugins não foram atualizados com sucesso."
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:40
 #: ../app/controllers/admin/profile_quotas_controller.rb:65
 msgid "Invalid profile type"
-msgstr ""
+msgstr "Tipo de perfil inválido"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:105
 #: ../app/controllers/my_profile/followers_controller.rb:8
 msgid "All profiles"
-msgstr ""
+msgstr "Todos os perfis"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:106
 #: ../app/controllers/public/search_controller.rb:55
@@ -454,7 +461,7 @@ msgstr ""
 #: ../app/helpers/application_helper.rb:835 ../app/helpers/assets_helper.rb:8
 #: ../app/models/menu_block.rb:25 ../app/models/menu_block.rb:26
 msgid "People"
-msgstr ""
+msgstr "Pessoas"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:107
 #: ../app/controllers/public/search_controller.rb:58
@@ -464,7 +471,7 @@ msgstr ""
 #: ../app/helpers/profile_image_helper.rb:93
 #: ../app/models/communities_block.rb:10 ../app/models/menu_block.rb:24
 msgid "Communities"
-msgstr ""
+msgstr "Comunidades"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:108
 #: ../app/controllers/public/search_controller.rb:56
@@ -472,19 +479,19 @@ msgstr ""
 #: ../app/controllers/public/search_controller.rb:265
 #: ../app/helpers/assets_helper.rb:10 ../app/models/enterprises_block.rb:12
 msgid "Enterprises"
-msgstr ""
+msgstr "Empresas"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:114
 msgid "Sort by name"
-msgstr ""
+msgstr "Procurar por nome"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:115
 msgid "Higher disk usage"
-msgstr ""
+msgstr "Maior utilização do disco"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:116
 msgid "Lower disk usage"
-msgstr ""
+msgstr "Menor utilização do disco"
 
 #: ../app/controllers/admin/role_controller.rb:18
 #: ../app/controllers/my_profile/profile_roles_controller.rb:20
@@ -499,139 +506,141 @@ msgstr ""
 #: ../app/controllers/admin/templates_controller.rb:11
 #: ../app/controllers/admin/templates_controller.rb:21
 msgid "New template created"
-msgstr ""
+msgstr "Novo formato criado"
 
 #: ../app/controllers/admin/templates_controller.rb:14
 #: ../app/controllers/admin/templates_controller.rb:30
 #: ../app/controllers/admin/templates_controller.rb:40
 msgid "Name has already been taken"
-msgstr ""
+msgstr "Este nome já foi escolhido"
 
 #: ../app/controllers/admin/templates_controller.rb:49
 msgid "Community not found. The template could no be changed."
-msgstr ""
+msgstr "Comunidade não foi encontrada. O modelo não pôde ser alterado."
 
 #: ../app/controllers/admin/templates_controller.rb:53
 #: ../app/controllers/admin/templates_controller.rb:67
 #: ../app/controllers/admin/templates_controller.rb:81
 msgid "%s defined as default"
-msgstr ""
+msgstr "%s definidas como padrão"
 
 #: ../app/controllers/admin/templates_controller.rb:63
 msgid "Person not found. The template could no be changed."
-msgstr ""
+msgstr "Pessoa não foi encontrada. O formato não pôde ser alterado."
 
 #: ../app/controllers/admin/templates_controller.rb:77
 msgid "Enterprise not found. The template could no be changed."
-msgstr ""
+msgstr "Empresa não foi encontrada. O modelo não pôde ser alterado."
 
 #: ../app/controllers/admin/trusted_sites_controller.rb:14
 msgid "New trusted site added."
-msgstr ""
+msgstr "Adicionado novo site de confiança."
 
 #: ../app/controllers/admin/trusted_sites_controller.rb:17
 msgid "Failed to add trusted site."
-msgstr ""
+msgstr "Falha em acrescentar o site de confiança."
 
 #: ../app/controllers/admin/trusted_sites_controller.rb:26
 msgid "Trusted site was not found"
-msgstr ""
+msgstr "Não foi encontrado o site de confiança"
 
 #: ../app/controllers/admin/trusted_sites_controller.rb:37
 msgid "Failed to edit trusted site."
-msgstr ""
+msgstr "Falha ao editar o site de confiança."
 
 #: ../app/controllers/admin/trusted_sites_controller.rb:44
 msgid "Trusted site removed"
-msgstr ""
+msgstr "Site de confiança removido"
 
 #: ../app/controllers/admin/trusted_sites_controller.rb:46
 msgid "Trusted site could not be removed"
-msgstr ""
+msgstr "O site de confiança não pôde ser removido"
 
 #: ../app/controllers/admin/users_controller.rb:38
 #: ../app/controllers/my_profile/profile_editor_controller.rb:165
 msgid "The profile was deleted."
-msgstr ""
+msgstr "O perfil foi apagado."
 
 #: ../app/controllers/admin/users_controller.rb:40
 msgid "Could not remove profile"
-msgstr ""
+msgstr "Não foi possível remover o perfil"
 
 #: ../app/controllers/admin/users_controller.rb:51
 msgid "%s people list - %s"
-msgstr ""
+msgstr "%s lista de pessoas - %s"
 
 #: ../app/controllers/admin/users_controller.rb:70
 #: ../app/controllers/public/profile_controller.rb:451
 msgid "The e-mails are being sent"
-msgstr ""
+msgstr "Os e-mails estão a ser enviados"
 
 #: ../app/controllers/admin/users_controller.rb:73
 #: ../app/controllers/public/profile_controller.rb:454
 msgid "Could not create the e-mail"
-msgstr ""
+msgstr "Não foi possível criar o e-mail"
 
 #: ../app/controllers/application_controller.rb:61
 msgid "Origin not in allowed."
-msgstr ""
+msgstr "A origem não é permitida."
 
 #: ../app/controllers/box_organizer_controller.rb:95
 msgid "Failed to remove block"
-msgstr ""
+msgstr "Falha ao remover o bloqueio"
 
 #: ../app/controllers/concerns/captcha.rb:2
 msgid "Make sure you made the test to verify that your are not a robot!"
-msgstr ""
+msgstr "Certifique-se de que fez o teste para verificar que não é um robô!"
 
 #: ../app/controllers/my_profile/cms_controller.rb:16
 msgid "You do not have access to "
-msgstr ""
+msgstr "Não tem acesso a "
 
 #: ../app/controllers/my_profile/cms_controller.rb:196
 msgid "Homepage reseted."
-msgstr ""
+msgstr "Página inicial redefinida."
 
 #: ../app/controllers/my_profile/cms_controller.rb:198
 msgid "\"%s\" configured as homepage."
-msgstr ""
+msgstr "\"%s\" configurada como página inicial."
 
 #: ../app/controllers/my_profile/cms_controller.rb:228
 msgid "File(s) successfully uploaded"
-msgstr ""
+msgstr "Ficheiro(s) carregado(s) com sucesso"
 
 #: ../app/controllers/my_profile/cms_controller.rb:244
 msgid "\"%s\" was removed."
-msgstr ""
+msgstr "\"%s\" foi removido."
 
 #: ../app/controllers/my_profile/cms_controller.rb:286
 msgid "You published this content successfully"
-msgstr ""
+msgstr "Publicou este conteúdo com sucesso"
 
 #: ../app/controllers/my_profile/cms_controller.rb:306
 msgid "Select some group to publish your article"
-msgstr ""
+msgstr "Selecione algum grupo para publicar o seu artigo"
 
 #: ../app/controllers/my_profile/cms_controller.rb:318
 #: ../app/controllers/my_profile/cms_controller.rb:338
 msgid "Your publish request was sent successfully"
-msgstr ""
+msgstr "O seu pedido de publicação foi enviado com sucesso"
 
 #: ../app/controllers/my_profile/cms_controller.rb:325
 msgid "Some of your publish requests couldn't be sent."
-msgstr ""
+msgstr "Alguns dos seus pedidos de publicação não puderam ser enviados."
 
 #: ../app/controllers/my_profile/cms_controller.rb:340
 msgid "Your publish request couldn't be sent."
-msgstr ""
+msgstr "O seu pedido de publicação não pôde ser enviado."
 
 #: ../app/controllers/my_profile/cms_controller.rb:344
 msgid "There is no portal community to publish your article."
-msgstr ""
+msgstr "Não existe um portal de comunidade para publicar o seu artigo."
 
 #: ../app/controllers/my_profile/cms_controller.rb:365
 msgid "Thanks for your suggestion. The community administrators were notified."
 msgstr ""
+"Obrigado pela sua sugestão. Os administradores da comunidade foram "
+"notificados."
 
 #: ../app/controllers/my_profile/cms_controller.rb:411
 #: ../app/mailers/contact.rb:23 ../app/models/article.rb:32
@@ -652,491 +661,509 @@ msgstr ""
 #: ../app/views/licenses/index.html.erb:6
 #: ../app/views/templates/_create_template_form.html.erb:12
 msgid "Name"
-msgstr ""
+msgstr "Nome"
 
 #: ../app/controllers/my_profile/cms_controller.rb:412
 msgid "Size (bigger first)"
-msgstr ""
+msgstr "Tamanho (maior primeiro)"
 
 #: ../app/controllers/my_profile/cms_controller.rb:413
 msgid "Size (smaller first)"
-msgstr ""
+msgstr "Tamanho (menor primeiro)"
 
 #: ../app/controllers/my_profile/cms_controller.rb:442
 msgid "Are not you going to invite anyone?"
-msgstr ""
+msgstr "Não vai convidar ninguém?"
 
 #: ../app/controllers/my_profile/cms_controller.rb:455
 msgid "Your friends were invited successfully."
-msgstr ""
+msgstr "Os seus amigos foram convidados com sucesso."
 
 #: ../app/controllers/my_profile/cms_controller.rb:462
 msgid "Some of your friends could not be invited."
-msgstr ""
+msgstr "Alguns dos seus amigos não puderam ser convidados."
 
 #: ../app/controllers/my_profile/cms_controller.rb:533
 msgid "%s could not be uploaded"
-msgstr ""
+msgstr "%s não pôde ser carregado"
 
 #: ../app/controllers/my_profile/cms_controller.rb:551
 #: ../app/views/profile_themes/edit.html.erb:26
 msgid "Images"
-msgstr ""
+msgstr "Imagens"
 
 #: ../app/controllers/my_profile/cms_controller.rb:551
 #: ../app/views/cms/files.html.erb:5
 msgid "Files"
-msgstr ""
+msgstr "Ficheiros"
 
 #: ../app/controllers/my_profile/email_templates_controller.rb:36
 msgid "Email template was successfully created."
-msgstr ""
+msgstr "O formato de e-mail foi criado com sucesso."
 
 #: ../app/controllers/my_profile/email_templates_controller.rb:47
 msgid "Email template was successfully updated."
-msgstr ""
+msgstr "O formato de e-mail foi atualizado com sucesso."
 
 #: ../app/controllers/my_profile/event_invitation_controller.rb:32
 msgid "Sorry, we can not record your decision."
-msgstr ""
+msgstr "Lamentamos, mas não podemos registar a sua decisão."
 
 #: ../app/controllers/my_profile/followers_controller.rb:31
 msgid "Circles of %s updated successfully"
-msgstr ""
+msgstr "Círculos de %s actualizados com sucesso"
 
 #: ../app/controllers/my_profile/mailconf_controller.rb:23
 msgid ""
 "Please fill your personal information below in order to get your mailbox appro"
 "ved by one of the administrators"
 msgstr ""
+"Por favor preencha as suas informações pessoais abaixo para obter a sua "
+"caixa de correio aprovada por um dos administradores"
 
 #: ../app/controllers/my_profile/mailconf_controller.rb:26
 msgid "e-Mail was not enabled successfully."
-msgstr ""
+msgstr "O e-Mail não foi activado com sucesso."
 
 #: ../app/controllers/my_profile/mailconf_controller.rb:33
 msgid "e-Mail disabled successfully."
-msgstr ""
+msgstr "e-Mail desativado com sucesso."
 
 #: ../app/controllers/my_profile/mailconf_controller.rb:36
 msgid "e-Mail was not disabled successfully."
-msgstr ""
+msgstr "e-Mail não foi desativado com sucesso."
 
 #: ../app/controllers/my_profile/maps_controller.rb:22
 #: ../app/controllers/my_profile/profile_editor_controller.rb:123
 msgid "Address was updated successfully!"
-msgstr ""
+msgstr "O endereço foi atualizado com sucesso!"
 
 #: ../app/controllers/my_profile/memberships_controller.rb:34
 msgid ""
 "Your new community creation request will be evaluated by an administrator. You"
 " will be notified."
 msgstr ""
+"O seu novo pedido de criação de comunidade será avaliado por um "
+"administrador. Será notificado."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:126
 msgid "Address could not be saved!"
-msgstr ""
+msgstr "O endereço não pôde ser guardado!"
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:135
 msgid "%s was not enabled."
-msgstr ""
+msgstr "%s não foi activado."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:145
 msgid "%s was not disabled."
-msgstr ""
+msgstr "%s não foi desativado."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:172
 msgid "Could not delete profile"
-msgstr ""
+msgstr "Não foi possível apagar o perfil"
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:184
 msgid "Welcome page saved successfully."
-msgstr ""
+msgstr "Página de boas-vindas guardada com sucesso."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:187
 msgid "Welcome page could not be saved."
-msgstr ""
+msgstr "A página de boas-vindas não pôde ser guardada."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:197
 msgid "The profile '%s' was deactivated."
-msgstr ""
+msgstr "O perfil '%s' foi desativado."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:199
 msgid "Could not deactivate profile."
-msgstr ""
+msgstr "Não foi possível desativar o perfil."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:211
 msgid "The profile '%s' was activated."
-msgstr ""
+msgstr "O perfil '%s' foi ativado."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:213
 msgid "Could not activate the profile."
-msgstr ""
+msgstr "Não foi possível ativar o perfil."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:246
 msgid "Changes applied correctly"
-msgstr ""
+msgstr "Alterações aplicadas correctamente"
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:249
 msgid "Something wrong happened! Changes could not be save!"
-msgstr ""
+msgstr "Algo de errado aconteceu! As mudanças não puderam ser salvas!"
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:266
 msgid "You can not destroy the profile."
-msgstr ""
+msgstr "Você não pode destruir o perfil."
 
 #: ../app/controllers/my_profile/profile_editor_controller.rb:279
 msgid "Location is disabled on the environment."
-msgstr ""
+msgstr "A localização está desabilitada no ambiente."
 
 #: ../app/controllers/my_profile/profile_members_controller.rb:23
 msgid "Select at least one member."
-msgstr ""
+msgstr "Selecionar pelo menos um membro."
 
 #: ../app/controllers/my_profile/profile_members_controller.rb:98
 msgid "Member successfully unassociated"
-msgstr ""
+msgstr "Membro desassociado com sucesso"
 
 #: ../app/controllers/my_profile/profile_members_controller.rb:119
 #: ../app/controllers/my_profile/profile_members_controller.rb:130
 msgid "Current admins"
-msgstr ""
+msgstr "Administradores atuais"
 
 #: ../app/controllers/my_profile/profile_members_controller.rb:167
 msgid "The members list couldn't be updated. Please contact the administrator."
 msgstr ""
+"A lista de membros não pôde ser atualizada. Por favor, contacte o "
+"administrador."
 
 #: ../app/controllers/my_profile/profile_members_controller.rb:173
 msgid "The members list was updated."
-msgstr ""
+msgstr "A lista de membros foi atualizada."
 
 #: ../app/controllers/my_profile/profile_roles_controller.rb:53
 msgid "Role successfully removed!"
-msgstr ""
+msgstr "Função removida com sucesso!"
 
 #: ../app/controllers/my_profile/profile_roles_controller.rb:55
 msgid "Failed to remove role!"
-msgstr ""
+msgstr "Falha em remover a função!"
 
 #: ../app/controllers/my_profile/profile_roles_controller.rb:86
 msgid "Error"
-msgstr ""
+msgstr "Erro"
 
 #: ../app/controllers/my_profile/tasks_controller.rb:41
 msgid "Task already assigned!"
-msgstr ""
+msgstr "Tarefa já atribuída!"
 
 #: ../app/controllers/my_profile/tasks_controller.rb:47
 msgid "Task responsible successfully updated!"
-msgstr ""
+msgstr "Tarefa responsável atualizada com sucesso!"
 
 #: ../app/controllers/my_profile/tasks_controller.rb:72
 msgid "All decisions were applied successfully."
-msgstr ""
+msgstr "Todas as decisões foram aplicadas com sucesso."
 
 #: ../app/controllers/my_profile/tasks_controller.rb:74
 msgid "Some decisions couldn't be applied."
-msgstr ""
+msgstr "Algumas decisões não puderam ser aplicadas."
 
 #: ../app/controllers/my_profile_controller.rb:20
 msgid "This action is not available for \"%s\"."
-msgstr ""
+msgstr "Esta ação não está disponível para \"%s\"."
 
 #: ../app/controllers/public/account_controller.rb:26
 msgid ""
 "We couldn't find an account to be activated. Maybe it is to be approved by an "
 "admin."
 msgstr ""
+"Não foi possível encontrar uma conta para ser ativada. Talvez esteja para "
+"ser aprovada por um administrador."
 
 #: ../app/controllers/public/account_controller.rb:37
 msgid "Your account was successfully activated!"
-msgstr ""
+msgstr "A sua conta foi ativada com sucesso!"
 
 #: ../app/controllers/public/account_controller.rb:41
 msgid ""
 "Your account was activated, now wait until an administrator approves your acco"
 "unt."
 msgstr ""
+"A sua conta foi ativada, agora aguarde até que um administrador aprove a sua "
+"conta."
 
 #: ../app/controllers/public/account_controller.rb:47
 msgid "Looks like your activation code is not correct. Would you try again?"
 msgstr ""
+"Parece que o seu código de ativação não está correcto. Poderia tentar "
+"novamente?"
 
 #: ../app/controllers/public/account_controller.rb:53
 msgid ""
 "Something went wrong. You can try again, and if it persists, contact an admini"
 "strator."
 msgstr ""
+"Alguma coisa correu mal. Tente novamente, e se persistir, contacte um "
+"administrador."
 
 #: ../app/controllers/public/account_controller.rb:61
 msgid "Invalid activation token. Maybe this account was already activated?"
-msgstr ""
+msgstr "Ficha de ativação inválida. Talvez esta conta já estivesse ativada?"
 
 #: ../app/controllers/public/account_controller.rb:68
 msgid ""
 "A new activation code is on its way. Make sure to use the last code you receiv"
 "ed."
 msgstr ""
+"Um novo código de ativação está a caminho. Certifique-se de utilizar o "
+"último código que recebeu."
 
 #: ../app/controllers/public/account_controller.rb:88
 msgid "An admin will approve your account soon."
-msgstr ""
+msgstr "Um administrador aprovará a sua conta em breve."
 
 #: ../app/controllers/public/account_controller.rb:104
 msgid "Logged in successfully"
-msgstr ""
+msgstr "Conectado com sucesso"
 
 #: ../app/controllers/public/account_controller.rb:107
 msgid "Incorrect username or password"
-msgstr ""
+msgstr "Nome de utilizador ou palavra-passe incorretos"
 
 #: ../app/controllers/public/account_controller.rb:124
 msgid "This environment doesn't allow user registration."
-msgstr ""
+msgstr "Este ambiente não permite o registo de utilizadores."
 
 #: ../app/controllers/public/account_controller.rb:184
 msgid "You have been logged out."
-msgstr ""
+msgstr "Foi desconectado."
 
 #: ../app/controllers/public/account_controller.rb:195
 msgid "Your password has been changed successfully!"
-msgstr ""
+msgstr "A sua palavra-passe foi alterada com sucesso!"
 
 #: ../app/controllers/public/account_controller.rb:208
 msgid "This environment doesn't allow password recovery."
-msgstr ""
+msgstr "Este ambiente não permite a recuperação de senha."
 
 #: ../app/controllers/public/account_controller.rb:226
 msgid "Can not recover user password with blank value."
 msgstr ""
+"Não é possível recuperar a palavra-passe do utilizador com valor em branco."
 
 #: ../app/controllers/public/account_controller.rb:228
 msgid "Could not find any user with %s equal to \"%s\"."
-msgstr ""
+msgstr "Não foi possível encontrar nenhum utilizador com %s iguais a \"%s\"."
 
 #: ../app/controllers/public/account_controller.rb:231
 msgid "Could not perform password recovery for the user."
 msgstr ""
+"Não foi possível efetuar a recuperação da palavra-passe para o utilizador."
 
 #: ../app/controllers/public/account_controller.rb:315
 msgid "This login name is available"
-msgstr ""
+msgstr "Este nome de login está disponível"
 
 #: ../app/controllers/public/account_controller.rb:319
 msgid "This login name is unavailable"
-msgstr ""
+msgstr "Este nome de login não está disponível"
 
 #: ../app/controllers/public/account_controller.rb:323
 msgid "This field can't be blank"
-msgstr ""
+msgstr "Este campo não pode estar em branco"
 
 #: ../app/controllers/public/account_controller.rb:330
 msgid "This e-mail address is available"
-msgstr ""
+msgstr "Este endereço de e-mail está disponível"
 
 #: ../app/controllers/public/account_controller.rb:333
 msgid "This e-mail address is taken"
-msgstr ""
+msgstr "Este endereço de e-mail está em uso"
 
 #: ../app/controllers/public/comment_controller.rb:20
 msgid "Page not found."
-msgstr ""
+msgstr "Página não encontrada."
 
 #: ../app/controllers/public/comment_controller.rb:29
 msgid "Comment not allowed in this article"
-msgstr ""
+msgstr "Comentário não permitido neste artigo"
 
 #: ../app/controllers/public/comment_controller.rb:46
 msgid "Comment was rejected"
-msgstr ""
+msgstr "Comentário foi rejeitado"
 
 #: ../app/controllers/public/comment_controller.rb:70
 msgid "Your comment is waiting for approval."
-msgstr ""
+msgstr "O seu comentário está à espera de aprovação."
 
 #: ../app/controllers/public/comment_controller.rb:86
 msgid "Comment successfully created."
-msgstr ""
+msgstr "Comentário criado com sucesso."
 
 #: ../app/controllers/public/comment_controller.rb:98
 msgid "The comment was not removed."
-msgstr ""
+msgstr "O comentário não foi removido."
 
 #: ../app/controllers/public/comment_controller.rb:109
 msgid "You couldn't mark this comment as spam."
-msgstr ""
+msgstr "Não foi possível marcar este comentário como spam."
 
 #: ../app/controllers/public/contact_controller.rb:14
 msgid "Contact successfully sent"
-msgstr ""
+msgstr "Contacto enviado com sucesso"
 
 #: ../app/controllers/public/contact_controller.rb:17
 msgid "Contact not sent"
-msgstr ""
+msgstr "Contacto não enviado"
 
 #: ../app/controllers/public/content_viewer_controller.rb:262
 msgid "Notification of new comments to '%s' was successfully canceled"
-msgstr ""
+msgstr "Notificação de novos comentários para '%s' foi cancelada com sucesso"
 
 #: ../app/controllers/public/invite_controller.rb:33
 #: ../app/controllers/public/invite_controller.rb:69
 msgid "Your invitations are being sent."
-msgstr ""
+msgstr "Os seus convites estão a ser enviados."
 
 #: ../app/controllers/public/invite_controller.rb:41
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "Por favor, introduza um endereço de correio electrónico válido."
 
 #: ../app/controllers/public/invite_controller.rb:77
 msgid "Please enter a valid profile."
-msgstr ""
+msgstr "Por favor, introduza um perfil válido."
 
 #: ../app/controllers/public/profile_controller.rb:64
 #: ../app/controllers/public/profile_controller.rb:65
 #: ../app/views/profile/content_tagged.html.erb:3
 msgid "%s's contents tagged with \"%s\""
-msgstr ""
+msgstr "Conteúdo %'s etiquetado com \"%s\""
 
 #: ../app/controllers/public/profile_controller.rb:120
 #: ../app/controllers/public/profile_controller.rb:130
 msgid "%s administrator still needs to accept you as member."
-msgstr ""
+msgstr "O administrador %s ainda precisa de o aceitar como membro."
 
 #: ../app/controllers/public/profile_controller.rb:132
 msgid "You just became a member of %s."
-msgstr ""
+msgstr "Acabou de se tornar um membro do %s."
 
 #: ../app/controllers/public/profile_controller.rb:135
 msgid "You are already a member of %s."
-msgstr ""
+msgstr "Já é um membro do %s."
 
 #: ../app/controllers/public/profile_controller.rb:157
 msgid "You are not a member of %s."
-msgstr ""
+msgstr "Não é um membro do %s."
 
 #: ../app/controllers/public/profile_controller.rb:177
 msgid "%s still needs to accept being your friend."
-msgstr ""
+msgstr "%s ainda precisa de aceitar ser seu amigo."
 
 #: ../app/controllers/public/profile_controller.rb:179
 msgid "You are already a friend of %s."
-msgstr ""
+msgstr "Já é amigo de %s."
 
 #: ../app/controllers/public/profile_controller.rb:185
 msgid "You are already following %s."
-msgstr ""
+msgstr "Já está a seguir %s."
 
 #: ../app/controllers/public/profile_controller.rb:190
 msgid "You are now following %s"
-msgstr ""
+msgstr "Está agora a seguir %s"
 
 #: ../app/controllers/public/profile_controller.rb:192
 msgid "Select at least one circle to follow %s."
-msgstr ""
+msgstr "Seleccionar pelo menos um círculo para seguir %s."
 
 #: ../app/controllers/public/profile_controller.rb:239
 msgid "You have unblocked %s successfully. "
-msgstr ""
+msgstr "Desbloqueou %s com sucesso. "
 
 #: ../app/controllers/public/profile_controller.rb:242
 msgid "You are not allowed to unblock enterprises in this environment."
-msgstr ""
+msgstr "Não está autorizado a desbloquear empresas neste ambiente."
 
 #: ../app/controllers/public/profile_controller.rb:255
 msgid "Message successfully sent."
-msgstr ""
+msgstr "Mensagem enviada com sucesso."
 
 #: ../app/controllers/public/profile_controller.rb:255
 msgid "You can't leave an empty message."
-msgstr ""
+msgstr "Não pode deixar uma mensagem vazia."
 
 #: ../app/controllers/public/profile_controller.rb:266
 msgid "Comment successfully added."
-msgstr ""
+msgstr "Comentário adicionado com sucesso."
 
 #: ../app/controllers/public/profile_controller.rb:266
 msgid "You can't leave an empty comment."
-msgstr ""
+msgstr "Não pode deixar um comentário vazio."
 
 #: ../app/controllers/public/profile_controller.rb:362
 msgid "Notification successfully removed."
-msgstr ""
+msgstr "Notificação removida com sucesso."
 
 #: ../app/controllers/public/profile_controller.rb:364
 msgid "You could not remove this notification."
-msgstr ""
+msgstr "Não foi possível remover esta notificação."
 
 #: ../app/controllers/public/profile_controller.rb:397
 msgid "You could not answer the captcha."
-msgstr ""
+msgstr "Não foi possível responder à captcha."
 
 #: ../app/controllers/public/search_controller.rb:57
 msgid "Upcoming events"
-msgstr ""
+msgstr "Próximos eventos"
 
 #: ../app/controllers/public/search_controller.rb:59
 #: ../app/controllers/public/search_controller.rb:177
 #: ../app/controllers/public/search_controller.rb:264
 #: ../app/helpers/application_helper.rb:829
 msgid "Contents"
-msgstr ""
+msgstr "Conteúdos"
 
 #: ../app/controllers/public/search_controller.rb:181
 #: ../app/helpers/application_helper.rb:864 ../app/helpers/assets_helper.rb:12
 #: ../app/views/search/events.html.erb:1
 msgid "Events"
-msgstr ""
+msgstr "Eventos"
 
 #: ../app/controllers/public_controller.rb:41
 msgid ""
 "This profile is inaccessible. You don't have the permission to view the conten"
 "t here."
-msgstr ""
+msgstr "Este perfil é inacessível. Não tem permissão para ver este conteúdo."
 
 #: ../app/controllers/public_controller.rb:41
 msgid "Oops ... you cannot go ahead here"
-msgstr ""
+msgstr "Oops ... não pode avançar daqui"
 
 #: ../app/helpers/account_helper.rb:10
 #: ../app/views/account/_signup_form.html.erb:32
 msgid "Checking availability of login name..."
-msgstr ""
+msgstr "A verificar a disponibilidade do nome de login..."
 
 #: ../app/helpers/account_helper.rb:12
 msgid "Checking if e-mail address is already taken..."
-msgstr ""
+msgstr "A verificar se o endereço de e-mail já está a ser usado..."
 
 #: ../app/helpers/action_tracker_helper.rb:4
 msgid "published an article %{title} %{time_ago}"
-msgstr ""
+msgstr "publicou um artigo %{title} %{time_ago}"
 
 #: ../app/helpers/action_tracker_helper.rb:8
 msgid "has made 1 new friend %{time_ago}<hr/>%{name}"
 msgid_plural "has made %{num} new friends %{time_ago}<hr/>%{name}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "fez 1 novo amigo %{time_ago}<hr/>%{name}"
+msgstr[1] "fez %{num} novos amigos %{time_ago}<hr/>%{name}"
 
 #: ../app/helpers/action_tracker_helper.rb:19
 msgid "has 1 new follower %{time_ago}<hr/>%{name}"
 msgid_plural "has %{num} new followers %{time_ago}<hr/>%{name}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "tem 1 novo seguidor %{time_ago}<hr/>%{name}"
+msgstr[1] "tem %{num} novos seguidores %{time_ago}<hr/>%{name}"
 
 #: ../app/helpers/action_tracker_helper.rb:30
 msgid "has joined 1 community %{time_ago}<hr/>%{name}"
 msgid_plural "has joined %{num} communities %{time_ago}<hr />%{name}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "1 aderiu à comunidade %{time_ago}<hr/>%{name}"
+msgstr[1] "aderiu a %{num} comunidades %{time_ago}<hr />%{name}"
 
 #: ../app/helpers/action_tracker_helper.rb:41
 msgid "has joined the community %{time_ago}"
-msgstr ""
+msgstr "aderiu à comunidade %{time_ago}"
 
 #: ../app/helpers/action_tracker_helper.rb:46
 msgid "uploaded %{total} image %{time_ago}"
 msgid_plural "uploaded %{total} images %{time_ago}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "carregado %{total} imagem %{time_ago}"
+msgstr[1] "carregado %{total} imagens %{time_ago}"
 
 #: ../app/helpers/action_tracker_helper.rb:68
 msgid "sent a message to %{receiver} %{time_ago}<hr/>%{message}"
