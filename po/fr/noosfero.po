@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-04-03 20:53+0000\n"
-"Last-Translator: Jeannette L <j.lavoie@net-c.ca>\n"
+"PO-Revision-Date: 2020-11-28 19:29+0000\n"
+"Last-Translator: J. Lavoie <j.lavoie@net-c.ca>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/noosfero/noosfero/"
 "fr/>\n"
 "Language: fr\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.0-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr "(Requête non valide) %s ne peut être sauvegardée"
@@ -64,13 +64,14 @@ msgid "You are now following the article %s."
 msgstr "Vous suivez maintenant l'article %s."
 
 msgid "The comment '%s' was removed."
-msgstr "Le commentaire « %s » a été retiré."
+msgstr "Le commentaire « %s » a été retiré."
 
-#, fuzzy
 msgid ""
 "Your solicitation was not registered. Already exists a community with this "
 "name."
-msgstr "Communauté"
+msgstr ""
+"Votre sollicitation n'a pas été enregistrée. Il existe déjà une communauté "
+"avec ce nom."
 
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
@@ -404,10 +405,10 @@ msgid "%s people list - %s"
 msgstr ""
 
 msgid "The e-mails are being sent"
-msgstr "Les e-mails ont été envoyés"
+msgstr "Envoi des courriels en cours"
 
 msgid "Could not create the e-mail"
-msgstr "Impossible de créer l'e-mail"
+msgstr "Impossible de créer le courriel"
 
 msgid "Origin not in allowed."
 msgstr ""
@@ -503,17 +504,17 @@ msgid ""
 "Please fill your personal information below in order to get your mailbox "
 "approved by one of the administrators"
 msgstr ""
-"Remplissez vos informations personnelles ci-dessous pour que votre boite aux "
-"lettres soit approuvée par un des administrateurs"
+"Remplissez vos informations personnelles ci-dessous pour que votre boite de "
+"réception soit approuvée par un des administrateurs"
 
 msgid "e-Mail was not enabled successfully."
-msgstr "L'e-mail n'a pas pu être activé."
+msgstr "Le courriel n'a pas pu être activé."
 
 msgid "e-Mail disabled successfully."
-msgstr "L'e-mail a bien été désactivé."
+msgstr "Le courriel a bien été désactivé."
 
 msgid "e-Mail was not disabled successfully."
-msgstr "L'e-mail n'a pas pu être désactivé."
+msgstr "Le courriel n'a pas pu être désactivé."
 
 msgid "Address was updated successfully!"
 msgstr "Adresse a été mise à jour avec succès !"
@@ -688,10 +689,10 @@ msgid "This field can't be blank"
 msgstr "Ce champs ne peut être vide"
 
 msgid "This e-mail address is available"
-msgstr "Cette adresse e-mail est disponible"
+msgstr "Cette adresse courriel est disponible"
 
 msgid "This e-mail address is taken"
-msgstr "Cette adresse e-mail est prise"
+msgstr "Cette adresse courriel est prise"
 
 msgid "Page not found."
 msgstr "Page non trouvée."
@@ -760,9 +761,8 @@ msgstr "Vous êtes déjà ami avec %s."
 msgid "You are now following %s"
 msgstr "Vous suivez maintenant %s"
 
-#, fuzzy
 msgid "Select at least one circle to follow %s."
-msgstr " à "
+msgstr "Sélectionnez au moins un cercle à suivre %s."
 
 msgid "You have unblocked %s successfully. "
 msgstr "Vous avez débloqué %s avec succès. "
@@ -815,7 +815,7 @@ msgid "Checking availability of login name..."
 msgstr "Vérification de la disponibilité du nom d'utilisateur..."
 
 msgid "Checking if e-mail address is already taken..."
-msgstr "Vérification si l'e-Mail est disponible..."
+msgstr "Vérification de la disponibilité du courriel…"
 
 msgid "published an article %{title} %{time_ago}"
 msgstr ""
@@ -1067,7 +1067,7 @@ msgid "I want to receive comments about this article"
 msgstr "Je veux recevoir les commentaires sur cet article"
 
 msgid "I want to receive a notification of each comment written by e-mail"
-msgstr "Je veux recevoir un e-Mail de notification pour chaque commentaire"
+msgstr "Je veux recevoir un courriel de notification pour chaque commentaire"
 
 msgid "I want to approve comments on this article"
 msgstr "Je tiens à approuver les commentaires sur cet article"
@@ -1094,9 +1094,10 @@ msgstr "Qui sera en mesure de créer de nouveaux sujets sur ce forum ?"
 msgid "Community members will not view this content"
 msgstr "Communauté"
 
-#, fuzzy
 msgid "Allow only community members entered below to view this content"
-msgstr " à "
+msgstr ""
+"Autoriser uniquement les membres de la communauté saisis ci-dessous à "
+"afficher ce contenu"
 
 msgid "Type in a name of a community member"
 msgstr "Tapez le nom d'un membre de la communauté"
@@ -1428,7 +1429,7 @@ msgid "State:"
 msgstr "Département :"
 
 msgid "City:"
-msgstr "Ville : "
+msgstr "Ville :"
 
 msgid "* field is mandatory"
 msgstr ""
@@ -1588,9 +1589,8 @@ msgstr "Dernier commentaire"
 msgid "by"
 msgstr "par"
 
-#, fuzzy
 msgid "Allow images from this gallery to be downloaded"
-msgstr " à "
+msgstr "Autoriser le téléchargement d'images de cette galerie"
 
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
@@ -1953,7 +1953,7 @@ msgid "Select domain"
 msgstr "Choisissez le domaine :"
 
 msgid "Preferred domain name:"
-msgstr "Nom de domaine préféré : "
+msgstr "Nom de domaine préféré :"
 
 msgid "This field must be public"
 msgstr "Ce champ doit être public"
@@ -1962,7 +1962,7 @@ msgid "ZIP code"
 msgstr "Code postal"
 
 msgid "e-Mail"
-msgstr "e-Mail"
+msgstr "Courriel"
 
 msgid "Jabber"
 msgstr "Jabber"
@@ -2013,7 +2013,7 @@ msgid "Wall"
 msgstr "Mur"
 
 msgid "Send an e-mail"
-msgstr "Envoyer un e-mail"
+msgstr "Envoyer un courriel"
 
 msgid "Join"
 msgstr "Joindre"
@@ -3118,7 +3118,7 @@ msgid "{fn} must not start with www."
 msgstr "{fn} ne doit pas commencer par www."
 
 msgid "You have already requested activation of your mailbox."
-msgstr "Vous avez déjà demandé l'activation de votre boite à lettres."
+msgstr "Vous avez déjà demandé l'activation de votre boite de réception."
 
 msgid "Email activation"
 msgstr "Activation par courriel"
@@ -3354,7 +3354,7 @@ msgid "Show a zoom link on all article images"
 msgstr "Afficher un lien de zoom sur toutes les images de l'article"
 
 msgid "Skip e-mail confirmation for new users"
-msgstr "Passer la confirmation par e-mail pour les nouveaux utilisateurs"
+msgstr "Passer la confirmation par courriel pour les nouveaux utilisateurs"
 
 msgid "Send welcome e-mail to new users"
 msgstr "Envoyer un message de bienvenue aux nouveaux utilisateurs"
@@ -3825,7 +3825,7 @@ msgid "Invite members"
 msgstr "Inviter des membres"
 
 msgid "Send e-Mail to members"
-msgstr "Envoyer un e-mail aux membres"
+msgstr "Envoyer un courriel aux membres"
 
 msgid "Manage custom roles"
 msgstr "Gérer les rôles personnalisés"
@@ -4155,7 +4155,7 @@ msgid "Email Address"
 msgstr "Adresse courriel"
 
 msgid "E.g.: maria.silva@mail.com"
-msgstr ""
+msgstr "Exemple : maria.silva@courriel.com"
 
 #, fuzzy
 msgid "I accept the %s"
@@ -4451,7 +4451,7 @@ msgid ""
 "An e-mail was just sent to your e-mail address, with instructions for "
 "changing your password. You should receive it in a few minutes."
 msgstr ""
-"Un message vient d'être envoyé à votre adresse électronique ; il contient "
+"Un courriel vient d'être envoyé à votre adresse électronique ; il contient "
 "les instructions sur comment modifier votre mot de passe. Vous devriez le "
 "recevoir dans quelques instants."
 
@@ -4504,13 +4504,15 @@ msgid ""
 "This text will be sent to new users if the feature \"Send welcome e-mail to "
 "new users\" is enabled on environment."
 msgstr ""
-"Ce texte sera envoyé aux nouveaux utilisateurs si la fonction \"Envoyer "
-"courriel de bienvenue pour les nouveaux utilisateurs\" est activé."
+"Ce texte sera envoyé aux nouveaux utilisateurs si la fonction « Envoyer "
+"courriel de bienvenue pour les nouveaux utilisateurs » est activé."
 
 msgid ""
 "Including %s on body, it will be replaced by the real name of the e-mail "
 "recipient."
 msgstr ""
+"Si vous ajoutez %s dans le corps du texte, il sera remplacé par le vrai nom "
+"du destinataire du courriel."
 
 msgid "Site name"
 msgstr "Nom du site"
@@ -4822,9 +4824,8 @@ msgstr[1] "%{num} groupes"
 msgid "Since %{year}/%{month}"
 msgstr "Depuis %{month}/%{year}"
 
-#, fuzzy
 msgid "Send an e-mail to the administrators"
-msgstr "Montrer le site à tous les membres"
+msgstr "Envoyez un courriel aux administrateurs"
 
 msgid "Add as favorite"
 msgstr "Ajouter comme favori"
@@ -5595,7 +5596,7 @@ msgstr ""
 "\", il y a alors de fortes chances que votre article soit trouvé."
 
 msgid "e-mail"
-msgstr "courrier électronique"
+msgstr "courriel"
 
 msgid ""
 "If you are a registered user, you can login and be automatically recognized."
@@ -5647,19 +5648,17 @@ msgstr ""
 "Cliquez sur l'adresse ci-dessous pour annuler la notification de nouveaux "
 "commentaires :"
 
-#, fuzzy
 msgid "Send an e-mail to %s"
-msgstr "Montrer le site à tous les membres"
+msgstr "Envoyer un courriel à %s"
 
-#, fuzzy
 msgid "Send an e-mail to administrators"
-msgstr "Montrer le site à tous les membres"
+msgstr "Envoyer un courriel aux administrateurs"
 
 msgid "The e-mail will be sent to the administrators of '%s'"
-msgstr ""
+msgstr "Le courriel sera envoyé aux administrateurs de « %s »"
 
 msgid "I want to receive a copy of the message in my e-mail."
-msgstr "Recevoir une copie du message par e-mail."
+msgstr "Recevoir une copie du message par courriel."
 
 msgid "This message was sent by %{sender} to %{target} on %{environment}."
 msgstr ""
@@ -5684,14 +5683,14 @@ msgid ""
 "Fill in the following field with your e-mail if you don't want to be "
 "notified when this content receives new comments anymore."
 msgstr ""
-"Remplissez le champ suivant avec votre adresse e-mail si vous ne voulez pas "
-"être averti quand le contenu reçoit de nouveaux commentaires plus."
+"Remplissez le champ suivant avec votre adresse courriel si vous ne voulez "
+"pas être averti quand le contenu reçoit de nouveaux commentaires plus."
 
 msgid "Enter your e-Mail"
-msgstr "Entrez votre e-mail"
+msgstr "Entrez votre courriel"
 
 msgid "Cancel notifications for e-mail above"
-msgstr ""
+msgstr "Annuler les notifications par courriel ci-dessus"
 
 msgid "%s following this article."
 msgstr ""
@@ -5873,8 +5872,7 @@ msgstr ""
 "Votre demande d'enregistrement d'entreprise a bien été prise en compte. "
 "L'organisme de validation que vous avez choisi (%s) devrait vous contacter "
 "pour commencer la procédure de validation. Dès que les validateurs auront "
-"approuvé (ou rejeté) vitre requête, vous en serez averti(e) par courrier "
-"électronique."
+"approuvé (ou rejeté) vitre requête, vous en serez averti·e par courriel."
 
 msgid "You can continue to browse this environment."
 msgstr "Vous pouvez continuer à naviguer sur cette communauté."
@@ -6349,7 +6347,7 @@ msgid "tips"
 msgstr ""
 
 msgid "%s your Gmail, Yahoo and Hotmail contacts!"
-msgstr "%s vos contacts de Gmail, Yahoo et Hotmail !"
+msgstr "%s vos contacts Gmail, Yahoo et Hotmail !"
 
 msgid "Invite and find"
 msgstr "Inviter et trouver"
@@ -6374,7 +6372,7 @@ msgid "Please, wait..."
 msgstr ""
 
 msgid "Your e-mails contacts are being fetched"
-msgstr ""
+msgstr "Vos contacts de messagerie sont en cours de récupération"
 
 msgid ""
 "If it takes too long, you will be redirected to the previous page to try "
@@ -6393,7 +6391,7 @@ msgid "Add contact list"
 msgstr "Ajouter un contact"
 
 msgid "Cancel fetching e-mails"
-msgstr ""
+msgstr "Annuler la récupération des courriels"
 
 msgid ""
 "Now enter an invitation message. You must keep the <url> code in your "
@@ -6403,10 +6401,10 @@ msgid ""
 "they are optional."
 msgstr ""
 "Maintenant, entrez votre message d'invitation. Vous devez conserver le code "
-"<url> dans votre message d'invitation. Lorsque vos amis recevrons l'e-mail "
-"d'invitation, <url> sera remplacé par un lien où ils devront cliquer pour "
-"activer leur compte. Les codes <user> et <friend> seront remplacés par votre "
-"nom et celui de votre ami(e), mais cela est optionnel."
+"<url> dans votre message d'invitation. Lorsque vos amis recevrons le "
+"courriel d'invitation, <url> sera remplacé par un lien où ils devront "
+"cliquer pour activer leur compte. Les codes <user> et <friend> seront "
+"remplacés par votre nom et celui de votre ami(e), mais cela est optionnel."
 
 #, fuzzy
 msgid "Invitation text:"
@@ -6448,7 +6446,7 @@ msgid "Type in the person's %{search_fields}"
 msgstr ""
 
 msgid "Invite people from my e-mail contacts"
-msgstr "Invitation à partir de mes contacts e-mail"
+msgstr "Invitation à partir de mes contacts de messagerie"
 
 msgid "Step 2 of 2: Selecting People"
 msgstr "Étape 2 sur 2 : Sélection des personnes"
@@ -6457,7 +6455,7 @@ msgid "Indicate which people you want to invite."
 msgstr "Indiquez quels personnes vous souhaitez inviter."
 
 msgid "Enter one e-mail address per line:"
-msgstr "Entrez une adresse e-mail par ligne : "
+msgstr "Entrez une adresse courriel par ligne :"
 
 msgid "Check all"
 msgstr "Tout cocher"
@@ -6511,14 +6509,13 @@ msgid "Play"
 msgstr "Lire"
 
 msgid "Stop"
-msgstr "Stop"
+msgstr "Arrêter"
 
 msgid "License url"
-msgstr ""
+msgstr "URL de la licence"
 
-#, fuzzy
 msgid "New license"
-msgstr "Nouveau lien"
+msgstr "Nouvelle licence"
 
 #, fuzzy
 msgid "Edit license"
@@ -6528,44 +6525,43 @@ msgid "Manage licenses"
 msgstr "Gérer les licences"
 
 msgid "Url reference"
-msgstr "Url de Référence"
+msgstr "URL de référence"
 
-#, fuzzy
 msgid "Are you sure you want to remove this license?"
-msgstr "Êtes-vous sûr(e) de vouloir ôter cet élément ?"
+msgstr "Êtes-vous sûr·e de vouloir retirer cet élément ?"
 
 # (second try of this knid of contents)
-#, fuzzy
 msgid "Add a new license"
-msgstr "Une entreprise"
+msgstr "Ajouter une nouvelle licence"
 
 msgid "e-Mail configuration"
-msgstr "Configuration e-mail"
+msgstr "Configuration courriel"
 
 msgid ""
 "You already request activation of your mailbox. Please wait until an "
 "administrator approves your request."
 msgstr ""
-"Vous avez déjà demandé l'activation de votre boîte e-mail. SVP attendez "
+"Vous avez déjà demandé l'activation de votre messagerie. Veuillez attendre "
 "qu'un administrateur approuve votre requête."
 
 msgid "Configuration"
 msgstr "Configuration"
 
 msgid "Mail configuration for POP and IMAP"
-msgstr "Configuration e-mail pour POP et IMAP"
+msgstr "Configuration courriel pour POP et IMAP"
 
 msgid "Enable e-Mail account below:"
-msgstr "Activer le compte e-mail suivant :"
+msgstr "Activer le compte courriel suivant :"
 
 msgid "You'll be able to access a webmail from your user menu."
-msgstr "Vous pourrez accéder au webmail à partir de votre menu utilisateur."
+msgstr ""
+"Vous pourrez accéder à la messagerie web à partir de votre menu utilisateur."
 
 msgid "Enable e-Mail"
-msgstr "Activer le compte e-mail"
+msgstr "Activer le compte courriel"
 
 msgid "E-Mail: "
-msgstr "Adresse e-mail : "
+msgstr "Courriel : "
 
 msgid "Phone(s): "
 msgstr "Téléphone(s) : "
@@ -6857,7 +6853,7 @@ msgid "%d Administrators"
 msgstr "Administrateurs"
 
 msgid "Send e-mail to members"
-msgstr "Envoyer un e-mail aux membres"
+msgstr "Envoyer un courriel aux membres"
 
 #, fuzzy
 msgid "Report reasons"
@@ -7732,7 +7728,7 @@ msgid "My groups"
 msgstr "Mes groupes"
 
 msgid "Webmail"
-msgstr "Webmail"
+msgstr "Messagerie web"
 
 #, fuzzy
 msgid "Show details"
@@ -8052,7 +8048,7 @@ msgstr "Votre adresse courriel %s vient d'être activée."
 
 msgid "You can access your e-mail from anywhere, using the following address:"
 msgstr ""
-"Vous pouvez accéder à votre e-mail de n'importe où en utilisant l'adresse "
+"Vous pouvez accéder à vos courriels de n'importe où en utilisant l'adresse "
 "suivante :"
 
 msgid "We want to give you some suggestions to grow up your network."
@@ -8078,7 +8074,7 @@ msgid "Export People list"
 msgstr ""
 
 msgid "Send e-mail to users"
-msgstr "Envoyer un e-mail aux utilisateurs"
+msgstr "Envoyer un courriel aux utilisateurs"
 
 #, fuzzy
 msgid "Select the file format"
