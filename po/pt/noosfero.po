@@ -12,7 +12,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2020-10-13 13:26+0000\n"
+"PO-Revision-Date: 2020-12-10 05:44+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/pt/>\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr "(Requisição inválida) %s não pode ser salvo(a)"
@@ -308,7 +308,7 @@ msgid "%s disabled"
 msgstr "%s desativado"
 
 msgid "%s could not be disable"
-msgstr "%s não pôde ser desabilitado"
+msgstr "%s não pôde ser desativado"
 
 msgid "%s removed"
 msgstr "%s foi removido"
@@ -2682,7 +2682,7 @@ msgid "picture"
 msgstr "desenho"
 
 msgid "Disable"
-msgstr "Desabilitar"
+msgstr "Desativar"
 
 msgid "enterprise"
 msgstr "empresa"
@@ -3146,40 +3146,40 @@ msgid "Moderator"
 msgstr "Moderador"
 
 msgid "Disable search for articles "
-msgstr "Desabilitar busca por artigos "
+msgstr "Desativar busca por artigos "
 
 msgid "Disable search for enterprises"
 msgstr "Desativar a procura por empresas"
 
 msgid "Disable search for people"
-msgstr "Desabilitar busca por pessoas"
+msgstr "Desativar busca por pessoas"
 
 msgid "Disable search for communities"
-msgstr "Desabilitar busca por comunidades"
+msgstr "Desativar busca por comunidades"
 
 msgid "Disable search for events"
-msgstr "Desabilitar buscar por eventos"
+msgstr "Desativar buscar por eventos"
 
 msgid "Disable categories"
-msgstr "Desabilitar categorias"
+msgstr "Desativar categorias"
 
 msgid "Disable header/footer editing by users"
-msgstr "Desabilitar edição de cabeçalho e rodapé pelos utilizadores"
+msgstr "Desativar edição de cabeçalho e rodapé pelos utilizadores"
 
 msgid "Disable gender icon"
-msgstr "Desabilitar ícone de gênero"
+msgstr "Desativar ícone de gênero"
 
 msgid "Disable the categories menu"
-msgstr "Desabilitar menu de categorias"
+msgstr "Desativar menu de categorias"
 
 msgid "Disable state/city select for contact form"
-msgstr "Desabilitar seleção de estado/cidade no formulário de contato"
+msgstr "Desativar seleção de estado/cidade no formulário de contato"
 
 msgid "Disable contact for people"
-msgstr "Desabilitar contato para pessoas"
+msgstr "Desativar contato para pessoas"
 
 msgid "Disable contact for groups/communities"
-msgstr "Desabilitar contato para comunidades"
+msgstr "Desativar contato para comunidades"
 
 msgid "Forbid users of removing profiles"
 msgstr "Não permitir que utilizadores removam perfis"
@@ -5882,7 +5882,7 @@ msgid "System features"
 msgstr "Funcionalidades do sistema"
 
 msgid "Enable/Disable features"
-msgstr "Habilitar/Desabilitar funcionalidades"
+msgstr "Ativar/Desativar funcionalidades"
 
 msgid ""
 "Here you can enable or disable several features of your environment. Each "
@@ -5893,13 +5893,13 @@ msgid ""
 "the ones you don't want, and use the <em>\"Save changes\" button</em> to "
 "confirm your changes."
 msgstr ""
-"Aqui você pode habilitar ou desabilitar diversas funcionalidades do seu "
-"ambiente. Cada funcionalidade representa uma função que sua comunidade "
-"virtual pode usar se você a habilitar.\n"
+"Aqui pode ativar ou desativar diversas funcionalidades do seu ambiente. Cada "
+"funcionalidade representa uma função que sua comunidade virtual pode usar se "
+"você a habilitar.\n"
 "\n"
-"Marque todas as funcionalidades que você quer habilitar para seu ambiente, "
-"desmarque todas que você não quer, e use o botão <em>\"Salvar alterações\"</"
-"em> para confirmar suas mudanças."
+"Marque todas as funcionalidades que quer ativar para seu ambiente, desmarque "
+"todas que não quer e use o botão <em>\"Gravar alterações\"</em> para "
+"confirmar as suas mudanças."
 
 msgid "Feature"
 msgstr "Funcionalidade"
@@ -5941,7 +5941,7 @@ msgid "HTTPS feed proxy address:"
 msgstr "Endereço HTTPS do proxy de feed:"
 
 msgid "Disable feed SSL"
-msgstr "Desabilitar feed SSL"
+msgstr "Desativar feed SSL"
 
 msgid "Manage fields displayed for profiles"
 msgstr "Gerenciar os campos mostrados para perfis"
@@ -6707,10 +6707,10 @@ msgid "Disabling '%s' enterprise"
 msgstr "A desativar a empresa '%s'"
 
 msgid "Are you sure you want to disable %s?"
-msgstr "Tem certeza que quer desabilitar %s?"
+msgstr "Tem certeza que quer desativar %s?"
 
 msgid "Yes, I want to disable."
-msgstr "Sim, quero desabilitar."
+msgstr "Sim, quero desativar."
 
 msgid "Enabling '%s' enterprise"
 msgstr "A ativar a empresa '%s'"
