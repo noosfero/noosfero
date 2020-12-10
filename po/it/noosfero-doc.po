@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.36.6\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2015-03-16 22:47+0200\n"
+"PO-Revision-Date: 2020-12-11 09:29+0000\n"
 "Last-Translator: TWS <tablettws@gmail.com>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/noosfero/"
 "documentation/it/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 2.3-dev\n"
+"X-Generator: Weblate 4.4-dev\n"
 
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/send_email.en.xhtml:1
@@ -34,7 +34,7 @@ msgstr ""
 #: doc/noosfero/plugins/google_cse.en.xhtml:3
 #: doc/noosfero/plugins/google_analytics.en.xhtml:3
 msgid "Usage"
-msgstr ""
+msgstr "Utilizzo"
 
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:5
