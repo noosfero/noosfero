@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 18:19+0000\n"
-"PO-Revision-Date: 2020-11-28 19:29+0000\n"
+"PO-Revision-Date: 2020-12-24 16:29+0000\n"
 "Last-Translator: Tatiana Filipa Costa Aires <tatiana.20000@live.com.pt>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "noosfero/noosfero/pt_PT/>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #: ../app/api/helpers.rb:448
 msgid "(Invalid request) %s can't be saved"
@@ -1167,34 +1167,34 @@ msgstr[1] "carregado %{total} imagens %{time_ago}"
 
 #: ../app/helpers/action_tracker_helper.rb:68
 msgid "sent a message to %{receiver} %{time_ago}<hr/>%{message}"
-msgstr ""
+msgstr "Mandar uma mensagem a %{receiver} %{time_ago}<hr/>%{message}"
 
 #: ../app/helpers/action_tracker_helper.rb:76
 msgid "replied to a scrap from %{receiver} %{time_ago}<hr /> \"%{message}\""
-msgstr ""
+msgstr "respondeu a um recado de %{receiver} %{time_ago}<hr /> \"%{message}\""
 
 #: ../app/helpers/action_tracker_helper.rb:84
 msgid "%{time_ago}<hr /> \"%{text}\""
-msgstr ""
+msgstr "%{time_ago}<hr /> \"%{text}\""
 
 #: ../app/helpers/action_tracker_helper.rb:91
 msgid "favorited enterprise %{title} %{time_ago}"
-msgstr ""
+msgstr "empresa favorita %{title} %{time_ago}"
 
 #: ../app/helpers/application_helper.rb:110 ../app/helpers/boxes_helper.rb:329
 #: ../app/helpers/link_list_block_helper.rb:23
 msgid "Help"
-msgstr ""
+msgstr "Ajuda"
 
 #: ../app/helpers/application_helper.rb:126 ../app/helpers/boxes_helper.rb:319
 #: ../app/views/cms/_text_editor_sidebar.html.erb:6
 #: ../app/views/cms/why_categorize.html.erb:8
 msgid "Close"
-msgstr ""
+msgstr "Fechar"
 
 #: ../app/helpers/application_helper.rb:169
 msgid "This is %s, version %s"
-msgstr ""
+msgstr "Isto é %s, versão %s"
 
 #: ../app/helpers/application_helper.rb:365
 #: ../app/models/control_panel/categories.rb:4
@@ -1202,21 +1202,23 @@ msgstr ""
 #: ../app/views/content_viewer/view_page.html.erb:32
 #: ../app/views/search/_article_categories.html.erb:2
 msgid "Categories"
-msgstr ""
+msgstr "Categorias"
 
 #: ../app/helpers/application_helper.rb:387
 #: ../app/views/layouts/_user.html.erb:25
 #: ../app/views/shared/logged_in/xmpp_chat.html.erb:31
 msgid "Search..."
-msgstr ""
+msgstr "Procurar..."
 
 #: ../app/helpers/application_helper.rb:389
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
+"Isto é uma caixa de pesquisa. Clique, escreva a sua dúvida e pressione Enter "
+"para procurar"
 
 #: ../app/helpers/application_helper.rb:390
 msgid "Click, write and press enter to find"
-msgstr ""
+msgstr "Clique, escreva e pressione Enter para procurar"
 
 #: ../app/helpers/application_helper.rb:404
 #: ../app/helpers/link_list_block_helper.rb:20
@@ -1237,21 +1239,21 @@ msgstr ""
 #: ../public/designs/themes/noosfero/navigation.html.erb:65
 #: ../public/designs/themes/noosfero/site_title.html.erb:4
 msgid "Search"
-msgstr ""
+msgstr "Procurar"
 
 #: ../app/helpers/application_helper.rb:621
 #: ../app/helpers/profile_editor_helper.rb:178
 #: ../app/views/cms/custom_fields/_article_custom_field_template.html.erb:8
 #: ../app/views/shared/_custom_fields.html.erb:19
 msgid "Public"
-msgstr ""
+msgstr "Público"
 
 #: ../app/helpers/application_helper.rb:666 ../app/models/folder.rb:4
 #: ../app/models/folder.rb:25 ../app/views/cms/_media_new_folder.html.erb:12
 #: ../app/views/search/_full_uploaded_file.html.erb:16
 #: ../app/views/spam/_suggest_article.html.erb:12
 msgid "Folder"
-msgstr ""
+msgstr "Ficheiro"
 
 #: ../app/helpers/application_helper.rb:667
 #: ../app/helpers/link_list_block_helper.rb:35
@@ -1260,133 +1262,133 @@ msgstr ""
 #: ../app/models/enterprise.rb:139 ../app/models/organization.rb:146
 #: ../app/models/person.rb:380 ../app/models/person.rb:400
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: ../app/helpers/application_helper.rb:668
 #: ../app/helpers/link_list_block_helper.rb:28 ../app/models/event.rb:12
 #: ../app/models/event.rb:69
 msgid "Event"
-msgstr ""
+msgstr "Evento"
 
 #: ../app/helpers/application_helper.rb:669
 #: ../app/helpers/link_list_block_helper.rb:29 ../app/models/forum.rb:28
 #: ../app/models/forum.rb:32
 msgid "Forum"
-msgstr ""
+msgstr "Fórum"
 
 #: ../app/helpers/application_helper.rb:672 ../app/models/article_block.rb:14
 #: ../app/models/text_article.rb:23
 msgid "Article"
-msgstr ""
+msgstr "Artigo"
 
 #: ../app/helpers/application_helper.rb:674
 msgid "Clone %s"
-msgstr ""
+msgstr "Clone %s"
 
 #: ../app/helpers/application_helper.rb:688
 msgid "Online Manual"
-msgstr ""
+msgstr "Manual Online"
 
 #: ../app/helpers/application_helper.rb:689
 #: ../app/helpers/link_list_block_helper.rb:33
 #: ../app/views/shared/logged_in/xmpp_chat.html.erb:18
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 #: ../app/helpers/application_helper.rb:711 ../app/views/home/index.html.erb:13
 msgid "Read more"
-msgstr ""
+msgstr "Ler mais"
 
 #: ../app/helpers/application_helper.rb:821
 msgid "contents|More recent"
-msgstr ""
+msgstr "conteúdo|Mais recente"
 
 #: ../app/helpers/application_helper.rb:822
 msgid "contents|More viewed"
-msgstr ""
+msgstr "conteúdos|Mais vistos"
 
 #: ../app/helpers/application_helper.rb:823
 msgid "contents|Most commented"
-msgstr ""
+msgstr "conteúdo|Mais comentado"
 
 #: ../app/helpers/application_helper.rb:826 ../app/views/cms/view.html.erb:14
 msgid "New content"
-msgstr ""
+msgstr "Novo conteúdo"
 
 #: ../app/helpers/application_helper.rb:842
 msgid "people|More recent"
-msgstr ""
+msgstr "pessoas|Mais recente"
 
 #: ../app/helpers/application_helper.rb:843
 msgid "people|More active"
-msgstr ""
+msgstr "pessoas|Mais ativas"
 
 #: ../app/helpers/application_helper.rb:844
 msgid "people|More popular"
-msgstr ""
+msgstr "pessoas|Mais populares"
 
 #: ../app/helpers/application_helper.rb:851
 msgid "communities|More recent"
-msgstr ""
+msgstr "comunidades|Mais recente"
 
 #: ../app/helpers/application_helper.rb:852
 msgid "communities|More active"
-msgstr ""
+msgstr "comunidades|Mais ativas"
 
 #: ../app/helpers/application_helper.rb:853
 msgid "communities|More popular"
-msgstr ""
+msgstr "comunidades|Mais populares"
 
 #: ../app/helpers/application_helper.rb:870
 #: ../app/views/blocks/slideshow.html.erb:27
 #: ../app/views/layouts/slideshow.html.erb:18
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: ../app/helpers/application_helper.rb:894
 msgid "See all"
-msgstr ""
+msgstr "Ver tudo"
 
 #: ../app/helpers/application_helper.rb:897
 #: ../app/helpers/application_helper.rb:898
 #: ../app/views/shared/_manage_link.html.erb:1
 #: ../app/views/shared/user_menu.html.erb:26
 msgid "Manage %s"
-msgstr ""
+msgstr "Gerir %s"
 
 #: ../app/helpers/application_helper.rb:909
 msgid "My enterprises"
-msgstr ""
+msgstr "Minhas empresas"
 
 #: ../app/helpers/application_helper.rb:915
 msgid "My communities"
-msgstr ""
+msgstr "Minhas comunidades"
 
 #: ../app/helpers/application_helper.rb:919
 msgid "Administration"
-msgstr ""
+msgstr "Administração"
 
 #: ../app/helpers/application_helper.rb:920
 msgid "Configure the environment"
-msgstr ""
+msgstr "Configurar o ambiente"
 
 #: ../app/helpers/application_helper.rb:931
 msgid "Manage your pending tasks"
-msgstr ""
+msgstr "Gerir as suas tarefas pendentes"
 
 #: ../app/helpers/application_helper.rb:970
 #: ../app/views/blocks/login.html.erb:9
 #: ../app/views/shared/user_menu.html.erb:45
 msgid "Logout"
-msgstr ""
+msgstr "Sair"
 
 #: ../app/helpers/application_helper.rb:970
 msgid "Leave the system"
-msgstr ""
+msgstr "Sair do sistema"
 
 #: ../app/helpers/application_helper.rb:989
 msgid "Go to your homepage"
-msgstr ""
+msgstr "Vá para a sua página inicial"
 
 #: ../app/helpers/application_helper.rb:994
 #: ../app/views/blocks/my_network.html.erb:7
@@ -1395,99 +1397,103 @@ msgstr ""
 #: ../app/views/shared/_list_groups.html.erb:17
 #: ../app/views/shared/user_menu.html.erb:37
 msgid "Control panel"
-msgstr ""
+msgstr "Painel de controlo"
 
 #: ../app/helpers/application_helper.rb:995
 msgid "Configure your personal account and content"
-msgstr ""
+msgstr "Configure a sua conta pessoal e conteúdo"
 
 #: ../app/helpers/application_helper.rb:1003 ../app/models/environment.rb:474
 msgid "Sign up"
-msgstr ""
+msgstr "Inscrever-se"
 
 #: ../app/helpers/application_helper.rb:1009
 msgid " characters left"
-msgstr ""
+msgstr " caracteres restantes"
 
 #: ../app/helpers/application_helper.rb:1010
 msgid "Limit of characters reached"
-msgstr ""
+msgstr "Limite de caracteres alcançado"
 
 #: ../app/helpers/application_helper.rb:1039
 msgid "Source: %s"
-msgstr ""
+msgstr "Fonte: %s"
 
 #: ../app/helpers/application_helper.rb:1045
 msgid "in %s"
-msgstr ""
+msgstr "em %s"
 
 #: ../app/helpers/application_helper.rb:1084
 msgid "Report abuse"
-msgstr ""
+msgstr "Reportar abuso"
 
 #: ../app/helpers/application_helper.rb:1086
 msgid "You already reported this profile."
-msgstr ""
+msgstr "Você já reportou este perfil."
 
 #: ../app/helpers/application_helper.rb:1087
 msgid "Report this profile for abusive behaviour"
-msgstr ""
+msgstr "Reportar este perfil por comportamento abusivo"
 
 #: ../app/helpers/application_helper.rb:1128
 msgid ""
 "Are you sure that you want to remove the folder \"%s\"? Note that all the items "
 "inside it will also be removed!"
 msgstr ""
+"Tem a certeza de que deseja remover a pasta \"% s\"? Todos os itens dentro "
+"dele também serão removidos!"
 
 #: ../app/helpers/application_helper.rb:1130
 msgid "Are you sure that you want to remove the item \"%s\"?"
-msgstr ""
+msgstr "Tem a certeza de que deseja remover o item \"% s\"?"
 
 #: ../app/helpers/application_helper.rb:1177
 msgid "Profile organization"
-msgstr ""
+msgstr "Organização do perfil"
 
 #: ../app/helpers/application_helper.rb:1178
 msgid ""
 "Your profile will be created according to the selected template. Click on the "
 "options to view them."
 msgstr ""
+"Seu perfil será criado de acordo com o modelo selecionado. Clique nas opções "
+"para visualizá-las."
 
 #: ../app/helpers/application_helper.rb:1213
 msgid "Errors while saving"
-msgstr ""
+msgstr "Erros ao salvar"
 
 #: ../app/helpers/application_helper.rb:1223
 msgid "The content here is available to %s's friends only."
-msgstr ""
+msgstr "O conteúdo aqui está disponível apenas para os amigos de %s."
 
 #: ../app/helpers/application_helper.rb:1226
 msgid "The contents in this profile is available to members only."
-msgstr ""
+msgstr "O conteúdo deste perfil está disponível apenas para membros."
 
 #: ../app/helpers/application_helper.rb:1286
 msgid "See all connections"
-msgstr ""
+msgstr "Veja todas as conexões"
 
 #: ../app/helpers/application_helper.rb:1315
 msgid "Full screen"
-msgstr ""
+msgstr "Tela inteira"
 
 #: ../app/helpers/application_helper.rb:1318
 msgid "Go to full screen mode"
-msgstr ""
+msgstr "Vá para o modo de tela inteira"
 
 #: ../app/helpers/application_helper.rb:1320
 msgid "Exit full screen"
-msgstr ""
+msgstr "Sair da tela inteira"
 
 #: ../app/helpers/application_helper.rb:1323
 msgid "Exit full screen mode"
-msgstr ""
+msgstr "Sair do modo tela inteira"
 
 #: ../app/helpers/article_helper.rb:17 ../app/helpers/folder_helper.rb:63
 msgid "Options"
-msgstr ""
+msgstr "Opções"
 
 #: ../app/helpers/article_helper.rb:22 ../app/helpers/folder_helper.rb:68
 msgid "Do not allow new content on this article and its children"
