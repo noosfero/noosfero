@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.36.6\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2020-12-11 09:29+0000\n"
-"Last-Translator: TWS <tablettws@gmail.com>\n"
+"PO-Revision-Date: 2021-01-08 14:32+0000\n"
+"Last-Translator: Luca De Filippo <luca.defilippo@translationcommons.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/noosfero/"
 "documentation/it/>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/send_email.en.xhtml:1
@@ -157,7 +157,7 @@ msgstr ""
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:36
 msgid "Options"
-msgstr ""
+msgstr "Opzioni"
 
 #. type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:37
@@ -616,7 +616,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:23
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:24
