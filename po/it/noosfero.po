@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2020-12-11 09:29+0000\n"
-"Last-Translator: TWS <tablettws@gmail.com>\n"
+"PO-Revision-Date: 2021-01-08 14:32+0000\n"
+"Last-Translator: Luca De Filippo <luca.defilippo@translationcommons.org>\n"
 "Language-Team: Italian <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/it/>\n"
 "Language: it\n"
@@ -15,23 +15,23 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.4-dev\n"
+"X-Generator: Weblate 4.4.1-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
-msgstr ""
+msgstr "(Richiesta non valida) %s non può essere salvato"
 
 msgid "(Invalid request) %s not given"
-msgstr ""
+msgstr "(Richiesta non valida) %s non dato"
 
 msgid "Something wrong happened"
-msgstr ""
+msgstr "Qualcosa è andato storto"
 
 #, fuzzy
 msgid "Unauthorized"
 msgstr "Prodotto senza categoria"
 
 msgid "Method Not Allowed"
-msgstr ""
+msgstr "Metodo non permesso"
 
 #, fuzzy
 msgid "The article %s was removed."
@@ -41,25 +41,31 @@ msgid ""
 "The article couldn't be removed due to some problem. Please contact the "
 "administrator."
 msgstr ""
+"Questo articolo non può essere rimosso a causa di alcuni problemi. Per "
+"favore, contattare l'amministratore."
 
 msgid ""
 "Your abuse report was registered. The administrators are reviewing your "
 "report."
 msgstr ""
+"La tua segnalazione è stata registrata. L'amministratore esaminerà il tuo "
+"rapporto."
 
 msgid ""
 "Your report couldn't be saved due to some problem. Please contact the "
 "administrator."
 msgstr ""
+"Il tuo rapporto non può essere salvato a causa di alcuni problemi. Per "
+"favore, contattare l'amministratore."
 
 msgid "Your vote was created."
-msgstr ""
+msgstr "Il tuo voto è stato registrato."
 
 msgid "You already follow this article."
-msgstr ""
+msgstr "Segui già questo articolo."
 
 msgid "You are now following the article %s."
-msgstr ""
+msgstr "Non stai seguendo questo articolo %s."
 
 #, fuzzy
 msgid "The comment '%s' was removed."
@@ -69,120 +75,124 @@ msgid ""
 "Your solicitation was not registered. Already exists a community with this "
 "name."
 msgstr ""
+"La tua richiesta non è stato registrata. Esiste già un gruppo con questo "
+"nome."
 
 msgid ""
 "Your invitation was registered. The community administrators are reviewing "
 "your solicitation."
 msgstr ""
+"Il tuo invito è stato registrato. L'amministratore del gruppo sta esaminando "
+"la tua richiesta."
 
 msgid "The contact was sent."
-msgstr ""
+msgstr "Il contatto è stato inviato."
 
 msgid "The contact was not sent."
-msgstr ""
+msgstr "Il contatto non è stato inviato."
 
 msgid "You already request a membership for this community."
-msgstr ""
+msgstr "Hai già richiesto di far parte di questo gruppo."
 
 msgid "You already member of this community."
-msgstr ""
+msgstr "Sei già membro di questo gruppo."
 
 msgid ""
 "You are not member of this community and you did not made a membership "
 "request."
 msgstr ""
+"Non sei membro di questo gruppo e non hai inoltrato una richiesta per farne "
+"parte."
 
 msgid "You already request a friendship solicitation to %s."
-msgstr ""
+msgstr "Hai già inviato una richiesta di amicizia a %s."
 
 msgid "You already a %s's friend"
-msgstr ""
+msgstr "Sei già amico di %s"
 
 msgid "You are not a %s's friend and you did not made a friendship request."
-msgstr ""
+msgstr "Non sei amico di %s e non hai inoltrato una richiesta di amicizia."
 
 msgid "Your friendship request is waiting for approval."
-msgstr ""
+msgstr "La tua richiesta di amicizia è in attesa di approvazione."
 
 msgid "The friendship with %s was removed."
-msgstr ""
+msgstr "Il collegamento con %s è stato rimosso."
 
 msgid "You already make a membership solicitation"
-msgstr ""
+msgstr "Hai già fatto una richiesta per diventare membro"
 
 msgid "Your membership request is waiting for approval."
-msgstr ""
+msgstr "La tua richiesta di entrata è in attesa di approvazione."
 
-#, fuzzy
 msgid "The profile %s was removed."
-msgstr "L'articolo è stato rimosso."
+msgstr "Il profilo %s è stato rimosso."
 
 msgid "Logout successfully."
-msgstr ""
+msgstr "Logout eseguito."
 
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 msgid "Login"
-msgstr ""
+msgstr "Login"
 
 msgid "Password"
-msgstr ""
+msgstr "Password"
 
 msgid "Activation token"
-msgstr ""
+msgstr "Token di Attivazione"
 
 msgid "Short activation code"
-msgstr ""
+msgstr "Codice attivazione breve"
 
 msgid "Waiting for admin moderate user registration"
-msgstr ""
+msgstr "In attesa dell'amministratore per moderare la registrazione utente"
 
 msgid "Activation code is invalid"
-msgstr ""
+msgstr "Il codice di attivazione non è valido"
 
 msgid "Activation token is invalid"
-msgstr ""
+msgstr "Il token di attivazione non è valido"
 
 msgid "All change password requests were sent."
-msgstr ""
+msgstr "La richiesta di cambio password è stata inviata."
 
 msgid "Forgot password code"
-msgstr ""
+msgstr "Hai dimenticato il codice password"
 
 msgid "Access denied"
-msgstr ""
+msgstr "Accesso Negato"
 
-#, fuzzy
 msgid "Logged users"
-msgstr "(utente rimosso)"
+msgstr "Utenti collegati"
 
 msgid "Visitors"
-msgstr ""
+msgstr "Visitatori"
 
 msgid "Friends / Members"
-msgstr ""
+msgstr "Amici / Membri"
 
 msgid "Me / Administrators"
-msgstr ""
+msgstr "Io / Amministratori"
 
 msgid "Nobody"
-msgstr ""
+msgstr "Nessuno"
 
 msgid "Friends"
-msgstr ""
+msgstr "Amici"
 
 msgid "Me"
-msgstr ""
+msgstr "Io"
 
 msgid "Followers"
-msgstr ""
+msgstr "Followers"
 
 msgid "Members"
-msgstr ""
+msgstr "Membri"
 
 msgid "Administrators"
-msgstr ""
+msgstr "Amministratori"
 
 msgid "Environment settings updated"
 msgstr ""
@@ -191,1232 +201,1260 @@ msgid ""
 "Community not found. You must insert the identifier of a community from this "
 "environment"
 msgstr ""
+"Gruppo non trovato. Devi inserire un identificazione per un gruppo da questo "
+"ambiente di lavoro"
 
 msgid "Saved the portal folders"
-msgstr ""
+msgstr "Cartelle portale Salvate"
 
 msgid "Saved the number of news on folders"
-msgstr ""
+msgstr "Numero di notizie nelle cartelle Salvato"
 
 msgid "Category %s saved."
-msgstr ""
+msgstr "Salvata Categoria %s."
 
 msgid "Could not save category."
-msgstr ""
+msgstr "Impossibile salvare Categoria."
 
 msgid "Roles successfully updated"
-msgstr ""
+msgstr "Ruoli aggiornati con successo"
 
 msgid "Couldn't change the roles"
-msgstr ""
+msgstr "Impossibile cambiare i ruoli"
 
 msgid "Member succefully unassociated"
-msgstr ""
+msgstr "Membri eliminati con successo"
 
 msgid "Failed to unassociate member"
-msgstr ""
+msgstr "Errore nell'eliminazione membri"
 
 msgid "Features updated successfully."
-msgstr ""
+msgstr "Impostazioni aggiornate con successo."
 
 msgid "Person fields updated successfully."
 msgstr ""
 
 msgid "Person fields not updated successfully."
-msgstr ""
+msgstr "Campi di persone non aggiornati."
 
 msgid "Enterprise fields updated successfully."
-msgstr ""
+msgstr "Campi Impresa aggiornati con successo."
 
 msgid "Enterprise fields not updated successfully."
-msgstr ""
+msgstr "Campi Imprese non aggiornati."
 
 msgid "Community fields updated successfully."
-msgstr ""
+msgstr "Campi Gruppo aggiornati con successo."
 
 msgid "Community fields not updated successfully."
-msgstr ""
+msgstr "Campi Gruppo non aggiornati."
 
 msgid "Kind successfully created"
-msgstr ""
+msgstr "Tipo creato con successo"
 
 msgid "There were some problems creating this new kind"
-msgstr ""
+msgstr "Si è verificato un problema nel creare questo nuovo Tipo"
 
 msgid "Kind successfully updated"
-msgstr ""
+msgstr "Tipo aggiornato con successo"
 
 msgid "There were some problems editing this kind"
-msgstr ""
+msgstr "Si è verificato un problema nell'editare questo Tipo"
 
 msgid "Kind successfully removed"
-msgstr ""
+msgstr "Tipo rimosso con successo"
 
 msgid "There were some problems deleting this kind"
-msgstr ""
+msgstr "Si è verificato un problema nella cancellazione di questo tipo"
 
 msgid "License created"
-msgstr ""
+msgstr "Licenza Creata"
 
 msgid "License could not be created"
-msgstr ""
+msgstr "La Licenza non è stata creata"
 
 msgid "License updated"
-msgstr ""
+msgstr "Licenza Aggiornata"
 
 msgid "License could not be updated"
-msgstr ""
+msgstr "La Licenza non è stata aggioranta"
 
 msgid "License removed"
-msgstr ""
+msgstr "Licenza rimossa"
 
 msgid "License could not be removed"
-msgstr ""
+msgstr "La Licenza non è stata rimossa"
 
 msgid "Organization profiles"
-msgstr ""
+msgstr "Profili Organizzazione"
 
 msgid "Community"
-msgstr ""
+msgstr "Gruppo"
 
 msgid "Enterprise"
-msgstr ""
+msgstr "Impresa"
 
 msgid "All"
-msgstr ""
+msgstr "Tutto"
 
 msgid "%s enabled"
-msgstr ""
+msgstr "% abilitato"
 
 msgid "%s could not be enabled"
-msgstr ""
+msgstr "% non può essere abilitato"
 
 msgid "%s disabled"
-msgstr ""
+msgstr "% non abilitato"
 
 msgid "%s could not be disable"
-msgstr ""
+msgstr "% non può essere disabilitato"
 
-#, fuzzy
 msgid "%s removed"
-msgstr "Articolo Rimosso."
+msgstr "%s rimosso"
 
 msgid "%s could not be removed"
-msgstr ""
+msgstr "%s non può essere rimosso"
 
 msgid "Plugins updated successfully."
-msgstr ""
+msgstr "Estensioni aggiornate con successo."
 
 msgid "Plugins were not updated successfully."
-msgstr ""
+msgstr "Le Estensioni non sono state aggiornate."
 
 msgid "Invalid profile type"
-msgstr ""
+msgstr "Tipo profilo non valido"
 
 msgid "All profiles"
-msgstr ""
+msgstr "Tutti i profili"
 
 msgid "People"
-msgstr ""
+msgstr "Persone"
 
 msgid "Communities"
-msgstr ""
+msgstr "Gruppi"
 
 msgid "Enterprises"
-msgstr ""
+msgstr "Imprese"
 
 msgid "Sort by name"
-msgstr ""
+msgstr "Ordina per nome"
 
 msgid "Higher disk usage"
-msgstr ""
+msgstr "Uso disco fisso più alto"
 
 msgid "Lower disk usage"
-msgstr ""
+msgstr "Uso disco fisso più basso"
 
 msgid "Failed to create role"
-msgstr ""
+msgstr "Errore nel creare Ruolo"
 
 msgid "Failed to edit role"
-msgstr ""
+msgstr "Errore nella modifica del ruolo"
 
 msgid "New template created"
-msgstr ""
+msgstr "Nuovo template creato"
 
 msgid "Name has already been taken"
-msgstr ""
+msgstr "Il nome è stato già scelto"
 
 msgid "Community not found. The template could no be changed."
-msgstr ""
+msgstr "Gruppo non trovato. Il template non può essere cambiato."
 
 msgid "%s defined as default"
-msgstr ""
+msgstr "% definito di default"
 
 msgid "Person not found. The template could no be changed."
-msgstr ""
+msgstr "Persona non trovata. Il Template non può essere cambiato."
 
 msgid "Enterprise not found. The template could no be changed."
-msgstr ""
+msgstr "Impresa non trovata. Il Template non può essere cambiato."
 
 msgid "New trusted site added."
-msgstr ""
+msgstr "Nuovo sito verificato aggiunto."
 
 msgid "Failed to add trusted site."
-msgstr ""
+msgstr "Errore nell'aggiunta del sito verificato."
 
 msgid "Trusted site was not found"
-msgstr ""
+msgstr "Sito Verificato non è stato trovato"
 
 msgid "Failed to edit trusted site."
-msgstr ""
+msgstr "Errore nella modifica Sito Verificato."
 
 msgid "Trusted site removed"
-msgstr ""
+msgstr "Sito Verificato Rimosso"
 
 msgid "Trusted site could not be removed"
-msgstr ""
+msgstr "Il Sito Verificato non può essere rimosso"
 
 msgid "The profile was deleted."
-msgstr ""
+msgstr "Il profilo è stato eliminato."
 
 msgid "Could not remove profile"
-msgstr ""
+msgstr "Impossibile rimuovere profilo"
 
 msgid "%s people list - %s"
-msgstr ""
+msgstr "%s Lista persone - %s"
 
 msgid "The e-mails are being sent"
-msgstr ""
+msgstr "Le email sono state inviate"
 
 msgid "Could not create the e-mail"
-msgstr ""
+msgstr "Impossibile creare e-mail"
 
 msgid "Origin not in allowed."
-msgstr ""
+msgstr "Origine non abilitata."
 
 msgid "Failed to remove block"
-msgstr ""
+msgstr "Errore nella rimozione del blocco"
 
 msgid "Make sure you made the test to verify that your are not a robot!"
 msgstr ""
+"Assicurati di aver effettuato il test per verificare che non sei un robot!"
 
 msgid "You do not have access to "
-msgstr ""
+msgstr "Non poui accedere a "
 
 msgid "Homepage reseted."
-msgstr ""
+msgstr "Pagina principale resettata."
 
 msgid "\"%s\" configured as homepage."
-msgstr ""
+msgstr "\"%s\" configurata come pagina principale."
 
 msgid "File(s) successfully uploaded"
-msgstr ""
+msgstr "File caricato/i correttamente"
 
 msgid "\"%s\" was removed."
-msgstr ""
+msgstr "\"%s\" è stato rimosso."
 
 msgid "You published this content successfully"
-msgstr ""
+msgstr "Hai pubblicato questo post correttamente"
 
 msgid "Select some group to publish your article"
-msgstr ""
+msgstr "Seleziona i gruppi dove pubblicare il tuo articolo"
 
 msgid "Your publish request was sent successfully"
-msgstr ""
+msgstr "La tua richiesta di pubblicazione è stata inviata correttamente"
 
 msgid "Some of your publish requests couldn't be sent."
-msgstr ""
+msgstr "Alcune delle tue richieste di pubblicazione non sono state inviate."
 
 msgid "Your publish request couldn't be sent."
-msgstr ""
+msgstr "La tua richiesta di pubblicazione non è stata inviata."
 
 msgid "There is no portal community to publish your article."
-msgstr ""
+msgstr "Non c'è nessun portale Gruppo dove pubblicare il tuo articolo."
 
 msgid "Thanks for your suggestion. The community administrators were notified."
 msgstr ""
+"Grazie per la tua segnalazione. Gli amministratori dell gruppo saranno "
+"informati."
 
 msgid "Name"
 msgstr "Nome"
 
 msgid "Size (bigger first)"
-msgstr ""
+msgstr "Dimensione (Dal più grande)"
 
 msgid "Size (smaller first)"
-msgstr ""
+msgstr "Dimensione (Dal più piccolo)"
 
 msgid "Are not you going to invite anyone?"
-msgstr ""
+msgstr "Non vuoi invitare nessuno?"
 
 msgid "Your friends were invited successfully."
-msgstr ""
+msgstr "I tuoi amici sono stati invitati correttamente."
 
 msgid "Some of your friends could not be invited."
-msgstr ""
+msgstr "Non è stato possibile invitare alcuni dei tuoi amici."
 
 msgid "%s could not be uploaded"
-msgstr ""
+msgstr "% non può essere caricato"
 
 msgid "Images"
-msgstr ""
+msgstr "Immagini"
 
 msgid "Files"
-msgstr ""
+msgstr "Files"
 
 msgid "Email template was successfully created."
-msgstr ""
+msgstr "Template Email creato con successo."
 
 msgid "Email template was successfully updated."
-msgstr ""
+msgstr "Template Email aggiornato con successo."
 
 msgid "Sorry, we can not record your decision."
-msgstr ""
+msgstr "Ci dispiace, non possiamo registrare la tua decisione."
 
 msgid "Circles of %s updated successfully"
-msgstr ""
+msgstr "Circoli di %s aggiornati con successo"
 
 msgid ""
 "Please fill your personal information below in order to get your mailbox "
 "approved by one of the administrators"
 msgstr ""
+"Per favore, inserisci le tue informazioni personali qui in basso, in modo da "
+"far approvare la tua casella postale da uno degli amministratori"
 
 msgid "e-Mail was not enabled successfully."
-msgstr ""
+msgstr "L'Email non è stata abilitata."
 
 msgid "e-Mail disabled successfully."
-msgstr ""
+msgstr "Email disabilitata correttamente."
 
 msgid "e-Mail was not disabled successfully."
-msgstr ""
+msgstr "L'Email non è stata disabilitata."
 
 msgid "Address was updated successfully!"
-msgstr ""
+msgstr "Indirizzo aggiornato correttamente!"
 
 msgid ""
 "Your new community creation request will be evaluated by an administrator. "
 "You will be notified."
 msgstr ""
+"La tua richiesta di creazione di una nuovo gruppo sarà valutata da un "
+"amministratore. Riceverai una notifica al completamento."
 
 msgid "Address could not be saved!"
-msgstr ""
+msgstr "L'indirizzo non può essere salvato!"
 
 msgid "%s was not enabled."
-msgstr ""
+msgstr "% non è stato abilitato."
 
 msgid "%s was not disabled."
-msgstr ""
+msgstr "% non è stato disabilitato."
 
 msgid "Could not delete profile"
-msgstr ""
+msgstr "Impossibile cancellare il profilo"
 
 msgid "Welcome page saved successfully."
-msgstr ""
+msgstr "Pagina di Benvenuto salvata correttamente."
 
 msgid "Welcome page could not be saved."
-msgstr ""
+msgstr "Pagina di Benvenuto non può essere salvata."
 
-#, fuzzy
 msgid "The profile '%s' was deactivated."
-msgstr "L'articolo è stato rimosso."
+msgstr "Il profilo '%s' è disattivato."
 
 msgid "Could not deactivate profile."
-msgstr ""
+msgstr "Impossibile disattivare il profilo."
 
-#, fuzzy
 msgid "The profile '%s' was activated."
-msgstr "L'articolo è stato rimosso."
+msgstr "Il profilo '%s' è stato attivato."
 
 msgid "Could not activate the profile."
-msgstr ""
+msgstr "Impossibile attivare il profilo."
 
 msgid "Changes applied correctly"
-msgstr ""
+msgstr "Modifiche applicate correttamente"
 
 msgid "Something wrong happened! Changes could not be save!"
-msgstr ""
+msgstr "Qualcosa è andato storto! Le modifiche non sono state salvate!"
 
 msgid "You can not destroy the profile."
-msgstr ""
+msgstr "Non puoi distruggere il profilo."
 
 msgid "Location is disabled on the environment."
-msgstr ""
+msgstr "La posizione è disabilitata sull'ambiente."
 
 msgid "Select at least one member."
-msgstr ""
+msgstr "Seleziona almeno un membro."
 
 msgid "Member successfully unassociated"
-msgstr ""
+msgstr "Membro non associato correttamente"
 
 msgid "Current admins"
-msgstr ""
+msgstr "Amministratori attuali"
 
 msgid "The members list couldn't be updated. Please contact the administrator."
 msgstr ""
+"La lista dei membri non può essere aggiornata. Per favora, contatta "
+"l'amministratore."
 
 msgid "The members list was updated."
-msgstr ""
+msgstr "La lista dei membri è stata aggiornata."
 
 msgid "Role successfully removed!"
-msgstr ""
+msgstr "Ruolo correttamente rimosso!"
 
 msgid "Failed to remove role!"
-msgstr ""
+msgstr "Errore nella rimozione del ruolo!"
 
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 msgid "Task already assigned!"
-msgstr ""
+msgstr "Task già assegnato!"
 
 msgid "Task responsible successfully updated!"
-msgstr ""
+msgstr "Responsabile Task aggiornato correttamente!"
 
 msgid "All decisions were applied successfully."
-msgstr ""
+msgstr "Tutte le decisioni sono state applicate correttamente."
 
 msgid "Some decisions couldn't be applied."
-msgstr ""
+msgstr "Alcune decisioni non sono state applicate."
 
 msgid "This action is not available for \"%s\"."
-msgstr ""
+msgstr "Questa azione non è disponibile per \"%s\"."
 
 msgid ""
 "We couldn't find an account to be activated. Maybe it is to be approved by "
 "an admin."
 msgstr ""
+"Non abbiamo trovato un account attivo. Probabilmente è in fase di "
+"approvazione da un amministratore."
 
 msgid "Your account was successfully activated!"
-msgstr ""
+msgstr "Il tuo account è stato attivato correttamente!"
 
 msgid ""
 "Your account was activated, now wait until an administrator approves your "
 "account."
 msgstr ""
+"Il tuo account è stato attivato, ora attendi finché un amministratore non "
+"approvi il tuo account."
 
 msgid "Looks like your activation code is not correct. Would you try again?"
 msgstr ""
+"Sembra che il codice di attivazione non sia corretto. Potresti riprovare?"
 
 msgid ""
 "Something went wrong. You can try again, and if it persists, contact an "
 "administrator."
 msgstr ""
+"Qulacosa è andato storto. Puoi riprovare e, se l'errore persiste, contatta "
+"l'amministratore."
 
 msgid "Invalid activation token. Maybe this account was already activated?"
-msgstr ""
+msgstr "Token attivazione non valido. Questo account è stato già attivato?"
 
 msgid ""
 "A new activation code is on its way. Make sure to use the last code you "
 "received."
 msgstr ""
+"Abbiamo inviato un nuovo codice di attivazione. Assicurati di utilizzare "
+"l'utimo codice ricevuto."
 
 msgid "An admin will approve your account soon."
-msgstr ""
+msgstr "Un amministratore approverà il tuo account quanto prima."
 
 msgid "Logged in successfully"
-msgstr ""
+msgstr "Log in effettuato correttamente"
 
 msgid "Incorrect username or password"
-msgstr ""
+msgstr "Username o Password non corretti"
 
 msgid "This environment doesn't allow user registration."
-msgstr ""
+msgstr "Questo ambiente di lavoro non permette la registrazione utente."
 
 msgid "You have been logged out."
-msgstr ""
+msgstr "Ti sei appena scollegato."
 
 msgid "Your password has been changed successfully!"
-msgstr ""
+msgstr "La tua password è stata modificata correttamente!"
 
 msgid "This environment doesn't allow password recovery."
-msgstr ""
+msgstr "Questo ambiente di lavoro non permette il recupero della password."
 
 msgid "Can not recover user password with blank value."
 msgstr ""
 
 msgid "Could not find any user with %s equal to \"%s\"."
-msgstr ""
+msgstr "Impossibile trovare un utente con %s uguale a \"%s\"."
 
 msgid "Could not perform password recovery for the user."
-msgstr ""
+msgstr "Impossibile procedere al recupero password per l'utente."
 
 msgid "This login name is available"
-msgstr ""
+msgstr "Questo nome utente è disponibile"
 
 msgid "This login name is unavailable"
-msgstr ""
+msgstr "Questo nome utente non è disponibile"
 
 msgid "This field can't be blank"
-msgstr ""
+msgstr "Questo campo non può essere vuoto"
 
 msgid "This e-mail address is available"
-msgstr ""
+msgstr "Questo indirizzo email è disponibile"
 
 msgid "This e-mail address is taken"
-msgstr ""
+msgstr "Questo indirizzo email non è disponibile"
 
 msgid "Page not found."
-msgstr ""
+msgstr "Pagina non trovata."
 
 msgid "Comment not allowed in this article"
-msgstr ""
+msgstr "Commenti disabilitati per questo articolo"
 
 msgid "Comment was rejected"
-msgstr ""
+msgstr "Il commento è stato respinto"
 
 msgid "Your comment is waiting for approval."
-msgstr ""
+msgstr "Il tuo commento è in attesa di approvazione."
 
 msgid "Comment successfully created."
-msgstr ""
+msgstr "Commento creato correttamente."
 
 msgid "The comment was not removed."
-msgstr ""
+msgstr "Il commento non è stato rimosso."
 
 msgid "You couldn't mark this comment as spam."
-msgstr ""
+msgstr "Non puoi segnalare questo commento come spam."
 
 msgid "Contact successfully sent"
-msgstr ""
+msgstr "Contatto inviato con successo"
 
 msgid "Contact not sent"
-msgstr ""
+msgstr "Contatto non inviato"
 
 msgid "Notification of new comments to '%s' was successfully canceled"
-msgstr ""
+msgstr "Notifiche per nuovi commenti su '%s' è stato correttamente eliminato"
 
 msgid "Your invitations are being sent."
-msgstr ""
+msgstr "Il tuo invito è stato inviato."
 
 msgid "Please enter a valid email address."
-msgstr ""
+msgstr "Per favore, inserisci un indirizzo email valido."
 
 msgid "Please enter a valid profile."
-msgstr ""
+msgstr "Per favore, inserisci un profilo valido."
 
 msgid "%s's contents tagged with \"%s\""
-msgstr ""
+msgstr "I contenuti di %s sono stati etichettati come \"%s\""
 
 msgid "%s administrator still needs to accept you as member."
-msgstr ""
+msgstr "Gli amministratori %s devono ancora accettarti come membro."
 
 msgid "You just became a member of %s."
-msgstr ""
+msgstr "Sei diventato membro di %s."
 
 msgid "You are already a member of %s."
-msgstr ""
+msgstr "Sei gà un membro di %s."
 
 msgid "You are not a member of %s."
-msgstr ""
+msgstr "Non sei membro di %s."
 
 msgid "%s still needs to accept being your friend."
-msgstr ""
+msgstr "% deve ancora accettare la tua richiesta di amicizia."
 
 msgid "You are already a friend of %s."
-msgstr ""
+msgstr "Sei gà amico di %s."
 
 msgid "You are already following %s."
-msgstr ""
+msgstr "Stai già senguendo %s."
 
 msgid "You are now following %s"
-msgstr ""
+msgstr "Ora stai seguendo %s"
 
 msgid "Select at least one circle to follow %s."
-msgstr ""
+msgstr "Seleziona almeno un circolo per seguire %s."
 
 msgid "You have unblocked %s successfully. "
-msgstr ""
+msgstr "Hai sbloccato %s correttamente. "
 
 msgid "You are not allowed to unblock enterprises in this environment."
 msgstr ""
+"Non hai il permesso di sbloccare le Imprese in questo ambiente di lavoro."
 
 msgid "Message successfully sent."
-msgstr ""
+msgstr "Messaggio inviato Correttamente."
 
 msgid "You can't leave an empty message."
-msgstr ""
+msgstr "Non puoi inviare un messaggio vuoto."
 
 msgid "Comment successfully added."
-msgstr ""
+msgstr "Commento inserito correttamente."
 
 msgid "You can't leave an empty comment."
-msgstr ""
+msgstr "Non puoi inserire un commento vuoto."
 
 msgid "Notification successfully removed."
-msgstr ""
+msgstr "Notifiche rimosse correttamente."
 
 msgid "You could not remove this notification."
-msgstr ""
+msgstr "Non puoi rimuovere queste notifiche."
 
 msgid "You could not answer the captcha."
-msgstr ""
+msgstr "Non puoi rispondere al captcha."
 
 msgid "Upcoming events"
-msgstr ""
+msgstr "Prossimi Eventi"
 
 msgid "Contents"
-msgstr ""
+msgstr "Contenuti"
 
 msgid "Events"
-msgstr ""
+msgstr "Eventi"
 
 msgid ""
 "This profile is inaccessible. You don't have the permission to view the "
 "content here."
 msgstr ""
+"Questo profilo è inaccessibile. Non hai i permessi per vedere i suoi "
+"contenuti."
 
 msgid "Oops ... you cannot go ahead here"
-msgstr ""
+msgstr "Oops...non puoi proseguire più di così"
 
 msgid "Checking availability of login name..."
-msgstr ""
+msgstr "Controllo disponibilità del nome utente..."
 
 msgid "Checking if e-mail address is already taken..."
-msgstr ""
+msgstr "Controllo se l'email è stata già registrata..."
 
 msgid "published an article %{title} %{time_ago}"
-msgstr ""
+msgstr "Pubblicato articolo %{title} %{time_ago}"
 
 msgid "has made 1 new friend %{time_ago}<hr/>%{name}"
 msgid_plural "has made %{num} new friends %{time_ago}<hr/>%{name}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Ha 1 nuovo amico %{time_ago}<hr/>%{name}"
+msgstr[1] "Ha %{num} nuovi amici %{time_ago}<hr/>%{name}"
 
 msgid "has 1 new follower %{time_ago}<hr/>%{name}"
 msgid_plural "has %{num} new followers %{time_ago}<hr/>%{name}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ha 1 nuovo follower %{time_ago}<hr/>%{name}"
+msgstr[1] "ha %{num} nuovi follower %{time_ago}<hr/>%{name}"
 
 msgid "has joined 1 community %{time_ago}<hr/>%{name}"
 msgid_plural "has joined %{num} communities %{time_ago}<hr />%{name}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "è entrato in 1 gruppo %{time_ago}<hr/>%{name}"
+msgstr[1] "è entrato in %{num} gruppi %{time_ago}<hr/>%{name}"
 
 msgid "has joined the community %{time_ago}"
-msgstr ""
+msgstr "è entrato nel gruppo %{time_ago}"
 
 msgid "uploaded %{total} image %{time_ago}"
 msgid_plural "uploaded %{total} images %{time_ago}"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "ha caricato %{total} immagine %{time_ago}"
+msgstr[1] "ha caricato %{total} immagini %{time_ago}"
 
 msgid "sent a message to %{receiver} %{time_ago}<hr/>%{message}"
-msgstr ""
+msgstr "inviato un messaggio a %{receiver} %{time_ago}<hr/>%{message}"
 
 msgid "replied to a scrap from %{receiver} %{time_ago}<hr /> \"%{message}\""
 msgstr ""
+"ha risposto ad un questionario &{receiver} %{time_ago}<hr/> \"%{message}\""
 
 msgid "%{time_ago}<hr /> \"%{text}\""
-msgstr ""
+msgstr "%{time_ago}<hr /> \"%{text}\""
 
 msgid "favorited enterprise %{title} %{time_ago}"
-msgstr ""
+msgstr "imprese preferite %{title} %{time_ago}"
 
 msgid "Help"
-msgstr ""
+msgstr "Aiuto"
 
 msgid "Close"
-msgstr ""
+msgstr "Chiudi"
 
 msgid "This is %s, version %s"
-msgstr ""
+msgstr "Questo è %s, versione %s"
 
 msgid "Categories"
-msgstr ""
+msgstr "Categorie"
 
 msgid "Search..."
-msgstr ""
+msgstr "Cerca..."
 
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr ""
+"Questo è un riquadro per la ricerca. Clicca, inserisci la tua richiesta e "
+"premi \"Invio\" per cercare"
 
 msgid "Click, write and press enter to find"
-msgstr ""
+msgstr "Clicca, scrivi e premi \"Invio\" per cercare"
 
 msgid "Search"
-msgstr ""
+msgstr "Cerca"
 
 msgid "Public"
-msgstr ""
+msgstr "Pubblico"
 
 msgid "Folder"
-msgstr ""
+msgstr "Cartella"
 
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 msgid "Event"
-msgstr ""
+msgstr "Eventi"
 
 msgid "Forum"
-msgstr ""
+msgstr "Forum"
 
 msgid "Article"
-msgstr ""
+msgstr "Articolo"
 
 msgid "Clone %s"
-msgstr ""
+msgstr "Clona %s"
 
 msgid "Online Manual"
-msgstr ""
+msgstr "Guida in linea"
 
 msgid "Chat"
-msgstr ""
+msgstr "Chat"
 
 msgid "Read more"
-msgstr ""
+msgstr "Informazioni su"
 
 msgid "contents|More recent"
-msgstr ""
+msgstr "Contenuti|Più recenti"
 
 msgid "contents|More viewed"
-msgstr ""
+msgstr "contenuti|Più visti"
 
 msgid "contents|Most commented"
-msgstr ""
+msgstr "contenuti|Più commentati"
 
 msgid "New content"
-msgstr ""
+msgstr "Nuovi contenuti"
 
 msgid "people|More recent"
-msgstr ""
+msgstr "persone|Più recenti"
 
 msgid "people|More active"
-msgstr ""
+msgstr "persone|Più attive"
 
 msgid "people|More popular"
-msgstr ""
+msgstr "persone|Più popolari"
 
 msgid "communities|More recent"
-msgstr ""
+msgstr "Gruppi|Più recenti"
 
 msgid "communities|More active"
-msgstr ""
+msgstr "gruppi|Più attivi"
 
 msgid "communities|More popular"
-msgstr ""
+msgstr "gruppi|Più popolari"
 
 msgid "Previous"
-msgstr ""
+msgstr "Precedente"
 
 msgid "See all"
-msgstr ""
+msgstr "Vedi tutti"
 
 msgid "Manage %s"
-msgstr ""
+msgstr "Organizza %s"
 
 msgid "My enterprises"
-msgstr ""
+msgstr "Le mie imprese"
 
 msgid "My communities"
-msgstr ""
+msgstr "I miei gruppi"
 
 msgid "Administration"
-msgstr ""
+msgstr "Amministrazione"
 
 msgid "Configure the environment"
-msgstr ""
+msgstr "Configura l'ambiente di lavoro"
 
 msgid "Manage your pending tasks"
-msgstr ""
+msgstr "Gestisci i Task in sospeso"
 
 msgid "Logout"
-msgstr ""
+msgstr "Esci"
 
 msgid "Leave the system"
-msgstr ""
+msgstr "Lascia il sistema"
 
 msgid "Go to your homepage"
-msgstr ""
+msgstr "Vai alla pagina principale"
 
 msgid "Control panel"
-msgstr ""
+msgstr "Pannello di controllo"
 
 msgid "Configure your personal account and content"
-msgstr ""
+msgstr "Configura il tuo account e contenuti"
 
 msgid "Sign up"
-msgstr ""
+msgstr "Registrati"
 
 msgid " characters left"
 msgstr ""
 
 msgid "Limit of characters reached"
-msgstr ""
+msgstr "Limite di personaggi raggiunto"
 
 msgid "Source: %s"
-msgstr ""
+msgstr "Fonte: %s"
 
 msgid "in %s"
-msgstr ""
+msgstr "in %s"
 
 msgid "Report abuse"
-msgstr ""
+msgstr "Segnala abuso"
 
 msgid "You already reported this profile."
-msgstr ""
+msgstr "Hai già segnalato questo profilo."
 
 msgid "Report this profile for abusive behaviour"
-msgstr ""
+msgstr "Segnala questo profilo per comportamento scorretto"
 
 msgid ""
 "Are you sure that you want to remove the folder \"%s\"? Note that all the "
 "items inside it will also be removed!"
 msgstr ""
+"Sei sicuro di voler eliminare la cartella \"%s\"? Verrà rimosso anche tutto "
+"il suo contenuto!"
 
 msgid "Are you sure that you want to remove the item \"%s\"?"
-msgstr ""
+msgstr "Sei sicuro di voler eliminare questo elemento \"%s\"?"
 
 msgid "Profile organization"
-msgstr ""
+msgstr "Organizzazione profilo"
 
 msgid ""
 "Your profile will be created according to the selected template. Click on "
 "the options to view them."
 msgstr ""
+"Il tuo profilo è stato creato secondo il template selezionato. Clicca sulle "
+"opzioni per vederle."
 
 msgid "Errors while saving"
-msgstr ""
+msgstr "Errore nel salvataggio"
 
 msgid "The content here is available to %s's friends only."
-msgstr ""
+msgstr "Questi contenuti sono disponibili solo per gli amici di %s."
 
 msgid "The contents in this profile is available to members only."
-msgstr ""
+msgstr "I contenuti di questo profilo sono disponibili sono per i membri."
 
 msgid "See all connections"
-msgstr ""
+msgstr "Vedi tutte le connessioni"
 
 msgid "Full screen"
-msgstr ""
+msgstr "Schermo pieno"
 
 msgid "Go to full screen mode"
-msgstr ""
+msgstr "Passa in modalità Schermo Pieno"
 
 msgid "Exit full screen"
-msgstr ""
+msgstr "Esci da Schermo Pieno"
 
 msgid "Exit full screen mode"
-msgstr ""
+msgstr "Esci dalla modalità Schermo Pieno"
 
 msgid "Options"
-msgstr ""
+msgstr "Opzioni"
 
 msgid "Do not allow new content on this article and its children"
-msgstr ""
+msgstr "Non permettere nuovi contenuti su questi articoli e relativi"
 
 msgid "Allow all members to edit this article"
-msgstr ""
+msgstr "Permetti a tutti i membri di modificare questo articolo"
 
 msgid "This topic is opened for replies"
-msgstr ""
+msgstr "Questa discussione è aperta alle risposte"
 
 msgid "I want to receive comments about this article"
-msgstr ""
+msgstr "Voglio ricevere commenti su questo articolo"
 
 msgid "I want to receive a notification of each comment written by e-mail"
-msgstr ""
+msgstr "Voglio ricevere una notifica per ogni commento scritto tramite email"
 
 msgid "I want to approve comments on this article"
-msgstr ""
+msgstr "Voglio approvare commenti su questo articolo"
 
 msgid "I want this article to display the number of hits it received"
-msgstr ""
+msgstr "Voglio che vengano mostrate le visualizzazioni di questo articolo"
 
 msgid "I want this article to display a link to older versions"
-msgstr ""
+msgstr "Voglio che questo articolo mostri i link alle versioni precedenti"
 
 msgid "Post access"
-msgstr ""
+msgstr "Acesso al post"
 
 msgid "Who will be able to see your post?"
-msgstr ""
+msgstr "Chi può vedere questo post?"
 
 msgid "Topic creation"
-msgstr ""
+msgstr "Creazione Discussione"
 
 msgid "Who will be able to create new topics on this forum?"
-msgstr ""
+msgstr "Chi può creare nuove discussioni su questo forum?"
 
 msgid "Community members will not view this content"
-msgstr ""
+msgstr "I membri del gruppo non visualizzeranno questo contenuto"
 
 msgid "Allow only community members entered below to view this content"
 msgstr ""
+"Permetti solo ai membri del gruppo selezionati in basso di vedere i contenuti"
 
 msgid "Type in a name of a community member"
-msgstr ""
+msgstr "Digita un nome di un membro del gruppo"
 
 msgid "New article"
-msgstr ""
+msgstr "Nuovo Articolo"
 
 msgid "Edit"
-msgstr ""
+msgstr "Modifica"
 
 msgid "Follow"
-msgstr ""
+msgstr "Segui"
 
 msgid "Unfollow"
-msgstr ""
+msgstr "Non seguire"
 
 msgid "Delete"
-msgstr ""
+msgstr "Elimina"
 
 msgid "Spread"
-msgstr ""
+msgstr "Diffondi"
 
 msgid "Invite Friends"
-msgstr ""
+msgstr "Invita Amici"
 
 msgid "Add translation"
-msgstr ""
+msgstr "Aggiungi Traduzione"
 
 msgid "Upload files"
-msgstr ""
+msgstr "Carica Files"
 
 msgid "Suggest an article"
-msgstr ""
+msgstr "Consiglia un articolo"
 
 msgid "All versions"
-msgstr ""
+msgstr "Tutte le versioni"
 
 msgid "Articles"
-msgstr ""
+msgstr "Articoli"
 
 msgid "Products"
-msgstr ""
+msgstr "Prodotti"
 
 msgid "Visualization of posts"
-msgstr ""
+msgstr "Visualizzazioni del post"
 
 msgid "I want to display the preview of posts before the text"
-msgstr ""
+msgstr "Voglio mostrare l'anteprima del post prima del testo"
 
 msgid "New post"
-msgstr ""
+msgstr "Nuovo Post"
 
 msgid "Configure blog"
-msgstr ""
+msgstr "Configura Blog"
 
 msgid "Main content"
-msgstr ""
+msgstr "Contenuto Principale"
 
 msgid "This block is invisible. Your visitors will not see it."
-msgstr ""
+msgstr "Questo blocco è invisibile. I tuoi visitatori non lo vedranno."
 
 msgid "Drop Here"
-msgstr ""
+msgstr "Rilascia Qui"
 
 msgid "Can't move up anymore."
-msgstr ""
+msgstr "Non si può spostare più in alto."
 
 msgid "Move block up"
-msgstr ""
+msgstr "Sposta il blocco in alto"
 
 msgid "Can't move down anymore."
-msgstr ""
+msgstr "Non si può spostare più in basso."
 
 msgid "Move block down"
-msgstr ""
+msgstr "Sposta blocco in basso"
 
 msgid "Move to the opposite side"
-msgstr ""
+msgstr "Sposta al lato opposto"
 
 msgid "Remove block"
-msgstr ""
+msgstr "Elimina blocco"
 
 msgid "Are you sure you want to remove this block?"
-msgstr ""
+msgstr "Sei sicuro di voler eliminare questo blocco?"
 
 msgid "Clone"
-msgstr ""
+msgstr "Clona"
 
 msgid "Embed block code"
-msgstr ""
+msgstr "Codice Embed del blocco"
 
 msgid ""
 "Below, youll see a field containing embed code for the block. Just copy the "
 "code and paste it into your website or blogging software."
 msgstr ""
+"Sotto, vedrai un campo contenente il codice embed per il blocco. Copia il "
+"codice e incollalo sul tuo sito web o blog."
 
 msgid "Embed code"
-msgstr ""
+msgstr "Codice Embed"
 
 msgid "Help on this block"
-msgstr ""
+msgstr "Aiuto su questo blocco"
 
-#, fuzzy
 msgid "General category"
 msgid_plural "General categories"
 msgstr[0] "Categoria Generica"
+msgstr[1] "Categorie Generiche"
 
-#, fuzzy
 msgid "Region"
 msgid_plural "Regions"
 msgstr[0] "Regione"
+msgstr[1] "Regioni"
 
 msgid "Type of category"
-msgstr ""
+msgstr "Tipo di categoria"
 
 msgid "Online"
-msgstr ""
+msgstr "In Linea"
 
 msgid "Busy"
-msgstr ""
+msgstr "Occupato"
 
 msgid "Sign out of chat"
-msgstr ""
+msgstr "Esci dalla chat"
 
 msgid "New %s"
-msgstr ""
+msgstr "Nuovo %s"
 
 msgid "Spread this"
-msgstr ""
+msgstr "Diffondi"
 
 msgid ", by %s"
-msgstr ""
+msgstr ", da %s"
 
 msgid "Mark as not Spam"
-msgstr ""
+msgstr "Segna come non Spam"
 
 msgid "Mark as Spam"
-msgstr ""
+msgstr "Segnala come Spam"
 
 msgid "Are you sure you want to mark this comment as SPAM?"
-msgstr ""
+msgstr "Sei sicuro di voler segnalare questo commento come SPAM?"
 
 msgid "Remove"
-msgstr ""
+msgstr "Elimina"
 
 msgid "Are you sure you want to remove this comment and all its replies?"
-msgstr ""
+msgstr "Sei sicuro di voler eliminare questo commento e le relative risposte?"
 
 msgid "Reply"
-msgstr ""
+msgstr "Rispondi"
 
 msgid "%s comments"
-msgstr ""
+msgstr "%s commenta"
 
 msgid "no comments yet"
-msgstr ""
+msgstr "Non ci sono commenti"
 
 msgid "One comment"
-msgstr ""
+msgstr "Un commento"
 
 msgid "This is a private content"
-msgstr ""
+msgstr "Questo è un contenuto privato"
 
 msgid "Translations"
-msgstr ""
+msgstr "Traduzioni"
 
 msgid "String"
 msgstr ""
 
 msgid "Text"
-msgstr ""
+msgstr "Testo"
 
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 msgid "Numeric"
-msgstr ""
+msgstr "Numerico"
 
 msgid "Link"
-msgstr ""
+msgstr "Collegamento"
 
 msgid "List"
-msgstr ""
+msgstr "Lista"
 
 msgid "Checkbox"
 msgstr ""
 
 msgid "Yes"
-msgstr ""
+msgstr "Si"
 
 msgid "No"
-msgstr ""
+msgstr "No"
 
 #, fuzzy
 msgid "%{month_name} %{year}"
 msgstr "%{day} %{month_name} %{year}"
 
 msgid "%{month_name} %{day}"
-msgstr ""
+msgstr "%{month_name} %{day}"
 
 msgid "%{month}/%{day}/%{year}"
-msgstr ""
+msgstr "%{month}/%{day}/%{year}"
 
 msgid "%{month}/%{day}"
-msgstr ""
+msgstr "%{month}/%{day}"
 
 msgid "%{month_name} %{day}, %{year}"
 msgstr "%{day} %{month_name} %{year}"
 
 msgid "%{month}/%{day}/%{year}, %{hour}:%{minutes}"
-msgstr ""
+msgstr "%{month}/%{day}/%{year}, %{hour}:%{minutes}"
 
-#, fuzzy
 msgid "%{month_name} %{day}, %{year} %{hour}:%{minutes}"
-msgstr "%{day} %{month_name} %{year}"
+msgstr "%{month_name} %{day}, %{year} %{hour}:%{minutes}"
 
-#, fuzzy
 msgid "%{month_name} %{day} %{hour}:%{minutes}"
-msgstr "%{day} %{month_name} %{year}"
+msgstr "%{month_name} %{day} %{hour}:%{minutes}"
 
 msgid "from %{month} %{day1} to %{day2}, %{year}"
-msgstr ""
+msgstr "dal %{month} %{day1} al %{day2}, %{year}"
 
 msgid "from %{date1} to %{date2}, %{year}"
-msgstr ""
+msgstr "dal %{date1} al %{date2}, %{year}"
 
 msgid "from %{date1} to %{date2}"
-msgstr ""
+msgstr "dal %{date1} al %{date2}"
 
 msgid "Sun"
-msgstr ""
+msgstr "Dom"
 
 msgid "Mon"
-msgstr ""
+msgstr "Lun"
 
 msgid "Tue"
-msgstr ""
+msgstr "Mar"
 
 msgid "Wed"
-msgstr ""
+msgstr "Mer"
 
 msgid "Thu"
-msgstr ""
+msgstr "Gio"
 
 msgid "Fri"
-msgstr ""
+msgstr "Ven"
 
 msgid "Sat"
-msgstr ""
+msgstr "Sab"
 
 msgid "%{month}"
-msgstr ""
+msgstr "%{month}"
 
 msgid "%{month} %{year}"
-msgstr ""
+msgstr "%{month} %{year}"
 
 msgid "Are you sure you want to visit this web site?"
-msgstr ""
+msgstr "Sei sicuro di voler visitare questo sito web?"
 
 msgid "Approved"
-msgstr ""
+msgstr "Approvato"
 
 msgid "Rejected"
-msgstr ""
+msgstr "Rifutato"
 
 msgid "No events for this day"
-msgstr ""
+msgstr "Nessun evento per oggi"
 
 msgid "Events for %s"
-msgstr ""
+msgstr "Eventi per %s"
 
 msgid "No events for this month"
-msgstr ""
+msgstr "Nessun evento questo mese"
 
 msgid " to "
-msgstr ""
+msgstr " a "
 
 msgid "Place: "
-msgstr ""
+msgstr "Luogo: "
 
 msgid "Yes, I will go!"
-msgstr ""
+msgstr "Si, ci sarò!"
 
 msgid "I will not"
-msgstr ""
+msgstr "Non ci sarò"
 
 msgid "I'm interested"
-msgstr ""
+msgstr "Sono interessato"
 
 msgid "Will you go?"
-msgstr ""
+msgstr "Ci andrai?"
 
 msgid "Administrator must approve all new organizations"
-msgstr ""
+msgstr "Gli amministratori devono approvare tutte le nuove organizzazioni"
 
 msgid "Administrator assigns validator organizations per region."
-msgstr ""
+msgstr "Gli amministratori assegnano validatori di organizzazioni per regione."
 
 msgid "All new organizations are approve by default"
-msgstr ""
+msgstr "Tutte le nuove organizzazioni sono approvate di base"
 
 msgid "(empty folder)"
-msgstr ""
+msgstr "(Cartella Vuota)"
 
 msgid "Edit folder"
-msgstr ""
+msgstr "Modifica Cartella"
 
 msgid "Username"
-msgstr ""
+msgstr "Nome Utente"
 
 msgid "Cancel"
-msgstr ""
+msgstr "Annulla"
 
 msgid "Select the State"
-msgstr ""
+msgstr "Seleziona lo Stato"
 
 msgid "Select the City"
-msgstr ""
+msgstr "Seleziona la Città"
 
 msgid "State:"
-msgstr ""
+msgstr "Stato:"
 
 msgid "City:"
-msgstr ""
+msgstr "Città:"
 
 msgid "* field is mandatory"
-msgstr ""
+msgstr "* campo obbligatorio"
 
 msgid "Done"
-msgstr ""
+msgstr "Fatto"
 
 msgid "Today"
-msgstr ""
+msgstr "Oggi"
 
 msgid "Sunday"
-msgstr ""
+msgstr "Domenica"
 
 msgid "Monday"
-msgstr ""
+msgstr "Lunedì"
 
 msgid "Tuesday"
-msgstr ""
+msgstr "Martedì"
 
 msgid "Wednesday"
-msgstr ""
+msgstr "Mercoledì"
 
 msgid "Thursday"
-msgstr ""
+msgstr "Giovedì"
 
 msgid "Friday"
-msgstr ""
+msgstr "Venerdì"
 
 msgid "Saturday"
-msgstr ""
+msgstr "Sabato"
 
 msgid "Su"
-msgstr ""
+msgstr "Do"
 
 msgid "Mo"
-msgstr ""
+msgstr "Lu"
 
 msgid "Tu"
-msgstr ""
+msgstr "Ma"
 
 msgid "We"
-msgstr ""
+msgstr "Me"
 
 msgid "Th"
-msgstr ""
+msgstr "Gi"
 
 msgid "Fr"
-msgstr ""
+msgstr "Ve"
 
 msgid "Sa"
-msgstr ""
+msgstr "Sa"
 
 msgid "January"
 msgstr "gennaio"
@@ -1455,688 +1493,702 @@ msgid "December"
 msgstr "dicembre"
 
 msgid "Jan"
-msgstr ""
+msgstr "Gen"
 
 msgid "Feb"
-msgstr ""
+msgstr "Feb"
 
 msgid "Mar"
-msgstr ""
+msgstr "Mar"
 
 msgid "Apr"
-msgstr ""
+msgstr "Apr"
 
 msgid "Jun"
-msgstr ""
+msgstr "Giu"
 
 msgid "Jul"
-msgstr ""
+msgstr "Lug"
 
 msgid "Aug"
-msgstr ""
+msgstr "Ago"
 
 msgid "Sep"
-msgstr ""
+msgstr "Set"
 
 msgid "Oct"
-msgstr ""
+msgstr "Ott"
 
 msgid "Nov"
-msgstr ""
+msgstr "Nov"
 
 msgid "Dec"
-msgstr ""
+msgstr "Dic"
 
 msgid "Next"
-msgstr ""
+msgstr "Prossimo"
 
 msgid "Prev"
-msgstr ""
+msgstr "Precedente"
 
 msgid "Wk"
-msgstr ""
+msgstr "Sett"
 
 msgid "From"
-msgstr ""
+msgstr "Da"
 
 msgid "Until"
-msgstr ""
+msgstr "fino al"
 
 msgid "root"
 msgstr ""
 
 msgid "New discussion topic"
-msgstr ""
+msgstr "Nuovo tema di discussione"
 
 msgid "Configure forum"
-msgstr ""
+msgstr "Configura Forum"
 
 msgid "Discussion topic"
-msgstr ""
+msgstr "Argomento di Discussione"
 
 msgid "Posts"
-msgstr ""
+msgstr "Post"
 
 msgid "Last post"
-msgstr ""
+msgstr "Ultimo Post"
 
 msgid "by"
-msgstr ""
+msgstr "Di"
 
 msgid "Allow images from this gallery to be downloaded"
-msgstr ""
+msgstr "Premetti di scaricare le immagini da questa galleria"
 
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
 "It does not affect the language of the content created by other users."
 msgstr ""
+"La lingua che hai scelto qui è quella usata per opzioni, tasti, etc. Questo "
+"non modifica la lingua dei contenuti creato da altri utenti."
 
 msgid "(No icon)"
-msgstr ""
+msgstr "(Nessun Icona)"
 
 msgid "New"
-msgstr ""
+msgstr "Nuovo"
 
 msgid "Save"
-msgstr ""
+msgstr "Salva"
 
 msgid "Send"
-msgstr ""
+msgstr "Invia"
 
 msgid "Add"
-msgstr ""
+msgstr "Aggiungi"
 
 msgid "Up"
-msgstr ""
+msgstr "Su"
 
 msgid "Down"
-msgstr ""
+msgstr "Giù"
 
 msgid "Left"
-msgstr ""
+msgstr "Sinistra"
 
 msgid "Right"
-msgstr ""
+msgstr "Destra"
 
+#, fuzzy
 msgid "Gray up"
-msgstr ""
+msgstr "Grigio Su"
 
+#, fuzzy
 msgid "Gray down"
-msgstr ""
+msgstr "Grigio giù"
 
+#, fuzzy
 msgid "Gray left"
-msgstr ""
+msgstr "Grigio a Sinistra"
 
+#, fuzzy
 msgid "Gray Right"
-msgstr ""
+msgstr "Grigio a Destra"
 
 msgid "Read up"
-msgstr ""
+msgstr "Leggi"
 
 msgid "Ok"
-msgstr ""
+msgstr "Ok"
 
 msgid "Eyes"
-msgstr ""
+msgstr "Occhi"
 
 msgid "Photos"
-msgstr ""
+msgstr "Foto"
 
 msgid "Person"
-msgstr ""
+msgstr "Persone"
 
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 msgid "Package"
-msgstr ""
+msgstr "Pacchetto"
 
 msgid "To do list"
-msgstr ""
+msgstr "Lista \"da fare\""
 
 msgid "Community's profile"
-msgstr ""
+msgstr "Profilo del gruppo"
 
 msgid "Join this community"
-msgstr ""
+msgstr "Entra in questo gruppo"
 
 msgid "Agenda"
-msgstr ""
+msgstr "Agenda"
 
 msgid "Image gallery"
-msgstr ""
+msgstr "Galleria Immagini"
 
 msgid "Agrometeorology"
-msgstr ""
+msgstr "Agrometeorologia"
 
 msgid "Agronomy"
-msgstr ""
+msgstr "Agronomia"
 
 msgid "Foods"
-msgstr ""
+msgstr "Cibi e bevande"
 
 msgid "Anthropology"
-msgstr ""
+msgstr "Antropologia"
 
 msgid "Architecture"
-msgstr ""
+msgstr "Architettura"
 
 msgid "Arts"
-msgstr ""
+msgstr "Arte"
 
 msgid "Astronomy"
-msgstr ""
+msgstr "Astronomia"
 
 msgid "Librarianship"
-msgstr ""
+msgstr "Editoria"
 
 msgid "Biosciences"
-msgstr ""
+msgstr "Bioscienza"
 
 msgid "Biophysics"
-msgstr ""
+msgstr "Biofisica"
 
 msgid "Biology"
-msgstr ""
+msgstr "Biologia"
 
 msgid "Biotechnology"
-msgstr ""
+msgstr "Biotecnologia"
 
 msgid "Botany"
-msgstr ""
+msgstr "Botanica"
 
 msgid "Science Politics"
-msgstr ""
+msgstr "Scienze Politiche"
 
 msgid "Accounting and Actuarial Science"
-msgstr ""
+msgstr "Accounting e ragioneria"
 
 msgid "Morphologic Sciences"
-msgstr ""
+msgstr "Scienze Morfologiche"
 
 msgid "Computer Science"
-msgstr ""
+msgstr "Informatica"
 
 msgid "Rural Development"
-msgstr ""
+msgstr "Sviluppo Rurale"
 
 msgid "Law"
-msgstr ""
+msgstr "Legge"
 
 msgid "Ecology"
-msgstr ""
+msgstr "Ecologia"
 
 msgid "Economy"
-msgstr ""
+msgstr "Economia"
 
 msgid "Education"
-msgstr ""
+msgstr "Educazione"
 
 msgid "Long-distance Education"
-msgstr ""
+msgstr "Educazione a lungo termine"
 
 msgid "Physical Education"
-msgstr ""
+msgstr "Educazione Fisica"
 
 msgid "Professional Education"
-msgstr ""
+msgstr "Educazione Professionale"
 
 msgid "Nursing"
-msgstr ""
+msgstr "Infermieristica"
 
 msgid "Engineerings"
-msgstr ""
+msgstr "Ingegneria"
 
 msgid "Basic and Average education"
-msgstr ""
+msgstr "Educazione Base e Primaria"
 
 msgid "Statistics"
-msgstr ""
+msgstr "Statistica"
 
 msgid "Stratigraphy"
-msgstr ""
+msgstr "Stratigrafia Geologica"
 
 msgid "Pharmacy"
-msgstr ""
+msgstr "Farmacia"
 
 msgid "Pharmacology"
-msgstr ""
+msgstr "Farmacologia"
 
 msgid "Philosophy"
-msgstr ""
+msgstr "Filosofia"
 
 msgid "Physics"
-msgstr ""
+msgstr "Fisica"
 
 msgid "Plant Protection"
-msgstr ""
+msgstr "Protezione ambientale"
 
 msgid "Genetics"
-msgstr ""
+msgstr "Genetica"
 
 msgid "Geosciences"
-msgstr ""
+msgstr "Scienze della Terra"
 
 msgid "Geography"
-msgstr ""
+msgstr "Geografia"
 
 msgid "Geology"
-msgstr ""
+msgstr "Geologia"
 
 msgid "Hydrology"
-msgstr ""
+msgstr "Idrologia"
 
 msgid "Hydromechanics"
-msgstr ""
+msgstr "Idromeccanica"
 
 msgid "History"
-msgstr ""
+msgstr "Storia"
 
 msgid "Horticulture"
-msgstr ""
+msgstr "Orticultura"
 
 msgid "Informatics"
-msgstr ""
+msgstr "Informatica"
 
 msgid "Interdisciplinary"
-msgstr ""
+msgstr "Interdiscipliare"
 
 msgid "Journalism"
-msgstr ""
+msgstr "Giornalismo"
 
 msgid "Letters"
-msgstr ""
+msgstr "Lettere"
 
 msgid "Languages"
-msgstr ""
+msgstr "Lingue"
 
 msgid "Mathematics"
-msgstr ""
+msgstr "Matematica"
 
 msgid "Medicines"
-msgstr ""
+msgstr "Chimica e tecnica farmaceutica"
 
 msgid "Medicine"
-msgstr ""
+msgstr "Medicina"
 
 msgid "Metallurgy"
-msgstr ""
+msgstr "Siderurgia"
 
 msgid "Microbiology"
-msgstr ""
+msgstr "Microbiologia"
 
 msgid "Mineralogy"
-msgstr ""
+msgstr "Mineralogia"
 
 msgid "Music"
-msgstr ""
+msgstr "Musica"
 
 msgid "Nutrition"
-msgstr ""
+msgstr "Nutrizionismo"
 
 msgid "Odontology"
-msgstr ""
+msgstr "Odontologia"
 
 msgid "Paleontology"
-msgstr ""
+msgstr "Paleontologia"
 
 msgid "Petrology"
-msgstr ""
+msgstr "Petrolchimica"
 
 msgid "Production"
-msgstr ""
+msgstr "Produzione"
 
 msgid "Psychology"
-msgstr ""
+msgstr "Psicologia"
 
 msgid "Psychiatry"
-msgstr ""
+msgstr "Psichiatria"
 
 msgid "Quality"
-msgstr ""
+msgstr "Controllo Qualità"
 
 msgid "Chemistry"
-msgstr ""
+msgstr "Chimica"
 
 msgid "Health"
-msgstr ""
+msgstr "Salute e Benessere"
 
 msgid "Remote Sensing"
-msgstr ""
+msgstr "Sensi Remoti"
 
 msgid "Forestry"
-msgstr ""
+msgstr "Silvicoltura"
 
 msgid "Sociology"
-msgstr ""
+msgstr "Sociologia"
 
 msgid "Ground"
-msgstr ""
+msgstr "Terreno"
 
 msgid "Theater"
-msgstr ""
+msgstr "Teatro"
 
 msgid "Transport"
-msgstr ""
+msgstr "Trasporti e Logistica"
 
 msgid "Urbanism"
-msgstr ""
+msgstr "Urbanismo"
 
 msgid "Veterinary Medicine"
-msgstr ""
+msgstr "Medicina Veterinaria"
 
 msgid "Zoology"
-msgstr ""
+msgstr "Zoologia"
 
 msgid "Zootecnia"
-msgstr ""
+msgstr "Zootecnica"
 
 msgid "Others"
-msgstr ""
+msgstr "Altro"
 
 msgid "Post-Doctoral"
-msgstr ""
+msgstr "Post-Dottorato"
 
 msgid "Ph.D."
-msgstr ""
+msgstr "Ph.D."
 
 msgid "Masters"
-msgstr ""
+msgstr "Master"
 
 msgid "Graduate"
-msgstr ""
+msgstr "Laurea"
 
 msgid "High School"
-msgstr ""
+msgstr "Scuola Superiore"
 
 msgid "Elementary School"
-msgstr ""
+msgstr "Scuola Elementare"
 
 msgid "Concluded"
-msgstr ""
+msgstr "Concluso"
 
 msgid "Incomplete"
-msgstr ""
+msgstr "Incompleto"
 
 msgid "Ongoing"
-msgstr ""
+msgstr "In frequenza"
 
 msgid "[Select ...]"
-msgstr ""
+msgstr "[Seleziona...]"
 
 msgid "Select a country..."
-msgstr ""
+msgstr "Seleziona una nazione..."
 
 msgid "Select a state..."
-msgstr ""
+msgstr "Seleziona uno stato/provincia..."
 
 msgid "Select a city..."
-msgstr ""
+msgstr "Seleziona una città..."
 
 msgid "Select domain"
-msgstr ""
+msgstr "Seleziona dominio"
 
 msgid "Preferred domain name:"
-msgstr ""
+msgstr "Nome dominio preferito:"
 
 msgid "This field must be public"
-msgstr ""
+msgstr "Questo campo deve essere pubblico"
 
 msgid "ZIP code"
-msgstr ""
+msgstr "CAP"
 
 msgid "e-Mail"
-msgstr ""
+msgstr "Email"
 
 msgid "Jabber"
 msgstr ""
 
 msgid "Date of birth"
-msgstr ""
+msgstr "Data di Nascita"
 
 msgid "Profile created at"
-msgstr ""
+msgstr "Profilo creato il"
 
 msgid "Privacy setting"
-msgstr ""
+msgstr "Impostazioni privacy"
 
 msgid "Tags"
-msgstr ""
+msgstr "Etichette"
 
 msgid "Following"
-msgstr ""
+msgstr "Stai Seguendo"
 
 msgid "Basic information"
-msgstr ""
+msgstr "Informazioni Base"
 
-#, fuzzy
 msgid "Contact"
-msgstr "Contenuto"
+msgstr "Contatto"
 
 msgid "Male"
-msgstr ""
+msgstr "Uomo"
 
 msgid "Female"
-msgstr ""
+msgstr "Donna"
 
 msgid "One post"
 msgid_plural "%{num} posts"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Un post"
+msgstr[1] "%{num} post"
 
 msgid "One picture"
 msgid_plural "%{num} pictures"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Un immagine"
+msgstr[1] "%{num} immagini"
 
 msgid "non registered gender"
-msgstr ""
+msgstr "Genere non dichiarato"
 
 msgid "Wall"
-msgstr ""
+msgstr "Muro"
 
 msgid "Send an e-mail"
-msgstr ""
+msgstr "Manda un Email"
 
 msgid "Join"
-msgstr "Accedere"
+msgstr "Entra"
 
 msgid "Leave community"
-msgstr ""
+msgstr "Lascia gruppo"
 
 msgid "Profile links"
-msgstr ""
+msgstr "Link Profilo"
 
 msgid "Filter profiles by name"
-msgstr ""
+msgstr "Filtra profili per nome"
 
 msgid "The id of the %s"
-msgstr ""
+msgstr "L'ID di %s"
 
 msgid "Title of the article"
-msgstr ""
+msgstr "Titolo dell'articolo"
 
 msgid "Name of article's profile"
-msgstr ""
+msgstr "Profilo del nome articolo"
 
 msgid "Identifier of article's profile"
-msgstr ""
+msgstr "Identificatore del profilo dell'articolo"
 
 msgid "Identifier of article's author"
-msgstr ""
+msgstr "Identificatore dell'autore dell'articolo"
 
 msgid "Name of article's author"
-msgstr ""
+msgstr "Nome dell'autore"
 
 msgid "Email of article's author"
-msgstr ""
+msgstr "Email dell'autore"
 
 msgid "Identifier of the block's profile"
-msgstr ""
+msgstr "Identificatore del profilo del blocco"
 
 msgid "Name of the block's profile"
-msgstr ""
+msgstr "Nome del profilo del blocco"
 
 msgid "Email of the block's profile"
-msgstr ""
+msgstr "Email del profilo del blocco"
 
 msgid "Title of the block"
-msgstr ""
+msgstr "Titolo del blocco"
 
 msgid "Identifier of the current person that is logged in the system"
-msgstr ""
+msgstr "Identificatore della persona che è connessa al sistema"
 
 msgid "More popular"
-msgstr ""
+msgstr "Più popolari"
 
 msgid "More active"
-msgstr ""
+msgstr "Più attivi"
 
 msgid "More recent"
-msgstr ""
+msgstr "Più recenti"
 
 msgid "More relevant"
-msgstr ""
+msgstr "Più rilevanti"
 
 msgid "More comments"
-msgstr ""
+msgstr "Più commentati"
 
 msgid "Map"
-msgstr ""
+msgstr "Mappa"
 
 msgid "Full"
-msgstr ""
+msgstr "Pieno"
 
 msgid "Compact"
-msgstr ""
+msgstr "Compatta"
 
 #, fuzzy
 msgid "content"
 msgstr "Contenuto"
 
 msgid "Tagged with"
-msgstr ""
+msgstr "Etichettato come"
 
 msgid ", "
-msgstr ""
+msgstr ", "
 
 msgid "search in all categories"
-msgstr ""
+msgstr "Trova in tutte le categorie"
 
 msgid "Display"
-msgstr ""
+msgstr "Mostra"
 
 msgid "Choose a template"
-msgstr ""
+msgstr "Scegli un template"
 
 msgid "No tags yet."
-msgstr ""
+msgstr "Nessuna etichetta."
 
 msgid "What are tags?"
-msgstr ""
+msgstr "Cosa sono le etichette?"
 
 msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
-msgstr ""
+msgstr "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
 
 msgid "one item"
 msgid_plural "%d items"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Un elemento"
+msgstr[1] "%d elementi"
 
 msgid "Type in an keyword"
-msgstr ""
+msgstr "Scrivi su tastiera"
 
 msgid "No results"
-msgstr ""
+msgstr "Nessun risultato"
 
 msgid "Searching..."
-msgstr ""
+msgstr "Cerco..."
 
 msgid "Type in a search term"
-msgstr ""
+msgstr "Inserisci un termine di ricerca"
 
 msgid "All users"
-msgstr ""
+msgstr "Tutti gli utenti"
 
 msgid "Admin users"
-msgstr ""
+msgstr "Utenti amministratori"
 
 msgid "Activated users"
-msgstr ""
+msgstr "Utenti attivi"
 
 msgid "Deativated users"
-msgstr ""
+msgstr "Utenti non attivi"
 
 msgid "Recently logged users"
-msgstr ""
+msgstr "Utenti collegati recentemente"
 
 msgid "Filter"
-msgstr ""
+msgstr "Filtro"
 
 msgid "[%s] you got a new comment!"
-msgstr ""
+msgstr "[%s] hai un nuovo commento!"
 
 msgid "[%s] %s commented on a content of %s"
-msgstr ""
+msgstr "[%s] %s ha commentato sul contenuto di %s"
 
 msgid "Message"
-msgstr ""
+msgstr "Messaggio"
 
 msgid "Subject"
-msgstr ""
+msgstr "Oggetto"
 
 msgid "City and state"
-msgstr ""
+msgstr "Città e stato"
 
 msgid "Sent by %s."
-msgstr ""
+msgstr "Inviato da %s."
 
 msgid "Sent by Noosfero."
-msgstr ""
+msgstr "Inviato da Noosfero."
 
 msgid "Sent by community %s."
-msgstr ""
+msgstr "Inviato dal gruppo %s."
 
 msgid "[%s] Pending tasks"
-msgstr ""
+msgstr "[%s] Task da svolgere"
 
 msgid "[%s] You received a scrap!"
-msgstr ""
+msgstr "[%s] Hai ricevuto un disegno!"
 
 msgid "[%{environment}] Welcome to %{environment} mail!"
-msgstr ""
+msgstr "[%{environment}] Benvenuto a %{environment} mail!"
 
 msgid "[%s] Activate your account"
-msgstr ""
+msgstr "[%s] Attiva il tuo account"
 
 msgid "Welcome to environment %s"
-msgstr ""
+msgstr "Benvenuto all'ambiente di lavoro %s"
 
 msgid "[%s] What about grow up your network?"
-msgstr ""
+msgstr "[%s] Che ne pensi di far crescere la tua rete?"
 
 msgid "Abuse complaint (%s)"
-msgstr ""
+msgstr "Segnalazione abuso (%s)"
 
 msgid "Abuse complaint"
-msgstr ""
+msgstr "Segnalazione Abuso"
 
 msgid "%{linked_subject} was reported due to inappropriate behavior."
 msgstr ""
+"%{linked_subject} è stato segnalato a causa di un comportamento "
+"inappropriato."
 
 msgid ""
 "Your profile was reported by the users of %s due to inappropriate behavior. "
 "The administrators of the environment are now reviewing the report. To solve "
 "this misunderstanding, please contact the administrators."
 msgstr ""
+"Il tuo profilo è stato segnalato dagli utenti di %s a causa di un "
+"comportamento inappropriato. Gli amministratori dell'ambiente di lavoro "
+"stanno esaminando la segnalazione. Per chiarire meglio la situazione, per "
+"favore, contatta gli amministratori."
 
 msgid ""
 "Your profile was disabled by the administrators of %s due to inappropriate "
 "behavior. To solve this misunderstanding please contact them."
 msgstr ""
+"Il tuo profilo è stato disattivato dagli amministratori di %s a causa di un "
+"comportamento inappropriato. Per chiarire meglio la situazione, per favore, "
+"contattali."
 
 msgid "%s was reported due to inappropriate behavior."
-msgstr ""
+msgstr "% è stato segnalato a causa di un comportamento inappropriato."
 
 msgid ""
 "The users of %{environment} reported %{reported} due to inappropriate "
@@ -2144,6 +2196,11 @@ msgid ""
 "contents reported by these users. Please verify the reports and decide "
 "whether this profile must be disabled or not."
 msgstr ""
+"L'utente di %{environment} ha segnalato %{reported} a causa di un "
+"comportamento inappropriato. E' stato creato un task con tutti i report, "
+"completi di segnalazioni degli utenti e le loro motivazioni. Per favore, "
+"verifica la segnalazione e decidi se questo profilo deve essere disabilitato "
+"oppure no."
 
 msgid "%{requestor} wants to be your friend."
 msgstr "%{requestor} vuole essere tuo amico."
@@ -2726,7 +2783,7 @@ msgid "Spam"
 msgstr ""
 
 msgid "Tasks"
-msgstr ""
+msgstr "Tasks"
 
 msgid "actions"
 msgstr ""
@@ -2918,10 +2975,10 @@ msgid "%{requestor} wants to activate the following email: %{subject}."
 msgstr ""
 
 msgid "Task Rejection"
-msgstr ""
+msgstr "Rifiuta Task"
 
 msgid "Task Acceptance"
-msgstr ""
+msgstr "Accetta Task"
 
 msgid "Organization Members"
 msgstr ""
@@ -3565,11 +3622,10 @@ msgid "Validate enterprise"
 msgstr ""
 
 msgid "Perform task"
-msgstr ""
+msgstr "Lavora Task"
 
-#, fuzzy
 msgid "View tasks"
-msgstr "Mostra Tutto"
+msgstr "Mostra Task"
 
 msgid "Moderate comments"
 msgstr ""
@@ -3765,10 +3821,10 @@ msgid "Hidden"
 msgstr ""
 
 msgid "Task"
-msgstr ""
+msgstr "Task"
 
 msgid "%{requestor} sent you a task."
-msgstr ""
+msgstr "%{requestor} ti ha inviato un task."
 
 msgid "Text article"
 msgstr ""
@@ -6135,13 +6191,13 @@ msgid "Dear %s"
 msgstr ""
 
 msgid "You have %d pending task(s)."
-msgstr ""
+msgstr "Hai %d task da lavorare."
 
 msgid "Click in address below to process task(s):"
-msgstr ""
+msgstr "Clicca sull'indirizzo in basso per procedere al task:"
 
 msgid "%s has %d pending task(s)."
-msgstr ""
+msgstr "%s ha %d task da lavorare."
 
 msgid "has published on community %s"
 msgstr ""
@@ -6303,7 +6359,7 @@ msgid "Email Configuration:"
 msgstr ""
 
 msgid "Send administrator Email for every task"
-msgstr ""
+msgstr "Manda un email all'amministratore per ogni task"
 
 msgid "Invitation moderation:"
 msgstr ""
@@ -7085,7 +7141,7 @@ msgid "Comment Spam"
 msgstr ""
 
 msgid "Task Spam"
-msgstr ""
+msgstr "Spam Task"
 
 msgid "Dear %s,"
 msgstr ""
@@ -7097,6 +7153,8 @@ msgid ""
 "Access your list of tasks or your control panel to see this and other "
 "pending actions that need your attention."
 msgstr ""
+"Accedi alla tua lista di task o dal tuo pannello di controllo per vedere "
+"questo e le altre azioni da completare che necessitano del tuo aiuto."
 
 msgid "View deatils"
 msgstr ""
@@ -7148,10 +7206,10 @@ msgid "Assigned to"
 msgstr ""
 
 msgid "View task details"
-msgstr ""
+msgstr "Vedi dettagli Task"
 
 msgid "Hidden task details"
-msgstr ""
+msgstr "Nascondi dettagli Task"
 
 msgid "Created:"
 msgstr ""
@@ -7166,299 +7224,313 @@ msgid "Select a rejection email template:"
 msgstr ""
 
 msgid "%s's pending tasks"
-msgstr ""
+msgstr "Task pendenti di %s"
 
 msgid "This error happened with the following tasks: "
-msgstr ""
+msgstr "Questo errore è avvenuto con il seguente task: "
 
 msgid "Type of task"
-msgstr ""
+msgstr "Tipo di Task"
 
 msgid "Text filter"
 msgstr ""
 
 msgid "No pending tasks for %s"
-msgstr ""
+msgstr "Nessun task in lavorazione per %s"
 
 msgid "View processed tasks"
-msgstr ""
+msgstr "Vedi task lavorati"
 
 msgid "Set all tasks to:"
-msgstr ""
+msgstr "Imposta tutti i task a:"
 
 msgid "Save tasks"
-msgstr ""
+msgstr "Salva Task"
 
 msgid "New request for %s"
-msgstr ""
+msgstr "Nuova richiesta per %s"
 
 msgid "New request"
-msgstr ""
+msgstr "Nuova richiesta"
 
 msgid "To: "
-msgstr ""
+msgstr "A: "
 
 msgid "%s's processed tasks"
-msgstr ""
+msgstr "Task lavorati da %s"
 
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 msgid "Text Filter:"
-msgstr ""
+msgstr "Filtro testo:"
 
 msgid "Requestor:"
-msgstr ""
+msgstr "Richiedente:"
 
 msgid "Creation date"
-msgstr ""
+msgstr "Data Creazione"
 
 msgid "Processed date"
-msgstr ""
+msgstr "Data lavoro"
 
 msgid "No processed tasks."
-msgstr ""
+msgstr "Nessun task lavorato."
 
+#, fuzzy
 msgid "Ticket: %s"
-msgstr ""
+msgstr "Ticket: %s"
 
 msgid "Created at %s by %s"
-msgstr ""
+msgstr "Creato il %s da %s"
 
 msgid "Owner: %s"
-msgstr ""
+msgstr "Proprietario: %s"
 
 msgid "Status: %s"
-msgstr ""
+msgstr "Stato: %s"
 
 msgid "Closing statement: %s"
-msgstr ""
+msgstr "Chiusura: %s"
 
 msgid "The template could not be saved"
-msgstr ""
+msgstr "Il template non può essere salvato"
 
 msgid "There were problems with the following fields:"
-msgstr ""
+msgstr "Si è verificato un problema con i seguenti campi:"
 
 msgid "Create enterprise template"
-msgstr ""
+msgstr "Crea template Impresa"
 
 msgid "Create community template"
-msgstr ""
+msgstr "Crea template Gruppo"
 
 msgid "Create person template"
-msgstr ""
+msgstr "Crea template Persona"
 
 msgid "Edit Templates"
-msgstr ""
+msgstr "Modifica template"
 
 msgid "Manage the templates used on creation of profiles"
-msgstr ""
+msgstr "Organizza i template usati sulla creazione dei profili"
 
 msgid "New..."
-msgstr ""
+msgstr "Nuovo..."
 
 msgid "Create a new template for %s"
-msgstr ""
+msgstr "Crea un nuovo template per %s"
 
 msgid "Template"
-msgstr ""
+msgstr "Template"
 
 msgid "Edit template \"%s\""
-msgstr ""
+msgstr "Modifica Template \"%s\""
 
 msgid "is the default template"
-msgstr ""
+msgstr "è un template base"
 
 msgid "Set as default"
-msgstr ""
+msgstr "Imposta come di base"
 
 msgid "This is defatult template"
-msgstr ""
+msgstr "Questo è un template di base"
 
 msgid "Edit settings"
-msgstr ""
+msgstr "Modifica impostazioni"
 
 msgid "Edit sideblocks"
-msgstr ""
+msgstr "Modifica blocchi al lato"
 
 msgid "Edit header/footer"
-msgstr ""
+msgstr "Modifica testa o piè di pagina"
 
 msgid "Editing Appearance"
-msgstr ""
+msgstr "Modifica visualizzazione"
 
 msgid "Select template"
-msgstr ""
+msgstr "Seleziona Template"
 
 msgid "The \"%s\" template"
-msgstr ""
+msgstr "Il \"%s\" template"
 
 msgid "Select theme"
-msgstr ""
+msgstr "Scegli tema"
 
 msgid "Use the default theme"
-msgstr ""
+msgstr "Usa il tema di base"
 
 msgid "Are you sure you want to use the environment default theme?"
-msgstr ""
+msgstr "Sei sicuro di voler usare il tema di base dell'ambiente di lavoro?"
 
 msgid "Editing trusted site"
-msgstr ""
+msgstr "Modifica siti verificati"
 
 msgid "Manage trusted sites"
-msgstr ""
+msgstr "Organizza siti verificati"
 
 msgid ""
 "Here you can manage the list of trusted sites of your environment. A trusted "
 "site is a site that you consider safe enough to incorporate their content "
 "through <em>iframes</em>."
 msgstr ""
+"Qui puoi lavorare sulla lista dei siti verificati nel tuo ambiente di "
+"lavoro. Un sito verificato è un sito che consideri sicuro per poter "
+"condividere i suoi contenuti con <em>iframes</em>."
 
 msgid "Site"
-msgstr ""
+msgstr "Sito"
 
 msgid ""
 "Are you sure you want to remove this site from the list of trusted sites?"
 msgstr ""
+"Sei sicuro di voler eliminare questo sito dalla lista dei siti verificati?"
 
 msgid "Add a trusted site"
-msgstr ""
+msgstr "Aggiungi un sito verificato"
 
 msgid "Add a new trusted site"
-msgstr ""
+msgstr "Aggiungi un nuovo sito verificato"
 
 msgid "Add trusted site"
-msgstr ""
+msgstr "Aggiungi sito verificato"
 
 msgid ""
 "Welcome to %{environment}! To activate your account, follow the link: "
 "%{activation_url}"
 msgstr ""
+"Benvenuto su %{environment}! Per attivare il tuo account, clicca sul link: "
+"%{activation_url}"
 
 msgid "Welcome to %{environment}!"
-msgstr ""
+msgstr "Benvenuto su %{environment}!"
 
 msgid ""
 "To activate your account you must enter your activation code. To do so, "
 "access your account or follow the link: %{activation_url}"
 msgstr ""
+"Per attivare il tuo account devi inserire il codice di attivazione. Per "
+"farlo, accedi al tuo account al seguente link %{activation_url}"
 
 msgid "Your activation code is: %s"
-msgstr ""
+msgstr "Il tuo codice di attivazione è: %s"
 
 msgid "Your email %s was just activated."
-msgstr ""
+msgstr "La tua email %s è stata attivata."
 
 msgid "You can access your e-mail from anywhere, using the following address:"
-msgstr ""
+msgstr "Puoi accedere alla tua email ovunque, usando il seguente indirizzo:"
 
 msgid "We want to give you some suggestions to grow up your network."
-msgstr ""
+msgstr "Ti vogliamo dare qualche consiglio per far crescere la tua rete."
 
 msgid "Check it out!"
-msgstr ""
+msgstr "Controlla!"
 
 msgid "Friends suggestions:"
-msgstr ""
+msgstr "Amici consigliati:"
 
 msgid "To see the full list of friends suggestions, follow the link: %s"
 msgstr ""
+"Per vedere la lista completa degli amici consigliati, clicca sul link: %s"
 
 msgid "Communities suggestions:"
-msgstr ""
+msgstr "Gruppi consigliati:"
 
 msgid "To see the full list of communities suggestions, follow the link: %s"
 msgstr ""
+"per vedere la lista completi dei gruppi consigliati, clicca sul link: %s"
 
 msgid "Export People list"
-msgstr ""
+msgstr "Esporta lista persone"
 
 msgid "Send e-mail to users"
-msgstr ""
+msgstr "Manda email agli utenti"
 
 msgid "Select the file format"
-msgstr ""
+msgstr "Seleziona il formato file"
 
 msgid "Select the fields to be included in the people list"
-msgstr ""
+msgstr "Seleziona i campi da includere nella lista persone"
 
 msgid "Last login"
-msgstr ""
+msgstr "Ultimo login"
 
 msgid "Reset admin role"
-msgstr ""
+msgstr "Resetta ruolo amministratore"
 
 msgid "Do you want to reset this user as administrator?"
-msgstr ""
+msgstr "Vuoi rimuovere questo utente da amministratore?"
 
 msgid "Set admin role"
-msgstr ""
+msgstr "Imposta ruolo amministratore"
 
 msgid "Do you want to set this user as administrator?"
-msgstr ""
+msgstr "Vuoi dare a questo utente il ruolo di amministratore?"
 
 msgid "Activate user"
-msgstr ""
+msgstr "Attiva utente"
 
 msgid "Do you want to activate this user?"
-msgstr ""
+msgstr "Vuoi attivare questo utente?"
 
 msgid "Deactivate user"
-msgstr ""
+msgstr "Disattiva utente"
 
 msgid "Do you want to deactivate this user?"
-msgstr ""
+msgstr "Vuoi disattivare questo utente?"
 
 msgid "Do you want to remove this user?"
-msgstr ""
+msgstr "Vuoi rimuovere questo utente?"
 
 msgid "Manage users"
-msgstr ""
+msgstr "Gestisci utenti"
 
 msgid "Recipients: "
-msgstr ""
+msgstr "Contenitori: "
 
 msgid "All Users"
-msgstr ""
+msgstr "Tutti gli utenti"
 
 msgid "Only Admins"
-msgstr ""
+msgstr "Solo Amministratori"
 
 msgid "Environment Admins"
-msgstr ""
+msgstr "Amministratori degli ambienti di lavoro"
 
 msgid "Profile Admins"
-msgstr ""
+msgstr "Profilo amministratori"
 
 msgid "memberships"
-msgstr ""
+msgstr "membri"
 
 msgid "The target is achieved and can't accept votes"
-msgstr ""
+msgstr "Il target è stato raggiunto e non si accettano più voti"
 
 msgid "Unsupported macro %s!"
-msgstr ""
+msgstr "Macro non supportata %s!"
 
 msgid "No description informed."
-msgstr ""
+msgstr "Nessuna descrizione comunicata."
 
 msgid "Temporary system problem"
-msgstr ""
+msgstr "Problema temporaneo al sistema"
 
 msgid ""
 "Our technical team is working on it, please try again later. Sorry for the "
 "inconvenience."
 msgstr ""
+"Il nostro team di tecnici ci sta lavorando, per favore riprovare più tardi. "
+"Ci scusiamo per il disagio."
 
 msgid "Go to the site home page"
-msgstr ""
+msgstr "Vai alla pagina principale del sito"
 
 msgid "System maintainance"
-msgstr ""
+msgstr "Manutenzione sistema"
 
 msgid "This system is under maintainance. It should be back in a few moments."
 msgstr ""
+"Il sistema è sotto manutenzione. Sarà di nuovo in linea tra pochi minuti."
 
 msgid ""
 "This social network uses <a href=\"http://noosfero.org/\">Noosfero</a>, "
@@ -7466,17 +7538,22 @@ msgid ""
 "agpl.html\">GNU Affero General Public License</a> version 3 or any later "
 "version."
 msgstr ""
+"Questo social network usa <a href=\"http://noosfero.org/\">Noosfero</a>, "
+"sviluppato da %s e sotto licenza del <a href=\"http://www.gnu.org/licenses/"
+"agpl.html\">GNU Affero General Public License</a> versione 3 o più recente."
 
 msgid "Manage tasks"
-msgstr ""
+msgstr "Gestisci task"
 
 msgid "No pending tasks"
-msgstr ""
+msgstr "Nessun task da lavorare"
 
 msgid "Search on Noosfero"
-msgstr ""
+msgstr "Cerca su Noosfero"
 
 msgid ""
 "This site uses %{noosfero_url}, developed by %{colivre_url} and licensed "
 "under the %{agpl_url} version 3 or any later version."
 msgstr ""
+"Questo sito usa %{noosfero_url}, sviluppato da %{colivre_url} e sotto "
+"licenza di %{agpl_url} version 3 o più recente."
