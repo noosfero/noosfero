@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 18:19+0000\n"
-"PO-Revision-Date: 2021-01-16 19:52+0000\n"
+"PO-Revision-Date: 2021-01-17 20:32+0000\n"
 "Last-Translator: Pedro Ribeiro <pedrodevasconcelosribeiro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "noosfero/noosfero/pt_PT/>\n"
@@ -1509,7 +1509,7 @@ msgstr "Este tópico está aberto para respostas"
 
 #: ../app/helpers/article_helper.rb:36
 msgid "I want to receive comments about this article"
-msgstr "Do not allow new content on this article and its children"
+msgstr "Quero receber comentários sobre este artigo"
 
 #: ../app/helpers/article_helper.rb:42
 msgid "I want to receive a notification of each comment written by e-mail"
@@ -1667,11 +1667,11 @@ msgstr "Este bloco é invisível. Os seus visitantes não o verão."
 
 #: ../app/helpers/boxes_helper.rb:221
 msgid "Drop Here"
-msgstr "Descer aqui"
+msgstr "Colocar aqui"
 
 #: ../app/helpers/boxes_helper.rb:256
 msgid "Can't move up anymore."
-msgstr "Já não se pode subir."
+msgstr "Não se pode subir mais."
 
 #: ../app/helpers/boxes_helper.rb:259
 msgid "Move block up"
@@ -1679,11 +1679,11 @@ msgstr "Mova o bloco para cima"
 
 #: ../app/helpers/boxes_helper.rb:265
 msgid "Can't move down anymore."
-msgstr "Já não se pode descer."
+msgstr "Não se pode descer mais."
 
 #: ../app/helpers/boxes_helper.rb:268
 msgid "Move block down"
-msgstr "Mover bloco para baixo"
+msgstr "Mover o bloco para baixo"
 
 #: ../app/helpers/boxes_helper.rb:279 ../app/helpers/boxes_helper.rb:286
 msgid "Move to the opposite side"
@@ -1695,11 +1695,11 @@ msgstr "Remover bloco"
 
 #: ../app/helpers/boxes_helper.rb:302
 msgid "Are you sure you want to remove this block?"
-msgstr "Tem a certeza de que quer remover este bloco?"
+msgstr "Tem a certeza que quer remover este bloco?"
 
 #: ../app/helpers/boxes_helper.rb:304
 msgid "Clone"
-msgstr "Clone."
+msgstr "Clone"
 
 #: ../app/helpers/boxes_helper.rb:313
 msgid "Embed block code"
