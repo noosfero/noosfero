@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 18:19+0000\n"
-"PO-Revision-Date: 2021-01-17 20:32+0000\n"
+"PO-Revision-Date: 2021-01-20 02:32+0000\n"
 "Last-Translator: Pedro Ribeiro <pedrodevasconcelosribeiro@gmail.com>\n"
 "Language-Team: Portuguese (Portugal) <https://hosted.weblate.org/projects/"
 "noosfero/noosfero/pt_PT/>\n"
@@ -2532,7 +2532,7 @@ msgstr "Ciências Morfológicas"
 
 #: ../app/helpers/profile_editor_helper.rb:21
 msgid "Computer Science"
-msgstr "Informática"
+msgstr "Ciências do Computador"
 
 #: ../app/helpers/profile_editor_helper.rb:22
 msgid "Rural Development"
@@ -4595,7 +4595,7 @@ msgstr "Explicação sobre cabeçalho e rodapé"
 
 #: ../app/models/environment.rb:160
 msgid "Articles don't accept comments by default"
-msgstr ""
+msgstr "Artigos não aceitam comentários por defeito"
 
 #: ../app/models/environment.rb:161
 msgid "Organizations have moderated publication by default"
@@ -4739,7 +4739,7 @@ msgstr "Este bloco apresenta os fãs de uma empresa."
 
 #: ../app/models/fans_block.rb:20
 msgid "Fans"
-msgstr "Ventoinhas"
+msgstr "Fãs"
 
 #: ../app/models/favorite_enterprise_person.rb:11
 msgid "favorites"
@@ -5266,7 +5266,7 @@ msgstr ""
 
 #: ../app/models/profile.rb:900
 msgid "%s can't have members"
-msgstr ""
+msgstr "%s não pode ter membros"
 
 #: ../app/models/profile.rb:922
 msgid "%s can't has moderators"
@@ -5520,11 +5520,11 @@ msgstr ""
 
 #: ../app/models/uploaded_file.rb:129
 msgid "Uploaded file"
-msgstr ""
+msgstr "Ficheiro carregado"
 
 #: ../app/models/uploaded_file.rb:133
 msgid "Upload any kind of file you want."
-msgstr ""
+msgstr "Carregue qualquer tipo de ficheiro que queira."
 
 #: ../app/models/uploaded_file.rb:259
 msgid "Your upload quota has exceeded"
@@ -5566,7 +5566,7 @@ msgstr ""
 
 #: ../app/presenters/file_presenter.rb:18
 msgid "Unknown"
-msgstr ""
+msgstr "Desconhecido"
 
 #: ../app/presenters/file_presenter.rb:20
 msgid "File (%s)"
@@ -5609,27 +5609,27 @@ msgstr ""
 
 #: ../app/views/account/_signup_form.html.erb:54
 msgid "Type your password again"
-msgstr ""
+msgstr "Escreva a password outra vez"
 
 #: ../app/views/account/_signup_form.html.erb:58
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Passwords não coincidem"
 
 #: ../app/views/account/_signup_form.html.erb:65
 msgid "Too Short"
-msgstr ""
+msgstr "Demasiado Pequeno"
 
 #: ../app/views/account/_signup_form.html.erb:68
 msgid "Bad"
-msgstr ""
+msgstr "Mau"
 
 #: ../app/views/account/_signup_form.html.erb:71
 msgid "Good"
-msgstr ""
+msgstr "Bom"
 
 #: ../app/views/account/_signup_form.html.erb:74
 msgid "Strong"
-msgstr ""
+msgstr "Forte"
 
 #: ../app/views/account/_signup_form.html.erb:80
 msgid "Just a few more things..."
@@ -5637,7 +5637,7 @@ msgstr ""
 
 #: ../app/views/account/_signup_form.html.erb:83
 msgid "Full name"
-msgstr ""
+msgstr "Nome completo"
 
 #: ../app/views/account/_signup_form.html.erb:84
 msgid "E.g.: Maria Silva"
@@ -5645,7 +5645,7 @@ msgstr ""
 
 #: ../app/views/account/_signup_form.html.erb:93
 msgid "Email Address"
-msgstr ""
+msgstr "Endereço de Email"
 
 #: ../app/views/account/_signup_form.html.erb:94
 msgid "E.g.: maria.silva@mail.com"
@@ -5661,11 +5661,11 @@ msgstr ""
 
 #: ../app/views/account/_signup_form.html.erb:146
 msgid "Create my account"
-msgstr ""
+msgstr "Criar a minha conta"
 
 #: ../app/views/account/accept_terms.html.erb:14
 msgid "part 2 of 2"
-msgstr ""
+msgstr "parte 2 de 2"
 
 #: ../app/views/account/accept_terms.html.erb:14
 msgid " part 2 of 3"
@@ -5678,7 +5678,7 @@ msgstr ""
 #: ../app/views/account/accept_terms.html.erb:25
 #: ../app/views/account/activation_question.html.erb:39
 msgid "Continue"
-msgstr ""
+msgstr "Continuar"
 
 #: ../app/views/account/activate.html.erb:3
 msgid "Welcome to %s, %s"
@@ -5702,7 +5702,7 @@ msgstr ""
 #: ../app/views/organizations/_results.html.erb:26
 #: ../app/views/profile_editor/index.html.erb:34
 msgid "Activate"
-msgstr ""
+msgstr "Ativar"
 
 #: ../app/views/account/activate.html.erb:26
 msgid "If you did not receive the activation code, %s to request a new obe."
@@ -5710,7 +5710,7 @@ msgstr ""
 
 #: ../app/views/account/activate.html.erb:27
 msgid "click here"
-msgstr ""
+msgstr "clique aqui"
 
 #: ../app/views/account/activate_enterprise.html.erb:2
 msgid "Enterprise activation - part 3 of 3"
@@ -5758,7 +5758,7 @@ msgstr ""
 
 #: ../app/views/account/activation_question.html.erb:29
 msgid "Pay atention! You have only one chance!"
-msgstr ""
+msgstr "Preste atenção! Só tem uma chance!"
 
 #: ../app/views/account/activation_question.html.erb:31
 msgid ""
@@ -5808,7 +5808,7 @@ msgstr ""
 
 #: ../app/views/account/change_password.html.erb:9
 msgid "New password"
-msgstr ""
+msgstr "Nova palavra-passe"
 
 #: ../app/views/account/change_password.html.erb:12
 msgid "Confirm your new Password"
@@ -5838,7 +5838,7 @@ msgstr ""
 #: ../app/views/spam/index.html.erb:10 ../app/views/spam/index.html.erb:24
 #: ../app/views/tasks/index.html.erb:44 ../app/views/tasks/index.html.erb:84
 msgid "Back to control panel"
-msgstr ""
+msgstr "Voltar ao painel de controlo"
 
 #: ../app/views/account/forgot_password.html.erb:1
 msgid "Forgot your password?"
@@ -5850,7 +5850,7 @@ msgstr ""
 
 #: ../app/views/account/forgot_password.html.erb:12
 msgid "Send instructions"
-msgstr ""
+msgstr "Enviar instruções"
 
 #: ../app/views/account/forgot_password.html.erb:15
 msgid ""
