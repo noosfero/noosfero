@@ -34,6 +34,10 @@ if ENV["RAILS_ENV"] == "production"
     runner "ArticleAccessFriendship.refresh"
     runner "ArticleAccessMembership.refresh"
   end
+
+  every 1.day do
+    rake "db:sessions:trim"
+  end
 end
 
 # Loads "schedule.rb" files from plugins
