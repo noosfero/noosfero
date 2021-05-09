@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2020-10-13 13:26+0000\n"
+"PO-Revision-Date: 2021-05-10 05:31+0000\n"
 "Last-Translator: ssantos <ssantos@web.de>\n"
 "Language-Team: Portuguese <https://hosted.weblate.org/projects/noosfero/"
 "documentation/pt/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 4.7-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -800,9 +800,9 @@ msgid ""
 "product that&#8217;s already in your cart, it will add one to the quantity "
 "of that product."
 msgstr ""
-"Se você quiser adicionar novos produtos basta fazer a mesma coisa. Se você "
-"tentar adicionar um produto que já está no seu carrinho, ele irá acrescentar "
-"em um a quantidade do produto."
+"Se quiser adicionar novos produtos basta fazer a mesma coisa. Se você tentar "
+"adicionar um produto que já está no seu carrinho, ele irá acrescentar um à "
+"quantidade do produto."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -872,8 +872,8 @@ msgid ""
 "You can remove any product from your cart simply pressing the &#8216;"
 "delete&#8217; button (which has a little thrash as icon):"
 msgstr ""
-"Você pode remover qualquer produto do carrinho simplesmente pressionando o "
-"botão de deletar (que tem o pequeno ícone de uma lixeira):"
+"Pode remover qualquer produto do carrinho simplesmente pressionando o botão "
+"de apagar (que tem o pequeno ícone de uma lixo):"
 
 # type: Content of: <h1>
 #. type: Attribute 'alt' of: <p><img>
@@ -1431,14 +1431,14 @@ msgstr "Painel de controle no menu"
 #: doc/noosfero/admin/send-email-members.en.xhtml:11
 #: doc/noosfero/admin/export-users-list.en.xhtml:11
 msgid "Then, click on &#8220;Manage users&#8221; link:"
-msgstr "Depois, clique em &#8220;Gerenciar utilizadores&#8221;:"
+msgstr "Depois, clique em &#8220;Gerir utilizadores&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/admin/send-email-members.en.xhtml:11
 #: doc/noosfero/admin/export-users-list.en.xhtml:11
 msgid "Manage users in admin panel"
-msgstr "Gerenciar integrantes no painel de administrador"
+msgstr "Gerir integrantes no painel de administrador"
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -1510,14 +1510,14 @@ msgid ""
 "In &#8220;Manage users&#8221;, click on &#8220;Send e-mail to users&#8221; "
 "link:"
 msgstr ""
-"Em &#8220;Gerenciar utilizadores&#8221;, clique no link &#8220;Enviar e-mail "
+"Em &#8220;Gerir utilizadores&#8221;, clique no link &#8220;Enviar e-mail "
 "para os utilizadores&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/admin/send-email-members.en.xhtml:15
 msgid "Send e-mail link on manage users"
-msgstr "Link enviar e-mail em gerenciar utilizadores"
+msgstr "Link enviar e-mail em gerir utilizadores"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -1570,9 +1570,9 @@ msgid ""
 "list. There are 2 options, &#8220;<span class=\"caps\">CSV</span>&#8221; and "
 "&#8220;<span class=\"caps\">XML</span>&#8221;."
 msgstr ""
-"Em &#8220;Gerenciar utilizadores&#8221;, escolha em qual formato você quer "
-"exportar a lista. Há duas opções: &#8220;<span class=\"caps\""
-">CSV</span>&#8221; e &#8220;<span class=\"caps\">XML</span>&#8221;."
+"Em &#8220;Gerir utilizadores&#8221;, escolha em qual formato quer exportar a "
+"lista. Há duas opções: &#8220;<span class=\"caps\">CSV</span>&#8221; e "
+"&#8220;<span class=\"caps\">XML</span>&#8221;."
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -1584,12 +1584,13 @@ msgstr "Clique no link do formato que você escolheu e baixe a lista:"
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/admin/export-users-list.en.xhtml:15
 msgid "Download list of users link on manage users"
-msgstr "Link para download da lista de utilizadores em gerenciar utilizadores"
+msgstr ""
+"Ligação para a descarrega da lista de utilizadores em gerir utilizadores"
 
 #. type: Content of: <h1>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:1
 msgid "Manage Upload Quotas"
-msgstr "Gerenciar Cotas de Upload"
+msgstr "Gerir cotas de envio"
 
 #. type: Content of: <p>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:2
@@ -1606,8 +1607,8 @@ msgid ""
 "To manage upload quotas, go to the administration panel and follow the "
 "&#8220;quotas&#8221; link."
 msgstr ""
-"Para gerenciar as cotas de upload, vá ao painel de administração e siga o "
-"link &#8220;cotas&#8221;."
+"Para gerir as cotas de envio, vá ao painel de administração e siga o link "
+"&#8220;cotas&#8221;."
 
 # type: Content of: <h1>
 #. type: Content of: <h2>
@@ -1661,8 +1662,8 @@ msgid ""
 "You can also edit the quota of a specific profile. Just go to the second tab "
 "of the manage upload quotas page."
 msgstr ""
-"Você também pode editar a cota de um perfil específico. Apenas vá até a "
-"segunda aba da página de gerenciamento das cotas de upload."
+"Também pode editar a cota de um perfil específico. Apenas vá até a segunda "
+"aba da página de gestão das cotas de envio."
 
 #. type: Content of: <p>
 #: doc/noosfero/quotas/manage-quotas.en.xhtml:12
@@ -2315,8 +2316,8 @@ msgid ""
 "Clicking on one of the search results, you will be redirected to the "
 "homepage of choosen person."
 msgstr ""
-"Clicando em um dos resultados da busca, você será direcionada para a página "
-"inicial do empreendimento escolhido."
+"Clicando num dos resultados da busca, será direcionada para a página inicial "
+"do empreendimento escolhido."
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -2681,8 +2682,8 @@ msgid ""
 "Clicking on one of the search results, you will be redirected to the "
 "homepage of choosen community."
 msgstr ""
-"Clicando em um dos resultados da busca, você será direcionada para a página "
-"inicial da comunidade escolhida."
+"Clicando num dos resultados da busca, será direcionada para a página inicial "
+"da comunidade escolhida."
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -2949,8 +2950,8 @@ msgid ""
 "Clicking on one of the search results, you will be redirected to the "
 "homepage of the enterprise that has the product/service."
 msgstr ""
-"Clicando em um dos resultados da busca, você será direcionada para a página "
-"inicial do empreendimento que possui o produto ou serviço escolhido."
+"Clicando num dos resultados da busca, será direcionada para a página inicial "
+"do empreendimento que possui o produto ou serviço escolhido."
 
 # type: Content of: <h3>
 #. type: Content of: <h3>
@@ -3075,8 +3076,8 @@ msgid ""
 "Clicking on one of the search results, you will be redirected to the "
 "homepage of choosen enterprise."
 msgstr ""
-"Clicando em um dos resultados da busca, você será direcionada para a página "
-"inicial do empreendimento escolhido."
+"A clicar num dos resultados da busca, será direcionado à página inicial do "
+"empreendimento escolhido."
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -3228,7 +3229,7 @@ msgstr "No menu de utilizador, clique em Painel de Controle:"
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:12
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:12
 msgid "Then, click on &#8220;Manage my groups&#8221; button:"
-msgstr "Depois, clique no botão &#8220;Gerenciar meus grupos&#8221;:"
+msgstr "Depois, clique no botão &#8220;Gerir os meus grupos&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -3247,7 +3248,7 @@ msgstr "Depois, clique no botão &#8220;Gerenciar meus grupos&#8221;:"
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:12
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:12
 msgid "Manage groups in control panel"
-msgstr "Gerenciar grupos no painel de controle"
+msgstr "Gerir grupos no painel de controle"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -3266,10 +3267,9 @@ msgid ""
 "Manage&#8221;. Assuming that you are a community administrator, click on "
 "&#8220;Manage&#8221; link."
 msgstr ""
-"Você verá a lista de grupos (comunidades/empreendimentos) que você é membro. "
-"Os grupos que você pode gerenciar são listados com um link &#8220;"
-"Gerenciar&#8221;. Supondo que você é administrador de uma comunidade, clique "
-"em &#8220;Gerenciar&#8221;."
+"Verá a lista de grupos (comunidades/empreendimentos) que é membro. Os grupos "
+"que pode gerir são listados com um link &#8220;Gerir&#8221;. Supondo ser "
+"administrador de uma comunidade, clique em &#8220;Gerir&#8221;."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -3283,7 +3283,7 @@ msgstr ""
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:13
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:13
 msgid "Groups list with permission to manage enterprise"
-msgstr "Lista de grupos com permissão de gerenciar empreendimento"
+msgstr "Lista de grupos com permissão de gerir empreendimento"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -3291,7 +3291,7 @@ msgstr "Lista de grupos com permissão de gerenciar empreendimento"
 #: doc/noosfero/community/invite-contacts.en.xhtml:17
 msgid "In community control panel, click on &#8220;Manage members&#8221;"
 msgstr ""
-"No painel de controle da comunidade, clique em &#8220;Gerenciar "
+"No painel de controlo da comunidade, clique em &#8220;Gerir "
 "integrantes&#8221;"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
@@ -3299,7 +3299,7 @@ msgstr ""
 #: doc/noosfero/community/send-email-members.en.xhtml:17
 #: doc/noosfero/community/invite-contacts.en.xhtml:17
 msgid "Manage members in control panel"
-msgstr "Gerenciar integrantes no painel de controle"
+msgstr "Gerir integrantes no painel de controle"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -3395,7 +3395,7 @@ msgstr "Encontre seu menu de utilizador na barra superior:"
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:12
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:12
 msgid "Click on &#8220;Manage my groups&#8221; button:"
-msgstr "Clique no botão &#8220;Gerenciar meus grupos&#8221;:"
+msgstr "Clique no botão &#8220;Gerir os meus grupos&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -3404,7 +3404,7 @@ msgstr "Clique no botão &#8220;Gerenciar meus grupos&#8221;:"
 #: doc/noosfero/community/editing-header-footer.en.xhtml:13
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:13
 msgid "Groups list with permission to manage community"
-msgstr "Lista de grupos com permissão de gerenciar comunidade"
+msgstr "Lista de grupos com permissão de gerir comunidade"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -4183,7 +4183,7 @@ msgstr "No menu de utilizador, clique em Painel de Controle"
 #: doc/noosfero/community/creating-community.en.xhtml:12
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:12
 msgid "Then, click on &#8220;Manage my groups&#8221;:"
-msgstr "Depois, clique em &#8220;Gerenciar meus grupos&#8221;:"
+msgstr "Depois, clique em &#8220;Gerir os meus grupos&#8221;:"
 
 # type: Content of: <p>
 #. type: Content of: <ol><li>
@@ -4868,9 +4868,9 @@ msgid ""
 "information on how to use Noosfero, manage a Noosfero environment and "
 "customize Noosfero in several ways."
 msgstr ""
-"Este é o manual online do Noosfero. Nessa páginas você vai encontrar "
-"informaçoes úteis para usar o Noosfero, gerenciar um ambiente Noosfero e "
-"personalizar Noosfero de várias formas."
+"Este é o manual online do Noosfero. Nessa páginas vai encontrar informaçoes "
+"úteis para usar o Noosfero, gerir um ambiente Noosfero e personalizar "
+"Noosfero de várias formas."
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -4919,7 +4919,7 @@ msgstr ""
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:13
 #: doc/noosfero/cms/writing-article.en.xhtml:12
 msgid "Then, click on &#8220;Manage content&#8221;:"
-msgstr "Depois, clique em &#8220;Gerenciar conteúdo&#8221;:"
+msgstr "Depois, clique em &#8220;Gerir conteúdo&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -4929,7 +4929,7 @@ msgstr "Depois, clique em &#8220;Gerenciar conteúdo&#8221;:"
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:13
 #: doc/noosfero/cms/writing-article.en.xhtml:12
 msgid "Manage content in control panel"
-msgstr "Gerenciar conteúdo no painel de controle"
+msgstr "Gerir conteúdo no painel de controle"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -5005,7 +5005,7 @@ msgstr "Para divulgar seus articles existem duas opções que você pode serguir
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:11
 msgid "Through the Content Manager"
-msgstr "Através do Gerenciador de Conteúdo"
+msgstr "Através do gestor de conteúdo"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -5020,7 +5020,7 @@ msgstr "Localize seu menu de utilizador na barra superior:"
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:15
 msgid "Click on &#8220;Manage content&#8221;:"
-msgstr "Clique em &#8220;Gerenciar conteúdo&#8221;:"
+msgstr "Clique em &#8220;Gerir conteúdo&#8221;:"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ul><li><ol><li>
@@ -5130,7 +5130,7 @@ msgstr ""
 msgid ""
 "<em>To organize your texts/images/files, you should manage your content.</em>"
 msgstr ""
-"<em>Para organizar seus textos/imagens/ficheiros, você deve gerenciar seu "
+"<em>Para organizar os seus textos/imagens/ficheiros, deve gerir o seu "
 "conteúdo.</em>"
 
 # type: Content of: <ol><li>
@@ -5181,8 +5181,8 @@ msgid ""
 "Select the type of the folder you want to create. If you want to use it to "
 "organize pictures, choose the type &#8220;Image gallery&#8221;"
 msgstr ""
-"Escolha o tipo da pasta que está sendo criada. Se você quiser utilizar a "
-"pasta para guardar imagens, escolha o tipo &#8220;Galeria&#8221;"
+"Escolha o tipo da pasta que está a ser criada. Se quiser utilizar a pasta "
+"para guardar imagens, escolha o tipo &#8220;Galeria&#8221;"
 
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
@@ -5527,7 +5527,7 @@ msgstr "<a href=\"/doc/cms/posting-on-blog\">Postar no blog</a>"
 #. type: Content of: <h1>
 #: doc/noosfero/cms/index.en.xhtml:1
 msgid "Content Management"
-msgstr "Gerenciar conteúdo"
+msgstr "Gerir conteúdo"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -5590,7 +5590,7 @@ msgstr "Escreva no seu artigo o texto que aparecerá"
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:18
 #: doc/noosfero/cms/writing-article.en.xhtml:25
 msgid "Text on an article"
-msgstr "Texto em um artigo"
+msgstr "Texto num artigo"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -5717,8 +5717,8 @@ msgid ""
 "the file. When you add an image, it will be displayed as an image in the "
 "article. But both can be added in the same way:"
 msgstr ""
-"Quando você adiciona um documento no seu artigo, é criado um link para "
-"download do ficheiro, e quando adiciona uma imagem, ele será visualizado "
+"Quando adiciona um documento no seu artigo, é criado uma ligação para a "
+"descarrega do ficheiro, e quando adiciona uma imagem, ele será visualizado "
 "como uma imagem do artigo. Mas a forma que a imagem ou documento é inserida "
 "é a mesma:"
 
@@ -6048,7 +6048,7 @@ msgstr ""
 "Lista de marcadores: preencha com marcadores. Marcadores são palavras-chave "
 "ou termos associados ao seu artigo. Também é utilizado para aumentar a "
 "possibilidade de outras pessoas acessá-lo, já que ele será listado quando um "
-"utilizador clicar em um dos marcadores que ele possui."
+"utilizador clicar num dos marcadores que ele possui."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -6139,10 +6139,10 @@ msgid ""
 "Manage&#8221;. Assuming that you are administrator of enterprise &#8220;My "
 "enterprise&#8221;, click on &#8220;Manage&#8221; link."
 msgstr ""
-"Aparecerá a lista de grupos (comunidades/empreendimentos) que você é membro. "
-"Os grupos que você pode gerenciar são listados com um link &#8220;"
-"Gerenciar&#8221;. Supondo que você é administrador do empreendimento &#8220;"
-"Meu empreendimento&#8221;, clique em &#8220;Gerenciar&#8221;."
+"Aparecerá a lista de grupos (comunidades/empreendimentos) que é membro. Os "
+"grupos que pode gerir são listados com um link &#8220;Geir&#8221;. Supondo "
+"ser administrador do empreendimento &#8220;Meu empreendimento&#8221;, clique "
+"em &#8220;Gerir&#8221;."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -6369,10 +6369,9 @@ msgid ""
 "Manage&#8221;. Assuming that you are an enterprise administrator, click on "
 "&#8220;Manage&#8221; link."
 msgstr ""
-"Você verá a lista de grupos (comunidades/empreendimentos) que você é membro. "
-"Os grupos que você pode gerenciar são listados com um link &#8220;"
-"Gerenciar&#8221;. Supondo que você é administrador de um empreendimento, "
-"clique em &#8220;Gerenciar&#8221;."
+"Verá a lista de grupos (comunidades/empreendimentos) que é membro. Os grupos "
+"que pode gerir são listados com um link &#8220;Gerir&#8221;. Supondo ser "
+"administrador de um empreendimento, clique em &#8220;Gerir&#8221;."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -6554,7 +6553,7 @@ msgstr "<a href=\"/doc/enterprise/editing-appearance\">Editar aparência</a>"
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:1
 msgid "Managing and adding members to an enterprise"
-msgstr "Gerenciar e adicionar integrantes em um empreendimento"
+msgstr "Gerir e adicionar membros a um empreendimento"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -6576,10 +6575,9 @@ msgid ""
 "Manage&#8221;. Assuming that you are administrator of an enterprise&quot;, "
 "click on &#8220;Manage&#8221; link."
 msgstr ""
-"Aparecerá a lista de grupos (comunidades/empreendimentos) que você é membro. "
-"Os grupos que você pode gerenciar são listados com um link &#8220;"
-"Gerenciar&#8221;. Supondo que você é administrador de um empreendimento, "
-"clique em &#8220;Gerenciar&#8221;."
+"Aparecerá a lista de grupos (comunidades/empreendimentos) que é membro. Os "
+"grupos que pode gerir são listados com um link &#8220;Gerir&#8221;. Supondo "
+"que é administrador de um empreendimento, clique em &#8220;Gerir&#8221;."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -6587,14 +6585,14 @@ msgstr ""
 msgid ""
 "In enterprise&#8217;s control panel, click on &#8220;Manage members&#8221;"
 msgstr ""
-"No painel de controle do empreendimento, clique em &#8220;Gerenciar "
+"No painel de controlo do empreendimento, clique em &#8220;Gerir "
 "integrantes&#8221;"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:18
 msgid "Control panel with manage members"
-msgstr "Painel de controle com gerenciar integrantes"
+msgstr "Painel de controlo com gerir integrantes"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -6610,7 +6608,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:19
 msgid "Members list of enterprise on manage members"
-msgstr "Lista de integrantes de um empreendimento em gerenciar integrantes"
+msgstr "Lista de integrantes de um empreendimento em gerir integrantes"
 
 # type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
@@ -6678,7 +6676,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><ol><li><ol><li><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:27
 msgid "Add member on manage member"
-msgstr "Adicionar membro em gerenciar membro"
+msgstr "Adicionar membro em gerir membro"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -6864,7 +6862,7 @@ msgstr "Editar cabeçalho e rodapé no controle de painel do empreendimento"
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:1
 msgid "Adding products to an enterprise"
-msgstr "Adicionando produtos em um empreendimento"
+msgstr "A adicionar produtos a um empreendimento"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -6895,14 +6893,14 @@ msgid ""
 "In enterprise&#8217;s control panel, click on &#8220;Manage products and "
 "services&#8221;"
 msgstr ""
-"No painel de controle do empreendimento, clique em &#8220;Gerenciar produtos "
-"e serviçoes&#8221;"
+"No painel de controlo do empreendimento, clique em &#8220;Gerir produtos e "
+"serviços&#8221;"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:14
 msgid "Control panel with manage products"
-msgstr "Painel de controle com gerenciar produtos"
+msgstr "Painel de controle com gerir produtos"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -6918,7 +6916,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:15
 msgid "Product list of enterprise on manage products"
-msgstr "Lista de produtos de um empreendimento em gerenciar produtos"
+msgstr "Lista de produtos de um empreendimento em gerir produtos"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -7219,13 +7217,13 @@ msgstr "Painel de controle no menu"
 #: doc/noosfero/user/removing-friends.en.xhtml:12
 #: doc/noosfero/user/invite-contacts.en.xhtml:12
 msgid "Then, click on &#8220;Manage friends&#8221;"
-msgstr "Depois, clique em &#8220;Gerenciar amigos&#8221;"
+msgstr "Depois, clique em &#8220;Gerir amigos&#8221;"
 
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:12
 #: doc/noosfero/user/invite-contacts.en.xhtml:12
 msgid "Manage Friends"
-msgstr "Gerenciar Amigos"
+msgstr "Gerir amigos"
 
 # type: Content of: <ol><li><p>
 #. type: Content of: <ol><li>
@@ -8433,7 +8431,7 @@ msgstr ""
 #. type: Content of: <ul><li>
 #: doc/noosfero/quotas/toc.en.xhtml:3
 msgid "<a href=\"/doc/quotas/manage-quotas\">Manage Upload Quotas</a>"
-msgstr "<a href=\"/doc/quotas/manage-quotas\">Gerenciar Cotas de Upload</a>"
+msgstr "<a href=\"/doc/quotas/manage-quotas\">Gerir cotas de envio</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -8541,8 +8539,8 @@ msgid ""
 "<a href=\"/doc/enterprise/managing-enterprise-members\">Managing and adding "
 "members to an enterprise</a>"
 msgstr ""
-"<a href=\"/doc/enterprise/managing-enterprise-members\">Gerenciar e "
-"adicionar integrantes em um empreendimento</a>"
+"<a href=\"/doc/enterprise/managing-enterprise-members\">Gerir e adicionar "
+"integrantes a um empreendimento</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -8551,7 +8549,7 @@ msgid ""
 "<a href=\"/doc/enterprise/adding-product\">Adding products to an enterprise</"
 "a>"
 msgstr ""
-"<a href=\"/doc/enterprise/adding-product\">Adicionando produtos em um "
+"<a href=\"/doc/enterprise/adding-product\">Adicionar produtos a um "
 "empreendimento</a>"
 
 # type: Content of: <ul><li>
@@ -8670,7 +8668,7 @@ msgstr "<a href=\"/doc/community\">Funcionalidades da comunidade</a>"
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:8
 msgid "<a href=\"/doc/cms\">Content Management</a>"
-msgstr "<a href=\"/doc/cms\">Gerenciamento de conteúdo</a>"
+msgstr "<a href=\"/doc/cms\">Gestão de conteúdo</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
