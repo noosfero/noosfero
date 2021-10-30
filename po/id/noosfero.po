@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2016-08-27 19:49+0000\n"
-"Last-Translator: Izharul Haq <atoz.chevara.2013@gmail.com>\n"
+"PO-Revision-Date: 2021-10-31 23:35+0000\n"
+"Last-Translator: Reza Almanda <rezaalmanda27@gmail.com>\n"
 "Language-Team: Indonesian <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/id/>\n"
 "Language: id\n"
@@ -15,26 +15,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 2.8-dev\n"
+"X-Generator: Weblate 4.9-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
-msgstr ""
+msgstr "(Permintaan tidak valid) %s tidak dapat disimpan"
 
 msgid "(Invalid request) %s not given"
-msgstr ""
+msgstr "(Permintaan tidak valid) %s tidak diberikan"
 
 msgid "Something wrong happened"
-msgstr ""
+msgstr "Ada yang salah"
 
 msgid "Unauthorized"
-msgstr ""
+msgstr "Tidak sah"
 
 msgid "Method Not Allowed"
-msgstr ""
+msgstr "Metode Tidak Diperbolehkan"
 
-#, fuzzy
 msgid "The article %s was removed."
-msgstr "Artikel telah dihapus."
+msgstr "Artikel %s telah dihapus."
 
 msgid ""
 "The article couldn't be removed due to some problem. Please contact the "
