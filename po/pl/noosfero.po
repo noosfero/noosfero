@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-04 18:19+0000\n"
-"PO-Revision-Date: 2020-10-11 20:26+0000\n"
-"Last-Translator: Atrate <Atrate@protonmail.com>\n"
+"PO-Revision-Date: 2023-10-08 21:00+0000\n"
+"Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
 "Language-Team: Polish <https://hosted.weblate.org/projects/noosfero/noosfero/"
 "pl/>\n"
 "Language: pl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.3-dev\n"
+"X-Generator: Weblate 5.1-dev\n"
 
 #: ../app/api/helpers.rb:448
 msgid "(Invalid request) %s can't be saved"
@@ -29,9 +29,8 @@ msgid "(Invalid request) %s not given"
 msgstr ""
 
 #: ../app/api/helpers.rb:458
-#, fuzzy
 msgid "Something wrong happened"
-msgstr "Stało się coś złego"
+msgstr "Coś poszło nie tak"
 
 #: ../app/api/helpers.rb:463
 msgid "Unauthorized"
@@ -160,7 +159,7 @@ msgstr ""
 #: ../app/views/invite/invite_friends.html.erb:15
 #: ../app/views/spam/_suggest_article.html.erb:9
 msgid "Email"
-msgstr ""
+msgstr "Adres e-mail"
 
 #: ../app/api/v1/session.rb:65 ../app/helpers/application_helper.rb:999
 #: ../app/helpers/link_list_block_helper.rb:22
@@ -175,7 +174,7 @@ msgstr ""
 #: ../app/views/account/_signup_form.html.erb:48
 #: ../app/views/invite/_select_address_book.html.erb:34
 msgid "Password"
-msgstr ""
+msgstr "Haslo"
 
 #: ../app/api/v1/session.rb:92
 msgid "Activation token"
@@ -216,7 +215,7 @@ msgstr ""
 
 #: ../app/concerns/entitlement/levels.rb:3
 msgid "Visitors"
-msgstr ""
+msgstr "Odwiedzający"
 
 #: ../app/concerns/entitlement/levels.rb:4
 msgid "Friends / Members"
@@ -228,22 +227,22 @@ msgstr ""
 
 #: ../app/concerns/entitlement/levels.rb:6
 msgid "Nobody"
-msgstr ""
+msgstr "Nikt"
 
 #: ../app/concerns/entitlement/levels.rb:7
 #: ../app/helpers/profile_image_helper.rb:92 ../app/models/block.rb:282
 #: ../app/models/control_panel/friends.rb:4 ../app/models/forum.rb:45
 msgid "Friends"
-msgstr ""
+msgstr "Przyjaciele"
 
 #: ../app/concerns/entitlement/levels.rb:8 ../app/models/forum.rb:44
 msgid "Me"
-msgstr ""
+msgstr "Ja"
 
 #: ../app/concerns/entitlement/levels.rb:9
 #: ../app/views/profile_editor/privacy.html.erb:18
 msgid "Followers"
-msgstr ""
+msgstr "Obserwujący"
 
 #: ../app/concerns/entitlement/levels.rb:10 ../app/helpers/profile_helper.rb:97
 #: ../app/helpers/profile_image_helper.rb:100
@@ -251,11 +250,11 @@ msgstr ""
 #: ../app/models/control_panel/members.rb:4 ../app/models/forum.rb:49
 #: ../app/views/profile_roles/assign.html.erb:13
 msgid "Members"
-msgstr ""
+msgstr "Członkowie"
 
 #: ../app/concerns/entitlement/levels.rb:11 ../app/models/forum.rb:48
 msgid "Administrators"
-msgstr ""
+msgstr "Administratorzy"
 
 #: ../app/controllers/admin/admin_panel_controller.rb:18
 msgid "Environment settings updated"
@@ -389,7 +388,7 @@ msgstr ""
 #: ../app/models/circle.rb:31 ../app/models/community.rb:9
 #: ../app/views/templates/index.html.erb:6
 msgid "Community"
-msgstr ""
+msgstr "Społeczność"
 
 #: ../app/controllers/admin/organizations_controller.rb:9
 #: ../app/helpers/link_list_block_helper.rb:34 ../app/models/circle.rb:32
@@ -403,7 +402,7 @@ msgstr ""
 #: ../app/views/memberships/index.html.erb:10
 #: ../app/views/tasks/index.html.erb:6 ../app/views/tasks/processed.html.erb:8
 msgid "All"
-msgstr ""
+msgstr "Wszystko"
 
 #: ../app/controllers/admin/organizations_controller.rb:37
 msgid "%s enabled"
@@ -454,7 +453,7 @@ msgstr ""
 #: ../app/helpers/application_helper.rb:835 ../app/helpers/assets_helper.rb:8
 #: ../app/models/menu_block.rb:25 ../app/models/menu_block.rb:26
 msgid "People"
-msgstr ""
+msgstr "Ludzie"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:107
 #: ../app/controllers/public/search_controller.rb:58
@@ -464,7 +463,7 @@ msgstr ""
 #: ../app/helpers/profile_image_helper.rb:93
 #: ../app/models/communities_block.rb:10 ../app/models/menu_block.rb:24
 msgid "Communities"
-msgstr ""
+msgstr "Społeczności"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:108
 #: ../app/controllers/public/search_controller.rb:56
@@ -472,7 +471,7 @@ msgstr ""
 #: ../app/controllers/public/search_controller.rb:265
 #: ../app/helpers/assets_helper.rb:10 ../app/models/enterprises_block.rb:12
 msgid "Enterprises"
-msgstr ""
+msgstr "Przedsiębiorstwa"
 
 #: ../app/controllers/admin/profile_quotas_controller.rb:114
 msgid "Sort by name"
@@ -652,7 +651,7 @@ msgstr ""
 #: ../app/views/licenses/index.html.erb:6
 #: ../app/views/templates/_create_template_form.html.erb:12
 msgid "Name"
-msgstr ""
+msgstr "Nazwa"
 
 #: ../app/controllers/my_profile/cms_controller.rb:412
 msgid "Size (bigger first)"
@@ -681,12 +680,12 @@ msgstr ""
 #: ../app/controllers/my_profile/cms_controller.rb:551
 #: ../app/views/profile_themes/edit.html.erb:26
 msgid "Images"
-msgstr ""
+msgstr "Obrazy"
 
 #: ../app/controllers/my_profile/cms_controller.rb:551
 #: ../app/views/cms/files.html.erb:5
 msgid "Files"
-msgstr ""
+msgstr "Pliki"
 
 #: ../app/controllers/my_profile/email_templates_controller.rb:36
 msgid "Email template was successfully created."
@@ -820,7 +819,7 @@ msgstr ""
 
 #: ../app/controllers/my_profile/profile_roles_controller.rb:86
 msgid "Error"
-msgstr ""
+msgstr "Błąd"
 
 #: ../app/controllers/my_profile/tasks_controller.rb:41
 msgid "Task already assigned!"
@@ -1086,7 +1085,7 @@ msgstr ""
 #: ../app/helpers/application_helper.rb:864 ../app/helpers/assets_helper.rb:12
 #: ../app/views/search/events.html.erb:1
 msgid "Events"
-msgstr ""
+msgstr "Wydarzenia"
 
 #: ../app/controllers/public_controller.rb:41
 msgid ""
@@ -1162,7 +1161,7 @@ msgstr ""
 #: ../app/helpers/application_helper.rb:110 ../app/helpers/boxes_helper.rb:329
 #: ../app/helpers/link_list_block_helper.rb:23
 msgid "Help"
-msgstr ""
+msgstr "Pomoc"
 
 #: ../app/helpers/application_helper.rb:126 ../app/helpers/boxes_helper.rb:319
 #: ../app/views/cms/_text_editor_sidebar.html.erb:6
@@ -1180,13 +1179,13 @@ msgstr ""
 #: ../app/views/content_viewer/view_page.html.erb:32
 #: ../app/views/search/_article_categories.html.erb:2
 msgid "Categories"
-msgstr ""
+msgstr "Kategorie"
 
 #: ../app/helpers/application_helper.rb:387
 #: ../app/views/layouts/_user.html.erb:25
 #: ../app/views/shared/logged_in/xmpp_chat.html.erb:31
 msgid "Search..."
-msgstr ""
+msgstr "Szukaj..."
 
 #: ../app/helpers/application_helper.rb:389
 msgid "This is a search box. Click, write your query, and press enter to find"
@@ -1215,21 +1214,21 @@ msgstr ""
 #: ../public/designs/themes/noosfero/navigation.html.erb:65
 #: ../public/designs/themes/noosfero/site_title.html.erb:4
 msgid "Search"
-msgstr ""
+msgstr "Wyszukaj"
 
 #: ../app/helpers/application_helper.rb:621
 #: ../app/helpers/profile_editor_helper.rb:178
 #: ../app/views/cms/custom_fields/_article_custom_field_template.html.erb:8
 #: ../app/views/shared/_custom_fields.html.erb:19
 msgid "Public"
-msgstr ""
+msgstr "Publiczne"
 
 #: ../app/helpers/application_helper.rb:666 ../app/models/folder.rb:4
 #: ../app/models/folder.rb:25 ../app/views/cms/_media_new_folder.html.erb:12
 #: ../app/views/search/_full_uploaded_file.html.erb:16
 #: ../app/views/spam/_suggest_article.html.erb:12
 msgid "Folder"
-msgstr ""
+msgstr "Folder"
 
 #: ../app/helpers/application_helper.rb:667
 #: ../app/helpers/link_list_block_helper.rb:35
@@ -1238,7 +1237,7 @@ msgstr ""
 #: ../app/models/enterprise.rb:139 ../app/models/organization.rb:146
 #: ../app/models/person.rb:380 ../app/models/person.rb:400
 msgid "Blog"
-msgstr ""
+msgstr "Blog"
 
 #: ../app/helpers/application_helper.rb:668
 #: ../app/helpers/link_list_block_helper.rb:28 ../app/models/event.rb:12
