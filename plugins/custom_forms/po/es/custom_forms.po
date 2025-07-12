@@ -6,25 +6,25 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-1-ga15645d\n"
-"PO-Revision-Date: 2019-01-08 14:07+0000\n"
-"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
-"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/plugin-"
-"custom-forms/es/>\n"
+"PO-Revision-Date: 2025-07-13 15:01+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
+"Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
+"plugin-custom-forms/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 msgid "There is no data to be downloaded"
-msgstr ""
+msgstr "No hay ningún dato para descargar"
 
 msgid "%s was successfully created"
-msgstr ""
+msgstr "%s se creó correctamente"
 
 msgid "%s was successfully updated"
-msgstr ""
+msgstr "%s se actualizó correctamente"
 
 #, fuzzy
 msgid "The %s could not be updated"
@@ -38,20 +38,19 @@ msgid "The %s could not be removed"
 msgstr "El contrato no puede ser eliminado. ¡Perdón! ^^"
 
 msgid "Maximum file size exceeded"
-msgstr ""
+msgstr "Se excedió el tamaño de archivo máximo"
 
 msgid "Query Gallery"
 msgstr ""
 
-#, fuzzy
 msgid "Submission could not be saved"
-msgstr "La configuración no pudo guardarse"
+msgstr "No se pudo guardar el envío"
 
 msgid "Older"
-msgstr ""
+msgstr "Anteriores"
 
 msgid "Recent"
-msgstr ""
+msgstr "Recientes"
 
 msgid "All"
 msgstr "Todo"
@@ -63,16 +62,17 @@ msgid "Closed"
 msgstr "Cerrado"
 
 msgid "To come"
-msgstr ""
+msgstr "Por venir"
 
 msgid "Query"
 msgstr ""
 
 msgid "Enables the creation of custom queries like surveys or polls."
 msgstr ""
+"Activa la creación de consultas personalizadas, como encuestas o sondeos."
 
 msgid "Queries"
-msgstr ""
+msgstr "Consultas"
 
 #, fuzzy
 msgid "Admission survey"
@@ -97,55 +97,55 @@ msgid "is mandatory."
 msgstr "%{fn} es obligatorio"
 
 msgid "alternative is not valid"
-msgstr ""
+msgstr "la alternativa no es válida"
 
 msgid "do not accept multiple answers"
-msgstr ""
+msgstr "no aceptar respuestas múltiples"
 
 msgid "View All"
-msgstr ""
+msgstr "Ver todo"
 
 msgid "New Poll"
-msgstr ""
+msgstr "Sondeo nuevo"
 
 msgid "New Survey"
-msgstr ""
+msgstr "Encuesta nueva"
 
 msgid "Timestamp"
-msgstr ""
+msgstr "Cronomarcador"
 
 msgid " or "
-msgstr ""
+msgstr " o "
 
 msgid ", or "
-msgstr ""
+msgstr ", o "
 
 msgid "Invalid alternative"
-msgstr ""
+msgstr "Alternativa no válida"
 
 msgid "Survey"
-msgstr ""
+msgstr "Encuesta"
 
 msgid "Surveys"
-msgstr ""
+msgstr "Encuestas"
 
 msgid "survey"
-msgstr ""
+msgstr "encuesta"
 
 msgid "surveys"
-msgstr ""
+msgstr "encuestas"
 
 msgid "Poll"
-msgstr ""
+msgstr "Sondeo"
 
 msgid "Polls"
-msgstr ""
+msgstr "Sondeos"
 
 msgid "poll"
-msgstr ""
+msgstr "sondeo"
 
 msgid "polls"
-msgstr ""
+msgstr "sondeos"
 
 msgid "%{value} is not a valid kind."
 msgstr ""
@@ -157,10 +157,10 @@ msgid "Slug"
 msgstr ""
 
 msgid "identifier"
-msgstr ""
+msgstr "identificador"
 
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 msgid "The time range selected is invalid."
 msgstr ""
@@ -169,7 +169,7 @@ msgid "can't be less than 2"
 msgstr ""
 
 msgid "Always"
-msgstr ""
+msgstr "Siempre"
 
 msgid "Until %s"
 msgstr ""
@@ -185,14 +185,13 @@ msgid "Only after the query ends"
 msgstr ""
 
 msgid "Never"
-msgstr ""
+msgstr "Nunca"
 
-#, fuzzy
 msgid "Select"
-msgstr "Seleccione ..."
+msgstr "Seleccionar"
 
 msgid "Text field"
-msgstr ""
+msgstr "Campo de texto"
 
 #, fuzzy
 msgid "Select field"
@@ -296,40 +295,37 @@ msgid "Select which profiles you want to export the queries from."
 msgstr ""
 
 msgid "Filter profiles by name"
-msgstr ""
+msgstr "Filtrar perfiles por nombre"
 
 msgid "%s form"
 msgid_plural "%s forms"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%s formulario"
+msgstr[1] "%s formularios"
 
 msgid "Deselect all"
 msgstr ""
 
-#, fuzzy
 msgid "Select all"
-msgstr "Seleccione ..."
+msgstr "Seleccionar todo"
 
 msgid "Generate CSV"
-msgstr ""
+msgstr "Generar CSV"
 
 #, fuzzy
 msgid "Mandatory"
 msgstr "Moderador"
 
-#, fuzzy
 msgid "Remove field"
-msgstr "Eliminar bloque"
+msgstr "Quitar campo"
 
-#, fuzzy
 msgid "Address"
-msgstr "Accesor"
+msgstr "Dirección"
 
 msgid "Change picture"
-msgstr ""
+msgstr "Cambiar imagen"
 
 msgid "Remove image"
-msgstr "Eliminar imagen"
+msgstr "Quitar imagen"
 
 msgid "Period"
 msgstr ""
@@ -358,9 +354,8 @@ msgstr ""
 msgid "Triggered after membership"
 msgstr "Administrar membresías"
 
-#, fuzzy
 msgid "Submissions"
-msgstr "Permisos"
+msgstr "Envíos"
 
 msgid "Actions"
 msgstr "Acciones"
@@ -387,9 +382,8 @@ msgstr ""
 msgid "Question"
 msgstr ""
 
-#, fuzzy
 msgid "Type"
-msgstr "Tipo:"
+msgstr "Tipo"
 
 msgid "Type in your question"
 msgstr ""
@@ -397,20 +391,18 @@ msgstr ""
 msgid "Multiple choice"
 msgstr ""
 
-#, fuzzy
 msgid "Checkboxes"
-msgstr "Checkbox"
+msgstr "Casillas"
 
-#, fuzzy
 msgid "Option"
-msgstr "Acciones"
+msgstr "Opción"
 
 #, fuzzy
 msgid "Preselected"
 msgstr "Rechazado"
 
 msgid "Remove"
-msgstr ""
+msgstr "Quitar"
 
 msgid "Add option"
 msgstr "Agregar opción"
@@ -429,24 +421,23 @@ msgstr "Agregar un archivo CSS"
 msgid "Add a new select field"
 msgstr "Agregar un archivo CSS"
 
-#, fuzzy
 msgid "Remove alternative"
-msgstr "Eliminar miembro"
+msgstr "Quitar alternativa"
 
 msgid "Type:"
 msgstr "Tipo:"
 
 msgid "Radio"
-msgstr ""
+msgstr "Radial"
 
 msgid "Checkbox"
-msgstr "Checkbox"
+msgstr "Casilla"
 
 msgid "Drop down"
 msgstr ""
 
 msgid "Multiple Select"
-msgstr ""
+msgstr "Selección múltiple"
 
 msgid "Alternative"
 msgstr "Alternativa"
@@ -456,21 +447,19 @@ msgid "Add a new alternative"
 msgstr "Añadir nueva empresa"
 
 msgid "One-line text"
-msgstr ""
+msgstr "Texto en un renglón"
 
 msgid "Multiline text"
-msgstr ""
+msgstr "Texto en varios renglones"
 
-#, fuzzy
 msgid "Default text:"
-msgstr "todos los idiomas"
+msgstr "Texto predeterminado"
 
 msgid "Maximum of 255 characters"
 msgstr ""
 
-#, fuzzy
 msgid "Edit form"
-msgstr "Editar carpeta"
+msgstr "Editar formulario"
 
 #, fuzzy
 msgid "Import submissions for %s"
@@ -514,7 +503,7 @@ msgid "Manage queries"
 msgstr "Administrar %s"
 
 msgid "Back"
-msgstr ""
+msgstr "Antrás"
 
 msgid "New %s"
 msgstr ""
@@ -558,7 +547,7 @@ msgid ""
 msgstr ""
 
 msgid "Row"
-msgstr ""
+msgstr "Fila"
 
 msgid "Download failed entries"
 msgstr ""
@@ -569,9 +558,8 @@ msgstr ""
 msgid "Import another file"
 msgstr ""
 
-#, fuzzy
 msgid "Submission date"
-msgstr "Permisos"
+msgstr "Fecha de envío"
 
 #, fuzzy
 msgid "Author"
@@ -609,10 +597,10 @@ msgid "No queries found! Try different search terms or filters."
 msgstr ""
 
 msgid "Answers"
-msgstr ""
+msgstr "Respuestas"
 
 msgid "Answer"
-msgstr ""
+msgstr "Respuesta"
 
 msgid "Download %s Answers"
 msgstr ""
@@ -641,7 +629,7 @@ msgid "View all queries"
 msgstr ""
 
 msgid "Edit"
-msgstr ""
+msgstr "Editar"
 
 msgid "Sorry, you can't fill this form yet"
 msgstr ""
