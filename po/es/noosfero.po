@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2024-08-18 23:09+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2025-07-13 15:01+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/es/>\n"
 "Language: es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 msgid "(Invalid request) %s can't be saved"
 msgstr "(Petición no válida) %s no se puede guardar"
@@ -1245,7 +1245,7 @@ msgid "Are you sure you want to mark this comment as SPAM?"
 msgstr "¿Estás seguro de que quieres marcar este comentario como SPAM?"
 
 msgid "Remove"
-msgstr "Eliminar"
+msgstr "Quitar"
 
 msgid "Are you sure you want to remove this comment and all its replies?"
 msgstr ""
@@ -1288,7 +1288,7 @@ msgid "List"
 msgstr "Lista"
 
 msgid "Checkbox"
-msgstr "Checkbox"
+msgstr "Casilla"
 
 msgid "Yes"
 msgstr "Si"
@@ -2021,7 +2021,7 @@ msgid "Profile links"
 msgstr "Perfil"
 
 msgid "Filter profiles by name"
-msgstr ""
+msgstr "Filtrar perfiles por nombre"
 
 msgid "The id of the %s"
 msgstr "El id de %s"
@@ -5306,7 +5306,7 @@ msgid "Reset homepage"
 msgstr "Restablecer página de inicio"
 
 msgid "Remove field"
-msgstr "Eliminar campo"
+msgstr "Quitar campo"
 
 msgid "Value"
 msgstr "Valor"
@@ -5444,7 +5444,7 @@ msgid "There is no portal community in this environment."
 msgstr "No hay un portal comunitario en este entorno."
 
 msgid "Back"
-msgstr "Atrás"
+msgstr "Antrás"
 
 msgid "Choose the type of content:"
 msgstr "Elegir el tipo de contenido:"
@@ -7468,7 +7468,7 @@ msgid "Change image"
 msgstr "Cambiar imagen"
 
 msgid "Remove image"
-msgstr "Eliminar imagen"
+msgstr "Quitar imagen"
 
 msgid "You are not allowed to view this page."
 msgstr "No tienes permitido ver esta página."
