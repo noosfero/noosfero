@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2017-10-06 18:04+0000\n"
-"PO-Revision-Date: 2019-01-08 14:07+0000\n"
-"Last-Translator: Rebeca Moura <bcasamo@gmail.com>\n"
+"PO-Revision-Date: 2025-07-18 17:01+0000\n"
+"Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
 "documentation/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.4-dev\n"
+"X-Generator: Weblate 5.13-dev\n"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -6130,8 +6130,8 @@ msgid ""
 "You will see the confirmation screen. If you are sure that you want to "
 "disable the enterprise, click on &#8220;Yes, I want to disable&#8221;."
 msgstr ""
-"Vers la pantalla de confirmacin. Si ests seguro que quieres deshabilitar la "
-"empresa, clic en &#8220;S, quiero deshabilitarla&#8221;."
+"Verá la pantalla de confirmación. Si tiene certeza de que quiere desactivar "
+"la empresa, pulse en &#8220;Sí, quiero desactivarla&#8221;."
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -6190,8 +6190,8 @@ msgid ""
 "<em>If you have an enterprise that is registered in the system, you might "
 "have the activation code of the enterprise.</em>"
 msgstr ""
-"<em>Si tienes una empresa que est registrada en el sistema, deberas tener el "
-"cdigo de activacin de la empresa.</em>"
+"<em>Si tiene una empresa registrada en el sistema, es posible que disponga "
+"del código de activación de la empresa.</em>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -6230,10 +6230,10 @@ msgid ""
 "enterprise will be blocked. If you are sure that your answer is right, click "
 "on &#8220;Continue&#8221; button."
 msgstr ""
-"Vers una pantalla con el primer paso de la activacin, la pregunta acerca de "
-"la empresa. Debes llenar el campo con la respuesta correcta, o tu empresa "
-"ser bloqueada. Si ests seguro que la respuesta es correcta, clic en el botn "
-"&#8220;Continuar&#8221;."
+"Verá una pantalla con el primer paso de activación, la pregunta sobre la "
+"empresa. Debe rellenar el campo con la respuesta correcta, o su empresa se "
+"bloqueará. Si tiene certeza de que su respuesta es correcta, pulse en el "
+"botón «Continuar»."
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -6251,11 +6251,11 @@ msgid ""
 "with it, choose the option &#8220;I read the terms of use and accepted them."
 "&#8221;. After that, click on &#8220;Continue&#8221; button."
 msgstr ""
-"Si la respuesta es errnea, la empresa ser bloqueada y necesitars contactar "
-"al administrador del sistema para desbloquearla. Si la respuesta es "
-"correcta, irs al segundo paso. En ste, debes leer los trminos de uso y "
-"aceptarlos y, si los aceptas, elige la opcin &#8220;Le los trminos de uso y "
-"los acepto.&#8221;. Despus, haz clic en el botn &#8220;Continuar&#8221;."
+"Si la respuesta es incorrecta, la empresa quedará bloqueada y deberá ponerse "
+"en contacto con el personal administrativo del sistema para desbloquearla. "
+"Si la respuesta es correcta, pasará al paso 2. En este paso, debe leer las "
+"condiciones de uso y, si está de acuerdo con ellas, elegir la opción «Leí "
+"los términos de uso y los acepto». Después, pulse en el botón «Continuar»."
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -6370,11 +6370,11 @@ msgid ""
 "{profile}/blog&#8221; on the field &#8220;Address&#8221;. The &#8220;"
 "{profile}&#8221; will be replaced by your identifier."
 msgstr ""
-"<strong> Enlaces (men estatico):</strong> Puedes usarlos para crear un men "
-"de enlaces. Puedes aadir, eliminar y actualizar los enlaces cuando lo "
-"desees. Si quieres un enlace al blog de tu empresa, por ejemplo, deberas "
-"escribir &#8220;/{profile}/blog&#8221; en el campo &#8220;direccin&#8221;. "
-"El &#8220;{profile}&#8221; ser remplazado por su identificador."
+"<strong>Enlaces (menú estático):</strong> puede utilizarlo para crear un "
+"menú de enlaces. Puede añadir, eliminar y actualizar los enlaces como desee. "
+"Si desea un enlace al blog de la empresa, por ejemplo, debe escribir "
+"«/{profile}/blog» en el campo «Dirección». El «{profile}» se sustituirá por "
+"su identificador."
 
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
@@ -6506,13 +6506,13 @@ msgstr "Bloque de empresa deshabilitada"
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:66
 #: doc/noosfero/enterprise/toc.en.xhtml:8
 msgid "<a href=\"/doc/enterprise/editing-appearance\">Editing appearance</a>"
-msgstr "<a href=\"/doc/enterprise/editing-appearance\">Editando apariencia</a>"
+msgstr "<a href=\"/doc/enterprise/editing-appearance\">Editar la apariencia</a>"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:1
 msgid "Managing and adding members to an enterprise"
-msgstr "Administrando y aadiendo miembros a la empresa"
+msgstr "Gestionar y añadir miembros a una empresa"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -6521,8 +6521,8 @@ msgid ""
 "<em>If you are an enterprise administrator, you can add or remove members "
 "from enterprise and also define which permissions each member will have</em>"
 msgstr ""
-"<em> Si eres administrador de una empresa, puedes aadir o eliminar miembros "
-"de la empresa y tambin definir los permisos que cada miembro tendr</em>"
+"<em>Si administra una empresa, puede añadir o quitar miembros de la empresa "
+"y también definir qué permisos tendrá cada miembro</em>"
 
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:13
@@ -6532,10 +6532,9 @@ msgid ""
 "Manage&#8221;. Assuming that you are administrator of an enterprise&quot;, "
 "click on &#8220;Manage&#8221; link."
 msgstr ""
-"Vers la lista de grupos (comunidades/empresas) de los cuales eres miembro. "
-"Los grupos que puedes administrar estn listados con un enlace &#8220;"
-"Administrar&#8221;. Suponiendo que eres administrador de una empresa, clic "
-"en el enlace &#820Administrar&#21;."
+"Verá la lista de grupos (comunidades/empresas) de los que es miembro. Los "
+"grupos que puede gestionar aparecen con un enlace «Gestionar». Suponiendo "
+"que administre una empresa, pulse en el enlace «Gestionar»."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -8328,8 +8327,8 @@ msgid ""
 "<strong>Categories:</strong> If enabled in the system, you can choose the "
 "categories that the person will have."
 msgstr ""
-"<strong>Categoras:</strong>Si estn disponibles en el sistema, puedes elegir "
-"las categoras que la persona tendr."
+"<strong>Categorías:</strong> si se activan en el sistema, puede elegir las "
+"categorías que la persona tendrá."
 
 # type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
