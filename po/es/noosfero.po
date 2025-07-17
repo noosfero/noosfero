@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3~rc2-8-g01ea9f7\n"
-"PO-Revision-Date: 2025-07-13 15:01+0000\n"
+"PO-Revision-Date: 2025-07-18 17:01+0000\n"
 "Last-Translator: Adolfo Jayme Barrientos <fitojb@ubuntu.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/noosfero/"
 "noosfero/es/>\n"
@@ -40,8 +40,8 @@ msgid ""
 "The article couldn't be removed due to some problem. Please contact the "
 "administrator."
 msgstr ""
-"El artículo no pudo ser borrado debido a algún problema. Por favor, contacta "
-"al administrador."
+"No se pudo quitar el artículo a causa de un problema. Póngase en contacto "
+"con el personal administrativo."
 
 msgid ""
 "Your abuse report was registered. The administrators are reviewing your "
@@ -53,8 +53,8 @@ msgid ""
 "Your report couldn't be saved due to some problem. Please contact the "
 "administrator."
 msgstr ""
-"Tu reporte no pudo ser guardado debido a algún problema. Por favor, contacta "
-"al administrador."
+"No se pudo guardar el informe a causa de un problema. Póngase en contacto "
+"con el personal administrativo."
 
 msgid "Your vote was created."
 msgstr "Tu voto fue creado."
@@ -273,19 +273,19 @@ msgid "License created"
 msgstr "Licencia creada"
 
 msgid "License could not be created"
-msgstr "Licencia no pudo ser creada"
+msgstr "No se pudo crear la licencia"
 
 msgid "License updated"
 msgstr "Licencia actualizada"
 
 msgid "License could not be updated"
-msgstr "Licencia no pudo ser actualizada"
+msgstr "No se pudo actualizar la licencia"
 
 msgid "License removed"
 msgstr "Licencia eliminada"
 
 msgid "License could not be removed"
-msgstr "Licencia no pudo ser eliminada"
+msgstr "No se pudo quitar la licencia"
 
 msgid "Organization profiles"
 msgstr "Perfiles de la organización"
@@ -304,19 +304,19 @@ msgid "%s enabled"
 msgstr "%s habilitado"
 
 msgid "%s could not be enabled"
-msgstr "%s no pudo ser habilitado"
+msgstr "No se pudo activar %s"
 
 msgid "%s disabled"
 msgstr "%s inhabilitado"
 
 msgid "%s could not be disable"
-msgstr "%s no pudo ser inhabilitado"
+msgstr "No se pudo desactivar %s"
 
 msgid "%s removed"
 msgstr "%s eliminado"
 
 msgid "%s could not be removed"
-msgstr "%s no pudo ser eliminado"
+msgstr "No se pudo quitar %s"
 
 msgid "Plugins updated successfully."
 msgstr "Características actualizadas correctamente."
@@ -362,16 +362,16 @@ msgid "Name has already been taken"
 msgstr "El nombre ya ha sido tomado"
 
 msgid "Community not found. The template could no be changed."
-msgstr "Comunidad no encontrada. La plantilla no pudo ser cambiada."
+msgstr "No se encontró la comunidad. No se pudo cambiar la plantilla."
 
 msgid "%s defined as default"
 msgstr "&s definido como por defecto"
 
 msgid "Person not found. The template could no be changed."
-msgstr "Persona no encontrada. La plantilla no pudo ser cambiada."
+msgstr "No se encontró la persona. No se pudo cambiar la plantilla."
 
 msgid "Enterprise not found. The template could no be changed."
-msgstr "Empresa no encontrada. La plantilla no pudo ser cambiada."
+msgstr "No se encontró la empresa. No se pudo cambiar la plantilla."
 
 msgid "New trusted site added."
 msgstr "Nueva página de confianza añadida."
@@ -440,10 +440,10 @@ msgid "Your publish request was sent successfully"
 msgstr "Tu solicitud de publicación ha sido enviada satisfactoriamente"
 
 msgid "Some of your publish requests couldn't be sent."
-msgstr "Parte de tu solicitud de publicación no pudo ser enviada."
+msgstr "Parte de sus solicitudes de publicación no se pudieron enviar."
 
 msgid "Your publish request couldn't be sent."
-msgstr "Tu solicitud de publicación no pudo ser enviada."
+msgstr "Su solicitud de publicación no se pudo enviar."
 
 msgid "There is no portal community to publish your article."
 msgstr "No hay un portal de la comunidad para publicar tu artículo."
@@ -472,7 +472,7 @@ msgid "Some of your friends could not be invited."
 msgstr "Algunos de tus amigos no pudieron ser invitados."
 
 msgid "%s could not be uploaded"
-msgstr "%s no pudo ser actualizado"
+msgstr "No se pudo cargar %s"
 
 msgid "Images"
 msgstr "Imágenes"
@@ -1291,7 +1291,7 @@ msgid "Checkbox"
 msgstr "Casilla"
 
 msgid "Yes"
-msgstr "Si"
+msgstr "Sí"
 
 msgid "No"
 msgstr "No"
@@ -1360,7 +1360,7 @@ msgstr "%{month} %{year}"
 
 # Dudas acerca de usar idioma neutro o coloquial
 msgid "Are you sure you want to visit this web site?"
-msgstr "¿Esta seguro de querer visitar este sitio?"
+msgstr "¿Confirma que quiere visitar este sitio web?"
 
 msgid "Approved"
 msgstr "Aprobado"
@@ -1388,10 +1388,10 @@ msgid "Yes, I will go!"
 msgstr "Sí, quiero."
 
 msgid "I will not"
-msgstr ""
+msgstr "No lo haré"
 
 msgid "I'm interested"
-msgstr ""
+msgstr "Me interesa"
 
 msgid "Will you go?"
 msgstr ""
@@ -4065,7 +4065,7 @@ msgid "Log in"
 msgstr "Iniciar sesión"
 
 msgid "The account could not be created"
-msgstr "La cuenta no pudo ser creada"
+msgstr "No se pudo crear la cuenta"
 
 msgid ""
 "Your username identifies you inside the network, and will be used to "
@@ -5444,7 +5444,7 @@ msgid "There is no portal community in this environment."
 msgstr "No hay un portal comunitario en este entorno."
 
 msgid "Back"
-msgstr "Antrás"
+msgstr "Atrás"
 
 msgid "Choose the type of content:"
 msgstr "Elegir el tipo de contenido:"
@@ -7735,7 +7735,7 @@ msgid "Closing statement: %s"
 msgstr ": %s"
 
 msgid "The template could not be saved"
-msgstr "La plantilla no pudo ser guardada"
+msgstr "No se pudo guardar la plantilla"
 
 msgid "There were problems with the following fields:"
 msgstr "Hubo problemas con los siguientes campos:"
